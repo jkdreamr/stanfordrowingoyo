@@ -445,11 +445,11 @@ export function recalc(ctx: Context) {
 export function compliance(ctx: Context) {
   requireStaff(ctx);
   const query = new URL(ctx.request.url).searchParams.get('week');
-  const week = weekStart(query === null ? today(ctx.now) : v.date(query));
+  const date = v.weekDate(query ?? today(ctx.now), ctx.now);
   const users = ctx.storage.sql
     .exec<UserRow>('SELECT * FROM users WHERE active = ? AND role = ?', 1, 'rower')
     .toArray();
-  const ranks = leaderboard(ctx.storage, week, 'percent', ctx.now, users);
+  const ranks = leaderboard(ctx.storage, date, 'percent', ctx.now, users);
   return json(
     ranks.map((row) => {
       const last = ctx.storage.sql

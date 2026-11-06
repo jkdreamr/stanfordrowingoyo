@@ -187,6 +187,10 @@ Schema migrations: a `schema_version` setting; migrations run in the DO construc
 Version 3 deliberately drops the legacy email-keyed roster and rebuilds/seeds the id-keyed roster (nothing deployed).
 Seeds are insert-if-missing by case-insensitive name. The claimant foreign key is initially deferred so the atomic
 claim can reserve the row before inserting its user in the same transaction.
+Version 4 adds read-path indexes: `entries(visibility,created_at DESC,id DESC)`,
+`entries(user_id,created_at DESC,id DESC)`, `comments(entry_id,created_at,id)`, `entry_images(image_id)`,
+and `notifications(user_id,created_at DESC,id DESC)`. Feed/mine, comments and notifications order by the matching
+timestamp/id direction; image-reference lookups use the image-id index.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -220,6 +224,14 @@ all other stats fields below.
 Team: `GET /api/users` (roster directory), `GET /api/users/:id` (public profile + stats summary).
 Leaderboard rows also include `streak` (consecutive weeks hitting target up to the selected week)
 and `entry_count` for that week.
+Week parameters accept real YYYY-MM-DD dates from 2000-01-01 through 365 days after today (otherwise 400), then
+normalize to Monday. Season leaderboard selection uses the original requested date, or today when omitted, before
+week normalization so a September rollover week selects the correct season. Percent ranking compares exact
+meters/target ratios by integer cross-multiplication, then meters; percentages are rounded only for display.
+Stats and leaderboard load personal/group target histories once per request and reuse grouped entry aggregates for
+weekly totals, counts, streaks and season breakdowns. Season/profile days still use one date aggregate query.
+These read routes stay below 20 SQL calls regardless of roster size or number of entries. Target lookup before the
+first group-history version uses its earliest version; an empty/missing history falls back to seed group targets.
 Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned announcements include `author: PublicUser`.
 Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
 `actor: PublicUser` and `entry_title: string | null`.

@@ -20,7 +20,7 @@ interface Route {
   handler: Handler;
 }
 const routes: Route[] = [
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 3 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 4 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: auth.signup },
   { method: 'POST', path: '/api/auth/login', handler: auth.login },

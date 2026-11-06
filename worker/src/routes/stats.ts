@@ -14,12 +14,14 @@ function subject(ctx: Context) {
   if (!user || !user.active) throw new HttpError(404, 'NOT_FOUND', 'User not found.');
   return user;
 }
-function selectedWeek(ctx: Context) {
+function selectedDate(ctx: Context) {
   const value = new URL(ctx.request.url).searchParams.get('week');
-  return weekStart(value === null ? today(ctx.now) : v.date(value));
+  return v.weekDate(value ?? today(ctx.now), ctx.now);
 }
 export function week(ctx: Context) {
-  return json(weekStats(ctx.storage, subject(ctx), selectedWeek(ctx), requireUser(ctx).id));
+  return json(
+    weekStats(ctx.storage, subject(ctx), weekStart(selectedDate(ctx)), requireUser(ctx).id),
+  );
 }
 export function season(ctx: Context) {
   const user = subject(ctx);
@@ -47,5 +49,5 @@ export function leaderboard(ctx: Context) {
     ['percent', 'meters', 'season'],
     'Metric',
   );
-  return json(getLeaderboard(ctx.storage, selectedWeek(ctx), metric, ctx.now));
+  return json(getLeaderboard(ctx.storage, selectedDate(ctx), metric, ctx.now));
 }

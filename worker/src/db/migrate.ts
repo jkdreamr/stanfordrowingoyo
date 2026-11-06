@@ -247,6 +247,19 @@ CREATE UNIQUE INDEX roster_claim ON roster(claimed_by_user_id) WHERE claimed_by_
         '3',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 4)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE INDEX IF NOT EXISTS entries_feed ON entries(visibility,created_at DESC,id DESC);
+CREATE INDEX IF NOT EXISTS entries_user_feed ON entries(user_id,created_at DESC,id DESC);
+CREATE INDEX IF NOT EXISTS comments_entry_created ON comments(entry_id,created_at,id);
+CREATE INDEX IF NOT EXISTS entry_images_image ON entry_images(image_id);
+CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,created_at DESC,id DESC);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '4',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)
