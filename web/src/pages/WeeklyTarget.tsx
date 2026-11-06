@@ -62,17 +62,16 @@ function TargetForm({
       <form
         className="screen-stack"
         noValidate
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault();
           if (!valid || mutation.isPending) return;
           setMessage(undefined);
-          mutation.mutate(
-            { body: { target_m: Number(value) } },
-            {
-              onSuccess: () => toast.show({ title: 'Weekly target saved' }),
-              onError: (error) => setMessage(authError(error)),
-            },
-          );
+          try {
+            await mutation.mutateAsync({ body: { target_m: Number(value) } });
+            toast.show({ title: 'Weekly target saved' });
+          } catch (error) {
+            setMessage(authError(error));
+          }
         }}
       >
         <Card>

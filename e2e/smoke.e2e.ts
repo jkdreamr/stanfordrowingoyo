@@ -2,12 +2,15 @@ import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 
 test('shell, manifest, and health load without backend auth', async ({ page, request }) => {
-  await page.goto('/');
-  await expect(page).toHaveTitle('Stanford Rowing OYO');
+  await page.goto('/login');
+  await expect(page).toHaveTitle('Stanford Rowing OYO · Stanford OYO');
   await expect(
     page.getByRole('heading', { name: 'Stanford Rowing OYO', exact: true }),
   ).toBeVisible();
-  await expect(page.getByRole('navigation', { name: 'Main' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Log In', exact: true })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Main Navigation', exact: true })).toHaveCount(
+    0,
+  );
   const manifestPath = await page.evaluate(() =>
     document.querySelector<HTMLLinkElement>('link[rel="manifest"]')?.getAttribute('href'),
   );
@@ -18,18 +21,29 @@ test('shell, manifest, and health load without backend auth', async ({ page, req
     name: 'Stanford Rowing OYO',
     display: 'standalone',
   });
-  const health = await request.get('/api/health');
-  await expect(health).toBeOK();
-  expect(await health.json()).toMatchObject({ ok: true, schema_version: expect.any(Number) });
+  if (process.env.E2E_MOCK === '1')
+    expect(await page.evaluate(async () => (await fetch('/api/health')).json())).toMatchObject({
+      ok: true,
+      schema_version: expect.any(Number),
+    });
+  else {
+    const health = await request.get('/api/health');
+    await expect(health).toBeOK();
+    expect(await health.json()).toMatchObject({ ok: true, schema_version: expect.any(Number) });
+  }
 });
 
-test('unauthenticated visitors are shown Login', async ({ page }) => {
-  test.fixme(
-    true,
-    'Screen Login not built yet (web/src/pages/Login.tsx is a stub) — enable when it lands; routes.tsx currently shows Home without auth',
-  );
+test('unauthenticated visitors are shown Login', async ({ page, request }) => {
+  if (process.env.E2E_MOCK !== '1')
+    test.fixme(
+      (await request.get('/api/me')).status() === 501,
+      'GET /api/me returns 501 on main; auth gating requires 401',
+    );
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Login', exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/\/login\?next=/);
+  await expect(
+    page.getByRole('heading', { name: 'Stanford Rowing OYO', exact: true }),
+  ).toBeVisible();
   await expect(page.getByLabel('Email', { exact: true })).toBeVisible();
 });
 
@@ -39,6 +53,10 @@ test('Secure session cookie authenticates an in-page localhost request', async (
   newRowerSignup,
 }) => {
   test.skip(!bootstrap.backendReady, 'Backend API not implemented yet');
+  test.skip(
+    process.env.E2E_MOCK === '1',
+    'Mock mode cannot prove Secure/HttpOnly server cookie behavior',
+  );
   const signup = await newRowerSignup();
   await page.goto('/');
   const status = await page.evaluate(

@@ -29,12 +29,21 @@ appears in code-gated `POST /api/auth/roster`, and claims its `roster_id` with
 the test email/password and group. Discovery errors fail the run; there is no legacy name/signup fallback. Real seeded
 names are never claimed. Every API mutation sends `X-OYO-CSRF: 1`.
 
-All current product screens are stubs. Scenario bodies use semantic locators
-based on architecture §§4/6/7, with explicit `test.fixme` notes naming the stub.
-Remove each fixme as its screens land and align the accessible labels with the
-implemented UI. Smoke shell/manifest/health tests run now; the Login expectation
-is separately fixme because there is no auth guard yet. Unique rowers isolate
-tests across projects, and leaderboard assertions compare only their own users.
+Login, roster Signup, Home, Log, Weekly Target and Settings scenarios are enabled.
+Run `E2E_MOCK=1 npm run e2e` to use the development mock on port 8798 while the
+real worker returns 501 for auth/data endpoints. Each browser context gets fresh
+mock state; tests use SPA links after mutations because a full reload resets the
+mock database. Mock requests execute through in-page fetch, not Playwright's
+server-side request context. No mock run claims real cookie/backend coverage.
+
+Without E2E_MOCK, the HTTPS worker path remains unchanged. Main currently has
+only GET /api/health: bootstrap skips backend fixtures on POST /api/auth/signup
+501, and Login gating is fixme only on GET /api/me 501 (it needs a real 401).
+Roster Signup additionally requires POST /api/auth/roster; legacy name-based
+signup is deliberately not exercised because it conflicts with the owner flow.
+Secure/HttpOnly cookie smoke is skipped in mock mode. Unbuilt Admin, Feed/social
+and Leaderboard screens retain their explicit screen fixmes. Unique rowers
+isolate real-backend tests across projects. CI runs the five gates, not E2E.
 
 Use HTTPS for the Secure `oyo_session` cookie in all engines.
 The backend-dependent smoke test signs up through an in-page fetch, checks the

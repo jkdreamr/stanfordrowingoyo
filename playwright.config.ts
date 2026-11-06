@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = process.env.E2E_BASE_URL ?? 'https://localhost:8799';
+const mock = process.env.E2E_MOCK === '1';
+const baseURL =
+  process.env.E2E_BASE_URL ?? (mock ? 'http://localhost:8798' : 'https://localhost:8799');
 const target = new URL(baseURL);
 if (
   !['http:', 'https:'].includes(target.protocol) ||
@@ -38,9 +40,10 @@ export default defineConfig({
   webServer: process.env.E2E_BASE_URL
     ? undefined
     : {
-        command:
-          'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --local-protocol https --port 8799 --persist-to .wrangler/e2e-state',
-        url: `${baseURL}/api/health`,
+        command: mock
+          ? 'VITE_MOCK=1 npm run dev -w web -- --port 8798'
+          : 'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --local-protocol https --port 8799 --persist-to .wrangler/e2e-state',
+        url: mock ? baseURL : `${baseURL}/api/health`,
         ignoreHTTPSErrors: true,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
