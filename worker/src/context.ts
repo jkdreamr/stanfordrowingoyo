@@ -9,5 +9,4 @@ export interface Context {
   user?: UserRow;
   tokenHash?: string;
   cookie?: string;
-  audited?: boolean;
 }

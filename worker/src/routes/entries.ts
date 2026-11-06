@@ -89,7 +89,6 @@ export async function create(ctx: Context) {
   const ids = body.image_ids === undefined ? [] : imageIds(body.image_ids);
   checkImages(ctx.storage, ids, user.id, entry.id);
   saveEntry(ctx.storage, entry, ids);
-  if (user.role !== 'rower') audit(ctx, 'entry.create', entry.id, null, entry);
   return json(details(ctx.storage, [entry], user.id)[0], 201);
 }
 function editable(ctx: Context) {
@@ -109,13 +108,13 @@ export async function patch(ctx: Context) {
   const ids = body.image_ids === undefined ? undefined : imageIds(body.image_ids);
   if (ids) checkImages(ctx.storage, ids, entry.user_id, entry.id);
   saveEntry(ctx.storage, entry, ids);
-  if (requireUser(ctx).role !== 'rower') audit(ctx, 'entry.update', entry.id, previous, entry);
+  if (entry.user_id !== requireUser(ctx).id) audit(ctx, 'entry.update', entry.id, previous, entry);
   return json(details(ctx.storage, [entry], requireUser(ctx).id)[0]);
 }
 export function remove(ctx: Context) {
   const entry = editable(ctx);
   deleteEntry(ctx.storage, entry.id);
-  if (requireUser(ctx).role !== 'rower') audit(ctx, 'entry.delete', entry.id, entry, null);
+  if (entry.user_id !== requireUser(ctx).id) audit(ctx, 'entry.delete', entry.id, entry, null);
   return noContent();
 }
 export function list(ctx: Context) {
