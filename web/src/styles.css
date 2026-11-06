@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { color-scheme: light; --bg: #F7F7FA; --surface: #FFFFFF; --text: #242428; --muted: #6D6D78; --divider: #DFDFE8; --accent: #8C1515; --accent-pressed: #6F1010; --highlight: #FC5200; --highlight-pressed: #CC4200; }
+.dark { color-scheme: dark; --bg: #121214; --surface: #1C1C1F; --text: #F2F2F5; --muted: #A3A3AF; --divider: #2C2C31; --accent: #C0352B; --accent-pressed: #8C1515; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif; font-size: 16px; padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+a, button { min-height: 44px; display: inline-flex; align-items: center; }
+a { color: var(--accent); }
+a:active, button:active { color: var(--accent-pressed); }

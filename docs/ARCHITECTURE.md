@@ -1,0 +1,221 @@
+# Stanford Rowing OYO — Architecture & Product Spec
+
+Source of truth for everyone building this app. Read fully before changing code.
+
+## 1. Product
+
+An "on your own" (OYO) training app for Stanford Rowing. Rowers log extra training (erg, bike, run) done
+on top of water sessions and team lifts. Every session converts into **equivalent C2 Erg E meters**
+("E-meters"). Rowers set weekly E-meter targets, track progress through the week, see their season/year
+totals, share workouts with photos (Strava/Instagram style), and compete on a weekly leaderboard ranked
+by % of target completed. Coxswains/coaches run the app (staff powers).
+
+Users: ~60-100 people on phones (iOS Safari / Android Chrome, installed as a PWA) and laptops.
+
+## 2. Training math (from the team spreadsheet — do not change semantics)
+
+```
+equivalent_E_meters = distance_m * mode_factor * zone_factor
+```
+
+Mode factors (default, staff-editable): Erg 1.0, Bike 0.3333 (= 1/3, "bike is 1/3 the mileage of erg"), Run 1.25.
+
+Zone factors (default, staff-editable), pace offset is seconds per 500m added to the athlete's best 6k split
+(A uses best 2k split + 0):
+
+| Zone | Factor | Pace basis | Offset (s/500m) |
+|------|--------|-----------|-----------------|
+| R    | 0.80   | 6k | +20.0 |
+| R/E  | 0.90   | 6k | +17.5 |
+| E    | 1.00   | 6k | +15.0 |
+| E/D  | 1.15   | 6k | +12.5 |
+| D    | 1.35   | 6k | +10.0 |
+| D/C  | 1.60   | 6k | +7.5  |
+| C    | 2.10   | 6k | +5.0  |
+| C/B  | 3.00   | 6k | +2.5  |
+| B    | 5.00   | 6k | +0.0  |
+| A    | 9.00   | 2k | +0.0  |
+
+Checks (must hold in unit tests): 60k E bike → 20,000; 4x5k D erg (20k) → 27,000; campus loop (6,240 m) E run → 7,800 and
+D run → 10,530; 3x20k R bike → 16,000; 12k D erg → 16,200. Round equiv_m to the nearest whole meter.
+
+Distance needed for a target (Equivalent Distance Menu): `distance = target / (mode_factor * zone_factor)`.
+E.g. 10 E-km target, bike, zone E → 30.0 km; run, zone D → 5.93 km.
+
+Target pace per zone (/500m) = best6kSplit + offset (A: best2kSplit). Shown in the Pace Calculator and on the profile.
+
+Factors are snapshotted on each entry at write time (`mode_factor`, `zone_factor`, `equiv_m` stored).
+Staff can change factors (affects new entries) and run "Recalculate all entries" explicitly.
+
+### Weekly volume targets (on top of water + lifts)
+| Group | Key | Default weekly target |
+|---|---|---|
+| U23/Senior hopefuls | `u23` | 100,000 |
+| Normal non-frosh | `normal` | 80,000 |
+| Frosh | `frosh` | 60,000 |
+
+Staff edit group defaults. Each rower can set a personal weekly target (overrides group default). Targets are
+versioned per week: table `weekly_targets(user_id, week_start, target_m)`. The target for week W is the row with the
+greatest `week_start <= W`; if none, the group default. Setting a target applies to the current week onward
+(never rewrites past weeks).
+
+### OYO workouts per fortnight (guidance shown on the Plan screen)
+| Session | Splits | Frequency | Load |
+|---|---|---|---|
+| D Erg Session | D 6k +10 ± 2.5 | 1x | 20k+ |
+| Running | D | 2x | 7.5k+ |
+| Lifting with Evan* | – | 2x | 10k total |
+\* Extra lifts are recommended for people who have talked about it with the coaches.
+
+### Weeks, seasons, time zone
+- Weeks run **Monday 00:00 → Sunday 23:59, America/Los_Angeles**. `week_start` is the Monday as `YYYY-MM-DD`.
+- Entry `date` is a local calendar date `YYYY-MM-DD` chosen by the user (default today in America/Los_Angeles).
+- "Season" = Sep 1 → Aug 31 (season start month/day staff-editable in settings). Profile also offers calendar year.
+
+## 3. Seed data
+
+### Workout Menu (presets; equiv in E-meters). `formula` presets use "meters × multiplier" with the user entering meters.
+Erg:
+- R: 4x5k w/1' rest r18-20 → 16,000 (20,000 m); 3x6k w/1' r18-20 → 14,400 (18,000 m); 2x10k w/2' r18-20 → 16,000 (20,000 m)
+- R/E: 4x5k → 18,000; 3x6k → 16,200; 2x10k w/2' → 18,000
+- E: 4x5k w/1' r18-20 → 20,000; 3x6k w/1' → 18,000; 2x10k w/2' → 20,000; 2x8k w/90" → 16,000; 3x25' w/1' r18-20 → meters rowed (formula ×1.0)
+- E/D: 4x5k w/2' r20-22 → 23,000; 3x6k w/2' → 20,700; 2x10k w/3' → 23,000; 2x8k w/2' → 18,400
+- D: 4x5k r2' → 27,000; 12k → 16,200; 3x6k w/2' → 24,300; 4x4k w/2' → 21,600
+- D/C: 4x4k r3' → 25,600; 10k r22 → 16,000; 54' pyramid r22 (1'/3'/5'/7'/9'/8'/6'/4'/2' r1') → meters × 1.6
+Bike:
+- R: 120' → meters × 0.267; 3x20k w/1' → 16,000; 5x12k w/1' → 60,000 m (math gives 16,000; the sheet's 12.8 is a sheet error); 6x10k w/1' → 16,000
+- R/E: 120' → ×0.3; 3x20k → 18,000; 5x12k → 60,000 m (math gives 18,000); 6x10k → 18,000
+- E: 120' → ×0.333; 100' → ×0.333; 80k → 26,700; 60k → 20,000; 45k → 15,000; 3x30k w/1' → 30,000
+- E/D: 120' → ×0.383; 100' → ×0.383; 80k → 30,700; 60k → 23,000; 40k → 15,300
+- D: 2x50' w/2' → ×0.45; 90' → ×0.45; 80k → 36,000; 60k → 27,000; 40k → 18,000
+- D/C: 90' → enter meters (meters × 0.533)
+Run:
+- E: Campus loop easy → 7,800; Dish loop from A hall easy → 14,100
+- D: Campus loop firm → 10,600; Dish loop from A hall firm → 19,000
+
+Rule: a preset stores `modality`, `zone`, `name`, and either a fixed `distance_m` (so equiv = math) or is
+"enter meters" (time-based pieces like 120' or 3x25'). Always compute equiv with the math; fixed run presets use real
+loop distances so the math reproduces the sheet: campus loop = 6,240 m, Dish loop from A hall = 11,280 m. Presets are
+staff-editable.
+
+### Sample fortnights (Plan screen; staff-editable). Slots: AM, PM1, PM2 for Mon..Sun. Kind: `team` (white), `oyo` (zone colored), `off`.
+Frosh W1: Mon AM Team Row E, PM1 Team Erg C (counts for OYO extra meters) | Tue AM Team Row C Stake Race, PM1 Team Lift |
+Wed AM OYO E Erg 3x6k r1' (18k) | Thu AM Team Row E, PM1 Team Lift | Fri AM Team Row E/D, PM1 OYO E Bike 42k (14k), PM2 OYO E campus loop run (8k) |
+Sat AM Team Row D/C | Sun Off. Total "40k Equivalent + Monday PM".
+Frosh W2: Mon AM Team Row E, PM1 OYO D Erg 3x5k r2' (20k), PM2 OYO D campus loop run (10k) | Tue AM Team Row D, PM1 Team Lift |
+Wed AM OYO E Erg 4x5k r1' (20k) | Thu AM Team Row 30'r20 C Row, PM1 Team Lift | Fri AM Team Row E, PM1 OYO 36k E bike (12k) |
+Sat AM Team Row D/C | Sun Off. Total 60k.
+Normal W1: Mon AM Team Row E, PM1 Team Erg C (counts) | Tue AM Team Row C Stake Race, PM1 Team Lift | Wed AM OYO E Erg 4x5k r1' (20k), PM1 OYO 36k E bike (12k) |
+Thu AM Team Row E, PM1 Team Lift | Fri AM Team Row E/D, PM1 OYO E Bike 60k (20k), PM2 OYO E campus loop run (8k) | Sat AM Team Row D/C | Sun Off. Total "60k + Monday PM".
+Normal W2: Mon AM Team Row E, PM1 OYO D Erg 3x5k r2' (20k), PM2 OYO D campus loop run (10k) | Tue AM Team Row D, PM1 Team Lift |
+Wed AM OYO E Erg 4x5k r1' (20k), PM1 OYO E Bike 36k (12k) | Thu AM Team Row 30'r20 C Row, PM1 Team Lift | Fri AM Team Row E, PM1 OYO E Erg 3x6k r1' (18k) |
+Sat AM Team Row D/C | Sun Off. Total 80k.
+U23 W1: Mon AM Team Row E, PM1 Team Erg C (counts) | Tue AM Team Row C Stake Race, PM1 Team Lift | Wed AM OYO E Erg 4x6k r1' (24k), PM1 OYO 48k E bike (16k) |
+Thu AM Team Row E, PM1 Team Lift, PM2 OYO E Erg 2x6k r1' | Fri AM Team Row E/D, PM1 OYO E Bike 60k (20k), PM2 OYO E campus loop run (8k) | Sat AM Team Row D/C | Sun Off. Total "80k + Monday PM".
+U23 W2: Mon AM Team Row E, PM1 OYO D Erg 4x5k r2' (27k), PM2 OYO D campus loop run (10k) | Tue AM Team Row D, PM1 Team Lift |
+Wed AM OYO E Erg 4x6k r1' (24k), PM1 OYO 45k E bike (15k) | Thu AM Team Row 30'r20 C Row, PM1 Team Lift | Fri AM Team Row E, PM1 OYO E Erg 4x6k r1' (24k) |
+Sat AM Team Row D/C | Sun Off. Total 100k.
+
+## 4. Roles & auth
+
+Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | admin. Admin additionally manages other admins.
+- Sign up: name, email, password (min 8), team join code (setting `team_code`) **or** email pre-listed on the roster
+  (`roster` table). Roster rows carry role, group, side, class year; signing up with that email adopts them.
+- Login: email + password. Passwords: PBKDF2-SHA256 (WebCrypto, 100k iterations, 16-byte salt).
+- Sessions: random 32-byte token in an HttpOnly, Secure, SameSite=Lax cookie `oyo_session`, 60-day sliding expiry;
+  only SHA-256(token) stored. Logout deletes it.
+- Password reset: staff generate a one-time temporary password for a user (shown once to staff); user must change on next login.
+- Bootstrap: the roster is seeded with `joskoo@stanford.edu` as `admin`. Default `team_code` generated on first boot
+  (readable by staff in Admin → Team settings).
+- Rate-limit login/signup attempts per email+IP (simple counter table, 10 / 15 min).
+- Coxswains don't appear on leaderboards by default (`on_leaderboard` flag, staff-editable, defaults false for coxswain role).
+
+## 5. Data model (SQLite inside one Durable Object `TeamDO`, id name "stanford")
+
+```
+users(id TEXT PK, email TEXT UNIQUE (lowercase), name, password_hash, password_salt, must_change_password INT,
+      role, group_key ('frosh'|'normal'|'u23'), side ('port'|'starboard'|'both'|'cox'|NULL), class_year INT NULL,
+      bio TEXT, avatar_image_id TEXT NULL, best6k_split_s REAL NULL, best2k_split_s REAL NULL,
+      on_leaderboard INT, active INT, created_at, updated_at)
+sessions(token_hash PK, user_id, expires_at, created_at)
+roster(email PK, name, role, group_key, side, class_year, added_by, created_at)
+settings(key PK, value_json)            -- team_code, zone_factors, mode_factors, group_targets, season_start ("09-01")
+weekly_targets(user_id, week_start, target_m, PK(user_id, week_start))
+entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, distance_m INT, duration_s INT NULL,
+        avg_split_s REAL NULL, stroke_rate INT NULL, avg_hr INT NULL, title, notes, preset_id NULL,
+        mode_factor REAL, zone_factor REAL, equiv_m INT, visibility ('team'|'private'),
+        created_at, updated_at)          -- index (week_start), (user_id, date)
+images(id PK, owner_id, mime, width, height, bytes BLOB, created_at)   -- <= 1.5 MB each, client resizes
+entry_images(entry_id, image_id, position, PK(entry_id, position))     -- up to 4 per entry
+kudos(entry_id, user_id, created_at, PK(entry_id, user_id))
+comments(id PK, entry_id, user_id, body (<=1000), created_at)
+announcements(id PK, author_id, title, body, pinned INT, created_at)
+presets(id PK, modality, zone, name, distance_m INT NULL, sort INT, active INT)   -- NULL distance = user enters meters
+plan_slots(group_key, week INT (1|2), day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
+           PK(group_key, week, day, slot))
+plan_totals(group_key, week, label)     -- e.g. "60k Equivalent"
+notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'), actor_id, entry_id NULL, created_at, read_at NULL)
+audit_log(id PK, actor_id, action, target, detail_json, created_at)
+```
+Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
+
+## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
+
+Auth: `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
+(name, bio, side, class_year, best splits, avatar), `POST /api/me/password`, `PUT /api/me/target` ({target_m} → current week onward).
+Config: `GET /api/config` (factors, group targets, season start, presets, zones list) — public to logged-in users.
+Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visible, newest first, paginated 20),
+`POST /api/entries`, `GET/PATCH/DELETE /api/entries/:id` (owner or staff), `POST/DELETE /api/entries/:id/kudos`,
+`GET/POST /api/entries/:id/comments`, `DELETE /api/comments/:id` (author or staff).
+Images: `POST /api/images` (raw body, image/jpeg|png|webp, ≤1.5MB) → {id}; `GET /api/images/:id` (immutable cache).
+Stats: `GET /api/stats/week?week=YYYY-MM-DD&user=` (target, total, by day, by modality/zone, entries),
+`GET /api/stats/season?season=YYYY&user=` and `?year=YYYY` (weekly series with targets + hit flags, totals by modality/zone,
+streak of consecutive weeks hitting target, best week), `GET /api/leaderboard?week=YYYY-MM-DD&metric=percent|meters|season`.
+Team: `GET /api/users` (roster directory), `GET /api/users/:id` (public profile + stats summary).
+Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`.
+Notifications: `GET /api/notifications`, `POST /api/notifications/read`.
+Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), reset password, roster CRUD + bulk import
+(CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
+presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
+CSV export of entries for a date range, audit log.
+
+Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
+Private entries count toward the owner's totals and the leaderboard, but never appear in the feed/profile for others.
+
+## 7. Frontend
+
+- Vite + React 18 + TypeScript + Tailwind + React Router + TanStack Query, lucide-react icons. Built assets served by the
+  Worker (Workers static assets, SPA fallback). PWA: manifest, icons (192/512/maskable/apple-touch), theme color,
+  `apple-mobile-web-app-capable`, safe-area insets, a small service worker for app-shell caching (never cache /api).
+- Layout: mobile = bottom tab bar (Home, Feed, + Log (center, prominent), Leaderboard, Me); desktop ≥1024px = left
+  sidebar with the same destinations + content column (max ~720px) and a right rail (week ring, announcements).
+- Screens: Login/Signup, Home (week progress ring vs target, remaining meters, days left, quick-log presets, this week's
+  sessions, pinned announcements, "suggested to hit target" using the distance menu), Log (modality segmented control,
+  zone picker, distance or preset, optional time/split/rate/HR, live E-meter preview, notes, photos, visibility),
+  Feed (cards: avatar, name, time, title, stats, E-meters, photos carousel, kudos, comments), Entry detail,
+  Leaderboard (This Week % / This Week Meters / Season; week switcher; podium for top 3; highlight me; ≥100% check),
+  Me/Profile (season & year totals, weekly bar chart with target line, modality/zone breakdown, streak, best week, my
+  entries, edit profile, set weekly target, splits), Rower profiles, Plan (sample fortnight for my group w/ zone colors,
+  fortnight guidance table, Workout Menu, Pace & Distance Calculator), Notifications, Settings (theme, password, logout),
+  Admin (roster, compliance, settings & factors, presets, plan editor, announcements, export, audit log).
+- Visual (Strava-inspired system, Stanford identity): clean white surfaces, near-black text `#242428`, secondary text
+  `#6D6D78`, page/grouped background `#F7F7FA`, dividers `#DFDFE8`. **Cardinal `#8C1515` is the single main accent**
+  (pressed `#6F1010`; on dark use `#C0352B`): primary buttons, Log button, progress rings, active tab, links.
+  **Strava orange `#FC5200` (pressed `#CC4200`) only for highlights: PRs, streaks, "target hit" celebrations, best week.**
+  Dark mode: background `#121214`, surface `#1C1C1F`, dividers `#2C2C31`, text `#F2F2F5`. Zone colors as in the sheet:
+  E light green `#CFE6C4`, D green `#8DBE84`, C yellow `#FBE08F` (others interpolate) — used as small tags/chips only.
+  Light + dark mode (system default, user toggle). System font stack (-apple-system, "SF Pro", Inter fallback). Native
+  feel: 44px+ touch targets, segmented controls, sheets, no tiny tracked uppercase labels, no monospace micro labels,
+  text ≥ 12px, Title Case buttons. Skeleton loaders, empty states, optimistic kudos, toast feedback, press states.
+- Numbers: show E-meters as `20,000 m` or `20.0k`; never show raw floats.
+
+## 8. Repo layout
+
+```
+/worker        Worker + TeamDO (TypeScript). src/index.ts (router), src/do.ts, src/db/*.ts, src/routes/*.ts
+/shared        Pure TS shared by both: math.ts (factors, equiv, distance-for-target, paces), dates.ts (LA weeks), types.ts
+/web           Vite React app
+/docs          This file
+wrangler.jsonc (root) — worker name `stanford-oyo`, assets dir web/dist, DO binding TEAM (sqlite class TeamDO)
+```
+Scripts (root package.json): `dev` (vite + wrangler dev), `build`, `typecheck`, `lint`, `test` (vitest), `deploy`.
