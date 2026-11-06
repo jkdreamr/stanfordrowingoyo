@@ -135,19 +135,21 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
 - Email-bound roster rows are excluded from discovery and can only be claimed by that email (case-insensitive),
   without a team code or roster selection. An explicitly supplied, different roster id is rejected. Normal signup
   requires a valid code and an existing, unclaimed, email-free roster id; an already claimed row returns `409 ROSTER_CLAIMED`.
-- Claiming is atomic: after password hashing yields, recheck the email and claim the roster id conditionally inside
+- Claiming is atomic: after PBKDF2 runs in the stateless Worker, the DO re-validates the email and claims the roster id conditionally inside
   one SQLite transaction, then insert/update the user. Each roster row can have one claimant and each user one row.
 - Staff can unlink a mistaken claim: deactivate the user, revoke all sessions and release the roster row atomically,
   with an audit record. An unclaimed row or your own row cannot be unlinked; only admins can unlink an admin user.
   Unlinking does not delete entries. Signing up again with the same email reactivates and reuses an inactive account
   **only if no roster row is still linked to it**: claim a new name, adopt its attributes, set the new password,
   clear the forced-change flag and keep training history. Other duplicate emails return `409 EMAIL_TAKEN`.
-- Login: email + password. Passwords: PBKDF2-SHA256 (WebCrypto, 100k iterations, 16-byte salt).
+- Login: email + password. Passwords: PBKDF2-SHA256 in the stateless Worker (WebCrypto, 100k iterations, 16-byte salt).
+  The DO rate-limits before derivation and re-validates account status and unchanged credentials before creating a session.
 - Sessions: random 32-byte token in an HttpOnly, Secure, SameSite=Lax cookie `oyo_session`, 60-day sliding expiry;
   only SHA-256(token) stored. Logout deletes it.
 - Password reset: staff generate a one-time temporary password for a user (shown once to staff); user must change on next login.
-- Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. Default `team_code` generated on first boot
-  (readable by staff in Admin → Team settings).
+  Password changes and resets derive hashes in the Worker; the DO re-validates sessions, credentials and authorization before writing.
+- Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
+  `TEAM_CODE` Worker secret, or a generated UUID when absent/blank. Existing settings are never overwritten; staff can change the code in Admin → Team settings.
 - Rate-limit login/signup attempts per email+IP (simple counter table, 10 / 15 min).
 - Rate-limit public roster discovery per IP (10 / 15 min), counting every attempt and clearing on success.
 - Only rowers appear on leaderboards by default (`on_leaderboard` flag, staff-editable); all staff, including admins,

@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [
     cloudflareTest({
       wrangler: { configPath: '../wrangler.jsonc' },
-      miniflare: { bindings: { OYO_TEST_CLOCK: '1' } },
+      miniflare: { bindings: { OYO_TEST_CLOCK: '1', TEAM_CODE: 'test-join-code' } },
     }),
   ],
 });

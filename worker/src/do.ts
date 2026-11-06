@@ -7,7 +7,7 @@ export class TeamDO extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
     ctx.blockConcurrencyWhile(async () => {
-      migrate(ctx.storage);
+      migrate(ctx.storage, env.TEAM_CODE);
     });
   }
   async fetch(request: Request): Promise<Response> {

@@ -14,7 +14,6 @@ import { createSession, prepareSession } from './db/sessions';
 import { saveEntry, deleteEntry } from './db/entries';
 import * as admin from './routes/admin';
 import * as me from './routes/me';
-import * as auth from './routes/auth';
 import * as entries from './routes/entries';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
@@ -107,55 +106,26 @@ function delayed(
     },
   };
 }
-function jsonContext(
-  storage: DurableObjectStorage,
-  client: Client | undefined,
-  body: unknown,
-  params: Record<string, string> = {},
-) {
-  const ctx: Context = context(storage, client, params);
-  ctx.request = new Request('https://oyo.test/api/test', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  return ctx;
-}
-function latch() {
-  let resolve!: () => void;
-  const promise = new Promise<void>((done) => {
-    resolve = done;
-  });
-  return { promise, resolve };
-}
 async function pausedCrypto(
   start: () => Promise<Response>,
   mutate: () => unknown | Promise<unknown>,
   status: number,
   at = 1,
 ) {
-  const entered = latch();
-  const release = latch();
   let calls = 0;
   const original = crypto.subtle.deriveBits.bind(crypto.subtle);
   const spy = vi.spyOn(crypto.subtle, 'deriveBits').mockImplementation(async (...args) => {
     const index = ++calls;
     const result = await original(...args);
     if (index === at) {
-      entered.resolve();
-      await release.promise;
+      await mutate();
     }
     return result;
   });
   try {
-    const pending = start();
-    const outcome = expect(pending).rejects.toMatchObject({ status });
-    await entered.promise;
-    await mutate();
-    release.resolve();
-    await outcome;
+    expect((await start()).status).toBe(status);
+    expect(calls).toBeGreaterThanOrEqual(at);
   } finally {
-    release.resolve();
     spy.mockRestore();
   }
 }
@@ -405,159 +375,7 @@ describe('fresh state after awaited request bodies', () => {
     });
   });
 });
-describe('credential and session commit races', () => {
-  it('rejects a password request whose body completes after staff reset', async () => {
-    const owner = await user('Owner', 'admin');
-    const athlete = await user('Athlete');
-    await sql(async (storage) => {
-      const held = delayed(storage, athlete);
-      const pending = me.password(held.ctx);
-      await admin.resetPassword(context(storage, owner, { id: athlete.user.id }));
-      const reset = byId(storage, athlete.user.id);
-      held.send({ current_password: 'password123', new_password: 'nextpassword123' });
-      await expect(pending).rejects.toMatchObject({ status: 401 });
-      expect(byId(storage, athlete.user.id)).toMatchObject({
-        password_hash: reset.password_hash,
-        must_change_password: 1,
-      });
-    });
-  });
-  it.each([1, 2])(
-    'preserves a staff reset completed during password-change crypto stage %i',
-    async (stage) => {
-      const owner = await user('Owner', 'admin');
-      const athlete = await user('Athlete');
-      await sql(async (storage) => {
-        const change = jsonContext(storage, athlete, {
-          current_password: 'password123',
-          new_password: 'nextpassword123',
-        });
-        let resetHash = '';
-        await pausedCrypto(
-          () => me.password(change),
-          async () => {
-            const reset = await admin.resetPassword(
-              context(storage, owner, { id: athlete.user.id }),
-            );
-            expect(reset.status).toBe(200);
-            resetHash = byId(storage, athlete.user.id).password_hash;
-          },
-          401,
-          stage,
-        );
-        expect(byId(storage, athlete.user.id)).toMatchObject({
-          password_hash: resetHash,
-          must_change_password: 1,
-        });
-        expect(
-          storage.sql.exec('SELECT * FROM sessions WHERE user_id=?', athlete.user.id).toArray(),
-        ).toHaveLength(0);
-      });
-    },
-  );
-  it('compares credentials even if a concurrent change retained this session', async () => {
-    const athlete = await user('Athlete');
-    const replacement = await hashPassword('replacement123');
-    await sql(async (storage) => {
-      const ctx = jsonContext(storage, athlete, {
-        current_password: 'password123',
-        new_password: 'nextpassword123',
-      });
-      await pausedCrypto(
-        () => me.password(ctx),
-        () =>
-          storage.sql.exec(
-            'UPDATE users SET password_hash=?,password_salt=?,must_change_password=1 WHERE id=?',
-            replacement.hash,
-            replacement.salt,
-            athlete.user.id,
-          ),
-        409,
-        2,
-      );
-      expect(byId(storage, athlete.user.id)).toMatchObject({
-        password_hash: replacement.hash,
-        must_change_password: 1,
-      });
-    });
-  });
-  it('rejects a password change if the user becomes inactive during hashing', async () => {
-    const athlete = await user('Athlete');
-    await sql(async (storage) => {
-      const before = byId(storage, athlete.user.id);
-      await pausedCrypto(
-        () =>
-          me.password(
-            jsonContext(storage, athlete, {
-              current_password: 'password123',
-              new_password: 'nextpassword123',
-            }),
-          ),
-        () => storage.sql.exec('UPDATE users SET active=0 WHERE id=?', athlete.user.id),
-        401,
-        2,
-      );
-      expect(byId(storage, athlete.user.id).password_hash).toBe(before.password_hash);
-    });
-  });
-  it.each(['reset', 'deactivate'] as const)(
-    'does not create a login session after concurrent %s',
-    async (action) => {
-      const owner = await user('Owner', 'admin');
-      const athlete = await user('Athlete');
-      await sql(async (storage) => {
-        storage.sql.exec('DELETE FROM sessions WHERE user_id=?', athlete.user.id);
-        const ctx = jsonContext(storage, undefined, {
-          email: athlete.user.email,
-          password: 'password123',
-        });
-        await pausedCrypto(
-          () => auth.login(ctx),
-          async () => {
-            if (action === 'reset')
-              await admin.resetPassword(context(storage, owner, { id: athlete.user.id }));
-            else storage.sql.exec('UPDATE users SET active=0 WHERE id=?', athlete.user.id);
-          },
-          action === 'reset' ? 409 : 403,
-        );
-        expect(
-          storage.sql.exec('SELECT * FROM sessions WHERE user_id=?', athlete.user.id).toArray(),
-        ).toHaveLength(0);
-        expect(ctx.cookie).toBeUndefined();
-      });
-    },
-  );
-  it.each(['demote actor', 'promote target', 'delete target'] as const)(
-    'rechecks reset authorization after hashing: %s',
-    async (action) => {
-      const cox = await user('Cox', 'coxswain');
-      const athlete = await user('Athlete');
-      await sql(async (storage) => {
-        const before = byId(storage, athlete.user.id);
-        const ctx = context(storage, cox, { id: athlete.user.id });
-        await pausedCrypto(
-          () => admin.resetPassword(ctx),
-          () => {
-            if (action === 'demote actor')
-              storage.sql.exec('UPDATE users SET role=? WHERE id=?', 'rower', cox.user.id);
-            else if (action === 'promote target')
-              storage.sql.exec('UPDATE users SET role=? WHERE id=?', 'admin', athlete.user.id);
-            else {
-              storage.sql.exec(
-                'UPDATE roster SET claimed_by_user_id=NULL WHERE claimed_by_user_id=?',
-                athlete.user.id,
-              );
-              storage.sql.exec('DELETE FROM users WHERE id=?', athlete.user.id);
-            }
-          },
-          action === 'delete target' ? 404 : 403,
-        );
-        if (action !== 'delete target')
-          expect(byId(storage, athlete.user.id).password_hash).toBe(before.password_hash);
-        expect(storage.sql.exec('SELECT * FROM audit_log').toArray()).toHaveLength(0);
-      });
-    },
-  );
+describe('credential commit races through Worker', () => {
   it('does not commit a prepared session against replaced credentials or an inactive user', async () => {
     const athlete = await user('Athlete');
     const prepared = await prepareSession();
@@ -574,40 +392,142 @@ describe('credential and session commit races', () => {
       ).toHaveLength(0);
     });
   });
-  it('checks signup eligibility after session-token hashing, with no session-creation yield after claiming', async () => {
-    const id = await sql((storage) => insertRosterFixture(storage, 'New athlete'));
-    await sql(async (storage) => {
-      const ctx = jsonContext(storage, undefined, {
-        roster_id: id,
-        email: 'new@example.com',
-        team_code: 'team-code',
-        password: 'password123',
-      });
-      const entered = latch();
-      const release = latch();
-      const original = crypto.subtle.digest.bind(crypto.subtle);
-      const spy = vi.spyOn(crypto.subtle, 'digest').mockImplementation(async (...args) => {
-        const result = await original(...args);
-        entered.resolve();
-        await release.promise;
-        return result;
-      });
-      try {
-        const pending = auth.signup(ctx);
-        const outcome = expect(pending).rejects.toMatchObject({ status: 404 });
-        await entered.promise;
-        storage.sql.exec('DELETE FROM roster WHERE id=?', id);
-        release.resolve();
-        await outcome;
+  it('rejects a password request whose body completes after staff reset', async () => {
+    const owner = await user('Owner', 'admin');
+    const athlete = await user('Athlete');
+    let send!: ReadableStreamDefaultController<Uint8Array>;
+    const pending = SELF.fetch('https://oyo.test/api/me/password', {
+      method: 'POST',
+      headers: { Cookie: athlete.cookie, 'Content-Type': 'application/json' },
+      body: new ReadableStream<Uint8Array>({
+        start(controller) {
+          send = controller;
+        },
+      }),
+    });
+    expect(
+      (await api('/admin/users/' + athlete.user.id + '/reset-password', owner, 'POST')).status,
+    ).toBe(200);
+    const reset = await sql((storage) => byId(storage, athlete.user.id).password_hash);
+    send.enqueue(
+      new TextEncoder().encode(
+        JSON.stringify({ current_password: 'password123', new_password: 'nextpassword123' }),
+      ),
+    );
+    send.close();
+    expect((await pending).status).toBe(401);
+    await sql((storage) =>
+      expect(byId(storage, athlete.user.id)).toMatchObject({
+        password_hash: reset,
+        must_change_password: 1,
+      }),
+    );
+  });
+  it.each([
+    'change-reset-1',
+    'change-reset-2',
+    'change-replace',
+    'change-deactivate',
+    'login-reset',
+    'login-deactivate',
+    'reset-demote',
+    'reset-promote',
+    'reset-delete',
+    'signup-delete',
+  ])('%s', async (race) => {
+    const owner = await user('Owner', race.startsWith('reset-') ? 'coxswain' : 'admin');
+    const athlete = await user('Athlete');
+    const before = await sql((s) => byId(s, athlete.user.id).password_hash);
+    const replacement = await hashPassword('replacement123');
+    const roster = await sql((s) => insertRosterFixture(s, 'New athlete'));
+    if (race.startsWith('login'))
+      await sql((s) => s.sql.exec('DELETE FROM sessions WHERE user_id=?', athlete.user.id));
+    const change = race.startsWith('change');
+    const reset = race.startsWith('reset');
+    const signup = race.startsWith('signup');
+    const status =
+      signup || race === 'reset-delete'
+        ? 404
+        : reset
+          ? 403
+          : race === 'change-replace' || race === 'login-reset'
+            ? 409
+            : race === 'login-deactivate'
+              ? 403
+              : 401;
+    let resetHash = '';
+    await pausedCrypto(
+      () =>
+        signup
+          ? api('/auth/signup', undefined, 'POST', {
+              roster_id: roster,
+              team_code: 'team-code',
+              email: 'new@example.com',
+              password: 'password123',
+            })
+          : reset
+            ? api('/admin/users/' + athlete.user.id + '/reset-password', owner, 'POST')
+            : change
+              ? api('/me/password', athlete, 'POST', {
+                  current_password: 'password123',
+                  new_password: 'nextpassword123',
+                })
+              : api('/auth/login', undefined, 'POST', {
+                  email: athlete.user.email,
+                  password: 'password123',
+                }),
+      async () => {
+        if (race.includes('-reset')) {
+          expect(
+            (await api('/admin/users/' + athlete.user.id + '/reset-password', owner, 'POST'))
+              .status,
+          ).toBe(200);
+          resetHash = await sql((s) => byId(s, athlete.user.id).password_hash);
+        } else
+          await sql((s) => {
+            if (race.includes('deactivate'))
+              s.sql.exec('UPDATE users SET active=0 WHERE id=?', athlete.user.id);
+            else if (race === 'change-replace')
+              s.sql.exec(
+                'UPDATE users SET password_hash=?,password_salt=? WHERE id=?',
+                replacement.hash,
+                replacement.salt,
+                athlete.user.id,
+              );
+            else if (race === 'reset-demote')
+              s.sql.exec('UPDATE users SET role=? WHERE id=?', 'rower', owner.user.id);
+            else if (race === 'reset-promote')
+              s.sql.exec('UPDATE users SET role=? WHERE id=?', 'admin', athlete.user.id);
+            else if (signup) s.sql.exec('DELETE FROM roster WHERE id=?', roster);
+            else {
+              s.sql.exec(
+                'UPDATE roster SET claimed_by_user_id=NULL WHERE claimed_by_user_id=?',
+                athlete.user.id,
+              );
+              s.sql.exec('DELETE FROM users WHERE id=?', athlete.user.id);
+            }
+          });
+      },
+      status,
+      change && race !== 'change-reset-1' ? 2 : 1,
+    );
+    await sql((s) => {
+      if (resetHash)
+        expect(byId(s, athlete.user.id)).toMatchObject({
+          password_hash: resetHash,
+          must_change_password: 1,
+        });
+      if (reset && race !== 'reset-delete')
+        expect(byId(s, athlete.user.id).password_hash).toBe(before);
+      if (reset) expect(s.sql.exec('SELECT * FROM audit_log').toArray()).toHaveLength(0);
+      if (signup)
         expect(
-          storage.sql.exec('SELECT * FROM users WHERE email=?', 'new@example.com').toArray(),
+          s.sql.exec('SELECT * FROM users WHERE email=?', 'new@example.com').toArray(),
         ).toHaveLength(0);
-        expect(storage.sql.exec('SELECT * FROM sessions').toArray()).toHaveLength(0);
-        expect(ctx.cookie).toBeUndefined();
-      } finally {
-        release.resolve();
-        spy.mockRestore();
-      }
+      if (race.startsWith('login') || resetHash)
+        expect(
+          s.sql.exec('SELECT * FROM sessions WHERE user_id=?', athlete.user.id).toArray(),
+        ).toHaveLength(0);
     });
   });
 });

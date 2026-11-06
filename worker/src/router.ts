@@ -19,15 +19,34 @@ interface Route {
   path: string;
   handler: Handler;
 }
+function unavailable(): never {
+  throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
+}
 const routes: Route[] = [
+  { method: 'POST', path: '/internal/auth/signup/precheck', handler: auth.signupPrecheck },
+  { method: 'POST', path: '/internal/auth/signup/commit', handler: auth.signup },
+  { method: 'POST', path: '/internal/auth/login/challenge', handler: auth.loginChallenge },
+  { method: 'POST', path: '/internal/auth/login/session', handler: auth.login },
+  { method: 'POST', path: '/internal/me/password/challenge', handler: me.passwordChallenge },
+  { method: 'POST', path: '/internal/me/password/commit', handler: me.password },
+  {
+    method: 'POST',
+    path: '/internal/admin/users/:id/reset-password/precheck',
+    handler: admin.resetPasswordPrecheck,
+  },
+  {
+    method: 'POST',
+    path: '/internal/admin/users/:id/reset-password/commit',
+    handler: admin.resetPassword,
+  },
   { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 4 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
-  { method: 'POST', path: '/api/auth/signup', handler: auth.signup },
-  { method: 'POST', path: '/api/auth/login', handler: auth.login },
+  { method: 'POST', path: '/api/auth/signup', handler: unavailable },
+  { method: 'POST', path: '/api/auth/login', handler: unavailable },
   { method: 'POST', path: '/api/auth/logout', handler: auth.logout },
   { method: 'GET', path: '/api/me', handler: me.get },
   { method: 'PATCH', path: '/api/me', handler: me.patch },
-  { method: 'POST', path: '/api/me/password', handler: me.password },
+  { method: 'POST', path: '/api/me/password', handler: unavailable },
   { method: 'GET', path: '/api/me/target', handler: me.target },
   { method: 'PUT', path: '/api/me/target', handler: me.putTarget },
   { method: 'GET', path: '/api/config', handler: config.get },
@@ -57,7 +76,7 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/plan', handler: plan.get },
   { method: 'GET', path: '/api/admin/users', handler: admin.users },
   { method: 'PATCH', path: '/api/admin/users/:id', handler: admin.patchUser },
-  { method: 'POST', path: '/api/admin/users/:id/reset-password', handler: admin.resetPassword },
+  { method: 'POST', path: '/api/admin/users/:id/reset-password', handler: unavailable },
   { method: 'GET', path: '/api/admin/roster', handler: admin.roster },
   { method: 'POST', path: '/api/admin/roster', handler: admin.createRoster },
   { method: 'POST', path: '/api/admin/roster/import', handler: admin.importRoster },
@@ -110,8 +129,10 @@ export function checkCsrf(request: Request) {
 export async function route(ctx: Context): Promise<Response> {
   let response: Response;
   try {
-    checkCsrf(ctx.request);
     const path = new URL(ctx.request.url).pathname;
+    if (path.startsWith('/internal/') && ctx.request.headers.get('X-OYO-Internal') !== '1')
+      throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
+    checkCsrf(ctx.request);
     const matches = routes.filter((row) => matchPath(row.path, path) !== null);
     if (!matches.length) throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
     const found = matches.find((row) => row.method === ctx.request.method);
@@ -123,6 +144,8 @@ export async function route(ctx: Context): Promise<Response> {
       'GET /api/me',
       'GET /api/config',
       'POST /api/me/password',
+      'POST /internal/me/password/challenge',
+      'POST /internal/me/password/commit',
       'POST /api/auth/logout',
     ];
     if (ctx.user?.must_change_password && !allowed.includes(`${ctx.request.method} ${path}`))

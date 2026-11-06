@@ -3,7 +3,6 @@ import type { Preset, RosterRow, Settings } from '../../../shared/types';
 import { today, weekStart } from '../../../shared/dates';
 import { ZONES } from '../../../shared/math';
 import { refreshUser, requireAdmin, requireStaff } from '../auth/guards';
-import { hashPassword, temporaryPassword } from '../auth/crypto';
 import { byId, toUser, type UserRow } from '../db/users';
 import { findRoster, rosterById, rosterByName } from '../db/roster';
 import { getSettings, setSetting, setGroupTargets } from '../db/settings';
@@ -85,10 +84,17 @@ export async function patchUser(ctx: Context) {
   });
   return json(toUser(byId(ctx.storage, before.id)));
 }
-export async function resetPassword(ctx: Context) {
+export function resetPasswordPrecheck(ctx: Context) {
   requireStaff(ctx);
-  const password = temporaryPassword();
-  const { hash, salt } = await hashPassword(password);
+  const current = byId(ctx.storage, ctx.params.id);
+  if (!current) missing();
+  if (current.role === 'admin') requireAdmin(ctx);
+  return noContent();
+}
+export async function resetPassword(ctx: Context) {
+  const body = await readJson(ctx.request);
+  const hash = v.string(body.password_hash, 'Password hash', 1, 200);
+  const salt = v.string(body.password_salt, 'Password salt', 1, 200);
   ctx.storage.transactionSync(() => {
     refreshUser(ctx);
     requireStaff(ctx);
@@ -112,7 +118,7 @@ export async function resetPassword(ctx: Context) {
       { must_change_password: true },
     );
   });
-  return json({ temporary_password: password });
+  return noContent();
 }
 function rosterInput(body: Record<string, unknown>, before?: RosterRow) {
   const value: Record<string, unknown> = { ...before, ...body };

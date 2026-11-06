@@ -1,7 +1,7 @@
 import type { Context } from '../context';
 import { HttpError, json, noContent, readJson } from '../http';
 import * as v from '../validate';
-import { constantTimeEqual, hashPassword, sha256, verifyPassword } from '../auth/crypto';
+import { constantTimeEqual, sha256 } from '../auth/crypto';
 import { byEmail, byId, toUser } from '../db/users';
 import { findRoster, rosterById } from '../db/roster';
 import type { RosterRow } from '../../../shared/types';
@@ -11,8 +11,8 @@ import { createSession, prepareSession, sessionCookie, sessionToken } from '../d
 function checkTeamCode(ctx: Context, value: unknown) {
   if (
     !constantTimeEqual(
-      typeof value === 'string' ? value : '',
-      getSetting<string>(ctx.storage, 'team_code'),
+      typeof value === 'string' ? value.trim().toLowerCase() : '',
+      getSetting<string>(ctx.storage, 'team_code').trim().toLowerCase(),
     )
   )
     throw new HttpError(403, 'INVALID_TEAM_CODE', 'The team code is invalid.');
@@ -54,14 +54,20 @@ function reusableUser(ctx: Context, email: string) {
     throw new HttpError(409, 'EMAIL_TAKEN', 'This email is already registered.');
   return existing;
 }
-export async function signup(ctx: Context) {
+export async function signupPrecheck(ctx: Context) {
   const body = await readJson(ctx.request);
   const email = v.email(body.email);
-  const password = v.string(body.password, 'Password', 8, 200);
   attempt(ctx, email);
   reusableUser(ctx, email);
   signupRow(ctx, email, body);
-  const [{ hash, salt }, prepared] = await Promise.all([hashPassword(password), prepareSession()]);
+  return noContent();
+}
+export async function signup(ctx: Context) {
+  const body = await readJson(ctx.request);
+  const email = v.email(body.email);
+  const hash = v.string(body.password_hash, 'Password hash', 1, 200);
+  const salt = v.string(body.password_salt, 'Password salt', 1, 200);
+  const prepared = await prepareSession();
   const timestamp = ctx.now.toISOString();
   const id = ctx.storage.transactionSync(() => {
     const existing = reusableUser(ctx, email);
@@ -119,18 +125,26 @@ export async function signup(ctx: Context) {
   });
   return json(toUser(byId(ctx.storage, id)), 201);
 }
+export async function loginChallenge(ctx: Context) {
+  const body = await readJson(ctx.request);
+  const email = v.email(body.email);
+  attempt(ctx, email);
+  const user = byEmail(ctx.storage, email);
+  return json({
+    user_id: user?.id ?? null,
+    password_hash: user?.password_hash ?? null,
+    password_salt: user?.password_salt ?? null,
+  });
+}
 export async function login(ctx: Context) {
   const body = await readJson(ctx.request);
   const email = v.email(body.email);
-  const password = v.string(body.password, 'Password', 8, 200);
-  attempt(ctx, email);
+  const user = {
+    id: body.user_id,
+    password_hash: v.string(body.password_hash, 'Password hash', 1, 200),
+    password_salt: v.string(body.password_salt, 'Password salt', 1, 200),
+  };
   const prepared = await prepareSession();
-  const user = byEmail(ctx.storage, email);
-  const valid = user
-    ? await verifyPassword(password, user.password_hash, user.password_salt)
-    : (await hashPassword(password, 'AAAAAAAAAAAAAAAAAAAAAA=='), false);
-  if (!user || !valid)
-    throw new HttpError(401, 'INVALID_CREDENTIALS', 'Email or password is incorrect.');
   return ctx.storage.transactionSync(() => {
     const current = byEmail(ctx.storage, email);
     if (!current || !current.active)
