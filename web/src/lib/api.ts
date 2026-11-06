@@ -44,8 +44,11 @@ export async function api<K extends keyof Api>(
     signal: options.signal,
     headers:
       options.body === undefined
-        ? undefined
-        : { 'Content-Type': raw ? (options.body as Blob).type : 'application/json' },
+        ? { 'X-OYO-CSRF': '1' }
+        : {
+            'X-OYO-CSRF': '1',
+            'Content-Type': raw ? (options.body as Blob).type : 'application/json',
+          },
     body:
       options.body === undefined
         ? undefined

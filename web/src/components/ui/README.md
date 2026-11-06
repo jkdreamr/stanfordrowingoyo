@@ -21,6 +21,8 @@ Import from `components/ui`. Preview at `/dev/kit` in development only. Wrap the
 
 ### Core-screen patterns
 
+`ChoiceRow` is a native radio row for grouped selection. Props: `name`, `value`, `checked`, `onChange`, `title`, optional `subtitle`. Place related rows in a labeled `fieldset` inside `ListGroup`; native keyboard navigation and a visible checkmark expose the current selection. `<ChoiceRow name="group" value="normal" checked={group === 'normal'} onChange={() => setGroup('normal')} title="Normal Non-Frosh" />`
+
 | Component    | Props and use                                                                                                                                                                                   |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | TaskHeader   | `title`, `leading`, `trailing`: sticky compact task bar with a single h1, Cancel on the left and Save on the right                                                                              |
@@ -152,7 +154,7 @@ NumberField is a text input with numeric keyboard, allowing incomplete edits; pa
 | imageId | optional string or null, fetched from /api/images/:id |
 | size    | sm 32, md 44 (default), lg 64                         |
 
-`<Avatar name="Maya Chen" imageId={user.avatar_image_id} />`
+`<Avatar name="Marcus Albrecht" imageId={user.avatar_image_id} />`
 
 Broken images fall back to initials; neutral background is deterministic by name.
 

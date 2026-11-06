@@ -33,11 +33,11 @@ const input = {
 describe('mock stats and visibility', () => {
   it('distinguishes signup field failures', async () => {
     const { request } = setup();
-    const body = { name: 'New Rower', email: 'new@stanford.edu', password: 'password' };
+    const body = { roster_id: 'roster-30', email: 'new@stanford.edu', password: 'password' };
     for (const [input, code, status] of [
-      [body, 'NOT_ON_ROSTER', 403],
+      [body, 'INVALID_TEAM_CODE', 403],
       [{ ...body, team_code: 'wrong' }, 'INVALID_TEAM_CODE', 403],
-      [{ ...body, email: 'maya.chen@stanford.edu' }, 'EMAIL_TAKEN', 409],
+      [{ ...body, email: 'marcus.albrecht@stanford.edu' }, 'EMAIL_TAKEN', 409],
     ] as const) {
       const response = await request('/auth/signup', 'POST', input);
       expect(response.status).toBe(status);
@@ -57,11 +57,11 @@ describe('mock stats and visibility', () => {
   });
   it('orders leaderboard by percent including completed targets and excludes coxswains', async () => {
     const rows: LeaderboardRow[] = await (await setup().request('/leaderboard')).json();
-    expect(rows).toHaveLength(20);
+    expect(rows).toHaveLength(29);
     expect(rows[0].percent).toBeGreaterThanOrEqual(100);
     expect(rows.every((r, i) => i === 0 || rows[i - 1].percent >= r.percent)).toBe(true);
     expect(rows.every((r) => r.user.role === 'rower')).toBe(true);
-    expect(rows.map((r) => r.rank)).toEqual(Array.from({ length: 20 }, (_, i) => i + 1));
+    expect(rows.map((r) => r.rank)).toEqual(Array.from({ length: 29 }, (_, i) => i + 1));
   });
   it('versions target from the current week without rewriting history', async () => {
     const { request } = setup();
@@ -97,12 +97,102 @@ describe('mock stats and visibility', () => {
   });
 });
 describe('mock mutations and errors', () => {
+  it('lists only unclaimed names and claims a name atomically with its roster role', async () => {
+    const { request, state } = setup();
+    expect(state.roster).toHaveLength(39);
+    expect(state.roster.filter((r) => r.role === 'rower')).toHaveLength(35);
+    expect((await request('/auth/roster', 'POST', { team_code: 'wrong' })).status).toBe(403);
+    const options = await (
+      await request('/auth/roster', 'POST', { team_code: 'cardinal-oyo' })
+    ).json();
+    expect(options).toHaveLength(7);
+    expect(
+      options.every(
+        (r: Record<string, unknown>) => Object.keys(r).sort().join(',') === 'id,name,role',
+      ),
+    ).toBe(true);
+    const body = {
+      roster_id: 'roster-30',
+      team_code: 'cardinal-oyo',
+      email: 'sandro@stanford.edu',
+      password: 'password',
+      group_key: 'u23',
+      name: 'Ignored',
+    };
+    const responses = await Promise.all([
+      request('/auth/signup', 'POST', body),
+      request('/auth/signup', 'POST', { ...body, email: 'other@stanford.edu' }),
+    ]);
+    expect(responses.map((r) => r.status).sort()).toEqual([201, 409]);
+    const user = state.users.find((u) => u.name === 'Sandro Scalfi')!;
+    expect(user).toMatchObject({ group_key: 'u23', role: 'rower', on_leaderboard: true });
+    expect(state.roster.find((r) => r.id === 'roster-30')?.claimed_by_user_id).toBe(user.id);
+    const remaining = await (
+      await request('/auth/roster', 'POST', { team_code: 'cardinal-oyo' })
+    ).json();
+    expect(remaining).toHaveLength(6);
+  });
+  it('bootstraps a fresh invited admin without a code and rejects a claimed invitation', async () => {
+    const { request, state } = setup();
+    expect(
+      (
+        await request('/auth/signup', 'POST', {
+          email: 'joskoo@stanford.edu',
+          password: 'password',
+        })
+      ).status,
+    ).toBe(409);
+    state.users = state.users.filter((u) => u.role !== 'admin');
+    state.roster.find((r) => r.role === 'admin')!.claimed_by_user_id = null;
+    const response = await request('/auth/signup', 'POST', {
+      email: 'joskoo@stanford.edu',
+      password: 'password',
+    });
+    expect(response.status).toBe(201);
+    expect(await response.json()).toMatchObject({
+      name: 'Joshua Koo',
+      role: 'admin',
+      on_leaderboard: false,
+      group_key: 'normal',
+    });
+  });
+  it('supports ID-based rename/unlink and lets rowers change their own group', async () => {
+    const { request, state } = setup();
+    expect((await request('/me', 'PATCH', { group_key: 'invalid' })).status).toBe(400);
+    expect((await (await request('/me', 'PATCH', { group_key: 'u23' })).json()).group_key).toBe(
+      'u23',
+    );
+    expect((await request('/admin/roster/roster-1/unlink', 'POST')).status).toBe(403);
+    await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });
+    expect(
+      (await request('/admin/roster/roster-1', 'PATCH', { name: 'Marcus Renamed' })).status,
+    ).toBe(200);
+    expect(state.users[0].name).toBe('Marcus Renamed');
+    expect((await request('/admin/roster/roster-1/unlink', 'POST')).status).toBe(204);
+    expect(state.users[0].active).toBe(false);
+    expect(state.roster[0].claimed_by_user_id).toBeNull();
+    expect(
+      (
+        await request('/auth/login', 'POST', {
+          email: 'marcus.albrecht@stanford.edu',
+          password: 'password',
+        })
+      ).status,
+    ).toBe(401);
+    const response = await request('/auth/signup', 'POST', {
+      team_code: 'cardinal-oyo',
+      roster_id: 'roster-1',
+      email: 'new.marcus@stanford.edu',
+      password: 'password',
+    });
+    expect(response.status).toBe(201);
+  });
   it('keeps opted-out rowers in compliance while excluding them from leaderboard', async () => {
     const { request } = setup();
     await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });
     await request('/admin/users/user-2', 'PATCH', { on_leaderboard: false });
-    expect(await (await request('/leaderboard')).json()).toHaveLength(19);
-    expect(await (await request('/admin/compliance')).json()).toHaveLength(20);
+    expect(await (await request('/leaderboard')).json()).toHaveLength(28);
+    expect(await (await request('/admin/compliance')).json()).toHaveLength(29);
   });
   it('validates distance, dates, modality, zone and images with structured errors', async () => {
     const { request } = setup();
@@ -139,7 +229,7 @@ describe('mock mutations and errors', () => {
     const comment = await (
       await request(`/entries/${entry.id}/comments`, 'POST', { body: 'Nice work' })
     ).json();
-    expect(comment.author.name).toBe('Maya Chen');
+    expect(comment.author.name).toBe('Marcus Albrecht');
     expect((await (await request(`/entries/${entry.id}`)).json()).comment_count).toBe(1);
     expect((await request(`/comments/${comment.id}`, 'DELETE')).status).toBe(204);
     expect((await request(`/entries/${entry.id}`, 'DELETE')).status).toBe(204);
@@ -158,7 +248,7 @@ describe('mock mutations and errors', () => {
       (await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' }))
         .status,
     ).toBe(200);
-    expect(await (await request('/admin/users')).json()).toHaveLength(25);
+    expect(await (await request('/admin/users')).json()).toHaveLength(32);
     expect((await request('/admin/settings')).status).toBe(200);
     expect((await request('/admin/presets')).status).toBe(200);
     expect((await request('/admin/plan')).status).toBe(200);

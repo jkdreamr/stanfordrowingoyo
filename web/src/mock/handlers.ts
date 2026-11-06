@@ -83,16 +83,7 @@ export function createMockApi({
   };
   let presets = structuredClone(PRESETS);
   let plan: Plan = { slots: structuredClone(PLAN_SLOTS), totals: structuredClone(PLAN_TOTALS) };
-  const roster: RosterRow[] = state.users.map((u) => ({
-    email: u.email,
-    name: u.name,
-    role: u.role,
-    group_key: u.group_key,
-    side: u.side,
-    class_year: u.class_year,
-    added_by: 'user-25',
-    created_at: u.created_at,
-  }));
+  const roster: RosterRow[] = state.roster;
   const audit: AuditLog[] = [];
   const uploads = new Map<string, { blob: Blob; owner: string }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
@@ -280,10 +271,11 @@ export function createMockApi({
   }
   function validateRoster(row: RosterInput) {
     text(row.name, 'Name', 100);
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(row.email)) fail(400, 'Valid email required');
+    if (row.email !== null && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(row.email))
+      fail(400, 'Valid email required');
     if (
       !['rower', 'coxswain', 'coach', 'admin'].includes(row.role) ||
-      !['frosh', 'normal', 'u23'].includes(row.group_key) ||
+      (row.group_key !== null && !['frosh', 'normal', 'u23'].includes(row.group_key)) ||
       (row.side !== null && !['port', 'starboard', 'both', 'cox'].includes(row.side))
     )
       fail(400, 'Invalid roster role, group or side');
@@ -362,8 +354,16 @@ export function createMockApi({
         setSession(user.id);
         return json(user);
       }
+      if (path === '/api/auth/roster' && method === 'POST') {
+        if (body.team_code !== settings.team_code)
+          fail(403, 'Enter a valid team code', 'INVALID_TEAM_CODE');
+        return json(
+          roster
+            .filter((r) => !r.claimed_by_user_id)
+            .map(({ id, name, role }) => ({ id, name, role })),
+        );
+      }
       if (path === '/api/auth/signup' && method === 'POST') {
-        text(body.name, 'Name', 100);
         if (
           typeof body.email !== 'string' ||
           !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email) ||
@@ -374,31 +374,41 @@ export function createMockApi({
         const email = body.email.toLowerCase();
         if (state.users.some((u) => u.email === email))
           fail(409, 'Email already registered', 'EMAIL_TAKEN');
-        const listed = roster.find((r) => r.email === email);
-        if (!listed && body.team_code !== settings.team_code)
-          fail(
-            403,
-            'A team code or roster invitation is required',
-            body.team_code ? 'INVALID_TEAM_CODE' : 'NOT_ON_ROSTER',
-          );
+        const invited = roster.find((r) => r.email === email);
+        if (!invited && body.team_code !== settings.team_code)
+          fail(403, 'Enter a valid team code or use your invite email', 'INVALID_TEAM_CODE');
+        const listed = invited ?? roster.find((r) => r.id === body.roster_id);
+        if (!listed) fail(400, 'Choose your name from the roster', 'ROSTER_REQUIRED');
+        if (listed.claimed_by_user_id) fail(409, 'That name was already claimed', 'ROSTER_CLAIMED');
+        if (
+          body.group_key !== undefined &&
+          !['frosh', 'normal', 'u23'].includes(String(body.group_key))
+        )
+          fail(400, 'Choose a valid group');
         const user: User = {
           ...state.users[0],
           id: id('user'),
-          name: body.name as string,
+          name: listed.name,
           email,
-          role: listed?.role || 'rower',
-          group_key: listed?.group_key || 'normal',
+          role: listed.role,
+          group_key:
+            listed.role === 'rower'
+              ? ((body.group_key as GroupKey | undefined) ?? 'normal')
+              : 'normal',
           side: listed?.side || null,
           class_year: listed?.class_year || null,
           bio: '',
           avatar_image_id: null,
           best6k_split_s: null,
           best2k_split_s: null,
-          on_leaderboard: listed?.role !== 'coxswain',
+          on_leaderboard: listed.role === 'rower',
+          active: true,
+          must_change_password: false,
           created_at: stamp(),
           updated_at: stamp(),
         };
         state.users.push(user);
+        listed.claimed_by_user_id = user.id;
         passwords.set(user.id, body.password);
         setSession(user.id);
         return json(user, 201);
@@ -420,6 +430,11 @@ export function createMockApi({
         if (method === 'GET') return json(user);
         if (method === 'PATCH') {
           if (body.name !== undefined) text(body.name, 'Name', 100);
+          if (
+            body.group_key !== undefined &&
+            !['frosh', 'normal', 'u23'].includes(String(body.group_key))
+          )
+            fail(400, 'Choose a valid group');
           if (body.bio !== undefined && typeof body.bio !== 'string') fail(400, 'Bio must be text');
           if (
             body.side !== undefined &&
@@ -445,6 +460,7 @@ export function createMockApi({
             'bio',
             'side',
             'class_year',
+            'group_key',
             'best6k_split_s',
             'best2k_split_s',
             'avatar_image_id',
@@ -828,16 +844,25 @@ export function createMockApi({
                 .map((x) => x.trim());
               const row = {
                 name,
-                email: email?.toLowerCase(),
+                email: email?.toLowerCase() || null,
                 role,
-                group_key,
+                group_key: group_key || null,
                 side: side || null,
                 class_year: classYear ? Number(classYear) : null,
               } as RosterInput;
               validateRoster(row);
-              const existing = roster.find((r) => r.email === row.email);
+              const existing = roster.find((r) =>
+                row.email ? r.email === row.email : r.name === row.name,
+              );
               if (existing) Object.assign(existing, row);
-              else roster.push({ ...row, added_by: user.id, created_at: stamp() });
+              else
+                roster.push({
+                  ...row,
+                  id: id('roster'),
+                  claimed_by_user_id: null,
+                  added_by: user.id,
+                  created_at: stamp(),
+                });
               imported++;
             } catch (error) {
               errors.push({ row: i + 1, message: (error as Error).message });
@@ -845,23 +870,30 @@ export function createMockApi({
           });
           return json({ imported, errors });
         }
-        const email = parts[4];
-        if (method === 'GET' && !email) return json(roster);
-        if (method === 'POST' && !email) {
+        const rosterId = parts[4];
+        if (method === 'GET' && !rosterId) return json(roster);
+        if (method === 'POST' && !rosterId) {
           const input = body as unknown as RosterInput;
           validateRoster(input);
-          if (roster.some((r) => r.email === input.email.toLowerCase()))
+          if (input.email && roster.some((r) => r.email === input.email!.toLowerCase()))
             fail(409, 'Email already on roster');
           const row = {
             ...input,
-            email: input.email.toLowerCase(),
+            id: id('roster'),
+            claimed_by_user_id: null,
+            email: input.email?.toLowerCase() ?? null,
             added_by: user.id,
             created_at: stamp(),
           };
           roster.push(row);
           return json(row, 201);
         }
-        const row = roster.find((r) => r.email === email) || fail(404, 'Roster row not found');
+        const row = roster.find((r) => r.id === rosterId) || fail(404, 'Roster row not found');
+        if (parts[5] === 'unlink' && method === 'POST') {
+          if (row.claimed_by_user_id) userById(row.claimed_by_user_id).active = false;
+          row.claimed_by_user_id = null;
+          return empty();
+        }
         if (method === 'DELETE') {
           roster.splice(roster.indexOf(row), 1);
           return empty();
@@ -869,10 +901,12 @@ export function createMockApi({
         if (method === 'PATCH') {
           const input = { ...row, ...body } as RosterInput;
           validateRoster(input);
-          if (input.email !== email && roster.some((r) => r.email === input.email))
+          if (input.email && roster.some((r) => r.id !== row.id && r.email === input.email))
             fail(409, 'Email already on roster');
           for (const key of ['email', 'name', 'role', 'group_key', 'side', 'class_year'])
             if (key in body) Object.assign(row, { [key]: body[key] });
+          if (body.name !== undefined && row.claimed_by_user_id)
+            userById(row.claimed_by_user_id).name = row.name;
           return json(row);
         }
       }

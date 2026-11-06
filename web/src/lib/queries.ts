@@ -1,9 +1,10 @@
 /** Invalidation: entries -> entries, stats, leaderboard, users, me/target;
- * me -> me, users; target -> me/target, stats, leaderboard;
+ * me/group -> me/target, users, config, stats, leaderboard; target -> me/target, stats, leaderboard;
  * comments -> comments, entries; announcements -> announcements;
  * notifications/read -> notifications; admin writes -> resource, audit,
  * plus config for settings/presets and derived stats for settings/recalculate.
- * Auth changes clear all caches to prevent cross-session data leaks.
+ * Roster writes/unlink also invalidate users and derived stats.
+ * Auth changes (not roster lookup) clear caches to prevent cross-session data leaks.
  */
 import {
   useInfiniteQuery,
@@ -128,7 +129,8 @@ export function useAudit() {
 }
 export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint.includes('/auth/')) return [qk.all];
-  if (endpoint === 'PATCH /api/me') return [qk.root('me'), qk.root('users')];
+  if (endpoint === 'PATCH /api/me')
+    return ['me', 'users', 'config', 'stats', 'leaderboard'].map(qk.root);
   if (endpoint === 'POST /api/me/password') return [qk.me()];
   if (endpoint === 'PUT /api/me/target')
     return [qk.target(), qk.root('stats'), qk.root('leaderboard'), qk.root('users')];
@@ -140,7 +142,7 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint.includes('/admin/')) {
     const keys: QueryKey[] = [qk.root('admin')];
     if (/settings|presets/.test(endpoint)) keys.push(qk.root('config'));
-    if (/settings|recalculate|users/.test(endpoint))
+    if (/settings|recalculate|users|roster/.test(endpoint))
       keys.push(...['me', 'entries', 'stats', 'leaderboard', 'users'].map(qk.root));
     if (endpoint.includes('/plan')) keys.push(qk.root('plan'));
     return keys;
@@ -153,6 +155,7 @@ function mutationHook<K extends Write>(endpoint: K) {
     return useMutation({
       mutationFn: (options: RequestOptions<K>) => api(endpoint, options),
       onSuccess: async () => {
+        if (endpoint === 'POST /api/auth/roster') return;
         if (endpoint.includes('/auth/')) {
           client.clear();
           return;
@@ -165,6 +168,8 @@ function mutationHook<K extends Write>(endpoint: K) {
   };
 }
 export const useSignup = mutationHook('POST /api/auth/signup');
+export const useRosterOptions = mutationHook('POST /api/auth/roster');
+export const useSignupRoster = useRosterOptions;
 export const useLogin = mutationHook('POST /api/auth/login');
 export const useLogout = mutationHook('POST /api/auth/logout');
 export const useUpdateMe = mutationHook('PATCH /api/me');
@@ -183,8 +188,9 @@ export const useReadNotifications = mutationHook('POST /api/notifications/read')
 export const useUpdateUser = mutationHook('PATCH /api/admin/users/:id');
 export const useResetPassword = mutationHook('POST /api/admin/users/:id/reset-password');
 export const useCreateRoster = mutationHook('POST /api/admin/roster');
-export const useUpdateRoster = mutationHook('PATCH /api/admin/roster/:email');
-export const useDeleteRoster = mutationHook('DELETE /api/admin/roster/:email');
+export const useUpdateRoster = mutationHook('PATCH /api/admin/roster/:id');
+export const useDeleteRoster = mutationHook('DELETE /api/admin/roster/:id');
+export const useUnlinkRoster = mutationHook('POST /api/admin/roster/:id/unlink');
 export const useImportRoster = mutationHook('POST /api/admin/roster/import');
 export const useUpdateSettings = mutationHook('PATCH /api/admin/settings');
 export const useCreatePreset = mutationHook('POST /api/admin/presets');

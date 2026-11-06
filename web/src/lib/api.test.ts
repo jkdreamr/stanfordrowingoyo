@@ -48,8 +48,17 @@ it('encodes queries', async () => {
   expect(String(fetcher.mock.calls[0][0])).toContain('scope=user%3Aa%2Fb');
 });
 it('handles empty success', async () => {
-  setup(new Response(null, { status: 204 }));
+  const fetcher = setup(new Response(null, { status: 204 }));
   expect(await api('POST /api/auth/logout', {})).toBeUndefined();
+  expect(fetcher.mock.calls[0][1].headers).toEqual({ 'X-OYO-CSRF': '1' });
+});
+it('sends CSRF and content type on JSON writes', async () => {
+  const fetcher = setup(Response.json([]));
+  await api('POST /api/auth/roster', { body: { team_code: 'code' } });
+  expect(fetcher.mock.calls[0][1].headers).toEqual({
+    'X-OYO-CSRF': '1',
+    'Content-Type': 'application/json',
+  });
 });
 it('surfaces typed API errors', async () => {
   setup(Response.json({ error: { code: 'NO_AUTH', message: 'Log in' } }, { status: 401 }));
