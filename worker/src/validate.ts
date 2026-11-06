@@ -61,3 +61,12 @@ export function email(value: unknown): string {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(result)) return invalid('Email is invalid.');
   return result;
 }
+export function boolean(value: unknown, label: string): boolean {
+  if (typeof value !== 'boolean') return invalid(`${label} must be a boolean.`);
+  return value;
+}
+export function object(value: unknown, label: string): Record<string, unknown> {
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    return invalid(`${label} must be an object.`);
+  return value as Record<string, unknown>;
+}

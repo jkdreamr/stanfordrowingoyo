@@ -10,6 +10,10 @@ import * as social from './routes/social';
 import * as notifications from './routes/notifications';
 import * as stats from './routes/stats';
 import * as team from './routes/team';
+import * as admin from './routes/admin';
+import * as announcements from './routes/announcements';
+import * as plan from './routes/plan';
+import { audit } from './db/audit';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -46,6 +50,33 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/leaderboard', handler: stats.leaderboard },
   { method: 'GET', path: '/api/users', handler: team.list },
   { method: 'GET', path: '/api/users/:id', handler: team.profile },
+  { method: 'GET', path: '/api/announcements', handler: announcements.get },
+  { method: 'POST', path: '/api/announcements', handler: announcements.create },
+  { method: 'PATCH', path: '/api/announcements/:id', handler: announcements.patch },
+  { method: 'DELETE', path: '/api/announcements/:id', handler: announcements.remove },
+  { method: 'GET', path: '/api/plan', handler: plan.get },
+  { method: 'GET', path: '/api/admin/users', handler: admin.users },
+  { method: 'PATCH', path: '/api/admin/users/:id', handler: admin.patchUser },
+  { method: 'POST', path: '/api/admin/users/:id/reset-password', handler: admin.resetPassword },
+  { method: 'GET', path: '/api/admin/roster', handler: admin.roster },
+  { method: 'POST', path: '/api/admin/roster', handler: admin.createRoster },
+  { method: 'POST', path: '/api/admin/roster/import', handler: admin.importRoster },
+  { method: 'PATCH', path: '/api/admin/roster/:email', handler: admin.patchRoster },
+  { method: 'DELETE', path: '/api/admin/roster/:email', handler: admin.deleteRoster },
+  { method: 'GET', path: '/api/admin/settings', handler: admin.settings },
+  { method: 'PATCH', path: '/api/admin/settings', handler: admin.patchSettings },
+  { method: 'GET', path: '/api/admin/presets', handler: admin.listPresets },
+  { method: 'POST', path: '/api/admin/presets', handler: admin.createPreset },
+  { method: 'PATCH', path: '/api/admin/presets/:id', handler: admin.patchPreset },
+  { method: 'DELETE', path: '/api/admin/presets/:id', handler: admin.deletePreset },
+  { method: 'GET', path: '/api/admin/plan', handler: plan.adminGet },
+  { method: 'PUT', path: '/api/admin/plan', handler: plan.put },
+  { method: 'POST', path: '/api/admin/plan', handler: plan.post },
+  { method: 'DELETE', path: '/api/admin/plan/:group/:week/:day/:slot', handler: plan.remove },
+  { method: 'POST', path: '/api/admin/recalculate', handler: admin.recalc },
+  { method: 'GET', path: '/api/admin/compliance', handler: admin.compliance },
+  { method: 'GET', path: '/api/admin/export', handler: admin.exportCsv },
+  { method: 'GET', path: '/api/admin/audit', handler: admin.getAudit },
 ];
 export function matchPath(template: string, path: string): Record<string, string> | null {
   const a = template.split('/');
@@ -95,6 +126,20 @@ export async function route(ctx: Context): Promise<Response> {
     if (ctx.user?.must_change_password && !allowed.includes(`${ctx.request.method} ${path}`))
       throw new HttpError(403, 'PASSWORD_CHANGE_REQUIRED', 'Please change your password.');
     response = await found.handler(ctx);
+    if (
+      response.ok &&
+      ctx.user &&
+      ctx.user.role !== 'rower' &&
+      ['POST', 'PUT', 'PATCH', 'DELETE'].includes(ctx.request.method) &&
+      !ctx.audited
+    )
+      audit(
+        ctx,
+        `${path.split('/')[2]}.${ctx.request.method.toLowerCase()}`,
+        ctx.params.id ?? path,
+        null,
+        { method: ctx.request.method, path },
+      );
   } catch (error) {
     response = errorResponse(error);
   }
