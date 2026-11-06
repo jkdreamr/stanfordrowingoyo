@@ -1,6 +1,22 @@
 import { formatMeters as meters, formatSplit as split } from '../../../shared/math';
 import { addDays, today, TIME_ZONE } from '../../../shared/dates';
 const valid = (n: number) => Number.isFinite(n) && n >= 0;
+export function formatNumber(value: number, digits = 0) {
+  return Number.isFinite(value)
+    ? value.toLocaleString('en-US', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
+      })
+    : '—';
+}
+export function formatPercent(value: number) {
+  return `${formatNumber(value)}%`;
+}
+export function formatWeekday(date: string) {
+  return new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: TIME_ZONE }).format(
+    new Date(date + 'T12:00:00Z'),
+  );
+}
 export function formatMeters(n: number, compact = false) {
   return valid(n) ? meters(n, compact) : '—';
 }
@@ -56,8 +72,8 @@ export function formatShortDate(date: string): string {
     day: 'numeric',
   }).format(parsed);
 }
-export function formatEntryDate(date: string, now = new Date()) {
-  const current = today(now);
+export function formatEntryDate(date: string, now: Date | string = new Date()) {
+  const current = typeof now === 'string' ? now : today(now);
   return date === current
     ? 'Today'
     : date === addDays(current, -1)

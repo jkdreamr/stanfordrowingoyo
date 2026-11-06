@@ -1,20 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useAnnouncements, useConfig, useWeekStats } from '../../lib/queries';
-import { formatEMeters, formatEntryDate } from '../../lib/format';
-import { addDays } from '../../../../shared/dates';
+import { formatEMeters, formatEntryDate, formatNumber, formatPercent } from '../../lib/format';
+import { daysLeft as weekDaysLeft } from '../../lib/week';
 import { Card, ProgressRing, Skeleton } from '../ui';
 export function RightRail() {
   const { data: week, isError } = useWeekStats();
   const { data: config } = useConfig();
   const { data: announcements = [] } = useAnnouncements();
-  const daysLeft = config
-    ? Math.max(
-        0,
-        Math.round(
-          (Date.parse(addDays(config.current_week_start, 7)) - Date.parse(config.today)) / 86400000,
-        ),
-      )
-    : null;
+  const daysLeft = config ? weekDaysLeft(config.today, config.current_week_start) : null;
   return (
     <aside className="shell-rail" aria-label="Team Overview">
       <Card>
@@ -23,8 +16,8 @@ export function RightRail() {
           <>
             <div className="my-6 flex justify-center">
               <ProgressRing value={week.total_m} max={week.target_m} label="Weekly Target">
-                <span className="text-title1">{Math.round(week.percent)}%</span>
-                <span className="text-caption text-muted">Of Target</span>
+                <span className="text-title1">{formatPercent(week.percent)}</span>
+                <span className="text-caption text-muted">of target</span>
               </ProgressRing>
             </div>
             <p className="text-center text-subhead">
@@ -32,7 +25,11 @@ export function RightRail() {
             </p>
             <p className="mt-1 text-center text-footnote text-muted">
               E-meters
-              {daysLeft !== null ? ` · ${daysLeft} ${daysLeft === 1 ? 'Day' : 'Days'} Left` : ''}
+              {daysLeft !== null
+                ? daysLeft === 1
+                  ? ' · Last day'
+                  : ` · ${formatNumber(daysLeft)} days left`
+                : ''}
             </p>
             <Link
               to="/"

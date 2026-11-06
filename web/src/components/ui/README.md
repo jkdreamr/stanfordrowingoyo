@@ -10,7 +10,7 @@ Import from `components/ui`. Preview at `/dev/kit` in development only. Wrap the
 - Cardinal fills: #8C1515 / #C0352B, pressed #6F1010 / #8C1515. Use `accent-ink` for text (dark #F18B83), not the dark cardinal fill. White button text on dark cardinal meets 4.5:1
 - Semantic danger: #D70015 light / #FF5C52 dark, used for destructive button text on surface-2 (4.78:1 light / 4.70:1 dark). Dark is slightly lighter than iOS #FF453A to meet text contrast. Plain buttons remain unfilled accent-ink
 - No tracked uppercase, monospace labels, emoji, gradients, glows, colored shadows, arrow glyphs in buttons, keyboard chips, transition-all, hover scaling, pulse/ping loops, exclamation marks, greeting headlines or trailing periods on labels
-- Title Case labels and actions. Lucide only, stroke 1.75, 20px inline/row icons and 24px navigation icons. Decorative icons must be hidden from assistive technology
+- Title Case buttons, labels and titles. Sentence-like prompts, hints, descriptions and feedback use sentence case: “New to the team?”, “Already registered?”, “Session saved”. Lucide only, stroke 1.75, 20px inline/row icons and 24px navigation icons. Decorative icons must be hidden from assistive technology
 - System font stack; weights 400/500/600 only. Tailwind type keys: `large-title` 34/41 600, `title1` 28/34 600, `title2` 22/28 600, `title3` 20/25 600, `headline` 17/22 600, `body` 17/22, `callout` 16/21, `subhead` 15/20, `footnote` 13/18, `caption` 12/16. Inputs are at least 16px; numbers are tabular
 - 4px spacing grid. Controls radius 10px, groups/cards 12px, sheet tops 16px. Touch targets at least 44px; small buttons have 36px visual bounds and a 44px hit area, so preserve their 4px vertical margin
 - Motion uses cubic-bezier(0.2, 0.8, 0.2, 1), 150ms feedback, 250ms enter; exits are immediate. Reduced motion disables animation/transition. Skeletons are completely static
@@ -18,6 +18,27 @@ Import from `components/ui`. Preview at `/dev/kit` in development only. Wrap the
 - Fixed layouts own safe-area insets. Sheet respects bottom inset; PageHeader respects top inset. Screen shells must reserve space for their fixed tab bars. Toasts sit above the mobile tab bar, bottom-center on desktop
 
 ## Components
+
+### Core-screen patterns
+
+| Component    | Props and use                                                                                                                                                                                   |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TaskHeader   | `title`, `leading`, `trailing`: sticky compact task bar with a single h1, Cancel on the left and Save on the right                                                                              |
+| ActionCard   | `to`, accessible `label`, `children`: a whole-card router link, never nest other controls inside                                                                                                |
+| Disclosure   | `title`, controlled `open`, `onChange`, `children`: 44px+ disclosure button with aria-expanded and a wired hidden content region                                                                |
+| ConfirmSheet | `open`, `onClose`, `onConfirm`, `title`, `body`, `confirmLabel`, optional `loading`: destructive confirmation with a safe cancel action                                                         |
+| PhotoPicker  | controlled `photos: {key,url,id?}[]`, `onAdd(File[])`, `onRemove(key)`, optional `max=4`, `disabled`: native file picker and removable previews; pair with `usePhotos` to resize/upload on Save |
+| ApiImage     | `imageId`, `alt`, optional `onError`: loads API image blobs through the query layer and revokes its object URL on cleanup; also works with the development fetch mock                           |
+
+`<TaskHeader title="Log Session" leading={<Button variant="plain">Cancel</Button>} trailing={<Button type="submit" variant="plain">Save</Button>} />`
+
+`<Disclosure title="Add Details" open={open} onChange={setOpen}><TextField label="Time" /></Disclosure>`
+
+`<ActionCard to="/me/target" label="Change weekly target"><ProgressRing value={48000} max={80000} label="Weekly Target" /></ActionCard>`
+
+Target-hit text uses `--highlight-ink` (#B43900 light / #FF905C dark) for readable orange text; the ring retains `--highlight`. Photo decoding honors EXIF orientation, caps the long side at 1600px and encodes JPEG at 0.82; profile photos are center-cropped to a maximum 512px square. Processing/upload errors leave the form and its selected files intact.
+
+`formatNumber(value, digits=0)` formats factors, counts and percentages without raw floats. `formatPercent(value)` adds `%`; `formatWeekday(date)` uses LA dates. Pass `config.today` as the second argument to `formatEntryDate` on API-backed screens. `daysLeft` includes Sunday; `finishWeek` always uses API-configured factors.
 
 Native attributes are supported where stated. All callbacks are controlled: update the corresponding value in the parent. Field labels are mandatory; hint and error are joined through aria-describedby and errors set aria-invalid.
 
