@@ -5,3 +5,6 @@ dist/
 .env*
 *.log
 .DS_Store
+e2e/.auth/
+playwright-report/
+test-results/

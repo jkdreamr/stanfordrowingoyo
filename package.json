@@ -10,7 +10,10 @@
   "scripts": {
     "dev": "npm run build -w web && concurrently -k \"wrangler dev\" \"npm run dev -w web\"",
     "build": "npm run build -w web && wrangler deploy --dry-run",
-    "typecheck": "npm run typecheck --workspaces",
+    "typecheck": "npm run typecheck --workspaces && tsc -p scripts/tsconfig.json && tsc -p e2e/tsconfig.json",
+    "e2e": "playwright test",
+    "e2e:install": "playwright install --with-deps chromium webkit",
+    "load": "node scripts/load/index.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -20,6 +23,8 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261104.1",
     "@eslint/js": "^9.39.0",
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^24.19.2",
     "concurrently": "^9.2.1",
     "eslint": "^9.39.0",
     "prettier": "^3.9.10",
