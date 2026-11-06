@@ -47,7 +47,7 @@ it('opens a deep-linked calculator and replaces the tab query on selection', asy
   expect(screen.getAllByRole('tab')).toHaveLength(4);
   fireEvent.change(screen.getByLabelText('Best 6k Split'), { target: { value: 'invalid' } });
   expect(screen.getByText('Enter a split like 1:45.0')).toBeTruthy();
-  fireEvent.click(screen.getByRole('tab', { name: 'Guidance' }));
+  fireEvent.click(screen.getByRole('tab', { name: 'Guide' }));
   await screen.findByText('OYO Workouts Per Fortnight');
   expect(router.state.location.search).toBe('?tab=guidance');
   expect(router.state.historyAction).toBe('REPLACE');

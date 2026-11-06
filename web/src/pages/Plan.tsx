@@ -31,8 +31,8 @@ const MODES = [
 ] as const;
 const NAMES = {
   schedule: 'Schedule',
-  guidance: 'Guidance',
-  menu: 'Workout Menu',
+  guidance: 'Guide',
+  menu: 'Workouts',
   calculator: 'Calculator',
 };
 type TabKey = keyof typeof NAMES;
