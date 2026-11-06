@@ -1,4 +1,4 @@
-import type { Api } from '../../shared/types.ts';
+import type { LoadApi as Api } from './contract.ts';
 import type { Sample } from './stats.ts';
 import { routeTemplate } from './stats.ts';
 
@@ -32,6 +32,7 @@ export class Client {
     if (options.query)
       path += `?${new URLSearchParams(Object.entries(options.query).map(([k, v]) => [k, String(v)]))}`;
     const headers = new Headers();
+    if (method !== 'GET') headers.set('X-OYO-CSRF', '1');
     headers.set('Cookie', [...this.cookies].map(([k, v]) => `${k}=${v}`).join('; '));
     const raw = options.body instanceof Blob;
     if (options.body !== undefined)

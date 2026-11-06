@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto';
 import { test as base, expect } from '@playwright/test';
 import type { BrowserContext, Page } from '@playwright/test';
 import type { Api, User } from '../shared/types';
+import { csrfHeaders } from './api';
 
 interface Bootstrap {
   teamCode: string;
@@ -55,7 +56,10 @@ export const test = base.extend<Fixtures>({
         password,
         team_code: bootstrap.teamCode,
       };
-      const response = await context.request.post('/api/auth/signup', { data: body });
+      const response = await context.request.post('/api/auth/signup', {
+        data: body,
+        headers: csrfHeaders,
+      });
       await expect(response).toBeOK();
       const user: User = await response.json();
       return { context, page: await context.newPage(), user, password };

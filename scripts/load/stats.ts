@@ -3,11 +3,12 @@ export interface Sample {
   endpoint: string;
   ms: number;
   status: number;
+  expected?: boolean;
 }
 export function routeTemplate(method: string, path: string): string {
   const url = new URL(path, 'http://localhost');
   const route = url.pathname.replace(
-    /^(\/api\/(?:entries|images|comments|users|admin\/users))\/[^/]+/,
+    /^(\/api\/(?:entries|images|comments|users|admin\/(?:users|roster)))\/[^/]+/,
     '$1/:id',
   );
   const metric = url.pathname === '/api/leaderboard' ? url.searchParams.get('metric') : null;

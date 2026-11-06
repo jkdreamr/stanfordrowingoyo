@@ -4,9 +4,14 @@ import type { Options } from './args.ts';
 import type { Sample } from './stats.ts';
 import { Client, RequestError } from './http.ts';
 import { makeJpeg } from './jpeg.ts';
+import { bootstrapAdmin, prepareRoster, deactivateUsers, loadEmail, loadName } from './roster.ts';
+import type { ClaimSignup, LoadRosterRow } from './contract.ts';
 
 export function random(seed: number) {
   let state = seed >>> 0;
+  state = Math.imul(state ^ (state >>> 16), 0x21f0aaad);
+  state = Math.imul(state ^ (state >>> 15), 0x735a2d97);
+  state = (state ^ (state >>> 15)) >>> 0;
   return () => {
     state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
     return state / 4294967296;
@@ -18,37 +23,38 @@ export async function authenticate(
   password: string,
   name: string,
   teamCode?: string,
+  claim?: Pick<ClaimSignup, 'roster_id' | 'group_key'>,
 ): Promise<User> {
   try {
     return await client.request('POST /api/auth/login', { body: { email, password } });
   } catch (error) {
     if (!(error instanceof RequestError) || ![401, 404].includes(error.status)) throw error;
     return client.request('POST /api/auth/signup', {
-      body: { email, password, name, ...(teamCode ? { team_code: teamCode } : {}) },
+      body: claim
+        ? { email, password, team_code: teamCode!, ...claim }
+        : { email, password, name, ...(teamCode ? { team_code: teamCode } : {}) },
     });
   }
 }
-export async function adminClient(options: Options, samples: Sample[]) {
-  if (!options.adminPassword)
-    throw new Error('--admin-password or LOAD_ADMIN_PASSWORD is required for admin access');
-  const client = new Client(options.baseUrl, samples, 'setup');
-  await authenticate(client, options.adminEmail, options.adminPassword, 'Load Test Admin');
-  return client;
-}
 export async function cleanup(options: Options, samples: Sample[]) {
-  const client = await adminClient(options, samples);
+  const { client, rosterFlow } = await bootstrapAdmin(options, samples);
   client.scenario = 'cleanup';
-  const users = await client.request('GET /api/admin/users');
-  let count = 0;
-  for (const user of users)
-    if (/^loadtest\+\d+@example\.com$/.test(user.email)) {
-      await client.request('PATCH /api/admin/users/:id', {
-        id: user.id,
-        body: { active: false, on_leaderboard: false },
-      });
-      count++;
-    }
-  console.log(`Deactivated ${count} load-test users.`);
+  if (rosterFlow) {
+    const rows = await client.request('GET /api/admin/roster');
+    let unlinked = 0;
+    let deleted = 0;
+    for (const row of rows)
+      if (/^Load Test \d+$/.test(row.name)) {
+        if (row.claimed_by_user_id) {
+          await client.request('POST /api/admin/roster/:id/unlink', { id: row.id });
+          unlinked++;
+        }
+        await client.request('DELETE /api/admin/roster/:id', { id: row.id });
+        deleted++;
+      }
+    console.log(`Unlinked ${unlinked} and deleted ${deleted} load-test roster rows.`);
+  }
+  await deactivateUsers(client, await client.request('GET /api/admin/users'));
 }
 interface Rower {
   client: Client;
@@ -63,10 +69,10 @@ export async function runScenarios(
   samples: Sample[],
   timings: Record<string, number>,
 ) {
-  let teamCode = options.teamCode;
-  if (!teamCode)
-    teamCode = (await (await adminClient(options, samples)).request('GET /api/admin/settings'))
-      .team_code;
+  const { client: admin, teamCode, rosterFlow } = await bootstrapAdmin(options, samples);
+  const roster = rosterFlow
+    ? await prepareRoster(admin, options.users)
+    : new Map<number, LoadRosterRow>();
   const rowers: Rower[] = Array.from({ length: options.users }, (_, i) => ({
     client: new Client(options.baseUrl, samples, 'session'),
     rng: random(options.seed + i),
@@ -77,10 +83,16 @@ export async function runScenarios(
     if (!r.user)
       r.user = await authenticate(
         r.client,
-        `loadtest+${r.n}@example.com`,
+        loadEmail(r.n),
         options.password,
-        `Load Test ${r.n}`,
+        loadName(r.n),
         teamCode,
+        rosterFlow
+          ? {
+              roster_id: roster.get(r.n)!.id,
+              group_key: (['frosh', 'normal', 'u23'] as const)[Math.floor(r.rng() * 3)],
+            }
+          : undefined,
       );
   }
   async function post(r: Rower, date: string, images: boolean) {

@@ -22,6 +22,8 @@ it('keeps cookies isolated and handles JSON, binary and empty responses', async 
   expect(await client.request('GET /api/me')).toMatchObject({ id: 'u' });
   expect(await client.request('POST /api/entries/:id/kudos', { id: 'x' })).toBeUndefined();
   expect(fetcher.mock.calls[1][1].headers.get('Cookie')).toBe('oyo_session=abc');
+  expect(fetcher.mock.calls[1][1].headers.get('X-OYO-CSRF')).toBe('1');
+  expect(fetcher.mock.calls[0][1].headers.has('X-OYO-CSRF')).toBe(false);
   const other = new Client('http://localhost', samples, 'session');
   expect((await other.request('GET /api/images/:id', { id: 'x' })).size).toBe(2);
   expect(fetcher.mock.calls[2][1].headers.get('Cookie')).toBe('');
@@ -70,6 +72,8 @@ it('cleanup patches only exact synthetic addresses and handles an empty roster',
     const fetcher = vi
       .fn()
       .mockResolvedValueOnce(new Response('{}'))
+      .mockResolvedValueOnce(Response.json({ team_code: 'CODE' }))
+      .mockResolvedValueOnce(new Response('{}', { status: 404 }))
       .mockResolvedValueOnce(Response.json(users))
       .mockResolvedValue(new Response('{}'));
     vi.stubGlobal('fetch', fetcher);
@@ -77,10 +81,10 @@ it('cleanup patches only exact synthetic addresses and handles an empty roster',
       parseOptions(['--base-url', 'http://localhost', '--admin-password', 'password']),
       [],
     );
-    expect(fetcher).toHaveBeenCalledTimes(users.length ? 3 : 2);
+    expect(fetcher).toHaveBeenCalledTimes(users.length ? 5 : 4);
     if (users.length) {
-      expect(fetcher.mock.calls[2][0]).toBe('http://localhost/api/admin/users/yes');
-      expect(JSON.parse(fetcher.mock.calls[2][1].body)).toEqual({
+      expect(fetcher.mock.calls[4][0]).toBe('http://localhost/api/admin/users/yes');
+      expect(JSON.parse(fetcher.mock.calls[4][1].body)).toEqual({
         active: false,
         on_leaderboard: false,
       });

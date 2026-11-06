@@ -3,6 +3,7 @@ import type { Api, Modality, Zone } from '../shared/types';
 import { equivalentMeters, formatMeters } from '../shared/math';
 import { expect } from './fixtures';
 import type { Rower } from './fixtures';
+import { csrfHeaders } from './api';
 
 export { equivalentMeters, formatMeters };
 export async function logEntry(
@@ -35,7 +36,10 @@ export async function seedEntry(rower: Rower, title: string, distance = 10000) {
     notes: 'E2E workout',
     visibility: 'team',
   };
-  const response = await rower.context.request.post('/api/entries', { data: body });
+  const response = await rower.context.request.post('/api/entries', {
+    data: body,
+    headers: csrfHeaders,
+  });
   await expect(response).toBeOK();
   return (await response.json()) as Api['POST /api/entries']['response'];
 }

@@ -5,7 +5,7 @@ routes must implement `shared/types.ts`; the current scaffold returns 501 and a 
 will report those errors and exit 1, without retrying unsupported auth routes.
 
 ```sh
-npm run load -- --base-url http://127.0.0.1:8787 --users 60 --team-code DEV_CODE
+LOAD_ADMIN_PASSWORD='your-local-admin-password' npm run load -- --base-url http://localhost:8787 --users 60
 LOAD_ADMIN_PASSWORD='your-local-admin-password' npm run load -- --base-url http://localhost:8787 --seed 42 --json load-report.json
 npm run load -- --base-url http://localhost:8787 --cleanup
 ```
@@ -22,7 +22,7 @@ npm run load -- --base-url http://localhost:8787 --cleanup
 | `--p95-ms`                    | 800; per-endpoint nearest-rank p95 ceiling                          |
 | `--team-code`                 | Otherwise authenticate admin and read settings                      |
 | `--admin-email`               | joskoo@stanford.edu; must be roster-seeded for initial signup       |
-| `--admin-password`            | Or `LOAD_ADMIN_PASSWORD`; required for settings/cleanup             |
+| `--admin-password`            | Or `LOAD_ADMIN_PASSWORD`; required for bootstrap and cleanup        |
 | `--password`                  | `loadtest-password-1`, used for synthetic rowers                    |
 | `--seed`                      | 1; deterministic per-rower PRNG, independent of scheduling          |
 | `--json`                      | Optional file for raw samples and aggregate report (no credentials) |
@@ -42,6 +42,23 @@ cookies even on local HTTP. Login is tried first, signup only after 401/404;
 there are at most two auth attempts per rower, no retry storms. Use a fresh local
 database or consistent passwords. Do not run concurrently against the same seed
 emails: signup conflicts are reported rather than adding a third auth attempt.
+Every non-GET request sends `X-OYO-CSRF: 1`, including bodyless kudos/unlink/delete.
+
+Admin bootstrap is shared by all rowers: one login attempt, signup only if missing.
+Admin signup sends email/password first; a legacy 400 validation response allows
+one named-signup fallback (the old backend validates name before counting attempts).
+The admin session is reused for all roster operations. A supplied `--team-code`
+skips settings discovery, not admin authentication.
+
+After bootstrap, `POST /api/auth/roster` probes the team code. Only 404/405/501 mean
+legacy name/email signup; other errors stop the run. Supported APIs get one
+synthetic roster row per rower, `Load Test 01`, `Load Test 02`, etc., with null
+email/group and role rower. Reuse unclaimed matching names or rows already linked
+to the corresponding `loadtest+N@example.com` user; refuse another user's claim.
+Signup claims that row with a seeded random group. Real seeded names are never
+claimed. Future roster request types live in `contract.ts` until the shared API
+contract lands. Sequential rower seeds are mixed before the PRNG to avoid clustered
+burst offsets; scheduling does not affect random choices.
 
 Session rowers create 1–3 workouts, occasionally upload a generated ~300 KiB
 16x16 baseline JPEG, paginate the feed up to three pages, interact, and query
@@ -55,12 +72,18 @@ error counts (including 4xx), wall time and throughput overall and by scenario.
 Exit 2 means invalid CLI arguments; exit 1 means p95 exceeded, 5xx, network errors,
 or an internal/setup failure. Expected auth 4xx are counted but do not fail the
 latency/status checks. A failed rower stops its workflow to avoid cascading errors.
+The unsupported roster probe is marked `expected` in raw samples; its 501 is
+reported but exempt from the 5xx failure check. All other 5xx still fail.
 
 ## Cleanup and local reset
 
 Cleanup authenticates as admin, lists users, and deactivates **only** emails
 matching `/^loadtest\+\d+@example\.com$/`, also clearing `on_leaderboard`. It does
 not delete workouts, images, or comments, or reactivate accounts on the next run.
+On roster APIs it first unlinks claimed rows named `/^Load Test \d+$/`, then
+deletes matching synthetic rows (including unclaimed ones). Other roster rows
+are untouched. Legacy APIs only deactivate matching users. After cleanup use
+fresh state rather than trying to claim a new row with an inactive existing email.
 For local Wrangler development the simplest full reset is stopping Wrangler and
 deleting its persisted state directory (default `.wrangler/state`, or the directory
 you explicitly supplied with `--persist-to`, e.g. `~/oyo-load-state`). Never delete

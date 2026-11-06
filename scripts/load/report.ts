@@ -12,7 +12,7 @@ export function report(
   for (const row of endpoints)
     if (row.p95 > threshold)
       failures.push(`${row.endpoint} p95 ${row.p95.toFixed(1)} ms > ${threshold} ms`);
-  if (samples.some((s) => s.status >= 500)) failures.push('5xx responses occurred');
+  if (samples.some((s) => s.status >= 500 && !s.expected)) failures.push('5xx responses occurred');
   if (samples.some((s) => s.status === 0)) failures.push('Network errors occurred');
   function print(label: string, subset: Sample[], seconds: number) {
     console.log(

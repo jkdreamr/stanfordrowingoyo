@@ -32,12 +32,16 @@ Node 24 required. Local-only by default; remote targets require `--allow-remote`
 and production-looking hosts also require `--i-know-this-is-production`.
 Default pass criteria: every endpoint p95 ≤ 800 ms (`--p95-ms`), no 5xx or network
 errors. Reported 4xx do not fail those checks; internal/setup failures also exit 1.
-The scaffold's 501 responses fail as expected.
+The scaffold's 501 responses fail as expected, except the expected roster probe.
 
-Seeds `loadtest+N@example.com` users. Supply `--team-code`, or admin credentials
-via `LOAD_ADMIN_PASSWORD` / `--admin-password` to discover it. Teardown with
-`--cleanup` and the same base URL/admin credentials: only matching seed users are
-deactivated, not their content. For a full local reset, stop Wrangler and delete
+Seeds `loadtest+N@example.com` users. Admin credentials (`LOAD_ADMIN_PASSWORD` /
+`--admin-password`) are required once per run; `--team-code` optionally skips code
+discovery. A roster probe selects legacy signup on 404/405/501, otherwise creates
+or reuses only synthetic `Load Test NN` roster rows and claims them with random
+groups. Never claims real seeded names. Every non-GET load/E2E API request sends
+`X-OYO-CSRF: 1`. Teardown with `--cleanup` and the same base URL/admin credentials:
+unlink/delete synthetic roster rows on roster APIs, and deactivate matching seed
+users in either flow; content remains. For a full local reset, stop Wrangler and delete
 its persisted state directory (`.wrangler/state` or the explicit `--persist-to`
 directory). Use disposable local state. See `scripts/load/README.md` for flags.
 

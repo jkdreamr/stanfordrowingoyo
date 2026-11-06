@@ -1,5 +1,6 @@
 import { test, expect } from './fixtures';
 import { seedEntry } from './helpers';
+import { csrfHeaders } from './api';
 
 test('weekly percent ranks this test’s rowers relatively', async ({ makeRower }) => {
   test.fixme(
@@ -9,7 +10,10 @@ test('weekly percent ranks this test’s rowers relatively', async ({ makeRower 
   const rowers = await Promise.all([makeRower(), makeRower(), makeRower()]);
   for (const [i, rower] of rowers.entries()) {
     await expect(
-      await rower.context.request.put('/api/me/target', { data: { target_m: 50000 } }),
+      await rower.context.request.put('/api/me/target', {
+        data: { target_m: 50000 },
+        headers: csrfHeaders,
+      }),
     ).toBeOK();
     await seedEntry(rower, `Leaderboard ${rower.user.id}`, (i + 1) * 10000);
   }

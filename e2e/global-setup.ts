@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { request, expect } from '@playwright/test';
 import type { FullConfig } from '@playwright/test';
 import type { Api } from '../shared/types';
+import { csrfHeaders } from './api';
 
 export default async function globalSetup(config: FullConfig) {
   const directory = new URL('./.auth/', import.meta.url);
@@ -19,10 +20,11 @@ export default async function globalSetup(config: FullConfig) {
       password: process.env.E2E_ADMIN_PASSWORD ?? 'e2e-dev-admin-password-1',
     };
     let response = await api.post('/api/auth/signup', {
+      headers: csrfHeaders,
       data: { ...credentials, name: 'E2E Admin' } satisfies Api['POST /api/auth/signup']['request'],
     });
     if (response.status() === 409)
-      response = await api.post('/api/auth/login', { data: credentials });
+      response = await api.post('/api/auth/login', { data: credentials, headers: csrfHeaders });
     if (response.status() === 501) {
       console.log('E2E bootstrap: backend auth returns 501; backend-dependent tests will skip.');
       return;
