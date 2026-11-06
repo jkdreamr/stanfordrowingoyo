@@ -16,7 +16,7 @@ export default async function globalSetup(config: FullConfig) {
   if (process.env.E2E_MOCK === '1') {
     await writeFile(
       new URL('bootstrap.json', directory),
-      JSON.stringify({ teamCode: 'cardinal-oyo', backendReady: true, rosterFlow: true }),
+      JSON.stringify({ teamCode: 'cardinal-oyo', backendReady: true }),
     );
     return;
   }

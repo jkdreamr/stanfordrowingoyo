@@ -2,10 +2,6 @@ import { test, expect } from './fixtures';
 import { completeSignup, openSettings } from './helpers';
 
 test('join-code signup, logout, and login', async ({ page, bootstrap, newRowerSignup }) => {
-  test.fixme(
-    !bootstrap.rosterFlow,
-    'POST /api/auth/roster is required by owner signup; legacy name-based signup is unsupported',
-  );
   const signup = await newRowerSignup();
   const { email, password } = signup;
   await page.goto('/signup');
