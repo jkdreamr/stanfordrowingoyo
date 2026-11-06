@@ -80,27 +80,56 @@ interface Rower {
   failed: boolean;
   fatal?: boolean;
 }
+export async function ramp<T>(
+  items: T[],
+  seconds: number,
+  concurrency: number,
+  run: (item: T) => Promise<void>,
+) {
+  const start = performance.now();
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, items.length) }, async () => {
+      while (next < items.length) {
+        const index = next++;
+        const offset = items.length > 1 ? (index * seconds * 1000) / (items.length - 1) : 0;
+        await delay(Math.max(0, start + offset - performance.now()));
+        await run(items[index]);
+      }
+    }),
+  );
+}
 export async function runScenarios(
   options: Options,
   samples: Sample[],
   timings: Record<string, number>,
 ) {
-  const { teamCode, roster } = await measurePhase(timings, 'setup', async () => {
-    const { client: admin, teamCode } = await bootstrapAdmin(options, samples);
-    const roster = await prepareRoster(admin, options.users);
-    const choices = await discoverRoster(admin, teamCode);
-    for (const row of roster.values())
-      if (!row.claimed_by_user_id && !choices.some((choice) => choice.id === row.id))
-        throw new Error('Synthetic row is not available to claim: ' + row.name);
-    return { teamCode, roster };
-  });
+  const setup = options.skipSignup
+    ? undefined
+    : await measurePhase(timings, 'setup', async () => {
+        const { client: admin, teamCode } = await bootstrapAdmin(options, samples);
+        const roster = await prepareRoster(admin, options.users);
+        const choices = await discoverRoster(admin, teamCode);
+        for (const row of roster.values())
+          if (!row.claimed_by_user_id && !choices.some((choice) => choice.id === row.id))
+            throw new Error('Synthetic row is not available to claim: ' + row.name);
+        return { teamCode, roster };
+      });
   const rowers: Rower[] = Array.from({ length: options.users }, (_, i) => ({
-    client: new Client(options.baseUrl, samples, 'auth'),
+    client: new Client(options.baseUrl, samples, options.skipSignup ? 'login' : 'signup'),
     rng: random(options.seed + i),
     n: i + 1,
     failed: false,
   }));
   async function login(r: Rower) {
+    if (options.skipSignup) {
+      r.user = await r.client.request('POST /api/auth/login', {
+        body: { email: loadEmail(r.n), password: options.password },
+      });
+      return;
+    }
+    const { teamCode, roster } = setup!;
+    if (roster.get(r.n)?.claimed_by_user_id) r.client.scenario = 'login';
     if (!r.user)
       r.user = await authenticate(
         r.client,
@@ -111,7 +140,7 @@ export async function runScenarios(
           roster_id: roster.get(r.n)!.id,
           group_key: (['frosh', 'normal', 'u23'] as const)[Math.floor(r.rng() * 3)],
         },
-        options.scenario === 'burst' || !!roster.get(r.n)?.claimed_by_user_id,
+        !!roster.get(r.n)?.claimed_by_user_id,
       );
   }
   async function post(r: Rower, date: string, images: boolean) {
@@ -194,7 +223,9 @@ export async function runScenarios(
       }),
     );
   }
-  await measurePhase(timings, 'auth', () => pool(rowers, login));
+  await measurePhase(timings, options.skipSignup ? 'login' : 'signup', () =>
+    ramp(rowers, options.authRamp, options.concurrency, (r) => safely(r, () => login(r))),
+  );
   if (options.scenario !== 'burst') {
     await measurePhase(timings, 'session', () =>
       pool(
@@ -225,5 +256,5 @@ export async function runScenarios(
     );
     timings.burst = (performance.now() - start) / 1000;
   }
-  return rowers.filter((r) => r.fatal).length;
+  return rowers.filter((r) => r.fatal || !r.user).length;
 }

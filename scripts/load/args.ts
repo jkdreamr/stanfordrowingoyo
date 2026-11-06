@@ -4,6 +4,7 @@ export const usage = `Usage: node scripts/load/index.ts --base-url URL [options]
 Options: --users 60 --scenario session|burst|both --burst-window 60
   --concurrency N --p95-ms 800 --team-code CODE --admin-email EMAIL
   --admin-password PASSWORD (or LOAD_ADMIN_PASSWORD) --password PASSWORD
+  --auth-ramp 60 --skip-signup
   --seed N --json FILE --cleanup --allow-remote --i-know-this-is-production`;
 
 export function parseOptions(args: string[], env: NodeJS.ProcessEnv = process.env) {
@@ -14,6 +15,8 @@ export function parseOptions(args: string[], env: NodeJS.ProcessEnv = process.en
       users: { type: 'string', default: '60' },
       scenario: { type: 'string', default: 'both' },
       'burst-window': { type: 'string', default: '60' },
+      'auth-ramp': { type: 'string', default: '60' },
+      'skip-signup': { type: 'boolean' },
       concurrency: { type: 'string' },
       'p95-ms': { type: 'string', default: '800' },
       'team-code': { type: 'string' },
@@ -46,13 +49,13 @@ export function parseOptions(args: string[], env: NodeJS.ProcessEnv = process.en
     throw new Error('Production-looking host refused: pass --i-know-this-is-production');
   }
   function number(
-    name: 'users' | 'concurrency' | 'burst-window' | 'p95-ms' | 'seed',
+    name: 'users' | 'concurrency' | 'burst-window' | 'auth-ramp' | 'p95-ms' | 'seed',
     fallback?: string,
   ) {
     const n = Number(v[name] ?? fallback);
     if (
       !Number.isFinite(n) ||
-      n < (name === 'seed' || name === 'burst-window' ? 0 : 1) ||
+      n < (['seed', 'burst-window', 'auth-ramp'].includes(name) ? 0 : 1) ||
       !Number.isInteger(n)
     )
       throw new Error(`Invalid --${name}`);
@@ -60,11 +63,14 @@ export function parseOptions(args: string[], env: NodeJS.ProcessEnv = process.en
   }
   if (!['session', 'burst', 'both'].includes(v.scenario)) throw new Error('Invalid --scenario');
   if (v.password.length < 8) throw new Error('--password must be at least 8 characters');
+  if (v.cleanup && v['skip-signup']) throw new Error('--cleanup and --skip-signup conflict');
   return {
     baseUrl: url.origin,
     users: number('users'),
     scenario: v.scenario,
     burstWindow: number('burst-window'),
+    authRamp: number('auth-ramp'),
+    skipSignup: v['skip-signup'] ?? false,
     concurrency: number('concurrency', v.users),
     p95Ms: number('p95-ms'),
     seed: number('seed'),

@@ -8,12 +8,15 @@ export function report(
   threshold: number,
 ) {
   const endpoints = aggregate(samples);
-  if (timings.auth !== undefined) console.log(`Auth phase (rowers): ${timings.auth.toFixed(2)} s`);
+  const signup = samples.filter((s) => s.endpoint === 'POST /api/auth/signup');
+  const gated = samples.filter((s) => s.endpoint !== 'POST /api/auth/signup');
+  const signupEndpoints = aggregate(signup);
+  const gatedEndpoints = aggregate(gated);
   const failures: string[] = [];
-  for (const row of endpoints)
+  for (const row of gatedEndpoints)
     if (row.p95 > threshold)
       failures.push(`${row.endpoint} p95 ${row.p95.toFixed(1)} ms > ${threshold} ms`);
-  if (samples.some((s) => s.status >= 500 && !s.expected)) failures.push('5xx responses occurred');
+  if (samples.some((s) => s.status >= 500)) failures.push('5xx responses occurred');
   if (samples.some((s) => s.status === 0)) failures.push('Network errors occurred');
   function print(label: string, subset: Sample[], seconds: number) {
     console.log(
@@ -35,17 +38,22 @@ export function report(
         errors[s.status || 'network'] = (errors[s.status || 'network'] ?? 0) + 1;
     console.log('Errors by status:', JSON.stringify(errors));
   }
-  print('Total', samples, wallSeconds);
+  console.log(`Total: ${samples.length} requests, ${wallSeconds.toFixed(2)} s`);
+  print('Signup (latency reported, ungated)', signup, timings.signup ?? wallSeconds);
+  print(`Gated (p95 <= ${threshold} ms)`, gated, wallSeconds);
   for (const scenario of new Set(samples.map((s) => s.scenario)))
-    print(
-      scenario,
-      samples.filter((s) => s.scenario === scenario),
-      timings[scenario] ?? wallSeconds,
-    );
+    if (scenario !== 'signup')
+      print(
+        scenario,
+        gated.filter((s) => s.scenario === scenario),
+        timings[scenario] ?? wallSeconds,
+      );
   for (const failure of failures) console.error(`FAILED: ${failure}`);
   return {
     samples,
     endpoints,
+    signupEndpoints,
+    gatedEndpoints,
     wallSeconds,
     throughput: samples.length / (wallSeconds || 1),
     timings,

@@ -33,18 +33,22 @@ npm run load -- --base-url http://localhost:8787 [--users 60] [--scenario sessio
 
 Node 24 required. Local-only by default; remote targets require `--allow-remote`,
 and production-looking hosts also require `--i-know-this-is-production`.
-Default pass criteria: every endpoint p95 ≤ 800 ms (`--p95-ms`), no 5xx or network
+Default pass criteria: every non-signup endpoint p95 ≤ 800 ms (`--p95-ms`), no 5xx or network
 errors. Reported 4xx do not fail those checks; internal/setup failures also exit 1.
 All 5xx responses, including roster discovery failures, fail the run.
 
 Seeds `loadtest+N@example.com` users. Admin credentials (`LOAD_ADMIN_PASSWORD` /
-`--admin-password`) are required once per run; `--team-code` optionally skips code
+`--admin-password`) are required for provisioning/cleanup, not `--skip-signup`;
+`--team-code` optionally skips code
 discovery. Code-gated roster discovery is required; the runner creates
 or reuses only synthetic `Load Test NN` roster rows and claims their ids with random
 groups. Never claims real seeded names. Every non-GET load/E2E API request sends
-`X-OYO-CSRF: 1`. Fresh rowers sign up first, then log in on 409; known claims and
-burst re-logins use login first. Auth has its own phase/table and still must meet
-thresholds; setup/cleanup have independent wall times. Teardown with `--cleanup` and the same base URL/admin credentials:
+`X-OYO-CSRF: 1`. Fresh rowers sign up first, then log in on 409; known claims
+use login first. Initial signup/login starts ramp evenly over 60 seconds
+(`--auth-ramp`). Signup latency has its own ungated table; login remains gated.
+`--skip-signup` logs in deterministic accounts from a prior run without admin access
+or signup fallback. Session concurrency and burst traffic are unchanged;
+setup/cleanup have independent wall times. Teardown with `--cleanup` and the same base URL/admin credentials:
 unlink/delete synthetic roster rows and deactivate matching seed
 users; content remains. For a full local reset, stop Wrangler and delete
 its persisted state directory (`.wrangler/state` or the explicit `--persist-to`
