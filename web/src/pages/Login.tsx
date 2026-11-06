@@ -62,6 +62,9 @@ export default function Login() {
           Log In
         </Button>
       </form>
+      <p className="mt-5 text-footnote text-muted">
+        Ask a coxswain or coach to reset your password
+      </p>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-1 text-subhead">
         <span className="text-muted">New to the team?</span>
         <Link className="auth-text-link" to={`/signup?next=${encodeURIComponent(next)}`}>

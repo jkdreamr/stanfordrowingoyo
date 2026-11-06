@@ -1,5 +1,5 @@
 import { Activity } from 'lucide-react';
-import { useAnnouncements, useConfig, useWeekStats } from '../lib/queries';
+import { useAnnouncements, useConfig, useWeekStats, useTarget, useMe } from '../lib/queries';
 import {
   formatEMeters,
   formatEntryDate,
@@ -9,6 +9,9 @@ import {
   formatWeekday,
 } from '../lib/format';
 import { daysLeft, finishWeek } from '../lib/week';
+import { useEffect, useState } from 'react';
+import { Check } from 'lucide-react';
+import { clearTargetFinish, pendingTargetFinish } from '../lib/targetFinish';
 import {
   ActionCard,
   Button,
@@ -24,11 +27,23 @@ import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
 import { ModalityIcon } from '../components/shell/ModalityIcon';
 export default function Page() {
+  const { data: user } = useMe();
+  const { data: target } = useTarget();
   const configQuery = useConfig();
   const weekQuery = useWeekStats();
   const { data: announcements = [] } = useAnnouncements();
   const config = configQuery.data;
   const week = weekQuery.data;
+  const pending = user && week ? pendingTargetFinish(user.id, week.week_start) : undefined;
+  const finishKey = `${user?.id}:${week?.week_start}`;
+  const [heldFinish, setHeldFinish] = useState<{ key: string; value: typeof pending }>();
+  const finish = heldFinish?.key === finishKey ? heldFinish.value : pending;
+  useEffect(() => {
+    if (pending && user && week) {
+      setHeldFinish({ key: finishKey, value: pending });
+      clearTargetFinish(user.id, week.week_start);
+    }
+  }, [pending, user, week, finishKey]);
   if (!config || !week)
     return (
       <>
@@ -67,7 +82,13 @@ export default function Page() {
       <div className="screen-stack">
         <ActionCard to="/me/target" label="Weekly progress. Change your target">
           <div className="flex justify-center">
-            <ProgressRing size={168} value={week.total_m} max={week.target_m} label="Weekly Target">
+            <ProgressRing
+              size={168}
+              value={week.total_m}
+              previousValue={finish?.target === week.target_m ? finish.previous : undefined}
+              max={week.target_m}
+              label="Weekly Target"
+            >
               <span className="text-large-title">{formatPercent(week.percent)}</span>
               <span className="text-caption text-muted">of target</span>
             </ProgressRing>
@@ -78,11 +99,27 @@ export default function Page() {
           </p>
           <p className="mt-2 text-center text-subhead text-muted">
             {week.hit_target ? (
-              <span className="target-hit">Target hit</span>
+              <span className="target-hit inline-flex items-center gap-1">
+                <Check
+                  size={16}
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                  className={finish ? 'ui-finish-tick' : ''}
+                />
+                Target hit
+              </span>
             ) : (
               `${formatEMeters(remaining)} remaining`
             )}{' '}
             · {days === 1 ? 'Last day' : `${formatNumber(days)} days left`}
+          </p>
+          {finish && (
+            <span role="status" className="sr-only">
+              Weekly target hit
+            </span>
+          )}
+          <p className="mt-2 text-center text-caption text-muted">
+            {target?.source === 'personal' ? 'Personal target' : 'Group default'}
           </p>
         </ActionCard>
         {!week.hit_target && (

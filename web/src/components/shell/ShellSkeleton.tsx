@@ -1,7 +1,12 @@
 import { Skeleton } from '../ui';
 export function ShellSkeleton() {
   return (
-    <div role="status" aria-label="Loading Your Training" className="shell-loading">
+    <div
+      role="status"
+      aria-label="Loading Your Training"
+      aria-busy="true"
+      className="shell-loading"
+    >
       <div className="hidden lg:block">
         <Skeleton className="h-8 w-40" />
         <div className="mt-8 space-y-4">

@@ -250,7 +250,7 @@ export default function Signup() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
-              autoComplete="username"
+              autoComplete="email"
               autoCapitalize="none"
               spellCheck={false}
               required

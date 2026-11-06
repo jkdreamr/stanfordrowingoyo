@@ -1,5 +1,18 @@
 # OYO UI Kit
 
+Pattern reference: [Design Guide](../../../../docs/DESIGN_GUIDE.md) (merges independently). Architecture §7, owner taste rules and roster signup contract take precedence. Keep the owner's iOS type scale and orange completed ring; retain all ten inline zone choices for one-handed logging. Route crossfades are intentionally omitted to avoid snapshots of private/form content. Skeletons stay static, as required by the owner.
+
+## Semantic and Motion Tokens
+
+- `--oyo-accent-ink`, `--oyo-focus`, `--oyo-hover`, `--oyo-selected`, `--oyo-control-border`, `--oyo-highlight-ink`, `--oyo-skeleton` map to Tailwind `accent-ink`, `focus`, `hover`, `selected`, `control-border`, `highlight-ink`, `skeleton`
+- Ink aliases preserve the existing contrast-tested colors: dark accent ink `#F18B83`, light achievement ink `#B43900`, dark achievement ink `#FF905C`. Fields and neutral controls use a distinct control border; decorative dividers do not identify inputs
+- `--oyo-motion-{instant,press,fast,control,panel,sheet,exit,progress}`: 0/80/120/160/240/300/200/600ms. Tailwind exposes corresponding duration names. `--oyo-ease-{out,standard,in,linear}` supplies curves. Filled button presses scale to .98; tint/selection remain short
+- Native sheets enter in 300ms, exit in 200ms, with desktop .99 scale/fade. Focus, Escape and inertness come from native dialog; explicit Close is always available. No drag gesture is promised. Scroll locking is released on close/unmount
+- Rings mount at their actual value, interpolate changes for 600ms, never count up text. A confirmed current-week save crossing an unchanged target can reveal one finish tick; acknowledgement stores only user/week and a boolean, never training totals
+- Reduced motion is bounded to components: no transform, slide, sweep, spinner rotation or finish animation; all final information remains visible. Hover tint is fine-pointer only
+- Controls use 8px corners, cards/groups 12px, sheets 20px top corners; primary form submissions are at least 48px tall. Cards have a border, no shadow
+- The mobile Log control stays prominent but wholly in the bar, with a visible label. Sidebar is 232px; rail requires ≥1280px and preserves a ≥560px main column
+
 Import from `components/ui`. Preview at `/dev/kit` in development only. Wrap the application in `ThemeProvider` and `ToastProvider`, inside a router for navigation components. Components use native elements and semantic theme variables; do not replace them with screen-local lookalikes.
 
 ## Design Rules
@@ -12,8 +25,8 @@ Import from `components/ui`. Preview at `/dev/kit` in development only. Wrap the
 - No tracked uppercase, monospace labels, emoji, gradients, glows, colored shadows, arrow glyphs in buttons, keyboard chips, transition-all, hover scaling, pulse/ping loops, exclamation marks, greeting headlines or trailing periods on labels
 - Title Case buttons, labels and titles. Sentence-like prompts, hints, descriptions and feedback use sentence case: “New to the team?”, “Already registered?”, “Session saved”. Lucide only, stroke 1.75, 20px inline/row icons and 24px navigation icons. Decorative icons must be hidden from assistive technology
 - System font stack; weights 400/500/600 only. Tailwind type keys: `large-title` 34/41 600, `title1` 28/34 600, `title2` 22/28 600, `title3` 20/25 600, `headline` 17/22 600, `body` 17/22, `callout` 16/21, `subhead` 15/20, `footnote` 13/18, `caption` 12/16. Inputs are at least 16px; numbers are tabular
-- 4px spacing grid. Controls radius 10px, groups/cards 12px, sheet tops 16px. Touch targets at least 44px; small buttons have 36px visual bounds and a 44px hit area, so preserve their 4px vertical margin
-- Motion uses cubic-bezier(0.2, 0.8, 0.2, 1), 150ms feedback, 250ms enter; exits are immediate. Reduced motion disables animation/transition. Skeletons are completely static
+- 4px spacing grid. Controls radius 8px, groups/cards 12px, sheet tops 20px. Touch targets at least 44px; small buttons have 36px visual bounds and a 44px hit area, so preserve their 4px vertical margin
+- Motion uses the semantic tokens above; reduced motion disables component animation/transition. Skeletons reserve space immediately, appear after 150ms and remain completely static; reduced motion shows them immediately. LoadState offers Refresh after a ten-second wait
 - Focus-visible uses a 2px accent-ink outline with 2px offset. Selection and carets use cardinal
 - Fixed layouts own safe-area insets. Sheet respects bottom inset; PageHeader respects top inset. Screen shells must reserve space for their fixed tab bars. Toasts sit above the mobile tab bar, bottom-center on desktop
 
@@ -113,7 +126,7 @@ Headers and footers use Title Case footnotes, never uppercase. `to` wins over on
 
 `<Sheet open={open} onClose={() => setOpen(false)} title="Session Details" footer={<Button onClick={save}>Save</Button>}>...</Sheet>`
 
-Native dialog traps focus and makes background inert; focus returns on close. Esc, outside scrim, Close, or a downward 72px header/grabber swipe dismiss. Mobile bottom sheet, desktop centered at 1024px; body scrolls within 90dvh.
+Native dialog traps focus and makes background inert; focus returns on close. Esc, outside scrim and Close dismiss. No swipe/drag affordance. Mobile bottom sheet, desktop centered at 1024px; body scrolls within 85dvh (85vh fallback).
 
 ### TextField / NumberField / TextArea / Select
 

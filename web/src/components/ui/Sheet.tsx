@@ -15,56 +15,100 @@ export function Sheet({
   footer?: ReactNode;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
+  const opener = useRef<HTMLElement | null>(null);
+  const release = useRef<(() => void) | undefined>();
   const titleId = useId();
-  const start = useRef<number | null>(null);
   useEffect(() => {
     const dialog = ref.current!;
-    const previous = document.activeElement as HTMLElement | null;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
+    const close = () => {
+      dialog.close();
+      release.current?.();
+      release.current = undefined;
+      if (opener.current?.isConnected) opener.current.focus({ preventScroll: true });
+    };
+    if (open) {
+      if (!dialog.open) {
+        opener.current = document.activeElement as HTMLElement;
+        const overflow = document.body.style.overflow;
+        const padding = document.body.style.paddingRight;
+        const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.overflow = 'hidden';
+        if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
+        release.current = () => {
+          document.body.style.overflow = overflow;
+          document.body.style.paddingRight = padding;
+        };
+        dialog.showModal();
+      }
+      return;
+    }
+    if (!dialog.open) return;
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (reduced?.matches || typeof dialog.animate !== 'function') {
+      close();
+      return;
+    }
+    const desktop = window.matchMedia('(min-width: 1024px)').matches;
+    const duration =
+      parseFloat(getComputedStyle(dialog).getPropertyValue('--oyo-motion-exit')) || 200;
+    const animation = dialog.animate(
+      [
+        { opacity: 1, transform: 'none' },
+        { opacity: 0, transform: desktop ? 'scale(0.99)' : 'translateY(32px)' },
+      ],
+      {
+        duration,
+        easing: getComputedStyle(dialog).getPropertyValue('--oyo-ease-in').trim(),
+        fill: 'forwards',
+      },
+    );
+    let cancelled = false;
+    const finish = () => {
+      if (reduced?.matches) animation.finish();
+    };
+    reduced?.addEventListener('change', finish);
+    void animation.finished
+      .then(() => {
+        if (!cancelled) close();
+      })
+      .catch(() => {});
     return () => {
-      if (dialog.open) dialog.close();
-      if (open) previous?.focus();
+      cancelled = true;
+      animation.cancel();
+      reduced?.removeEventListener('change', finish);
     };
   }, [open]);
+  useEffect(() => {
+    const dialog = ref.current;
+    return () => {
+      if (dialog?.open) dialog.close();
+      release.current?.();
+      release.current = undefined;
+      if (opener.current?.isConnected) opener.current.focus({ preventScroll: true });
+    };
+  }, []);
   return (
     <dialog
       ref={ref}
       className="ui-sheet"
       aria-labelledby={titleId}
-      onCancel={(e) => {
-        e.preventDefault();
+      onCancel={(event) => {
+        event.preventDefault();
         onClose();
       }}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          const r = e.currentTarget.getBoundingClientRect();
-          if (
-            e.clientX < r.left ||
-            e.clientX > r.right ||
-            e.clientY < r.top ||
-            e.clientY > r.bottom
-          )
-            onClose();
-        }
+      onClick={(event) => {
+        if (event.target !== event.currentTarget) return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        )
+          onClose();
       }}
     >
-      <header
-        className="ui-sheet-header"
-        onPointerDown={(e) => {
-          if ((e.target as HTMLElement).closest('button')) return;
-          start.current = e.clientY;
-          e.currentTarget.setPointerCapture(e.pointerId);
-        }}
-        onPointerCancel={() => {
-          start.current = null;
-        }}
-        onPointerUp={(e) => {
-          if (start.current !== null && e.clientY - start.current > 72) onClose();
-          start.current = null;
-        }}
-      >
-        <div className="ui-grabber" />
+      <header className="ui-sheet-header">
         <div className="flex items-center justify-between gap-4">
           <h2 id={titleId} className="text-title3">
             {title}

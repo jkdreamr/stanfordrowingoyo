@@ -11,13 +11,16 @@ export function PageHeader({
   back?: string | true;
   trailing?: ReactNode;
 }) {
-  const ref = useRef<HTMLHeadingElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setCollapsed(!entry.isIntersecting), {
-      rootMargin: '-60px 0px 0px 0px',
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => setCollapsed(!entry.isIntersecting && entry.boundingClientRect.top < 60),
+      {
+        rootMargin: '-60px 0px 0px 0px',
+      },
+    );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -35,14 +38,17 @@ export function PageHeader({
             </Link>
           ) : null}
         </span>
-        <span className="text-headline" aria-hidden="true">
-          {collapsed ? title : ''}
+        <span
+          className="ui-page-compact text-headline"
+          style={{ opacity: collapsed ? 1 : 0 }}
+          aria-hidden="true"
+        >
+          {title}
         </span>
         <span>{trailing}</span>
       </div>
-      <h1 ref={ref} className="ui-large-title text-large-title">
-        {title}
-      </h1>
+      <h1 className="ui-large-title text-large-title">{title}</h1>
+      <div ref={ref} className="ui-header-sentinel" aria-hidden="true" />
     </>
   );
 }
