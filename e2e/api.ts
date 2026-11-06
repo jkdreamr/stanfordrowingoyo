@@ -2,7 +2,12 @@ import { randomUUID } from 'node:crypto';
 import { expect } from '@playwright/test';
 import type { APIRequestContext } from '@playwright/test';
 import type { Api } from '../shared/types';
-import type { ClaimSignup, LoadRosterInput, LoadRosterRow } from '../scripts/load/contract';
+import type {
+  ClaimSignup,
+  LegacySignup,
+  LoadRosterInput,
+  LoadRosterRow,
+} from '../scripts/load/contract';
 
 export const csrfHeaders = { 'X-OYO-CSRF': '1' };
 export interface Bootstrap {
@@ -14,7 +19,7 @@ export interface RowerSignup {
   name: string;
   email: string;
   password: string;
-  body: Api['POST /api/auth/signup']['request'] | ClaimSignup;
+  body: Api['POST /api/auth/signup']['request'] | ClaimSignup | LegacySignup;
 }
 
 export async function detectRosterFlow(api: APIRequestContext, teamCode: string) {

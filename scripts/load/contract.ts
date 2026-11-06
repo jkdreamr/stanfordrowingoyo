@@ -7,6 +7,12 @@ export interface ClaimSignup {
   password: string;
   group_key?: GroupKey;
 }
+export interface LegacySignup {
+  email: string;
+  password: string;
+  name: string;
+  team_code?: string;
+}
 export interface LoadRosterInput {
   name: string;
   email: string | null;
@@ -24,7 +30,10 @@ export type LoadApi = Omit<
   'POST /api/auth/signup' | 'GET /api/admin/roster' | 'POST /api/admin/roster'
 > & {
   'POST /api/auth/signup': Endpoint<
-    Api['POST /api/auth/signup']['request'] | ClaimSignup | { email: string; password: string },
+    | Api['POST /api/auth/signup']['request']
+    | ClaimSignup
+    | LegacySignup
+    | { email: string; password: string },
     User
   >;
   'POST /api/auth/roster': Endpoint<
