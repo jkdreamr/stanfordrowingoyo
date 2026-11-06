@@ -24,6 +24,14 @@ import Announcements from './pages/admin/Announcements';
 import Export from './pages/admin/Export';
 import AuditLog from './pages/admin/AuditLog';
 export const router = createBrowserRouter([
+  ...(import.meta.env.DEV
+    ? [
+        {
+          path: '/dev/kit',
+          lazy: async () => ({ Component: (await import('./pages/Kit')).default }),
+        },
+      ]
+    : []),
   {
     element: <AppShell />,
     children: [
