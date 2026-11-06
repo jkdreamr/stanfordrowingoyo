@@ -15,6 +15,10 @@ import { migrate, seedRoster } from './db/migrate';
 import { setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
 import type { Row } from './db/row';
+import type { Context } from './context';
+import { byId } from './db/users';
+import { patchRoster } from './routes/admin';
+import { patch as patchProfile } from './routes/me';
 const bindings = env as unknown as Env;
 const NOW = '2026-03-09T18:00:00Z';
 type Client = { cookie: string; user: User };
@@ -424,5 +428,392 @@ describe('unlink and account reuse', () => {
     expect(
       (await api('/admin/roster/' + secondAdminId + '/unlink', 'POST', undefined, owner)).status,
     ).toBe(200);
+  });
+});
+describe('staff roster editing and profile synchronization', () => {
+  async function roster(client: Client) {
+    return (await api('/admin/roster', 'GET', undefined, client)).json<RosterRow[]>();
+  }
+  async function create(client: Client, body: Record<string, unknown>) {
+    const response = await api('/admin/roster', 'POST', body, client);
+    expect(response.status).toBe(201);
+    return response.json<RosterRow>();
+  }
+  it('validates creation, normalizes optional email, rejects case-insensitive duplicates and audits unclaimed deletion', async () => {
+    const owner = await admin();
+    const coxRow = (await choices()).find((row) => row.role === 'coxswain')!;
+    const cox = await signup(coxRow.id, 'cox@example.com');
+    const blank = await create(cox, { name: '  New athlete  ', role: 'rower' });
+    expect(blank).toMatchObject({
+      name: 'New athlete',
+      email: null,
+      group_key: null,
+      side: null,
+      class_year: null,
+      claimed_by_user_id: null,
+      added_by: cox.user.id,
+    });
+    expect(blank.id).toBeTruthy();
+    const bound = await create(cox, {
+      name: 'Email athlete',
+      email: ' Mixed@Example.com ',
+      role: 'rower',
+      group_key: 'frosh',
+      side: 'port',
+      class_year: 2029,
+    });
+    expect(bound.email).toBe('mixed@example.com');
+    for (const body of [
+      { name: 'new ATHLETE', role: 'rower' },
+      { name: 'Different', role: 'rower', email: 'MIXED@example.com' },
+    ])
+      expect((await api('/admin/roster', 'POST', body, cox)).status).toBe(409);
+    for (const body of [
+      { name: '', role: 'rower' },
+      { name: 'x'.repeat(81), role: 'rower' },
+      { name: 'Invalid email', role: 'rower', email: 'bad' },
+      { name: 'Bad group', role: 'rower', group_key: 'bad' },
+      { name: 'Bad side', role: 'rower', side: 'bad' },
+      { name: 'Bad year', role: 'rower', class_year: 1900 },
+    ])
+      expect((await api('/admin/roster', 'POST', body, cox)).status).toBe(400);
+    expect(
+      (await api('/admin/roster', 'POST', { name: 'New admin', role: 'admin' }, cox)).status,
+    ).toBe(403);
+    const adminRow = await create(owner, { name: 'New admin', role: 'admin', email: null });
+    expect(
+      (await api('/admin/roster/' + adminRow.id, 'PATCH', { group_key: 'invalid' }, cox)).status,
+    ).toBe(403);
+    expect(
+      (await api('/admin/roster/' + adminRow.id, 'PATCH', { name: 'Not allowed' }, cox)).status,
+    ).toBe(403);
+    expect((await api('/admin/roster/' + adminRow.id, 'DELETE', undefined, cox)).status).toBe(403);
+    expect((await api('/admin/roster/' + adminRow.id, 'DELETE', undefined, owner)).status).toBe(
+      204,
+    );
+    expect((await api('/admin/roster/' + blank.id, 'DELETE', undefined, cox)).status).toBe(204);
+    const logs = await (await api('/admin/audit', 'GET', undefined, owner)).json<Page<AuditLog>>();
+    expect(
+      logs.items
+        .filter((row) => row.target === blank.id)
+        .map((row) => row.action)
+        .sort(),
+    ).toEqual(['roster.create', 'roster.delete']);
+  });
+  it('partially patches claimed rows and propagates only supplied identity fields to the linked user', async () => {
+    const owner = await admin();
+    const list = await choices();
+    const selected = list.find((row) => row.role === 'rower')!;
+    const athlete = await signup(selected.id, 'athlete@example.com', { group_key: 'u23' });
+    const response = await api(
+      '/admin/roster/' + selected.id,
+      'PATCH',
+      { name: ' Renamed athlete ' },
+      owner,
+    );
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      name: 'Renamed athlete',
+      group_key: null,
+      claimed_by_user_id: athlete.user.id,
+    });
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      name: 'Renamed athlete',
+      group_key: 'u23',
+    });
+    expect(
+      (
+        await api(
+          '/admin/roster/' + selected.id,
+          'PATCH',
+          { role: 'coach', group_key: 'frosh', side: 'starboard', class_year: 2030 },
+          owner,
+        )
+      ).status,
+    ).toBe(200);
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      role: 'coach',
+      group_key: 'frosh',
+      side: 'starboard',
+      class_year: 2030,
+    });
+    expect(
+      (
+        await api(
+          '/admin/roster/' + selected.id,
+          'PATCH',
+          { group_key: null, side: null, class_year: null },
+          owner,
+        )
+      ).status,
+    ).toBe(200);
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      group_key: 'normal',
+      side: null,
+      class_year: null,
+    });
+    expect(
+      (
+        await api(
+          '/admin/roster/' + selected.id,
+          'PATCH',
+          { name: list.find((row) => row.id !== selected.id)!.name },
+          owner,
+        )
+      ).status,
+    ).toBe(409);
+    const bound = await create(owner, { name: 'Bound', role: 'rower', email: 'bound@example.com' });
+    expect(
+      (await api('/admin/roster/' + selected.id, 'PATCH', { email: 'BOUND@example.com' }, owner))
+        .status,
+    ).toBe(409);
+    expect((await api('/admin/roster/' + selected.id, 'DELETE', undefined, owner)).status).toBe(
+      409,
+    );
+    expect((await api('/admin/roster/' + selected.id, 'PATCH', {}, owner)).status).toBe(200);
+    const updated = (await roster(owner)).find((row) => row.id === selected.id)!;
+    expect(updated).toMatchObject({ name: 'Renamed athlete', email: null, role: 'coach' });
+    expect(bound.id).not.toBe(selected.id);
+    expect(
+      (await api('/admin/roster/' + selected.id + '/unlink', 'POST', undefined, owner)).status,
+    ).toBe(200);
+    expect((await api('/admin/roster/' + selected.id, 'DELETE', undefined, owner)).status).toBe(
+      204,
+    );
+  });
+  it('enforces granting/revoking admin and last-admin protection for linked users', async () => {
+    const owner = await admin();
+    const list = await choices();
+    const cox = await signup(list.find((row) => row.role === 'coxswain')!.id, 'cox@example.com');
+    const row = list.find((row) => row.role === 'rower')!;
+    const athlete = await signup(row.id, 'athlete@example.com');
+    expect((await api('/admin/roster/' + row.id, 'PATCH', { role: 'admin' }, cox)).status).toBe(
+      403,
+    );
+    const ownerRow = (await roster(owner)).find((row) => row.claimed_by_user_id === owner.user.id)!;
+    expect(
+      (
+        await api(
+          '/admin/roster/' + ownerRow.id,
+          'PATCH',
+          { role: 'rower', name: 'Should roll back' },
+          owner,
+        )
+      ).status,
+    ).toBe(409);
+    expect((await roster(owner)).find((row) => row.id === ownerRow.id)?.name).toBe('Joshua Koo');
+    const rejectedImport = await (
+      await api(
+        '/admin/roster/import',
+        'POST',
+        { csv: 'Joshua Koo,joskoo@stanford.edu,rower,normal,,' },
+        owner,
+      )
+    ).json<{ imported: number; errors: { row: number; message: string }[] }>();
+    expect(rejectedImport.imported).toBe(0);
+    expect(rejectedImport.errors).toMatchObject([
+      { row: 1, message: 'The last active admin cannot be demoted or deactivated.' },
+    ]);
+    expect((await api('/admin/roster/' + row.id, 'PATCH', { role: 'admin' }, owner)).status).toBe(
+      200,
+    );
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      role: 'admin',
+    });
+    expect((await api('/admin/roster/' + row.id, 'PATCH', { role: 'rower' }, cox)).status).toBe(
+      403,
+    );
+    expect(
+      (await api('/admin/roster/' + ownerRow.id, 'PATCH', { role: 'coach' }, athlete)).status,
+    ).toBe(200);
+    expect(await (await api('/me', 'GET', undefined, owner)).json()).toMatchObject({
+      role: 'coach',
+    });
+    expect((await api('/admin/roster/' + row.id, 'PATCH', { role: 'rower' }, athlete)).status).toBe(
+      409,
+    );
+    // A user promoted separately from the roster must still be protected.
+    const mismatch = list.filter((item) => item.role === 'rower' && item.id !== row.id)[0];
+    const promoted = await signup(mismatch.id, 'promoted@example.com');
+    expect(
+      (await api('/admin/users/' + promoted.user.id, 'PATCH', { role: 'admin' }, athlete)).status,
+    ).toBe(200);
+    expect(
+      (await api('/admin/roster/' + mismatch.id, 'PATCH', { role: 'rower' }, cox)).status,
+    ).toBe(403);
+  });
+  it('imports email/name matches as updates, inserts new rows, propagates changes and reports conflicts per row', async () => {
+    const owner = await admin();
+    const list = await choices();
+    const selected = list.find((row) => row.role === 'rower')!;
+    const athlete = await signup(selected.id, 'athlete@example.com');
+    const bound = await create(owner, {
+      name: 'Email match',
+      email: 'match@example.com',
+      role: 'rower',
+    });
+    const csv = [
+      'name,email,role,group,side,class_year',
+      'Email renamed,MATCH@example.com,coach,u23,both,2029',
+      selected.name.toUpperCase() + ',,rower,frosh,port,2028',
+      'Brand new,,coxswain,,,',
+      'Brand new,new@example.com,rower,normal,,',
+      'Bound insert,insert@example.com,rower,normal,,',
+      'Bad,bad-email,rower,normal,,',
+    ].join('\r\n');
+    const response = await api('/admin/roster/import', 'POST', { csv }, owner);
+    expect(response.status).toBe(200);
+    const result = await response.json<{ imported: number; errors: { row: number }[] }>();
+    expect(result.imported).toBe(4);
+    expect(result.errors.map((row) => row.row)).toEqual([5, 7]);
+    let rows = await roster(owner);
+    expect(rows.find((row) => row.id === bound.id)).toMatchObject({
+      name: 'Email renamed',
+      role: 'coach',
+      group_key: 'u23',
+    });
+    expect(rows.filter((row) => row.name === 'Brand new')).toHaveLength(1);
+    expect(rows.find((row) => row.id === selected.id)).toMatchObject({
+      name: selected.name.toUpperCase(),
+      claimed_by_user_id: athlete.user.id,
+    });
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      name: selected.name.toUpperCase(),
+      group_key: 'frosh',
+      side: 'port',
+      class_year: 2028,
+    });
+    const noEmail =
+      'name,role,group,side,class_year\n' +
+      selected.name +
+      ',rower,u23,both,2031\nFive columns,coach,,, \nEmail renamed,coach,normal,,';
+    expect(
+      await (await api('/admin/roster/import', 'POST', { csv: noEmail }, owner)).json(),
+    ).toEqual({ imported: 3, errors: [] });
+    rows = await roster(owner);
+    expect(rows.filter((row) => row.id === selected.id)).toHaveLength(1);
+    expect(rows.find((row) => row.name === 'Five columns')?.email).toBeNull();
+    expect(rows.find((row) => row.id === bound.id)?.email).toBe('match@example.com');
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      name: selected.name,
+      group_key: 'u23',
+      side: 'both',
+      class_year: 2031,
+    });
+    const cox = await signup(list.find((row) => row.role === 'coxswain')!.id, 'cox@example.com');
+    const ownerRow = rows.find((row) => row.claimed_by_user_id === owner.user.id)!;
+    const forbidden = [
+      ownerRow.name + ',,rower,normal,,',
+      'New admin,,admin,normal,,',
+      'Allowed after,,rower,normal,,',
+    ].join('\n');
+    const errors = await (
+      await api('/admin/roster/import', 'POST', { csv: forbidden }, cox)
+    ).json<{ imported: number; errors: { row: number }[] }>();
+    expect(errors.imported).toBe(1);
+    expect(errors.errors.map((row) => row.row)).toEqual([1, 2]);
+    expect(await (await api('/admin/roster/import', 'POST', { csv: '' }, owner)).json()).toEqual({
+      imported: 0,
+      errors: [],
+    });
+  });
+  it('keeps profile group edits local to the user and synchronizes names atomically with uniqueness checks', async () => {
+    const owner = await admin();
+    const list = await choices();
+    const selected = list.find((row) => row.role === 'rower')!;
+    const athlete = await signup(selected.id, 'athlete@example.com');
+    expect(
+      (await api('/me', 'PATCH', { name: '  Self renamed  ', group_key: 'u23' }, athlete)).status,
+    ).toBe(200);
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      name: 'Self renamed',
+      group_key: 'u23',
+    });
+    expect((await roster(owner)).find((row) => row.id === selected.id)).toMatchObject({
+      name: 'Self renamed',
+      group_key: null,
+    });
+    for (const group_key of ['bad', null, 5])
+      expect((await api('/me', 'PATCH', { group_key }, athlete)).status).toBe(400);
+    expect(
+      (await api('/me', 'PATCH', { name: 'Joshua Koo', group_key: 'frosh' }, athlete)).status,
+    ).toBe(409);
+    expect(await (await api('/me', 'GET', undefined, athlete)).json()).toMatchObject({
+      name: 'Self renamed',
+      group_key: 'u23',
+    });
+    expect((await api('/me', 'PATCH', {}, athlete)).status).toBe(200);
+    expect(
+      (await (await api('/admin/audit', 'GET', undefined, owner)).json<Page<AuditLog>>()).items,
+    ).toEqual([]);
+  });
+  it('reads target and actor state only after the body resolves, and rejects a session revoked while parsing', async () => {
+    const owner = await admin();
+    const selected = (await choices()).find((row) => row.role === 'rower')!;
+    await sql(async (storage) => {
+      const user = byId(storage, owner.user.id);
+      const tokenHash = storage.sql
+        .exec<{ token_hash: string }>('SELECT token_hash FROM sessions WHERE user_id=?', user.id)
+        .one().token_hash;
+      function context(params: Record<string, string> = {}) {
+        let controller!: ReadableStreamDefaultController<Uint8Array>;
+        const request = new Request('https://oyo.test/api/admin/roster/' + selected.id, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: new ReadableStream<Uint8Array>({
+            start(value) {
+              controller = value;
+            },
+          }),
+        });
+        const ctx: Context = {
+          request,
+          storage,
+          env: bindings,
+          now: new Date(NOW),
+          params,
+          user,
+          tokenHash,
+        };
+        return {
+          ctx,
+          send(body: unknown) {
+            controller.enqueue(new TextEncoder().encode(JSON.stringify(body)));
+            controller.close();
+          },
+        };
+      }
+      const update = context({ id: selected.id });
+      const pending = patchRoster(update.ctx);
+      storage.sql.exec(
+        'UPDATE roster SET side=?,class_year=?,group_key=? WHERE id=?',
+        'port',
+        2030,
+        'u23',
+        selected.id,
+      );
+      update.send({ name: 'Fresh target' });
+      expect((await pending).status).toBe(200);
+      expect(
+        storage.sql
+          .exec('SELECT side,class_year,group_key FROM roster WHERE id=?', selected.id)
+          .one(),
+      ).toMatchObject({ side: 'port', class_year: 2030, group_key: 'u23' });
+      const demoted = context({ id: selected.id });
+      const forbidden = patchRoster(demoted.ctx);
+      storage.sql.exec('UPDATE users SET role=? WHERE id=?', 'rower', user.id);
+      demoted.send({ role: 'admin' });
+      await expect(forbidden).rejects.toMatchObject({ status: 403 });
+      expect(
+        storage.sql.exec('SELECT role FROM roster WHERE id=?', selected.id).one(),
+      ).toMatchObject({ role: 'rower' });
+      storage.sql.exec('UPDATE users SET role=? WHERE id=?', 'admin', user.id);
+      const logout = context();
+      const profile = patchProfile(logout.ctx);
+      storage.sql.exec('DELETE FROM sessions WHERE user_id=?', user.id);
+      logout.send({ name: 'Must not rename', group_key: 'frosh' });
+      await expect(profile).rejects.toMatchObject({ status: 401 });
+      expect(byId(storage, user.id).name).toBe('Joshua Koo');
+    });
   });
 });

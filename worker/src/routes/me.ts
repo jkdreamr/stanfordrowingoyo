@@ -1,21 +1,24 @@
 import { today, weekStart } from '../../../shared/dates';
 import type { Context } from '../context';
-import { requireUser } from '../auth/guards';
+import { refreshUser, requireUser } from '../auth/guards';
 import { hashPassword, verifyPassword } from '../auth/crypto';
 import { byId, toUser } from '../db/users';
 import { attempt, clearAttempts } from '../db/rateLimit';
 import { effectiveTarget, setTarget } from '../db/targets';
+import { rosterByName } from '../db/roster';
 import { HttpError, json, noContent, readJson } from '../http';
 import * as v from '../validate';
 export function get(ctx: Context) {
   return json(toUser(requireUser(ctx)));
 }
 export async function patch(ctx: Context) {
-  const user = requireUser(ctx);
   const body = await readJson(ctx.request);
+  const user = refreshUser(ctx);
   const fields: Record<string, string | number | null> = {};
   if (body.name !== undefined) fields.name = v.string(body.name, 'Name', 1, 80, true);
   if (body.bio !== undefined) fields.bio = v.string(body.bio, 'Bio', 0, 500);
+  if (body.group_key !== undefined)
+    fields.group_key = v.enumeration(body.group_key, ['frosh', 'normal', 'u23'], 'Group');
   if (body.side !== undefined)
     fields.side = v.nullable(body.side, (value) =>
       v.enumeration(value, ['port', 'starboard', 'both', 'cox'], 'Side'),
@@ -42,6 +45,17 @@ export async function patch(ctx: Context) {
     fields.avatar_image_id = id;
   }
   ctx.storage.transactionSync(() => {
+    if (fields.name !== undefined) {
+      const linked = ctx.storage.sql
+        .exec<{ id: string }>('SELECT id FROM roster WHERE claimed_by_user_id = ?', user.id)
+        .toArray()[0];
+      if (linked) {
+        const duplicate = rosterByName(ctx.storage, fields.name as string);
+        if (duplicate && duplicate.id !== linked.id)
+          throw new HttpError(409, 'CONFLICT', 'This name is already on the roster.');
+        ctx.storage.sql.exec('UPDATE roster SET name = ? WHERE id = ?', fields.name, linked.id);
+      }
+    }
     for (const [key, value] of Object.entries(fields))
       ctx.storage.sql.exec(`UPDATE users SET ${key} = ? WHERE id = ?`, value, user.id);
     ctx.storage.sql.exec(
