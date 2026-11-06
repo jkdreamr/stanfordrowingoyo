@@ -1,7 +1,6 @@
 import { today, weekStart } from '../../../shared/dates';
 import type { Context } from '../context';
 import { refreshUser, requireUser } from '../auth/guards';
-import { hashPassword, verifyPassword } from '../auth/crypto';
 import { byId, toUser } from '../db/users';
 import { attempt, clearAttempts } from '../db/rateLimit';
 import { effectiveTarget, setTarget } from '../db/targets';
@@ -66,16 +65,24 @@ export async function patch(ctx: Context) {
   });
   return json(toUser(byId(ctx.storage, user.id)));
 }
+export function passwordChallenge(ctx: Context) {
+  const user = refreshUser(ctx, true);
+  attempt(ctx, user.email);
+  return json({
+    user_id: user.id,
+    password_hash: user.password_hash,
+    password_salt: user.password_salt,
+  });
+}
 export async function password(ctx: Context) {
   const body = await readJson(ctx.request);
-  const user = refreshUser(ctx, true);
-  const current = v.string(body.current_password, 'Current password', 8, 200);
-  const next = v.string(body.new_password, 'New password', 8, 200);
-  if (current === next) v.invalid('New password must differ from the current password.');
-  attempt(ctx, user.email);
-  if (!(await verifyPassword(current, user.password_hash, user.password_salt)))
-    throw new HttpError(401, 'INVALID_CREDENTIALS', 'Current password is incorrect.');
-  const { hash, salt } = await hashPassword(next);
+  const user = {
+    id: body.user_id,
+    password_hash: body.password_hash,
+    password_salt: body.password_salt,
+  };
+  const hash = v.string(body.new_password_hash, 'Password hash', 1, 200);
+  const salt = v.string(body.new_password_salt, 'Password salt', 1, 200);
   ctx.storage.transactionSync(() => {
     const latest = refreshUser(ctx, true);
     if (
@@ -89,14 +96,14 @@ export async function password(ctx: Context) {
       hash,
       salt,
       ctx.now.toISOString(),
-      user.id,
+      latest.id,
     );
     ctx.storage.sql.exec(
       'DELETE FROM sessions WHERE user_id = ? AND token_hash != ?',
-      user.id,
+      latest.id,
       ctx.tokenHash!,
     );
-    clearAttempts(ctx, user.email);
+    clearAttempts(ctx, latest.email);
   });
   return noContent();
 }

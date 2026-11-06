@@ -1,6 +1,6 @@
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
 import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS, ROSTER } from '../../../shared/seed';
-function migrateV1(storage: DurableObjectStorage): void {
+function migrateV1(storage: DurableObjectStorage, teamCode?: string): void {
   const sql = storage.sql;
   sql.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL)');
   const version = sql
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 CREATE INDEX IF NOT EXISTS entries_week ON entries(week_start);
 CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
     const settings = {
-      team_code: crypto.randomUUID(),
+      team_code: teamCode?.trim() || crypto.randomUUID(),
       zone_factors: ZONE_FACTORS,
       mode_factors: MODE_FACTORS,
       group_targets: GROUP_TARGETS,
@@ -198,8 +198,8 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
     );
   });
 }
-export function migrate(storage: DurableObjectStorage): void {
-  migrateV1(storage);
+export function migrate(storage: DurableObjectStorage, teamCode?: string): void {
+  migrateV1(storage, teamCode);
   const sql = storage.sql;
   const version = sql
     .exec<{ value_json: string }>('SELECT value_json FROM settings WHERE key = ?', 'schema_version')

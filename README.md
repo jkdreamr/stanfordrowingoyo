@@ -9,8 +9,12 @@ npm run typecheck
 npm run lint
 npm test
 npm run build     # web assets + Worker dry run (no deployment)
+npx wrangler secret put TEAM_CODE # optional: seeds team code on first boot only
 npm run deploy   # explicit Cloudflare deployment; not needed locally
 ```
+
+`TEAM_CODE` is optional and only seeds a fresh Durable Object (trimmed; blank uses a generated UUID).
+It never replaces an existing code. Change it later in Admin → Team settings.
 
 Only `GET /api/health` is implemented; the remaining backend modules return 501.
 The first API request initializes SQLite and seeds the team. Local Wrangler data
