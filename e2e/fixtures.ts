@@ -1,15 +1,11 @@
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { randomUUID } from 'node:crypto';
 import { test as base, expect } from '@playwright/test';
 import type { BrowserContext, Page } from '@playwright/test';
-import type { Api, User } from '../shared/types';
-import { csrfHeaders } from './api';
+import type { User } from '../shared/types';
+import { csrfHeaders, newRowerSignup } from './api';
+import type { Bootstrap, RowerSignup } from './api';
 
-interface Bootstrap {
-  teamCode: string;
-  backendReady: boolean;
-}
 export interface Rower {
   page: Page;
   context: BrowserContext;
@@ -20,6 +16,7 @@ interface Fixtures {
   bootstrap: Bootstrap;
   adminPage: Page;
   makeRower: () => Promise<Rower>;
+  newRowerSignup: () => Promise<RowerSignup>;
 }
 export const test = base.extend<Fixtures>({
   bootstrap: async ({ baseURL }, use) => {
@@ -43,19 +40,15 @@ export const test = base.extend<Fixtures>({
       await context.close();
     }
   },
-  makeRower: async ({ browser, bootstrap, baseURL }, use, testInfo) => {
+  newRowerSignup: async ({ adminPage, bootstrap }, use, testInfo) => {
+    await use(() => newRowerSignup(adminPage.request, bootstrap, testInfo.project.name));
+  },
+  makeRower: async ({ browser, newRowerSignup, baseURL }, use, testInfo) => {
     const contexts: BrowserContext[] = [];
     await use(async () => {
       const context = await browser.newContext({ ...testInfo.project.use, baseURL });
       contexts.push(context);
-      const id = `${testInfo.project.name}-${randomUUID()}`;
-      const password = 'e2e-dev-rower-password-1';
-      const body: Api['POST /api/auth/signup']['request'] = {
-        email: `e2e+${id}@example.com`,
-        name: `E2E ${id}`,
-        password,
-        team_code: bootstrap.teamCode,
-      };
+      const { body, password } = await newRowerSignup();
       const response = await context.request.post('/api/auth/signup', {
         data: body,
         headers: csrfHeaders,

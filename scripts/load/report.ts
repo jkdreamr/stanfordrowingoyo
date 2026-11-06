@@ -8,6 +8,7 @@ export function report(
   threshold: number,
 ) {
   const endpoints = aggregate(samples);
+  if (timings.auth !== undefined) console.log(`Auth phase (rowers): ${timings.auth.toFixed(2)} s`);
   const failures: string[] = [];
   for (const row of endpoints)
     if (row.p95 > threshold)

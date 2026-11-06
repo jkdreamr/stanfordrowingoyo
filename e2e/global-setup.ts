@@ -3,14 +3,14 @@ import { fileURLToPath } from 'node:url';
 import { request, expect } from '@playwright/test';
 import type { FullConfig } from '@playwright/test';
 import type { Api } from '../shared/types';
-import { csrfHeaders } from './api';
+import { csrfHeaders, detectRosterFlow } from './api';
 
 export default async function globalSetup(config: FullConfig) {
   const directory = new URL('./.auth/', import.meta.url);
   await mkdir(directory, { recursive: true });
   await writeFile(
     new URL('bootstrap.json', directory),
-    JSON.stringify({ teamCode: '', backendReady: false }),
+    JSON.stringify({ teamCode: '', backendReady: false, rosterFlow: false }),
   );
   await writeFile(new URL('admin.json', directory), JSON.stringify({ cookies: [], origins: [] }));
   const api = await request.newContext({ baseURL: config.projects[0].use.baseURL });
@@ -21,8 +21,13 @@ export default async function globalSetup(config: FullConfig) {
     };
     let response = await api.post('/api/auth/signup', {
       headers: csrfHeaders,
-      data: { ...credentials, name: 'E2E Admin' } satisfies Api['POST /api/auth/signup']['request'],
+      data: credentials,
     });
+    if (response.status() === 400)
+      response = await api.post('/api/auth/signup', {
+        data: { ...credentials, name: 'E2E Admin' },
+        headers: csrfHeaders,
+      });
     if (response.status() === 409)
       response = await api.post('/api/auth/login', { data: credentials, headers: csrfHeaders });
     if (response.status() === 501) {
@@ -34,10 +39,12 @@ export default async function globalSetup(config: FullConfig) {
     await expect(settings).toBeOK();
     const { team_code }: Api['GET /api/admin/settings']['response'] = await settings.json();
     expect(team_code).toBeTruthy();
+    const rosterFlow = await detectRosterFlow(api, team_code);
+    console.log(`E2E signup flow: ${rosterFlow ? 'roster claims' : 'legacy'}`);
     await api.storageState({ path: fileURLToPath(new URL('admin.json', directory)) });
     await writeFile(
       new URL('bootstrap.json', directory),
-      JSON.stringify({ teamCode: team_code, backendReady: true }),
+      JSON.stringify({ teamCode: team_code, backendReady: true, rosterFlow }),
     );
   } finally {
     await api.dispose();

@@ -1,18 +1,22 @@
-import { randomUUID } from 'node:crypto';
 import { test, expect } from './fixtures';
 
-test('join-code signup, logout, and login', async ({ page, bootstrap }, testInfo) => {
+test('join-code signup, logout, and login', async ({ page, bootstrap, newRowerSignup }) => {
   test.fixme(
     true,
     'Screen Signup not built yet (web/src/pages/Signup.tsx is a stub) — enable when it lands; Login and Settings are also stubs',
   );
-  const email = `e2e+${testInfo.project.name}-${randomUUID()}@example.com`;
-  const password = 'e2e-dev-rower-password-1';
+  const { email, password, name } = await newRowerSignup();
   await page.goto('/signup');
-  await page.getByLabel('Name', { exact: true }).fill('E2E Signup');
+  await page.getByLabel(/team.*code|join code/i).fill(bootstrap.teamCode);
+  if (bootstrap.rosterFlow) {
+    await page.getByRole('button', { name: /continue|next/i }).click();
+    await page.getByRole('button', { name, exact: true }).click();
+    await page.getByRole('button', { name: /continue|next/i }).click();
+    await page.getByRole('button', { name: 'Normal', exact: true }).click();
+    await page.getByRole('button', { name: /continue|next/i }).click();
+  } else await page.getByLabel('Name', { exact: true }).fill(name);
   await page.getByLabel('Email', { exact: true }).fill(email);
   await page.getByLabel('Password', { exact: true }).fill(password);
-  await page.getByLabel(/team.*code|join code/i).fill(bootstrap.teamCode);
   await page.getByRole('button', { name: /sign up|create account/i }).click();
   await expect(page.getByRole('heading', { name: 'Home', exact: true })).toBeVisible();
   await page.goto('/settings');

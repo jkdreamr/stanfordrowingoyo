@@ -2,6 +2,7 @@ import { setTimeout as delay } from 'node:timers/promises';
 import type { EntryInput, User } from '../../shared/types.ts';
 import type { Options } from './args.ts';
 import type { Sample } from './stats.ts';
+import { measurePhase } from './stats.ts';
 import { Client, RequestError } from './http.ts';
 import { makeJpeg } from './jpeg.ts';
 import { bootstrapAdmin, prepareRoster, deactivateUsers, loadEmail, loadName } from './roster.ts';
@@ -24,37 +25,53 @@ export async function authenticate(
   name: string,
   teamCode?: string,
   claim?: Pick<ClaimSignup, 'roster_id' | 'group_key'>,
+  loginFirst = false,
 ): Promise<User> {
-  try {
-    return await client.request('POST /api/auth/login', { body: { email, password } });
-  } catch (error) {
-    if (!(error instanceof RequestError) || ![401, 404].includes(error.status)) throw error;
-    return client.request('POST /api/auth/signup', {
+  const login = () => client.request('POST /api/auth/login', { body: { email, password } });
+  const signup = () =>
+    client.request('POST /api/auth/signup', {
       body: claim
         ? { email, password, team_code: teamCode!, ...claim }
         : { email, password, name, ...(teamCode ? { team_code: teamCode } : {}) },
     });
+  try {
+    return await (loginFirst ? login() : signup());
+  } catch (error) {
+    if (
+      !(error instanceof RequestError) ||
+      !(loginFirst ? [401, 404] : [409]).includes(error.status)
+    )
+      throw error;
+    return loginFirst ? signup() : login();
   }
 }
-export async function cleanup(options: Options, samples: Sample[]) {
-  const { client, rosterFlow } = await bootstrapAdmin(options, samples);
+export async function cleanup(
+  options: Options,
+  samples: Sample[],
+  timings: Record<string, number> = {},
+) {
+  const { client, rosterFlow } = await measurePhase(timings, 'setup', () =>
+    bootstrapAdmin(options, samples),
+  );
   client.scenario = 'cleanup';
-  if (rosterFlow) {
-    const rows = await client.request('GET /api/admin/roster');
-    let unlinked = 0;
-    let deleted = 0;
-    for (const row of rows)
-      if (/^Load Test \d+$/.test(row.name)) {
-        if (row.claimed_by_user_id) {
-          await client.request('POST /api/admin/roster/:id/unlink', { id: row.id });
-          unlinked++;
+  await measurePhase(timings, 'cleanup', async () => {
+    if (rosterFlow) {
+      const rows = await client.request('GET /api/admin/roster');
+      let unlinked = 0;
+      let deleted = 0;
+      for (const row of rows)
+        if (/^Load Test \d+$/.test(row.name)) {
+          if (row.claimed_by_user_id) {
+            await client.request('POST /api/admin/roster/:id/unlink', { id: row.id });
+            unlinked++;
+          }
+          await client.request('DELETE /api/admin/roster/:id', { id: row.id });
+          deleted++;
         }
-        await client.request('DELETE /api/admin/roster/:id', { id: row.id });
-        deleted++;
-      }
-    console.log(`Unlinked ${unlinked} and deleted ${deleted} load-test roster rows.`);
-  }
-  await deactivateUsers(client, await client.request('GET /api/admin/users'));
+      console.log(`Unlinked ${unlinked} and deleted ${deleted} load-test roster rows.`);
+    }
+    await deactivateUsers(client, await client.request('GET /api/admin/users'));
+  });
 }
 interface Rower {
   client: Client;
@@ -69,12 +86,15 @@ export async function runScenarios(
   samples: Sample[],
   timings: Record<string, number>,
 ) {
-  const { client: admin, teamCode, rosterFlow } = await bootstrapAdmin(options, samples);
-  const roster = rosterFlow
-    ? await prepareRoster(admin, options.users)
-    : new Map<number, LoadRosterRow>();
+  const { teamCode, rosterFlow, roster } = await measurePhase(timings, 'setup', async () => {
+    const { client: admin, teamCode, rosterFlow } = await bootstrapAdmin(options, samples);
+    const roster = rosterFlow
+      ? await prepareRoster(admin, options.users)
+      : new Map<number, LoadRosterRow>();
+    return { teamCode, rosterFlow, roster };
+  });
   const rowers: Rower[] = Array.from({ length: options.users }, (_, i) => ({
-    client: new Client(options.baseUrl, samples, 'session'),
+    client: new Client(options.baseUrl, samples, 'auth'),
     rng: random(options.seed + i),
     n: i + 1,
     failed: false,
@@ -93,6 +113,7 @@ export async function runScenarios(
               group_key: (['frosh', 'normal', 'u23'] as const)[Math.floor(r.rng() * 3)],
             }
           : undefined,
+        options.scenario === 'burst' || !!roster.get(r.n)?.claimed_by_user_id,
       );
   }
   async function post(r: Rower, date: string, images: boolean) {
@@ -116,7 +137,6 @@ export async function runScenarios(
     await r.client.request('POST /api/entries', { body });
   }
   async function session(r: Rower) {
-    await login(r);
     const think = () => delay(100 + Math.floor(r.rng() * 501));
     await r.client.request('GET /api/me');
     await think();
@@ -165,18 +185,28 @@ export async function runScenarios(
       console.error(`Rower ${r.n}: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
-  if (options.scenario !== 'burst') {
-    const start = performance.now();
+  async function pool(items: Rower[], run: (r: Rower) => Promise<void>) {
     let next = 0;
     await Promise.all(
-      Array.from({ length: Math.min(options.concurrency, rowers.length) }, async () => {
-        while (next < rowers.length) {
-          const r = rowers[next++];
-          await safely(r, () => session(r));
+      Array.from({ length: Math.min(options.concurrency, items.length) }, async () => {
+        while (next < items.length) {
+          const r = items[next++];
+          await safely(r, () => run(r));
         }
       }),
     );
-    timings.session = (performance.now() - start) / 1000;
+  }
+  await measurePhase(timings, 'auth', () => pool(rowers, login));
+  if (options.scenario !== 'burst') {
+    await measurePhase(timings, 'session', () =>
+      pool(
+        rowers.filter((r) => !r.failed),
+        async (r) => {
+          r.client.scenario = 'session';
+          await session(r);
+        },
+      ),
+    );
   }
   if (options.scenario !== 'session') {
     const start = performance.now();
@@ -188,7 +218,6 @@ export async function runScenarios(
           await delay(Math.max(0, start + offset - performance.now()));
           r.client.scenario = 'burst';
           await safely(r, async () => {
-            await login(r);
             const config = await r.client.request('GET /api/config');
             await post(r, config.today, false);
             await r.client.request('GET /api/stats/week');

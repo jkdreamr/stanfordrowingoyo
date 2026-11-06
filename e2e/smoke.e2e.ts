@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
+import { csrfHeaders } from './api';
 
 test('shell, manifest, and health load without backend auth', async ({ page, request }) => {
   await page.goto('/');
@@ -30,4 +31,35 @@ test('unauthenticated visitors are shown Login', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Login', exact: true })).toBeVisible();
   await expect(page.getByLabel('Email', { exact: true })).toBeVisible();
+});
+
+test('Secure session cookie authenticates an in-page localhost request', async ({
+  page,
+  bootstrap,
+  newRowerSignup,
+}) => {
+  test.skip(!bootstrap.backendReady, 'Backend API not implemented yet');
+  const signup = await newRowerSignup();
+  await page.goto('/');
+  const status = await page.evaluate(
+    async ({ body, headers }) => {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      await response.text();
+      return response.status;
+    },
+    { body: signup.body, headers: csrfHeaders },
+  );
+  expect([200, 201]).toContain(status);
+  const cookie = (await page.context().cookies()).find((c) => c.name === 'oyo_session');
+  expect(cookie).toMatchObject({ secure: true, httpOnly: true });
+  const me = await page.evaluate(async () => {
+    const response = await fetch('/api/me');
+    return { status: response.status, body: await response.json() };
+  });
+  expect(me.status).toBe(200);
+  expect(me.body).toMatchObject({ email: signup.email, name: signup.name });
 });

@@ -39,7 +39,9 @@ Seeds `loadtest+N@example.com` users. Admin credentials (`LOAD_ADMIN_PASSWORD` /
 discovery. A roster probe selects legacy signup on 404/405/501, otherwise creates
 or reuses only synthetic `Load Test NN` roster rows and claims them with random
 groups. Never claims real seeded names. Every non-GET load/E2E API request sends
-`X-OYO-CSRF: 1`. Teardown with `--cleanup` and the same base URL/admin credentials:
+`X-OYO-CSRF: 1`. Fresh rowers sign up first, then log in on 409; known claims and
+burst re-logins use login first. Auth has its own phase/table and still must meet
+thresholds; setup/cleanup have independent wall times. Teardown with `--cleanup` and the same base URL/admin credentials:
 unlink/delete synthetic roster rows on roster APIs, and deactivate matching seed
 users in either flow; content remains. For a full local reset, stop Wrangler and delete
 its persisted state directory (`.wrangler/state` or the explicit `--persist-to`
@@ -54,13 +56,14 @@ iphone-15 (WebKit), pixel-7 (Chromium). If WebKit cannot launch, use
 Each managed server run wipes `.wrangler/e2e-state` for fresh DO state and serves
 the built app at http://localhost:8799. Reusing an existing server outside CI does
 not reset it. `E2E_BASE_URL` targets an already-running local server and skips
-server management. Use localhost for Secure cookies; verify authenticated WebKit
-cookie behavior when the backend lands.
+server management. Use localhost for Secure cookies; the backend-dependent smoke
+test verifies in-page signup and `/api/me` cookie authentication in all projects.
 
 Global setup signs up roster-seeded `joskoo@stanford.edu` without a team code,
 or logs in once if it exists. Set `E2E_ADMIN_PASSWORD` for existing state; the
 default is dev-only. Auth state is ignored under `e2e/.auth/`; 501 auth responses
-skip backend-dependent tests. When a screen lands, remove its test's top-level
+skip backend-dependent tests. Roster APIs get unique synthetic `E2E <project> <random>`
+rows created by admin and claimed per test, never real seeded names. When a screen lands, remove its test's top-level
 `test.fixme`, align semantic locators with the implemented labels, and run all
 three projects. See `e2e/README.md`; E2E is not yet in CI.
 

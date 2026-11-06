@@ -1,8 +1,47 @@
-import { describe, expect, it } from 'vitest';
-import { aggregate, percentile, routeTemplate } from './stats.ts';
+import { describe, expect, it, vi } from 'vitest';
+import { aggregate, percentile, routeTemplate, measurePhase } from './stats.ts';
 import { report } from './report.ts';
 
 describe('metrics', () => {
+  it('measures each phase independently, even if the phase fails', async () => {
+    const clock = vi
+      .spyOn(performance, 'now')
+      .mockReturnValueOnce(100)
+      .mockReturnValueOnce(350)
+      .mockReturnValueOnce(800)
+      .mockReturnValueOnce(900);
+    const timings: Record<string, number> = {};
+    try {
+      expect(await measurePhase(timings, 'setup', async () => 42)).toBe(42);
+      await expect(
+        measurePhase(timings, 'cleanup', async () => {
+          throw new Error('failed');
+        }),
+      ).rejects.toThrow('failed');
+      expect(timings).toEqual({ setup: 0.25, cleanup: 0.1 });
+    } finally {
+      clock.mockRestore();
+    }
+  });
+  it('reports auth separately while still checking its endpoint latency', () => {
+    const output = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const table = vi.spyOn(console, 'table').mockImplementation(() => {});
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      const result = report(
+        [{ endpoint: 'POST /api/auth/signup', scenario: 'auth', ms: 900, status: 201 }],
+        2,
+        { auth: 1, setup: 0.2 },
+        800,
+      );
+      expect(output).toHaveBeenCalledWith('Auth phase (rowers): 1.00 s');
+      expect(result.failures).toEqual(['POST /api/auth/signup p95 900.0 ms > 800 ms']);
+    } finally {
+      output.mockRestore();
+      table.mockRestore();
+      error.mockRestore();
+    }
+  });
   it('uses nearest rank and handles empty samples', () => {
     expect(percentile([], 95)).toBe(0);
     expect(percentile([1, 2, 3, 4, 5], 50)).toBe(3);

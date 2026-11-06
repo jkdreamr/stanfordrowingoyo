@@ -17,6 +17,11 @@ the default is `e2e-dev-admin-password-1`. Admin auth runs once for all projects
 not per worker. State and join code stay in ignored `e2e/.auth/`. A 501 auth
 response produces `backendReady:false`; backend fixture consumers then skip.
 Other bootstrap errors fail instead of masquerading as an unavailable backend.
+Admin signup first sends email/password, with a named-signup fallback on legacy
+validation 400. The roster probe selects legacy flow only on 404/405/501. For
+roster APIs the admin creates a unique `E2E <project> <random>` row per test user;
+that row is then claimed with the test email/password and group. Real seeded
+names are never claimed. Every API mutation sends `X-OYO-CSRF: 1`.
 
 All current product screens are stubs. Scenario bodies use semantic locators
 based on architecture §§4/6/7, with explicit `test.fixme` notes naming the stub.
@@ -26,9 +31,10 @@ is separately fixme because there is no auth guard yet. Unique rowers isolate
 tests across projects, and leaderboard assertions compare only their own users.
 
 Use localhost, not 127.0.0.1, for the Secure `oyo_session` cookie on HTTP.
-**Once the backend exists, verify Secure-cookie storage and authenticated UI
-requests in WebKit**, not just APIRequestContext. The current 501 scaffold cannot
-exercise that behavior. Rower contexts preserve each project's device options.
+The backend-dependent smoke test signs up through an in-page fetch, checks the
+Secure/HttpOnly cookie, then verifies in-page `/api/me` authentication in all
+three engines. It needs no implemented UI screen and skips only when backend
+bootstrap reports 501. Rower contexts preserve each project's device options.
 
 Reports are in ignored `playwright-report/`; failure screenshots and retry traces
 are in ignored `test-results/`. Vitest's defaults exclude `*.e2e.ts`.

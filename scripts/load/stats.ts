@@ -5,6 +5,18 @@ export interface Sample {
   status: number;
   expected?: boolean;
 }
+export async function measurePhase<T>(
+  timings: Record<string, number>,
+  phase: string,
+  run: () => Promise<T>,
+): Promise<T> {
+  const start = performance.now();
+  try {
+    return await run();
+  } finally {
+    timings[phase] = (performance.now() - start) / 1000;
+  }
+}
 export function routeTemplate(method: string, path: string): string {
   const url = new URL(path, 'http://localhost');
   const route = url.pathname.replace(

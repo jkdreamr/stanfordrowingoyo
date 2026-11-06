@@ -18,7 +18,7 @@ async function main() {
   const start = performance.now();
   let failed = false;
   try {
-    if (options.cleanup) await cleanup(options, samples);
+    if (options.cleanup) await cleanup(options, samples, timings);
     else failed = (await runScenarios(options, samples, timings)) > 0;
   } catch (error) {
     console.error(`Run stopped: ${error instanceof Error ? error.message : error}`);

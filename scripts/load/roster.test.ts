@@ -111,24 +111,48 @@ it('refuses rows claimed by someone else and handles an empty requested roster',
   }
 });
 
-it('claims a synthetic row with its own email and group after one missing login', async () => {
-  const fetcher = vi
-    .fn()
-    .mockResolvedValueOnce(new Response('{}', { status: 401 }))
-    .mockResolvedValueOnce(Response.json({ id: 'new' }));
+it('claims a synthetic row with its own email and group in one auth attempt', async () => {
+  const fetcher = vi.fn().mockResolvedValueOnce(Response.json({ id: 'new' }));
   vi.stubGlobal('fetch', fetcher);
   await authenticate(client(), 'loadtest+1@example.com', 'password', 'Load Test 01', 'CODE', {
     roster_id: 'free',
     group_key: 'u23',
   });
-  expect(JSON.parse(fetcher.mock.calls[1][1].body)).toEqual({
+  expect(JSON.parse(fetcher.mock.calls[0][1].body)).toEqual({
     email: 'loadtest+1@example.com',
     password: 'password',
     team_code: 'CODE',
     roster_id: 'free',
     group_key: 'u23',
   });
-  expect(fetcher).toHaveBeenCalledTimes(2);
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});
+
+it('logs in first for burst re-login or a roster row already claimed by the same user', async () => {
+  const fetcher = vi.fn().mockResolvedValue(Response.json({ id: 'existing' }));
+  vi.stubGlobal('fetch', fetcher);
+  await authenticate(
+    client(),
+    'loadtest+1@example.com',
+    'password',
+    'Load Test 01',
+    'CODE',
+    { roster_id: 'own' },
+    true,
+  );
+  expect(fetcher).toHaveBeenCalledTimes(1);
+  expect(fetcher.mock.calls[0][0]).toBe('http://localhost/api/auth/login');
+});
+
+it('does not retry a signup rate limit or a server error', async () => {
+  for (const status of [429, 500]) {
+    const fetcher = vi.fn().mockResolvedValue(new Response('{}', { status }));
+    vi.stubGlobal('fetch', fetcher);
+    await expect(
+      authenticate(client(), 'loadtest+1@example.com', 'password', 'Load Test 01', 'CODE'),
+    ).rejects.toMatchObject({ status });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+  }
 });
 
 it('unlinks and deletes only synthetic roster names, then deactivates only synthetic emails', async () => {

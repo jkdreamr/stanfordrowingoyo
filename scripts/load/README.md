@@ -18,7 +18,7 @@ npm run load -- --base-url http://localhost:8787 --cleanup
 | `--users`                     | 60, positive integer                                                |
 | `--scenario`                  | `both`, or `session`, `burst`                                       |
 | `--burst-window`              | 60 seconds; nonnegative integer                                     |
-| `--concurrency`               | users; maximum concurrent session rowers (not burst)                |
+| `--concurrency`               | users; maximum concurrent auth/session rowers (not burst writes)    |
 | `--p95-ms`                    | 800; per-endpoint nearest-rank p95 ceiling                          |
 | `--team-code`                 | Otherwise authenticate admin and read settings                      |
 | `--admin-email`               | joskoo@stanford.edu; must be roster-seeded for initial signup       |
@@ -38,10 +38,11 @@ are refused. Requests have a 30-second timeout. Passwords supplied as flags may
 appear in shell history; prefer the environment for the admin password.
 
 Each rower uses its own cookie jar, manually forwarding Secure `oyo_session`
-cookies even on local HTTP. Login is tried first, signup only after 401/404;
-there are at most two auth attempts per rower, no retry storms. Use a fresh local
-database or consistent passwords. Do not run concurrently against the same seed
-emails: signup conflicts are reported rather than adding a third auth attempt.
+cookies even on local HTTP. Fresh rowers try signup first, then login only on 409;
+rows already claimed by the matching user and burst-only re-logins try login first,
+then signup only on 401/404. There are at most two auth attempts per rower, no retry
+storms. Use a fresh local database or consistent passwords. Do not run concurrently
+against the same seed emails.
 Every non-GET request sends `X-OYO-CSRF: 1`, including bodyless kudos/unlink/delete.
 
 Admin bootstrap is shared by all rowers: one login attempt, signup only if missing.
@@ -64,11 +65,16 @@ Session rowers create 1–3 workouts, occasionally upload a generated ~300 KiB
 16x16 baseline JPEG, paginate the feed up to three pages, interact, and query
 stats. Burst rowers share successful sessions and have uniform random start
 offsets within the window; failed session rowers are skipped to avoid repeating
-auth failures. Burst-only runs log in at their scheduled start, then fetch config
-for the server's date. `makeJpeg` in `jpeg.ts` is exported for future E2E reuse.
+auth failures. All rower authentication runs in a separate bounded phase before
+steady-state traffic; burst-only runs re-login in that phase, then spread entry
+starts across the burst window. `makeJpeg` in `jpeg.ts` is exported for E2E reuse.
 
 Reports include each request's status, full-body latency, endpoint percentiles,
 error counts (including 4xx), wall time and throughput overall and by scenario.
+An `Auth phase (rowers)` line and auth table separate rower signup/login cost from
+steady-state session/burst latency, without exempting auth from endpoint thresholds.
+Setup (admin bootstrap/roster preparation) and cleanup each measure their own wall
+time, including failed phases. Admin auth remains in the setup table.
 Exit 2 means invalid CLI arguments; exit 1 means p95 exceeded, 5xx, network errors,
 or an internal/setup failure. Expected auth 4xx are counted but do not fail the
 latency/status checks. A failed rower stops its workflow to avoid cascading errors.

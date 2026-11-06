@@ -43,10 +43,10 @@ it('records server and network failures without retrying', async () => {
   expect(samples.map((s) => s.status)).toEqual([501, 0]);
 });
 
-it('signs up only after missing login, with at most two attempts', async () => {
+it('logs in only after signup conflict, with at most two attempts', async () => {
   const fetcher = vi
     .fn()
-    .mockResolvedValueOnce(new Response('{}', { status: 401 }))
+    .mockResolvedValueOnce(new Response('{}', { status: 409 }))
     .mockResolvedValueOnce(new Response('{"id":"u"}'));
   vi.stubGlobal('fetch', fetcher);
   await authenticate(
@@ -57,7 +57,8 @@ it('signs up only after missing login, with at most two attempts', async () => {
     'CODE',
   );
   expect(fetcher).toHaveBeenCalledTimes(2);
-  expect(JSON.parse(fetcher.mock.calls[1][1].body)).toMatchObject({ team_code: 'CODE' });
+  expect(JSON.parse(fetcher.mock.calls[0][1].body)).toMatchObject({ team_code: 'CODE' });
+  expect(fetcher.mock.calls[1][0]).toBe('http://localhost/api/auth/login');
 });
 
 it('cleanup patches only exact synthetic addresses and handles an empty roster', async () => {
