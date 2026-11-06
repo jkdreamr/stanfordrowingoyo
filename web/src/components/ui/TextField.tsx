@@ -10,7 +10,7 @@ export function TextField({ label, hint, error, id, suffix, trailing, ...props }
           <input {...props} {...a} />
           {trailing}
           {suffix && (
-            <span className="text-muted" aria-hidden="true">
+            <span className="shrink-0 whitespace-nowrap text-muted" aria-hidden="true">
               {suffix}
             </span>
           )}

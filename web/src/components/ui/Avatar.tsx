@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ApiImage } from './ApiImage';
 export function Avatar({
   name,
   imageId,
@@ -26,11 +27,7 @@ export function Avatar({
       style={{ backgroundColor: `hsl(240 5% ${80 + (hash % 10)}%)` }}
     >
       {imageId && failed !== imageId ? (
-        <img
-          src={`/api/images/${encodeURIComponent(imageId)}`}
-          alt=""
-          onError={() => setFailed(imageId)}
-        />
+        <ApiImage imageId={imageId} alt="" onError={() => setFailed(imageId)} />
       ) : (
         initials
       )}

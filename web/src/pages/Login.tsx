@@ -63,7 +63,7 @@ export default function Login() {
         </Button>
       </form>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-1 text-subhead">
-        <span className="text-muted">New To The Team?</span>
+        <span className="text-muted">New to the team?</span>
         <Link className="auth-text-link" to={`/signup?next=${encodeURIComponent(next)}`}>
           Sign Up
         </Link>

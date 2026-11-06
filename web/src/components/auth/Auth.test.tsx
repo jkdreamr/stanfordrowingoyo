@@ -13,8 +13,21 @@ import Login from '../../pages/Login';
 import Signup from '../../pages/Signup';
 import ChangePassword from '../../pages/ChangePassword';
 import Settings from '../../pages/Settings';
+import { ThemeProvider } from '../../lib/theme';
+import { ToastProvider } from '../ui';
 const clients: ReturnType<typeof createQueryClient>[] = [];
 beforeEach(() => {
+  vi.stubGlobal('matchMedia', () => ({
+    matches: false,
+    addEventListener() {},
+    removeEventListener() {},
+  }));
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute('open', '');
+  };
+  HTMLDialogElement.prototype.close = function () {
+    this.removeAttribute('open');
+  };
   vi.stubGlobal(
     'IntersectionObserver',
     class {
@@ -85,7 +98,11 @@ function setup(path: string, session: string | null = null, forced = false) {
   );
   render(
     <QueryClientProvider client={client}>
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <ToastProvider>
+          <RouterProvider router={router} />
+        </ToastProvider>
+      </ThemeProvider>
     </QueryClientProvider>,
   );
   return { mock, client, router };
@@ -164,6 +181,7 @@ describe('authentication flows', () => {
   it('logs out and removes account data from the cache', async () => {
     const { client } = setup('/settings', 'user-1');
     fireEvent.click(await screen.findByRole('button', { name: 'Log Out' }));
+    fireEvent.click(screen.getByRole('dialog').querySelector('footer button:last-child')!);
     await screen.findByRole('button', { name: 'Log In' });
     expect(client.getQueryData(qk.me())).toBeUndefined();
   });

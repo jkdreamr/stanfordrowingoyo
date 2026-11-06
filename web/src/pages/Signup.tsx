@@ -96,7 +96,7 @@ export default function Signup() {
         </Button>
       </form>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-1 text-subhead">
-        <span className="text-muted">Already Registered?</span>
+        <span className="text-muted">Already registered?</span>
         <Link className="auth-text-link" to={`/login?next=${encodeURIComponent(next)}`}>
           Log In
         </Link>
