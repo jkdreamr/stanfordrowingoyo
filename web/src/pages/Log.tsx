@@ -218,7 +218,7 @@ function LogForm({
           </section>
           <section>
             <div className="mb-3 flex items-center justify-between gap-4">
-              <h2 className="text-headline">Distance</h2>
+              <h2 className="text-subhead">Distance</h2>
               <div className="w-32">
                 <SegmentedControl
                   label="Distance Unit"
@@ -258,25 +258,45 @@ function LogForm({
           </section>
           <Card>
             <p className="text-caption text-muted">Equivalent distance</p>
-            <p className="mt-2 text-title1 tabular-nums">
-              ={' '}
-              {formatEMeters(
-                Number.isFinite(values.equivalent) && values.equivalent > 0 ? values.equivalent : 0,
-              )}
-            </p>
-            <p className="mt-2 text-footnote text-muted tabular-nums">
-              {formatKm(Math.max(0, distanceMeters(draft)))} ×{' '}
-              {formatNumber(config.mode_factors[draft.modality], 3)} {draft.modality} ×{' '}
-              {formatNumber(config.zone_factors[draft.zone], 2)} {draft.zone}
-            </p>
-            <Disclosure title="E-Meter Receipt" open={receipt} onChange={setReceipt}>
-              <p className="text-footnote text-muted">
-                Actual {formatKm(Math.max(0, distanceMeters(draft)))} × {draft.modality} factor{' '}
-                {formatNumber(config.mode_factors[draft.modality], 3)} × Zone {draft.zone} factor{' '}
-                {formatNumber(config.zone_factors[draft.zone], 2)} ={' '}
-                {formatEMeters(Math.max(0, values.equivalent || 0))}
-              </p>
-            </Disclosure>
+            {!values.errors.distance ? (
+              <>
+                <p className="mt-2 text-title1 tabular-nums">
+                  ={' '}
+                  {formatEMeters(
+                    Number.isFinite(values.equivalent) && values.equivalent > 0
+                      ? values.equivalent
+                      : 0,
+                  )}
+                </p>
+                <Disclosure
+                  title={
+                    <span className="text-footnote text-muted tabular-nums">
+                      {formatNumber(distanceMeters(draft))} m ×{' '}
+                      {draft.modality === 'bike' &&
+                      Math.abs(config.mode_factors.bike - 1 / 3) < 0.001
+                        ? 'Bike ⅓'
+                        : `${draft.modality === 'erg' ? 'Erg' : draft.modality === 'run' ? 'Run' : 'Bike'} ${formatNumber(config.mode_factors[draft.modality], 2)}`}{' '}
+                      × Zone {draft.zone} {formatNumber(config.zone_factors[draft.zone], 1)} ={' '}
+                      {formatEMeters(values.equivalent)}
+                    </span>
+                  }
+                  open={receipt}
+                  onChange={setReceipt}
+                >
+                  <p className="text-footnote text-muted">
+                    Actual {formatKm(Math.max(0, distanceMeters(draft)))} × {draft.modality} factor{' '}
+                    {formatNumber(config.mode_factors[draft.modality], 3)} × Zone {draft.zone}{' '}
+                    factor {formatNumber(config.zone_factors[draft.zone], 2)} ={' '}
+                    {formatEMeters(Math.max(0, values.equivalent || 0))}
+                  </p>
+                </Disclosure>
+              </>
+            ) : (
+              <>
+                <p className="mt-2 text-title1 text-muted">—</p>
+                <p className="mt-2 text-footnote text-muted">Enter a distance to see E-meters</p>
+              </>
+            )}
           </Card>
           <Disclosure title="Add Details" open={details} onChange={setDetails}>
             <TextField

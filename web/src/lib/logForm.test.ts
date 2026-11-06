@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import type { Config } from '../../../shared/types';
 import { createMockApi } from '../mock/handlers';
-import { logDraft, logValues } from './logForm';
+import { logDraft, logValues, suggestedTitle } from './logForm';
 let config: Config;
 beforeAll(async () => {
   config = await (
@@ -11,6 +11,11 @@ beforeAll(async () => {
   ).json();
 });
 describe('log form math and validation', () => {
+  it('uses a neutral title until a finite positive distance exists', () => {
+    for (const distance of ['', '0', '-1', 'bad'])
+      expect(suggestedTitle({ ...logDraft(config.today), distance })).toBe('e.g. 3x6k E');
+    expect(suggestedTitle({ ...logDraft(config.today), distance: '6000' })).toBe('6,000 m E Erg');
+  });
   it('uses configured factors for equivalent preview and derives an erg split', () => {
     const draft = {
       ...logDraft(config.today),

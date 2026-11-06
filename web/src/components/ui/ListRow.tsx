@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 export type ListRowProps = {
   title: string;
-  subtitle?: string;
+  subtitle?: ReactNode;
   leading?: ReactNode;
   avatar?: ReactNode;
   trailing?: ReactNode;

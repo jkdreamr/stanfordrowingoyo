@@ -163,11 +163,18 @@ export default function Page() {
                   to={`/entries/${e.id}`}
                   title={e.title}
                   leading={<ModalityIcon modality={e.modality} />}
-                  subtitle={`${formatWeekday(e.date)} · ${formatKm(e.distance_m)}`}
+                  subtitle={
+                    <span className="flex flex-wrap items-center gap-2">
+                      <ZoneChip zone={e.zone} />
+                      <span>
+                        {formatWeekday(e.date)} · {formatKm(e.distance_m)}
+                      </span>
+                    </span>
+                  }
                   trailing={
                     <span className="flex flex-col items-end gap-1">
-                      <ZoneChip zone={e.zone} />
-                      <span className="text-caption">{formatEMeters(e.equiv_m, true)} E-m</span>
+                      <span className="text-subhead text-text">{formatNumber(e.equiv_m)}</span>
+                      <span className="text-caption">E-meters</span>
                     </span>
                   }
                 />

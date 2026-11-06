@@ -6,7 +6,7 @@ export function Disclosure({
   onChange,
   children,
 }: {
-  title: string;
+  title: ReactNode;
   open: boolean;
   onChange: (open: boolean) => void;
   children: ReactNode;

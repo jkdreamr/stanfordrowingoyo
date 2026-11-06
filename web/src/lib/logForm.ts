@@ -54,6 +54,7 @@ export function distanceMeters(draft: LogDraft) {
 }
 export function suggestedTitle(draft: LogDraft) {
   const meters = distanceMeters(draft);
+  if (!Number.isFinite(meters) || meters <= 0) return 'e.g. 3x6k E';
   return `${draft.unit === 'km' ? formatKm(meters) : formatMeters(meters)} ${draft.zone} ${draft.modality === 'erg' ? 'Erg' : draft.modality === 'bike' ? 'Bike' : 'Run'}`;
 }
 export function logValues(draft: LogDraft, config: Config) {
