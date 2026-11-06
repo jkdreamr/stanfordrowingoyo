@@ -382,7 +382,7 @@ describe('core worker integration', () => {
     await sql((storage) =>
       expect(
         storage.sql
-          .exec('SELECT * FROM rate_limits WHERE email = ?', 'rower@example.com')
+          .exec('SELECT * FROM rate_limits WHERE email = ?', 'auth-email:rower@example.com')
           .toArray(),
       ).toHaveLength(0),
     );

@@ -112,6 +112,7 @@ const endpoints: Record<keyof Api, true> = {
   'GET /api/entries/:id': true,
   'PATCH /api/entries/:id': true,
   'DELETE /api/entries/:id': true,
+  'GET /api/entries/:id/kudos': true,
   'POST /api/entries/:id/kudos': true,
   'DELETE /api/entries/:id/kudos': true,
   'GET /api/entries/:id/comments': true,

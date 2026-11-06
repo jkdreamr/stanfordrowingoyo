@@ -72,9 +72,11 @@ it('ignores supplied hashes, normalizes codes and preserves existing hash compat
     (await request('/api/auth/login', { email: 'athlete@example.com', password: 'password123' }))
       .status,
   ).toBe(200);
-  const { hash, salt } = await hashPassword('existing-password');
-  expect(await verifyPassword('existing-password', hash, salt)).toBe(true);
-  expect(await verifyPassword('wrong-password', hash, salt)).toBe(false);
+  const { hash, salt } = await hashPassword('existing-password', bindings.PASSWORD_PEPPER);
+  expect(await verifyPassword('existing-password', hash, salt, bindings.PASSWORD_PEPPER)).toBe(
+    true,
+  );
+  expect(await verifyPassword('wrong-password', hash, salt, bindings.PASSWORD_PEPPER)).toBe(false);
 });
 it.each(['known', 'unknown'])(
   'counts failed %s logins and rejects the eleventh before PBKDF2',

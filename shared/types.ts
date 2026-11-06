@@ -300,6 +300,7 @@ export interface Api {
   'GET /api/entries/:id': Endpoint<void, EntryDetail>;
   'PATCH /api/entries/:id': Endpoint<Partial<EntryInput>, EntryDetail>;
   'DELETE /api/entries/:id': Endpoint<void, void>;
+  'GET /api/entries/:id/kudos': Endpoint<void, PublicUser[]>;
   'POST /api/entries/:id/kudos': Endpoint<void, void>;
   'DELETE /api/entries/:id/kudos': Endpoint<void, void>;
   'GET /api/entries/:id/comments': Endpoint<void, CommentWithAuthor[]>;

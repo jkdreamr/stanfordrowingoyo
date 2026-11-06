@@ -57,6 +57,7 @@ const routes: Route[] = [
   { method: 'DELETE', path: '/api/entries/:id', handler: entries.remove },
   { method: 'POST', path: '/api/images', handler: images.create },
   { method: 'GET', path: '/api/images/:id', handler: images.get },
+  { method: 'GET', path: '/api/entries/:id/kudos', handler: social.kudosUsers },
   { method: 'POST', path: '/api/entries/:id/kudos', handler: social.kudos },
   { method: 'DELETE', path: '/api/entries/:id/kudos', handler: social.kudos },
   { method: 'GET', path: '/api/entries/:id/comments', handler: social.comments },

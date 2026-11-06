@@ -4,6 +4,10 @@ Requires Node 24 (native TypeScript stripping), no runtime dependencies. Backend
 routes must implement the roster-claim contract in `shared/types.ts`; unsupported
 routes fail the run without retrying obsolete signup payloads.
 
+Before local Wrangler/E2E use, copy `.dev.vars.example` to the gitignored
+`.dev.vars`. It binds a dummy `PASSWORD_PEPPER` (required for all password work)
+and `TEAM_CODE`. Never use the example pepper in deployment or commit real secrets.
+
 ```sh
 LOAD_ADMIN_PASSWORD='your-local-admin-password' npm run load -- --base-url http://localhost:8787 --users 60
 LOAD_ADMIN_PASSWORD='your-local-admin-password' npm run load -- --base-url http://localhost:8787 --seed 42 --json load-report.json

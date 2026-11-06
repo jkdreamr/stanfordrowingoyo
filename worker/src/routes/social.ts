@@ -6,6 +6,10 @@ import { byId, toPublicUser } from '../db/users';
 import { audit } from '../db/audit';
 import { HttpError, json, noContent, readJson } from '../http';
 import { string } from '../validate';
+export function kudosUsers(ctx: Context) {
+  const user = requireUser(ctx);
+  return json(db.kudosUsers(ctx.storage, ctx.params.id, user.id));
+}
 export function kudos(ctx: Context) {
   const user = requireUser(ctx);
   const entry = visibleEntry(ctx.storage, ctx.params.id, user.id);

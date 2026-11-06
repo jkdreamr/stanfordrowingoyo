@@ -142,7 +142,19 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
   Unlinking does not delete entries. Signing up again with the same email reactivates and reuses an inactive account
   **only if no roster row is still linked to it**: claim a new name, adopt its attributes, set the new password,
   clear the forced-change flag and keep training history. Other duplicate emails return `409 EMAIL_TAKEN`.
-- Login: email + password. Passwords: PBKDF2-SHA256 in the stateless Worker (WebCrypto, 100k iterations, 16-byte salt).
+- Login: email + password. Passwords: HMAC-SHA256(key=`PASSWORD_PEPPER`, message=password) feeds PBKDF2-SHA256
+  in the stateless Worker (WebCrypto, `PASSWORD_ITERATIONS=20000`, 16-byte random salt, pepper version 1).
+  `password_hash` stores `pbkdf2-sha256$<iterations>$<pepper_version>$<salt_b64>$<hash_b64>`;
+  `password_salt` remains populated for compatibility. Missing/blank `PASSWORD_PEPPER` fails hashing/verifying
+  endpoints closed with 500 INTERNAL and logs `PASSWORD_PEPPER secret is not configured`; other endpoints still work.
+  Unknown-email login performs the same current HMAC+PBKDF2 work as a current-format verification.
+  Legacy unprefixed 100k/no-pepper hashes remain verifiable only for upgrade. After a successful login,
+  legacy hashes, lower iteration counts or older pepper versions are rehashed in the Worker and atomically
+  upgraded alongside session creation only if the verified credentials remain unchanged; otherwise 409.
+  Stronger current-version hashes are not downgraded. Pepper rotation requires a version bump and a plan
+  retaining access to old keys or resetting affected passwords: one configured secret does not retain retired keys.
+  The Free plan's 10 ms CPU budget motivates 20k; a legacy 100k verification can still exceed that budget,
+  in which case staff reset-password provisions a current-format password without legacy verification.
   The DO rate-limits before derivation and re-validates account status and unchanged credentials before creating a session.
 - Sessions: random 32-byte token in an HttpOnly, Secure, SameSite=Lax cookie `oyo_session`, 60-day sliding expiry;
   only SHA-256(token) stored. Logout deletes it.
@@ -151,7 +163,11 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
 - Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
   `TEAM_CODE` Worker secret, or a generated UUID when absent/blank. Existing settings are never overwritten; staff can change the code in Admin → Team settings.
   Join codes are compared trimmed and case-insensitively (constant-time) in roster discovery and signup.
-- Rate-limit login/signup attempts per email+IP (simple counter table, 10 / 15 min).
+- Rate-limit login/signup (also password-change verification) with independent counters: 10 attempts per
+  normalized email across IPs and 150 attempts per IP across emails, each over 15 minutes. The shared-IP
+  budget permits campus NAT onboarding (60 signups plus later logins) while bounding authenticated abuse.
+  Both are checked atomically in the DO before Worker crypto. Failures count; success clears only the
+  email bucket, never the aggregate IP budget. Exhaustion returns 429 with Retry-After.
 - Rate-limit public roster discovery per IP (10 / 15 min), counting every attempt and clearing on success.
 - Only rowers appear on leaderboards by default (`on_leaderboard` flag, staff-editable); all staff, including admins,
   default false. Roster seeds in `shared/seed.ts`: 35 rowers, three coxswains, Joshua Koo; no coaches.
@@ -211,6 +227,10 @@ Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visib
 `POST /api/entries`, `GET/PATCH/DELETE /api/entries/:id` (owner or staff), `POST/DELETE /api/entries/:id/kudos`,
 `GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
 `DELETE /api/comments/:id` (author or staff).
+`GET /api/entries/:id/kudos` returns `PublicUser[]` newest kudos first, ties by user id ascending.
+It uses one LEFT JOIN query for visibility and kudos→users (no N+1); no email/credentials are exposed.
+Authentication is required (401); missing entries or another user's private entry return 404, including for staff.
+Visible entries without kudos return `[]`.
 Images: `POST /api/images` (raw body, image/jpeg|png|webp, ≤1.5MB) → {id}; `GET /api/images/:id` (immutable cache).
 Authenticated image reads require ownership, use as any user's current avatar, or attachment to an entry visible to
 the viewer (non-private or their own); otherwise 404, including conditional requests. Fresh unattached uploads remain

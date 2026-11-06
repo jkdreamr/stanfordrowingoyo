@@ -1,0 +1,3 @@
+# Local-only dummy values. Copy to .dev.vars; never use these in deployment.
+TEAM_CODE="local-demo-code"
+PASSWORD_PEPPER="local-only-dummy-password-pepper"

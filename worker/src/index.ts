@@ -1,5 +1,11 @@
 export { TeamDO } from './do';
-import { hashPassword, verifyPassword, temporaryPassword } from './auth/crypto';
+import {
+  hashPassword,
+  verifyPassword,
+  temporaryPassword,
+  requirePasswordPepper,
+  passwordNeedsUpgrade,
+} from './auth/crypto';
 import { checkCsrf } from './router';
 import { readJson, errorResponse, HttpError, json } from './http';
 import * as v from './validate';
@@ -8,6 +14,7 @@ export interface Env {
   ASSETS: Fetcher;
   OYO_TEST_CLOCK?: string;
   TEAM_CODE?: string;
+  PASSWORD_PEPPER?: string;
 }
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -43,12 +50,13 @@ export default {
       };
       try {
         checkCsrf(request);
+        const pepper = requirePasswordPepper(env.PASSWORD_PEPPER);
         if (reset) {
           const target = `admin/users/${reset[1]}/reset-password/`;
           const precheck = await internal(target + 'precheck');
           if (!precheck.ok) return precheck;
           const password = temporaryPassword();
-          const { hash, salt } = await hashPassword(password);
+          const { hash, salt } = await hashPassword(password, pepper);
           const response = await internal(target + 'commit', {
             password_hash: hash,
             password_salt: salt,
@@ -72,10 +80,15 @@ export default {
             password_salt: string;
           }>();
           if (
-            !(await verifyPassword(current, credentials.password_hash, credentials.password_salt))
+            !(await verifyPassword(
+              current,
+              credentials.password_hash,
+              credentials.password_salt,
+              pepper,
+            ))
           )
             throw new HttpError(401, 'INVALID_CREDENTIALS', 'Current password is incorrect.');
-          const { hash, salt } = await hashPassword(next);
+          const { hash, salt } = await hashPassword(next, pepper);
           return internal('me/password/commit', {
             ...credentials,
             new_password_hash: hash,
@@ -93,7 +106,7 @@ export default {
           };
           const response = await internal('auth/signup/precheck', input);
           if (!response.ok) return response;
-          const { hash, salt } = await hashPassword(password);
+          const { hash, salt } = await hashPassword(password, pepper);
           return internal('auth/signup/commit', {
             ...input,
             password_hash: hash,
@@ -108,11 +121,25 @@ export default {
           password_salt: string | null;
         }>();
         const valid = credentials.user_id
-          ? await verifyPassword(password, credentials.password_hash!, credentials.password_salt!)
-          : (await hashPassword(password, 'AAAAAAAAAAAAAAAAAAAAAA=='), false);
+          ? await verifyPassword(
+              password,
+              credentials.password_hash!,
+              credentials.password_salt!,
+              pepper,
+            )
+          : (await hashPassword(password, pepper, 'AAAAAAAAAAAAAAAAAAAAAA=='), false);
         if (!valid)
           throw new HttpError(401, 'INVALID_CREDENTIALS', 'Email or password is incorrect.');
-        return internal('auth/login/session', { email, ...credentials });
+        const upgrade = passwordNeedsUpgrade(credentials.password_hash!)
+          ? await hashPassword(password, pepper)
+          : undefined;
+        return internal('auth/login/session', {
+          email,
+          ...credentials,
+          ...(upgrade
+            ? { upgraded_password_hash: upgrade.hash, upgraded_password_salt: upgrade.salt }
+            : {}),
+        });
       } catch (error) {
         return errorResponse(error);
       }

@@ -16,6 +16,7 @@ import type {
 import { migrate } from './db/migrate';
 import { setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
+import { kudosUsers } from './db/social';
 const bindings = env as unknown as Env;
 const NOW = '2026-03-09T18:00:00Z';
 type Client = { cookie: string; user: User };
@@ -419,6 +420,50 @@ describe('entries and images', () => {
   });
 });
 describe('social and notifications', () => {
+  it('lists public kudos users with one query, newest first then user id, subject to entry visibility', async () => {
+    const owner = await user('Owner');
+    const first = await user('First');
+    const second = await user('Second');
+    const staff = await user('Staff', 'coach');
+    const created = await entry(owner);
+    const path = '/entries/' + created.id + '/kudos';
+    expect(await (await api(path, first)).json()).toEqual([]);
+    for (const client of [owner, first]) expect((await api(path, client, 'POST')).status).toBe(204);
+    expect((await api(path, second, 'POST', undefined, '2026-03-09T18:01:00Z')).status).toBe(204);
+    const expected = [second.user.id, ...[owner.user.id, first.user.id].sort()];
+    const response = await api(path, first);
+    expect(response.status).toBe(200);
+    const listed = await response.json<{ id: string }[]>();
+    expect(listed.map((row) => row.id)).toEqual(expected);
+    for (const row of listed)
+      for (const field of ['email', 'password_hash', 'password_salt', 'must_change_password'])
+        expect(row).not.toHaveProperty(field);
+    await sql((storage) => {
+      let queries = 0;
+      const traced = new Proxy(storage, {
+        get(target, key) {
+          if (key === 'sql')
+            return {
+              exec: (...args: Parameters<typeof storage.sql.exec>) => {
+                queries++;
+                return target.sql.exec(...args);
+              },
+            };
+          return Reflect.get(target, key, target);
+        },
+      });
+      expect(kudosUsers(traced, created.id, owner.user.id).map((row) => row.id)).toEqual(expected);
+      expect(queries).toBe(1);
+    });
+    const secret = await entry(owner, { visibility: 'private' });
+    const privatePath = '/entries/' + secret.id + '/kudos';
+    for (const viewer of [first, staff]) expect((await api(privatePath, viewer)).status).toBe(404);
+    expect(await (await api(privatePath, owner)).json()).toEqual([]);
+    expect((await api(privatePath, owner, 'POST')).status).toBe(204);
+    expect(await (await api(privatePath, owner)).json()).toMatchObject([{ id: owner.user.id }]);
+    expect((await api(path)).status).toBe(401);
+    expect((await api('/entries/missing/kudos', owner)).status).toBe(404);
+  });
   it('makes kudos idempotent, skips self notifications, returns public authors, marks only mine read', async () => {
     const owner = await user('Owner');
     const other = await user('Other');

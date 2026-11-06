@@ -1,5 +1,9 @@
 # Playwright E2E
 
+Copy `.dev.vars.example` to the gitignored `.dev.vars` before starting the local
+server. Its dummy `PASSWORD_PEPPER` enables password operations and its dummy
+`TEAM_CODE` seeds fresh state. Never use these values in deployment.
+
 Run `npm run e2e:install`, then `npm run e2e` on Node 24. No E2E CI job is
 enabled yet. Desktop Chrome and Pixel 7 use Chromium; iPhone 15 defaults to
 WebKit. If WebKit cannot launch locally, use `E2E_IPHONE_ENGINE=chromium` to

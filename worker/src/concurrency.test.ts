@@ -438,7 +438,7 @@ describe('credential commit races through Worker', () => {
     const owner = await user('Owner', race.startsWith('reset-') ? 'coxswain' : 'admin');
     const athlete = await user('Athlete');
     const before = await sql((s) => byId(s, athlete.user.id).password_hash);
-    const replacement = await hashPassword('replacement123');
+    const replacement = await hashPassword('replacement123', bindings.PASSWORD_PEPPER);
     const roster = await sql((s) => insertRosterFixture(s, 'New athlete'));
     if (race.startsWith('login'))
       await sql((s) => s.sql.exec('DELETE FROM sessions WHERE user_id=?', athlete.user.id));

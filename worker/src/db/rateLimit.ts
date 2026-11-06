@@ -2,13 +2,15 @@ import type { Context } from '../context';
 import type { RateLimit } from '../../../shared/types';
 import type { Row } from './row';
 import { HttpError } from '../http';
-export function attempt(ctx: Context, email: string) {
-  const ip = ctx.request.headers.get('CF-Connecting-IP') ?? 'local';
+export const AUTH_EMAIL_LIMIT = 10;
+export const AUTH_IP_LIMIT = 150;
+const ipAddress = (ctx: Context) => ctx.request.headers.get('CF-Connecting-IP') ?? 'local';
+function consume(ctx: Context, email: string, ip: string, limit: number) {
   const row = ctx.storage.sql
     .exec<Row<RateLimit>>('SELECT * FROM rate_limits WHERE email = ? AND ip = ?', email, ip)
     .toArray()[0];
   const remaining = row ? 900000 - (ctx.now.getTime() - Date.parse(row.window_start)) : 0;
-  if (remaining > 0 && row.attempts >= 10)
+  if (remaining > 0 && row.attempts >= limit)
     throw new HttpError(429, 'RATE_LIMITED', 'Too many attempts. Try again later.', {
       'Retry-After': String(Math.ceil(remaining / 1000)),
     });
@@ -20,10 +22,26 @@ export function attempt(ctx: Context, email: string) {
     remaining > 0 ? row.attempts + 1 : 1,
   );
 }
+export function attempt(ctx: Context, email: string) {
+  ctx.storage.transactionSync(() => {
+    consume(ctx, 'auth-email:' + email, '', AUTH_EMAIL_LIMIT);
+    consume(ctx, 'auth-ip', ipAddress(ctx), AUTH_IP_LIMIT);
+  });
+}
 export function clearAttempts(ctx: Context, email: string) {
   ctx.storage.sql.exec(
     'DELETE FROM rate_limits WHERE email = ? AND ip = ?',
-    email,
-    ctx.request.headers.get('CF-Connecting-IP') ?? 'local',
+    'auth-email:' + email,
+    '',
+  );
+}
+export function attemptDiscovery(ctx: Context) {
+  consume(ctx, 'roster-discovery', ipAddress(ctx), 10);
+}
+export function clearDiscovery(ctx: Context) {
+  ctx.storage.sql.exec(
+    'DELETE FROM rate_limits WHERE email=? AND ip=?',
+    'roster-discovery',
+    ipAddress(ctx),
   );
 }
