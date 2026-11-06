@@ -19,10 +19,10 @@ the default is `e2e-dev-admin-password-1`. Admin auth runs once for all projects
 not per worker. State and join code stay in ignored `e2e/.auth/`. A 501 auth
 response produces `backendReady:false`; backend fixture consumers then skip.
 Other bootstrap errors fail instead of masquerading as an unavailable backend.
-Admin signup first sends email/password, with a named-signup fallback on legacy
-validation 400. The roster probe selects legacy flow only on 404/405/501. For
-roster APIs the admin creates a unique `E2E <project> <random>` row per test user;
-that row is then claimed with the test email/password and group. Real seeded
+Admin signup sends only email/password using the email-bound bootstrap row.
+The admin creates a unique `E2E <project> <random>` row per test user, verifies it
+appears in code-gated `POST /api/auth/roster`, and claims its `roster_id` with
+the test email/password and group. Discovery errors fail the run; there is no legacy name/signup fallback. Real seeded
 names are never claimed. Every API mutation sends `X-OYO-CSRF: 1`.
 
 All current product screens are stubs. Scenario bodies use semantic locators

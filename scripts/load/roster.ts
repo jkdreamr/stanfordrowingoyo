@@ -17,33 +17,16 @@ export async function bootstrapAdmin(options: Options, samples: Sample[]) {
     await client.request('POST /api/auth/login', { body: credentials });
   } catch (error) {
     if (!(error instanceof RequestError) || ![401, 404].includes(error.status)) throw error;
-    try {
-      await client.request('POST /api/auth/signup', { body: credentials });
-    } catch (error) {
-      if (!(error instanceof RequestError) || error.status !== 400) throw error;
-      await client.request('POST /api/auth/signup', {
-        body: { ...credentials, name: 'Load Test Admin' },
-      });
-    }
+    await client.request('POST /api/auth/signup', { body: credentials });
   }
   const teamCode = options.teamCode ?? (await client.request('GET /api/admin/settings')).team_code;
-  const rosterFlow = await detectRosterFlow(client, teamCode);
-  console.log(`Signup flow: ${rosterFlow ? 'roster claims' : 'legacy'}`);
-  return { client, teamCode, rosterFlow };
+  await discoverRoster(client, teamCode);
+  console.log('Signup flow: roster claims');
+  return { client, teamCode };
 }
 
-export async function detectRosterFlow(client: Client, teamCode: string) {
-  try {
-    await client.request('POST /api/auth/roster', { body: { team_code: teamCode } });
-    return true;
-  } catch (error) {
-    if (error instanceof RequestError && [404, 405, 501].includes(error.status)) {
-      const sample = client.samples.at(-1);
-      if (sample) sample.expected = true;
-      return false;
-    }
-    throw error;
-  }
+export function discoverRoster(client: Client, teamCode: string) {
+  return client.request('POST /api/auth/roster', { body: { team_code: teamCode } });
 }
 
 export async function prepareRoster(

@@ -1,9 +1,8 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { Client } from './http.ts';
-import { detectRosterFlow, prepareRoster, bootstrapAdmin } from './roster.ts';
+import { discoverRoster, prepareRoster, bootstrapAdmin } from './roster.ts';
 import { authenticate, cleanup, random } from './scenarios.ts';
 import { parseOptions } from './args.ts';
-import { report } from './report.ts';
 import { routeTemplate } from './stats.ts';
 
 afterEach(() => vi.unstubAllGlobals());
@@ -21,14 +20,13 @@ it('templates roster IDs and distributes deterministic per-user burst starts', (
   expect(bins.size).toBe(6);
 });
 
-it('detects roster support and treats only unsupported probe statuses as legacy', async () => {
+it('discovers roster choices and rejects every failed discovery without legacy signup', async () => {
   for (const status of [200, 404, 405, 501, 403, 429, 500]) {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json([], { status })));
     const api = client();
-    if ([403, 429, 500].includes(status))
-      await expect(detectRosterFlow(api, 'CODE')).rejects.toMatchObject({ status });
-    else expect(await detectRosterFlow(api, 'CODE')).toBe(status === 200);
-    if (status === 501) expect(report(api.samples, 1, {}, 30000).failures).toEqual([]);
+    if (status !== 200) await expect(discoverRoster(api, 'CODE')).rejects.toMatchObject({ status });
+    else expect(await discoverRoster(api, 'CODE')).toEqual([]);
+    expect(api.samples[0].expected).toBeUndefined();
   }
 });
 
@@ -46,7 +44,7 @@ it('bootstraps an admin once, accepts minimal signup and shares the cookie for t
     .mockResolvedValueOnce(Response.json([]));
   vi.stubGlobal('fetch', fetcher);
   const result = await bootstrapAdmin(options(), []);
-  expect(result.rosterFlow).toBe(true);
+  expect(result.teamCode).toBe('CODE');
   expect(fetcher.mock.calls.filter(([url]) => url.endsWith('/login'))).toHaveLength(1);
   expect(JSON.parse(fetcher.mock.calls[1][1].body)).toEqual({
     email: 'joskoo@stanford.edu',
@@ -55,17 +53,14 @@ it('bootstraps an admin once, accepts minimal signup and shares the cookie for t
   expect(fetcher.mock.calls[3][1].headers.get('Cookie')).toBe('oyo_session=admin-cookie');
 });
 
-it('falls back to a named admin signup only on legacy validation 400', async () => {
+it('does not retry invalid admin signup with the obsolete name field', async () => {
   const fetcher = vi
     .fn()
     .mockResolvedValueOnce(new Response('{}', { status: 401 }))
-    .mockResolvedValueOnce(new Response('{}', { status: 400 }))
-    .mockResolvedValueOnce(Response.json({ id: 'admin' }))
-    .mockResolvedValueOnce(Response.json({ team_code: 'CODE' }))
-    .mockResolvedValueOnce(new Response('{}', { status: 404 }));
+    .mockResolvedValueOnce(new Response('{}', { status: 400 }));
   vi.stubGlobal('fetch', fetcher);
-  expect((await bootstrapAdmin(options(), [])).rosterFlow).toBe(false);
-  expect(JSON.parse(fetcher.mock.calls[2][1].body).name).toBe('Load Test Admin');
+  await expect(bootstrapAdmin(options(), [])).rejects.toMatchObject({ status: 400 });
+  expect(fetcher).toHaveBeenCalledTimes(2);
 });
 
 it('reuses only matching synthetic rows and creates missing rows with no seeded email', async () => {
@@ -114,7 +109,7 @@ it('refuses rows claimed by someone else and handles an empty requested roster',
 it('claims a synthetic row with its own email and group in one auth attempt', async () => {
   const fetcher = vi.fn().mockResolvedValueOnce(Response.json({ id: 'new' }));
   vi.stubGlobal('fetch', fetcher);
-  await authenticate(client(), 'loadtest+1@example.com', 'password', 'Load Test 01', 'CODE', {
+  await authenticate(client(), 'loadtest+1@example.com', 'password', 'CODE', {
     roster_id: 'free',
     group_key: 'u23',
   });
@@ -135,7 +130,6 @@ it('logs in first for burst re-login or a roster row already claimed by the same
     client(),
     'loadtest+1@example.com',
     'password',
-    'Load Test 01',
     'CODE',
     { roster_id: 'own' },
     true,
@@ -149,7 +143,7 @@ it('does not retry a signup rate limit or a server error', async () => {
     const fetcher = vi.fn().mockResolvedValue(new Response('{}', { status }));
     vi.stubGlobal('fetch', fetcher);
     await expect(
-      authenticate(client(), 'loadtest+1@example.com', 'password', 'Load Test 01', 'CODE'),
+      authenticate(client(), 'loadtest+1@example.com', 'password', 'CODE', { roster_id: 'free' }),
     ).rejects.toMatchObject({ status });
     expect(fetcher).toHaveBeenCalledTimes(1);
   }

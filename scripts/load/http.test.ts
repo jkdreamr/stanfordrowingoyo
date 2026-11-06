@@ -53,8 +53,8 @@ it('logs in only after signup conflict, with at most two attempts', async () => 
     new Client('http://localhost', [], 'session'),
     'loadtest+1@example.com',
     'password',
-    'Load Test 1',
     'CODE',
+    { roster_id: 'row-1' },
   );
   expect(fetcher).toHaveBeenCalledTimes(2);
   expect(JSON.parse(fetcher.mock.calls[0][1].body)).toMatchObject({ team_code: 'CODE' });
@@ -74,7 +74,8 @@ it('cleanup patches only exact synthetic addresses and handles an empty roster',
       .fn()
       .mockResolvedValueOnce(new Response('{}'))
       .mockResolvedValueOnce(Response.json({ team_code: 'CODE' }))
-      .mockResolvedValueOnce(new Response('{}', { status: 404 }))
+      .mockResolvedValueOnce(Response.json([]))
+      .mockResolvedValueOnce(Response.json([]))
       .mockResolvedValueOnce(Response.json(users))
       .mockResolvedValue(new Response('{}'));
     vi.stubGlobal('fetch', fetcher);
@@ -82,10 +83,10 @@ it('cleanup patches only exact synthetic addresses and handles an empty roster',
       parseOptions(['--base-url', 'http://localhost', '--admin-password', 'password']),
       [],
     );
-    expect(fetcher).toHaveBeenCalledTimes(users.length ? 5 : 4);
+    expect(fetcher).toHaveBeenCalledTimes(users.length ? 6 : 5);
     if (users.length) {
-      expect(fetcher.mock.calls[4][0]).toBe('http://localhost/api/admin/users/yes');
-      expect(JSON.parse(fetcher.mock.calls[4][1].body)).toEqual({
+      expect(fetcher.mock.calls[5][0]).toBe('http://localhost/api/admin/users/yes');
+      expect(JSON.parse(fetcher.mock.calls[5][1].body)).toEqual({
         active: false,
         on_leaderboard: false,
       });
