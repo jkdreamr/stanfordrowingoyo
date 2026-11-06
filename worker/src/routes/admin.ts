@@ -2,10 +2,10 @@ import type { Context } from '../context';
 import type { Preset, RosterRow, Settings } from '../../../shared/types';
 import { today, weekStart } from '../../../shared/dates';
 import { ZONES } from '../../../shared/math';
-import { requireAdmin, requireStaff } from '../auth/guards';
+import { refreshUser, requireAdmin, requireStaff } from '../auth/guards';
 import { hashPassword, temporaryPassword } from '../auth/crypto';
 import { byId, toUser, type UserRow } from '../db/users';
-import { findRoster, rosterById } from '../db/roster';
+import { findRoster, rosterById, rosterByName } from '../db/roster';
 import { getSettings, setSetting, setGroupTargets } from '../db/settings';
 import { audit, auditPage } from '../db/audit';
 import { presets, savePreset } from '../db/presets';
@@ -142,46 +142,88 @@ export function roster(ctx: Context) {
   requireStaff(ctx);
   return json(ctx.storage.sql.exec('SELECT * FROM roster ORDER BY name,email').toArray());
 }
-export async function createRoster(ctx: Context) {
+function saveRoster(
+  ctx: Context,
+  body: Record<string, unknown>,
+  before: RosterRow | undefined,
+  action: string,
+) {
+  refreshUser(ctx);
   const actor = requireStaff(ctx);
-  const input = rosterInput(await readJson(ctx.request));
-  rosterPermission(ctx, input.role);
-  if (input.email && findRoster(ctx.storage, input.email))
+  if (before) rosterPermission(ctx, before.role, before);
+  const linked = before?.claimed_by_user_id
+    ? byId(ctx.storage, before.claimed_by_user_id)
+    : undefined;
+  if (linked?.role === 'admin') requireAdmin(ctx);
+  const input = rosterInput(body, before);
+  rosterPermission(ctx, input.role, before);
+  const duplicateName = rosterByName(ctx.storage, input.name);
+  if (duplicateName && duplicateName.id !== before?.id)
+    conflict('This name is already on the roster.');
+  const duplicateEmail = input.email ? findRoster(ctx.storage, input.email) : undefined;
+  if (duplicateEmail && duplicateEmail.id !== before?.id)
     conflict('This email is already on the roster.');
+  if (linked?.role === 'admin') {
+    if (
+      linked.active &&
+      body.role !== undefined &&
+      input.role !== 'admin' &&
+      ctx.storage.sql
+        .exec<{ count: number }>(
+          'SELECT COUNT(*) AS count FROM users WHERE role = ? AND active = ?',
+          'admin',
+          1,
+        )
+        .one().count <= 1
+    )
+      conflict('The last active admin cannot be demoted or deactivated.');
+  }
   const row = {
     ...input,
-    id: crypto.randomUUID(),
-    claimed_by_user_id: null,
-    added_by: actor.id,
-    created_at: ctx.now.toISOString(),
+    id: before?.id ?? crypto.randomUUID(),
+    claimed_by_user_id: before?.claimed_by_user_id ?? null,
+    added_by: before ? before.added_by : actor.id,
+    created_at: before?.created_at ?? ctx.now.toISOString(),
   };
-  ctx.storage.transactionSync(() => {
-    writeRoster(ctx, row);
-    audit(ctx, 'roster.create', row.id, null, row);
-  });
-  return json(row, 201);
+  writeRoster(ctx, row);
+  if (linked) {
+    const fields: Record<string, string | number | null> = {};
+    for (const key of ['name', 'role', 'side', 'class_year'] as const)
+      if (body[key] !== undefined) fields[key] = input[key];
+    if (body.group_key !== undefined) fields.group_key = input.group_key ?? 'normal';
+    for (const [key, value] of Object.entries(fields))
+      ctx.storage.sql.exec(`UPDATE users SET ${key} = ? WHERE id = ?`, value, linked.id);
+    if (Object.keys(fields).length)
+      ctx.storage.sql.exec(
+        'UPDATE users SET updated_at = ? WHERE id = ?',
+        ctx.now.toISOString(),
+        linked.id,
+      );
+  }
+  audit(ctx, action, row.id, before ?? null, row);
+  return row;
+}
+export async function createRoster(ctx: Context) {
+  const body = await readJson(ctx.request);
+  return json(
+    ctx.storage.transactionSync(() => saveRoster(ctx, body, undefined, 'roster.create')),
+    201,
+  );
 }
 export async function patchRoster(ctx: Context) {
+  const body = await readJson(ctx.request);
+  refreshUser(ctx);
   requireStaff(ctx);
   const before = rosterById(ctx.storage, ctx.params.id);
   if (!before) missing();
-  rosterPermission(ctx, before.role, before);
-  const input = rosterInput(await readJson(ctx.request), before);
-  rosterPermission(ctx, input.role, before);
-  if (input.email && input.email !== before.email && findRoster(ctx.storage, input.email))
-    conflict('This email is already on the roster.');
-  const row = { ...before, ...input };
-  ctx.storage.transactionSync(() => {
-    writeRoster(ctx, row);
-    audit(ctx, 'roster.update', row.id, before, row);
-  });
-  return json(row);
+  return json(ctx.storage.transactionSync(() => saveRoster(ctx, body, before, 'roster.update')));
 }
 export function deleteRoster(ctx: Context) {
   requireStaff(ctx);
   const before = rosterById(ctx.storage, ctx.params.id);
   if (!before) missing();
   rosterPermission(ctx, before.role, before);
+  if (before.claimed_by_user_id) conflict('Unlink this roster row before deleting it.');
   ctx.storage.transactionSync(() => {
     ctx.storage.sql.exec('DELETE FROM roster WHERE id = ?', before.id);
     audit(ctx, 'roster.delete', before.id, before, null);
@@ -217,18 +259,35 @@ export function unlinkRoster(ctx: Context) {
   });
 }
 export async function importRoster(ctx: Context) {
-  const actor = requireStaff(ctx);
   const body = await readJson(ctx.request);
+  refreshUser(ctx);
+  requireStaff(ctx);
   const rows = parseCsv(v.string(body.csv, 'CSV', 0, 60000));
-  if (rows[0]?.cells[0].trim().toLowerCase() === 'name') rows.shift();
+  let columns: number | undefined;
+  if (rows[0]?.cells[0].trim().toLowerCase() === 'name') {
+    const header = rows.shift()!.cells.map((cell) => cell.trim().toLowerCase());
+    if (
+      !['name,email,role,group,side,class_year', 'name,role,group,side,class_year'].includes(
+        header.join(','),
+      )
+    )
+      v.invalid('CSV header must be name,email,role,group,side,class_year (email may be omitted).');
+    columns = header.length;
+  }
   const errors: { row: number; message: string }[] = [];
-  const valid: ReturnType<typeof rosterInput>[] = [];
+  let imported = 0;
   for (const row of rows) {
     try {
       if (row.error) v.invalid(row.error);
-      if (row.cells.length !== 6) v.invalid('Each row must have six columns.');
-      const [name, email, role, group_key, side, year] = row.cells;
-      const input = rosterInput({
+      if (
+        (columns !== undefined && row.cells.length !== columns) ||
+        ![5, 6].includes(row.cells.length)
+      )
+        v.invalid('Each row must have five or six columns.');
+      const cells = [...row.cells];
+      if (cells.length === 5) cells.splice(1, 0, '');
+      const [name, email, role, group_key, side, year] = cells;
+      const fields: Record<string, unknown> = {
         name,
         email: email.trim() || null,
         role: role.trim(),
@@ -239,15 +298,18 @@ export async function importRoster(ctx: Context) {
             ? Number(year)
             : v.invalid('Class year is invalid.')
           : null,
+      };
+      if (row.cells.length === 5) delete fields.email;
+      const input = rosterInput(fields);
+      ctx.storage.transactionSync(() => {
+        const before = input.email
+          ? findRoster(ctx.storage, input.email)
+          : rosterByName(ctx.storage, input.name);
+        saveRoster(ctx, fields, before, 'roster.import');
       });
-      rosterPermission(
-        ctx,
-        input.role,
-        input.email ? findRoster(ctx.storage, input.email) : undefined,
-      );
-      valid.push(input);
+      imported++;
     } catch (error) {
-      if (error instanceof HttpError && error.status === 400)
+      if (error instanceof HttpError && [400, 409].includes(error.status))
         errors.push({ row: row.row, message: error.message });
       else if (error instanceof HttpError && error.status === 403)
         errors.push({
@@ -257,23 +319,9 @@ export async function importRoster(ctx: Context) {
       else throw error;
     }
   }
-  ctx.storage.transactionSync(() => {
-    for (const input of valid) {
-      const before = input.email ? findRoster(ctx.storage, input.email) : undefined;
-      const row = {
-        ...input,
-        id: before?.id ?? crypto.randomUUID(),
-        claimed_by_user_id: before?.claimed_by_user_id ?? null,
-        added_by: before?.added_by ?? actor.id,
-        created_at: before?.created_at ?? ctx.now.toISOString(),
-      };
-      writeRoster(ctx, row);
-      audit(ctx, 'roster.import', row.id, before ?? null, row);
-    }
-    if (!valid.length)
-      audit(ctx, 'roster.import', 'roster', null, { imported: 0, errors: errors.length });
-  });
-  return json({ imported: valid.length, errors });
+  if (!imported)
+    audit(ctx, 'roster.import', 'roster', null, { imported: 0, errors: errors.length });
+  return json({ imported, errors });
 }
 export function settings(ctx: Context) {
   requireStaff(ctx);

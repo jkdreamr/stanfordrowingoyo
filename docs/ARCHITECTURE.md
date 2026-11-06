@@ -222,6 +222,21 @@ Roster routes: `GET/POST /api/admin/roster`, `PATCH/DELETE /api/admin/roster/:id
 `POST /api/admin/roster/import`, `POST /api/admin/roster/:id/unlink` (→ updated RosterRow).
 Roster email and group are nullable; roster ids, not emails, identify rows. Unlink is staff-only, returns 404 for
 missing rows and `409 NOT_CLAIMED` for unclaimed rows; own-row unlink returns 409, unlinking an admin requires admin.
+Roster creation requires a trimmed 1–80 character name and role; email is optional/null and normalized to lowercase.
+Names and non-null emails must be unique case-insensitively (409 on conflict). Group, side and class year may be null.
+PATCH changes only supplied fields. A claimed row's name, role, group, side and class year changes propagate to its
+linked user atomically; an omitted field does not overwrite that user's independently chosen value. Explicitly clearing
+the roster group resets a linked user's group to `normal`. Roster email edits do not change the user's login email.
+Only admins may create/edit/delete admin rows or edit a row linked to an admin; linked-user demotion preserves the
+last-active-admin protection (409). Claimed rows cannot be deleted (409); unlink first. Staff mutations are audited.
+CSV accepts an optional header and five columns (`name,role,group,side,class_year`) or six (email after name).
+Match by email when supplied, otherwise by case-insensitive name; update with the same PATCH permission/propagation
+rules, or insert. Empty nullable cells clear those values; omitting the email column preserves existing email bindings.
+Validation, permission and conflict errors are reported per physical row; permitted rows still import atomically per row.
+Self-service `PATCH /api/me` validates `group_key` and changes only that user's group, not their roster default.
+A self-service name change synchronizes the linked roster name in the same transaction, respecting name uniqueness.
+For roster/profile mutations, parse request bodies first, then refresh session/user and read, authorize and write
+synchronously so no pre-await state is used for authorization or updates.
 
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
 Private entries count toward the owner's totals and the leaderboard, but never appear in the feed/profile for others.

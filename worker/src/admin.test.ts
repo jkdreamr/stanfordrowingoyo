@@ -381,7 +381,12 @@ describe('users, roster and passwords', () => {
         .map((row) => row.id)
         .sort(),
     );
-    const retry = await api('/admin/roster/import', admin, 'POST', { csv });
+    const retry = await api('/admin/roster/import', admin, 'POST', {
+      csv: csv.replace(
+        'Changed admin,admin@example.com,rower',
+        'Changed admin,admin@example.com,admin',
+      ),
+    });
     expect(await retry.json()).toEqual({ imported: 4, errors: [] });
   });
   it('deactivates sessions, validates patches and returns self/admin fields without hashes', async () => {
