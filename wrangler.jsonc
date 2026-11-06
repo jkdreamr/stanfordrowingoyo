@@ -6,24 +6,20 @@
     "directory": "web/dist",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": [
-      "/api/*"
-    ]
+    "run_worker_first": ["/api/*"],
   },
   "durable_objects": {
     "bindings": [
       {
         "name": "TEAM",
-        "class_name": "TeamDO"
-      }
-    ]
+        "class_name": "TeamDO",
+      },
+    ],
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": [
-        "TeamDO"
-      ]
-    }
-  ]
+      "new_sqlite_classes": ["TeamDO"],
+    },
+  ],
 }

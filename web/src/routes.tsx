@@ -1,51 +1,56 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AppShell from './components/AppShell';
-import Page0 from './pages/Login';
-import Page1 from './pages/Signup';
-import Page2 from './pages/Home';
-import Page3 from './pages/Log';
-import Page4 from './pages/Feed';
-import Page5 from './pages/EntryDetail';
-import Page6 from './pages/Leaderboard';
-import Page7 from './pages/Me';
-import Page8 from './pages/RowerProfile';
-import Page9 from './pages/Plan';
-import Page10 from './pages/Notifications';
-import Page11 from './pages/Settings';
-import Page12 from './pages/EditProfile';
-import Page13 from './pages/WeeklyTarget';
-import Page14 from './pages/Admin';
-import Page15 from './pages/admin/Roster';
-import Page16 from './pages/admin/Compliance';
-import Page17 from './pages/admin/TeamSettings';
-import Page18 from './pages/admin/Presets';
-import Page19 from './pages/admin/PlanEditor';
-import Page20 from './pages/admin/Announcements';
-import Page21 from './pages/admin/Export';
-import Page22 from './pages/admin/AuditLog';
-export const router = createBrowserRouter([{ element: <AppShell />, children: [
-{ path: '/login', element: <Page0 /> },
-{ path: '/signup', element: <Page1 /> },
-{ path: '/', element: <Page2 /> },
-{ path: '/log', element: <Page3 /> },
-{ path: '/feed', element: <Page4 /> },
-{ path: '/entries/:id', element: <Page5 /> },
-{ path: '/leaderboard', element: <Page6 /> },
-{ path: '/me', element: <Page7 /> },
-{ path: '/users/:id', element: <Page8 /> },
-{ path: '/plan', element: <Page9 /> },
-{ path: '/notifications', element: <Page10 /> },
-{ path: '/settings', element: <Page11 /> },
-{ path: '/me/edit', element: <Page12 /> },
-{ path: '/me/target', element: <Page13 /> },
-{ path: '/admin', element: <Page14 /> },
-{ path: '/admin/roster', element: <Page15 /> },
-{ path: '/admin/compliance', element: <Page16 /> },
-{ path: '/admin/settings', element: <Page17 /> },
-{ path: '/admin/presets', element: <Page18 /> },
-{ path: '/admin/plan', element: <Page19 /> },
-{ path: '/admin/announcements', element: <Page20 /> },
-{ path: '/admin/export', element: <Page21 /> },
-{ path: '/admin/audit', element: <Page22 /> },
-{ path: '*', element: <p>Page not found</p> }
-] }]);
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
+import Log from './pages/Log';
+import Feed from './pages/Feed';
+import EntryDetail from './pages/EntryDetail';
+import Leaderboard from './pages/Leaderboard';
+import Me from './pages/Me';
+import RowerProfile from './pages/RowerProfile';
+import Plan from './pages/Plan';
+import Notifications from './pages/Notifications';
+import Settings from './pages/Settings';
+import EditProfile from './pages/EditProfile';
+import WeeklyTarget from './pages/WeeklyTarget';
+import Admin from './pages/Admin';
+import Roster from './pages/admin/Roster';
+import Compliance from './pages/admin/Compliance';
+import TeamSettings from './pages/admin/TeamSettings';
+import Presets from './pages/admin/Presets';
+import PlanEditor from './pages/admin/PlanEditor';
+import Announcements from './pages/admin/Announcements';
+import Export from './pages/admin/Export';
+import AuditLog from './pages/admin/AuditLog';
+export const router = createBrowserRouter([
+  {
+    element: <AppShell />,
+    children: [
+      { path: '/login', element: <Login /> },
+      { path: '/signup', element: <Signup /> },
+      { path: '/', element: <Home /> },
+      { path: '/log', element: <Log /> },
+      { path: '/feed', element: <Feed /> },
+      { path: '/entries/:id', element: <EntryDetail /> },
+      { path: '/leaderboard', element: <Leaderboard /> },
+      { path: '/me', element: <Me /> },
+      { path: '/users/:id', element: <RowerProfile /> },
+      { path: '/plan', element: <Plan /> },
+      { path: '/notifications', element: <Notifications /> },
+      { path: '/settings', element: <Settings /> },
+      { path: '/me/edit', element: <EditProfile /> },
+      { path: '/me/target', element: <WeeklyTarget /> },
+      { path: '/admin', element: <Admin /> },
+      { path: '/admin/roster', element: <Roster /> },
+      { path: '/admin/compliance', element: <Compliance /> },
+      { path: '/admin/settings', element: <TeamSettings /> },
+      { path: '/admin/presets', element: <Presets /> },
+      { path: '/admin/plan', element: <PlanEditor /> },
+      { path: '/admin/announcements', element: <Announcements /> },
+      { path: '/admin/export', element: <Export /> },
+      { path: '/admin/audit', element: <AuditLog /> },
+      { path: '*', element: <p>Page not found</p> },
+    ],
+  },
+]);

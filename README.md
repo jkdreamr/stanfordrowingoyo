@@ -23,6 +23,7 @@ Bike math uses exact 1/3 so the required 60k → 20,000 check holds (not truncat
 Run preset math is authoritative rather than rounded sheet labels.
 
 See [the architecture spec](docs/ARCHITECTURE.md) before implementing modules.
+
 # Stanford Rowing OYO
 
 On-your-own training app for Stanford Rowing: log OYO sessions, track equivalent E-meters against weekly targets, see season totals, and share workouts with the team.

@@ -24,17 +24,17 @@ Zone factors (default, staff-editable), pace offset is seconds per 500m added to
 (A uses best 2k split + 0):
 
 | Zone | Factor | Pace basis | Offset (s/500m) |
-|------|--------|-----------|-----------------|
-| R    | 0.80   | 6k | +20.0 |
-| R/E  | 0.90   | 6k | +17.5 |
-| E    | 1.00   | 6k | +15.0 |
-| E/D  | 1.15   | 6k | +12.5 |
-| D    | 1.35   | 6k | +10.0 |
-| D/C  | 1.60   | 6k | +7.5  |
-| C    | 2.10   | 6k | +5.0  |
-| C/B  | 3.00   | 6k | +2.5  |
-| B    | 5.00   | 6k | +0.0  |
-| A    | 9.00   | 2k | +0.0  |
+| ---- | ------ | ---------- | --------------- |
+| R    | 0.80   | 6k         | +20.0           |
+| R/E  | 0.90   | 6k         | +17.5           |
+| E    | 1.00   | 6k         | +15.0           |
+| E/D  | 1.15   | 6k         | +12.5           |
+| D    | 1.35   | 6k         | +10.0           |
+| D/C  | 1.60   | 6k         | +7.5            |
+| C    | 2.10   | 6k         | +5.0            |
+| C/B  | 3.00   | 6k         | +2.5            |
+| B    | 5.00   | 6k         | +0.0            |
+| A    | 9.00   | 2k         | +0.0            |
 
 Checks (must hold in unit tests): 60k E bike → 20,000; 4x5k D erg (20k) → 27,000; campus loop (6,240 m) E run → 7,800 and
 D run → 10,530; 3x20k R bike → 16,000; 12k D erg → 16,200. Round equiv_m to the nearest whole meter.
@@ -48,11 +48,12 @@ Factors are snapshotted on each entry at write time (`mode_factor`, `zone_factor
 Staff can change factors (affects new entries) and run "Recalculate all entries" explicitly.
 
 ### Weekly volume targets (on top of water + lifts)
-| Group | Key | Default weekly target |
-|---|---|---|
-| U23/Senior hopefuls | `u23` | 100,000 |
-| Normal non-frosh | `normal` | 80,000 |
-| Frosh | `frosh` | 60,000 |
+
+| Group               | Key      | Default weekly target |
+| ------------------- | -------- | --------------------- |
+| U23/Senior hopefuls | `u23`    | 100,000               |
+| Normal non-frosh    | `normal` | 80,000                |
+| Frosh               | `frosh`  | 60,000                |
 
 Staff edit group defaults. Each rower can set a personal weekly target (overrides group default). Targets are
 versioned per week: table `weekly_targets(user_id, week_start, target_m)`. The target for week W is the row with the
@@ -60,14 +61,17 @@ greatest `week_start <= W`; if none, the group default. Setting a target applies
 (never rewrites past weeks).
 
 ### OYO workouts per fortnight (guidance shown on the Plan screen)
-| Session | Splits | Frequency | Load |
-|---|---|---|---|
-| D Erg Session | D 6k +10 ± 2.5 | 1x | 20k+ |
-| Running | D | 2x | 7.5k+ |
-| Lifting with Evan* | – | 2x | 10k total |
+
+| Session            | Splits         | Frequency | Load      |
+| ------------------ | -------------- | --------- | --------- |
+| D Erg Session      | D 6k +10 ± 2.5 | 1x        | 20k+      |
+| Running            | D              | 2x        | 7.5k+     |
+| Lifting with Evan* | –              | 2x        | 10k total |
+
 \* Extra lifts are recommended for people who have talked about it with the coaches.
 
 ### Weeks, seasons, time zone
+
 - Weeks run **Monday 00:00 → Sunday 23:59, America/Los_Angeles**. `week_start` is the Monday as `YYYY-MM-DD`.
 - Entry `date` is a local calendar date `YYYY-MM-DD` chosen by the user (default today in America/Los_Angeles).
 - "Season" = Sep 1 → Aug 31 (season start month/day staff-editable in settings). Profile also offers calendar year.
@@ -75,21 +79,23 @@ greatest `week_start <= W`; if none, the group default. Setting a target applies
 ## 3. Seed data
 
 ### Workout Menu (presets; equiv in E-meters). `formula` presets use "meters × multiplier" with the user entering meters.
+
 Erg:
+
 - R: 4x5k w/1' rest r18-20 → 16,000 (20,000 m); 3x6k w/1' r18-20 → 14,400 (18,000 m); 2x10k w/2' r18-20 → 16,000 (20,000 m)
 - R/E: 4x5k → 18,000; 3x6k → 16,200; 2x10k w/2' → 18,000
 - E: 4x5k w/1' r18-20 → 20,000; 3x6k w/1' → 18,000; 2x10k w/2' → 20,000; 2x8k w/90" → 16,000; 3x25' w/1' r18-20 → meters rowed (formula ×1.0)
 - E/D: 4x5k w/2' r20-22 → 23,000; 3x6k w/2' → 20,700; 2x10k w/3' → 23,000; 2x8k w/2' → 18,400
 - D: 4x5k r2' → 27,000; 12k → 16,200; 3x6k w/2' → 24,300; 4x4k w/2' → 21,600
 - D/C: 4x4k r3' → 25,600; 10k r22 → 16,000; 54' pyramid r22 (1'/3'/5'/7'/9'/8'/6'/4'/2' r1') → meters × 1.6
-Bike:
+  Bike:
 - R: 120' → meters × 0.267; 3x20k w/1' → 16,000; 5x12k w/1' → 60,000 m (math gives 16,000; the sheet's 12.8 is a sheet error); 6x10k w/1' → 16,000
 - R/E: 120' → ×0.3; 3x20k → 18,000; 5x12k → 60,000 m (math gives 18,000); 6x10k → 18,000
 - E: 120' → ×0.333; 100' → ×0.333; 80k → 26,700; 60k → 20,000; 45k → 15,000; 3x30k w/1' → 30,000
 - E/D: 120' → ×0.383; 100' → ×0.383; 80k → 30,700; 60k → 23,000; 40k → 15,300
 - D: 2x50' w/2' → ×0.45; 90' → ×0.45; 80k → 36,000; 60k → 27,000; 40k → 18,000
 - D/C: 90' → enter meters (meters × 0.533)
-Run:
+  Run:
 - E: Campus loop easy → 7,800; Dish loop from A hall easy → 14,100
 - D: Campus loop firm → 10,600; Dish loop from A hall firm → 19,000
 
@@ -99,6 +105,7 @@ loop distances so the math reproduces the sheet: campus loop = 6,240 m, Dish loo
 staff-editable.
 
 ### Sample fortnights (Plan screen; staff-editable). Slots: AM, PM1, PM2 for Mon..Sun. Kind: `team` (white), `oyo` (zone colored), `off`.
+
 Frosh W1: Mon AM Team Row E, PM1 Team Erg C (counts for OYO extra meters) | Tue AM Team Row C Stake Race, PM1 Team Lift |
 Wed AM OYO E Erg 3x6k r1' (18k) | Thu AM Team Row E, PM1 Team Lift | Fri AM Team Row E/D, PM1 OYO E Bike 42k (14k), PM2 OYO E campus loop run (8k) |
 Sat AM Team Row D/C | Sun Off. Total "40k Equivalent + Monday PM".
@@ -119,6 +126,7 @@ Sat AM Team Row D/C | Sun Off. Total 100k.
 ## 4. Roles & auth
 
 Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | admin. Admin additionally manages other admins.
+
 - Sign up: name, email, password (min 8), team join code (setting `team_code`) **or** email pre-listed on the roster
   (`roster` table). Roster rows carry role, group, side, class year; signing up with that email adopts them.
 - Login: email + password. Passwords: PBKDF2-SHA256 (WebCrypto, 100k iterations, 16-byte salt).
@@ -157,23 +165,31 @@ plan_totals(group_key, week, label)     -- e.g. "60k Equivalent"
 notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'), actor_id, entry_id NULL, created_at, read_at NULL)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
+
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
 Auth: `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
 (name, bio, side, class_year, best splits, avatar), `POST /api/me/password`, `PUT /api/me/target` ({target_m} → current week onward).
-Config: `GET /api/config` (factors, group targets, season start, presets, zones list) — public to logged-in users.
+Config: `GET /api/config` (factors, group targets, season start, presets, zones list, server-computed
+`today` and `current_week_start` as YYYY-MM-DD in America/Los_Angeles) — public to logged-in users.
+`GET /api/me/target` returns the effective current-week target:
+`{ week_start, target_m, source: 'personal' | 'group' }`.
 Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visible, newest first, paginated 20),
 `POST /api/entries`, `GET/PATCH/DELETE /api/entries/:id` (owner or staff), `POST/DELETE /api/entries/:id/kudos`,
-`GET/POST /api/entries/:id/comments`, `DELETE /api/comments/:id` (author or staff).
+`GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
+`DELETE /api/comments/:id` (author or staff).
 Images: `POST /api/images` (raw body, image/jpeg|png|webp, ≤1.5MB) → {id}; `GET /api/images/:id` (immutable cache).
 Stats: `GET /api/stats/week?week=YYYY-MM-DD&user=` (target, total, by day, by modality/zone, entries),
 `GET /api/stats/season?season=YYYY&user=` and `?year=YYYY` (weekly series with targets + hit flags, totals by modality/zone,
 streak of consecutive weeks hitting target, best week), `GET /api/leaderboard?week=YYYY-MM-DD&metric=percent|meters|season`.
 Team: `GET /api/users` (roster directory), `GET /api/users/:id` (public profile + stats summary).
-Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`.
-Notifications: `GET /api/notifications`, `POST /api/notifications/read`.
+Leaderboard rows also include `streak` (consecutive weeks hitting target up to the selected week)
+and `entry_count` for that week.
+Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned announcements include `author: PublicUser`.
+Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
+`actor: PublicUser` and `entry_title: string | null`.
 Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), reset password, roster CRUD + bulk import
 (CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
@@ -218,4 +234,5 @@ Private entries count toward the owner's totals and the leaderboard, but never a
 /docs          This file
 wrangler.jsonc (root) — worker name `stanford-oyo`, assets dir web/dist, DO binding TEAM (sqlite class TeamDO)
 ```
+
 Scripts (root package.json): `dev` (vite + wrangler dev), `build`, `typecheck`, `lint`, `test` (vitest), `deploy`.
