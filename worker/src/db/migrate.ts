@@ -1,0 +1,209 @@
+import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
+import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS } from '../../../shared/seed';
+export function migrate(storage: DurableObjectStorage): void {
+  const sql = storage.sql;
+  sql.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL)');
+  const version = sql
+    .exec<{ value_json: string }>("SELECT value_json FROM settings WHERE key = 'schema_version'")
+    .toArray()[0];
+  if (version && Number(JSON.parse(version.value_json)) >= 1) return;
+  storage.transactionSync(() => {
+    sql.exec(`CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  email TEXT UNIQUE COLLATE NOCASE NOT NULL,
+  name TEXT NOT NULL,
+  password_hash TEXT NOT NULL,
+  password_salt TEXT NOT NULL,
+  must_change_password INTEGER NOT NULL DEFAULT 0,
+  role TEXT NOT NULL,
+  group_key TEXT NOT NULL,
+  side TEXT,
+  class_year INTEGER,
+  bio TEXT NOT NULL DEFAULT '',
+  avatar_image_id TEXT,
+  best6k_split_s REAL,
+  best2k_split_s REAL,
+  on_leaderboard INTEGER NOT NULL DEFAULT 1,
+  active INTEGER NOT NULL DEFAULT 1,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS sessions (
+  token_hash TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  expires_at TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS roster (
+  email TEXT PRIMARY KEY COLLATE NOCASE,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  group_key TEXT NOT NULL,
+  side TEXT,
+  class_year INTEGER,
+  added_by TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS weekly_targets (
+  user_id TEXT NOT NULL,
+  week_start TEXT NOT NULL,
+  target_m INTEGER NOT NULL,
+  PRIMARY KEY(user_id, week_start)
+);
+CREATE TABLE IF NOT EXISTS entries (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  date TEXT NOT NULL,
+  week_start TEXT NOT NULL,
+  modality TEXT NOT NULL,
+  zone TEXT NOT NULL,
+  distance_m INTEGER NOT NULL,
+  duration_s INTEGER,
+  avg_split_s REAL,
+  stroke_rate INTEGER,
+  avg_hr INTEGER,
+  title TEXT NOT NULL,
+  notes TEXT NOT NULL,
+  preset_id TEXT,
+  mode_factor REAL NOT NULL,
+  zone_factor REAL NOT NULL,
+  equiv_m INTEGER NOT NULL,
+  visibility TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS images (
+  id TEXT PRIMARY KEY,
+  owner_id TEXT NOT NULL,
+  mime TEXT NOT NULL,
+  width INTEGER NOT NULL,
+  height INTEGER NOT NULL,
+  bytes BLOB NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS entry_images (
+  entry_id TEXT NOT NULL,
+  image_id TEXT NOT NULL,
+  position INTEGER NOT NULL,
+  PRIMARY KEY(entry_id,position)
+);
+CREATE TABLE IF NOT EXISTS kudos (
+  entry_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  PRIMARY KEY(entry_id,user_id)
+);
+CREATE TABLE IF NOT EXISTS comments (
+  id TEXT PRIMARY KEY,
+  entry_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  body TEXT NOT NULL CHECK(length(body)<=1000),
+  created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS announcements (
+  id TEXT PRIMARY KEY,
+  author_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  pinned INTEGER NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS presets (
+  id TEXT PRIMARY KEY,
+  modality TEXT NOT NULL,
+  zone TEXT NOT NULL,
+  name TEXT NOT NULL,
+  distance_m INTEGER,
+  sort INTEGER NOT NULL,
+  active INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS plan_slots (
+  group_key TEXT NOT NULL,
+  week INTEGER NOT NULL CHECK(week IN (1,2)),
+  day INTEGER NOT NULL CHECK(day BETWEEN 0 AND 6),
+  slot TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  zone TEXT,
+  text TEXT NOT NULL,
+  PRIMARY KEY(group_key,week,day,slot)
+);
+CREATE TABLE IF NOT EXISTS plan_totals (
+  group_key TEXT NOT NULL,
+  week INTEGER NOT NULL,
+  label TEXT NOT NULL,
+  PRIMARY KEY(group_key,week)
+);
+CREATE TABLE IF NOT EXISTS notifications (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  actor_id TEXT NOT NULL,
+  entry_id TEXT,
+  created_at TEXT NOT NULL,
+  read_at TEXT
+);
+CREATE TABLE IF NOT EXISTS audit_log (
+  id TEXT PRIMARY KEY,
+  actor_id TEXT NOT NULL,
+  action TEXT NOT NULL,
+  target TEXT NOT NULL,
+  detail_json TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS rate_limits (
+  email TEXT NOT NULL,
+  ip TEXT NOT NULL,
+  window_start TEXT NOT NULL,
+  attempts INTEGER NOT NULL,
+  PRIMARY KEY(email,ip)
+);
+CREATE INDEX IF NOT EXISTS entries_week ON entries(week_start);
+CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
+    const settings = {
+      team_code: crypto.randomUUID(),
+      zone_factors: ZONE_FACTORS,
+      mode_factors: MODE_FACTORS,
+      group_targets: GROUP_TARGETS,
+      season_start: '09-01',
+    };
+    for (const [key, value] of Object.entries(settings))
+      sql.exec('INSERT OR IGNORE INTO settings VALUES (?,?)', key, JSON.stringify(value));
+    sql.exec(
+      'INSERT OR IGNORE INTO roster VALUES (?,?,?,?,?,?,?,?)',
+      'joskoo@stanford.edu',
+      'Josh',
+      'admin',
+      'normal',
+      null,
+      null,
+      null,
+      new Date().toISOString(),
+    );
+    for (const p of PRESETS)
+      sql.exec(
+        'INSERT OR IGNORE INTO presets VALUES (?,?,?,?,?,?,?)',
+        p.id,
+        p.modality,
+        p.zone,
+        p.name,
+        p.distance_m,
+        p.sort,
+        Number(p.active),
+      );
+    for (const p of PLAN_SLOTS)
+      sql.exec(
+        'INSERT OR IGNORE INTO plan_slots VALUES (?,?,?,?,?,?,?)',
+        p.group_key,
+        p.week,
+        p.day,
+        p.slot,
+        p.kind,
+        p.zone,
+        p.text,
+      );
+    for (const p of PLAN_TOTALS)
+      sql.exec('INSERT OR IGNORE INTO plan_totals VALUES (?,?,?)', p.group_key, p.week, p.label);
+    sql.exec("INSERT OR REPLACE INTO settings VALUES ('schema_version','1')");
+  });
+}

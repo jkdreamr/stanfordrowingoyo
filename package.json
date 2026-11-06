@@ -1,0 +1,31 @@
+{
+  "name": "stanford-oyo",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "worker",
+    "web"
+  ],
+  "scripts": {
+    "dev": "npm run build -w web && concurrently -k \"wrangler dev\" \"npm run dev -w web\"",
+    "build": "npm run build -w web && wrangler deploy --dry-run",
+    "typecheck": "npm run typecheck --workspaces",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "deploy": "npm run build -w web && wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261104.1",
+    "@eslint/js": "^9.39.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^5.1.0",
+    "wrangler": "^4.158.0"
+  }
+}
