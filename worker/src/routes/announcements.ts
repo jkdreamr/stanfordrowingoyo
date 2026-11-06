@@ -1,5 +1,5 @@
 import type { Context } from '../context';
-import { requireStaff, requireUser } from '../auth/guards';
+import { refreshUser, requireStaff, requireUser } from '../auth/guards';
 import { announcements, saveAnnouncement } from '../db/announcements';
 import { notify } from '../db/notifications';
 import { audit } from '../db/audit';
@@ -10,8 +10,9 @@ export function get(ctx: Context) {
   return json(announcements(ctx.storage));
 }
 export async function create(ctx: Context) {
-  const actor = requireStaff(ctx);
   const body = await readJson(ctx.request);
+  refreshUser(ctx);
+  const actor = requireStaff(ctx);
   const row = {
     id: crypto.randomUUID(),
     author_id: actor.id,
@@ -34,10 +35,11 @@ export async function create(ctx: Context) {
   );
 }
 export async function patch(ctx: Context) {
+  const body = await readJson(ctx.request);
+  refreshUser(ctx);
   requireStaff(ctx);
   const before = announcements(ctx.storage).find((row) => row.id === ctx.params.id);
   if (!before) throw new HttpError(404, 'NOT_FOUND', 'Announcement not found.');
-  const body = await readJson(ctx.request);
   const row = {
     ...before,
     title: body.title === undefined ? before.title : v.string(body.title, 'Title', 1, 120, true),
@@ -45,7 +47,7 @@ export async function patch(ctx: Context) {
     pinned: body.pinned === undefined ? before.pinned : v.boolean(body.pinned, 'Pinned'),
   };
   ctx.storage.transactionSync(() => {
-    saveAnnouncement(ctx.storage, row);
+    saveAnnouncement(ctx.storage, row, true);
     audit(ctx, 'announcement.update', row.id, before, row);
   });
   return json(row);

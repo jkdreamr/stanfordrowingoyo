@@ -7,7 +7,7 @@ import { findRoster, rosterById } from '../db/roster';
 import type { RosterRow } from '../../../shared/types';
 import { getSetting } from '../db/settings';
 import { attempt, clearAttempts } from '../db/rateLimit';
-import { createSession, sessionCookie, sessionToken } from '../db/sessions';
+import { createSession, prepareSession, sessionCookie, sessionToken } from '../db/sessions';
 function checkTeamCode(ctx: Context, value: unknown) {
   if (
     !constantTimeEqual(
@@ -61,7 +61,7 @@ export async function signup(ctx: Context) {
   attempt(ctx, email);
   reusableUser(ctx, email);
   signupRow(ctx, email, body);
-  const { hash, salt } = await hashPassword(password);
+  const [{ hash, salt }, prepared] = await Promise.all([hashPassword(password), prepareSession()]);
   const timestamp = ctx.now.toISOString();
   const id = ctx.storage.transactionSync(() => {
     const existing = reusableUser(ctx, email);
@@ -113,10 +113,10 @@ export async function signup(ctx: Context) {
         timestamp,
         timestamp,
       );
+    clearAttempts(ctx, email);
+    createSession(ctx, id, prepared, { password_hash: hash, password_salt: salt });
     return id;
   });
-  clearAttempts(ctx, email);
-  await createSession(ctx, id);
   return json(toUser(byId(ctx.storage, id)), 201);
 }
 export async function login(ctx: Context) {
@@ -124,16 +124,23 @@ export async function login(ctx: Context) {
   const email = v.email(body.email);
   const password = v.string(body.password, 'Password', 8, 200);
   attempt(ctx, email);
+  const prepared = await prepareSession();
   const user = byEmail(ctx.storage, email);
   const valid = user
     ? await verifyPassword(password, user.password_hash, user.password_salt)
     : (await hashPassword(password, 'AAAAAAAAAAAAAAAAAAAAAA=='), false);
   if (!user || !valid)
     throw new HttpError(401, 'INVALID_CREDENTIALS', 'Email or password is incorrect.');
-  if (!user.active) throw new HttpError(403, 'ACCOUNT_INACTIVE', 'This account is inactive.');
-  clearAttempts(ctx, email);
-  await createSession(ctx, user.id);
-  return json(toUser(user));
+  return ctx.storage.transactionSync(() => {
+    const current = byEmail(ctx.storage, email);
+    if (!current || !current.active)
+      throw new HttpError(403, 'ACCOUNT_INACTIVE', 'This account is inactive.');
+    if (current.id !== user.id)
+      throw new HttpError(409, 'CREDENTIALS_CHANGED', 'Credentials changed. Please try again.');
+    createSession(ctx, current.id, prepared, user);
+    clearAttempts(ctx, email);
+    return json(toUser(current));
+  });
 }
 export async function logout(ctx: Context) {
   const value = sessionToken(ctx.request);

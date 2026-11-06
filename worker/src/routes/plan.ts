@@ -1,7 +1,7 @@
 import type { PlanSlot, PlanTotal } from '../../../shared/types';
 import { ZONES } from '../../../shared/math';
 import type { Context } from '../context';
-import { requireStaff, requireUser } from '../auth/guards';
+import { refreshUser, requireStaff, requireUser } from '../auth/guards';
 import { getPlan, replacePlan, saveSlot } from '../db/plan';
 import { audit } from '../db/audit';
 import { HttpError, json, noContent, readJson } from '../http';
@@ -41,8 +41,9 @@ export function adminGet(ctx: Context) {
   return json(getPlan(ctx.storage));
 }
 export async function put(ctx: Context) {
-  requireStaff(ctx);
   const body = await readJson(ctx.request);
+  refreshUser(ctx);
+  requireStaff(ctx);
   if (!Array.isArray(body.slots) || !Array.isArray(body.totals))
     v.invalid('Plan must contain slots and totals arrays.');
   const slots = (body.slots as unknown[]).map(slot);
@@ -61,8 +62,10 @@ export async function put(ctx: Context) {
   return json(getPlan(ctx.storage));
 }
 export async function post(ctx: Context) {
+  const body = await readJson(ctx.request);
+  refreshUser(ctx);
   requireStaff(ctx);
-  const row = slot(await readJson(ctx.request));
+  const row = slot(body);
   const before = getPlan(ctx.storage).slots.find(
     (item) =>
       item.group_key === row.group_key &&

@@ -7,7 +7,11 @@ export function getSetting<T>(storage: DurableObjectStorage, key: string): T {
   ) as T;
 }
 export function setSetting(storage: DurableObjectStorage, key: string, value: unknown) {
-  storage.sql.exec('INSERT OR REPLACE INTO settings VALUES (?, ?)', key, JSON.stringify(value));
+  storage.sql.exec(
+    'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+    key,
+    JSON.stringify(value),
+  );
 }
 export function getSettings(storage: DurableObjectStorage): Settings {
   return {

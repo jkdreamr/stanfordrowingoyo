@@ -233,10 +233,14 @@ describe('core worker integration', () => {
       expect((await request(path)).status).toBe(401);
     await signup();
     await sql((storage) => {
-      const ctx = { user: byEmail(storage, 'rower@example.com') } as Context;
+      const user = byEmail(storage, 'rower@example.com')!;
+      const tokenHash = storage.sql
+        .exec<{ token_hash: string }>('SELECT token_hash FROM sessions WHERE user_id=?', user.id)
+        .one().token_hash;
+      const ctx = { storage, now: new Date('2026-03-08T08:00:00Z'), tokenHash } as Context;
       expect(() => requireStaff(ctx)).toThrow('Staff access');
       for (const role of ['coxswain', 'coach', 'admin'] as const) {
-        ctx.user!.role = role;
+        storage.sql.exec('UPDATE users SET role=? WHERE id=?', role, user.id);
         expect(requireStaff(ctx).role).toBe(role);
         if (role !== 'admin') expect(() => requireAdmin(ctx)).toThrow('Admin access');
         else expect(requireAdmin(ctx).role).toBe('admin');

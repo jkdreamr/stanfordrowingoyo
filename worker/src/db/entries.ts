@@ -58,31 +58,50 @@ export function details(
     comment_count: comments.find((c) => c.entry_id === row.id)?.count ?? 0,
   }));
 }
-export function saveEntry(storage: DurableObjectStorage, entry: Entry, imageIds?: string[]) {
+export function saveEntry(
+  storage: DurableObjectStorage,
+  entry: Entry,
+  imageIds?: string[],
+  update = false,
+) {
   storage.transactionSync(() => {
-    storage.sql.exec(
-      'INSERT OR REPLACE INTO entries (id,user_id,date,week_start,modality,zone,distance_m,duration_s,avg_split_s,stroke_rate,avg_hr,title,notes,preset_id,mode_factor,zone_factor,equiv_m,visibility,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-      entry.id,
-      entry.user_id,
-      entry.date,
-      entry.week_start,
-      entry.modality,
-      entry.zone,
-      entry.distance_m,
-      entry.duration_s,
-      entry.avg_split_s,
-      entry.stroke_rate,
-      entry.avg_hr,
-      entry.title,
-      entry.notes,
-      entry.preset_id,
-      entry.mode_factor,
-      entry.zone_factor,
-      entry.equiv_m,
-      entry.visibility,
-      entry.created_at,
-      entry.updated_at,
-    );
+    const keys = [
+      'user_id',
+      'date',
+      'week_start',
+      'modality',
+      'zone',
+      'distance_m',
+      'duration_s',
+      'avg_split_s',
+      'stroke_rate',
+      'avg_hr',
+      'title',
+      'notes',
+      'preset_id',
+      'mode_factor',
+      'zone_factor',
+      'equiv_m',
+      'visibility',
+      'created_at',
+      'updated_at',
+    ] as const;
+    const values = keys.map((key) => entry[key]);
+    if (update) {
+      if (
+        !storage.sql.exec(
+          `UPDATE entries SET ${keys.map((key) => `${key} = ?`).join(',')} WHERE id = ?`,
+          ...values,
+          entry.id,
+        ).rowsWritten
+      )
+        throw new HttpError(404, 'NOT_FOUND', 'Entry not found.');
+    } else
+      storage.sql.exec(
+        `INSERT INTO entries (${keys.join(',')},id) VALUES (${keys.map(() => '?').join(',')},?)`,
+        ...values,
+        entry.id,
+      );
     if (imageIds) {
       storage.sql.exec('DELETE FROM entry_images WHERE entry_id = ?', entry.id);
       imageIds.forEach((id, position) =>

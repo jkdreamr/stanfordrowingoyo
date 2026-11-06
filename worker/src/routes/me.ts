@@ -67,8 +67,8 @@ export async function patch(ctx: Context) {
   return json(toUser(byId(ctx.storage, user.id)));
 }
 export async function password(ctx: Context) {
-  const user = requireUser(ctx);
   const body = await readJson(ctx.request);
+  const user = refreshUser(ctx, true);
   const current = v.string(body.current_password, 'Current password', 8, 200);
   const next = v.string(body.new_password, 'New password', 8, 200);
   if (current === next) v.invalid('New password must differ from the current password.');
@@ -77,6 +77,13 @@ export async function password(ctx: Context) {
     throw new HttpError(401, 'INVALID_CREDENTIALS', 'Current password is incorrect.');
   const { hash, salt } = await hashPassword(next);
   ctx.storage.transactionSync(() => {
+    const latest = refreshUser(ctx, true);
+    if (
+      latest.id !== user.id ||
+      latest.password_hash !== user.password_hash ||
+      latest.password_salt !== user.password_salt
+    )
+      throw new HttpError(409, 'CREDENTIALS_CHANGED', 'Credentials changed. Please try again.');
     ctx.storage.sql.exec(
       'UPDATE users SET password_hash = ?, password_salt = ?, must_change_password = 0, updated_at = ? WHERE id = ?',
       hash,
@@ -97,8 +104,8 @@ export function target(ctx: Context) {
   return json(effectiveTarget(ctx.storage, requireUser(ctx), weekStart(today(ctx.now))));
 }
 export async function putTarget(ctx: Context) {
-  const user = requireUser(ctx);
   const body = await readJson(ctx.request);
+  const user = refreshUser(ctx);
   return json(
     setTarget(
       ctx.storage,
