@@ -4,6 +4,7 @@ import type {
   EntryDetail,
   LeaderboardRow,
   Page,
+  SeasonStats,
   WeekStats,
 } from '../../../shared/types';
 import { createMockApi } from './handlers';
@@ -61,7 +62,25 @@ describe('mock stats and visibility', () => {
     expect(rows[0].percent).toBeGreaterThanOrEqual(100);
     expect(rows.every((r, i) => i === 0 || rows[i - 1].percent >= r.percent)).toBe(true);
     expect(rows.every((r) => r.user.role === 'rower')).toBe(true);
-    expect(rows.map((r) => r.rank)).toEqual(Array.from({ length: 29 }, (_, i) => i + 1));
+    const tied = (a: LeaderboardRow, b: LeaderboardRow) =>
+      a.percent === b.percent && a.total_m === b.total_m;
+    expect(
+      rows.every((r, i) =>
+        i > 0 && tied(rows[i - 1], r) ? r.rank === rows[i - 1].rank : r.rank === i + 1,
+      ),
+    ).toBe(true);
+    expect(rows.some((r, i) => i > 0 && r.rank === rows[i - 1].rank)).toBe(true);
+    expect(rows.some((r) => r.streak >= 2)).toBe(true);
+  });
+  it('ranks season by season total against the summed weekly targets', async () => {
+    const { request } = setup();
+    const rows: LeaderboardRow[] = await (await request('/leaderboard?metric=season')).json();
+    const marcus = rows.find((r) => r.user.id === 'user-1')!;
+    const season: SeasonStats = await (await request('/stats/season')).json();
+    expect(marcus.total_m).toBe(season.total_m);
+    expect(marcus.target_m).toBe(80000 * 10);
+    expect(marcus.percent).toBe(Math.round((marcus.total_m / marcus.target_m) * 1000) / 10);
+    expect(rows.every((r, i) => i === 0 || rows[i - 1].total_m >= r.total_m)).toBe(true);
   });
   it('versions target from the current week without rewriting history', async () => {
     const { request } = setup();

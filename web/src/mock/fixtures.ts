@@ -190,8 +190,12 @@ export function createFixtures(now = new Date()) {
       index === 0
         ? [18000, 60000, 8000]
         : index % 4 === 0
-          ? [30000, 90000, 20000, 30000]
-          : [18000, 45000, 6240];
+          ? [30000, 60000 + (index % 3) * 15000, 20000, 30000]
+          : [
+              18000 + (index % 7) * 1000,
+              30000 + (index % 6) * 6000,
+              [6240, 8000, 10000, 12000][index % 4],
+            ];
     distances.forEach((distance, n) => {
       const offset = Math.min(
         n,
@@ -213,7 +217,9 @@ export function createFixtures(now = new Date()) {
               : `${distance / 1000}k E Run`
             : distance === 18000
               ? '3x6k E'
-              : '3x10k E',
+              : distance === 30000
+                ? '3x10k E'
+                : `${distance / 1000}k E Steady`,
         index !== 0 && index % 5 === 0 && n === 2 ? 'private' : 'team',
       );
     });

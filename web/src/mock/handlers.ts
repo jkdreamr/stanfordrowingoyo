@@ -162,9 +162,11 @@ export function createMockApi({
     };
   }
   function streak(userId: string, week: string) {
+    const first = weekStart(seasonRange(week, settings.season_start).start);
+    let w = week;
+    if (w === weekStart(today(now())) && !summary(userId, w).hit_target) w = addDays(w, -7);
     let count = 0;
-    for (let w = week; w >= '2020-01-01' && summary(userId, w).hit_target; w = addDays(w, -7))
-      count++;
+    for (; w >= first && summary(userId, w).hit_target; w = addDays(w, -7)) count++;
     return count;
   }
   function weekStats(userId: string, week: string): WeekStats {
@@ -205,29 +207,48 @@ export function createMockApi({
     };
   }
   function leaderboard(week: string, metric = 'percent', compliance = false): LeaderboardRow[] {
-    return state.users
+    const range = seasonRange(week, settings.season_start);
+    const lastDate = range.end < addDays(week, 6) ? range.end : addDays(week, 6);
+    const rows = state.users
       .filter((u) => u.active && (compliance ? u.role === 'rower' : u.on_leaderboard))
       .map((user) => {
         const s = summary(user.id, week);
-        const total_m = metric === 'season' ? seasonStats(user.id).total_m : s.total_m;
+        let target_m = s.target_m;
+        let total_m = s.total_m;
+        if (metric === 'season') {
+          target_m = 0;
+          for (let w = weekStart(range.start); w <= week; w = addDays(w, 7))
+            target_m += target(user.id, w).target_m;
+          total_m = totals(
+            state.entries.filter(
+              (e) => e.user_id === user.id && e.date >= range.start && e.date <= lastDate,
+            ),
+          ).total_m;
+        }
         return {
           user: publicUser(user),
-          target_m: s.target_m,
+          target_m,
           total_m,
-          percent: s.percent,
+          percent: target_m > 0 ? Math.round((total_m / target_m) * 1000) / 10 : 0,
           rank: 0,
           streak: streak(user.id, week),
           entry_count: state.entries.filter((e) => e.user_id === user.id && e.week_start === week)
             .length,
         };
-      })
-      .sort(
-        (a, b) =>
-          (metric === 'percent' ? b.percent - a.percent : b.total_m - a.total_m) ||
-          b.total_m - a.total_m ||
-          a.user.name.localeCompare(b.user.name),
-      )
-      .map((row, i) => ({ ...row, rank: i + 1 }));
+      });
+    const score = (a: LeaderboardRow, b: LeaderboardRow) =>
+      (metric === 'percent'
+        ? (b.target_m > 0 ? b.total_m : 0) * (a.target_m || 1) -
+          (a.target_m > 0 ? a.total_m : 0) * (b.target_m || 1)
+        : 0) || b.total_m - a.total_m;
+    rows.sort(
+      (a, b) =>
+        score(a, b) || a.user.name.localeCompare(b.user.name) || a.user.id.localeCompare(b.user.id),
+    );
+    rows.forEach((row, i) => {
+      row.rank = i > 0 && score(rows[i - 1], row) === 0 ? rows[i - 1].rank : i + 1;
+    });
+    return rows;
   }
   function paginate<T>(items: T[], cursor: string | null) {
     const offset = cursor ? Number(cursor) : 0;
