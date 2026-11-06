@@ -49,7 +49,7 @@ export function weekStats(
   week: string,
   viewer: string,
 ): WeekStats {
-  const entries = userEntries(storage, user.id, week, addDays(week, 6));
+  const entries = userEntries(storage, user.id, week, addDays(week, 6), viewer);
   return {
     ...weekSummary(storage, user, week, entries),
     by_day: Array.from({ length: 7 }, (_, i) => {
@@ -61,11 +61,7 @@ export function weekStats(
           .reduce((sum, entry) => sum + entry.equiv_m, 0),
       };
     }),
-    entries: details(
-      storage,
-      entries.filter((entry) => entry.visibility === 'team' || entry.user_id === viewer),
-      viewer,
-    ),
+    entries: details(storage, entries, viewer),
   };
 }
 export function streak(weeks: WeekSummary[], currentWeek: string): number {
@@ -83,12 +79,19 @@ export function seasonStats(
   user: TargetUser,
   range: DateRange,
   now: Date,
+  viewer: string,
   through = today(now),
 ): SeasonStats {
   const lastDate = range.end < through ? range.end : through;
   const entries =
     lastDate >= range.start
-      ? userEntries(storage, user.id, weekStart(range.start), addDays(weekStart(lastDate), 6))
+      ? userEntries(
+          storage,
+          user.id,
+          weekStart(range.start),
+          addDays(weekStart(lastDate), 6),
+          viewer,
+        )
       : [];
   const weeks: WeekSummary[] = [];
   if (lastDate >= range.start)
@@ -100,6 +103,16 @@ export function seasonStats(
   );
   return {
     ...totals(entries.filter((entry) => entry.date >= range.start && entry.date <= lastDate)),
+    days: storage.sql
+      .exec<{ date: string; equiv_m: number }>(
+        'SELECT date,SUM(equiv_m) AS equiv_m FROM entries WHERE user_id = ? AND date >= ? AND date <= ? AND (visibility != ? OR user_id = ?) GROUP BY date HAVING SUM(equiv_m) > 0 ORDER BY date',
+        user.id,
+        range.start,
+        lastDate,
+        'private',
+        viewer,
+      )
+      .toArray(),
     start: range.start,
     end: range.end,
     weeks,
@@ -124,7 +137,7 @@ export function leaderboard(
       .toArray();
   const range = seasonRange(week, getSetting<string>(storage, 'season_start'));
   const rows = users.map((user) => {
-    const season = seasonStats(storage, user, range, now, addDays(week, 6));
+    const season = seasonStats(storage, user, range, now, user.id, addDays(week, 6));
     const weekly =
       season.weeks.find((row) => row.week_start === week) ??
       weekSummary(storage, user, week, userEntries(storage, user.id, week, addDays(week, 6)));

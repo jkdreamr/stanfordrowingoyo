@@ -13,11 +13,11 @@ export function list(ctx: Context) {
   );
 }
 export function profile(ctx: Context) {
-  requireUser(ctx);
+  const viewer = requireUser(ctx);
   const user = byId(ctx.storage, ctx.params.id);
   if (!user || !user.active) throw new HttpError(404, 'NOT_FOUND', 'User not found.');
   return json({
     user: toPublicUser(user),
-    stats: seasonStats(ctx.storage, user, currentSeason(ctx.storage, ctx.now), ctx.now),
+    stats: seasonStats(ctx.storage, user, currentSeason(ctx.storage, ctx.now), ctx.now, viewer.id),
   });
 }

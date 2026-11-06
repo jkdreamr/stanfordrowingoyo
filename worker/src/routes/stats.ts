@@ -38,7 +38,7 @@ export function season(ctx: Context) {
           getSetting<string>(ctx.storage, 'season_start'),
         );
   }
-  return json(seasonStats(ctx.storage, user, range, ctx.now));
+  return json(seasonStats(ctx.storage, user, range, ctx.now, requireUser(ctx).id));
 }
 export function leaderboard(ctx: Context) {
   requireUser(ctx);

@@ -4,15 +4,23 @@ export type ImageRow = Row<ImageMetadata> & { bytes: ArrayBuffer };
 export function findImage(storage: DurableObjectStorage, id: string) {
   return storage.sql.exec<ImageRow>('SELECT * FROM images WHERE id = ?', id).toArray()[0];
 }
-export function hiddenImage(storage: DurableObjectStorage, id: string, viewer: string) {
+export function visibleImage(storage: DurableObjectStorage, id: string, viewer: string) {
   return !!storage.sql
     .exec(
-      'SELECT e.id FROM entries e JOIN entry_images ei ON ei.entry_id = e.id WHERE ei.image_id = ? AND e.visibility = ? AND e.user_id != ?',
+      'SELECT i.id FROM images i WHERE i.id = ? AND (i.owner_id = ? OR EXISTS (SELECT 1 FROM users u WHERE u.avatar_image_id = i.id) OR EXISTS (SELECT 1 FROM entry_images ei JOIN entries e ON e.id = ei.entry_id WHERE ei.image_id = i.id AND (e.visibility != ? OR e.user_id = ?)))',
       id,
+      viewer,
       'private',
       viewer,
     )
     .toArray()[0];
+}
+export function deleteUnreferencedImages(storage: DurableObjectStorage, ids: string[]) {
+  if (!ids.length) return;
+  storage.sql.exec(
+    `DELETE FROM images WHERE id IN (${ids.map(() => '?').join(',')}) AND NOT EXISTS (SELECT 1 FROM entry_images ei WHERE ei.image_id = images.id) AND NOT EXISTS (SELECT 1 FROM users u WHERE u.avatar_image_id = images.id)`,
+    ...ids,
+  );
 }
 export function insertImage(
   storage: DurableObjectStorage,

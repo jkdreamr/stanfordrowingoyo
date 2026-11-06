@@ -216,6 +216,7 @@ export interface WeekStats extends WeekSummary {
   entries: EntryDetail[];
 }
 export interface SeasonStats extends Totals {
+  days: { date: string; equiv_m: number }[];
   start: string;
   end: string;
   weeks: WeekSummary[];
