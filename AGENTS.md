@@ -2,7 +2,7 @@
 
 ## Run and Check
 
-Use Node 22+ and npm. Load Node with `source ~/.nvm/nvm.sh` first.
+Use Node 24+ and npm (load scripts use native TypeScript stripping). Load Node with `source ~/.nvm/nvm.sh` first.
 
 ```sh
 npm install
@@ -13,10 +13,52 @@ npm test
 npm run build       # assets and Worker dry run; does not deploy
 npm run format:check
 npm run format      # apply formatting before committing
+npm run load -- --base-url http://localhost:8787
+npm run e2e:install # browser dependencies; once per machine
+npm run e2e
 ```
 
 Only GET /api/health is implemented in the scaffold; other API routes return 501.
 Deploy only when explicitly asked.
+CI runs format:check, lint, typecheck, test, and build on every PR and push to main.
+
+## Load Test
+
+```sh
+npm run load -- --base-url http://localhost:8787 [--users 60] [--scenario session|burst|both]
+```
+
+Node 24 required. Local-only by default; remote targets require `--allow-remote`,
+and production-looking hosts also require `--i-know-this-is-production`.
+Default pass criteria: every endpoint p95 ≤ 800 ms (`--p95-ms`), no 5xx or network
+errors. Reported 4xx do not fail those checks; internal/setup failures also exit 1.
+The scaffold's 501 responses fail as expected.
+
+Seeds `loadtest+N@example.com` users. Supply `--team-code`, or admin credentials
+via `LOAD_ADMIN_PASSWORD` / `--admin-password` to discover it. Teardown with
+`--cleanup` and the same base URL/admin credentials: only matching seed users are
+deactivated, not their content. For a full local reset, stop Wrangler and delete
+its persisted state directory (`.wrangler/state` or the explicit `--persist-to`
+directory). Use disposable local state. See `scripts/load/README.md` for flags.
+
+## E2E
+
+Run `npm run e2e:install` once, then `npm run e2e`. Projects: desktop-chrome,
+iphone-15 (WebKit), pixel-7 (Chromium). If WebKit cannot launch, use
+`E2E_IPHONE_ENGINE=chromium` (iPhone descriptor, not Safari coverage).
+
+Each managed server run wipes `.wrangler/e2e-state` for fresh DO state and serves
+the built app at http://localhost:8799. Reusing an existing server outside CI does
+not reset it. `E2E_BASE_URL` targets an already-running local server and skips
+server management. Use localhost for Secure cookies; verify authenticated WebKit
+cookie behavior when the backend lands.
+
+Global setup signs up roster-seeded `joskoo@stanford.edu` without a team code,
+or logs in once if it exists. Set `E2E_ADMIN_PASSWORD` for existing state; the
+default is dev-only. Auth state is ignored under `e2e/.auth/`; 501 auth responses
+skip backend-dependent tests. When a screen lands, remove its test's top-level
+`test.fixme`, align semantic locators with the implemented labels, and run all
+three projects. See `e2e/README.md`; E2E is not yet in CI.
 
 ## Shared Contract
 
