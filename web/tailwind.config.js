@@ -8,6 +8,7 @@ export default {
         surface: 'var(--surface)',
         'surface-2': 'var(--surface-2)',
         'accent-ink': 'var(--accent-ink)',
+        danger: 'var(--danger)',
         'text-secondary': 'var(--text-secondary)',
         text: 'var(--text)',
         muted: 'var(--muted)',

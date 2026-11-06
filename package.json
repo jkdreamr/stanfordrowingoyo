@@ -8,6 +8,7 @@
     "web"
   ],
   "scripts": {
+    "dev:web": "npm run dev -w web",
     "dev": "npm run build -w web && concurrently -k \"wrangler dev\" \"npm run dev -w web\"",
     "build": "npm run build -w web && wrangler deploy --dry-run",
     "typecheck": "npm run typecheck --workspaces && tsc -p scripts/tsconfig.json && tsc -p e2e/tsconfig.json",

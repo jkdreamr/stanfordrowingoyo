@@ -8,6 +8,7 @@ export type ListRowProps = {
   avatar?: ReactNode;
   trailing?: ReactNode;
   to?: string;
+  chevron?: boolean;
   onClick?: () => void;
   tone?: 'default' | 'destructive';
 };
@@ -18,6 +19,7 @@ export function ListRow({
   avatar,
   trailing,
   to,
+  chevron = !!to,
   onClick,
   tone = 'default',
 }: ListRowProps) {
@@ -34,7 +36,7 @@ export function ListRow({
         {subtitle && <span className="block text-footnote text-muted">{subtitle}</span>}
       </span>
       {trailing && <span className="text-subhead text-muted tabular-nums">{trailing}</span>}
-      {(to || onClick) && (
+      {chevron && (
         <ChevronRight
           aria-hidden="true"
           size={20}

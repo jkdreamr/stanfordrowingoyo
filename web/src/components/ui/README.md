@@ -8,6 +8,7 @@ Import from `components/ui`. Preview at `/dev/kit` in development only. Wrap the
 - Cardinal is the only interactive accent. Orange is reserved for PR, streak, target-hit and best-week highlights. Zone colors appear only in small chips, always with dark text
 - Light: background #F7F7FA, surface #FFFFFF, secondary fill #F1F1F6 (slightly lighter to preserve muted-text contrast), text #242428, muted #6D6D78, divider #DFDFE8. Dark: background #121214, surface #1C1C1F, secondary fill #2A2A2E, text #F2F2F5, muted #A3A3AF, divider #2C2C31
 - Cardinal fills: #8C1515 / #C0352B, pressed #6F1010 / #8C1515. Use `accent-ink` for text (dark #F18B83), not the dark cardinal fill. White button text on dark cardinal meets 4.5:1
+- Semantic danger: #D70015 light / #FF5C52 dark, used for destructive button text on surface-2 (4.78:1 light / 4.70:1 dark). Dark is slightly lighter than iOS #FF453A to meet text contrast. Plain buttons remain unfilled accent-ink
 - No tracked uppercase, monospace labels, emoji, gradients, glows, colored shadows, arrow glyphs in buttons, keyboard chips, transition-all, hover scaling, pulse/ping loops, exclamation marks, greeting headlines or trailing periods on labels
 - Title Case labels and actions. Lucide only, stroke 1.75, 20px inline/row icons and 24px navigation icons. Decorative icons must be hidden from assistive technology
 - System font stack; weights 400/500/600 only. Tailwind type keys: `large-title` 34/41 600, `title1` 28/34 600, `title2` 22/28 600, `title3` 20/25 600, `headline` 17/22 600, `body` 17/22, `callout` 16/21, `subhead` 15/20, `footnote` 13/18, `caption` 12/16. Inputs are at least 16px; numbers are tabular
@@ -68,7 +69,7 @@ Arrows wrap and skip disabled options; Home/End select the first/last enabled op
 
 `<ListGroup header="Training"><ListRow title="Weekly Target" trailing="80.0k" to="/me/target" /></ListGroup>`
 
-Headers and footers use Title Case footnotes, never uppercase. `to` wins over onClick. Interactive rows include a Lucide chevron. Static rows are divs. Leading icons receive a neutral tile; avatars do not.
+Headers and footers use Title Case footnotes, never uppercase. `to` wins over onClick. Optional `chevron?: boolean` defaults to `!!to`: action rows have no chevron unless explicitly requested. Static rows are divs. Leading icons receive a neutral tile; avatars do not.
 
 ### Card
 
