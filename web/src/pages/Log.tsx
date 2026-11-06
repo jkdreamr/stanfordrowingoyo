@@ -112,12 +112,16 @@ function LogForm({
     photos.photos.some((p) => p.file) ||
     photos.photos.length !== initialPhotos.length;
   const { blocker, allowNavigation } = useUnsavedChanges(dirty);
-  const values = logValues(draft, config);
+  const values = logValues(draft, config, photos.photos);
   const valid = Object.keys(values.errors).length === 0;
   function field<K extends keyof LogDraft>(key: K, value: LogDraft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
+    setTouched((current) => ({ ...current, [key]: true }));
   }
-  const error = (key: string) => (touched[key] ? values.errors[key] : undefined);
+  const error = (key: string) =>
+    touched[key] || (key === 'split' && (touched.duration || touched.distance))
+      ? values.errors[key]
+      : undefined;
   const pace =
     draft.modality === 'erg'
       ? targetPace(draft.zone, user.best6k_split_s, user.best2k_split_s)
@@ -257,7 +261,7 @@ function LogForm({
             </div>
           </section>
           <Card>
-            <p className="text-caption text-muted">Equivalent distance</p>
+            <p className="text-caption text-muted">Equivalent Distance</p>
             {!values.errors.distance ? (
               <>
                 <p className="mt-2 text-title1 tabular-nums">
@@ -356,8 +360,8 @@ function LogForm({
             label="Title"
             value={draft.title}
             placeholder={suggestedTitle(draft)}
-            maxLength={200}
             onChange={(e) => field('title', e.target.value)}
+            error={error('title')}
           />
           <TextArea
             label="Notes"
@@ -365,6 +369,7 @@ function LogForm({
             onChange={(e) => field('notes', e.target.value)}
             rows={3}
             placeholder="Optional session notes"
+            error={error('notes')}
           />
           <PhotoPicker
             photos={photos.photos}
@@ -372,6 +377,11 @@ function LogForm({
             onRemove={photos.remove}
             disabled={busy}
           />
+          {values.errors.photos && (
+            <p role="alert" className="text-footnote text-danger">
+              {values.errors.photos}
+            </p>
+          )}
           <Card>
             <Toggle
               label="Private"

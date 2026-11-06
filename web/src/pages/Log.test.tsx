@@ -65,6 +65,36 @@ it('previews and saves a valid session, with optional details', async () => {
   expect(mock.state.entries.at(-1)?.avg_split_s).toBe(120);
   expect(screen.getByText('Session saved')).toBeTruthy();
 });
+it('shows field errors before submit and disables Save at the worker bounds', async () => {
+  setup();
+  fireEvent.change(await screen.findByLabelText('Meters'), { target: { value: '1000' } });
+  const save = () => screen.getByRole('button', { name: 'Save' }) as HTMLButtonElement;
+  expect(save().disabled).toBe(false);
+  for (const [label, value, message] of [
+    ['Title', 'x'.repeat(121), 'Keep the title to 120 characters'],
+    ['Notes', 'x'.repeat(2001), 'Keep notes to 2,000 characters'],
+  ]) {
+    fireEvent.change(screen.getByLabelText(label), { target: { value } });
+    expect(screen.getByText(message)).toBeTruthy();
+    expect(save().disabled).toBe(true);
+    fireEvent.change(screen.getByLabelText(label), { target: { value: '' } });
+  }
+  fireEvent.click(screen.getByRole('button', { name: 'Add Details' }));
+  for (const [label, value, message] of [
+    ['Stroke Rate', '61', 'Enter a whole stroke rate from 10 to 60'],
+    ['Average HR', '241', 'Enter a whole heart rate from 30 to 240'],
+    ['Time', '86401', 'Enter a duration from 1 second to 24 hours'],
+    ['Split /500m', '10:00.1', 'Enter a split from 1:00.0 to 10:00.0'],
+  ]) {
+    fireEvent.change(screen.getByLabelText(label), { target: { value } });
+    expect(screen.getByText(message)).toBeTruthy();
+    expect(save().disabled).toBe(true);
+    fireEvent.change(screen.getByLabelText(label), { target: { value: '' } });
+  }
+  fireEvent.change(screen.getByLabelText('Time'), { target: { value: '1' } });
+  expect(screen.getByText('Enter a split from 1:00.0 to 10:00.0')).toBeTruthy();
+  expect(save().disabled).toBe(true);
+});
 it('retains a draft on failure and confirms unsaved cancellation', async () => {
   setup('/log', true);
   fireEvent.change(await screen.findByLabelText('Meters'), { target: { value: '12000' } });

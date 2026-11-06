@@ -80,7 +80,7 @@ export default function Page() {
     <>
       <PageHeader title="This Week" trailing={<HeaderActions settings />} />
       <div className="screen-stack">
-        <ActionCard to="/me/target" label="Weekly progress. Change your target">
+        <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
           <div className="flex justify-center">
             <ProgressRing
               size={168}
@@ -119,12 +119,12 @@ export default function Page() {
             </span>
           )}
           <p className="mt-2 text-center text-caption text-muted">
-            {target?.source === 'personal' ? 'Personal target' : 'Group default'}
+            {target?.source === 'personal' ? 'Personal Target' : 'Group Default'}
           </p>
         </ActionCard>
         {!week.hit_target && (
           <Card>
-            <h2 className="text-headline">How to finish your week</h2>
+            <h2 className="text-headline">How to Finish Your Week</h2>
             <p className="mt-2 text-footnote text-muted">Choose one, or mix your sessions</p>
             <div className="mt-3">
               {finishWeek(week.total_m, week.target_m, config).map((s) => (

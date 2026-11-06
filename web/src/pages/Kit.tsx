@@ -195,7 +195,7 @@ export default function Kit() {
                 variant="plain"
                 onClick={() =>
                   toast.show({
-                    title: tone === 'error' ? 'Could Not Save · Try Again' : 'Session Saved',
+                    title: tone === 'error' ? 'Could not save. Try again' : 'Session saved',
                     tone,
                     action: { label: 'Undo', onClick: () => {} },
                   })

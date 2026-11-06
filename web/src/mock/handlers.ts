@@ -185,16 +185,20 @@ export function createMockApi({
     userId: string,
     range = seasonRange(today(now()), settings.season_start),
   ): SeasonStats {
-    const weeks: WeekSummary[] = [];
     const end = range.end < today(now()) ? range.end : today(now());
+    const entries = state.entries.filter(
+      (e) => e.user_id === userId && e.date >= range.start && e.date <= range.end,
+    );
+    const days = new Map<string, number>();
+    for (const entry of entries) days.set(entry.date, (days.get(entry.date) ?? 0) + entry.equiv_m);
+    const weeks: WeekSummary[] = [];
     for (let w = weekStart(range.start); w <= end; w = addDays(w, 7))
       weeks.push(summary(userId, w));
     return {
-      ...totals(
-        state.entries.filter(
-          (e) => e.user_id === userId && e.date >= range.start && e.date <= range.end,
-        ),
-      ),
+      days: [...days]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([date, equiv_m]) => ({ date, equiv_m })),
+      ...totals(entries),
       ...range,
       weeks,
       streak: streak(userId, weekStart(end)),
@@ -250,17 +254,36 @@ export function createMockApi({
       fail(400, 'Distance must be 1–200,000 meters');
     if (!['team', 'private'].includes(input.visibility))
       fail(400, 'Choose team or private visibility');
-    text(input.title, 'Title', 200);
-    if (typeof input.notes !== 'string') fail(400, 'Notes must be text');
-    for (const key of ['duration_s', 'avg_split_s', 'stroke_rate', 'avg_hr'] as const)
-      if (input[key] != null) positive(input[key], key);
+    if (typeof input.title !== 'string' || input.title.trim().length > 120)
+      fail(400, 'Title must be at most 120 characters');
+    if (typeof input.notes !== 'string' || input.notes.length > 2000)
+      fail(400, 'Notes must be at most 2,000 characters');
+    for (const [key, min, max, integer] of [
+      ['duration_s', 1, 86400, true],
+      ['avg_split_s', 60, 600, false],
+      ['stroke_rate', 10, 60, true],
+      ['avg_hr', 30, 240, true],
+    ] as const) {
+      const value = input[key];
+      if (
+        value != null &&
+        (!Number.isFinite(value) ||
+          (integer && !Number.isInteger(value)) ||
+          value < min ||
+          value > max)
+      )
+        fail(400, `${key} must be between ${min} and ${max}`);
+    }
     if (
       input.image_ids &&
       (!Array.isArray(input.image_ids) ||
         input.image_ids.length > 4 ||
+        new Set(input.image_ids).size !== input.image_ids.length ||
         input.image_ids.some(
           (image) =>
             typeof image !== 'string' ||
+            image.length < 1 ||
+            image.length > 200 ||
             (uploads.get(image)?.owner !== me().id &&
               !Object.values(state.imageLinks)
                 .flat()
@@ -892,7 +915,7 @@ export function createMockApi({
         if (parts[5] === 'unlink' && method === 'POST') {
           if (row.claimed_by_user_id) userById(row.claimed_by_user_id).active = false;
           row.claimed_by_user_id = null;
-          return empty();
+          return json(row);
         }
         if (method === 'DELETE') {
           roster.splice(roster.indexOf(row), 1);

@@ -4,7 +4,7 @@ import { logEntry, equivalentMeters, formatMeters } from './helpers';
 test('weekly target drives Home progress and remaining meters', async ({ makeRower }) => {
   const { page } = await makeRower();
   await page
-    .getByRole('link', { name: 'Weekly progress. Change your target', exact: true })
+    .getByRole('link', { name: 'Weekly Progress. Change Your Target', exact: true })
     .click();
   await page.getByLabel('Personal Target', { exact: true }).fill('50000');
   await page.getByRole('button', { name: /save/i }).click();
@@ -12,7 +12,7 @@ test('weekly target drives Home progress and remaining meters', async ({ makeRow
   await page.getByRole('link', { name: 'Home', exact: true }).filter({ visible: true }).click();
   await logEntry(page, 'bike', 'E', 60000, 'E2E target workout');
   const meters = equivalentMeters(60000, 'bike', 'E');
-  const hero = page.getByRole('link', { name: 'Weekly progress. Change your target', exact: true });
+  const hero = page.getByRole('link', { name: 'Weekly Progress. Change Your Target', exact: true });
   await expect(hero.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(meters));
   await expect(hero.getByRole('progressbar')).toHaveAttribute('aria-valuemax', '50000');
   await expect(hero.getByText('40%', { exact: true })).toBeVisible();

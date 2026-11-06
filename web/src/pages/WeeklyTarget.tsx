@@ -76,11 +76,11 @@ function TargetForm({
       >
         <Card>
           <p className="text-subhead text-muted">
-            Current effective target · {source === 'group' ? 'group default' : 'personal target'}
+            Current Effective Target · {source === 'group' ? 'Group Default' : 'Personal Target'}
           </p>
           <p className="mt-3 text-title1 tabular-nums">{formatEMeters(current)}</p>
           <p className="mt-3 text-footnote text-muted">
-            <span className="capitalize">{group}</span> group default {formatEMeters(groupDefault)}
+            <span className="capitalize">{group}</span> Group Default {formatEMeters(groupDefault)}
           </p>
         </Card>
         <FormErrors message={message} />

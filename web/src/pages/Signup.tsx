@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Search } from 'lucide-react';
-import type { GroupKey, RosterOption } from '../../../shared/types';
+import type { GroupKey, RosterChoice } from '../../../shared/types';
 import { useRosterOptions, useSignup } from '../lib/queries';
 import { ApiClientError } from '../lib/api';
 import { authError, safeNext } from '../lib/auth';
@@ -18,9 +18,9 @@ export default function Signup() {
   const [step, setStep] = useState(1);
   const [invite, setInvite] = useState(false);
   const [code, setCode] = useState('');
-  const [options, setOptions] = useState<RosterOption[]>([]);
+  const [options, setOptions] = useState<RosterChoice[]>([]);
   const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState<RosterOption>();
+  const [selected, setSelected] = useState<RosterChoice>();
   const [group, setGroup] = useState<GroupKey>('normal');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -283,14 +283,13 @@ export default function Signup() {
               setMessage(undefined);
             }}
           >
-            Have an invite email?
+            Have an Invite Email?
           </Button>
         </div>
       )}
       <div className="mt-6 flex flex-wrap items-center justify-center gap-1 text-subhead">
-        <span className="text-muted">Already registered?</span>
         <Link className="auth-text-link" to={`/login?next=${encodeURIComponent(next)}`}>
-          Log In
+          Already Registered? Log In
         </Link>
       </div>
     </AuthFrame>

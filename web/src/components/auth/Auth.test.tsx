@@ -225,7 +225,7 @@ describe('authentication flows', () => {
     const { mock } = setup('/signup');
     mock.state.users = mock.state.users.filter((u) => u.role !== 'admin');
     mock.state.roster.find((r) => r.role === 'admin')!.claimed_by_user_id = null;
-    fireEvent.click(await screen.findByRole('button', { name: 'Have an invite email?' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Have an Invite Email?' }));
     expect(screen.queryByLabelText('Team Join Code')).toBeNull();
     fill('Email', 'joskoo@stanford.edu');
     fill('Password', 'password');

@@ -5,6 +5,7 @@ import type {
   LeaderboardRow,
   Page,
   WeekStats,
+  SeasonStats,
 } from '../../../shared/types';
 import { createMockApi } from './handlers';
 const now = () => new Date('2026-11-06T18:00:00Z');
@@ -31,6 +32,54 @@ const input = {
   visibility: 'team',
 };
 describe('mock stats and visibility', () => {
+  it('aggregates dated season meters, including multiple sessions on one date', async () => {
+    const { request, state } = setup();
+    for (const distance_m of [1000, 2000])
+      expect((await request('/entries', 'POST', { ...input, distance_m })).status).toBe(201);
+    const stats: SeasonStats = await (await request('/stats/season')).json();
+    const days = new Map<string, number>();
+    for (const entry of state.entries.filter(
+      (e) => e.user_id === 'user-1' && e.date >= stats.start && e.date <= stats.end,
+    ))
+      days.set(entry.date, (days.get(entry.date) ?? 0) + entry.equiv_m);
+    expect(stats.days).toEqual(
+      [...days]
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([date, equiv_m]) => ({ date, equiv_m })),
+    );
+    expect(stats.days.reduce((sum, day) => sum + day.equiv_m, 0)).toBe(stats.total_m);
+    const empty: SeasonStats = await (await request('/stats/season?year=2000')).json();
+    expect(empty.days).toEqual([]);
+    expect((await request('/stats/season?year=bad')).status).toBe(400);
+  });
+  it('matches worker validation bounds for entry metrics and text', async () => {
+    const { request } = setup();
+    for (const [key, min, max] of [
+      ['duration_s', 1, 86400],
+      ['avg_split_s', 60, 600],
+      ['stroke_rate', 10, 60],
+      ['avg_hr', 30, 240],
+    ] as const) {
+      for (const value of [null, min, max])
+        expect((await request('/entries', 'POST', { ...input, [key]: value })).status).toBe(201);
+      for (const value of [min - 1, max + 1])
+        expect((await request('/entries', 'POST', { ...input, [key]: value })).status).toBe(400);
+      if (key !== 'avg_split_s')
+        expect((await request('/entries', 'POST', { ...input, [key]: min + 0.5 })).status).toBe(
+          400,
+        );
+    }
+    for (const [key, max] of [
+      ['title', 120],
+      ['notes', 2000],
+    ] as const) {
+      for (const value of ['', 'x'.repeat(max)])
+        expect((await request('/entries', 'POST', { ...input, [key]: value })).status).toBe(201);
+      expect(
+        (await request('/entries', 'POST', { ...input, [key]: 'x'.repeat(max + 1) })).status,
+      ).toBe(400);
+    }
+  });
   it('distinguishes signup field failures', async () => {
     const { request } = setup();
     const body = { roster_id: 'roster-30', email: 'new@stanford.edu', password: 'password' };
@@ -168,7 +217,9 @@ describe('mock mutations and errors', () => {
       (await request('/admin/roster/roster-1', 'PATCH', { name: 'Marcus Renamed' })).status,
     ).toBe(200);
     expect(state.users[0].name).toBe('Marcus Renamed');
-    expect((await request('/admin/roster/roster-1/unlink', 'POST')).status).toBe(204);
+    const unlinked = await request('/admin/roster/roster-1/unlink', 'POST');
+    expect(unlinked.status).toBe(200);
+    expect(await unlinked.json()).toMatchObject({ id: 'roster-1', claimed_by_user_id: null });
     expect(state.users[0].active).toBe(false);
     expect(state.roster[0].claimed_by_user_id).toBeNull();
     expect(

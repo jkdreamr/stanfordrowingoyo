@@ -57,7 +57,11 @@ export function suggestedTitle(draft: LogDraft) {
   if (!Number.isFinite(meters) || meters <= 0) return 'e.g. 3x6k E';
   return `${draft.unit === 'km' ? formatKm(meters) : formatMeters(meters)} ${draft.zone} ${draft.modality === 'erg' ? 'Erg' : draft.modality === 'bike' ? 'Bike' : 'Run'}`;
 }
-export function logValues(draft: LogDraft, config: Config) {
+export function logValues(
+  draft: LogDraft,
+  config: Config,
+  photos: readonly { key: string; id?: string; file?: File }[] = [],
+) {
   const distance = distanceMeters(draft);
   const duration = draft.duration ? parseDuration(draft.duration) : null;
   const derivedSplit =
@@ -76,14 +80,36 @@ export function logValues(draft: LogDraft, config: Config) {
   )
     errors.date = 'Choose a date between 2020 and tomorrow';
   if (!config.zones.includes(draft.zone)) errors.zone = 'Choose a valid zone';
-  if (draft.duration && (!duration || duration < 0))
-    errors.duration = 'Use h:mm:ss, m:ss or seconds';
+  if (
+    draft.duration &&
+    (duration === null || !Number.isInteger(duration) || duration < 1 || duration > 86400)
+  )
+    errors.duration = 'Enter a duration from 1 second to 24 hours';
   const split = draft.split ? parseSplit(draft.split) : derivedSplit;
-  if (draft.split && (!split || split <= 0)) errors.split = 'Use m:ss.t for your split';
+  if (
+    (draft.split && split === null) ||
+    (split !== null && (!Number.isFinite(split) || split < 60 || split > 600))
+  )
+    errors.split = 'Enter a split from 1:00.0 to 10:00.0';
   for (const key of ['rate', 'hr'] as const)
-    if (draft[key] && (!Number.isFinite(Number(draft[key])) || Number(draft[key]) <= 0))
-      errors[key] = 'Enter a positive number';
-  if (draft.title.trim().length > 200) errors.title = 'Keep the title to 200 characters';
+    if (
+      draft[key] &&
+      (!Number.isInteger(Number(draft[key])) ||
+        Number(draft[key]) < (key === 'rate' ? 10 : 30) ||
+        Number(draft[key]) > (key === 'rate' ? 60 : 240))
+    )
+      errors[key] =
+        key === 'rate'
+          ? 'Enter a whole stroke rate from 10 to 60'
+          : 'Enter a whole heart rate from 30 to 240';
+  if (draft.title.trim().length > 120) errors.title = 'Keep the title to 120 characters';
+  if (draft.notes.length > 2000) errors.notes = 'Keep notes to 2,000 characters';
+  if (
+    photos.length > 4 ||
+    new Set(photos.map((photo) => photo.id ?? photo.file ?? photo.key)).size !== photos.length ||
+    photos.some((photo) => photo.id !== undefined && (photo.id.length < 1 || photo.id.length > 200))
+  )
+    errors.photos = 'Choose up to four unique photos';
   const input: EntryInput = {
     date: draft.date,
     modality: draft.modality,

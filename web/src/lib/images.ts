@@ -80,6 +80,7 @@ export async function resizeImage(file: File, maxSide = 1600, square = false): P
         0.82,
       ),
     );
+    if (!blob.size) throw new Error('Photo cannot be empty');
     if (blob.size > 1.5 * 1024 * 1024)
       throw new Error('Photo is too large after resizing. Choose a smaller photo');
     return blob;
