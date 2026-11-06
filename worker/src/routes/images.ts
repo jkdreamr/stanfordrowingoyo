@@ -1,6 +1,6 @@
 import type { Context } from '../context';
 import type { ImageMetadata } from '../../../shared/types';
-import { requireUser } from '../auth/guards';
+import { refreshUser, requireUser } from '../auth/guards';
 import { findImage, hiddenImage, insertImage } from '../db/images';
 import { HttpError, json } from '../http';
 const MAX_BYTES = 1572864;
@@ -68,7 +68,6 @@ function dimensions(bytes: Uint8Array, mime: string): [number, number] {
   throw new HttpError(400, 'VALIDATION_ERROR', 'Image dimensions could not be read.');
 }
 export async function create(ctx: Context) {
-  const user = requireUser(ctx);
   const mime = ctx.request.headers.get('Content-Type')?.split(';')[0].trim().toLowerCase();
   if (!mime || !['image/jpeg', 'image/png', 'image/webp'].includes(mime)) throw unsupported();
   if (Number(ctx.request.headers.get('Content-Length')) > MAX_BYTES)
@@ -97,6 +96,7 @@ export async function create(ctx: Context) {
   const [width, height] = dimensions(bytes, mime);
   if (!width || !height)
     throw new HttpError(400, 'VALIDATION_ERROR', 'Image dimensions must be positive.');
+  const user = refreshUser(ctx);
   const image: ImageMetadata = {
     id: crypto.randomUUID(),
     owner_id: user.id,

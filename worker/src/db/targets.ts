@@ -27,7 +27,7 @@ export function setTarget(
 ): WeeklyTarget {
   storage.transactionSync(() => {
     storage.sql.exec(
-      'INSERT OR REPLACE INTO weekly_targets VALUES (?, ?, ?)',
+      'INSERT INTO weekly_targets VALUES (?, ?, ?) ON CONFLICT(user_id,week_start) DO UPDATE SET target_m=excluded.target_m',
       userId,
       week,
       target,

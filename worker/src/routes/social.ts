@@ -1,5 +1,5 @@
 import type { Context } from '../context';
-import { requireUser } from '../auth/guards';
+import { refreshUser, requireUser } from '../auth/guards';
 import { visibleEntry } from '../db/entries';
 import * as db from '../db/social';
 import { byId, toPublicUser } from '../db/users';
@@ -20,9 +20,9 @@ export function comments(ctx: Context) {
   return json(db.comments(ctx.storage, entry.id));
 }
 export async function comment(ctx: Context) {
-  const user = requireUser(ctx);
-  const entry = visibleEntry(ctx.storage, ctx.params.id, user.id);
   const body = await readJson(ctx.request);
+  const user = refreshUser(ctx);
+  const entry = visibleEntry(ctx.storage, ctx.params.id, user.id);
   const comment = {
     id: crypto.randomUUID(),
     entry_id: entry.id,

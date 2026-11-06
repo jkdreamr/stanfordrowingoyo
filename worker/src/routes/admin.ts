@@ -30,10 +30,11 @@ export function users(ctx: Context) {
   );
 }
 export async function patchUser(ctx: Context) {
+  const body = await readJson(ctx.request);
+  refreshUser(ctx);
   requireStaff(ctx);
   const before = byId(ctx.storage, ctx.params.id);
   if (!before) missing();
-  const body = await readJson(ctx.request);
   const role = body.role === undefined ? before.role : v.enumeration(body.role, roles, 'Role');
   const group =
     body.group_key === undefined
@@ -64,45 +65,49 @@ export async function patchUser(ctx: Context) {
   )
     conflict('The last active admin cannot be demoted or deactivated.');
   ctx.storage.transactionSync(() => {
-    ctx.storage.sql.exec(
-      'UPDATE users SET role = ?,group_key = ?,active = ?,on_leaderboard = ?,updated_at = ? WHERE id = ?',
+    const fields = {
       role,
-      group,
-      Number(active),
-      Number(onLeaderboard),
+      group_key: group,
+      active: Number(active),
+      on_leaderboard: Number(onLeaderboard),
+    };
+    for (const key of ['role', 'group_key', 'active', 'on_leaderboard'] as const)
+      if (body[key] !== undefined)
+        ctx.storage.sql.exec(`UPDATE users SET ${key} = ? WHERE id = ?`, fields[key], before.id);
+    ctx.storage.sql.exec(
+      'UPDATE users SET updated_at = ? WHERE id = ?',
       ctx.now.toISOString(),
       before.id,
     );
-    if (!active) ctx.storage.sql.exec('DELETE FROM sessions WHERE user_id = ?', before.id);
+    if (body.active !== undefined && !active)
+      ctx.storage.sql.exec('DELETE FROM sessions WHERE user_id = ?', before.id);
     audit(ctx, 'user.update', before.id, toUser(before), toUser(byId(ctx.storage, before.id)));
   });
   return json(toUser(byId(ctx.storage, before.id)));
 }
 export async function resetPassword(ctx: Context) {
   requireStaff(ctx);
-  const user = byId(ctx.storage, ctx.params.id);
-  if (!user) missing();
-  if (user.role === 'admin') requireAdmin(ctx);
   const password = temporaryPassword();
   const { hash, salt } = await hashPassword(password);
-  // Recheck the role after asynchronous hashing.
-  const current = byId(ctx.storage, user.id);
-  if (!current) missing();
-  if (current.role === 'admin') requireAdmin(ctx);
   ctx.storage.transactionSync(() => {
+    refreshUser(ctx);
+    requireStaff(ctx);
+    const current = byId(ctx.storage, ctx.params.id);
+    if (!current) missing();
+    if (current.role === 'admin') requireAdmin(ctx);
     ctx.storage.sql.exec(
       'UPDATE users SET password_hash = ?,password_salt = ?,must_change_password = ?,updated_at = ? WHERE id = ?',
       hash,
       salt,
       1,
       ctx.now.toISOString(),
-      user.id,
+      current.id,
     );
-    ctx.storage.sql.exec('DELETE FROM sessions WHERE user_id = ?', user.id);
+    ctx.storage.sql.exec('DELETE FROM sessions WHERE user_id = ?', current.id);
     audit(
       ctx,
       'user.reset-password',
-      user.id,
+      current.id,
       { must_change_password: !!current.must_change_password },
       { must_change_password: true },
     );
@@ -123,10 +128,8 @@ function rosterInput(body: Record<string, unknown>, before?: RosterRow) {
 function rosterPermission(ctx: Context, role: string, before?: RosterRow) {
   if (role === 'admin' || before?.role === 'admin') requireAdmin(ctx);
 }
-function writeRoster(ctx: Context, row: RosterRow) {
-  ctx.storage.sql.exec(
-    'INSERT OR REPLACE INTO roster (id,name,email,role,group_key,side,class_year,claimed_by_user_id,added_by,created_at) VALUES (?,?,?,?,?,?,?,?,?,?)',
-    row.id,
+function writeRoster(ctx: Context, row: RosterRow, update: boolean) {
+  const values = [
     row.name,
     row.email,
     row.role,
@@ -136,7 +139,21 @@ function writeRoster(ctx: Context, row: RosterRow) {
     row.claimed_by_user_id,
     row.added_by,
     row.created_at,
-  );
+    row.id,
+  ];
+  if (update) {
+    if (
+      !ctx.storage.sql.exec(
+        'UPDATE roster SET name=?,email=?,role=?,group_key=?,side=?,class_year=?,claimed_by_user_id=?,added_by=?,created_at=? WHERE id=?',
+        ...values,
+      ).rowsWritten
+    )
+      missing();
+  } else
+    ctx.storage.sql.exec(
+      'INSERT INTO roster (name,email,role,group_key,side,class_year,claimed_by_user_id,added_by,created_at,id) VALUES (?,?,?,?,?,?,?,?,?,?)',
+      ...values,
+    );
 }
 export function roster(ctx: Context) {
   requireStaff(ctx);
@@ -185,7 +202,7 @@ function saveRoster(
     added_by: before ? before.added_by : actor.id,
     created_at: before?.created_at ?? ctx.now.toISOString(),
   };
-  writeRoster(ctx, row);
+  writeRoster(ctx, row, !!before);
   if (linked) {
     const fields: Record<string, string | number | null> = {};
     for (const key of ['name', 'role', 'side', 'class_year'] as const)
@@ -328,8 +345,9 @@ export function settings(ctx: Context) {
   return json(getSettings(ctx.storage));
 }
 export async function patchSettings(ctx: Context) {
-  requireStaff(ctx);
   const body = await readJson(ctx.request);
+  refreshUser(ctx);
+  requireStaff(ctx);
   const before = getSettings(ctx.storage);
   const after: Settings = { ...before };
   if (body.team_code !== undefined) {
@@ -387,8 +405,10 @@ export function listPresets(ctx: Context) {
   return json(presets(ctx.storage));
 }
 export async function createPreset(ctx: Context) {
+  const body = await readJson(ctx.request);
+  refreshUser(ctx);
   requireStaff(ctx);
-  const preset = presetInput(await readJson(ctx.request));
+  const preset = presetInput(body);
   ctx.storage.transactionSync(() => {
     savePreset(ctx.storage, preset);
     audit(ctx, 'preset.create', preset.id, null, preset);
@@ -396,12 +416,14 @@ export async function createPreset(ctx: Context) {
   return json(preset, 201);
 }
 export async function patchPreset(ctx: Context) {
+  const body = await readJson(ctx.request);
+  refreshUser(ctx);
   requireStaff(ctx);
   const before = presets(ctx.storage).find((row) => row.id === ctx.params.id);
   if (!before) missing();
-  const preset = presetInput(await readJson(ctx.request), before);
+  const preset = presetInput(body, before);
   ctx.storage.transactionSync(() => {
-    savePreset(ctx.storage, preset);
+    savePreset(ctx.storage, preset, true);
     audit(ctx, 'preset.update', preset.id, before, preset);
   });
   return json(preset);

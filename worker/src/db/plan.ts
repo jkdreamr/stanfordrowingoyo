@@ -27,7 +27,7 @@ export function getPlan(storage: DurableObjectStorage, group?: string): Plan {
 }
 export function saveSlot(storage: DurableObjectStorage, row: PlanSlot) {
   storage.sql.exec(
-    'INSERT OR REPLACE INTO plan_slots VALUES (?,?,?,?,?,?,?)',
+    'INSERT INTO plan_slots VALUES (?,?,?,?,?,?,?) ON CONFLICT(group_key,week,day,slot) DO UPDATE SET kind=excluded.kind,zone=excluded.zone,text=excluded.text',
     row.group_key,
     row.week,
     row.day,

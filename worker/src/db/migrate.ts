@@ -193,7 +193,9 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
       );
     for (const p of PLAN_TOTALS)
       sql.exec('INSERT OR IGNORE INTO plan_totals VALUES (?,?,?)', p.group_key, p.week, p.label);
-    sql.exec("INSERT OR REPLACE INTO settings VALUES ('schema_version','1')");
+    sql.exec(
+      "INSERT INTO settings VALUES ('schema_version','1') ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",
+    );
   });
 }
 export function migrate(storage: DurableObjectStorage): void {
@@ -211,11 +213,15 @@ export function migrate(storage: DurableObjectStorage): void {
         )
         .one();
       sql.exec(
-        'INSERT OR REPLACE INTO settings VALUES (?, ?)',
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'group_target_history',
         JSON.stringify([{ week_start: '2000-01-01', targets: JSON.parse(targets.value_json) }]),
       );
-      sql.exec('INSERT OR REPLACE INTO settings VALUES (?, ?)', 'schema_version', '2');
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '2',
+      );
     });
   if (Number(JSON.parse(version.value_json)) < 3)
     storage.transactionSync(() => {
@@ -235,7 +241,11 @@ CREATE TABLE roster (
 CREATE UNIQUE INDEX roster_email ON roster(lower(email)) WHERE email IS NOT NULL;
 CREATE UNIQUE INDEX roster_claim ON roster(claimed_by_user_id) WHERE claimed_by_user_id IS NOT NULL;`);
       seedRoster(storage);
-      sql.exec('INSERT OR REPLACE INTO settings VALUES (?, ?)', 'schema_version', '3');
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '3',
+      );
     });
 }
 export function seedRoster(storage: DurableObjectStorage): void {

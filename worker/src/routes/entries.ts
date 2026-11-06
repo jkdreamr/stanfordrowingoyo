@@ -2,7 +2,7 @@ import type { Entry } from '../../../shared/types';
 import { addDays, today, weekStart } from '../../../shared/dates';
 import { equivalentMeters, ZONES } from '../../../shared/math';
 import type { Context } from '../context';
-import { requireUser } from '../auth/guards';
+import { refreshUser, requireUser } from '../auth/guards';
 import { getSettings } from '../db/settings';
 import {
   checkImages,
@@ -83,8 +83,8 @@ export function get(ctx: Context) {
   );
 }
 export async function create(ctx: Context) {
-  const user = requireUser(ctx);
   const body = await readJson(ctx.request);
+  const user = refreshUser(ctx);
   const entry = validate(ctx, body);
   const ids = body.image_ids === undefined ? [] : imageIds(body.image_ids);
   checkImages(ctx.storage, ids, user.id, entry.id);
@@ -102,13 +102,17 @@ function editable(ctx: Context) {
   return entry;
 }
 export async function patch(ctx: Context) {
-  const previous = editable(ctx);
   const body = await readJson(ctx.request);
+  refreshUser(ctx);
+  const previous = editable(ctx);
   const entry = validate(ctx, body, previous);
   const ids = body.image_ids === undefined ? undefined : imageIds(body.image_ids);
   if (ids) checkImages(ctx.storage, ids, entry.user_id, entry.id);
-  saveEntry(ctx.storage, entry, ids);
-  if (entry.user_id !== requireUser(ctx).id) audit(ctx, 'entry.update', entry.id, previous, entry);
+  ctx.storage.transactionSync(() => {
+    saveEntry(ctx.storage, entry, ids, true);
+    if (entry.user_id !== requireUser(ctx).id)
+      audit(ctx, 'entry.update', entry.id, previous, entry);
+  });
   return json(details(ctx.storage, [entry], requireUser(ctx).id)[0]);
 }
 export function remove(ctx: Context) {

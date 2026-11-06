@@ -26,22 +26,16 @@ export async function authenticate(ctx: Context) {
   }
 }
 export function requireUser(ctx: Context) {
-  if (!ctx.user) throw new HttpError(401, 'UNAUTHENTICATED', 'Please log in.');
-  return ctx.user;
-}
-export function refreshUser(ctx: Context) {
-  const id = requireUser(ctx).id;
   const session = ctx.tokenHash ? findSession(ctx, ctx.tokenHash) : undefined;
-  const user = byId(ctx.storage, id);
-  if (
-    !session ||
-    session.user_id !== id ||
-    Date.parse(session.expires_at) <= ctx.now.getTime() ||
-    !user?.active
-  )
+  const user = session ? byId(ctx.storage, session.user_id) : undefined;
+  if (!session || Date.parse(session.expires_at) <= ctx.now.getTime() || !user?.active)
     throw new HttpError(401, 'UNAUTHENTICATED', 'Please log in.');
   ctx.user = user;
-  if (user.must_change_password)
+  return user;
+}
+export function refreshUser(ctx: Context, allowPasswordChange = false) {
+  const user = requireUser(ctx);
+  if (user.must_change_password && !allowPasswordChange)
     throw new HttpError(403, 'PASSWORD_CHANGE_REQUIRED', 'Please change your password.');
   return user;
 }

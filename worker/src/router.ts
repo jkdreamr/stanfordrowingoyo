@@ -1,5 +1,5 @@
 import type { Context } from './context';
-import { authenticate } from './auth/guards';
+import { authenticate, requireUser } from './auth/guards';
 import { HttpError, errorResponse, json } from './http';
 import * as auth from './routes/auth';
 import * as me from './routes/me';
@@ -118,6 +118,7 @@ export async function route(ctx: Context): Promise<Response> {
     if (!found) throw new HttpError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed.');
     ctx.params = matchPath(found.path, path)!;
     await authenticate(ctx);
+    if (ctx.user) requireUser(ctx);
     const allowed = [
       'GET /api/me',
       'GET /api/config',

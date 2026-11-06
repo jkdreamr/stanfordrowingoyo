@@ -191,11 +191,6 @@ describe('complete API and role permissions', () => {
     const resetUser = await user('Reset');
     for (const endpoint of Object.keys(endpoints) as (keyof Api)[]) {
       // Each endpoint gets fresh resources so DELETE calls cannot invalidate later assertions.
-      const login = await api('/auth/login', undefined, 'POST', {
-        email: staff.user.email,
-        password: 'password123',
-      });
-      staff.cookie = login.headers.get('Set-Cookie')!.split(';')[0];
       const entry = await (await api('/entries', rower, 'POST', workout)).json<EntryDetail>();
       const comment = await (
         await api('/entries/' + entry.id + '/comments', rower, 'POST', { body: 'Test' })
@@ -259,6 +254,14 @@ describe('complete API and role permissions', () => {
               : {};
       const response = await api(path, staff, method, body);
       expect([404, 405, 501, 500], endpoint).not.toContain(response.status);
+      if (path === '/auth/logout') {
+        const login = await api('/auth/login', undefined, 'POST', {
+          email: staff.user.email,
+          password: 'password123',
+        });
+        expect(login.status).toBe(200);
+        staff.cookie = login.headers.get('Set-Cookie')!.split(';')[0];
+      }
     }
   });
   it('rejects rowers on every admin endpoint and announcement creation', async () => {

@@ -13,7 +13,7 @@ export function attempt(ctx: Context, email: string) {
       'Retry-After': String(Math.ceil(remaining / 1000)),
     });
   ctx.storage.sql.exec(
-    'INSERT OR REPLACE INTO rate_limits VALUES (?, ?, ?, ?)',
+    'INSERT INTO rate_limits VALUES (?, ?, ?, ?) ON CONFLICT(email,ip) DO UPDATE SET window_start=excluded.window_start,attempts=excluded.attempts',
     email,
     ip,
     remaining > 0 ? row.window_start : ctx.now.toISOString(),

@@ -235,8 +235,13 @@ rules, or insert. Empty nullable cells clear those values; omitting the email co
 Validation, permission and conflict errors are reported per physical row; permitted rows still import atomically per row.
 Self-service `PATCH /api/me` validates `group_key` and changes only that user's group, not their roster default.
 A self-service name change synchronizes the linked roster name in the same transaction, respecting name uniqueness.
-For roster/profile mutations, parse request bodies first, then refresh session/user and read, authorize and write
-synchronously so no pre-await state is used for authorization or updates.
+Across the Durable Object, parse request bodies first, then refresh session/user and read, authorize and write
+synchronously so no pre-await state is used for authorization or updates. Guards reload current sessions and users;
+after password crypto, password changes recheck the live session, active status and verified credential hash/salt in
+the write transaction. Login similarly compares credentials and active status after verification. Session-token hashing
+finishes before the synchronous session commit; signup claims, user writes and session creation share one transaction.
+Staff password resets reload both actor and target after hashing. Record PATCH writes use UPDATE with an existence
+check, never replacement inserts; settings, target and plan upserts use ON CONFLICT DO UPDATE without deleting rows.
 
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
 Private entries count toward the owner's totals and the leaderboard, but never appear in the feed/profile for others.
