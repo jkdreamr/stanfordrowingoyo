@@ -1,5 +1,5 @@
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
-import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS } from '../../../shared/seed';
+import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS, ROSTER } from '../../../shared/seed';
 function migrateV1(storage: DurableObjectStorage): void {
   const sql = storage.sql;
   sql.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL)');
@@ -169,17 +169,6 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
     };
     for (const [key, value] of Object.entries(settings))
       sql.exec('INSERT OR IGNORE INTO settings VALUES (?,?)', key, JSON.stringify(value));
-    sql.exec(
-      'INSERT OR IGNORE INTO roster VALUES (?,?,?,?,?,?,?,?)',
-      'joskoo@stanford.edu',
-      'Josh',
-      'admin',
-      'normal',
-      null,
-      null,
-      null,
-      new Date().toISOString(),
-    );
     for (const p of PRESETS)
       sql.exec(
         'INSERT OR IGNORE INTO presets VALUES (?,?,?,?,?,?,?)',
@@ -228,4 +217,39 @@ export function migrate(storage: DurableObjectStorage): void {
       );
       sql.exec('INSERT OR REPLACE INTO settings VALUES (?, ?)', 'schema_version', '2');
     });
+  if (Number(JSON.parse(version.value_json)) < 3)
+    storage.transactionSync(() => {
+      sql.exec(`DROP TABLE roster;
+CREATE TABLE roster (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NULL,
+  role TEXT NOT NULL,
+  group_key TEXT NULL,
+  side TEXT,
+  class_year INTEGER,
+  claimed_by_user_id TEXT NULL REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED,
+  added_by TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE UNIQUE INDEX roster_email ON roster(lower(email)) WHERE email IS NOT NULL;
+CREATE UNIQUE INDEX roster_claim ON roster(claimed_by_user_id) WHERE claimed_by_user_id IS NOT NULL;`);
+      seedRoster(storage);
+      sql.exec('INSERT OR REPLACE INTO settings VALUES (?, ?)', 'schema_version', '3');
+    });
+}
+export function seedRoster(storage: DurableObjectStorage): void {
+  for (const row of ROSTER)
+    storage.sql.exec(
+      'INSERT INTO roster (id,name,email,role,group_key,side,class_year,claimed_by_user_id,added_by,created_at) SELECT ?,?,?,?,?,?,?,NULL,NULL,? WHERE NOT EXISTS (SELECT 1 FROM roster WHERE lower(name)=lower(?))',
+      crypto.randomUUID(),
+      row.name,
+      row.email,
+      row.role,
+      row.group_key,
+      row.side,
+      row.class_year,
+      new Date().toISOString(),
+      row.name,
+    );
 }

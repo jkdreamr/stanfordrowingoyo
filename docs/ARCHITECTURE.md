@@ -127,16 +127,31 @@ Sat AM Team Row D/C | Sun Off. Total 100k.
 
 Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | admin. Admin additionally manages other admins.
 
-- Sign up: name, email, password (min 8), team join code (setting `team_code`) **or** email pre-listed on the roster
-  (`roster` table). Roster rows carry role, group, side, class year; signing up with that email adopts them.
+- Sign up: enter the team code → pick an unclaimed roster name → pick a training group (rowers only) → enter your
+  own email and password (min 8). Names and roles come from the roster, never from signup input. Staff's group selector
+  is hidden; their group defaults to the roster group or `normal`. Rowers use their selected group, then the roster
+  group, then `normal`. Side/class year are adopted from the roster. A valid code is required to discover names;
+  discovery returns only id/name/role for unclaimed rows without a bound email. Team/user directories require login.
+- Email-bound roster rows are excluded from discovery and can only be claimed by that email (case-insensitive),
+  without a team code or roster selection. An explicitly supplied, different roster id is rejected. Normal signup
+  requires a valid code and an existing, unclaimed, email-free roster id; an already claimed row returns `409 ROSTER_CLAIMED`.
+- Claiming is atomic: after password hashing yields, recheck the email and claim the roster id conditionally inside
+  one SQLite transaction, then insert/update the user. Each roster row can have one claimant and each user one row.
+- Staff can unlink a mistaken claim: deactivate the user, revoke all sessions and release the roster row atomically,
+  with an audit record. An unclaimed row or your own row cannot be unlinked; only admins can unlink an admin user.
+  Unlinking does not delete entries. Signing up again with the same email reactivates and reuses an inactive account
+  **only if no roster row is still linked to it**: claim a new name, adopt its attributes, set the new password,
+  clear the forced-change flag and keep training history. Other duplicate emails return `409 EMAIL_TAKEN`.
 - Login: email + password. Passwords: PBKDF2-SHA256 (WebCrypto, 100k iterations, 16-byte salt).
 - Sessions: random 32-byte token in an HttpOnly, Secure, SameSite=Lax cookie `oyo_session`, 60-day sliding expiry;
   only SHA-256(token) stored. Logout deletes it.
 - Password reset: staff generate a one-time temporary password for a user (shown once to staff); user must change on next login.
-- Bootstrap: the roster is seeded with `joskoo@stanford.edu` as `admin`. Default `team_code` generated on first boot
+- Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. Default `team_code` generated on first boot
   (readable by staff in Admin → Team settings).
 - Rate-limit login/signup attempts per email+IP (simple counter table, 10 / 15 min).
-- Coxswains don't appear on leaderboards by default (`on_leaderboard` flag, staff-editable, defaults false for coxswain role).
+- Rate-limit public roster discovery per IP (10 / 15 min), counting every attempt and clearing on success.
+- Only rowers appear on leaderboards by default (`on_leaderboard` flag, staff-editable); all staff, including admins,
+  default false. Roster seeds in `shared/seed.ts`: 35 rowers, three coxswains, Joshua Koo; no coaches.
 
 ## 5. Data model (SQLite inside one Durable Object `TeamDO`, id name "stanford")
 
@@ -146,7 +161,9 @@ users(id TEXT PK, email TEXT UNIQUE (lowercase), name, password_hash, password_s
       bio TEXT, avatar_image_id TEXT NULL, best6k_split_s REAL NULL, best2k_split_s REAL NULL,
       on_leaderboard INT, active INT, created_at, updated_at)
 sessions(token_hash PK, user_id, expires_at, created_at)
-roster(email PK, name, role, group_key, side, class_year, added_by, created_at)
+roster(id TEXT PK, name NOT NULL, email NULL, role, group_key NULL, side, class_year,
+       claimed_by_user_id NULL REFERENCES users(id), added_by, created_at)
+       -- unique lower(email) where not null; unique claimed_by_user_id where not null
 settings(key PK, value_json)            -- team_code, zone_factors, mode_factors, group_targets, season_start ("09-01")
 weekly_targets(user_id, week_start, target_m, PK(user_id, week_start))
 entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, distance_m INT, duration_s INT NULL,
@@ -167,13 +184,18 @@ audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 3 deliberately drops the legacy email-keyed roster and rebuilds/seeds the id-keyed roster (nothing deployed).
+Seeds are insert-if-missing by case-insensitive name. The claimant foreign key is initially deferred so the atomic
+claim can reserve the row before inserting its user in the same transaction.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
 Mutation requests must use JSON/image Content-Type or send `X-OYO-CSRF: 1` (including bodyless mutations); cross-site origins are rejected.
 
-Auth: `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
-(name, bio, side, class_year, best splits, avatar), `POST /api/me/password`, `PUT /api/me/target` ({target_m} → current week onward).
+Auth: public `POST /api/auth/roster` ({team_code} → RosterChoice[]),
+`POST /api/auth/signup` ({team_code?, roster_id?, email, password, group_key?} → User),
+`POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
+(name, bio, group_key, side, class_year, best splits, avatar), `POST /api/me/password`, `PUT /api/me/target` ({target_m} → current week onward).
 Config: `GET /api/config` (factors, group targets, season start, presets, zones list, server-computed
 `today` and `current_week_start` as YYYY-MM-DD in America/Los_Angeles) — public to logged-in users.
 `GET /api/me/target` returns the effective current-week target:
@@ -196,6 +218,10 @@ Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), r
 (CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
 CSV export of entries for a date range, audit log.
+Roster routes: `GET/POST /api/admin/roster`, `PATCH/DELETE /api/admin/roster/:id`,
+`POST /api/admin/roster/import`, `POST /api/admin/roster/:id/unlink` (→ updated RosterRow).
+Roster email and group are nullable; roster ids, not emails, identify rows. Unlink is staff-only, returns 404 for
+missing rows and `409 NOT_CLAIMED` for unclaimed rows; own-row unlink returns 409, unlinking an admin requires admin.
 
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
 Private entries count toward the owner's totals and the leaderboard, but never appear in the feed/profile for others.

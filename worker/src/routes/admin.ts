@@ -5,7 +5,7 @@ import { ZONES } from '../../../shared/math';
 import { requireAdmin, requireStaff } from '../auth/guards';
 import { hashPassword, temporaryPassword } from '../auth/crypto';
 import { byId, toUser, type UserRow } from '../db/users';
-import { findRoster } from '../db/roster';
+import { findRoster, rosterById } from '../db/roster';
 import { getSettings, setSetting, setGroupTargets } from '../db/settings';
 import { audit, auditPage } from '../db/audit';
 import { presets, savePreset } from '../db/presets';
@@ -113,9 +113,9 @@ function rosterInput(body: Record<string, unknown>, before?: RosterRow) {
   const value: Record<string, unknown> = { ...before, ...body };
   return {
     name: v.string(value.name, 'Name', 1, 80, true),
-    email: v.email(value.email),
+    email: value.email == null ? null : v.email(value.email),
     role: v.enumeration(value.role, roles, 'Role'),
-    group_key: v.enumeration(value.group_key, groups, 'Group'),
+    group_key: value.group_key == null ? null : v.enumeration(value.group_key, groups, 'Group'),
     side: v.nullable(value.side ?? null, (x) => v.enumeration(x, sides, 'Side')),
     class_year: v.nullable(value.class_year ?? null, (x) => v.int(x, 'Class year', 1950, 2100)),
   };
@@ -125,13 +125,15 @@ function rosterPermission(ctx: Context, role: string, before?: RosterRow) {
 }
 function writeRoster(ctx: Context, row: RosterRow) {
   ctx.storage.sql.exec(
-    'INSERT OR REPLACE INTO roster VALUES (?,?,?,?,?,?,?,?)',
-    row.email,
+    'INSERT OR REPLACE INTO roster (id,name,email,role,group_key,side,class_year,claimed_by_user_id,added_by,created_at) VALUES (?,?,?,?,?,?,?,?,?,?)',
+    row.id,
     row.name,
+    row.email,
     row.role,
     row.group_key,
     row.side,
     row.class_year,
+    row.claimed_by_user_id,
     row.added_by,
     row.created_at,
   );
@@ -144,43 +146,75 @@ export async function createRoster(ctx: Context) {
   const actor = requireStaff(ctx);
   const input = rosterInput(await readJson(ctx.request));
   rosterPermission(ctx, input.role);
-  if (findRoster(ctx.storage, input.email)) conflict('This email is already on the roster.');
-  const row = { ...input, added_by: actor.id, created_at: ctx.now.toISOString() };
+  if (input.email && findRoster(ctx.storage, input.email))
+    conflict('This email is already on the roster.');
+  const row = {
+    ...input,
+    id: crypto.randomUUID(),
+    claimed_by_user_id: null,
+    added_by: actor.id,
+    created_at: ctx.now.toISOString(),
+  };
   ctx.storage.transactionSync(() => {
     writeRoster(ctx, row);
-    audit(ctx, 'roster.create', row.email, null, row);
+    audit(ctx, 'roster.create', row.id, null, row);
   });
   return json(row, 201);
 }
 export async function patchRoster(ctx: Context) {
   requireStaff(ctx);
-  const email = v.email(ctx.params.email);
-  const before = findRoster(ctx.storage, email);
+  const before = rosterById(ctx.storage, ctx.params.id);
   if (!before) missing();
   rosterPermission(ctx, before.role, before);
   const input = rosterInput(await readJson(ctx.request), before);
   rosterPermission(ctx, input.role, before);
-  if (input.email !== email && findRoster(ctx.storage, input.email))
+  if (input.email && input.email !== before.email && findRoster(ctx.storage, input.email))
     conflict('This email is already on the roster.');
   const row = { ...before, ...input };
   ctx.storage.transactionSync(() => {
-    ctx.storage.sql.exec('DELETE FROM roster WHERE email = ?', email);
     writeRoster(ctx, row);
-    audit(ctx, 'roster.update', email, before, row);
+    audit(ctx, 'roster.update', row.id, before, row);
   });
   return json(row);
 }
 export function deleteRoster(ctx: Context) {
   requireStaff(ctx);
-  const email = v.email(ctx.params.email);
-  const before = findRoster(ctx.storage, email);
+  const before = rosterById(ctx.storage, ctx.params.id);
   if (!before) missing();
   rosterPermission(ctx, before.role, before);
   ctx.storage.transactionSync(() => {
-    ctx.storage.sql.exec('DELETE FROM roster WHERE email = ?', email);
-    audit(ctx, 'roster.delete', email, before, null);
+    ctx.storage.sql.exec('DELETE FROM roster WHERE id = ?', before.id);
+    audit(ctx, 'roster.delete', before.id, before, null);
   });
   return noContent();
+}
+export function unlinkRoster(ctx: Context) {
+  const actor = requireStaff(ctx);
+  const before = rosterById(ctx.storage, ctx.params.id);
+  if (!before) missing();
+  if (!before.claimed_by_user_id)
+    throw new HttpError(409, 'NOT_CLAIMED', 'This roster row is not claimed.');
+  if (before.claimed_by_user_id === actor.id) conflict('You cannot unlink your own roster row.');
+  const user = byId(ctx.storage, before.claimed_by_user_id);
+  if (user.role === 'admin') requireAdmin(ctx);
+  return ctx.storage.transactionSync(() => {
+    ctx.storage.sql.exec(
+      'UPDATE users SET active = 0,updated_at = ? WHERE id = ?',
+      ctx.now.toISOString(),
+      user.id,
+    );
+    ctx.storage.sql.exec('DELETE FROM sessions WHERE user_id = ?', user.id);
+    ctx.storage.sql.exec('UPDATE roster SET claimed_by_user_id = NULL WHERE id = ?', before.id);
+    const after = rosterById(ctx.storage, before.id);
+    audit(
+      ctx,
+      'roster.unlink',
+      before.id,
+      { roster: before, user: toUser(user) },
+      { roster: after, user: toUser(byId(ctx.storage, user.id)) },
+    );
+    return json(after);
+  });
 }
 export async function importRoster(ctx: Context) {
   const actor = requireStaff(ctx);
@@ -196,9 +230,9 @@ export async function importRoster(ctx: Context) {
       const [name, email, role, group_key, side, year] = row.cells;
       const input = rosterInput({
         name,
-        email,
+        email: email.trim() || null,
         role: role.trim(),
-        group_key: group_key.trim(),
+        group_key: group_key.trim() || null,
         side: side.trim() || null,
         class_year: year.trim()
           ? /^\d{4}$/.test(year.trim())
@@ -206,7 +240,11 @@ export async function importRoster(ctx: Context) {
             : v.invalid('Class year is invalid.')
           : null,
       });
-      rosterPermission(ctx, input.role, findRoster(ctx.storage, input.email));
+      rosterPermission(
+        ctx,
+        input.role,
+        input.email ? findRoster(ctx.storage, input.email) : undefined,
+      );
       valid.push(input);
     } catch (error) {
       if (error instanceof HttpError && error.status === 400)
@@ -221,14 +259,16 @@ export async function importRoster(ctx: Context) {
   }
   ctx.storage.transactionSync(() => {
     for (const input of valid) {
-      const before = findRoster(ctx.storage, input.email);
+      const before = input.email ? findRoster(ctx.storage, input.email) : undefined;
       const row = {
         ...input,
+        id: before?.id ?? crypto.randomUUID(),
+        claimed_by_user_id: before?.claimed_by_user_id ?? null,
         added_by: before?.added_by ?? actor.id,
         created_at: before?.created_at ?? ctx.now.toISOString(),
       };
       writeRoster(ctx, row);
-      audit(ctx, 'roster.import', input.email, before ?? null, row);
+      audit(ctx, 'roster.import', row.id, before ?? null, row);
     }
     if (!valid.length)
       audit(ctx, 'roster.import', 'roster', null, { imported: 0, errors: errors.length });

@@ -20,7 +20,8 @@ interface Route {
   handler: Handler;
 }
 const routes: Route[] = [
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 2 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 3 }) },
+  { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: auth.signup },
   { method: 'POST', path: '/api/auth/login', handler: auth.login },
   { method: 'POST', path: '/api/auth/logout', handler: auth.logout },
@@ -60,8 +61,9 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/admin/roster', handler: admin.roster },
   { method: 'POST', path: '/api/admin/roster', handler: admin.createRoster },
   { method: 'POST', path: '/api/admin/roster/import', handler: admin.importRoster },
-  { method: 'PATCH', path: '/api/admin/roster/:email', handler: admin.patchRoster },
-  { method: 'DELETE', path: '/api/admin/roster/:email', handler: admin.deleteRoster },
+  { method: 'PATCH', path: '/api/admin/roster/:id', handler: admin.patchRoster },
+  { method: 'DELETE', path: '/api/admin/roster/:id', handler: admin.deleteRoster },
+  { method: 'POST', path: '/api/admin/roster/:id/unlink', handler: admin.unlinkRoster },
   { method: 'GET', path: '/api/admin/settings', handler: admin.settings },
   { method: 'PATCH', path: '/api/admin/settings', handler: admin.patchSettings },
   { method: 'GET', path: '/api/admin/presets', handler: admin.listPresets },
