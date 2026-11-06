@@ -22,6 +22,14 @@ warning without its value and falls back to a generated UUID rather than crashin
 Discovery/signup compare trimmed codes case-insensitively (`koo26` and `KOO26 ` both work).
 It never replaces an existing code. Change it later in Admin → Team settings.
 
+Code brute-force protection shares a failure-only counter across roster discovery
+and normal signup: 20 wrong codes/IP/15 minutes. The next attempt returns 429
+with Retry-After, even with a correct code. Valid codes do not count or clear the
+counter; correct-code discoveries have no separate 10/IP cap. Email-bound admin
+bootstrap does not check a code and is exempt from this counter. Signup retains
+its separate 150 attempts/IP and 10 attempts/email per 15 minutes; wrong-code
+signup attempts count there too.
+
 `PASSWORD_PEPPER` is mandatory for signup, login and password changes/resets;
 missing/blank values fail closed with 500 and an explicit server log. Other routes
 remain available. Use a high-entropy secret in deployment, never the example value.

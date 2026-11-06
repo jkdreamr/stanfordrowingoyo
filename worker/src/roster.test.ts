@@ -1,6 +1,6 @@
 /// <reference types="@cloudflare/vitest-plugin/types" />
 import { SELF, env, runInDurableObject } from 'cloudflare:test';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type {
   RosterChoice,
   RosterRow,
@@ -292,18 +292,88 @@ describe('id-based roster signup', () => {
       expect(storage.sql.exec('SELECT * FROM users').toArray()).toHaveLength(2),
     );
   });
-  it('counts roster discovery attempts per IP, clears on success and resets after fifteen minutes', async () => {
-    for (let i = 0; i < 9; i++)
-      expect((await api('/auth/roster', 'POST', { team_code: 'wrong' })).status).toBe(403);
-    expect((await api('/auth/roster', 'POST', { team_code: 'team-code' })).status).toBe(200);
-    for (let i = 0; i < 10; i++) expect((await api('/auth/roster', 'POST', {})).status).toBe(403);
-    const blocked = await api('/auth/roster', 'POST', { team_code: 'team-code' });
-    expect(blocked.status).toBe(429);
-    expect(blocked.headers.get('Retry-After')).toBe('900');
+  it('shares twenty code failures across discovery/signup without clearing on valid codes, and expires per IP', async () => {
+    for (let i = 0; i < 20; i++) {
+      const response =
+        i % 2 === 0
+          ? await api('/auth/roster', 'POST', { team_code: 'wrong' })
+          : await api('/auth/signup', 'POST', {
+              email: `wrong${i}@example.com`,
+              password: 'password123',
+              team_code: 'wrong',
+            });
+      expect(response.status).toBe(403);
+      if (i === 9 || i === 18) {
+        expect((await api('/auth/roster', 'POST', { team_code: 'team-code' })).status).toBe(200);
+        expect(
+          (
+            await api('/auth/signup', 'POST', {
+              email: `valid${i}@example.com`,
+              password: 'password123',
+              team_code: 'team-code',
+            })
+          ).status,
+        ).toBe(400);
+      }
+    }
+    const correctSignup = {
+      email: 'after-limit@example.com',
+      password: 'password123',
+      team_code: 'team-code',
+    };
+    for (const [path, body] of [
+      ['/auth/roster', { team_code: 'team-code' }],
+      ['/auth/signup', correctSignup],
+    ] as const) {
+      const blocked = await api(path, 'POST', body);
+      expect(blocked.status).toBe(429);
+      expect(blocked.headers.get('Retry-After')).toBe('900');
+    }
+    expect(
+      (
+        await api('/auth/signup', 'POST', {
+          email: 'joskoo@stanford.edu',
+          password: 'password123',
+          team_code: 'wrong',
+        })
+      ).status,
+    ).toBe(201);
+    await sql((storage) =>
+      expect(
+        storage.sql
+          .exec<{ attempts: number }>(
+            'SELECT attempts FROM rate_limits WHERE email=? AND ip=?',
+            'team-code-failures',
+            '127.0.0.1',
+          )
+          .one().attempts,
+      ).toBe(20),
+    );
     expect(
       (await api('/auth/roster', 'POST', { team_code: 'team-code' }, undefined, NOW, '127.0.0.2'))
         .status,
     ).toBe(200);
+    expect(
+      (
+        await api(
+          '/auth/signup',
+          'POST',
+          { ...correctSignup, team_code: 'wrong' },
+          undefined,
+          NOW,
+          '127.0.0.2',
+        )
+      ).status,
+    ).toBe(403);
+    const almostExpired = await api(
+      '/auth/roster',
+      'POST',
+      { team_code: 'team-code' },
+      undefined,
+      '2026-03-09T18:14:59Z',
+    );
+    expect(almostExpired.status).toBe(429);
+    expect(almostExpired.headers.get('Retry-After')).toBe('1');
     expect(
       (
         await api(
@@ -315,6 +385,70 @@ describe('id-based roster signup', () => {
         )
       ).status,
     ).toBe(200);
+    expect(
+      (await api('/auth/signup', 'POST', correctSignup, undefined, '2026-03-09T18:15:00Z')).status,
+    ).toBe(400);
+    expect(
+      (await api('/auth/roster', 'POST', { team_code: 'wrong' }, undefined, '2026-03-09T18:15:00Z'))
+        .status,
+    ).toBe(403);
+    await sql((storage) =>
+      expect(
+        storage.sql
+          .exec<{ attempts: number }>(
+            'SELECT attempts FROM rate_limits WHERE email=? AND ip=?',
+            'team-code-failures',
+            '127.0.0.1',
+          )
+          .one().attempts,
+      ).toBe(1),
+    );
+  });
+  it('does not count or cap valid discovery, including thirty requests from one IP', async () => {
+    for (let i = 0; i < 30; i++)
+      expect((await api('/auth/roster', 'POST', { team_code: ' TEAM-CODE ' })).status).toBe(200);
+    await sql((storage) =>
+      expect(
+        storage.sql.exec('SELECT * FROM rate_limits WHERE email=?', 'team-code-failures').toArray(),
+      ).toHaveLength(0),
+    );
+  });
+  it('counts a code invalidated during signup hashing even when the claim transaction never commits', async () => {
+    const roster_id = (await choices())[0].id;
+    const original = crypto.subtle.deriveBits.bind(crypto.subtle);
+    const spy = vi.spyOn(crypto.subtle, 'deriveBits').mockImplementation(async (...args) => {
+      const result = await original(...args);
+      await sql((storage) => setSetting(storage, 'team_code', 'rotated-code'));
+      return result;
+    });
+    try {
+      expect(
+        (
+          await api('/auth/signup', 'POST', {
+            roster_id,
+            email: 'code-race@example.com',
+            password: 'password123',
+            team_code: 'team-code',
+          })
+        ).status,
+      ).toBe(403);
+      await sql((storage) => {
+        expect(
+          storage.sql
+            .exec<{ attempts: number }>(
+              'SELECT attempts FROM rate_limits WHERE email=? AND ip=?',
+              'team-code-failures',
+              '127.0.0.1',
+            )
+            .one().attempts,
+        ).toBe(1);
+        expect(
+          storage.sql.exec('SELECT id FROM users WHERE email=?', 'code-race@example.com').toArray(),
+        ).toHaveLength(0);
+      });
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
 describe('unlink and account reuse', () => {

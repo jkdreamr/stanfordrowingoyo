@@ -4,8 +4,9 @@ import type { Row } from './row';
 import { HttpError } from '../http';
 export const AUTH_EMAIL_LIMIT = 10;
 export const AUTH_IP_LIMIT = 150;
+export const TEAM_CODE_FAILURE_LIMIT = 20;
 const ipAddress = (ctx: Context) => ctx.request.headers.get('CF-Connecting-IP') ?? 'local';
-function consume(ctx: Context, email: string, ip: string, limit: number) {
+function check(ctx: Context, email: string, ip: string, limit: number) {
   const row = ctx.storage.sql
     .exec<Row<RateLimit>>('SELECT * FROM rate_limits WHERE email = ? AND ip = ?', email, ip)
     .toArray()[0];
@@ -14,6 +15,10 @@ function consume(ctx: Context, email: string, ip: string, limit: number) {
     throw new HttpError(429, 'RATE_LIMITED', 'Too many attempts. Try again later.', {
       'Retry-After': String(Math.ceil(remaining / 1000)),
     });
+  return { row, remaining };
+}
+function consume(ctx: Context, email: string, ip: string, limit: number) {
+  const { row, remaining } = check(ctx, email, ip, limit);
   ctx.storage.sql.exec(
     'INSERT INTO rate_limits VALUES (?, ?, ?, ?) ON CONFLICT(email,ip) DO UPDATE SET window_start=excluded.window_start,attempts=excluded.attempts',
     email,
@@ -35,13 +40,9 @@ export function clearAttempts(ctx: Context, email: string) {
     '',
   );
 }
-export function attemptDiscovery(ctx: Context) {
-  consume(ctx, 'roster-discovery', ipAddress(ctx), 10);
+export function checkTeamCodeFailures(ctx: Context) {
+  check(ctx, 'team-code-failures', ipAddress(ctx), TEAM_CODE_FAILURE_LIMIT);
 }
-export function clearDiscovery(ctx: Context) {
-  ctx.storage.sql.exec(
-    'DELETE FROM rate_limits WHERE email=? AND ip=?',
-    'roster-discovery',
-    ipAddress(ctx),
-  );
+export function recordTeamCodeFailure(ctx: Context) {
+  consume(ctx, 'team-code-failures', ipAddress(ctx), TEAM_CODE_FAILURE_LIMIT);
 }

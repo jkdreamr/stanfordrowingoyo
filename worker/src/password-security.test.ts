@@ -273,18 +273,18 @@ it.each(['login', 'signup'])(
         (
           await post(
             '/auth/' + kind,
-            { email: `limited${n}@example.com`, password: 'password123', team_code: 'wrong' },
+            { email: `limited${n}@example.com`, password: 'password123', team_code: 'team-code' },
             '203.0.113.1',
           )
         ).status,
-      ).toBe(kind === 'login' ? 401 : 403);
+      ).toBe(kind === 'login' ? 401 : 400);
     const derive = vi.spyOn(crypto.subtle, 'deriveBits');
     try {
       expect(
         (
           await post(
             '/auth/' + kind,
-            { email: 'another@example.com', password: 'password123', team_code: 'wrong' },
+            { email: 'another@example.com', password: 'password123', team_code: 'team-code' },
             '203.0.113.1',
           )
         ).status,
@@ -294,11 +294,11 @@ it.each(['login', 'signup'])(
         (
           await post(
             '/auth/' + kind,
-            { email: 'another@example.com', password: 'password123', team_code: 'wrong' },
+            { email: 'another@example.com', password: 'password123', team_code: 'team-code' },
             '203.0.113.2',
           )
         ).status,
-      ).toBe(kind === 'login' ? 401 : 403);
+      ).toBe(kind === 'login' ? 401 : 400);
     } finally {
       derive.mockRestore();
     }

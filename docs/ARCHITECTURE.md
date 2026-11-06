@@ -171,7 +171,13 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
   budget permits campus NAT onboarding (60 signups plus later logins) while bounding authenticated abuse.
   Both are checked atomically in the DO before Worker crypto. Failures count; success clears only the
   email bucket, never the aggregate IP budget. Exhaustion returns 429 with Retry-After.
-- Rate-limit public roster discovery per IP (10 / 15 min), counting every attempt and clearing on success.
+- A separate failed-team-code budget is shared across public roster discovery and normal signup:
+  20 wrong/missing/invalid codes per IP per 15 minutes (window starts on the first failure).
+  Check it before validating a code; after 20 failures, even a correct code gets 429 with Retry-After
+  until expiry. Valid codes neither increment nor clear this counter. Email-bound bootstrap skips
+  code validation and this counter entirely. This replaces the old 10/IP discovery-attempt limit:
+  correct-code roster discovery is not capped, so the whole team can discover from one boathouse IP.
+  Wrong-code signup also consumes the unchanged 10/email and 150/IP signup-attempt budgets above.
 - Only rowers appear on leaderboards by default (`on_leaderboard` flag, staff-editable); all staff, including admins,
   default false. Roster seeds in `shared/seed.ts`: 35 rowers, three coxswains, Joshua Koo; no coaches.
 

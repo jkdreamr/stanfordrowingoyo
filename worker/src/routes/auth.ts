@@ -6,20 +6,27 @@ import { byEmail, byId, toUser } from '../db/users';
 import { findRoster, rosterById } from '../db/roster';
 import type { RosterRow } from '../../../shared/types';
 import { getSetting } from '../db/settings';
-import { attempt, clearAttempts, attemptDiscovery, clearDiscovery } from '../db/rateLimit';
+import {
+  attempt,
+  clearAttempts,
+  checkTeamCodeFailures,
+  recordTeamCodeFailure,
+} from '../db/rateLimit';
 import { createSession, prepareSession, sessionCookie, sessionToken } from '../db/sessions';
 import { isValidTeamCode } from '../../../shared/teamCode';
 function checkTeamCode(ctx: Context, value: unknown) {
+  checkTeamCodeFailures(ctx);
   const code = typeof value === 'string' ? value.trim() : '';
   const matches = constantTimeEqual(
     code.toLowerCase(),
     getSetting<string>(ctx.storage, 'team_code').trim().toLowerCase(),
   );
-  if (!isValidTeamCode(code) || !matches)
+  if (!isValidTeamCode(code) || !matches) {
+    recordTeamCodeFailure(ctx);
     throw new HttpError(403, 'INVALID_TEAM_CODE', 'The team code is invalid.');
+  }
 }
 export async function roster(ctx: Context) {
-  attemptDiscovery(ctx);
   const body = await readJson(ctx.request);
   checkTeamCode(ctx, body.team_code);
   const choices = ctx.storage.sql
@@ -27,8 +34,10 @@ export async function roster(ctx: Context) {
       'SELECT id,name,role FROM roster WHERE claimed_by_user_id IS NULL AND email IS NULL ORDER BY name COLLATE NOCASE,id',
     )
     .toArray();
-  clearDiscovery(ctx);
   return json(choices);
+}
+function checkSignupCode(ctx: Context, email: string, body: Record<string, unknown>) {
+  if (!findRoster(ctx.storage, email)) checkTeamCode(ctx, body.team_code);
 }
 function signupRow(ctx: Context, email: string, body: Record<string, unknown>): RosterRow {
   const bound = findRoster(ctx.storage, email);
@@ -37,7 +46,6 @@ function signupRow(ctx: Context, email: string, body: Record<string, unknown>): 
       v.invalid('Roster selection does not match this email.');
     return bound;
   }
-  checkTeamCode(ctx, body.team_code);
   const id = v.string(body.roster_id, 'Roster ID', 1, 200);
   const row = rosterById(ctx.storage, id);
   if (!row || row.email !== null) throw new HttpError(404, 'NOT_FOUND', 'Roster row not found.');
@@ -60,6 +68,7 @@ export async function signupPrecheck(ctx: Context) {
   const email = v.email(body.email);
   attempt(ctx, email);
   reusableUser(ctx, email);
+  checkSignupCode(ctx, email, body);
   signupRow(ctx, email, body);
   return noContent();
 }
@@ -70,6 +79,7 @@ export async function signup(ctx: Context) {
   const salt = v.string(body.password_salt, 'Password salt', 1, 200);
   const prepared = await prepareSession();
   const timestamp = ctx.now.toISOString();
+  checkSignupCode(ctx, email, body);
   const id = ctx.storage.transactionSync(() => {
     const existing = reusableUser(ctx, email);
     const row = signupRow(ctx, email, body);
