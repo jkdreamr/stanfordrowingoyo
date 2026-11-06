@@ -2,6 +2,7 @@ export { TeamDO } from './do';
 export interface Env {
   TEAM: DurableObjectNamespace;
   ASSETS: Fetcher;
+  OYO_TEST_CLOCK?: string;
 }
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
