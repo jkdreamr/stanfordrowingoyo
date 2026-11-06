@@ -284,10 +284,16 @@ function LogForm({
                   onChange={setReceipt}
                 >
                   <p className="text-footnote text-muted">
-                    Actual {formatKm(Math.max(0, distanceMeters(draft)))} × {draft.modality} factor{' '}
-                    {formatNumber(config.mode_factors[draft.modality], 3)} × Zone {draft.zone}{' '}
-                    factor {formatNumber(config.zone_factors[draft.zone], 2)} ={' '}
-                    {formatEMeters(Math.max(0, values.equivalent || 0))}
+                    For {formatKm(distanceMeters(draft))} of{' '}
+                    {draft.modality === 'erg'
+                      ? 'rowing'
+                      : draft.modality === 'bike'
+                        ? 'cycling'
+                        : 'running'}
+                    , the configured mode factor{' '}
+                    {formatNumber(config.mode_factors[draft.modality], 3)} and Zone {draft.zone}{' '}
+                    factor {formatNumber(config.zone_factors[draft.zone], 2)} convert your actual
+                    distance to {formatEMeters(values.equivalent)}
                   </p>
                 </Disclosure>
               </>

@@ -98,10 +98,10 @@ Arrows wrap and skip disabled options; Home/End select the first/last enabled op
 
 ### ListGroup / ListRow
 
-| Component | Props                                                                                                                                                        |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| ListGroup | header?: string, footer?: string, children: ReactNode                                                                                                        |
-| ListRow   | title: string, subtitle?: string, leading?: icon, avatar?: ReactNode, trailing?: ReactNode, to?: string, onClick?: () => void, tone?: default or destructive |
+| Component | Props                                                                                                                                                           |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ListGroup | header?: string, footer?: string, children: ReactNode                                                                                                           |
+| ListRow   | title: string, subtitle?: ReactNode, leading?: icon, avatar?: ReactNode, trailing?: ReactNode, to?: string, onClick?: () => void, tone?: default or destructive |
 
 `<ListGroup header="Training"><ListRow title="Weekly Target" trailing="80.0k" to="/me/target" /></ListGroup>`
 
