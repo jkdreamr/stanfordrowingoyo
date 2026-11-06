@@ -161,7 +161,10 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
 - Password reset: staff generate a one-time temporary password for a user (shown once to staff); user must change on next login.
   Password changes and resets derive hashes in the Worker; the DO re-validates sessions, credentials and authorization before writing.
 - Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
-  `TEAM_CODE` Worker secret, or a generated UUID when absent/blank. Existing settings are never overwritten; staff can change the code in Admin → Team settings.
+  `TEAM_CODE` Worker secret, or a generated UUID when absent. Codes must be 4–64 letters, numbers or hyphens
+  after trimming, including in admin settings PATCH. Invalid secrets (blank, short, long or invalid characters)
+  are logged without their values and replaced by a generated UUID, not a startup failure.
+  Existing settings are never overwritten; staff can change the code in Admin → Team settings.
   Join codes are compared trimmed and case-insensitively (constant-time) in roster discovery and signup.
 - Rate-limit login/signup (also password-change verification) with independent counters: 10 attempts per
   normalized email across IPs and 150 attempts per IP across emails, each over 15 minutes. The shared-IP

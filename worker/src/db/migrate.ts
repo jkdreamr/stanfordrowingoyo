@@ -1,5 +1,10 @@
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
 import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS, ROSTER } from '../../../shared/seed';
+import {
+  TEAM_CODE_MIN_LENGTH,
+  TEAM_CODE_MAX_LENGTH,
+  isValidTeamCode,
+} from '../../../shared/teamCode';
 function migrateV1(storage: DurableObjectStorage, teamCode?: string): void {
   const sql = storage.sql;
   sql.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL)');
@@ -160,8 +165,15 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 );
 CREATE INDEX IF NOT EXISTS entries_week ON entries(week_start);
 CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
+    let initialCode = teamCode?.trim();
+    if (initialCode !== undefined && !isValidTeamCode(initialCode)) {
+      console.error(
+        `TEAM_CODE secret is invalid; expected ${TEAM_CODE_MIN_LENGTH}-${TEAM_CODE_MAX_LENGTH} letters, numbers, or hyphens. Using a generated code.`,
+      );
+      initialCode = undefined;
+    }
     const settings = {
-      team_code: teamCode?.trim() || crypto.randomUUID(),
+      team_code: initialCode ?? crypto.randomUUID(),
       zone_factors: ZONE_FACTORS,
       mode_factors: MODE_FACTORS,
       group_targets: GROUP_TARGETS,

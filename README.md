@@ -15,7 +15,11 @@ npx wrangler secret put PASSWORD_PEPPER # required: high-entropy server-only sec
 npm run deploy   # explicit Cloudflare deployment; not needed locally
 ```
 
-`TEAM_CODE` is optional and only seeds a fresh Durable Object (trimmed; blank uses a generated UUID).
+`TEAM_CODE` is optional and only seeds a fresh Durable Object. Codes are trimmed,
+4–64 characters, and contain only letters, numbers or hyphens. An absent secret
+uses a generated UUID; an invalid secret (including blank/short values) logs a
+warning without its value and falls back to a generated UUID rather than crashing.
+Discovery/signup compare trimmed codes case-insensitively (`koo26` and `KOO26 ` both work).
 It never replaces an existing code. Change it later in Admin → Team settings.
 
 `PASSWORD_PEPPER` is mandatory for signup, login and password changes/resets;

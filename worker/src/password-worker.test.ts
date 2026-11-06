@@ -172,20 +172,51 @@ it('strips a client internal marker on forwarded API requests', async () => {
   expect(forwarded!.headers.has('X-OYO-Internal')).toBe(false);
   expect(forwarded!.headers.get('Cookie')).toBe('unchanged');
 });
-it('seeds TEAM_CODE only on first boot and uses generated codes for absent/blank values', async () => {
+it('seeds koo26 on first boot, accepts normalized HTTP input, and safely replaces invalid secrets', async () => {
   const fresh = bindings.TEAM.get(bindings.TEAM.idFromName('team-code-seed-test'));
   await fresh.fetch('https://oyo.test/api/health');
   await runInDurableObject(fresh, (_, state) => {
-    expect(getSetting(state.storage, 'team_code')).toBe('test-join-code');
+    expect(getSetting(state.storage, 'team_code')).toBe('koo26');
     migrate(state.storage, 'replacement');
-    expect(getSetting(state.storage, 'team_code')).toBe('test-join-code');
-    for (const value of [undefined, '   ']) {
-      state.storage.sql.exec("DELETE FROM settings WHERE key IN ('team_code','schema_version')");
-      migrate(state.storage, value);
-      expect(getSetting<string>(state.storage, 'team_code')).toMatch(/^[0-9a-f-]{36}$/);
-    }
-    state.storage.sql.exec("DELETE FROM settings WHERE key IN ('team_code','schema_version')");
-    migrate(state.storage, '  trimmed-code  ');
-    expect(getSetting(state.storage, 'team_code')).toBe('trimmed-code');
+    expect(getSetting(state.storage, 'team_code')).toBe('koo26');
   });
+  for (const team_code of ['koo26', 'KOO26 '])
+    expect(
+      (
+        await fresh.fetch('https://oyo.test/api/auth/roster', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ team_code }),
+        })
+      ).status,
+    ).toBe(200);
+  expect(
+    (
+      await fresh.fetch('https://oyo.test/api/auth/roster', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ team_code: 'wrong' }),
+      })
+    ).status,
+  ).toBe(403);
+  const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+  try {
+    await runInDurableObject(fresh, (_, state) => {
+      for (const value of [undefined, '   ', 'abc', 'bad!', 'a'.repeat(65)]) {
+        state.storage.sql.exec("DELETE FROM settings WHERE key IN ('team_code','schema_version')");
+        migrate(state.storage, value);
+        expect(getSetting<string>(state.storage, 'team_code')).toMatch(/^[0-9a-f-]{36}$/);
+      }
+      state.storage.sql.exec("DELETE FROM settings WHERE key IN ('team_code','schema_version')");
+      migrate(state.storage, '  trimmed-code  ');
+      expect(getSetting(state.storage, 'team_code')).toBe('trimmed-code');
+      state.storage.sql.exec("DELETE FROM settings WHERE key IN ('team_code','schema_version')");
+      migrate(state.storage, ' four ');
+      expect(getSetting(state.storage, 'team_code')).toBe('four');
+    });
+    expect(log).toHaveBeenCalledTimes(4);
+    expect(log).toHaveBeenCalledWith(expect.stringContaining('TEAM_CODE secret is invalid'));
+  } finally {
+    log.mockRestore();
+  }
 });

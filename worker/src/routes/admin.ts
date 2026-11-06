@@ -13,6 +13,11 @@ import { leaderboard } from '../db/stats';
 import { parseCsv } from '../csv';
 import { HttpError, json, noContent, readJson } from '../http';
 import * as v from '../validate';
+import {
+  TEAM_CODE_MIN_LENGTH,
+  TEAM_CODE_MAX_LENGTH,
+  isValidTeamCode,
+} from '../../../shared/teamCode';
 const roles = ['rower', 'coxswain', 'coach', 'admin'] as const;
 const groups = ['frosh', 'normal', 'u23'] as const;
 const sides = ['port', 'starboard', 'both', 'cox'] as const;
@@ -357,8 +362,14 @@ export async function patchSettings(ctx: Context) {
   const before = getSettings(ctx.storage);
   const after: Settings = { ...before };
   if (body.team_code !== undefined) {
-    after.team_code = v.string(body.team_code, 'Team code', 6, 64);
-    if (!/^[A-Za-z0-9-]+$/.test(after.team_code))
+    after.team_code = v.string(
+      body.team_code,
+      'Team code',
+      TEAM_CODE_MIN_LENGTH,
+      TEAM_CODE_MAX_LENGTH,
+      true,
+    );
+    if (!isValidTeamCode(after.team_code))
       v.invalid('Team code may contain only letters, numbers, and hyphens.');
   }
   if (body.season_start !== undefined) {

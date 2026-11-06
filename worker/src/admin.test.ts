@@ -589,6 +589,7 @@ describe('settings, presets, recalculation, export and audit', () => {
     const rower = await user('Rower');
     const settings = await (await api('/admin/settings', admin)).json<Settings>();
     for (const body of [
+      { team_code: 'abc' },
       { team_code: 'bad!' },
       { zone_factors: { E: 1 } },
       { mode_factors: { erg: 0, bike: 1, run: 1 } },
@@ -601,6 +602,25 @@ describe('settings, presets, recalculation, export and audit', () => {
         (await api('/admin/settings', admin, 'PATCH', body)).status,
         JSON.stringify(body),
       ).toBe(400);
+    expect((await api('/admin/settings', admin, 'PATCH', { team_code: 'koo26' })).status).toBe(200);
+    expect((await (await api('/admin/settings', admin)).json<Settings>()).team_code).toBe('koo26');
+    const choices = await (
+      await api('/auth/roster', undefined, 'POST', { team_code: 'KOO26 ' })
+    ).json<{ id: string }[]>();
+    expect(
+      (
+        await api('/auth/signup', undefined, 'POST', {
+          roster_id: choices[0].id,
+          team_code: 'KOO26 ',
+          email: 'short-code@example.com',
+          password: 'password123',
+        })
+      ).status,
+    ).toBe(201);
+    expect((await api('/admin/settings', admin, 'PATCH', { team_code: ' four ' })).status).toBe(
+      200,
+    );
+    expect((await (await api('/admin/settings', admin)).json<Settings>()).team_code).toBe('four');
     const old = await (await api('/entries', rower, 'POST', workout)).json<EntryDetail>();
     expect(
       (

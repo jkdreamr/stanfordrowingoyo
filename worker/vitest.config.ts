@@ -8,7 +8,7 @@ export default defineConfig({
       miniflare: {
         bindings: {
           OYO_TEST_CLOCK: '1',
-          TEAM_CODE: 'test-join-code',
+          TEAM_CODE: 'koo26',
           PASSWORD_PEPPER: 'test-only-password-pepper',
         },
       },

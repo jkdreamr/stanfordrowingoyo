@@ -8,13 +8,14 @@ import type { RosterRow } from '../../../shared/types';
 import { getSetting } from '../db/settings';
 import { attempt, clearAttempts, attemptDiscovery, clearDiscovery } from '../db/rateLimit';
 import { createSession, prepareSession, sessionCookie, sessionToken } from '../db/sessions';
+import { isValidTeamCode } from '../../../shared/teamCode';
 function checkTeamCode(ctx: Context, value: unknown) {
-  if (
-    !constantTimeEqual(
-      typeof value === 'string' ? value.trim().toLowerCase() : '',
-      getSetting<string>(ctx.storage, 'team_code').trim().toLowerCase(),
-    )
-  )
+  const code = typeof value === 'string' ? value.trim() : '';
+  const matches = constantTimeEqual(
+    code.toLowerCase(),
+    getSetting<string>(ctx.storage, 'team_code').trim().toLowerCase(),
+  );
+  if (!isValidTeamCode(code) || !matches)
     throw new HttpError(403, 'INVALID_TEAM_CODE', 'The team code is invalid.');
 }
 export async function roster(ctx: Context) {
