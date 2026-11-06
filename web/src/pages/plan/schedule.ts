@@ -1,4 +1,9 @@
-import type { Plan } from '../../../../shared/types';
+import type { Plan, PlanSlot } from '../../../../shared/types';
+export function slotDisplayText({ kind, text }: Pick<PlanSlot, 'kind' | 'text'>) {
+  const prefix = kind === 'team' ? /^team\b\s*/i : kind === 'oyo' ? /^oyo\b\s*/i : null;
+  const stripped = prefix ? text.replace(prefix, '') : text;
+  return stripped.trim() ? stripped : text;
+}
 export const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 export const SLOTS = ['AM', 'PM1', 'PM2'] as const;
 export function scheduleWeeks(plan: Plan) {

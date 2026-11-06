@@ -17,7 +17,7 @@ import {
   ZoneChip,
 } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
-import { scheduleWeeks, SLOTS } from './plan/schedule';
+import { scheduleWeeks, slotDisplayText, SLOTS } from './plan/schedule';
 import { formulaFactor, targetDistance, zonePace } from './plan/calculator';
 const GROUPS = [
   { value: 'frosh', label: 'Frosh' },
@@ -64,7 +64,7 @@ export default function Plan() {
   const config = useConfig();
   const me = useMe();
   return (
-    <>
+    <div className="[&_.ui-tabs]:mx-4">
       <PageHeader title="Plan" />
       <Tabs
         label="Plan"
@@ -93,7 +93,7 @@ export default function Plan() {
             ),
         }))}
       />
-    </>
+    </div>
   );
 }
 function NoItems({ title }: { title: string }) {
@@ -117,7 +117,7 @@ function SlotItem({ item }: { item: PlanSlot }) {
         <span>{item.kind === 'oyo' ? 'OYO' : 'Team'}</span>
         {item.kind === 'oyo' && item.zone && <ZoneChip zone={item.zone} />}
       </div>
-      <p className="break-words text-footnote">{item.text}</p>
+      <p className="break-words text-footnote">{slotDisplayText(item)}</p>
     </div>
   );
 }

@@ -2,9 +2,24 @@ import { expect, it } from 'vitest';
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../../shared/math';
 import { PLAN_SLOTS, PLAN_TOTALS } from '../../../../shared/seed';
 import type { Config } from '../../../../shared/types';
-import { scheduleWeeks } from './schedule';
+import { scheduleWeeks, slotDisplayText } from './schedule';
 import { formulaFactor, targetDistance, zonePace } from './calculator';
 const config = { mode_factors: MODE_FACTORS, zone_factors: ZONE_FACTORS } as Config;
+it.each([
+  ['team', 'Team Row E', 'Row E'],
+  ['team', 'tEaM Row E', 'Row E'],
+  ['oyo', 'OYO Bike', 'Bike'],
+  ['oyo', 'oyo Run', 'Run'],
+  ['team', 'Teammates Row', 'Teammates Row'],
+  ['oyo', 'OYOther', 'OYOther'],
+  ['team', 'OYO Row', 'OYO Row'],
+  ['team', 'Team', 'Team'],
+  ['oyo', 'OYO   ', 'OYO   '],
+  ['team', '', ''],
+  ['team', 'Row E', 'Row E'],
+] as const)('displays %s slot text %j as %j', (kind, text, expected) => {
+  expect(slotDisplayText({ kind, text })).toBe(expected);
+});
 it('groups seeded plans for every group, preserving week totals and slot order', () => {
   for (const group of ['frosh', 'normal', 'u23']) {
     const slots = PLAN_SLOTS.filter((s) => s.group_key === group);
