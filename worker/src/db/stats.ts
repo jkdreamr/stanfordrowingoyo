@@ -115,10 +115,13 @@ export function leaderboard(
   week: string,
   metric: 'percent' | 'meters' | 'season',
   now: Date,
+  subjects?: UserRow[],
 ): LeaderboardRow[] {
-  const users = storage.sql
-    .exec<UserRow>('SELECT * FROM users WHERE active = ? AND on_leaderboard = ?', 1, 1)
-    .toArray();
+  const users =
+    subjects ??
+    storage.sql
+      .exec<UserRow>('SELECT * FROM users WHERE active = ? AND on_leaderboard = ?', 1, 1)
+      .toArray();
   const range = seasonRange(week, getSetting<string>(storage, 'season_start'));
   const rows = users.map((user) => {
     const season = seasonStats(storage, user, range, now, addDays(week, 6));

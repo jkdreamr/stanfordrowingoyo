@@ -18,8 +18,7 @@ npm run e2e:install # browser dependencies; once per machine
 npm run e2e
 ```
 
-Health, auth, me, config, entries, images, social, notifications, stats, leaderboard, and team
-API routes are implemented; admin, plan, and announcements remain pending.
+All API routes in `shared/types.ts` are implemented, including staff administration, plan, and announcements.
 All tests use Vitest 5; Worker tests use the official `@cloudflare/vitest-plugin` runtime.
 Deploy only when explicitly asked.
 CI runs format:check, lint, typecheck, test, and build on every PR and push to main.
