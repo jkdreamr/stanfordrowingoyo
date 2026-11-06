@@ -10,8 +10,11 @@ import type {
 } from '../../../shared/types';
 import {
   formatDuration,
+  formatEMeters,
+  formatFactor,
   formatKm,
   formatMeters,
+  formatNumber,
   formatSplit,
   parseDuration,
   parseSplit,
@@ -51,6 +54,22 @@ export function logDraft(today: string, entry?: EntryDetail, preset?: Preset): L
 }
 export function distanceMeters(draft: LogDraft) {
   return Number(draft.distance) * (draft.unit === 'km' ? 1000 : 1);
+}
+export function logReceipt(draft: LogDraft, config: Config) {
+  const distance = distanceMeters(draft);
+  const mode = config.mode_factors[draft.modality];
+  const zone = config.zone_factors[draft.zone];
+  const raw = distance * mode * zone;
+  const equivalent = equivalentMeters(
+    distance,
+    draft.modality,
+    draft.zone,
+    config.mode_factors,
+    config.zone_factors,
+  );
+  const rounded = Math.abs(raw - equivalent) > Number.EPSILON * Math.max(1, Math.abs(raw)) * 4;
+  const modality = draft.modality === 'erg' ? 'Erg' : draft.modality === 'bike' ? 'Bike' : 'Run';
+  return `${formatNumber(distance)} m × ${modality} ${formatFactor(mode)} × Zone ${draft.zone} ${formatFactor(zone)} ${rounded ? '≈' : '='} ${formatEMeters(equivalent)}`;
 }
 export function suggestedTitle(draft: LogDraft) {
   const meters = distanceMeters(draft);

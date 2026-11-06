@@ -8,6 +8,7 @@ export function RightRail() {
   const { data: week, isError } = useWeekStats();
   const { data: config } = useConfig();
   const { data: announcements = [] } = useAnnouncements();
+  const pinned = announcements.filter((a) => a.pinned);
   const daysLeft = config ? weekDaysLeft(config.today, config.current_week_start) : null;
   return (
     <aside className="shell-rail" aria-label="Team Overview">
@@ -47,11 +48,10 @@ export function RightRail() {
           )}
         </Card>
       )}
-      <section className={home ? '' : 'mt-8'}>
-        <h2 className="mb-4 px-1 text-headline">Pinned Announcements</h2>
-        {announcements
-          .filter((a) => a.pinned)
-          .map((a) => (
+      {pinned.length > 0 && (
+        <section className={home ? '' : 'mt-8'}>
+          <h2 className="mb-4 px-1 text-headline">Pinned Announcements</h2>
+          {pinned.map((a) => (
             <article key={a.id} className="border-b border-divider px-1 pb-5">
               <h3 className="text-subhead font-medium">{a.title}</h3>
               <p className="mt-2 line-clamp-3 text-footnote text-muted">{a.body}</p>
@@ -60,7 +60,8 @@ export function RightRail() {
               </p>
             </article>
           ))}
-      </section>
+        </section>
+      )}
     </aside>
   );
 }

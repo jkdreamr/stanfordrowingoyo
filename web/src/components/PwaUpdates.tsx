@@ -18,15 +18,22 @@ export function PwaUpdates({
     let registration: ServiceWorkerRegistration | undefined;
     let worker: ServiceWorker | null = null;
     const check = () => {
-      if (!disposed && registration?.waiting) setWaiting(registration.waiting);
+      if (disposed) return;
+      const candidate = registration?.waiting;
+      setWaiting(
+        candidate?.state === 'installed' && service.controller && candidate !== service.controller
+          ? candidate
+          : null,
+      );
     };
     const found = () => {
       worker?.removeEventListener('statechange', check);
-      worker = registration?.installing ?? null;
+      worker = registration?.installing ?? registration?.waiting ?? null;
       worker?.addEventListener('statechange', check);
       check();
     };
     const changed = () => {
+      check();
       if (requested.current) reload();
     };
     service.addEventListener('controllerchange', changed);

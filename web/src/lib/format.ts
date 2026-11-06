@@ -1,6 +1,9 @@
 import { formatMeters as meters, formatSplit as split } from '../../../shared/math';
 import { addDays, today, TIME_ZONE } from '../../../shared/dates';
 const valid = (n: number) => Number.isFinite(n) && n >= 0;
+export function formatFactor(value: number) {
+  return Number.isFinite(value) ? (value === 1 / 3 ? '1/3' : String(value)) : '—';
+}
 export function formatNumber(value: number, digits = 0) {
   return Number.isFinite(value)
     ? value.toLocaleString('en-US', {

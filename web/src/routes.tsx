@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { AppErrorScreen } from './components/AppErrorBoundary';
 import { RouteEffects } from './components/shell/RouteEffects';
 import { RequireAuth } from './components/shell/RequireAuth';
 import { AuthLayout } from './components/auth/AuthLayout';
@@ -31,6 +32,7 @@ import Export from './pages/admin/Export';
 import AuditLog from './pages/admin/AuditLog';
 export const router = createBrowserRouter([
   {
+    errorElement: <AppErrorScreen />,
     element: (
       <>
         <RouteEffects />

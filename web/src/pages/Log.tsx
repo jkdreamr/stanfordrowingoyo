@@ -11,8 +11,15 @@ import {
   useMe,
   useUpdateEntry,
 } from '../lib/queries';
-import { distanceMeters, logDraft, logValues, suggestedTitle, type LogDraft } from '../lib/logForm';
-import { formatEMeters, formatKm, formatNumber, formatSplit } from '../lib/format';
+import {
+  distanceMeters,
+  logDraft,
+  logReceipt,
+  logValues,
+  suggestedTitle,
+  type LogDraft,
+} from '../lib/logForm';
+import { formatEMeters, formatFactor, formatKm, formatSplit } from '../lib/format';
 import { usePhotos } from '../lib/usePhotos';
 import { useUnsavedChanges } from '../lib/useUnsavedChanges';
 import { authError } from '../lib/auth';
@@ -275,13 +282,7 @@ function LogForm({
                 <Disclosure
                   title={
                     <span className="text-footnote text-muted tabular-nums">
-                      {formatNumber(distanceMeters(draft))} m ×{' '}
-                      {draft.modality === 'bike' &&
-                      Math.abs(config.mode_factors.bike - 1 / 3) < 0.001
-                        ? 'Bike ⅓'
-                        : `${draft.modality === 'erg' ? 'Erg' : draft.modality === 'run' ? 'Run' : 'Bike'} ${formatNumber(config.mode_factors[draft.modality], 2)}`}{' '}
-                      × Zone {draft.zone} {formatNumber(config.zone_factors[draft.zone], 1)} ={' '}
-                      {formatEMeters(values.equivalent)}
+                      {logReceipt(draft, config)}
                     </span>
                   }
                   open={receipt}
@@ -294,10 +295,9 @@ function LogForm({
                       : draft.modality === 'bike'
                         ? 'cycling'
                         : 'running'}
-                    , the configured mode factor{' '}
-                    {formatNumber(config.mode_factors[draft.modality], 3)} and Zone {draft.zone}{' '}
-                    factor {formatNumber(config.zone_factors[draft.zone], 2)} convert your actual
-                    distance to {formatEMeters(values.equivalent)}
+                    , the configured mode factor {formatFactor(config.mode_factors[draft.modality])}{' '}
+                    and Zone {draft.zone} factor {formatFactor(config.zone_factors[draft.zone])}{' '}
+                    convert your actual distance to {formatEMeters(values.equivalent)}
                   </p>
                 </Disclosure>
               </>

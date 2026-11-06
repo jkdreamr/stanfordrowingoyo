@@ -1,7 +1,9 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import type { Config } from '../../../shared/types';
 import { createMockApi } from '../mock/handlers';
-import { logDraft, logValues, suggestedTitle } from './logForm';
+import { logDraft, logReceipt, logValues, suggestedTitle } from './logForm';
+import { formatFactor } from './format';
+import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
 let config: Config;
 beforeAll(async () => {
   config = await (
@@ -11,6 +13,29 @@ beforeAll(async () => {
   ).json();
 });
 describe('log form math and validation', () => {
+  it('preserves every shared zone factor and exact bike fractions in the receipt', () => {
+    for (const [zone, factor] of Object.entries(ZONE_FACTORS)) {
+      expect(Number(formatFactor(factor))).toBe(factor);
+      expect(
+        logReceipt(
+          { ...logDraft(config.today), distance: '12000', zone: zone as keyof typeof ZONE_FACTORS },
+          config,
+        ),
+      ).toContain(`Zone ${zone} ${factor} =`);
+    }
+    const draft = { ...logDraft(config.today), distance: '12000', zone: 'D' as const };
+    expect(logReceipt(draft, config)).toBe('12,000 m × Erg 1 × Zone D 1.35 = 16,200 E-meters');
+    expect(logReceipt({ ...draft, modality: 'bike', distance: '60000', zone: 'E' }, config)).toBe(
+      '60,000 m × Bike 1/3 × Zone E 1 = 20,000 E-meters',
+    );
+    expect(logReceipt({ ...draft, modality: 'bike', distance: '1000', zone: 'E' }, config)).toBe(
+      '1,000 m × Bike 1/3 × Zone E 1 ≈ 333 E-meters',
+    );
+    for (const [mode, factor] of Object.entries(MODE_FACTORS))
+      expect(formatFactor(factor)).toBe(mode === 'bike' ? '1/3' : String(factor));
+    for (const factor of [0.3335, 1.23456789]) expect(formatFactor(factor)).toBe(String(factor));
+    for (const factor of [NaN, Infinity]) expect(formatFactor(factor)).toBe('—');
+  });
   it('uses a neutral title until a finite positive distance exists', () => {
     for (const distance of ['', '0', '-1', 'bad'])
       expect(suggestedTitle({ ...logDraft(config.today), distance })).toBe('e.g. 3x6k E');

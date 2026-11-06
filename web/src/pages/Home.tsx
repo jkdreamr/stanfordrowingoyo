@@ -32,6 +32,7 @@ export default function Page() {
   const configQuery = useConfig();
   const weekQuery = useWeekStats();
   const { data: announcements = [] } = useAnnouncements();
+  const pinned = announcements.filter((a) => a.pinned);
   const config = configQuery.data;
   const week = weekQuery.data;
   const pending = user && week ? pendingTargetFinish(user.id, week.week_start) : undefined;
@@ -189,12 +190,11 @@ export default function Page() {
             />
           )}
         </section>
-        <section className="xl:hidden">
-          <h2 className="mb-3 text-headline">Pinned Announcements</h2>
-          <div className="space-y-4">
-            {announcements
-              .filter((a) => a.pinned)
-              .map((a) => (
+        {pinned.length > 0 && (
+          <section className="xl:hidden">
+            <h2 className="mb-3 text-headline">Pinned Announcements</h2>
+            <div className="space-y-4">
+              {pinned.map((a) => (
                 <Card key={a.id}>
                   <h3 className="text-headline">{a.title}</h3>
                   <p className="mt-2 text-subhead text-muted">{a.body}</p>
@@ -203,8 +203,9 @@ export default function Page() {
                   </p>
                 </Card>
               ))}
-          </div>
-        </section>
+            </div>
+          </section>
+        )}
       </div>
     </>
   );
