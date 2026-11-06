@@ -1,10 +1,11 @@
 import { defineConfig } from 'vitest/config';
-import { cloudflareTest } from '@cloudflare/vitest-pool-workers';
+import { cloudflareTest } from '@cloudflare/vitest-plugin';
 export default defineConfig({
+  test: { fileParallelism: false },
   plugins: [
     cloudflareTest({
       wrangler: { configPath: '../wrangler.jsonc' },
-      miniflare: { compatibilityDate: '2026-08-22', bindings: { OYO_TEST_CLOCK: '1' } },
+      miniflare: { bindings: { OYO_TEST_CLOCK: '1' } },
     }),
   ],
 });

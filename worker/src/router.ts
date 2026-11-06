@@ -4,6 +4,12 @@ import { HttpError, errorResponse, json } from './http';
 import * as auth from './routes/auth';
 import * as me from './routes/me';
 import * as config from './routes/config';
+import * as entries from './routes/entries';
+import * as images from './routes/images';
+import * as social from './routes/social';
+import * as notifications from './routes/notifications';
+import * as stats from './routes/stats';
+import * as team from './routes/team';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -21,6 +27,25 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/me/target', handler: me.target },
   { method: 'PUT', path: '/api/me/target', handler: me.putTarget },
   { method: 'GET', path: '/api/config', handler: config.get },
+  { method: 'GET', path: '/api/entries', handler: entries.list },
+  { method: 'POST', path: '/api/entries', handler: entries.create },
+  { method: 'GET', path: '/api/entries/:id', handler: entries.get },
+  { method: 'PATCH', path: '/api/entries/:id', handler: entries.patch },
+  { method: 'DELETE', path: '/api/entries/:id', handler: entries.remove },
+  { method: 'POST', path: '/api/images', handler: images.create },
+  { method: 'GET', path: '/api/images/:id', handler: images.get },
+  { method: 'POST', path: '/api/entries/:id/kudos', handler: social.kudos },
+  { method: 'DELETE', path: '/api/entries/:id/kudos', handler: social.kudos },
+  { method: 'GET', path: '/api/entries/:id/comments', handler: social.comments },
+  { method: 'POST', path: '/api/entries/:id/comments', handler: social.comment },
+  { method: 'DELETE', path: '/api/comments/:id', handler: social.removeComment },
+  { method: 'GET', path: '/api/notifications', handler: notifications.get },
+  { method: 'POST', path: '/api/notifications/read', handler: notifications.read },
+  { method: 'GET', path: '/api/stats/week', handler: stats.week },
+  { method: 'GET', path: '/api/stats/season', handler: stats.season },
+  { method: 'GET', path: '/api/leaderboard', handler: stats.leaderboard },
+  { method: 'GET', path: '/api/users', handler: team.list },
+  { method: 'GET', path: '/api/users/:id', handler: team.profile },
 ];
 export function matchPath(template: string, path: string): Record<string, string> | null {
   const a = template.split('/');

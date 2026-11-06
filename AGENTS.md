@@ -18,11 +18,9 @@ npm run e2e:install # browser dependencies; once per machine
 npm run e2e
 ```
 
-Health, auth, me, and config API routes are implemented; the remaining backend areas are pending.
-Worker tests use a nested Vitest 4 install with the official Workers pool; shared/web keep Vitest 5.
-The pool's bundled runtime supports compatibility dates only through 2026-08-22, so the test config
-overrides that date without changing production Wrangler configuration. If npm 10 fails installing
-the mixed Vitest peer graph (`edgesOut`), use `npx npm@11 install`.
+Health, auth, me, config, entries, images, social, notifications, stats, leaderboard, and team
+API routes are implemented; admin, plan, and announcements remain pending.
+All tests use Vitest 5; Worker tests use the official `@cloudflare/vitest-plugin` runtime.
 Deploy only when explicitly asked.
 CI runs format:check, lint, typecheck, test, and build on every PR and push to main.
 

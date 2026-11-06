@@ -1,0 +1,658 @@
+/// <reference types="@cloudflare/vitest-plugin/types" />
+import { SELF, env, runInDurableObject } from 'cloudflare:test';
+import { beforeEach, describe, expect, it } from 'vitest';
+import type { Env } from './index';
+import type {
+  EntryDetail,
+  EntryInput,
+  LeaderboardRow,
+  Notification,
+  Page,
+  PublicUser,
+  SeasonStats,
+  User,
+  WeekStats,
+} from '../../shared/types';
+import { migrate } from './db/migrate';
+import { setSetting } from './db/settings';
+const bindings = env as unknown as Env;
+const NOW = '2026-03-09T18:00:00Z';
+type Client = { cookie: string; user: User };
+async function sql<T>(callback: (storage: DurableObjectStorage) => T): Promise<T> {
+  return runInDurableObject(
+    bindings.TEAM.get(bindings.TEAM.idFromName('stanford')),
+    (_instance, state) => callback(state.storage),
+  );
+}
+function api(path: string, client?: Client, method = 'GET', body?: unknown, time = NOW) {
+  return SELF.fetch('https://oyo.test/api' + path, {
+    method,
+    headers: {
+      'X-OYO-CSRF': '1',
+      'X-OYO-Test-Now': time,
+      ...(client ? { Cookie: client.cookie } : {}),
+      ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
+    },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+}
+async function user(name: string, role = 'rower'): Promise<Client> {
+  const email = name.toLowerCase() + '@example.com';
+  if (role !== 'rower')
+    await sql((storage) =>
+      storage.sql
+        .exec(
+          'INSERT INTO roster VALUES (?,?,?,?,?,?,?,?)',
+          email,
+          name,
+          role,
+          'normal',
+          null,
+          null,
+          null,
+          NOW,
+        )
+        .toArray(),
+    );
+  const response = await api('/auth/signup', undefined, 'POST', {
+    name,
+    email,
+    password: 'password123',
+    team_code: 'team-code',
+  });
+  expect(response.status).toBe(201);
+  return {
+    cookie: response.headers.get('Set-Cookie')!.split(';')[0],
+    user: await response.json<User>(),
+  };
+}
+const input: EntryInput = {
+  date: '2026-03-09',
+  modality: 'erg',
+  zone: 'E',
+  distance_m: 10000,
+  title: ' Workout ',
+  notes: '',
+  visibility: 'team',
+};
+async function entry(client: Client, patch: Partial<EntryInput> = {}, time = NOW) {
+  const response = await api('/entries', client, 'POST', { ...input, ...patch }, time);
+  expect(response.status).toBe(201);
+  return response.json<EntryDetail>();
+}
+function png(width = 2, height = 3) {
+  const bytes = new Uint8Array(33);
+  bytes.set([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82]);
+  const view = new DataView(bytes.buffer);
+  view.setUint32(16, width);
+  view.setUint32(20, height);
+  return bytes;
+}
+function upload(
+  client: Client,
+  bytes: Uint8Array = png(),
+  mime = 'image/png',
+  headers: Record<string, string> = {},
+) {
+  return SELF.fetch('https://oyo.test/api/images', {
+    method: 'POST',
+    headers: {
+      Cookie: client.cookie,
+      'Content-Type': mime,
+      'X-OYO-CSRF': '1',
+      'X-OYO-Test-Now': NOW,
+      ...headers,
+    },
+    body: bytes,
+  });
+}
+async function image(client: Client) {
+  const response = await upload(client);
+  expect(response.status).toBe(201);
+  return (await response.json<{ id: string }>()).id;
+}
+async function target(client: Client, meters: number, time = NOW) {
+  expect((await api('/me/target', client, 'PUT', { target_m: meters }, time)).status).toBe(200);
+}
+beforeEach(async () => {
+  await api('/health');
+  await sql((storage) =>
+    storage.transactionSync(() => {
+      for (const table of [
+        'users',
+        'sessions',
+        'roster',
+        'settings',
+        'weekly_targets',
+        'rate_limits',
+        'entries',
+        'images',
+        'entry_images',
+        'kudos',
+        'comments',
+        'notifications',
+      ])
+        storage.sql.exec(`DELETE FROM ${table}`);
+      migrate(storage);
+      setSetting(storage, 'team_code', 'team-code');
+    }),
+  );
+});
+describe('entries and images', () => {
+  it('creates, reads, updates and deletes entries with public authors and factor snapshots', async () => {
+    const owner = await user('Owner');
+    const created = await entry(owner, {
+      modality: 'bike',
+      distance_m: 60000,
+      duration_s: 3600,
+      avg_split_s: 120.1,
+      stroke_rate: 20,
+      avg_hr: 150,
+    });
+    expect(created).toMatchObject({
+      title: 'Workout',
+      week_start: '2026-03-09',
+      equiv_m: 20000,
+      mode_factor: 1 / 3,
+      zone_factor: 1,
+      duration_s: 3600,
+      images: [],
+      kudos_count: 0,
+      has_kudos: false,
+      comment_count: 0,
+    });
+    expect(JSON.stringify(created)).not.toMatch(/password|email|owner@example.com/);
+    expect(await (await api('/entries/' + created.id, owner)).json()).toEqual(created);
+    await sql((storage) => setSetting(storage, 'mode_factors', { erg: 2, bike: 0.5, run: 1.25 }));
+    const edit = await (
+      await api('/entries/' + created.id, owner, 'PATCH', { title: 'Changed', duration_s: null })
+    ).json<EntryDetail>();
+    expect(edit).toMatchObject({
+      title: 'Changed',
+      duration_s: null,
+      equiv_m: 20000,
+      mode_factor: 1 / 3,
+    });
+    const same = await (
+      await api('/entries/' + created.id, owner, 'PATCH', { distance_m: 60000 })
+    ).json<EntryDetail>();
+    expect(same.equiv_m).toBe(20000);
+    const changed = await (
+      await api('/entries/' + created.id, owner, 'PATCH', { distance_m: 60001 })
+    ).json<EntryDetail>();
+    expect(changed).toMatchObject({ equiv_m: 30001, mode_factor: 0.5 });
+    expect((await api('/entries/' + created.id, owner, 'DELETE')).status).toBe(204);
+    expect((await api('/entries/' + created.id, owner)).status).toBe(404);
+    expect((await api('/entries/' + created.id, owner, 'DELETE')).status).toBe(404);
+  });
+  it('reproduces every architecture math check through the API', async () => {
+    const owner = await user('Owner');
+    const cases: [EntryInput['modality'], EntryInput['zone'], number, number][] = [
+      ['bike', 'E', 60000, 20000],
+      ['erg', 'D', 20000, 27000],
+      ['run', 'E', 6240, 7800],
+      ['run', 'D', 6240, 10530],
+      ['bike', 'R', 60000, 16000],
+      ['erg', 'D', 12000, 16200],
+    ];
+    for (const [modality, zone, distance_m, equiv_m] of cases)
+      expect((await entry(owner, { modality, zone, distance_m })).equiv_m).toBe(equiv_m);
+  });
+  it('validates required, optional, enum, date and bounded fields for create and patch', async () => {
+    const owner = await user('Owner');
+    const created = await entry(owner);
+    const invalid = [
+      { date: '2026-02-30' },
+      { date: '2019-12-31' },
+      { date: '2026-03-11' },
+      { modality: 'swim' },
+      { zone: 'Z' },
+      { distance_m: 0 },
+      { distance_m: 200001 },
+      { distance_m: 1.5 },
+      { distance_m: '10000' },
+      { duration_s: 0 },
+      { duration_s: 86401 },
+      { avg_split_s: 59 },
+      { avg_split_s: 601 },
+      { stroke_rate: 61 },
+      { avg_hr: 29 },
+      { title: 'x'.repeat(121) },
+      { notes: 'x'.repeat(2001) },
+      { visibility: 'public' },
+      { preset_id: 'missing' },
+      { image_ids: 'bad' },
+      { image_ids: ['same', 'same'] },
+    ];
+    for (const patch of invalid) {
+      expect(
+        (await api('/entries', owner, 'POST', { ...input, ...patch })).status,
+        JSON.stringify(patch),
+      ).toBe(400);
+      expect(
+        (await api('/entries/' + created.id, owner, 'PATCH', patch)).status,
+        JSON.stringify(patch),
+      ).toBe(400);
+    }
+    expect((await api('/entries', owner, 'POST', {})).status).toBe(400);
+    expect((await api('/entries/' + created.id, owner, 'PATCH', {})).status).toBe(200);
+    expect(
+      (await entry(owner, { date: '2026-03-10', duration_s: null, preset_id: null })).date,
+    ).toBe('2026-03-10');
+    expect(
+      (await api('/entries/' + created.id, owner, 'PATCH', { user_id: 'other', equiv_m: 1 }))
+        .status,
+    ).toBe(200);
+    expect((await (await api('/entries/' + created.id, owner)).json<EntryDetail>()).user_id).toBe(
+      owner.user.id,
+    );
+  });
+  it('enforces private visibility everywhere, while allowing staff mutation of private entries', async () => {
+    const owner = await user('Owner');
+    const other = await user('Other');
+    const staff = await user('Staff', 'coach');
+    const id = await image(owner);
+    const secret = await entry(owner, { visibility: 'private', image_ids: [id] });
+    for (const viewer of [other, staff]) {
+      for (const path of [
+        '/entries/' + secret.id,
+        '/entries/' + secret.id + '/comments',
+        '/images/' + id,
+      ])
+        expect((await api(path, viewer)).status).toBe(404);
+      expect((await api('/entries/' + secret.id + '/kudos', viewer, 'POST')).status).toBe(404);
+      expect(
+        (await api('/entries/' + secret.id + '/comments', viewer, 'POST', { body: 'Secret?' }))
+          .status,
+      ).toBe(404);
+      for (const scope of ['feed', 'user:' + owner.user.id])
+        expect(
+          (await (await api('/entries?scope=' + scope, viewer)).json<Page<EntryDetail>>()).items,
+        ).toEqual([]);
+      const stats = await (
+        await api('/stats/week?user=' + owner.user.id, viewer)
+      ).json<WeekStats>();
+      expect(stats.total_m).toBe(10000);
+      expect(stats.entries).toEqual([]);
+    }
+    expect(
+      (await (await api('/entries?scope=mine', owner)).json<Page<EntryDetail>>()).items,
+    ).toHaveLength(1);
+    expect((await api('/entries/' + secret.id, other, 'PATCH', { title: 'No' })).status).toBe(404);
+    expect((await api('/entries/' + secret.id, other, 'DELETE')).status).toBe(404);
+    expect(
+      (await api('/entries/' + secret.id, staff, 'PATCH', { title: 'Staff edit' })).status,
+    ).toBe(200);
+    const publicEntry = await entry(owner);
+    expect((await api('/entries/' + publicEntry.id, other, 'PATCH', { title: 'No' })).status).toBe(
+      403,
+    );
+    expect((await api('/entries/' + publicEntry.id, other, 'DELETE')).status).toBe(403);
+    expect((await api('/entries/' + secret.id, staff, 'DELETE')).status).toBe(204);
+  });
+  it('paginates feed with a deterministic opaque cursor and filters mine/user scopes', async () => {
+    const owner = await user('Owner');
+    const other = await user('Other');
+    expect(await (await api('/entries', owner)).json()).toEqual({ items: [], next_cursor: null });
+    const ids: string[] = [];
+    for (let i = 0; i < 23; i++) ids.push((await entry(owner, { title: 'Entry ' + i })).id);
+    await entry(owner, { visibility: 'private' });
+    await entry(other);
+    const first = await (await api('/entries', owner)).json<Page<EntryDetail>>();
+    expect(first.items).toHaveLength(20);
+    expect(first.next_cursor).toBeTruthy();
+    const second = await (
+      await api('/entries?cursor=' + first.next_cursor, owner)
+    ).json<Page<EntryDetail>>();
+    expect(second.items).toHaveLength(4);
+    expect(second.next_cursor).toBeNull();
+    const all = [...first.items, ...second.items];
+    expect(new Set(all.map((row) => row.id)).size).toBe(24);
+    expect(all.every((row) => row.visibility === 'team')).toBe(true);
+    expect(all.map((row) => row.id)).toEqual(
+      all
+        .map((row) => row.id)
+        .sort()
+        .reverse(),
+    );
+    expect(
+      (await (await api('/entries?scope=mine', other)).json<Page<EntryDetail>>()).items,
+    ).toHaveLength(1);
+    for (const query of ['cursor=bad', 'cursor=', 'scope=bad'])
+      expect((await api('/entries?' + query, owner)).status).toBe(400);
+    expect(ids).toHaveLength(23);
+  });
+  it('uploads PNG/JPEG/WebP headers, serves immutable private caching, supports ETag 304', async () => {
+    const owner = await user('Owner');
+    const id = await image(owner);
+    const response = await api('/images/' + id, owner);
+    expect(response.status).toBe(200);
+    expect(new Uint8Array(await response.arrayBuffer())).toEqual(png());
+    expect(response.headers.get('Content-Type')).toBe('image/png');
+    expect(response.headers.get('Cache-Control')).toBe('private, max-age=31536000, immutable');
+    expect(response.headers.get('Content-Disposition')).toBe('inline');
+    expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff');
+    const cached = await SELF.fetch('https://oyo.test/api/images/' + id, {
+      headers: { Cookie: owner.cookie, 'X-OYO-Test-Now': NOW, 'If-None-Match': `"${id}"` },
+    });
+    expect(cached.status).toBe(304);
+    expect(await cached.text()).toBe('');
+    const jpeg = new Uint8Array([255, 216, 255, 192, 0, 11, 8, 0, 3, 0, 2, 1, 1, 17, 0]);
+    expect((await upload(owner, jpeg, 'image/jpeg')).status).toBe(201);
+    for (const kind of ['VP8X', 'VP8L', 'VP8 ']) {
+      const bytes = new Uint8Array(30);
+      bytes.set(new TextEncoder().encode('RIFF'));
+      bytes.set(new TextEncoder().encode('WEBP' + kind), 8);
+      new DataView(bytes.buffer).setUint32(16, 10, true);
+      if (kind === 'VP8X') {
+        bytes[24] = 1;
+        bytes[27] = 2;
+      }
+      if (kind === 'VP8L') {
+        bytes[20] = 47;
+        new DataView(bytes.buffer).setUint32(21, 1 + (2 << 14), true);
+      }
+      if (kind === 'VP8 ') bytes.set([157, 1, 42, 2, 0, 3, 0], 23);
+      const uploaded = await upload(owner, bytes, 'image/webp');
+      expect(uploaded.status).toBe(201);
+      const webpId = (await uploaded.json<{ id: string }>()).id;
+      await sql((storage) =>
+        expect(
+          storage.sql.exec('SELECT width,height FROM images WHERE id = ?', webpId).one(),
+        ).toMatchObject({ width: 2, height: 3 }),
+      );
+    }
+  });
+  it('rejects unsupported/mismatched magic, empty/corrupt/oversized images and unauthenticated access', async () => {
+    const owner = await user('Owner');
+    expect((await upload(owner, png(), 'image/jpeg')).status).toBe(415);
+    expect((await upload(owner, png(), 'image/gif')).status).toBe(415);
+    expect((await upload(owner, new Uint8Array([1, 2, 3]))).status).toBe(415);
+    expect((await upload(owner, new Uint8Array())).status).toBe(400);
+    expect((await upload(owner, png().slice(0, 8))).status).toBe(400);
+    expect((await upload(owner, png(0, 0))).status).toBe(400);
+    expect((await upload(owner, new Uint8Array(1572865))).status).toBe(413);
+    expect((await upload(owner, png(), 'image/png', { 'Content-Length': '1572865' })).status).toBe(
+      413,
+    );
+    expect((await api('/images/missing', owner)).status).toBe(404);
+    expect((await api('/images/missing')).status).toBe(401);
+  });
+  it('checks attachment ownership/max four, conflicts, replacement, staff acting for owner, and cascades', async () => {
+    const owner = await user('Owner');
+    const other = await user('Other');
+    const staff = await user('Staff', 'coxswain');
+    const ids: string[] = [];
+    for (let i = 0; i < 5; i++) ids.push(await image(owner));
+    const otherId = await image(other);
+    const staffId = await image(staff);
+    expect((await api('/entries', owner, 'POST', { ...input, image_ids: ids })).status).toBe(400);
+    expect((await api('/entries', owner, 'POST', { ...input, image_ids: [otherId] })).status).toBe(
+      400,
+    );
+    const created = await entry(owner, { image_ids: ids.slice(0, 4) });
+    expect(created.images.map((row) => row.id)).toEqual(ids.slice(0, 4));
+    expect((await api('/entries', owner, 'POST', { ...input, image_ids: [ids[0]] })).status).toBe(
+      409,
+    );
+    expect(
+      (await api('/entries/' + created.id, staff, 'PATCH', { image_ids: [staffId] })).status,
+    ).toBe(400);
+    expect(
+      (await api('/entries/' + created.id, staff, 'PATCH', { image_ids: [ids[4]] })).status,
+    ).toBe(200);
+    expect((await entry(owner, { image_ids: [ids[0]] })).images).toHaveLength(1);
+    await api('/me', owner, 'PATCH', { avatar_image_id: ids[4] });
+    await api('/entries/' + created.id, owner, 'DELETE');
+    expect((await api('/images/' + ids[4], owner)).status).toBe(200);
+    const doomed = await entry(owner, { image_ids: [ids[1]] });
+    await api('/entries/' + doomed.id + '/kudos', other, 'POST');
+    await api('/entries/' + doomed.id + '/comments', other, 'POST', { body: 'Good' });
+    await api('/entries/' + doomed.id, owner, 'DELETE');
+    expect((await api('/images/' + ids[1], owner)).status).toBe(404);
+    await sql((storage) => {
+      for (const table of ['entry_images', 'kudos', 'comments', 'notifications'])
+        expect(
+          storage.sql.exec(`SELECT * FROM ${table} WHERE entry_id = ?`, doomed.id).toArray(),
+        ).toHaveLength(0);
+    });
+    expect((await api('/entries/' + created.id, owner, 'PATCH', { image_ids: [] })).status).toBe(
+      404,
+    );
+  });
+});
+describe('social and notifications', () => {
+  it('makes kudos idempotent, skips self notifications, returns public authors, marks only mine read', async () => {
+    const owner = await user('Owner');
+    const other = await user('Other');
+    const created = await entry(owner);
+    expect(await (await api('/entries/' + created.id + '/comments', owner)).json()).toEqual([]);
+    expect(await (await api('/notifications', owner)).json()).toEqual([]);
+    await api('/entries/' + created.id + '/kudos', owner, 'POST');
+    await api('/entries/' + created.id + '/comments', owner, 'POST', { body: 'Self' });
+    expect(await (await api('/notifications', owner)).json()).toEqual([]);
+    for (let i = 0; i < 2; i++)
+      expect((await api('/entries/' + created.id + '/kudos', other, 'POST')).status).toBe(204);
+    const comment = await api(
+      '/entries/' + created.id + '/comments',
+      other,
+      'POST',
+      { body: ' Nice work! ' },
+      '2026-03-09T18:01:00Z',
+    );
+    expect(comment.status).toBe(201);
+    expect(await comment.json()).toMatchObject({ body: 'Nice work!', author: { name: 'Other' } });
+    const enriched = await (await api('/entries/' + created.id, other)).json<EntryDetail>();
+    expect(enriched).toMatchObject({ kudos_count: 2, has_kudos: true, comment_count: 2 });
+    const notices = await (await api('/notifications', owner)).json<Notification[]>();
+    expect(notices).toHaveLength(2);
+    expect(notices[0]).toMatchObject({
+      kind: 'comment',
+      entry_title: 'Workout',
+      actor: { name: 'Other' },
+    });
+    expect(JSON.stringify(notices)).not.toMatch(/password|email|other@example.com/);
+    await api('/notifications/read', other, 'POST', { ids: notices.map((row) => row.id) });
+    expect(
+      (await (await api('/notifications', owner)).json<Notification[]>()).every(
+        (row) => row.read_at === null,
+      ),
+    ).toBe(true);
+    await api('/entries/' + created.id + '/kudos', other, 'DELETE');
+    expect(await (await api('/notifications', owner)).json<Notification[]>()).toHaveLength(1);
+    await api('/notifications/read', owner, 'POST', { ids: [] });
+    expect(
+      (await (await api('/notifications', owner)).json<Notification[]>()).every(
+        (row) => row.read_at !== null,
+      ),
+    ).toBe(true);
+    expect((await api('/notifications/read', owner, 'POST', { ids: 'bad' })).status).toBe(400);
+    expect(
+      (await api('/notifications/read', owner, 'POST', { ids: Array(201).fill('x') })).status,
+    ).toBe(400);
+  });
+  it('orders comments oldest first, validates body and enforces author/staff deletion', async () => {
+    const owner = await user('Owner');
+    const other = await user('Other');
+    const staff = await user('Staff', 'admin');
+    const created = await entry(owner);
+    for (const body of ['', ' ', 'x'.repeat(1001), 12])
+      expect(
+        (await api('/entries/' + created.id + '/comments', other, 'POST', { body })).status,
+      ).toBe(400);
+    const first = await (
+      await api('/entries/' + created.id + '/comments', other, 'POST', { body: 'First' })
+    ).json<{ id: string }>();
+    const second = await (
+      await api(
+        '/entries/' + created.id + '/comments',
+        owner,
+        'POST',
+        { body: 'Second' },
+        '2026-03-09T18:02:00Z',
+      )
+    ).json<{ id: string }>();
+    expect(
+      (
+        await (await api('/entries/' + created.id + '/comments', owner)).json<{ body: string }[]>()
+      ).map((row) => row.body),
+    ).toEqual(['First', 'Second']);
+    expect((await api('/comments/' + first.id, owner, 'DELETE')).status).toBe(403);
+    expect((await api('/comments/' + first.id, staff, 'DELETE')).status).toBe(204);
+    expect((await api('/comments/' + second.id, owner, 'DELETE')).status).toBe(204);
+    expect((await api('/comments/' + second.id, owner, 'DELETE')).status).toBe(404);
+  });
+});
+describe('statistics, leaderboard and team', () => {
+  it('zero fills week totals/by_day, normalizes weeks, and counts private meters without exposing entries', async () => {
+    const owner = await user('Owner');
+    const other = await user('Other');
+    const empty = await (await api('/stats/week', owner)).json<WeekStats>();
+    expect(empty).toMatchObject({
+      week_start: '2026-03-09',
+      total_m: 0,
+      percent: 0,
+      hit_target: false,
+      entries: [],
+      by_modality: { erg: 0, bike: 0, run: 0 },
+    });
+    expect(empty.by_day).toHaveLength(7);
+    expect(Object.values(empty.by_zone)).toEqual(Array(10).fill(0));
+    await entry(owner, { distance_m: 10000 });
+    await entry(owner, {
+      date: '2026-03-10',
+      distance_m: 20000,
+      visibility: 'private',
+      modality: 'bike',
+      zone: 'D',
+    });
+    const stats = await (
+      await api('/stats/week?week=2026-03-11&user=' + owner.user.id, other)
+    ).json<WeekStats>();
+    expect(stats).toMatchObject({
+      total_m: 19000,
+      percent: 23.8,
+      hit_target: false,
+      by_modality: { erg: 10000, bike: 9000, run: 0 },
+    });
+    expect(stats.by_day.map((row) => row.equiv_m)).toEqual([10000, 9000, 0, 0, 0, 0, 0]);
+    expect(stats.entries).toHaveLength(1);
+    for (const path of [
+      '/stats/week?week=bad',
+      '/stats/season?year=bad',
+      '/stats/season?year=2026&season=2025',
+      '/leaderboard?metric=bad',
+    ])
+      expect((await api(path, owner)).status).toBe(400);
+    expect((await api('/stats/week?user=missing', owner)).status).toBe(404);
+  });
+  it('computes season/year totals, streaks, best week, current-week-in-progress rule and future empty ranges', async () => {
+    const owner = await user('Owner');
+    await target(owner, 10000, '2026-02-23T18:00:00Z');
+    await entry(owner, { date: '2026-02-23', distance_m: 12000 });
+    await entry(owner, { date: '2026-03-02', distance_m: 15000 });
+    await entry(owner, { distance_m: 1000 });
+    const stats = await (await api('/stats/season?season=2025', owner)).json<SeasonStats>();
+    expect(stats).toMatchObject({
+      start: '2025-09-01',
+      end: '2026-08-31',
+      total_m: 28000,
+      streak: 2,
+      best_week: { week_start: '2026-03-02', total_m: 15000 },
+    });
+    expect(stats.weeks.at(-1)).toMatchObject({
+      week_start: '2026-03-09',
+      hit_target: false,
+      target_m: 10000,
+    });
+    await entry(owner, { distance_m: 9000 });
+    expect((await (await api('/stats/season', owner)).json<SeasonStats>()).streak).toBe(3);
+    const year = await (await api('/stats/season?year=2026', owner)).json<SeasonStats>();
+    expect(year).toMatchObject({
+      start: '2026-01-01',
+      end: '2026-12-31',
+      total_m: 37000,
+      streak: 3,
+    });
+    const future = await (await api('/stats/season?year=2027', owner)).json<SeasonStats>();
+    expect(future).toMatchObject({ total_m: 0, weeks: [], streak: 0, best_week: null });
+    const empty = await user('Empty');
+    expect((await (await api('/stats/season', empty)).json<SeasonStats>()).best_week).toBeNull();
+  });
+  it('keeps season date-range totals separate from boundary-week summaries', async () => {
+    const owner = await user('Owner');
+    await entry(owner, { date: '2025-08-31', distance_m: 3000 });
+    await entry(owner, { date: '2025-09-01', distance_m: 7000 });
+    const old = await (await api('/stats/season?season=2024', owner)).json<SeasonStats>();
+    expect(old.total_m).toBe(3000);
+    const current = await (await api('/stats/season?season=2025', owner)).json<SeasonStats>();
+    expect(current.total_m).toBe(7000);
+  });
+  it('sorts all leaderboard metrics, competition ranks ties, excludes inactive/hidden and keeps private totals', async () => {
+    const alice = await user('Alice');
+    const bob = await user('Bob');
+    const carol = await user('Carol');
+    const hidden = await user('Hidden', 'coach');
+    const inactive = await user('Inactive');
+    await target(alice, 10000);
+    await target(bob, 10000);
+    await target(carol, 40000);
+    await entry(alice, { distance_m: 10000 });
+    await entry(bob, { distance_m: 10000, visibility: 'private' });
+    await entry(carol, { distance_m: 20000 });
+    await entry(alice, { date: '2026-03-02', distance_m: 50000 });
+    await entry(bob, { date: '2026-03-02', distance_m: 50000 });
+    await entry(hidden, { distance_m: 100000 });
+    await entry(inactive, { distance_m: 100000 });
+    await sql((storage) =>
+      storage.sql.exec('UPDATE users SET active = ? WHERE id = ?', 0, inactive.user.id).toArray(),
+    );
+    for (const [metric, names, ranks] of [
+      ['percent', ['Alice', 'Bob', 'Carol'], [1, 1, 3]],
+      ['meters', ['Carol', 'Alice', 'Bob'], [1, 2, 2]],
+      ['season', ['Alice', 'Bob', 'Carol'], [1, 1, 3]],
+    ] as const) {
+      const rows = await (
+        await api('/leaderboard?metric=' + metric, alice)
+      ).json<LeaderboardRow[]>();
+      expect(rows.map((row) => row.user.name)).toEqual(names);
+      expect(rows.map((row) => row.rank)).toEqual(ranks);
+      expect(JSON.stringify(rows)).not.toMatch(/password|email|example.com/);
+      expect(rows.find((row) => row.user.id === bob.user.id)?.entry_count).toBe(1);
+      if (metric === 'season') {
+        expect(rows[0].total_m).toBe(60000);
+        expect(rows[0].target_m).toBeGreaterThan(10000);
+      }
+    }
+  });
+  it('returns sorted active public team users and season profiles without secrets', async () => {
+    const zed = await user('Zed');
+    const amy = await user('Amy');
+    const inactive = await user('Inactive');
+    await entry(amy, { visibility: 'private' });
+    await sql((storage) =>
+      storage.sql.exec('UPDATE users SET active = ? WHERE id = ?', 0, inactive.user.id).toArray(),
+    );
+    const response = await api('/users', zed);
+    const text = await response.text();
+    expect(text).not.toMatch(/password|email|example.com/);
+    expect((JSON.parse(text) as PublicUser[]).map((row) => row.name)).toEqual(['Amy', 'Zed']);
+    const profile = await (
+      await api('/users/' + amy.user.id, zed)
+    ).json<{ user: PublicUser; stats: SeasonStats }>();
+    expect(profile).toMatchObject({ user: { name: 'Amy' }, stats: { total_m: 10000 } });
+    expect(JSON.stringify(profile)).not.toMatch(/password|email|example.com/);
+    expect((await api('/users/' + inactive.user.id, zed)).status).toBe(404);
+    expect((await api('/users/missing', zed)).status).toBe(404);
+    for (const path of [
+      '/entries',
+      '/notifications',
+      '/stats/week',
+      '/stats/season',
+      '/leaderboard',
+      '/users',
+      '/users/' + amy.user.id,
+    ])
+      expect((await api(path)).status).toBe(401);
+  });
+});
