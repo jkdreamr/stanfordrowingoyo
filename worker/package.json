@@ -7,7 +7,6 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "vitest": "^4.1.0",
-    "@cloudflare/vitest-pool-workers": "^0.23.0"
+    "@cloudflare/vitest-plugin": "^1.6.0"
   }
 }
