@@ -3,6 +3,7 @@ import { formatSplit, parseSplit } from './format';
 export function profileDraft(user: User) {
   return {
     name: user.name,
+    group: user.group_key,
     bio: user.bio,
     side: user.side ?? '',
     year: user.class_year === null ? '' : String(user.class_year),
@@ -20,6 +21,7 @@ export function profileValues(draft: ReturnType<typeof profileDraft>) {
       errors[key] = 'Use m:ss.t for your split';
   const body: ProfilePatch = {
     name: draft.name.trim(),
+    group_key: draft.group,
     bio: draft.bio,
     side: draft.side ? (draft.side as User['side']) : null,
     class_year: draft.year ? Number(draft.year) : null,

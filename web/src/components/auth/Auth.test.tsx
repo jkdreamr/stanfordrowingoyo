@@ -110,6 +110,13 @@ function setup(path: string, session: string | null = null, forced = false) {
 function fill(label: string, value: string) {
   fireEvent.change(screen.getByLabelText(label), { target: { value } });
 }
+async function joinRoster(name: string) {
+  await screen.findByLabelText('Team Join Code');
+  fill('Team Join Code', 'cardinal-oyo');
+  fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+  fireEvent.click(await screen.findByRole('radio', { name: new RegExp(`^${name}`) }));
+  fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+}
 describe('authentication flows', () => {
   it('waits without a login flash and preserves the protected destination', async () => {
     const { router } = setup('/feed');
@@ -117,7 +124,7 @@ describe('authentication flows', () => {
     expect(screen.queryByRole('button', { name: 'Log In' })).toBeNull();
     await screen.findByRole('button', { name: 'Log In' });
     expect(router.state.location.search).toBe('?next=%2Ffeed');
-    fill('Email', 'maya.chen@stanford.edu');
+    fill('Email', 'marcus.albrecht@stanford.edu');
     fill('Password', 'password');
     fireEvent.click(screen.getByRole('button', { name: 'Log In' }));
     const heading = await screen.findByRole('heading', { name: 'Team Feed' });
@@ -133,7 +140,7 @@ describe('authentication flows', () => {
     const button = await screen.findByRole('button', { name: 'Log In' });
     fireEvent.click(button);
     expect(screen.getByText('Enter your password', { selector: 'p' })).toBeTruthy();
-    fill('Email', 'maya.chen@stanford.edu');
+    fill('Email', 'marcus.albrecht@stanford.edu');
     fill('Password', 'wrong');
     fireEvent.click(screen.getByRole('button', { name: 'Show Password' }));
     expect(screen.getByLabelText('Password').getAttribute('type')).toBe('text');
@@ -143,25 +150,92 @@ describe('authentication flows', () => {
     fireEvent.click(button);
     await screen.findByText('Could not connect. Check your connection and try again');
   });
-  it('maps signup roster/code and email conflicts to fields, then creates an account', async () => {
-    setup('/signup?next=/feed');
-    const button = await screen.findByRole('button', { name: 'Sign Up' });
-    fill('Name', 'Alex Rower');
-    fill('Email', 'new@stanford.edu');
+  it('finds a roster name, chooses a group, handles email conflicts and creates an account', async () => {
+    const { mock } = setup('/signup?next=/feed');
+    await joinRoster('Sandro Scalfi');
+    expect(screen.getByText('Step 3 of 4')).toBeTruthy();
+    fireEvent.click(screen.getByRole('radio', { name: 'U23-Senior Hopefuls' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    fill('Email', 'marcus.albrecht@stanford.edu');
     fill('Password', 'password');
-    fireEvent.click(button);
-    await waitFor(() =>
-      expect(screen.getByLabelText('Team Join Code').getAttribute('aria-invalid')).toBe('true'),
-    );
-    fill('Email', 'maya.chen@stanford.edu');
-    fireEvent.click(button);
-    await waitFor(() =>
-      expect(screen.getByLabelText('Email').getAttribute('aria-invalid')).toBe('true'),
-    );
-    fill('Email', 'new@stanford.edu');
-    fill('Team Join Code', 'cardinal-oyo');
-    fireEvent.click(button);
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
+    await screen.findByText('This email is already registered. Log in instead', { selector: 'p' });
+    fill('Email', 'sandro@stanford.edu');
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
     await screen.findByRole('heading', { name: 'Team Feed' });
+    expect(mock.state.users.at(-1)).toMatchObject({
+      name: 'Sandro Scalfi',
+      email: 'sandro@stanford.edu',
+      group_key: 'u23',
+      on_leaderboard: true,
+    });
+  });
+  it('validates the code, handles 403 and network failures, and supports empty search and Back', async () => {
+    setup('/signup');
+    fireEvent.click(await screen.findByRole('button', { name: 'Continue' }));
+    expect(screen.getByText('Enter your team join code', { selector: 'p' })).toBeTruthy();
+    fill('Team Join Code', 'wrong');
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    await screen.findByText('That code is not correct. Ask your team for the join code', {
+      selector: 'p',
+    });
+    fill('Team Join Code', 'cardinal-oyo');
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    await screen.findByRole('heading', { name: 'Find Your Name' });
+    fill('Search Names', 'unknown');
+    expect(screen.getByText('No Matching Names')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('fetch')));
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    await screen.findByText('Could not connect. Check your connection and try again');
+  });
+  it('skips group selection for a coxswain and preserves native Back behavior', async () => {
+    const { mock } = setup('/signup');
+    await joinRoster('Ginger Bernstein');
+    expect(screen.getByText('Step 3 of 3')).toBeTruthy();
+    expect(screen.queryByLabelText('Your Group')).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Back' }));
+    await screen.findByRole('heading', { name: 'Find Your Name' });
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    fill('Email', 'ginger@stanford.edu');
+    fill('Password', 'password');
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
+    await screen.findByRole('heading', { name: 'Training Home' });
+    expect(mock.state.users.at(-1)).toMatchObject({
+      role: 'coxswain',
+      group_key: 'normal',
+      on_leaderboard: false,
+    });
+  });
+  it('refreshes the name list after a concurrent claim and returns to selection', async () => {
+    const { mock } = setup('/signup');
+    await joinRoster('Sandro Scalfi');
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    mock.state.roster.find((r) => r.name === 'Sandro Scalfi')!.claimed_by_user_id = 'user-1';
+    fill('Email', 'sandro@stanford.edu');
+    fill('Password', 'password');
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
+    await screen.findByRole('heading', { name: 'Find Your Name' });
+    expect(
+      screen.getByText('That name was already claimed. Ask a coxswain to free it up.'),
+    ).toBeTruthy();
+    await waitFor(() => expect(screen.queryByRole('radio', { name: 'Sandro Scalfi' })).toBeNull());
+  });
+  it('uses the email-only bootstrap path without a code or roster selection', async () => {
+    const { mock } = setup('/signup');
+    mock.state.users = mock.state.users.filter((u) => u.role !== 'admin');
+    mock.state.roster.find((r) => r.role === 'admin')!.claimed_by_user_id = null;
+    fireEvent.click(await screen.findByRole('button', { name: 'Have an invite email?' }));
+    expect(screen.queryByLabelText('Team Join Code')).toBeNull();
+    fill('Email', 'joskoo@stanford.edu');
+    fill('Password', 'password');
+    fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
+    await screen.findByRole('heading', { name: 'Training Home' });
+    expect(mock.state.users.at(-1)).toMatchObject({
+      name: 'Joshua Koo',
+      role: 'admin',
+      on_leaderboard: false,
+    });
   });
   it('forces a temporary password change, validates confirmation, and refreshes me', async () => {
     const { client } = setup('/feed', 'user-1', true);

@@ -11,6 +11,10 @@ describe('query keys', () => {
     expect(qk.entries('mine')).not.toEqual(qk.entries('feed'));
     expect(qk.comments('one')).not.toEqual(qk.comments('two'));
     expect(invalidationKeys('PUT /api/me/target')).toContainEqual(qk.root('stats'));
+    for (const resource of ['me', 'config', 'stats', 'leaderboard', 'users'])
+      expect(invalidationKeys('PATCH /api/me')).toContainEqual(qk.root(resource));
+    expect(invalidationKeys('POST /api/admin/roster/:id/unlink')).toContainEqual(qk.root('users'));
+    expect(invalidationKeys('POST /api/admin/roster/:id/unlink')).toContainEqual(qk.root('admin'));
   });
   it('updates every cached entry shape and rolls back on error', async () => {
     const client = createQueryClient();

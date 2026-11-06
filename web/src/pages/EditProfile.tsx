@@ -131,6 +131,17 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
             hint={`${formatNumber(draft.bio.length)}/160 characters`}
             error={values.errors.bio}
           />
+          {user.role === 'rower' && (
+            <Select
+              label="Group"
+              value={draft.group}
+              onChange={(e) => field('group', e.target.value as User['group_key'])}
+            >
+              <option value="frosh">Frosh</option>
+              <option value="normal">Normal Non-Frosh</option>
+              <option value="u23">U23-Senior Hopefuls</option>
+            </Select>
+          )}
           <section>
             <h2 className="mb-3 text-subhead">Side</h2>
             <SegmentedControl

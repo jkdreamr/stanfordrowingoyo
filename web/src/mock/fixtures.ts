@@ -5,13 +5,55 @@ import type {
   ImageMetadata,
   Notification,
   PublicUser,
+  RosterRow,
   User,
   WeeklyTarget,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart } from '../../../shared/dates';
 import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
 import { PRESETS } from '../../../shared/seed';
-export const FIXTURE_MARKER = 'OYO_MOCK_FIXTURE_MAYA_2026';
+export const FIXTURE_MARKER = 'OYO_MOCK_FIXTURE_MARCUS_2026';
+const ROSTER_NAMES = [
+  'Marcus Albrecht',
+  'Matteo Amodio',
+  'Zander Auth',
+  'Callen Berwick',
+  'Barron Celli',
+  'Tom Corbett',
+  'Elliott Donovan-Davies',
+  'Braun Endicott',
+  'Maxim Ericson',
+  'Augie Freijo',
+  'Jack Frye',
+  'Gabe George',
+  'Jack Griffin',
+  'Leopold Hainlein',
+  'Ferdi Hainlein',
+  'Raph Hardwick-Skottowe',
+  'Hylton Harvey',
+  'Theo Herzog',
+  'Finn Lorgen',
+  'Tony Madigan',
+  'Chris Muehl',
+  'Tyler Murphy',
+  'Andrew Orio',
+  'Tom Pakulis',
+  'George Petrow',
+  'John Piersma',
+  'Dom Pucinelli',
+  'Kalen Routley',
+  'John Salvi',
+  'Sandro Scalfi',
+  'Luke Smith',
+  'Danny Stephenson',
+  'Ody Tubidis',
+  'Charlie Vachris',
+  'Philip Wolfensberger',
+  'Kannan Alford',
+  'Gabrielle Zammit',
+  'Ginger Bernstein',
+  'Joshua Koo',
+];
 export function publicUser(user: User): PublicUser {
   const result: Partial<User> = { ...user };
   delete result.email;
@@ -30,51 +72,36 @@ export function createFixtures(now = new Date()) {
   const start = seasonRange(date).start;
   const random = seededRandom();
   const timestamp = `${date}T12:00:00Z`;
-  const names = [
-    'Maya Chen',
-    'Alex Rivera',
-    'Sofia Patel',
-    'Liam Brooks',
-    'Emma Sullivan',
-    'Noah Kim',
-    'Olivia Martinez',
-    'Ethan Wright',
-    'Isabella Nguyen',
-    'Lucas Davis',
-    'Amelia Wilson',
-    'James Anderson',
-    'Charlotte Lee',
-    'Henry Thompson',
-    'Harper Garcia',
-    'Benjamin Clark',
-    'Evelyn Walker',
-    'Daniel Lewis',
-    'Abigail Robinson',
-    'William Hall',
-    'Grace Young',
-    'Chloe Allen',
-    'Leo Scott',
-    'Rachel Morgan',
-    'Josh Koo',
-  ];
-  const users: User[] = names.map((name, i) => ({
+  const users: User[] = ROSTER_NAMES.map((name, i): User => ({
     id: `user-${i + 1}`,
     name,
     email:
-      i === 24 ? 'joskoo@stanford.edu' : `${name.toLowerCase().replace(' ', '.')}@stanford.edu`,
+      i === 38 ? 'joskoo@stanford.edu' : `${name.toLowerCase().replaceAll(' ', '.')}@stanford.edu`,
     must_change_password: false,
-    role: i === 24 ? 'admin' : i === 23 ? 'coach' : i >= 20 ? 'coxswain' : 'rower',
-    group_key: i === 0 ? 'normal' : (['frosh', 'normal', 'u23'] as const)[i % 3],
-    side: i >= 20 && i <= 22 ? 'cox' : i % 2 ? 'port' : 'starboard',
-    class_year: i === 23 ? null : 2027 + (i % 4),
+    role: i === 38 ? 'admin' : i >= 35 ? 'coxswain' : 'rower',
+    group_key: i === 0 || i >= 35 ? 'normal' : (['frosh', 'normal', 'u23'] as const)[i % 3],
+    side: i >= 35 && i <= 37 ? 'cox' : i === 38 ? null : i % 2 ? 'port' : 'starboard',
+    class_year: i === 38 ? null : 2027 + (i % 4),
     bio: i === 0 ? 'Extra meters, one session at a time' : '',
     avatar_image_id: null,
     best6k_split_s: i === 0 ? 112 : 108 + (i % 12),
     best2k_split_s: i === 0 ? 104 : 100 + (i % 10),
-    on_leaderboard: i < 20,
+    on_leaderboard: i < 35,
     active: true,
     created_at: `${start}T12:00:00Z`,
     updated_at: timestamp,
+  })).filter((_, i) => i < 29 || i === 35 || i === 36 || i === 38);
+  const roster: RosterRow[] = ROSTER_NAMES.map((name, i) => ({
+    id: `roster-${i + 1}`,
+    name,
+    email: i === 38 ? 'joskoo@stanford.edu' : null,
+    role: i === 38 ? 'admin' : i >= 35 ? 'coxswain' : 'rower',
+    group_key: null,
+    side: i >= 35 && i <= 37 ? 'cox' : null,
+    class_year: null,
+    claimed_by_user_id: users.find((u) => u.name === name)?.id ?? null,
+    added_by: 'user-39',
+    created_at: timestamp,
   }));
   const entries: Entry[] = [];
   const imageLinks: Record<string, ImageMetadata[]> = {};
@@ -141,7 +168,7 @@ export function createFixtures(now = new Date()) {
       });
   }
   for (let day = start; day < currentWeek; day = addDays(day, 1))
-    for (const user of users.slice(0, 20)) {
+    for (const user of users.filter((u) => u.role === 'rower')) {
       if (random() > 0.48) continue;
       const preset = PRESETS[Math.floor(random() * PRESETS.length)];
       add(
@@ -158,7 +185,7 @@ export function createFixtures(now = new Date()) {
         random() < 0.1 ? 'private' : 'team',
       );
     }
-  for (const [index, user] of users.slice(0, 20).entries()) {
+  for (const [index, user] of users.filter((u) => u.role === 'rower').entries()) {
     const distances =
       index === 0
         ? [18000, 60000, 8000]
@@ -197,8 +224,8 @@ export function createFixtures(now = new Date()) {
   const announcements: Announcement[] = [
     {
       id: 'announcement-1',
-      author_id: users[23].id,
-      author: publicUser(users[23]),
+      author_id: users.at(-1)!.id,
+      author: publicUser(users.at(-1)!),
       title: 'This Week On The Water',
       body: 'Keep your extra work steady around team sessions. Log your meters before Sunday evening.',
       pinned: true,
@@ -206,8 +233,8 @@ export function createFixtures(now = new Date()) {
     },
     {
       id: 'announcement-2',
-      author_id: users[24].id,
-      author: publicUser(users[24]),
+      author_id: users.at(-1)!.id,
+      author: publicUser(users.at(-1)!),
       title: 'November Training',
       body: 'Choose the right zone and focus on consistent volume.',
       pinned: false,
@@ -230,13 +257,23 @@ export function createFixtures(now = new Date()) {
       id: 'notification-2',
       user_id: users[0].id,
       kind: 'announcement',
-      actor_id: users[23].id,
-      actor: publicUser(users[23]),
+      actor_id: users.at(-1)!.id,
+      actor: publicUser(users.at(-1)!),
       entry_id: null,
       entry_title: null,
       created_at: timestamp,
       read_at: null,
     },
   ];
-  return { users, entries, imageLinks, kudos, comments, targets, announcements, notifications };
+  return {
+    users,
+    roster,
+    entries,
+    imageLinks,
+    kudos,
+    comments,
+    targets,
+    announcements,
+    notifications,
+  };
 }
