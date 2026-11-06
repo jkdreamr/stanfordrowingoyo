@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CalendarDays } from 'lucide-react';
 import { equivalentMeters, ZONES } from '../../../shared/math';
@@ -51,7 +51,7 @@ export default function Plan() {
       { replace: true },
     );
   useEffect(() => {
-    if (requested !== tab)
+    if (requested !== null && requested !== tab)
       setParams(
         (previous) => {
           const next = new URLSearchParams(previous);
@@ -162,29 +162,30 @@ function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
                 </div>
               ))}
             </div>
-            <div className="mt-4 hidden grid-cols-7 gap-2 lg:grid">
+            <div className="mt-4 hidden grid-cols-[48px_repeat(7,minmax(0,1fr))] gap-2 lg:grid">
+              <div aria-hidden="true" />
               {week.days.map((day) => (
                 <h3 key={day.name} className="text-footnote font-semibold">
                   {day.name.slice(0, 3)}
                 </h3>
               ))}
-              {SLOTS.flatMap((slot, row) =>
-                week.days.map((day) => {
-                  const item = day.slots.find((s) => s.slot === slot);
-                  return (
-                    <div key={day.name + slot} className="min-w-0">
-                      <p className="mb-1 text-caption tabular-nums text-muted">{slot}</p>
-                      {item ? (
-                        <SlotItem item={item} />
-                      ) : (
-                        <p className="p-3 text-footnote text-muted">
-                          {day.off && row === 0 ? 'Off' : '—'}
-                        </p>
-                      )}
-                    </div>
-                  );
-                }),
-              )}
+              {SLOTS.map((slot, row) => (
+                <Fragment key={slot}>
+                  <p className="pt-3 text-caption tabular-nums text-muted">{slot}</p>
+                  {week.days.map((day) => {
+                    const item = day.slots.find((s) => s.slot === slot);
+                    return (
+                      <div key={day.name + slot} className="min-w-0">
+                        {item ? (
+                          <SlotItem item={item} />
+                        ) : day.off && row === 0 ? (
+                          <p className="p-3 text-footnote text-muted">Off</p>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </Fragment>
+              ))}
             </div>
           </section>
         ))

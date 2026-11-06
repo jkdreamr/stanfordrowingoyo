@@ -66,3 +66,8 @@ it('shows a retry action when initial data fails', async () => {
   await screen.findByText('Could Not Load This Screen');
   expect(screen.getByRole('button', { name: 'Try Again' })).toBeTruthy();
 });
+it('keeps a missing tab parameter absent', async () => {
+  const router = setup('/plan');
+  await screen.findByRole('heading', { name: 'Week 1' });
+  expect(router.state.location.search).toBe('');
+});
