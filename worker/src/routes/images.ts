@@ -1,7 +1,7 @@
 import type { Context } from '../context';
 import type { ImageMetadata } from '../../../shared/types';
 import { refreshUser, requireUser } from '../auth/guards';
-import { findImage, hiddenImage, insertImage } from '../db/images';
+import { findImage, visibleImage, insertImage } from '../db/images';
 import { HttpError, json } from '../http';
 const MAX_BYTES = 1572864;
 const unsupported = () =>
@@ -111,7 +111,7 @@ export async function create(ctx: Context) {
 export function get(ctx: Context) {
   const user = requireUser(ctx);
   const image = findImage(ctx.storage, ctx.params.id);
-  if (!image || hiddenImage(ctx.storage, image.id, user.id))
+  if (!image || !visibleImage(ctx.storage, image.id, user.id))
     throw new HttpError(404, 'NOT_FOUND', 'Image not found.');
   const headers = {
     'Content-Type': image.mime,

@@ -5,6 +5,7 @@ import { byId, toUser } from '../db/users';
 import { attempt, clearAttempts } from '../db/rateLimit';
 import { effectiveTarget, setTarget } from '../db/targets';
 import { rosterByName } from '../db/roster';
+import { deleteUnreferencedImages } from '../db/images';
 import { HttpError, json, noContent, readJson } from '../http';
 import * as v from '../validate';
 export function get(ctx: Context) {
@@ -62,6 +63,8 @@ export async function patch(ctx: Context) {
       ctx.now.toISOString(),
       user.id,
     );
+    if (body.avatar_image_id !== undefined && user.avatar_image_id)
+      deleteUnreferencedImages(ctx.storage, [user.avatar_image_id]);
   });
   return json(toUser(byId(ctx.storage, user.id)));
 }

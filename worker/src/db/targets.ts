@@ -1,23 +1,52 @@
 import type { CurrentWeeklyTarget, User, WeeklyTarget } from '../../../shared/types';
-import { getSetting, type TargetVersion } from './settings';
+import type { TargetVersion } from './settings';
 import type { Row } from './row';
+import { GROUP_TARGETS } from '../../../shared/seed';
+type TargetUser = Pick<User, 'id' | 'group_key'>;
+export function loadTargets(storage: DurableObjectStorage, userId?: string) {
+  const history = storage.sql
+    .exec<{ value_json: string }>(
+      'SELECT value_json FROM settings WHERE key = ?',
+      'group_target_history',
+    )
+    .toArray()[0];
+  const versions = (JSON.parse(history?.value_json ?? '[]') as TargetVersion[]).sort((a, b) =>
+    b.week_start.localeCompare(a.week_start),
+  );
+  const rows =
+    userId === undefined
+      ? storage.sql
+          .exec<Row<WeeklyTarget>>('SELECT * FROM weekly_targets ORDER BY week_start DESC')
+          .toArray()
+      : storage.sql
+          .exec<Row<WeeklyTarget>>(
+            'SELECT * FROM weekly_targets WHERE user_id = ? ORDER BY week_start DESC',
+            userId,
+          )
+          .toArray();
+  const personal = new Map<string, WeeklyTarget[]>();
+  for (const row of rows) {
+    const history = personal.get(row.user_id) ?? [];
+    history.push(row);
+    personal.set(row.user_id, history);
+  }
+  return (user: TargetUser, week: string): CurrentWeeklyTarget => {
+    const target = personal.get(user.id)?.find((row) => row.week_start <= week);
+    if (target) return { week_start: week, target_m: target.target_m, source: 'personal' };
+    const group = versions.find((row) => row.week_start <= week) ?? versions.at(-1);
+    return {
+      week_start: week,
+      target_m: group?.targets[user.group_key] ?? GROUP_TARGETS[user.group_key],
+      source: 'group',
+    };
+  };
+}
 export function effectiveTarget(
   storage: DurableObjectStorage,
   user: Pick<User, 'id' | 'group_key'>,
   week: string,
 ): CurrentWeeklyTarget {
-  const personal = storage.sql
-    .exec<Row<WeeklyTarget>>(
-      'SELECT * FROM weekly_targets WHERE user_id = ? AND week_start <= ? ORDER BY week_start DESC LIMIT 1',
-      user.id,
-      week,
-    )
-    .toArray()[0];
-  if (personal) return { week_start: week, target_m: personal.target_m, source: 'personal' };
-  const versions = getSetting<TargetVersion[]>(storage, 'group_target_history')
-    .filter((row) => row.week_start <= week)
-    .sort((a, b) => b.week_start.localeCompare(a.week_start));
-  return { week_start: week, target_m: versions[0].targets[user.group_key], source: 'group' };
+  return loadTargets(storage, user.id)(user, week);
 }
 export function setTarget(
   storage: DurableObjectStorage,

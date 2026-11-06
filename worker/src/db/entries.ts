@@ -2,6 +2,7 @@ import type { Entry, EntryDetail, ImageMetadata } from '../../../shared/types';
 import type { Row } from './row';
 import { toPublicUser, type UserRow } from './users';
 import { HttpError } from '../http';
+import { deleteUnreferencedImages } from './images';
 export function findEntry(storage: DurableObjectStorage, id: string) {
   return storage.sql.exec<Row<Entry>>('SELECT * FROM entries WHERE id = ?', id).toArray()[0];
 }
@@ -103,9 +104,19 @@ export function saveEntry(
         entry.id,
       );
     if (imageIds) {
+      const previous = storage.sql
+        .exec<{ image_id: string }>(
+          'SELECT image_id FROM entry_images WHERE entry_id = ?',
+          entry.id,
+        )
+        .toArray();
       storage.sql.exec('DELETE FROM entry_images WHERE entry_id = ?', entry.id);
       imageIds.forEach((id, position) =>
         storage.sql.exec('INSERT INTO entry_images VALUES (?,?,?)', entry.id, id, position),
+      );
+      deleteUnreferencedImages(
+        storage,
+        previous.map((row) => row.image_id),
       );
     }
   });
@@ -137,13 +148,16 @@ export function checkImages(
 }
 export function deleteEntry(storage: DurableObjectStorage, id: string) {
   storage.transactionSync(() => {
-    storage.sql.exec(
-      'DELETE FROM images WHERE id IN (SELECT image_id FROM entry_images WHERE entry_id = ?) AND id NOT IN (SELECT avatar_image_id FROM users WHERE avatar_image_id IS NOT NULL)',
-      id,
-    );
+    const previous = storage.sql
+      .exec<{ image_id: string }>('SELECT image_id FROM entry_images WHERE entry_id = ?', id)
+      .toArray();
     for (const table of ['entry_images', 'kudos', 'comments', 'notifications'])
       storage.sql.exec(`DELETE FROM ${table} WHERE entry_id = ?`, id);
     storage.sql.exec('DELETE FROM entries WHERE id = ?', id);
+    deleteUnreferencedImages(
+      storage,
+      previous.map((row) => row.image_id),
+    );
   });
 }
 export function listEntries(
@@ -180,13 +194,16 @@ export function userEntries(
   user: string,
   start: string,
   end: string,
+  viewer = user,
 ) {
   return storage.sql
     .exec<Row<Entry>>(
-      'SELECT * FROM entries WHERE user_id = ? AND date >= ? AND date <= ? ORDER BY date,created_at,id',
+      'SELECT * FROM entries WHERE user_id = ? AND date >= ? AND date <= ? AND (visibility != ? OR user_id = ?) ORDER BY date,created_at,id',
       user,
       start,
       end,
+      'private',
+      viewer,
     )
     .toArray();
 }

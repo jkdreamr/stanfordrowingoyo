@@ -2,7 +2,7 @@
 
 ## Run and Check
 
-Use Node 22+ and npm. Load Node with `source ~/.nvm/nvm.sh` first.
+Use Node 24+ and npm (load scripts use native TypeScript stripping). Load Node with `source ~/.nvm/nvm.sh` first.
 
 ```sh
 npm install
@@ -13,6 +13,9 @@ npm test
 npm run build       # assets and Worker dry run; does not deploy
 npm run format:check
 npm run format      # apply formatting before committing
+npm run load -- --base-url http://localhost:8787
+npm run e2e:install # browser dependencies; once per machine
+npm run e2e
 ```
 
 All API routes in `shared/types.ts` are implemented, including staff administration, plan, and announcements.
@@ -20,6 +23,57 @@ All tests use Vitest 5; Worker tests use the official `@cloudflare/vitest-plugin
 Signup is roster-claim based: code-gated name discovery, roster id + own email/password, rower group selection;
 email-bound bootstrap rows do not need a code. Schema v3 owns the id-keyed seeded roster. See architecture §4–6.
 Deploy only when explicitly asked.
+CI runs format:check, lint, typecheck, test, and build on every PR and push to main.
+
+## Load Test
+
+```sh
+npm run load -- --base-url http://localhost:8787 [--users 60] [--scenario session|burst|both]
+```
+
+Node 24 required. Local-only by default; remote targets require `--allow-remote`,
+and production-looking hosts also require `--i-know-this-is-production`.
+Default pass criteria: every endpoint p95 ≤ 800 ms (`--p95-ms`), no 5xx or network
+errors. Reported 4xx do not fail those checks; internal/setup failures also exit 1.
+All 5xx responses, including roster discovery failures, fail the run.
+
+Seeds `loadtest+N@example.com` users. Admin credentials (`LOAD_ADMIN_PASSWORD` /
+`--admin-password`) are required once per run; `--team-code` optionally skips code
+discovery. Code-gated roster discovery is required; the runner creates
+or reuses only synthetic `Load Test NN` roster rows and claims their ids with random
+groups. Never claims real seeded names. Every non-GET load/E2E API request sends
+`X-OYO-CSRF: 1`. Fresh rowers sign up first, then log in on 409; known claims and
+burst re-logins use login first. Auth has its own phase/table and still must meet
+thresholds; setup/cleanup have independent wall times. Teardown with `--cleanup` and the same base URL/admin credentials:
+unlink/delete synthetic roster rows and deactivate matching seed
+users; content remains. For a full local reset, stop Wrangler and delete
+its persisted state directory (`.wrangler/state` or the explicit `--persist-to`
+directory). Use disposable local state. See `scripts/load/README.md` for flags.
+
+## E2E
+
+Run `npm run e2e:install` once, then `npm run e2e`. Projects: desktop-chrome,
+iphone-15 (WebKit), pixel-7 (Chromium). If WebKit cannot launch, use
+`E2E_IPHONE_ENGINE=chromium` (iPhone descriptor, not Safari coverage).
+
+Each managed server run wipes `.wrangler/e2e-state` for fresh DO state and serves
+the built app at https://localhost:8799 using Wrangler's self-signed dev certificate
+(`--local-protocol https`); browser/API contexts and health checks ignore local
+certificate errors. Reusing an existing server outside CI does
+not reset it. `E2E_BASE_URL` targets an already-running local server and skips
+server management; HTTP and HTTPS local URLs are accepted. The backend-dependent smoke
+test checks in-page signup and `/api/me` cookie authentication in all projects.
+HTTPS is needed because WebKit drops Secure cookies on HTTP localhost while
+Chromium allows them. Phone/Safari testing against plain-HTTP `npm run dev` hits
+the same issue; use HTTPS there too. Production cookies remain unchanged.
+
+Global setup signs up roster-seeded `joskoo@stanford.edu` without a team code,
+or logs in once if it exists. Set `E2E_ADMIN_PASSWORD` for existing state; the
+default is dev-only. Auth state is ignored under `e2e/.auth/`; 501 auth responses
+skip backend-dependent tests. Roster APIs get unique synthetic `E2E <project> <random>`
+rows created by admin and claimed per test, never real seeded names. When a screen lands, remove its test's top-level
+`test.fixme`, align semantic locators with the implemented labels, and run all
+three projects. See `e2e/README.md`; E2E is not yet in CI.
 
 ## Shared Contract
 

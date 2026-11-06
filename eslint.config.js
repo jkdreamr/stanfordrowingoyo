@@ -1,7 +1,16 @@
 import js from '@eslint/js';
 import ts from 'typescript-eslint';
 export default ts.config(
-  { ignores: ['**/dist/**', '**/node_modules/**', '.wrangler/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      '.wrangler/**',
+      'playwright-report/**',
+      'test-results/**',
+      'e2e/.auth/**',
+    ],
+  },
   js.configs.recommended,
   ...ts.configs.recommended,
   {

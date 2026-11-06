@@ -190,6 +190,10 @@ Schema migrations: a `schema_version` setting; migrations run in the DO construc
 Version 3 deliberately drops the legacy email-keyed roster and rebuilds/seeds the id-keyed roster (nothing deployed).
 Seeds are insert-if-missing by case-insensitive name. The claimant foreign key is initially deferred so the atomic
 claim can reserve the row before inserting its user in the same transaction.
+Version 4 adds read-path indexes: `entries(visibility,created_at DESC,id DESC)`,
+`entries(user_id,created_at DESC,id DESC)`, `comments(entry_id,created_at,id)`, `entry_images(image_id)`,
+and `notifications(user_id,created_at DESC,id DESC)`. Feed/mine, comments and notifications order by the matching
+timestamp/id direction; image-reference lookups use the image-id index.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -208,12 +212,29 @@ Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visib
 `GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
 `DELETE /api/comments/:id` (author or staff).
 Images: `POST /api/images` (raw body, image/jpeg|png|webp, ≤1.5MB) → {id}; `GET /api/images/:id` (immutable cache).
+Authenticated image reads require ownership, use as any user's current avatar, or attachment to an entry visible to
+the viewer (non-private or their own); otherwise 404, including conditional requests. Fresh unattached uploads remain
+owner-readable only. Detaching images, deleting entries and replacing/clearing avatars delete only the affected images
+that no entry or current avatar still references; unrelated fresh uploads are not garbage-collected.
 Stats: `GET /api/stats/week?week=YYYY-MM-DD&user=` (target, total, by day, by modality/zone, entries),
 `GET /api/stats/season?season=YYYY&user=` and `?year=YYYY` (weekly series with targets + hit flags, totals by modality/zone,
-streak of consecutive weeks hitting target, best week), `GET /api/leaderboard?week=YYYY-MM-DD&metric=percent|meters|season`.
+streak of consecutive weeks hitting target, best week, and `days: { date: string; equiv_m: number }[]`),
+`GET /api/leaderboard?week=YYYY-MM-DD&metric=percent|meters|season`.
+SeasonStats `days` is returned for both season/year variants and profile stats. One SQL aggregate query grouped by the
+stored PT entry date produces ascending YYYY-MM-DD dates within the selected range through today (or range end).
+Only days whose summed E-meters are positive are included; empty/zero-only days are omitted. Visibility rules match
+all other stats fields below.
 Team: `GET /api/users` (roster directory), `GET /api/users/:id` (public profile + stats summary).
 Leaderboard rows also include `streak` (consecutive weeks hitting target up to the selected week)
 and `entry_count` for that week.
+Week parameters accept real YYYY-MM-DD dates from 2000-01-01 through 365 days after today (otherwise 400), then
+normalize to Monday. Season leaderboard selection uses the original requested date, or today when omitted, before
+week normalization so a September rollover week selects the correct season. Percent ranking compares exact
+meters/target ratios by integer cross-multiplication, then meters; percentages are rounded only for display.
+Stats and leaderboard load personal/group target histories once per request and reuse grouped entry aggregates for
+weekly totals, counts, streaks and season breakdowns. Season/profile days still use one date aggregate query.
+These read routes stay below 20 SQL calls regardless of roster size or number of entries. Target lookup before the
+first group-history version uses its earliest version; an empty/missing history falls back to seed group targets.
 Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned announcements include `author: PublicUser`.
 Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
 `actor: PublicUser` and `entry_title: string | null`.
@@ -247,7 +268,11 @@ Staff password resets reload both actor and target after hashing. Record PATCH w
 check, never replacement inserts; settings, target and plan upserts use ON CONFLICT DO UPDATE without deleting rows.
 
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
-Private entries count toward the owner's totals and the leaderboard, but never appear in the feed/profile for others.
+Private entries are included in their owner's week/season/year stats and own profile stats, but excluded for every
+non-owner viewer, including staff, from all totals, day/modality/zone breakdowns, weekly summaries, target percentages,
+hit flags, streaks, best week and profile stats. The leaderboard still counts private entries in its totals, percentages,
+streaks and entry counts. Private entry contents never appear in the feed/profile for others. An image also used as a
+current avatar or on a visible entry remains readable under the independent image authorization rules above.
 
 ## 7. Frontend
 

@@ -1,4 +1,5 @@
 import { HttpError } from './http';
+import { addDays, today } from '../../shared/dates';
 export function invalid(message: string): never {
   throw new HttpError(400, 'VALIDATION_ERROR', message);
 }
@@ -59,6 +60,12 @@ export function date(value: unknown): string {
 export function email(value: unknown): string {
   const result = string(value, 'Email', 3, 254, true).toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(result)) return invalid('Email is invalid.');
+  return result;
+}
+export function weekDate(value: unknown, now: Date): string {
+  const result = date(value);
+  if (result < '2000-01-01' || result > addDays(today(now), 365))
+    invalid('Week date must be between 2000-01-01 and one year from today.');
   return result;
 }
 export function boolean(value: unknown, label: string): boolean {
