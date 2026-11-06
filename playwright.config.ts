@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = process.env.E2E_BASE_URL ?? 'http://localhost:8799';
+const baseURL = process.env.E2E_BASE_URL ?? 'https://localhost:8799';
 const target = new URL(baseURL);
 if (
   !['http:', 'https:'].includes(target.protocol) ||
@@ -23,7 +23,7 @@ export default defineConfig({
     ? [['list'], ['html', { open: 'never' }], ['github']]
     : [['list'], ['html', { open: 'never' }]],
   retries: process.env.CI ? 1 : 0,
-  use: { baseURL, trace: 'on-first-retry', screenshot: 'only-on-failure' },
+  use: { baseURL, ignoreHTTPSErrors: true, trace: 'on-first-retry', screenshot: 'only-on-failure' },
   projects: [
     { name: 'desktop-chrome', use: { ...devices['Desktop Chrome'] } },
     {
@@ -39,8 +39,9 @@ export default defineConfig({
     ? undefined
     : {
         command:
-          'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --port 8799 --persist-to .wrangler/e2e-state',
+          'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --local-protocol https --port 8799 --persist-to .wrangler/e2e-state',
         url: `${baseURL}/api/health`,
+        ignoreHTTPSErrors: true,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
       },

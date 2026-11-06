@@ -6,8 +6,10 @@ WebKit. If WebKit cannot launch locally, use `E2E_IPHONE_ENGINE=chromium` to
 retain the iPhone descriptor with a Chromium engine (not Safari coverage).
 
 The managed server builds web assets, wipes only `.wrangler/e2e-state`, and
-starts Wrangler on http://localhost:8799. Existing servers are reused outside
-CI, without resetting their state. `E2E_BASE_URL=http://localhost:8799` skips
+starts Wrangler on https://localhost:8799 with `--local-protocol https` and its
+self-signed dev certificate. Browser/API contexts and the health check ignore
+certificate errors locally. Existing servers are reused outside
+CI, without resetting their state. `E2E_BASE_URL=https://localhost:8799` skips
 server management entirely; only local servers are allowed. Use a disposable
 database: tests create users, workouts and social data, and change a user role.
 
@@ -30,14 +32,15 @@ implemented UI. Smoke shell/manifest/health tests run now; the Login expectation
 is separately fixme because there is no auth guard yet. Unique rowers isolate
 tests across projects, and leaderboard assertions compare only their own users.
 
-Use localhost, not 127.0.0.1, for the Secure `oyo_session` cookie on HTTP.
+Use HTTPS for the Secure `oyo_session` cookie in all engines.
 The backend-dependent smoke test signs up through an in-page fetch, checks the
 Secure/HttpOnly cookie, then verifies in-page `/api/me` authentication in all
 three engines. It needs no implemented UI screen and skips only when backend
 bootstrap reports 501. Rower contexts preserve each project's device options.
-Current local WebKit rejects Secure cookies over HTTP localhost, unlike Chromium:
-the test exposes this as a 401 from `/api/me`. Do not weaken the cookie or skip
-the test to mask it; authenticated WebKit coverage needs a local HTTPS strategy.
+WebKit drops Secure cookies on HTTP localhost; Chromium allows them. Local HTTPS
+avoids that difference without weakening production cookies or the smoke test.
+Testing on a phone/Safari against plain-HTTP `npm run dev` hits the same issue;
+use HTTPS for authenticated browser testing there too.
 
 Reports are in ignored `playwright-report/`; failure screenshots and retry traces
 are in ignored `test-results/`. Vitest's defaults exclude `*.e2e.ts`.

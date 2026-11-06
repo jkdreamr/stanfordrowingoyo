@@ -13,7 +13,10 @@ export default async function globalSetup(config: FullConfig) {
     JSON.stringify({ teamCode: '', backendReady: false, rosterFlow: false }),
   );
   await writeFile(new URL('admin.json', directory), JSON.stringify({ cookies: [], origins: [] }));
-  const api = await request.newContext({ baseURL: config.projects[0].use.baseURL });
+  const api = await request.newContext({
+    baseURL: config.projects[0].use.baseURL,
+    ignoreHTTPSErrors: config.projects[0].use.ignoreHTTPSErrors,
+  });
   try {
     const credentials: Api['POST /api/auth/login']['request'] = {
       email: 'joskoo@stanford.edu',

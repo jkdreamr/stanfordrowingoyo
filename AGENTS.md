@@ -54,11 +54,15 @@ iphone-15 (WebKit), pixel-7 (Chromium). If WebKit cannot launch, use
 `E2E_IPHONE_ENGINE=chromium` (iPhone descriptor, not Safari coverage).
 
 Each managed server run wipes `.wrangler/e2e-state` for fresh DO state and serves
-the built app at http://localhost:8799. Reusing an existing server outside CI does
+the built app at https://localhost:8799 using Wrangler's self-signed dev certificate
+(`--local-protocol https`); browser/API contexts and health checks ignore local
+certificate errors. Reusing an existing server outside CI does
 not reset it. `E2E_BASE_URL` targets an already-running local server and skips
-server management. Use localhost for Secure cookies; the backend-dependent smoke
+server management; HTTP and HTTPS local URLs are accepted. The backend-dependent smoke
 test checks in-page signup and `/api/me` cookie authentication in all projects.
-WebKit currently rejects Secure cookies over HTTP localhost; see `e2e/README.md`.
+HTTPS is needed because WebKit drops Secure cookies on HTTP localhost while
+Chromium allows them. Phone/Safari testing against plain-HTTP `npm run dev` hits
+the same issue; use HTTPS there too. Production cookies remain unchanged.
 
 Global setup signs up roster-seeded `joskoo@stanford.edu` without a team code,
 or logs in once if it exists. Set `E2E_ADMIN_PASSWORD` for existing state; the
