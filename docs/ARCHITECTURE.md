@@ -150,6 +150,7 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
   Password changes and resets derive hashes in the Worker; the DO re-validates sessions, credentials and authorization before writing.
 - Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
   `TEAM_CODE` Worker secret, or a generated UUID when absent/blank. Existing settings are never overwritten; staff can change the code in Admin → Team settings.
+  Join codes are compared trimmed and case-insensitively (constant-time) in roster discovery and signup.
 - Rate-limit login/signup attempts per email+IP (simple counter table, 10 / 15 min).
 - Rate-limit public roster discovery per IP (10 / 15 min), counting every attempt and clearing on success.
 - Only rowers appear on leaderboards by default (`on_leaderboard` flag, staff-editable); all staff, including admins,
