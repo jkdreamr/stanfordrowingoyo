@@ -31,6 +31,19 @@ const input = {
   visibility: 'team',
 };
 describe('mock stats and visibility', () => {
+  it('distinguishes signup field failures', async () => {
+    const { request } = setup();
+    const body = { name: 'New Rower', email: 'new@stanford.edu', password: 'password' };
+    for (const [input, code, status] of [
+      [body, 'NOT_ON_ROSTER', 403],
+      [{ ...body, team_code: 'wrong' }, 'INVALID_TEAM_CODE', 403],
+      [{ ...body, email: 'maya.chen@stanford.edu' }, 'EMAIL_TAKEN', 409],
+    ] as const) {
+      const response = await request('/auth/signup', 'POST', input);
+      expect(response.status).toBe(status);
+      expect((await response.json()).error.code).toBe(code);
+    }
+  });
   it('seeds deterministic partial progress and computes weekly totals/percent', async () => {
     const { request } = setup();
     const stats: WeekStats = await (await request('/stats/week')).json();

@@ -1,26 +1,19 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Sidebar, TabBar } from './shell/Navigation';
+import { RightRail } from './shell/RightRail';
 export default function AppShell() {
+  const task = useLocation().pathname === '/log';
   return (
-    <div className="mx-auto max-w-3xl p-6">
-      <header>
-        <h1 className="text-2xl font-semibold">Stanford Rowing OYO</h1>
-        <nav className="flex flex-wrap gap-5" aria-label="Main">
-          {[
-            ['/', 'Home'],
-            ['/feed', 'Feed'],
-            ['/log', 'Log'],
-            ['/leaderboard', 'Leaderboard'],
-            ['/me', 'Me'],
-          ].map(([to, label]) => (
-            <NavLink key={to} to={to}>
-              {label}
-            </NavLink>
-          ))}
-        </nav>
-      </header>
-      <main className="mt-8">
+    <div className={`app-shell ${task ? 'app-shell-task' : ''}`}>
+      <a className="skip-link" href="#main-content">
+        Skip To Content
+      </a>
+      <Sidebar />
+      <main id="main-content" className="shell-content">
         <Outlet />
       </main>
+      <RightRail />
+      {!task && <TabBar />}
     </div>
   );
 }

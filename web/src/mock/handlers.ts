@@ -34,18 +34,19 @@ class MockError extends Error {
     super(message);
   }
 }
-function fail(status: number, message: string): never {
+function fail(status: number, message: string, code?: string): never {
   throw new MockError(
     status,
-    status === 400
-      ? 'VALIDATION_ERROR'
-      : status === 401
-        ? 'UNAUTHORIZED'
-        : status === 403
-          ? 'FORBIDDEN'
-          : status === 404
-            ? 'NOT_FOUND'
-            : 'CONFLICT',
+    code ??
+      (status === 400
+        ? 'VALIDATION_ERROR'
+        : status === 401
+          ? 'UNAUTHORIZED'
+          : status === 403
+            ? 'FORBIDDEN'
+            : status === 404
+              ? 'NOT_FOUND'
+              : 'CONFLICT'),
     message,
   );
 }
@@ -371,10 +372,15 @@ export function createMockApi({
         )
           fail(400, 'Valid email and password of at least 8 characters required');
         const email = body.email.toLowerCase();
-        if (state.users.some((u) => u.email === email)) fail(409, 'Email already registered');
+        if (state.users.some((u) => u.email === email))
+          fail(409, 'Email already registered', 'EMAIL_TAKEN');
         const listed = roster.find((r) => r.email === email);
         if (!listed && body.team_code !== settings.team_code)
-          fail(403, 'A team code or roster invitation is required');
+          fail(
+            403,
+            'A team code or roster invitation is required',
+            body.team_code ? 'INVALID_TEAM_CODE' : 'NOT_ON_ROSTER',
+          );
         const user: User = {
           ...state.users[0],
           id: id('user'),
