@@ -1,4 +1,67 @@
-import type { Modality, PlanSlot, PlanTotal, Preset, Zone } from './types';
+import type { Modality, PlanSlot, PlanTotal, Preset, Zone, RosterInput } from './types';
+const rowerNames = [
+  'Marcus Albrecht',
+  'Matteo Amodio',
+  'Zander Auth',
+  'Callen Berwick',
+  'Barron Celli',
+  'Tom Corbett',
+  'Elliott Donovan-Davies',
+  'Braun Endicott',
+  'Maxim Ericson',
+  'Augie Freijo',
+  'Jack Frye',
+  'Gabe George',
+  'Jack Griffin',
+  'Leopold Hainlein',
+  'Ferdi Hainlein',
+  'Raph Hardwick-Skottowe',
+  'Hylton Harvey',
+  'Theo Herzog',
+  'Finn Lorgen',
+  'Tony Madigan',
+  'Chris Muehl',
+  'Tyler Murphy',
+  'Andrew Orio',
+  'Tom Pakulis',
+  'George Petrow',
+  'John Piersma',
+  'Dom Pucinelli',
+  'Kalen Routley',
+  'John Salvi',
+  'Sandro Scalfi',
+  'Luke Smith',
+  'Danny Stephenson',
+  'Ody Tubidis',
+  'Charlie Vachris',
+  'Philip Wolfensberger',
+];
+export const ROSTER: RosterInput[] = [
+  ...rowerNames.map((name) => ({
+    name,
+    role: 'rower' as const,
+    email: null,
+    group_key: null,
+    side: null,
+    class_year: null,
+  })),
+  ...['Kannan Alford', 'Gabrielle Zammit', 'Ginger Bernstein'].map((name) => ({
+    name,
+    role: 'coxswain' as const,
+    email: null,
+    group_key: null,
+    side: null,
+    class_year: null,
+  })),
+  {
+    name: 'Joshua Koo',
+    role: 'admin',
+    email: 'joskoo@stanford.edu',
+    group_key: null,
+    side: null,
+    class_year: null,
+  },
+];
 export const GROUP_TARGETS = { frosh: 60000, normal: 80000, u23: 100000 };
 const rows: [Modality, Zone, [string, number | null][]][] = [
   [

@@ -16,9 +16,10 @@ import type { Env } from './index';
 import { migrate } from './db/migrate';
 import { setSetting } from './db/settings';
 import { parseCsv } from './csv';
+import { insertRosterFixture } from './testFixtures';
 const bindings = env as unknown as Env;
 const NOW = '2026-03-09T18:00:00Z';
-type Client = { cookie: string; user: User };
+type Client = { cookie: string; user: User; rosterId: string };
 async function sql<T>(callback: (storage: DurableObjectStorage) => T): Promise<T> {
   return runInDurableObject(
     bindings.TEAM.get(bindings.TEAM.idFromName('stanford')),
@@ -39,24 +40,15 @@ function api(path: string, client?: Client, method = 'GET', body?: unknown, time
 }
 async function user(name: string, role = 'rower'): Promise<Client> {
   const email = name.toLowerCase() + '@example.com';
-  if (role !== 'rower')
-    await sql((storage) =>
-      storage.sql
-        .exec(
-          'INSERT INTO roster VALUES (?,?,?,?,?,?,?,?)',
-          email,
-          name,
-          role,
-          'normal',
-          null,
-          null,
-          null,
-          NOW,
-        )
-        .toArray(),
-    );
+  const id = await sql((storage) =>
+    insertRosterFixture(storage, name, role, role === 'rower' ? null : email),
+  );
+  const choices = await (
+    await api('/auth/roster', undefined, 'POST', { team_code: 'team-code' })
+  ).json<{ id: string }[]>();
+  if (role === 'rower') expect(choices.some((row) => row.id === id)).toBe(true);
   const response = await api('/auth/signup', undefined, 'POST', {
-    name,
+    roster_id: id,
     email,
     password: 'password123',
     team_code: 'team-code',
@@ -65,6 +57,7 @@ async function user(name: string, role = 'rower'): Promise<Client> {
   return {
     cookie: response.headers.get('Set-Cookie')!.split(';')[0],
     user: await response.json<User>(),
+    rosterId: id,
   };
 }
 const workout = {
@@ -105,6 +98,7 @@ const slot = {
 const endpoints: Record<keyof Api, true> = {
   'GET /api/health': true,
   'POST /api/auth/signup': true,
+  'POST /api/auth/roster': true,
   'POST /api/auth/login': true,
   'POST /api/auth/logout': true,
   'GET /api/me': true,
@@ -142,8 +136,9 @@ const endpoints: Record<keyof Api, true> = {
   'POST /api/admin/users/:id/reset-password': true,
   'GET /api/admin/roster': true,
   'POST /api/admin/roster': true,
-  'PATCH /api/admin/roster/:email': true,
-  'DELETE /api/admin/roster/:email': true,
+  'PATCH /api/admin/roster/:id': true,
+  'DELETE /api/admin/roster/:id': true,
+  'POST /api/admin/roster/:id/unlink': true,
   'POST /api/admin/roster/import': true,
   'GET /api/admin/settings': true,
   'PATCH /api/admin/settings': true,
@@ -165,9 +160,9 @@ beforeEach(async () => {
   await sql((storage) =>
     storage.transactionSync(() => {
       for (const table of [
+        'roster',
         'users',
         'sessions',
-        'roster',
         'settings',
         'weekly_targets',
         'rate_limits',
@@ -211,6 +206,9 @@ describe('complete API and role permissions', () => {
       const p = await (await api('/admin/presets', staff, 'POST', preset)).json<Preset>();
       await api('/admin/plan', staff, 'POST', slot);
       await api('/admin/roster', staff, 'POST', rosterRow);
+      const rosterId = (await (await api('/admin/roster', staff)).json<RosterRow[]>()).find(
+        (row) => row.email === rosterRow.email,
+      )!.id;
       const bytes = new Uint8Array(24);
       bytes.set([137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82]);
       const view = new DataView(bytes.buffer);
@@ -230,16 +228,17 @@ describe('complete API and role permissions', () => {
           ? comment.id
           : path.startsWith('/images')
             ? imageId
-            : path.includes('/presets')
-              ? p.id
-              : path.startsWith('/announcements')
-                ? announcement.id
-                : path.endsWith('/reset-password')
-                  ? resetUser.user.id
-                  : rower.user.id;
+            : path.includes('/admin/roster/')
+              ? rosterId
+              : path.includes('/presets')
+                ? p.id
+                : path.startsWith('/announcements')
+                  ? announcement.id
+                  : path.endsWith('/reset-password')
+                    ? resetUser.user.id
+                    : rower.user.id;
       path = path
         .replace(':id', id)
-        .replace(':email', rosterRow.email)
         .replace(':group', 'normal')
         .replace(':week', '1')
         .replace(':day', '0')
@@ -318,8 +317,8 @@ describe('complete API and role permissions', () => {
       ['/admin/users/' + admin.user.id, 'PATCH', { group_key: 'frosh' }],
       ['/admin/users/' + admin.user.id + '/reset-password', 'POST', undefined],
       ['/admin/roster', 'POST', { ...rosterRow, email: 'newadmin@example.com', role: 'admin' }],
-      ['/admin/roster/admin@example.com', 'PATCH', { name: 'Changed' }],
-      ['/admin/roster/admin@example.com', 'DELETE', undefined],
+      ['/admin/roster/' + admin.rosterId, 'PATCH', { name: 'Changed' }],
+      ['/admin/roster/' + admin.rosterId, 'DELETE', undefined],
     ];
     for (const [path, method, body] of forbidden)
       expect((await api(path, cox, method, body)).status, path).toBe(403);
@@ -327,7 +326,7 @@ describe('complete API and role permissions', () => {
       (await api('/admin/users/' + rower.user.id, admin, 'PATCH', { role: 'admin' })).status,
     ).toBe(200);
     expect(
-      (await api('/admin/roster/admin@example.com', admin, 'PATCH', { name: 'Changed' })).status,
+      (await api('/admin/roster/' + admin.rosterId, admin, 'PATCH', { name: 'Changed' })).status,
     ).toBe(200);
     expect(
       (await api('/admin/users/' + rower.user.id, admin, 'PATCH', { role: 'rower' })).status,
@@ -374,10 +373,14 @@ describe('users, roster and passwords', () => {
     });
     expect(roster.some((row) => row.email === 'newadmin@example.com')).toBe(false);
     const logs = await (await api('/admin/audit', admin)).json<Page<AuditLog>>();
-    expect(logs.items.map((row) => row.target).sort()).toEqual([
-      'allowed@example.com',
-      'allowedcox@example.com',
-    ]);
+    expect(logs.items.map((row) => row.target).sort()).toEqual(
+      roster
+        .filter((row) =>
+          ['allowed@example.com', 'allowedcox@example.com'].includes(row.email ?? ''),
+        )
+        .map((row) => row.id)
+        .sort(),
+    );
     const retry = await api('/admin/roster/import', admin, 'POST', { csv });
     expect(await retry.json()).toEqual({ imported: 4, errors: [] });
   });
@@ -467,7 +470,6 @@ describe('users, roster and passwords', () => {
     expect(roster.find((row) => row.email === 'imported@example.com')?.name).toBe('Last, "First"');
     expect(roster.find((row) => row.email === 'line@example.com')?.name).toBe('Multi\nLine');
     const signup = await api('/auth/signup', undefined, 'POST', {
-      name: 'Imported',
       email: 'IMPORTED@example.com',
       password: 'password123',
     });
@@ -497,18 +499,20 @@ describe('users, roster and passwords', () => {
         })
       ).json(),
     ).toMatchObject({ imported: 1 });
-    expect((await api('/admin/roster', admin, 'POST', rosterRow)).status).toBe(201);
+    const created = await api('/admin/roster', admin, 'POST', rosterRow);
+    expect(created.status).toBe(201);
+    const createdRow = await created.json<RosterRow>();
     expect((await api('/admin/roster', admin, 'POST', rosterRow)).status).toBe(409);
     expect(
       (
-        await api('/admin/roster/new@example.com', admin, 'PATCH', {
+        await api('/admin/roster/' + createdRow.id, admin, 'PATCH', {
           email: 'other@example.com',
           side: 'port',
         })
       ).status,
     ).toBe(200);
-    expect((await api('/admin/roster/other@example.com', admin, 'DELETE')).status).toBe(204);
-    expect((await api('/admin/roster/other@example.com', admin, 'DELETE')).status).toBe(404);
+    expect((await api('/admin/roster/' + createdRow.id, admin, 'DELETE')).status).toBe(204);
+    expect((await api('/admin/roster/' + createdRow.id, admin, 'DELETE')).status).toBe(404);
   });
 });
 describe('settings, presets, recalculation, export and audit', () => {

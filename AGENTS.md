@@ -17,6 +17,8 @@ npm run format      # apply formatting before committing
 
 All API routes in `shared/types.ts` are implemented, including staff administration, plan, and announcements.
 All tests use Vitest 5; Worker tests use the official `@cloudflare/vitest-plugin` runtime.
+Signup is roster-claim based: code-gated name discovery, roster id + own email/password, rower group selection;
+email-bound bootstrap rows do not need a code. Schema v3 owns the id-keyed seeded roster. See architecture §4–6.
 Deploy only when explicitly asked.
 
 ## Shared Contract

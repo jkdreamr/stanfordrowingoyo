@@ -15,6 +15,7 @@ import type {
 } from '../../shared/types';
 import { migrate } from './db/migrate';
 import { setSetting } from './db/settings';
+import { insertRosterFixture } from './testFixtures';
 const bindings = env as unknown as Env;
 const NOW = '2026-03-09T18:00:00Z';
 type Client = { cookie: string; user: User };
@@ -38,24 +39,15 @@ function api(path: string, client?: Client, method = 'GET', body?: unknown, time
 }
 async function user(name: string, role = 'rower'): Promise<Client> {
   const email = name.toLowerCase() + '@example.com';
-  if (role !== 'rower')
-    await sql((storage) =>
-      storage.sql
-        .exec(
-          'INSERT INTO roster VALUES (?,?,?,?,?,?,?,?)',
-          email,
-          name,
-          role,
-          'normal',
-          null,
-          null,
-          null,
-          NOW,
-        )
-        .toArray(),
-    );
+  const id = await sql((storage) =>
+    insertRosterFixture(storage, name, role, role === 'rower' ? null : email),
+  );
+  const choices = await (
+    await api('/auth/roster', undefined, 'POST', { team_code: 'team-code' })
+  ).json<{ id: string }[]>();
+  if (role === 'rower') expect(choices.some((row) => row.id === id)).toBe(true);
   const response = await api('/auth/signup', undefined, 'POST', {
-    name,
+    roster_id: id,
     email,
     password: 'password123',
     team_code: 'team-code',
@@ -119,9 +111,9 @@ beforeEach(async () => {
   await sql((storage) =>
     storage.transactionSync(() => {
       for (const table of [
+        'roster',
         'users',
         'sessions',
-        'roster',
         'settings',
         'weekly_targets',
         'rate_limits',

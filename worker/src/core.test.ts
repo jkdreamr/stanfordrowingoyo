@@ -6,6 +6,8 @@ import { migrate } from './db/migrate';
 import { effectiveTarget } from './db/targets';
 import { getSetting, setGroupTargets, setSetting } from './db/settings';
 import { byEmail, toPublicUser } from './db/users';
+import { findRoster } from './db/roster';
+import { insertRosterFixture } from './testFixtures';
 import { requireAdmin, requireStaff } from './auth/guards';
 import { now } from './clock';
 import { matchPath } from './router';
@@ -41,8 +43,13 @@ async function sql<T>(callback: (storage: DurableObjectStorage) => T): Promise<T
   );
 }
 async function signup(email = 'rower@example.com', extra = {}) {
+  const rosterId = await sql(
+    (storage) =>
+      findRoster(storage, email.trim().toLowerCase())?.id ?? insertRosterFixture(storage, 'Rower'),
+  );
+  await request('/auth/roster', 'POST', { team_code: 'team-code' });
   const response = await request('/auth/signup', 'POST', {
-    name: ' Rower ',
+    roster_id: rosterId,
     email,
     password: 'password123',
     team_code: 'team-code',
@@ -60,9 +67,9 @@ beforeEach(async () => {
   await sql((storage) => {
     storage.transactionSync(() => {
       for (const table of [
+        'roster',
         'users',
         'sessions',
-        'roster',
         'settings',
         'weekly_targets',
         'rate_limits',
@@ -75,13 +82,13 @@ beforeEach(async () => {
   });
 });
 describe('core worker integration', () => {
-  it('migrates additively to v2 and preserves an existing v1 group default', async () => {
-    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 2 });
+  it('migrates through v3 and preserves an existing v1 group default', async () => {
+    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 3 });
     await sql((storage) => {
       setSetting(storage, 'schema_version', 1);
       setSetting(storage, 'group_targets', { frosh: 70000, normal: 90000, u23: 110000 });
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(2);
+      expect(getSetting(storage, 'schema_version')).toBe(3);
       expect(getSetting(storage, 'group_target_history')).toEqual([
         { week_start: '2000-01-01', targets: { frosh: 70000, normal: 90000, u23: 110000 } },
       ]);
@@ -129,13 +136,15 @@ describe('core worker integration', () => {
     await sql((storage) =>
       storage.sql
         .exec(
-          'INSERT INTO roster VALUES (?,?,?,?,?,?,?,?)',
-          'cox@example.com',
+          'INSERT INTO roster VALUES (?,?,?,?,?,?,?,?,?,?)',
+          crypto.randomUUID(),
           'Cox',
+          'cox@example.com',
           'coxswain',
           'frosh',
           'cox',
           2028,
+          null,
           null,
           baseTime,
         )
@@ -151,7 +160,7 @@ describe('core worker integration', () => {
     });
     expect((await signup('joskoo@stanford.edu', { team_code: undefined })).user).toMatchObject({
       role: 'admin',
-      on_leaderboard: true,
+      on_leaderboard: false,
     });
   });
   it('rejects missing/invalid code and malformed signup bodies', async () => {
