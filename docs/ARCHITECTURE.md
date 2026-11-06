@@ -170,6 +170,8 @@ Schema migrations: a `schema_version` setting; migrations run in the DO construc
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
+Mutation requests must use JSON/image Content-Type or send `X-OYO-CSRF: 1` (including bodyless mutations); cross-site origins are rejected.
+
 Auth: `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
 (name, bio, side, class_year, best splits, avatar), `POST /api/me/password`, `PUT /api/me/target` ({target_m} → current week onward).
 Config: `GET /api/config` (factors, group targets, season start, presets, zones list, server-computed

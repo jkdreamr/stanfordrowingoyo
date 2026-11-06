@@ -1,6 +1,6 @@
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
 import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS } from '../../../shared/seed';
-export function migrate(storage: DurableObjectStorage): void {
+function migrateV1(storage: DurableObjectStorage): void {
   const sql = storage.sql;
   sql.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL)');
   const version = sql
@@ -206,4 +206,26 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
       sql.exec('INSERT OR IGNORE INTO plan_totals VALUES (?,?,?)', p.group_key, p.week, p.label);
     sql.exec("INSERT OR REPLACE INTO settings VALUES ('schema_version','1')");
   });
+}
+export function migrate(storage: DurableObjectStorage): void {
+  migrateV1(storage);
+  const sql = storage.sql;
+  const version = sql
+    .exec<{ value_json: string }>('SELECT value_json FROM settings WHERE key = ?', 'schema_version')
+    .one();
+  if (!version || Number(JSON.parse(version.value_json)) < 2)
+    storage.transactionSync(() => {
+      const targets = sql
+        .exec<{ value_json: string }>(
+          'SELECT value_json FROM settings WHERE key = ?',
+          'group_targets',
+        )
+        .one();
+      sql.exec(
+        'INSERT OR REPLACE INTO settings VALUES (?, ?)',
+        'group_target_history',
+        JSON.stringify([{ week_start: '2000-01-01', targets: JSON.parse(targets.value_json) }]),
+      );
+      sql.exec('INSERT OR REPLACE INTO settings VALUES (?, ?)', 'schema_version', '2');
+    });
 }

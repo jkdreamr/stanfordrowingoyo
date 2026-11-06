@@ -18,7 +18,11 @@ npm run e2e:install # browser dependencies; once per machine
 npm run e2e
 ```
 
-Only GET /api/health is implemented in the scaffold; other API routes return 501.
+Health, auth, me, and config API routes are implemented; the remaining backend areas are pending.
+Worker tests use a nested Vitest 4 install with the official Workers pool; shared/web keep Vitest 5.
+The pool's bundled runtime supports compatibility dates only through 2026-08-22, so the test config
+overrides that date without changing production Wrangler configuration. If npm 10 fails installing
+the mixed Vitest peer graph (`edgesOut`), use `npx npm@11 install`.
 Deploy only when explicitly asked.
 CI runs format:check, lint, typecheck, test, and build on every PR and push to main.
 
