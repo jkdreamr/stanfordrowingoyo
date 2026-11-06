@@ -114,7 +114,10 @@ export const test = base.extend<Fixtures>({
       });
       await expect(response).toBeOK();
       const user: User = await response.json();
-      return { context, page: await context.newPage(), user, password };
+      const page = await context.newPage();
+      await page.goto('/');
+      await expect(page.getByRole('heading', { name: 'This Week', exact: true })).toBeVisible();
+      return { context, page, user, password };
     });
     await Promise.all(contexts.map((c) => c.close()));
   },
