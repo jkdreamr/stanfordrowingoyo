@@ -103,14 +103,9 @@ function Row({
       </span>
       <Avatar name={row.user.name} imageId={row.user.avatar_image_id} size="sm" />
       <span className="min-w-0">
-        <span className="block break-words text-callout font-medium">
-          {row.user.name}
-          {me && (
-            <>
-              {' '}
-              <You />
-            </>
-          )}
+        <span className="flex min-w-0 items-baseline gap-1.5">
+          <span className="truncate text-callout font-medium">{row.user.name}</span>
+          {me && <You />}
         </span>
         <Progress row={row} />
         <Badges row={row} />
@@ -198,23 +193,32 @@ function SkeletonRows() {
     </div>
   );
 }
-function usePinned(node: HTMLElement | null) {
+function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
   const [visible, setVisible] = useState(true);
   useEffect(() => {
     setVisible(true);
-    if (!node) return;
-    const top = document.querySelector('.ui-page-nav')?.getBoundingClientRect().height ?? 0;
-    const bar = document.querySelector('.shell-tabbar')?.getBoundingClientRect().height ?? 0;
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.intersectionRatio >= 0.98),
-      {
-        rootMargin: `-${Math.round(top)}px 0px -${Math.round(bar)}px 0px`,
-        threshold: [0, 0.98, 1],
-      },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [node]);
+    if (!node || !pin) return;
+    let observer: IntersectionObserver | undefined;
+    const observe = () => {
+      observer?.disconnect();
+      const top = document.querySelector('.ui-page-nav')?.getBoundingClientRect().height ?? 0;
+      const bottom = parseFloat(getComputedStyle(pin).bottom) || 0;
+      observer = new IntersectionObserver(
+        ([entry]) => setVisible(entry.intersectionRatio >= 0.98),
+        {
+          rootMargin: `-${Math.round(top)}px 0px -${Math.round(bottom)}px 0px`,
+          threshold: [0, 0.98, 1],
+        },
+      );
+      observer.observe(node);
+    };
+    observe();
+    window.addEventListener('resize', observe);
+    return () => {
+      window.removeEventListener('resize', observe);
+      observer?.disconnect();
+    };
+  }, [node, pin]);
   return !visible;
 }
 
@@ -240,7 +244,8 @@ function Board({ config }: { config: Config }) {
   const week = parseWeek(params.get('week'), currentWeek);
   const query = useLeaderboard(metric === 'season' ? { metric } : { week, metric });
   const [myRow, setMyRow] = useState<HTMLAnchorElement | null>(null);
-  const showPinned = usePinned(myRow);
+  const [pin, setPin] = useState<HTMLDivElement | null>(null);
+  const showPinned = usePinned(myRow, pin);
 
   const update = (next: { metric?: LeaderboardMetric; week?: string }) => {
     const search = new URLSearchParams(params);
@@ -341,6 +346,7 @@ function Board({ config }: { config: Config }) {
       )}
       {mine && (
         <div
+          ref={setPin}
           className={cn('leaderboard-pin', showPinned && 'is-visible')}
           aria-hidden={!showPinned}
         >
