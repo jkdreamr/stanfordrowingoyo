@@ -1,8 +1,14 @@
-export default function Page() {
+import { Placeholder } from '../components/shell/Placeholder';
+import { ListGroup, ListRow } from '../components/ui';
+export default function Me() {
   return (
-    <section>
-      <h2 className="text-xl font-semibold">Me</h2>
-      <p className="mt-3 text-muted">Screen scaffold — implementation coming next.</p>
-    </section>
+    <Placeholder title="Me" actions settings>
+      <ListGroup header="Your Training">
+        <ListRow title="Edit Profile" to="/me/edit" />
+        <ListRow title="Weekly Target" to="/me/target" />
+        <ListRow title="Plan" to="/plan" />
+        <ListRow title="Settings" to="/settings" />
+      </ListGroup>
+    </Placeholder>
   );
 }

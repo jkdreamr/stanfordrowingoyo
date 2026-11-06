@@ -99,6 +99,7 @@ Native dialog traps focus and makes background inert; focus returns on close. Es
 | label           | required visible string                                                          |
 | id, hint, error | optional strings                                                                 |
 | suffix          | TextField/NumberField optional visual unit; include unit in label when ambiguous |
+| trailing        | TextField optional ReactNode; use a labeled IconButton for password visibility   |
 | inputMode       | NumberField: numeric or decimal (default); value remains a string                |
 | other           | native input/textarea/select attributes                                          |
 
