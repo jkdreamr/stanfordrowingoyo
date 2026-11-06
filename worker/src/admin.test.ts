@@ -320,8 +320,6 @@ describe('complete API and role permissions', () => {
       ['/admin/roster', 'POST', { ...rosterRow, email: 'newadmin@example.com', role: 'admin' }],
       ['/admin/roster/admin@example.com', 'PATCH', { name: 'Changed' }],
       ['/admin/roster/admin@example.com', 'DELETE', undefined],
-      ['/admin/roster/import', 'POST', { csv: 'Admin,newadmin@example.com,admin,normal,,' }],
-      ['/admin/roster/import', 'POST', { csv: 'Admin,admin@example.com,rower,normal,,' }],
     ];
     for (const [path, method, body] of forbidden)
       expect((await api(path, cox, method, body)).status, path).toBe(403);
@@ -343,6 +341,46 @@ describe('complete API and role permissions', () => {
   });
 });
 describe('users, roster and passwords', () => {
+  it('imports permitted CSV rows while reporting admin-only rows as individual errors', async () => {
+    const admin = await user('Admin', 'admin');
+    const cox = await user('Cox', 'coxswain');
+    const csv = [
+      'name,email,role,group,side,class_year',
+      'Allowed,allowed@example.com,rower,normal,port,2028',
+      'New admin,newadmin@example.com,admin,normal,,',
+      'Changed admin,admin@example.com,rower,frosh,,',
+      'Allowed cox,allowedcox@example.com,coxswain,normal,cox,2027',
+    ].join('\r\n');
+    const response = await api('/admin/roster/import', cox, 'POST', { csv });
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({
+      imported: 2,
+      errors: [3, 4].map((row) => ({
+        row,
+        message: 'Only admins can add or change admin roster rows.',
+      })),
+    });
+    const roster = await (await api('/admin/roster', admin)).json<RosterRow[]>();
+    expect(roster.find((row) => row.email === 'allowed@example.com')).toMatchObject({
+      role: 'rower',
+    });
+    expect(roster.find((row) => row.email === 'allowedcox@example.com')).toMatchObject({
+      role: 'coxswain',
+    });
+    expect(roster.find((row) => row.email === 'admin@example.com')).toMatchObject({
+      name: 'Admin',
+      role: 'admin',
+      group_key: 'normal',
+    });
+    expect(roster.some((row) => row.email === 'newadmin@example.com')).toBe(false);
+    const logs = await (await api('/admin/audit', admin)).json<Page<AuditLog>>();
+    expect(logs.items.map((row) => row.target).sort()).toEqual([
+      'allowed@example.com',
+      'allowedcox@example.com',
+    ]);
+    const retry = await api('/admin/roster/import', admin, 'POST', { csv });
+    expect(await retry.json()).toEqual({ imported: 4, errors: [] });
+  });
   it('deactivates sessions, validates patches and returns self/admin fields without hashes', async () => {
     const admin = await user('Admin', 'admin');
     const rower = await user('Rower');
@@ -474,6 +512,65 @@ describe('users, roster and passwords', () => {
   });
 });
 describe('settings, presets, recalculation, export and audit', () => {
+  it('audits only privileged moderation, not a staff user’s ordinary activity', async () => {
+    const cox = await user('Cox', 'coxswain');
+    const rower = await user('Rower');
+    const other = await user('Other');
+    const own = await (await api('/entries', cox, 'POST', workout)).json<EntryDetail>();
+    const entry = await (await api('/entries', rower, 'POST', workout)).json<EntryDetail>();
+    expect((await api('/entries/' + entry.id + '/kudos', cox, 'POST')).status).toBe(204);
+    expect((await api('/me', cox, 'PATCH', { bio: 'Cox and athlete' })).status).toBe(200);
+    const ownComment = await (
+      await api('/entries/' + entry.id + '/comments', cox, 'POST', { body: 'Nice workout' })
+    ).json<{ id: string }>();
+    expect((await api('/comments/' + ownComment.id, cox, 'DELETE')).status).toBe(204);
+    expect((await api('/entries/' + own.id, cox, 'PATCH', { title: 'My training' })).status).toBe(
+      200,
+    );
+    expect((await api('/entries/' + own.id, cox, 'DELETE')).status).toBe(204);
+    expect((await (await api('/admin/audit', cox)).json<Page<AuditLog>>()).items).toEqual([]);
+    const comment = await (
+      await api('/entries/' + entry.id + '/comments', rower, 'POST', { body: 'Needs moderation' })
+    ).json<{ id: string; user_id: string; body: string }>();
+    expect((await api('/comments/' + comment.id, other, 'DELETE')).status).toBe(403);
+    expect((await api('/comments/' + comment.id, cox, 'DELETE')).status).toBe(204);
+    expect((await api('/comments/' + comment.id, cox, 'DELETE')).status).toBe(404);
+    const page = await (await api('/admin/audit', cox)).json<Page<AuditLog>>();
+    expect(page.items).toHaveLength(1);
+    expect(page.items[0]).toMatchObject({
+      actor_id: cox.user.id,
+      action: 'comment.delete',
+      target: comment.id,
+    });
+    expect(JSON.parse(page.items[0].detail_json)).toMatchObject({
+      before: { id: comment.id, user_id: rower.user.id, body: 'Needs moderation' },
+      after: null,
+    });
+    expect((await api('/auth/logout', cox, 'POST')).status).toBe(204);
+    await sql((storage) =>
+      expect(storage.sql.exec('SELECT * FROM audit_log').toArray()).toHaveLength(1),
+    );
+  });
+  it('explicitly audits staff edits and deletions of another user’s entries', async () => {
+    const cox = await user('Cox', 'coxswain');
+    const rower = await user('Rower');
+    const entry = await (await api('/entries', rower, 'POST', workout)).json<EntryDetail>();
+    expect(
+      (await api('/entries/' + entry.id, cox, 'PATCH', { title: 'Corrected workout' })).status,
+    ).toBe(200);
+    expect((await api('/entries/' + entry.id, cox, 'DELETE')).status).toBe(204);
+    const page = await (await api('/admin/audit', cox)).json<Page<AuditLog>>();
+    expect(page.items).toHaveLength(2);
+    expect(page.items.every((row) => row.actor_id === cox.user.id && row.target === entry.id)).toBe(
+      true,
+    );
+    expect(
+      JSON.parse(page.items.find((row) => row.action === 'entry.update')!.detail_json),
+    ).toMatchObject({ before: { title: 'Workout' }, after: { title: 'Corrected workout' } });
+    expect(
+      JSON.parse(page.items.find((row) => row.action === 'entry.delete')!.detail_json),
+    ).toMatchObject({ before: { title: 'Corrected workout' }, after: null });
+  });
   it('validates settings, preserves factor snapshots until recalculation and versions group defaults', async () => {
     const admin = await user('Admin', 'admin');
     const rower = await user('Rower');

@@ -211,6 +211,11 @@ export async function importRoster(ctx: Context) {
     } catch (error) {
       if (error instanceof HttpError && error.status === 400)
         errors.push({ row: row.row, message: error.message });
+      else if (error instanceof HttpError && error.status === 403)
+        errors.push({
+          row: row.row,
+          message: 'Only admins can add or change admin roster rows.',
+        });
       else throw error;
     }
   }

@@ -13,7 +13,6 @@ import * as team from './routes/team';
 import * as admin from './routes/admin';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
-import { audit } from './db/audit';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -126,20 +125,6 @@ export async function route(ctx: Context): Promise<Response> {
     if (ctx.user?.must_change_password && !allowed.includes(`${ctx.request.method} ${path}`))
       throw new HttpError(403, 'PASSWORD_CHANGE_REQUIRED', 'Please change your password.');
     response = await found.handler(ctx);
-    if (
-      response.ok &&
-      ctx.user &&
-      ctx.user.role !== 'rower' &&
-      ['POST', 'PUT', 'PATCH', 'DELETE'].includes(ctx.request.method) &&
-      !ctx.audited
-    )
-      audit(
-        ctx,
-        `${path.split('/')[2]}.${ctx.request.method.toLowerCase()}`,
-        ctx.params.id ?? path,
-        null,
-        { method: ctx.request.method, path },
-      );
   } catch (error) {
     response = errorResponse(error);
   }

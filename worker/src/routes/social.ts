@@ -3,6 +3,7 @@ import { requireUser } from '../auth/guards';
 import { visibleEntry } from '../db/entries';
 import * as db from '../db/social';
 import { byId, toPublicUser } from '../db/users';
+import { audit } from '../db/audit';
 import { HttpError, json, noContent, readJson } from '../http';
 import { string } from '../validate';
 export function kudos(ctx: Context) {
@@ -39,6 +40,9 @@ export function removeComment(ctx: Context) {
   visibleEntry(ctx.storage, comment.entry_id, user.id);
   if (comment.user_id !== user.id && user.role === 'rower')
     throw new HttpError(403, 'FORBIDDEN', 'Only the author or staff may delete this comment.');
-  db.deleteComment(ctx.storage, comment.id);
+  ctx.storage.transactionSync(() => {
+    db.deleteComment(ctx.storage, comment.id);
+    if (comment.user_id !== user.id) audit(ctx, 'comment.delete', comment.id, comment, null);
+  });
   return noContent();
 }

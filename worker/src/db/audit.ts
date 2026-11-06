@@ -18,7 +18,6 @@ export function audit(
     JSON.stringify({ before, after }),
     ctx.now.toISOString(),
   );
-  ctx.audited = true;
 }
 export function auditPage(ctx: Context): Page<AuditLog> {
   const cursor = new URL(ctx.request.url).searchParams.get('cursor');
