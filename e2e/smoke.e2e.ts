@@ -54,12 +54,12 @@ test('Secure session cookie authenticates an in-page localhost request', async (
     { body: signup.body, headers: csrfHeaders },
   );
   expect([200, 201]).toContain(status);
-  const cookie = (await page.context().cookies()).find((c) => c.name === 'oyo_session');
-  expect(cookie).toMatchObject({ secure: true, httpOnly: true });
   const me = await page.evaluate(async () => {
     const response = await fetch('/api/me');
     return { status: response.status, body: await response.json() };
   });
   expect(me.status).toBe(200);
   expect(me.body).toMatchObject({ email: signup.email, name: signup.name });
+  const cookie = (await page.context().cookies()).find((c) => c.name === 'oyo_session');
+  expect(cookie).toMatchObject({ secure: true, httpOnly: true });
 });

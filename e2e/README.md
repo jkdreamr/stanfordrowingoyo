@@ -35,6 +35,9 @@ The backend-dependent smoke test signs up through an in-page fetch, checks the
 Secure/HttpOnly cookie, then verifies in-page `/api/me` authentication in all
 three engines. It needs no implemented UI screen and skips only when backend
 bootstrap reports 501. Rower contexts preserve each project's device options.
+Current local WebKit rejects Secure cookies over HTTP localhost, unlike Chromium:
+the test exposes this as a 401 from `/api/me`. Do not weaken the cookie or skip
+the test to mask it; authenticated WebKit coverage needs a local HTTPS strategy.
 
 Reports are in ignored `playwright-report/`; failure screenshots and retry traces
 are in ignored `test-results/`. Vitest's defaults exclude `*.e2e.ts`.

@@ -57,7 +57,8 @@ Each managed server run wipes `.wrangler/e2e-state` for fresh DO state and serve
 the built app at http://localhost:8799. Reusing an existing server outside CI does
 not reset it. `E2E_BASE_URL` targets an already-running local server and skips
 server management. Use localhost for Secure cookies; the backend-dependent smoke
-test verifies in-page signup and `/api/me` cookie authentication in all projects.
+test checks in-page signup and `/api/me` cookie authentication in all projects.
+WebKit currently rejects Secure cookies over HTTP localhost; see `e2e/README.md`.
 
 Global setup signs up roster-seeded `joskoo@stanford.edu` without a team code,
 or logs in once if it exists. Set `E2E_ADMIN_PASSWORD` for existing state; the
