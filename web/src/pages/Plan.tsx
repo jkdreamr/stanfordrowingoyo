@@ -126,6 +126,7 @@ function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
   const plan = usePlan({ group });
   return (
     <div className="screen-stack">
+      <h2 className="text-title3">This Fortnight</h2>
       <SegmentedControl label="Group" value={group} onChange={setGroup} options={GROUPS} />
       {!plan.data ? (
         <LoadState error={plan.isError} retry={() => void plan.refetch()} />
@@ -134,14 +135,14 @@ function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
       ) : (
         scheduleWeeks(plan.data).map((week) => (
           <section key={week.week}>
-            <h2 className="text-title3">Week {week.week}</h2>
+            <h3 className="text-title3">Week {week.week}</h3>
             {week.total && (
               <p className="mt-1 text-subhead tabular-nums text-muted">{week.total}</p>
             )}
             <div className="mt-4 space-y-4 lg:hidden">
               {week.days.map((day) => (
                 <div key={day.name}>
-                  <h3 className="mb-2 text-headline">{day.name}</h3>
+                  <h4 className="mb-2 text-headline">{day.name}</h4>
                   {day.off ? (
                     <p className="text-subhead text-muted">Off</p>
                   ) : (
@@ -165,9 +166,9 @@ function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
             <div className="mt-4 hidden grid-cols-[48px_repeat(7,minmax(0,1fr))] gap-2 lg:grid">
               <div aria-hidden="true" />
               {week.days.map((day) => (
-                <h3 key={day.name} className="text-footnote font-semibold">
+                <h4 key={day.name} className="text-footnote font-semibold">
                   {day.name.slice(0, 3)}
-                </h3>
+                </h4>
               ))}
               {SLOTS.map((slot, row) => (
                 <Fragment key={slot}>
@@ -202,7 +203,7 @@ function Guidance({ config, group }: { config: Config; group: GroupKey }) {
   return (
     <div className="screen-stack">
       <section>
-        <h2 className="mb-4 text-title3">OYO Workouts Per Fortnight</h2>
+        <h2 className="mb-4 text-title3">OYO Workouts per Fortnight</h2>
         <div className="space-y-3">
           {rows.map(([session, splits, frequency, load]) => (
             <Card key={session}>
@@ -252,6 +253,7 @@ function WorkoutMenu({ config }: { config: Config }) {
     .sort((a, b) => a.sort - b.sort);
   return (
     <div className="screen-stack">
+      <h2 className="text-title3">Workout Menu</h2>
       <SegmentedControl label="Modality" value={mode} onChange={setMode} options={MODES} />
       {!presets.length ? (
         <NoItems title="No Workouts Yet" />
@@ -261,9 +263,9 @@ function WorkoutMenu({ config }: { config: Config }) {
           return (
             rows.length > 0 && (
               <section key={zone}>
-                <h2 className="mb-3">
+                <h3 className="mb-3">
                   <ZoneChip zone={zone} />
-                </h2>
+                </h3>
                 <Card>
                   <div className="divide-y divide-divider">
                     {rows.map((p) => (
@@ -272,7 +274,7 @@ function WorkoutMenu({ config }: { config: Config }) {
                         className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"
                       >
                         <div className="min-w-0">
-                          <h3 className="break-words text-subhead font-semibold">{p.name}</h3>
+                          <h4 className="break-words text-subhead font-semibold">{p.name}</h4>
                           <p className="mt-1 text-footnote tabular-nums text-muted">
                             {p.distance_m === null
                               ? 'Enter Meters ' + formulaFactor(mode, zone, config)
@@ -319,8 +321,9 @@ function Calculator({ config, user }: { config: Config; user: User }) {
   const valid = target.trim() !== '' && Number.isFinite(Number(target)) && Number(target) > 0;
   return (
     <div className="screen-stack">
+      <h2 className="text-title3">Pace &amp; Distance Calculator</h2>
       <section>
-        <h2 className="mb-4 text-title3">Pace</h2>
+        <h3 className="mb-4 text-title3">Pace</h3>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
             { label: 'Best 6k Split', value: six, set: setSix },
@@ -358,7 +361,7 @@ function Calculator({ config, user }: { config: Config; user: User }) {
         </Card>
       </section>
       <section>
-        <h2 className="mb-4 text-title3">Distance</h2>
+        <h3 className="mb-4 text-title3">Distance</h3>
         <NumberField
           label="Target E-km"
           value={target}

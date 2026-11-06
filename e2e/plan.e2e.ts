@@ -4,8 +4,12 @@ test('Plan shows the fortnight schedule and equivalent distance calculator', asy
   adminPage,
 }) => {
   await adminPage.goto('/plan');
+  await expect(adminPage.getByRole('heading', { level: 2, name: 'This Fortnight' })).toBeVisible();
   await expect(adminPage.getByRole('heading', { name: 'Week 1', exact: true })).toBeVisible();
   await adminPage.getByRole('tab', { name: 'Calculator', exact: true }).click();
+  await expect(
+    adminPage.getByRole('heading', { level: 2, name: 'Pace & Distance Calculator' }),
+  ).toBeVisible();
   await expect(adminPage.getByLabel('Target E-km')).toHaveValue('10');
   const row = adminPage
     .getByRole('row')

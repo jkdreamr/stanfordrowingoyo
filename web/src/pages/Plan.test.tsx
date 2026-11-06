@@ -44,18 +44,26 @@ function setup(path: string, fail = false) {
 it('opens a deep-linked calculator and replaces the tab query on selection', async () => {
   const router = setup('/plan?tab=calculator');
   await screen.findByLabelText('Best 6k Split');
+  expect(
+    screen.getByRole('heading', { level: 2, name: 'Pace & Distance Calculator' }),
+  ).toBeTruthy();
+  expect(screen.getByRole('heading', { level: 3, name: 'Pace' })).toBeTruthy();
+  expect(screen.getByRole('heading', { level: 3, name: 'Distance' })).toBeTruthy();
   expect(screen.getAllByRole('tab')).toHaveLength(4);
   fireEvent.change(screen.getByLabelText('Best 6k Split'), { target: { value: 'invalid' } });
   expect(screen.getByText('Enter a split like 1:45.0')).toBeTruthy();
   fireEvent.click(screen.getByRole('tab', { name: 'Guide' }));
-  await screen.findByText('OYO Workouts Per Fortnight');
+  await screen.findByRole('heading', { level: 2, name: 'OYO Workouts per Fortnight' });
+  expect(screen.getByRole('heading', { level: 2, name: 'Weekly Volume Targets' })).toBeTruthy();
   expect(router.state.location.search).toBe('?tab=guidance');
   expect(router.state.historyAction).toBe('REPLACE');
 });
 it('normalizes unknown tabs and loads the group schedule', async () => {
   const router = setup('/plan?tab=unknown');
   await screen.findByRole('radiogroup', { name: 'Group' });
-  await screen.findByRole('heading', { name: 'Week 1' });
+  await screen.findByRole('heading', { level: 3, name: 'Week 1' });
+  expect(screen.getByRole('heading', { level: 2, name: 'This Fortnight' })).toBeTruthy();
+  expect(screen.getByRole('heading', { level: 3, name: 'Week 2' })).toBeTruthy();
   expect(router.state.location.search).toBe('?tab=schedule');
   expect(screen.getByRole('radio', { name: 'Normal' }).getAttribute('aria-checked')).toBe('true');
   fireEvent.click(screen.getByRole('radio', { name: 'Frosh' }));
@@ -70,4 +78,9 @@ it('keeps a missing tab parameter absent', async () => {
   const router = setup('/plan');
   await screen.findByRole('heading', { name: 'Week 1' });
   expect(router.state.location.search).toBe('');
+});
+it('uses the full workout panel name with the short tab label', async () => {
+  setup('/plan?tab=menu');
+  await screen.findByRole('heading', { level: 2, name: 'Workout Menu' });
+  expect(screen.getByRole('tab', { name: 'Workouts' })).toBeTruthy();
 });
