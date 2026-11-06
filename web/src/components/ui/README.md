@@ -1,6 +1,6 @@
 # OYO UI Kit
 
-Pattern reference: [Design Guide](../../../../docs/DESIGN_GUIDE.md) (merges independently). Architecture §7, owner taste rules and roster signup contract take precedence. Keep the owner's iOS type scale and orange completed ring; retain all ten inline zone choices for one-handed logging. Route crossfades are intentionally omitted to avoid snapshots of private/form content. Skeletons stay static, as required by the owner.
+Pattern reference: [Design Guide](../../../../docs/DESIGN_GUIDE.md). Architecture §7, owner taste rules and roster signup contract take precedence. Keep the owner's iOS type scale and orange completed ring; retain all ten inline zone choices for one-handed logging. Route crossfades are intentionally omitted to avoid snapshots of private/form content. Skeletons stay static, as required by the owner.
 
 ## Semantic and Motion Tokens
 
