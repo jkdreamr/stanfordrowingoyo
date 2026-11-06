@@ -8,6 +8,7 @@
   --surface-2: #f1f1f6;
   --text-secondary: var(--muted);
   --accent-ink: #8c1515;
+  --danger: #d70015;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --duration-feedback: 150ms;
   --duration-enter: 250ms;
@@ -25,6 +26,7 @@
   --surface: #1c1c1f;
   --surface-2: #2a2a2e;
   --accent-ink: #f18b83;
+  --danger: #ff5c52;
   --text: #f2f2f5;
   --muted: #a3a3af;
   --divider: #2c2c31;
@@ -101,7 +103,7 @@ textarea:disabled,
   color: var(--accent-ink);
 }
 .ui-button-destructive {
-  color: var(--accent-ink);
+  color: var(--danger);
   background: var(--surface-2);
 }
 .ui-button-secondary:active,
