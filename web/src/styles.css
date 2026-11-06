@@ -67,6 +67,28 @@ body {
   line-height: 22px;
   font-variant-numeric: tabular-nums;
 }
+.ui-update-banner {
+  position: fixed;
+  z-index: 80;
+  left: 16px;
+  right: 16px;
+  bottom: calc(88px + env(safe-area-inset-bottom));
+  max-width: 480px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 15px;
+}
+@media (min-width: 1024px) {
+  .ui-update-banner {
+    bottom: 24px;
+  }
+}
 a {
   color: var(--accent-ink);
 }
@@ -595,6 +617,8 @@ textarea::placeholder {
   }
 }
 .brand-mark {
+  overflow: hidden;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -604,16 +628,6 @@ textarea::placeholder {
   background: var(--accent);
   border-radius: 12px;
   transform: rotate(0deg);
-}
-.brand-mark span {
-  width: 5px;
-  height: 25px;
-  border-radius: 3px;
-  background: white;
-  transform: rotate(30deg);
-}
-.brand-mark span:last-child {
-  height: 17px;
 }
 .auth-frame {
   width: min(100%, 440px);
