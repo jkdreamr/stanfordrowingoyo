@@ -1,0 +1,47 @@
+import { defineConfig, devices } from '@playwright/test';
+
+const baseURL = process.env.E2E_BASE_URL ?? 'http://localhost:8799';
+const target = new URL(baseURL);
+if (
+  !['http:', 'https:'].includes(target.protocol) ||
+  !['localhost', '127.0.0.1', '[::1]'].includes(target.hostname)
+) {
+  throw new Error('E2E_BASE_URL must target a local server');
+}
+if (
+  process.env.E2E_IPHONE_ENGINE &&
+  !['webkit', 'chromium'].includes(process.env.E2E_IPHONE_ENGINE)
+) {
+  throw new Error('E2E_IPHONE_ENGINE must be webkit or chromium');
+}
+export default defineConfig({
+  testDir: './e2e',
+  testMatch: '**/*.e2e.ts',
+  globalSetup: './e2e/global-setup.ts',
+  fullyParallel: true,
+  reporter: process.env.CI
+    ? [['list'], ['html', { open: 'never' }], ['github']]
+    : [['list'], ['html', { open: 'never' }]],
+  retries: process.env.CI ? 1 : 0,
+  use: { baseURL, trace: 'on-first-retry', screenshot: 'only-on-failure' },
+  projects: [
+    { name: 'desktop-chrome', use: { ...devices['Desktop Chrome'] } },
+    {
+      name: 'iphone-15',
+      use: {
+        ...devices['iPhone 15'],
+        browserName: process.env.E2E_IPHONE_ENGINE === 'chromium' ? 'chromium' : 'webkit',
+      },
+    },
+    { name: 'pixel-7', use: { ...devices['Pixel 7'] } },
+  ],
+  webServer: process.env.E2E_BASE_URL
+    ? undefined
+    : {
+        command:
+          'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --port 8799 --persist-to .wrangler/e2e-state',
+        url: `${baseURL}/api/health`,
+        reuseExistingServer: !process.env.CI,
+        timeout: 120_000,
+      },
+});
