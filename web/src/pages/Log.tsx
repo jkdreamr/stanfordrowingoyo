@@ -16,6 +16,8 @@ import { formatEMeters, formatKm, formatNumber, formatSplit } from '../lib/forma
 import { usePhotos } from '../lib/usePhotos';
 import { useUnsavedChanges } from '../lib/useUnsavedChanges';
 import { authError } from '../lib/auth';
+import { api } from '../lib/api';
+import { recordTargetFinish } from '../lib/targetFinish';
 import {
   Button,
   Card,
@@ -87,6 +89,7 @@ function LogForm({
       !!entry?.stroke_rate ||
       !!entry?.avg_hr,
   );
+  const [receipt, setReceipt] = useState(false);
   const [menu, setMenu] = useState(false);
   const [allZones, setAllZones] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -141,9 +144,13 @@ function LogForm({
     try {
       const ids = await photos.save();
       const body = { ...values.input, image_ids: ids };
+      const previous = await api('GET /api/stats/week', {}).catch(() => null);
       const saved = entry
         ? await update.mutateAsync({ params: { id: entry.id }, body })
         : await create.mutateAsync({ body });
+      const next = await api('GET /api/stats/week', {}).catch(() => null);
+      if (next && saved.week_start === config.current_week_start)
+        recordTargetFinish(previous, next, user.id, saved.week_start);
       allowNavigation();
       toast.show({
         title: 'Session saved',
@@ -188,7 +195,7 @@ function LogForm({
           />
           <section>
             <h2 className="mb-2 text-subhead">Zone</h2>
-            <div className="zone-grid">
+            <fieldset aria-label="Zone" className="zone-grid">
               {config.zones.map((zone) => (
                 <ZoneOption
                   key={zone}
@@ -197,10 +204,15 @@ function LogForm({
                   onClick={() => setDraft((current) => ({ ...current, zone, preset: null }))}
                 />
               ))}
-            </div>
+            </fieldset>
             {pace !== null && (
               <p className="mt-2 text-footnote text-muted tabular-nums">
                 Target {formatSplit(pace)} /500m
+              </p>
+            )}
+            {draft.modality === 'erg' && pace === null && (
+              <p className="mt-2 text-footnote text-muted">
+                Add your best split in Edit Profile for zone target paces
               </p>
             )}
           </section>
@@ -257,6 +269,14 @@ function LogForm({
               {formatNumber(config.mode_factors[draft.modality], 3)} {draft.modality} ×{' '}
               {formatNumber(config.zone_factors[draft.zone], 2)} {draft.zone}
             </p>
+            <Disclosure title="E-Meter Receipt" open={receipt} onChange={setReceipt}>
+              <p className="text-footnote text-muted">
+                Actual {formatKm(Math.max(0, distanceMeters(draft)))} × {draft.modality} factor{' '}
+                {formatNumber(config.mode_factors[draft.modality], 3)} × Zone {draft.zone} factor{' '}
+                {formatNumber(config.zone_factors[draft.zone], 2)} ={' '}
+                {formatEMeters(Math.max(0, values.equivalent || 0))}
+              </p>
+            </Disclosure>
           </Card>
           <Disclosure title="Add Details" open={details} onChange={setDetails}>
             <TextField

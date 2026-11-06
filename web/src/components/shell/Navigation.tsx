@@ -30,6 +30,7 @@ export function TabBar() {
         <span>
           <Plus size={24} strokeWidth={1.75} aria-hidden="true" />
         </span>
+        <span>Log</span>
       </Link>
       {main.slice(2).map((item) => (
         <Tab key={item.to} {...item} />

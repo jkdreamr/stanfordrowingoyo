@@ -26,14 +26,18 @@ export function ZoneOption({
   onClick: () => void;
 }) {
   return (
-    <button
-      type="button"
-      aria-label={`Zone ${zone}`}
-      aria-pressed={selected}
-      onClick={onClick}
-      className="ui-zone-option"
-    >
-      <ZoneChip zone={zone} selected={selected} />
-    </button>
+    <label className="ui-zone-option inline-flex cursor-pointer items-center justify-center">
+      <input
+        type="radio"
+        name="zone"
+        aria-label={`Zone ${zone}`}
+        checked={selected}
+        onChange={onClick}
+        className="peer sr-only"
+      />
+      <span className="peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-focus">
+        <ZoneChip zone={zone} selected={selected} />
+      </span>
+    </label>
   );
 }
