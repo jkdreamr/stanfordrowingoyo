@@ -3,13 +3,31 @@ import { Check } from 'lucide-react';
 import { addDays } from '../../../../shared/dates';
 import { useMyPlan } from '../../lib/queries';
 import { covers, planLogLink } from '../../lib/myPlan';
-import { Card, ListGroup, ListRow, ZoneChip } from '../ui';
+import { Button, Card, ListGroup, ListRow, ZoneChip } from '../ui';
 import { ModalityIcon } from '../shell/ModalityIcon';
 import { formatMeters } from '../../lib/format';
 
 export function TodaysPlan({ today }: { today: string }) {
-  const { data: plan } = useMyPlan();
-  if (!plan || !covers(plan, today)) return null;
+  const query = useMyPlan();
+  const plan = query.data;
+  if (!plan || !covers(plan, today))
+    return (
+      <Card>
+        <h2 className="mb-3 text-headline">Today's Plan</h2>
+        {query.isError && (
+          <div role="alert" className="mb-3">
+            <p className="text-subhead text-muted">Could Not Load Your Plan</p>
+            <Button variant="plain" onClick={() => void query.refetch()}>
+              Try Again
+            </Button>
+          </div>
+        )}
+        <ListGroup>
+          <ListRow title="Sample Fortnight" to="/plan" />
+          <ListRow title="My Fortnight" to="/plan?tab=mine" />
+        </ListGroup>
+      </Card>
+    );
   const offset = Math.round(
     (Date.parse(`${today}T12:00:00Z`) - Date.parse(`${plan.start_date}T12:00:00Z`)) / 86400000,
   );

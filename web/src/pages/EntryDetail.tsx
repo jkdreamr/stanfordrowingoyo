@@ -33,12 +33,12 @@ export default function EntryDetail() {
   const { id = '' } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const query = useEntry(id);
-  const comments = useComments(id);
+  const remove = useDeleteEntry();
+  const query = useEntry(id, !remove.isPending && !remove.isSuccess);
+  const comments = useComments(id, !remove.isPending && !remove.isSuccess);
   const { data: me } = useMe();
   const { data: config } = useConfig();
   const create = useCreateComment();
-  const remove = useDeleteEntry();
   const removeComment = useDeleteComment();
   const toast = useToast();
   const [body, setBody] = useState('');

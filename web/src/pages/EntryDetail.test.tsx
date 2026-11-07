@@ -1,10 +1,11 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { createQueryClient } from '../lib/queryClient';
 import { createMockApi } from '../mock/handlers';
+import { qk } from '../lib/queries';
 import { ToastProvider } from '../components/ui';
 import Home from './Home';
 import EntryDetail from './EntryDetail';
@@ -39,14 +40,30 @@ afterEach(() => {
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
 });
-function setup(scope: 'home' | 'other' | 'missing' = 'home') {
-  const mock = createMockApi({ now: () => new Date('2026-11-06T18:00:00Z') });
+function setup(
+  scope: 'home' | 'other' | 'missing' = 'home',
+  options: { staff?: boolean; failDelete?: boolean } = {},
+) {
+  const mock = createMockApi({
+    now: () => new Date('2026-11-06T18:00:00Z'),
+    session: options.staff ? 'user-39' : 'user-1',
+  });
   const entry = mock.state.entries.find((e) => e.user_id === 'user-1' && e.date >= '2026-11-02')!;
   entry.title = 'Evening Erg';
   const other = mock.state.entries.find((e) => e.user_id !== 'user-1' && e.visibility === 'team')!;
-  vi.stubGlobal('fetch', (url: URL, init: RequestInit) =>
-    mock.handle(new Request(String(url), init)),
-  );
+  const requests: { method: string; path: string; status: number }[] = [];
+  const fetcher = vi.fn(async (url: URL, init: RequestInit) => {
+    const response =
+      options.failDelete && init.method === 'DELETE'
+        ? new Response(
+            JSON.stringify({ error: { code: 'INTERNAL_ERROR', message: 'Unavailable' } }),
+            { status: 500 },
+          )
+        : await mock.handle(new Request(String(url), init));
+    requests.push({ method: init.method ?? 'GET', path: url.pathname, status: response.status });
+    return response;
+  });
+  vi.stubGlobal('fetch', fetcher);
   const client = createQueryClient();
   clients.push(client);
   const router = createMemoryRouter(
@@ -54,6 +71,7 @@ function setup(scope: 'home' | 'other' | 'missing' = 'home') {
       { path: '/', element: <Home /> },
       { path: '/entries/:id', element: <EntryDetail /> },
       { path: '/log', element: <Log /> },
+      { path: '/feed', element: <h1>Feed</h1> },
     ],
     {
       initialEntries: [
@@ -68,7 +86,7 @@ function setup(scope: 'home' | 'other' | 'missing' = 'home') {
       </ToastProvider>
     </QueryClientProvider>,
   );
-  return { entry, router, client, mock };
+  return { entry, router, client, mock, requests };
 }
 it('keeps Home rows linked to detail and reaches a prefilled own-session editor', async () => {
   const { entry, router } = setup();
@@ -123,4 +141,82 @@ it('opens the With sheet and inserts, posts and links selected mentions', async 
   expect(link.getAttribute('href')).toBe('/users/user-36');
   const posted = mock.state.comments.at(-1)!;
   expect(mock.state.mentions[posted.id]).toEqual(['user-36']);
+});
+
+for (const staff of [false, true]) {
+  it(`deletes a workout as ${staff ? 'staff' : 'owner'} without refetching removed detail or comments`, async () => {
+    const { entry, router, client, requests } = setup('home', { staff });
+    await router.navigate(`/entries/${entry.id}`);
+    await screen.findByText('Evening Erg');
+    await waitFor(() => expect(client.isFetching()).toBe(0));
+    const before = requests.filter(
+      (r) => r.method === 'GET' && r.path.startsWith(`/api/entries/${entry.id}`),
+    ).length;
+    const cancel = vi.spyOn(client, 'cancelQueries');
+    const remove = vi.spyOn(client, 'removeQueries');
+    const kudos = qk.request('GET /api/entries/:id/kudos', { params: { id: entry.id } });
+    client.setQueryData(kudos, []);
+    client.setQueryData(qk.entries(), { pages: [], pageParams: [] });
+    client.setQueryData(qk.audit(), { pages: [], pageParams: [] });
+    fireEvent.click(screen.getByRole('button', { name: 'More' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Delete Workout' }));
+    const confirm = await screen.findByRole('dialog', { name: 'Delete Workout' });
+    fireEvent.click(within(confirm).getByRole('button', { name: 'Delete' }));
+    await waitFor(() => expect(router.state.location.pathname).toBe('/feed'));
+    expect(requests.some((r) => r.method === 'DELETE' && r.status === 204)).toBe(true);
+    expect(requests.some((r) => r.status === 404)).toBe(false);
+    expect(
+      requests.filter((r) => r.method === 'GET' && r.path.startsWith(`/api/entries/${entry.id}`)),
+    ).toHaveLength(before);
+    for (const queryKey of [qk.entry(entry.id), qk.comments(entry.id), kudos]) {
+      expect(cancel).toHaveBeenCalledWith({ queryKey, exact: true });
+      expect(remove).toHaveBeenCalledWith({ queryKey, exact: true });
+      expect(client.getQueryData(queryKey)).toBeUndefined();
+    }
+    expect(client.getQueryState(qk.entries())?.isInvalidated).toBe(true);
+    expect(client.getQueryState(qk.audit())?.isInvalidated).toBe(true);
+  });
+}
+it('retains the workout and comments when deletion fails', async () => {
+  const { entry, router, client, requests } = setup('home', { failDelete: true });
+  await router.navigate(`/entries/${entry.id}`);
+  await screen.findByText('Evening Erg');
+  fireEvent.click(screen.getByRole('button', { name: 'More' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Delete Workout' }));
+  fireEvent.click(
+    within(await screen.findByRole('dialog', { name: 'Delete Workout' })).getByRole('button', {
+      name: 'Delete',
+    }),
+  );
+  await screen.findByText('Could not delete. Try again');
+  expect(router.state.location.pathname).toBe(`/entries/${entry.id}`);
+  expect(client.getQueryData(qk.entry(entry.id))).toBeTruthy();
+  expect(client.getQueryData(qk.comments(entry.id))).toBeDefined();
+  expect(requests.some((r) => r.status === 404)).toBe(false);
+});
+it('deletes a comment and refreshes the surviving workout discussion without 404s', async () => {
+  const { entry, router, mock, client, requests } = setup();
+  mock.state.comments = [
+    {
+      id: 'qa-comment',
+      entry_id: entry.id,
+      user_id: 'user-1',
+      body: 'Remove this comment',
+      created_at: '2026-11-06T18:00:00Z',
+    },
+  ];
+  await router.navigate(`/entries/${entry.id}`);
+  await screen.findByText('Remove this comment');
+  fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
+  fireEvent.click(
+    within(await screen.findByRole('dialog', { name: 'Delete Comment' })).getByRole('button', {
+      name: 'Delete',
+    }),
+  );
+  await screen.findByText('Comment deleted');
+  expect(screen.queryByText('Remove this comment')).toBeNull();
+  expect(client.getQueryData(qk.entry(entry.id))).toBeTruthy();
+  expect(client.getQueryData(qk.comments(entry.id))).toEqual([]);
+  expect(requests.some((r) => r.status === 404)).toBe(false);
+  expect(router.state.location.pathname).toBe(`/entries/${entry.id}`);
 });

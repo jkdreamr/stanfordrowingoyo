@@ -64,6 +64,7 @@ it('renders profile, statistics, filters, year query and entry links', async () 
   await waitFor(() => expect(within(entries).getAllByRole('link').length).toBeGreaterThan(0));
   expect(within(entries).getAllByRole('link')[0].getAttribute('href')).toMatch(/^\/entries\//);
   expect(screen.queryByRole('link', { name: 'Admin' })).toBeNull();
+  expect(screen.getByRole('link', { name: 'Plan' }).getAttribute('href')).toBe('/plan');
   fireEvent.click(screen.getByRole('button', { name: 'All' }));
   await waitFor(() =>
     expect(fetch.mock.calls.some(([url]) => String(url).includes('season=2024'))).toBe(true),

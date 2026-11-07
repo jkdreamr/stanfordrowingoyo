@@ -69,14 +69,14 @@ export function useEntries(scope: Query<'GET /api/entries'>['scope'] = 'feed') {
     getNextPageParam: (page) => page.next_cursor ?? undefined,
   });
 }
-export function useEntry(id: string) {
-  return queryHook('GET /api/entries/:id')({ params: { id } }, !!id);
+export function useEntry(id: string, enabled = true) {
+  return queryHook('GET /api/entries/:id')({ params: { id } }, enabled && !!id);
 }
 export function useKudosGivers(id: string, enabled: boolean) {
   return queryHook('GET /api/entries/:id/kudos')({ params: { id } }, enabled && !!id);
 }
-export function useComments(id: string) {
-  return queryHook('GET /api/entries/:id/comments')({ params: { id } }, !!id);
+export function useComments(id: string, enabled = true) {
+  return queryHook('GET /api/entries/:id/comments')({ params: { id } }, enabled && !!id);
 }
 export function useImage(id: string) {
   return queryHook('GET /api/images/:id')({ params: { id } }, !!id);
@@ -213,9 +213,10 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint === 'POST /api/me/password') return [qk.me()];
   if (endpoint === 'PUT /api/me/target')
     return [qk.target(), qk.root('stats'), qk.root('leaderboard'), qk.root('users')];
+  if (endpoint === 'DELETE /api/comments/:id') return [qk.root('entries'), qk.audit()];
   if (endpoint.includes('comments')) return [qk.root('entries')];
   if (endpoint.includes('/entries'))
-    return ['entries', 'stats', 'leaderboard', 'users', 'me'].map(qk.root);
+    return [...['entries', 'stats', 'leaderboard', 'users', 'me'].map(qk.root), qk.audit()];
   if (endpoint.includes('/announcements')) return [qk.root('announcements')];
   if (endpoint.includes('/notifications')) return [qk.root('notifications')];
   if (endpoint.includes('/admin/')) {
@@ -233,19 +234,37 @@ function mutationHook<K extends Write>(endpoint: K) {
     const client = useQueryClient();
     return useMutation({
       mutationFn: (options: RequestOptions<K>) => api(endpoint, options),
-      onSuccess: async (data) => {
+      onMutate: async (options) => {
+        if (endpoint === 'DELETE /api/entries/:id')
+          await Promise.all(
+            entryQueryKeys(options.params!.id).map((queryKey) =>
+              client.cancelQueries({ queryKey, exact: true }),
+            ),
+          );
+      },
+      onSuccess: async (data, options) => {
         if (endpoint === 'PATCH /api/me') client.setQueryData(qk.me(), data);
         if (endpoint === 'POST /api/auth/roster') return;
         if (endpoint.includes('/auth/')) {
           client.clear();
           return;
         }
+        if (endpoint === 'DELETE /api/entries/:id')
+          for (const queryKey of entryQueryKeys(options.params!.id))
+            client.removeQueries({ queryKey, exact: true });
         await Promise.all(
           invalidationKeys(endpoint).map((queryKey) => client.invalidateQueries({ queryKey })),
         );
       },
     });
   };
+}
+function entryQueryKeys(id: string) {
+  return [
+    qk.entry(id),
+    qk.comments(id),
+    qk.request('GET /api/entries/:id/kudos', { params: { id } }),
+  ];
 }
 export const useSignup = mutationHook('POST /api/auth/signup');
 export const useRosterOptions = mutationHook('POST /api/auth/roster');
