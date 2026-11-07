@@ -252,6 +252,11 @@ export interface MyPlanSessionInput {
 }
 export interface MyPlanSession extends MyPlanSessionInput {
   equiv_m: number | null;
+  /**
+   * Oldest qualifying unmatched same-date, same-modality entry ID, or null.
+   * Requires entry.equiv_m >= 80% of session.equiv_m unless session.equiv_m is null.
+   * Greedy AM/PM1/PM2 by created_at then id; one entry per session, never reused.
+   */
   completed_entry_id: string | null;
 }
 export interface MyPlan {
