@@ -169,6 +169,31 @@ export interface Plan {
   slots: PlanSlot[];
   totals: PlanTotal[];
 }
+export interface MyPlanSessionInput {
+  week: 1 | 2;
+  day: number; // 0=Mon..6
+  slot: 'AM' | 'PM1' | 'PM2';
+  modality: Modality;
+  zone: Zone;
+  distance_m: number | null; // 1..200000
+  note: string; // ≤200
+}
+export interface MyPlanSession extends MyPlanSessionInput {
+  equiv_m: number | null;
+  completed_entry_id: string | null;
+}
+export interface MyPlan {
+  start_date: string;
+  sessions: MyPlanSession[];
+  rest_days: { week: 1 | 2; day: number }[];
+  planned_m: [number, number];
+  updated_at: string;
+}
+export interface MyPlanInput {
+  start_date: string;
+  sessions: MyPlanSessionInput[];
+  rest_days: { week: 1 | 2; day: number }[];
+}
 export interface Notification {
   actor: PublicUser;
   entry_title: string | null;
@@ -341,6 +366,9 @@ export interface Api {
   'GET /api/notifications': Endpoint<void, Notification[]>;
   'POST /api/notifications/read': Endpoint<{ ids: string[] }, void>;
   'GET /api/plan': Endpoint<void, Plan, { group?: GroupKey }>;
+  'GET /api/me/plan': Endpoint<void, MyPlan | null, { date?: string }>;
+  'PUT /api/me/plan': Endpoint<MyPlanInput, MyPlan>;
+  'DELETE /api/me/plan/:start': Endpoint<void, void>;
   'GET /api/admin/users': Endpoint<void, User[]>;
   'PATCH /api/admin/users/:id': Endpoint<AdminUserPatch, User>;
   'POST /api/admin/users/:id/reset-password': Endpoint<void, { temporary_password: string }>;
