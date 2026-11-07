@@ -176,6 +176,7 @@ export function SeasonChartView({
       </div>
       <div
         role="img"
+        data-no-tab-swipe
         aria-label={summary}
         tabIndex={0}
         className="relative mt-4 h-[200px] w-full"
