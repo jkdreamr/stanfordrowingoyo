@@ -47,8 +47,9 @@ roster signup, password reauthentication and forced password replacement.
 Legacy name-based signup is deliberately not exercised because it conflicts
 with the owner flow. Bootstrap still skips backend fixtures on a 501 auth response
 when testing an older scaffold.
-Secure/HttpOnly cookie smoke is skipped in mock mode. Unbuilt Admin, Feed/social
-and Leaderboard screens retain their explicit screen fixmes. Unique rowers
+Secure/HttpOnly cookie smoke is skipped in mock mode. Leaderboard, Me and Plan
+scenarios are enabled. Unbuilt Admin and Feed/social screens retain their explicit
+screen fixmes. Unique rowers
 isolate real-backend tests across projects. CI runs the five gates, not E2E.
 
 Use HTTPS for the Secure `oyo_session` cookie in all engines.
