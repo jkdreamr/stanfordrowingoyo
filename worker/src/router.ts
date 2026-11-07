@@ -15,6 +15,8 @@ import * as admin from './routes/admin';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
 import * as reports from './routes/reports';
+import * as tests from './routes/tests';
+import * as challenges from './routes/challenges';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -27,6 +29,17 @@ function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'GET', path: '/api/users/:id/tests', handler: tests.list },
+  { method: 'POST', path: '/api/me/tests', handler: tests.create },
+  { method: 'PATCH', path: '/api/me/tests/:id', handler: tests.patch },
+  { method: 'DELETE', path: '/api/me/tests/:id', handler: tests.remove },
+  { method: 'GET', path: '/api/stats/recap', handler: stats.recap },
+  { method: 'GET', path: '/api/challenges', handler: challenges.list },
+  { method: 'GET', path: '/api/admin/challenges', handler: challenges.adminList },
+  { method: 'POST', path: '/api/admin/challenges', handler: challenges.create },
+  { method: 'PATCH', path: '/api/admin/challenges/:id', handler: challenges.patch },
+  { method: 'POST', path: '/api/admin/challenges/:id/end', handler: challenges.end },
+  { method: 'DELETE', path: '/api/admin/challenges/:id', handler: challenges.remove },
   { method: 'POST', path: '/internal/images', handler: images.create, deferredAuth: true },
   {
     method: 'POST',

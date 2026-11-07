@@ -39,15 +39,15 @@ export function notifications(storage: DurableObjectStorage, user: string): Noti
   const entryIds = [...new Set(rows.flatMap((row) => (row.entry_id ? [row.entry_id] : [])))];
   const actors = storage.sql
     .exec<UserRow>(
-      `SELECT * FROM users WHERE id IN (${actorIds.map(() => '?').join(',')})`,
-      ...actorIds,
+      'SELECT * FROM users WHERE id IN (SELECT value FROM json_each(?))',
+      JSON.stringify(actorIds),
     )
     .toArray();
   const entries = entryIds.length
     ? storage.sql
         .exec<{ id: string; title: string }>(
-          `SELECT id,title FROM entries WHERE id IN (${entryIds.map(() => '?').join(',')})`,
-          ...entryIds,
+          'SELECT id,title FROM entries WHERE id IN (SELECT value FROM json_each(?))',
+          JSON.stringify(entryIds),
         )
         .toArray()
     : [];
@@ -71,9 +71,9 @@ export function markRead(
     );
   else
     storage.sql.exec(
-      `UPDATE notifications SET read_at = ? WHERE user_id = ? AND read_at IS NULL AND id IN (${ids.map(() => '?').join(',')})`,
+      'UPDATE notifications SET read_at = ? WHERE user_id = ? AND read_at IS NULL AND id IN (SELECT value FROM json_each(?))',
       timestamp,
       user,
-      ...ids,
+      JSON.stringify(ids),
     );
 }

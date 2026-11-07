@@ -22,6 +22,7 @@ const links = [
   ['Plan Editor', '/admin/plan', CalendarDays],
   ['Announcements', '/admin/announcements', Megaphone],
   ['Reports', '/admin/reports', Flag],
+  ['Challenges', '/admin/challenges', Flag],
   ['Export', '/admin/export', Download],
   ['Audit Log', '/admin/audit', History],
 ] as const;

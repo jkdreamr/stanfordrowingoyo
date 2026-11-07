@@ -147,25 +147,31 @@ function Podium({
   rowRef: (node: HTMLAnchorElement | null) => void;
 }) {
   return (
-    <ol className="grid grid-cols-3 gap-2" aria-label="Top Three">
-      {rows.map((row) => {
+    <ol className="grid grid-cols-3 items-end gap-2" aria-label="Top Three">
+      {rows.map((row, index) => {
         const me = row.user.id === meId;
         const figures = rowFigures(row, metric);
         return (
-          <li key={row.user.id} value={row.rank} className="min-w-0">
+          <li
+            key={row.user.id}
+            value={row.rank}
+            className="row-start-1 min-w-0"
+            style={{ gridColumn: [2, 1, 3][index] }}
+          >
             <Link
               ref={me ? rowRef : undefined}
               to={profilePath(row, meId)}
               aria-label={rowLabel(row, metric, me)}
+              data-medal={(['gold', 'silver', 'bronze'] as const)[row.rank - 1]}
+              style={{ minHeight: 256 - Math.min(2, row.rank - 1) * 28 }}
               className={cn(
-                'flex h-full min-w-0 flex-col items-center justify-start gap-1 rounded-xl border border-divider p-3 text-center text-inherit transition-colors duration-fast ease-out active:bg-divider motion-reduce:transition-none',
+                'podium-card flex h-full min-w-0 flex-col items-center justify-start gap-1 rounded-xl border border-divider p-3 text-center text-inherit transition-colors duration-fast ease-out active:bg-divider motion-reduce:transition-none',
                 !me && '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-hover',
-                row.rank === 1 && 'border-t-2 border-t-accent',
-                me ? 'is-me [background:var(--oyo-selected)]' : 'bg-surface',
+                me && 'is-me',
               )}
             >
               <span
-                className="text-footnote font-semibold tabular-nums text-muted"
+                className="podium-rank text-footnote font-semibold tabular-nums"
                 aria-hidden="true"
               >
                 {formatNumber(row.rank)}
@@ -285,7 +291,7 @@ function Board({ config }: { config: Config }) {
   };
 
   const rows = query.data;
-  const podium = rows && rows.length >= 3 ? rows.slice(0, 3) : [];
+  const podium = rows ? rows.slice(0, 3) : [];
   const rest = rows ? rows.slice(podium.length) : [];
   const mine = rows?.find((r) => r.user.id === me?.id);
   const isCurrent = week === currentWeek;
@@ -364,7 +370,7 @@ function Board({ config }: { config: Config }) {
           )}
         </section>
       )}
-      {mine && (
+      {mine && rest.some((row) => row.user.id === mine.user.id) && (
         <div
           ref={setPin}
           className={cn(

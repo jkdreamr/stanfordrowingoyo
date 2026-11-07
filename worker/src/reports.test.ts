@@ -591,6 +591,12 @@ describe('schema v13', () => {
     const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
     await runInDurableObject(stub, (_, state) => {
       expect(getSetting(state.storage, 'schema_version')).toBe(13);
+      for (const table of ['erg_tests', 'challenges', 'content_reports', 'comment_mention_history'])
+        expect(
+          state.storage.sql
+            .exec('SELECT name FROM sqlite_master WHERE type=? AND name=?', 'table', table)
+            .toArray(),
+        ).toHaveLength(1);
       migrate(state.storage);
       migrate(state.storage);
       expect(

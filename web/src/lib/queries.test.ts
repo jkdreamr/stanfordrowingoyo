@@ -13,10 +13,18 @@ describe('query keys', () => {
       'users',
       'me',
       'notifications',
+      'challenges',
     ])
       expect(invalidationKeys('PATCH /api/admin/reports/:id')).toContainEqual(qk.root(resource));
   });
   it('keeps resource prefixes and parameters consistent', () => {
+    for (const endpoint of [
+      'POST /api/me/tests',
+      'PATCH /api/me/tests/:id',
+      'DELETE /api/me/tests/:id',
+    ] as const)
+      for (const resource of ['users', 'me'])
+        expect(invalidationKeys(endpoint)).toContainEqual(qk.root(resource));
     expect(qk.me()).toEqual(qk.request('GET /api/me', {}));
     expect(qk.myPlan()).toEqual(qk.request('GET /api/me/plan', { query: {} }));
     expect(qk.myPlan('2026-11-09')).toEqual(

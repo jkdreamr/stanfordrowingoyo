@@ -19,37 +19,36 @@ export function details(
   viewer: string,
 ): EntryDetail[] {
   if (!rows.length) return [];
-  const ids = rows.map((row) => row.id);
-  const placeholders = ids.map(() => '?').join(',');
+  const ids = JSON.stringify(rows.map((row) => row.id));
   const authors = storage.sql
     .exec<UserRow>(
-      `SELECT * FROM users WHERE id IN (SELECT user_id FROM entries WHERE id IN (${placeholders}))`,
-      ...ids,
+      'SELECT * FROM users WHERE id IN (SELECT user_id FROM entries WHERE id IN (SELECT value FROM json_each(?)))',
+      ids,
     )
     .toArray();
   const images = storage.sql
     .exec<Row<ImageMetadata> & { entry_id: string }>(
-      `SELECT i.id,i.owner_id,i.mime,i.width,i.height,i.created_at,ei.entry_id FROM images i JOIN entry_images ei ON ei.image_id = i.id WHERE ei.entry_id IN (${placeholders}) ORDER BY ei.position`,
-      ...ids,
+      'SELECT i.id,i.owner_id,i.mime,i.width,i.height,i.created_at,ei.entry_id FROM images i JOIN entry_images ei ON ei.image_id = i.id WHERE ei.entry_id IN (SELECT value FROM json_each(?)) ORDER BY ei.position',
+      ids,
     )
     .toArray();
   const kudos = storage.sql
     .exec<{ entry_id: string; count: number; mine: number }>(
-      `SELECT entry_id,COUNT(*) AS count,MAX(CASE WHEN user_id = ? THEN 1 ELSE 0 END) AS mine FROM kudos WHERE entry_id IN (${placeholders}) GROUP BY entry_id`,
+      'SELECT entry_id,COUNT(*) AS count,MAX(CASE WHEN user_id = ? THEN 1 ELSE 0 END) AS mine FROM kudos WHERE entry_id IN (SELECT value FROM json_each(?)) GROUP BY entry_id',
       viewer,
-      ...ids,
+      ids,
     )
     .toArray();
   const comments = storage.sql
     .exec<{ entry_id: string; count: number }>(
-      `SELECT entry_id,COUNT(*) AS count FROM comments WHERE entry_id IN (${placeholders}) GROUP BY entry_id`,
-      ...ids,
+      'SELECT entry_id,COUNT(*) AS count FROM comments WHERE entry_id IN (SELECT value FROM json_each(?)) GROUP BY entry_id',
+      ids,
     )
     .toArray();
   const tags = storage.sql
     .exec<UserRow & { entry_id: string }>(
-      `SELECT u.*,t.entry_id FROM entry_tags t JOIN users u ON u.id=t.user_id WHERE u.active=1 AND t.entry_id IN (${placeholders}) ORDER BY t.created_at,u.name,u.id`,
-      ...ids,
+      'SELECT u.*,t.entry_id FROM entry_tags t JOIN users u ON u.id=t.user_id WHERE u.active=1 AND t.entry_id IN (SELECT value FROM json_each(?)) ORDER BY t.created_at,u.name,u.id',
+      ids,
     )
     .toArray();
   return rows.map((row) => ({

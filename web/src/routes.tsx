@@ -11,6 +11,7 @@ import AppShell from './components/AppShell';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
+import Recap from './pages/Recap';
 import Log from './pages/Log';
 import Feed from './pages/Feed';
 import EntryDetail from './pages/EntryDetail';
@@ -34,6 +35,7 @@ import Announcements from './pages/admin/Announcements';
 import Export from './pages/admin/Export';
 import AuditLog from './pages/admin/AuditLog';
 import Reports from './pages/admin/Reports';
+import Challenges from './pages/admin/Challenges';
 export const router = createBrowserRouter([
   {
     errorElement: <AppErrorScreen />,
@@ -67,6 +69,7 @@ export const router = createBrowserRouter([
             element: <AppShell />,
             children: [
               { path: '/', element: <Home /> },
+              { path: '/recap', element: <Recap /> },
               { path: '/log', element: <Log /> },
               { path: '/feed', element: <Feed /> },
               { path: '/entries/:id', element: <EntryDetail /> },
@@ -93,6 +96,7 @@ export const router = createBrowserRouter([
                   { path: '/admin/export', element: <Export /> },
                   { path: '/admin/audit', element: <AuditLog /> },
                   { path: '/admin/reports', element: <Reports /> },
+                  { path: '/admin/challenges', element: <Challenges /> },
                 ],
               },
               {

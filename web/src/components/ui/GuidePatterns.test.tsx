@@ -4,9 +4,24 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { Sheet } from './Sheet';
 import { StrictMode } from 'react';
 import { ZoneOption } from './ZoneChip';
+import { Select } from './Select';
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
+});
+it('keeps styled selects native and labelled', () => {
+  const change = vi.fn();
+  render(
+    <Select label="Modality" defaultValue="all" onChange={change}>
+      <option value="all">All</option>
+      <option value="erg">Erg</option>
+    </Select>,
+  );
+  const select = screen.getByRole('combobox', { name: 'Modality' }) as HTMLSelectElement;
+  expect(select.classList.contains('appearance-none')).toBe(true);
+  fireEvent.change(select, { target: { value: 'erg' } });
+  expect(select.value).toBe('erg');
+  expect(change).toHaveBeenCalledOnce();
 });
 it('offers native exclusive zone radios with visible badges', () => {
   const change = vi.fn();

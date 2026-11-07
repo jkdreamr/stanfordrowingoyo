@@ -21,6 +21,7 @@ import { LoadState } from '../components/shell/LoadState';
 import { useConfig, useEntries, useMe, useSeasonStats, useTarget } from '../lib/queries';
 import { formatEntryDate, formatKm, formatMeters } from '../lib/format';
 import { MeStats } from './MeStats';
+import { ErgTests } from '../components/ErgTests';
 
 const groups = { frosh: 'Frosh', normal: 'Normal Non-Frosh', u23: 'U23 / Senior Hopefuls' };
 const modes = [
@@ -117,6 +118,7 @@ export default function Me() {
             </Button>
           </div>
         </section>
+        <ErgTests user={user} today={today} own />
         <SeasonChart />
         <section aria-label="Training Statistics">
           <Tabs
