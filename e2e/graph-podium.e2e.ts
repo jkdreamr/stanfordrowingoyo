@@ -168,13 +168,54 @@ test('Olympic podium positions, heights, profile links and fourth place persist 
     await expect(spots.nth(0)).toHaveAttribute('href', '/users/first');
     await expect(page.locator('ol[start="4"]')).toContainText('Alex Chen');
   }
-  if (process.env.GRAPH_SHOTS) {
-    await page.getByRole('list', { name: 'Top Three' }).scrollIntoViewIfNeeded();
-    for (const theme of ['light', 'dark']) {
-      await page.evaluate(
-        (theme) => document.documentElement.classList.toggle('dark', theme === 'dark'),
-        theme,
-      );
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.getByRole('list', { name: 'Top Three' }).scrollIntoViewIfNeeded();
+  for (const theme of ['light', 'dark']) {
+    await page.evaluate(
+      (theme) => document.documentElement.classList.toggle('dark', theme === 'dark'),
+      theme,
+    );
+    const colors = await page
+      .getByRole('list', { name: 'Top Three' })
+      .getByRole('link')
+      .evaluateAll((cards) => {
+        const luminance = (color: string) =>
+          color
+            .match(/[\d.]+/g)!
+            .slice(0, 3)
+            .map(Number)
+            .map((v) => v / 255)
+            .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+            .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+        const contrast = (ink: string, fill: string) => {
+          const a = luminance(ink),
+            b = luminance(fill);
+          return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+        };
+        return cards.map((card) => {
+          const style = getComputedStyle(card);
+          const badge = getComputedStyle(card.querySelector('.podium-rank')!);
+          const you = Array.from(card.querySelectorAll('span')).find(
+            (span) => span.textContent === 'You',
+          );
+          return {
+            medal: card.getAttribute('data-medal'),
+            background: style.backgroundColor,
+            ratios: [
+              contrast(style.color, style.backgroundColor),
+              contrast(badge.color, badge.backgroundColor),
+              ...(you ? [contrast(getComputedStyle(you).color, style.backgroundColor)] : []),
+            ],
+          };
+        });
+      });
+    expect(colors.map((card) => card.medal)).toEqual(['gold', 'silver', 'bronze']);
+    expect(colors.flatMap((card) => card.ratios).every((ratio) => ratio >= 4.5)).toBe(true);
+    expect(new Set(colors.map((card) => card.background)).size).toBe(3);
+    console.log(
+      `${testInfo.project.name} ${theme} minimum podium text contrast=${Math.min(...colors.flatMap((card) => card.ratios)).toFixed(2)}:1`,
+    );
+    if (process.env.GRAPH_SHOTS) {
       await page.screenshot({
         path: `${process.env.GRAPH_SHOTS}/podium-${testInfo.project.name}-${theme}.png`,
         animations: 'disabled',

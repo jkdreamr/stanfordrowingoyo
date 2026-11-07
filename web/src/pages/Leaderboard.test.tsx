@@ -93,8 +93,7 @@ it('shows a 1-2-3 podium, a list from rank 4 and highlights my row', async () =>
     'Rank 1',
     'Rank 3',
   ]);
-  expect(cards[0].className).toContain('border-t-accent');
-  expect(cards[2].className).not.toContain('border-t-accent');
+  expect(cards.map((card) => card.getAttribute('data-medal'))).toEqual(['gold', 'gold', 'bronze']);
   expect(cards.map((c) => c.parentElement!.style.gridColumn)).toEqual(['2', '1', '3']);
   expect(cards[0].style.minHeight).toBe(cards[1].style.minHeight);
   expect(parseInt(cards[0].style.minHeight)).toBeGreaterThan(parseInt(cards[2].style.minHeight));

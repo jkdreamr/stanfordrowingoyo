@@ -162,16 +162,16 @@ function Podium({
               ref={me ? rowRef : undefined}
               to={profilePath(row, meId)}
               aria-label={rowLabel(row, metric, me)}
+              data-medal={(['gold', 'silver', 'bronze'] as const)[row.rank - 1]}
               style={{ minHeight: 256 - Math.min(2, row.rank - 1) * 28 }}
               className={cn(
-                'flex h-full min-w-0 flex-col items-center justify-start gap-1 rounded-xl border border-divider p-3 text-center text-inherit transition-colors duration-fast ease-out active:bg-divider motion-reduce:transition-none',
+                'podium-card flex h-full min-w-0 flex-col items-center justify-start gap-1 rounded-xl border border-divider p-3 text-center text-inherit transition-colors duration-fast ease-out active:bg-divider motion-reduce:transition-none',
                 !me && '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-hover',
-                row.rank === 1 && 'border-t-2 border-t-accent',
-                me ? 'is-me [background:var(--oyo-selected)]' : 'bg-surface',
+                me && 'is-me',
               )}
             >
               <span
-                className="text-footnote font-semibold tabular-nums text-muted"
+                className="podium-rank text-footnote font-semibold tabular-nums"
                 aria-hidden="true"
               >
                 {formatNumber(row.rank)}
