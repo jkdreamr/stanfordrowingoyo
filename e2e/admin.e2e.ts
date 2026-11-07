@@ -168,3 +168,34 @@ test('admin deletes a rower post from the feed', async ({ adminPage, makeRower }
     await expect(feedCard(rower.page, title)).toHaveCount(0);
   }).toPass();
 });
+
+test('staff moderates another rower comment without deleting the workout', async ({
+  adminPage,
+  makeRower,
+}) => {
+  const author = await makeRower();
+  const commenter = await makeRower();
+  const title = `Moderate ${author.user.id}`;
+  const entry = await seedEntry(author, title);
+  const body = `Comment to moderate ${commenter.user.id}`;
+  await commenter.page.goto(`/entries/${entry.id}`);
+  await commenter.page.getByRole('textbox', { name: 'Comment', exact: true }).fill(body);
+  await commenter.page.getByRole('button', { name: 'Post Comment', exact: true }).click();
+  await expect(commenter.page.getByText(body, { exact: true })).toBeVisible();
+
+  await adminPage.goto(`/entries/${entry.id}`);
+  const comment = adminPage.getByRole('listitem').filter({ hasText: body });
+  await comment.getByRole('button', { name: 'Delete', exact: true }).click();
+  const confirmation = adminPage.getByRole('dialog', { name: 'Delete Comment', exact: true });
+  await confirmation.getByRole('button', { name: 'Cancel', exact: true }).click();
+  await expect(comment).toBeVisible();
+  await comment.getByRole('button', { name: 'Delete', exact: true }).click();
+  await confirmation.getByRole('button', { name: 'Delete', exact: true }).click();
+  await expect(confirmation).not.toBeVisible();
+  await expect(comment).toHaveCount(0);
+  await commenter.page.reload();
+  await expect(commenter.page.getByText(body, { exact: true })).toHaveCount(0);
+  await expect(commenter.page.getByRole('heading', { name: title, exact: true })).toBeVisible();
+  await author.page.goto('/feed');
+  await expect(feedCard(author.page, title)).toBeVisible();
+});
