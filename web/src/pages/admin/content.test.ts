@@ -159,6 +159,8 @@ describe('human audit records', () => {
     'entry.update',
     'entry.delete',
     'comment.delete',
+    'report.dismiss',
+    'report.delete',
   ])('maps the worker action %s to explicit wording even without details', (action) => {
     const result = auditEntry({ action, target: 'record', detail_json: '{}' }, new Map());
     expect(result.sentence).not.toMatch(/^changed /);

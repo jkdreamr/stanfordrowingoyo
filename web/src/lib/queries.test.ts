@@ -2,6 +2,21 @@ import { describe, expect, it } from 'vitest';
 import { qk, optimisticKudos, invalidationKeys } from './queries';
 import { createQueryClient } from './queryClient';
 describe('query keys', () => {
+  it('refreshes comment and moderation surfaces after report decisions', () => {
+    expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('entries'));
+    expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('admin'));
+    for (const resource of [
+      'admin',
+      'entries',
+      'stats',
+      'leaderboard',
+      'users',
+      'me',
+      'notifications',
+      'challenges',
+    ])
+      expect(invalidationKeys('PATCH /api/admin/reports/:id')).toContainEqual(qk.root(resource));
+  });
   it('keeps resource prefixes and parameters consistent', () => {
     for (const endpoint of [
       'POST /api/me/tests',

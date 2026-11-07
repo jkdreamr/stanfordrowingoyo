@@ -21,6 +21,20 @@ CI, without resetting their state. `E2E_BASE_URL=https://localhost:8799` skips
 server management entirely; only local servers are allowed. Use a disposable
 database: tests create users, workouts and social data, and change a user role.
 
+For the full browser matrix, run each project with fresh managed state:
+
+```sh
+npm run e2e -- --project=desktop-chrome
+npm run e2e -- --project=iphone-15
+npm run e2e -- --project=pixel-7
+```
+
+Do not keep an existing server running between these commands. The combined
+matrix shares one database and localhost auth bucket; its synthetic signups can
+exceed the production signup rate limit, and accumulated leaderboard entries can
+hide lower-ranked test rowers. Per-project state keeps coverage isolated without
+changing production rate limits.
+
 Global setup signs up the roster-seeded admin without a join code, logging in
 only if signup reports 409. Set `E2E_ADMIN_PASSWORD` for an existing database;
 the default is `e2e-dev-admin-password-1`. Admin auth runs once for all projects,
@@ -54,6 +68,9 @@ when testing an older scaffold.
 Secure/HttpOnly cookie smoke is skipped in mock mode. Leaderboard, Me and Plan
 scenarios are enabled, as are Feed, discussion, kudos-givers,
 notifications, public profiles, team search and staff post deletion.
+Comment edits cover author-only access, persisted edited state and new-mention
+notifications. Reports cover rower privacy, optional reasons, deduplication,
+staff notifications, dismissal, audited deletion and deleted-report history.
 Admin and Roster scenarios are enabled, including staff post deletion through More
 and comment moderation through the confirmation sheet. Unique rowers
 isolate real-backend tests across projects. CI runs the five gates, not E2E.

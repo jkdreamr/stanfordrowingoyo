@@ -220,8 +220,13 @@ images(id PK, owner_id, mime, width, height, bytes BLOB, created_at)   -- <= 1.5
 entry_images(entry_id, image_id, position, PK(entry_id, position))     -- up to 4 per entry
 entry_tags(entry_id TEXT NOT NULL, user_id TEXT NOT NULL, created_at TEXT NOT NULL, PK(entry_id,user_id)) -- index (user_id)
 kudos(entry_id, user_id, created_at, PK(entry_id, user_id))
-comments(id PK, entry_id, user_id, body (<=1000), created_at)
+comments(id PK, entry_id, user_id, body (<=1000), created_at, edited_at TEXT NULL)
 comment_mentions(comment_id TEXT NOT NULL, entry_id TEXT NOT NULL, user_id TEXT NOT NULL, PK(comment_id,user_id)) -- index (entry_id)
+comment_mention_history(comment_id, entry_id, user_id, PK(comment_id,user_id)) -- index (entry_id)
+content_reports(id PK, target_type ('entry'|'comment'), target_id, entry_id, reporter_id, reason (<=300),
+                status ('open'|'dismissed'|'deleted'), created_at, reviewed_at NULL, reviewed_by NULL)
+                -- unique (reporter_id,target_type,target_id); no cascading foreign keys
+                -- indexes (status,created_at DESC,id DESC), (target_type,target_id,status), (entry_id,status)
 announcements(id PK, author_id, title, body, pinned INT, created_at)
 presets(id PK, modality, zone, name, distance_m INT NULL, sort INT, active INT)   -- NULL distance = user enters meters
 plan_slots(group_key, week INT (1|2), day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
@@ -230,7 +235,7 @@ plan_totals(group_key, week, label)     -- e.g. "60k Equivalent"
 my_plans(user_id, start_date, rest_days_json, updated_at, PK(user_id, start_date))
 my_plan_sessions(user_id, start_date, week, day, slot, modality, zone, distance_m NULL, note,
                  PK(user_id, start_date, week, day, slot))
-notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'), actor_id, entry_id NULL, created_at, read_at NULL)
+notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'|'report'), actor_id, entry_id NULL, created_at, read_at NULL)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
@@ -254,6 +259,9 @@ Version 6 converts every legacy private entry to `team` without modifying workou
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
 Version 8 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
 with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key indexes owner/date windows.
+Version 13 adds nullable comment `edited_at`, per-comment mention notification history (backfilled from current
+mentions), and durable content reports with queue/target/parent indexes. This is one transactional, idempotent
+`version < 13` migration; gaps 10–12 are intentional. Reports survive content deletion without a cascade.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -307,6 +315,14 @@ set only when supplied. Entry itself omits this input-only field; EntryDetail ad
 `tagged: PublicUser[]`, active users ordered by tag time then name.
 Comment POST accepts `{ body: string; mention_ids?: string[] }`; CommentWithAuthor adds
 `mentions: PublicUser[]` (active users). Existing clients may omit either input field.
+`PATCH /api/comments/:id` accepts the same body and returns CommentWithAuthor. Only the comment author can
+edit, including when the requester is staff; author/staff deletion remains unchanged. Body is trimmed and
+must contain 1–1000 characters. `edited_at?: string | null` is always returned at runtime, null initially;
+only a changed trimmed body sets it, and a no-op preserves it. UI shows “edited” for non-null timestamps.
+An omitted `mention_ids` reparses current active mentions against the new body; a supplied array replaces
+the candidate set using the existing validation below. Removed names lose mention metadata. Only newly
+mentioned recipients are notified, with durable per-comment history suppressing remove/readd spam.
+Editing never sends another ordinary comment notification to the entry owner.
 
 Both recipient fields must be arrays of strings, deduplicated with self silently dropped
 (entry owner for tags, commenter for mentions). At most ten unique remaining IDs are
@@ -343,6 +359,7 @@ Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visib
 `POST /api/entries`, `GET/PATCH/DELETE /api/entries/:id` (owner or staff), `POST/DELETE /api/entries/:id/kudos`,
 `GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
 `DELETE /api/comments/:id` (author or staff).
+`PATCH /api/comments/:id` is author-only (including staff); details are above.
 `GET /api/entries/:id/kudos` returns `PublicUser[]` newest kudos first, ties by user id ascending.
 It uses one LEFT JOIN query for entry existence and kudos→users (no N+1); no email/credentials are exposed.
 Authentication is required (401); missing entries return 404. Every workout is team-visible.
@@ -373,6 +390,32 @@ first group-history version uses its earliest version; an empty/missing history 
 Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned announcements include `author: PublicUser`.
 Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
 `actor: PublicUser` and `entry_title: string | null`.
+Reports: authenticated team members may `POST /api/reports` with
+`ReportInput = { target_type: 'entry' | 'comment'; target_id: string; reason?: string }`.
+The optional reason is trimmed, defaults to empty, and is limited to 300 characters. The target must exist
+for a new report (404 otherwise). One report per reporter/item is enforced permanently: new returns
+201 `{ id }`; a duplicate returns 200 with the original id, even after target removal or review, without
+replacing the reason or sending notifications. No report read endpoint is available to rowers.
+Active staff receive kind `report`, actor=reporter, entry_id=the parent entry, linked by UI to `/admin/reports`.
+No new notification columns are needed. Reads filter report notifications using the recipient's current
+active/staff status before applying the 100-notification limit, so demoted staff cannot see reporter identity.
+Report notifications survive entry deletion; their entry_title then becomes null.
+Staff-only `GET /api/admin/reports?status=open|dismissed|deleted&cursor=` defaults to open and returns
+`Page<ContentReport>` with 50 items, newest first by created_at then id descending; invalid status/cursor is 400.
+`ContentReport` includes id, target_type, target_id, entry_id, reporter: PublicUser, reason, status, created_at,
+reviewed_at: string|null, reviewed_by: string|null, and live
+`content: { author: PublicUser; body: string; title: string|null } | null`. Entry content uses notes/title;
+comment content uses body/null title. Removed content hydrates as null, with no retained content snapshot.
+Only staff see reporters/reasons; PublicUser never includes email or credentials.
+Staff-only `PATCH /api/admin/reports/:id` takes `{ action: 'dismiss' | 'delete' }` and returns ContentReport.
+Review records reviewed_at/by. An already reviewed report returns 409 for a different action; repeating the
+same action is an idempotent 200 without additional audits. Delete succeeds even if content is already absent.
+Deletion uses the existing entry/comment helpers, closes all other open reports on that target (and open
+comment reports on a deleted entry) as deleted, and preserves reviewed reports. Direct author/staff content
+deletion also closes open reports, recording the deleter and timestamp. All removal, report state changes,
+image/join cleanup, and audit writes share one synchronous transaction. Explicit review audits `report.dismiss`
+or `report.delete`, plus `entry.delete`/`comment.delete` when content is removed; auto-closed sibling reports
+do not each generate a separate audit. Existing team-visible entries and owner-only My Fortnight are unchanged.
 Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), reset password, roster CRUD + bulk import
 (CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),

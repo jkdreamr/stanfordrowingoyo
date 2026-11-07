@@ -29,7 +29,7 @@ export function notify(
 export function notifications(storage: DurableObjectStorage, user: string): Notification[] {
   const rows = storage.sql
     .exec<Row<Omit<Notification, 'actor' | 'entry_title'>>>(
-      'SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC,id DESC LIMIT ?',
+      "SELECT * FROM notifications WHERE user_id = ? AND (kind != 'report' OR EXISTS (SELECT 1 FROM users WHERE id=notifications.user_id AND active=1 AND role IN ('coxswain','coach','admin'))) ORDER BY created_at DESC,id DESC LIMIT ?",
       user,
       100,
     )

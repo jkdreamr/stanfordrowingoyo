@@ -3,6 +3,7 @@ import type {
   TeamChallenge,
   AnnouncementInput,
   AuditLog,
+  ContentReport,
   Entry,
   EntryDetail,
   EntryInput,
@@ -213,6 +214,8 @@ export function createMockApi({
   let plan: Plan = { slots: structuredClone(PLAN_SLOTS), totals: structuredClone(PLAN_TOTALS) };
   const roster: RosterRow[] = state.roster;
   const audit: AuditLog[] = [];
+  const reports: ContentReport[] = [];
+  const mentionHistory = new Map<string, Set<string>>();
   const groupHistory = [{ week: '0000-01-01', targets: { ...settings.group_targets } }];
   const uploads = new Map<string, { blob: Blob; owner: string }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
@@ -291,6 +294,34 @@ export function createMockApi({
   }
   function own(userId: string) {
     if (userId !== me().id && !staff()) fail(403, 'Only the owner or staff can change this');
+  }
+  function reportContent(report: ContentReport): ContentReport {
+    const comment =
+      report.target_type === 'comment'
+        ? state.comments.find((c) => c.id === report.target_id)
+        : undefined;
+    const entry = state.entries.find((e) => e.id === report.entry_id);
+    return {
+      ...report,
+      content:
+        entry && (report.target_type === 'entry' || comment)
+          ? {
+              author: publicUser(userById(comment?.user_id ?? entry.user_id)),
+              body: comment?.body ?? entry.notes,
+              title: report.target_type === 'entry' ? entry.title : null,
+            }
+          : null,
+    };
+  }
+  function closeReports(targetType: 'entry' | 'comment', targetId: string) {
+    for (const report of reports)
+      if (
+        report.status === 'open' &&
+        (targetType === 'entry'
+          ? report.entry_id === targetId
+          : report.target_type === 'comment' && report.target_id === targetId)
+      )
+        Object.assign(report, { status: 'deleted', reviewed_at: stamp(), reviewed_by: me().id });
   }
   function totals(entries: Entry[]): Totals {
     const result: Totals = {
@@ -628,7 +659,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 10 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 13 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -1164,6 +1195,7 @@ export function createMockApi({
             const supplied = recipientIds(body.mention_ids, user.id);
             const ids = mentionIds(comment.body, supplied.map(userById));
             state.mentions[comment.id] = ids;
+            mentionHistory.set(comment.id, new Set(ids));
             state.comments.push(comment);
             for (const id of ids) notify(id, 'mention', entry);
             if (!ids.includes(entry.user_id)) notify(entry.user_id, 'comment', entry);
@@ -1177,6 +1209,7 @@ export function createMockApi({
           if (method === 'GET') return json(detail(entry));
           own(entry.user_id);
           if (method === 'DELETE') {
+            closeReports('entry', entry.id);
             state.entries.splice(state.entries.indexOf(entry), 1);
             state.comments = state.comments.filter((c) => c.entry_id !== entry.id);
             delete state.imageLinks[entry.id];
@@ -1236,10 +1269,109 @@ export function createMockApi({
           }
         }
       }
+      if (parts[2] === 'comments' && method === 'PATCH') {
+        const comment =
+          state.comments.find((c) => c.id === resourceId) || fail(404, 'Comment not found');
+        if (comment.user_id !== user.id) fail(403, 'Only the author may edit this comment');
+        text(body.body, 'Comment');
+        const supplied = recipientIds(
+          body.mention_ids ?? state.mentions[comment.id] ?? [],
+          user.id,
+        );
+        const ids = mentionIds(String(body.body), supplied.map(userById));
+        const history = mentionHistory.get(comment.id) ?? new Set(state.mentions[comment.id] ?? []);
+        if (comment.body !== String(body.body).trim()) comment.edited_at = stamp();
+        comment.body = String(body.body).trim();
+        state.mentions[comment.id] = ids;
+        for (const id of ids) {
+          if (!history.has(id)) notify(id, 'mention', entryById(comment.entry_id));
+          history.add(id);
+        }
+        mentionHistory.set(comment.id, history);
+        return json({
+          ...comment,
+          mentions: ids.map(userById).map(publicUser),
+          author: publicUser(user),
+        });
+      }
+      if (path === '/api/reports' && method === 'POST') {
+        if (
+          !['entry', 'comment'].includes(String(body.target_type)) ||
+          typeof body.target_id !== 'string'
+        )
+          fail(400, 'Invalid report target');
+        if (
+          body.reason !== undefined &&
+          (typeof body.reason !== 'string' || body.reason.trim().length > 300)
+        )
+          fail(400, 'Reason must be at most 300 characters');
+        const previous = reports.find(
+          (r) =>
+            r.reporter.id === user.id &&
+            r.target_type === body.target_type &&
+            r.target_id === body.target_id,
+        );
+        if (previous) return json({ id: previous.id });
+        const comment =
+          body.target_type === 'comment'
+            ? state.comments.find((c) => c.id === body.target_id) || fail(404, 'Comment not found')
+            : undefined;
+        const entry = entryById(comment?.entry_id ?? String(body.target_id));
+        const report: ContentReport = {
+          id: id('report'),
+          target_type: body.target_type as 'entry' | 'comment',
+          target_id: String(body.target_id),
+          entry_id: entry.id,
+          reporter: publicUser(user),
+          reason: String(body.reason ?? '').trim(),
+          status: 'open',
+          created_at: stamp(),
+          reviewed_at: null,
+          reviewed_by: null,
+          content: null,
+        };
+        reports.unshift(report);
+        for (const member of state.users)
+          if (member.active && member.role !== 'rower') notify(member.id, 'report', entry);
+        return json({ id: report.id }, 201);
+      }
+      if (path === '/api/admin/reports' && method === 'GET') {
+        const status = url.searchParams.get('status') ?? 'open';
+        if (!['open', 'dismissed', 'deleted'].includes(status)) fail(400, 'Invalid report status');
+        return json(
+          paginate(
+            reports.filter((r) => r.status === status).map(reportContent),
+            url.searchParams.get('cursor'),
+          ),
+        );
+      }
+      if (parts[2] === 'admin' && parts[3] === 'reports' && method === 'PATCH') {
+        const report = reports.find((r) => r.id === parts[4]) || fail(404, 'Report not found');
+        if (!['dismiss', 'delete'].includes(String(body.action))) fail(400, 'Invalid action');
+        if (report.status !== 'open') fail(409, 'Report already reviewed');
+        const before = { ...report };
+        if (body.action === 'delete') {
+          const content = reportContent(report).content;
+          if (report.target_type === 'entry') {
+            state.entries = state.entries.filter((e) => e.id !== report.target_id);
+            state.comments = state.comments.filter((c) => c.entry_id !== report.entry_id);
+          } else state.comments = state.comments.filter((c) => c.id !== report.target_id);
+          if (content) recordAudit(`${report.target_type}.delete`, report.target_id, content, null);
+          closeReports(report.target_type, report.target_id);
+        } else
+          Object.assign(report, {
+            status: 'dismissed',
+            reviewed_at: stamp(),
+            reviewed_by: user.id,
+          });
+        recordAudit(`report.${body.action}`, report.id, before, report);
+        return json(reportContent(report));
+      }
       if (parts[2] === 'comments' && method === 'DELETE') {
         const comment =
           state.comments.find((c) => c.id === resourceId) || fail(404, 'Comment not found');
         own(comment.user_id);
+        closeReports('comment', comment.id);
         state.comments.splice(state.comments.indexOf(comment), 1);
         delete state.mentions[comment.id];
         return empty();
@@ -1363,7 +1495,7 @@ export function createMockApi({
       if (path === '/api/notifications' && method === 'GET')
         return json(
           state.notifications
-            .filter((n) => n.user_id === user.id)
+            .filter((n) => n.user_id === user.id && (n.kind !== 'report' || staff()))
             .sort((a, b) => b.created_at.localeCompare(a.created_at)),
         );
       if (path === '/api/notifications/read' && method === 'POST') {

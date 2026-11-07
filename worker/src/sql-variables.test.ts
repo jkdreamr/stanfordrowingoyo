@@ -10,6 +10,7 @@ import type {
   Announcement,
   Notification,
   WeekStats,
+  ContentReport,
 } from '../../shared/types';
 import type { Env } from './index';
 import { sha256 } from './auth/crypto';
@@ -51,6 +52,8 @@ beforeEach(async () => {
       'sessions',
       'entry_tags',
       'comment_mentions',
+      'comment_mention_history',
+      'content_reports',
       'entry_images',
       'comments',
       'kudos',
@@ -91,7 +94,7 @@ beforeEach(async () => {
         NOW,
       );
       s.sql.exec(
-        'INSERT INTO comments VALUES (?,?,?,?,?)',
+        'INSERT INTO comments (id,entry_id,user_id,body,created_at) VALUES (?,?,?,?,?)',
         `c${i}`,
         'e0',
         user,
@@ -220,6 +223,29 @@ it('hydrates more than 100 workouts in one user weekly stats response', async ()
   expect(stats.total_m).toBe(150000);
   await ok('/stats/season?user=u1');
   await ok('/users/u1');
+});
+
+it('hydrates a full staff report page with 150 distinct reporters and content authors', async () => {
+  await sql((s) => {
+    for (let i = 0; i < 50; i++) {
+      s.sql.exec('UPDATE comments SET entry_id=? WHERE id=?', `e${i}`, `c${50 + i}`);
+      s.sql.exec(
+        "INSERT INTO content_reports VALUES (?,'comment',?,?,?,'','open',?,NULL,NULL)",
+        `report${i}`,
+        `c${50 + i}`,
+        `e${i}`,
+        `u${100 + i}`,
+        NOW,
+      );
+    }
+  });
+  const page = await (await ok('/admin/reports')).json<{ items: ContentReport[] }>();
+  expect(page.items).toHaveLength(50);
+  for (let i = 0; i < 50; i++)
+    expect(page.items.find((row) => row.id === `report${i}`)).toMatchObject({
+      reporter: { id: `u${100 + i}` },
+      content: { author: { id: `u${50 + i}` }, body: 'Training @Rower 1' },
+    });
 });
 
 it('handles empty and untrusted list IDs and preserves referenced images when deleting 150 candidates', async () => {
