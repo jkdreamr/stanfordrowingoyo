@@ -388,6 +388,45 @@ END;`);
         '9',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 13)
+    storage.transactionSync(() => {
+      if (
+        !sql
+          .exec<{ name: string }>('PRAGMA table_info(comments)')
+          .toArray()
+          .some((column) => column.name === 'edited_at')
+      )
+        sql.exec('ALTER TABLE comments ADD COLUMN edited_at TEXT NULL');
+      sql.exec(`CREATE TABLE IF NOT EXISTS comment_mention_history (
+  comment_id TEXT NOT NULL,
+  entry_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  PRIMARY KEY(comment_id,user_id)
+);
+CREATE INDEX IF NOT EXISTS comment_mention_history_entry ON comment_mention_history(entry_id);
+INSERT OR IGNORE INTO comment_mention_history SELECT comment_id,entry_id,user_id FROM comment_mentions;
+CREATE TABLE IF NOT EXISTS content_reports (
+  id TEXT PRIMARY KEY,
+  target_type TEXT NOT NULL CHECK(target_type IN ('entry','comment')),
+  target_id TEXT NOT NULL,
+  entry_id TEXT NOT NULL,
+  reporter_id TEXT NOT NULL,
+  reason TEXT NOT NULL CHECK(length(reason)<=300),
+  status TEXT NOT NULL CHECK(status IN ('open','dismissed','deleted')),
+  created_at TEXT NOT NULL,
+  reviewed_at TEXT NULL,
+  reviewed_by TEXT NULL,
+  UNIQUE(reporter_id,target_type,target_id)
+);
+CREATE INDEX IF NOT EXISTS content_reports_queue ON content_reports(status,created_at DESC,id DESC);
+CREATE INDEX IF NOT EXISTS content_reports_target ON content_reports(target_type,target_id,status);
+CREATE INDEX IF NOT EXISTS content_reports_entry ON content_reports(entry_id,status);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '13',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)
