@@ -30,7 +30,7 @@ afterEach(() => {
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
 });
-async function setup({ fail = false, empty = false } = {}) {
+async function setup({ fail = false, empty = false, failReview = false } = {}) {
   const mock = createMockApi();
   const call = (path: string, body: unknown) =>
     mock.handle(
@@ -55,7 +55,7 @@ async function setup({ fail = false, empty = false } = {}) {
   vi.stubGlobal(
     'fetch',
     vi.fn(async (url: URL, init: RequestInit) =>
-      fail
+      fail || (failReview && init.method === 'PATCH')
         ? new Response(JSON.stringify({ error: { code: 'ERROR', message: 'Unavailable' } }), {
             status: 500,
           })
@@ -104,4 +104,14 @@ it('shows an empty queue and retryable loading errors', async () => {
   cleanup();
   await setup({ fail: true });
   await waitFor(() => expect(screen.getByRole('button', { name: 'Try Again' })).toBeTruthy());
+});
+
+it('keeps the report actionable after a failed decision', async () => {
+  await setup({ failReview: true });
+  fireEvent.click(await screen.findByRole('button', { name: 'Dismiss' }));
+  expect((await screen.findByRole('alert')).textContent).toBe('Report not updated. Try again');
+  expect(screen.getByText('Reported Erg')).toBeTruthy();
+  expect((screen.getByRole('button', { name: 'Dismiss' }) as HTMLButtonElement).disabled).toBe(
+    false,
+  );
 });
