@@ -4,6 +4,7 @@ import { createQueryClient } from './queryClient';
 describe('query keys', () => {
   it('refreshes comment and moderation surfaces after report decisions', () => {
     expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('entries'));
+    expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('admin'));
     for (const resource of [
       'admin',
       'entries',

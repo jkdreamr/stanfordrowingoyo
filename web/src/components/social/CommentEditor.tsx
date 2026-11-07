@@ -45,6 +45,7 @@ export function CommentEditor({
     >
       <MentionComposer
         id={`edit-${comment.id}`}
+        autoFocus
         body={body}
         onChange={setBody}
         selected={selected}

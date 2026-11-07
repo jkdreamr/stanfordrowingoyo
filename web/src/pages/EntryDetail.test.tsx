@@ -42,7 +42,7 @@ afterEach(() => {
 });
 function setup(
   scope: 'home' | 'other' | 'missing' = 'home',
-  options: { staff?: boolean; failDelete?: boolean } = {},
+  options: { staff?: boolean; failDelete?: boolean; failWrite?: boolean } = {},
 ) {
   const mock = createMockApi({
     now: () => new Date('2026-11-06T18:00:00Z'),
@@ -54,7 +54,8 @@ function setup(
   const requests: { method: string; path: string; status: number }[] = [];
   const fetcher = vi.fn(async (url: URL, init: RequestInit) => {
     const response =
-      options.failDelete && init.method === 'DELETE'
+      (options.failDelete && init.method === 'DELETE') ||
+      (options.failWrite && ['PATCH', 'POST'].includes(init.method ?? 'GET'))
         ? new Response(
             JSON.stringify({ error: { code: 'INTERNAL_ERROR', message: 'Unavailable' } }),
             { status: 500 },
@@ -195,6 +196,44 @@ it('reports another workout with an optional reason', async () => {
   expect(mock.state.notifications.some((n) => n.kind === 'report' && n.actor_id === 'user-1')).toBe(
     true,
   );
+});
+
+it('keeps an unsaved edit after failure and prevents empty saves', async () => {
+  const { mock, router, entry } = setup('home', { failWrite: true });
+  mock.state.comments.push({
+    id: 'own-comment',
+    user_id: 'user-1',
+    entry_id: entry.id,
+    body: 'Original comment',
+    created_at: '2026-11-06T17:00:00Z',
+  });
+  await router.navigate(`/entries/${entry.id}`);
+  const own = (await screen.findByText('Original comment')).closest('li')!;
+  fireEvent.click(within(own).getByRole('button', { name: 'Edit' }));
+  const editor = screen.getByRole('form', { name: 'Edit Comment' });
+  const input = within(editor).getByRole('combobox');
+  fireEvent.change(input, { target: { value: '   ' } });
+  expect((within(editor).getByRole('button', { name: 'Save' }) as HTMLButtonElement).disabled).toBe(
+    true,
+  );
+  fireEvent.change(input, { target: { value: 'Keep my draft' } });
+  fireEvent.click(within(editor).getByRole('button', { name: 'Save' }));
+  await screen.findByText('Comment not saved. Try again');
+  expect((input as HTMLTextAreaElement).value).toBe('Keep my draft');
+  expect(mock.state.comments.find((c) => c.id === 'own-comment')!.body).toBe('Original comment');
+});
+
+it('keeps the reason available to retry a failed report', async () => {
+  setup('other', { failWrite: true });
+  fireEvent.click(await screen.findByRole('button', { name: 'More' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Report Workout' }));
+  const sheet = screen.getByRole('dialog', { name: 'Report Workout' });
+  const input = within(sheet).getByLabelText('Reason (Optional)') as HTMLTextAreaElement;
+  expect(input.maxLength).toBe(300);
+  fireEvent.change(input, { target: { value: 'Please review' } });
+  fireEvent.click(within(sheet).getByRole('button', { name: 'Send Report' }));
+  await screen.findByText('Report not sent. Try again');
+  expect(input.value).toBe('Please review');
 });
 
 for (const staff of [false, true]) {
