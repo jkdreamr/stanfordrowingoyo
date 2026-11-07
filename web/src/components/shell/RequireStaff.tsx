@@ -14,7 +14,7 @@ export function RequireStaff() {
       <EmptyState
         icon={<Shield size={20} strokeWidth={1.75} />}
         title="Staff Only"
-        body="You're not authorized to view this page. Ask a coxswain if you need access."
+        body="Ask a coxswain for access."
         action={<Button to="/">Back To Home</Button>}
       />
     </>

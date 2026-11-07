@@ -28,7 +28,7 @@ export default function AuditLog() {
                 </Button>
               </p>
             )}
-            <ListGroup footer="Newest activity first. Join codes and passwords are never shown here.">
+            <ListGroup>
               {rows.map((row) => {
                 const summary = auditEntry(row, names);
                 const actor = users.data?.find((user) => user.id === row.actor_id);
@@ -85,11 +85,7 @@ export default function AuditLog() {
             )}
           </>
         ) : (
-          <EmptyState
-            icon={<History size={20} />}
-            title="No Activity Yet"
-            body="Staff changes to team settings, accounts and content will appear here."
-          />
+          <EmptyState icon={<History size={20} />} title="No Activity Yet" />
         )}
       </div>
     </>

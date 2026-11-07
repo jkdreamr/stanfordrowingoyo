@@ -133,7 +133,9 @@ export function useAudit() {
 export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint.includes('/auth/')) return [qk.all];
   if (endpoint === 'PATCH /api/me')
-    return ['me', 'users', 'config', 'stats', 'leaderboard'].map(qk.root);
+    return ['me', 'users', 'config', 'stats', 'leaderboard', 'entries', 'notifications'].map(
+      qk.root,
+    );
   if (endpoint === 'POST /api/me/password') return [qk.me()];
   if (endpoint === 'PUT /api/me/target')
     return [qk.target(), qk.root('stats'), qk.root('leaderboard'), qk.root('users')];
@@ -157,7 +159,8 @@ function mutationHook<K extends Write>(endpoint: K) {
     const client = useQueryClient();
     return useMutation({
       mutationFn: (options: RequestOptions<K>) => api(endpoint, options),
-      onSuccess: async () => {
+      onSuccess: async (data) => {
+        if (endpoint === 'PATCH /api/me') client.setQueryData(qk.me(), data);
         if (endpoint === 'POST /api/auth/roster') return;
         if (endpoint.includes('/auth/')) {
           client.clear();

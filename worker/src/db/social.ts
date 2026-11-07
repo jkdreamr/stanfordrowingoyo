@@ -54,12 +54,29 @@ export function comments(storage: DurableObjectStorage, entry: string): CommentW
   const authors = storage.sql
     .exec<UserRow>(`SELECT * FROM users WHERE id IN (${ids.map(() => '?').join(',')})`, ...ids)
     .toArray();
+  const mentions = storage.sql
+    .exec<UserRow & { comment_id: string }>(
+      `SELECT u.*,m.comment_id FROM comment_mentions m JOIN users u ON u.id=m.user_id WHERE u.active=1 AND m.comment_id IN (${rows.map(() => '?').join(',')}) ORDER BY u.name,u.id`,
+      ...rows.map((row) => row.id),
+    )
+    .toArray();
   return rows.map((row) => ({
+    mentions: mentions
+      .filter((mention) => mention.comment_id === row.id)
+      .map(({ comment_id: _comment, ...user }) => {
+        void _comment;
+        return toPublicUser(user);
+      }),
     ...row,
     author: toPublicUser(authors.find((author) => author.id === row.user_id)!),
   }));
 }
-export function addComment(storage: DurableObjectStorage, comment: Comment, owner: string) {
+export function addComment(
+  storage: DurableObjectStorage,
+  comment: Comment,
+  owner: string,
+  mentionIds: string[] = [],
+) {
   storage.transactionSync(() => {
     storage.sql.exec(
       'INSERT INTO comments VALUES (?,?,?,?,?)',
@@ -69,12 +86,25 @@ export function addComment(storage: DurableObjectStorage, comment: Comment, owne
       comment.body,
       comment.created_at,
     );
-    notify(storage, owner, comment.user_id, 'comment', comment.entry_id, comment.created_at);
+    for (const id of mentionIds) {
+      storage.sql.exec(
+        'INSERT INTO comment_mentions VALUES (?,?,?)',
+        comment.id,
+        comment.entry_id,
+        id,
+      );
+      notify(storage, id, comment.user_id, 'mention', comment.entry_id, comment.created_at);
+    }
+    if (!mentionIds.includes(owner))
+      notify(storage, owner, comment.user_id, 'comment', comment.entry_id, comment.created_at);
   });
 }
 export function findComment(storage: DurableObjectStorage, id: string) {
   return storage.sql.exec<Row<Comment>>('SELECT * FROM comments WHERE id = ?', id).toArray()[0];
 }
 export function deleteComment(storage: DurableObjectStorage, id: string) {
-  storage.sql.exec('DELETE FROM comments WHERE id = ?', id);
+  storage.transactionSync(() => {
+    storage.sql.exec('DELETE FROM comment_mentions WHERE comment_id = ?', id);
+    storage.sql.exec('DELETE FROM comments WHERE id = ?', id);
+  });
 }

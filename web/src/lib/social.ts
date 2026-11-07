@@ -6,6 +6,62 @@ import type {
   PublicUser,
 } from '../../../shared/types';
 
+export function withTeammates(users: Pick<PublicUser, 'name'>[]): string {
+  if (!users.length) return '';
+  if (users.length === 1) return `with ${users[0].name}`;
+  if (users.length === 2) return `with ${users[0].name} and ${users[1].name}`;
+  return `with ${users[0].name} and ${users.length - 1} others`;
+}
+
+export function mentionSegments(
+  body: string,
+  users: Pick<PublicUser, 'id' | 'name'>[],
+): { text: string; userId?: string }[] {
+  const names = [...users].sort((a, b) => b.name.length - a.name.length);
+  if (!names.length) return [{ text: body }];
+  const escaped = names.map((u) => u.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const pattern = new RegExp(`@(${escaped.join('|')})(?=$|\\s|\\p{P})`, 'giu');
+  const result: { text: string; userId?: string }[] = [];
+  let start = 0;
+  for (const match of body.matchAll(pattern)) {
+    const index = match.index;
+    if (index > start) result.push({ text: body.slice(start, index) });
+    result.push({
+      text: match[0],
+      userId: names.find((u) => u.name.toLocaleLowerCase() === match[1].toLocaleLowerCase())!.id,
+    });
+    start = index + match[0].length;
+  }
+  if (start < body.length || !result.length) result.push({ text: body.slice(start) });
+  return result;
+}
+
+export function mentionIds(body: string, users: Pick<PublicUser, 'id' | 'name'>[]): string[] {
+  return [...new Set(mentionSegments(body, users).flatMap((s) => (s.userId ? [s.userId] : [])))];
+}
+
+export function mentionQuery(body: string, caret: number) {
+  const match = /(?:^|\s)@([^@\n]*)$/.exec(body.slice(0, caret));
+  return match ? { query: match[1], start: caret - match[1].length - 1, end: caret } : null;
+}
+
+export function notificationVerb(kind: Notification['kind']): string {
+  switch (kind) {
+    case 'kudos':
+      return 'gave kudos to';
+    case 'comment':
+      return 'commented on';
+    case 'announcement':
+      return 'posted an announcement';
+    case 'tag':
+      return 'tagged you in';
+    case 'mention':
+      return 'mentioned you in';
+    default:
+      return 'shared';
+  }
+}
+
 export function publicSubtitle(
   user: Pick<PublicUser, 'role' | 'side' | 'class_year' | 'group_key'>,
 ): string {

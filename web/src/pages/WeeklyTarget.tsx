@@ -76,7 +76,7 @@ function TargetForm({
       >
         <Card>
           <p className="text-subhead text-muted">
-            Current Effective Target · {source === 'group' ? 'Group Default' : 'Personal Target'}
+            {source === 'group' ? 'Group Default' : 'Personal Target'}
           </p>
           <p className="mt-3 text-title1 tabular-nums">{formatEMeters(current)}</p>
           <p className="mt-3 text-footnote text-muted">
@@ -108,7 +108,7 @@ function TargetForm({
           value={value}
           onChange={(event) => setValue(event.target.value)}
           error={!valid && value ? 'Enter a positive whole number of E-meters' : undefined}
-          hint="Applies from this week onward. Using the group default saves its current value as a personal target"
+          hint="Applies from this week. The group default is saved as a personal target."
         />
         <Button variant="secondary" onClick={() => setValue(String(groupDefault))}>
           Use Group Default

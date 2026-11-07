@@ -45,7 +45,7 @@ export default function Announcements() {
         {!query.data ? (
           <LoadState error={query.isError} retry={() => void query.refetch()} />
         ) : query.data.length ? (
-          <ListGroup footer="Pinned messages appear on Home and in the desktop team overview.">
+          <ListGroup>
             {orderedAnnouncements(query.data).map((row) => (
               <article
                 key={row.id}
@@ -96,11 +96,7 @@ export default function Announcements() {
             ))}
           </ListGroup>
         ) : (
-          <EmptyState
-            icon={<Megaphone size={20} />}
-            title="No Announcements Yet"
-            body="Share team news or pin an important reminder."
-          />
+          <EmptyState icon={<Megaphone size={20} />} title="No Announcements Yet" />
         )}
       </div>
       {editing && (
@@ -189,9 +185,6 @@ function AnnouncementEditor({ row, onClose }: { row?: Announcement; onClose: () 
           onChange={(e) => setBody(e.target.value)}
         />
         <Toggle label="Pinned" checked={pinned} onChange={setPinned} />
-        <p className="text-subhead text-muted">
-          Pinned messages appear on Home and in the desktop team overview.
-        </p>
       </fieldset>
     </Sheet>
   );

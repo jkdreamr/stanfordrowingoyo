@@ -107,6 +107,8 @@ export function createFixtures(now = new Date()) {
   const imageLinks: Record<string, ImageMetadata[]> = {};
   const kudos: Record<string, { user_id: string; created_at: string }[]> = {};
   const comments: Comment[] = [];
+  const tags: Record<string, string[]> = {};
+  const mentions: Record<string, string[]> = {};
   function add(
     user: User,
     day: string,
@@ -226,6 +228,16 @@ export function createFixtures(now = new Date()) {
       );
     });
   }
+  for (const entry of entries.filter((e) => e.date >= currentWeek)) {
+    tags[entry.id] = ['user-36', 'user-37', 'user-2']
+      .map((id) => users.find((u) => u.id === id)!)
+      .filter((u) => u.id !== entry.user_id)
+      .map((u) => u.id);
+  }
+  if (comments[0]) {
+    comments[0].body = '@Kannan Alford steady work today';
+    mentions[comments[0].id] = ['user-36'];
+  }
   const targets: WeeklyTarget[] = [
     { user_id: users[0].id, week_start: weekStart(start), target_m: 80000 },
   ];
@@ -273,7 +285,17 @@ export function createFixtures(now = new Date()) {
       read_at: null,
     },
   ];
+  for (const kind of ['tag', 'mention'] as const)
+    notifications.unshift({
+      ...notifications[0],
+      id: 'notification-' + kind,
+      kind,
+      actor_id: 'user-36',
+      actor: publicUser(users.find((u) => u.id === 'user-36')!),
+    });
   return {
+    tags,
+    mentions,
     users,
     roster,
     entries,

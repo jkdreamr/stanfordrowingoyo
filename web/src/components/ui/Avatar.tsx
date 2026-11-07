@@ -3,10 +3,12 @@ import { ApiImage } from './ApiImage';
 export function Avatar({
   name,
   imageId,
+  src,
   size = 'md',
 }: {
   name: string;
   imageId?: string | null;
+  src?: string;
   size?: 'sm' | 'md' | 'lg' | 'feed';
 }) {
   const [failed, setFailed] = useState<string | null>(null);
@@ -26,7 +28,9 @@ export function Avatar({
       className={`ui-avatar ui-avatar-${size}`}
       style={{ backgroundColor: `hsl(240 5% ${80 + (hash % 10)}%)` }}
     >
-      {imageId && failed !== imageId ? (
+      {src ? (
+        <img src={src} alt="" />
+      ) : imageId && failed !== imageId ? (
         <ApiImage imageId={imageId} alt="" onError={() => setFailed(imageId)} />
       ) : (
         initials

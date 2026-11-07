@@ -16,6 +16,7 @@ import {
 import { HttpError, json, noContent, readJson } from '../http';
 import * as v from '../validate';
 import { audit } from '../db/audit';
+import { recipients } from '../db/recipients';
 function imageIds(value: unknown): string[] {
   if (!Array.isArray(value) || value.length > 4)
     return v.invalid('Select at most four unique images.');
@@ -88,7 +89,18 @@ export async function create(ctx: Context) {
   const entry = validate(ctx, body);
   const ids = body.image_ids === undefined ? [] : imageIds(body.image_ids);
   checkImages(ctx.storage, ids, user.id, entry.id);
-  saveEntry(ctx.storage, entry, ids);
+  saveEntry(
+    ctx.storage,
+    entry,
+    ids,
+    false,
+    recipients(
+      ctx.storage,
+      body.tagged_user_ids === undefined ? [] : body.tagged_user_ids,
+      entry.user_id,
+    ).map((user) => user.id),
+    user.id,
+  );
   return json(details(ctx.storage, [entry], user.id)[0], 201);
 }
 function editable(ctx: Context) {
@@ -107,8 +119,12 @@ export async function patch(ctx: Context) {
   const entry = validate(ctx, body, previous);
   const ids = body.image_ids === undefined ? undefined : imageIds(body.image_ids);
   if (ids) checkImages(ctx.storage, ids, entry.user_id, entry.id);
+  const tags =
+    body.tagged_user_ids === undefined
+      ? undefined
+      : recipients(ctx.storage, body.tagged_user_ids, entry.user_id).map((user) => user.id);
   ctx.storage.transactionSync(() => {
-    saveEntry(ctx.storage, entry, ids, true);
+    saveEntry(ctx.storage, entry, ids, true, tags, requireUser(ctx).id);
     if (entry.user_id !== requireUser(ctx).id)
       audit(ctx, 'entry.update', entry.id, previous, entry);
   });

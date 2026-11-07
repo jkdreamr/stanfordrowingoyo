@@ -89,12 +89,8 @@ function SettingsForm({ settings }: { settings: Settings }) {
   }
   return (
     <div className="screen-stack">
-      <ListGroup
-        header="Join Code"
-        footer="Share this code with teammates so they can find their name at signup."
-      >
+      <ListGroup header="Join Code">
         <div className="space-y-3 p-4">
-          <p className="text-subhead text-muted">Team Join Code</p>
           <p aria-label="Team Join Code" className="select-all break-all text-title1 font-semibold">
             {settings.team_code}
           </p>
@@ -127,7 +123,7 @@ function SettingsForm({ settings }: { settings: Settings }) {
         <fieldset disabled={busy} className="space-y-6">
           <ListGroup
             header="Zone Factors"
-            footer="Factors must be from 0.01 to 100. Changes apply to new entries; recalculate to update existing entries."
+            footer="0.01–100. Applies to new entries; recalculate to update existing entries."
           >
             {ZONES.map((zone) => (
               <div
@@ -160,7 +156,7 @@ function SettingsForm({ settings }: { settings: Settings }) {
           </ListGroup>
           <ListGroup
             header="Group Weekly Targets"
-            footer="Whole E-meters from 1,000 to 1,000,000. Changes take effect this week onward; personal overrides stay in place."
+            footer="1,000–1,000,000 whole E-meters. Applies from this week; personal targets stay."
           >
             {groups.map((group) => (
               <div className="p-4" key={group}>
@@ -221,7 +217,7 @@ function SettingsForm({ settings }: { settings: Settings }) {
       </form>
       <ListGroup
         header="Existing Entries"
-        footer="Recalculation uses the saved mode and zone factors. It does not change dates, distances or personal targets."
+        footer="Recalculate using saved factors. Dates, distances and targets stay."
       >
         <div className="space-y-3 p-4">
           <Button
@@ -231,11 +227,7 @@ function SettingsForm({ settings }: { settings: Settings }) {
           >
             Recalculate All Entries
           </Button>
-          {dirty && (
-            <p className="text-subhead text-muted">
-              Save or discard your changes before regenerating the code or recalculating.
-            </p>
-          )}
+          {dirty && <p className="text-subhead text-muted">Save or discard changes first.</p>}
           {result !== undefined && (
             <p role="status" className="text-callout">
               Updated {formatNumber(result)} entries

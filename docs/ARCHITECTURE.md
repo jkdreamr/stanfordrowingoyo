@@ -216,18 +216,23 @@ entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, d
         created_at, updated_at)          -- index (week_start), (user_id, date)
 images(id PK, owner_id, mime, width, height, bytes BLOB, created_at)   -- <= 1.5 MB each, client resizes
 entry_images(entry_id, image_id, position, PK(entry_id, position))     -- up to 4 per entry
+entry_tags(entry_id TEXT NOT NULL, user_id TEXT NOT NULL, created_at TEXT NOT NULL, PK(entry_id,user_id)) -- index (user_id)
 kudos(entry_id, user_id, created_at, PK(entry_id, user_id))
 comments(id PK, entry_id, user_id, body (<=1000), created_at)
+comment_mentions(comment_id TEXT NOT NULL, entry_id TEXT NOT NULL, user_id TEXT NOT NULL, PK(comment_id,user_id)) -- index (entry_id)
 announcements(id PK, author_id, title, body, pinned INT, created_at)
 presets(id PK, modality, zone, name, distance_m INT NULL, sort INT, active INT)   -- NULL distance = user enters meters
 plan_slots(group_key, week INT (1|2), day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
            PK(group_key, week, day, slot))
 plan_totals(group_key, week, label)     -- e.g. "60k Equivalent"
-notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'), actor_id, entry_id NULL, created_at, read_at NULL)
+notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'), actor_id, entry_id NULL, created_at, read_at NULL)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 7 adds idempotent tag/mention tables and indexes; parallel PRs may renumber migrations.
+Entry deletion removes tags and mentions; comment deletion transactionally removes its mentions.
+Tags are social only and never credit the tagged user's meters, statistics or leaderboard.
 Version 3 deliberately drops the legacy email-keyed roster and rebuilds/seeds the id-keyed roster (nothing deployed).
 Seeds are insert-if-missing by case-insensitive name. The claimant foreign key is initially deferred so the atomic
 claim can reserve the row before inserting its user in the same transaction.
@@ -241,6 +246,26 @@ Version 6 converts every legacy private entry to `team` without modifying workou
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
+
+Entry input accepts optional `tagged_user_ids: string[]`: POST sets tags; PATCH replaces the
+set only when supplied. Entry itself omits this input-only field; EntryDetail adds
+`tagged: PublicUser[]`, active users ordered by tag time then name.
+Comment POST accepts `{ body: string; mention_ids?: string[] }`; CommentWithAuthor adds
+`mentions: PublicUser[]` (active users). Existing clients may omit either input field.
+
+Both recipient fields must be arrays of strings, deduplicated with self silently dropped
+(entry owner for tags, commenter for mentions). At most ten unique remaining IDs are
+allowed and all must identify active users, otherwise 400 VALIDATION_ERROR. Mentions then
+silently discard IDs whose full name is absent as `@Full Name` in the body, ignoring case;
+the following character must be end, whitespace or punctuation, not a letter/digit.
+Validation of the cap and active IDs happens before body filtering.
+
+Writes and notifications share one transaction. Newly added tags notify with kind `tag`,
+actor=requester and entry_id; an existing tag notification for that recipient/entry
+suppresses untag/retag spam. Mention recipients each get one `mention` notification per
+comment with entry_id. An entry owner mentioned in a comment gets only `mention`, not
+also `comment`. No self or inactive-user notifications. Notification columns are unchanged.
+Tag and mention hydration use one batched query per entry page or comment list, respectively.
 
 Mutation requests must use JSON/image Content-Type or send `X-OYO-CSRF: 1` (including bodyless mutations); cross-site origins are rejected.
 

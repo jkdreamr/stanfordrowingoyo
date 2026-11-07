@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Activity } from 'lucide-react';
+import { Activity, Camera } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Modality } from '../../../shared/types';
 import { ZONES } from '../../../shared/math';
@@ -84,7 +84,19 @@ export default function Me() {
       {header}
       <div className="space-y-6 px-4 pb-8">
         <section className="flex items-start gap-4 pt-6" aria-label="My Profile">
-          <Avatar name={user.name} imageId={user.avatar_image_id} size="lg" />
+          <Link
+            to="/me/edit"
+            className="profile-photo-link"
+            aria-label={user.avatar_image_id ? 'Change Profile Photo' : 'Add Photo'}
+          >
+            <span className="profile-photo-button">
+              <Avatar name={user.name} imageId={user.avatar_image_id} size="lg" />
+              <span className="profile-photo-badge">
+                <Camera size={16} strokeWidth={1.75} aria-hidden="true" />
+              </span>
+            </span>
+            {!user.avatar_image_id && <span className="profile-photo-caption">Add Photo</span>}
+          </Link>
           <div className="min-w-0">
             <h2 className="break-words text-title1">{user.name}</h2>
             <p className="mt-1 text-footnote text-muted">
@@ -170,11 +182,7 @@ export default function Me() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title={allEntries.length ? 'No Matching Sessions' : 'No Sessions Yet'}
-              body={
-                allEntries.length
-                  ? 'Try another modality or zone'
-                  : 'Your training starts with one session'
-              }
+              body={allEntries.length ? 'Try another modality or zone' : undefined}
               action={
                 allEntries.length ? (
                   <Button
@@ -187,7 +195,7 @@ export default function Me() {
                     Clear Filters
                   </Button>
                 ) : (
-                  <Button to="/log">Log a Session</Button>
+                  <Button to="/log">Log Session</Button>
                 )
               }
             />

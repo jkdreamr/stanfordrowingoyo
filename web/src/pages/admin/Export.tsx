@@ -37,10 +37,7 @@ export default function Export() {
           <Card className="space-y-5 p-4">
             <div>
               <h2 className="text-headline">Training Entries</h2>
-              <p className="mt-2 text-callout text-muted">
-                Download all team entries for an inclusive date range. The CSV includes account
-                emails, recorded factors and E-meters.
-              </p>
+              <p className="mt-2 text-callout text-muted">Includes account emails.</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {(

@@ -112,7 +112,7 @@ export default function Compliance() {
             {summary.rows.length ? (
               <ListGroup
                 header={`${formatNumber(summary.rows.length)} Rowers`}
-                footer="Last log is the most recent log across all weeks. Targets and totals are E-meters."
+                footer="E-meters. Last log includes all weeks."
               >
                 {summary.rows.map((row) => (
                   <ListRow
@@ -140,11 +140,7 @@ export default function Compliance() {
                 ))}
               </ListGroup>
             ) : (
-              <EmptyState
-                icon={<ClipboardList size={20} />}
-                title="No Active Rowers"
-                body="Active rower accounts will appear here once they join the team."
-              />
+              <EmptyState icon={<ClipboardList size={20} />} title="No Active Rowers" />
             )}
           </>
         )}

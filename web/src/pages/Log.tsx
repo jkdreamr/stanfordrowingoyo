@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from 'react';
+import { Users } from 'lucide-react';
+import { TeammatePicker } from '../components/social/TeammatePicker';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { addDays } from '../../../shared/dates';
 import { equivalentMeters, targetPace } from '../../../shared/math';
@@ -96,6 +98,8 @@ function LogForm({
       !!entry?.stroke_rate ||
       !!entry?.avg_hr,
   );
+  const [tagged, setTagged] = useState(entry?.tagged ?? []);
+  const [tagging, setTagging] = useState(false);
   const [receipt, setReceipt] = useState(false);
   const [menu, setMenu] = useState(false);
   const [allZones, setAllZones] = useState(false);
@@ -116,6 +120,8 @@ function LogForm({
   const photos = usePhotos(initialPhotos);
   const dirty =
     JSON.stringify(draft) !== JSON.stringify(initial) ||
+    JSON.stringify(tagged.map((u) => u.id).sort()) !==
+      JSON.stringify((entry?.tagged ?? []).map((u) => u.id).sort()) ||
     photos.photos.some((p) => p.file) ||
     photos.photos.length !== initialPhotos.length;
   const { blocker, allowNavigation } = useUnsavedChanges(dirty);
@@ -154,7 +160,7 @@ function LogForm({
     setMessage(undefined);
     try {
       const ids = await photos.save();
-      const body = { ...values.input, image_ids: ids };
+      const body = { ...values.input, image_ids: ids, tagged_user_ids: tagged.map((u) => u.id) };
       const previous = await api('GET /api/stats/week', {}).catch(() => null);
       const saved = entry
         ? await update.mutateAsync({ params: { id: entry.id }, body })
@@ -223,7 +229,7 @@ function LogForm({
             )}
             {draft.modality === 'erg' && pace === null && (
               <p className="mt-2 text-footnote text-muted">
-                Add your best split in Edit Profile for zone target paces
+                Add a best split in Edit Profile for zone paces
               </p>
             )}
           </section>
@@ -304,7 +310,7 @@ function LogForm({
             ) : (
               <>
                 <p className="mt-2 text-title1 text-muted">—</p>
-                <p className="mt-2 text-footnote text-muted">Enter a distance to see E-meters</p>
+                <p className="mt-2 text-footnote text-muted">Enter a distance</p>
               </>
             )}
           </Card>
@@ -371,6 +377,19 @@ function LogForm({
             placeholder="Optional session notes"
             error={error('notes')}
           />
+          <ListGroup>
+            <ListRow
+              title="Tag Teammates"
+              leading={<Users size={20} strokeWidth={1.75} />}
+              trailing={
+                tagged.length
+                  ? `${tagged.length} ${tagged.length === 1 ? 'Teammate' : 'Teammates'}`
+                  : undefined
+              }
+              chevron
+              onClick={() => setTagging(true)}
+            />
+          </ListGroup>
           <PhotoPicker
             photos={photos.photos}
             onAdd={photos.add}
@@ -400,6 +419,14 @@ function LogForm({
           )}
         </fieldset>
       </form>
+      {tagging && (
+        <TeammatePicker
+          self={entry?.user_id ?? user.id}
+          selected={tagged}
+          onChange={setTagged}
+          onClose={() => setTagging(false)}
+        />
+      )}
       <Sheet open={menu} onClose={() => setMenu(false)} title="Workout Menu">
         <div className="mb-5">
           <Toggle label="All Zones" checked={allZones} onChange={setAllZones} />
