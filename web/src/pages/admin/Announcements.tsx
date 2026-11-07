@@ -96,7 +96,11 @@ export default function Announcements() {
             ))}
           </ListGroup>
         ) : (
-          <EmptyState icon={<Megaphone size={20} />} title="No Announcements Yet" />
+          <EmptyState
+            icon={<Megaphone size={20} />}
+            title="No Announcements Yet"
+            action={<Button onClick={() => setEditing('new')}>New Announcement</Button>}
+          />
         )}
       </div>
       {editing && (

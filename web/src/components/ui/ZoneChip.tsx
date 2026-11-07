@@ -26,7 +26,7 @@ export function ZoneOption({
   onClick: () => void;
 }) {
   return (
-    <label className="ui-zone-option inline-flex cursor-pointer items-center justify-center">
+    <label className="ui-zone-option inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center">
       <input
         type="radio"
         name="zone"

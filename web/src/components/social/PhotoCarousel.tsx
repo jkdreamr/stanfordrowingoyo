@@ -1,11 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { ImageMetadata } from '../../../../shared/types';
 import { ApiImage, IconButton } from '../ui';
 import { PhotoViewer } from './PhotoViewer';
 const positions = new Map<string, number>();
 
-export function PhotoCarousel({ images, alt }: { images: ImageMetadata[]; alt: string }) {
+export function PhotoCarousel({
+  images,
+  alt,
+  onPhotoClick,
+}: {
+  images: ImageMetadata[];
+  alt: string;
+  onPhotoClick?: (event: MouseEvent<HTMLButtonElement>, open: () => void) => void;
+}) {
   const track = useRef<HTMLDivElement>(null);
   const key = images.map((image) => image.id).join(':');
   const [index, setIndex] = useState(() => positions.get(key) ?? 0);
@@ -37,8 +45,13 @@ export function PhotoCarousel({ images, alt }: { images: ImageMetadata[]; alt: s
             type="button"
             aria-label={`Open Photo ${i + 1}`}
             onClick={(event) => {
-              event.currentTarget.focus({ preventScroll: true });
-              setViewing(i);
+              const button = event.currentTarget;
+              const open = () => {
+                button.focus({ preventScroll: true });
+                setViewing(i);
+              };
+              if (onPhotoClick) onPhotoClick(event, open);
+              else open();
             }}
           >
             <ApiImage

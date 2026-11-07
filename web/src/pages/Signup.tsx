@@ -221,7 +221,13 @@ export default function Signup() {
               <EmptyState
                 icon={<Search size={28} strokeWidth={1.75} />}
                 title={search ? 'No Matching Names' : 'No Unclaimed Names'}
-                body="Try another search or ask a coxswain to check the roster"
+                action={
+                  search ? (
+                    <Button variant="secondary" onClick={() => setSearch('')}>
+                      Clear Search
+                    </Button>
+                  ) : undefined
+                }
               />
             )}
           </>

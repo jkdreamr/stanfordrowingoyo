@@ -29,7 +29,7 @@ export function Field({
           className={`text-footnote ${error ? 'text-accent-ink' : 'text-muted'}`}
         >
           {hint && <p>{hint}</p>}
-          {error && <p>{error}</p>}
+          {error && <p role="alert">{error}</p>}
         </div>
       )}
     </div>

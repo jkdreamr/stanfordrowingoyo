@@ -26,7 +26,7 @@ export function PhotoPicker({
       <input
         ref={ref}
         id={id}
-        className="sr-only"
+        hidden
         type="file"
         accept="image/jpeg,image/png,image/webp"
         multiple={max > 1}

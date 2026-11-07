@@ -24,6 +24,27 @@
   line-height: 20px;
 }
 
+@layer base {
+  :where(
+    button,
+    a[href]:not(p a, .ui-prose a),
+    input:not([type='radio'], [type='checkbox'], [type='file']),
+    select,
+    textarea
+  ) {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  :where(a[href]:not(p a, .ui-prose a)) {
+    display: inline-flex;
+    align-items: center;
+  }
+  :where(button, a[href], input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--oyo-focus);
+    outline-offset: 2px;
+  }
+}
+
 .social-entry {
   overflow: hidden;
 }
@@ -170,7 +191,59 @@
 .social-kudos-give {
   animation: social-kudos var(--oyo-motion-panel) var(--oyo-ease-out);
 }
+.celebration-pop {
+  animation: celebration-pop 600ms var(--oyo-ease-out);
+}
+@keyframes celebration-pop {
+  0% {
+    transform: scale(0.98);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.social-double-tap {
+  position: relative;
+  touch-action: manipulation;
+}
+.social-heart-burst {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  color: white;
+  fill: var(--accent);
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 25%));
+  animation: social-heart 600ms var(--oyo-ease-out) both;
+}
+@keyframes social-heart {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+  45% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
+  .celebration-pop {
+    animation: none;
+  }
+  .social-heart-burst {
+    display: none;
+    animation: none;
+  }
   .social-kudos-give {
     animation: none;
   }
@@ -385,15 +458,9 @@ form .ui-button-primary[type='submit'] {
   opacity: 0.6;
 }
 .ui-button-sm {
-  min-height: 36px;
-  margin-block: 4px;
+  min-height: 44px;
   padding-block: 7px;
   font-size: 15px;
-}
-.ui-button-sm::after {
-  content: '';
-  position: absolute;
-  inset: -4px 0;
 }
 .ui-button-lg {
   min-height: 50px;
@@ -532,6 +599,7 @@ form .ui-button-primary[type='submit'] {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-block: 0;
 }
 .ui-input-wrap input {
   background: transparent;

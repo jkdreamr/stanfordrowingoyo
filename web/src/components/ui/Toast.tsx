@@ -37,7 +37,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-      <div className="ui-toast-region" aria-live="polite" aria-atomic="true">
+      <div className="ui-toast-region">
         {toast && (
           <div
             key={toast.id}
@@ -56,7 +56,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             ) : (
               <Check aria-hidden="true" size={20} strokeWidth={1.75} />
             )}
-            <span className="flex-1">{toast.title}</span>
+            <span
+              className="flex-1"
+              role={toast.tone === 'error' ? 'alert' : 'status'}
+              aria-live={toast.tone === 'error' ? 'assertive' : 'polite'}
+              aria-atomic="true"
+            >
+              {toast.title}
+            </span>
             {toast.action && (
               <button
                 type="button"
@@ -70,7 +77,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               </button>
             )}
             <IconButton aria-label="Dismiss Notification" onClick={() => setToast(null)}>
-              <X size={20} strokeWidth={1.75} />
+              <X size={20} strokeWidth={1.75} aria-hidden="true" />
             </IconButton>
           </div>
         )}

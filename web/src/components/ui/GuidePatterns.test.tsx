@@ -32,6 +32,10 @@ it('offers native exclusive zone radios with visible badges', () => {
     </fieldset>,
   );
   expect((screen.getByRole('radio', { name: 'Zone E' }) as HTMLInputElement).checked).toBe(true);
+  for (const radio of screen.getAllByRole('radio')) {
+    expect(radio.closest('label')?.classList.contains('min-h-11')).toBe(true);
+    expect(radio.closest('label')?.classList.contains('min-w-11')).toBe(true);
+  }
   fireEvent.click(screen.getByRole('radio', { name: 'Zone D' }));
   expect(change).toHaveBeenCalledOnce();
 });
@@ -68,6 +72,7 @@ it('locks sheet background, supports Escape and returns focus on close', () => {
     </>,
   );
   expect(document.body.style.overflow).toBe('hidden');
+  expect(screen.getByRole('dialog', { name: 'Options' }).getAttribute('aria-modal')).toBe('true');
   expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Options' }));
   fireEvent(screen.getByRole('dialog'), new Event('cancel', { cancelable: true }));
   expect(close).toHaveBeenCalledOnce();

@@ -140,7 +140,11 @@ export default function Compliance() {
                 ))}
               </ListGroup>
             ) : (
-              <EmptyState icon={<ClipboardList size={20} />} title="No Active Rowers" />
+              <EmptyState
+                icon={<ClipboardList size={20} />}
+                title="No Active Rowers"
+                action={<Button to="/admin/roster">Open Roster</Button>}
+              />
             )}
           </>
         )}

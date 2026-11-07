@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { Users } from 'lucide-react';
+import { Activity, Users } from 'lucide-react';
 import { TeammatePicker } from '../components/social/TeammatePicker';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { addDays } from '../../../shared/dates';
+import { addDays, seasonRange } from '../../../shared/dates';
 import { equivalentMeters, targetPace } from '../../../shared/math';
 import type { Config, EntryDetail, Preset, User } from '../../../shared/types';
 import {
@@ -34,12 +34,14 @@ import {
   storePhotos,
   type StoredLogDraft,
 } from '../lib/logDraftStore';
-import { recordTargetFinish } from '../lib/targetFinish';
+import { clearTargetFinish, recordTargetFinish } from '../lib/targetFinish';
+import { detectBests, recordCelebration } from '../lib/celebrations';
 import {
   Button,
   Card,
   ConfirmSheet,
   Disclosure,
+  EmptyState,
   ListGroup,
   ListRow,
   NumberField,
@@ -276,14 +278,48 @@ function LogForm({
       const ids = await photos.save();
       const body = { ...values.input, image_ids: ids, tagged_user_ids: tagged.map((u) => u.id) };
       if (!entry) await persistRef.current();
-      const previous = await api('GET /api/stats/week', {}).catch(() => null);
+      const [previous, beforeSeason, baseline] = await Promise.all([
+        api('GET /api/stats/week', {}).catch(() => null),
+        api('GET /api/stats/season', {}).catch(() => null),
+        api('GET /api/me', {}).catch(() => null),
+      ]);
       const saved = entry
         ? await update.mutateAsync({ params: { id: entry.id }, body })
         : await create.mutateAsync({ body, idempotencyKey, retry: true });
       if (!entry) await clearStored();
-      const next = await api('GET /api/stats/week', {}).catch(() => null);
-      if (next && saved.week_start === config.current_week_start)
+      const [next, afterSeason] = await Promise.all([
+        api('GET /api/stats/week', {}).catch(() => null),
+        api('GET /api/stats/season', {}).catch(() => null),
+      ]);
+      const season = seasonRange(config.today, config.season_start);
+      const targetHit =
+        next &&
+        saved.date >= season.start &&
+        saved.date <= season.end &&
+        saved.week_start === config.current_week_start &&
         recordTargetFinish(previous, next, user.id, saved.week_start);
+      const selected = recordCelebration(
+        user.id,
+        detectBests(
+          beforeSeason,
+          afterSeason,
+          saved,
+          baseline ?? {
+            ...user,
+            best2k_split_s: null,
+            best6k_split_s: null,
+          },
+        ),
+        targetHit
+          ? {
+              kind: 'target-hit',
+              title: 'Target Hit',
+              value: next.target_m,
+              week: saved.week_start,
+            }
+          : undefined,
+      );
+      if (selected && selected.kind !== 'target-hit') clearTargetFinish(user.id, saved.week_start);
       allowNavigation();
       toast.show({
         title: 'Session saved',
@@ -596,9 +632,18 @@ function LogForm({
           {!config.presets.some(
             (p) => p.active && p.modality === draft.modality && (allZones || p.zone === draft.zone),
           ) && (
-            <p className="text-subhead text-muted">
-              No workouts in this zone. Show all zones or enter a distance
-            </p>
+            <EmptyState
+              icon={<Activity size={20} />}
+              title="No Workouts In This Zone"
+              action={
+                <Button
+                  variant="secondary"
+                  onClick={() => (allZones ? setMenu(false) : setAllZones(true))}
+                >
+                  {allZones ? 'Enter Distance' : 'Show All Zones'}
+                </Button>
+              }
+            />
           )}
         </div>
       </Sheet>

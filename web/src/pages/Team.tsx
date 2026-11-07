@@ -2,7 +2,15 @@ import { useState } from 'react';
 import { Users } from 'lucide-react';
 import { useUsers } from '../lib/queries';
 import { normalizeName, publicSubtitle } from '../lib/social';
-import { Avatar, EmptyState, ListGroup, ListRow, PageHeader, TextField } from '../components/ui';
+import {
+  Avatar,
+  Button,
+  EmptyState,
+  ListGroup,
+  ListRow,
+  PageHeader,
+  TextField,
+} from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 
 export default function Team() {
@@ -27,7 +35,13 @@ export default function Team() {
           <EmptyState
             icon={<Users size={20} strokeWidth={1.75} aria-hidden="true" />}
             title={search ? 'No Matches' : 'No Teammates Yet'}
-            body={search ? 'Try another name' : undefined}
+            action={
+              search ? (
+                <Button variant="secondary" onClick={() => setSearch('')}>
+                  Clear Search
+                </Button>
+              ) : undefined
+            }
           />
         ) : (
           ['Rowers', 'Coxswains & Staff'].map((section) => {

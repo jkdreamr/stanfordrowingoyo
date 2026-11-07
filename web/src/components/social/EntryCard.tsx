@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { MessageCircle } from 'lucide-react';
+import { Heart, MessageCircle } from 'lucide-react';
 import type { Config, EntryDetail } from '../../../../shared/types';
-import { Avatar, Button, ZoneChip } from '../ui';
+import { Avatar, Button, ZoneChip, useToast } from '../ui';
+import { useKudos } from '../../lib/queries';
 import { ModalityIcon } from '../shell/ModalityIcon';
 import {
   formatDuration,
@@ -17,6 +18,7 @@ import { KudosButton } from './KudosButton';
 import { HighlightBadge } from './HighlightBadge';
 import { PhotoCarousel } from './PhotoCarousel';
 import { WithTeammates } from './WithTeammates';
+import { useDoubleTap } from './useDoubleTap';
 
 export function EntryCard({
   entry,
@@ -30,6 +32,35 @@ export function EntryCard({
   onComment?: () => void;
 }) {
   const navigate = useNavigate();
+  const mutation = useKudos();
+  const toast = useToast();
+  const card = useRef<HTMLElement>(null);
+  const giving = useRef(false);
+  const burstTimer = useRef<ReturnType<typeof setTimeout>>();
+  const [burst, setBurst] = useState<{ x: number; y: number }>();
+  useEffect(() => () => clearTimeout(burstTimer.current), []);
+  const taps = useDoubleTap((x, y) => {
+    if (entry.has_kudos || mutation.isPending || giving.current) return;
+    giving.current = true;
+    if (!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      const bounds = card.current!.getBoundingClientRect();
+      setBurst({ x: x - bounds.left, y: y - bounds.top });
+      clearTimeout(burstTimer.current);
+      burstTimer.current = setTimeout(() => setBurst(undefined), 600);
+    }
+    mutation.mutate(
+      { id: entry.id, hasKudos: true },
+      {
+        onError: () => {
+          setBurst(undefined);
+          toast.show({ title: 'Kudos not saved. Try again', tone: 'error' });
+        },
+        onSettled: () => {
+          giving.current = false;
+        },
+      },
+    );
+  });
   const [expanded, setExpanded] = useState(full);
   const [overflows, setOverflows] = useState(false);
   const notes = useRef<HTMLParagraphElement>(null);
@@ -51,8 +82,35 @@ export function EntryCard({
     ...(entry.avg_hr !== null ? [['HR', `${formatNumber(entry.avg_hr)} bpm`]] : []),
   ];
   return (
-    <article className="ui-card social-entry">
-      <div className="flex items-center gap-3">
+    <article
+      ref={card}
+      className="ui-card social-entry social-double-tap"
+      onPointerDown={taps.onPointerDown}
+      onPointerMove={taps.onPointerMove}
+      onPointerCancel={taps.onPointerCancel}
+      onClick={(event) => {
+        if (
+          (event.target as Element).closest(
+            'a, button, input, textarea, select, [contenteditable], dialog, [data-no-double-tap]',
+          )
+        ) {
+          taps.cancel();
+          return;
+        }
+        taps.click(event, () => {
+          if (!full) navigate(`/entries/${entry.id}`);
+        });
+      }}
+    >
+      {burst && (
+        <Heart
+          aria-hidden="true"
+          size={72}
+          className="social-heart-burst"
+          style={{ left: burst.x, top: burst.y }}
+        />
+      )}
+      <div className="flex items-center gap-3" data-no-double-tap>
         <Avatar size="feed" name={entry.author.name} imageId={entry.author.avatar_image_id} />
         <div className="min-w-0">
           <Link
@@ -90,7 +148,16 @@ export function EntryCard({
           </div>
         ))}
       </dl>
-      {entry.images.length > 0 && <PhotoCarousel images={entry.images} alt={entry.title} />}
+      {entry.images.length > 0 && (
+        <PhotoCarousel
+          images={entry.images}
+          alt={entry.title}
+          onPhotoClick={(event, open) => {
+            event.stopPropagation();
+            taps.click(event, open);
+          }}
+        />
+      )}
       {entry.notes && (
         <div className="my-4">
           <p

@@ -42,6 +42,7 @@ export function PhotoViewer({
       ref={dialog}
       className="social-viewer"
       aria-label="Workout Photos"
+      aria-modal="true"
       onCancel={(event) => {
         event.preventDefault();
         onClose();

@@ -77,9 +77,10 @@ test('signup keeps Continue visible after selecting a roster name without scroll
   await expectFocusedFieldAboveAction(page, 'Create Account', 'Email');
   await expectFocusedFieldAboveAction(page, 'Create Account', 'Password');
   await page.getByRole('button', { name: 'Create Account', exact: true }).click();
-  await expect(
-    page.getByRole('alert').getByText('Enter a valid email address', { exact: true }),
-  ).toBeVisible();
+  await expect(page.locator('#email-help').getByRole('alert')).toHaveText(
+    'Enter a valid email address',
+  );
+  await expect(page.locator('#email-help').getByRole('alert')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Create Account', exact: true })).toBeInViewport({
     ratio: 1,
   });
@@ -100,9 +101,10 @@ test('invite signup and login keep their actions above focused fields in a short
   await expectFocusedFieldAboveAction(page, 'Log In', 'Email');
   await expectFocusedFieldAboveAction(page, 'Log In', 'Password');
   await page.getByRole('button', { name: 'Log In', exact: true }).click();
-  await expect(
-    page.getByRole('alert').getByText('Enter a valid email address', { exact: true }),
-  ).toBeVisible();
+  await expect(page.locator('#email-help').getByRole('alert')).toHaveText(
+    'Enter a valid email address',
+  );
+  await expect(page.locator('#email-help').getByRole('alert')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Log In', exact: true })).toBeInViewport({
     ratio: 1,
   });

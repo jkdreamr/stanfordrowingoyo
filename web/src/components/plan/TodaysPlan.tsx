@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import { CalendarDays, Check } from 'lucide-react';
 import { addDays } from '../../../../shared/dates';
 import { useMyPlan } from '../../lib/queries';
 import { covers, planLogLink } from '../../lib/myPlan';
-import { Button, Card, ListGroup, ListRow, ZoneChip } from '../ui';
+import { Button, Card, EmptyState, ListGroup, ListRow, ZoneChip } from '../ui';
 import { ModalityIcon } from '../shell/ModalityIcon';
 import { formatMeters } from '../../lib/format';
 
@@ -74,9 +74,11 @@ export function TodaysPlan({ today }: { today: string }) {
           ))}
         </ListGroup>
       ) : (
-        <Link className="inline-flex min-h-11 items-center text-text" to="/plan?tab=mine">
-          Nothing Planned
-        </Link>
+        <EmptyState
+          icon={<CalendarDays size={20} />}
+          title="Nothing Planned"
+          action={<Button to="/plan?tab=mine">Edit Plan</Button>}
+        />
       )}
     </Card>
   );
