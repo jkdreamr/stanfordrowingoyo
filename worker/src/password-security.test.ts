@@ -5,6 +5,7 @@ import worker, { type Env } from './index';
 import {
   hashPassword,
   verifyPassword,
+  temporaryPassword,
   PASSWORD_ITERATIONS,
   PASSWORD_PEPPER_VERSION,
 } from './auth/crypto';
@@ -47,6 +48,56 @@ async function register() {
   return response.json<{ id: string }>();
 }
 const encode = (value: ArrayBuffer) => btoa(String.fromCharCode(...new Uint8Array(value)));
+it('batches temporary-password randomness while rejecting biased bytes', () => {
+  let calls = 0;
+  const spy = vi.spyOn(crypto, 'getRandomValues').mockImplementation((array) => {
+    (array as Uint8Array).fill(calls++ === 0 ? 255 : 0);
+    return array;
+  });
+  try {
+    expect(temporaryPassword()).toBe('A'.repeat(14));
+    expect(spy).toHaveBeenCalledTimes(2);
+  } finally {
+    spy.mockRestore();
+  }
+});
+it('coalesces pepper-key imports, replaces the key when the secret changes, and never caches per-password PBKDF2 keys', async () => {
+  const spy = vi.spyOn(crypto.subtle, 'importKey');
+  const count = (name: string) =>
+    spy.mock.calls.filter((call) => (typeof call[2] === 'string' ? call[2] : call[2].name) === name)
+      .length;
+  try {
+    await Promise.all([
+      hashPassword('first-password', 'cache-pepper-one'),
+      hashPassword('second-password', 'cache-pepper-one'),
+    ]);
+    expect(count('HMAC')).toBe(1);
+    expect(count('PBKDF2')).toBe(2);
+    await hashPassword('third-password', 'cache-pepper-two');
+    expect(count('HMAC')).toBe(2);
+    await hashPassword('fourth-password', 'cache-pepper-one');
+    expect(count('HMAC')).toBe(3);
+    expect(count('PBKDF2')).toBe(4);
+  } finally {
+    spy.mockRestore();
+  }
+});
+it('retries a failed pepper-key import instead of retaining a rejected cached promise', async () => {
+  const spy = vi
+    .spyOn(crypto.subtle, 'importKey')
+    .mockRejectedValueOnce(new Error('simulated import failure'));
+  try {
+    await expect(hashPassword('password123', 'cache-import-failure')).rejects.toThrow(
+      'simulated import failure',
+    );
+    expect((await hashPassword('password123', 'cache-import-failure')).hash).toMatch(
+      /^pbkdf2-sha256\$20000\$1\$/,
+    );
+    expect(spy).toHaveBeenCalledTimes(3);
+  } finally {
+    spy.mockRestore();
+  }
+});
 async function stored(iterations: number, version?: number) {
   const salt = 'AAAAAAAAAAAAAAAAAAAAAA==';
   let input: Uint8Array = new TextEncoder().encode('password123');

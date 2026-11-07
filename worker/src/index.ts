@@ -19,9 +19,11 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
     if (path.startsWith('/api/')) {
-      const headers = new Headers(request.headers);
-      headers.delete('X-OYO-Internal');
-      request = new Request(request, { headers });
+      if (request.headers.has('X-OYO-Internal')) {
+        const headers = new Headers(request.headers);
+        headers.delete('X-OYO-Internal');
+        request = new Request(request, { headers });
+      }
       const stub = env.TEAM.get(env.TEAM.idFromName('stanford'));
       const reset = /^\/api\/admin\/users\/([^/]+)\/reset-password$/.exec(path);
       if (

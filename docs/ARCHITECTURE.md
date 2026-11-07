@@ -155,6 +155,14 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
   retaining access to old keys or resetting affected passwords: one configured secret does not retain retired keys.
   The Free plan's 10 ms CPU budget motivates 20k and the one-derivation rule.
   The DO rate-limits before derivation and re-validates account status and unchanged credentials before creating a session.
+- Password-operation prechecks authenticate without renewing or deleting sessions. Before Worker HMAC/PBKDF2
+  completes, only attempt counters can change: email/IP authentication attempts, and failed team-code attempts
+  on rejected signup. Admin-reset prechecks write nothing. Session maintenance, claims, sessions, grants and
+  credential writes happen only on the post-hash DO call. A mid-hash interruption leaves those unchanged;
+  an immediate retry consumes another attempt, subject to the existing limits and grant expiry.
+  This is not general response-loss idempotency: if a commit succeeded but its response was lost, a signup
+  retry conflicts, a consumed-grant change requires reauthentication, and another admin reset replaces the
+  previous temporary password. These endpoints do not accept idempotency keys.
 - Sessions: random 32-byte token in an HttpOnly, Secure, SameSite=Lax cookie `oyo_session`, 60-day sliding expiry;
   only SHA-256(token) stored. Logout deletes it.
 - Password reset: staff generate a one-time temporary password for a user (shown once to staff); user must change on next login.

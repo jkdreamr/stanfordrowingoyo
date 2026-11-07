@@ -3,7 +3,7 @@ import { HttpError } from '../http';
 import { byId } from '../db/users';
 import { DAY, findSession, sessionCookie, sessionToken } from '../db/sessions';
 import { sha256 } from './crypto';
-export async function authenticate(ctx: Context) {
+export async function authenticate(ctx: Context, readOnly = false) {
   const value = sessionToken(ctx.request);
   if (!value) return;
   const hash = await sha256(value);
@@ -11,12 +11,12 @@ export async function authenticate(ctx: Context) {
   if (!session) return;
   const user = byId(ctx.storage, session.user_id);
   if (Date.parse(session.expires_at) <= ctx.now.getTime() || !user?.active) {
-    ctx.storage.sql.exec('DELETE FROM sessions WHERE token_hash = ?', hash);
+    if (!readOnly) ctx.storage.sql.exec('DELETE FROM sessions WHERE token_hash = ?', hash);
     return;
   }
   ctx.user = user;
   ctx.tokenHash = hash;
-  if (Date.parse(session.expires_at) - ctx.now.getTime() < 59 * DAY) {
+  if (!readOnly && Date.parse(session.expires_at) - ctx.now.getTime() < 59 * DAY) {
     ctx.storage.sql.exec(
       'UPDATE sessions SET expires_at = ? WHERE token_hash = ?',
       new Date(ctx.now.getTime() + 60 * DAY).toISOString(),

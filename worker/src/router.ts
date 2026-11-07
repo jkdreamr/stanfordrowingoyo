@@ -18,23 +18,45 @@ interface Route {
   method: string;
   path: string;
   handler: Handler;
+  readOnlyAuth?: boolean;
 }
 function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
-  { method: 'POST', path: '/internal/auth/signup/precheck', handler: auth.signupPrecheck },
+  {
+    method: 'POST',
+    path: '/internal/auth/signup/precheck',
+    handler: auth.signupPrecheck,
+    readOnlyAuth: true,
+  },
   { method: 'POST', path: '/internal/auth/signup/commit', handler: auth.signup },
-  { method: 'POST', path: '/internal/auth/login/challenge', handler: auth.loginChallenge },
+  {
+    method: 'POST',
+    path: '/internal/auth/login/challenge',
+    handler: auth.loginChallenge,
+    readOnlyAuth: true,
+  },
   { method: 'POST', path: '/internal/auth/login/session', handler: auth.login },
-  { method: 'POST', path: '/internal/me/password/challenge', handler: me.passwordChallenge },
+  {
+    method: 'POST',
+    path: '/internal/me/password/challenge',
+    handler: me.passwordChallenge,
+    readOnlyAuth: true,
+  },
   { method: 'POST', path: '/internal/me/password/verified', handler: me.passwordVerified },
-  { method: 'POST', path: '/internal/me/password/precheck', handler: me.passwordPrecheck },
+  {
+    method: 'POST',
+    path: '/internal/me/password/precheck',
+    handler: me.passwordPrecheck,
+    readOnlyAuth: true,
+  },
   { method: 'POST', path: '/internal/me/password/commit', handler: me.password },
   {
     method: 'POST',
     path: '/internal/admin/users/:id/reset-password/precheck',
     handler: admin.resetPasswordPrecheck,
+    readOnlyAuth: true,
   },
   {
     method: 'POST',
@@ -142,7 +164,7 @@ export async function route(ctx: Context): Promise<Response> {
     const found = matches.find((row) => row.method === ctx.request.method);
     if (!found) throw new HttpError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed.');
     ctx.params = matchPath(found.path, path)!;
-    await authenticate(ctx);
+    await authenticate(ctx, found.readOnlyAuth);
     if (ctx.user) requireUser(ctx);
     const allowed = [
       'GET /api/me',
