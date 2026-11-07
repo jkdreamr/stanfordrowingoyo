@@ -68,7 +68,7 @@ function validate(ctx: Context, body: Record<string, unknown>, previous?: Entry)
     title: v.string(merged.title, 'Title', 0, 120, true),
     notes: v.string(merged.notes, 'Notes', 0, 2000),
     preset_id: preset,
-    visibility: v.enumeration(merged.visibility, ['team', 'private'], 'Visibility'),
+    visibility: 'team',
     mode_factor: modes[modality],
     zone_factor: zones[zone],
     equiv_m: equivalentMeters(distance, modality, zone, modes, zones),
@@ -96,7 +96,6 @@ function editable(ctx: Context) {
   const entry = findEntry(ctx.storage, ctx.params.id);
   if (!entry) throw new HttpError(404, 'NOT_FOUND', 'Entry not found.');
   if (entry.user_id !== user.id && user.role === 'rower') {
-    if (entry.visibility === 'private') throw new HttpError(404, 'NOT_FOUND', 'Entry not found.');
     throw new HttpError(403, 'FORBIDDEN', 'Only the owner or staff may change this entry.');
   }
   return entry;

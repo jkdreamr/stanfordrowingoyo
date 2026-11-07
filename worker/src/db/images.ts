@@ -7,10 +7,8 @@ export function findImage(storage: DurableObjectStorage, id: string) {
 export function visibleImage(storage: DurableObjectStorage, id: string, viewer: string) {
   return !!storage.sql
     .exec(
-      'SELECT i.id FROM images i WHERE i.id = ? AND (i.owner_id = ? OR EXISTS (SELECT 1 FROM users u WHERE u.avatar_image_id = i.id) OR EXISTS (SELECT 1 FROM entry_images ei JOIN entries e ON e.id = ei.entry_id WHERE ei.image_id = i.id AND (e.visibility != ? OR e.user_id = ?)))',
+      'SELECT i.id FROM images i WHERE i.id = ? AND (i.owner_id = ? OR EXISTS (SELECT 1 FROM users u WHERE u.avatar_image_id = i.id) OR EXISTS (SELECT 1 FROM entry_images ei JOIN entries e ON e.id = ei.entry_id WHERE ei.image_id = i.id))',
       id,
-      viewer,
-      'private',
       viewer,
     )
     .toArray()[0];

@@ -212,7 +212,6 @@ describe('entries and images', () => {
       { avg_hr: 29 },
       { title: 'x'.repeat(121) },
       { notes: 'x'.repeat(2001) },
-      { visibility: 'public' },
       { preset_id: 'missing' },
       { image_ids: 'bad' },
       { image_ids: ['same', 'same'] },
@@ -240,48 +239,101 @@ describe('entries and images', () => {
       owner.user.id,
     );
   });
-  it('enforces private visibility everywhere, while allowing staff mutation of private entries', async () => {
-    const owner = await user('Owner');
-    const other = await user('Other');
-    const staff = await user('Staff', 'coach');
-    const id = await image(owner);
-    const secret = await entry(owner, { visibility: 'private', image_ids: [id] });
-    for (const viewer of [other, staff]) {
-      for (const path of [
-        '/entries/' + secret.id,
-        '/entries/' + secret.id + '/comments',
-        '/images/' + id,
-      ])
-        expect((await api(path, viewer)).status).toBe(404);
-      expect((await api('/entries/' + secret.id + '/kudos', viewer, 'POST')).status).toBe(404);
-      expect(
-        (await api('/entries/' + secret.id + '/comments', viewer, 'POST', { body: 'Secret?' }))
-          .status,
-      ).toBe(404);
-      for (const scope of ['feed', 'user:' + owner.user.id])
+  it.each(['POST', 'PATCH'])(
+    'normalizes legacy visibility on %s and shares workouts with team members',
+    async (method) => {
+      const owner = await user('Owner');
+      const other = await user('Other');
+      const staff = await user('Staff', 'coach');
+      const id = await image(owner);
+      const created =
+        method === 'POST'
+          ? await entry(owner, { visibility: 'private', image_ids: [id] })
+          : await (
+              await api(
+                '/entries/' + (await entry(owner, { image_ids: [id] })).id,
+                owner,
+                'PATCH',
+                { visibility: 'private' },
+              )
+            ).json<EntryDetail>();
+      expect(created.visibility).toBe('team');
+      await sql((storage) =>
         expect(
-          (await (await api('/entries?scope=' + scope, viewer)).json<Page<EntryDetail>>()).items,
-        ).toEqual([]);
-      const stats = await (
-        await api('/stats/week?user=' + owner.user.id, viewer)
-      ).json<WeekStats>();
-      expect(stats.total_m).toBe(0);
-      expect(stats.entries).toEqual([]);
-    }
-    expect(
-      (await (await api('/entries?scope=mine', owner)).json<Page<EntryDetail>>()).items,
-    ).toHaveLength(1);
-    expect((await api('/entries/' + secret.id, other, 'PATCH', { title: 'No' })).status).toBe(404);
-    expect((await api('/entries/' + secret.id, other, 'DELETE')).status).toBe(404);
-    expect(
-      (await api('/entries/' + secret.id, staff, 'PATCH', { title: 'Staff edit' })).status,
-    ).toBe(200);
-    const publicEntry = await entry(owner);
-    expect((await api('/entries/' + publicEntry.id, other, 'PATCH', { title: 'No' })).status).toBe(
-      403,
-    );
-    expect((await api('/entries/' + publicEntry.id, other, 'DELETE')).status).toBe(403);
-    expect((await api('/entries/' + secret.id, staff, 'DELETE')).status).toBe(204);
+          storage.sql
+            .exec<{ visibility: string }>('SELECT visibility FROM entries WHERE id=?', created.id)
+            .one().visibility,
+        ).toBe('team'),
+      );
+      for (const viewer of [other, staff]) {
+        for (const path of [
+          '/entries/' + created.id,
+          '/entries/' + created.id + '/comments',
+          '/images/' + id,
+        ])
+          expect((await api(path, viewer)).status).toBe(200);
+        for (const scope of ['feed', 'user:' + owner.user.id]) {
+          const page = await (
+            await api('/entries?scope=' + scope, viewer)
+          ).json<Page<EntryDetail>>();
+          expect(page.items.map((row) => row.id)).toContain(created.id);
+        }
+        const week = await (
+          await api('/stats/week?user=' + owner.user.id, viewer)
+        ).json<WeekStats>();
+        expect(week.total_m).toBe(created.equiv_m);
+        const profile = await (
+          await api('/users/' + owner.user.id, viewer)
+        ).json<{ stats: SeasonStats }>();
+        expect(profile.stats.total_m).toBe(created.equiv_m);
+        const leaders = await (await api('/leaderboard', viewer)).json<LeaderboardRow[]>();
+        expect(leaders.find((row) => row.user.id === owner.user.id)?.total_m).toBe(created.equiv_m);
+      }
+      expect((await api('/entries/' + created.id + '/kudos', other, 'POST')).status).toBe(204);
+      expect(
+        (
+          await api('/entries/' + created.id + '/comments', other, 'POST', {
+            body: 'Great session',
+          })
+        ).status,
+      ).toBe(201);
+      expect((await api('/entries/' + created.id, other, 'PATCH', { title: 'No' })).status).toBe(
+        403,
+      );
+      expect((await api('/entries/' + created.id, other, 'DELETE')).status).toBe(403);
+      expect((await api('/images/' + id)).status).toBe(401);
+      const inactive = await user('Inactive');
+      await sql((storage) =>
+        storage.sql.exec('UPDATE users SET active=0 WHERE id=?', inactive.user.id),
+      );
+      expect((await api('/images/' + id, inactive)).status).toBe(401);
+      expect(
+        (await api('/entries/' + created.id, staff, 'PATCH', { title: 'Staff edit' })).status,
+      ).toBe(200);
+      expect((await api('/entries/' + created.id, staff, 'DELETE')).status).toBe(204);
+    },
+  );
+  it('migrates legacy entries to team visibility once without changing their content', async () => {
+    const owner = await user('Owner');
+    const created = await entry(owner);
+    await entry(owner, { title: 'Already shared' });
+    await sql((storage) => {
+      const before = storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray();
+      storage.sql.exec("UPDATE entries SET visibility='private' WHERE id=?", created.id);
+      setSetting(storage, 'schema_version', 5);
+      migrate(storage);
+      const rows = storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray();
+      expect(rows).toEqual(before);
+      expect(
+        storage.sql
+          .exec<{ value_json: string }>(
+            "SELECT value_json FROM settings WHERE key='schema_version'",
+          )
+          .one().value_json,
+      ).toBe('6');
+      migrate(storage);
+      expect(storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray()).toEqual(rows);
+    });
   });
   it('paginates feed with a deterministic opaque cursor and filters mine/user scopes', async () => {
     const owner = await user('Owner');
@@ -297,10 +349,10 @@ describe('entries and images', () => {
     const second = await (
       await api('/entries?cursor=' + first.next_cursor, owner)
     ).json<Page<EntryDetail>>();
-    expect(second.items).toHaveLength(4);
+    expect(second.items).toHaveLength(5);
     expect(second.next_cursor).toBeNull();
     const all = [...first.items, ...second.items];
-    expect(new Set(all.map((row) => row.id)).size).toBe(24);
+    expect(new Set(all.map((row) => row.id)).size).toBe(25);
     expect(all.every((row) => row.visibility === 'team')).toBe(true);
     expect(all.map((row) => row.id)).toEqual(
       all
@@ -457,7 +509,7 @@ describe('social and notifications', () => {
     });
     const secret = await entry(owner, { visibility: 'private' });
     const privatePath = '/entries/' + secret.id + '/kudos';
-    for (const viewer of [first, staff]) expect((await api(privatePath, viewer)).status).toBe(404);
+    for (const viewer of [first, staff]) expect((await api(privatePath, viewer)).status).toBe(200);
     expect(await (await api(privatePath, owner)).json()).toEqual([]);
     expect((await api(privatePath, owner, 'POST')).status).toBe(204);
     expect(await (await api(privatePath, owner)).json()).toMatchObject([{ id: owner.user.id }]);
@@ -546,7 +598,7 @@ describe('social and notifications', () => {
   });
 });
 describe('image references and privacy', () => {
-  it('allows only the owner to read unattached uploads and legacy detached private images', async () => {
+  it('allows only the owner to read unattached uploads and legacy detached images', async () => {
     const owner = await user('Owner');
     const other = await user('Other');
     const staff = await user('Staff', 'coach');
@@ -567,7 +619,7 @@ describe('image references and privacy', () => {
       expect(cached.status).toBe(404);
     }
   });
-  it('collects detached private images, preserves retained attachments and leaves other fresh uploads alone', async () => {
+  it('collects detached images, preserves retained attachments and leaves other fresh uploads alone', async () => {
     const owner = await user('Owner');
     const other = await user('Other');
     const detached = await image(owner);
@@ -580,7 +632,7 @@ describe('image references and privacy', () => {
     for (const viewer of [owner, other])
       expect((await api('/images/' + detached, viewer)).status).toBe(404);
     expect((await api('/images/' + retained, owner)).status).toBe(200);
-    expect((await api('/images/' + retained, other)).status).toBe(404);
+    expect((await api('/images/' + retained, other)).status).toBe(200);
     expect((await api('/images/' + fresh, owner)).status).toBe(200);
     expect((await api('/entries/' + secret.id, owner, 'PATCH', { image_ids: [] })).status).toBe(
       200,
@@ -589,7 +641,7 @@ describe('image references and privacy', () => {
     expect((await api('/images/' + fresh, owner)).status).toBe(200);
     expect((await api('/images/' + fresh, other)).status).toBe(404);
   });
-  it('makes current avatars visible even on private entries, and collects old avatars only after their last reference', async () => {
+  it('makes current avatars visible on entries, and collects old avatars only after their last reference', async () => {
     const owner = await user('Owner');
     const other = await user('Other');
     const staff = await user('Staff', 'coxswain');
@@ -601,7 +653,7 @@ describe('image references and privacy', () => {
       expect((await api('/images/' + oldAvatar, viewer)).status).toBe(200);
     expect((await api('/me', owner, 'PATCH', { avatar_image_id: nextAvatar })).status).toBe(200);
     expect((await api('/images/' + oldAvatar, owner)).status).toBe(200);
-    expect((await api('/images/' + oldAvatar, other)).status).toBe(404);
+    expect((await api('/images/' + oldAvatar, other)).status).toBe(200);
     expect((await api('/images/' + nextAvatar, other)).status).toBe(200);
     expect((await api('/me', owner, 'PATCH', { avatar_image_id: nextAvatar })).status).toBe(200);
     expect((await api('/images/' + nextAvatar, owner)).status).toBe(200);
@@ -643,10 +695,10 @@ describe('image references and privacy', () => {
     expect(
       (await api('/entries/' + publicEntry.id, owner, 'PATCH', { visibility: 'private' })).status,
     ).toBe(200);
-    expect((await api('/images/' + publicId, other)).status).toBe(404);
+    expect((await api('/images/' + publicId, other)).status).toBe(200);
   });
 });
-describe('private statistics and positive daily aggregates', () => {
+describe('team statistics and positive daily aggregates', () => {
   it.each(['season=2025', 'year=2026'])(
     'filters every breakdown and aggregates ascending positive PT dates for %s',
     async (variant) => {
@@ -685,11 +737,6 @@ describe('private statistics and positive daily aggregates', () => {
         { date: '2026-03-02', equiv_m: 27000 },
         { date: '2026-03-09', equiv_m: 26000 },
       ];
-      const visibleDays = [
-        ...prefix,
-        { date: '2026-02-23', equiv_m: 12000 },
-        { date: '2026-03-09', equiv_m: 6000 },
-      ];
       const extra = prefix.length ? 3000 : 0;
       const own = await (await api('/stats/season?' + variant, owner)).json<SeasonStats>();
       expect(own).toMatchObject({
@@ -714,48 +761,18 @@ describe('private statistics and positive daily aggregates', () => {
         const stats = await (
           await api('/stats/season?' + variant + '&user=' + owner.user.id, viewer)
         ).json<SeasonStats>();
-        expect(stats).toMatchObject({
-          total_m: 18000 + extra,
-          streak: 0,
-          best_week: { week_start: '2026-02-23', total_m: 12000 },
-          by_modality: { erg: 18000 + extra, bike: 0, run: 0 },
-          by_zone: { E: 18000 + extra, D: 0 },
-        });
-        expect(stats.days).toEqual(visibleDays);
-        expect(stats.weeks.at(-1)).toMatchObject({ total_m: 6000, percent: 60, hit_target: false });
-        expect(stats.weeks.find((week) => week.week_start === '2026-03-02')).toMatchObject({
-          total_m: 0,
-          percent: 0,
-          hit_target: false,
-          by_zone: { D: 0 },
-        });
+        expect(stats).toEqual(own);
         const week = await (
           await api('/stats/week?user=' + owner.user.id, viewer)
         ).json<WeekStats>();
-        expect(week).toMatchObject({
-          total_m: 6000,
-          percent: 60,
-          hit_target: false,
-          by_modality: { erg: 6000, bike: 0, run: 0 },
-          by_zone: { E: 6000, D: 0 },
-        });
-        expect(week.entries).toHaveLength(2);
-        expect(week.by_day.map((day) => day.equiv_m)).toEqual([6000, 0, 0, 0, 0, 0, 0]);
+        expect(week.total_m).toBe(ownWeek.total_m);
+        expect(week.by_day).toEqual(ownWeek.by_day);
+        expect(week.entries.map((row) => row.id)).toEqual(ownWeek.entries.map((row) => row.id));
         const profile = await (
           await api('/users/' + owner.user.id, viewer)
         ).json<{ stats: SeasonStats }>();
-        expect(profile.stats).toMatchObject({
-          total_m: 21000,
-          streak: 0,
-          best_week: { week_start: '2026-02-23', total_m: 12000 },
-          by_modality: { bike: 0 },
-          by_zone: { D: 0 },
-        });
-        expect(profile.stats.days).toEqual([
-          { date: '2025-12-31', equiv_m: 3000 },
-          { date: '2026-02-23', equiv_m: 12000 },
-          { date: '2026-03-09', equiv_m: 6000 },
-        ]);
+        expect(profile.stats.total_m).toBe(68000);
+        expect(profile.stats.days.reduce((sum, day) => sum + day.equiv_m, 0)).toBe(68000);
       }
       const profile = await (
         await api('/users/' + owner.user.id, owner)
@@ -777,7 +794,7 @@ describe('private statistics and positive daily aggregates', () => {
       });
     },
   );
-  it('returns no daily rows for private-only views, zero-only dates, empty and future ranges', async () => {
+  it('shares daily rows with the team and omits zero-only dates, empty and future ranges', async () => {
     const owner = await user('Owner');
     const other = await user('Other');
     await entry(owner, { date: '2026-03-09', visibility: 'private' });
@@ -789,7 +806,8 @@ describe('private statistics and positive daily aggregates', () => {
       '/stats/season?year=2026&user=' + owner.user.id,
     ]) {
       const hidden = await (await api(path, other)).json<SeasonStats>();
-      expect(hidden).toMatchObject({ total_m: 0, days: [], streak: 0, best_week: null });
+      expect(hidden.total_m).toBe(own.total_m);
+      expect(hidden.days).toEqual(own.days);
     }
     expect((await (await api('/stats/season', other)).json<SeasonStats>()).days).toEqual([]);
     expect((await (await api('/stats/season?year=2027', owner)).json<SeasonStats>()).days).toEqual(
@@ -798,7 +816,7 @@ describe('private statistics and positive daily aggregates', () => {
   });
 });
 describe('statistics, leaderboard and team', () => {
-  it('zero fills week totals/by_day, normalizes weeks, and excludes private meters for other viewers', async () => {
+  it('zero fills week totals/by_day, normalizes weeks, and includes every workout for other viewers', async () => {
     const owner = await user('Owner');
     const other = await user('Other');
     const empty = await (await api('/stats/week', owner)).json<WeekStats>();
@@ -824,13 +842,13 @@ describe('statistics, leaderboard and team', () => {
       await api('/stats/week?week=2026-03-11&user=' + owner.user.id, other)
     ).json<WeekStats>();
     expect(stats).toMatchObject({
-      total_m: 10000,
-      percent: 12.5,
+      total_m: 19000,
+      percent: 23.8,
       hit_target: false,
-      by_modality: { erg: 10000, bike: 0, run: 0 },
+      by_modality: { erg: 10000, bike: 9000, run: 0 },
     });
-    expect(stats.by_day.map((row) => row.equiv_m)).toEqual([10000, 0, 0, 0, 0, 0, 0]);
-    expect(stats.entries).toHaveLength(1);
+    expect(stats.by_day.map((row) => row.equiv_m)).toEqual([10000, 9000, 0, 0, 0, 0, 0]);
+    expect(stats.entries).toHaveLength(2);
     const own = await (await api('/stats/week?week=2026-03-11', owner)).json<WeekStats>();
     expect(own.total_m).toBe(19000);
     expect(own.by_day.map((row) => row.equiv_m)).toEqual([10000, 9000, 0, 0, 0, 0, 0]);
@@ -885,7 +903,7 @@ describe('statistics, leaderboard and team', () => {
     const current = await (await api('/stats/season?season=2025', owner)).json<SeasonStats>();
     expect(current.total_m).toBe(7000);
   });
-  it('sorts all leaderboard metrics, competition ranks ties, excludes inactive/hidden and keeps private totals', async () => {
+  it('sorts all leaderboard metrics, competition ranks ties, excludes inactive/hidden and keeps all workout totals', async () => {
     const alice = await user('Alice');
     const bob = await user('Bob');
     const carol = await user('Carol');
@@ -939,7 +957,12 @@ describe('statistics, leaderboard and team', () => {
     ).json<{ user: PublicUser; stats: SeasonStats }>();
     expect(profile).toMatchObject({
       user: { name: 'Amy' },
-      stats: { total_m: 0, days: [], streak: 0, best_week: null },
+      stats: {
+        total_m: 10000,
+        days: [{ date: '2026-03-09', equiv_m: 10000 }],
+        streak: 0,
+        best_week: { total_m: 10000 },
+      },
     });
     expect(JSON.stringify(profile)).not.toMatch(/password|email|example.com/);
     expect((await api('/users/' + inactive.user.id, zed)).status).toBe(404);

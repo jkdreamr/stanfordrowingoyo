@@ -3,6 +3,7 @@ export type Zone = 'R' | 'R/E' | 'E' | 'E/D' | 'D' | 'D/C' | 'C' | 'C/B' | 'B' |
 export type Role = 'rower' | 'coxswain' | 'coach' | 'admin';
 export type GroupKey = 'frosh' | 'normal' | 'u23';
 export type Side = 'port' | 'starboard' | 'both' | 'cox';
+/** Legacy input compatibility; entries are always stored and returned as team-visible. */
 export type Visibility = 'team' | 'private';
 export interface User {
   id: string;

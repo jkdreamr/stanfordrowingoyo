@@ -32,7 +32,6 @@ export type LogDraft = {
   hr: string;
   title: string;
   notes: string;
-  private: boolean;
   preset: string | null;
 };
 export function logDraft(today: string, entry?: EntryDetail, preset?: Preset): LogDraft {
@@ -48,7 +47,6 @@ export function logDraft(today: string, entry?: EntryDetail, preset?: Preset): L
     hr: entry?.avg_hr ? String(entry.avg_hr) : '',
     title: entry?.title ?? preset?.name ?? '',
     notes: entry?.notes ?? '',
-    private: entry?.visibility === 'private',
     preset: entry?.preset_id ?? preset?.id ?? null,
   };
 }
@@ -140,7 +138,7 @@ export function logValues(
     avg_hr: draft.hr ? Number(draft.hr) : null,
     title: draft.title.trim() || suggestedTitle(draft),
     notes: draft.notes,
-    visibility: draft.private ? 'private' : 'team',
+    visibility: 'team',
     preset_id: draft.preset,
   };
   return {

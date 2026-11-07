@@ -153,7 +153,7 @@ export async function runScenarios(
       distance_m: 2000 + Math.floor(r.rng() * 58001),
       title: `Load Test ${r.n}`,
       notes: 'Synthetic QA workout',
-      visibility: r.rng() < 0.9 ? 'team' : 'private',
+      visibility: 'team',
     };
     if (images && r.rng() < 0.4) {
       const image = await r.client.request('POST /api/images', {

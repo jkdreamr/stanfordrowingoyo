@@ -144,9 +144,6 @@ export function createMockApi({
       source: personal ? ('personal' as const) : ('group' as const),
     };
   }
-  function visible(entry: Entry) {
-    return entry.visibility === 'team' || entry.user_id === currentId;
-  }
   function detail(entry: Entry): EntryDetail {
     return {
       ...entry,
@@ -159,7 +156,7 @@ export function createMockApi({
   }
   function entryById(entryId: string) {
     const entry = state.entries.find((e) => e.id === entryId);
-    if (!entry || (!visible(entry) && !staff())) fail(404, 'Entry not found');
+    if (!entry) fail(404, 'Entry not found');
     return entry;
   }
   function own(userId: string) {
@@ -178,11 +175,9 @@ export function createMockApi({
     }
     return result;
   }
-  function summary(userId: string, week: string, includePrivate = false): WeekSummary {
+  function summary(userId: string, week: string): WeekSummary {
     const total = totals(
-      state.entries.filter(
-        (e) => e.user_id === userId && e.week_start === week && (includePrivate || visible(e)),
-      ),
+      state.entries.filter((e) => e.user_id === userId && e.week_start === week),
     );
     const target_m = target(userId, week).target_m;
     return {
@@ -193,13 +188,12 @@ export function createMockApi({
       hit_target: target_m > 0 && total.total_m >= target_m,
     };
   }
-  function streak(userId: string, week: string, includePrivate = false) {
+  function streak(userId: string, week: string) {
     const first = weekStart(seasonRange(week, settings.season_start).start);
     let w = week;
-    if (w === weekStart(today(now())) && !summary(userId, w, includePrivate).hit_target)
-      w = addDays(w, -7);
+    if (w === weekStart(today(now())) && !summary(userId, w).hit_target) w = addDays(w, -7);
     let count = 0;
-    for (; w >= first && summary(userId, w, includePrivate).hit_target; w = addDays(w, -7)) count++;
+    for (; w >= first && summary(userId, w).hit_target; w = addDays(w, -7)) count++;
     return count;
   }
   function weekStats(userId: string, week: string): WeekStats {
@@ -210,30 +204,22 @@ export function createMockApi({
         const date = addDays(week, i);
         return { date, equiv_m: totals(all.filter((e) => e.date === date)).total_m };
       }),
-      entries: all
-        .filter(visible)
-        .sort((a, b) => b.created_at.localeCompare(a.created_at))
-        .map(detail),
+      entries: all.sort((a, b) => b.created_at.localeCompare(a.created_at)).map(detail),
     };
   }
   function seasonStats(
     userId: string,
     range = seasonRange(today(now()), settings.season_start),
-    includePrivate = false,
   ): SeasonStats {
     const end = range.end < today(now()) ? range.end : today(now());
     const entries = state.entries.filter(
-      (e) =>
-        e.user_id === userId &&
-        (includePrivate || visible(e)) &&
-        e.date >= range.start &&
-        e.date <= end,
+      (e) => e.user_id === userId && e.date >= range.start && e.date <= end,
     );
     const days = new Map<string, number>();
     for (const entry of entries) days.set(entry.date, (days.get(entry.date) ?? 0) + entry.equiv_m);
     const weeks: WeekSummary[] = [];
     for (let w = weekStart(range.start); w <= end; w = addDays(w, 7))
-      weeks.push(summary(userId, w, includePrivate));
+      weeks.push(summary(userId, w));
     return {
       days: [...days]
         .sort(([a], [b]) => a.localeCompare(b))
@@ -242,7 +228,7 @@ export function createMockApi({
       ...totals(entries),
       ...range,
       weeks,
-      streak: streak(userId, weekStart(end), includePrivate),
+      streak: streak(userId, weekStart(end)),
       best_week: weeks.reduce<WeekSummary | null>(
         (best, w) => (!best || w.total_m > best.total_m ? w : best),
         null,
@@ -255,7 +241,7 @@ export function createMockApi({
     const rows = state.users
       .filter((u) => u.active && (compliance ? u.role === 'rower' : u.on_leaderboard))
       .map((user) => {
-        const s = summary(user.id, week, true);
+        const s = summary(user.id, week);
         let target_m = s.target_m;
         let total_m = s.total_m;
         if (metric === 'season') {
@@ -274,7 +260,7 @@ export function createMockApi({
           total_m,
           percent: target_m > 0 ? Math.round((total_m / target_m) * 1000) / 10 : 0,
           rank: 0,
-          streak: streak(user.id, week, true),
+          streak: streak(user.id, week),
           entry_count: state.entries.filter((e) => e.user_id === user.id && e.week_start === week)
             .length,
         };
@@ -312,8 +298,6 @@ export function createMockApi({
       fail(400, 'Choose a valid modality and zone');
     if (!Number.isInteger(input.distance_m) || input.distance_m < 1 || input.distance_m > 200000)
       fail(400, 'Distance must be 1–200,000 meters');
-    if (!['team', 'private'].includes(input.visibility))
-      fail(400, 'Choose team or private visibility');
     if (typeof input.title !== 'string' || input.title.trim().length > 120)
       fail(400, 'Title must be at most 120 characters');
     if (typeof input.notes !== 'string' || input.notes.length > 2000)
@@ -715,10 +699,10 @@ export function createMockApi({
           if (scope.startsWith('user:')) userById(scope.slice(5));
           const entries = state.entries.filter((e) =>
             scope === 'feed'
-              ? e.visibility === 'team'
+              ? true
               : scope === 'mine'
                 ? e.user_id === user.id
-                : e.user_id === scope.slice(5) && visible(e),
+                : e.user_id === scope.slice(5),
           );
           return json(
             paginate(
@@ -740,6 +724,7 @@ export function createMockApi({
           const { image_ids = [], ...fields } = input;
           const entry: Entry = {
             ...fields,
+            visibility: 'team',
             id: id('entry'),
             user_id: user.id,
             week_start: weekStart(input.date),
@@ -846,10 +831,10 @@ export function createMockApi({
               'title',
               'notes',
               'preset_id',
-              'visibility',
             ];
             for (const key of allowed) if (key in body) Object.assign(entry, { [key]: body[key] });
             Object.assign(entry, {
+              visibility: 'team',
               week_start: weekStart(entry.date),
               mode_factor: settings.mode_factors[entry.modality],
               zone_factor: settings.zone_factors[entry.zone],
@@ -899,8 +884,8 @@ export function createMockApi({
       }
       if (parts[2] === 'images' && method === 'GET') {
         const upload = uploads.get(resourceId);
-        const linked = state.entries.some(
-          (e) => visible(e) && state.imageLinks[e.id]?.some((i) => i.id === resourceId),
+        const linked = state.entries.some((e) =>
+          state.imageLinks[e.id]?.some((i) => i.id === resourceId),
         );
         if (
           !linked &&

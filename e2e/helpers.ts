@@ -43,6 +43,7 @@ export async function logEntry(
     .getByRole('link', { name: 'Log Session', exact: true })
     .filter({ visible: true })
     .click();
+  await expect(page.getByLabel('Private', { exact: true })).toHaveCount(0);
   await page
     .getByRole('radio', {
       name: modality === 'erg' ? 'Erg' : modality === 'bike' ? 'Bike' : 'Run',

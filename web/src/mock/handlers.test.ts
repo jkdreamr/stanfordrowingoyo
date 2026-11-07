@@ -217,11 +217,7 @@ describe('mock stats and visibility', () => {
     expect(prior.days.reduce((n, d) => n + d.equiv_m, 0)).toBe(prior.total_m);
     const other: SeasonStats = await (await request('/stats/season?user=user-2')).json();
     const visible = state.entries.filter(
-      (e) =>
-        e.user_id === 'user-2' &&
-        e.visibility !== 'private' &&
-        e.date >= other.start &&
-        e.date <= '2026-11-06',
+      (e) => e.user_id === 'user-2' && e.date >= other.start && e.date <= '2026-11-06',
     );
     expect(other.total_m).toBe(visible.reduce((n, e) => n + e.equiv_m, 0));
     expect(other.days.reduce((n, d) => n + d.equiv_m, 0)).toBe(other.total_m);
@@ -236,7 +232,7 @@ describe('mock stats and visibility', () => {
     expect(marcus.percent).toBe(Math.round((marcus.total_m / marcus.target_m) * 1000) / 10);
     expect(rows.every((r, i) => i === 0 || rows[i - 1].total_m >= r.total_m)).toBe(true);
   });
-  it('includes private entries in leaderboard totals and ongoing streaks without exposing profile days', async () => {
+  it('shares all workout totals and days with the team, including legacy inputs', async () => {
     const { request, state } = setup();
     state.entries = state.entries.filter((e) => e.user_id !== 'user-1');
     for (const date of ['2026-10-19', '2026-10-26'])
@@ -262,8 +258,7 @@ describe('mock stats and visibility', () => {
     expect(own.days.reduce((sum, day) => sum + day.equiv_m, 0)).toBe(181000);
     await request('/auth/login', 'POST', { email: state.users[1].email, password: 'password' });
     const other: SeasonStats = await (await request('/stats/season?user=user-1')).json();
-    expect(other.total_m).toBe(1000);
-    expect(other.days).toEqual([{ date: '2026-11-06', equiv_m: 1000 }]);
+    expect(other).toEqual(own);
   });
   it('replaces whole plans atomically, validates bounds and duplicate keys, and exposes saved groups to rowers', async () => {
     const { request } = setup();
@@ -563,7 +558,7 @@ describe('mock stats and visibility', () => {
     const future: WeekStats = await (await request('/stats/week?week=2026-11-09')).json();
     expect(future.target_m).toBe(100000);
   });
-  it('paginates feed and excludes private entries even from direct access and other-user pages', async () => {
+  it('paginates all team entries and exposes direct access and other-user pages', async () => {
     const { request, state } = setup();
     let cursor: string | null = null;
     const ids: string[] = [];
@@ -577,8 +572,8 @@ describe('mock stats and visibility', () => {
       cursor = page.next_cursor;
     } while (cursor);
     expect(new Set(ids).size).toBe(ids.length);
-    const hidden = state.entries.find((e) => e.user_id !== 'user-1' && e.visibility === 'private')!;
-    expect((await request(`/entries/${hidden.id}`)).status).toBe(404);
+    const hidden = state.entries.find((e) => e.user_id !== 'user-1' && e.visibility === 'team')!;
+    expect((await request(`/entries/${hidden.id}`)).status).toBe(200);
     const profile: Page<EntryDetail> = await (
       await request(`/entries?scope=user:${hidden.user_id}`)
     ).json();
@@ -586,6 +581,18 @@ describe('mock stats and visibility', () => {
   });
 });
 describe('mock mutations and errors', () => {
+  it('normalizes legacy visibility inputs on creation and patch', async () => {
+    const { request } = setup();
+    const created: EntryDetail = await (
+      await request('/entries', 'POST', { ...input, visibility: 'private' })
+    ).json();
+    expect(created.visibility).toBe('team');
+    const updated: EntryDetail = await (
+      await request('/entries/' + created.id, 'PATCH', { visibility: 'private' })
+    ).json();
+    expect(updated.visibility).toBe('team');
+    expect((await (await request('/entries/' + created.id)).json()).visibility).toBe('team');
+  });
   it('lists only unclaimed names and claims a name atomically with its roster role', async () => {
     const { request, state } = setup();
     expect(state.roster).toHaveLength(39);
@@ -745,10 +752,10 @@ describe('mock mutations and errors', () => {
     await request(`/entries/${entry.id}/kudos`, 'DELETE');
     expect(await (await request(`/entries/${entry.id}/kudos`)).json()).toEqual([]);
     expect((await request('/entries/missing/kudos')).status).toBe(404);
-    const privateEntry = state.entries.find(
-      (e) => e.user_id !== 'user-1' && e.visibility === 'private',
+    const otherEntry = state.entries.find(
+      (e) => e.user_id !== 'user-1' && e.visibility === 'team',
     )!;
-    expect((await request(`/entries/${privateEntry.id}/kudos`)).status).toBe(404);
+    expect((await request(`/entries/${otherEntry.id}/kudos`)).status).toBe(200);
     await request('/auth/logout', 'POST');
     expect((await request(`/entries/${entry.id}/kudos`)).status).toBe(401);
   });

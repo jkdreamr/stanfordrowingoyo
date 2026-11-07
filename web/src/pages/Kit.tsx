@@ -103,10 +103,9 @@ export default function Kit() {
               <UI.ZoneOption key={z} zone={z} selected={zone === z} onClick={() => setZone(z)} />
             ))}
           </div>
-          <UI.Toggle label="Share With Team" checked={on} onChange={setOn} />
-          <UI.Toggle label="Private Session" checked={false} disabled onChange={() => {}} />
+          <UI.Toggle label="Workout Reminders" checked={on} onChange={setOn} />
         </section>
-        <UI.ListGroup header="Session Settings" footer="Only your team can see shared sessions">
+        <UI.ListGroup header="Session Settings" footer="Every workout is visible to the team">
           <UI.ListRow
             title="Josh Koo"
             subtitle="Normal · Senior"
@@ -148,9 +147,9 @@ export default function Kit() {
           <UI.TextField label="Split" defaultValue="1:72" error="Use a split like 1:52.4" />
           <UI.TextField label="Unavailable Field" disabled value="Team Setting" />
           <UI.TextArea label="Notes" placeholder="How did it feel?" />
-          <UI.Select label="Visibility" hint="Choose who sees your session">
-            <option>Team</option>
-            <option>Only Me</option>
+          <UI.Select label="Group" hint="Choose a training group">
+            <option>Normal</option>
+            <option>Frosh</option>
           </UI.Select>
         </section>
         <section className="space-y-4">
