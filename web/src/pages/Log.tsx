@@ -223,7 +223,7 @@ function LogForm({
             )}
             {draft.modality === 'erg' && pace === null && (
               <p className="mt-2 text-footnote text-muted">
-                Add your best split in Edit Profile for zone target paces
+                Add a best split in Edit Profile for zone paces
               </p>
             )}
           </section>
@@ -304,7 +304,7 @@ function LogForm({
             ) : (
               <>
                 <p className="mt-2 text-title1 text-muted">—</p>
-                <p className="mt-2 text-footnote text-muted">Enter a distance to see E-meters</p>
+                <p className="mt-2 text-footnote text-muted">Enter a distance</p>
               </>
             )}
           </Card>

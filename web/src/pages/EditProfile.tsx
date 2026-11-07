@@ -173,7 +173,7 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
             value={draft.six}
             placeholder="m:ss.t"
             onChange={(e) => field('six', e.target.value)}
-            hint="Used for zone target paces"
+            hint="For zone paces"
             error={values.errors.six}
           />
           <TextField
@@ -181,7 +181,7 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
             value={draft.two}
             placeholder="m:ss.t"
             onChange={(e) => field('two', e.target.value)}
-            hint="Used for zone A target pace"
+            hint="For zone A pace"
             error={values.errors.two}
           />
         </fieldset>

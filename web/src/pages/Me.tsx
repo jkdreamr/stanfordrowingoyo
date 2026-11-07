@@ -170,11 +170,7 @@ export default function Me() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title={allEntries.length ? 'No Matching Sessions' : 'No Sessions Yet'}
-              body={
-                allEntries.length
-                  ? 'Try another modality or zone'
-                  : 'Your training starts with one session'
-              }
+              body={allEntries.length ? 'Try another modality or zone' : undefined}
               action={
                 allEntries.length ? (
                   <Button
@@ -187,7 +183,7 @@ export default function Me() {
                     Clear Filters
                   </Button>
                 ) : (
-                  <Button to="/log">Log a Session</Button>
+                  <Button to="/log">Log Session</Button>
                 )
               }
             />

@@ -27,7 +27,7 @@ export default function Team() {
           <EmptyState
             icon={<Users size={20} strokeWidth={1.75} aria-hidden="true" />}
             title={search ? 'No Matches' : 'No Teammates Yet'}
-            body={search ? 'Try another name' : 'Your team will appear here'}
+            body={search ? 'Try another name' : undefined}
           />
         ) : (
           ['Rowers', 'Coxswains & Staff'].map((section) => {

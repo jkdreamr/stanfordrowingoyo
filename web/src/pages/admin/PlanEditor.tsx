@@ -111,7 +111,7 @@ function PlanDraft({ initial }: { initial: Plan }) {
           ]}
         />
         <p role="status" className="text-subhead text-muted">
-          {dirty ? 'Unsaved changes across the whole plan' : 'All changes saved'}
+          {dirty ? 'Unsaved changes' : 'Saved'}
         </p>
         {view === 'preview' ? (
           <PlanWeek week={scheduleWeeks(draft, group)[week - 1]} preview />
@@ -125,7 +125,6 @@ function PlanDraft({ initial }: { initial: Plan }) {
               }
               maxLength={200}
               disabled={mutation.isPending}
-              hint="Shown to rowers below the week heading."
               onChange={(event) =>
                 setDraft(replaceTotal(draft, { group_key: group, week, label: event.target.value }))
               }
@@ -270,11 +269,9 @@ function SlotEditor({
             />
           </>
         ) : (
-          <p className="text-subhead text-muted">No training session is scheduled for this slot.</p>
+          <p className="text-subhead text-muted">No session scheduled.</p>
         )}
-        <p className="text-footnote text-muted">
-          Apply updates your draft. Save Plan publishes all groups and both weeks.
-        </p>
+        <p className="text-footnote text-muted">Apply edits the draft. Save Plan publishes it.</p>
       </div>
     </Sheet>
   );

@@ -143,7 +143,7 @@ export default function EntryDetail() {
                   Loading discussion
                 </p>
               ) : comments.data.length === 0 ? (
-                <p className="mb-6 text-subhead text-muted">Start the conversation</p>
+                <p className="mb-6 text-subhead text-muted">No Comments Yet</p>
               ) : (
                 <ul className="mb-6 divide-y divide-divider">
                   {comments.data.map((comment) => (

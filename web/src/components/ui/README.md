@@ -167,7 +167,7 @@ NumberField is a text input with numeric keyboard, allowing incomplete edits; pa
 | checked, onChange | boolean, (checked: boolean) => void |
 | disabled          | optional boolean                    |
 
-`<Toggle label="Share With Team" checked={shared} onChange={setShared} />`
+`<Toggle label="Pinned" checked={pinned} onChange={setPinned} />`
 
 ### Avatar
 

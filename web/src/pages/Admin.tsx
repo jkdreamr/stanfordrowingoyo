@@ -14,14 +14,14 @@ import { Button, Card, ListGroup, ListRow, PageHeader } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 
 const links = [
-  ['Roster', 'Names, accounts and team roles', '/admin/roster', Users],
-  ['Compliance', 'Weekly targets and training totals', '/admin/compliance', ClipboardCheck],
-  ['Team Settings', 'Join code, factors and targets', '/admin/settings', Settings],
-  ['Presets', 'Training distances and zones', '/admin/presets', SlidersHorizontal],
-  ['Plan Editor', 'The next two weeks of training', '/admin/plan', CalendarDays],
-  ['Announcements', 'Updates for the whole team', '/admin/announcements', Megaphone],
-  ['Export', 'Download session data', '/admin/export', Download],
-  ['Audit Log', 'Changes made by staff', '/admin/audit', History],
+  ['Roster', '/admin/roster', Users],
+  ['Compliance', '/admin/compliance', ClipboardCheck],
+  ['Team Settings', '/admin/settings', Settings],
+  ['Presets', '/admin/presets', SlidersHorizontal],
+  ['Plan Editor', '/admin/plan', CalendarDays],
+  ['Announcements', '/admin/announcements', Megaphone],
+  ['Export', '/admin/export', Download],
+  ['Audit Log', '/admin/audit', History],
 ] as const;
 export default function Admin() {
   const compliance = useCompliance();
@@ -48,20 +48,14 @@ export default function Admin() {
           <LoadState error={compliance.isError} retry={() => void compliance.refetch()} />
         )}
         <ListGroup>
-          {links.map(([title, subtitle, to, Icon]) => (
+          {links.map(([title, to, Icon]) => (
             <ListRow
               key={to}
               title={title}
-              subtitle={subtitle}
               to={to}
               leading={<Icon size={20} strokeWidth={1.75} />}
             />
           ))}
-        </ListGroup>
-        <ListGroup header="Moderation">
-          <div className="p-4 text-subhead text-muted">
-            Staff permissions include editing or deleting team sessions and comments.
-          </div>
         </ListGroup>
       </div>
     </>

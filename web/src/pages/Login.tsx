@@ -40,7 +40,6 @@ export default function Login() {
   return (
     <AuthFrame
       title="Stanford Rowing OYO"
-      subtitle="Your extra training, counted"
       action={
         <Button type="submit" form="login-form" fullWidth loading={mutation.isPending}>
           Log In

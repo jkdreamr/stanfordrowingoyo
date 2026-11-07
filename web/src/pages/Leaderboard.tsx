@@ -338,11 +338,7 @@ function Board({ config }: { config: Config }) {
       ) : !rows ? (
         <SkeletonRows />
       ) : rows.length === 0 ? (
-        <EmptyState
-          icon={<Trophy size={20} strokeWidth={1.75} />}
-          title="No Rankings Yet"
-          body="Rankings appear after eligible teammates log workouts."
-        />
+        <EmptyState icon={<Trophy size={20} strokeWidth={1.75} />} title="No Rankings Yet" />
       ) : (
         <section aria-label="Rankings" className="space-y-4">
           {podium.length > 0 && (
@@ -366,11 +362,6 @@ function Board({ config }: { config: Config }) {
               ))}
             </ol>
           )}
-          <p className="px-1 text-footnote text-muted">
-            {metric === 'season'
-              ? 'Season percent compares each rower’s season total with the sum of their own weekly targets so far.'
-              : 'Percent compares each rower’s total with their own weekly target, so every group ranks fairly.'}
-          </p>
         </section>
       )}
       {mine && (
