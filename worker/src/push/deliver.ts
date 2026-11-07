@@ -36,6 +36,7 @@ const verbs: Record<Notification['kind'], string> = {
   tag: 'Tagged you in',
   mention: 'Mentioned you in',
   announcement: 'Announcement',
+  report: 'Reported',
 };
 
 export function pushPayload(row: OutboxRow, unread: number): PushPayload {
@@ -49,7 +50,9 @@ export function pushPayload(row: OutboxRow, unread: number): PushPayload {
         : verbs.announcement
       : `${verbs[kind]} ${entry}`;
   const url =
-    kind === 'announcement' || !row.entry_id
+    kind === 'report'
+      ? '/admin/reports'
+      : kind === 'announcement' || !row.entry_id
       ? '/announcements'
       : `/entries/${encodeURIComponent(row.entry_id)}${kind === 'comment' || kind === 'mention' ? '#comments' : ''}`;
   return {
@@ -92,7 +95,14 @@ export async function deliverPush(
   const unread = new Map<string, number>();
   await Promise.all(
     rows.map(async (row) => {
-      if (!row.owner || !row.kind || row.owner !== row.recipient || row.read_at) {
+      if (
+        !row.owner ||
+        !row.kind ||
+        row.owner !== row.recipient ||
+        row.read_at ||
+        (row.kind === 'report' &&
+          !sql.exec("SELECT id FROM users WHERE id=? AND active=1 AND role IN ('coxswain','coach','admin')", row.owner).toArray().length)
+      ) {
         sql.exec('DELETE FROM push_outbox WHERE id = ?', row.id);
         return;
       }
