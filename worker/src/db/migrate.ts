@@ -1,4 +1,5 @@
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
+import { today } from '../../../shared/dates';
 import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS, ROSTER } from '../../../shared/seed';
 import {
   TEAM_CODE_MIN_LENGTH,
@@ -386,6 +387,47 @@ END;`);
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
         '9',
+      );
+    });
+  if (Number(JSON.parse(version.value_json)) < 10)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS erg_tests (
+id TEXT PRIMARY KEY, user_id TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('2k','6k')),
+date TEXT NOT NULL, time_s REAL NOT NULL, split_s REAL NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS erg_tests_user_kind_date ON erg_tests(user_id,kind,date);
+CREATE TABLE IF NOT EXISTS challenges (
+id TEXT PRIMARY KEY, title TEXT NOT NULL, unit TEXT NOT NULL CHECK(unit IN ('emeters','km')),
+goal_m INTEGER NOT NULL, modality TEXT NULL, start_date TEXT NOT NULL, end_date TEXT NOT NULL,
+created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, ended_at TEXT NULL);
+CREATE INDEX IF NOT EXISTS entries_date ON entries(date);`);
+      const now = new Date().toISOString();
+      for (const user of sql
+        .exec<{
+          id: string;
+          updated_at: string;
+          best2k_split_s: number | null;
+          best6k_split_s: number | null;
+        }>('SELECT id,updated_at,best2k_split_s,best6k_split_s FROM users')
+        .toArray())
+        for (const kind of ['2k', '6k'] as const) {
+          const split = user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
+          if (split !== null)
+            sql.exec(
+              'INSERT INTO erg_tests SELECT ?,?,?,?,?,?,?,? WHERE NOT EXISTS (SELECT 1 FROM erg_tests WHERE user_id=? AND kind=?)',
+              crypto.randomUUID(),
+              user.id,
+              kind,
+              today(new Date(user.updated_at)),
+              Math.round(split * (kind === '2k' ? 4 : 12) * 10) / 10,
+              split,
+              now,
+              now,
+              user.id,
+              kind,
+            );
+        }
+      sql.exec(
+        "INSERT INTO settings VALUES ('schema_version','10') ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",
       );
     });
   if (Number(JSON.parse(version.value_json)) < 16)

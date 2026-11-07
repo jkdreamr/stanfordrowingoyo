@@ -10,6 +10,7 @@ import { rosterByName } from '../db/roster';
 import { deleteUnreferencedImages } from '../db/images';
 import { HttpError, json, noContent, readJson } from '../http';
 import * as v from '../validate';
+import { insertTest } from './tests';
 export function get(ctx: Context) {
   return json(toUser(requireUser(ctx)));
 }
@@ -31,10 +32,7 @@ export async function patch(ctx: Context) {
     );
   for (const key of ['best6k_split_s', 'best2k_split_s'])
     if (body[key] !== undefined)
-      fields[key] = v.nullable(
-        body[key],
-        (value) => Math.round(v.number(value, 'Split', 60, 300) * 10) / 10,
-      );
+      v.nullable(body[key], (value) => Math.round(v.number(value, 'Split', 60, 300) * 10) / 10);
   if (body.avatar_image_id !== undefined) {
     const id = v.nullable(body.avatar_image_id, (value) => v.string(value, 'Avatar image', 1, 200));
     if (
@@ -47,6 +45,12 @@ export async function patch(ctx: Context) {
     fields.avatar_image_id = id;
   }
   ctx.storage.transactionSync(() => {
+    for (const [key, kind] of [
+      ['best2k_split_s', '2k'],
+      ['best6k_split_s', '6k'],
+    ])
+      if (body[key] !== undefined && body[key] !== null)
+        insertTest(ctx, user.id, { kind, date: today(ctx.now), split_s: body[key] });
     if (fields.name !== undefined) {
       const linked = ctx.storage.sql
         .exec<{ id: string }>('SELECT id FROM roster WHERE claimed_by_user_id = ?', user.id)

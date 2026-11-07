@@ -96,6 +96,17 @@ const slot = {
 };
 // A mapped object makes additions to the shared contract a compile-time test failure.
 const endpoints: Record<keyof Api, true> = {
+  'GET /api/users/:id/tests': true,
+  'POST /api/me/tests': true,
+  'PATCH /api/me/tests/:id': true,
+  'DELETE /api/me/tests/:id': true,
+  'GET /api/stats/recap': true,
+  'GET /api/challenges': true,
+  'GET /api/admin/challenges': true,
+  'POST /api/admin/challenges': true,
+  'PATCH /api/admin/challenges/:id': true,
+  'POST /api/admin/challenges/:id/end': true,
+  'DELETE /api/admin/challenges/:id': true,
   'GET /api/health': true,
   'POST /api/auth/signup': true,
   'POST /api/auth/roster': true,
@@ -228,21 +239,49 @@ describe('complete API and role permissions', () => {
       const imageId = (await image.json<{ id: string }>()).id;
       const [method, template] = endpoint.split(' ');
       let path = template.slice(4);
-      const id = path.startsWith('/entries')
-        ? entry.id
-        : path.startsWith('/comments')
-          ? comment.id
-          : path.startsWith('/images')
-            ? imageId
-            : path.includes('/admin/roster/')
-              ? rosterId
-              : path.includes('/presets')
-                ? p.id
-                : path.startsWith('/announcements')
-                  ? announcement.id
-                  : path.endsWith('/reset-password')
-                    ? resetUser.user.id
-                    : rower.user.id;
+      const testId = path.startsWith('/me/tests/')
+        ? (
+            await (
+              await api('/me/tests', staff, 'POST', {
+                kind: '2k',
+                date: '2026-03-01',
+                split_s: 100,
+              })
+            ).json<{ id: string }>()
+          ).id
+        : '';
+      const challengeId = path.startsWith('/admin/challenges/')
+        ? (
+            await (
+              await api('/admin/challenges', staff, 'POST', {
+                title: 'Training',
+                unit: 'emeters',
+                goal_m: 10000,
+                modality: null,
+                start_date: '2026-03-01',
+                end_date: '2026-03-31',
+              })
+            ).json<{ id: string }>()
+          ).id
+        : '';
+      const id =
+        testId ||
+        challengeId ||
+        (path.startsWith('/entries')
+          ? entry.id
+          : path.startsWith('/comments')
+            ? comment.id
+            : path.startsWith('/images')
+              ? imageId
+              : path.includes('/admin/roster/')
+                ? rosterId
+                : path.includes('/presets')
+                  ? p.id
+                  : path.startsWith('/announcements')
+                    ? announcement.id
+                    : path.endsWith('/reset-password')
+                      ? resetUser.user.id
+                      : rower.user.id);
       path = path
         .replace(':id', id)
         .replace(':group', 'normal')

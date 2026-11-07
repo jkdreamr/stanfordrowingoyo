@@ -1,4 +1,54 @@
 export type Modality = 'erg' | 'bike' | 'run';
+export type ErgTestKind = '2k' | '6k';
+export interface ErgTestInput {
+  kind: ErgTestKind;
+  date: string;
+  time_s?: number;
+  split_s?: number;
+}
+export interface ErgTest {
+  id: string;
+  user_id: string;
+  kind: ErgTestKind;
+  date: string;
+  time_s: number;
+  split_s: number;
+  is_pr: boolean;
+  created_at: string;
+  updated_at: string;
+}
+export interface WeeklyRecap {
+  week_start: string;
+  total_m: number;
+  target_m: number;
+  percent: number;
+  hit_target: boolean;
+  entry_count: number;
+  by_modality: Record<Modality, number>;
+  streak: number;
+  best_effort: Entry | null;
+  team: { total_m: number; entry_count: number; rowers: number; rowers_hit_target: number };
+  rank: number | null;
+}
+export type ChallengeUnit = 'emeters' | 'km';
+export interface TeamChallengeInput {
+  title: string;
+  unit: ChallengeUnit;
+  goal_m: number;
+  modality: Modality | null;
+  start_date: string;
+  end_date: string;
+}
+export interface TeamChallenge extends TeamChallengeInput {
+  id: string;
+  created_by: string;
+  created_at: string;
+  updated_at: string;
+  ended_at: string | null;
+  status: 'upcoming' | 'active' | 'ended';
+  progress_m: number;
+  percent: number;
+}
 export type Zone = 'R' | 'R/E' | 'E' | 'E/D' | 'D' | 'D/C' | 'C' | 'C/B' | 'B' | 'A';
 export type Role = 'rower' | 'coxswain' | 'coach' | 'admin';
 export type GroupKey = 'frosh' | 'normal' | 'u23';
@@ -360,6 +410,17 @@ export interface Endpoint<Req, Res, Query = never> {
 }
 /** Canonical endpoint paths for the backend and typed browser client. Void responses use HTTP 204. */
 export interface Api {
+  'GET /api/users/:id/tests': Endpoint<void, ErgTest[]>;
+  'POST /api/me/tests': Endpoint<ErgTestInput, ErgTest>;
+  'PATCH /api/me/tests/:id': Endpoint<Partial<ErgTestInput>, ErgTest>;
+  'DELETE /api/me/tests/:id': Endpoint<void, void>;
+  'GET /api/stats/recap': Endpoint<void, WeeklyRecap, { week?: string }>;
+  'GET /api/challenges': Endpoint<void, TeamChallenge[]>;
+  'GET /api/admin/challenges': Endpoint<void, TeamChallenge[]>;
+  'POST /api/admin/challenges': Endpoint<TeamChallengeInput, TeamChallenge>;
+  'PATCH /api/admin/challenges/:id': Endpoint<Partial<TeamChallengeInput>, TeamChallenge>;
+  'POST /api/admin/challenges/:id/end': Endpoint<void, TeamChallenge>;
+  'DELETE /api/admin/challenges/:id': Endpoint<void, void>;
   'GET /api/health': Endpoint<void, { ok: true; schema_version: number }>;
   'POST /api/auth/signup': Endpoint<SignupRequest, User>;
   'POST /api/auth/roster': Endpoint<{ team_code: string }, RosterChoice[]>;

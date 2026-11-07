@@ -187,22 +187,6 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
               </option>
             ))}
           </Select>
-          <TextField
-            label="Best 6k Split /500m"
-            value={draft.six}
-            placeholder="m:ss.t"
-            onChange={(e) => field('six', e.target.value)}
-            hint="For zone paces"
-            error={values.errors.six}
-          />
-          <TextField
-            label="Best 2k Split /500m"
-            value={draft.two}
-            placeholder="m:ss.t"
-            onChange={(e) => field('two', e.target.value)}
-            hint="For zone A pace"
-            error={values.errors.two}
-          />
         </fieldset>
       </form>
       <input

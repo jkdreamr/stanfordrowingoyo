@@ -99,6 +99,19 @@ export function useImage(id: string) {
 export function useWeekStats(query: Query<'GET /api/stats/week'> = {}, enabled = true) {
   return queryHook('GET /api/stats/week')({ query }, enabled);
 }
+export function useWeeklyRecap(week?: string, enabled = true) {
+  return queryHook('GET /api/stats/recap')({ query: week ? { week } : {} }, enabled);
+}
+export function useChallenges() {
+  return queryHook('GET /api/challenges')({});
+}
+export function useAdminChallenges() {
+  return queryHook('GET /api/admin/challenges')({});
+}
+export const useCreateChallenge = mutationHook('POST /api/admin/challenges');
+export const useUpdateChallenge = mutationHook('PATCH /api/admin/challenges/:id');
+export const useEndChallenge = mutationHook('POST /api/admin/challenges/:id/end');
+export const useDeleteChallenge = mutationHook('DELETE /api/admin/challenges/:id');
 export function useSeasonStats(query: Query<'GET /api/stats/season'> = {}) {
   return queryHook('GET /api/stats/season')({ query });
 }
@@ -111,6 +124,12 @@ export function useUsers() {
 export function useProfile(id: string, enabled = true) {
   return queryHook('GET /api/users/:id')({ params: { id } }, enabled && !!id);
 }
+export function useErgTests(id: string) {
+  return queryHook('GET /api/users/:id/tests')({ params: { id } }, !!id);
+}
+export const useCreateErgTest = mutationHook('POST /api/me/tests');
+export const useUpdateErgTest = mutationHook('PATCH /api/me/tests/:id');
+export const useDeleteErgTest = mutationHook('DELETE /api/me/tests/:id');
 export function useAnnouncements() {
   return queryHook('GET /api/announcements')({});
 }
@@ -225,6 +244,8 @@ export function useAudit() {
   });
 }
 export function invalidationKeys(endpoint: Write): QueryKey[] {
+  if (endpoint.includes('/admin/challenges')) return [qk.root('challenges'), qk.root('admin')];
+  if (endpoint.includes('/me/tests')) return ['users', 'me', 'stats', 'leaderboard'].map(qk.root);
   if (endpoint.includes('/auth/')) return [qk.all];
   if (endpoint === 'PATCH /api/me')
     return ['me', 'users', 'config', 'stats', 'leaderboard', 'entries', 'notifications'].map(
@@ -241,7 +262,10 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint === 'DELETE /api/comments/:id') return [qk.root('entries'), qk.audit()];
   if (endpoint.includes('comments')) return [qk.root('entries')];
   if (endpoint.includes('/entries'))
-    return [...['entries', 'stats', 'leaderboard', 'users', 'me'].map(qk.root), qk.audit()];
+    return [
+      ...['entries', 'stats', 'leaderboard', 'users', 'me', 'challenges'].map(qk.root),
+      qk.audit(),
+    ];
   if (endpoint.includes('/announcements')) return [qk.root('announcements')];
   if (endpoint.includes('/notifications')) return [qk.root('notifications')];
   if (endpoint.includes('/admin/')) {
