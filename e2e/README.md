@@ -30,8 +30,8 @@ the test email/password and group. Discovery errors fail the run; there is no le
 names are never claimed. Every API mutation sends `X-OYO-CSRF: 1`.
 
 Login, roster Signup, Home, Log, Weekly Target and Settings scenarios are enabled.
-Run `E2E_MOCK=1 npm run e2e` to use the development mock on port 8798 while the
-real worker returns 501 for auth/data endpoints. Each browser context gets fresh
+Run `E2E_MOCK=1 npm run e2e` to use the development mock on port 8798 instead of
+the real HTTPS worker. Each browser context gets fresh
 mock state; tests use SPA links after mutations because a full reload resets the
 mock database. Mock requests execute through in-page fetch, not Playwright's
 server-side request context. No mock run claims real cookie/backend coverage.
@@ -42,11 +42,11 @@ temporary-password login followed by forced replacement without a verify call or
 reauth token. Both mock and real runs assert the request bodies; the real forced
 flow uses the admin reset-password endpoint on an isolated test rower.
 
-Without E2E_MOCK, the HTTPS worker path remains unchanged. Main currently has
-only GET /api/health: bootstrap skips backend fixtures on POST /api/auth/signup
-501, and Login gating is fixme only on GET /api/me 501 (it needs a real 401).
-Roster Signup additionally requires POST /api/auth/roster; legacy name-based
-signup is deliberately not exercised because it conflicts with the owner flow.
+Without E2E_MOCK, the suite uses the real backend now merged into main, including
+roster signup, password reauthentication and forced password replacement.
+Legacy name-based signup is deliberately not exercised because it conflicts
+with the owner flow. Bootstrap still skips backend fixtures on a 501 auth response
+when testing an older scaffold.
 Secure/HttpOnly cookie smoke is skipped in mock mode. Unbuilt Admin, Feed/social
 and Leaderboard screens retain their explicit screen fixmes. Unique rowers
 isolate real-backend tests across projects. CI runs the five gates, not E2E.

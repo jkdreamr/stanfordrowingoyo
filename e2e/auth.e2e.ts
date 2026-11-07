@@ -27,6 +27,7 @@ async function logOut(page: Page) {
     .getByRole('button', { name: 'Log Out', exact: true })
     .click();
   await expect(page).toHaveURL(/\/login$/);
+  await expect(page.getByLabel('Email', { exact: true })).toBeVisible();
 }
 async function logIn(page: Page, email: string, password: string) {
   await page.getByLabel('Email', { exact: true }).fill(email);
