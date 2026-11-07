@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { syncThemeColor } from './splash';
 export type Theme = 'system' | 'light' | 'dark';
 const Context = createContext<{ theme: Theme; setTheme: (theme: Theme) => void } | null>(null);
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -15,9 +16,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const update = () => {
       const dark = theme === 'dark' || (theme === 'system' && media.matches);
       document.documentElement.classList.toggle('dark', dark);
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute('content', dark ? '#121214' : '#F7F7FA');
+      syncThemeColor(dark);
     };
     try {
       localStorage.setItem('theme', theme);

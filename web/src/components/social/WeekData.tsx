@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import type { WeekSummary } from '../../../../shared/types';
 import { formatMeters, formatShortDate } from '../../lib/format';
-import { Disclosure } from '../ui';
+import { CalendarDays } from 'lucide-react';
+import { Disclosure, EmptyState } from '../ui';
 
 export function WeekData({ weeks }: { weeks: WeekSummary[] }) {
   const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ export function WeekData({ weeks }: { weeks: WeekSummary[] }) {
           </table>
         </div>
       ) : (
-        <p className="text-subhead text-muted">No weekly data yet</p>
+        <EmptyState icon={<CalendarDays size={20} />} title="No Weekly Data Yet" />
       )}
     </Disclosure>
   );

@@ -127,6 +127,8 @@ beforeEach(async () => {
         'kudos',
         'comments',
         'notifications',
+        'push_subscriptions',
+        'push_outbox',
       ])
         storage.sql.exec(`DELETE FROM ${table}`);
       migrate(storage);
@@ -149,7 +151,7 @@ describe('entries and images', () => {
       expect(
         storage.sql.exec("SELECT value_json FROM settings WHERE key='schema_version'").one()
           .value_json,
-      ).toBe('10');
+      ).toBe('15');
     });
   });
   it('creates, reads, updates and deletes entries with public authors and factor snapshots', async () => {
@@ -350,7 +352,7 @@ describe('entries and images', () => {
             "SELECT value_json FROM settings WHERE key='schema_version'",
           )
           .one().value_json,
-      ).toBe('10');
+      ).toBe('15');
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray()).toEqual(rows);
     });
@@ -492,6 +494,90 @@ describe('entries and images', () => {
   });
 });
 describe('social and notifications', () => {
+  it.each(['entry deletion', 'account removal'] as const)(
+    'keeps announcement references separate during %s even when table ids overlap',
+    async (operation) => {
+      const owner = await user('Owner');
+      const actor = await user('Coach', 'coach');
+      const recipient = await user('Admin', 'admin');
+      const workout = await entry(owner);
+      await sql((storage) => {
+        storage.sql.exec(
+          'INSERT INTO announcements VALUES (?,?,?,?,?,?)',
+          workout.id,
+          actor.user.id,
+          'Team notice',
+          'Body',
+          0,
+          NOW,
+        );
+        for (const kind of ['announcement', 'comment']) {
+          const id = kind + '-notice';
+          storage.sql.exec(
+            'INSERT INTO notifications VALUES (?,?,?,?,?,?,NULL)',
+            id,
+            recipient.user.id,
+            kind,
+            actor.user.id,
+            workout.id,
+            NOW,
+          );
+          storage.sql.exec(
+            'INSERT INTO push_outbox (notification_id,endpoint,next_at) VALUES (?,?,0)',
+            id,
+            'https://fcm.googleapis.com/test',
+          );
+        }
+      });
+      const notes = await (await api('/notifications', recipient)).json<Notification[]>();
+      expect(notes.find((note) => note.kind === 'announcement')).toMatchObject({
+        announcement_id: workout.id,
+        entry_id: null,
+        entry_title: null,
+      });
+      expect(notes.find((note) => note.kind === 'comment')).toMatchObject({
+        entry_id: workout.id,
+        entry_title: workout.title,
+      });
+      const response =
+        operation === 'entry deletion'
+          ? await api(`/entries/${workout.id}`, owner, 'DELETE')
+          : await api(`/admin/users/${owner.user.id}/remove`, recipient, 'POST', {
+              confirmation_email: owner.user.email,
+            });
+      expect(response.status).toBe(204);
+      expect(await (await api('/notifications', recipient)).json()).toMatchObject([
+        { id: 'announcement-notice', announcement_id: workout.id, entry_title: null },
+      ]);
+      await sql((storage) =>
+        expect(
+          storage.sql
+            .exec("SELECT * FROM push_outbox WHERE notification_id='announcement-notice'")
+            .toArray(),
+        ).toHaveLength(1),
+      );
+      expect((await api(`/announcements/${workout.id}`, recipient)).status).toBe(200);
+      expect(
+        (await api(`/admin/users/${actor.user.id}`, recipient, 'PATCH', { role: 'rower' })).status,
+      ).toBe(200);
+      expect(
+        (
+          await api(`/admin/users/${actor.user.id}/remove`, recipient, 'POST', {
+            confirmation_email: actor.user.email,
+          })
+        ).status,
+      ).toBe(204);
+      expect(await (await api('/notifications', recipient)).json()).toEqual([]);
+      expect((await api(`/announcements/${workout.id}`, recipient)).status).toBe(404);
+      await sql((storage) =>
+        expect(
+          storage.sql
+            .exec("SELECT * FROM push_outbox WHERE notification_id='announcement-notice'")
+            .toArray(),
+        ).toHaveLength(0),
+      );
+    },
+  );
   it('lists public kudos users with one query, newest first then user id, subject to entry visibility', async () => {
     const owner = await user('Owner');
     const first = await user('First');

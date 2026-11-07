@@ -171,10 +171,29 @@ export interface Comment {
   user_id: string;
   body: string;
   created_at: string;
+  edited_at?: string | null;
 }
 export interface CommentWithAuthor extends Comment {
   mentions: PublicUser[];
   author: PublicUser;
+}
+export interface ReportTarget {
+  target_type: 'entry' | 'comment';
+  target_id: string;
+}
+export interface ReportInput extends ReportTarget {
+  reason?: string;
+}
+export interface ContentReport extends ReportTarget {
+  id: string;
+  entry_id: string;
+  reporter: PublicUser;
+  reason: string;
+  status: 'open' | 'dismissed' | 'deleted';
+  created_at: string;
+  reviewed_at: string | null;
+  reviewed_by: string | null;
+  content: { author: PublicUser; body: string; title: string | null } | null;
 }
 export interface EntryDetail extends Entry {
   tagged: PublicUser[];
@@ -252,9 +271,10 @@ export interface Notification {
   entry_title: string | null;
   id: string;
   user_id: string;
-  kind: 'kudos' | 'comment' | 'announcement' | 'tag' | 'mention';
+  kind: 'kudos' | 'comment' | 'announcement' | 'tag' | 'mention' | 'report';
   actor_id: string;
   entry_id: string | null;
+  announcement_id?: string | null;
   created_at: string;
   read_at: string | null;
 }
@@ -340,6 +360,46 @@ export interface PasswordChangeRequest {
   new_password: string;
   reauth_token?: string;
 }
+export type PasskeyTransport =
+  'ble' | 'cable' | 'hybrid' | 'internal' | 'nfc' | 'smart-card' | 'usb';
+/** A registered WebAuthn credential; key material is never returned. */
+export interface Passkey {
+  id: string;
+  name: string;
+  created_at: string;
+  last_used_at: string | null;
+  backed_up: boolean;
+}
+/** Base64url (no padding) WebAuthn values; `challenge` is single use and expires at `expires_at`. */
+export interface PasskeyLoginOptions {
+  challenge: string;
+  rp_id: string;
+  timeout_ms: number;
+  expires_at: string;
+}
+export interface PasskeyRegistrationOptions extends PasskeyLoginOptions {
+  rp_name: string;
+  user: { id: string; name: string; display_name: string };
+  exclude_credentials: { id: string; transports: PasskeyTransport[] }[];
+}
+export interface PasskeyRegistrationOptionsRequest {
+  reauth_token?: string;
+}
+export interface PasskeyAssertion {
+  id: string;
+  raw_id: string;
+  client_data_json: string;
+  authenticator_data: string;
+  signature: string;
+  user_handle: string | null;
+}
+export interface PasskeyAttestation {
+  id: string;
+  raw_id: string;
+  client_data_json: string;
+  attestation_object: string;
+  transports: PasskeyTransport[];
+}
 export type ProfilePatch = Partial<
   Pick<
     User,
@@ -362,6 +422,64 @@ export interface Config extends Omit<Settings, 'team_code'> {
   current_week_start: string;
   presets: Preset[];
   zones: Zone[];
+}
+/** A teammate referenced from exported content: only the team-visible id and name. */
+export interface AccountExportPerson {
+  id: string;
+  name: string;
+}
+export interface AccountExportWorkout extends Entry {
+  images: ImageMetadata[];
+  tagged: AccountExportPerson[];
+  kudos_count: number;
+  comment_count: number;
+}
+export interface AccountExportComment extends Comment {
+  mentions: AccountExportPerson[];
+}
+/** Someone else's workout that tags the exporting user. */
+export interface AccountExportTag {
+  entry_id: string;
+  entry_owner_id: string;
+  tagged_at: string;
+}
+/** Someone else's comment that mentions the exporting user; the comment body is not exported. */
+export interface AccountExportMention {
+  comment_id: string;
+  entry_id: string;
+  author_id: string;
+  created_at: string;
+}
+/** `GET /api/me/export`: the signed-in user's own data. Image bytes are fetched via `GET /api/images/:id`. */
+export interface AccountDataExport {
+  format_version: 1;
+  exported_at: string;
+  profile: User;
+  roster: RosterRow | null;
+  weekly_targets: WeeklyTarget[];
+  workouts: AccountExportWorkout[];
+  erg_tests: Omit<ErgTest, 'is_pr'>[];
+  images: ImageMetadata[];
+  comments: AccountExportComment[];
+  kudos_given: Kudos[];
+  plans: MyPlan[];
+  tagged_in: AccountExportTag[];
+  mentioned_in: AccountExportMention[];
+}
+export interface AdminUserRemoveRequest {
+  confirmation_email: string;
+}
+export interface IntroStatus {
+  completed_at: string | null;
+}
+/** VAPID application server key (base64url, uncompressed P-256); null when push is not configured. */
+export interface PushConfig {
+  public_key: string | null;
+}
+/** Browser PushSubscription.toJSON() subset registered for the signed-in user on this device. */
+export interface PushSubscriptionInput {
+  endpoint: string;
+  keys: { p256dh: string; auth: string };
 }
 export interface Endpoint<Req, Res, Query = never> {
   request: Req;
@@ -387,9 +505,20 @@ export interface Api {
   'POST /api/auth/login': Endpoint<LoginRequest, User>;
   'POST /api/auth/logout': Endpoint<void, void>;
   'GET /api/me': Endpoint<void, User>;
+  'GET /api/me/intro': Endpoint<void, IntroStatus>;
+  'POST /api/me/intro': Endpoint<void, IntroStatus>;
   'PATCH /api/me': Endpoint<ProfilePatch, User>;
   'POST /api/me/password/verify': Endpoint<PasswordVerifyRequest, PasswordVerifyResponse>;
   'POST /api/me/password': Endpoint<PasswordChangeRequest, void>;
+  'POST /api/auth/passkey/options': Endpoint<void, PasskeyLoginOptions>;
+  'POST /api/auth/passkey/login': Endpoint<PasskeyAssertion, User>;
+  'GET /api/me/passkeys': Endpoint<void, Passkey[]>;
+  'POST /api/me/passkeys/options': Endpoint<
+    PasskeyRegistrationOptionsRequest,
+    PasskeyRegistrationOptions
+  >;
+  'POST /api/me/passkeys': Endpoint<PasskeyAttestation, Passkey>;
+  'DELETE /api/me/passkeys/:id': Endpoint<void, void>;
   'GET /api/me/target': Endpoint<void, CurrentWeeklyTarget>;
   'PUT /api/me/target': Endpoint<{ target_m: number }, WeeklyTarget>;
   'GET /api/config': Endpoint<void, Config>;
@@ -398,6 +527,7 @@ export interface Api {
     Page<EntryDetail>,
     { scope?: 'feed' | 'mine' | `user:${string}`; cursor?: string }
   >;
+  /** Optional Idempotency-Key (8–128 alphanumeric, _ or -): per-user replay returns the original entry (200; first create 201), or 404 if deleted. Mappings are pruned after seven days on insert. */
   'POST /api/entries': Endpoint<EntryInput, EntryDetail>;
   'GET /api/entries/:id': Endpoint<void, EntryDetail>;
   'PATCH /api/entries/:id': Endpoint<Partial<EntryInput>, EntryDetail>;
@@ -411,6 +541,14 @@ export interface Api {
     CommentWithAuthor
   >;
   'DELETE /api/comments/:id': Endpoint<void, void>;
+  'PATCH /api/comments/:id': Endpoint<{ body: string; mention_ids?: string[] }, CommentWithAuthor>;
+  'POST /api/reports': Endpoint<ReportInput, { id: string }>;
+  'GET /api/admin/reports': Endpoint<
+    void,
+    Page<ContentReport>,
+    { status?: ContentReport['status']; cursor?: string }
+  >;
+  'PATCH /api/admin/reports/:id': Endpoint<{ action: 'dismiss' | 'delete' }, ContentReport>;
   'POST /api/images': Endpoint<Blob, { id: string }>;
   'GET /api/images/:id': Endpoint<void, Blob>;
   'GET /api/stats/week': Endpoint<void, WeekStats, { week?: string; user?: string }>;
@@ -427,6 +565,7 @@ export interface Api {
   'GET /api/users': Endpoint<void, PublicUser[]>;
   'GET /api/users/:id': Endpoint<void, Profile>;
   'GET /api/announcements': Endpoint<void, Announcement[]>;
+  'GET /api/announcements/:id': Endpoint<void, Announcement>;
   'POST /api/announcements': Endpoint<AnnouncementInput, Announcement>;
   'PATCH /api/announcements/:id': Endpoint<Partial<AnnouncementInput>, Announcement>;
   'DELETE /api/announcements/:id': Endpoint<void, void>;
@@ -436,9 +575,15 @@ export interface Api {
   'GET /api/me/plan': Endpoint<void, MyPlan | null, { date?: string }>;
   'PUT /api/me/plan': Endpoint<MyPlanInput, MyPlan>;
   'DELETE /api/me/plan/:start': Endpoint<void, void>;
+  'GET /api/me/export': Endpoint<void, AccountDataExport>;
+  'GET /api/me/export/workouts': Endpoint<void, string>;
+  'GET /api/me/push': Endpoint<void, PushConfig>;
+  'PUT /api/me/push': Endpoint<PushSubscriptionInput, void>;
+  'DELETE /api/me/push': Endpoint<{ endpoint: string }, void>;
   'GET /api/admin/users': Endpoint<void, User[]>;
   'PATCH /api/admin/users/:id': Endpoint<AdminUserPatch, User>;
   'POST /api/admin/users/:id/reset-password': Endpoint<void, { temporary_password: string }>;
+  'POST /api/admin/users/:id/remove': Endpoint<AdminUserRemoveRequest, void>;
   'GET /api/admin/roster': Endpoint<void, RosterRow[]>;
   'POST /api/admin/roster': Endpoint<RosterInput, RosterRow>;
   'PATCH /api/admin/roster/:id': Endpoint<Partial<RosterInput>, RosterRow>;

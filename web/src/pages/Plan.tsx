@@ -102,7 +102,13 @@ export default function Plan() {
   );
 }
 function NoItems({ title }: { title: string }) {
-  return <EmptyState icon={<CalendarDays size={20} strokeWidth={1.75} />} title={title} />;
+  return (
+    <EmptyState
+      icon={<CalendarDays size={20} strokeWidth={1.75} />}
+      title={title}
+      action={<Button to="/log">Log Workout</Button>}
+    />
+  );
 }
 function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
   const [group, setGroup] = useState(initialGroup);

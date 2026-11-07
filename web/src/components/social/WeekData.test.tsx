@@ -28,7 +28,7 @@ it('discloses sorted weekly totals, zero meters and missing targets without a se
 it('handles an empty weekly history', () => {
   render(<WeekData weeks={[]} />);
   fireEvent.click(screen.getByRole('button', { name: 'View Data' }));
-  expect(screen.getByText('No weekly data yet')).toBeTruthy();
+  expect(screen.getByRole('heading', { name: 'No Weekly Data Yet' })).toBeTruthy();
 });
 it('retains only the latest twelve weeks', () => {
   render(

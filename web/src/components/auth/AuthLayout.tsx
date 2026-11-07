@@ -6,13 +6,13 @@ import { BrandMark } from '../shell/Brand';
 import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 export function AuthLayout() {
-  const { data, isPending } = useMe();
+  const { data, isPending, isError } = useMe();
   const location = useLocation();
   const next = safeNext(location.search);
   if (location.pathname === '/login' && typeof location.state?.passwordError === 'string')
     return <Outlet />;
   if (isPending) return <ShellSkeleton />;
-  if (data)
+  if (data && !isError)
     return (
       <Navigate
         to={data.must_change_password ? `/change-password?next=${encodeURIComponent(next)}` : next}

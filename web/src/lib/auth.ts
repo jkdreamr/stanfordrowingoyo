@@ -19,6 +19,7 @@ export function safeNext(search: string) {
 }
 export function authError(error: unknown): string {
   if (error instanceof ApiClientError) {
+    if (error.detail.code === 'NETWORK_ERROR') return 'No connection. Try again.';
     if (error.status === 401) return 'Email or password is incorrect';
     if (error.status === 429) return 'Too many attempts. Wait a few minutes and try again';
     return error.detail.message;

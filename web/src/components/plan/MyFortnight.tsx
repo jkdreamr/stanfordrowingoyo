@@ -16,6 +16,7 @@ import { formatMeters, formatNumber } from '../../lib/format';
 import {
   Button,
   ConfirmSheet,
+  EmptyState,
   IconButton,
   ListGroup,
   ListRow,
@@ -52,6 +53,7 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
   const [dayMenu, setDayMenu] = useState<Day | null>(null);
   const [restConfirm, setRestConfirm] = useState<Day | null>(null);
   const [more, setMore] = useState(false);
+  const [setup, setSetup] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const plan = current.data ?? upcoming.data;
   const busy = put.isPending || remove.isPending;
@@ -82,48 +84,65 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
       />
     );
   const save = (body: MyPlanInput, onSuccess?: () => void) => {
-    if (!busy) put.mutate(body, { onSuccess });
+    if (!busy)
+      put.mutate(body, {
+        onSuccess: () => {
+          setSetup(false);
+          onSuccess?.();
+        },
+      });
   };
   if (!plan) {
     const start_date = start === 'this' ? config.current_week_start : nextMonday;
     return (
       <div className="screen-stack">
-        <h2 className="text-title3">No Plan</h2>
-        <SegmentedControl
-          label="Start Date"
-          value={start}
-          onChange={setStart}
-          options={[
-            { value: 'this', label: 'This Week' },
-            { value: 'next', label: 'Next Week' },
-          ]}
+        <EmptyState
+          icon={<Plus size={20} />}
+          title="No Plan"
+          action={<Button onClick={() => setSetup(true)}>Start Plan</Button>}
         />
-        <div className="flex flex-wrap gap-3">
-          <Button disabled={busy} onClick={() => save(sampleFortnight(sample.data!, start_date))}>
-            Start from Sample
-          </Button>
-          <Button
-            variant="secondary"
-            disabled={busy}
-            onClick={() => save({ start_date, sessions: [], rest_days: [] })}
-          >
-            Start Blank
-          </Button>
-        </div>
-        {previous.data && (
-          <Button
-            variant="plain"
-            disabled={busy}
-            onClick={() =>
-              save({
-                ...previous.data!,
-                start_date: repeatStart(previous.data!.start_date, config.current_week_start),
-              })
-            }
-          >
-            Repeat Fortnight
-          </Button>
-        )}
+        <Sheet open={setup} onClose={() => setSetup(false)} title="Start Plan">
+          <div className="space-y-4">
+            <SegmentedControl
+              label="Start Date"
+              value={start}
+              onChange={setStart}
+              options={[
+                { value: 'this', label: 'This Week' },
+                { value: 'next', label: 'Next Week' },
+              ]}
+            />
+            <div className="flex flex-wrap gap-3">
+              <Button
+                disabled={busy}
+                onClick={() => save(sampleFortnight(sample.data!, start_date))}
+              >
+                Start from Sample
+              </Button>
+              <Button
+                variant="secondary"
+                disabled={busy}
+                onClick={() => save({ start_date, sessions: [], rest_days: [] })}
+              >
+                Start Blank
+              </Button>
+            </div>
+            {previous.data && (
+              <Button
+                variant="plain"
+                disabled={busy}
+                onClick={() =>
+                  save({
+                    ...previous.data!,
+                    start_date: repeatStart(previous.data!.start_date, config.current_week_start),
+                  })
+                }
+              >
+                Repeat Fortnight
+              </Button>
+            )}
+          </div>
+        </Sheet>
       </div>
     );
   }

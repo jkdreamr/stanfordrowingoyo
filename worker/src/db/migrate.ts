@@ -214,10 +214,17 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
 export function migrate(storage: DurableObjectStorage, teamCode?: string): void {
   migrateV1(storage, teamCode);
   const sql = storage.sql;
-  const version = sql
-    .exec<{ value_json: string }>('SELECT value_json FROM settings WHERE key = ?', 'schema_version')
-    .one();
-  if (!version || Number(JSON.parse(version.value_json)) < 2)
+  const version = Number(
+    JSON.parse(
+      sql
+        .exec<{ value_json: string }>(
+          'SELECT value_json FROM settings WHERE key = ?',
+          'schema_version',
+        )
+        .one().value_json,
+    ),
+  );
+  if (version < 2)
     storage.transactionSync(() => {
       const targets = sql
         .exec<{ value_json: string }>(
@@ -236,7 +243,7 @@ export function migrate(storage: DurableObjectStorage, teamCode?: string): void 
         '2',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 3)
+  if (version < 3)
     storage.transactionSync(() => {
       sql.exec(`DROP TABLE roster;
 CREATE TABLE roster (
@@ -260,7 +267,7 @@ CREATE UNIQUE INDEX roster_claim ON roster(claimed_by_user_id) WHERE claimed_by_
         '3',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 4)
+  if (version < 4)
     storage.transactionSync(() => {
       sql.exec(`CREATE INDEX IF NOT EXISTS entries_feed ON entries(visibility,created_at DESC,id DESC);
 CREATE INDEX IF NOT EXISTS entries_user_feed ON entries(user_id,created_at DESC,id DESC);
@@ -273,7 +280,7 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '4',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 5)
+  if (version < 5)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS reauth_grants (
   token_hash TEXT PRIMARY KEY,
@@ -289,7 +296,7 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '5',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 6)
+  if (version < 6)
     storage.transactionSync(() => {
       sql.exec("UPDATE entries SET visibility = 'team' WHERE visibility = 'private'");
       sql.exec(
@@ -298,7 +305,7 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '6',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 7)
+  if (version < 7)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS entry_tags (
   entry_id TEXT NOT NULL,
@@ -320,7 +327,7 @@ CREATE INDEX IF NOT EXISTS comment_mentions_entry ON comment_mentions(entry_id);
         '7',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 8)
+  if (version < 8)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS my_plans (
   user_id TEXT NOT NULL,
@@ -347,7 +354,7 @@ CREATE TABLE IF NOT EXISTS my_plan_sessions (
         '8',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 9)
+  if (version < 9)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS stats_versions (
   user_id TEXT PRIMARY KEY,
@@ -389,7 +396,7 @@ END;`);
         '9',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 10)
+  if (version < 10)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS erg_tests (
 id TEXT PRIMARY KEY, user_id TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('2k','6k')),
@@ -428,6 +435,134 @@ CREATE INDEX IF NOT EXISTS entries_date ON entries(date);`);
         }
       sql.exec(
         "INSERT INTO settings VALUES ('schema_version','10') ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",
+      );
+    });
+  if (version < 11)
+    storage.transactionSync(() => {
+      if (
+        !sql
+          .exec<{ name: string }>('PRAGMA table_info(comments)')
+          .toArray()
+          .some((column) => column.name === 'edited_at')
+      )
+        sql.exec('ALTER TABLE comments ADD COLUMN edited_at TEXT NULL');
+      sql.exec(`CREATE TABLE IF NOT EXISTS comment_mention_history (
+  comment_id TEXT NOT NULL,
+  entry_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  PRIMARY KEY(comment_id,user_id)
+);
+CREATE INDEX IF NOT EXISTS comment_mention_history_entry ON comment_mention_history(entry_id);
+INSERT OR IGNORE INTO comment_mention_history SELECT comment_id,entry_id,user_id FROM comment_mentions;
+CREATE TABLE IF NOT EXISTS content_reports (
+  id TEXT PRIMARY KEY,
+  target_type TEXT NOT NULL CHECK(target_type IN ('entry','comment')),
+  target_id TEXT NOT NULL,
+  entry_id TEXT NOT NULL,
+  reporter_id TEXT NOT NULL,
+  reason TEXT NOT NULL CHECK(length(reason)<=300),
+  status TEXT NOT NULL CHECK(status IN ('open','dismissed','deleted')),
+  created_at TEXT NOT NULL,
+  reviewed_at TEXT NULL,
+  reviewed_by TEXT NULL,
+  UNIQUE(reporter_id,target_type,target_id)
+);
+CREATE INDEX IF NOT EXISTS content_reports_queue ON content_reports(status,created_at DESC,id DESC);
+CREATE INDEX IF NOT EXISTS content_reports_target ON content_reports(target_type,target_id,status);
+CREATE INDEX IF NOT EXISTS content_reports_entry ON content_reports(entry_id,status);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '11',
+      );
+    });
+  if (version < 12)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS user_intro (
+  user_id TEXT PRIMARY KEY,
+  completed_at TEXT NOT NULL
+);`);
+      sql.exec(
+        'INSERT OR IGNORE INTO user_intro (user_id, completed_at) SELECT id, ? FROM users',
+        new Date().toISOString(),
+      );
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '12',
+      );
+    });
+  if (version < 13)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS entry_idempotency (
+  user_id TEXT NOT NULL,
+  key TEXT NOT NULL,
+  entry_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  PRIMARY KEY(user_id,key)
+);
+CREATE INDEX IF NOT EXISTS entry_idempotency_created_at ON entry_idempotency(created_at);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '13',
+      );
+    });
+  if (version < 14)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS push_subscriptions (
+  endpoint TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  p256dh TEXT NOT NULL,
+  auth TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS push_subscriptions_user ON push_subscriptions(user_id,updated_at);
+CREATE TABLE IF NOT EXISTS push_outbox (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  notification_id TEXT NOT NULL,
+  endpoint TEXT NOT NULL,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  next_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS push_outbox_due ON push_outbox(next_at,id);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '14',
+      );
+    });
+  if (version < 15)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS passkeys (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  alg INTEGER NOT NULL,
+  public_key TEXT NOT NULL,
+  sign_count INTEGER NOT NULL,
+  transports TEXT NOT NULL,
+  aaguid TEXT NOT NULL,
+  backup_eligible INTEGER NOT NULL,
+  backed_up INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  last_used_at TEXT
+);
+CREATE INDEX IF NOT EXISTS passkeys_user ON passkeys(user_id,created_at);
+CREATE TABLE IF NOT EXISTS webauthn_challenges (
+  challenge TEXT PRIMARY KEY,
+  kind TEXT NOT NULL CHECK(kind IN ('register','login')),
+  user_id TEXT,
+  session_hash TEXT,
+  expires_at TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS webauthn_challenges_expiry ON webauthn_challenges(expires_at);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '15',
       );
     });
 }

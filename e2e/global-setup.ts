@@ -40,6 +40,7 @@ export default async function globalSetup(config: FullConfig) {
       return;
     }
     await expect(response).toBeOK();
+    await expect(await api.post('/api/me/intro', { headers: csrfHeaders })).toBeOK();
     const settings = await api.get('/api/admin/settings');
     await expect(settings).toBeOK();
     const { team_code }: Api['GET /api/admin/settings']['response'] = await settings.json();

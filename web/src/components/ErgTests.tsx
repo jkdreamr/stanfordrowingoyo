@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useLocation } from 'react-router-dom';
 import type { ErgTest, ErgTestKind, PublicUser } from '../../../shared/types';
 import { useErgTests, useCreateErgTest, useUpdateErgTest, useDeleteErgTest } from '../lib/queries';
 import { testKinds, testTime, testValues } from '../lib/ergTests';
@@ -95,11 +96,16 @@ export function ErgTests({
   own?: boolean;
 }) {
   const history = useErgTests(user.id);
+  const section = useRef<HTMLElement>(null);
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash === '#erg-tests') section.current?.scrollIntoView({ block: 'start' });
+  }, [hash]);
   const [kind, setKind] = useState<ErgTestKind>('2k');
   const [editing, setEditing] = useState<ErgTest | 'new'>();
   const rows = history.data?.filter((row) => row.kind === kind) ?? [];
   return (
-    <section aria-label="Erg Tests" className="space-y-4">
+    <section ref={section} id="erg-tests" aria-label="Erg Tests" className="space-y-4">
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-title2">Erg Tests</h2>
         {own && (

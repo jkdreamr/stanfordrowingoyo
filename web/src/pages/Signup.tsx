@@ -221,7 +221,13 @@ export default function Signup() {
               <EmptyState
                 icon={<Search size={28} strokeWidth={1.75} />}
                 title={search ? 'No Matching Names' : 'No Unclaimed Names'}
-                body="Try another search or ask a coxswain to check the roster"
+                action={
+                  search ? (
+                    <Button variant="secondary" onClick={() => setSearch('')}>
+                      Clear Search
+                    </Button>
+                  ) : undefined
+                }
               />
             )}
           </>
@@ -294,6 +300,11 @@ export default function Signup() {
       <div className="mt-6 flex flex-wrap items-center justify-center gap-1 text-subhead">
         <Link className="auth-text-link" to={`/login?next=${encodeURIComponent(next)}`}>
           Already Registered? Log In
+        </Link>
+      </div>
+      <div className="mt-2 text-center">
+        <Link className="auth-text-link" to="/privacy">
+          Privacy
         </Link>
       </div>
     </AuthFrame>

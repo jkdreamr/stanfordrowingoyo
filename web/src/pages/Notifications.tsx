@@ -1,24 +1,49 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bell } from 'lucide-react';
-import type { Announcement } from '../../../shared/types';
-import { useAnnouncements, useNotifications, useReadNotifications } from '../lib/queries';
+import { ApiClientError } from '../lib/api';
+import type { Notification } from '../../../shared/types';
+import {
+  useAnnouncement,
+  useAnnouncements,
+  useNotifications,
+  useReadNotifications,
+} from '../lib/queries';
 import {
   groupNotifications,
   notificationAnnouncements,
   notificationVerb,
   relativeTime,
 } from '../lib/social';
-import { Avatar, EmptyState, ListGroup, ListRow, PageHeader, Sheet } from '../components/ui';
+import {
+  Avatar,
+  Button,
+  EmptyState,
+  ListGroup,
+  ListRow,
+  PageHeader,
+  Sheet,
+} from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
+import { PullToRefresh } from '../components/social/PullToRefresh';
+import { useRefreshVisible } from '../lib/useRefreshVisible';
 
 export default function Notifications() {
+  const refresh = useRefreshVisible();
   const query = useNotifications();
   const read = useReadNotifications();
   const { data: announcements = [] } = useAnnouncements();
   const [unread, setUnread] = useState<Set<string> | null>(null);
   const attempted = useRef(new Set<string>());
-  const [opened, setOpened] = useState<Announcement[] | null>(null);
+  const [selected, setSelected] = useState<Notification | null>(null);
+  const announcement = useAnnouncement(selected?.announcement_id ?? '');
+  const opened = selected
+    ? selected.announcement_id
+      ? announcement.data
+        ? [announcement.data]
+        : []
+      : notificationAnnouncements(selected, announcements)
+    : null;
   useEffect(() => {
     if (!query.data) return;
     const ids = [
@@ -34,14 +59,22 @@ export default function Notifications() {
   return (
     <>
       <PageHeader title="Notifications" back="/feed" />
-      <div className="screen-stack">
+      <PullToRefresh
+        label="Notifications"
+        onRefresh={refresh}
+        className="screen-stack relative [&>.social-refresh-slot]:absolute [&>.social-refresh-slot]:inset-x-0 [&>.social-refresh-slot]:top-0"
+      >
         <ListGroup>
           <ListRow title="Announcements" to="/announcements" />
         </ListGroup>
         {!query.data ? (
           <LoadState error={query.isError} retry={() => void query.refetch()} />
         ) : !query.data.length ? (
-          <EmptyState icon={<Bell size={20} strokeWidth={1.75} />} title="No Notifications Yet" />
+          <EmptyState
+            icon={<Bell size={20} strokeWidth={1.75} />}
+            title="No Notifications Yet"
+            action={<Button to="/feed">Open Feed</Button>}
+          />
         ) : (
           ['New', 'Earlier'].map((section) => {
             const items = query.data.filter(
@@ -90,11 +123,18 @@ export default function Notifications() {
                           <button
                             className="flex min-h-11 w-full items-center gap-3 p-4 text-left text-callout text-text"
                             onClick={() => {
-                              setOpened(notificationAnnouncements(n, announcements));
+                              setSelected(n);
                             }}
                           >
                             {content}
                           </button>
+                        ) : n.kind === 'report' ? (
+                          <Link
+                            className="flex min-h-11 items-center gap-3 p-4 text-callout text-text"
+                            to="/admin/reports"
+                          >
+                            {content}
+                          </Link>
                         ) : !n.entry_id ? (
                           <div className="flex min-h-11 items-center gap-3 p-4 text-callout text-text">
                             {content}
@@ -120,8 +160,14 @@ export default function Notifications() {
             Could not mark notifications read
           </p>
         )}
-        <Sheet open={opened !== null} onClose={() => setOpened(null)} title="Announcements">
-          {opened?.length ? (
+        <Sheet open={opened !== null} onClose={() => setSelected(null)} title="Announcements">
+          {selected?.announcement_id &&
+          announcement.error instanceof ApiClientError &&
+          announcement.error.status === 404 ? (
+            <EmptyState icon={<Bell size={20} />} title="Announcement removed" />
+          ) : selected?.announcement_id && (announcement.isPending || announcement.isError) ? (
+            <LoadState error={announcement.isError} retry={() => void announcement.refetch()} />
+          ) : opened?.length ? (
             opened.map((a) => (
               <article key={a.id} className="mb-6">
                 <h2 className="text-title3">{a.title}</h2>
@@ -130,10 +176,10 @@ export default function Notifications() {
               </article>
             ))
           ) : (
-            <p className="text-muted">No announcements available</p>
+            <EmptyState icon={<Bell size={20} />} title="No Announcements Available" />
           )}
         </Sheet>
-      </div>
+      </PullToRefresh>
     </>
   );
 }

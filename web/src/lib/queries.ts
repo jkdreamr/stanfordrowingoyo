@@ -19,6 +19,8 @@ import type { Api, Config, EntryDetail, MyPlan, MyPlanInput, User } from '../../
 import { api, ApiClientError, type RequestOptions } from './api';
 import { useToast } from '../components/ui/Toast';
 import { covers, personalPlan } from './myPlan';
+import { clearLogDrafts } from './logDraftStore';
+import { markPasskeyOffer } from './passkeys';
 type Get = Extract<keyof Api, `GET ${string}`>;
 type Write = Exclude<keyof Api, Get>;
 type Query<K extends keyof Api> = Api[K]['query'];
@@ -65,6 +67,16 @@ export function useMe() {
     queryKey: qk.me(),
     queryFn: ({ signal }) => api('GET /api/me', { signal }),
     enabled,
+  });
+}
+export function useIntro(enabled = true) {
+  return queryHook('GET /api/me/intro')({}, enabled);
+}
+export function useCompleteIntro() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: () => api('POST /api/me/intro', {}),
+    onSuccess: (status) => client.setQueryData(qk.request('GET /api/me/intro', {}), status),
   });
 }
 export function useTarget() {
@@ -130,11 +142,33 @@ export function useErgTests(id: string) {
 export const useCreateErgTest = mutationHook('POST /api/me/tests');
 export const useUpdateErgTest = mutationHook('PATCH /api/me/tests/:id');
 export const useDeleteErgTest = mutationHook('DELETE /api/me/tests/:id');
-export function useAnnouncements() {
-  return queryHook('GET /api/announcements')({});
+export function useAnnouncements(enabled = true) {
+  return queryHook('GET /api/announcements')({}, enabled);
 }
-export function useNotifications() {
-  return queryHook('GET /api/notifications')({});
+export function useAnnouncement(id: string) {
+  const enabled = useSessionEnabled();
+  return useQuery({
+    queryKey: qk.request('GET /api/announcements/:id', { params: { id } }),
+    queryFn: ({ signal }) => api('GET /api/announcements/:id', { params: { id }, signal }),
+    enabled: !!id && enabled,
+    staleTime: 0,
+    refetchOnMount: 'always',
+  });
+}
+export const NOTIFICATION_POLL_MS = 60_000;
+/** Pass poll=true from exactly one mounted observer; polling pauses while the page is hidden. */
+export function useNotifications(poll = false) {
+  const enabled = useSessionEnabled();
+  return useQuery({
+    queryKey: qk.request('GET /api/notifications', {}),
+    queryFn: ({ signal }) => api('GET /api/notifications', { signal }),
+    refetchInterval: poll ? NOTIFICATION_POLL_MS : false,
+    refetchIntervalInBackground: false,
+    enabled,
+  });
+}
+export function usePushConfig(enabled = true) {
+  return queryHook('GET /api/me/push')({}, enabled);
 }
 export function usePlan(query: Query<'GET /api/plan'> = {}) {
   return queryHook('GET /api/plan')({ query });
@@ -176,7 +210,8 @@ export function usePutMyPlan() {
       return snapshots;
     },
     onError: (error, _body, snapshots) => {
-      for (const [key, value] of snapshots ?? []) client.setQueryData(key, value);
+      if (client.getQueryData(qk.me()) !== null)
+        for (const [key, value] of snapshots ?? []) client.setQueryData(key, value);
       toast.show({
         title:
           error instanceof ApiClientError && error.status === 409
@@ -229,6 +264,9 @@ export function useCompliance(query: Query<'GET /api/admin/compliance'> = {}) {
 export function useExport(query: Query<'GET /api/admin/export'>, enabled = false) {
   return queryHook('GET /api/admin/export')({ query }, enabled);
 }
+export function usePasskeys(enabled = true) {
+  return queryHook('GET /api/me/passkeys')({}, enabled);
+}
 export function useAudit() {
   const enabled = useSessionEnabled();
   return useInfiniteQuery({
@@ -236,6 +274,17 @@ export function useAudit() {
     initialPageParam: undefined as string | undefined,
     queryFn: ({ pageParam, signal }) =>
       api('GET /api/admin/audit', { query: { cursor: pageParam }, signal }),
+    getNextPageParam: (page) => page.next_cursor ?? undefined,
+    enabled,
+  });
+}
+export function useReports(status: 'open' | 'dismissed' | 'deleted') {
+  const enabled = useSessionEnabled();
+  return useInfiniteQuery({
+    queryKey: qk.request('GET /api/admin/reports', { query: { status } }),
+    initialPageParam: undefined as string | undefined,
+    queryFn: ({ pageParam, signal }) =>
+      api('GET /api/admin/reports', { query: { status, cursor: pageParam }, signal }),
     getNextPageParam: (page) => page.next_cursor ?? undefined,
     enabled,
   });
@@ -249,15 +298,37 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
       qk.root,
     );
   if (endpoint === 'POST /api/me/password') return [qk.me()];
+  if (
+    endpoint.startsWith('POST /api/me/passkeys') ||
+    endpoint.startsWith('DELETE /api/me/passkeys')
+  )
+    return [qk.request('GET /api/me/passkeys', {}), qk.audit()];
   if (endpoint === 'PUT /api/me/target')
     return [qk.target(), qk.root('stats'), qk.root('leaderboard'), qk.root('users')];
-  if (endpoint === 'DELETE /api/comments/:id') return [qk.root('entries'), qk.audit()];
-  if (endpoint.includes('comments')) return [qk.root('entries')];
+  if (endpoint === 'POST /api/reports') return [qk.root('admin'), qk.root('notifications')];
+  if (endpoint === 'PATCH /api/admin/reports/:id')
+    return [
+      ...[
+        'admin',
+        'entries',
+        'stats',
+        'leaderboard',
+        'users',
+        'me',
+        'notifications',
+        'challenges',
+      ].map(qk.root),
+    ];
+  if (endpoint === 'DELETE /api/comments/:id')
+    return [qk.root('entries'), qk.audit(), qk.root('admin')];
+  if (endpoint.includes('comments')) return [qk.root('entries'), qk.root('admin')];
   if (endpoint.includes('/entries'))
     return [
       ...['entries', 'stats', 'leaderboard', 'users', 'me', 'challenges'].map(qk.root),
       qk.audit(),
     ];
+  if (endpoint === 'DELETE /api/announcements/:id')
+    return [qk.root('announcements'), qk.root('notifications')];
   if (endpoint.includes('/announcements')) return [qk.root('announcements')];
   if (endpoint.includes('/notifications')) return [qk.root('notifications')];
   if (endpoint.includes('/admin/')) {
@@ -286,9 +357,13 @@ function mutationHook<K extends Write>(endpoint: K) {
           );
       },
       onSuccess: async (data, options) => {
+        if (endpoint === 'POST /api/auth/logout') await clearLogDrafts();
         if (endpoint === 'PATCH /api/me') client.setQueryData(qk.me(), data);
-        if (endpoint === 'POST /api/auth/roster') return;
+        if (endpoint === 'POST /api/auth/roster' || endpoint === 'POST /api/auth/passkey/options')
+          return;
         if (endpoint.includes('/auth/')) {
+          if (endpoint === 'POST /api/auth/login' && !(data as User).must_change_password)
+            markPasskeyOffer();
           client.clear();
           if (endpoint === 'POST /api/auth/logout') client.setQueryData(qk.me(), null);
           return;
@@ -318,11 +393,19 @@ export const useLogout = mutationHook('POST /api/auth/logout');
 export const useUpdateMe = mutationHook('PATCH /api/me');
 export const useChangePassword = mutationHook('POST /api/me/password');
 export const useVerifyPassword = mutationHook('POST /api/me/password/verify');
+export const usePasskeyLoginOptions = mutationHook('POST /api/auth/passkey/options');
+export const usePasskeyLogin = mutationHook('POST /api/auth/passkey/login');
+export const usePasskeyRegistrationOptions = mutationHook('POST /api/me/passkeys/options');
+export const useAddPasskey = mutationHook('POST /api/me/passkeys');
+export const useRemovePasskey = mutationHook('DELETE /api/me/passkeys/:id');
 export const useSetTarget = mutationHook('PUT /api/me/target');
 export const useCreateEntry = mutationHook('POST /api/entries');
 export const useUpdateEntry = mutationHook('PATCH /api/entries/:id');
 export const useDeleteEntry = mutationHook('DELETE /api/entries/:id');
 export const useCreateComment = mutationHook('POST /api/entries/:id/comments');
+export const useUpdateComment = mutationHook('PATCH /api/comments/:id');
+export const useCreateReport = mutationHook('POST /api/reports');
+export const useReviewReport = mutationHook('PATCH /api/admin/reports/:id');
 export const useDeleteComment = mutationHook('DELETE /api/comments/:id');
 export const useUploadImage = mutationHook('POST /api/images');
 export const useCreateAnnouncement = mutationHook('POST /api/announcements');
@@ -376,6 +459,7 @@ export async function optimisticKudos(client: QueryClient, id: string, hasKudos:
   for (const [key, data] of snapshots)
     client.setQueryData(key, updateCachedKudos(data, id, hasKudos));
   return () => {
+    if (client.getQueryData(qk.me()) === null) return;
     for (const [key, data] of snapshots) client.setQueryData(key, data);
   };
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Activity, MoreHorizontal, Share2 } from 'lucide-react';
+import { Activity, MessageCircle, MoreHorizontal, Share2 } from 'lucide-react';
 import {
   useComments,
   useConfig,
@@ -12,7 +12,9 @@ import {
 } from '../lib/queries';
 import { ApiClientError } from '../lib/api';
 import { mentionIds, mentionSegments, relativeTime } from '../lib/social';
-import type { PublicUser } from '../../../shared/types';
+import type { PublicUser, ReportTarget } from '../../../shared/types';
+import { CommentEditor } from '../components/social/CommentEditor';
+import { ReportSheet } from '../components/social/ReportSheet';
 import { MentionComposer } from '../components/social/MentionComposer';
 import {
   Avatar,
@@ -46,6 +48,8 @@ export default function EntryDetail() {
   const [error, setError] = useState('');
   const [deleting, setDeleting] = useState<string | null>(null);
   const [more, setMore] = useState(false);
+  const [editing, setEditing] = useState<string | null>(null);
+  const [reporting, setReporting] = useState<ReportTarget | null>(null);
   const focusComment = () => {
     document.getElementById('comments')?.scrollIntoView();
     document.getElementById('comment-body')?.focus({ preventScroll: true });
@@ -98,7 +102,7 @@ export default function EntryDetail() {
               >
                 <Share2 size={20} strokeWidth={1.75} aria-hidden="true" />
               </IconButton>
-              {canEdit && (
+              {me && (
                 <IconButton aria-label="More" onClick={() => setMore(true)}>
                   <MoreHorizontal size={20} strokeWidth={1.75} aria-hidden="true" />
                 </IconButton>
@@ -113,7 +117,6 @@ export default function EntryDetail() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title="Workout Not Found"
-              body="This workout is unavailable"
               action={<Button to="/feed">Back To Feed</Button>}
             />
           ) : (
@@ -122,18 +125,31 @@ export default function EntryDetail() {
         ) : (
           <>
             <EntryCard entry={entry} config={config} full onComment={focusComment} />
-            {canEdit && more && (
+            {more && (
               <Sheet open onClose={() => setMore(false)} title="Workout Actions">
                 <ListGroup>
-                  <ListRow title="Edit Workout" to={`/log?edit=${encodeURIComponent(id)}`} />
-                  <ListRow
-                    title="Delete Workout"
-                    tone="destructive"
-                    onClick={() => {
-                      setMore(false);
-                      setDeleting('entry');
-                    }}
-                  />
+                  {canEdit && (
+                    <>
+                      <ListRow title="Edit Workout" to={`/log?edit=${encodeURIComponent(id)}`} />
+                      <ListRow
+                        title="Delete Workout"
+                        tone="destructive"
+                        onClick={() => {
+                          setMore(false);
+                          setDeleting('entry');
+                        }}
+                      />
+                    </>
+                  )}
+                  {me && me.id !== entry.user_id && (
+                    <ListRow
+                      title="Report Workout"
+                      onClick={() => {
+                        setMore(false);
+                        setReporting({ target_type: 'entry', target_id: id });
+                      }}
+                    />
+                  )}
                 </ListGroup>
               </Sheet>
             )}
@@ -146,7 +162,7 @@ export default function EntryDetail() {
                   Loading discussion
                 </p>
               ) : comments.data.length === 0 ? (
-                <p className="mb-6 text-subhead text-muted">No Comments Yet</p>
+                <EmptyState icon={<MessageCircle size={20} />} title="No Comments Yet" />
               ) : (
                 <ul className="mb-6 divide-y divide-divider">
                   {comments.data.map((comment) => (
@@ -161,27 +177,51 @@ export default function EntryDetail() {
                         </Link>
                         <p className="text-caption text-muted">
                           {relativeTime(comment.created_at)}
+                          {comment.edited_at && ' · edited'}
                         </p>
-                        <p className="mt-2 whitespace-pre-wrap break-words text-callout">
-                          {mentionSegments(comment.body, comment.mentions ?? []).map(
-                            (segment, index) =>
-                              segment.userId ? (
-                                <Link
-                                  key={index}
-                                  to={`/users/${segment.userId}`}
-                                  className="inline-flex min-h-11 items-center text-accent-ink underline-offset-2 hover:underline"
+                        {editing === comment.id ? (
+                          <CommentEditor comment={comment} onClose={() => setEditing(null)} />
+                        ) : (
+                          <>
+                            <p className="mt-2 whitespace-pre-wrap break-words text-callout">
+                              {mentionSegments(comment.body, comment.mentions ?? []).map(
+                                (segment, index) =>
+                                  segment.userId ? (
+                                    <Link
+                                      key={index}
+                                      to={`/users/${segment.userId}`}
+                                      className="text-accent-ink underline-offset-2 hover:underline"
+                                    >
+                                      {segment.text}
+                                    </Link>
+                                  ) : (
+                                    segment.text
+                                  ),
+                              )}
+                            </p>
+                            <div className="flex flex-wrap gap-1">
+                              {me?.id === comment.user_id && (
+                                <Button variant="plain" onClick={() => setEditing(comment.id)}>
+                                  Edit
+                                </Button>
+                              )}
+                              {me && (me.id === comment.user_id || me.role !== 'rower') && (
+                                <Button variant="plain" onClick={() => setDeleting(comment.id)}>
+                                  Delete
+                                </Button>
+                              )}
+                              {me && me.id !== comment.user_id && (
+                                <Button
+                                  variant="plain"
+                                  onClick={() =>
+                                    setReporting({ target_type: 'comment', target_id: comment.id })
+                                  }
                                 >
-                                  {segment.text}
-                                </Link>
-                              ) : (
-                                segment.text
-                              ),
-                          )}
-                        </p>
-                        {me && (me.id === comment.user_id || me.role !== 'rower') && (
-                          <Button variant="plain" onClick={() => setDeleting(comment.id)}>
-                            Delete
-                          </Button>
+                                  Report
+                                </Button>
+                              )}
+                            </div>
+                          </>
                         )}
                       </div>
                     </li>
@@ -256,6 +296,7 @@ export default function EntryDetail() {
           </>
         )}
       </div>
+      {reporting && <ReportSheet target={reporting} onClose={() => setReporting(null)} />}
     </>
   );
 }

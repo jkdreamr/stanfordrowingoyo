@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { PullToRefresh } from '../components/social/PullToRefresh';
+import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Check, ChevronLeft, ChevronRight, Flame, Trophy } from 'lucide-react';
 import { addDays } from '../../../shared/dates';
@@ -7,6 +9,7 @@ import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
 import {
   Avatar,
+  Button,
   EmptyState,
   IconButton,
   PageHeader,
@@ -255,16 +258,19 @@ function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
 }
 
 export default function Leaderboard() {
+  const refresh = useRefreshVisible();
   const configQuery = useConfig();
   const header = <PageHeader title="Leaderboard" trailing={<HeaderActions />} />;
   return (
     <>
       {header}
-      {configQuery.data ? (
-        <Board config={configQuery.data} />
-      ) : (
-        <LoadState error={configQuery.isError} retry={() => void configQuery.refetch()} />
-      )}
+      <PullToRefresh label="Leaderboard" onRefresh={refresh}>
+        {configQuery.data ? (
+          <Board config={configQuery.data} />
+        ) : (
+          <LoadState error={configQuery.isError} retry={() => void configQuery.refetch()} />
+        )}
+      </PullToRefresh>
     </>
   );
 }
@@ -344,7 +350,11 @@ function Board({ config }: { config: Config }) {
       ) : !rows ? (
         <SkeletonRows />
       ) : rows.length === 0 ? (
-        <EmptyState icon={<Trophy size={20} strokeWidth={1.75} />} title="No Rankings Yet" />
+        <EmptyState
+          icon={<Trophy size={20} strokeWidth={1.75} />}
+          title="No Rankings Yet"
+          action={<Button to="/log">Log Workout</Button>}
+        />
       ) : (
         <section aria-label="Rankings" className="space-y-4">
           {podium.length > 0 && (

@@ -93,6 +93,16 @@ describe('announcement notification resolution', () => {
     ]);
     expect(announcements[0].id).toBe('old');
   });
+  it('uses the explicit id and never substitutes an old announcement when it is missing', () => {
+    expect(
+      notificationAnnouncements({ ...notification, announcement_id: 'old' }, announcements).map(
+        (a) => a.id,
+      ),
+    ).toEqual(['old']);
+    expect(
+      notificationAnnouncements({ ...notification, announcement_id: 'not-cached' }, announcements),
+    ).toEqual([]);
+  });
   it('falls back to the latest list and handles an empty list', () => {
     expect(
       notificationAnnouncements({ ...notification, actor_id: 'missing' }, announcements).map(

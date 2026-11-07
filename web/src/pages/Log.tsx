@@ -1,8 +1,8 @@
-import { useState, type FormEvent } from 'react';
-import { Users } from 'lucide-react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Activity, Users } from 'lucide-react';
 import { TeammatePicker } from '../components/social/TeammatePicker';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { addDays } from '../../../shared/dates';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { addDays, seasonRange } from '../../../shared/dates';
 import { equivalentMeters, targetPace } from '../../../shared/math';
 import type { Config, EntryDetail, Preset, User } from '../../../shared/types';
 import {
@@ -22,16 +22,27 @@ import {
   type LogDraft,
 } from '../lib/logForm';
 import { formatEMeters, formatFactor, formatKm, formatSplit } from '../lib/format';
-import { usePhotos } from '../lib/usePhotos';
+import { usePhotos, type DraftPhoto } from '../lib/usePhotos';
 import { useUnsavedChanges } from '../lib/useUnsavedChanges';
 import { authError } from '../lib/auth';
-import { api } from '../lib/api';
-import { recordTargetFinish } from '../lib/targetFinish';
+import { api, ApiClientError } from '../lib/api';
+import {
+  deleteLogDraft,
+  loadLogDraft,
+  mirrorLogDraft,
+  restorePhotos,
+  saveLogDraft,
+  storePhotos,
+  type StoredLogDraft,
+} from '../lib/logDraftStore';
+import { clearTargetFinish, recordTargetFinish } from '../lib/targetFinish';
+import { detectBests, recordCelebration } from '../lib/celebrations';
 import {
   Button,
   Card,
   ConfirmSheet,
   Disclosure,
+  EmptyState,
   ListGroup,
   ListRow,
   NumberField,
@@ -67,7 +78,7 @@ export default function Log() {
       />
     );
   return (
-    <LogForm
+    <DraftLogForm
       key={`${edit}:${params.toString()}`}
       config={config.data}
       user={me.data}
@@ -78,6 +89,23 @@ export default function Log() {
     />
   );
 }
+function DraftLogForm(props: Parameters<typeof LogForm>[0]) {
+  const [loaded, setLoaded] = useState<{ value: StoredLogDraft | null; photos: DraftPhoto[] }>();
+  useEffect(() => {
+    let active = true;
+    if (!props.entry)
+      void loadLogDraft(props.user.id).then((value) => {
+        if (active) setLoaded({ value, photos: value ? restorePhotos(value.photos) : [] });
+      });
+    return () => {
+      active = false;
+    };
+  }, [props.entry, props.user.id]);
+  if (!props.entry && !loaded) return <LoadState error={false} retry={() => {}} />;
+  return (
+    <LogForm {...props} restored={loaded?.value ?? undefined} restoredPhotos={loaded?.photos} />
+  );
+}
 function LogForm({
   config,
   user,
@@ -85,6 +113,8 @@ function LogForm({
   preset,
   detailsOpen,
   prefill,
+  restored,
+  restoredPhotos,
 }: {
   config: Config;
   user: User;
@@ -92,17 +122,22 @@ function LogForm({
   preset?: Preset;
   detailsOpen: boolean;
   prefill: ReturnType<typeof logPrefill>;
+  restored?: StoredLogDraft;
+  restoredPhotos?: DraftPhoto[];
 }) {
   const initial = { ...logDraft(config.today, entry, preset), ...prefill };
-  const [draft, setDraft] = useState(initial);
-  const [details, setDetails] = useState(
+  const initialDetails =
     detailsOpen ||
-      !!entry?.duration_s ||
-      !!entry?.avg_split_s ||
-      !!entry?.stroke_rate ||
-      !!entry?.avg_hr,
-  );
-  const [tagged, setTagged] = useState(entry?.tagged ?? []);
+    !!entry?.duration_s ||
+    !!entry?.avg_split_s ||
+    !!entry?.stroke_rate ||
+    !!entry?.avg_hr;
+  const [draft, setDraft] = useState(restored?.draft ?? initial);
+  const [idempotencyKey] = useState(() => restored?.idempotencyKey ?? crypto.randomUUID());
+  const saving = useRef(false);
+  const submitted = useRef(restored?.submitted ?? false);
+  const [details, setDetails] = useState(restored?.details ?? initialDetails);
+  const [tagged, setTagged] = useState(restored?.tagged ?? entry?.tagged ?? []);
   const [tagging, setTagging] = useState(false);
   const [receipt, setReceipt] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -121,14 +156,91 @@ function LogForm({
     id: p.id,
     url: `/api/images/${encodeURIComponent(p.id)}`,
   }));
-  const photos = usePhotos(initialPhotos);
+  const [seedPhotos] = useState(() => restoredPhotos ?? initialPhotos);
+  const photos = usePhotos(seedPhotos);
   const dirty =
+    (!entry && submitted.current) ||
     JSON.stringify(draft) !== JSON.stringify(initial) ||
+    (!entry && details !== initialDetails) ||
     JSON.stringify(tagged.map((u) => u.id).sort()) !==
       JSON.stringify((entry?.tagged ?? []).map((u) => u.id).sort()) ||
-    photos.photos.some((p) => p.file) ||
+    photos.photos.some((p) => p.file || p.blob) ||
     photos.photos.length !== initialPhotos.length;
   const { blocker, allowNavigation } = useUnsavedChanges(dirty);
+  const stopped = useRef(false);
+  const latest = useRef({ draft, details, tagged, photos: photos.photos, dirty });
+  latest.current = { draft, details, tagged, photos: photos.photos, dirty };
+  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const snapshot = (): StoredLogDraft => ({
+    draft: latest.current.draft,
+    details: latest.current.details,
+    tagged: latest.current.tagged,
+    photos: storePhotos(latest.current.photos),
+    idempotencyKey,
+    submitted: submitted.current,
+    savedAt: Date.now(),
+  });
+  const persist = () => {
+    if (entry || stopped.current) return Promise.resolve();
+    const value = latest.current;
+    return value.dirty || submitted.current
+      ? saveLogDraft(user.id, snapshot())
+      : deleteLogDraft(user.id);
+  };
+  const persistRef = useRef(persist);
+  persistRef.current = persist;
+  async function clearStored() {
+    stopped.current = true;
+    submitted.current = false;
+    clearTimeout(timer.current);
+    if (!entry) await deleteLogDraft(user.id);
+  }
+  const restoredToast = useRef(false);
+  useEffect(() => {
+    if (!restored || restoredToast.current) return;
+    restoredToast.current = true;
+    toast.show({
+      title: 'Draft Restored',
+      action: {
+        label: 'Discard',
+        onClick: () => {
+          void clearStored();
+          setDraft(initial);
+          setDetails(detailsOpen);
+          setTagged([]);
+          photos.reset();
+          setMessage(undefined);
+          setTouched({});
+        },
+      },
+    });
+  });
+  useEffect(() => {
+    if (entry) return;
+    // Resume storage after a discarded draft is edited again.
+    if (dirty) stopped.current = false;
+    if (!stopped.current && dirty) mirrorLogDraft(user.id, snapshot());
+    timer.current = setTimeout(() => {
+      void persistRef.current();
+    }, 400);
+    return () => clearTimeout(timer.current);
+  }, [draft, details, tagged, photos.photos, dirty, entry]);
+  useEffect(() => {
+    if (entry) return;
+    const flush = () => {
+      clearTimeout(timer.current);
+      void persistRef.current();
+    };
+    const hidden = () => {
+      if (document.visibilityState === 'hidden') flush();
+    };
+    window.addEventListener('pagehide', flush);
+    document.addEventListener('visibilitychange', hidden);
+    return () => {
+      window.removeEventListener('pagehide', flush);
+      document.removeEventListener('visibilitychange', hidden);
+    };
+  }, [entry]);
   const values = logValues(draft, config, photos.photos);
   const valid = Object.keys(values.errors).length === 0;
   function field<K extends keyof LogDraft>(key: K, value: LogDraft[K]) {
@@ -159,19 +271,58 @@ function LogForm({
   }
   async function save(event: FormEvent) {
     event.preventDefault();
-    if (busy || !valid) return;
+    if (saving.current || busy || !valid) return;
+    saving.current = true;
+    if (!entry) submitted.current = true;
     setBusy(true);
     setMessage(undefined);
     try {
+      if (!entry) await persistRef.current();
       const ids = await photos.save();
       const body = { ...values.input, image_ids: ids, tagged_user_ids: tagged.map((u) => u.id) };
-      const previous = await api('GET /api/stats/week', {}).catch(() => null);
+      if (!entry) await persistRef.current();
+      const [previous, beforeSeason, baseline] = await Promise.all([
+        api('GET /api/stats/week', {}).catch(() => null),
+        api('GET /api/stats/season', {}).catch(() => null),
+        api('GET /api/me', {}).catch(() => null),
+      ]);
       const saved = entry
         ? await update.mutateAsync({ params: { id: entry.id }, body })
-        : await create.mutateAsync({ body });
-      const next = await api('GET /api/stats/week', {}).catch(() => null);
-      if (next && saved.week_start === config.current_week_start)
+        : await create.mutateAsync({ body, idempotencyKey, retry: true });
+      if (!entry) await clearStored();
+      const [next, afterSeason] = await Promise.all([
+        api('GET /api/stats/week', {}).catch(() => null),
+        api('GET /api/stats/season', {}).catch(() => null),
+      ]);
+      const season = seasonRange(config.today, config.season_start);
+      const targetHit =
+        next &&
+        saved.date >= season.start &&
+        saved.date <= season.end &&
+        saved.week_start === config.current_week_start &&
         recordTargetFinish(previous, next, user.id, saved.week_start);
+      const selected = recordCelebration(
+        user.id,
+        detectBests(
+          beforeSeason,
+          afterSeason,
+          saved,
+          baseline ?? {
+            ...user,
+            best2k_split_s: null,
+            best6k_split_s: null,
+          },
+        ),
+        targetHit
+          ? {
+              kind: 'target-hit',
+              title: 'Target Hit',
+              value: next.target_m,
+              week: saved.week_start,
+            }
+          : undefined,
+      );
+      if (selected && selected.kind !== 'target-hit') clearTargetFinish(user.id, saved.week_start);
       allowNavigation();
       toast.show({
         title: 'Session saved',
@@ -179,8 +330,12 @@ function LogForm({
       });
       navigate('/');
     } catch (error) {
-      setMessage(authError(error));
+      if (!entry && error instanceof ApiClientError && error.detail.code === 'NETWORK_ERROR') {
+        await persistRef.current();
+        setMessage('No connection. Draft saved.');
+      } else setMessage(authError(error));
       setBusy(false);
+      saving.current = false;
     }
   }
   const formula = config.presets.find((p) => p.id === draft.preset)?.distance_m === null;
@@ -233,7 +388,10 @@ function LogForm({
             )}
             {draft.modality === 'erg' && pace === null && (
               <p className="mt-2 text-footnote text-muted">
-                Add a best split in Edit Profile for zone paces
+                <Link className="text-accent underline" to="/me#erg-tests">
+                  Add a test on Me
+                </Link>{' '}
+                for zone paces
               </p>
             )}
           </section>
@@ -480,9 +638,18 @@ function LogForm({
           {!config.presets.some(
             (p) => p.active && p.modality === draft.modality && (allZones || p.zone === draft.zone),
           ) && (
-            <p className="text-subhead text-muted">
-              No workouts in this zone. Show all zones or enter a distance
-            </p>
+            <EmptyState
+              icon={<Activity size={20} />}
+              title="No Workouts In This Zone"
+              action={
+                <Button
+                  variant="secondary"
+                  onClick={() => (allZones ? setMenu(false) : setAllZones(true))}
+                >
+                  {allZones ? 'Enter Distance' : 'Show All Zones'}
+                </Button>
+              }
+            />
           )}
         </div>
       </Sheet>
@@ -492,7 +659,9 @@ function LogForm({
         body="Your unsaved session will be lost"
         confirmLabel="Discard Changes"
         onClose={() => blocker.reset?.()}
-        onConfirm={() => blocker.proceed?.()}
+        onConfirm={() => {
+          void clearStored().then(() => blocker.proceed?.());
+        }}
       />
       <ConfirmSheet
         open={deleting}

@@ -36,7 +36,6 @@ export default function RowerProfile() {
             <EmptyState
               icon={<UserRound size={20} strokeWidth={1.75} aria-hidden="true" />}
               title="Rower Not Found"
-              body="This profile is unavailable"
               action={<Button to="/team">View Team</Button>}
             />
           ) : (
@@ -113,6 +112,11 @@ export default function RowerProfile() {
                     <EmptyState
                       icon={<Activity size={20} strokeWidth={1.75} aria-hidden="true" />}
                       title="No Workouts Yet"
+                      action={
+                        <Button to={id === me?.id ? '/log' : '/feed'}>
+                          {id === me?.id ? 'Log Workout' : 'Open Feed'}
+                        </Button>
+                      }
                     />
                   )}
                   {workouts.hasNextPage && (

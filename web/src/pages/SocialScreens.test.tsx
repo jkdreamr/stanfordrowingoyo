@@ -30,6 +30,7 @@ const state = vi.hoisted(() => ({
   chart: vi.fn(),
   profileRequest: vi.fn(),
 }));
+vi.mock('../lib/useRefreshVisible', () => ({ useRefreshVisible: () => state.retry }));
 vi.mock('../lib/queries', () => ({
   useProfile: (id: string, enabled: boolean) => {
     state.profileRequest(id, enabled);
@@ -58,6 +59,7 @@ vi.mock('../lib/queries', () => ({
   }),
   useReadNotifications: () => ({ mutate: state.read }),
   useAnnouncements: () => ({ data: state.announcements }),
+  useAnnouncement: () => ({ data: undefined, isPending: false, isError: false }),
 }));
 vi.mock('../components/social/EntryCard', () => ({
   EntryCard: ({ entry }: { entry: EntryDetail }) => <article>{entry.title}</article>,
@@ -187,6 +189,8 @@ it('searches names case- and diacritic-insensitively with empty and error states
   expect(screen.queryByText('Coach Lee')).toBeNull();
   fireEvent.change(screen.getByLabelText('Search Team'), { target: { value: 'missing' } });
   expect(screen.getByText('No Matches')).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: 'Clear Search' }));
+  expect(screen.getByRole('link', { name: /Coach Lee/ })).toBeTruthy();
   state.directoryError = new Error('offline');
   view.rerender(
     <MemoryRouter>

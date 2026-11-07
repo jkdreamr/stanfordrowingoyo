@@ -12,6 +12,8 @@ export function MentionComposer({
   self,
   error,
   onPost,
+  id = 'comment-body',
+  autoFocus = false,
 }: {
   body: string;
   onChange: (value: string) => void;
@@ -20,6 +22,8 @@ export function MentionComposer({
   self?: string;
   error: string;
   onPost: () => void;
+  id?: string;
+  autoFocus?: boolean;
 }) {
   const users = useUsers();
   const container = useRef<HTMLDivElement>(null);
@@ -85,7 +89,8 @@ export function MentionComposer({
         </ul>
       )}
       <TextArea
-        id="comment-body"
+        id={id}
+        autoFocus={autoFocus}
         label="Comment"
         value={body}
         maxLength={1000}

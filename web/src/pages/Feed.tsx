@@ -76,7 +76,7 @@ export default function Page() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title="No Workouts Yet"
-              action={<Button to="/log">Log Session</Button>}
+              action={<Button to="/log">Log Workout</Button>}
             />
           )}
         </PullToRefresh>

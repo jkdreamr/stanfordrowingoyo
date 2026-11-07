@@ -1,7 +1,71 @@
 import { describe, expect, it } from 'vitest';
 import { qk, optimisticKudos, invalidationKeys } from './queries';
 import { createQueryClient } from './queryClient';
+import { ApiClientError } from './api';
+for (const source of ['query', 'mutation'] as const) {
+  it(`${source} 401 clears cached identity and user queries without clearing drafts`, async () => {
+    const client = createQueryClient();
+    client.setQueryData(qk.me(), { id: 'old-user' });
+    client.setQueryData(qk.entries(), { private: 'old content' });
+    client.setQueryData(qk.request('GET /api/me/intro', {}), { completed_at: 'old' });
+    const fail = async () => {
+      throw new ApiClientError(401, { code: 'UNAUTHENTICATED', message: 'Expired' });
+    };
+    const request =
+      source === 'query'
+        ? client.fetchQuery({ queryKey: qk.target(), queryFn: fail })
+        : client.getMutationCache().build(client, { mutationFn: fail }).execute(undefined);
+    await expect(request).rejects.toMatchObject({ status: 401 });
+    expect(client.getQueryData(qk.me())).toBeNull();
+    expect(client.getQueryData(qk.entries())).toBeUndefined();
+    expect(client.getQueryData(qk.request('GET /api/me/intro', {}))).toBeUndefined();
+    expect(client.getQueryCache().getAll()).toHaveLength(1);
+    client.clear();
+  });
+}
+it('does not expire a valid session for password reauthentication challenges or server errors', async () => {
+  for (const [status, code] of [
+    [401, 'INVALID_CREDENTIALS'],
+    [401, 'REAUTH_REQUIRED'],
+    [500, 'SERVER_ERROR'],
+  ] as const) {
+    const client = createQueryClient();
+    client.setQueryData(qk.me(), { id: 'valid-user' });
+    await expect(
+      client
+        .getMutationCache()
+        .build(client, {
+          mutationFn: async () => {
+            throw new ApiClientError(status, { code, message: 'Try again' });
+          },
+        })
+        .execute(undefined),
+    ).rejects.toMatchObject({ status });
+    expect(client.getQueryData(qk.me())).toEqual({ id: 'valid-user' });
+    client.clear();
+  }
+});
 describe('query keys', () => {
+  it('refreshes notification counts after announcement deletion', () => {
+    expect(invalidationKeys('DELETE /api/announcements/:id')).toContainEqual(
+      qk.root('notifications'),
+    );
+  });
+  it('refreshes comment and moderation surfaces after report decisions', () => {
+    expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('entries'));
+    expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('admin'));
+    for (const resource of [
+      'admin',
+      'entries',
+      'stats',
+      'leaderboard',
+      'users',
+      'me',
+      'notifications',
+      'challenges',
+    ])
+      expect(invalidationKeys('PATCH /api/admin/reports/:id')).toContainEqual(qk.root(resource));
+  });
   it('keeps resource prefixes and parameters consistent', () => {
     for (const endpoint of [
       'POST /api/me/tests',

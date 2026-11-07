@@ -176,6 +176,27 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
   with a missing/invalid/expired/used grant returns 401 REAUTH_REQUIRED. The legacy `current_password`
   field on the change request is rejected with 400; it never triggers a second derivation. The new password
   must be 8–200 characters; it is not compared to the old plaintext password across the two requests.
+- Passkeys (WebAuthn: Face ID, Touch ID, Android fingerprint, Windows Hello, synced passkeys) are an optional second
+  login method; password login is unchanged. Verification is in-house (CBOR + WebCrypto, no dependency) inside the DO:
+  ES256 (COSE -7, P-256) and RS256 (COSE -257, RSA ≥ 2048 bits), attestation `none` (statements are not verified),
+  user presence and user verification required. `rpId` is the request URL hostname, and `clientData.origin` must be
+  `https://<that host>` (`http://localhost`/`127.0.0.1` allowed for local dev), so staging and production hosts each
+  get their own credentials and no config is needed. Challenges are 32 random bytes stored server-side
+  (`webauthn_challenges`), bound to kind (`register`/`login`) and, for registration, the user and session hash; they
+  expire after 5 minutes, are deleted before verification (single use), and at most 2,000 are kept (oldest pruned).
+  Login options rate-limit at 300 per IP per 15 minutes. A login assertion consumes one attempt from the existing
+  10/email bucket of the credential's owner (unknown credentials: the 150/IP bucket), before signature checks;
+  success clears the email bucket. Sessions are created by the same code path as password login (same cookie,
+  expiry and active/credential checks). Inactive users get 403 ACCOUNT_INACTIVE. Sign counters: when either the
+  stored or presented counter is non-zero, a presented counter that does not increase is rejected (401
+  PASSKEY_CLONED, audited as `passkey.counter-regression`); always-zero authenticators (iCloud Keychain, Google
+  Password Manager) are accepted. Registration (max 10 per user) needs a session created within 10 minutes or a
+  password re-auth grant from `POST /api/me/password/verify` (401 REAUTH_REQUIRED otherwise); the grant is not
+  consumed. Add/remove are audited (`passkey.add`, `passkey.remove`, actor = owner). Staff password reset keeps
+  passkeys: it revokes sessions and forces a password change, and a passkey login after a reset still lands on the
+  forced change (passkey user verification stands in for the temporary password). Staff deactivation/unlink blocks
+  passkey login through `active`; re-claiming an inactive account through signup deletes its passkeys so a new owner
+  never inherits them. Passkeys of a user who changes their own password are kept.
 - Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
   `TEAM_CODE` Worker secret, or a generated UUID when absent. Codes must be 4–64 letters, numbers or hyphens
   after trimming, including in admin settings PATCH. Invalid secrets (blank, short, long or invalid characters)
@@ -217,11 +238,17 @@ entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, d
         mode_factor REAL, zone_factor REAL, equiv_m INT, visibility ('team'; legacy 'private' input ignored),
         created_at, updated_at)          -- index (week_start), (user_id, date)
 images(id PK, owner_id, mime, width, height, bytes BLOB, created_at)   -- <= 1.5 MB each, client resizes
+entry_idempotency(user_id TEXT NOT NULL, key TEXT NOT NULL, entry_id TEXT NOT NULL, created_at TEXT NOT NULL, PK(user_id,key)) -- index (created_at)
 entry_images(entry_id, image_id, position, PK(entry_id, position))     -- up to 4 per entry
 entry_tags(entry_id TEXT NOT NULL, user_id TEXT NOT NULL, created_at TEXT NOT NULL, PK(entry_id,user_id)) -- index (user_id)
 kudos(entry_id, user_id, created_at, PK(entry_id, user_id))
-comments(id PK, entry_id, user_id, body (<=1000), created_at)
+comments(id PK, entry_id, user_id, body (<=1000), created_at, edited_at TEXT NULL)
 comment_mentions(comment_id TEXT NOT NULL, entry_id TEXT NOT NULL, user_id TEXT NOT NULL, PK(comment_id,user_id)) -- index (entry_id)
+comment_mention_history(comment_id, entry_id, user_id, PK(comment_id,user_id)) -- index (entry_id)
+content_reports(id PK, target_type ('entry'|'comment'), target_id, entry_id, reporter_id, reason (<=300),
+                status ('open'|'dismissed'|'deleted'), created_at, reviewed_at NULL, reviewed_by NULL)
+                -- unique (reporter_id,target_type,target_id); no cascading foreign keys
+                -- indexes (status,created_at DESC,id DESC), (target_type,target_id,status), (entry_id,status)
 announcements(id PK, author_id, title, body, pinned INT, created_at)
 presets(id PK, modality, zone, name, distance_m INT NULL, sort INT, active INT)   -- NULL distance = user enters meters
 plan_slots(group_key, week INT (1|2), day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
@@ -230,13 +257,26 @@ plan_totals(group_key, week, label)     -- e.g. "60k Equivalent"
 my_plans(user_id, start_date, rest_days_json, updated_at, PK(user_id, start_date))
 my_plan_sessions(user_id, start_date, week, day, slot, modality, zone, distance_m NULL, note,
                  PK(user_id, start_date, week, day, slot))
-notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'), actor_id, entry_id NULL, created_at, read_at NULL)
+notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'|'report'), actor_id, entry_id NULL, created_at, read_at NULL)
+user_intro(user_id PK, completed_at)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
+passkeys(id PK (credential id, base64url), user_id, alg INT, public_key (JWK json), sign_count INT,
+         transports (json), aaguid, backup_eligible INT, backed_up INT, name, created_at, last_used_at NULL)
+         -- index (user_id, created_at)
+webauthn_challenges(challenge PK, kind ('register'|'login'), user_id NULL, session_hash NULL, expires_at, created_at)
+         -- index (expires_at)
 ```
 
-Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
+For announcement notifications, the existing nullable `notifications.entry_id` storage slot holds the
+announcement reference (no foreign key); API hydration exposes it as optional `announcement_id` and keeps
+`entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
+retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
+
+Schema migrations: a `schema_version` setting, currently 15; migrations run in the DO constructor via `blockConcurrencyWhile`.
 Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
 Legacy best splits backfill one test per kind using the user's updated_at team-local date.
+Version 13 adds `entry_idempotency` and its created-at index in a self-contained, idempotent transaction.
+Mappings survive entry deletion and are opportunistically pruned after seven days when inserting a mapping.
 Version 7 adds idempotent tag/mention tables and indexes.
 Version 8 adds personal plans and sessions after version 7; both migrations are idempotent and transactional.
 Entry deletion removes tags and mentions; comment deletion transactionally removes its mentions.
@@ -254,6 +294,15 @@ Version 6 converts every legacy private entry to `team` without modifying workou
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
 Version 8 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
 with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key indexes owner/date windows.
+Version 11 adds nullable comment `edited_at`, per-comment mention notification history (backfilled from current
+mentions), and durable content reports with queue/target/parent indexes. This is one transactional, idempotent
+`version < 11` migration. Reports survive content deletion without a cascade.
+Version 12 adds `user_intro`, backfilling existing users as complete without skipping intro for new signups.
+Version 14 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth, created_at, updated_at)` indexed by
+`(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
+epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `version < 14`.
+Version 15 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
+self-contained guarded block. Feature migrations run in ascending order 11–15, each advancing its own version.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -307,6 +356,14 @@ set only when supplied. Entry itself omits this input-only field; EntryDetail ad
 `tagged: PublicUser[]`, active users ordered by tag time then name.
 Comment POST accepts `{ body: string; mention_ids?: string[] }`; CommentWithAuthor adds
 `mentions: PublicUser[]` (active users). Existing clients may omit either input field.
+`PATCH /api/comments/:id` accepts the same body and returns CommentWithAuthor. Only the comment author can
+edit, including when the requester is staff; author/staff deletion remains unchanged. Body is trimmed and
+must contain 1–1000 characters. `edited_at?: string | null` is always returned at runtime, null initially;
+only a changed trimmed body sets it, and a no-op preserves it. UI shows “edited” for non-null timestamps.
+An omitted `mention_ids` reparses current active mentions against the new body; a supplied array replaces
+the candidate set using the existing validation below. Removed names lose mention metadata. Only newly
+mentioned recipients are notified, with durable per-comment history suppressing remove/readd spam.
+Editing never sends another ordinary comment notification to the entry owner.
 
 Both recipient fields must be arrays of strings, deduplicated with self silently dropped
 (entry owner for tags, commenter for mentions). At most ten unique remaining IDs are
@@ -335,6 +392,15 @@ verification shares the 10/email and 150/IP per 15 minutes limiter, checked befo
 accepts no legacy `current_password` (400 VALIDATION_ERROR). The token is optional only for a forced
 change; otherwise missing, invalid, expired or reused tokens return 401 REAUTH_REQUIRED. Revoked sessions
 or inactive users return 401 UNAUTHENTICATED; credentials changed in flight return 409 CREDENTIALS_CHANGED.
+Passkeys (§4): public `POST /api/auth/passkey/options` (bodyless; → `PasskeyLoginOptions`
+`{ challenge, rp_id, timeout_ms, expires_at }`, discoverable credentials, empty allow list) and
+`POST /api/auth/passkey/login` (`PasskeyAssertion` → `User`, sets the session cookie; 401 PASSKEY_UNKNOWN,
+PASSKEY_CLONED, 400 PASSKEY_INVALID, PASSKEY_CHALLENGE_EXPIRED, 403 ACCOUNT_INACTIVE, 429). Authenticated
+`GET /api/me/passkeys` → `Passkey[]` (`id, name, created_at, last_used_at, backed_up`; never key material),
+`POST /api/me/passkeys/options` (`{ reauth_token? }` → `PasskeyRegistrationOptions`, adding `rp_name`,
+`user {id,name,display_name}` and `exclude_credentials`), `POST /api/me/passkeys` (`PasskeyAttestation` →
+201 `Passkey`, name inferred from the AAGUID or User-Agent; 409 PASSKEY_EXISTS / PASSKEY_LIMIT) and
+`DELETE /api/me/passkeys/:id` (204; another user's or unknown id = 404). All values are base64url without padding.
 Config: `GET /api/config` (factors, group targets, season start, presets, zones list, server-computed
 `today` and `current_week_start` as YYYY-MM-DD in America/Los_Angeles) — public to logged-in users.
 `GET /api/me/target` returns the effective current-week target:
@@ -343,6 +409,14 @@ Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visib
 `POST /api/entries`, `GET/PATCH/DELETE /api/entries/:id` (owner or staff), `POST/DELETE /api/entries/:id/kudos`,
 `GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
 `DELETE /api/comments/:id` (author or staff).
+`PATCH /api/comments/:id` is author-only (including staff); details are above.
+`POST /api/entries` accepts optional `Idempotency-Key`: 8–128 characters from `[A-Za-z0-9_-]`;
+invalid keys return 400 `VALIDATION_ERROR`. Without it, every request creates an entry as before.
+After body validation, a key identifies the workout per authenticated user: first create returns 201,
+replays return the original entry's current `EntryDetail` with 200, ignoring body differences and
+without creating entries, notifications or audit records. A deleted original returns 404 `NOT_FOUND`.
+Entry creation and key insertion are atomic, including concurrent requests. The same key is independent
+across users. Mappings older than seven days may be removed on insert, after which keys can be reused.
 `GET /api/entries/:id/kudos` returns `PublicUser[]` newest kudos first, ties by user id ascending.
 It uses one LEFT JOIN query for entry existence and kudos→users (no N+1); no email/credentials are exposed.
 Authentication is required (401); missing entries return 404. Every workout is team-visible.
@@ -371,8 +445,60 @@ weekly totals, counts, streaks and season breakdowns. Season/profile days still 
 These read routes stay below 20 SQL calls regardless of roster size or number of entries. Target lookup before the
 first group-history version uses its earliest version; an empty/missing history falls back to seed group targets.
 Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned announcements include `author: PublicUser`.
+`GET /api/announcements/:id` returns that announcement to any signed-in user, or 404 if removed.
+Notification responses include optional `announcement_id`; opening an identified announcement fetches it
+by id even when the announcements list is stale. Announcement push URLs are
+`/announcements?announcement=<id>` and open that item; legacy notifications without an id keep the fallback.
+Opening an identified announcement always revalidates, showing cached content while fetching. On 404,
+cached content is evicted from the by-id and list queries and identified notification caches; links show
+“Announcement removed” instead of an unrelated announcement. Other failures retain the generic error state.
+Deleting an announcement deletes its identified notifications and queued pushes transactionally; legacy
+notifications with no reference are unaffected. Delivery drops unresolved announcement targets (including
+legacy rows whose author/time match no longer exists). Notification refetches update unread counts and badges.
 Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
 `actor: PublicUser` and `entry_title: string | null`.
+Reports: authenticated team members may `POST /api/reports` with
+`ReportInput = { target_type: 'entry' | 'comment'; target_id: string; reason?: string }`.
+The optional reason is trimmed, defaults to empty, and is limited to 300 characters. The target must exist
+for a new report (404 otherwise). One report per reporter/item is enforced permanently: new returns
+201 `{ id }`; a duplicate returns 200 with the original id, even after target removal or review, without
+replacing the reason or sending notifications. No report read endpoint is available to rowers.
+Active staff receive kind `report`, actor=reporter, entry_id=the parent entry, linked by UI to `/admin/reports`.
+No new notification columns are needed. Reads filter report notifications using the recipient's current
+active/staff status before applying the 100-notification limit, so demoted staff cannot see reporter identity.
+Report notifications survive entry deletion; their entry_title then becomes null.
+Staff-only `GET /api/admin/reports?status=open|dismissed|deleted&cursor=` defaults to open and returns
+`Page<ContentReport>` with 50 items, newest first by created_at then id descending; invalid status/cursor is 400.
+`ContentReport` includes id, target_type, target_id, entry_id, reporter: PublicUser, reason, status, created_at,
+reviewed_at: string|null, reviewed_by: string|null, and live
+`content: { author: PublicUser; body: string; title: string|null } | null`. Entry content uses notes/title;
+comment content uses body/null title. Removed content hydrates as null, with no retained content snapshot.
+Only staff see reporters/reasons; PublicUser never includes email or credentials.
+Staff-only `PATCH /api/admin/reports/:id` takes `{ action: 'dismiss' | 'delete' }` and returns ContentReport.
+Review records reviewed_at/by. An already reviewed report returns 409 for a different action; repeating the
+same action is an idempotent 200 without additional audits. Delete succeeds even if content is already absent.
+Deletion uses the existing entry/comment helpers, closes all other open reports on that target (and open
+comment reports on a deleted entry) as deleted, and preserves reviewed reports. Direct author/staff content
+deletion also closes open reports, recording the deleter and timestamp. All removal, report state changes,
+image/join cleanup, and audit writes share one synchronous transaction. Explicit review audits `report.dismiss`
+or `report.delete`, plus `entry.delete`/`comment.delete` when content is removed; auto-closed sibling reports
+do not each generate a separate audit. Existing team-visible entries and owner-only My Fortnight are unchanged.
+Web push (per device, opt-in): `GET /api/me/push` → `PushConfig { public_key: string | null }` (null = push not
+configured; UI hides the toggle), `PUT /api/me/push` with `PushSubscriptionInput { endpoint, keys: { p256dh, auth } }`
+→ 204 (upsert by endpoint, reassigned to the current user; at most 10 devices per user, oldest evicted; endpoint must
+be https on FCM, Mozilla, Apple or WNS push hosts; p256dh 65-byte uncompressed P-256, auth 16 bytes; 503
+`PUSH_UNAVAILABLE` when unconfigured), `DELETE /api/me/push` with `{ endpoint }` → 204 (own devices only).
+Every kudos, comment, tag, mention and announcement notification inserts one `push_outbox` row per recipient device
+inside the same transaction; the request only schedules the Durable Object alarm and never waits on push. `alarm()`
+sends at most 10 pushes per invocation (RFC 8291 aes128gcm encryption + RFC 8292 VAPID ES256 JWT via WebCrypto,
+TTL 1 day), then reschedules for the remainder. Payload `{ title: actor name, body, url (same-origin deep link), tag,
+badge (unread count, max 99) }`; kudos on one entry share a tag. Already-read notifications are skipped. 404/410
+deletes the subscription; 429/5xx/network errors retry with 30 s × 2ⁿ backoff (or Retry-After, max 1 h) up to 5
+attempts; other errors drop the row. Without VAPID config the outbox is discarded.
+Secrets (never committed; generate with `npm run vapid:keys`): `VAPID_PUBLIC_KEY` (base64url uncompressed P-256
+point), `VAPID_PRIVATE_KEY` (base64url 32-byte private scalar), `VAPID_SUBJECT` (`mailto:` or `https:` contact). Set
+with `wrangler secret put <NAME>`; locally put them in `.dev.vars`. Rotating keys invalidates existing subscriptions;
+clients resubscribe automatically when the server key differs.
 Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), reset password, roster CRUD + bulk import
 (CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
@@ -402,6 +528,47 @@ finishes before the synchronous session commit; signup claims, user writes and s
 Staff password resets reload both actor and target after hashing. Record PATCH writes use UPDATE with an existence
 check, never replacement inserts; settings, target and plan upserts use ON CONFLICT DO UPDATE without deleting rows.
 
+### Account data (export and removal)
+
+`GET /api/me/export` (any signed-in user, own data only) returns `AccountDataExport` JSON with
+`format_version: 1`, `exported_at`, `profile` (User), `roster` (own claimed RosterRow or null),
+`weekly_targets`, `workouts` (own entries with `images` metadata, `tagged` `{id,name}`, `kudos_count`,
+`comment_count`), `images` (metadata of every image the user owns: workout photos, avatar, unattached
+uploads; bytes stay at `GET /api/images/:id`), `comments` (authored, with `mentions` `{id,name}`),
+`erg_tests` (the owner's stored erg test history, without the derived `is_pr` flag),
+`kudos_given`, `plans` (every My Fortnight window, computed like `GET /api/me/plan`), `tagged_in`
+(`{entry_id, entry_owner_id, tagged_at}`) and `mentioned_in` (`{comment_id, entry_id, author_id,
+created_at}`, never the other person's comment body). `GET /api/me/export/workouts` returns the same
+workouts as CSV (formula-guarded cells). Both responses are `Cache-Control: private, no-store`
+attachments. Exports never contain credentials, sessions, re-auth grants, other users' emails,
+private plans, comment text or notes. A constant number of SQL queries is used.
+
+`POST /api/admin/users/:id/remove` ({ confirmation_email } → 204) is the staff account-removal
+process. Policy: only an admin may remove; only `rower` accounts (active, inactive or unlinked) are
+removable, never your own account or staff (demote first); `confirmation_email` must equal the
+target's email (trimmed, case-insensitive), else 400 CONFIRMATION_MISMATCH. Order: 403 → 404 →
+409 CONFLICT (self/staff) → 400. The body is parsed first, then the actor is reloaded and authorized
+and everything is deleted in one transaction (a failure rolls all of it back). Removal is permanent:
+
+- deletes the user row, sessions (signs them out), re-auth grants, the email's login rate-limit
+  bucket, `user_intro`, weekly targets, personal plans and sessions, and every image they own;
+- deletes their erg test history and team challenges they authored (including former staff
+  who have been demoted to rower); the audit counts include these records;
+- deletes their workouts with each workout's photos, tags, kudos, comments (including other
+  people's comments on those workouts), mentions and notifications;
+- deletes their comments and kudos on other workouts, tags and mentions of them on other people's
+  content, and notifications they received or caused; other people's free text that typed their
+  name (e.g. "@Name" in a comment body) is left unchanged;
+- deletes the roster row they currently claim, so the removed name cannot be claimed by accident
+  (staff may add it again), and clears `roster.added_by` references;
+- leaderboards and stats drop them through the existing `stats_versions`/`stats_counters` triggers.
+  Earlier audit rows whose target, actor or snapshot references the user id, claimed roster id,
+  email or `"name"` keep action, actor, target and time but their `detail_json` becomes
+  `{"before":null,"after":null,"redacted":"account_removed"}`. A new `user.remove` audit row stores
+  only role, active flag and removed-row counts. Removal cannot reach copies outside the database:
+  earlier admin CSV exports, the rower's own downloads, browser/PWA caches of images and pages, and
+  Cloudflare backups/point-in-time recovery until they expire. Ask the rower to export first.
+
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
 All entries are always team-visible. POST/PATCH accept the legacy `visibility` field but ignore it and store
 `team`. Profiles, feed, week/season/year stats and leaderboard totals include every workout, for all team members.
@@ -410,9 +577,31 @@ images retain their independent authenticated ownership/avatar/entry-reference a
 
 ## 7. Frontend
 
+### First-run intro and privacy
+
+Schema v12 adds `user_intro(user_id, completed_at)`. Existing accounts are backfilled as complete;
+new accounts have no completion row. Authenticated `GET /api/me/intro` returns
+`IntroStatus { completed_at: string | null }`. `POST /api/me/intro` (no body) marks the intro complete
+or skipped, returning the same shape. Completion is idempotent and server-persisted across devices.
+Until completion, the app opens `/intro` after signup/login; Settings can reopen it without resetting
+completion. The three short steps cover E-meters, zones and the current weekly target, using live team
+factors and targets. Skip and Back are available. API access is not gated on intro completion.
+`/privacy` is public and linked from signup and Settings. It explains team-visible training and social
+content, staff access, owner-only My Fortnight plans, authenticated photo storage, exports and removal.
+
 - Vite + React 18 + TypeScript + Tailwind + React Router + TanStack Query, lucide-react icons. Built assets served by the
   Worker (Workers static assets, SPA fallback). PWA: manifest, icons (192/512/maskable/apple-touch), theme color,
   `apple-mobile-web-app-capable`, safe-area insets, a small service worker for app-shell caching (never cache /api).
+  The service worker also shows push notifications, sets the app badge from the payload, focuses/navigates an open
+  window on click (else opens one), and resubscribes on `pushsubscriptionchange`. While signed in the app refetches
+  notifications every 60 s only while visible (paused when hidden, refetched on return) and mirrors the unread count
+  to the Badging API (`setAppBadge`/`clearAppBadge`) where supported. Settings › Notifications has a per-device Push
+  Notifications toggle (permission is requested only from that tap); on iPhone outside the Home Screen it is disabled
+  with "Add OYO to your Home Screen first." and an Add to Home Screen row; denied/unsupported states are disabled
+  with a one-line footer. Logging out removes this device's subscription and clears the badge. Install: Home shows a
+  dismissible Install OYO card when `beforeinstallprompt` fired (Android/Chrome) or on iPhone/iPad Safari (opens a
+  three-step Add to Home Screen sheet); never shown when running standalone; dismissal persists in localStorage;
+  Settings › App › Install App remains when the prompt is available.
 - Layout: mobile = bottom tab bar (Home, Feed, + Log (center, prominent), Leaderboard, Me); desktop ≥1024px = left
   sidebar with the same destinations + content column (max ~720px) and a right rail (week ring, announcements).
 - Screens: Login/Signup, Home (week progress ring vs target, remaining meters, days left, quick-log presets, this week's
@@ -436,6 +625,14 @@ images retain their independent authenticated ownership/avatar/entry-reference a
   Light + dark mode (system default, user toggle). System font stack (-apple-system, "SF Pro", Inter fallback). Native
   feel: 44px+ touch targets, segmented controls, sheets, no tiny tracked uppercase labels, no monospace micro labels,
   text ≥ 12px, Title Case buttons. Skeleton loaders, empty states, optimistic kudos, toast feedback, press states.
+- Passkeys UI: Login shows "Log In with Face ID/Touch ID/Fingerprint/Windows Hello/Passkey" (label from the
+  platform) when `PublicKeyCredential` exists, and the email field uses `autocomplete="username webauthn"` with a
+  conditional (autofill) request where `isConditionalMediationAvailable()`; the button aborts it. After a password
+  login (not a forced change) a one-time sheet offers setup if a platform authenticator exists and the user has no
+  passkeys; Not Now is remembered per user on the device. Settings lists passkeys (name, last used/added), removes
+  with confirmation and sets up new ones, asking for the password when the login is older than 10 minutes. Options
+  are fetched before the tap so iOS Safari keeps the user gesture; cancel/abort and browser-side autofill failures are silent. Works the same in an
+  installed iOS PWA (iOS 16+) since the app keeps its own origin.
 - Numbers: show E-meters as `20,000 m` or `20.0k`; never show raw floats.
 
 ## 8. Repo layout

@@ -26,7 +26,7 @@ test('phone Home and Me expose both fortnights before and after planning', async
   await expect(page.getByRole('heading', { name: 'Sample Fortnight', exact: true })).toBeVisible();
   await page.goto('/');
   await card.getByRole('link', { name: 'My Fortnight', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Start Blank', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Start Plan', exact: true })).toBeVisible();
   const config: Config = await (await context.request.get('/api/config')).json();
   const day = Math.round(
     (Date.parse(`${config.today}T12:00:00Z`) -
@@ -65,7 +65,12 @@ test('phone Home and Me expose both fortnights before and after planning', async
     .filter({ visible: true })
     .getByRole('link', { name: 'Me', exact: true })
     .click();
-  await page.getByRole('link', { name: 'Plan', exact: true }).filter({ visible: true }).click();
+  await expect(page.getByRole('heading', { name: 'No Tests Yet', exact: true })).toBeVisible();
+  const plan = page
+    .getByRole('region', { name: 'Your Training' })
+    .getByRole('link', { name: 'Plan', exact: true });
+  await plan.scrollIntoViewIfNeeded();
+  await plan.click();
   await expect(page.getByRole('heading', { name: 'Sample Fortnight', exact: true })).toBeVisible();
 });
 

@@ -71,6 +71,7 @@ export function humanizeAction(action: string) {
     'settings.update': 'Updated Team Settings',
     'entries.recalculate': 'Recalculated Entries',
     'user.reset-password': 'Reset Password',
+    'user.remove': 'Removed Account',
     'roster.unlink': 'Unlinked Account',
   };
   const [entity, verb] = action.split('.');

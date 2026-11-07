@@ -21,6 +21,20 @@ CI, without resetting their state. `E2E_BASE_URL=https://localhost:8799` skips
 server management entirely; only local servers are allowed. Use a disposable
 database: tests create users, workouts and social data, and change a user role.
 
+For the full browser matrix, run each project with fresh managed state:
+
+```sh
+npm run e2e -- --project=desktop-chrome
+npm run e2e -- --project=iphone-15
+npm run e2e -- --project=pixel-7
+```
+
+Do not keep an existing server running between these commands. The combined
+matrix shares one database and localhost auth bucket; its synthetic signups can
+exceed the production signup rate limit, and accumulated leaderboard entries can
+hide lower-ranked test rowers. Per-project state keeps coverage isolated without
+changing production rate limits.
+
 Global setup signs up the roster-seeded admin without a join code, logging in
 only if signup reports 409. Set `E2E_ADMIN_PASSWORD` for an existing database;
 the default is `e2e-dev-admin-password-1`. Admin auth runs once for all projects,
@@ -54,6 +68,9 @@ when testing an older scaffold.
 Secure/HttpOnly cookie smoke is skipped in mock mode. Leaderboard, Me and Plan
 scenarios are enabled, as are Feed, discussion, kudos-givers,
 notifications, public profiles, team search and staff post deletion.
+Comment edits cover author-only access, persisted edited state and new-mention
+notifications. Reports cover rower privacy, optional reasons, deduplication,
+staff notifications, dismissal, audited deletion and deleted-report history.
 Admin and Roster scenarios are enabled, including staff post deletion through More
 and comment moderation through the confirmation sheet. Unique rowers
 isolate real-backend tests across projects. CI runs the five gates, not E2E.
@@ -70,3 +87,27 @@ use HTTPS for authenticated browser testing there too.
 
 Reports are in ignored `playwright-report/`; failure screenshots and retry traces
 are in ignored `test-results/`. Vitest's defaults exclude `*.e2e.ts`.
+
+Offline draft tests opt into isolated persistent WebKit rower profiles under
+`test-results/`: WebKit's ephemeral contexts reject IndexedDB Blob/File writes,
+while persistent contexts support them. Other tests keep the default contexts.
+These scenarios block service workers so Playwright can intercept entry POSTs,
+including the committed-create/lost-response case. They still use the real HTTPS
+worker, synthetic roster claims and the actual WebKit engine.
+Set `OYO_SCREENSHOT_DIR` to an existing directory outside the repo to capture
+iPhone Log restoration and offline states in light and dark.
+
+Passkey scenarios (`passkeys.e2e.ts`) use a Chrome DevTools Protocol virtual
+platform authenticator (`WebAuthn.addVirtualAuthenticator`, CTAP2, internal
+transport, resident keys, user verification) in desktop-chrome and pixel-7:
+post-login setup prompt, Not Now, conditional (autofill) sign-in, explicit
+button sign-in, Settings list/remove, and a removed passkey being rejected. The
+real worker verifies every signature; mock mode skips the ceremony test.
+WebKit limits: Playwright's WebKit has no virtual authenticator or CDP and does
+not expose `navigator.credentials`, so iphone-15 only checks the login markup
+(`autocomplete="username webauthn"`, button hidden without WebAuthn). Face ID,
+iOS Safari, the installed iOS PWA and Android biometric prompts need manual
+testing on real devices over HTTPS.
+
+Each project sends its own `CF-Connecting-IP` (198.51.100.1–3) so the suite's signups and logins
+stay under the 150-per-IP auth limit. Cloudflare overwrites this header in production.

@@ -1,6 +1,6 @@
 import type { Locator, Page } from '@playwright/test';
 import { test, expect } from './fixtures';
-import { seedEntry } from './helpers';
+import { seedEntry, waitForSplash } from './helpers';
 
 test.use({ serviceWorkers: 'block' });
 
@@ -54,6 +54,7 @@ test('hold and drag scrubs Me and teammate mileage without claiming a quick swip
   await seedEntry(rower, 'Touch chart erg', 10000);
   for (const page of [rower.page, adminPage]) {
     await page.goto(page === rower.page ? '/me' : `/users/${rower.user.id}`);
+    await waitForSplash(page);
     const region = page.getByRole('region', { name: 'Season Mileage' });
     const plot = region.getByRole('img', { name: /^Cumulative E-meters/ });
     await expect(plot).toBeVisible();
@@ -105,11 +106,12 @@ test('hold and drag scrubs Me and teammate mileage without claiming a quick swip
         await session.detach();
       }
     } else {
+      await plot.scrollIntoViewIfNeeded();
       const box = (await plot.boundingBox())!;
-      await page.mouse.move(box.x, box.y + 100);
+      await page.mouse.move(box.x + 10, box.y + 100);
       await expect(plot.locator('span')).toHaveCount(3);
       await page.mouse.down();
-      await page.mouse.move(box.x + box.width, box.y + 100);
+      await page.mouse.move(box.x + box.width - 10, box.y + 100);
       await page.mouse.up();
       await expect(plot.locator('span')).toHaveCount(0);
     }

@@ -112,7 +112,15 @@ export default function Presets() {
         ) : (
           <>
             {!query.data.some((row) => row.modality === modality) && (
-              <EmptyState icon={<ListFilter size={20} />} title="No Presets Yet" />
+              <EmptyState
+                icon={<ListFilter size={20} />}
+                title="No Presets Yet"
+                action={
+                  <Button disabled={reordering || !settings.data} onClick={() => setEditing('new')}>
+                    Add Preset
+                  </Button>
+                }
+              />
             )}
             {ZONES.map((zone) => {
               const rows = orderedPresets(

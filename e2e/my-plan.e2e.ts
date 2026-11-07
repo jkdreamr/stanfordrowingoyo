@@ -25,6 +25,7 @@ test('personal fortnight copies a sample, logs today and remains owner-only', as
   const sample: Plan = await sampleResponse.json();
   const hasSample = sample.slots.some((row) => row.kind === 'oyo');
   await page.goto('/plan?tab=mine');
+  await page.getByRole('button', { name: 'Start Plan', exact: true }).click();
   await page
     .getByRole('button', { name: hasSample ? 'Start from Sample' : 'Start Blank', exact: true })
     .click();
@@ -99,7 +100,7 @@ test('personal fortnight copies a sample, logs today and remains owner-only', as
   expect(await otherPlan.json()).toBeNull();
   await teammate.page.goto('/plan?tab=mine');
   await expect(
-    teammate.page.getByRole('button', { name: 'Start Blank', exact: true }),
+    teammate.page.getByRole('button', { name: 'Start Plan', exact: true }),
   ).toBeVisible();
   expect(
     (

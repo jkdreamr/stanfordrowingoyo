@@ -26,7 +26,7 @@ export function PhotoPicker({
       <input
         ref={ref}
         id={id}
-        className="sr-only"
+        hidden
         type="file"
         accept="image/jpeg,image/png,image/webp"
         multiple={max > 1}
@@ -39,7 +39,7 @@ export function PhotoPicker({
       <div className="photo-picker">
         {photos.map((photo, i) => (
           <div className="photo-thumb" key={photo.key}>
-            {photo.id ? (
+            {photo.id && !photo.url.startsWith('blob:') ? (
               <ApiImage imageId={photo.id} alt={`Selected photo ${i + 1}`} />
             ) : (
               <img src={photo.url} alt={`Selected photo ${i + 1}`} />

@@ -1,7 +1,9 @@
 import { test, expect } from './fixtures';
 import { feedCard } from './helpers';
 
-test('tagging and mentions notify teammates across separate sessions', async ({ makeRower }) => {
+test('tagging and mentions notify teammates across separate sessions', async ({
+  makeRower,
+}, testInfo) => {
   test.skip(process.env.E2E_MOCK === '1', 'Requires shared real-backend sessions');
   const a = await makeRower();
   const b = await makeRower();
@@ -34,18 +36,27 @@ test('tagging and mentions notify teammates across separate sessions', async ({ 
   await composer.fill(`@${b.user.name}`);
   await a.page.getByRole('option', { name: b.user.name, exact: true }).click();
   await expect(composer).toHaveValue(`@${b.user.name} `);
+  await composer.evaluate(
+    () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())),
+  );
+  const body = `Strong session @${b.user.name} — see you tomorrow.`;
+  await composer.fill(body);
+  await expect(composer).toHaveValue(body);
   await a.page.getByRole('button', { name: 'Post Comment', exact: true }).click();
   await expect(a.page.getByRole('link', { name: `@${b.user.name}`, exact: true })).toHaveAttribute(
     'href',
     `/users/${b.user.id}`,
   );
+  const mention = a.page.getByRole('link', { name: `@${b.user.name}`, exact: true });
+  await expect(mention).toHaveCSS('display', 'inline');
+  await mention.locator('..').screenshot({ path: testInfo.outputPath('inline-mention.png') });
   await expect(card.getByRole('button', { name: '1 Comment', exact: true })).toBeVisible();
   await b.page.goto('/notifications');
-  const mention = b.page
+  const notification = b.page
     .getByRole('listitem')
     .filter({ hasText: 'mentioned you in' })
     .filter({ hasText: title });
-  await mention.getByRole('link').click();
+  await notification.getByRole('link').click();
   await expect(b.page).toHaveURL(`${entryUrl}#comments`);
   await b.page.getByRole('link', { name: `@${b.user.name}`, exact: true }).click();
   await expect(b.page).toHaveURL(new RegExp(`/users/${b.user.id}$`));

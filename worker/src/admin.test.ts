@@ -113,14 +113,27 @@ const endpoints: Record<keyof Api, true> = {
   'POST /api/auth/login': true,
   'POST /api/auth/logout': true,
   'GET /api/me': true,
+  'GET /api/me/intro': true,
+  'POST /api/me/intro': true,
   'PATCH /api/me': true,
   'POST /api/me/password': true,
   'POST /api/me/password/verify': true,
+  'POST /api/auth/passkey/options': true,
+  'POST /api/auth/passkey/login': true,
+  'GET /api/me/passkeys': true,
+  'POST /api/me/passkeys/options': true,
+  'POST /api/me/passkeys': true,
+  'DELETE /api/me/passkeys/:id': true,
   'GET /api/me/target': true,
   'PUT /api/me/target': true,
   'GET /api/me/plan': true,
   'PUT /api/me/plan': true,
   'DELETE /api/me/plan/:start': true,
+  'GET /api/me/export': true,
+  'GET /api/me/export/workouts': true,
+  'GET /api/me/push': true,
+  'PUT /api/me/push': true,
+  'DELETE /api/me/push': true,
   'GET /api/config': true,
   'GET /api/entries': true,
   'POST /api/entries': true,
@@ -133,6 +146,10 @@ const endpoints: Record<keyof Api, true> = {
   'GET /api/entries/:id/comments': true,
   'POST /api/entries/:id/comments': true,
   'DELETE /api/comments/:id': true,
+  'PATCH /api/comments/:id': true,
+  'POST /api/reports': true,
+  'GET /api/admin/reports': true,
+  'PATCH /api/admin/reports/:id': true,
   'POST /api/images': true,
   'GET /api/images/:id': true,
   'GET /api/stats/week': true,
@@ -141,6 +158,7 @@ const endpoints: Record<keyof Api, true> = {
   'GET /api/users': true,
   'GET /api/users/:id': true,
   'GET /api/announcements': true,
+  'GET /api/announcements/:id': true,
   'POST /api/announcements': true,
   'PATCH /api/announcements/:id': true,
   'DELETE /api/announcements/:id': true,
@@ -150,6 +168,7 @@ const endpoints: Record<keyof Api, true> = {
   'GET /api/admin/users': true,
   'PATCH /api/admin/users/:id': true,
   'POST /api/admin/users/:id/reset-password': true,
+  'POST /api/admin/users/:id/remove': true,
   'GET /api/admin/roster': true,
   'POST /api/admin/roster': true,
   'PATCH /api/admin/roster/:id': true,
@@ -188,6 +207,8 @@ beforeEach(async () => {
         'kudos',
         'comments',
         'notifications',
+        'push_subscriptions',
+        'push_outbox',
         'announcements',
         'audit_log',
         'presets',
@@ -289,6 +310,15 @@ describe('complete API and role permissions', () => {
           sessions: [],
           rest_days: [],
         });
+      if (endpoint === 'DELETE /api/me/passkeys/:id')
+        await sql((s) =>
+          s.sql.exec(
+            "INSERT INTO passkeys VALUES (?,?,-7,'{}',0,'[]','',0,0,'Passkey',?,NULL)",
+            id,
+            staff.user.id,
+            NOW,
+          ),
+        );
       if (path === '/admin/export') path += '?start=2026-03-01&end=2026-03-10';
       const body =
         method === 'GET' || method === 'DELETE'
@@ -820,8 +850,14 @@ describe('announcements and plan', () => {
     expect(await (await api('/notifications', cox)).json<unknown[]>()).toHaveLength(0);
     for (const viewer of [admin, rower])
       expect(await (await api('/notifications', viewer)).json()).toMatchObject([
-        { kind: 'announcement', actor: { name: 'Cox' } },
+        { kind: 'announcement', announcement_id: news.id, entry_id: null, actor: { name: 'Cox' } },
       ]);
+    expect((await api(`/announcements/${news.id}`, rower)).status).toBe(200);
+    expect((await (await api(`/announcements/${news.id}`, rower)).json<{ id: string }>()).id).toBe(
+      news.id,
+    );
+    expect((await api('/announcements/missing', rower)).status).toBe(404);
+    expect((await api(`/announcements/${news.id}`)).status).toBe(401);
     await sql((storage) =>
       expect(
         storage.sql

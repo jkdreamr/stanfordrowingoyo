@@ -31,6 +31,86 @@ const input = {
   notes: '',
   visibility: 'team',
 };
+it('exports mock account JSON and CSV without teammate private data', async () => {
+  const { request, state } = setup();
+  const response = await request('/me/export');
+  expect(response.headers.get('Cache-Control')).toBe('private, no-store');
+  const data = await response.json();
+  expect(data.profile.id).toBe('user-1');
+  expect(data.workouts.every((entry: { user_id: string }) => entry.user_id === 'user-1')).toBe(
+    true,
+  );
+  expect(JSON.stringify(data)).not.toContain(state.users[1].email);
+  const csv = await request('/me/export/workouts');
+  expect(csv.headers.get('Content-Type')).toBe('text/csv');
+  expect(await csv.text()).toContain('id,date,week_start');
+});
+it('confirms mock admin removal and clears linked data without auditing the email', async () => {
+  const { request, state } = setup();
+  const rower = state.users[0];
+  expect(
+    (await request(`/admin/users/${rower.id}/remove`, 'POST', { confirmation_email: rower.email }))
+      .status,
+  ).toBe(403);
+  await request('/auth/login', 'POST', {
+    email: state.users.find((user) => user.role === 'admin')!.email,
+    password: 'password',
+  });
+  expect(
+    (
+      await request(`/admin/users/${rower.id}/remove`, 'POST', {
+        confirmation_email: 'wrong@example.com',
+      })
+    ).status,
+  ).toBe(400);
+  expect(
+    (await request(`/admin/users/${rower.id}/remove`, 'POST', { confirmation_email: rower.email }))
+      .status,
+  ).toBe(204);
+  expect(state.users.some((user) => user.id === rower.id)).toBe(false);
+  expect(state.entries.some((entry) => entry.user_id === rower.id)).toBe(false);
+  expect(state.comments.some((row) => row.user_id === rower.id)).toBe(false);
+  const audit = await (await request('/admin/audit')).json();
+  expect(audit.items).toEqual(
+    expect.arrayContaining([expect.objectContaining({ action: 'user.remove' })]),
+  );
+  expect(JSON.stringify(audit)).not.toContain(rower.email);
+});
+describe('mock idempotent entries', () => {
+  it('replays the original, rejects invalid keys, preserves unkeyed creates and returns 404 after deletion', async () => {
+    const mock = createMockApi({ now });
+    const create = (key?: string, data = input) =>
+      mock.handle(
+        new Request('http://localhost/api/entries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(key === undefined ? {} : { 'Idempotency-Key': key }),
+          },
+          body: JSON.stringify(data),
+        }),
+      );
+    const first = await create('workout-key');
+    expect(first.status).toBe(201);
+    const original = (await first.json()) as EntryDetail;
+    const replay = await create('workout-key', { ...input, title: 'Changed' });
+    expect(replay.status).toBe(200);
+    expect(await replay.json()).toEqual(original);
+    expect((await create('bad')).status).toBe(400);
+    expect((await create()).status).toBe(201);
+    expect((await create()).status).toBe(201);
+    expect(
+      (
+        await mock.handle(
+          new Request('http://localhost/api/entries/' + original.id, { method: 'DELETE' }),
+        )
+      ).status,
+    ).toBe(204);
+    const missing = await create('workout-key');
+    expect(missing.status).toBe(404);
+    expect(await missing.json()).toMatchObject({ error: { code: 'NOT_FOUND' } });
+  });
+});
 describe('mock password reauthentication', () => {
   it('issues a five-minute grant, consumes it once, and revokes other grants when the password changes', async () => {
     const { request } = setup();

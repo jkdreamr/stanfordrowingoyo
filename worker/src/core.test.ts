@@ -83,13 +83,13 @@ beforeEach(async () => {
   });
 });
 describe('core worker integration', () => {
-  it('migrates through v10 and preserves an existing v1 group default', async () => {
-    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 10 });
+  it('migrates through v15 and preserves an existing v1 group default', async () => {
+    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 15 });
     await sql((storage) => {
       setSetting(storage, 'schema_version', 1);
       setSetting(storage, 'group_targets', { frosh: 70000, normal: 90000, u23: 110000 });
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(10);
+      expect(getSetting(storage, 'schema_version')).toBe(15);
       expect(getSetting(storage, 'group_target_history')).toEqual([
         { week_start: '2000-01-01', targets: { frosh: 70000, normal: 90000, u23: 110000 } },
       ]);

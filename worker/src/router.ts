@@ -2,7 +2,9 @@ import type { Context } from './context';
 import { authenticate, requireUser } from './auth/guards';
 import { HttpError, errorResponse, json } from './http';
 import * as auth from './routes/auth';
+import * as passkeys from './routes/passkeys';
 import * as me from './routes/me';
+import * as intro from './routes/intro';
 import * as myPlan from './routes/myPlan';
 import * as config from './routes/config';
 import * as entries from './routes/entries';
@@ -14,6 +16,9 @@ import * as team from './routes/team';
 import * as admin from './routes/admin';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
+import * as reports from './routes/reports';
+import * as account from './routes/account';
+import * as push from './routes/push';
 import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 type Handler = (ctx: Context) => Response | Promise<Response>;
@@ -79,20 +84,31 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 10 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 15 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
   { method: 'POST', path: '/api/auth/logout', handler: auth.logout },
+  { method: 'POST', path: '/api/auth/passkey/options', handler: passkeys.loginOptions },
+  { method: 'POST', path: '/api/auth/passkey/login', handler: passkeys.login },
   { method: 'GET', path: '/api/me', handler: me.get },
+  { method: 'GET', path: '/api/me/intro', handler: intro.get },
+  { method: 'POST', path: '/api/me/intro', handler: intro.complete },
   { method: 'PATCH', path: '/api/me', handler: me.patch },
   { method: 'POST', path: '/api/me/password', handler: unavailable },
   { method: 'POST', path: '/api/me/password/verify', handler: unavailable },
+  { method: 'GET', path: '/api/me/passkeys', handler: passkeys.list },
+  { method: 'POST', path: '/api/me/passkeys/options', handler: passkeys.registrationOptions },
+  { method: 'POST', path: '/api/me/passkeys', handler: passkeys.register },
+  { method: 'DELETE', path: '/api/me/passkeys/:id', handler: passkeys.remove },
   { method: 'GET', path: '/api/me/target', handler: me.target },
   { method: 'PUT', path: '/api/me/target', handler: me.putTarget },
   { method: 'GET', path: '/api/me/plan', handler: myPlan.get },
   { method: 'PUT', path: '/api/me/plan', handler: myPlan.put },
   { method: 'DELETE', path: '/api/me/plan/:start', handler: myPlan.remove },
+  { method: 'GET', path: '/api/me/push', handler: push.get },
+  { method: 'PUT', path: '/api/me/push', handler: push.put },
+  { method: 'DELETE', path: '/api/me/push', handler: push.remove },
   { method: 'GET', path: '/api/config', handler: config.get },
   { method: 'GET', path: '/api/entries', handler: entries.list },
   { method: 'POST', path: '/api/entries', handler: entries.create },
@@ -107,6 +123,10 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/entries/:id/comments', handler: social.comments },
   { method: 'POST', path: '/api/entries/:id/comments', handler: social.comment },
   { method: 'DELETE', path: '/api/comments/:id', handler: social.removeComment },
+  { method: 'PATCH', path: '/api/comments/:id', handler: social.patchComment },
+  { method: 'POST', path: '/api/reports', handler: reports.create },
+  { method: 'GET', path: '/api/admin/reports', handler: reports.list },
+  { method: 'PATCH', path: '/api/admin/reports/:id', handler: reports.review },
   { method: 'GET', path: '/api/notifications', handler: notifications.get },
   { method: 'POST', path: '/api/notifications/read', handler: notifications.read },
   { method: 'GET', path: '/api/stats/week', handler: stats.week },
@@ -115,6 +135,7 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/users', handler: team.list },
   { method: 'GET', path: '/api/users/:id', handler: team.profile },
   { method: 'GET', path: '/api/announcements', handler: announcements.get },
+  { method: 'GET', path: '/api/announcements/:id', handler: announcements.get },
   { method: 'POST', path: '/api/announcements', handler: announcements.create },
   { method: 'PATCH', path: '/api/announcements/:id', handler: announcements.patch },
   { method: 'DELETE', path: '/api/announcements/:id', handler: announcements.remove },
@@ -142,6 +163,10 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/admin/compliance', handler: admin.compliance },
   { method: 'GET', path: '/api/admin/export', handler: admin.exportCsv },
   { method: 'GET', path: '/api/admin/audit', handler: admin.getAudit },
+  // Account data export and removal (docs/ARCHITECTURE.md §6 "Account data").
+  { method: 'GET', path: '/api/me/export', handler: account.exportData },
+  { method: 'GET', path: '/api/me/export/workouts', handler: account.exportWorkouts },
+  { method: 'POST', path: '/api/admin/users/:id/remove', handler: account.removeUser },
 ];
 export function matchPath(template: string, path: string): Record<string, string> | null {
   const a = template.split('/');

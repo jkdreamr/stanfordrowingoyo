@@ -95,10 +95,10 @@ function checkCredentials(ctx: Context, body: Record<string, unknown>) {
     throw new HttpError(409, 'CREDENTIALS_CHANGED', 'Credentials changed. Please try again.');
   return user;
 }
-async function grantHash(value: unknown) {
+export async function grantHash(value: unknown) {
   return typeof value === 'string' && /^[A-Za-z0-9_-]{43}$/.test(value) ? sha256(value) : undefined;
 }
-function checkGrant(ctx: Context, user: UserRow, hash: string | undefined) {
+export function checkGrant(ctx: Context, user: UserRow, hash: string | undefined) {
   if (user.must_change_password) return;
   const grant = hash
     ? ctx.storage.sql

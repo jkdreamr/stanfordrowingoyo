@@ -24,9 +24,11 @@ it('expires neutral confirmations after four seconds and errors after eight', ()
     </ToastProvider>,
   );
   fireEvent.click(screen.getByText('Save'));
+  expect(screen.getByRole('status').textContent).toBe('Saved');
   act(() => vi.advanceTimersByTime(4000));
   expect(screen.queryByText('Saved')).toBeNull();
   fireEvent.click(screen.getByText('Fail'));
+  expect(screen.getByRole('alert').textContent).toBe('Not saved');
   act(() => vi.advanceTimersByTime(4000));
   expect(screen.getByText('Not saved')).toBeTruthy();
   act(() => vi.advanceTimersByTime(4000));

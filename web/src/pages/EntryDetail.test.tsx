@@ -42,7 +42,7 @@ afterEach(() => {
 });
 function setup(
   scope: 'home' | 'other' | 'missing' = 'home',
-  options: { staff?: boolean; failDelete?: boolean } = {},
+  options: { staff?: boolean; failDelete?: boolean; failWrite?: boolean } = {},
 ) {
   const mock = createMockApi({
     now: () => new Date('2026-11-06T18:00:00Z'),
@@ -54,7 +54,8 @@ function setup(
   const requests: { method: string; path: string; status: number }[] = [];
   const fetcher = vi.fn(async (url: URL, init: RequestInit) => {
     const response =
-      options.failDelete && init.method === 'DELETE'
+      (options.failDelete && init.method === 'DELETE') ||
+      (options.failWrite && ['PATCH', 'POST'].includes(init.method ?? 'GET'))
         ? new Response(
             JSON.stringify({ error: { code: 'INTERNAL_ERROR', message: 'Unavailable' } }),
             { status: 500 },
@@ -105,13 +106,19 @@ it('keeps Home rows linked to detail and reaches a prefilled own-session editor'
   expect(screen.getByRole('button', { name: 'Delete Session' })).toBeTruthy();
 });
 for (const scope of ['other', 'missing'] as const) {
-  it(`omits workout actions for ${scope} entries`, async () => {
+  it(`limits workout actions for ${scope} entries`, async () => {
     const { client } = setup(scope);
     await screen.findByRole('heading', {
       name: scope === 'missing' ? 'Workout Not Found' : 'Workout',
     });
     await waitFor(() => expect(client.isFetching()).toBe(0));
-    expect(screen.queryByRole('button', { name: 'More' })).toBeNull();
+    if (scope === 'missing') expect(screen.queryByRole('button', { name: 'More' })).toBeNull();
+    else {
+      fireEvent.click(screen.getByRole('button', { name: 'More' }));
+      expect(await screen.findByRole('button', { name: 'Report Workout' })).toBeTruthy();
+      expect(screen.queryByRole('link', { name: 'Edit Workout' })).toBeNull();
+      expect(screen.queryByRole('button', { name: 'Delete Workout' })).toBeNull();
+    }
   });
 }
 
@@ -141,6 +148,92 @@ it('opens the With sheet and inserts, posts and links selected mentions', async 
   expect(link.getAttribute('href')).toBe('/users/user-36');
   const posted = mock.state.comments.at(-1)!;
   expect(mock.state.mentions[posted.id]).toEqual(['user-36']);
+});
+
+it('edits only own comments, cancels drafts and shows edited after saving', async () => {
+  const { mock, router, entry } = setup();
+  mock.state.comments.push({
+    id: 'own-comment',
+    user_id: 'user-1',
+    entry_id: entry.id,
+    body: 'Original comment',
+    created_at: '2026-11-06T17:00:00Z',
+  });
+  mock.state.comments.push({
+    id: 'other-comment',
+    user_id: 'user-2',
+    entry_id: entry.id,
+    body: 'Other comment',
+    created_at: '2026-11-06T17:00:00Z',
+  });
+  await router.navigate(`/entries/${entry.id}`);
+  const own = (await screen.findByText('Original comment')).closest('li')!;
+  const other = screen.getByText('Other comment').closest('li')!;
+  expect(within(other).queryByRole('button', { name: 'Edit' })).toBeNull();
+  fireEvent.click(within(own).getByRole('button', { name: 'Edit' }));
+  let editor = screen.getByRole('form', { name: 'Edit Comment' });
+  fireEvent.change(within(editor).getByRole('combobox'), { target: { value: 'Discard me' } });
+  fireEvent.click(within(editor).getByRole('button', { name: 'Cancel' }));
+  expect(mock.state.comments.find((c) => c.id === 'own-comment')!.body).toBe('Original comment');
+  fireEvent.click(within(own).getByRole('button', { name: 'Edit' }));
+  editor = screen.getByRole('form', { name: 'Edit Comment' });
+  fireEvent.change(within(editor).getByRole('combobox'), { target: { value: 'Updated comment' } });
+  fireEvent.click(within(editor).getByRole('button', { name: 'Save' }));
+  await screen.findByText('Updated comment');
+  expect(within(own).getByText(/edited/)).toBeTruthy();
+});
+
+it('reports another workout with an optional reason', async () => {
+  const { mock } = setup('other');
+  fireEvent.click(await screen.findByRole('button', { name: 'More' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Report Workout' }));
+  const sheet = screen.getByRole('dialog', { name: 'Report Workout' });
+  fireEvent.change(within(sheet).getByLabelText('Reason (Optional)'), {
+    target: { value: 'Please review' },
+  });
+  fireEvent.click(within(sheet).getByRole('button', { name: 'Send Report' }));
+  await screen.findByText('Report sent');
+  expect(mock.state.notifications.some((n) => n.kind === 'report' && n.actor_id === 'user-1')).toBe(
+    true,
+  );
+});
+
+it('keeps an unsaved edit after failure and prevents empty saves', async () => {
+  const { mock, router, entry } = setup('home', { failWrite: true });
+  mock.state.comments.push({
+    id: 'own-comment',
+    user_id: 'user-1',
+    entry_id: entry.id,
+    body: 'Original comment',
+    created_at: '2026-11-06T17:00:00Z',
+  });
+  await router.navigate(`/entries/${entry.id}`);
+  const own = (await screen.findByText('Original comment')).closest('li')!;
+  fireEvent.click(within(own).getByRole('button', { name: 'Edit' }));
+  const editor = screen.getByRole('form', { name: 'Edit Comment' });
+  const input = within(editor).getByRole('combobox');
+  fireEvent.change(input, { target: { value: '   ' } });
+  expect((within(editor).getByRole('button', { name: 'Save' }) as HTMLButtonElement).disabled).toBe(
+    true,
+  );
+  fireEvent.change(input, { target: { value: 'Keep my draft' } });
+  fireEvent.click(within(editor).getByRole('button', { name: 'Save' }));
+  await screen.findByText('Comment not saved. Try again');
+  expect((input as HTMLTextAreaElement).value).toBe('Keep my draft');
+  expect(mock.state.comments.find((c) => c.id === 'own-comment')!.body).toBe('Original comment');
+});
+
+it('keeps the reason available to retry a failed report', async () => {
+  setup('other', { failWrite: true });
+  fireEvent.click(await screen.findByRole('button', { name: 'More' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Report Workout' }));
+  const sheet = screen.getByRole('dialog', { name: 'Report Workout' });
+  const input = within(sheet).getByLabelText('Reason (Optional)') as HTMLTextAreaElement;
+  expect(input.maxLength).toBe(300);
+  fireEvent.change(input, { target: { value: 'Please review' } });
+  fireEvent.click(within(sheet).getByRole('button', { name: 'Send Report' }));
+  await screen.findByText('Report not sent. Try again');
+  expect(input.value).toBe('Please review');
 });
 
 for (const staff of [false, true]) {

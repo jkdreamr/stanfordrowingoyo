@@ -4,6 +4,7 @@ import { toPublicUser, type UserRow } from './users';
 import { HttpError } from '../http';
 import { deleteUnreferencedImages } from './images';
 import { notify } from './notifications';
+import { closeReports } from './reports';
 export function findEntry(storage: DurableObjectStorage, id: string) {
   return storage.sql.exec<Row<Entry>>('SELECT * FROM entries WHERE id = ?', id).toArray()[0];
 }
@@ -186,20 +187,30 @@ export function checkImages(
       throw new HttpError(409, 'CONFLICT', 'Image is attached to another entry.');
   }
 }
-export function deleteEntry(storage: DurableObjectStorage, id: string) {
+export function deleteEntry(
+  storage: DurableObjectStorage,
+  id: string,
+  reviewer: string | null = null,
+  timestamp = new Date().toISOString(),
+) {
   storage.transactionSync(() => {
+    closeReports(storage, { target_type: 'entry', target_id: id }, reviewer, timestamp);
     const previous = storage.sql
       .exec<{ image_id: string }>('SELECT image_id FROM entry_images WHERE entry_id = ?', id)
       .toArray();
     for (const table of [
       'entry_tags',
       'comment_mentions',
+      'comment_mention_history',
       'entry_images',
       'kudos',
       'comments',
-      'notifications',
     ])
       storage.sql.exec(`DELETE FROM ${table} WHERE entry_id = ?`, id);
+    storage.sql.exec(
+      "DELETE FROM notifications WHERE entry_id=? AND kind NOT IN ('report','announcement')",
+      id,
+    );
     storage.sql.exec('DELETE FROM entries WHERE id = ?', id);
     deleteUnreferencedImages(
       storage,

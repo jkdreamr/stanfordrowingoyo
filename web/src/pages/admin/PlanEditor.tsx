@@ -172,7 +172,7 @@ function PlanDraft({ initial }: { initial: Plan }) {
                         )}
                       </span>
                       {row?.kind !== 'off' && row?.zone && <ZoneChip zone={row.zone} />}
-                      <ChevronRight size={18} className="shrink-0 text-muted" />
+                      <ChevronRight size={18} className="shrink-0 text-muted" aria-hidden="true" />
                     </button>
                   );
                 })}

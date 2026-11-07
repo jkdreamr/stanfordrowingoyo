@@ -1,8 +1,11 @@
 import type {
+  AccountDataExport,
   ErgTest,
   TeamChallenge,
+  Passkey,
   AnnouncementInput,
   AuditLog,
+  ContentReport,
   Entry,
   EntryDetail,
   EntryInput,
@@ -61,6 +64,11 @@ function fail(status: number, message: string, code?: string): never {
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 const empty = () => new Response(null, { status: 204 });
+const quoteCsv = (value: unknown) => {
+  let text = value == null ? '' : String(value);
+  if (typeof value === 'string' && /^[=+\-@\t\r]/.test(text)) text = "'" + text;
+  return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+};
 const dateValid = (date: unknown): date is string =>
   typeof date === 'string' &&
   /^\d{4}-\d{2}-\d{2}$/.test(date) &&
@@ -213,10 +221,23 @@ export function createMockApi({
   let plan: Plan = { slots: structuredClone(PLAN_SLOTS), totals: structuredClone(PLAN_TOTALS) };
   const roster: RosterRow[] = state.roster;
   const audit: AuditLog[] = [];
+  const reports: ContentReport[] = [];
+  const mentionHistory = new Map<string, Set<string>>();
   const groupHistory = [{ week: '0000-01-01', targets: { ...settings.group_targets } }];
   const uploads = new Map<string, { blob: Blob; owner: string }>();
+  const entryKeys = new Map<string, { entryId: string; createdAt: number }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
+  const intro = new Map(state.users.map((u) => [u.id, now().toISOString()]));
   const credentialVersions = new Map<string, number>();
+  const passkeys: (Passkey & { user_id: string })[] = [];
+  const passkeyPolicy = { requireReauth: false };
+  const publicPasskey = (p: Passkey): Passkey => ({
+    id: p.id,
+    name: p.name,
+    created_at: p.created_at,
+    last_used_at: p.last_used_at,
+    backed_up: p.backed_up,
+  });
   let currentSession = session ? crypto.randomUUID() : null;
   const reauthGrants = new Map<
     string,
@@ -291,6 +312,34 @@ export function createMockApi({
   }
   function own(userId: string) {
     if (userId !== me().id && !staff()) fail(403, 'Only the owner or staff can change this');
+  }
+  function reportContent(report: ContentReport): ContentReport {
+    const comment =
+      report.target_type === 'comment'
+        ? state.comments.find((c) => c.id === report.target_id)
+        : undefined;
+    const entry = state.entries.find((e) => e.id === report.entry_id);
+    return {
+      ...report,
+      content:
+        entry && (report.target_type === 'entry' || comment)
+          ? {
+              author: publicUser(userById(comment?.user_id ?? entry.user_id)),
+              body: comment?.body ?? entry.notes,
+              title: report.target_type === 'entry' ? entry.title : null,
+            }
+          : null,
+    };
+  }
+  function closeReports(targetType: 'entry' | 'comment', targetId: string) {
+    for (const report of reports)
+      if (
+        report.status === 'open' &&
+        (targetType === 'entry'
+          ? report.entry_id === targetId
+          : report.target_type === 'comment' && report.target_id === targetId)
+      )
+        Object.assign(report, { status: 'deleted', reviewed_at: stamp(), reviewed_by: me().id });
   }
   function totals(entries: Entry[]): Totals {
     const result: Totals = {
@@ -573,7 +622,12 @@ export function createMockApi({
     )
       fail(400, 'Invalid plan slot');
   }
-  function notify(userId: string, kind: Notification['kind'], entry: Entry | null) {
+  function notify(
+    userId: string,
+    kind: Notification['kind'],
+    entry: Entry | null,
+    announcementId?: string,
+  ) {
     if (userId === me().id || !userById(userId).active) return;
     state.notifications.unshift({
       id: id('notification'),
@@ -581,6 +635,7 @@ export function createMockApi({
       actor_id: me().id,
       actor: publicUser(me()),
       kind,
+      ...(announcementId ? { announcement_id: announcementId } : {}),
       entry_id: entry?.id || null,
       entry_title: entry?.title || null,
       created_at: stamp(),
@@ -628,7 +683,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 10 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 15 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -639,6 +694,75 @@ export function createMockApi({
           fail(401, 'Email or password is incorrect', 'INVALID_CREDENTIALS');
         setSession(user.id);
         return json(user);
+      }
+      if (path === '/api/auth/passkey/options' && method === 'POST') {
+        const challenge = id('challenge');
+        return json({
+          challenge: btoa(challenge).replaceAll('=', ''),
+          rp_id: new URL(request.url).hostname,
+          timeout_ms: 300000,
+          expires_at: new Date(now().getTime() + 300000).toISOString(),
+        });
+      }
+      if (path === '/api/auth/passkey/login' && method === 'POST') {
+        const passkey = passkeys.find((p) => p.id === body.id);
+        const user = passkey && state.users.find((u) => u.id === passkey.user_id);
+        if (!passkey || !user) fail(401, 'This passkey is not set up here.', 'PASSKEY_UNKNOWN');
+        if (!user.active) fail(403, 'This account is inactive.', 'ACCOUNT_INACTIVE');
+        passkey.last_used_at = stamp();
+        setSession(user.id);
+        return json(user);
+      }
+      if (path === '/api/me/passkeys' && method === 'GET')
+        return json(passkeys.filter((p) => p.user_id === me().id).map(({ user_id: _, ...p }) => p));
+      if (path === '/api/me/passkeys/options' && method === 'POST') {
+        const user = me();
+        const grant =
+          typeof body.reauth_token === 'string' ? reauthGrants.get(body.reauth_token) : undefined;
+        if (passkeyPolicy.requireReauth && grant?.userId !== user.id)
+          fail(401, 'Verify your password again.', 'REAUTH_REQUIRED');
+        const challenge = id('challenge');
+        return json({
+          challenge: btoa(challenge).replaceAll('=', ''),
+          rp_id: new URL(request.url).hostname,
+          rp_name: 'Stanford Rowing OYO',
+          timeout_ms: 300000,
+          expires_at: new Date(now().getTime() + 300000).toISOString(),
+          user: {
+            id: btoa(user.id).replaceAll('=', ''),
+            name: user.email,
+            display_name: user.name,
+          },
+          exclude_credentials: passkeys
+            .filter((p) => p.user_id === user.id)
+            .map((p) => ({ id: p.id, transports: ['internal'] })),
+        });
+      }
+      if (path === '/api/me/passkeys' && method === 'POST') {
+        const user = me();
+        if (typeof body.id !== 'string')
+          fail(400, 'Passkey could not be verified.', 'PASSKEY_INVALID');
+        if (passkeys.some((p) => p.id === body.id))
+          fail(409, 'This passkey is already set up.', 'PASSKEY_EXISTS');
+        const passkey = {
+          id: body.id,
+          user_id: user.id,
+          name: 'iPhone',
+          created_at: stamp(),
+          last_used_at: null,
+          backed_up: true,
+        };
+        passkeys.push(passkey);
+        recordAudit('passkey.add', user.id, null, { id: passkey.id, name: passkey.name });
+        return json(publicPasskey(passkey), 201);
+      }
+      if (parts[2] === 'me' && parts[3] === 'passkeys' && parts[4] && method === 'DELETE') {
+        const user = me();
+        const index = passkeys.findIndex((p) => p.id === parts[4] && p.user_id === user.id);
+        if (index < 0) fail(404, 'Passkey not found.', 'NOT_FOUND');
+        const [removed] = passkeys.splice(index, 1);
+        recordAudit('passkey.remove', user.id, { id: removed.id, name: removed.name }, null);
+        return empty();
       }
       if (path === '/api/auth/roster' && method === 'POST') {
         if (body.team_code !== settings.team_code)
@@ -706,8 +830,114 @@ export function createMockApi({
       )
         fail(403, 'Change your temporary password first');
       if (path.startsWith('/api/admin/')) requireStaff();
+      if (path === '/api/me/intro') {
+        if (method === 'POST' && !intro.has(user.id)) intro.set(user.id, stamp());
+        if (method === 'GET' || method === 'POST')
+          return json({ completed_at: intro.get(user.id) ?? null });
+      }
+      if (path === '/api/me/export/workouts' && method === 'GET') {
+        const columns = [
+          'id',
+          'date',
+          'week_start',
+          'modality',
+          'zone',
+          'distance_m',
+          'duration_s',
+          'avg_split_s',
+          'stroke_rate',
+          'avg_hr',
+          'mode_factor',
+          'zone_factor',
+          'equiv_m',
+          'title',
+          'notes',
+          'created_at',
+          'updated_at',
+        ] as const;
+        const rows = state.entries
+          .filter((entry) => entry.user_id === user.id)
+          .sort(
+            (a, b) =>
+              a.date.localeCompare(b.date) ||
+              a.created_at.localeCompare(b.created_at) ||
+              a.id.localeCompare(b.id),
+          );
+        return new Response(
+          [
+            columns.join(','),
+            ...rows.map((row) => columns.map((column) => quoteCsv(row[column])).join(',')),
+            '',
+          ].join('\r\n'),
+          { headers: { 'Content-Type': 'text/csv', 'Cache-Control': 'private, no-store' } },
+        );
+      }
+      if (path === '/api/me/export' && method === 'GET') {
+        const person = (id: string) => ({ id, name: userById(id).name });
+        const data: AccountDataExport = {
+          format_version: 1,
+          exported_at: stamp(),
+          profile: user,
+          roster: roster.find((row) => row.claimed_by_user_id === user.id) ?? null,
+          weekly_targets: state.targets.filter((row) => row.user_id === user.id),
+          erg_tests: testHistory(user.id).map(({ is_pr: _isPr, ...row }) => {
+            void _isPr;
+            return row;
+          }),
+          workouts: state.entries
+            .filter((entry) => entry.user_id === user.id)
+            .map((entry) => ({
+              ...entry,
+              images: state.imageLinks[entry.id] ?? [],
+              tagged: (state.tags[entry.id] ?? []).map(person),
+              kudos_count: state.kudos[entry.id]?.length ?? 0,
+              comment_count: state.comments.filter((row) => row.entry_id === entry.id).length,
+            })),
+          images: Object.values(state.imageLinks)
+            .flat()
+            .filter((image) => image.owner_id === user.id),
+          comments: state.comments
+            .filter((row) => row.user_id === user.id)
+            .map((comment) => ({
+              ...comment,
+              mentions: (state.mentions[comment.id] ?? []).map(person),
+            })),
+          kudos_given: Object.entries(state.kudos).flatMap(([entry_id, rows]) =>
+            rows.filter((row) => row.user_id === user.id).map((row) => ({ ...row, entry_id })),
+          ),
+          plans: state.myPlans
+            .filter((row) => row.user_id === user.id)
+            .map((row) =>
+              personalPlan(
+                { start_date: row.start_date, sessions: row.sessions, rest_days: row.rest_days },
+                settings,
+                row.updated_at,
+                state.entries.filter((entry) => entry.user_id === user.id),
+              ),
+            ),
+          tagged_in: state.entries
+            .filter((entry) => entry.user_id !== user.id && state.tags[entry.id]?.includes(user.id))
+            .map((entry) => ({
+              entry_id: entry.id,
+              entry_owner_id: entry.user_id,
+              tagged_at: entry.updated_at,
+            })),
+          mentioned_in: state.comments
+            .filter((row) => row.user_id !== user.id && state.mentions[row.id]?.includes(user.id))
+            .map((row) => ({
+              comment_id: row.id,
+              entry_id: row.entry_id,
+              author_id: row.user_id,
+              created_at: row.created_at,
+            })),
+        };
+        const response = json(data);
+        response.headers.set('Cache-Control', 'private, no-store');
+        return response;
+      }
       if (
         method !== 'GET' &&
+        !path.endsWith('/remove') &&
         path.startsWith('/api/admin/') &&
         !['/api/admin/settings', '/api/admin/recalculate'].includes(path) &&
         !path.startsWith('/api/admin/presets') &&
@@ -1072,6 +1302,16 @@ export function createMockApi({
         if (method === 'POST') {
           const input = body as unknown as EntryInput;
           validateEntry(input);
+          const key = request.headers.get('Idempotency-Key');
+          if (key !== null && !/^[A-Za-z0-9_-]{8,128}$/.test(key))
+            fail(400, 'Invalid Idempotency-Key');
+          const scopedKey = JSON.stringify([user.id, key]);
+          const mapping = key === null ? undefined : entryKeys.get(scopedKey);
+          if (mapping) {
+            const original = state.entries.find((entry) => entry.id === mapping.entryId);
+            if (!original) fail(404, 'Entry not found');
+            return json(detail(original));
+          }
           const { image_ids = [], tagged_user_ids, ...fields } = input;
           const tags = recipientIds(tagged_user_ids, user.id);
           const entry: Entry = {
@@ -1098,6 +1338,12 @@ export function createMockApi({
             updated_at: stamp(),
           };
           state.entries.push(entry);
+          if (key !== null) {
+            const time = now().getTime();
+            for (const [storedKey, stored] of entryKeys)
+              if (stored.createdAt < time - 7 * 86400000) entryKeys.delete(storedKey);
+            entryKeys.set(scopedKey, { entryId: entry.id, createdAt: time });
+          }
           setTags(entry, tags);
           state.imageLinks[entry.id] = image_ids.map(
             (imageId) =>
@@ -1164,6 +1410,7 @@ export function createMockApi({
             const supplied = recipientIds(body.mention_ids, user.id);
             const ids = mentionIds(comment.body, supplied.map(userById));
             state.mentions[comment.id] = ids;
+            mentionHistory.set(comment.id, new Set(ids));
             state.comments.push(comment);
             for (const id of ids) notify(id, 'mention', entry);
             if (!ids.includes(entry.user_id)) notify(entry.user_id, 'comment', entry);
@@ -1177,6 +1424,7 @@ export function createMockApi({
           if (method === 'GET') return json(detail(entry));
           own(entry.user_id);
           if (method === 'DELETE') {
+            closeReports('entry', entry.id);
             state.entries.splice(state.entries.indexOf(entry), 1);
             state.comments = state.comments.filter((c) => c.entry_id !== entry.id);
             delete state.imageLinks[entry.id];
@@ -1236,10 +1484,109 @@ export function createMockApi({
           }
         }
       }
+      if (parts[2] === 'comments' && method === 'PATCH') {
+        const comment =
+          state.comments.find((c) => c.id === resourceId) || fail(404, 'Comment not found');
+        if (comment.user_id !== user.id) fail(403, 'Only the author may edit this comment');
+        text(body.body, 'Comment');
+        const supplied = recipientIds(
+          body.mention_ids ?? state.mentions[comment.id] ?? [],
+          user.id,
+        );
+        const ids = mentionIds(String(body.body), supplied.map(userById));
+        const history = mentionHistory.get(comment.id) ?? new Set(state.mentions[comment.id] ?? []);
+        if (comment.body !== String(body.body).trim()) comment.edited_at = stamp();
+        comment.body = String(body.body).trim();
+        state.mentions[comment.id] = ids;
+        for (const id of ids) {
+          if (!history.has(id)) notify(id, 'mention', entryById(comment.entry_id));
+          history.add(id);
+        }
+        mentionHistory.set(comment.id, history);
+        return json({
+          ...comment,
+          mentions: ids.map(userById).map(publicUser),
+          author: publicUser(user),
+        });
+      }
+      if (path === '/api/reports' && method === 'POST') {
+        if (
+          !['entry', 'comment'].includes(String(body.target_type)) ||
+          typeof body.target_id !== 'string'
+        )
+          fail(400, 'Invalid report target');
+        if (
+          body.reason !== undefined &&
+          (typeof body.reason !== 'string' || body.reason.trim().length > 300)
+        )
+          fail(400, 'Reason must be at most 300 characters');
+        const previous = reports.find(
+          (r) =>
+            r.reporter.id === user.id &&
+            r.target_type === body.target_type &&
+            r.target_id === body.target_id,
+        );
+        if (previous) return json({ id: previous.id });
+        const comment =
+          body.target_type === 'comment'
+            ? state.comments.find((c) => c.id === body.target_id) || fail(404, 'Comment not found')
+            : undefined;
+        const entry = entryById(comment?.entry_id ?? String(body.target_id));
+        const report: ContentReport = {
+          id: id('report'),
+          target_type: body.target_type as 'entry' | 'comment',
+          target_id: String(body.target_id),
+          entry_id: entry.id,
+          reporter: publicUser(user),
+          reason: String(body.reason ?? '').trim(),
+          status: 'open',
+          created_at: stamp(),
+          reviewed_at: null,
+          reviewed_by: null,
+          content: null,
+        };
+        reports.unshift(report);
+        for (const member of state.users)
+          if (member.active && member.role !== 'rower') notify(member.id, 'report', entry);
+        return json({ id: report.id }, 201);
+      }
+      if (path === '/api/admin/reports' && method === 'GET') {
+        const status = url.searchParams.get('status') ?? 'open';
+        if (!['open', 'dismissed', 'deleted'].includes(status)) fail(400, 'Invalid report status');
+        return json(
+          paginate(
+            reports.filter((r) => r.status === status).map(reportContent),
+            url.searchParams.get('cursor'),
+          ),
+        );
+      }
+      if (parts[2] === 'admin' && parts[3] === 'reports' && method === 'PATCH') {
+        const report = reports.find((r) => r.id === parts[4]) || fail(404, 'Report not found');
+        if (!['dismiss', 'delete'].includes(String(body.action))) fail(400, 'Invalid action');
+        if (report.status !== 'open') fail(409, 'Report already reviewed');
+        const before = { ...report };
+        if (body.action === 'delete') {
+          const content = reportContent(report).content;
+          if (report.target_type === 'entry') {
+            state.entries = state.entries.filter((e) => e.id !== report.target_id);
+            state.comments = state.comments.filter((c) => c.entry_id !== report.entry_id);
+          } else state.comments = state.comments.filter((c) => c.id !== report.target_id);
+          if (content) recordAudit(`${report.target_type}.delete`, report.target_id, content, null);
+          closeReports(report.target_type, report.target_id);
+        } else
+          Object.assign(report, {
+            status: 'dismissed',
+            reviewed_at: stamp(),
+            reviewed_by: user.id,
+          });
+        recordAudit(`report.${body.action}`, report.id, before, report);
+        return json(reportContent(report));
+      }
       if (parts[2] === 'comments' && method === 'DELETE') {
         const comment =
           state.comments.find((c) => c.id === resourceId) || fail(404, 'Comment not found');
         own(comment.user_id);
+        closeReports('comment', comment.id);
         state.comments.splice(state.comments.indexOf(comment), 1);
         delete state.mentions[comment.id];
         return empty();
@@ -1315,6 +1662,11 @@ export function createMockApi({
         return json({ user: publicUser(profile), stats: seasonStats(profile.id) });
       }
       if (parts[2] === 'announcements') {
+        if (method === 'GET' && resourceId)
+          return json(
+            state.announcements.find((announcement) => announcement.id === resourceId) ||
+              fail(404, 'Announcement not found'),
+          );
         if (method === 'GET' && !resourceId)
           return json(
             [...state.announcements].sort(
@@ -1337,7 +1689,7 @@ export function createMockApi({
           };
           state.announcements.unshift(announcement);
           recordAudit('announcement.create', announcement.id, null, announcement);
-          for (const u of state.users) notify(u.id, 'announcement', null);
+          for (const u of state.users) notify(u.id, 'announcement', null, announcement.id);
           return json(announcement, 201);
         }
         const announcement =
@@ -1346,6 +1698,11 @@ export function createMockApi({
         if (method === 'DELETE') {
           recordAudit('announcement.delete', announcement.id, announcement, null);
           state.announcements.splice(state.announcements.indexOf(announcement), 1);
+          state.notifications = state.notifications.filter(
+            (notification) =>
+              notification.kind !== 'announcement' ||
+              notification.announcement_id !== announcement.id,
+          );
           return empty();
         }
         if (method === 'PATCH') {
@@ -1363,9 +1720,19 @@ export function createMockApi({
       if (path === '/api/notifications' && method === 'GET')
         return json(
           state.notifications
-            .filter((n) => n.user_id === user.id)
+            .filter((n) => n.user_id === user.id && (n.kind !== 'report' || staff()))
             .sort((a, b) => b.created_at.localeCompare(a.created_at)),
         );
+      if (path === '/api/me/push' && method === 'GET')
+        return json({
+          public_key:
+            'BP4z9KsN6nGRTbVYI_c7VJSPQTBtkgcy27mlmlMoZIIgDll6e3vCYLocInmYWAmS6TlzAC8wEqKK6PBru3jl7A8',
+        });
+      if (path === '/api/me/push' && (method === 'PUT' || method === 'DELETE')) {
+        if (typeof body.endpoint !== 'string' || !body.endpoint.startsWith('https://'))
+          fail(400, 'Push endpoint required');
+        return empty();
+      }
       if (path === '/api/notifications/read' && method === 'POST') {
         if (!Array.isArray(body.ids) || body.ids.some((x) => typeof x !== 'string'))
           fail(400, 'Notification IDs required');
@@ -1384,6 +1751,115 @@ export function createMockApi({
       if (path === '/api/admin/users' && method === 'GET') return json(state.users);
       if (parts[2] === 'admin' && parts[3] === 'users' && parts[4]) {
         const targetUser = userById(parts[4]);
+        if (parts[5] === 'remove' && method === 'POST') {
+          adminOnly();
+          if (targetUser.id === user.id || targetUser.role !== 'rower')
+            fail(409, 'Only another rower can be removed');
+          if (
+            typeof body.confirmation_email !== 'string' ||
+            body.confirmation_email.trim().toLowerCase() !== targetUser.email.toLowerCase()
+          )
+            fail(400, 'Type the account email exactly to confirm', 'CONFIRMATION_MISMATCH');
+          const removedEntries = new Set(
+            state.entries
+              .filter((entry) => entry.user_id === targetUser.id)
+              .map((entry) => entry.id),
+          );
+          const removedComments = state.comments.filter(
+            (row) => row.user_id === targetUser.id || removedEntries.has(row.entry_id),
+          );
+          for (const entry of removedEntries) closeReports('entry', entry);
+          for (const comment of removedComments) closeReports('comment', comment.id);
+          for (let index = reports.length - 1; index >= 0; index--)
+            if (reports[index].reporter.id === targetUser.id) reports.splice(index, 1);
+          for (const report of reports)
+            if (report.reviewed_by === targetUser.id) report.reviewed_by = null;
+          for (const [commentId, ids] of mentionHistory) {
+            if (removedComments.some((comment) => comment.id === commentId))
+              mentionHistory.delete(commentId);
+            else ids.delete(targetUser.id);
+          }
+          for (const [key] of entryKeys)
+            if (JSON.parse(key)[0] === targetUser.id) entryKeys.delete(key);
+          for (let index = passkeys.length - 1; index >= 0; index--)
+            if (passkeys[index].user_id === targetUser.id) passkeys.splice(index, 1);
+          const removedRoster = roster.find((row) => row.claimed_by_user_id === targetUser.id);
+          const removedTests = ergTests.filter((row) => row.user_id === targetUser.id);
+          const removedChallenges = challenges.filter((row) => row.created_by === targetUser.id);
+          for (const row of removedTests) ergTests.splice(ergTests.indexOf(row), 1);
+          for (const row of removedChallenges) challenges.splice(challenges.indexOf(row), 1);
+          for (const row of audit) {
+            if (
+              row.actor_id === targetUser.id ||
+              [targetUser.id, removedRoster?.id].includes(row.target) ||
+              [targetUser.id, targetUser.email, targetUser.name].some((value) =>
+                row.detail_json.includes(value),
+              )
+            )
+              row.detail_json = JSON.stringify({
+                before: null,
+                after: null,
+                redacted: 'account_removed',
+              });
+          }
+          for (const entry of state.entries) {
+            state.tags[entry.id] = (state.tags[entry.id] ?? []).filter(
+              (id) => id !== targetUser.id,
+            );
+            state.kudos[entry.id] = (state.kudos[entry.id] ?? []).filter(
+              (row) => row.user_id !== targetUser.id,
+            );
+            state.imageLinks[entry.id] = (state.imageLinks[entry.id] ?? []).filter(
+              (image) => image.owner_id !== targetUser.id,
+            );
+          }
+          for (const entry of removedEntries) {
+            delete state.tags[entry];
+            delete state.kudos[entry];
+            delete state.imageLinks[entry];
+          }
+          for (const comment of state.comments)
+            state.mentions[comment.id] = (state.mentions[comment.id] ?? []).filter(
+              (id) => id !== targetUser.id,
+            );
+          for (const comment of removedComments) delete state.mentions[comment.id];
+          state.entries = state.entries.filter((row) => !removedEntries.has(row.id));
+          state.comments = state.comments.filter((row) => !removedComments.includes(row));
+          state.myPlans = state.myPlans.filter((row) => row.user_id !== targetUser.id);
+          state.targets = state.targets.filter((row) => row.user_id !== targetUser.id);
+          state.announcements = state.announcements.filter(
+            (row) => row.author_id !== targetUser.id,
+          );
+          state.notifications = state.notifications.filter(
+            (row) =>
+              row.user_id !== targetUser.id &&
+              row.actor_id !== targetUser.id &&
+              !removedEntries.has(row.entry_id ?? ''),
+          );
+          state.users = state.users.filter((row) => row.id !== targetUser.id);
+          if (removedRoster) roster.splice(roster.indexOf(removedRoster), 1);
+          for (const row of roster) if (row.added_by === targetUser.id) row.added_by = null;
+          for (const [id, upload] of uploads)
+            if (upload.owner === targetUser.id) uploads.delete(id);
+          passwords.delete(targetUser.id);
+          credentialVersions.delete(targetUser.id);
+          intro.delete(targetUser.id);
+          for (const [token, grant] of reauthGrants)
+            if (grant.userId === targetUser.id) reauthGrants.delete(token);
+          recordAudit(
+            'user.remove',
+            targetUser.id,
+            { role: targetUser.role, active: targetUser.active },
+            {
+              removed: {
+                workouts: removedEntries.size,
+                erg_tests: removedTests.length,
+                challenges: removedChallenges.length,
+              },
+            },
+          );
+          return empty();
+        }
         if (parts[5] === 'reset-password' && method === 'POST') {
           if (targetUser.role === 'admin') adminOnly();
           const temporary_password = `temp-${id('password')}`;
@@ -1651,11 +2127,6 @@ export function createMockApi({
         const end = url.searchParams.get('end');
         if (!dateValid(start) || !dateValid(end) || start > end)
           fail(400, 'Valid start and end dates required');
-        const quote = (value: unknown) => {
-          let text = value == null ? '' : String(value);
-          if (typeof value === 'string' && /^[=+\-@\t\r]/.test(text)) text = "'" + text;
-          return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
-        };
         return new Response(
           [
             'date,week_start,name,email,group,modality,zone,distance_m,duration_s,avg_split_s,stroke_rate,avg_hr,mode_factor,zone_factor,equiv_m,visibility,title,notes,created_at',
@@ -1689,7 +2160,7 @@ export function createMockApi({
                   e.notes,
                   e.created_at,
                 ]
-                  .map(quote)
+                  .map(quoteCsv)
                   .join(','),
               ),
           ].join('\r\n') + '\r\n',
@@ -1705,5 +2176,5 @@ export function createMockApi({
       throw error;
     }
   }
-  return { handle, state };
+  return { handle, state, passkeyPolicy };
 }

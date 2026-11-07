@@ -75,7 +75,10 @@ test('staff creates, edits, pins and deletes announcements; pinned messages reac
 }) => {
   const title = `E2E Announcement ${randomUUID()}`;
   await adminPage.goto('/admin/announcements');
-  await adminPage.getByRole('button', { name: 'New Announcement', exact: true }).click();
+  await adminPage
+    .locator('.ui-page-nav')
+    .getByRole('button', { name: 'New Announcement', exact: true })
+    .click();
   const sheet = adminPage.getByRole('dialog', { name: 'New Announcement', exact: true });
   await expect(sheet.getByRole('button', { name: 'Save Announcement' })).toBeDisabled();
   await sheet.getByLabel('Title', { exact: true }).fill(title);

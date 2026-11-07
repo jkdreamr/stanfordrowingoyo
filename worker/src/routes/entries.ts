@@ -1,4 +1,5 @@
 import type { Entry } from '../../../shared/types';
+import { IDEMPOTENCY_HEADER } from '../../../shared/headers';
 import { addDays, today, weekStart } from '../../../shared/dates';
 import { equivalentMeters, ZONES } from '../../../shared/math';
 import type { Context } from '../context';
@@ -88,20 +89,51 @@ export async function create(ctx: Context) {
   const user = refreshUser(ctx);
   const entry = validate(ctx, body);
   const ids = body.image_ids === undefined ? [] : imageIds(body.image_ids);
-  checkImages(ctx.storage, ids, user.id, entry.id);
-  saveEntry(
-    ctx.storage,
-    entry,
-    ids,
-    false,
-    recipients(
+  const key = ctx.request.headers.get(IDEMPOTENCY_HEADER);
+  if (key !== null && !/^[A-Za-z0-9_-]{8,128}$/.test(key))
+    v.invalid('Idempotency-Key must be 8–128 letters, digits, underscores or hyphens.');
+  return ctx.storage.transactionSync(() => {
+    if (key !== null) {
+      const mapping = ctx.storage.sql
+        .exec<{ entry_id: string }>(
+          'SELECT entry_id FROM entry_idempotency WHERE user_id = ? AND key = ?',
+          user.id,
+          key,
+        )
+        .toArray()[0];
+      if (mapping) {
+        const original = visibleEntry(ctx.storage, mapping.entry_id, user.id);
+        return json(details(ctx.storage, [original], user.id)[0]);
+      }
+    }
+    checkImages(ctx.storage, ids, user.id, entry.id);
+    saveEntry(
       ctx.storage,
-      body.tagged_user_ids === undefined ? [] : body.tagged_user_ids,
-      entry.user_id,
-    ).map((user) => user.id),
-    user.id,
-  );
-  return json(details(ctx.storage, [entry], user.id)[0], 201);
+      entry,
+      ids,
+      false,
+      recipients(
+        ctx.storage,
+        body.tagged_user_ids === undefined ? [] : body.tagged_user_ids,
+        entry.user_id,
+      ).map((user) => user.id),
+      user.id,
+    );
+    if (key !== null) {
+      ctx.storage.sql.exec(
+        'DELETE FROM entry_idempotency WHERE created_at < ?',
+        new Date(ctx.now.getTime() - 7 * 86400000).toISOString(),
+      );
+      ctx.storage.sql.exec(
+        'INSERT INTO entry_idempotency VALUES (?,?,?,?)',
+        user.id,
+        key,
+        entry.id,
+        ctx.now.toISOString(),
+      );
+    }
+    return json(details(ctx.storage, [entry], user.id)[0], 201);
+  });
 }
 function editable(ctx: Context) {
   const user = requireUser(ctx);
@@ -132,8 +164,11 @@ export async function patch(ctx: Context) {
 }
 export function remove(ctx: Context) {
   const entry = editable(ctx);
-  deleteEntry(ctx.storage, entry.id);
-  if (entry.user_id !== requireUser(ctx).id) audit(ctx, 'entry.delete', entry.id, entry, null);
+  const user = requireUser(ctx);
+  ctx.storage.transactionSync(() => {
+    deleteEntry(ctx.storage, entry.id, user.id, ctx.now.toISOString());
+    if (entry.user_id !== user.id) audit(ctx, 'entry.delete', entry.id, entry, null);
+  });
   return noContent();
 }
 export function list(ctx: Context) {
