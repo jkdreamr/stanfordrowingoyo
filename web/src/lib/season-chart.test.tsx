@@ -193,6 +193,44 @@ it('holds to scrub continuously, resets on release and leaves quick swipes uncla
   expect(screen.queryByText('Tue, Sep 1')).toBeNull();
   fireEvent.touchCancel(plot, { touches: [] });
 });
+for (const end of ['pointerup', 'pointercancel', 'pointerout']) {
+  it(`scrubs a pen drag and resets on ${end}`, () => {
+    vi.useFakeTimers();
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+      setTimeout(callback, 16),
+    );
+    vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+    view();
+    const plot = screen.getByRole('img');
+    const capture = vi.fn();
+    Object.defineProperty(plot, 'setPointerCapture', { value: capture });
+    vi.spyOn(plot, 'getBoundingClientRect').mockReturnValue({ left: 0, width: 300 } as DOMRect);
+    const pen = (type: string, clientX = 0) => {
+      fireEvent(
+        plot,
+        Object.assign(
+          new MouseEvent(type, { bubbles: true, clientX, relatedTarget: document.body }),
+          {
+            pointerType: 'pen',
+            pointerId: 7,
+          },
+        ),
+      );
+      act(() => vi.advanceTimersByTime(20));
+    };
+    pen('pointermove');
+    expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+    pen('pointerdown');
+    expect(capture).toHaveBeenCalledWith(7);
+    expect(screen.getByText('Tue, Sep 1')).toBeTruthy();
+    pen('pointermove', 300);
+    expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+    pen(end, 300);
+    expect(screen.queryByText('Mon, Sep 7')).toBeNull();
+    pen('pointermove');
+    expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+  });
+}
 it('scrubs by keyboard, announces keyboard changes and resets on Escape', () => {
   const { container } = view();
   const plot = screen.getByRole('img');

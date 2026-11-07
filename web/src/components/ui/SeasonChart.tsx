@@ -174,7 +174,7 @@ export function SeasonChartView({
       announce(`${formatShortDate(points[next].date)}, ${formatMeters(points[next].total)}`);
   };
   const pointer = (e: PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType !== 'mouse') return;
+    if (e.pointerType === 'touch' || (e.pointerType !== 'mouse' && !dragging.current)) return;
     position(e.clientX, e.currentTarget);
   };
   const position = (clientX: number, node: HTMLDivElement) => {
@@ -236,16 +236,16 @@ export function SeasonChartView({
         style={{ touchAction: 'pan-y' }}
         onContextMenu={(e) => e.preventDefault()}
         onPointerDown={(e) => {
-          if (e.pointerType !== 'mouse') return;
+          if (e.pointerType === 'touch') return;
           rect.current = e.currentTarget.getBoundingClientRect();
           dragging.current = true;
           e.currentTarget.setPointerCapture(e.pointerId);
           pointer(e);
         }}
         onPointerMove={pointer}
-        onPointerUp={(e) => e.pointerType === 'mouse' && reset()}
-        onPointerCancel={(e) => e.pointerType === 'mouse' && reset()}
-        onPointerLeave={(e) => e.pointerType === 'mouse' && reset()}
+        onPointerUp={(e) => e.pointerType !== 'touch' && reset()}
+        onPointerCancel={(e) => e.pointerType !== 'touch' && reset()}
+        onPointerLeave={(e) => e.pointerType !== 'touch' && reset()}
         onBlur={reset}
         onKeyDown={(e) => {
           if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Escape'].includes(e.key)) return;
