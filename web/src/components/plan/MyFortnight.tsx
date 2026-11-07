@@ -412,14 +412,21 @@ function SessionSheet({
       title={editor.session ? 'Edit Session' : 'Add Session'}
       onClose={onClose}
       footer={
-        <Button
-          fullWidth
-          disabled={!valid}
-          loading={busy}
-          onClick={() => onSave({ ...draft, distance_m: meters, note: draft.note.trim() })}
-        >
-          Save
-        </Button>
+        <div className="flex gap-3">
+          {editor.session && (
+            <Button variant="destructive" className="flex-1" disabled={busy} onClick={onDelete}>
+              Delete Session
+            </Button>
+          )}
+          <Button
+            className="flex-1"
+            disabled={!valid}
+            loading={busy}
+            onClick={() => onSave({ ...draft, distance_m: meters, note: draft.note.trim() })}
+          >
+            Save
+          </Button>
+        </div>
       }
     >
       <div className="space-y-5">
@@ -485,11 +492,6 @@ function SessionSheet({
           maxLength={200}
           onChange={(event) => setDraft({ ...draft, note: event.target.value })}
         />
-        {editor.session && (
-          <Button variant="destructive" disabled={busy} onClick={onDelete}>
-            Delete Session
-          </Button>
-        )}
       </div>
     </Sheet>
   );

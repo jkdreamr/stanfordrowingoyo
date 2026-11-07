@@ -13,7 +13,7 @@ async function editSession(page: Page, note: string) {
   await sheet.getByRole('button', { name: 'Save', exact: true }).click();
   await expect(sheet).not.toBeVisible();
 }
-test('personal fortnight copies a sample, logs today and remains private to its owner', async ({
+test('personal fortnight copies a sample, logs today and remains owner-only', async ({
   makeRower,
 }) => {
   const owner = await makeRower();

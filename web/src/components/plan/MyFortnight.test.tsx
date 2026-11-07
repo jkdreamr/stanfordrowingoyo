@@ -227,7 +227,6 @@ it('shows today’s prefilled log link and replaces it with the completed workou
       distance_m: 12000,
       title: 'Steady',
       notes: '',
-      visibility: 'private',
     })
   ).json();
   await client.invalidateQueries({ queryKey: qk.myPlans() });

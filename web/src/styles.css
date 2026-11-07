@@ -732,6 +732,9 @@ textarea::placeholder {
   .app-shell:has(.my-fortnight) {
     grid-template-columns: minmax(0, 1fr);
   }
+  .app-shell:has(.my-fortnight) .shell-content {
+    max-width: none;
+  }
   .app-shell:has(.my-fortnight) .shell-rail {
     display: none;
   }

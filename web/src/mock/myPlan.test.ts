@@ -61,7 +61,7 @@ it('rejects malformed dates, enums, duplicates, bounds and rest/session conflict
   expect((await request('/me/plan?date=invalid')).status).toBe(400);
   expect((await request('/me/plan?user=user-2')).status).toBe(400);
 });
-it('matches owner-private entries once in slot order, ignores other users and recomputes with current factors', async () => {
+it('matches owner entries once in slot order, ignores other users and recomputes with current factors', async () => {
   const { request, state } = setup();
   await request('/me/plan', 'PUT', {
     ...input,
@@ -72,8 +72,7 @@ it('matches owner-private entries once in slot order, ignores other users and re
     modality: 'erg',
     zone: 'E',
     distance_m: 1000,
-    title: 'Private',
-    visibility: 'private',
+    title: 'Steady Row',
     notes: '',
   };
   const saved = await (await request('/entries', 'POST', body)).json();
