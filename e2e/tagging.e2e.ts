@@ -36,7 +36,12 @@ test('tagging and mentions notify teammates across separate sessions', async ({
   await composer.fill(`@${b.user.name}`);
   await a.page.getByRole('option', { name: b.user.name, exact: true }).click();
   await expect(composer).toHaveValue(`@${b.user.name} `);
-  await composer.fill(`Strong session @${b.user.name} — see you tomorrow.`);
+  await composer.evaluate(
+    () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())),
+  );
+  const body = `Strong session @${b.user.name} — see you tomorrow.`;
+  await composer.fill(body);
+  await expect(composer).toHaveValue(body);
   await a.page.getByRole('button', { name: 'Post Comment', exact: true }).click();
   await expect(a.page.getByRole('link', { name: `@${b.user.name}`, exact: true })).toHaveAttribute(
     'href',

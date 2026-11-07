@@ -32,7 +32,7 @@ test('staff edits a whole-plan draft, previews it, saves and verifies rower plan
   await expect(preview).toContainText(text);
   await expect(preview).toContainText(label);
   await adminPage.getByRole('button', { name: 'Save Plan', exact: true }).click();
-  await expect(adminPage.getByRole('status')).toHaveText('Saved');
+  await expect(adminPage.getByRole('status').filter({ hasText: /^Saved$/ })).toHaveText('Saved');
   await adminPage.reload();
   await expect(adminPage.getByLabel('Week Total Label', { exact: true })).toHaveValue(label);
   await expect(
