@@ -591,6 +591,9 @@ textarea::placeholder {
   flex-direction: column;
   gap: 12px;
 }
+.profile-photo-cancel {
+  margin-top: 8px;
+}
 .profile-photo-crop {
   display: grid;
   justify-items: center;

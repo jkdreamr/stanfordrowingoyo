@@ -229,10 +229,10 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
       {!cropFile && (
         <Sheet open={photoSheet} onClose={() => setPhotoSheet(false)} title="Profile Photo">
           <div className="profile-photo-actions">
-            <Button fullWidth onClick={() => cameraInput.current?.click()}>
+            <Button fullWidth variant="secondary" onClick={() => cameraInput.current?.click()}>
               Take Photo
             </Button>
-            <Button fullWidth onClick={() => libraryInput.current?.click()}>
+            <Button fullWidth variant="secondary" onClick={() => libraryInput.current?.click()}>
               Choose from Library
             </Button>
             {!!photos.photos.length && (
@@ -247,7 +247,12 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
                 Remove Photo
               </Button>
             )}
-            <Button fullWidth variant="secondary" onClick={() => setPhotoSheet(false)}>
+            <Button
+              fullWidth
+              variant="secondary"
+              className="profile-photo-cancel"
+              onClick={() => setPhotoSheet(false)}
+            >
               Cancel
             </Button>
           </div>
