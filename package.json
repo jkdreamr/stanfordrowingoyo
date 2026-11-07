@@ -15,6 +15,7 @@
     "e2e": "playwright test",
     "e2e:install": "playwright install --with-deps chromium webkit",
     "load": "node scripts/load/index.ts",
+    "vapid:keys": "node scripts/generate-vapid-keys.ts",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

@@ -3,6 +3,7 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, relative, join } from 'node:path';
 import type { Plugin } from 'vite';
 import { shellRoute } from './src/lib/swRouting';
+import { pushMessage } from './src/lib/swPush';
 export function pwaPlugin(): Plugin {
   let directory: string;
   return {
@@ -29,6 +30,7 @@ export function pwaPlugin(): Plugin {
       const hash = createHash('sha256');
       hash.update(readFileSync(new URL('./pwaPlugin.ts', import.meta.url)));
       hash.update(shellRoute.toString());
+      hash.update(pushMessage.toString());
       for (const file of files) {
         hash.update(relative(directory, file));
         hash.update(readFileSync(file));
@@ -40,6 +42,34 @@ export function pwaPlugin(): Plugin {
         `const CACHE='oyo-shell-${version}';
 const ASSETS=${JSON.stringify(assets)};
 const route=${shellRoute.toString()};
+const pushMessage=${pushMessage.toString()};
+const windows=()=>self.clients.matchAll({type:'window',includeUncontrolled:true});
+self.addEventListener('push',event=>{
+ const message=pushMessage(event.data?event.data.text():'',self.location.origin);
+ const badge=navigator.setAppBadge?(message.badge?navigator.setAppBadge(message.badge):navigator.clearAppBadge()).catch(()=>{}):Promise.resolve();
+ event.waitUntil(Promise.all([
+  self.registration.showNotification(message.title,{body:message.body,tag:message.tag,renotify:true,icon:'/icons/icon-192.png',badge:'/icons/icon-192.png',data:{url:message.url}}),
+  badge,
+  windows().then(list=>list.forEach(client=>client.postMessage({type:'oyo-push'}))),
+ ]));
+});
+self.addEventListener('notificationclick',event=>{
+ event.notification.close();
+ const url=pushMessage(JSON.stringify(event.notification.data||{}),self.location.origin).url;
+ event.waitUntil(windows().then(list=>{
+  const client=list.find(item=>new URL(item.url).origin===self.location.origin&&'focus' in item);
+  if(!client)return self.clients.openWindow(url);
+  client.postMessage({type:'oyo-navigate',url});
+  return client.focus();
+ }));
+});
+self.addEventListener('pushsubscriptionchange',event=>{
+ event.waitUntil(fetch('/api/me/push',{credentials:'same-origin'}).then(response=>response.ok?response.json():null).then(config=>config&&config.public_key?self.registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:config.public_key}):null).then(subscription=>{
+  if(!subscription)return;
+  const json=subscription.toJSON();
+  return fetch('/api/me/push',{method:'PUT',credentials:'same-origin',headers:{'Content-Type':'application/json','X-OYO-CSRF':'1'},body:JSON.stringify({endpoint:subscription.endpoint,keys:json.keys})});
+ }).catch(()=>{}));
+});
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('oyo-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('message',event=>{if(event.data==='SKIP_WAITING')self.skipWaiting();});

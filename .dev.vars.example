@@ -1,3 +1,7 @@
 # Local-only dummy values. Copy to .dev.vars; never use these in deployment.
 TEAM_CODE="local-demo-code"
 PASSWORD_PEPPER="local-only-dummy-password-pepper"
+# Optional web push. Generate a local pair with `npm run vapid:keys`; leave unset to disable push.
+# VAPID_PUBLIC_KEY=""
+# VAPID_PRIVATE_KEY=""
+# VAPID_SUBJECT="mailto:you@example.com"

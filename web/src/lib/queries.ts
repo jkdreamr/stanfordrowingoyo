@@ -114,8 +114,18 @@ export function useProfile(id: string, enabled = true) {
 export function useAnnouncements() {
   return queryHook('GET /api/announcements')({});
 }
-export function useNotifications() {
-  return queryHook('GET /api/notifications')({});
+export const NOTIFICATION_POLL_MS = 60_000;
+/** Pass poll=true from exactly one mounted observer; polling pauses while the page is hidden. */
+export function useNotifications(poll = false) {
+  return useQuery({
+    queryKey: qk.request('GET /api/notifications', {}),
+    queryFn: ({ signal }) => api('GET /api/notifications', { signal }),
+    refetchInterval: poll ? NOTIFICATION_POLL_MS : false,
+    refetchIntervalInBackground: false,
+  });
+}
+export function usePushConfig(enabled = true) {
+  return queryHook('GET /api/me/push')({}, enabled);
 }
 export function usePlan(query: Query<'GET /api/plan'> = {}) {
   return queryHook('GET /api/plan')({ query });

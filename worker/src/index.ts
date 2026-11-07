@@ -16,6 +16,9 @@ export interface Env {
   OYO_TEST_CLOCK?: string;
   TEAM_CODE?: string;
   PASSWORD_PEPPER?: string;
+  VAPID_PUBLIC_KEY?: string;
+  VAPID_PRIVATE_KEY?: string;
+  VAPID_SUBJECT?: string;
 }
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {

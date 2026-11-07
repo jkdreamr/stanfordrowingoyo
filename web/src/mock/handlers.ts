@@ -506,7 +506,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 9 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 10 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -1148,6 +1148,16 @@ export function createMockApi({
             .filter((n) => n.user_id === user.id)
             .sort((a, b) => b.created_at.localeCompare(a.created_at)),
         );
+      if (path === '/api/me/push' && method === 'GET')
+        return json({
+          public_key:
+            'BP4z9KsN6nGRTbVYI_c7VJSPQTBtkgcy27mlmlMoZIIgDll6e3vCYLocInmYWAmS6TlzAC8wEqKK6PBru3jl7A8',
+        });
+      if (path === '/api/me/push' && (method === 'PUT' || method === 'DELETE')) {
+        if (typeof body.endpoint !== 'string' || !body.endpoint.startsWith('https://'))
+          fail(400, 'Push endpoint required');
+        return empty();
+      }
       if (path === '/api/notifications/read' && method === 'POST') {
         if (!Array.isArray(body.ids) || body.ids.some((x) => typeof x !== 'string'))
           fail(400, 'Notification IDs required');

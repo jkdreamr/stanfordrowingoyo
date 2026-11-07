@@ -842,7 +842,7 @@ textarea::placeholder {
   border-radius: 4px;
   border: 0;
   background: var(--surface-2);
-  color: var(--accent);
+  color: var(--accent-ink);
   appearance: none;
 }
 .my-plan-progress::-webkit-progress-bar {
@@ -1316,4 +1316,44 @@ main h1[tabindex='-1']:focus {
   to {
     opacity: 1;
   }
+}
+
+.ui-install-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px 12px 16px;
+}
+.ui-install-banner img {
+  border-radius: 10px;
+  flex: none;
+}
+.ui-install-steps {
+  display: grid;
+  gap: 16px;
+  padding: 4px 0 8px;
+  font-size: 17px;
+}
+.ui-install-steps li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+.ui-install-steps svg,
+.ui-install-step-number {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--oyo-selected);
+  color: var(--accent-ink);
+}
+.ui-install-step-number {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 15px;
+  font-weight: 600;
 }

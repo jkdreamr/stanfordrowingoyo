@@ -27,6 +27,7 @@ import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
 import { ModalityIcon } from '../components/shell/ModalityIcon';
 import { TodaysPlan } from '../components/plan/TodaysPlan';
+import { InstallBanner } from '../components/InstallBanner';
 export default function Page() {
   const { data: user } = useMe();
   const { data: target } = useTarget();
@@ -82,6 +83,7 @@ export default function Page() {
     <>
       <PageHeader title="This Week" trailing={<HeaderActions settings />} />
       <div className="screen-stack">
+        <InstallBanner />
         <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
           <div className="flex justify-center">
             <ProgressRing

@@ -14,6 +14,7 @@ import * as team from './routes/team';
 import * as admin from './routes/admin';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
+import * as push from './routes/push';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -66,7 +67,7 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 9 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 10 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
@@ -80,6 +81,9 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/me/plan', handler: myPlan.get },
   { method: 'PUT', path: '/api/me/plan', handler: myPlan.put },
   { method: 'DELETE', path: '/api/me/plan/:start', handler: myPlan.remove },
+  { method: 'GET', path: '/api/me/push', handler: push.get },
+  { method: 'PUT', path: '/api/me/push', handler: push.put },
+  { method: 'DELETE', path: '/api/me/push', handler: push.remove },
   { method: 'GET', path: '/api/config', handler: config.get },
   { method: 'GET', path: '/api/entries', handler: entries.list },
   { method: 'POST', path: '/api/entries', handler: entries.create },
