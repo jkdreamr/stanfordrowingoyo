@@ -169,7 +169,42 @@
 .social-kudos-give {
   animation: social-kudos var(--oyo-motion-panel) var(--oyo-ease-out);
 }
+.social-double-tap {
+  position: relative;
+  touch-action: manipulation;
+}
+.social-heart-burst {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  color: white;
+  fill: var(--accent);
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 25%));
+  animation: social-heart 600ms var(--oyo-ease-out) both;
+}
+@keyframes social-heart {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+  }
+  45% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
+  .social-heart-burst {
+    display: none;
+    animation: none;
+  }
   .social-kudos-give {
     animation: none;
   }
