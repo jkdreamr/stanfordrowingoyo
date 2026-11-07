@@ -4,8 +4,8 @@ import type {
   EntryDetail,
   LeaderboardRow,
   Page,
-  WeekStats,
   SeasonStats,
+  WeekStats,
 } from '../../../shared/types';
 import { createMockApi } from './handlers';
 const now = () => new Date('2026-11-06T18:00:00Z');
@@ -204,6 +204,67 @@ describe('mock password reauthentication', () => {
   });
 });
 describe('mock stats and visibility', () => {
+  it('returns positive daily totals with prior-season history and authorized profile totals', async () => {
+    const { request, state } = setup();
+    const season: SeasonStats = await (await request('/stats/season')).json();
+    expect(season.days.length).toBeGreaterThan(0);
+    expect(
+      season.days.every((d) => d.equiv_m > 0 && d.date >= season.start && d.date <= '2026-11-06'),
+    ).toBe(true);
+    expect(season.days.reduce((n, d) => n + d.equiv_m, 0)).toBe(season.total_m);
+    const prior: SeasonStats = await (await request('/stats/season?season=2025')).json();
+    expect(prior.total_m).toBeGreaterThan(0);
+    expect(prior.days.reduce((n, d) => n + d.equiv_m, 0)).toBe(prior.total_m);
+    const other: SeasonStats = await (await request('/stats/season?user=user-2')).json();
+    const visible = state.entries.filter(
+      (e) =>
+        e.user_id === 'user-2' &&
+        e.visibility !== 'private' &&
+        e.date >= other.start &&
+        e.date <= '2026-11-06',
+    );
+    expect(other.total_m).toBe(visible.reduce((n, e) => n + e.equiv_m, 0));
+    expect(other.days.reduce((n, d) => n + d.equiv_m, 0)).toBe(other.total_m);
+  });
+  it('ranks season by season total against the summed weekly targets', async () => {
+    const { request } = setup();
+    const rows: LeaderboardRow[] = await (await request('/leaderboard?metric=season')).json();
+    const marcus = rows.find((r) => r.user.id === 'user-1')!;
+    const season: SeasonStats = await (await request('/stats/season')).json();
+    expect(marcus.total_m).toBe(season.total_m);
+    expect(marcus.target_m).toBe(80000 * 10);
+    expect(marcus.percent).toBe(Math.round((marcus.total_m / marcus.target_m) * 1000) / 10);
+    expect(rows.every((r, i) => i === 0 || rows[i - 1].total_m >= r.total_m)).toBe(true);
+  });
+  it('includes private entries in leaderboard totals and ongoing streaks without exposing profile days', async () => {
+    const { request, state } = setup();
+    state.entries = state.entries.filter((e) => e.user_id !== 'user-1');
+    for (const date of ['2026-10-19', '2026-10-26'])
+      expect(
+        (
+          await request('/entries', 'POST', {
+            ...input,
+            date,
+            distance_m: 90000,
+            visibility: 'private',
+          })
+        ).status,
+      ).toBe(201);
+    expect((await request('/entries', 'POST', { ...input, distance_m: 1000 })).status).toBe(201);
+    const rows: LeaderboardRow[] = await (await request('/leaderboard')).json();
+    expect(rows.find((row) => row.user.id === 'user-1')).toMatchObject({
+      total_m: 1000,
+      streak: 2,
+    });
+    const seasonRows: LeaderboardRow[] = await (await request('/leaderboard?metric=season')).json();
+    expect(seasonRows.find((row) => row.user.id === 'user-1')?.total_m).toBe(181000);
+    const own: SeasonStats = await (await request('/stats/season')).json();
+    expect(own.days.reduce((sum, day) => sum + day.equiv_m, 0)).toBe(181000);
+    await request('/auth/login', 'POST', { email: state.users[1].email, password: 'password' });
+    const other: SeasonStats = await (await request('/stats/season?user=user-1')).json();
+    expect(other.total_m).toBe(1000);
+    expect(other.days).toEqual([{ date: '2026-11-06', equiv_m: 1000 }]);
+  });
   it('aggregates dated season meters, including multiple sessions on one date', async () => {
     const { request, state } = setup();
     for (const distance_m of [1000, 2000])
@@ -282,7 +343,15 @@ describe('mock stats and visibility', () => {
     expect(rows[0].percent).toBeGreaterThanOrEqual(100);
     expect(rows.every((r, i) => i === 0 || rows[i - 1].percent >= r.percent)).toBe(true);
     expect(rows.every((r) => r.user.role === 'rower')).toBe(true);
-    expect(rows.map((r) => r.rank)).toEqual(Array.from({ length: 29 }, (_, i) => i + 1));
+    const tied = (a: LeaderboardRow, b: LeaderboardRow) =>
+      a.percent === b.percent && a.total_m === b.total_m;
+    expect(
+      rows.every((r, i) =>
+        i > 0 && tied(rows[i - 1], r) ? r.rank === rows[i - 1].rank : r.rank === i + 1,
+      ),
+    ).toBe(true);
+    expect(rows.some((r, i) => i > 0 && r.rank === rows[i - 1].rank)).toBe(true);
+    expect(rows.some((r) => r.streak >= 2)).toBe(true);
   });
   it('versions target from the current week without rewriting history', async () => {
     const { request } = setup();

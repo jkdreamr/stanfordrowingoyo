@@ -25,3 +25,4 @@ export * from './ActionCard';
 export * from './PhotoPicker';
 export * from './ApiImage';
 export * from './ChoiceRow';
+export * from './SeasonChart';
