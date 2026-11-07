@@ -299,11 +299,43 @@ describe('authentication flows', () => {
     expect(JSON.parse(calls[0][1]!.body as string)).toEqual({ new_password: 'new-password' });
   });
   it('logs out and removes account data from the cache', async () => {
-    const { client } = setup('/settings', 'user-1');
+    const { client, router } = setup('/settings', 'user-1');
     fireEvent.click(await screen.findByRole('button', { name: 'Log Out' }));
+    const fetcher = vi.mocked(fetch);
+    fetcher.mockClear();
+    client.setQueryData(qk.entries(), { private: 'previous account' });
+    const cancel = vi.spyOn(client, 'cancelQueries');
     fireEvent.click(screen.getByRole('dialog').querySelector('footer button:last-child')!);
     await screen.findByRole('button', { name: 'Log In' });
-    expect(client.getQueryData(qk.me())).toBeUndefined();
+    expect(cancel).toHaveBeenCalledWith({ queryKey: qk.all });
+    expect(client.getQueryData(qk.me())).toBeNull();
+    expect(client.getQueryData(qk.entries())).toBeUndefined();
+    await client.invalidateQueries({ queryKey: qk.all });
+    await router.navigate('/settings');
+    await screen.findByRole('button', { name: 'Log In' });
+    expect(fetcher.mock.calls.map(([url]) => new URL(String(url)).pathname)).toEqual([
+      '/api/auth/logout',
+    ]);
+    vi.restoreAllMocks();
+  });
+  it('keeps the authenticated account when logout fails', async () => {
+    const { client, router } = setup('/settings', 'user-1');
+    fireEvent.click(await screen.findByRole('button', { name: 'Log Out' }));
+    vi.stubGlobal(
+      'fetch',
+      vi
+        .fn()
+        .mockResolvedValue(
+          Response.json(
+            { error: { code: 'INTERNAL_ERROR', message: 'Unavailable' } },
+            { status: 503 },
+          ),
+        ),
+    );
+    fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Log Out' }));
+    await screen.findByText('Unavailable', { selector: 'p' });
+    expect(router.state.location.pathname).toBe('/settings');
+    expect(client.getQueryData(qk.me())).toMatchObject({ id: 'user-1' });
   });
   it('verifies the current password before changing it and never sends it to the change endpoint', async () => {
     setup('/settings', 'user-1');
@@ -443,7 +475,7 @@ describe('authentication flows', () => {
       expect(screen.getByRole('alert').textContent).toContain(
         code === 'CREDENTIALS_CHANGED' ? 'Credentials changed.' : 'Please log in',
       );
-      expect(client.getQueryData(qk.me())).toBeUndefined();
+      expect(client.getQueryData(qk.me())).toBeNull();
     });
   }
   it('keeps entered passwords after a network failure and does not submit twice while pending', async () => {

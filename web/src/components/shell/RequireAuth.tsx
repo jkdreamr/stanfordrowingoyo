@@ -9,6 +9,7 @@ export function RequireAuth() {
   const location = useLocation();
   const next = encodeURIComponent(location.pathname + location.search + location.hash);
   if (query.isPending) return <ShellSkeleton />;
+  if (query.data === null) return <Navigate to="/login" replace />;
   if (isUnauthorized(query.error)) return <Navigate to={`/login?next=${next}`} replace />;
   if (query.isError)
     return (
