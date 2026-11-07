@@ -3,6 +3,7 @@ import type { Row } from './row';
 import { toPublicUser, type UserRow } from './users';
 import { notify } from './notifications';
 import { HttpError } from '../http';
+import { closeReports } from './reports';
 export function kudosUsers(storage: DurableObjectStorage, entry: string, _viewer: string) {
   const rows = storage.sql
     .exec<UserRow | { id: null }>(
@@ -82,7 +83,7 @@ export function addComment(
 ) {
   storage.transactionSync(() => {
     storage.sql.exec(
-      'INSERT INTO comments VALUES (?,?,?,?,?)',
+      'INSERT INTO comments (id,entry_id,user_id,body,created_at) VALUES (?,?,?,?,?)',
       comment.id,
       comment.entry_id,
       comment.user_id,
@@ -96,6 +97,12 @@ export function addComment(
         comment.entry_id,
         id,
       );
+      storage.sql.exec(
+        'INSERT INTO comment_mention_history VALUES (?,?,?)',
+        comment.id,
+        comment.entry_id,
+        id,
+      );
       notify(storage, id, comment.user_id, 'mention', comment.entry_id, comment.created_at);
     }
     if (!mentionIds.includes(owner))
@@ -105,9 +112,49 @@ export function addComment(
 export function findComment(storage: DurableObjectStorage, id: string) {
   return storage.sql.exec<Row<Comment>>('SELECT * FROM comments WHERE id = ?', id).toArray()[0];
 }
-export function deleteComment(storage: DurableObjectStorage, id: string) {
+export function editComment(
+  storage: DurableObjectStorage,
+  comment: Comment,
+  body: string,
+  mentionIds: string[],
+  timestamp: string,
+) {
   storage.transactionSync(() => {
+    if (comment.body !== body)
+      storage.sql.exec(
+        'UPDATE comments SET body=?,edited_at=? WHERE id=?',
+        body,
+        timestamp,
+        comment.id,
+      );
+    storage.sql.exec('DELETE FROM comment_mentions WHERE comment_id=?', comment.id);
+    for (const id of mentionIds) {
+      storage.sql.exec(
+        'INSERT INTO comment_mentions VALUES (?,?,?)',
+        comment.id,
+        comment.entry_id,
+        id,
+      );
+      const inserted = storage.sql.exec(
+        'INSERT OR IGNORE INTO comment_mention_history VALUES (?,?,?)',
+        comment.id,
+        comment.entry_id,
+        id,
+      ).rowsWritten;
+      if (inserted) notify(storage, id, comment.user_id, 'mention', comment.entry_id, timestamp);
+    }
+  });
+}
+export function deleteComment(
+  storage: DurableObjectStorage,
+  id: string,
+  reviewer: string | null = null,
+  timestamp = new Date().toISOString(),
+) {
+  storage.transactionSync(() => {
+    closeReports(storage, { target_type: 'comment', target_id: id }, reviewer, timestamp);
     storage.sql.exec('DELETE FROM comment_mentions WHERE comment_id = ?', id);
+    storage.sql.exec('DELETE FROM comment_mention_history WHERE comment_id = ?', id);
     storage.sql.exec('DELETE FROM comments WHERE id = ?', id);
   });
 }

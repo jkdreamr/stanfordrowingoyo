@@ -14,6 +14,7 @@ import * as team from './routes/team';
 import * as admin from './routes/admin';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
+import * as reports from './routes/reports';
 import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 type Handler = (ctx: Context) => Response | Promise<Response>;
@@ -79,7 +80,7 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 10 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 11 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
@@ -107,6 +108,10 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/entries/:id/comments', handler: social.comments },
   { method: 'POST', path: '/api/entries/:id/comments', handler: social.comment },
   { method: 'DELETE', path: '/api/comments/:id', handler: social.removeComment },
+  { method: 'PATCH', path: '/api/comments/:id', handler: social.patchComment },
+  { method: 'POST', path: '/api/reports', handler: reports.create },
+  { method: 'GET', path: '/api/admin/reports', handler: reports.list },
+  { method: 'PATCH', path: '/api/admin/reports/:id', handler: reports.review },
   { method: 'GET', path: '/api/notifications', handler: notifications.get },
   { method: 'POST', path: '/api/notifications/read', handler: notifications.read },
   { method: 'GET', path: '/api/stats/week', handler: stats.week },

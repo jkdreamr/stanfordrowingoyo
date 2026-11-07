@@ -221,7 +221,7 @@ describe('batched statistics and indexed read paths', () => {
       for (const row of logged) {
         storage.sql.exec('INSERT INTO entry_tags VALUES (?,?,?)', row.id, mate.user.id, NOW);
         storage.sql.exec(
-          'INSERT INTO comments VALUES (?,?,?,?,?)',
+          'INSERT INTO comments (id,entry_id,user_id,body,created_at) VALUES (?,?,?,?,?)',
           row.id,
           logged[0].id,
           owner.user.id,
@@ -386,7 +386,7 @@ describe('batched statistics and indexed read paths', () => {
       setSetting(storage, 'schema_version', 3);
       migrate(storage);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(10);
+      expect(getSetting(storage, 'schema_version')).toBe(11);
       expect(
         storage.sql.exec('SELECT id FROM entries WHERE id=?', logged.id).toArray(),
       ).toHaveLength(1);
@@ -402,7 +402,7 @@ describe('batched statistics and indexed read paths', () => {
       );
       storage.sql.exec('INSERT INTO entry_images VALUES (?,?,?)', logged.id, 'image', 0);
       storage.sql.exec(
-        'INSERT INTO comments VALUES (?,?,?,?,?)',
+        'INSERT INTO comments (id,entry_id,user_id,body,created_at) VALUES (?,?,?,?,?)',
         'comment',
         logged.id,
         athlete.user.id,
