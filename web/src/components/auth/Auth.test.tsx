@@ -124,6 +124,19 @@ async function joinRoster(name: string) {
   fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
 }
 describe('authentication flows', () => {
+  it('enables the form-associated signup action as soon as a roster name is selected', async () => {
+    setup('/signup');
+    await screen.findByLabelText('Team Join Code');
+    fill('Team Join Code', 'cardinal-oyo');
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+    const radio = await screen.findByRole('radio', { name: 'Sandro Scalfi' });
+    const button = screen.getByRole<HTMLButtonElement>('button', { name: 'Continue' });
+    expect(button.disabled).toBe(true);
+    fireEvent.click(radio);
+    expect(button.disabled).toBe(false);
+    expect(button.getAttribute('aria-busy')).toBeNull();
+    expect(button.form?.id).toBe('signup-form');
+  });
   it('tracks the visual viewport and keeps focused fields in the scroll area', async () => {
     const viewport = Object.assign(new EventTarget(), { height: 400, offsetTop: 24 });
     vi.stubGlobal('visualViewport', viewport);
