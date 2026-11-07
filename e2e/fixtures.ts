@@ -14,10 +14,6 @@ export interface Rower {
   user: User;
   password: string;
 }
-function clientHeaders() {
-  const segments = randomUUID().replaceAll('-', '').match(/.{4}/g)!.slice(0, 6);
-  return { 'CF-Connecting-IP': `2001:db8:${segments.join(':')}` };
-}
 interface Fixtures {
   bootstrap: Bootstrap;
   adminPage: Page;
@@ -26,7 +22,6 @@ interface Fixtures {
 }
 export const test = base.extend<Fixtures>({
   page: async ({ page }, use) => {
-    await page.context().setExtraHTTPHeaders(clientHeaders());
     if (process.env.E2E_MOCK === '1')
       await page.addInitScript(() => localStorage.setItem('oyo-mock-session', ''));
     await use(page);
@@ -47,7 +42,6 @@ export const test = base.extend<Fixtures>({
     const context = await browser.newContext({
       ...testInfo.project.use,
       baseURL,
-      extraHTTPHeaders: clientHeaders(),
       storageState: fileURLToPath(new URL('./.auth/admin.json', import.meta.url)),
     });
     try {
@@ -98,11 +92,7 @@ export const test = base.extend<Fixtures>({
   makeRower: async ({ browser, newRowerSignup, baseURL }, use, testInfo) => {
     const contexts: BrowserContext[] = [];
     await use(async () => {
-      const context = await browser.newContext({
-        ...testInfo.project.use,
-        baseURL,
-        extraHTTPHeaders: clientHeaders(),
-      });
+      const context = await browser.newContext({ ...testInfo.project.use, baseURL });
       contexts.push(context);
       const signup = await newRowerSignup();
       const { body, password } = signup;
