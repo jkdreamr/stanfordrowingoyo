@@ -7,6 +7,9 @@ import type { Rower } from './fixtures';
 import { csrfHeaders } from './api';
 
 export { equivalentMeters, formatMeters };
+export async function waitForSplash(page: Page) {
+  await expect(page.locator('#launch-splash')).toHaveCount(0);
+}
 async function chooseNativeRadio(page: Page, name: string) {
   const radio = page.getByRole('radio', { name, exact: true });
   await radio.locator('..').click();
@@ -20,6 +23,7 @@ export async function openSettings(page: Page) {
     .click();
 }
 export async function completeSignup(page: Page, signup: RowerSignup, teamCode: string) {
+  await waitForSplash(page);
   await page.getByLabel('Team Join Code').fill(teamCode);
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await chooseNativeRadio(page, signup.name);

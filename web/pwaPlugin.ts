@@ -18,7 +18,7 @@ export function pwaPlugin(): Plugin {
           const path = join(dir, entry.name);
           if (entry.isDirectory()) scan(path);
           else if (
-            /\.(html|js|css|png|svg|webmanifest)$/.test(entry.name) &&
+            /\.(html|js|css|png|webp|svg|webmanifest)$/.test(entry.name) &&
             entry.name !== 'sw.js'
           )
             files.push(path);

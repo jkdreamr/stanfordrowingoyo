@@ -9,18 +9,20 @@ import { ThemeProvider } from './lib/theme';
 import { ToastProvider } from './components/ui/Toast';
 import { PwaUpdates } from './components/PwaUpdates';
 import { AppErrorBoundary } from './components/AppErrorBoundary';
+import { LaunchSplash } from './components/LaunchSplash';
 if (import.meta.env.DEV && import.meta.env.VITE_MOCK === '1') await import('./mock/install');
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AppErrorBoundary>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <LaunchSplash />
+      <AppErrorBoundary>
         <ThemeProvider>
           <ToastProvider>
             <PwaUpdates />
             <RouterProvider router={router} />
           </ToastProvider>
         </ThemeProvider>
-      </QueryClientProvider>
-    </AppErrorBoundary>
+      </AppErrorBoundary>
+    </QueryClientProvider>
   </React.StrictMode>,
 );

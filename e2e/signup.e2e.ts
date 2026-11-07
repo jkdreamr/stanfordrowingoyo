@@ -1,9 +1,11 @@
 import { test, expect } from './fixtures';
 import type { Page } from '@playwright/test';
+import { waitForSplash } from './helpers';
 
 test.use({ serviceWorkers: 'block' });
 
 async function expectFocusedFieldAboveAction(page: Page, action: string, input: string) {
+  await waitForSplash(page);
   const button = page.getByRole('button', { name: action, exact: true });
   const field = page.getByLabel(input, { exact: true });
   await field.focus();

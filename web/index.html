@@ -1,13 +1,110 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="launching">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="theme-color" content="#F7F7FA" />
-    <meta name="theme-color" content="#F7F7FA" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#8C1515" />
+    <meta name="theme-color" content="#8C1515" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#8C1515" media="(prefers-color-scheme: dark)" />
+    <style>
+      html.launching {
+        background: #8c1515;
+      }
+      body {
+        margin: 0;
+      }
+      #launch-splash,
+      #launch-splash * {
+        box-sizing: border-box;
+      }
+      #launch-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        overflow: hidden;
+        background: #8c1515;
+        color: #fff;
+        opacity: 1;
+        transition: opacity 180ms ease-out;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif;
+      }
+      #launch-splash.is-leaving {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .splash-photo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 52% center;
+        opacity: 0;
+        transition: opacity 320ms ease-out;
+      }
+      .splash-photo.is-loaded {
+        opacity: 0.65;
+      }
+      .splash-scrim {
+        position: absolute;
+        inset: 0;
+      }
+      .splash-photo.is-loaded + .splash-scrim {
+        background: rgb(0 0 0 / 32%);
+      }
+      .splash-brand {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: max(16%, calc(env(safe-area-inset-bottom) + 32px));
+        display: grid;
+        justify-items: center;
+        gap: 20px;
+        animation: splash-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .splash-mark {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #8c1515;
+        border: 3px solid #fff;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+      }
+      .splash-mark img {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+      }
+      .splash-mark img.is-loaded {
+        opacity: 1;
+      }
+      .splash-wordmark {
+        font-size: 64px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+      @keyframes splash-enter {
+        from {
+          transform: translateY(12px) scale(0.98);
+        }
+        to {
+          transform: translateY(0) scale(1);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #launch-splash,
+        .splash-photo {
+          transition: none;
+        }
+        .splash-brand {
+          animation: none;
+        }
+      }
+    </style>
     <script>
       (() => {
         let theme = 'system';
@@ -18,7 +115,6 @@
           theme === 'dark' ||
           (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#121214' : '#F7F7FA';
       })();
     </script>
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -28,7 +124,44 @@
     <title>Stanford Rowing OYO</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="launch-splash" role="status" aria-label="Opening OYO">
+      <img
+        class="splash-photo"
+        src="/splash/team-480.webp"
+        srcset="/splash/team-480.webp 480w, /splash/team-960.webp 960w"
+        sizes="100vw"
+        alt=""
+        decoding="async"
+      />
+      <div class="splash-scrim"></div>
+      <div class="splash-brand">
+        <div class="splash-mark">
+          <img
+            src="/splash/gabriel-96.webp"
+            srcset="/splash/gabriel-96.webp 1x, /splash/gabriel-192.webp 2x"
+            width="96"
+            height="96"
+            alt=""
+            decoding="async"
+          />
+        </div>
+        <span class="splash-wordmark">OYO</span>
+      </div>
+    </div>
+    <script>
+      (() => {
+        const splash = document.getElementById('launch-splash');
+        splash.dataset.started = String(performance.now());
+        for (const image of splash.querySelectorAll('img')) {
+          const loaded = () => {
+            if (image.naturalWidth > 0) image.classList.add('is-loaded');
+          };
+          image.addEventListener('load', loaded, { once: true });
+          if (image.complete) loaded();
+        }
+      })();
+    </script>
+    <div id="root" inert></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
