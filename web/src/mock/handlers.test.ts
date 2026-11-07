@@ -31,6 +31,41 @@ const input = {
   notes: '',
   visibility: 'team',
 };
+describe('mock idempotent entries', () => {
+  it('replays the original, rejects invalid keys, preserves unkeyed creates and returns 404 after deletion', async () => {
+    const mock = createMockApi({ now });
+    const create = (key?: string, data = input) =>
+      mock.handle(
+        new Request('http://localhost/api/entries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(key === undefined ? {} : { 'Idempotency-Key': key }),
+          },
+          body: JSON.stringify(data),
+        }),
+      );
+    const first = await create('workout-key');
+    expect(first.status).toBe(201);
+    const original = (await first.json()) as EntryDetail;
+    const replay = await create('workout-key', { ...input, title: 'Changed' });
+    expect(replay.status).toBe(200);
+    expect(await replay.json()).toEqual(original);
+    expect((await create('bad')).status).toBe(400);
+    expect((await create()).status).toBe(201);
+    expect((await create()).status).toBe(201);
+    expect(
+      (
+        await mock.handle(
+          new Request('http://localhost/api/entries/' + original.id, { method: 'DELETE' }),
+        )
+      ).status,
+    ).toBe(204);
+    const missing = await create('workout-key');
+    expect(missing.status).toBe(404);
+    expect(await missing.json()).toMatchObject({ error: { code: 'NOT_FOUND' } });
+  });
+});
 describe('mock password reauthentication', () => {
   it('issues a five-minute grant, consumes it once, and revokes other grants when the password changes', async () => {
     const { request } = setup();

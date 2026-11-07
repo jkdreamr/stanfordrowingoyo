@@ -337,6 +337,7 @@ export interface Api {
     Page<EntryDetail>,
     { scope?: 'feed' | 'mine' | `user:${string}`; cursor?: string }
   >;
+  /** Optional Idempotency-Key (8–128 alphanumeric, _ or -): per-user replay returns the original entry (200; first create 201), or 404 if deleted. Mappings are pruned after seven days on insert. */
   'POST /api/entries': Endpoint<EntryInput, EntryDetail>;
   'GET /api/entries/:id': Endpoint<void, EntryDetail>;
   'PATCH /api/entries/:id': Endpoint<Partial<EntryInput>, EntryDetail>;

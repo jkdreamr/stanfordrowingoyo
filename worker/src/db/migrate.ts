@@ -388,6 +388,22 @@ END;`);
         '9',
       );
     });
+  if (!version || Number(JSON.parse(version.value_json)) < 11)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS entry_idempotency (
+  user_id TEXT NOT NULL,
+  key TEXT NOT NULL,
+  entry_id TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  PRIMARY KEY(user_id,key)
+);
+CREATE INDEX IF NOT EXISTS entry_idempotency_created_at ON entry_idempotency(created_at);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '11',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)
