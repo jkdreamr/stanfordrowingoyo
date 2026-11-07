@@ -163,9 +163,11 @@ export function createMockApi({
     }
     return result;
   }
-  function summary(userId: string, week: string): WeekSummary {
+  function summary(userId: string, week: string, includePrivate = false): WeekSummary {
     const total = totals(
-      state.entries.filter((e) => e.user_id === userId && e.week_start === week),
+      state.entries.filter(
+        (e) => e.user_id === userId && e.week_start === week && (includePrivate || visible(e)),
+      ),
     );
     const target_m = target(userId, week).target_m;
     return {
@@ -176,10 +178,13 @@ export function createMockApi({
       hit_target: target_m > 0 && total.total_m >= target_m,
     };
   }
-  function streak(userId: string, week: string) {
+  function streak(userId: string, week: string, includePrivate = false) {
+    const first = weekStart(seasonRange(week, settings.season_start).start);
+    let w = week;
+    if (w === weekStart(today(now())) && !summary(userId, w, includePrivate).hit_target)
+      w = addDays(w, -7);
     let count = 0;
-    for (let w = week; w >= '2020-01-01' && summary(userId, w).hit_target; w = addDays(w, -7))
-      count++;
+    for (; w >= first && summary(userId, w, includePrivate).hit_target; w = addDays(w, -7)) count++;
     return count;
   }
   function weekStats(userId: string, week: string): WeekStats {
@@ -199,24 +204,30 @@ export function createMockApi({
   function seasonStats(
     userId: string,
     range = seasonRange(today(now()), settings.season_start),
+    includePrivate = false,
   ): SeasonStats {
     const end = range.end < today(now()) ? range.end : today(now());
     const entries = state.entries.filter(
-      (e) => e.user_id === userId && e.date >= range.start && e.date <= range.end,
+      (e) =>
+        e.user_id === userId &&
+        (includePrivate || visible(e)) &&
+        e.date >= range.start &&
+        e.date <= end,
     );
     const days = new Map<string, number>();
     for (const entry of entries) days.set(entry.date, (days.get(entry.date) ?? 0) + entry.equiv_m);
     const weeks: WeekSummary[] = [];
     for (let w = weekStart(range.start); w <= end; w = addDays(w, 7))
-      weeks.push(summary(userId, w));
+      weeks.push(summary(userId, w, includePrivate));
     return {
       days: [...days]
         .sort(([a], [b]) => a.localeCompare(b))
-        .map(([date, equiv_m]) => ({ date, equiv_m })),
+        .map(([date, equiv_m]) => ({ date, equiv_m }))
+        .filter((day) => day.equiv_m > 0),
       ...totals(entries),
       ...range,
       weeks,
-      streak: streak(userId, weekStart(end)),
+      streak: streak(userId, weekStart(end), includePrivate),
       best_week: weeks.reduce<WeekSummary | null>(
         (best, w) => (!best || w.total_m > best.total_m ? w : best),
         null,
@@ -224,29 +235,48 @@ export function createMockApi({
     };
   }
   function leaderboard(week: string, metric = 'percent', compliance = false): LeaderboardRow[] {
-    return state.users
+    const range = seasonRange(week, settings.season_start);
+    const lastDate = range.end < addDays(week, 6) ? range.end : addDays(week, 6);
+    const rows = state.users
       .filter((u) => u.active && (compliance ? u.role === 'rower' : u.on_leaderboard))
       .map((user) => {
-        const s = summary(user.id, week);
-        const total_m = metric === 'season' ? seasonStats(user.id).total_m : s.total_m;
+        const s = summary(user.id, week, true);
+        let target_m = s.target_m;
+        let total_m = s.total_m;
+        if (metric === 'season') {
+          target_m = 0;
+          for (let w = weekStart(range.start); w <= week; w = addDays(w, 7))
+            target_m += target(user.id, w).target_m;
+          total_m = totals(
+            state.entries.filter(
+              (e) => e.user_id === user.id && e.date >= range.start && e.date <= lastDate,
+            ),
+          ).total_m;
+        }
         return {
           user: publicUser(user),
-          target_m: s.target_m,
+          target_m,
           total_m,
-          percent: s.percent,
+          percent: target_m > 0 ? Math.round((total_m / target_m) * 1000) / 10 : 0,
           rank: 0,
-          streak: streak(user.id, week),
+          streak: streak(user.id, week, true),
           entry_count: state.entries.filter((e) => e.user_id === user.id && e.week_start === week)
             .length,
         };
-      })
-      .sort(
-        (a, b) =>
-          (metric === 'percent' ? b.percent - a.percent : b.total_m - a.total_m) ||
-          b.total_m - a.total_m ||
-          a.user.name.localeCompare(b.user.name),
-      )
-      .map((row, i) => ({ ...row, rank: i + 1 }));
+      });
+    const score = (a: LeaderboardRow, b: LeaderboardRow) =>
+      (metric === 'percent'
+        ? (b.target_m > 0 ? b.total_m : 0) * (a.target_m || 1) -
+          (a.target_m > 0 ? a.total_m : 0) * (b.target_m || 1)
+        : 0) || b.total_m - a.total_m;
+    rows.sort(
+      (a, b) =>
+        score(a, b) || a.user.name.localeCompare(b.user.name) || a.user.id.localeCompare(b.user.id),
+    );
+    rows.forEach((row, i) => {
+      row.rank = i > 0 && score(rows[i - 1], row) === 0 ? rows[i - 1].rank : i + 1;
+    });
+    return rows;
   }
   function paginate<T>(items: T[], cursor: string | null) {
     const offset = cursor ? Number(cursor) : 0;

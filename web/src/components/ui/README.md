@@ -32,6 +32,14 @@ Import from `components/ui`. Preview at `/dev/kit` in development only. Wrap the
 
 ## Components
 
+### SeasonChart
+
+`<SeasonChart userId={optionalOtherUserId} isMe={false} />` is data-connected through the existing stats/config query cache. Omit both props for the signed-in rower. It uses `SeasonStats.days` and versioned weekly targets; no new endpoint. The default range is Season. Selecting All loads every preceding season back to the season starting in 2024 in parallel, without stopping at empty seasons. There is no API earliest-entry bound; account creation is not a reliable history floor because entries may be backdated. Public profiles use only API-authorized data; coxswains and zero-target histories omit pace.
+
+`SeasonChartView` is the pure-data surface: `stats`, optional `history`, `today`, `currentWeekStart`, optional `isMe` (default true), `coxswain`, `createdAt`, controlled `range` and `onRangeChange`. The connected chart supplies `User/PublicUser.created_at`. Pace starts at the later of season start and account creation (Los Angeles date), including for backdated activity; without `createdAt`, first entry or season start is used. The same rule applies independently to every season in All. Pure cumulative, pace-gap, range, weekly-sampling, y-domain and SVG-path helpers live in `lib/season-chart.ts`. Scrubbing supports pointer capture, mouse hover and Left/Right/Home/End/Escape; only keyboard changes announce in the polite live region. The chart uses a local accessible range button group to preserve the specified underline style, without changing kit Tabs or SegmentedControl. Paths are memoized and isolated from cursor/header updates; range swaps are immediate. Plot-only `pan-y` preserves vertical page scrolling. Loading uses a static kit Skeleton and failed requests offer retry.
+
+This is an additive export; existing kit component APIs and styles are unchanged.
+
 ### Core-screen patterns
 
 `ChoiceRow` is a native radio row for grouped selection. Props: `name`, `value`, `checked`, `onChange`, `title`, optional `subtitle`. Place related rows in a labeled `fieldset` inside `ListGroup`; native keyboard navigation and a visible checkmark expose the current selection. `<ChoiceRow name="group" value="normal" checked={group === 'normal'} onChange={() => setGroup('normal')} title="Normal Non-Frosh" />`
