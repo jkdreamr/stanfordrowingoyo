@@ -5,6 +5,7 @@ import type {
   AccountExportTag,
   Comment,
   Entry,
+  ErgTest,
   ImageMetadata,
   Kudos,
   RosterRow,
@@ -126,6 +127,12 @@ export function accountExport(
         id,
       )
       .toArray(),
+    erg_tests: sql
+      .exec<Row<Omit<ErgTest, 'is_pr'>>>(
+        'SELECT * FROM erg_tests WHERE user_id = ? ORDER BY date,created_at,id',
+        id,
+      )
+      .toArray(),
     comments: comments.map((comment) => ({ ...comment, mentions: mentions.get(comment.id) ?? [] })),
     kudos_given: sql
       .exec<Row<Kudos>>('SELECT * FROM kudos WHERE user_id = ? ORDER BY created_at,entry_id', id)
@@ -189,6 +196,8 @@ export interface RemovalCounts {
   images: number;
   plans: number;
   weekly_targets: number;
+  erg_tests: number;
+  challenges: number;
 }
 /**
  * Permanently deletes one account and everything that is its personal data or a structured
@@ -204,7 +213,9 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
 (SELECT COUNT(*) FROM kudos WHERE user_id = ?1) AS kudos,
 (SELECT COUNT(*) FROM images WHERE owner_id = ?1) AS images,
 (SELECT COUNT(*) FROM my_plans WHERE user_id = ?1) AS plans,
-(SELECT COUNT(*) FROM weekly_targets WHERE user_id = ?1) AS weekly_targets`,
+(SELECT COUNT(*) FROM weekly_targets WHERE user_id = ?1) AS weekly_targets,
+(SELECT COUNT(*) FROM erg_tests WHERE user_id = ?1) AS erg_tests,
+(SELECT COUNT(*) FROM challenges WHERE created_by = ?1) AS challenges`,
       id,
     )
     .one();
@@ -235,6 +246,8 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
   for (const statement of [
     'DELETE FROM images WHERE owner_id = ?',
     'DELETE FROM entries WHERE user_id = ?',
+    'DELETE FROM erg_tests WHERE user_id = ?',
+    'DELETE FROM challenges WHERE created_by = ?',
     'DELETE FROM my_plan_sessions WHERE user_id = ?',
     'DELETE FROM my_plans WHERE user_id = ?',
     'DELETE FROM weekly_targets WHERE user_id = ?',

@@ -38,6 +38,9 @@ function setup() {
 }
 it('requires the exact account email and lets the admin cancel without a request', () => {
   const { close } = setup();
+  expect(screen.getByText(/workouts, erg tests, photos/).textContent).toContain(
+    'authored team challenges',
+  );
   expect((screen.getByRole('button', { name: 'Remove' }) as HTMLButtonElement).disabled).toBe(true);
   fireEvent.change(screen.getByLabelText('Confirm Email'), {
     target: { value: 'wrong@example.com' },

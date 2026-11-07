@@ -66,9 +66,9 @@ export function RemoveAccount({
       <div className="space-y-5">
         <p className="text-headline">{user.name}</p>
         <p className="text-subhead text-muted">
-          Permanently deletes this account, linked roster name, workouts, photos, comments, kudos
-          and private plans. Removes tags, mentions and leaderboard results. A sanitized audit
-          record remains.
+          Permanently deletes this account, linked roster name, workouts, erg tests, photos,
+          comments, kudos, private plans and authored team challenges. Removes tags, mentions and
+          leaderboard results. A sanitized audit record remains.
         </p>
         <p className="text-subhead">
           Cannot be undone. Ask the rower to download their data first if needed.

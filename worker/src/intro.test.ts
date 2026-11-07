@@ -69,7 +69,7 @@ it('persists completion across sessions, once, without affecting another account
   });
 });
 
-it.each([9, 11])(
+it.each([9, 10, 11])(
   'migrates v%i to v12 idempotently and backfills only existing users',
   async (version) => {
     const first = await signup();

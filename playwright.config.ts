@@ -42,7 +42,7 @@ export default defineConfig({
     : {
         command: mock
           ? 'VITE_MOCK=1 npm run dev -w web -- --port 8798'
-          : 'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --local-protocol https --port 8799 --persist-to .wrangler/e2e-state',
+          : 'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --local-protocol https --port 8799 --persist-to .wrangler/e2e-state --var OYO_TEST_CLOCK:1',
         url: mock ? baseURL : `${baseURL}/api/health`,
         ignoreHTTPSErrors: true,
         reuseExistingServer: !process.env.CI,

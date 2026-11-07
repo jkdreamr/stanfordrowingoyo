@@ -113,6 +113,8 @@ const USER_TABLES: [string, string][] = [
   ['sessions', 'user_id'],
   ['reauth_grants', 'user_id'],
   ['entries', 'user_id'],
+  ['erg_tests', 'user_id'],
+  ['challenges', 'created_by'],
   ['images', 'owner_id'],
   ['entry_tags', 'user_id'],
   ['kudos', 'user_id'],
@@ -152,6 +154,8 @@ beforeEach(async () => {
         'weekly_targets',
         'rate_limits',
         'entries',
+        'erg_tests',
+        'challenges',
         'images',
         'entry_images',
         'entry_tags',
@@ -177,6 +181,8 @@ describe('GET /api/me/export', () => {
   it('returns only the caller’s own data as a private, non-cacheable attachment', async () => {
     const avery = await user('Avery Export');
     const blake = await user('Blake Other');
+    await ok(api('/me/tests', avery, 'POST', { kind: '2k', date: '2026-03-09', time_s: 420 }));
+    await ok(api('/me/tests', blake, 'POST', { kind: '2k', date: '2026-03-09', time_s: 430 }));
     const photo = await image(avery);
     const avatar = await image(avery);
     await ok(api('/me', avery, 'PATCH', { avatar_image_id: avatar, bio: 'Avery bio' }));
@@ -210,6 +216,7 @@ describe('GET /api/me/export', () => {
     expect(Object.keys(data).sort()).toEqual(
       [
         'comments',
+        'erg_tests',
         'exported_at',
         'format_version',
         'images',
@@ -231,6 +238,9 @@ describe('GET /api/me/export', () => {
       bio: 'Avery bio',
       avatar_image_id: avatar,
     });
+    expect(data.erg_tests).toEqual([
+      expect.objectContaining({ user_id: avery.user.id, kind: '2k', time_s: 420, split_s: 105 }),
+    ]);
     expect(data.roster).toMatchObject({ id: avery.rosterId, claimed_by_user_id: avery.user.id });
     expect(data.weekly_targets).toEqual([
       { user_id: avery.user.id, week_start: '2026-03-09', target_m: 90000 },
@@ -367,6 +377,25 @@ describe('POST /api/admin/users/:id/remove', () => {
     const avery = await user('Avery Removed');
     const blake = await user('Blake Kept');
     const casey = await user('Casey Kept');
+    await ok(api('/me/tests', avery, 'POST', { kind: '2k', date: '2026-03-09', time_s: 420 }));
+    await ok(api('/me/tests', blake, 'POST', { kind: '2k', date: '2026-03-09', time_s: 430 }));
+    await sql((storage) => {
+      for (const id of [avery.user.id, blake.user.id])
+        storage.sql.exec(
+          'INSERT INTO challenges VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+          crypto.randomUUID(),
+          'Team Challenge',
+          'emeters',
+          100000,
+          null,
+          '2026-03-09',
+          '2026-03-15',
+          id,
+          NOW,
+          NOW,
+          null,
+        );
+    });
     await sql((storage) => {
       for (const id of [avery.user.id, blake.user.id])
         storage.sql.exec('INSERT INTO user_intro VALUES (?,?)', id, NOW);
@@ -539,7 +568,16 @@ describe('POST /api/admin/users/:id/remove', () => {
     expect(JSON.parse(event.detail_json)).toEqual({
       before: { role: 'rower', active: true },
       after: {
-        removed: { workouts: 1, comments: 1, kudos: 1, images: 3, plans: 1, weekly_targets: 1 },
+        removed: {
+          workouts: 1,
+          comments: 1,
+          kudos: 1,
+          images: 3,
+          plans: 1,
+          weekly_targets: 1,
+          erg_tests: 1,
+          challenges: 1,
+        },
       },
     });
     // The removed name and email are free for a new roster row and signup.

@@ -83,7 +83,7 @@ beforeEach(async () => {
   });
 });
 describe('core worker integration', () => {
-  it('migrates through v9 and preserves an existing v1 group default', async () => {
+  it('migrates through v12 and preserves an existing v1 group default', async () => {
     expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 12 });
     await sql((storage) => {
       setSetting(storage, 'schema_version', 1);

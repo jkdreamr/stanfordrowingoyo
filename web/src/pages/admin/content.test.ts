@@ -191,12 +191,29 @@ describe('human audit records', () => {
       'user.remove',
       { role: 'rower', active: true },
       {
-        removed: { workouts: 2, images: 1, comments: 1, kudos: 3, plans: 1, weekly_targets: 0 },
+        removed: {
+          workouts: 2,
+          images: 1,
+          comments: 1,
+          kudos: 3,
+          plans: 1,
+          weekly_targets: 0,
+          erg_tests: 2,
+          challenges: 1,
+        },
       },
     );
     expect(result).toEqual({
       sentence: 'permanently removed a rower account',
-      changes: ['2 workouts', '1 photo', '1 comment', '3 kudos', '1 private plan'],
+      changes: [
+        '2 workouts',
+        '2 erg tests',
+        '1 team challenge',
+        '1 photo',
+        '1 comment',
+        '3 kudos',
+        '1 private plan',
+      ],
     });
     expect(humanizeAction('user.remove')).toBe('Removed Account');
   });

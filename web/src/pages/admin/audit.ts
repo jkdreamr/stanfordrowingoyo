@@ -88,6 +88,8 @@ export function auditEntry(
     const removed = object(after.removed);
     for (const [key, label] of [
       ['workouts', 'workout'],
+      ['erg_tests', 'erg test'],
+      ['challenges', 'team challenge'],
       ['images', 'photo'],
       ['comments', 'comment'],
       ['kudos', 'kudos'],

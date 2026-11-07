@@ -7,6 +7,14 @@ test('Download My Data saves only the signed-in account data as JSON', async ({ 
   const rower = await makeRower();
   const teammate = await makeRower();
   const own = await seedEntry(rower, `Export ${rower.user.id}`);
+  for (const person of [rower, teammate]) {
+    await expect(
+      await person.context.request.post('/api/me/tests', {
+        headers: csrfHeaders,
+        data: { kind: '2k', date: own.date, time_s: 420 },
+      }),
+    ).toBeOK();
+  }
   const other = await seedEntry(teammate, `Other ${teammate.user.id}`);
   const comment = `Export Comment ${rower.user.id}`;
   await expect(
@@ -44,6 +52,9 @@ test('Download My Data saves only the signed-in account data as JSON', async ({ 
   const raw = await readFile((await download.path())!, 'utf8');
   const data = JSON.parse(raw);
   expect(data.profile.id).toBe(rower.user.id);
+  expect(data.erg_tests).toEqual([
+    expect.objectContaining({ user_id: rower.user.id, kind: '2k', time_s: 420 }),
+  ]);
   expect(data.workouts.map((entry: { id: string }) => entry.id)).toEqual([own.id]);
   expect(data.kudos_given).toEqual([
     expect.objectContaining({ entry_id: other.id, user_id: rower.user.id }),

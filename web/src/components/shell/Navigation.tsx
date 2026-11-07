@@ -14,7 +14,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { useMe, useNotifications } from '../../lib/queries';
 import { Button } from '../ui';
 import { Brand } from './Brand';
-const main: { to: string; label: string; icon: LucideIcon }[] = [
+export const main: { to: string; label: string; icon: LucideIcon }[] = [
   { to: '/', label: 'Home', icon: House },
   { to: '/feed', label: 'Feed', icon: Newspaper },
   { to: '/leaderboard', label: 'Leaderboard', icon: Trophy },
