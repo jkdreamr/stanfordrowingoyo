@@ -8,6 +8,7 @@ import { Avatar, Button, EmptyState, PageHeader, SeasonChart } from '../componen
 import { LoadState } from '../components/shell/LoadState';
 import { EntryCard } from '../components/social/EntryCard';
 import { WeekData } from '../components/social/WeekData';
+import { ErgTests } from '../components/ErgTests';
 
 export default function RowerProfile() {
   const { id = '' } = useParams();
@@ -82,6 +83,7 @@ export default function RowerProfile() {
                 </div>
               </dl>
             </section>
+            {config && <ErgTests user={data.user} today={config.today} />}
             <SeasonChart userId={id} isMe={false} />
             <WeekData key={id} weeks={data.stats.weeks} />
             <section aria-label="Workouts">

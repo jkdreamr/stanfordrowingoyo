@@ -96,6 +96,12 @@ export function useUsers() {
 export function useProfile(id: string) {
   return queryHook('GET /api/users/:id')({ params: { id } }, !!id);
 }
+export function useErgTests(id: string) {
+  return queryHook('GET /api/users/:id/tests')({ params: { id } }, !!id);
+}
+export const useCreateErgTest = mutationHook('POST /api/me/tests');
+export const useUpdateErgTest = mutationHook('PATCH /api/me/tests/:id');
+export const useDeleteErgTest = mutationHook('DELETE /api/me/tests/:id');
 export function useAnnouncements() {
   return queryHook('GET /api/announcements')({});
 }
@@ -205,6 +211,7 @@ export function useAudit() {
   });
 }
 export function invalidationKeys(endpoint: Write): QueryKey[] {
+  if (endpoint.includes('/me/tests')) return ['users', 'me', 'stats', 'leaderboard'].map(qk.root);
   if (endpoint.includes('/auth/')) return [qk.all];
   if (endpoint === 'PATCH /api/me')
     return ['me', 'users', 'config', 'stats', 'leaderboard', 'entries', 'notifications'].map(
