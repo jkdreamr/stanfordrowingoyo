@@ -50,17 +50,17 @@ it('keeps the original HTML while auth is pending and counts the minimum from HT
   await advance(1);
   expect(splash()?.classList.contains('is-leaving')).toBe(true);
   expect(document.getElementById('root')?.hasAttribute('inert')).toBe(false);
-  await advance(180);
+  await advance(250);
   expect(splash()).toBeNull();
 });
 
-it('waits for slow auth, but never waits for images and exits within 180ms of late readiness', async () => {
+it('waits for slow auth, but never waits for images and exits within 250ms of late readiness', async () => {
   const { rerender } = render(<LaunchSplash />);
   await advance(2500);
   expect(splash()).not.toBeNull();
   expect(document.querySelector('img')?.naturalWidth).toBe(0);
   settle(rerender);
-  await advance(181);
+  await advance(251);
   expect(splash()).toBeNull();
 });
 
@@ -71,7 +71,7 @@ it.each(['signed out', 'network error', 'server error'])(
     else auth.error = new Error(result);
     const { rerender } = render(<LaunchSplash />);
     settle(rerender);
-    await advance(780);
+    await advance(850);
     expect(splash()).toBeNull();
   },
 );
@@ -79,7 +79,7 @@ it.each(['signed out', 'network error', 'server error'])(
 it('does not restart for navigation, focus, background return or later auth changes', async () => {
   const { rerender } = render(<LaunchSplash />);
   settle(rerender);
-  await advance(780);
+  await advance(850);
   auth.isPending = true;
   rerender(<LaunchSplash />);
   window.dispatchEvent(new Event('focus'));
@@ -97,7 +97,7 @@ it('does not cancel an exit when another auth fetch starts', async () => {
   await advance(600);
   auth.isPending = true;
   rerender(<LaunchSplash />);
-  await advance(180);
+  await advance(250);
   expect(splash()).toBeNull();
 });
 
@@ -108,7 +108,7 @@ it('survives StrictMode effect replay without starting the minimum again', async
       <LaunchSplash />
     </StrictMode>,
   );
-  await advance(780);
+  await advance(850);
   expect(splash()).toBeNull();
 });
 
@@ -131,6 +131,8 @@ it('respects reduced motion without skipping readiness or the minimum', async ()
   expect(splash()).not.toBeNull();
   settle(rerender);
   await advance(1);
+  expect(splash()?.classList.contains('is-leaving')).toBe(true);
+  await advance(120);
   expect(splash()).toBeNull();
 });
 

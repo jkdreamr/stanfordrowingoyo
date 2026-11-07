@@ -19,7 +19,7 @@ export function dismissSplash() {
       document.documentElement.classList.remove('launching');
       document.getElementById('root')?.removeAttribute('inert');
       syncThemeColor(document.documentElement.classList.contains('dark'));
-      const fade = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 180;
+      const fade = matchMedia('(prefers-reduced-motion: reduce)').matches ? 120 : 250;
       removal = setTimeout(() => splash.remove(), fade);
     },
     Math.max(0, minimum - elapsed),

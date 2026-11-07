@@ -16,7 +16,8 @@
         margin: 0;
       }
       #launch-splash,
-      #launch-splash * {
+      #launch-splash *,
+      #launch-splash *::before {
         box-sizing: border-box;
       }
       #launch-splash {
@@ -27,81 +28,141 @@
         background: #8c1515;
         color: #fff;
         opacity: 1;
-        transition: opacity 180ms ease-out;
+        transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1);
         font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
       #launch-splash.is-leaving {
         opacity: 0;
         pointer-events: none;
       }
-      .splash-photo {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 52% center;
-        opacity: 0;
-        transition: opacity 320ms ease-out;
-      }
-      .splash-photo.is-loaded {
-        opacity: 0.65;
-      }
-      .splash-scrim {
-        position: absolute;
-        inset: 0;
-      }
-      .splash-photo.is-loaded + .splash-scrim {
-        background: rgb(0 0 0 / 32%);
-      }
       .splash-brand {
         position: absolute;
-        left: 0;
-        right: 0;
-        bottom: max(16%, calc(env(safe-area-inset-bottom) + 32px));
+        inset: 0;
         display: grid;
+        place-content: center;
         justify-items: center;
         gap: 20px;
-        animation: splash-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .splash-emblem {
+        opacity: 1;
+        transform: scale(1);
+        transition:
+          transform 250ms cubic-bezier(0.32, 0, 0.67, 0),
+          opacity 250ms ease-out;
+      }
+      #launch-splash.is-leaving .splash-emblem {
+        transform: scale(1.08);
+        opacity: 0;
       }
       .splash-mark {
+        position: relative;
         width: 96px;
         height: 96px;
-        border-radius: 50%;
-        overflow: hidden;
-        background: #8c1515;
-        border: 3px solid #fff;
-        box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+        animation: splash-mark-enter 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
       }
       .splash-mark img {
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        inset: 6px;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
         opacity: 0;
       }
       .splash-mark img.is-loaded {
         opacity: 1;
       }
-      .splash-wordmark {
-        font-size: 64px;
-        font-weight: 800;
-        line-height: 1;
-        letter-spacing: -0.03em;
+      .splash-ring-half,
+      .splash-ring-half::before {
+        position: absolute;
+        inset: 0;
       }
-      @keyframes splash-enter {
+      .splash-ring-half {
+        clip-path: inset(0 0 0 50%);
+      }
+      .splash-ring-half::before {
+        content: '';
+        border: 2px solid #fff;
+        border-radius: 50%;
+        clip-path: inset(0 50% 0 0);
+        animation: splash-ring-draw 175ms linear 40ms both;
+      }
+      .splash-ring-half + .splash-ring-half {
+        clip-path: inset(0 50% 0 0);
+      }
+      .splash-ring-half + .splash-ring-half::before {
+        clip-path: inset(0 0 0 50%);
+        animation-delay: 215ms;
+      }
+      .splash-caption {
+        transition: opacity 180ms ease-out;
+      }
+      #launch-splash.is-leaving .splash-caption {
+        opacity: 0;
+      }
+      .splash-wordmark {
+        display: block;
+        font-size: 28px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.14em;
+        text-indent: 0.14em;
+        animation: splash-wordmark-enter 280ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+      }
+      @keyframes splash-mark-enter {
         from {
-          transform: translateY(12px) scale(0.98);
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        72% {
+          transform: scale(1.035);
+          opacity: 1;
         }
         to {
-          transform: translateY(0) scale(1);
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes splash-ring-draw {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(180deg);
+        }
+      }
+      @keyframes splash-wordmark-enter {
+        from {
+          transform: translateY(8px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
         }
       }
       @media (prefers-reduced-motion: reduce) {
-        #launch-splash,
-        .splash-photo {
+        #launch-splash {
+          transition: opacity 120ms ease-out;
+        }
+        .splash-mark,
+        .splash-ring-half::before,
+        .splash-wordmark {
+          animation: none;
+        }
+        .splash-ring-half::before {
+          transform: rotate(180deg);
+        }
+        .splash-emblem,
+        .splash-caption {
           transition: none;
         }
-        .splash-brand {
-          animation: none;
+        #launch-splash.is-leaving .splash-emblem {
+          transform: none;
+          opacity: 1;
+        }
+        #launch-splash.is-leaving .splash-caption {
+          opacity: 1;
         }
       }
     </style>
@@ -125,27 +186,22 @@
   </head>
   <body>
     <div id="launch-splash" role="status" aria-label="Opening OYO">
-      <img
-        class="splash-photo"
-        src="/splash/team-480.webp"
-        srcset="/splash/team-480.webp 480w, /splash/team-960.webp 960w"
-        sizes="100vw"
-        alt=""
-        decoding="async"
-      />
-      <div class="splash-scrim"></div>
       <div class="splash-brand">
-        <div class="splash-mark">
-          <img
-            src="/splash/gabriel-96.webp"
-            srcset="/splash/gabriel-96.webp 1x, /splash/gabriel-192.webp 2x"
-            width="96"
-            height="96"
-            alt=""
-            decoding="async"
-          />
+        <div class="splash-emblem">
+          <div class="splash-mark">
+            <img
+              src="/splash/gabriel-96.webp"
+              srcset="/splash/gabriel-96.webp 1x, /splash/gabriel-192.webp 2x"
+              width="84"
+              height="84"
+              alt=""
+              decoding="async"
+            />
+            <div class="splash-ring-half"></div>
+            <div class="splash-ring-half"></div>
+          </div>
         </div>
-        <span class="splash-wordmark">OYO</span>
+        <div class="splash-caption"><span class="splash-wordmark">OYO</span></div>
       </div>
     </div>
     <script>

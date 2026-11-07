@@ -1,11 +1,9 @@
 import { test, expect } from './fixtures';
-import { mkdir } from 'node:fs/promises';
-import { join } from 'node:path';
 
 for (const theme of ['light', 'dark'] as const) {
   test(`cold launch paints inline and dismisses after auth (${theme})`, async ({
     adminPage: page,
-  }, testInfo) => {
+  }) => {
     await page.addInitScript((theme) => localStorage.setItem('theme', theme), theme);
     let release!: () => void;
     const auth = new Promise<void>((resolve) => {
@@ -45,24 +43,20 @@ for (const theme of ['light', 'dark'] as const) {
         '#8C1515',
       );
       await expect(page.locator('html')).toHaveClass(theme === 'dark' ? /dark/ : /^(?!.*dark)/);
-      await expect(splash.locator('.splash-photo')).toHaveClass(/is-loaded/);
+      await expect(splash.locator('.splash-photo')).toHaveCount(0);
       await expect(splash.locator('.splash-mark img')).toHaveClass(/is-loaded/);
-      const directory = process.env.SPLASH_SCREENSHOTS_DIR;
-      if (directory && testInfo.project.name === 'iphone-15') {
-        await mkdir(directory, { recursive: true });
-        await page.locator('.splash-brand').evaluate((brand) => {
-          for (const animation of brand.getAnimations()) {
-            animation.pause();
-            animation.currentTime = 70;
-          }
-        });
-        await page.screenshot({ path: join(directory, `splash-${theme}-mid-animation.png`) });
-        await page.locator('.splash-brand').evaluate((brand) => {
-          for (const animation of brand.getAnimations()) animation.finish();
-        });
-        await expect(splash.locator('.splash-photo')).toHaveCSS('opacity', '0.65');
-        await page.screenshot({ path: join(directory, `splash-${theme}-settled.png`) });
-      }
+      await expect(splash.locator('.splash-mark')).toHaveCSS('animation-name', 'splash-mark-enter');
+      await expect(splash.locator('.splash-wordmark')).toHaveCSS('font-weight', '500');
+      await expect(splash.locator('.splash-wordmark')).toHaveCSS('animation-delay', '0.08s');
+      await splash.evaluate(async (element) => {
+        await Promise.all(
+          element.getAnimations({ subtree: true }).map((animation) => animation.finished),
+        );
+      });
+      const mark = await splash.locator('.splash-mark').boundingBox();
+      const viewport = page.viewportSize()!;
+      expect(Math.abs(mark!.x + mark!.width / 2 - viewport.width / 2)).toBeLessThan(1);
+      expect(Math.abs(mark!.y + mark!.height / 2 - (viewport.height / 2 - 24))).toBeLessThan(1);
       release();
       await expect(splash).toHaveCount(0, { timeout: 1800 });
       await expect(page.locator('#root')).not.toHaveAttribute('inert');
@@ -117,7 +111,7 @@ test('does not recreate the splash on navigation or background return', async ({
   await expect(page.locator('#launch-splash')).toHaveCount(0);
 });
 
-test('slow/failed images and reduced motion do not hold the app behind the splash', async ({
+test('slow/failed portrait and reduced motion do not hold the app behind the splash', async ({
   adminPage: page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -126,7 +120,7 @@ test('slow/failed images and reduced motion do not hold the app behind the splas
     releaseImages = resolve;
   });
   await page.route('**/splash/**', async (route) => {
-    if (route.request().url().includes('team-')) await images;
+    await images;
     await route.abort();
   });
   let release!: () => void;
@@ -142,9 +136,10 @@ test('slow/failed images and reduced motion do not hold the app behind the splas
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     const splash = page.locator('#launch-splash');
     await expect(splash).toBeVisible();
-    await expect(splash.locator('.splash-brand')).toHaveCSS('animation-name', 'none');
-    await expect(splash.locator('.splash-photo')).toHaveCSS('opacity', '0');
-    await expect(splash.locator('.splash-scrim')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+    await expect(splash.locator('.splash-mark')).toHaveCSS('animation-name', 'none');
+    await expect(splash.locator('.splash-wordmark')).toHaveCSS('animation-name', 'none');
+    await expect(splash.locator('.splash-mark img')).toHaveCSS('opacity', '0');
+    await expect(splash).toHaveCSS('transition-duration', '0.12s');
     release();
     await expect(splash).toHaveCount(0, { timeout: 1800 });
     await expect(page.getByRole('heading', { name: 'This Week', exact: true })).toBeVisible();
