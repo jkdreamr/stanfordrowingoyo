@@ -434,6 +434,9 @@ images retain their independent authenticated ownership/avatar/entry-reference a
   `#6D6D78`, page/grouped background `#F7F7FA`, dividers `#DFDFE8`. **Cardinal `#8C1515` is the single main accent**
   (pressed `#6F1010`; on dark use `#C0352B`): primary buttons, Log button, progress rings, active tab, links.
   **Strava orange `#FC5200` (pressed `#CC4200`) only for highlights: PRs, streaks, "target hit" celebrations, best week.**
+  Podium-only medal tokens (`--medal-{gold,silver,bronze}-{ink,fill}`) tint rank badges, top borders, and subtle
+  card fills. Shared ranks share a medal; the cardinal "You" selection stays distinct. These semantic medal
+  colors do not replace cardinal controls or orange achievement highlights.
   Dark mode: background `#121214`, surface `#1C1C1F`, dividers `#2C2C31`, text `#F2F2F5`. Zone colors as in the sheet:
   E light green `#CFE6C4`, D green `#8DBE84`, C yellow `#FBE08F` (others interpolate) — used as small tags/chips only.
   Light + dark mode (system default, user toggle). System font stack (-apple-system, "SF Pro", Inter fallback). Native

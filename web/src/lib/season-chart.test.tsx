@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import type { SeasonStats, WeekSummary } from '../../../shared/types';
 import { addDays } from '../../../shared/dates';
@@ -45,6 +45,7 @@ function stats(overrides: Partial<SeasonStats> = {}): SeasonStats {
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
+  vi.useRealTimers();
 });
 describe('daily mileage and pace', () => {
   it('starts a mid-season joiner at account creation in Los Angeles, not season start', () => {
@@ -168,6 +169,106 @@ function view(overrides: Partial<React.ComponentProps<typeof SeasonChartView>> =
     </MemoryRouter>,
   );
 }
+it('holds to scrub continuously, resets on release and leaves quick swipes unclaimed', () => {
+  vi.useFakeTimers();
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+    setTimeout(callback, 16),
+  );
+  vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  view();
+  const plot = screen.getByRole('img');
+  vi.spyOn(plot, 'getBoundingClientRect').mockReturnValue({ left: 0, width: 300 } as DOMRect);
+  const touch = (x: number, y = 100) => [{ clientX: x, clientY: y }];
+  fireEvent.touchStart(plot, { touches: touch(0) });
+  act(() => vi.advanceTimersByTime(270));
+  expect(screen.getByText('Tue, Sep 1')).toBeTruthy();
+  expect(fireEvent.touchMove(plot, { touches: touch(300), cancelable: true })).toBe(false);
+  act(() => vi.advanceTimersByTime(20));
+  expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+  fireEvent.touchEnd(plot, { touches: [] });
+  expect(screen.queryByText('Mon, Sep 7')).toBeNull();
+  fireEvent.touchStart(plot, { touches: touch(0) });
+  expect(fireEvent.touchMove(plot, { touches: touch(0, 150), cancelable: true })).toBe(true);
+  act(() => vi.advanceTimersByTime(300));
+  expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+  fireEvent.touchCancel(plot, { touches: [] });
+});
+for (const end of ['pointerup', 'pointercancel', 'pointerout']) {
+  it(`scrubs a pen drag and resets on ${end}`, () => {
+    vi.useFakeTimers();
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+      setTimeout(callback, 16),
+    );
+    vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+    view();
+    const plot = screen.getByRole('img');
+    const capture = vi.fn();
+    Object.defineProperty(plot, 'setPointerCapture', { value: capture });
+    vi.spyOn(plot, 'getBoundingClientRect').mockReturnValue({ left: 0, width: 300 } as DOMRect);
+    const pen = (type: string, clientX = 0) => {
+      fireEvent(
+        plot,
+        Object.assign(
+          new MouseEvent(type, { bubbles: true, clientX, relatedTarget: document.body }),
+          {
+            pointerType: 'pen',
+            pointerId: 7,
+          },
+        ),
+      );
+      act(() => vi.advanceTimersByTime(20));
+    };
+    pen('pointermove');
+    expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+    pen('pointerdown');
+    expect(capture).toHaveBeenCalledWith(7);
+    expect(screen.getByText('Tue, Sep 1')).toBeTruthy();
+    pen('pointermove', 300);
+    expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+    pen(end, 300);
+    expect(screen.queryByText('Mon, Sep 7')).toBeNull();
+    pen('pointermove');
+    expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+  });
+}
+it('ignores companion stylus touches without resetting a pen drag', () => {
+  vi.useFakeTimers();
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+    setTimeout(callback, 16),
+  );
+  vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  view();
+  const plot = screen.getByRole('img');
+  Object.defineProperty(plot, 'setPointerCapture', { value: vi.fn() });
+  vi.spyOn(plot, 'getBoundingClientRect').mockReturnValue({ left: 0, width: 300 } as DOMRect);
+  const stylus = [{ clientX: 0, clientY: 100, touchType: 'stylus' }];
+  fireEvent.touchStart(plot, { touches: stylus, changedTouches: stylus });
+  act(() => vi.advanceTimersByTime(300));
+  expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+  const pen = (type: string, clientX: number) =>
+    fireEvent(
+      plot,
+      Object.assign(new MouseEvent(type, { bubbles: true, clientX }), {
+        pointerType: 'pen',
+        pointerId: 7,
+      }),
+    );
+  pen('pointerdown', 0);
+  fireEvent.touchStart(plot, { touches: stylus, changedTouches: stylus });
+  act(() => vi.advanceTimersByTime(20));
+  expect(screen.getByText('Tue, Sep 1')).toBeTruthy();
+  fireEvent.touchMove(plot, { touches: stylus, changedTouches: stylus });
+  pen('pointermove', 300);
+  act(() => vi.advanceTimersByTime(20));
+  expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+  fireEvent.touchEnd(plot, { touches: [], changedTouches: stylus });
+  fireEvent.touchCancel(plot, { touches: [], changedTouches: stylus });
+  fireEvent.touchStart(plot, { touches: [{ clientX: 0, clientY: 100 }] });
+  act(() => vi.advanceTimersByTime(300));
+  expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+  pen('pointerup', 300);
+  expect(screen.queryByText('Mon, Sep 7')).toBeNull();
+});
 it('scrubs by keyboard, announces keyboard changes and resets on Escape', () => {
   const { container } = view();
   const plot = screen.getByRole('img');

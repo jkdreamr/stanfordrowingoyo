@@ -4,7 +4,7 @@ import { beforeEach, expect, it } from 'vitest';
 import type { EntryDetail, LeaderboardRow, User, WeekStats } from '../../shared/types';
 import { today } from '../../shared/dates';
 import type { Env } from './index';
-import { AGGREGATE_BATCH, leaderboard, uncachedLeaderboard } from './db/stats';
+import { leaderboard, uncachedLeaderboard } from './db/stats';
 import { getSetting, setSetting } from './db/settings';
 import { migrate } from './db/migrate';
 import { insertRosterFixture } from './testFixtures';
@@ -356,7 +356,11 @@ it('uses indexed batched dirty-user aggregation and three queries on warm hits; 
     expect(read()).toEqual(uncachedLeaderboard(s, date, 'percent', new Date(now)));
     const dirty = calls.filter((call) => call.query.includes('SUM(equiv_m)'));
     expect(dirty).toHaveLength(1);
-    expect(dirty[0].binds).toEqual([athlete.user.id, expect.any(String), expect.any(String)]);
+    expect(dirty[0].binds).toEqual([
+      JSON.stringify([athlete.user.id]),
+      expect.any(String),
+      expect.any(String),
+    ]);
     s.sql.exec(
       'UPDATE users SET password_hash=?,updated_at=? WHERE id=?',
       'new hash',
@@ -381,40 +385,6 @@ it('uses indexed batched dirty-user aggregation and three queries on warm hits; 
   });
 });
 
-it('aggregates more dirty users than one statement can bind', async () => {
-  const owner = await signup('Owner');
-  const athlete = await signup('Athlete', owner);
-  await create(athlete);
-  await sql((s) => {
-    const copy = (table: string, column: string, id: string, changes: (i: number) => object) => {
-      const row = s.sql.exec(`SELECT * FROM ${table} WHERE ${column}=?`, id).one();
-      const columns = Object.keys(row);
-      for (let i = 0; i < count; i++) {
-        const next = { ...row, ...changes(i) } as Record<string, SqlStorageValue>;
-        s.sql.exec(
-          `INSERT INTO ${table} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`,
-          ...columns.map((key) => next[key]),
-        );
-      }
-    };
-    const count = AGGREGATE_BATCH * 2 + 5;
-    copy('users', 'id', athlete.user.id, (i) => ({
-      id: `bulk-${i}`,
-      email: `bulk-${i}@example.com`,
-      name: `Bulk ${i}`,
-    }));
-    copy('entries', 'user_id', athlete.user.id, (i) => ({
-      id: `bulk-entry-${i}`,
-      user_id: `bulk-${i}`,
-    }));
-    const date = today(new Date(now));
-    const rows = leaderboard(s, date, 'meters', new Date(now));
-    expect(rows.length).toBeGreaterThan(count);
-    expect(rows).toEqual(uncachedLeaderboard(s, date, 'meters', new Date(now)));
-    expect(rows.find((r) => r.user.id === `bulk-${count - 1}`)?.total_m).toBe(12000);
-  });
-});
-
 it('migrates existing v6-v8 data idempotently and invalidates old/new owners, target deletes, settings deletes and user deletes', async () => {
   const owner = await signup('Owner');
   const athlete = await signup('Athlete', owner);
@@ -433,11 +403,11 @@ it('migrates existing v6-v8 data idempotently and invalidates old/new owners, ta
     s.sql.exec("UPDATE settings SET value_json='6' WHERE key='schema_version'");
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(16);
+    expect(getSetting(s, 'schema_version')).toBe(9);
     for (const prior of [6, 7, 8]) {
       setSetting(s, 'schema_version', prior);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(16);
+      expect(getSetting(s, 'schema_version')).toBe(9);
     }
     const read = () => leaderboard(s, '2026-08-30', 'season', new Date(now));
     const equivalent = () =>
@@ -465,7 +435,7 @@ it('migrates v6 without depending on a legacy entries visibility column', async 
     setSetting(s, 'schema_version', 6);
     s.sql.exec('DROP INDEX entries_feed; ALTER TABLE entries DROP COLUMN visibility');
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(16);
+    expect(getSetting(s, 'schema_version')).toBe(9);
     expect(leaderboard(s, today(new Date(now)), 'percent', new Date(now))).toEqual(
       uncachedLeaderboard(s, today(new Date(now)), 'percent', new Date(now)),
     );

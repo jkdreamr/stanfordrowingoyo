@@ -246,7 +246,6 @@ type LeaderboardMemo = {
 };
 const leaderboardMemos = new WeakMap<DurableObjectStorage, LeaderboardMemo>();
 
-export const AGGREGATE_BATCH = 90;
 export function leaderboard(
   storage: DurableObjectStorage,
   date: string,
@@ -307,21 +306,14 @@ export function leaderboard(
   );
   if (stale.length) {
     const targets = loadTargets(storage);
-    const aggregates: EntryAggregate[] = [];
-    // Durable Object SQLite allows at most 100 bound parameters per statement.
-    for (let i = 0; i < stale.length; i += AGGREGATE_BATCH) {
-      const batch = stale.slice(i, i + AGGREGATE_BATCH);
-      aggregates.push(
-        ...storage.sql
-          .exec<EntryAggregate>(
-            `SELECT user_id,date,week_start,modality,zone,SUM(equiv_m) AS equiv_m,COUNT(*) AS entry_count FROM entries WHERE user_id IN (${batch.map(() => '?').join(',')}) AND week_start >= ? AND week_start <= ? GROUP BY user_id,week_start,date,modality,zone`,
-            ...batch.map((user) => user.id),
-            weekStart(range.start),
-            weekStart(lastDate),
-          )
-          .toArray(),
-      );
-    }
+    const aggregates = storage.sql
+      .exec<EntryAggregate>(
+        'SELECT user_id,date,week_start,modality,zone,SUM(equiv_m) AS equiv_m,COUNT(*) AS entry_count FROM entries WHERE user_id IN (SELECT value FROM json_each(?)) AND week_start >= ? AND week_start <= ? GROUP BY user_id,week_start,date,modality,zone',
+        JSON.stringify(stale.map((user) => user.id)),
+        weekStart(range.start),
+        weekStart(lastDate),
+      )
+      .toArray();
     const byUser = new Map<string, EntryAggregate[]>();
     for (const entry of aggregates) {
       const entries = byUser.get(entry.user_id) ?? [];

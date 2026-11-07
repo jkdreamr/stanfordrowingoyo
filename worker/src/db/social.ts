@@ -52,12 +52,15 @@ export function comments(storage: DurableObjectStorage, entry: string): CommentW
   if (!rows.length) return [];
   const ids = [...new Set(rows.map((row) => row.user_id))];
   const authors = storage.sql
-    .exec<UserRow>(`SELECT * FROM users WHERE id IN (${ids.map(() => '?').join(',')})`, ...ids)
+    .exec<UserRow>(
+      'SELECT * FROM users WHERE id IN (SELECT value FROM json_each(?))',
+      JSON.stringify(ids),
+    )
     .toArray();
   const mentions = storage.sql
     .exec<UserRow & { comment_id: string }>(
-      `SELECT u.*,m.comment_id FROM comment_mentions m JOIN users u ON u.id=m.user_id WHERE u.active=1 AND m.comment_id IN (${rows.map(() => '?').join(',')}) ORDER BY u.name,u.id`,
-      ...rows.map((row) => row.id),
+      'SELECT u.*,m.comment_id FROM comment_mentions m JOIN users u ON u.id=m.user_id WHERE u.active=1 AND m.comment_id IN (SELECT value FROM json_each(?)) ORDER BY u.name,u.id',
+      JSON.stringify(rows.map((row) => row.id)),
     )
     .toArray();
   return rows.map((row) => ({

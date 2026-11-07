@@ -12,7 +12,10 @@ export function announcements(storage: DurableObjectStorage): Announcement[] {
   if (!rows.length) return [];
   const ids = [...new Set(rows.map((row) => row.author_id))];
   const authors = storage.sql
-    .exec<UserRow>(`SELECT * FROM users WHERE id IN (${ids.map(() => '?').join(',')})`, ...ids)
+    .exec<UserRow>(
+      'SELECT * FROM users WHERE id IN (SELECT value FROM json_each(?))',
+      JSON.stringify(ids),
+    )
     .toArray();
   return rows.map((row) => ({
     ...row,
