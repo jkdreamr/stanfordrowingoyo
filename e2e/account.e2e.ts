@@ -99,7 +99,7 @@ test('admin confirms permanent rower removal and linked content disappears', asy
     .getByRole('button', { name: 'Remove Account', exact: true })
     .click();
   const sheet = adminPage.getByRole('dialog', { name: 'Remove Account?', exact: true });
-  const remove = sheet.getByRole('button', { name: 'Remove Account', exact: true });
+  const remove = sheet.getByRole('button', { name: 'Remove', exact: true });
   await expect(remove).toBeDisabled();
   await sheet.getByLabel('Confirm Email', { exact: true }).fill('incorrect@example.com');
   await expect(remove).toBeDisabled();

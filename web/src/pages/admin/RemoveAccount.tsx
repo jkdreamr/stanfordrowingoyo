@@ -58,7 +58,7 @@ export function RemoveAccount({
             disabled={email.trim().toLowerCase() !== user.email.toLowerCase()}
             onClick={() => void remove()}
           >
-            Remove Account
+            Remove
           </Button>
         </div>
       }

@@ -38,15 +38,11 @@ function setup() {
 }
 it('requires the exact account email and lets the admin cancel without a request', () => {
   const { close } = setup();
-  expect(
-    (screen.getByRole('button', { name: 'Remove Account' }) as HTMLButtonElement).disabled,
-  ).toBe(true);
+  expect((screen.getByRole('button', { name: 'Remove' }) as HTMLButtonElement).disabled).toBe(true);
   fireEvent.change(screen.getByLabelText('Confirm Email'), {
     target: { value: 'wrong@example.com' },
   });
-  expect(
-    (screen.getByRole('button', { name: 'Remove Account' }) as HTMLButtonElement).disabled,
-  ).toBe(true);
+  expect((screen.getByRole('button', { name: 'Remove' }) as HTMLButtonElement).disabled).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
   expect(close).toHaveBeenCalledOnce();
   expect(request).not.toHaveBeenCalled();
@@ -54,7 +50,7 @@ it('requires the exact account email and lets the admin cancel without a request
 it('submits confirmed removal, invalidates cached views and closes after success', async () => {
   const { user, onRemoved, invalidate } = setup();
   fireEvent.change(screen.getByLabelText('Confirm Email'), { target: { value: user.email } });
-  fireEvent.click(screen.getByRole('button', { name: 'Remove Account' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Remove' }));
   await waitFor(() => expect(onRemoved).toHaveBeenCalledOnce());
   expect(request).toHaveBeenCalledWith('POST /api/admin/users/:id/remove', {
     params: { id: user.id },
@@ -66,7 +62,7 @@ it('keeps confirmation on an error so the admin can retry', async () => {
   request.mockRejectedValueOnce(new TypeError('offline'));
   const { user, onRemoved } = setup();
   fireEvent.change(screen.getByLabelText('Confirm Email'), { target: { value: user.email } });
-  fireEvent.click(screen.getByRole('button', { name: 'Remove Account' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Remove' }));
   expect(
     await screen.findByText('Could not connect. Check your connection and try again'),
   ).toBeTruthy();
