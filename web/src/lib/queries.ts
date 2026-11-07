@@ -67,14 +67,17 @@ export function useEntries(scope: Query<'GET /api/entries'>['scope'] = 'feed') {
 export function useEntry(id: string) {
   return queryHook('GET /api/entries/:id')({ params: { id } }, !!id);
 }
+export function useKudosGivers(id: string, enabled: boolean) {
+  return queryHook('GET /api/entries/:id/kudos')({ params: { id } }, enabled && !!id);
+}
 export function useComments(id: string) {
   return queryHook('GET /api/entries/:id/comments')({ params: { id } }, !!id);
 }
 export function useImage(id: string) {
   return queryHook('GET /api/images/:id')({ params: { id } }, !!id);
 }
-export function useWeekStats(query: Query<'GET /api/stats/week'> = {}) {
-  return queryHook('GET /api/stats/week')({ query });
+export function useWeekStats(query: Query<'GET /api/stats/week'> = {}, enabled = true) {
+  return queryHook('GET /api/stats/week')({ query }, enabled);
 }
 export function useSeasonStats(query: Query<'GET /api/stats/season'> = {}) {
   return queryHook('GET /api/stats/season')({ query });

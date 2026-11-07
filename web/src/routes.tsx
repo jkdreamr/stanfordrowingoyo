@@ -17,6 +17,7 @@ import EntryDetail from './pages/EntryDetail';
 import Leaderboard from './pages/Leaderboard';
 import Me from './pages/Me';
 import RowerProfile from './pages/RowerProfile';
+import Team from './pages/Team';
 import Plan from './pages/Plan';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
@@ -70,6 +71,7 @@ export const router = createBrowserRouter([
               { path: '/leaderboard', element: <Leaderboard /> },
               { path: '/me', element: <Me /> },
               { path: '/users/:id', element: <RowerProfile /> },
+              { path: '/team', element: <Team /> },
               { path: '/plan', element: <Plan /> },
               { path: '/notifications', element: <Notifications /> },
               { path: '/settings', element: <Settings /> },

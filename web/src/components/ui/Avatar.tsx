@@ -7,7 +7,7 @@ export function Avatar({
 }: {
   name: string;
   imageId?: string | null;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'feed';
 }) {
   const [failed, setFailed] = useState<string | null>(null);
   const initials =

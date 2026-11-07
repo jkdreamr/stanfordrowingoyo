@@ -726,6 +726,32 @@ describe('mock mutations and errors', () => {
     expect((await request(`/entries/${entry.id}`, 'DELETE')).status).toBe(204);
     expect((await request(`/entries/${entry.id}`)).status).toBe(404);
   });
+  it('returns public kudos givers newest first with user-id ties and respects entry visibility', async () => {
+    const { request, state } = setup();
+    const entry: EntryDetail = await (await request('/entries', 'POST', input)).json();
+    state.kudos[entry.id] = [
+      { user_id: 'user-2', created_at: '2026-11-05T12:00:00Z' },
+      { user_id: 'user-3', created_at: '2026-11-06T12:00:00Z' },
+      { user_id: 'user-1', created_at: '2026-11-06T12:00:00.000Z' },
+    ];
+    const givers = await (await request(`/entries/${entry.id}/kudos`)).json();
+    expect(givers.map((u: { id: string }) => u.id)).toEqual(['user-1', 'user-3', 'user-2']);
+    expect(givers.every((u: object) => !('email' in u))).toBe(true);
+    state.kudos[entry.id] = [];
+    expect(await (await request(`/entries/${entry.id}/kudos`)).json()).toEqual([]);
+    await request(`/entries/${entry.id}/kudos`, 'POST');
+    await request(`/entries/${entry.id}/kudos`, 'POST');
+    expect(state.kudos[entry.id]).toHaveLength(1);
+    await request(`/entries/${entry.id}/kudos`, 'DELETE');
+    expect(await (await request(`/entries/${entry.id}/kudos`)).json()).toEqual([]);
+    expect((await request('/entries/missing/kudos')).status).toBe(404);
+    const privateEntry = state.entries.find(
+      (e) => e.user_id !== 'user-1' && e.visibility === 'private',
+    )!;
+    expect((await request(`/entries/${privateEntry.id}/kudos`)).status).toBe(404);
+    await request('/auth/logout', 'POST');
+    expect((await request(`/entries/${entry.id}/kudos`)).status).toBe(401);
+  });
   it('enforces session and staff gates, persists session callbacks and supports admin resources', async () => {
     const { request } = setup();
     expect((await request('/admin/users')).status).toBe(403);
