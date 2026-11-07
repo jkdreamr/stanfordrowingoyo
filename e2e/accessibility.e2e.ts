@@ -10,6 +10,9 @@ async function checkTargets(page: Page) {
       document.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea'),
     ).flatMap((control) => {
       if (control.closest('[inert], [aria-hidden="true"]') || control.hidden) return [];
+      // Only inline text links inside prose are exempt from standalone target sizes.
+      if (control.matches('p a, .ui-prose a') && getComputedStyle(control).display === 'inline')
+        return [];
       // Native visually-hidden radios use their enclosing label as the hit target.
       const target = control.matches('input[type="radio"], input[type="checkbox"]')
         ? (control.closest('label') ?? control)

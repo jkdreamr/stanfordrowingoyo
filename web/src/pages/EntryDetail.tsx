@@ -169,7 +169,7 @@ export default function EntryDetail() {
                                 <Link
                                   key={index}
                                   to={`/users/${segment.userId}`}
-                                  className="inline-flex min-h-11 items-center text-accent-ink underline-offset-2 hover:underline"
+                                  className="text-accent-ink underline-offset-2 hover:underline"
                                 >
                                   {segment.text}
                                 </Link>

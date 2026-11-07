@@ -5,7 +5,7 @@
 @layer base {
   :where(
     button,
-    a[href],
+    a[href]:not(p a, .ui-prose a),
     input:not([type='radio'], [type='checkbox'], [type='file']),
     select,
     textarea
@@ -13,7 +13,7 @@
     min-width: 44px;
     min-height: 44px;
   }
-  :where(a[href]) {
+  :where(a[href]:not(p a, .ui-prose a)) {
     display: inline-flex;
     align-items: center;
   }
