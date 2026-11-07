@@ -76,6 +76,11 @@ export function auditEntry(
     'announcement.update': `updated “${subject}”`,
     'announcement.delete': `deleted “${subject}”`,
     'plan.replace': 'updated the team training plan',
+    'plan.upsert': before.group_key ? 'updated a team plan session' : 'added a team plan session',
+    'plan.delete': 'deleted a team plan session',
+    'entry.update': target ? `updated the workout “${target}”` : 'updated a workout',
+    'entry.delete': target ? `deleted the workout “${target}”` : 'deleted a workout',
+    'comment.delete': 'deleted a comment',
   };
   const changes: string[] = [];
   if (typeof after.imported === 'number')

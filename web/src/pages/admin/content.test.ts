@@ -104,6 +104,65 @@ describe('announcement logic', () => {
   });
 });
 describe('human audit records', () => {
+  it.each([
+    ['entry.delete', { title: 'QA bike D 12k' }, null, 'deleted the workout “QA bike D 12k”'],
+    ['entry.delete', null, null, 'deleted a workout'],
+    [
+      'entry.update',
+      { title: 'QA bike D 12k' },
+      { title: 'Lunch Ride' },
+      'updated the workout “Lunch Ride”',
+    ],
+    ['entry.update', null, null, 'updated a workout'],
+    ['comment.delete', { body: 'Private comment text' }, null, 'deleted a comment'],
+    ['plan.upsert', null, { group_key: 'normal' }, 'added a team plan session'],
+    [
+      'plan.upsert',
+      { group_key: 'normal' },
+      { group_key: 'normal' },
+      'updated a team plan session',
+    ],
+    ['plan.delete', { group_key: 'normal' }, null, 'deleted a team plan session'],
+  ])(
+    'describes %s without a generic changed-record fallback',
+    (action, before, after, expected) => {
+      const result = auditEntry(
+        {
+          action: action as string,
+          target: 'deleted-id',
+          detail_json: JSON.stringify({ before, after }),
+        },
+        new Map(),
+      );
+      expect(result.sentence).toBe(expected);
+    },
+  );
+  it.each([
+    'settings.update',
+    'entries.recalculate',
+    'user.reset-password',
+    'user.update',
+    'roster.create',
+    'roster.update',
+    'roster.delete',
+    'roster.unlink',
+    'roster.import',
+    'preset.create',
+    'preset.update',
+    'preset.delete',
+    'announcement.create',
+    'announcement.update',
+    'announcement.delete',
+    'plan.replace',
+    'plan.upsert',
+    'plan.delete',
+    'entry.update',
+    'entry.delete',
+    'comment.delete',
+  ])('maps the worker action %s to explicit wording even without details', (action) => {
+    const result = auditEntry({ action, target: 'record', detail_json: '{}' }, new Map());
+    expect(result.sentence).not.toMatch(/^changed /);
+  });
   it('uses Title Case for side values and a readable plan action', () => {
     expect(
       auditEntry(

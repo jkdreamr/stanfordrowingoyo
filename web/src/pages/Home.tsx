@@ -125,6 +125,9 @@ export default function Page() {
           </p>
         </ActionCard>
         <TodaysPlan today={config.today} />
+        <ListGroup>
+          <ListRow title="Announcements" to="/announcements" />
+        </ListGroup>
         {!week.hit_target && (
           <Card>
             <h2 className="text-headline">Finish This Week</h2>

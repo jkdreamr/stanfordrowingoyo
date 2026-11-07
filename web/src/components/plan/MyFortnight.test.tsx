@@ -216,7 +216,7 @@ it('optimistically updates every matching date query, rolls back on 409 and reta
 it('shows today’s prefilled log link and replaces it with the completed workout link', async () => {
   const { client, call } = await setup({ seed: 'current', home: true });
   await screen.findByRole('heading', { name: "Today's Plan" });
-  expect(screen.getByRole('link', { name: /Steady Row/ }).getAttribute('href')).toBe(
+  expect((await screen.findByRole('link', { name: /Steady Row/ })).getAttribute('href')).toBe(
     '/log?modality=erg&zone=E&distance=12000',
   );
   const entry = await (
@@ -259,10 +259,13 @@ it('keeps the completed check inside the edit button and the entry link separate
   fireEvent.click(button);
   expect(screen.getByRole('dialog', { name: 'Edit Session' })).toBeTruthy();
 });
-it('hides the Home card without a current plan', async () => {
+it('links to both fortnights from Home without a current plan', async () => {
   const { client } = await setup({ home: true });
   await waitFor(() => expect(client.getQueryData(qk.myPlan())).toBeNull());
-  expect(screen.queryByRole('heading', { name: "Today's Plan" })).toBeNull();
+  expect(screen.getByRole('heading', { name: "Today's Plan" })).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Sample Fortnight' }).getAttribute('href')).toBe('/plan');
+  fireEvent.click(screen.getByRole('link', { name: 'My Fortnight' }));
+  expect(await screen.findByRole('button', { name: 'Start Blank' })).toBeTruthy();
 });
 it('shows Nothing Planned or Rest Day with the My Fortnight link', async () => {
   const { call, client } = await setup({ home: true });

@@ -9,7 +9,7 @@ import {
   notificationVerb,
   relativeTime,
 } from '../lib/social';
-import { Avatar, EmptyState, PageHeader, Sheet } from '../components/ui';
+import { Avatar, EmptyState, ListGroup, ListRow, PageHeader, Sheet } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 
 export default function Notifications() {
@@ -35,6 +35,9 @@ export default function Notifications() {
     <>
       <PageHeader title="Notifications" back="/feed" />
       <div className="screen-stack">
+        <ListGroup>
+          <ListRow title="Announcements" to="/announcements" />
+        </ListGroup>
         {!query.data ? (
           <LoadState error={query.isError} retry={() => void query.refetch()} />
         ) : !query.data.length ? (

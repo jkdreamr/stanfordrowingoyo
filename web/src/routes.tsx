@@ -20,6 +20,7 @@ import RowerProfile from './pages/RowerProfile';
 import Team from './pages/Team';
 import Plan from './pages/Plan';
 import Notifications from './pages/Notifications';
+import AnnouncementList from './pages/Announcements';
 import Settings from './pages/Settings';
 import EditProfile from './pages/EditProfile';
 import WeeklyTarget from './pages/WeeklyTarget';
@@ -74,6 +75,7 @@ export const router = createBrowserRouter([
               { path: '/team', element: <Team /> },
               { path: '/plan', element: <Plan /> },
               { path: '/notifications', element: <Notifications /> },
+              { path: '/announcements', element: <AnnouncementList /> },
               { path: '/settings', element: <Settings /> },
               { path: '/me/edit', element: <EditProfile /> },
               { path: '/me/target', element: <WeeklyTarget /> },
