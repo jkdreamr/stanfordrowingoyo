@@ -5,7 +5,7 @@ import type { EntryDetail, LeaderboardRow, User, WeekStats } from '../../shared/
 import { today } from '../../shared/dates';
 import type { Env } from './index';
 import { leaderboard, uncachedLeaderboard } from './db/stats';
-import { getSetting } from './db/settings';
+import { getSetting, setSetting } from './db/settings';
 import { migrate } from './db/migrate';
 import { insertRosterFixture } from './testFixtures';
 import { byId } from './db/users';
@@ -400,6 +400,9 @@ it('migrates existing v6 data idempotently and invalidates old/new owners, targe
     migrate(s);
     migrate(s);
     expect(getSetting(s, 'schema_version')).toBe(7);
+    setSetting(s, 'schema_version', 6);
+    migrate(s);
+    expect(getSetting(s, 'schema_version')).toBe(7);
     const read = () => leaderboard(s, '2026-08-30', 'season', new Date(now));
     const equivalent = () =>
       expect(read()).toEqual(uncachedLeaderboard(s, '2026-08-30', 'season', new Date(now)));
@@ -416,5 +419,19 @@ it('migrates existing v6 data idempotently and invalidates old/new owners, targe
       s.sql.exec(query, ...binds);
       equivalent();
     }
+  });
+});
+
+it('migrates v6 without depending on a legacy entries visibility column', async () => {
+  const owner = await signup('Owner');
+  await create(owner);
+  await sql((s) => {
+    setSetting(s, 'schema_version', 6);
+    s.sql.exec('DROP INDEX entries_feed; ALTER TABLE entries DROP COLUMN visibility');
+    migrate(s);
+    expect(getSetting(s, 'schema_version')).toBe(7);
+    expect(leaderboard(s, today(new Date(now)), 'percent', new Date(now))).toEqual(
+      uncachedLeaderboard(s, today(new Date(now)), 'percent', new Date(now)),
+    );
   });
 });
