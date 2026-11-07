@@ -225,12 +225,16 @@ presets(id PK, modality, zone, name, distance_m INT NULL, sort INT, active INT) 
 plan_slots(group_key, week INT (1|2), day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
            PK(group_key, week, day, slot))
 plan_totals(group_key, week, label)     -- e.g. "60k Equivalent"
+my_plans(user_id, start_date, rest_days_json, updated_at, PK(user_id, start_date))
+my_plan_sessions(user_id, start_date, week, day, slot, modality, zone, distance_m NULL, note,
+                 PK(user_id, start_date, week, day, slot))
 notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'), actor_id, entry_id NULL, created_at, read_at NULL)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
-Version 7 adds idempotent tag/mention tables and indexes; parallel PRs may renumber migrations.
+Version 7 adds idempotent tag/mention tables and indexes.
+Version 8 adds personal plans and sessions after version 7; both migrations are idempotent and transactional.
 Entry deletion removes tags and mentions; comment deletion transactionally removes its mentions.
 Tags are social only and never credit the tagged user's meters, statistics or leaderboard.
 Version 3 deliberately drops the legacy email-keyed roster and rebuilds/seeds the id-keyed roster (nothing deployed).
@@ -244,8 +248,28 @@ Version 5 adds `reauth_grants(token_hash PK, session_hash, user_id, credential_h
 Expired grants are cleaned when issuing a new one; deletion consumes a grant, never storing its plaintext token.
 Version 6 converts every legacy private entry to `team` without modifying workout content or timestamps. The update
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
+Version 8 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
+with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key indexes owner/date windows.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
+
+Alongside the group/team Plan, My Fortnight is personal: `GET /api/me/plan?date=YYYY-MM-DD`
+returns `MyPlan | null` for the 14-day window containing date (default today in America/Los_Angeles).
+`PUT /api/me/plan` takes `MyPlanInput` and atomically replaces the plan starting on its Monday
+`start_date`; another start within ±13 days returns 409, while ±14-day neighbours are allowed.
+`DELETE /api/me/plan/:start` deletes only the authenticated owner's plan (204; absent = 404).
+No route accepts a user parameter or provides staff access to another person's plan. Personal plans
+are excluded from CSV exports and audit logs. Existing /me session and deactivation guards apply.
+`MyPlanInput` contains `start_date`, `sessions` (at most 42) and `rest_days` (at most 14).
+Each session has week 1|2, integer day 0=Monday..6, slot AM|PM1|PM2, valid modality/zone,
+nullable integer distance_m 1..200000 and a trimmed note of at most 200 characters.
+Session keys and rest days must be unique; sessions on rest days are rejected (400 VALIDATION_ERROR).
+`MyPlan` adds `updated_at`, per-week `planned_m: [number, number]`, and per-session
+`equiv_m` (null for unknown distance) and `completed_entry_id`. Equivalents are computed on read
+with current settings factors, never snapshotted. Completion uses the owner's workout `date`,
+without a visibility predicate, within the inclusive 14-day window. Per day, sessions in AM, PM1, PM2
+order greedily consume the oldest unmatched same-modality entry by created_at then id.
+Deleted entries do not count. GET uses a constant number of SQL queries, including one entry query.
 
 Entry input accepts optional `tagged_user_ids: string[]`: POST sets tags; PATCH replaces the
 set only when supplied. Entry itself omits this input-only field; EntryDetail adds

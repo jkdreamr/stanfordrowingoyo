@@ -3,6 +3,7 @@ import { authenticate, requireUser } from './auth/guards';
 import { HttpError, errorResponse, json } from './http';
 import * as auth from './routes/auth';
 import * as me from './routes/me';
+import * as myPlan from './routes/myPlan';
 import * as config from './routes/config';
 import * as entries from './routes/entries';
 import * as images from './routes/images';
@@ -76,6 +77,9 @@ const routes: Route[] = [
   { method: 'POST', path: '/api/me/password/verify', handler: unavailable },
   { method: 'GET', path: '/api/me/target', handler: me.target },
   { method: 'PUT', path: '/api/me/target', handler: me.putTarget },
+  { method: 'GET', path: '/api/me/plan', handler: myPlan.get },
+  { method: 'PUT', path: '/api/me/plan', handler: myPlan.put },
+  { method: 'DELETE', path: '/api/me/plan/:start', handler: myPlan.remove },
   { method: 'GET', path: '/api/config', handler: config.get },
   { method: 'GET', path: '/api/entries', handler: entries.list },
   { method: 'POST', path: '/api/entries', handler: entries.create },

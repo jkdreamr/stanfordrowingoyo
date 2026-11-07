@@ -144,6 +144,8 @@ describe('entries and images', () => {
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entry_tags').toArray()).toEqual([]);
       expect(storage.sql.exec('SELECT * FROM comment_mentions').toArray()).toEqual([]);
+      expect(storage.sql.exec('SELECT * FROM my_plans').toArray()).toEqual([]);
+      expect(storage.sql.exec('SELECT * FROM my_plan_sessions').toArray()).toEqual([]);
       expect(
         storage.sql.exec("SELECT value_json FROM settings WHERE key='schema_version'").one()
           .value_json,

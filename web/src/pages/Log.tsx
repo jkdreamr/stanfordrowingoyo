@@ -47,6 +47,7 @@ import {
   ZoneOption,
 } from '../components/ui';
 import { FormErrors } from '../components/auth/FormErrors';
+import { logPrefill } from '../lib/myPlan';
 import { LoadState } from '../components/shell/LoadState';
 export default function Log() {
   const [params] = useSearchParams();
@@ -67,12 +68,13 @@ export default function Log() {
     );
   return (
     <LogForm
-      key={`${edit}:${params.get('preset') ?? ''}`}
+      key={`${edit}:${params.toString()}`}
       config={config.data}
       user={me.data}
       entry={edit ? entry.data : undefined}
       preset={config.data.presets.find((p) => p.id === params.get('preset') && p.active)}
       detailsOpen={params.get('details') === '1'}
+      prefill={logPrefill(params)}
     />
   );
 }
@@ -82,14 +84,16 @@ function LogForm({
   entry,
   preset,
   detailsOpen,
+  prefill,
 }: {
   config: Config;
   user: User;
   entry?: EntryDetail;
   preset?: Preset;
   detailsOpen: boolean;
+  prefill: ReturnType<typeof logPrefill>;
 }) {
-  const initial = logDraft(config.today, entry, preset);
+  const initial = { ...logDraft(config.today, entry, preset), ...prefill };
   const [draft, setDraft] = useState(initial);
   const [details, setDetails] = useState(
     detailsOpen ||

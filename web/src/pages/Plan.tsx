@@ -18,6 +18,7 @@ import {
 } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 import { PlanWeek } from '../components/plan/PlanWeek';
+import { MyFortnight } from '../components/plan/MyFortnight';
 import { scheduleWeeks } from '../components/plan/schedule';
 import { formulaFactor, targetDistance, zonePace } from './plan/calculator';
 const GROUPS = [
@@ -32,6 +33,7 @@ const MODES = [
 ] as const;
 const NAMES = {
   schedule: 'Schedule',
+  mine: 'My Fortnight',
   guidance: 'Guide',
   menu: 'Workouts',
   calculator: 'Calculator',
@@ -65,7 +67,7 @@ export default function Plan() {
   const config = useConfig();
   const me = useMe();
   return (
-    <div className="[&_.ui-tabs]:mx-4 max-sm:[&_.ui-tabs]:gap-2 max-sm:[&_.ui-tabs_button]:text-subhead">
+    <div className="[&_.ui-tabs]:mx-4 [&_.ui-tabs_button]:shrink-0 max-sm:[&_.ui-tabs]:gap-2 max-sm:[&_.ui-tabs_button]:text-caption">
       <PageHeader title="Plan" />
       <Tabs
         label="Plan"
@@ -85,6 +87,8 @@ export default function Plan() {
               />
             ) : value === 'schedule' ? (
               <Schedule initialGroup={me.data.group_key} />
+            ) : value === 'mine' ? (
+              <MyFortnight config={config.data} group={me.data.group_key} />
             ) : value === 'guidance' ? (
               <Guidance config={config.data} group={me.data.group_key} />
             ) : value === 'menu' ? (
@@ -105,7 +109,7 @@ function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
   const plan = usePlan({ group });
   return (
     <div className="screen-stack">
-      <h2 className="text-title3">This Fortnight</h2>
+      <h2 className="text-title3">Sample Fortnight</h2>
       <SegmentedControl label="Group" value={group} onChange={setGroup} options={GROUPS} />
       {!plan.data ? (
         <LoadState error={plan.isError} retry={() => void plan.refetch()} />

@@ -75,11 +75,12 @@ function traffic() {
       );
     if (path === '/api/config') return Response.json({ today: '2026-11-06' });
     if (path === '/api/leaderboard') return Response.json([]);
-    if (path === '/api/entries' && init.method === 'GET')
-      return Response.json({
-        items: [{ id: 'entry', user_id: 'other', images: [] }],
-        next_cursor: null,
-      });
+    if (path === '/api/entries')
+      return Response.json(
+        init.method === 'GET'
+          ? { items: [{ id: 'entry', user_id: 'other', images: [] }], next_cursor: null }
+          : { id: 'entry-1' },
+      );
     return Response.json({});
   });
 }
@@ -227,5 +228,60 @@ it.each([401, 500, 0])(
     expect(samples).toHaveLength(1);
     expect(samples[0]).toMatchObject({ endpoint: 'POST /api/auth/login', status });
     expect(fetcher).toHaveBeenCalledTimes(1);
+  },
+);
+
+it.each(['session', 'burst', 'both'])(
+  'reads each personal plan once and writes every fifth user plan in %s traffic',
+  async (scenario) => {
+    vi.useFakeTimers();
+    const fetcher = traffic();
+    vi.stubGlobal('fetch', fetcher);
+    const samples: Sample[] = [];
+    const pending = runScenarios(
+      parseOptions([
+        '--base-url',
+        'http://localhost',
+        '--users',
+        '10',
+        '--skip-signup',
+        '--auth-ramp',
+        '0',
+        '--scenario',
+        scenario,
+        '--burst-window',
+        '0',
+      ]),
+      samples,
+      {},
+    );
+    await vi.runAllTimersAsync();
+    expect(await pending).toBe(0);
+    const reads = fetcher.mock.calls.filter(
+      ([url, init]) => url.endsWith('/api/me/plan') && init.method === 'GET',
+    );
+    const writes = fetcher.mock.calls.filter(
+      ([url, init]) => url.endsWith('/api/me/plan') && init.method === 'PUT',
+    );
+    expect(reads).toHaveLength(10);
+    expect(writes).toHaveLength(2);
+    for (const [, init] of writes) {
+      expect(new Headers(init.headers).get('X-OYO-CSRF')).toBe('1');
+      expect(JSON.parse(init.body as string)).toEqual({
+        start_date: '2026-11-02',
+        sessions: [0, 2].map((day) => ({
+          week: 1,
+          day,
+          slot: 'AM',
+          modality: 'erg',
+          zone: 'E',
+          distance_m: 10000,
+          note: 'Load test personal session',
+        })),
+        rest_days: [],
+      });
+    }
+    expect(samples.filter((sample) => sample.endpoint === 'GET /api/me/plan')).toHaveLength(10);
+    expect(samples.filter((sample) => sample.endpoint === 'PUT /api/me/plan')).toHaveLength(2);
   },
 );

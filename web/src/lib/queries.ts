@@ -1,4 +1,4 @@
-/** Invalidation: entries -> entries, stats, leaderboard, users, me/target;
+/** Invalidation: entries -> entries, stats, leaderboard, users, me/target, me/plan;
  * me/group -> me/target, users, config, stats, leaderboard; target -> me/target, stats, leaderboard;
  * comments -> comments, entries; announcements -> announcements;
  * notifications/read -> notifications; admin writes -> resource, audit,
@@ -14,8 +14,10 @@ import {
   type QueryClient,
   type QueryKey,
 } from '@tanstack/react-query';
-import type { Api, EntryDetail } from '../../../shared/types';
-import { api, type RequestOptions } from './api';
+import type { Api, Config, EntryDetail, MyPlan, MyPlanInput } from '../../../shared/types';
+import { api, ApiClientError, type RequestOptions } from './api';
+import { useToast } from '../components/ui/Toast';
+import { covers, personalPlan } from './myPlan';
 type Get = Extract<keyof Api, `GET ${string}`>;
 type Write = Exclude<keyof Api, Get>;
 type Query<K extends keyof Api> = Api[K]['query'];
@@ -28,6 +30,9 @@ export const qk = {
   },
   me: () => ['api', 'me', 'GET /api/me', {}] as const,
   target: () => ['api', 'me', 'GET /api/me/target', {}] as const,
+  myPlans: () => ['api', 'me', 'GET /api/me/plan'] as const,
+  myPlan: (date?: string) =>
+    ['api', 'me', 'GET /api/me/plan', { query: date ? { date } : {} }] as const,
   entries: (scope: Query<'GET /api/entries'>['scope'] = 'feed') =>
     ['api', 'entries', 'GET /api/entries', { query: { scope } }] as const,
   entry: (id: string) => ['api', 'entries', 'GET /api/entries/:id', { params: { id } }] as const,
@@ -99,6 +104,75 @@ export function useNotifications() {
 }
 export function usePlan(query: Query<'GET /api/plan'> = {}) {
   return queryHook('GET /api/plan')({ query });
+}
+export function useMyPlan(date?: string, enabled = true) {
+  return queryHook('GET /api/me/plan')({ query: date ? { date } : {} }, enabled);
+}
+export function usePutMyPlan() {
+  const client = useQueryClient();
+  const toast = useToast();
+  return useMutation({
+    mutationKey: ['my-plan'],
+    mutationFn: (body: MyPlanInput) => api('PUT /api/me/plan', { body }),
+    onMutate: async (body) => {
+      await client.cancelQueries({ queryKey: qk.myPlans() });
+      const snapshots = client.getQueriesData<MyPlan | null>({ queryKey: qk.myPlans() });
+      const config = client.getQueryData<Config>(qk.request('GET /api/config', {}));
+      if (config)
+        for (const [key, previous] of snapshots) {
+          const date = (key[3] as { query?: { date?: string } }).query?.date ?? config.today;
+          if (covers(body, date)) {
+            const next = personalPlan(body, config, new Date().toISOString());
+            next.sessions = next.sessions.map((row) => ({
+              ...row,
+              completed_entry_id:
+                previous?.start_date === body.start_date
+                  ? (previous.sessions.find(
+                      (old) =>
+                        old.week === row.week &&
+                        old.day === row.day &&
+                        old.slot === row.slot &&
+                        old.modality === row.modality,
+                    )?.completed_entry_id ?? null)
+                  : null,
+            }));
+            client.setQueryData(key, next);
+          }
+        }
+      return snapshots;
+    },
+    onError: (error, _body, snapshots) => {
+      for (const [key, value] of snapshots ?? []) client.setQueryData(key, value);
+      toast.show({
+        title:
+          error instanceof ApiClientError && error.status === 409
+            ? 'Plan Overlap'
+            : 'Could Not Save Plan',
+        tone: 'error',
+      });
+    },
+    onSuccess: (plan) => {
+      const config = client.getQueryData<Config>(qk.request('GET /api/config', {}));
+      for (const [key] of client.getQueriesData({ queryKey: qk.myPlans() })) {
+        const date = (key[3] as { query?: { date?: string } }).query?.date ?? config?.today;
+        if (date && covers(plan, date)) client.setQueryData(key, plan);
+      }
+    },
+    onSettled: () => client.invalidateQueries({ queryKey: qk.myPlans() }),
+  });
+}
+export function useDeleteMyPlan() {
+  const client = useQueryClient();
+  const toast = useToast();
+  return useMutation({
+    mutationFn: (start: string) => api('DELETE /api/me/plan/:start', { params: { start } }),
+    onError: () => toast.show({ title: 'Could Not Delete Plan', tone: 'error' }),
+    onSuccess: async (_result, start) => {
+      for (const [key, value] of client.getQueriesData<MyPlan | null>({ queryKey: qk.myPlans() }))
+        if (value?.start_date === start) client.setQueryData(key, null);
+      await client.invalidateQueries({ queryKey: qk.myPlans() });
+    },
+  });
 }
 export function useAdminUsers() {
   return queryHook('GET /api/admin/users')({});
