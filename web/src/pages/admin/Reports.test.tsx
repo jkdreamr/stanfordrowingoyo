@@ -1,9 +1,18 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { createQueryClient } from '../../lib/queryClient';
+import { qk, useReports } from '../../lib/queries';
 import { createMockApi } from '../../mock/handlers';
 import { ToastProvider } from '../../components/ui';
 import Reports from './Reports';
@@ -114,4 +123,19 @@ it('keeps the report actionable after a failed decision', async () => {
   expect((screen.getByRole('button', { name: 'Dismiss' }) as HTMLButtonElement).disabled).toBe(
     false,
   );
+});
+
+it('does not fetch reports after logout even if the observer remains mounted', () => {
+  const client = createQueryClient();
+  clients.push(client);
+  client.setQueryData(qk.me(), null);
+  const fetcher = vi.fn();
+  vi.stubGlobal('fetch', fetcher);
+  const { result } = renderHook(() => useReports('open'), {
+    wrapper: ({ children }) => (
+      <QueryClientProvider client={client}>{children}</QueryClientProvider>
+    ),
+  });
+  expect(result.current.fetchStatus).toBe('idle');
+  expect(fetcher).not.toHaveBeenCalled();
 });

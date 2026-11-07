@@ -241,12 +241,14 @@ export function useAudit() {
   });
 }
 export function useReports(status: 'open' | 'dismissed' | 'deleted') {
+  const enabled = useSessionEnabled();
   return useInfiniteQuery({
     queryKey: qk.request('GET /api/admin/reports', { query: { status } }),
     initialPageParam: undefined as string | undefined,
     queryFn: ({ pageParam, signal }) =>
       api('GET /api/admin/reports', { query: { status, cursor: pageParam }, signal }),
     getNextPageParam: (page) => page.next_cursor ?? undefined,
+    enabled,
   });
 }
 export function invalidationKeys(endpoint: Write): QueryKey[] {
