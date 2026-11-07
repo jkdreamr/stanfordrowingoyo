@@ -37,9 +37,10 @@ test('erg tests record PRs, update bests, edit, delete and stay team-visible rea
         document.documentElement.classList.toggle('dark', value === 'dark');
       }, theme);
       await history.scrollIntoViewIfNeeded();
-      await history.screenshot({
+      await page.screenshot({
         path: join(process.env.E2E_SHOTS_DIR, `erg-history-${theme}.png`),
         animations: 'disabled',
+        fullPage: true,
       });
       await history.getByRole('button', { name: 'Add Test' }).click();
       const sheet = page.getByRole('dialog', { name: 'Add Test' });

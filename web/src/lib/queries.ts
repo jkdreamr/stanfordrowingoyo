@@ -84,6 +84,9 @@ export function useImage(id: string) {
 export function useWeekStats(query: Query<'GET /api/stats/week'> = {}, enabled = true) {
   return queryHook('GET /api/stats/week')({ query }, enabled);
 }
+export function useWeeklyRecap(week?: string, enabled = true) {
+  return queryHook('GET /api/stats/recap')({ query: week ? { week } : {} }, enabled);
+}
 export function useSeasonStats(query: Query<'GET /api/stats/season'> = {}) {
   return queryHook('GET /api/stats/season')({ query });
 }
