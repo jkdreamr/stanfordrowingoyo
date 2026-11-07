@@ -4,7 +4,6 @@ import {
   verifyPassword,
   temporaryPassword,
   requirePasswordPepper,
-  passwordNeedsUpgrade,
 } from './auth/crypto';
 import { checkCsrf } from './router';
 import { readJson, errorResponse, HttpError, json } from './http';
@@ -27,7 +26,13 @@ export default {
       const reset = /^\/api\/admin\/users\/([^/]+)\/reset-password$/.exec(path);
       if (
         request.method !== 'POST' ||
-        (!['/api/auth/signup', '/api/auth/login', '/api/me/password'].includes(path) && !reset)
+        (![
+          '/api/auth/signup',
+          '/api/auth/login',
+          '/api/me/password',
+          '/api/me/password/verify',
+        ].includes(path) &&
+          !reset)
       )
         return stub.fetch(request);
       const internal = (target: string, body: Record<string, unknown> = {}) => {
@@ -68,16 +73,15 @@ export default {
           return result;
         }
         const body = await readJson(request);
-        if (path === '/api/me/password') {
+        if (path === '/api/me/password/verify') {
           const current = v.string(body.current_password, 'Current password', 8, 200);
-          const next = v.string(body.new_password, 'New password', 8, 200);
-          if (current === next) v.invalid('New password must differ from the current password.');
           const response = await internal('me/password/challenge');
           if (!response.ok) return response;
           const credentials = await response.json<{
             user_id: string;
             password_hash: string;
             password_salt: string;
+            session_hash: string;
           }>();
           if (
             !(await verifyPassword(
@@ -88,9 +92,21 @@ export default {
             ))
           )
             throw new HttpError(401, 'INVALID_CREDENTIALS', 'Current password is incorrect.');
+          return internal('me/password/verified', credentials);
+        }
+        if (path === '/api/me/password') {
+          if ('current_password' in body)
+            v.invalid('Use /api/me/password/verify to verify the current password first.');
+          const next = v.string(body.new_password, 'New password', 8, 200);
+          const response = await internal('me/password/precheck', {
+            reauth_token: body.reauth_token,
+          });
+          if (!response.ok) return response;
+          const credentials = await response.json<Record<string, unknown>>();
           const { hash, salt } = await hashPassword(next, pepper);
           return internal('me/password/commit', {
             ...credentials,
+            reauth_token: body.reauth_token,
             new_password_hash: hash,
             new_password_salt: salt,
           });
@@ -130,15 +146,9 @@ export default {
           : (await hashPassword(password, pepper, 'AAAAAAAAAAAAAAAAAAAAAA=='), false);
         if (!valid)
           throw new HttpError(401, 'INVALID_CREDENTIALS', 'Email or password is incorrect.');
-        const upgrade = passwordNeedsUpgrade(credentials.password_hash!)
-          ? await hashPassword(password, pepper)
-          : undefined;
         return internal('auth/login/session', {
           email,
           ...credentials,
-          ...(upgrade
-            ? { upgraded_password_hash: upgrade.hash, upgraded_password_salt: upgrade.salt }
-            : {}),
         });
       } catch (error) {
         return errorResponse(error);

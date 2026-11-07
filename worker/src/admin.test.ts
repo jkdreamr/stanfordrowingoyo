@@ -104,6 +104,7 @@ const endpoints: Record<keyof Api, true> = {
   'GET /api/me': true,
   'PATCH /api/me': true,
   'POST /api/me/password': true,
+  'POST /api/me/password/verify': true,
   'GET /api/me/target': true,
   'PUT /api/me/target': true,
   'GET /api/config': true,
@@ -440,7 +441,6 @@ describe('users, roster and passwords', () => {
     expect(
       (
         await api('/me/password', rower, 'POST', {
-          current_password: temporary_password,
           new_password: 'newpassword123',
         })
       ).status,

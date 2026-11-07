@@ -102,6 +102,7 @@ it.each([undefined, '', '   '])(
         '/auth/signup',
         '/auth/login',
         '/me/password',
+        '/me/password/verify',
         '/admin/users/example/reset-password',
       ]) {
         const response = await worker.fetch(
@@ -127,13 +128,12 @@ it.each([undefined, '', '   '])(
   },
 );
 it.each([
-  [100000, undefined, true],
-  [10000, 1, true],
-  [20000, 0, true],
-  [30000, 1, false],
+  [10000, 1],
+  [20000, 0],
+  [30000, 1],
 ] as const)(
-  'upgrades only verified outdated hashes (%s iterations, version %s)',
-  async (iterations, version, upgraded) => {
+  'logs in without rehashing versioned hashes (%s iterations, version %s)',
+  async (iterations, version) => {
     const user = await register();
     const old = await stored(iterations, version);
     await sql((s) => {
@@ -169,16 +169,15 @@ it.each([
         )
         .one(),
     );
-    if (upgraded) expect(after.password_hash).toMatch(/^pbkdf2-sha256\$20000\$1\$/);
-    else expect(after.password_hash).toBe(old.hash);
+    expect(after.password_hash).toBe(old.hash);
     expect(
       await verifyPassword('password123', after.password_hash, after.password_salt, pepper),
     ).toBe(true);
   },
 );
-it('rejects a reset during login rehash without overwriting it or creating a session', async () => {
+it('rejects a reset during login verification without overwriting it or creating a session', async () => {
   const user = await register();
-  const old = await stored(100000);
+  const old = await stored(PASSWORD_ITERATIONS, PASSWORD_PEPPER_VERSION);
   const reset = await hashPassword('reset-password', pepper);
   await sql((s) => {
     s.sql.exec(
@@ -193,7 +192,7 @@ it('rejects a reset during login rehash without overwriting it or creating a ses
   let count = 0;
   const spy = vi.spyOn(crypto.subtle, 'deriveBits').mockImplementation(async (...args) => {
     const result = await original(...args);
-    if (++count === 2)
+    if (++count === 1)
       await sql((s) =>
         s.sql.exec(
           'UPDATE users SET password_hash=?,password_salt=?,must_change_password=1 WHERE id=?',

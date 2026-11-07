@@ -272,6 +272,22 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '4',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 5)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS reauth_grants (
+  token_hash TEXT PRIMARY KEY,
+  session_hash TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  credential_hash TEXT NOT NULL,
+  credential_salt TEXT NOT NULL,
+  expires_at TEXT NOT NULL
+);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '5',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

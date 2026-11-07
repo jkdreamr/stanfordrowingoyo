@@ -148,25 +148,33 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
   `password_salt` remains populated for compatibility. Missing/blank `PASSWORD_PEPPER` fails hashing/verifying
   endpoints closed with 500 INTERNAL and logs `PASSWORD_PEPPER secret is not configured`; other endpoints still work.
   Unknown-email login performs the same current HMAC+PBKDF2 work as a current-format verification.
-  Legacy unprefixed 100k/no-pepper hashes remain verifiable only for upgrade. After a successful login,
-  legacy hashes, lower iteration counts or older pepper versions are rehashed in the Worker and atomically
-  upgraded alongside session creation only if the verified credentials remain unchanged; otherwise 409.
-  Stronger current-version hashes are not downgraded. Pepper rotation requires a version bump and a plan
+  Every request performs at most one PBKDF2 derivation. Login never rehashes; stronger parameters apply
+  on the next password change or admin reset. Legacy unprefixed or unparseable hashes are rejected as
+  invalid credentials (401), with a warning that contains no hash material; affected users need a staff reset.
+  Versioned hashes verify using their stored parameters. Pepper rotation requires a version bump and a plan
   retaining access to old keys or resetting affected passwords: one configured secret does not retain retired keys.
-  The Free plan's 10 ms CPU budget motivates 20k; a legacy 100k verification can still exceed that budget,
-  in which case staff reset-password provisions a current-format password without legacy verification.
+  The Free plan's 10 ms CPU budget motivates 20k and the one-derivation rule.
   The DO rate-limits before derivation and re-validates account status and unchanged credentials before creating a session.
 - Sessions: random 32-byte token in an HttpOnly, Secure, SameSite=Lax cookie `oyo_session`, 60-day sliding expiry;
   only SHA-256(token) stored. Logout deletes it.
 - Password reset: staff generate a one-time temporary password for a user (shown once to staff); user must change on next login.
   Password changes and resets derive hashes in the Worker; the DO re-validates sessions, credentials and authorization before writing.
+- Normal password changes are two requests: verify the current password, then change using a re-auth grant.
+  The grant is a random 32-byte token; store only SHA-256(token), bound to session hash, user and the
+  credential hash/salt verified, with a five-minute TTL. Issuing and consuming grants recheck the live
+  session, active user and unchanged credentials synchronously after all awaits. Consumption and password
+  write are atomic; the write deletes all this user's grants and revokes other sessions. A forced change
+  (`must_change_password=1`) needs no grant, since login verified the temporary password. A normal change
+  with a missing/invalid/expired/used grant returns 401 REAUTH_REQUIRED. The legacy `current_password`
+  field on the change request is rejected with 400; it never triggers a second derivation. The new password
+  must be 8–200 characters; it is not compared to the old plaintext password across the two requests.
 - Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
   `TEAM_CODE` Worker secret, or a generated UUID when absent. Codes must be 4–64 letters, numbers or hyphens
   after trimming, including in admin settings PATCH. Invalid secrets (blank, short, long or invalid characters)
   are logged without their values and replaced by a generated UUID, not a startup failure.
   Existing settings are never overwritten; staff can change the code in Admin → Team settings.
   Join codes are compared trimmed and case-insensitively (constant-time) in roster discovery and signup.
-- Rate-limit login/signup (also password-change verification) with independent counters: 10 attempts per
+- Rate-limit login/signup (also password verification and change prechecks) with independent counters: 10 attempts per
   normalized email across IPs and 150 attempts per IP across emails, each over 15 minutes. The shared-IP
   budget permits campus NAT onboarding (60 signups plus later logins) while bounding authenticated abuse.
   Both are checked atomically in the DO before Worker crypto. Failures count; success clears only the
@@ -219,6 +227,8 @@ Version 4 adds read-path indexes: `entries(visibility,created_at DESC,id DESC)`,
 `entries(user_id,created_at DESC,id DESC)`, `comments(entry_id,created_at,id)`, `entry_images(image_id)`,
 and `notifications(user_id,created_at DESC,id DESC)`. Feed/mine, comments and notifications order by the matching
 timestamp/id direction; image-reference lookups use the image-id index.
+Version 5 adds `reauth_grants(token_hash PK, session_hash, user_id, credential_hash, credential_salt, expires_at)`.
+Expired grants are cleaned when issuing a new one; deletion consumes a grant, never storing its plaintext token.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -227,7 +237,14 @@ Mutation requests must use JSON/image Content-Type or send `X-OYO-CSRF: 1` (incl
 Auth: public `POST /api/auth/roster` ({team_code} → RosterChoice[]),
 `POST /api/auth/signup` ({team_code?, roster_id?, email, password, group_key?} → User),
 `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
-(name, bio, group_key, side, class_year, best splits, avatar), `POST /api/me/password`, `PUT /api/me/target` ({target_m} → current week onward).
+(name, bio, group_key, side, class_year, best splits, avatar), `PUT /api/me/target` ({target_m} → current week onward).
+Authenticated `POST /api/me/password/verify` takes `{ current_password: string }` and returns
+`{ reauth_token: string; expires_at: string }` (ISO). Wrong passwords return 401 INVALID_CREDENTIALS;
+verification shares the 10/email and 150/IP per 15 minutes limiter, checked before crypto.
+`POST /api/me/password` takes `{ new_password: string; reauth_token?: string }`, returns 204, and
+accepts no legacy `current_password` (400 VALIDATION_ERROR). The token is optional only for a forced
+change; otherwise missing, invalid, expired or reused tokens return 401 REAUTH_REQUIRED. Revoked sessions
+or inactive users return 401 UNAUTHENTICATED; credentials changed in flight return 409 CREDENTIALS_CHANGED.
 Config: `GET /api/config` (factors, group targets, season start, presets, zones list, server-computed
 `today` and `current_week_start` as YYYY-MM-DD in America/Los_Angeles) — public to logged-in users.
 `GET /api/me/target` returns the effective current-week target:

@@ -35,10 +35,13 @@ missing/blank values fail closed with 500 and an explicit server log. Other rout
 remain available. Use a high-entropy secret in deployment, never the example value.
 Passwords use HMAC-SHA256 with the pepper, then 20,000-iteration PBKDF2-SHA256
 (`PASSWORD_ITERATIONS` in `worker/src/auth/crypto.ts`) to fit the Free plan CPU budget.
-Hashes store their algorithm, iterations, pepper version, salt and digest. Legacy
-100k unpeppered hashes upgrade atomically after successful login. Legacy verification
-still costs 100k iterations once and may exceed Free CPU limits; staff password
-reset avoids that cost. Rotating the pepper requires bumping
+Hashes store their algorithm, iterations, pepper version, salt and digest. Every
+request performs at most one PBKDF2 derivation; login never rehashes. Unsupported
+or legacy unprefixed hashes fail login with 401 and require a staff reset. Stronger
+parameters apply on the next password change or admin reset. Password changes use
+`POST /api/me/password/verify` first, then `POST /api/me/password` with the returned
+five-minute, session-bound, single-use token (optional for forced changes).
+Rotating the pepper requires bumping
 `PASSWORD_PEPPER_VERSION`; the single-secret configuration does not retain old
 keys, so retire a key only with a password-reset/migration plan for existing users.
 

@@ -67,6 +67,7 @@ beforeEach(async () => {
   await sql((storage) => {
     storage.transactionSync(() => {
       for (const table of [
+        'reauth_grants',
         'roster',
         'users',
         'sessions',
@@ -82,13 +83,13 @@ beforeEach(async () => {
   });
 });
 describe('core worker integration', () => {
-  it('migrates through v4 and preserves an existing v1 group default', async () => {
-    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 4 });
+  it('migrates through v5 and preserves an existing v1 group default', async () => {
+    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 5 });
     await sql((storage) => {
       setSetting(storage, 'schema_version', 1);
       setSetting(storage, 'group_targets', { frosh: 70000, normal: 90000, u23: 110000 });
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(4);
+      expect(getSetting(storage, 'schema_version')).toBe(5);
       expect(getSetting(storage, 'group_target_history')).toEqual([
         { week_start: '2000-01-01', targets: { frosh: 70000, normal: 90000, u23: 110000 } },
       ]);
@@ -261,14 +262,8 @@ describe('core worker integration', () => {
     expect(blocked.status).toBe(403);
     expect(await blocked.json()).toMatchObject({ error: { code: 'PASSWORD_CHANGE_REQUIRED' } });
     expect(
-      (
-        await request(
-          '/me/password',
-          'POST',
-          { current_password: 'incorrect', new_password: 'newpassword' },
-          cookie,
-        )
-      ).status,
+      (await request('/me/password/verify', 'POST', { current_password: 'incorrect' }, cookie))
+        .status,
     ).toBe(401);
     expect(
       (
@@ -281,14 +276,7 @@ describe('core worker integration', () => {
       ).status,
     ).toBe(400);
     expect(
-      (
-        await request(
-          '/me/password',
-          'POST',
-          { current_password: 'password123', new_password: 'newpassword' },
-          cookie,
-        )
-      ).status,
+      (await request('/me/password', 'POST', { new_password: 'newpassword' }, cookie)).status,
     ).toBe(204);
     expect((await request('/me/target', 'GET', undefined, cookie)).status).toBe(200);
     expect((await request('/me', 'GET', undefined, other)).status).toBe(401);

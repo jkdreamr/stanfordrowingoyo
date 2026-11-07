@@ -49,12 +49,6 @@ function parameters(hash: string) {
     hash: match[4],
   };
 }
-export function passwordNeedsUpgrade(hash: string) {
-  const params = parameters(hash);
-  return (
-    !params || params.iterations < PASSWORD_ITERATIONS || params.version < PASSWORD_PEPPER_VERSION
-  );
-}
 export async function hashPassword(
   password: string,
   pepper: string | undefined,
@@ -70,7 +64,7 @@ export async function hashPassword(
 export async function verifyPassword(
   password: string,
   hash: string,
-  salt: string,
+  _salt: string,
   pepper: string | undefined,
 ) {
   const secret = requirePasswordPepper(pepper);
@@ -80,8 +74,8 @@ export async function verifyPassword(
       await derive(await peppered(password, secret), params.salt, params.iterations),
       params.hash,
     );
-  if (!/^[A-Za-z0-9+/]{43}=$/.test(hash) || !/^[A-Za-z0-9+/]{22}==$/.test(salt)) return false;
-  return constantTimeEqual(await derive(new TextEncoder().encode(password), salt, 100000), hash);
+  console.warn('Stored password hash format is unsupported or invalid.');
+  return false;
 }
 export const token = () =>
   encode(crypto.getRandomValues(new Uint8Array(32)))

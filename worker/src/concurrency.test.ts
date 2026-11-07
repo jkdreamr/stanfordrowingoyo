@@ -143,6 +143,7 @@ beforeEach(async () => {
   await sql((storage) =>
     storage.transactionSync(() => {
       for (const table of [
+        'reauth_grants',
         'roster',
         'users',
         'sessions',
@@ -409,11 +410,7 @@ describe('credential commit races through Worker', () => {
       (await api('/admin/users/' + athlete.user.id + '/reset-password', owner, 'POST')).status,
     ).toBe(200);
     const reset = await sql((storage) => byId(storage, athlete.user.id).password_hash);
-    send.enqueue(
-      new TextEncoder().encode(
-        JSON.stringify({ current_password: 'password123', new_password: 'nextpassword123' }),
-      ),
-    );
+    send.enqueue(new TextEncoder().encode(JSON.stringify({ new_password: 'nextpassword123' })));
     send.close();
     expect((await pending).status).toBe(401);
     await sql((storage) =>
@@ -443,6 +440,13 @@ describe('credential commit races through Worker', () => {
     if (race.startsWith('login'))
       await sql((s) => s.sql.exec('DELETE FROM sessions WHERE user_id=?', athlete.user.id));
     const change = race.startsWith('change');
+    const verifying = race === 'change-reset-1';
+    const grant =
+      change && !verifying
+        ? await (
+            await api('/me/password/verify', athlete, 'POST', { current_password: 'password123' })
+          ).json<{ reauth_token: string }>()
+        : undefined;
     const reset = race.startsWith('reset');
     const signup = race.startsWith('signup');
     const status =
@@ -468,10 +472,12 @@ describe('credential commit races through Worker', () => {
           : reset
             ? api('/admin/users/' + athlete.user.id + '/reset-password', owner, 'POST')
             : change
-              ? api('/me/password', athlete, 'POST', {
-                  current_password: 'password123',
-                  new_password: 'nextpassword123',
-                })
+              ? verifying
+                ? api('/me/password/verify', athlete, 'POST', { current_password: 'password123' })
+                : api('/me/password', athlete, 'POST', {
+                    new_password: 'nextpassword123',
+                    reauth_token: grant!.reauth_token,
+                  })
               : api('/auth/login', undefined, 'POST', {
                   email: athlete.user.email,
                   password: 'password123',
@@ -509,7 +515,7 @@ describe('credential commit races through Worker', () => {
           });
       },
       status,
-      change && race !== 'change-reset-1' ? 2 : 1,
+      1,
     );
     await sql((s) => {
       if (resetHash)

@@ -250,6 +250,17 @@ export interface LoginRequest {
   email: string;
   password: string;
 }
+export interface PasswordVerifyRequest {
+  current_password: string;
+}
+export interface PasswordVerifyResponse {
+  reauth_token: string;
+  expires_at: string;
+}
+export interface PasswordChangeRequest {
+  new_password: string;
+  reauth_token?: string;
+}
 export type ProfilePatch = Partial<
   Pick<
     User,
@@ -287,7 +298,8 @@ export interface Api {
   'POST /api/auth/logout': Endpoint<void, void>;
   'GET /api/me': Endpoint<void, User>;
   'PATCH /api/me': Endpoint<ProfilePatch, User>;
-  'POST /api/me/password': Endpoint<{ current_password: string; new_password: string }, void>;
+  'POST /api/me/password/verify': Endpoint<PasswordVerifyRequest, PasswordVerifyResponse>;
+  'POST /api/me/password': Endpoint<PasswordChangeRequest, void>;
   'GET /api/me/target': Endpoint<void, CurrentWeeklyTarget>;
   'PUT /api/me/target': Endpoint<{ target_m: number }, WeeklyTarget>;
   'GET /api/config': Endpoint<void, Config>;

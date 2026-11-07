@@ -155,13 +155,6 @@ export async function login(ctx: Context) {
     password_hash: v.string(body.password_hash, 'Password hash', 1, 200),
     password_salt: v.string(body.password_salt, 'Password salt', 1, 200),
   };
-  const upgrade =
-    body.upgraded_password_hash === undefined
-      ? undefined
-      : {
-          hash: v.string(body.upgraded_password_hash, 'Password hash', 1, 200),
-          salt: v.string(body.upgraded_password_salt, 'Password salt', 1, 200),
-        };
   const prepared = await prepareSession();
   return ctx.storage.transactionSync(() => {
     const current = byEmail(ctx.storage, email);
@@ -170,14 +163,6 @@ export async function login(ctx: Context) {
     if (current.id !== user.id)
       throw new HttpError(409, 'CREDENTIALS_CHANGED', 'Credentials changed. Please try again.');
     createSession(ctx, current.id, prepared, user);
-    if (upgrade)
-      ctx.storage.sql.exec(
-        'UPDATE users SET password_hash=?,password_salt=?,updated_at=? WHERE id=?',
-        upgrade.hash,
-        upgrade.salt,
-        ctx.now.toISOString(),
-        current.id,
-      );
     clearAttempts(ctx, email);
     return json(toUser(byId(ctx.storage, current.id)));
   });
