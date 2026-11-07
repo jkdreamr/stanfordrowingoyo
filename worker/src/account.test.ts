@@ -327,6 +327,107 @@ describe('GET /api/me/export', () => {
 });
 
 describe('POST /api/admin/users/:id/remove', () => {
+  it('removes launch-feature credentials and references while closing surviving reports', async () => {
+    const admin = await user('Admin Launch', 'admin');
+    const owner = await user('Removed Launch');
+    const mate = await user('Kept Launch');
+    const row = await workout(owner);
+    const mateRow = await workout(mate);
+    const posted = await comment(owner, mateRow.id, '@Kept Launch', [mate.user.id]);
+    const keptReport = await (
+      await ok(api('/reports', mate, 'POST', { target_type: 'entry', target_id: row.id }))
+    ).json<{ id: string }>();
+    await ok(api('/reports', owner, 'POST', { target_type: 'entry', target_id: mateRow.id }));
+    const endpoint = 'https://fcm.googleapis.com/' + crypto.randomUUID();
+    await sql((storage) => {
+      storage.sql.exec(
+        'INSERT INTO passkeys VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+        owner.user.id,
+        owner.user.id,
+        -7,
+        '{}',
+        0,
+        '[]',
+        '',
+        0,
+        0,
+        'Phone',
+        NOW,
+        null,
+      );
+      storage.sql.exec(
+        'INSERT INTO webauthn_challenges VALUES (?,?,?,?,?,?)',
+        owner.user.id,
+        'register',
+        owner.user.id,
+        'session',
+        NOW,
+        NOW,
+      );
+      storage.sql.exec(
+        'INSERT INTO entry_idempotency VALUES (?,?,?,?)',
+        owner.user.id,
+        'workout-key',
+        row.id,
+        NOW,
+      );
+      storage.sql.exec(
+        'INSERT INTO push_subscriptions VALUES (?,?,?,?,?,?)',
+        endpoint,
+        owner.user.id,
+        'key',
+        'auth',
+        NOW,
+        NOW,
+      );
+      storage.sql.exec(
+        'INSERT INTO push_outbox (notification_id,endpoint,next_at) VALUES (?,?,0)',
+        'pending',
+        endpoint,
+      );
+      expect(
+        storage.sql
+          .exec('SELECT * FROM comment_mention_history WHERE comment_id=?', posted.id)
+          .toArray(),
+      ).toHaveLength(1);
+    });
+    expect(
+      (await remove(admin, owner.user.id, { confirmation_email: owner.user.email })).status,
+    ).toBe(204);
+    await sql((storage) => {
+      for (const table of [
+        'passkeys',
+        'webauthn_challenges',
+        'entry_idempotency',
+        'push_subscriptions',
+      ])
+        expect(
+          storage.sql.exec(`SELECT * FROM ${table} WHERE user_id=?`, owner.user.id).toArray(),
+        ).toEqual([]);
+      expect(
+        storage.sql.exec('SELECT * FROM push_outbox WHERE endpoint=?', endpoint).toArray(),
+      ).toEqual([]);
+      expect(
+        storage.sql
+          .exec('SELECT * FROM comment_mention_history WHERE comment_id=?', posted.id)
+          .toArray(),
+      ).toEqual([]);
+      expect(
+        storage.sql
+          .exec('SELECT * FROM content_reports WHERE reporter_id=?', owner.user.id)
+          .toArray(),
+      ).toEqual([]);
+      expect(
+        storage.sql
+          .exec('SELECT status,reviewed_by FROM content_reports WHERE id=?', keptReport.id)
+          .one(),
+      ).toEqual({ status: 'deleted', reviewed_by: null });
+    });
+    const queue = await ok(api('/admin/reports?status=deleted', admin));
+    expect((await queue.json<Page<{ id: string }>>()).items.map((report) => report.id)).toContain(
+      keptReport.id,
+    );
+  });
   it('is admin-only, refuses self/staff, and requires the exact target email', async () => {
     const admin = await user('Admin Person', 'admin');
     const cox = await user('Cox Person', 'coxswain');

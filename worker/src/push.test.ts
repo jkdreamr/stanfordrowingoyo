@@ -271,6 +271,7 @@ it('builds push copy and deep links for every notification kind', () => {
     ['comment', 'Commented on Morning 6k', '/entries/e%2F1#comments', 'n1'],
     ['mention', 'Mentioned you in Morning 6k', '/entries/e%2F1#comments', 'n1'],
     ['tag', 'Tagged you in Morning 6k', '/entries/e%2F1', 'n1'],
+    ['report', 'Reported Morning 6k', '/admin/reports', 'n1'],
   ] as const;
   for (const [kind, body, url, tag] of cases)
     expect(pushPayload({ ...base, kind }, 120)).toEqual({
@@ -351,6 +352,42 @@ describe('push subscription routes', () => {
 });
 
 describe('push delivery', () => {
+  it('delivers reports only to current active staff and skips empty queues', async () => {
+    const staff = await user('Staff');
+    const reporter = await user('Reporter');
+    const row = await entry(reporter);
+    const ua = await device();
+    await api('/me/push', staff, 'PUT', ua.input);
+    await sql((storage) =>
+      storage.sql.exec("UPDATE users SET role='coach' WHERE id=?", staff.user.id),
+    );
+    const calls = stubFetch(201);
+    await sql((storage) => deliverPush(storage, bindings, Date.now() + 1000));
+    expect(calls).toEqual([]);
+    await api('/reports', reporter, 'POST', { target_type: 'entry', target_id: row.id });
+    expect(await outbox()).toHaveLength(1);
+    await sql((storage) => deliverPush(storage, bindings, Date.now() + 1000));
+    expect(calls).toHaveLength(1);
+    expect(
+      JSON.parse(
+        await decrypt(
+          new Uint8Array(calls[0].init.body as Uint8Array),
+          ua.keys.privateKey,
+          ua.p256dhBytes,
+          ua.authBytes,
+        ),
+      ),
+    ).toMatchObject({ url: '/admin/reports', body: 'Reported Morning 6k' });
+    const next = await entry(reporter, 'Evening');
+    await api('/reports', reporter, 'POST', { target_type: 'entry', target_id: next.id });
+    expect(await outbox()).toHaveLength(1);
+    await sql((storage) =>
+      storage.sql.exec("UPDATE users SET role='rower' WHERE id=?", staff.user.id),
+    );
+    await sql((storage) => deliverPush(storage, bindings, Date.now() + 1000));
+    expect(calls).toHaveLength(1);
+    expect(await outbox()).toEqual([]);
+  });
   async function kudosSetup() {
     const author = await user('Avery');
     const fan = await user('Blake');
@@ -484,13 +521,13 @@ describe('push delivery', () => {
   });
 });
 
-it('migrates to v11 idempotently, with or without intermediate versions', async () => {
+it('migrates to v15 idempotently, with or without intermediate versions', async () => {
   await sql((storage) => {
     storage.sql.exec('DROP TABLE push_outbox; DROP TABLE push_subscriptions;');
     setSetting(storage, 'schema_version', 9);
     migrate(storage);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(11);
+    expect(getSetting(storage, 'schema_version')).toBe(15);
     expect(storage.sql.exec('SELECT * FROM push_subscriptions').toArray()).toEqual([]);
     expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toEqual([]);
   });

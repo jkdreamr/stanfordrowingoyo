@@ -586,11 +586,11 @@ describe('report moderation', () => {
   });
 });
 
-describe('schema v13', () => {
+describe('schema v15', () => {
   it('migrates a fresh database and remains idempotent', async () => {
     const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
     await runInDurableObject(stub, (_, state) => {
-      expect(getSetting(state.storage, 'schema_version')).toBe(13);
+      expect(getSetting(state.storage, 'schema_version')).toBe(15);
       for (const table of ['erg_tests', 'challenges', 'content_reports', 'comment_mention_history'])
         expect(
           state.storage.sql
@@ -610,7 +610,7 @@ describe('schema v13', () => {
     });
   });
 
-  it('upgrades real v9 tables, backfills history, preserves body/times/reports, and skips intentional version gaps', async () => {
+  it('upgrades real v9 tables, backfills history, preserves body/times/reports, and preserves data across earlier versions', async () => {
     const owner = await user('Owner');
     const mate = await user('Mate');
     const logged = await entry(owner);
@@ -621,7 +621,7 @@ describe('schema v13', () => {
       s.sql.exec('ALTER TABLE comments DROP COLUMN edited_at');
       setSetting(s, 'schema_version', 9);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(13);
+      expect(getSetting(s, 'schema_version')).toBe(15);
       expect(
         s.sql.exec('SELECT body,created_at,edited_at FROM comments WHERE id=?', posted.id).one(),
       ).toEqual({ body: '@Mate', created_at: NOW, edited_at: null });
@@ -645,13 +645,13 @@ describe('schema v13', () => {
       for (const version of [9, 10, 11, 12]) {
         setSetting(s, 'schema_version', version);
         migrate(s);
-        expect(getSetting(s, 'schema_version')).toBe(13);
+        expect(getSetting(s, 'schema_version')).toBe(15);
         expect(s.sql.exec('SELECT id FROM content_reports').one().id).toBe(id);
         expect(
           s.sql.exec('SELECT edited_at FROM comments WHERE id=?', posted.id).one().edited_at,
         ).toBe(LATER);
       }
     });
-    expect(await (await api('/health')).json()).toEqual({ ok: true, schema_version: 13 });
+    expect(await (await api('/health')).json()).toEqual({ ok: true, schema_version: 15 });
   });
 });

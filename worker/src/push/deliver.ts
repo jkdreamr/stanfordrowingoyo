@@ -53,8 +53,8 @@ export function pushPayload(row: OutboxRow, unread: number): PushPayload {
     kind === 'report'
       ? '/admin/reports'
       : kind === 'announcement' || !row.entry_id
-      ? '/announcements'
-      : `/entries/${encodeURIComponent(row.entry_id)}${kind === 'comment' || kind === 'mention' ? '#comments' : ''}`;
+        ? '/announcements'
+        : `/entries/${encodeURIComponent(row.entry_id)}${kind === 'comment' || kind === 'mention' ? '#comments' : ''}`;
   return {
     title,
     body: body.length > 160 ? body.slice(0, 159) + '…' : body,
@@ -101,7 +101,12 @@ export async function deliverPush(
         row.owner !== row.recipient ||
         row.read_at ||
         (row.kind === 'report' &&
-          !sql.exec("SELECT id FROM users WHERE id=? AND active=1 AND role IN ('coxswain','coach','admin')", row.owner).toArray().length)
+          !sql
+            .exec(
+              "SELECT id FROM users WHERE id=? AND active=1 AND role IN ('coxswain','coach','admin')",
+              row.owner,
+            )
+            .toArray().length)
       ) {
         sql.exec('DELETE FROM push_outbox WHERE id = ?', row.id);
         return;

@@ -15,6 +15,7 @@ import type { Row } from './row';
 import { toUser, type UserRow } from './users';
 import { allMyPlans } from './myPlan';
 import { csvCell } from '../csv';
+import { closeReports } from './reports';
 
 const OWN_ENTRIES = 'SELECT id FROM entries WHERE user_id = ?';
 const OWN_IMAGES = 'SELECT id FROM images WHERE owner_id = ?';
@@ -222,6 +223,23 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
   const roster = sql
     .exec<{ id: string }>('SELECT id FROM roster WHERE claimed_by_user_id = ?', id)
     .toArray()[0];
+  const timestamp = new Date().toISOString();
+  for (const entry of sql.exec<{ id: string }>(OWN_ENTRIES, id).toArray())
+    closeReports(storage, { target_type: 'entry', target_id: entry.id }, null, timestamp);
+  for (const comment of sql
+    .exec<{ id: string }>('SELECT id FROM comments WHERE user_id=?', id)
+    .toArray())
+    closeReports(storage, { target_type: 'comment', target_id: comment.id }, null, timestamp);
+  sql.exec('DELETE FROM content_reports WHERE reporter_id=?', id);
+  sql.exec('UPDATE content_reports SET reviewed_by=NULL WHERE reviewed_by=?', id);
+  sql.exec(
+    `DELETE FROM comment_mention_history WHERE user_id=?1 OR entry_id IN (${OWN_ENTRIES.replace('?', '?1')}) OR comment_id IN (SELECT id FROM comments WHERE user_id=?1)`,
+    id,
+  );
+  sql.exec(
+    `DELETE FROM push_outbox WHERE endpoint IN (SELECT endpoint FROM push_subscriptions WHERE user_id=?1) OR notification_id IN (SELECT id FROM notifications WHERE user_id=?1 OR actor_id=?1 OR entry_id IN (${OWN_ENTRIES.replace('?', '?1')}))`,
+    id,
+  );
   sql.exec(
     `DELETE FROM comment_mentions WHERE user_id = ?1 OR entry_id IN (${OWN_ENTRIES.replace('?', '?1')}) OR comment_id IN (SELECT id FROM comments WHERE user_id = ?1)`,
     id,
@@ -253,6 +271,10 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
     'DELETE FROM weekly_targets WHERE user_id = ?',
     'DELETE FROM sessions WHERE user_id = ?',
     'DELETE FROM reauth_grants WHERE user_id = ?',
+    'DELETE FROM entry_idempotency WHERE user_id = ?',
+    'DELETE FROM push_subscriptions WHERE user_id = ?',
+    'DELETE FROM passkeys WHERE user_id = ?',
+    'DELETE FROM webauthn_challenges WHERE user_id = ?',
     'DELETE FROM announcements WHERE author_id = ?',
     'UPDATE roster SET added_by = NULL WHERE added_by = ?',
     'DELETE FROM roster WHERE claimed_by_user_id = ?',

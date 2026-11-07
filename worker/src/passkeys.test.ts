@@ -621,7 +621,7 @@ it('migrates v9 databases and reruns idempotently', async () => {
     setSetting(s, 'schema_version', 9);
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(16);
+    expect(getSetting(s, 'schema_version')).toBe(15);
     expect(
       s.sql
         .exec(
@@ -631,6 +631,6 @@ it('migrates v9 databases and reruns idempotently', async () => {
     ).toEqual([{ name: 'passkeys' }, { name: 'webauthn_challenges' }]);
     setSetting(s, 'schema_version', 12);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(16);
+    expect(getSetting(s, 'schema_version')).toBe(15);
   });
 });

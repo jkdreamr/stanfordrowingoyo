@@ -677,7 +677,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 12 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 15 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -1752,6 +1752,21 @@ export function createMockApi({
           const removedComments = state.comments.filter(
             (row) => row.user_id === targetUser.id || removedEntries.has(row.entry_id),
           );
+          for (const entry of removedEntries) closeReports('entry', entry);
+          for (const comment of removedComments) closeReports('comment', comment.id);
+          for (let index = reports.length - 1; index >= 0; index--)
+            if (reports[index].reporter.id === targetUser.id) reports.splice(index, 1);
+          for (const report of reports)
+            if (report.reviewed_by === targetUser.id) report.reviewed_by = null;
+          for (const [commentId, ids] of mentionHistory) {
+            if (removedComments.some((comment) => comment.id === commentId))
+              mentionHistory.delete(commentId);
+            else ids.delete(targetUser.id);
+          }
+          for (const [key] of entryKeys)
+            if (JSON.parse(key)[0] === targetUser.id) entryKeys.delete(key);
+          for (let index = passkeys.length - 1; index >= 0; index--)
+            if (passkeys[index].user_id === targetUser.id) passkeys.splice(index, 1);
           const removedRoster = roster.find((row) => row.claimed_by_user_id === targetUser.id);
           const removedTests = ergTests.filter((row) => row.user_id === targetUser.id);
           const removedChallenges = challenges.filter((row) => row.created_by === targetUser.id);

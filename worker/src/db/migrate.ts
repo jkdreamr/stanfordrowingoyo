@@ -214,10 +214,17 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
 export function migrate(storage: DurableObjectStorage, teamCode?: string): void {
   migrateV1(storage, teamCode);
   const sql = storage.sql;
-  const version = sql
-    .exec<{ value_json: string }>('SELECT value_json FROM settings WHERE key = ?', 'schema_version')
-    .one();
-  if (!version || Number(JSON.parse(version.value_json)) < 2)
+  const version = Number(
+    JSON.parse(
+      sql
+        .exec<{ value_json: string }>(
+          'SELECT value_json FROM settings WHERE key = ?',
+          'schema_version',
+        )
+        .one().value_json,
+    ),
+  );
+  if (version < 2)
     storage.transactionSync(() => {
       const targets = sql
         .exec<{ value_json: string }>(
@@ -236,7 +243,7 @@ export function migrate(storage: DurableObjectStorage, teamCode?: string): void 
         '2',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 3)
+  if (version < 3)
     storage.transactionSync(() => {
       sql.exec(`DROP TABLE roster;
 CREATE TABLE roster (
@@ -260,7 +267,7 @@ CREATE UNIQUE INDEX roster_claim ON roster(claimed_by_user_id) WHERE claimed_by_
         '3',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 4)
+  if (version < 4)
     storage.transactionSync(() => {
       sql.exec(`CREATE INDEX IF NOT EXISTS entries_feed ON entries(visibility,created_at DESC,id DESC);
 CREATE INDEX IF NOT EXISTS entries_user_feed ON entries(user_id,created_at DESC,id DESC);
@@ -273,7 +280,7 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '4',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 5)
+  if (version < 5)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS reauth_grants (
   token_hash TEXT PRIMARY KEY,
@@ -289,7 +296,7 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '5',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 6)
+  if (version < 6)
     storage.transactionSync(() => {
       sql.exec("UPDATE entries SET visibility = 'team' WHERE visibility = 'private'");
       sql.exec(
@@ -298,7 +305,7 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '6',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 7)
+  if (version < 7)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS entry_tags (
   entry_id TEXT NOT NULL,
@@ -320,7 +327,7 @@ CREATE INDEX IF NOT EXISTS comment_mentions_entry ON comment_mentions(entry_id);
         '7',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 8)
+  if (version < 8)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS my_plans (
   user_id TEXT NOT NULL,
@@ -347,7 +354,7 @@ CREATE TABLE IF NOT EXISTS my_plan_sessions (
         '8',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 9)
+  if (version < 9)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS stats_versions (
   user_id TEXT PRIMARY KEY,
@@ -389,7 +396,7 @@ END;`);
         '9',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 10)
+  if (version < 10)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS erg_tests (
 id TEXT PRIMARY KEY, user_id TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('2k','6k')),
@@ -430,7 +437,7 @@ CREATE INDEX IF NOT EXISTS entries_date ON entries(date);`);
         "INSERT INTO settings VALUES ('schema_version','10') ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 13)
+  if (version < 11)
     storage.transactionSync(() => {
       if (
         !sql
@@ -466,11 +473,10 @@ CREATE INDEX IF NOT EXISTS content_reports_entry ON content_reports(entry_id,sta
       sql.exec(
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
-        '13',
+        '11',
       );
     });
-  const introVersion = 12;
-  if (Number(JSON.parse(version.value_json)) < introVersion)
+  if (version < 12)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS user_intro (
   user_id TEXT PRIMARY KEY,
@@ -483,10 +489,10 @@ CREATE INDEX IF NOT EXISTS content_reports_entry ON content_reports(entry_id,sta
       sql.exec(
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
-        String(introVersion),
+        '12',
       );
     });
-  if (!version || Number(JSON.parse(version.value_json)) < 11)
+  if (version < 13)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS entry_idempotency (
   user_id TEXT NOT NULL,
@@ -499,10 +505,10 @@ CREATE INDEX IF NOT EXISTS entry_idempotency_created_at ON entry_idempotency(cre
       sql.exec(
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
-        '11',
+        '13',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 11)
+  if (version < 14)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS push_subscriptions (
   endpoint TEXT PRIMARY KEY,
@@ -524,10 +530,10 @@ CREATE INDEX IF NOT EXISTS push_outbox_due ON push_outbox(next_at,id);`);
       sql.exec(
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
-        '11',
+        '14',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 16)
+  if (version < 15)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS passkeys (
   id TEXT PRIMARY KEY,
@@ -556,7 +562,7 @@ CREATE INDEX IF NOT EXISTS webauthn_challenges_expiry ON webauthn_challenges(exp
       sql.exec(
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
-        '16',
+        '15',
       );
     });
 }

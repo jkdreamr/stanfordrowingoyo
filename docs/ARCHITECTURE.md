@@ -267,10 +267,10 @@ webauthn_challenges(challenge PK, kind ('register'|'login'), user_id NULL, sessi
          -- index (expires_at)
 ```
 
-Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 15; migrations run in the DO constructor via `blockConcurrencyWhile`.
 Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
 Legacy best splits backfill one test per kind using the user's updated_at team-local date.
-Version 11 adds `entry_idempotency` and its created-at index in a self-contained, idempotent transaction, independent of version 10.
+Version 13 adds `entry_idempotency` and its created-at index in a self-contained, idempotent transaction.
 Mappings survive entry deletion and are opportunistically pruned after seven days when inserting a mapping.
 Version 7 adds idempotent tag/mention tables and indexes.
 Version 8 adds personal plans and sessions after version 7; both migrations are idempotent and transactional.
@@ -289,15 +289,15 @@ Version 6 converts every legacy private entry to `team` without modifying workou
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
 Version 8 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
 with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key indexes owner/date windows.
-Version 13 adds nullable comment `edited_at`, per-comment mention notification history (backfilled from current
+Version 11 adds nullable comment `edited_at`, per-comment mention notification history (backfilled from current
 mentions), and durable content reports with queue/target/parent indexes. This is one transactional, idempotent
-`version < 13` migration; gaps 10–12 are intentional. Reports survive content deletion without a cascade.
-Version 11 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth, created_at, updated_at)` indexed by
+`version < 11` migration. Reports survive content deletion without a cascade.
+Version 12 adds `user_intro`, backfilling existing users as complete without skipping intro for new signups.
+Version 14 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth, created_at, updated_at)` indexed by
 `(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
-epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `< 11`, so it applies
-whether or not intermediate versions exist.
-Version 16 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
-self-contained guarded block (renumbered to the next free version at merge time); it needs no lower version.
+epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `version < 14`.
+Version 15 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
+self-contained guarded block. Feature migrations run in ascending order 11–15, each advancing its own version.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 

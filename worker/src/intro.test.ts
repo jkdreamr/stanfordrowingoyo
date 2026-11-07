@@ -70,14 +70,14 @@ it('persists completion across sessions, once, without affecting another account
 });
 
 it.each([9, 10, 11])(
-  'migrates v%i to v12 idempotently and backfills only existing users',
+  'migrates v%i to v15 idempotently and backfills only existing users',
   async (version) => {
     const first = await signup();
     await sql((storage) => {
       storage.sql.exec('DROP TABLE user_intro');
       setSetting(storage, 'schema_version', version);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(12);
+      expect(getSetting(storage, 'schema_version')).toBe(15);
       const before = storage.sql
         .exec<{ completed_at: string }>(
           'SELECT completed_at FROM user_intro WHERE user_id = ?',
