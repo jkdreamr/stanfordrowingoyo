@@ -87,7 +87,7 @@ export default function Page() {
   ];
   return (
     <>
-      <PageHeader title="This Week" trailing={<HeaderActions settings />} />
+      <PageHeader title="This Week" trailing={<HeaderActions settings />} inline />
       <PullToRefresh
         label="Home"
         onRefresh={refresh}

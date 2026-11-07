@@ -39,7 +39,7 @@ export function TodaysPlan({ today }: { today: string }) {
   );
   return (
     <Card>
-      <h2 className="mb-3 text-headline">
+      <h2 className={rest || sessions.length ? 'mb-3 text-headline' : 'text-headline'}>
         <Link className="inline-flex min-h-11 items-center text-text" to="/plan?tab=mine">
           Today's Plan
         </Link>
@@ -75,6 +75,7 @@ export function TodaysPlan({ today }: { today: string }) {
         </ListGroup>
       ) : (
         <EmptyState
+          className="today-plan-empty"
           icon={<CalendarDays size={20} />}
           title="Nothing Planned"
           action={<Button to="/plan?tab=mine">Edit Plan</Button>}
