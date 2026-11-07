@@ -358,6 +358,9 @@ export interface AccountDataExport {
 export interface AdminUserRemoveRequest {
   confirmation_email: string;
 }
+export interface IntroStatus {
+  completed_at: string | null;
+}
 export interface Endpoint<Req, Res, Query = never> {
   request: Req;
   response: Res;
@@ -371,6 +374,8 @@ export interface Api {
   'POST /api/auth/login': Endpoint<LoginRequest, User>;
   'POST /api/auth/logout': Endpoint<void, void>;
   'GET /api/me': Endpoint<void, User>;
+  'GET /api/me/intro': Endpoint<void, IntroStatus>;
+  'POST /api/me/intro': Endpoint<void, IntroStatus>;
   'PATCH /api/me': Endpoint<ProfilePatch, User>;
   'POST /api/me/password/verify': Endpoint<PasswordVerifyRequest, PasswordVerifyResponse>;
   'POST /api/me/password': Endpoint<PasswordChangeRequest, void>;

@@ -98,7 +98,8 @@ export async function api<K extends keyof Api>(
     }
     if (response.status === 204) return undefined as Api[K]['response'];
     if (endpoint === 'GET /api/images/:id') return (await response.blob()) as Api[K]['response'];
-    if (endpoint === 'GET /api/admin/export') return (await response.text()) as Api[K]['response'];
+    if (endpoint === 'GET /api/admin/export' || endpoint === 'GET /api/me/export/workouts')
+      return (await response.text()) as Api[K]['response'];
     return response.json() as Promise<Api[K]['response']>;
   }
 }

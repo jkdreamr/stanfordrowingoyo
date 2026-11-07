@@ -10,6 +10,7 @@ export type ListRowProps = {
   to?: string;
   chevron?: boolean;
   onClick?: () => void;
+  disabled?: boolean;
   tone?: 'default' | 'destructive';
 };
 export function ListRow({
@@ -21,6 +22,7 @@ export function ListRow({
   to,
   chevron = !!to,
   onClick,
+  disabled = false,
   tone = 'default',
 }: ListRowProps) {
   const content = (
@@ -52,7 +54,7 @@ export function ListRow({
       {content}
     </Link>
   ) : onClick ? (
-    <button type="button" onClick={onClick} className={className}>
+    <button type="button" onClick={onClick} disabled={disabled} className={className}>
       {content}
     </button>
   ) : (

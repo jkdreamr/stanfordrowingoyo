@@ -68,6 +68,12 @@ export function accountExport(
       .toArray(),
     'entry_id',
   );
+  const imagesByEntry = new Map<string, ImageMetadata[]>();
+  for (const { entry_id, ...image } of entryImages) {
+    const images = imagesByEntry.get(entry_id) ?? [];
+    images.push(image);
+    imagesByEntry.set(entry_id, images);
+  }
   const kudosCounts = counts(
     sql
       .exec<{ entry_id: string; count: number }>(
@@ -109,12 +115,7 @@ export function accountExport(
       .toArray(),
     workouts: entries.map((entry) => ({
       ...entry,
-      images: entryImages
-        .filter((image) => image.entry_id === entry.id)
-        .map(({ entry_id: _entry, ...image }) => {
-          void _entry;
-          return image;
-        }),
+      images: imagesByEntry.get(entry.id) ?? [],
       tagged: tags.get(entry.id) ?? [],
       kudos_count: kudosCounts.get(entry.id) ?? 0,
       comment_count: commentCounts.get(entry.id) ?? 0,

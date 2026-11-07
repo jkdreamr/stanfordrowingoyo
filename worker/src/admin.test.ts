@@ -102,6 +102,8 @@ const endpoints: Record<keyof Api, true> = {
   'POST /api/auth/login': true,
   'POST /api/auth/logout': true,
   'GET /api/me': true,
+  'GET /api/me/intro': true,
+  'POST /api/me/intro': true,
   'PATCH /api/me': true,
   'POST /api/me/password': true,
   'POST /api/me/password/verify': true,

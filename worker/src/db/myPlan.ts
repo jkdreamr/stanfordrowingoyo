@@ -110,17 +110,26 @@ export function allMyPlans(storage: DurableObjectStorage, userId: string): MyPla
     )
     .toArray();
   const settings = getSettings(storage);
+  const sessionsByStart = new Map<string, Row<MyPlanSessionInput>[]>();
+  for (const { start_date, ...session } of sessions) {
+    const group = sessionsByStart.get(start_date) ?? [];
+    group.push(session);
+    sessionsByStart.set(start_date, group);
+  }
+  const entriesByDate = new Map<string, Row<CompletionEntry>[]>();
+  for (const entry of entries) {
+    const group = entriesByDate.get(entry.date) ?? [];
+    group.push(entry);
+    entriesByDate.set(entry.date, group);
+  }
   return rows.map((row) => {
-    const end = addDays(row.start_date, 13);
     return buildPlan(
       row,
-      sessions
-        .filter((session) => session.start_date === row.start_date)
-        .map(({ start_date: _start, ...session }) => {
-          void _start;
-          return session;
-        }),
-      entries.filter((entry) => entry.date >= row.start_date && entry.date <= end),
+      sessionsByStart.get(row.start_date) ?? [],
+      Array.from(
+        { length: 14 },
+        (_, day) => entriesByDate.get(addDays(row.start_date, day)) ?? [],
+      ).flat(),
       settings,
     );
   });

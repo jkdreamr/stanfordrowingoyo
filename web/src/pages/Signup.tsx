@@ -296,6 +296,11 @@ export default function Signup() {
           Already Registered? Log In
         </Link>
       </div>
+      <div className="mt-2 text-center">
+        <Link className="auth-text-link" to="/privacy">
+          Privacy
+        </Link>
+      </div>
     </AuthFrame>
   );
 }

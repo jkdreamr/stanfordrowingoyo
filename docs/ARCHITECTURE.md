@@ -229,6 +229,7 @@ my_plans(user_id, start_date, rest_days_json, updated_at, PK(user_id, start_date
 my_plan_sessions(user_id, start_date, week, day, slot, modality, zone, distance_m NULL, note,
                  PK(user_id, start_date, week, day, slot))
 notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'), actor_id, entry_id NULL, created_at, read_at NULL)
+user_intro(user_id PK, completed_at)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
@@ -416,6 +417,18 @@ Schema version 6 idempotently converts existing private entries to team visibili
 images retain their independent authenticated ownership/avatar/entry-reference authorization rules above.
 
 ## 7. Frontend
+
+### First-run intro and privacy
+
+Schema v12 adds `user_intro(user_id, completed_at)`. Existing accounts are backfilled as complete;
+new accounts have no completion row. Authenticated `GET /api/me/intro` returns
+`IntroStatus { completed_at: string | null }`. `POST /api/me/intro` (no body) marks the intro complete
+or skipped, returning the same shape. Completion is idempotent and server-persisted across devices.
+Until completion, the app opens `/intro` after signup/login; Settings can reopen it without resetting
+completion. The three short steps cover E-meters, zones and the current weekly target, using live team
+factors and targets. Skip and Back are available. API access is not gated on intro completion.
+`/privacy` is public and linked from signup and Settings. It explains team-visible training and social
+content, staff access, owner-only My Fortnight plans, authenticated photo storage, exports and removal.
 
 - Vite + React 18 + TypeScript + Tailwind + React Router + TanStack Query, lucide-react icons. Built assets served by the
   Worker (Workers static assets, SPA fallback). PWA: manifest, icons (192/512/maskable/apple-touch), theme color,

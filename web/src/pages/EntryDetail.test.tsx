@@ -181,7 +181,7 @@ it('retains the workout and comments when deletion fails', async () => {
   const { entry, router, client, requests } = setup('home', { failDelete: true });
   await router.navigate(`/entries/${entry.id}`);
   await screen.findByText('Evening Erg');
-  fireEvent.click(screen.getByRole('button', { name: 'More' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'More' }));
   fireEvent.click(await screen.findByRole('button', { name: 'Delete Workout' }));
   fireEvent.click(
     within(await screen.findByRole('dialog', { name: 'Delete Workout' })).getByRole('button', {

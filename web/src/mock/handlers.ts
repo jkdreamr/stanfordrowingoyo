@@ -1,4 +1,5 @@
 import type {
+  AccountDataExport,
   AnnouncementInput,
   AuditLog,
   Entry,
@@ -59,6 +60,11 @@ function fail(status: number, message: string, code?: string): never {
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 const empty = () => new Response(null, { status: 204 });
+const quoteCsv = (value: unknown) => {
+  let text = value == null ? '' : String(value);
+  if (typeof value === 'string' && /^[=+\-@\t\r]/.test(text)) text = "'" + text;
+  return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+};
 const dateValid = (date: unknown): date is string =>
   typeof date === 'string' &&
   /^\d{4}-\d{2}-\d{2}$/.test(date) &&
@@ -94,6 +100,7 @@ export function createMockApi({
   const groupHistory = [{ week: '0000-01-01', targets: { ...settings.group_targets } }];
   const uploads = new Map<string, { blob: Blob; owner: string }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
+  const intro = new Map(state.users.map((u) => [u.id, now().toISOString()]));
   const credentialVersions = new Map<string, number>();
   let currentSession = session ? crypto.randomUUID() : null;
   const reauthGrants = new Map<
@@ -506,7 +513,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 9 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 12 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -584,8 +591,110 @@ export function createMockApi({
       )
         fail(403, 'Change your temporary password first');
       if (path.startsWith('/api/admin/')) requireStaff();
+      if (path === '/api/me/intro') {
+        if (method === 'POST' && !intro.has(user.id)) intro.set(user.id, stamp());
+        if (method === 'GET' || method === 'POST')
+          return json({ completed_at: intro.get(user.id) ?? null });
+      }
+      if (path === '/api/me/export/workouts' && method === 'GET') {
+        const columns = [
+          'id',
+          'date',
+          'week_start',
+          'modality',
+          'zone',
+          'distance_m',
+          'duration_s',
+          'avg_split_s',
+          'stroke_rate',
+          'avg_hr',
+          'mode_factor',
+          'zone_factor',
+          'equiv_m',
+          'title',
+          'notes',
+          'created_at',
+          'updated_at',
+        ] as const;
+        const rows = state.entries
+          .filter((entry) => entry.user_id === user.id)
+          .sort(
+            (a, b) =>
+              a.date.localeCompare(b.date) ||
+              a.created_at.localeCompare(b.created_at) ||
+              a.id.localeCompare(b.id),
+          );
+        return new Response(
+          [
+            columns.join(','),
+            ...rows.map((row) => columns.map((column) => quoteCsv(row[column])).join(',')),
+            '',
+          ].join('\r\n'),
+          { headers: { 'Content-Type': 'text/csv', 'Cache-Control': 'private, no-store' } },
+        );
+      }
+      if (path === '/api/me/export' && method === 'GET') {
+        const person = (id: string) => ({ id, name: userById(id).name });
+        const data: AccountDataExport = {
+          format_version: 1,
+          exported_at: stamp(),
+          profile: user,
+          roster: roster.find((row) => row.claimed_by_user_id === user.id) ?? null,
+          weekly_targets: state.targets.filter((row) => row.user_id === user.id),
+          workouts: state.entries
+            .filter((entry) => entry.user_id === user.id)
+            .map((entry) => ({
+              ...entry,
+              images: state.imageLinks[entry.id] ?? [],
+              tagged: (state.tags[entry.id] ?? []).map(person),
+              kudos_count: state.kudos[entry.id]?.length ?? 0,
+              comment_count: state.comments.filter((row) => row.entry_id === entry.id).length,
+            })),
+          images: Object.values(state.imageLinks)
+            .flat()
+            .filter((image) => image.owner_id === user.id),
+          comments: state.comments
+            .filter((row) => row.user_id === user.id)
+            .map((comment) => ({
+              ...comment,
+              mentions: (state.mentions[comment.id] ?? []).map(person),
+            })),
+          kudos_given: Object.entries(state.kudos).flatMap(([entry_id, rows]) =>
+            rows.filter((row) => row.user_id === user.id).map((row) => ({ ...row, entry_id })),
+          ),
+          plans: state.myPlans
+            .filter((row) => row.user_id === user.id)
+            .map((row) =>
+              personalPlan(
+                { start_date: row.start_date, sessions: row.sessions, rest_days: row.rest_days },
+                settings,
+                row.updated_at,
+                state.entries.filter((entry) => entry.user_id === user.id),
+              ),
+            ),
+          tagged_in: state.entries
+            .filter((entry) => entry.user_id !== user.id && state.tags[entry.id]?.includes(user.id))
+            .map((entry) => ({
+              entry_id: entry.id,
+              entry_owner_id: entry.user_id,
+              tagged_at: entry.updated_at,
+            })),
+          mentioned_in: state.comments
+            .filter((row) => row.user_id !== user.id && state.mentions[row.id]?.includes(user.id))
+            .map((row) => ({
+              comment_id: row.id,
+              entry_id: row.entry_id,
+              author_id: row.user_id,
+              created_at: row.created_at,
+            })),
+        };
+        const response = json(data);
+        response.headers.set('Cache-Control', 'private, no-store');
+        return response;
+      }
       if (
         method !== 'GET' &&
+        !path.endsWith('/remove') &&
         path.startsWith('/api/admin/') &&
         !['/api/admin/settings', '/api/admin/recalculate'].includes(path) &&
         !path.startsWith('/api/admin/presets') &&
@@ -1166,6 +1275,90 @@ export function createMockApi({
       if (path === '/api/admin/users' && method === 'GET') return json(state.users);
       if (parts[2] === 'admin' && parts[3] === 'users' && parts[4]) {
         const targetUser = userById(parts[4]);
+        if (parts[5] === 'remove' && method === 'POST') {
+          adminOnly();
+          if (targetUser.id === user.id || targetUser.role !== 'rower')
+            fail(409, 'Only another rower can be removed');
+          if (
+            typeof body.confirmation_email !== 'string' ||
+            body.confirmation_email.trim().toLowerCase() !== targetUser.email.toLowerCase()
+          )
+            fail(400, 'Type the account email exactly to confirm', 'CONFIRMATION_MISMATCH');
+          const removedEntries = new Set(
+            state.entries
+              .filter((entry) => entry.user_id === targetUser.id)
+              .map((entry) => entry.id),
+          );
+          const removedComments = state.comments.filter(
+            (row) => row.user_id === targetUser.id || removedEntries.has(row.entry_id),
+          );
+          const removedRoster = roster.find((row) => row.claimed_by_user_id === targetUser.id);
+          for (const row of audit) {
+            if (
+              row.actor_id === targetUser.id ||
+              [targetUser.id, removedRoster?.id].includes(row.target) ||
+              [targetUser.id, targetUser.email, targetUser.name].some((value) =>
+                row.detail_json.includes(value),
+              )
+            )
+              row.detail_json = JSON.stringify({
+                before: null,
+                after: null,
+                redacted: 'account_removed',
+              });
+          }
+          for (const entry of state.entries) {
+            state.tags[entry.id] = (state.tags[entry.id] ?? []).filter(
+              (id) => id !== targetUser.id,
+            );
+            state.kudos[entry.id] = (state.kudos[entry.id] ?? []).filter(
+              (row) => row.user_id !== targetUser.id,
+            );
+            state.imageLinks[entry.id] = (state.imageLinks[entry.id] ?? []).filter(
+              (image) => image.owner_id !== targetUser.id,
+            );
+          }
+          for (const entry of removedEntries) {
+            delete state.tags[entry];
+            delete state.kudos[entry];
+            delete state.imageLinks[entry];
+          }
+          for (const comment of state.comments)
+            state.mentions[comment.id] = (state.mentions[comment.id] ?? []).filter(
+              (id) => id !== targetUser.id,
+            );
+          for (const comment of removedComments) delete state.mentions[comment.id];
+          state.entries = state.entries.filter((row) => !removedEntries.has(row.id));
+          state.comments = state.comments.filter((row) => !removedComments.includes(row));
+          state.myPlans = state.myPlans.filter((row) => row.user_id !== targetUser.id);
+          state.targets = state.targets.filter((row) => row.user_id !== targetUser.id);
+          state.announcements = state.announcements.filter(
+            (row) => row.author_id !== targetUser.id,
+          );
+          state.notifications = state.notifications.filter(
+            (row) =>
+              row.user_id !== targetUser.id &&
+              row.actor_id !== targetUser.id &&
+              !removedEntries.has(row.entry_id ?? ''),
+          );
+          state.users = state.users.filter((row) => row.id !== targetUser.id);
+          if (removedRoster) roster.splice(roster.indexOf(removedRoster), 1);
+          for (const row of roster) if (row.added_by === targetUser.id) row.added_by = null;
+          for (const [id, upload] of uploads)
+            if (upload.owner === targetUser.id) uploads.delete(id);
+          passwords.delete(targetUser.id);
+          credentialVersions.delete(targetUser.id);
+          intro.delete(targetUser.id);
+          for (const [token, grant] of reauthGrants)
+            if (grant.userId === targetUser.id) reauthGrants.delete(token);
+          recordAudit(
+            'user.remove',
+            targetUser.id,
+            { role: targetUser.role, active: targetUser.active },
+            { removed: { workouts: removedEntries.size } },
+          );
+          return empty();
+        }
         if (parts[5] === 'reset-password' && method === 'POST') {
           if (targetUser.role === 'admin') adminOnly();
           const temporary_password = `temp-${id('password')}`;
@@ -1433,11 +1626,6 @@ export function createMockApi({
         const end = url.searchParams.get('end');
         if (!dateValid(start) || !dateValid(end) || start > end)
           fail(400, 'Valid start and end dates required');
-        const quote = (value: unknown) => {
-          let text = value == null ? '' : String(value);
-          if (typeof value === 'string' && /^[=+\-@\t\r]/.test(text)) text = "'" + text;
-          return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
-        };
         return new Response(
           [
             'date,week_start,name,email,group,modality,zone,distance_m,duration_s,avg_split_s,stroke_rate,avg_hr,mode_factor,zone_factor,equiv_m,visibility,title,notes,created_at',
@@ -1471,7 +1659,7 @@ export function createMockApi({
                   e.notes,
                   e.created_at,
                 ]
-                  .map(quote)
+                  .map(quoteCsv)
                   .join(','),
               ),
           ].join('\r\n') + '\r\n',

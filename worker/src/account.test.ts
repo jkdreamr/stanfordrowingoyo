@@ -166,7 +166,7 @@ beforeEach(async () => {
         'stats_versions',
       ])
         storage.sql.exec(`DELETE FROM ${table}`);
-      storage.sql.exec('DROP TABLE IF EXISTS user_intro');
+      storage.sql.exec('DELETE FROM user_intro');
       migrate(storage);
       setSetting(storage, 'team_code', 'team-code');
     }),
@@ -367,11 +367,6 @@ describe('POST /api/admin/users/:id/remove', () => {
     const avery = await user('Avery Removed');
     const blake = await user('Blake Kept');
     const casey = await user('Casey Kept');
-    await sql((storage) =>
-      storage.sql.exec(
-        'CREATE TABLE user_intro (user_id TEXT PRIMARY KEY, completed_at TEXT NOT NULL)',
-      ),
-    );
     await sql((storage) => {
       for (const id of [avery.user.id, blake.user.id])
         storage.sql.exec('INSERT INTO user_intro VALUES (?,?)', id, NOW);

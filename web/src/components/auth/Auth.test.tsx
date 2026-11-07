@@ -13,6 +13,7 @@ import Login from '../../pages/Login';
 import Signup from '../../pages/Signup';
 import ChangePassword from '../../pages/ChangePassword';
 import Settings from '../../pages/Settings';
+import Intro from '../../pages/Intro';
 import { ThemeProvider } from '../../lib/theme';
 import { ToastProvider } from '../ui';
 const clients: ReturnType<typeof createQueryClient>[] = [];
@@ -73,6 +74,7 @@ function setup(path: string, session: string | null = null, forced = false) {
           {
             element: <RequireAuth />,
             children: [
+              { path: '/intro', element: <Intro /> },
               {
                 path: '/feed',
                 element: (
@@ -202,6 +204,8 @@ describe('authentication flows', () => {
     await screen.findByText('This email is already registered. Log in instead', { selector: 'p' });
     fill('Email', 'sandro@stanford.edu');
     fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
+    await screen.findByRole('heading', { name: 'E-meters' });
+    fireEvent.click(screen.getByRole('button', { name: 'Skip' }));
     await screen.findByRole('heading', { name: 'Team Feed' });
     expect(mock.state.users.at(-1)).toMatchObject({
       name: 'Sandro Scalfi',
@@ -240,6 +244,8 @@ describe('authentication flows', () => {
     fill('Email', 'ginger@stanford.edu');
     fill('Password', 'password');
     fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
+    await screen.findByRole('heading', { name: 'E-meters' });
+    fireEvent.click(screen.getByRole('button', { name: 'Skip' }));
     await screen.findByRole('heading', { name: 'Training Home' });
     expect(mock.state.users.at(-1)).toMatchObject({
       role: 'coxswain',
@@ -270,6 +276,8 @@ describe('authentication flows', () => {
     fill('Email', 'joskoo@stanford.edu');
     fill('Password', 'password');
     fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
+    await screen.findByRole('heading', { name: 'E-meters' });
+    fireEvent.click(screen.getByRole('button', { name: 'Skip' }));
     await screen.findByRole('heading', { name: 'Training Home' });
     expect(mock.state.users.at(-1)).toMatchObject({
       name: 'Joshua Koo',

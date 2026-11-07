@@ -3,6 +3,7 @@ import { authenticate, requireUser } from './auth/guards';
 import { HttpError, errorResponse, json } from './http';
 import * as auth from './routes/auth';
 import * as me from './routes/me';
+import * as intro from './routes/intro';
 import * as myPlan from './routes/myPlan';
 import * as config from './routes/config';
 import * as entries from './routes/entries';
@@ -67,12 +68,14 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 9 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 12 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
   { method: 'POST', path: '/api/auth/logout', handler: auth.logout },
   { method: 'GET', path: '/api/me', handler: me.get },
+  { method: 'GET', path: '/api/me/intro', handler: intro.get },
+  { method: 'POST', path: '/api/me/intro', handler: intro.complete },
   { method: 'PATCH', path: '/api/me', handler: me.patch },
   { method: 'POST', path: '/api/me/password', handler: unavailable },
   { method: 'POST', path: '/api/me/password/verify', handler: unavailable },

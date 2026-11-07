@@ -5,6 +5,12 @@ afterEach(() => {
   vi.unstubAllGlobals();
   vi.useRealTimers();
 });
+it('reads the personal workout CSV as text', async () => {
+  setup(
+    new Response('id,date\r\nentry-1,2026-11-06\r\n', { headers: { 'Content-Type': 'text/csv' } }),
+  );
+  expect(await api('GET /api/me/export/workouts', {})).toBe('id,date\r\nentry-1,2026-11-06\r\n');
+});
 it('keeps enriched responses available through the shared client contract', () => {
   expectTypeOf<
     Api['GET /api/entries/:id/comments']['response'][number]['author']

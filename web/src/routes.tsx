@@ -22,6 +22,8 @@ import Plan from './pages/Plan';
 import Notifications from './pages/Notifications';
 import AnnouncementList from './pages/Announcements';
 import Settings from './pages/Settings';
+import Intro from './pages/Intro';
+import Privacy from './pages/Privacy';
 import EditProfile from './pages/EditProfile';
 import WeeklyTarget from './pages/WeeklyTarget';
 import Admin from './pages/Admin';
@@ -59,9 +61,11 @@ export const router = createBrowserRouter([
         ],
       },
       { path: '/change-password', element: <ChangePassword /> },
+      { path: '/privacy', element: <Privacy /> },
       {
         element: <RequireAuth />,
         children: [
+          { path: '/intro', element: <Intro /> },
           {
             element: <AppShell />,
             children: [
