@@ -9,6 +9,7 @@ import { ThemeProvider } from './lib/theme';
 import { ToastProvider } from './components/ui/Toast';
 import { PwaUpdates } from './components/PwaUpdates';
 import { AppErrorBoundary } from './components/AppErrorBoundary';
+import { OfflineBanner } from './components/OfflineBanner';
 if (import.meta.env.DEV && import.meta.env.VITE_MOCK === '1') await import('./mock/install');
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <ThemeProvider>
           <ToastProvider>
             <PwaUpdates />
+            <OfflineBanner />
             <RouterProvider router={router} />
           </ToastProvider>
         </ThemeProvider>

@@ -2,6 +2,7 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { act, cleanup, renderHook } from '@testing-library/react';
 import { usePhotos } from './usePhotos';
+import { StrictMode } from 'react';
 const { upload, resize } = vi.hoisted(() => ({ upload: vi.fn(), resize: vi.fn() }));
 vi.mock('./queries', () => ({ useUploadImage: () => ({ mutateAsync: upload }) }));
 vi.mock('./images', () => ({ resizeImage: resize }));
@@ -27,6 +28,7 @@ it('uploads processed blobs unchanged, caches retries and removes the draft', as
   act(() => result.current.remove(result.current.photos[0].key));
   expect(await result.current.save()).toEqual([]);
   unmount();
+  await Promise.resolve();
   expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:preview');
 });
 it('keeps a processed draft intact after an upload error', async () => {
@@ -46,4 +48,30 @@ it('preserves existing ids and resizes files for session callers', async () => {
   act(() => result.current.add([file]));
   expect(await result.current.save()).toEqual(['existing', 'uploaded']);
   expect(resize).toHaveBeenCalledWith(file, 1600, false);
+});
+it('seeds restored photos, reuses uploaded ids and reports each new upload id', async () => {
+  const blob = new Blob(['restored'], { type: 'image/png' });
+  const { result } = renderHook(() =>
+    usePhotos([
+      { key: 'uploaded', url: '/api/images/existing', id: 'existing', blob },
+      { key: 'pending', url: 'blob:restored', blob },
+    ]),
+  );
+  await act(async () => expect(await result.current.save()).toEqual(['existing', 'uploaded']));
+  expect(upload).toHaveBeenCalledTimes(1);
+  expect(upload).toHaveBeenCalledWith({ body: blob });
+  expect(result.current.photos[1].id).toBe('uploaded');
+  await act(async () => expect(await result.current.save()).toEqual(['existing', 'uploaded']));
+  expect(upload).toHaveBeenCalledTimes(1);
+});
+it('keeps restored previews alive through StrictMode effect replay', async () => {
+  const { unmount } = renderHook(
+    () => usePhotos([{ key: 'restored', url: 'blob:restored', blob: new Blob(['photo']) }]),
+    { wrapper: StrictMode },
+  );
+  await Promise.resolve();
+  expect(URL.revokeObjectURL).not.toHaveBeenCalled();
+  unmount();
+  await Promise.resolve();
+  expect(URL.revokeObjectURL).toHaveBeenCalledWith('blob:restored');
 });

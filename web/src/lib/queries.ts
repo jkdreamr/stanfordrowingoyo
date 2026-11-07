@@ -19,6 +19,7 @@ import type { Api, Config, EntryDetail, MyPlan, MyPlanInput, User } from '../../
 import { api, ApiClientError, type RequestOptions } from './api';
 import { useToast } from '../components/ui/Toast';
 import { covers, personalPlan } from './myPlan';
+import { clearLogDrafts } from './logDraftStore';
 type Get = Extract<keyof Api, `GET ${string}`>;
 type Write = Exclude<keyof Api, Get>;
 type Query<K extends keyof Api> = Api[K]['query'];
@@ -262,6 +263,7 @@ function mutationHook<K extends Write>(endpoint: K) {
           );
       },
       onSuccess: async (data, options) => {
+        if (endpoint === 'POST /api/auth/logout') await clearLogDrafts();
         if (endpoint === 'PATCH /api/me') client.setQueryData(qk.me(), data);
         if (endpoint === 'POST /api/auth/roster') return;
         if (endpoint.includes('/auth/')) {
