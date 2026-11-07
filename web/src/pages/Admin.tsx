@@ -7,6 +7,7 @@ import {
   Megaphone,
   Download,
   History,
+  Flag,
 } from 'lucide-react';
 import { useCompliance } from '../lib/queries';
 import { formatNumber } from '../lib/format';
@@ -20,6 +21,7 @@ const links = [
   ['Presets', '/admin/presets', SlidersHorizontal],
   ['Plan Editor', '/admin/plan', CalendarDays],
   ['Announcements', '/admin/announcements', Megaphone],
+  ['Challenges', '/admin/challenges', Flag],
   ['Export', '/admin/export', Download],
   ['Audit Log', '/admin/audit', History],
 ] as const;

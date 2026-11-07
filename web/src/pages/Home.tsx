@@ -28,6 +28,7 @@ import { LoadState } from '../components/shell/LoadState';
 import { ModalityIcon } from '../components/shell/ModalityIcon';
 import { TodaysPlan } from '../components/plan/TodaysPlan';
 import { LastWeekRecap } from '../components/LastWeekRecap';
+import { TeamChallenges } from '../components/TeamChallenges';
 export default function Page() {
   const { data: user } = useMe();
   const { data: target } = useTarget();
@@ -126,6 +127,7 @@ export default function Page() {
             {target?.source === 'personal' ? 'Personal Target' : 'Group Default'}
           </p>
         </ActionCard>
+        <TeamChallenges today={config.today} />
         <TodaysPlan today={config.today} />
         <ListGroup>
           <ListRow title="Announcements" to="/announcements" />
