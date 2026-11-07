@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { api } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
 import { useLogout, useMe } from '../lib/queries';
 import { authError } from '../lib/auth';
@@ -21,8 +22,32 @@ export default function Settings() {
   const [message, setMessage] = useState<string>();
   const [password, setPassword] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  const [downloading, setDownloading] = useState(false);
   const { theme, setTheme } = useTheme();
   const toast = useToast();
+  async function download() {
+    if (downloading) return;
+    setDownloading(true);
+    setMessage(undefined);
+    try {
+      const data = await api('GET /api/me/export', {});
+      const url = URL.createObjectURL(
+        new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }),
+      );
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'oyo-my-data.json';
+      document.body.append(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      toast.show({ title: 'Download started' });
+    } catch (error) {
+      setMessage(authError(error));
+    } finally {
+      setDownloading(false);
+    }
+  }
   return (
     <>
       <PageHeader title="Settings" back="/me" />
@@ -46,6 +71,16 @@ export default function Settings() {
           <ListRow title="Edit Profile" to="/me/edit" />
           <ListRow title="Weekly Target" to="/me/target" />
           <ListRow title="Change Password" chevron onClick={() => setPassword(true)} />
+          <ListRow
+            title={downloading ? 'Downloading…' : 'Download My Data'}
+            subtitle="JSON · Profile, training and plans"
+            onClick={() => void download()}
+            disabled={downloading}
+          />
+        </ListGroup>
+        <ListGroup header="Help And Privacy">
+          <ListRow title="Quick Intro" to="/intro?next=%2Fsettings" />
+          <ListRow title="Privacy" to="/privacy" />
         </ListGroup>
         <ListGroup>
           {me && me.role !== 'rower' && <ListRow title="Admin" to="/admin" />}

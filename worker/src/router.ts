@@ -3,6 +3,7 @@ import { authenticate, requireUser } from './auth/guards';
 import { HttpError, errorResponse, json } from './http';
 import * as auth from './routes/auth';
 import * as me from './routes/me';
+import * as intro from './routes/intro';
 import * as myPlan from './routes/myPlan';
 import * as config from './routes/config';
 import * as entries from './routes/entries';
@@ -15,6 +16,7 @@ import * as admin from './routes/admin';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
 import * as reports from './routes/reports';
+import * as account from './routes/account';
 import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 type Handler = (ctx: Context) => Response | Promise<Response>;
@@ -80,12 +82,14 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 13 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 12 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
   { method: 'POST', path: '/api/auth/logout', handler: auth.logout },
   { method: 'GET', path: '/api/me', handler: me.get },
+  { method: 'GET', path: '/api/me/intro', handler: intro.get },
+  { method: 'POST', path: '/api/me/intro', handler: intro.complete },
   { method: 'PATCH', path: '/api/me', handler: me.patch },
   { method: 'POST', path: '/api/me/password', handler: unavailable },
   { method: 'POST', path: '/api/me/password/verify', handler: unavailable },
@@ -147,6 +151,10 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/admin/compliance', handler: admin.compliance },
   { method: 'GET', path: '/api/admin/export', handler: admin.exportCsv },
   { method: 'GET', path: '/api/admin/audit', handler: admin.getAudit },
+  // Account data export and removal (docs/ARCHITECTURE.md §6 "Account data").
+  { method: 'GET', path: '/api/me/export', handler: account.exportData },
+  { method: 'GET', path: '/api/me/export/workouts', handler: account.exportWorkouts },
+  { method: 'POST', path: '/api/admin/users/:id/remove', handler: account.removeUser },
 ];
 export function matchPath(template: string, path: string): Record<string, string> | null {
   const a = template.split('/');

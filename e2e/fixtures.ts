@@ -114,6 +114,7 @@ export const test = base.extend<Fixtures>({
       });
       await expect(response).toBeOK();
       const user: User = await response.json();
+      await expect(await context.request.post('/api/me/intro', { headers: csrfHeaders })).toBeOK();
       const page = await context.newPage();
       await page.goto('/');
       await expect(page.getByRole('heading', { name: 'This Week', exact: true })).toBeVisible();

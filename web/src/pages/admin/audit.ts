@@ -65,6 +65,7 @@ export function auditEntry(
     'user.reset-password': `reset the password for ${subject}`,
     'roster.unlink': `unlinked ${subject}’s account`,
     'user.update': `updated ${subject}’s account`,
+    'user.remove': 'permanently removed a rower account',
     'roster.create': `added ${subject} to the roster`,
     'roster.delete': `removed ${subject} from the roster`,
     'roster.update': `updated ${subject} on the roster`,
@@ -85,6 +86,23 @@ export function auditEntry(
     'report.delete': 'removed reported content',
   };
   const changes: string[] = [];
+  if (row.action === 'user.remove') {
+    const removed = object(after.removed);
+    for (const [key, label] of [
+      ['workouts', 'workout'],
+      ['erg_tests', 'erg test'],
+      ['challenges', 'team challenge'],
+      ['images', 'photo'],
+      ['comments', 'comment'],
+      ['kudos', 'kudos'],
+      ['plans', 'private plan'],
+      ['weekly_targets', 'weekly target'],
+    ]) {
+      const count = removed[key];
+      if (typeof count === 'number' && Number.isSafeInteger(count) && count > 0)
+        changes.push(`${formatNumber(count)} ${label}${count === 1 || key === 'kudos' ? '' : 's'}`);
+    }
+  }
   if (typeof after.imported === 'number')
     changes.push(`Imported ${formatNumber(after.imported)} names`);
   if (typeof after.updated === 'number')

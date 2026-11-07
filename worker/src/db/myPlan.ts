@@ -1,4 +1,4 @@
-import type { MyPlan, MyPlanInput, MyPlanSessionInput } from '../../../shared/types';
+import type { MyPlan, MyPlanInput, MyPlanSessionInput, Settings } from '../../../shared/types';
 import { addDays } from '../../../shared/dates';
 import { equivalentMeters } from '../../../shared/math';
 import { getSettings } from './settings';
@@ -44,6 +44,14 @@ export function getMyPlan(
       addDays(row.start_date, 13),
     )
     .toArray();
+  return buildPlan(row, sessions, entries, getSettings(storage));
+}
+function buildPlan(
+  row: Row<PlanRow>,
+  sessions: Row<MyPlanSessionInput>[],
+  entries: Row<CompletionEntry>[],
+  settings: Settings,
+): MyPlan {
   const available = new Map<string, string[]>();
   for (const entry of entries) {
     const key = `${entry.date}|${entry.modality}`;
@@ -51,7 +59,6 @@ export function getMyPlan(
     matches.push(entry.id);
     available.set(key, matches);
   }
-  const settings = getSettings(storage);
   const planned_m: [number, number] = [0, 0];
   return {
     start_date: row.start_date,
@@ -78,6 +85,54 @@ export function getMyPlan(
       };
     }),
   };
+}
+/** Every personal plan of one user, using three queries regardless of plan count. */
+export function allMyPlans(storage: DurableObjectStorage, userId: string): MyPlan[] {
+  const rows = storage.sql
+    .exec<Row<PlanRow>>(
+      'SELECT start_date, rest_days_json, updated_at FROM my_plans WHERE user_id = ? ORDER BY start_date',
+      userId,
+    )
+    .toArray();
+  if (!rows.length) return [];
+  const sessions = storage.sql
+    .exec<Row<MyPlanSessionInput & { start_date: string }>>(
+      'SELECT start_date, week, day, slot, modality, zone, distance_m, note FROM my_plan_sessions WHERE user_id = ? ORDER BY start_date, week, day, slot',
+      userId,
+    )
+    .toArray();
+  const entries = storage.sql
+    .exec<Row<CompletionEntry>>(
+      'SELECT id, date, modality FROM entries WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY created_at, id',
+      userId,
+      rows[0].start_date,
+      addDays(rows[rows.length - 1].start_date, 13),
+    )
+    .toArray();
+  const settings = getSettings(storage);
+  const sessionsByStart = new Map<string, Row<MyPlanSessionInput>[]>();
+  for (const { start_date, ...session } of sessions) {
+    const group = sessionsByStart.get(start_date) ?? [];
+    group.push(session);
+    sessionsByStart.set(start_date, group);
+  }
+  const entriesByDate = new Map<string, Row<CompletionEntry>[]>();
+  for (const entry of entries) {
+    const group = entriesByDate.get(entry.date) ?? [];
+    group.push(entry);
+    entriesByDate.set(entry.date, group);
+  }
+  return rows.map((row) => {
+    return buildPlan(
+      row,
+      sessionsByStart.get(row.start_date) ?? [],
+      Array.from(
+        { length: 14 },
+        (_, day) => entriesByDate.get(addDays(row.start_date, day)) ?? [],
+      ).flat(),
+      settings,
+    );
+  });
 }
 export function replaceMyPlan(
   storage: DurableObjectStorage,

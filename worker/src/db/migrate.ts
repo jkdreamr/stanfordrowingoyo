@@ -469,6 +469,23 @@ CREATE INDEX IF NOT EXISTS content_reports_entry ON content_reports(entry_id,sta
         '13',
       );
     });
+  const introVersion = 12;
+  if (Number(JSON.parse(version.value_json)) < introVersion)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS user_intro (
+  user_id TEXT PRIMARY KEY,
+  completed_at TEXT NOT NULL
+);`);
+      sql.exec(
+        'INSERT OR IGNORE INTO user_intro (user_id, completed_at) SELECT id, ? FROM users',
+        new Date().toISOString(),
+      );
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        String(introVersion),
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

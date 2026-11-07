@@ -382,6 +382,55 @@ export interface Config extends Omit<Settings, 'team_code'> {
   presets: Preset[];
   zones: Zone[];
 }
+/** A teammate referenced from exported content: only the team-visible id and name. */
+export interface AccountExportPerson {
+  id: string;
+  name: string;
+}
+export interface AccountExportWorkout extends Entry {
+  images: ImageMetadata[];
+  tagged: AccountExportPerson[];
+  kudos_count: number;
+  comment_count: number;
+}
+export interface AccountExportComment extends Comment {
+  mentions: AccountExportPerson[];
+}
+/** Someone else's workout that tags the exporting user. */
+export interface AccountExportTag {
+  entry_id: string;
+  entry_owner_id: string;
+  tagged_at: string;
+}
+/** Someone else's comment that mentions the exporting user; the comment body is not exported. */
+export interface AccountExportMention {
+  comment_id: string;
+  entry_id: string;
+  author_id: string;
+  created_at: string;
+}
+/** `GET /api/me/export`: the signed-in user's own data. Image bytes are fetched via `GET /api/images/:id`. */
+export interface AccountDataExport {
+  format_version: 1;
+  exported_at: string;
+  profile: User;
+  roster: RosterRow | null;
+  weekly_targets: WeeklyTarget[];
+  workouts: AccountExportWorkout[];
+  erg_tests: Omit<ErgTest, 'is_pr'>[];
+  images: ImageMetadata[];
+  comments: AccountExportComment[];
+  kudos_given: Kudos[];
+  plans: MyPlan[];
+  tagged_in: AccountExportTag[];
+  mentioned_in: AccountExportMention[];
+}
+export interface AdminUserRemoveRequest {
+  confirmation_email: string;
+}
+export interface IntroStatus {
+  completed_at: string | null;
+}
 export interface Endpoint<Req, Res, Query = never> {
   request: Req;
   response: Res;
@@ -406,6 +455,8 @@ export interface Api {
   'POST /api/auth/login': Endpoint<LoginRequest, User>;
   'POST /api/auth/logout': Endpoint<void, void>;
   'GET /api/me': Endpoint<void, User>;
+  'GET /api/me/intro': Endpoint<void, IntroStatus>;
+  'POST /api/me/intro': Endpoint<void, IntroStatus>;
   'PATCH /api/me': Endpoint<ProfilePatch, User>;
   'POST /api/me/password/verify': Endpoint<PasswordVerifyRequest, PasswordVerifyResponse>;
   'POST /api/me/password': Endpoint<PasswordChangeRequest, void>;
@@ -463,9 +514,12 @@ export interface Api {
   'GET /api/me/plan': Endpoint<void, MyPlan | null, { date?: string }>;
   'PUT /api/me/plan': Endpoint<MyPlanInput, MyPlan>;
   'DELETE /api/me/plan/:start': Endpoint<void, void>;
+  'GET /api/me/export': Endpoint<void, AccountDataExport>;
+  'GET /api/me/export/workouts': Endpoint<void, string>;
   'GET /api/admin/users': Endpoint<void, User[]>;
   'PATCH /api/admin/users/:id': Endpoint<AdminUserPatch, User>;
   'POST /api/admin/users/:id/reset-password': Endpoint<void, { temporary_password: string }>;
+  'POST /api/admin/users/:id/remove': Endpoint<AdminUserRemoveRequest, void>;
   'GET /api/admin/roster': Endpoint<void, RosterRow[]>;
   'POST /api/admin/roster': Endpoint<RosterInput, RosterRow>;
   'PATCH /api/admin/roster/:id': Endpoint<Partial<RosterInput>, RosterRow>;

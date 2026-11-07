@@ -67,6 +67,16 @@ export function useMe() {
     enabled,
   });
 }
+export function useIntro(enabled = true) {
+  return queryHook('GET /api/me/intro')({}, enabled);
+}
+export function useCompleteIntro() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: () => api('POST /api/me/intro', {}),
+    onSuccess: (status) => client.setQueryData(qk.request('GET /api/me/intro', {}), status),
+  });
+}
 export function useTarget() {
   return queryHook('GET /api/me/target')({});
 }

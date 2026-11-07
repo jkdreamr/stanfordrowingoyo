@@ -19,7 +19,12 @@ export async function openSettings(page: Page) {
     .filter({ visible: true })
     .click();
 }
-export async function completeSignup(page: Page, signup: RowerSignup, teamCode: string) {
+export async function completeSignup(
+  page: Page,
+  signup: RowerSignup,
+  teamCode: string,
+  skipIntro = true,
+) {
   await page.getByLabel('Team Join Code').fill(teamCode);
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await chooseNativeRadio(page, signup.name);
@@ -29,6 +34,9 @@ export async function completeSignup(page: Page, signup: RowerSignup, teamCode: 
   await page.getByLabel('Email', { exact: true }).fill(signup.email);
   await page.getByLabel('Password', { exact: true }).fill(signup.password);
   await page.getByRole('button', { name: 'Create Account', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'E-meters', exact: true })).toBeVisible();
+  if (!skipIntro) return;
+  await page.getByRole('button', { name: 'Skip', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'This Week', exact: true })).toBeVisible();
 }
 export async function logEntry(

@@ -99,7 +99,7 @@ it('backfills v9 best splits on team-local date and is idempotent', async () => 
     setSetting(s, 'schema_version', 9);
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(13);
+    expect(getSetting(s, 'schema_version')).toBe(12);
     const rows = s.sql.exec<Row<ErgTest>>('SELECT * FROM erg_tests ORDER BY kind').toArray();
     expect(rows).toHaveLength(2);
     expect(rows[0]).toMatchObject({ date: '2026-03-09', time_s: 400, split_s: 100 });

@@ -34,6 +34,7 @@ import {
 } from '../../components/ui';
 import { LoadState } from '../../components/shell/LoadState';
 import { FormErrors } from '../../components/auth/FormErrors';
+import { RemoveAccount } from './RemoveAccount';
 import {
   groups,
   groupLabels,
@@ -293,6 +294,7 @@ function EditPerson({
     [leaderboard, setLeaderboard] = useState(user?.on_leaderboard ?? true);
   const [message, setMessage] = useState<string>(),
     [busy, setBusy] = useState(false);
+  const [removing, setRemoving] = useState(false);
   const [confirm, setConfirm] = useState<'reset' | 'unlink' | 'delete' | 'deactivate'>(),
     [password, setPassword] = useState<string>();
   const patchRoster = useUpdateRoster(),
@@ -466,6 +468,14 @@ function EditPerson({
                 </ListGroup>
               )}
               <ListGroup header="Account Actions">
+                {user?.role === 'rower' && viewerRole === 'admin' && user.id !== viewerId && (
+                  <ListRow
+                    title="Remove Account"
+                    tone="destructive"
+                    onClick={() => setRemoving(true)}
+                    chevron
+                  />
+                )}
                 {user && !locked && user.id !== viewerId && (
                   <ListRow
                     title="Reset Password"
@@ -509,6 +519,9 @@ function EditPerson({
           )}
         </div>
       </Sheet>
+      {removing && user && (
+        <RemoveAccount user={user} close={() => setRemoving(false)} onRemoved={close} />
+      )}
       <ConfirmSheet
         open={!!confirm}
         onClose={() => setConfirm(undefined)}

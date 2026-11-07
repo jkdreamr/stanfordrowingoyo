@@ -236,6 +236,7 @@ my_plans(user_id, start_date, rest_days_json, updated_at, PK(user_id, start_date
 my_plan_sessions(user_id, start_date, week, day, slot, modality, zone, distance_m NULL, note,
                  PK(user_id, start_date, week, day, slot))
 notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'|'report'), actor_id, entry_id NULL, created_at, read_at NULL)
+user_intro(user_id PK, completed_at)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
@@ -445,6 +446,47 @@ finishes before the synchronous session commit; signup claims, user writes and s
 Staff password resets reload both actor and target after hashing. Record PATCH writes use UPDATE with an existence
 check, never replacement inserts; settings, target and plan upserts use ON CONFLICT DO UPDATE without deleting rows.
 
+### Account data (export and removal)
+
+`GET /api/me/export` (any signed-in user, own data only) returns `AccountDataExport` JSON with
+`format_version: 1`, `exported_at`, `profile` (User), `roster` (own claimed RosterRow or null),
+`weekly_targets`, `workouts` (own entries with `images` metadata, `tagged` `{id,name}`, `kudos_count`,
+`comment_count`), `images` (metadata of every image the user owns: workout photos, avatar, unattached
+uploads; bytes stay at `GET /api/images/:id`), `comments` (authored, with `mentions` `{id,name}`),
+`erg_tests` (the owner's stored erg test history, without the derived `is_pr` flag),
+`kudos_given`, `plans` (every My Fortnight window, computed like `GET /api/me/plan`), `tagged_in`
+(`{entry_id, entry_owner_id, tagged_at}`) and `mentioned_in` (`{comment_id, entry_id, author_id,
+created_at}`, never the other person's comment body). `GET /api/me/export/workouts` returns the same
+workouts as CSV (formula-guarded cells). Both responses are `Cache-Control: private, no-store`
+attachments. Exports never contain credentials, sessions, re-auth grants, other users' emails,
+private plans, comment text or notes. A constant number of SQL queries is used.
+
+`POST /api/admin/users/:id/remove` ({ confirmation_email } → 204) is the staff account-removal
+process. Policy: only an admin may remove; only `rower` accounts (active, inactive or unlinked) are
+removable, never your own account or staff (demote first); `confirmation_email` must equal the
+target's email (trimmed, case-insensitive), else 400 CONFIRMATION_MISMATCH. Order: 403 → 404 →
+409 CONFLICT (self/staff) → 400. The body is parsed first, then the actor is reloaded and authorized
+and everything is deleted in one transaction (a failure rolls all of it back). Removal is permanent:
+
+- deletes the user row, sessions (signs them out), re-auth grants, the email's login rate-limit
+  bucket, `user_intro`, weekly targets, personal plans and sessions, and every image they own;
+- deletes their erg test history and team challenges they authored (including former staff
+  who have been demoted to rower); the audit counts include these records;
+- deletes their workouts with each workout's photos, tags, kudos, comments (including other
+  people's comments on those workouts), mentions and notifications;
+- deletes their comments and kudos on other workouts, tags and mentions of them on other people's
+  content, and notifications they received or caused; other people's free text that typed their
+  name (e.g. "@Name" in a comment body) is left unchanged;
+- deletes the roster row they currently claim, so the removed name cannot be claimed by accident
+  (staff may add it again), and clears `roster.added_by` references;
+- leaderboards and stats drop them through the existing `stats_versions`/`stats_counters` triggers.
+  Earlier audit rows whose target, actor or snapshot references the user id, claimed roster id,
+  email or `"name"` keep action, actor, target and time but their `detail_json` becomes
+  `{"before":null,"after":null,"redacted":"account_removed"}`. A new `user.remove` audit row stores
+  only role, active flag and removed-row counts. Removal cannot reach copies outside the database:
+  earlier admin CSV exports, the rower's own downloads, browser/PWA caches of images and pages, and
+  Cloudflare backups/point-in-time recovery until they expire. Ask the rower to export first.
+
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
 All entries are always team-visible. POST/PATCH accept the legacy `visibility` field but ignore it and store
 `team`. Profiles, feed, week/season/year stats and leaderboard totals include every workout, for all team members.
@@ -452,6 +494,18 @@ Schema version 6 idempotently converts existing private entries to team visibili
 images retain their independent authenticated ownership/avatar/entry-reference authorization rules above.
 
 ## 7. Frontend
+
+### First-run intro and privacy
+
+Schema v12 adds `user_intro(user_id, completed_at)`. Existing accounts are backfilled as complete;
+new accounts have no completion row. Authenticated `GET /api/me/intro` returns
+`IntroStatus { completed_at: string | null }`. `POST /api/me/intro` (no body) marks the intro complete
+or skipped, returning the same shape. Completion is idempotent and server-persisted across devices.
+Until completion, the app opens `/intro` after signup/login; Settings can reopen it without resetting
+completion. The three short steps cover E-meters, zones and the current weekly target, using live team
+factors and targets. Skip and Back are available. API access is not gated on intro completion.
+`/privacy` is public and linked from signup and Settings. It explains team-visible training and social
+content, staff access, owner-only My Fortnight plans, authenticated photo storage, exports and removal.
 
 - Vite + React 18 + TypeScript + Tailwind + React Router + TanStack Query, lucide-react icons. Built assets served by the
   Worker (Workers static assets, SPA fallback). PWA: manifest, icons (192/512/maskable/apple-touch), theme color,
