@@ -6,6 +6,8 @@ import {
   requirePasswordPepper,
 } from './auth/crypto';
 import { checkCsrf } from './router';
+import { sessionToken } from './db/sessions';
+import { readImage } from './imageValidation';
 import { readJson, errorResponse, HttpError, json } from './http';
 import * as v from './validate';
 export interface Env {
@@ -33,16 +35,22 @@ export default {
           '/api/auth/login',
           '/api/me/password',
           '/api/me/password/verify',
+          '/api/images',
         ].includes(path) &&
           !reset)
       )
         return stub.fetch(request);
-      const internal = (target: string, body: Record<string, unknown> = {}) => {
+      const internal = (
+        target: string,
+        body: Record<string, unknown> | ArrayBuffer = {},
+        metadata?: HeadersInit,
+      ) => {
         const headers = new Headers({
           'Content-Type': 'application/json',
           'X-OYO-CSRF': '1',
           'X-OYO-Internal': '1',
         });
+        if (metadata) new Headers(metadata).forEach((value, name) => headers.set(name, value));
         for (const name of ['Cookie', 'CF-Connecting-IP', 'X-OYO-Test-Now']) {
           const value = request.headers.get(name);
           if (value !== null) headers.set(name, value);
@@ -51,12 +59,21 @@ export default {
           new Request(new URL('/internal/' + target, request.url), {
             method: 'POST',
             headers,
-            body: JSON.stringify(body),
+            body: body instanceof ArrayBuffer ? body : JSON.stringify(body),
           }),
         );
       };
       try {
         checkCsrf(request);
+        if (path === '/api/images') {
+          if (!sessionToken(request)) throw new HttpError(401, 'UNAUTHENTICATED', 'Please log in.');
+          const image = await readImage(request);
+          return internal('images', image.bytes, {
+            'Content-Type': image.mime,
+            'X-OYO-Image-Width': String(image.width),
+            'X-OYO-Image-Height': String(image.height),
+          });
+        }
         const pepper = requirePasswordPepper(env.PASSWORD_PEPPER);
         if (reset) {
           const target = `admin/users/${reset[1]}/reset-password/`;

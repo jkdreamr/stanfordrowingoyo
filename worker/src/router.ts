@@ -19,11 +19,13 @@ interface Route {
   path: string;
   handler: Handler;
   readOnlyAuth?: boolean;
+  deferredAuth?: boolean;
 }
 function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'POST', path: '/internal/images', handler: images.create, deferredAuth: true },
   {
     method: 'POST',
     path: '/internal/auth/signup/precheck',
@@ -80,7 +82,7 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/entries/:id', handler: entries.get },
   { method: 'PATCH', path: '/api/entries/:id', handler: entries.patch },
   { method: 'DELETE', path: '/api/entries/:id', handler: entries.remove },
-  { method: 'POST', path: '/api/images', handler: images.create },
+  { method: 'POST', path: '/api/images', handler: unavailable },
   { method: 'GET', path: '/api/images/:id', handler: images.get },
   { method: 'GET', path: '/api/entries/:id/kudos', handler: social.kudosUsers },
   { method: 'POST', path: '/api/entries/:id/kudos', handler: social.kudos },
@@ -164,7 +166,7 @@ export async function route(ctx: Context): Promise<Response> {
     const found = matches.find((row) => row.method === ctx.request.method);
     if (!found) throw new HttpError(405, 'METHOD_NOT_ALLOWED', 'Method not allowed.');
     ctx.params = matchPath(found.path, path)!;
-    await authenticate(ctx, found.readOnlyAuth);
+    if (!found.deferredAuth) await authenticate(ctx, found.readOnlyAuth);
     if (ctx.user) requireUser(ctx);
     const allowed = [
       'GET /api/me',
