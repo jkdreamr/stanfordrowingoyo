@@ -29,6 +29,7 @@ import { api, ApiClientError } from '../lib/api';
 import {
   deleteLogDraft,
   loadLogDraft,
+  mirrorLogDraft,
   restorePhotos,
   saveLogDraft,
   storePhotos,
@@ -170,19 +171,20 @@ function LogForm({
   const latest = useRef({ draft, details, tagged, photos: photos.photos, dirty });
   latest.current = { draft, details, tagged, photos: photos.photos, dirty };
   const timer = useRef<ReturnType<typeof setTimeout>>();
+  const snapshot = (): StoredLogDraft => ({
+    draft: latest.current.draft,
+    details: latest.current.details,
+    tagged: latest.current.tagged,
+    photos: storePhotos(latest.current.photos),
+    idempotencyKey,
+    submitted: submitted.current,
+    savedAt: Date.now(),
+  });
   const persist = () => {
     if (entry || stopped.current) return Promise.resolve();
     const value = latest.current;
     return value.dirty || submitted.current
-      ? saveLogDraft(user.id, {
-          draft: value.draft,
-          details: value.details,
-          tagged: value.tagged,
-          photos: storePhotos(value.photos),
-          idempotencyKey,
-          submitted: submitted.current,
-          savedAt: Date.now(),
-        })
+      ? saveLogDraft(user.id, snapshot())
       : deleteLogDraft(user.id);
   };
   const persistRef = useRef(persist);
@@ -217,6 +219,7 @@ function LogForm({
     if (entry) return;
     // Resume storage after a discarded draft is edited again.
     if (dirty) stopped.current = false;
+    if (!stopped.current && dirty) mirrorLogDraft(user.id, snapshot());
     timer.current = setTimeout(() => {
       void persistRef.current();
     }, 400);

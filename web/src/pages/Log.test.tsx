@@ -330,6 +330,7 @@ it('restores before showing fields, overrides URL prefill, preserves the key and
   expect(requests).toHaveLength(1);
   expect(new Headers(requests[0][1]?.headers).get('Idempotency-Key')).toBe('restored-key');
   expect(mock.state.entries).toHaveLength(before + 1);
+  expect(localStorage.getItem('oyo-log-draft:user-1')).toBeNull();
   expect(await loadLogDraft('user-1')).toBeNull();
 });
 it('discards a restored draft back to URL values and removes persisted state', async () => {

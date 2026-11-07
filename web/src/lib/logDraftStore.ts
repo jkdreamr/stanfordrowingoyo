@@ -14,6 +14,46 @@ export type StoredLogDraft = {
 };
 const database = 'oyo-log-drafts';
 const table = 'drafts';
+const mirrorPrefix = 'oyo-log-draft:';
+const mirrorKey = (userId: string) => `${mirrorPrefix}${encodeURIComponent(userId)}`;
+export function mirrorLogDraft(userId: string, value: StoredLogDraft): void {
+  try {
+    localStorage.setItem(
+      mirrorKey(userId),
+      JSON.stringify({ ...value, photos: value.photos.map(({ blob: _, ...photo }) => photo) }),
+    );
+  } catch {
+    /* Storage can be unavailable or full. */
+  }
+}
+function removeMirror(userId: string): void {
+  try {
+    localStorage.removeItem(mirrorKey(userId));
+  } catch {
+    /* Storage can be unavailable. */
+  }
+}
+function readMirror(userId: string): StoredLogDraft | null {
+  try {
+    return JSON.parse(localStorage.getItem(mirrorKey(userId)) ?? 'null');
+  } catch {
+    return null;
+  }
+}
+function validDraft(
+  value: StoredLogDraft | null | undefined,
+  now: number,
+): value is StoredLogDraft {
+  return !!(
+    value &&
+    Number.isFinite(value.savedAt) &&
+    now - value.savedAt <= 14 * 86400000 &&
+    value.draft &&
+    Array.isArray(value.photos) &&
+    Array.isArray(value.tagged) &&
+    typeof value.idempotencyKey === 'string'
+  );
+}
 let pending: Promise<unknown> = Promise.resolve();
 function serial<T>(operation: () => Promise<T>): Promise<T> {
   const next = pending.then(operation, operation);
@@ -56,6 +96,7 @@ async function transact<T>(
   }
 }
 export function saveLogDraft(userId: string, value: StoredLogDraft): Promise<void> {
+  mirrorLogDraft(userId, value);
   return serial(async () => {
     try {
       await transact('readwrite', (store) => store.put(value, userId));
@@ -70,39 +111,46 @@ export function saveLogDraft(userId: string, value: StoredLogDraft): Promise<voi
 }
 export function loadLogDraft(userId: string, now = Date.now()): Promise<StoredLogDraft | null> {
   return serial(async () => {
+    let stored: StoredLogDraft | undefined;
     try {
-      const value = await transact<StoredLogDraft | undefined>('readonly', (store) =>
-        store.get(userId),
-      );
-      if (!value) return null;
-      if (
-        !Number.isFinite(value.savedAt) ||
-        now - value.savedAt > 14 * 86400000 ||
-        !value.draft ||
-        !Array.isArray(value.photos) ||
-        !Array.isArray(value.tagged) ||
-        typeof value.idempotencyKey !== 'string'
-      ) {
+      stored = await transact<StoredLogDraft | undefined>('readonly', (store) => store.get(userId));
+      if (stored && !validDraft(stored, now)) {
+        stored = undefined;
         await transact('readwrite', (store) => store.delete(userId));
-        return null;
       }
-      const photos = await Promise.all(
-        value.photos.map(async (photo) =>
-          photo.blob
-            ? {
-                ...photo,
-                blob: new Blob([await photo.blob.arrayBuffer()], { type: photo.blob.type }),
-              }
-            : photo,
-        ),
-      ).catch(() => []);
-      return { ...value, photos };
     } catch {
-      return null;
+      /* The synchronous mirror may still be available. */
     }
+    const mirror = readMirror(userId);
+    const validMirror = validDraft(mirror, now);
+    if (!validMirror) removeMirror(userId);
+    const value = validMirror && (!stored || mirror.savedAt >= stored.savedAt) ? mirror : stored;
+    if (!value) return null;
+    const sources =
+      value === mirror
+        ? value.photos.flatMap((photo) => {
+            const saved =
+              stored?.idempotencyKey === value.idempotencyKey
+                ? stored.photos.find((saved) => saved.key === photo.key)
+                : undefined;
+            return saved ? [{ ...saved, ...photo }] : [];
+          })
+        : value.photos;
+    const photos = await Promise.all(
+      sources.map(async (photo) =>
+        photo.blob
+          ? {
+              ...photo,
+              blob: new Blob([await photo.blob.arrayBuffer()], { type: photo.blob.type }),
+            }
+          : photo,
+      ),
+    ).catch(() => []);
+    return { ...value, photos };
   });
 }
 export function deleteLogDraft(userId: string): Promise<void> {
+  removeMirror(userId);
   return serial(async () => {
     try {
       await transact('readwrite', (store) => store.delete(userId));
@@ -112,6 +160,12 @@ export function deleteLogDraft(userId: string): Promise<void> {
   });
 }
 export function clearLogDrafts(): Promise<void> {
+  try {
+    const keys = Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index));
+    for (const key of keys) if (key?.startsWith(mirrorPrefix)) localStorage.removeItem(key);
+  } catch {
+    /* Storage can be unavailable. */
+  }
   return serial(async () => {
     try {
       await transact('readwrite', (store) => store.clear());

@@ -97,6 +97,24 @@ async function phoneScreenshots(page: Page, testInfo: TestInfo, name: string) {
   }
 }
 
+for (const fresh of [false, true]) {
+  test(`fast reload preserves ${fresh ? 'first-ever' : 'updated'} Notes`, async ({ makeRower }) => {
+    const rower = await makeRower();
+    const { page } = rower;
+    if (fresh) {
+      page.on('dialog', (dialog) => dialog.accept());
+      await page.goto('/log');
+      await expect(page.getByLabel('Notes', { exact: true })).toHaveValue('');
+    } else await fillDraft(rower, 'Previously persisted notes');
+    await page.getByLabel('Notes', { exact: true }).fill('Last edit before fast reload');
+    await page.waitForTimeout(100);
+    await page.reload();
+    await expect(page.getByLabel('Notes', { exact: true })).toHaveValue(
+      'Last edit before fast reload',
+    );
+  });
+}
+
 test('restores fields and a photo after reload, posts once and clears the draft', async ({
   makeRower,
 }, testInfo) => {
