@@ -33,6 +33,7 @@ import PlanEditor from './pages/admin/PlanEditor';
 import Announcements from './pages/admin/Announcements';
 import Export from './pages/admin/Export';
 import AuditLog from './pages/admin/AuditLog';
+import Reports from './pages/admin/Reports';
 export const router = createBrowserRouter([
   {
     errorElement: <AppErrorScreen />,
@@ -91,6 +92,7 @@ export const router = createBrowserRouter([
                   { path: '/admin/announcements', element: <Announcements /> },
                   { path: '/admin/export', element: <Export /> },
                   { path: '/admin/audit', element: <AuditLog /> },
+                  { path: '/admin/reports', element: <Reports /> },
                 ],
               },
               {

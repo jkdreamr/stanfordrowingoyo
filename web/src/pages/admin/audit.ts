@@ -81,6 +81,8 @@ export function auditEntry(
     'entry.update': target ? `updated the workout “${target}”` : 'updated a workout',
     'entry.delete': target ? `deleted the workout “${target}”` : 'deleted a workout',
     'comment.delete': 'deleted a comment',
+    'report.dismiss': 'dismissed a report',
+    'report.delete': 'removed reported content',
   };
   const changes: string[] = [];
   if (typeof after.imported === 'number')

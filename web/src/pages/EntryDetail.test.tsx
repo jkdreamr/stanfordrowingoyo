@@ -105,13 +105,19 @@ it('keeps Home rows linked to detail and reaches a prefilled own-session editor'
   expect(screen.getByRole('button', { name: 'Delete Session' })).toBeTruthy();
 });
 for (const scope of ['other', 'missing'] as const) {
-  it(`omits workout actions for ${scope} entries`, async () => {
+  it(`limits workout actions for ${scope} entries`, async () => {
     const { client } = setup(scope);
     await screen.findByRole('heading', {
       name: scope === 'missing' ? 'Workout Not Found' : 'Workout',
     });
     await waitFor(() => expect(client.isFetching()).toBe(0));
-    expect(screen.queryByRole('button', { name: 'More' })).toBeNull();
+    if (scope === 'missing') expect(screen.queryByRole('button', { name: 'More' })).toBeNull();
+    else {
+      fireEvent.click(screen.getByRole('button', { name: 'More' }));
+      expect(await screen.findByRole('button', { name: 'Report Workout' })).toBeTruthy();
+      expect(screen.queryByRole('link', { name: 'Edit Workout' })).toBeNull();
+      expect(screen.queryByRole('button', { name: 'Delete Workout' })).toBeNull();
+    }
   });
 }
 
@@ -141,6 +147,54 @@ it('opens the With sheet and inserts, posts and links selected mentions', async 
   expect(link.getAttribute('href')).toBe('/users/user-36');
   const posted = mock.state.comments.at(-1)!;
   expect(mock.state.mentions[posted.id]).toEqual(['user-36']);
+});
+
+it('edits only own comments, cancels drafts and shows edited after saving', async () => {
+  const { mock, router, entry } = setup();
+  mock.state.comments.push({
+    id: 'own-comment',
+    user_id: 'user-1',
+    entry_id: entry.id,
+    body: 'Original comment',
+    created_at: '2026-11-06T17:00:00Z',
+  });
+  mock.state.comments.push({
+    id: 'other-comment',
+    user_id: 'user-2',
+    entry_id: entry.id,
+    body: 'Other comment',
+    created_at: '2026-11-06T17:00:00Z',
+  });
+  await router.navigate(`/entries/${entry.id}`);
+  const own = (await screen.findByText('Original comment')).closest('li')!;
+  const other = screen.getByText('Other comment').closest('li')!;
+  expect(within(other).queryByRole('button', { name: 'Edit' })).toBeNull();
+  fireEvent.click(within(own).getByRole('button', { name: 'Edit' }));
+  let editor = screen.getByRole('form', { name: 'Edit Comment' });
+  fireEvent.change(within(editor).getByRole('combobox'), { target: { value: 'Discard me' } });
+  fireEvent.click(within(editor).getByRole('button', { name: 'Cancel' }));
+  expect(mock.state.comments.find((c) => c.id === 'own-comment')!.body).toBe('Original comment');
+  fireEvent.click(within(own).getByRole('button', { name: 'Edit' }));
+  editor = screen.getByRole('form', { name: 'Edit Comment' });
+  fireEvent.change(within(editor).getByRole('combobox'), { target: { value: 'Updated comment' } });
+  fireEvent.click(within(editor).getByRole('button', { name: 'Save' }));
+  await screen.findByText('Updated comment');
+  expect(within(own).getByText(/edited/)).toBeTruthy();
+});
+
+it('reports another workout with an optional reason', async () => {
+  const { mock } = setup('other');
+  fireEvent.click(await screen.findByRole('button', { name: 'More' }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Report Workout' }));
+  const sheet = screen.getByRole('dialog', { name: 'Report Workout' });
+  fireEvent.change(within(sheet).getByLabelText('Reason (Optional)'), {
+    target: { value: 'Please review' },
+  });
+  fireEvent.click(within(sheet).getByRole('button', { name: 'Send Report' }));
+  await screen.findByText('Report sent');
+  expect(mock.state.notifications.some((n) => n.kind === 'report' && n.actor_id === 'user-1')).toBe(
+    true,
+  );
 });
 
 for (const staff of [false, true]) {

@@ -221,6 +221,15 @@ export function useAudit() {
     enabled,
   });
 }
+export function useReports(status: 'open' | 'dismissed' | 'deleted') {
+  return useInfiniteQuery({
+    queryKey: qk.request('GET /api/admin/reports', { query: { status } }),
+    initialPageParam: undefined as string | undefined,
+    queryFn: ({ pageParam, signal }) =>
+      api('GET /api/admin/reports', { query: { status, cursor: pageParam }, signal }),
+    getNextPageParam: (page) => page.next_cursor ?? undefined,
+  });
+}
 export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint.includes('/auth/')) return [qk.all];
   if (endpoint === 'PATCH /api/me')
@@ -230,8 +239,14 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint === 'POST /api/me/password') return [qk.me()];
   if (endpoint === 'PUT /api/me/target')
     return [qk.target(), qk.root('stats'), qk.root('leaderboard'), qk.root('users')];
-  if (endpoint === 'DELETE /api/comments/:id') return [qk.root('entries'), qk.audit()];
-  if (endpoint.includes('comments')) return [qk.root('entries')];
+  if (endpoint === 'POST /api/reports') return [qk.root('admin'), qk.root('notifications')];
+  if (endpoint === 'PATCH /api/admin/reports/:id')
+    return [
+      ...['admin', 'entries', 'stats', 'leaderboard', 'users', 'me', 'notifications'].map(qk.root),
+    ];
+  if (endpoint === 'DELETE /api/comments/:id')
+    return [qk.root('entries'), qk.audit(), qk.root('admin')];
+  if (endpoint.includes('comments')) return [qk.root('entries'), qk.root('admin')];
   if (endpoint.includes('/entries'))
     return [...['entries', 'stats', 'leaderboard', 'users', 'me'].map(qk.root), qk.audit()];
   if (endpoint.includes('/announcements')) return [qk.root('announcements')];
@@ -299,6 +314,9 @@ export const useCreateEntry = mutationHook('POST /api/entries');
 export const useUpdateEntry = mutationHook('PATCH /api/entries/:id');
 export const useDeleteEntry = mutationHook('DELETE /api/entries/:id');
 export const useCreateComment = mutationHook('POST /api/entries/:id/comments');
+export const useUpdateComment = mutationHook('PATCH /api/comments/:id');
+export const useCreateReport = mutationHook('POST /api/reports');
+export const useReviewReport = mutationHook('PATCH /api/admin/reports/:id');
 export const useDeleteComment = mutationHook('DELETE /api/comments/:id');
 export const useUploadImage = mutationHook('POST /api/images');
 export const useCreateAnnouncement = mutationHook('POST /api/announcements');
