@@ -5,12 +5,6 @@
 .social-entry {
   overflow: hidden;
 }
-.social-week-hit:focus-visible {
-  outline: none;
-}
-.social-week-column:has(.social-week-hit:focus-visible) .social-week-selection {
-  stroke-width: 4;
-}
 .social-text-link {
   color: var(--text);
   border-radius: 4px;

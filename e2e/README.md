@@ -49,7 +49,7 @@ with the owner flow. Bootstrap still skips backend fixtures on a 501 auth respon
 when testing an older scaffold.
 Secure/HttpOnly cookie smoke is skipped in mock mode. Leaderboard, Me and Plan
 scenarios are enabled, as are Feed, discussion, kudos-givers,
-notifications, public profiles, team search and staff post deletion are enabled.
+notifications, public profiles, team search and staff post deletion.
 Unbuilt Admin/Roster screens retain their explicit screen fixmes. Unique rowers
 isolate real-backend tests across projects. CI runs the five gates, not E2E.
 

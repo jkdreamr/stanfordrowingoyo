@@ -4,10 +4,10 @@ import { useConfig, useEntries, useMe, useProfile } from '../lib/queries';
 import { ApiClientError } from '../lib/api';
 import { formatNumber } from '../lib/format';
 import { publicSubtitle } from '../lib/social';
-import { Avatar, Button, EmptyState, PageHeader } from '../components/ui';
+import { Avatar, Button, EmptyState, PageHeader, SeasonChart } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 import { EntryCard } from '../components/social/EntryCard';
-import { WeekBars } from '../components/social/WeekBars';
+import { WeekData } from '../components/social/WeekData';
 
 export default function RowerProfile() {
   const { id = '' } = useParams();
@@ -82,7 +82,8 @@ export default function RowerProfile() {
                 </div>
               </dl>
             </section>
-            <WeekBars key={id} weeks={data.stats.weeks} />
+            <SeasonChart userId={id} isMe={false} />
+            <WeekData key={id} weeks={data.stats.weeks} />
             <section aria-label="Workouts">
               <h2 className="mb-4 text-title3">Workouts</h2>
               {!workouts.data ? (

@@ -25,6 +25,7 @@ const state = vi.hoisted(() => ({
   scope: vi.fn(),
   read: vi.fn(),
   retry: vi.fn(),
+  chart: vi.fn(),
 }));
 vi.mock('../lib/queries', () => ({
   useProfile: () => ({
@@ -54,6 +55,12 @@ vi.mock('../lib/queries', () => ({
 }));
 vi.mock('../components/social/EntryCard', () => ({
   EntryCard: ({ entry }: { entry: EntryDetail }) => <article>{entry.title}</article>,
+}));
+vi.mock('../components/ui/SeasonChart', () => ({
+  SeasonChart: (props: { userId: string; isMe: boolean }) => {
+    state.chart(props);
+    return <section aria-label="Season Mileage" />;
+  },
 }));
 const user = {
   id: 'author',
@@ -117,6 +124,10 @@ it('uses only the public identity, server streak and user-scoped API entries', (
   expect(screen.getByText('3 weeks').className).toContain('text-highlight-ink');
   expect(screen.getByText('Public Row')).toBeTruthy();
   expect(state.scope).toHaveBeenCalledWith('user:author');
+  expect(state.chart).toHaveBeenCalledWith({ userId: 'author', isMe: false });
+  expect(screen.getByRole('region', { name: 'Season Mileage' })).toBeTruthy();
+  expect(screen.getByText('Season Total')).toBeTruthy();
+  expect(screen.getByText('Best Week')).toBeTruthy();
   expect(container.textContent).not.toMatch(/private@example.com|not-public/);
   expect(screen.queryByRole('link', { name: 'Edit Profile' })).toBeNull();
 });
@@ -127,6 +138,7 @@ it('shows empty workouts and handles a missing or failed profile', () => {
   state.error = new ApiClientError(404, { code: 'NOT_FOUND', message: 'Missing' });
   view.rerender(profileScreen());
   expect(screen.getByText('Rower Not Found')).toBeTruthy();
+  expect(screen.queryByRole('region', { name: 'Season Mileage' })).toBeNull();
   state.error = new Error('offline');
   view.rerender(profileScreen());
   fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
