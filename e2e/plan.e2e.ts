@@ -4,6 +4,8 @@ test('Plan shows the fortnight schedule and equivalent distance calculator', asy
   adminPage,
 }) => {
   await adminPage.goto('/plan');
+  const tabs = adminPage.getByRole('tablist', { name: 'Plan', exact: true });
+  expect(await tabs.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
   await expect(adminPage.getByRole('heading', { level: 2, name: 'This Fortnight' })).toBeVisible();
   await expect(adminPage.getByRole('heading', { name: 'Week 1', exact: true })).toBeVisible();
   await adminPage.getByRole('tab', { name: 'Calculator', exact: true }).click();

@@ -64,7 +64,7 @@ export default function Plan() {
   const config = useConfig();
   const me = useMe();
   return (
-    <div className="[&_.ui-tabs]:mx-4">
+    <div className="[&_.ui-tabs]:mx-4 max-sm:[&_.ui-tabs]:gap-2 max-sm:[&_.ui-tabs_button]:text-subhead">
       <PageHeader title="Plan" />
       <Tabs
         label="Plan"
