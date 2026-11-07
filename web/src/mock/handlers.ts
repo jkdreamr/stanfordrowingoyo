@@ -149,6 +149,7 @@ export function createMockApi({
       ...entry,
       author: publicUser(userById(entry.user_id)),
       images: state.imageLinks[entry.id] || [],
+      tagged: [],
       kudos_count: (state.kudos[entry.id] || []).length,
       has_kudos: (state.kudos[entry.id] || []).some((k) => k.user_id === currentId),
       comment_count: state.comments.filter((c) => c.entry_id === entry.id).length,
@@ -790,7 +791,7 @@ export function createMockApi({
             return json(
               state.comments
                 .filter((c) => c.entry_id === entry.id)
-                .map((c) => ({ ...c, author: publicUser(userById(c.user_id)) })),
+                .map((c) => ({ ...c, mentions: [], author: publicUser(userById(c.user_id)) })),
             );
           if (method === 'POST') {
             text(body.body, 'Comment');
@@ -803,7 +804,7 @@ export function createMockApi({
             };
             state.comments.push(comment);
             notify(entry.user_id, 'comment', entry);
-            return json({ ...comment, author: publicUser(user) }, 201);
+            return json({ ...comment, mentions: [], author: publicUser(user) }, 201);
           }
         }
         if (parts.length === 4) {

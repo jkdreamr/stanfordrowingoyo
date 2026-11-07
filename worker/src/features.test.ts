@@ -3,6 +3,7 @@ import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { beforeEach, describe, expect, it } from 'vitest';
 import type { Env } from './index';
 import type {
+  CommentWithAuthor,
   EntryDetail,
   EntryInput,
   LeaderboardRow,
@@ -39,7 +40,7 @@ function api(path: string, client?: Client, method = 'GET', body?: unknown, time
   });
 }
 async function user(name: string, role = 'rower'): Promise<Client> {
-  const email = name.toLowerCase() + '@example.com';
+  const email = name.toLowerCase().replaceAll(' ', '') + '@example.com';
   const id = await sql((storage) =>
     insertRosterFixture(storage, name, role, role === 'rower' ? null : email),
   );
@@ -112,6 +113,8 @@ beforeEach(async () => {
   await sql((storage) =>
     storage.transactionSync(() => {
       for (const table of [
+        'entry_tags',
+        'comment_mentions',
         'roster',
         'users',
         'sessions',
@@ -977,5 +980,143 @@ describe('statistics, leaderboard and team', () => {
       '/users/' + amy.user.id,
     ])
       expect((await api(path)).status).toBe(401);
+  });
+});
+
+describe('teammate tags and mentions', () => {
+  it('deduplicates tags, replaces only supplied sets and notifies only new recipients once', async () => {
+    const owner = await user('Owner');
+    const ann = await user('Ann');
+    const bob = await user('Bob');
+    const staff = await user('Staff', 'coach');
+    const logged = await entry(owner, {
+      tagged_user_ids: [owner.user.id, ann.user.id, ann.user.id],
+    });
+    expect(logged.tagged.map((u) => u.id)).toEqual([ann.user.id]);
+    const path = '/entries/' + logged.id;
+    expect(
+      (await (await api(path, owner, 'PATCH', { title: 'Changed' })).json<EntryDetail>()).tagged,
+    ).toHaveLength(1);
+    const replaced = await (
+      await api(path, staff, 'PATCH', {
+        tagged_user_ids: [owner.user.id, ann.user.id, bob.user.id],
+      })
+    ).json<EntryDetail>();
+    expect(replaced.tagged.map((u) => u.name)).toEqual(['Ann', 'Bob']);
+    await api(path, owner, 'PATCH', { tagged_user_ids: [] });
+    await api(path, owner, 'PATCH', { tagged_user_ids: [ann.user.id] });
+    const notes = await (await api('/notifications', ann)).json<Notification[]>();
+    expect(notes).toHaveLength(1);
+    expect(notes[0]).toMatchObject({ kind: 'tag', actor_id: owner.user.id, entry_id: logged.id });
+    const bobNotes = await (await api('/notifications', bob)).json<Notification[]>();
+    expect(bobNotes).toHaveLength(1);
+    expect(bobNotes[0]).toMatchObject({ kind: 'tag', actor_id: staff.user.id });
+    expect((await (await api('/stats/week', ann)).json<WeekStats>()).total_m).toBe(0);
+    expect((await (await api('/stats/season', ann)).json<SeasonStats>()).total_m).toBe(0);
+    const board = await (await api('/leaderboard', owner)).json<LeaderboardRow[]>();
+    expect(board.find((r) => r.user.id === ann.user.id)?.total_m).toBe(0);
+    await sql((storage) =>
+      storage.sql.exec('UPDATE users SET active=0 WHERE id=?', ann.user.id).toArray(),
+    );
+    expect((await (await api(path, owner)).json<EntryDetail>()).tagged).toEqual([]);
+  });
+  it('rejects malformed, unknown, inactive and over-cap recipients before filtering bodies', async () => {
+    const owner = await user('Owner');
+    const inactive = await user('Inactive');
+    const ids: string[] = [];
+    for (let i = 0; i < 11; i++) ids.push((await user('Mate' + i)).user.id);
+    await sql((storage) =>
+      storage.sql.exec('UPDATE users SET active=0 WHERE id=?', inactive.user.id).toArray(),
+    );
+    const logged = await entry(owner);
+    for (const value of [null, 'bad', [1], ['missing'], [inactive.user.id], ids]) {
+      for (const [path, method, body] of [
+        ['/entries', 'POST', { ...input, tagged_user_ids: value }],
+        ['/entries/' + logged.id, 'PATCH', { tagged_user_ids: value }],
+        [
+          '/entries/' + logged.id + '/comments',
+          'POST',
+          { body: 'No names here', mention_ids: value },
+        ],
+      ] as const) {
+        const response = await api(path, owner, method, body);
+        expect(response.status).toBe(400);
+        expect(await response.json()).toMatchObject({ error: { code: 'VALIDATION_ERROR' } });
+      }
+    }
+    expect((await (await api('/entries', owner)).json<Page<EntryDetail>>()).items).toHaveLength(1);
+  });
+  it('filters full names with boundaries, deduplicates and gives a mentioned owner only mention', async () => {
+    const owner = await user('Ann');
+    const anna = await user('Anna');
+    const full = await user('Full Name');
+    const author = await user('Writer');
+    const logged = await entry(owner);
+    const path = '/entries/' + logged.id + '/comments';
+    const post = async (body: string, mention_ids?: string[]) => {
+      const response = await api(path, author, 'POST', {
+        body,
+        ...(mention_ids === undefined ? {} : { mention_ids }),
+      });
+      expect(response.status).toBe(201);
+      return response.json<CommentWithAuthor>();
+    };
+    expect(
+      (await post('@Anna', [owner.user.id, anna.user.id])).mentions.map((u) => u.name),
+    ).toEqual(['Anna']);
+    const comment = await post('@aNN! @full name, @Writer', [
+      owner.user.id,
+      owner.user.id,
+      full.user.id,
+      author.user.id,
+    ]);
+    expect(comment.mentions.map((u) => u.name).sort()).toEqual(['Ann', 'Full Name']);
+    expect((await post('No names', [anna.user.id])).mentions).toEqual([]);
+    expect((await post('Legacy comment')).mentions).toEqual([]);
+    const list = await (await api(path, author)).json<CommentWithAuthor[]>();
+    expect(list.find((c) => c.id === comment.id)?.mentions).toEqual(comment.mentions);
+    const notes = await (await api('/notifications', owner)).json<Notification[]>();
+    expect(notes.filter((n) => n.kind === 'mention')).toHaveLength(1);
+    expect(notes.filter((n) => n.kind === 'comment')).toHaveLength(3);
+    expect((await (await api('/notifications', full)).json<Notification[]>())[0].kind).toBe(
+      'mention',
+    );
+    expect(await (await api('/notifications', author)).json()).toEqual([]);
+  });
+  it('cleans join tables for author/staff comment deletion and owner/staff entry deletion', async () => {
+    const owner = await user('Owner');
+    const author = await user('Author');
+    const staff = await user('Staff', 'coach');
+    for (const deleter of [author, staff]) {
+      const logged = await entry(owner, { tagged_user_ids: [author.user.id] });
+      const comment = await (
+        await api('/entries/' + logged.id + '/comments', author, 'POST', {
+          body: '@Owner',
+          mention_ids: [owner.user.id],
+        })
+      ).json<CommentWithAuthor>();
+      expect((await api('/comments/' + comment.id, deleter, 'DELETE')).status).toBe(204);
+      await sql((storage) =>
+        expect(
+          storage.sql
+            .exec('SELECT * FROM comment_mentions WHERE comment_id=?', comment.id)
+            .toArray(),
+        ).toEqual([]),
+      );
+    }
+    for (const deleter of [owner, staff]) {
+      const logged = await entry(owner, { tagged_user_ids: [author.user.id] });
+      await api('/entries/' + logged.id + '/comments', author, 'POST', {
+        body: '@Owner',
+        mention_ids: [owner.user.id],
+      });
+      expect((await api('/entries/' + logged.id, deleter, 'DELETE')).status).toBe(204);
+      await sql((storage) => {
+        for (const table of ['entry_tags', 'comment_mentions'])
+          expect(
+            storage.sql.exec(`SELECT * FROM ${table} WHERE entry_id=?`, logged.id).toArray(),
+          ).toEqual([]);
+      });
+    }
   });
 });

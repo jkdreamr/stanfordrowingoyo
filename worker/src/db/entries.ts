@@ -3,6 +3,7 @@ import type { Row } from './row';
 import { toPublicUser, type UserRow } from './users';
 import { HttpError } from '../http';
 import { deleteUnreferencedImages } from './images';
+import { notify } from './notifications';
 export function findEntry(storage: DurableObjectStorage, id: string) {
   return storage.sql.exec<Row<Entry>>('SELECT * FROM entries WHERE id = ?', id).toArray()[0];
 }
@@ -44,7 +45,19 @@ export function details(
       ...ids,
     )
     .toArray();
+  const tags = storage.sql
+    .exec<UserRow & { entry_id: string }>(
+      `SELECT u.*,t.entry_id FROM entry_tags t JOIN users u ON u.id=t.user_id WHERE u.active=1 AND t.entry_id IN (${placeholders}) ORDER BY t.created_at,u.name,u.id`,
+      ...ids,
+    )
+    .toArray();
   return rows.map((row) => ({
+    tagged: tags
+      .filter((tag) => tag.entry_id === row.id)
+      .map(({ entry_id: _entry, ...user }) => {
+        void _entry;
+        return toPublicUser(user);
+      }),
     ...row,
     author: toPublicUser(authors.find((author) => author.id === row.user_id)!),
     images: images
@@ -63,6 +76,8 @@ export function saveEntry(
   entry: Entry,
   imageIds?: string[],
   update = false,
+  taggedIds?: string[],
+  actor = entry.user_id,
 ) {
   storage.transactionSync(() => {
     const keys = [
@@ -102,6 +117,33 @@ export function saveEntry(
         ...values,
         entry.id,
       );
+    if (taggedIds) {
+      const previous = storage.sql
+        .exec<{ user_id: string }>('SELECT user_id FROM entry_tags WHERE entry_id = ?', entry.id)
+        .toArray()
+        .map((row) => row.user_id);
+      for (const id of previous)
+        if (!taggedIds.includes(id))
+          storage.sql.exec(
+            'DELETE FROM entry_tags WHERE entry_id = ? AND user_id = ?',
+            entry.id,
+            id,
+          );
+      for (const id of taggedIds) {
+        if (previous.includes(id)) continue;
+        storage.sql.exec('INSERT INTO entry_tags VALUES (?,?,?)', entry.id, id, entry.updated_at);
+        if (
+          !storage.sql
+            .exec(
+              "SELECT id FROM notifications WHERE user_id = ? AND entry_id = ? AND kind = 'tag'",
+              id,
+              entry.id,
+            )
+            .toArray().length
+        )
+          notify(storage, id, actor, 'tag', entry.id, entry.updated_at);
+      }
+    }
     if (imageIds) {
       const previous = storage.sql
         .exec<{ image_id: string }>(
@@ -150,7 +192,14 @@ export function deleteEntry(storage: DurableObjectStorage, id: string) {
     const previous = storage.sql
       .exec<{ image_id: string }>('SELECT image_id FROM entry_images WHERE entry_id = ?', id)
       .toArray();
-    for (const table of ['entry_images', 'kudos', 'comments', 'notifications'])
+    for (const table of [
+      'entry_tags',
+      'comment_mentions',
+      'entry_images',
+      'kudos',
+      'comments',
+      'notifications',
+    ])
       storage.sql.exec(`DELETE FROM ${table} WHERE entry_id = ?`, id);
     storage.sql.exec('DELETE FROM entries WHERE id = ?', id);
     deleteUnreferencedImages(
