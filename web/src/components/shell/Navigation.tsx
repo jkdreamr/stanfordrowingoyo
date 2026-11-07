@@ -26,12 +26,12 @@ export function TabBar() {
       {main.slice(0, 2).map((item) => (
         <Tab key={item.to} {...item} />
       ))}
-      <Link to="/log" className="shell-log-tab" aria-label="Log Session">
+      <NavLink to="/log" className="shell-log-tab" aria-label="Log Session">
         <span>
           <Plus size={24} strokeWidth={1.75} aria-hidden="true" />
         </span>
         <span>Log</span>
-      </Link>
+      </NavLink>
       {main.slice(2).map((item) => (
         <Tab key={item.to} {...item} />
       ))}

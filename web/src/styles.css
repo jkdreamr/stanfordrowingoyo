@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :where(
+    button,
+    a[href],
+    input:not([type='radio'], [type='checkbox'], [type='file']),
+    select,
+    textarea
+  ) {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  :where(a[href]) {
+    display: inline-flex;
+    align-items: center;
+  }
+  :where(button, a[href], input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--oyo-focus);
+    outline-offset: 2px;
+  }
+}
+
 .social-entry {
   overflow: hidden;
 }
@@ -363,15 +384,9 @@ form .ui-button-primary[type='submit'] {
   opacity: 0.6;
 }
 .ui-button-sm {
-  min-height: 36px;
-  margin-block: 4px;
+  min-height: 44px;
   padding-block: 7px;
   font-size: 15px;
-}
-.ui-button-sm::after {
-  content: '';
-  position: absolute;
-  inset: -4px 0;
 }
 .ui-button-lg {
   min-height: 50px;
@@ -510,6 +525,7 @@ form .ui-button-primary[type='submit'] {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding-block: 0;
 }
 .ui-input-wrap input {
   background: transparent;

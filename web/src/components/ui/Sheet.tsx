@@ -115,6 +115,7 @@ export function Sheet({
       ref={ref}
       className="ui-sheet"
       aria-labelledby={titleId}
+      aria-modal="true"
       onCancel={(event) => {
         event.preventDefault();
         onClose();
@@ -137,7 +138,7 @@ export function Sheet({
             {title}
           </h2>
           <IconButton aria-label="Close" onClick={onClose}>
-            <X size={20} strokeWidth={1.75} />
+            <X size={20} strokeWidth={1.75} aria-hidden="true" />
           </IconButton>
         </div>
       </header>

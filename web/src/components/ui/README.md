@@ -72,7 +72,7 @@ Native attributes are supported where stated. All callbacks are controlled: upda
 | Prop               | Type / Default                                          |
 | ------------------ | ------------------------------------------------------- |
 | variant            | primary (default), secondary, plain, destructive        |
-| size               | sm (36 visual/44 hit), md (44, default), lg (50)        |
+| size               | sm (44, compact text), md (44, default), lg (50)        |
 | fullWidth, loading | boolean, false                                          |
 | leading, children  | ReactNode; children required                            |
 | to                 | string: renders router Link; otherwise native button    |

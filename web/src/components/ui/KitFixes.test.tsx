@@ -5,7 +5,29 @@ import { MemoryRouter } from 'react-router-dom';
 import { ListRow } from './ListRow';
 import { Button } from './Button';
 import { EmptyState } from './EmptyState';
+import { TextField } from './TextField';
+import { IconButton } from './IconButton';
+import { Toggle } from './Toggle';
 afterEach(cleanup);
+it('names icon actions and switches and links field errors to labelled inputs', () => {
+  const { getByRole } = render(
+    <>
+      <IconButton aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </IconButton>
+      <Toggle label="Notifications" checked onChange={() => {}} />
+      <TextField label="Name" error="Required" />
+    </>,
+  );
+  expect(getByRole('button', { name: 'Close' }).classList.contains('ui-icon-button')).toBe(true);
+  expect(getByRole('switch', { name: 'Notifications' }).getAttribute('aria-checked')).toBe('true');
+  const input = getByRole('textbox', { name: 'Name' });
+  expect(input.getAttribute('aria-invalid')).toBe('true');
+  expect(document.getElementById(input.getAttribute('aria-describedby')!)?.textContent).toBe(
+    'Required',
+  );
+  expect(getByRole('alert').textContent).toBe('Required');
+});
 it('reserves default row chevrons for links and allows explicit overrides', () => {
   const { container } = render(
     <MemoryRouter>

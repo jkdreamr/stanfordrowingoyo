@@ -30,11 +30,11 @@ export function PageHeader({
         <span>
           {back === true ? (
             <IconButton aria-label="Back" onClick={() => navigate(-1)}>
-              <ChevronLeft size={20} strokeWidth={1.75} />
+              <ChevronLeft size={20} strokeWidth={1.75} aria-hidden="true" />
             </IconButton>
           ) : back ? (
             <Link className="ui-icon-button" to={back} aria-label="Back">
-              <ChevronLeft size={20} strokeWidth={1.75} />
+              <ChevronLeft size={20} strokeWidth={1.75} aria-hidden="true" />
             </Link>
           ) : null}
         </span>

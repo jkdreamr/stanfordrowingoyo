@@ -51,7 +51,7 @@ export function TeammatePicker({
                 className="flex min-h-11 min-w-11 items-center justify-center text-muted"
                 onClick={() => setSearch('')}
               >
-                <CircleX size={20} />
+                <CircleX size={20} aria-hidden="true" />
               </button>
             ) : undefined
           }
