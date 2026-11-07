@@ -622,7 +622,12 @@ export function createMockApi({
     )
       fail(400, 'Invalid plan slot');
   }
-  function notify(userId: string, kind: Notification['kind'], entry: Entry | null) {
+  function notify(
+    userId: string,
+    kind: Notification['kind'],
+    entry: Entry | null,
+    announcementId?: string,
+  ) {
     if (userId === me().id || !userById(userId).active) return;
     state.notifications.unshift({
       id: id('notification'),
@@ -630,6 +635,7 @@ export function createMockApi({
       actor_id: me().id,
       actor: publicUser(me()),
       kind,
+      ...(announcementId ? { announcement_id: announcementId } : {}),
       entry_id: entry?.id || null,
       entry_title: entry?.title || null,
       created_at: stamp(),
@@ -1656,6 +1662,11 @@ export function createMockApi({
         return json({ user: publicUser(profile), stats: seasonStats(profile.id) });
       }
       if (parts[2] === 'announcements') {
+        if (method === 'GET' && resourceId)
+          return json(
+            state.announcements.find((announcement) => announcement.id === resourceId) ||
+              fail(404, 'Announcement not found'),
+          );
         if (method === 'GET' && !resourceId)
           return json(
             [...state.announcements].sort(
@@ -1678,7 +1689,7 @@ export function createMockApi({
           };
           state.announcements.unshift(announcement);
           recordAudit('announcement.create', announcement.id, null, announcement);
-          for (const u of state.users) notify(u.id, 'announcement', null);
+          for (const u of state.users) notify(u.id, 'announcement', null, announcement.id);
           return json(announcement, 201);
         }
         const announcement =

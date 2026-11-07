@@ -43,11 +43,18 @@ afterEach(() => {
 function setup(
   path = '/log',
   fail = false,
-  options: { seasonFailure?: boolean; profileFailure?: boolean; best2k?: number } = {},
+  options: {
+    seasonFailure?: boolean;
+    profileFailure?: boolean;
+    best2k?: number | null;
+    best6k?: number | null;
+  } = {},
 ) {
   const mock = createMockApi();
   if (options.best2k !== undefined)
     mock.state.users.find((user) => user.id === 'user-1')!.best2k_split_s = options.best2k;
+  if (options.best6k !== undefined)
+    mock.state.users.find((user) => user.id === 'user-1')!.best6k_split_s = options.best6k;
   mock.state.imageLinks = {};
   const editId = mock.state.entries.find((e) => e.user_id === 'user-1')!.id;
   if (path === 'edit') {
@@ -94,6 +101,12 @@ function setup(
   );
   return { mock, router, editId };
 }
+it('links missing zone paces to test history on Me', async () => {
+  setup('/log', false, { best2k: null, best6k: null });
+  expect((await screen.findByRole('link', { name: 'Add a test on Me' })).getAttribute('href')).toBe(
+    '/me#erg-tests',
+  );
+});
 it('prefills validated personal plan values without changing the meter convention', async () => {
   setup('/log?modality=bike&zone=R%2FE&distance=12000');
   expect(((await screen.findByLabelText('Meters')) as HTMLInputElement).value).toBe('12000');

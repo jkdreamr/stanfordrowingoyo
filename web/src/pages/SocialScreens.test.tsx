@@ -59,6 +59,7 @@ vi.mock('../lib/queries', () => ({
   }),
   useReadNotifications: () => ({ mutate: state.read }),
   useAnnouncements: () => ({ data: state.announcements }),
+  useAnnouncement: () => ({ data: undefined, isPending: false, isError: false }),
 }));
 vi.mock('../components/social/EntryCard', () => ({
   EntryCard: ({ entry }: { entry: EntryDetail }) => <article>{entry.title}</article>,

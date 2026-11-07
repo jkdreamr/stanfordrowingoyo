@@ -142,8 +142,11 @@ export function useErgTests(id: string) {
 export const useCreateErgTest = mutationHook('POST /api/me/tests');
 export const useUpdateErgTest = mutationHook('PATCH /api/me/tests/:id');
 export const useDeleteErgTest = mutationHook('DELETE /api/me/tests/:id');
-export function useAnnouncements() {
-  return queryHook('GET /api/announcements')({});
+export function useAnnouncements(enabled = true) {
+  return queryHook('GET /api/announcements')({}, enabled);
+}
+export function useAnnouncement(id: string) {
+  return queryHook('GET /api/announcements/:id')({ params: { id } }, !!id);
 }
 export const NOTIFICATION_POLL_MS = 60_000;
 /** Pass poll=true from exactly one mounted observer; polling pauses while the page is hidden. */
@@ -200,7 +203,8 @@ export function usePutMyPlan() {
       return snapshots;
     },
     onError: (error, _body, snapshots) => {
-      for (const [key, value] of snapshots ?? []) client.setQueryData(key, value);
+      if (client.getQueryData(qk.me()) !== null)
+        for (const [key, value] of snapshots ?? []) client.setQueryData(key, value);
       toast.show({
         title:
           error instanceof ApiClientError && error.status === 409
@@ -446,6 +450,7 @@ export async function optimisticKudos(client: QueryClient, id: string, hasKudos:
   for (const [key, data] of snapshots)
     client.setQueryData(key, updateCachedKudos(data, id, hasKudos));
   return () => {
+    if (client.getQueryData(qk.me()) === null) return;
     for (const [key, data] of snapshots) client.setQueryData(key, data);
   };
 }

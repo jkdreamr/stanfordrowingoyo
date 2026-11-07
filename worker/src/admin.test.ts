@@ -158,6 +158,7 @@ const endpoints: Record<keyof Api, true> = {
   'GET /api/users': true,
   'GET /api/users/:id': true,
   'GET /api/announcements': true,
+  'GET /api/announcements/:id': true,
   'POST /api/announcements': true,
   'PATCH /api/announcements/:id': true,
   'DELETE /api/announcements/:id': true,
@@ -849,8 +850,14 @@ describe('announcements and plan', () => {
     expect(await (await api('/notifications', cox)).json<unknown[]>()).toHaveLength(0);
     for (const viewer of [admin, rower])
       expect(await (await api('/notifications', viewer)).json()).toMatchObject([
-        { kind: 'announcement', actor: { name: 'Cox' } },
+        { kind: 'announcement', announcement_id: news.id, entry_id: null, actor: { name: 'Cox' } },
       ]);
+    expect((await api(`/announcements/${news.id}`, rower)).status).toBe(200);
+    expect((await (await api(`/announcements/${news.id}`, rower)).json<{ id: string }>()).id).toBe(
+      news.id,
+    );
+    expect((await api('/announcements/missing', rower)).status).toBe(404);
+    expect((await api(`/announcements/${news.id}`)).status).toBe(401);
     await sql((storage) =>
       expect(
         storage.sql

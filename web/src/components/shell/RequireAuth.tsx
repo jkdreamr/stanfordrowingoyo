@@ -6,12 +6,12 @@ import { WifiOff } from 'lucide-react';
 import { ShellSkeleton } from './ShellSkeleton';
 export function RequireAuth() {
   const query = useMe();
-  const intro = useIntro(!!query.data && !query.data.must_change_password);
+  const intro = useIntro(!!query.data && !query.isError && !query.data.must_change_password);
   const location = useLocation();
   const next = encodeURIComponent(location.pathname + location.search + location.hash);
   if (query.isPending) return <ShellSkeleton />;
-  if (query.data === null) return <Navigate to="/login" replace />;
   if (isUnauthorized(query.error)) return <Navigate to={`/login?next=${next}`} replace />;
+  if (query.data === null) return <Navigate to="/login" replace />;
   if (query.isError)
     return (
       <EmptyState

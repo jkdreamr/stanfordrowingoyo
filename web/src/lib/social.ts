@@ -94,6 +94,8 @@ export function notificationAnnouncements(
   notification: Notification,
   announcements: Announcement[],
 ): Announcement[] {
+  if (notification.announcement_id)
+    return announcements.filter((announcement) => announcement.id === notification.announcement_id);
   const matching = announcements
     .filter((a) => a.author_id === notification.actor_id)
     .sort(

@@ -15,6 +15,8 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const next = safeNext(location.search);
+  const passwordError =
+    typeof location.state?.passwordError === 'string' ? location.state.passwordError : undefined;
   const [message, setMessage] = useState<string | undefined>(() =>
     typeof location.state?.passwordError === 'string' ? location.state.passwordError : undefined,
   );
@@ -39,7 +41,7 @@ export default function Login() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Enter a valid email address';
     if (!password) errors.password = 'Enter your password';
     setFields(errors);
-    setMessage(undefined);
+    setMessage('');
     if (Object.keys(errors).length) return;
     try {
       const user = await mutation.mutateAsync({ body: { email, password } });
@@ -64,7 +66,7 @@ export default function Login() {
       }
     >
       <form id="login-form" className="space-y-5" noValidate onSubmit={(e) => void submit(e)}>
-        <FormErrors message={message} fields={fields} />
+        <FormErrors message={message ?? passwordError} fields={fields} />
         <TextField
           id="email"
           label="Email"

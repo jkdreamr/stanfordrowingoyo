@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { useChangePassword, useLogout, useVerifyPassword } from '../../lib/queries';
+import { qk, useChangePassword, useVerifyPassword } from '../../lib/queries';
 import { ApiClientError } from '../../lib/api';
 import { authError } from '../../lib/auth';
 import { Button } from '../ui';
@@ -16,7 +16,6 @@ export function ChangePasswordForm({
 }) {
   const mutation = useChangePassword();
   const verify = useVerifyPassword();
-  const logout = useLogout();
   const navigate = useNavigate();
   const client = useQueryClient();
   const inFlight = useRef(false);
@@ -79,11 +78,8 @@ export function ChangePasswordForm({
             code === 'CREDENTIALS_CHANGED'
               ? `${error.detail.message} Log in again to continue.`
               : 'Please log in to change your password.';
-          try {
-            await logout.mutateAsync({});
-          } catch {
-            client.clear();
-          }
+          client.clear();
+          client.setQueryData(qk.me(), null);
           navigate('/login', { replace: true, state: { passwordError } });
           return;
         }

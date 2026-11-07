@@ -13,6 +13,7 @@ export function notify(
   kind: Notification['kind'],
   entryId: string | null,
   timestamp: string,
+  announcementId?: string,
 ) {
   if (
     recipient === actor ||
@@ -27,7 +28,7 @@ export function notify(
     recipient,
     kind,
     actor,
-    entryId,
+    entryId ?? announcementId ?? null,
     timestamp,
     null,
   );
@@ -51,7 +52,11 @@ export function notifications(storage: DurableObjectStorage, user: string): Noti
     .toArray();
   if (!rows.length) return [];
   const actorIds = [...new Set(rows.map((row) => row.actor_id))];
-  const entryIds = [...new Set(rows.flatMap((row) => (row.entry_id ? [row.entry_id] : [])))];
+  const entryIds = [
+    ...new Set(
+      rows.flatMap((row) => (row.kind !== 'announcement' && row.entry_id ? [row.entry_id] : [])),
+    ),
+  ];
   const actors = storage.sql
     .exec<UserRow>(
       'SELECT * FROM users WHERE id IN (SELECT value FROM json_each(?))',
@@ -68,6 +73,7 @@ export function notifications(storage: DurableObjectStorage, user: string): Noti
     : [];
   return rows.map((row) => ({
     ...row,
+    ...(row.kind === 'announcement' ? { announcement_id: row.entry_id, entry_id: null } : {}),
     actor: toPublicUser(actors.find((actor) => actor.id === row.actor_id)!),
     entry_title: entries.find((entry) => entry.id === row.entry_id)?.title ?? null,
   }));

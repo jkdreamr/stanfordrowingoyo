@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bell } from 'lucide-react';
-import type { Announcement } from '../../../shared/types';
-import { useAnnouncements, useNotifications, useReadNotifications } from '../lib/queries';
+import type { Notification } from '../../../shared/types';
+import {
+  useAnnouncement,
+  useAnnouncements,
+  useNotifications,
+  useReadNotifications,
+} from '../lib/queries';
 import {
   groupNotifications,
   notificationAnnouncements,
@@ -29,7 +34,15 @@ export default function Notifications() {
   const { data: announcements = [] } = useAnnouncements();
   const [unread, setUnread] = useState<Set<string> | null>(null);
   const attempted = useRef(new Set<string>());
-  const [opened, setOpened] = useState<Announcement[] | null>(null);
+  const [selected, setSelected] = useState<Notification | null>(null);
+  const announcement = useAnnouncement(selected?.announcement_id ?? '');
+  const opened = selected
+    ? selected.announcement_id
+      ? announcement.data
+        ? [announcement.data]
+        : []
+      : notificationAnnouncements(selected, announcements)
+    : null;
   useEffect(() => {
     if (!query.data) return;
     const ids = [
@@ -109,7 +122,7 @@ export default function Notifications() {
                           <button
                             className="flex min-h-11 w-full items-center gap-3 p-4 text-left text-callout text-text"
                             onClick={() => {
-                              setOpened(notificationAnnouncements(n, announcements));
+                              setSelected(n);
                             }}
                           >
                             {content}
@@ -146,8 +159,10 @@ export default function Notifications() {
             Could not mark notifications read
           </p>
         )}
-        <Sheet open={opened !== null} onClose={() => setOpened(null)} title="Announcements">
-          {opened?.length ? (
+        <Sheet open={opened !== null} onClose={() => setSelected(null)} title="Announcements">
+          {selected?.announcement_id && (announcement.isPending || announcement.isError) ? (
+            <LoadState error={announcement.isError} retry={() => void announcement.refetch()} />
+          ) : opened?.length ? (
             opened.map((a) => (
               <article key={a.id} className="mb-6">
                 <h2 className="text-title3">{a.title}</h2>

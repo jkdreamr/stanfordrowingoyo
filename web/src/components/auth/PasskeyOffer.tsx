@@ -23,15 +23,12 @@ export function PasskeyOffer() {
   const add = useAddPasskey();
   const toast = useToast();
   const label = biometricLabel();
-  const pending = useRef<boolean>();
-  pending.current ??= takePasskeyOffer();
   const options = useRef<PasskeyRegistrationOptions>();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string>();
   useEffect(() => {
-    if (!pending.current || !me || me.must_change_password) return;
-    pending.current = false;
+    if (!me || me.must_change_password || !takePasskeyOffer()) return;
     if (passkeyOfferDismissed(me.id)) return;
     void (async () => {
       try {

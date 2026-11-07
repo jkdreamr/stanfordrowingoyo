@@ -448,15 +448,13 @@ describe('push delivery', () => {
       team_code: 'team-code',
     });
     const coach = { cookie: signup.headers.get('Set-Cookie')!.split(';')[0] } as Client;
-    expect(
-      (
-        await api('/announcements', coach, 'POST', {
-          title: 'Lake closed',
-          body: 'Erg today',
-          pinned: false,
-        })
-      ).status,
-    ).toBe(201);
+    const announcement = await api('/announcements', coach, 'POST', {
+      title: 'Lake closed',
+      body: 'Erg today',
+      pinned: false,
+    });
+    expect(announcement.status).toBe(201);
+    const { id: announcementId } = await announcement.json<{ id: string }>();
     const calls = stubFetch(201);
     await sql((storage) => deliverPush(storage, bindings, Date.now() + 1000));
     const payloads = await Promise.all(
@@ -475,7 +473,7 @@ describe('push delivery', () => {
     expect(
       payloads.map(({ body, url }) => ({ body, url })).sort((x, y) => x.url.localeCompare(y.url)),
     ).toEqual([
-      { body: 'Announcement: Lake closed', url: '/announcements' },
+      { body: 'Announcement: Lake closed', url: `/announcements?announcement=${announcementId}` },
       { body: 'Commented on Morning 6k', url: `/entries/${row.id}#comments` },
     ]);
     expect(Math.max(...payloads.map((payload) => payload.badge))).toBe(2);

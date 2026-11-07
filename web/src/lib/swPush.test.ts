@@ -1,5 +1,9 @@
 import { expect, it } from 'vitest';
 import { pushMessage } from './swPush';
+it('preserves the exact announcement deep link for notification clicks', () => {
+  const url = '/announcements?announcement=announcement-id';
+  expect(pushMessage(JSON.stringify({ url }), 'https://oyo.test').url).toBe(url);
+});
 const origin = 'https://oyo.test';
 it('keeps valid push payloads and clamps the badge', () => {
   expect(

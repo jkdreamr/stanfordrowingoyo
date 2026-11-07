@@ -7,6 +7,11 @@ import { HttpError, json, noContent, readJson } from '../http';
 import * as v from '../validate';
 export function get(ctx: Context) {
   requireUser(ctx);
+  if (ctx.params.id) {
+    const row = announcements(ctx.storage, ctx.params.id)[0];
+    if (!row) throw new HttpError(404, 'NOT_FOUND', 'Announcement not found.');
+    return json(row);
+  }
   return json(announcements(ctx.storage));
 }
 export async function create(ctx: Context) {
@@ -26,7 +31,7 @@ export async function create(ctx: Context) {
     for (const user of ctx.storage.sql
       .exec<{ id: string }>('SELECT id FROM users WHERE active = ?', 1)
       .toArray())
-      notify(ctx.storage, user.id, actor.id, 'announcement', null, row.created_at);
+      notify(ctx.storage, user.id, actor.id, 'announcement', null, row.created_at, row.id);
     audit(ctx, 'announcement.create', row.id, null, row);
   });
   return json(

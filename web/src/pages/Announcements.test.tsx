@@ -7,6 +7,8 @@ import { createQueryClient } from '../lib/queryClient';
 import { createMockApi } from '../mock/handlers';
 import Announcements from './Announcements';
 import Home from './Home';
+import Notifications from './Notifications';
+import { qk } from '../lib/queries';
 
 const clients: ReturnType<typeof createQueryClient>[] = [];
 afterEach(() => {
@@ -15,7 +17,20 @@ afterEach(() => {
   clients.length = 0;
   vi.unstubAllGlobals();
 });
-function setup({ path = '/announcements', empty = false, fail = false, loading = false } = {}) {
+function setup({
+  path = '/announcements',
+  empty = false,
+  fail = false,
+  loading = false,
+  stale = false,
+  missing = false,
+} = {}) {
+  HTMLDialogElement.prototype.showModal = function () {
+    this.setAttribute('open', '');
+  };
+  HTMLDialogElement.prototype.close = function () {
+    this.removeAttribute('open');
+  };
   vi.stubGlobal(
     'IntersectionObserver',
     class {
@@ -57,12 +72,31 @@ function setup({ path = '/announcements', empty = false, fail = false, loading =
     }),
   );
   const client = createQueryClient();
+  if (stale) {
+    client.setQueryData(qk.request('GET /api/announcements', {}), [mock.state.announcements[0]]);
+    const latest = mock.state.announcements[1];
+    mock.state.notifications = [
+      {
+        id: 'live-alert',
+        user_id: 'user-1',
+        actor_id: latest.author_id,
+        actor: latest.author,
+        kind: 'announcement',
+        entry_id: null,
+        entry_title: null,
+        announcement_id: missing ? 'removed' : latest.id,
+        created_at: latest.created_at,
+        read_at: null,
+      },
+    ];
+  }
   client.setDefaultOptions({ queries: { retry: false } });
   clients.push(client);
   const router = createMemoryRouter(
     [
       { path: '/', element: <Home /> },
       { path: '/announcements', element: <Announcements /> },
+      { path: '/notifications', element: <Notifications /> },
     ],
     { initialEntries: [path] },
   );
@@ -77,6 +111,30 @@ function setup({ path = '/announcements', empty = false, fail = false, loading =
     },
   };
 }
+it('fetches an announcement missing from the fresh but stale list cache by its notification id', async () => {
+  setup({ path: '/notifications', stale: true });
+  fireEvent.click(await screen.findByRole('button', { name: /posted an announcement/ }));
+  const sheet = await screen.findByRole('dialog', { name: 'Announcements' });
+  expect(await within(sheet).findByRole('heading', { name: 'Latest Update' })).toBeTruthy();
+  expect(within(sheet).queryByRole('heading', { name: 'Earlier Update' })).toBeNull();
+  expect(
+    vi
+      .mocked(fetch)
+      .mock.calls.some(([url]) => new URL(String(url)).pathname === '/api/announcements/newer'),
+  ).toBe(true);
+});
+it('does not show an unrelated announcement when the notification target was removed', async () => {
+  setup({ path: '/notifications', stale: true, missing: true });
+  fireEvent.click(await screen.findByRole('button', { name: /posted an announcement/ }));
+  const sheet = await screen.findByRole('dialog', { name: 'Announcements' });
+  expect(await within(sheet).findByText('Could Not Load This Screen')).toBeTruthy();
+  expect(within(sheet).queryByText('Earlier Update')).toBeNull();
+});
+it('opens a specific announcement from the push deep link', async () => {
+  setup({ path: '/announcements?announcement=newer' });
+  expect(await screen.findByRole('article', { name: 'Latest Update' })).toBeTruthy();
+  expect(screen.queryByRole('article', { name: 'Earlier Update' })).toBeNull();
+});
 it('shows pinned and unpinned announcements newest first with full bodies and authors', async () => {
   setup();
   await screen.findByRole('article', { name: 'Latest Update' });

@@ -267,6 +267,11 @@ webauthn_challenges(challenge PK, kind ('register'|'login'), user_id NULL, sessi
          -- index (expires_at)
 ```
 
+For announcement notifications, the existing nullable `notifications.entry_id` storage slot holds the
+announcement reference (no foreign key); API hydration exposes it as optional `announcement_id` and keeps
+`entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
+retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
+
 Schema migrations: a `schema_version` setting, currently 15; migrations run in the DO constructor via `blockConcurrencyWhile`.
 Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
 Legacy best splits backfill one test per kind using the user's updated_at team-local date.
@@ -440,6 +445,10 @@ weekly totals, counts, streaks and season breakdowns. Season/profile days still 
 These read routes stay below 20 SQL calls regardless of roster size or number of entries. Target lookup before the
 first group-history version uses its earliest version; an empty/missing history falls back to seed group targets.
 Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned announcements include `author: PublicUser`.
+`GET /api/announcements/:id` returns that announcement to any signed-in user, or 404 if removed.
+Notification responses include optional `announcement_id`; opening an identified announcement fetches it
+by id even when the announcements list is stale. Announcement push URLs are
+`/announcements?announcement=<id>` and open that item; legacy notifications without an id keep the fallback.
 Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
 `actor: PublicUser` and `entry_title: string | null`.
 Reports: authenticated team members may `POST /api/reports` with

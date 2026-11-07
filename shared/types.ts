@@ -274,6 +274,7 @@ export interface Notification {
   kind: 'kudos' | 'comment' | 'announcement' | 'tag' | 'mention' | 'report';
   actor_id: string;
   entry_id: string | null;
+  announcement_id?: string | null;
   created_at: string;
   read_at: string | null;
 }
@@ -564,6 +565,7 @@ export interface Api {
   'GET /api/users': Endpoint<void, PublicUser[]>;
   'GET /api/users/:id': Endpoint<void, Profile>;
   'GET /api/announcements': Endpoint<void, Announcement[]>;
+  'GET /api/announcements/:id': Endpoint<void, Announcement>;
   'POST /api/announcements': Endpoint<AnnouncementInput, Announcement>;
   'PATCH /api/announcements/:id': Endpoint<Partial<AnnouncementInput>, Announcement>;
   'DELETE /api/announcements/:id': Endpoint<void, void>;

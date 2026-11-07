@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Activity, Users } from 'lucide-react';
 import { TeammatePicker } from '../components/social/TeammatePicker';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { addDays, seasonRange } from '../../../shared/dates';
 import { equivalentMeters, targetPace } from '../../../shared/math';
 import type { Config, EntryDetail, Preset, User } from '../../../shared/types';
@@ -388,7 +388,10 @@ function LogForm({
             )}
             {draft.modality === 'erg' && pace === null && (
               <p className="mt-2 text-footnote text-muted">
-                Add a best split in Edit Profile for zone paces
+                <Link className="text-accent underline" to="/me#erg-tests">
+                  Add a test on Me
+                </Link>{' '}
+                for zone paces
               </p>
             )}
           </section>

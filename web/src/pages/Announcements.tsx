@@ -1,13 +1,18 @@
 import { Megaphone, Pin } from 'lucide-react';
-import { useAnnouncements } from '../lib/queries';
+import { useAnnouncement, useAnnouncements } from '../lib/queries';
+import { useSearchParams } from 'react-router-dom';
 import { formatEntryDate } from '../lib/format';
 import { Button, Card, EmptyState, PageHeader } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 
 export default function Announcements() {
-  const query = useAnnouncements();
-  const announcements = [...(query.data ?? [])].sort((a, b) =>
-    b.created_at.localeCompare(a.created_at),
+  const [params] = useSearchParams();
+  const id = params.get('announcement') ?? '';
+  const list = useAnnouncements(!id);
+  const specific = useAnnouncement(id);
+  const query = id ? specific : list;
+  const announcements = [...(id ? (specific.data ? [specific.data] : []) : (list.data ?? []))].sort(
+    (a, b) => b.created_at.localeCompare(a.created_at),
   );
   return (
     <>

@@ -135,6 +135,7 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/users', handler: team.list },
   { method: 'GET', path: '/api/users/:id', handler: team.profile },
   { method: 'GET', path: '/api/announcements', handler: announcements.get },
+  { method: 'GET', path: '/api/announcements/:id', handler: announcements.get },
   { method: 'POST', path: '/api/announcements', handler: announcements.create },
   { method: 'PATCH', path: '/api/announcements/:id', handler: announcements.patch },
   { method: 'DELETE', path: '/api/announcements/:id', handler: announcements.remove },

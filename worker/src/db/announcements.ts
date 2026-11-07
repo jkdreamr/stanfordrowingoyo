@@ -3,10 +3,11 @@ import type { Row } from './row';
 import { toPublicUser, type UserRow } from './users';
 import { HttpError } from '../http';
 export type AnnouncementRow = Row<Omit<Announcement, 'author'>>;
-export function announcements(storage: DurableObjectStorage): Announcement[] {
+export function announcements(storage: DurableObjectStorage, id?: string): Announcement[] {
   const rows = storage.sql
     .exec<AnnouncementRow>(
-      'SELECT * FROM announcements ORDER BY pinned DESC,created_at DESC,id DESC',
+      `SELECT * FROM announcements ${id ? 'WHERE id=?' : ''} ORDER BY pinned DESC,created_at DESC,id DESC`,
+      ...(id ? [id] : []),
     )
     .toArray();
   if (!rows.length) return [];

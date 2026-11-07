@@ -52,9 +52,13 @@ export function pushPayload(row: OutboxRow, unread: number): PushPayload {
   const url =
     kind === 'report'
       ? '/admin/reports'
-      : kind === 'announcement' || !row.entry_id
-        ? '/announcements'
-        : `/entries/${encodeURIComponent(row.entry_id)}${kind === 'comment' || kind === 'mention' ? '#comments' : ''}`;
+      : kind === 'announcement'
+        ? row.entry_id
+          ? `/announcements?announcement=${encodeURIComponent(row.entry_id)}`
+          : '/announcements'
+        : !row.entry_id
+          ? '/announcements'
+          : `/entries/${encodeURIComponent(row.entry_id)}${kind === 'comment' || kind === 'mention' ? '#comments' : ''}`;
   return {
     title,
     body: body.length > 160 ? body.slice(0, 159) + '…' : body,
@@ -71,7 +75,7 @@ export async function schedulePush(storage: DurableObjectStorage, at = Date.now(
 
 const DUE_SQL = `SELECT o.id,o.attempts,o.notification_id,o.endpoint,s.p256dh,s.auth,s.user_id AS owner,
 n.user_id AS recipient,n.kind,n.entry_id,n.created_at,n.read_at,u.name AS actor_name,e.title AS entry_title,
-(SELECT a.title FROM announcements a WHERE n.kind='announcement' AND a.author_id=n.actor_id AND a.created_at=n.created_at LIMIT 1) AS announcement_title
+(SELECT a.title FROM announcements a WHERE n.kind='announcement' AND (a.id=n.entry_id OR (n.entry_id IS NULL AND a.author_id=n.actor_id AND a.created_at=n.created_at)) LIMIT 1) AS announcement_title
 FROM push_outbox o
 LEFT JOIN push_subscriptions s ON s.endpoint=o.endpoint
 LEFT JOIN notifications n ON n.id=o.notification_id

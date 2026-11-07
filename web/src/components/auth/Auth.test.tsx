@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { createQueryClient } from '../../lib/queryClient';
 import { qk } from '../../lib/queries';
+import { ApiClientError } from '../../lib/api';
 import { createMockApi } from '../../mock/handlers';
 import { RequireAuth } from '../shell/RequireAuth';
 import { RouteFocus } from '../shell/RouteEffects';
@@ -113,6 +114,42 @@ function setup(path: string, session: string | null = null, forced = false) {
 function fill(label: string, value: string) {
   fireEvent.change(screen.getByLabelText(label), { target: { value } });
 }
+it('expires a stale cached session once and stops intro requests without deleting drafts', async () => {
+  const { client, router } = setup('/', 'user-1');
+  await screen.findByRole('heading', { name: 'Training Home' });
+  localStorage.setItem('oyo-log-draft:user-1', 'keep draft');
+  const paths: string[] = [];
+  const unsubscribe = router.subscribe((state) => paths.push(state.location.pathname));
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(async () =>
+      Response.json({ error: { code: 'UNAUTHENTICATED', message: 'Expired' } }, { status: 401 }),
+    ),
+  );
+  await client.invalidateQueries({ queryKey: qk.me(), exact: true });
+  await screen.findByRole('button', { name: 'Log In' });
+  expect(router.state.location.pathname).toBe('/login');
+  expect(client.getQueryData(qk.me())).toBeNull();
+  expect(localStorage.getItem('oyo-log-draft:user-1')).toBe('keep draft');
+  expect(paths.filter((path) => path === '/login')).toHaveLength(1);
+  expect(vi.mocked(fetch).mock.calls).toHaveLength(1);
+  unsubscribe();
+  localStorage.removeItem('oyo-log-draft:user-1');
+});
+it('does not redirect from Login using an errored stale account', async () => {
+  const { client, router } = setup('/', 'user-1');
+  await screen.findByRole('heading', { name: 'Training Home' });
+  client
+    .getQueryCache()
+    .find({ queryKey: qk.me(), exact: true })!
+    .setState({
+      status: 'error',
+      error: new ApiClientError(401, { code: 'UNAUTHENTICATED', message: 'Expired' }),
+    });
+  await router.navigate('/login');
+  await screen.findByRole('button', { name: 'Log In' });
+  expect(router.state.location.pathname).toBe('/login');
+});
 function passwordSubmit() {
   return within(screen.getByRole('dialog', { name: 'Change Password' })).getByRole('button', {
     name: 'Change Password',
@@ -480,7 +517,7 @@ describe('authentication flows', () => {
       fireEvent.click(passwordSubmit());
       await screen.findByRole('button', { name: 'Log In' });
       expect(router.state.location.pathname).toBe('/login');
-      expect(screen.getByRole('alert').textContent).toContain(
+      expect((await screen.findByRole('alert')).textContent).toContain(
         code === 'CREDENTIALS_CHANGED' ? 'Credentials changed.' : 'Please log in',
       );
       expect(client.getQueryData(qk.me())).toBeNull();
