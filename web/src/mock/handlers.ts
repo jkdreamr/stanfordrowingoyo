@@ -1,4 +1,6 @@
 import type {
+  ErgTest,
+  TeamChallenge,
   AnnouncementInput,
   AuditLog,
   Entry,
@@ -78,6 +80,126 @@ export function createMockApi({
   onSession = (_id: string | null) => {},
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
+  const ergTests: ErgTest[] = state.users.flatMap((user) =>
+    (['2k', '6k'] as const).flatMap((kind) => {
+      const split = user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
+      return split === null
+        ? []
+        : [
+            {
+              id: `test-${user.id}-${kind}`,
+              user_id: user.id,
+              kind,
+              date: today(new Date(user.updated_at)),
+              time_s: split * (kind === '2k' ? 4 : 12),
+              split_s: split,
+              is_pr: true,
+              created_at: user.updated_at,
+              updated_at: user.updated_at,
+            },
+          ];
+    }),
+  );
+  const challenges: TeamChallenge[] = [];
+  function testHistory(userId: string) {
+    const best = { '2k': Infinity, '6k': Infinity };
+    return ergTests
+      .filter((row) => row.user_id === userId)
+      .sort(
+        (a, b) =>
+          a.date.localeCompare(b.date) ||
+          a.created_at.localeCompare(b.created_at) ||
+          a.id.localeCompare(b.id),
+      )
+      .map((row) => {
+        const is_pr = row.split_s < best[row.kind];
+        best[row.kind] = Math.min(best[row.kind], row.split_s);
+        return { ...row, is_pr };
+      })
+      .reverse();
+  }
+  function derive(userId: string) {
+    const user = userById(userId);
+    for (const kind of ['2k', '6k'] as const) {
+      const values = ergTests
+        .filter((row) => row.user_id === userId && row.kind === kind)
+        .map((row) => row.split_s);
+      user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'] = values.length
+        ? Math.min(...values)
+        : null;
+    }
+    user.updated_at = stamp();
+  }
+  function saveTest(userId: string, body: Record<string, unknown>, before?: ErgTest) {
+    if (!before && ergTests.filter((row) => row.user_id === userId).length >= 200)
+      fail(400, 'At most 200 tests');
+    const kind = body.kind === undefined ? before?.kind : body.kind,
+      date = body.date === undefined ? before?.date : body.date;
+    if (
+      (kind !== '2k' && kind !== '6k') ||
+      !dateValid(date) ||
+      date < '2000-01-01' ||
+      date > today(now())
+    )
+      fail(400, 'Invalid test kind or date');
+    if (body.time_s !== undefined && body.split_s !== undefined)
+      fail(400, 'Supply exactly one time or split');
+    const factor = kind === '2k' ? 4 : 12;
+    if (
+      body.split_s !== undefined &&
+      (typeof body.split_s !== 'number' || !Number.isFinite(body.split_s))
+    )
+      fail(400, 'Invalid split');
+    const time =
+      body.split_s !== undefined
+        ? Number(body.split_s) * factor
+        : body.time_s === undefined
+          ? before?.time_s
+          : body.time_s;
+    if (
+      typeof time !== 'number' ||
+      !Number.isFinite(time) ||
+      time < 60 * factor ||
+      time > 300 * factor
+    )
+      fail(400, 'Split must be 60–300');
+    const time_s = Math.round(time * 10) / 10;
+    const row: ErgTest = {
+      id: before?.id ?? id('test'),
+      user_id: userId,
+      kind,
+      date,
+      time_s,
+      split_s: Math.round((time_s / factor) * 10) / 10,
+      is_pr: false,
+      created_at: before?.created_at ?? stamp(),
+      updated_at: stamp(),
+    };
+    if (before) Object.assign(before, row);
+    else ergTests.push(row);
+    derive(userId);
+    return testHistory(userId).find((test) => test.id === row.id)!;
+  }
+  function challengeView(row: TeamChallenge): TeamChallenge {
+    const day = today(now());
+    const entries = state.entries.filter(
+      (e) =>
+        e.date >= row.start_date &&
+        e.date <= row.end_date &&
+        (!row.modality || e.modality === row.modality),
+    );
+    const progress_m = entries.reduce(
+      (n, e) => n + (row.unit === 'emeters' ? e.equiv_m : e.distance_m),
+      0,
+    );
+    return {
+      ...row,
+      status:
+        row.ended_at || row.end_date < day ? 'ended' : row.start_date > day ? 'upcoming' : 'active',
+      progress_m,
+      percent: Math.round((progress_m / row.goal_m) * 1000) / 10,
+    };
+  }
   let currentId = session;
   let sequence = 100000;
   let settings: Settings = {
@@ -506,7 +628,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 9 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 14 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -599,6 +721,107 @@ export function createMockApi({
           detail_json: JSON.stringify(body),
           created_at: stamp(),
         });
+      if (/^\/api\/users\/[^/]+\/tests$/.test(path) && method === 'GET')
+        return json(testHistory(resourceId));
+      if (path === '/api/me/tests' && method === 'POST') return json(saveTest(user.id, body), 201);
+      if (/^\/api\/me\/tests\/[^/]+$/.test(path)) {
+        const row =
+          ergTests.find((test) => test.id === parts[4] && test.user_id === user.id) ??
+          fail(404, 'Test not found');
+        if (method === 'PATCH') return json(saveTest(user.id, body, row));
+        if (method === 'DELETE') {
+          ergTests.splice(ergTests.indexOf(row), 1);
+          derive(user.id);
+          return empty();
+        }
+      }
+      if (path === '/api/challenges' && method === 'GET')
+        return json(
+          challenges
+            .map(challengeView)
+            .filter((row) => row.status !== 'ended')
+            .sort((a, b) => a.end_date.localeCompare(b.end_date)),
+        );
+      if (path.startsWith('/api/admin/challenges')) {
+        const before = challenges.find((row) => row.id === parts[4]);
+        if (method === 'GET') return json([...challenges].reverse().map(challengeView));
+        if (parts[4] && !before) fail(404, 'Challenge not found');
+        if (before && method === 'DELETE') {
+          challenges.splice(challenges.indexOf(before), 1);
+          recordAudit('challenge.delete', before.id, before, null);
+          return empty();
+        }
+        if (before && parts[5] === 'end' && method === 'POST') {
+          before.ended_at ??= stamp();
+          before.updated_at = stamp();
+          recordAudit('challenge.end', before.id, null, before);
+          return json(challengeView(before));
+        }
+        if (before && challengeView(before).status === 'ended')
+          fail(409, 'Ended challenges cannot be edited');
+        const input = { ...before, ...body };
+        text(input.title, 'Title', 60);
+        if (
+          !['emeters', 'km'].includes(String(input.unit)) ||
+          !Number.isInteger(input.goal_m) ||
+          Number(input.goal_m) < 1 ||
+          Number(input.goal_m) > 1e9 ||
+          !dateValid(input.start_date) ||
+          !dateValid(input.end_date) ||
+          input.end_date < input.start_date ||
+          input.end_date > addDays(input.start_date, 366) ||
+          (input.modality !== null && !['erg', 'bike', 'run'].includes(String(input.modality)))
+        )
+          fail(400, 'Invalid challenge');
+        const row = {
+          ...input,
+          id: before?.id ?? id('challenge'),
+          title: String(input.title).trim(),
+          created_by: before?.created_by ?? user.id,
+          created_at: before?.created_at ?? stamp(),
+          updated_at: stamp(),
+          ended_at: null,
+          status: 'upcoming',
+          progress_m: 0,
+          percent: 0,
+        } as TeamChallenge;
+        if (before) Object.assign(before, row);
+        else challenges.push(row);
+        recordAudit(before ? 'challenge.update' : 'challenge.create', row.id, before, row);
+        return json(challengeView(row), before ? 200 : 201);
+      }
+      if (path === '/api/stats/recap' && method === 'GET') {
+        const date = url.searchParams.get('week') ?? addDays(weekStart(today(now())), -7);
+        if (!dateValid(date) || date < '2000-01-01' || weekStart(date) >= weekStart(today(now())))
+          fail(400, 'Choose a completed week');
+        const week = weekStart(date),
+          summary = weekStats(user.id, week),
+          board = leaderboard(week, 'percent');
+        const entries = state.entries
+          .filter((e) => e.user_id === user.id && e.week_start === week)
+          .sort((a, b) => b.equiv_m - a.equiv_m || a.created_at.localeCompare(b.created_at));
+        let streak = 0;
+        for (
+          let d = week;
+          d >= '2000-01-01' && weekStats(user.id, d).hit_target;
+          d = addDays(d, -7)
+        )
+          streak++;
+        return json({
+          ...summary,
+          entry_count: entries.length,
+          best_effort: entries[0] ?? null,
+          streak,
+          team: {
+            total_m: board.reduce((n, r) => n + r.total_m, 0),
+            entry_count: board.reduce((n, r) => n + r.entry_count, 0),
+            rowers: board.length,
+            rowers_hit_target: board.filter((r) => r.target_m > 0 && r.total_m >= r.target_m)
+              .length,
+          },
+          rank: board.find((r) => r.user.id === user.id)?.rank ?? null,
+        });
+      }
       if (path === '/api/me') {
         if (method === 'GET') return json(user);
         if (method === 'PATCH') {
@@ -628,18 +851,13 @@ export function createMockApi({
             uploads.get(String(body.avatar_image_id))?.owner !== user.id
           )
             fail(400, 'Upload your avatar first');
-          for (const key of [
-            'name',
-            'bio',
-            'side',
-            'class_year',
-            'group_key',
-            'best6k_split_s',
-            'best2k_split_s',
-            'avatar_image_id',
-          ])
+          for (const key of ['name', 'bio', 'side', 'class_year', 'group_key', 'avatar_image_id'])
             if (key in body) Object.assign(user, { [key]: body[key] });
           user.updated_at = stamp();
+          for (const kind of ['2k', '6k'] as const) {
+            const split = body[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
+            if (split != null) saveTest(user.id, { kind, date: today(now()), split_s: split });
+          }
           return json(user);
         }
       }
