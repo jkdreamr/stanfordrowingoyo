@@ -176,6 +176,27 @@ Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | adm
   with a missing/invalid/expired/used grant returns 401 REAUTH_REQUIRED. The legacy `current_password`
   field on the change request is rejected with 400; it never triggers a second derivation. The new password
   must be 8–200 characters; it is not compared to the old plaintext password across the two requests.
+- Passkeys (WebAuthn: Face ID, Touch ID, Android fingerprint, Windows Hello, synced passkeys) are an optional second
+  login method; password login is unchanged. Verification is in-house (CBOR + WebCrypto, no dependency) inside the DO:
+  ES256 (COSE -7, P-256) and RS256 (COSE -257, RSA ≥ 2048 bits), attestation `none` (statements are not verified),
+  user presence and user verification required. `rpId` is the request URL hostname, and `clientData.origin` must be
+  `https://<that host>` (`http://localhost`/`127.0.0.1` allowed for local dev), so staging and production hosts each
+  get their own credentials and no config is needed. Challenges are 32 random bytes stored server-side
+  (`webauthn_challenges`), bound to kind (`register`/`login`) and, for registration, the user and session hash; they
+  expire after 5 minutes, are deleted before verification (single use), and at most 2,000 are kept (oldest pruned).
+  Login options rate-limit at 300 per IP per 15 minutes. A login assertion consumes one attempt from the existing
+  10/email bucket of the credential's owner (unknown credentials: the 150/IP bucket), before signature checks;
+  success clears the email bucket. Sessions are created by the same code path as password login (same cookie,
+  expiry and active/credential checks). Inactive users get 403 ACCOUNT_INACTIVE. Sign counters: when either the
+  stored or presented counter is non-zero, a presented counter that does not increase is rejected (401
+  PASSKEY_CLONED, audited as `passkey.counter-regression`); always-zero authenticators (iCloud Keychain, Google
+  Password Manager) are accepted. Registration (max 10 per user) needs a session created within 10 minutes or a
+  password re-auth grant from `POST /api/me/password/verify` (401 REAUTH_REQUIRED otherwise); the grant is not
+  consumed. Add/remove are audited (`passkey.add`, `passkey.remove`, actor = owner). Staff password reset keeps
+  passkeys: it revokes sessions and forces a password change, and a passkey login after a reset still lands on the
+  forced change (passkey user verification stands in for the temporary password). Staff deactivation/unlink blocks
+  passkey login through `active`; re-claiming an inactive account through signup deletes its passkeys so a new owner
+  never inherits them. Passkeys of a user who changes their own password are kept.
 - Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
   `TEAM_CODE` Worker secret, or a generated UUID when absent. Codes must be 4–64 letters, numbers or hyphens
   after trimming, including in admin settings PATCH. Invalid secrets (blank, short, long or invalid characters)
@@ -239,6 +260,11 @@ my_plan_sessions(user_id, start_date, week, day, slot, modality, zone, distance_
 notifications(id PK, user_id, kind ('kudos'|'comment'|'announcement'|'tag'|'mention'|'report'), actor_id, entry_id NULL, created_at, read_at NULL)
 user_intro(user_id PK, completed_at)
 audit_log(id PK, actor_id, action, target, detail_json, created_at)
+passkeys(id PK (credential id, base64url), user_id, alg INT, public_key (JWK json), sign_count INT,
+         transports (json), aaguid, backup_eligible INT, backed_up INT, name, created_at, last_used_at NULL)
+         -- index (user_id, created_at)
+webauthn_challenges(challenge PK, kind ('register'|'login'), user_id NULL, session_hash NULL, expires_at, created_at)
+         -- index (expires_at)
 ```
 
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
@@ -270,6 +296,8 @@ Version 11 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth
 `(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
 epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `< 11`, so it applies
 whether or not intermediate versions exist.
+Version 16 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
+self-contained guarded block (renumbered to the next free version at merge time); it needs no lower version.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -359,6 +387,15 @@ verification shares the 10/email and 150/IP per 15 minutes limiter, checked befo
 accepts no legacy `current_password` (400 VALIDATION_ERROR). The token is optional only for a forced
 change; otherwise missing, invalid, expired or reused tokens return 401 REAUTH_REQUIRED. Revoked sessions
 or inactive users return 401 UNAUTHENTICATED; credentials changed in flight return 409 CREDENTIALS_CHANGED.
+Passkeys (§4): public `POST /api/auth/passkey/options` (bodyless; → `PasskeyLoginOptions`
+`{ challenge, rp_id, timeout_ms, expires_at }`, discoverable credentials, empty allow list) and
+`POST /api/auth/passkey/login` (`PasskeyAssertion` → `User`, sets the session cookie; 401 PASSKEY_UNKNOWN,
+PASSKEY_CLONED, 400 PASSKEY_INVALID, PASSKEY_CHALLENGE_EXPIRED, 403 ACCOUNT_INACTIVE, 429). Authenticated
+`GET /api/me/passkeys` → `Passkey[]` (`id, name, created_at, last_used_at, backed_up`; never key material),
+`POST /api/me/passkeys/options` (`{ reauth_token? }` → `PasskeyRegistrationOptions`, adding `rp_name`,
+`user {id,name,display_name}` and `exclude_credentials`), `POST /api/me/passkeys` (`PasskeyAttestation` →
+201 `Passkey`, name inferred from the AAGUID or User-Agent; 409 PASSKEY_EXISTS / PASSKEY_LIMIT) and
+`DELETE /api/me/passkeys/:id` (204; another user's or unknown id = 404). All values are base64url without padding.
 Config: `GET /api/config` (factors, group targets, season start, presets, zones list, server-computed
 `today` and `current_week_start` as YYYY-MM-DD in America/Los_Angeles) — public to logged-in users.
 `GET /api/me/target` returns the effective current-week target:
@@ -573,6 +610,14 @@ content, staff access, owner-only My Fortnight plans, authenticated photo storag
   Light + dark mode (system default, user toggle). System font stack (-apple-system, "SF Pro", Inter fallback). Native
   feel: 44px+ touch targets, segmented controls, sheets, no tiny tracked uppercase labels, no monospace micro labels,
   text ≥ 12px, Title Case buttons. Skeleton loaders, empty states, optimistic kudos, toast feedback, press states.
+- Passkeys UI: Login shows "Log In with Face ID/Touch ID/Fingerprint/Windows Hello/Passkey" (label from the
+  platform) when `PublicKeyCredential` exists, and the email field uses `autocomplete="username webauthn"` with a
+  conditional (autofill) request where `isConditionalMediationAvailable()`; the button aborts it. After a password
+  login (not a forced change) a one-time sheet offers setup if a platform authenticator exists and the user has no
+  passkeys; Not Now is remembered per user on the device. Settings lists passkeys (name, last used/added), removes
+  with confirmation and sets up new ones, asking for the password when the login is older than 10 minutes. Options
+  are fetched before the tap so iOS Safari keeps the user gesture; cancel/abort and browser-side autofill failures are silent. Works the same in an
+  installed iOS PWA (iOS 16+) since the app keeps its own origin.
 - Numbers: show E-meters as `20,000 m` or `20.0k`; never show raw floats.
 
 ## 8. Repo layout

@@ -26,6 +26,7 @@ import {
   useToast,
 } from '../components/ui';
 import { FormErrors } from '../components/auth/FormErrors';
+import { PasskeySettings } from '../components/auth/PasskeySettings';
 const pushFooter: Record<PushSupport, string | undefined> = {
   ready: undefined,
   'needs-install': 'Add OYO to your Home Screen first.',
@@ -162,6 +163,7 @@ export default function Settings() {
           <ListRow title="Quick Intro" to="/intro?next=%2Fsettings" />
           <ListRow title="Privacy" to="/privacy" />
         </ListGroup>
+        <PasskeySettings onError={setMessage} />
         <ListGroup>
           {me && me.role !== 'rower' && <ListRow title="Admin" to="/admin" />}
           <ListRow title="Log Out" tone="destructive" onClick={() => setConfirm(true)} />

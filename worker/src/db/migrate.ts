@@ -527,6 +527,38 @@ CREATE INDEX IF NOT EXISTS push_outbox_due ON push_outbox(next_at,id);`);
         '11',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 16)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS passkeys (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  alg INTEGER NOT NULL,
+  public_key TEXT NOT NULL,
+  sign_count INTEGER NOT NULL,
+  transports TEXT NOT NULL,
+  aaguid TEXT NOT NULL,
+  backup_eligible INTEGER NOT NULL,
+  backed_up INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  last_used_at TEXT
+);
+CREATE INDEX IF NOT EXISTS passkeys_user ON passkeys(user_id,created_at);
+CREATE TABLE IF NOT EXISTS webauthn_challenges (
+  challenge TEXT PRIMARY KEY,
+  kind TEXT NOT NULL CHECK(kind IN ('register','login')),
+  user_id TEXT,
+  session_hash TEXT,
+  expires_at TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS webauthn_challenges_expiry ON webauthn_challenges(expires_at);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '16',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

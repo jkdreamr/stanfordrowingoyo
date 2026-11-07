@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import type { User } from '../../../shared/types';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from '../lib/queries';
 import { authError, safeNext } from '../lib/auth';
@@ -6,6 +7,9 @@ import { Button, TextField } from '../components/ui';
 import { PasswordField } from '../components/auth/PasswordField';
 import { AuthFrame } from '../components/auth/AuthLayout';
 import { FormErrors } from '../components/auth/FormErrors';
+import { PasskeyIcon } from '../components/auth/PasskeyIcon';
+import { biometricLabel, markPasskeyOffer } from '../lib/passkeys';
+import { usePasskeySignIn } from '../lib/usePasskeyLogin';
 export default function Login() {
   const mutation = useLogin();
   const navigate = useNavigate();
@@ -15,6 +19,16 @@ export default function Login() {
     typeof location.state?.passwordError === 'string' ? location.state.passwordError : undefined,
   );
   const [fields, setFields] = useState<Record<string, string>>({});
+  const go = (user: User) =>
+    navigate(
+      user.must_change_password ? `/change-password?next=${encodeURIComponent(next)}` : next,
+      { replace: true },
+    );
+  const label = biometricLabel();
+  const passkey = usePasskeySignIn(go, (error) => {
+    setFields({});
+    setMessage(error);
+  });
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (mutation.isPending) return;
@@ -29,10 +43,8 @@ export default function Login() {
     if (Object.keys(errors).length) return;
     try {
       const user = await mutation.mutateAsync({ body: { email, password } });
-      navigate(
-        user.must_change_password ? `/change-password?next=${encodeURIComponent(next)}` : next,
-        { replace: true },
-      );
+      if (!user.must_change_password) markPasskeyOffer();
+      go(user);
     } catch (error) {
       setMessage(authError(error));
     }
@@ -41,7 +53,13 @@ export default function Login() {
     <AuthFrame
       title="Stanford Rowing OYO"
       action={
-        <Button type="submit" form="login-form" fullWidth loading={mutation.isPending}>
+        <Button
+          type="submit"
+          form="login-form"
+          fullWidth
+          loading={mutation.isPending}
+          disabled={passkey.busy}
+        >
           Log In
         </Button>
       }
@@ -53,7 +71,7 @@ export default function Login() {
           label="Email"
           name="email"
           type="email"
-          autoComplete="username"
+          autoComplete="username webauthn"
           autoCapitalize="none"
           spellCheck={false}
           required
@@ -68,6 +86,22 @@ export default function Login() {
           error={fields.password}
         />
       </form>
+      {passkey.supported && (
+        <Button
+          className="mt-5"
+          variant="secondary"
+          fullWidth
+          leading={<PasskeyIcon label={label} />}
+          loading={passkey.busy}
+          disabled={mutation.isPending}
+          onClick={() => {
+            setMessage(undefined);
+            void passkey.signIn();
+          }}
+        >
+          {`Log In with ${label}`}
+        </Button>
+      )}
       <p className="mt-5 text-footnote text-muted">
         Ask a coxswain or coach to reset your password
       </p>

@@ -5,6 +5,7 @@ import { HttpError } from '../http';
 export const AUTH_EMAIL_LIMIT = 10;
 export const AUTH_IP_LIMIT = 150;
 export const TEAM_CODE_FAILURE_LIMIT = 20;
+export const PASSKEY_OPTIONS_IP_LIMIT = 300;
 const ipAddress = (ctx: Context) => ctx.request.headers.get('CF-Connecting-IP') ?? 'local';
 function check(ctx: Context, email: string, ip: string, limit: number) {
   const row = ctx.storage.sql
@@ -45,4 +46,10 @@ export function checkTeamCodeFailures(ctx: Context) {
 }
 export function recordTeamCodeFailure(ctx: Context) {
   consume(ctx, 'team-code-failures', ipAddress(ctx), TEAM_CODE_FAILURE_LIMIT);
+}
+export function attemptIp(ctx: Context) {
+  consume(ctx, 'auth-ip', ipAddress(ctx), AUTH_IP_LIMIT);
+}
+export function passkeyOptionsAttempt(ctx: Context) {
+  consume(ctx, 'passkey-options', ipAddress(ctx), PASSKEY_OPTIONS_IP_LIMIT);
 }

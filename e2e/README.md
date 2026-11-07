@@ -96,3 +96,18 @@ including the committed-create/lost-response case. They still use the real HTTPS
 worker, synthetic roster claims and the actual WebKit engine.
 Set `OYO_SCREENSHOT_DIR` to an existing directory outside the repo to capture
 iPhone Log restoration and offline states in light and dark.
+
+Passkey scenarios (`passkeys.e2e.ts`) use a Chrome DevTools Protocol virtual
+platform authenticator (`WebAuthn.addVirtualAuthenticator`, CTAP2, internal
+transport, resident keys, user verification) in desktop-chrome and pixel-7:
+post-login setup prompt, Not Now, conditional (autofill) sign-in, explicit
+button sign-in, Settings list/remove, and a removed passkey being rejected. The
+real worker verifies every signature; mock mode skips the ceremony test.
+WebKit limits: Playwright's WebKit has no virtual authenticator or CDP and does
+not expose `navigator.credentials`, so iphone-15 only checks the login markup
+(`autocomplete="username webauthn"`, button hidden without WebAuthn). Face ID,
+iOS Safari, the installed iOS PWA and Android biometric prompts need manual
+testing on real devices over HTTPS.
+
+Each project sends its own `CF-Connecting-IP` (198.51.100.1–3) so the suite's signups and logins
+stay under the 150-per-IP auth limit. Cloudflare overwrites this header in production.

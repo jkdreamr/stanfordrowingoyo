@@ -114,6 +114,7 @@ export async function signup(ctx: Context) {
         id,
       );
       ctx.storage.sql.exec('DELETE FROM sessions WHERE user_id = ?', id);
+      ctx.storage.sql.exec('DELETE FROM passkeys WHERE user_id = ?', id);
     } else
       ctx.storage.sql.exec(
         'INSERT INTO users (id,email,name,password_hash,password_salt,role,group_key,side,class_year,on_leaderboard,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',

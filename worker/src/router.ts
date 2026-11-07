@@ -2,6 +2,7 @@ import type { Context } from './context';
 import { authenticate, requireUser } from './auth/guards';
 import { HttpError, errorResponse, json } from './http';
 import * as auth from './routes/auth';
+import * as passkeys from './routes/passkeys';
 import * as me from './routes/me';
 import * as intro from './routes/intro';
 import * as myPlan from './routes/myPlan';
@@ -88,12 +89,18 @@ const routes: Route[] = [
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
   { method: 'POST', path: '/api/auth/logout', handler: auth.logout },
+  { method: 'POST', path: '/api/auth/passkey/options', handler: passkeys.loginOptions },
+  { method: 'POST', path: '/api/auth/passkey/login', handler: passkeys.login },
   { method: 'GET', path: '/api/me', handler: me.get },
   { method: 'GET', path: '/api/me/intro', handler: intro.get },
   { method: 'POST', path: '/api/me/intro', handler: intro.complete },
   { method: 'PATCH', path: '/api/me', handler: me.patch },
   { method: 'POST', path: '/api/me/password', handler: unavailable },
   { method: 'POST', path: '/api/me/password/verify', handler: unavailable },
+  { method: 'GET', path: '/api/me/passkeys', handler: passkeys.list },
+  { method: 'POST', path: '/api/me/passkeys/options', handler: passkeys.registrationOptions },
+  { method: 'POST', path: '/api/me/passkeys', handler: passkeys.register },
+  { method: 'DELETE', path: '/api/me/passkeys/:id', handler: passkeys.remove },
   { method: 'GET', path: '/api/me/target', handler: me.target },
   { method: 'PUT', path: '/api/me/target', handler: me.putTarget },
   { method: 'GET', path: '/api/me/plan', handler: myPlan.get },

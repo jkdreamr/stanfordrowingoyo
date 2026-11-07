@@ -8,11 +8,12 @@ export function audit(
   target: string,
   before: unknown,
   after: unknown,
+  actorId = ctx.user!.id,
 ) {
   ctx.storage.sql.exec(
     'INSERT INTO audit_log VALUES (?,?,?,?,?,?)',
     crypto.randomUUID(),
-    ctx.user!.id,
+    actorId,
     action,
     target,
     JSON.stringify({ before, after }),

@@ -54,7 +54,7 @@ test('join-code signup, logout, and login', async ({ page, bootstrap, newRowerSi
   ).toBe(401);
   await page.getByLabel('Email', { exact: true }).fill(email);
   await page.getByLabel('Password', { exact: true }).fill(password);
-  await page.getByRole('button', { name: /log in|sign in/i }).click();
+  await page.getByRole('button', { name: 'Log In', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'This Week', exact: true })).toBeVisible();
   const me =
     process.env.E2E_MOCK === '1'
