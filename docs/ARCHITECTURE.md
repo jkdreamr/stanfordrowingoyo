@@ -266,6 +266,10 @@ with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key index
 Version 13 adds nullable comment `edited_at`, per-comment mention notification history (backfilled from current
 mentions), and durable content reports with queue/target/parent indexes. This is one transactional, idempotent
 `version < 13` migration; gaps 10–12 are intentional. Reports survive content deletion without a cascade.
+Version 11 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth, created_at, updated_at)` indexed by
+`(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
+epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `< 11`, so it applies
+whether or not intermediate versions exist.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -427,6 +431,22 @@ deletion also closes open reports, recording the deleter and timestamp. All remo
 image/join cleanup, and audit writes share one synchronous transaction. Explicit review audits `report.dismiss`
 or `report.delete`, plus `entry.delete`/`comment.delete` when content is removed; auto-closed sibling reports
 do not each generate a separate audit. Existing team-visible entries and owner-only My Fortnight are unchanged.
+Web push (per device, opt-in): `GET /api/me/push` → `PushConfig { public_key: string | null }` (null = push not
+configured; UI hides the toggle), `PUT /api/me/push` with `PushSubscriptionInput { endpoint, keys: { p256dh, auth } }`
+→ 204 (upsert by endpoint, reassigned to the current user; at most 10 devices per user, oldest evicted; endpoint must
+be https on FCM, Mozilla, Apple or WNS push hosts; p256dh 65-byte uncompressed P-256, auth 16 bytes; 503
+`PUSH_UNAVAILABLE` when unconfigured), `DELETE /api/me/push` with `{ endpoint }` → 204 (own devices only).
+Every kudos, comment, tag, mention and announcement notification inserts one `push_outbox` row per recipient device
+inside the same transaction; the request only schedules the Durable Object alarm and never waits on push. `alarm()`
+sends at most 10 pushes per invocation (RFC 8291 aes128gcm encryption + RFC 8292 VAPID ES256 JWT via WebCrypto,
+TTL 1 day), then reschedules for the remainder. Payload `{ title: actor name, body, url (same-origin deep link), tag,
+badge (unread count, max 99) }`; kudos on one entry share a tag. Already-read notifications are skipped. 404/410
+deletes the subscription; 429/5xx/network errors retry with 30 s × 2ⁿ backoff (or Retry-After, max 1 h) up to 5
+attempts; other errors drop the row. Without VAPID config the outbox is discarded.
+Secrets (never committed; generate with `npm run vapid:keys`): `VAPID_PUBLIC_KEY` (base64url uncompressed P-256
+point), `VAPID_PRIVATE_KEY` (base64url 32-byte private scalar), `VAPID_SUBJECT` (`mailto:` or `https:` contact). Set
+with `wrangler secret put <NAME>`; locally put them in `.dev.vars`. Rotating keys invalidates existing subscriptions;
+clients resubscribe automatically when the server key differs.
 Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), reset password, roster CRUD + bulk import
 (CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
@@ -520,6 +540,16 @@ content, staff access, owner-only My Fortnight plans, authenticated photo storag
 - Vite + React 18 + TypeScript + Tailwind + React Router + TanStack Query, lucide-react icons. Built assets served by the
   Worker (Workers static assets, SPA fallback). PWA: manifest, icons (192/512/maskable/apple-touch), theme color,
   `apple-mobile-web-app-capable`, safe-area insets, a small service worker for app-shell caching (never cache /api).
+  The service worker also shows push notifications, sets the app badge from the payload, focuses/navigates an open
+  window on click (else opens one), and resubscribes on `pushsubscriptionchange`. While signed in the app refetches
+  notifications every 60 s only while visible (paused when hidden, refetched on return) and mirrors the unread count
+  to the Badging API (`setAppBadge`/`clearAppBadge`) where supported. Settings › Notifications has a per-device Push
+  Notifications toggle (permission is requested only from that tap); on iPhone outside the Home Screen it is disabled
+  with "Add OYO to your Home Screen first." and an Add to Home Screen row; denied/unsupported states are disabled
+  with a one-line footer. Logging out removes this device's subscription and clears the badge. Install: Home shows a
+  dismissible Install OYO card when `beforeinstallprompt` fired (Android/Chrome) or on iPhone/iPad Safari (opens a
+  three-step Add to Home Screen sheet); never shown when running standalone; dismissal persists in localStorage;
+  Settings › App › Install App remains when the prompt is available.
 - Layout: mobile = bottom tab bar (Home, Feed, + Log (center, prominent), Leaderboard, Me); desktop ≥1024px = left
   sidebar with the same destinations + content column (max ~720px) and a right rail (week ring, announcements).
 - Screens: Login/Signup, Home (week progress ring vs target, remaining meters, days left, quick-log presets, this week's

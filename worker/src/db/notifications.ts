@@ -1,6 +1,11 @@
 import type { Notification } from '../../../shared/types';
 import type { Row } from './row';
 import { toPublicUser, type UserRow } from './users';
+const pendingPush = new WeakSet<DurableObjectStorage>();
+/** True once per request that queued push deliveries, so the DO can schedule its alarm. */
+export function takePendingPush(storage: DurableObjectStorage) {
+  return pendingPush.delete(storage);
+}
 export function notify(
   storage: DurableObjectStorage,
   recipient: string,
@@ -15,9 +20,10 @@ export function notify(
       .length
   )
     return;
+  const id = crypto.randomUUID();
   storage.sql.exec(
     'INSERT INTO notifications VALUES (?,?,?,?,?,?,?)',
-    crypto.randomUUID(),
+    id,
     recipient,
     kind,
     actor,
@@ -25,6 +31,15 @@ export function notify(
     timestamp,
     null,
   );
+  if (
+    storage.sql.exec(
+      'INSERT INTO push_outbox (notification_id,endpoint,attempts,next_at) SELECT ?,endpoint,0,? FROM push_subscriptions WHERE user_id = ?',
+      id,
+      Date.now(),
+      recipient,
+    ).rowsWritten
+  )
+    pendingPush.add(storage);
 }
 export function notifications(storage: DurableObjectStorage, user: string): Notification[] {
   const rows = storage.sql

@@ -114,6 +114,8 @@ beforeEach(async () => {
         'entries',
         'audit_log',
         'notifications',
+        'push_subscriptions',
+        'push_outbox',
       ])
         storage.sql.exec(`DELETE FROM ${table}`);
       migrate(storage);

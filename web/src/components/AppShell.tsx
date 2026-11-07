@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { useTabSwipe } from '../lib/useTabSwipe';
 import { Sidebar, TabBar } from './shell/Navigation';
 import { RightRail } from './shell/RightRail';
+import { NotificationSync } from './NotificationSync';
 export default function AppShell() {
   const task = useLocation().pathname === '/log';
   const content = useRef<HTMLElement>(null);
@@ -12,6 +13,7 @@ export default function AppShell() {
       <a className="skip-link" href="#main-content">
         Skip To Content
       </a>
+      <NotificationSync />
       <Sidebar />
       <main ref={content} id="main-content" className="shell-content">
         <Outlet />

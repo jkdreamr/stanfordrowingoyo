@@ -502,6 +502,31 @@ CREATE INDEX IF NOT EXISTS entry_idempotency_created_at ON entry_idempotency(cre
         '11',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 11)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS push_subscriptions (
+  endpoint TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  p256dh TEXT NOT NULL,
+  auth TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS push_subscriptions_user ON push_subscriptions(user_id,updated_at);
+CREATE TABLE IF NOT EXISTS push_outbox (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  notification_id TEXT NOT NULL,
+  endpoint TEXT NOT NULL,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  next_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS push_outbox_due ON push_outbox(next_at,id);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '11',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

@@ -17,6 +17,7 @@ import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
 import * as reports from './routes/reports';
 import * as account from './routes/account';
+import * as push from './routes/push';
 import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 type Handler = (ctx: Context) => Response | Promise<Response>;
@@ -98,6 +99,9 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/me/plan', handler: myPlan.get },
   { method: 'PUT', path: '/api/me/plan', handler: myPlan.put },
   { method: 'DELETE', path: '/api/me/plan/:start', handler: myPlan.remove },
+  { method: 'GET', path: '/api/me/push', handler: push.get },
+  { method: 'PUT', path: '/api/me/push', handler: push.put },
+  { method: 'DELETE', path: '/api/me/push', handler: push.remove },
   { method: 'GET', path: '/api/config', handler: config.get },
   { method: 'GET', path: '/api/entries', handler: entries.list },
   { method: 'POST', path: '/api/entries', handler: entries.create },

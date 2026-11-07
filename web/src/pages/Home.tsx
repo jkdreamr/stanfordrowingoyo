@@ -27,6 +27,7 @@ import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
 import { ModalityIcon } from '../components/shell/ModalityIcon';
 import { TodaysPlan } from '../components/plan/TodaysPlan';
+import { InstallBanner } from '../components/InstallBanner';
 import { LastWeekRecap } from '../components/LastWeekRecap';
 import { TeamChallenges } from '../components/TeamChallenges';
 export default function Page() {
@@ -84,6 +85,7 @@ export default function Page() {
     <>
       <PageHeader title="This Week" trailing={<HeaderActions settings />} />
       <div className="screen-stack">
+        <InstallBanner />
         {user && <LastWeekRecap user={user} config={config} />}
         <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
           <div className="flex justify-center">

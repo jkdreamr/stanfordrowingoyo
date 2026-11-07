@@ -5,5 +5,5 @@
     "lib": ["ES2023", "DOM"],
     "erasableSyntaxOnly": true
   },
-  "include": ["load/**/*.ts"]
+  "include": ["load/**/*.ts", "generate-vapid-keys.ts"]
 }

@@ -91,6 +91,8 @@ beforeEach(async () => {
         'kudos',
         'comments',
         'notifications',
+        'push_subscriptions',
+        'push_outbox',
         'announcements',
         'audit_log',
         'presets',

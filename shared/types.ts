@@ -431,6 +431,15 @@ export interface AdminUserRemoveRequest {
 export interface IntroStatus {
   completed_at: string | null;
 }
+/** VAPID application server key (base64url, uncompressed P-256); null when push is not configured. */
+export interface PushConfig {
+  public_key: string | null;
+}
+/** Browser PushSubscription.toJSON() subset registered for the signed-in user on this device. */
+export interface PushSubscriptionInput {
+  endpoint: string;
+  keys: { p256dh: string; auth: string };
+}
 export interface Endpoint<Req, Res, Query = never> {
   request: Req;
   response: Res;
@@ -517,6 +526,9 @@ export interface Api {
   'DELETE /api/me/plan/:start': Endpoint<void, void>;
   'GET /api/me/export': Endpoint<void, AccountDataExport>;
   'GET /api/me/export/workouts': Endpoint<void, string>;
+  'GET /api/me/push': Endpoint<void, PushConfig>;
+  'PUT /api/me/push': Endpoint<PushSubscriptionInput, void>;
+  'DELETE /api/me/push': Endpoint<{ endpoint: string }, void>;
   'GET /api/admin/users': Endpoint<void, User[]>;
   'PATCH /api/admin/users/:id': Endpoint<AdminUserPatch, User>;
   'POST /api/admin/users/:id/reset-password': Endpoint<void, { temporary_password: string }>;
