@@ -24,6 +24,7 @@ function setup({
   loading = false,
   stale = false,
   missing = false,
+  cachedTarget = false,
 } = {}) {
   HTMLDialogElement.prototype.showModal = function () {
     this.setAttribute('open', '');
@@ -61,9 +62,19 @@ function setup({
         },
       ];
   let failed = fail;
+  let targetStatus = 0;
   vi.stubGlobal(
     'fetch',
     vi.fn((url: URL, init: RequestInit) => {
+      if (url.pathname === '/api/announcements/newer' && targetStatus) {
+        if (targetStatus < 0) return Promise.reject(new TypeError('fetch'));
+        return Promise.resolve(
+          Response.json(
+            { error: { code: 'SERVER_ERROR', message: 'Unavailable' } },
+            { status: targetStatus },
+          ),
+        );
+      }
       if (url.pathname === '/api/announcements') {
         if (loading) return new Promise<Response>(() => {});
         if (failed) return Promise.reject(new TypeError('fetch'));
@@ -72,6 +83,11 @@ function setup({
     }),
   );
   const client = createQueryClient();
+  if (cachedTarget)
+    client.setQueryData(qk.request('GET /api/announcements/:id', { params: { id: 'newer' } }), {
+      ...mock.state.announcements[1],
+      title: 'Cached Update',
+    });
   if (stale) {
     client.setQueryData(qk.request('GET /api/announcements', {}), [mock.state.announcements[0]]);
     const latest = mock.state.announcements[1];
@@ -90,7 +106,10 @@ function setup({
       },
     ];
   }
-  client.setDefaultOptions({ queries: { retry: false } });
+  client.setDefaultOptions({
+    ...client.getDefaultOptions(),
+    queries: { ...client.getDefaultOptions().queries, retry: false },
+  });
   clients.push(client);
   const router = createMemoryRouter(
     [
@@ -106,6 +125,11 @@ function setup({
     </QueryClientProvider>,
   );
   return {
+    client,
+    mock,
+    failTarget: (status: number) => {
+      targetStatus = status;
+    },
     recover: () => {
       failed = false;
     },
@@ -127,7 +151,7 @@ it('does not show an unrelated announcement when the notification target was rem
   setup({ path: '/notifications', stale: true, missing: true });
   fireEvent.click(await screen.findByRole('button', { name: /posted an announcement/ }));
   const sheet = await screen.findByRole('dialog', { name: 'Announcements' });
-  expect(await within(sheet).findByText('Announcement Removed')).toBeTruthy();
+  expect(await within(sheet).findByText('Announcement removed')).toBeTruthy();
   expect(within(sheet).queryByText('Earlier Update')).toBeNull();
 });
 it('opens a specific announcement from the push deep link', async () => {
@@ -137,12 +161,68 @@ it('opens a specific announcement from the push deep link', async () => {
 });
 it('shows a removed state for a deleted push target without substituting another announcement', async () => {
   setup({ path: '/announcements?announcement=removed' });
-  expect(await screen.findByText('Announcement Removed')).toBeTruthy();
+  expect(await screen.findByText('Announcement removed')).toBeTruthy();
   expect(screen.queryByRole('article')).toBeNull();
   expect(screen.getByRole('link', { name: 'All Announcements' }).getAttribute('href')).toBe(
     '/announcements',
   );
 });
+it('shows cached push content immediately but always revalidates it', async () => {
+  setup({ path: '/announcements?announcement=newer', cachedTarget: true });
+  expect(screen.getByRole('article', { name: 'Cached Update' })).toBeTruthy();
+  expect(await screen.findByRole('article', { name: 'Latest Update' })).toBeTruthy();
+});
+it('revalidates on every notification open and evicts deleted cached content on 404', async () => {
+  const { client, mock } = setup({ path: '/notifications', stale: true });
+  const targetKey = qk.request('GET /api/announcements/:id', { params: { id: 'newer' } });
+  const listKey = qk.request('GET /api/announcements', {});
+  const notificationKey = qk.request('GET /api/notifications', {});
+  const open = () =>
+    fireEvent.click(screen.getByRole('button', { name: /posted an announcement/ }));
+  const close = () => fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+  await screen.findByRole('button', { name: /posted an announcement/ });
+  open();
+  await screen.findByRole('heading', { name: 'Latest Update' });
+  close();
+  mock.state.announcements[1].title = 'Updated On Server';
+  open();
+  expect(screen.getByRole('heading', { name: 'Latest Update' })).toBeTruthy();
+  await screen.findByRole('heading', { name: 'Updated On Server' });
+  close();
+  client.setQueryData(listKey, [...mock.state.announcements]);
+  mock.state.announcements = mock.state.announcements.filter(
+    (announcement) => announcement.id !== 'newer',
+  );
+  mock.state.notifications = [];
+  open();
+  await screen.findByText('Announcement removed');
+  expect(client.getQueryData(targetKey)).toBeUndefined();
+  expect(
+    client.getQueryData<{ id: string }[]>(listKey)?.map((announcement) => announcement.id),
+  ).toEqual(['older']);
+  expect(client.getQueryData(notificationKey)).toEqual([]);
+  expect(
+    vi
+      .mocked(fetch)
+      .mock.calls.filter(([url]) => new URL(String(url)).pathname === '/api/announcements/newer'),
+  ).toHaveLength(3);
+});
+it.each([500, -1])(
+  'keeps the generic error on revalidation failure %s instead of claiming removal',
+  async (status) => {
+    const { failTarget, client } = setup({ path: '/notifications', stale: true });
+    fireEvent.click(await screen.findByRole('button', { name: /posted an announcement/ }));
+    await screen.findByRole('heading', { name: 'Latest Update' });
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    failTarget(status);
+    fireEvent.click(screen.getByRole('button', { name: /posted an announcement/ }));
+    await screen.findByText('Could Not Load This Screen');
+    expect(screen.queryByText('Announcement removed')).toBeNull();
+    expect(
+      client.getQueryData(qk.request('GET /api/announcements/:id', { params: { id: 'newer' } })),
+    ).toMatchObject({ title: 'Latest Update' });
+  },
+);
 it('shows pinned and unpinned announcements newest first with full bodies and authors', async () => {
   setup();
   await screen.findByRole('article', { name: 'Latest Update' });

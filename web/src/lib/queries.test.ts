@@ -46,6 +46,11 @@ it('does not expire a valid session for password reauthentication challenges or 
   }
 });
 describe('query keys', () => {
+  it('refreshes notification counts after announcement deletion', () => {
+    expect(invalidationKeys('DELETE /api/announcements/:id')).toContainEqual(
+      qk.root('notifications'),
+    );
+  });
   it('refreshes comment and moderation surfaces after report decisions', () => {
     expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('entries'));
     expect(invalidationKeys('PATCH /api/comments/:id')).toContainEqual(qk.root('admin'));

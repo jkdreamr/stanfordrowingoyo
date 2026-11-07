@@ -164,7 +164,7 @@ export default function Notifications() {
           {selected?.announcement_id &&
           announcement.error instanceof ApiClientError &&
           announcement.error.status === 404 ? (
-            <EmptyState icon={<Bell size={20} />} title="Announcement Removed" />
+            <EmptyState icon={<Bell size={20} />} title="Announcement removed" />
           ) : selected?.announcement_id && (announcement.isPending || announcement.isError) ? (
             <LoadState error={announcement.isError} retry={() => void announcement.refetch()} />
           ) : opened?.length ? (

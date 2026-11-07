@@ -22,7 +22,7 @@ export default function Announcements() {
         {id && query.error instanceof ApiClientError && query.error.status === 404 ? (
           <EmptyState
             icon={<Megaphone size={20} />}
-            title="Announcement Removed"
+            title="Announcement removed"
             action={<Button to="/announcements">All Announcements</Button>}
           />
         ) : query.isError ? (

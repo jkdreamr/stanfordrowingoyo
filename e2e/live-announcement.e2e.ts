@@ -45,13 +45,19 @@ test('a live announcement alert opens its exact announcement despite a stale lis
   const sheet = rower.page.getByRole('dialog', { name: 'Announcements', exact: true });
   await expect(sheet.getByRole('heading', { name: latest.title, exact: true })).toBeVisible();
   await expect(sheet.getByRole('heading', { name: older.title, exact: true })).toHaveCount(0);
-  await rower.page.goto(`/announcements?announcement=${latest.id}`);
-  await expect(rower.page.getByRole('article', { name: latest.title, exact: true })).toBeVisible();
-  await expect(rower.page.getByRole('article', { name: older.title, exact: true })).toHaveCount(0);
+  await sheet.getByRole('button', { name: 'Close', exact: true }).click();
   await expect(
     await adminPage.request.delete(`/api/announcements/${latest.id}`, { headers: csrfHeaders }),
   ).toBeOK();
-  await rower.page.reload();
-  await expect(rower.page.getByText('Announcement Removed', { exact: true })).toBeVisible();
+  await alerts.nth(index).click();
+  await expect(sheet.getByText('Announcement removed', { exact: true })).toBeVisible();
+  await expect(sheet.getByRole('heading', { name: latest.title, exact: true })).toHaveCount(0);
+  const close = sheet.getByRole('button', { name: 'Close', exact: true });
+  const box = await close.boundingBox();
+  expect(box!.height).toBeGreaterThanOrEqual(44);
+  expect(box!.width).toBeGreaterThanOrEqual(44);
+  await close.click();
+  await rower.page.goto(`/announcements?announcement=${latest.id}`);
+  await expect(rower.page.getByText('Announcement removed', { exact: true })).toBeVisible();
   await expect(rower.page.getByRole('article')).toHaveCount(0);
 });

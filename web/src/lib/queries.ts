@@ -146,7 +146,14 @@ export function useAnnouncements(enabled = true) {
   return queryHook('GET /api/announcements')({}, enabled);
 }
 export function useAnnouncement(id: string) {
-  return queryHook('GET /api/announcements/:id')({ params: { id } }, !!id);
+  const enabled = useSessionEnabled();
+  return useQuery({
+    queryKey: qk.request('GET /api/announcements/:id', { params: { id } }),
+    queryFn: ({ signal }) => api('GET /api/announcements/:id', { params: { id }, signal }),
+    enabled: !!id && enabled,
+    staleTime: 0,
+    refetchOnMount: 'always',
+  });
 }
 export const NOTIFICATION_POLL_MS = 60_000;
 /** Pass poll=true from exactly one mounted observer; polling pauses while the page is hidden. */
@@ -320,6 +327,8 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
       ...['entries', 'stats', 'leaderboard', 'users', 'me', 'challenges'].map(qk.root),
       qk.audit(),
     ];
+  if (endpoint === 'DELETE /api/announcements/:id')
+    return [qk.root('announcements'), qk.root('notifications')];
   if (endpoint.includes('/announcements')) return [qk.root('announcements')];
   if (endpoint.includes('/notifications')) return [qk.root('notifications')];
   if (endpoint.includes('/admin/')) {

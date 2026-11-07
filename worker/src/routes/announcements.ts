@@ -67,6 +67,10 @@ export function remove(ctx: Context) {
       "DELETE FROM push_outbox WHERE notification_id IN (SELECT id FROM notifications WHERE kind='announcement' AND entry_id=?)",
       before.id,
     );
+    ctx.storage.sql.exec(
+      "DELETE FROM notifications WHERE kind='announcement' AND entry_id=?",
+      before.id,
+    );
     audit(ctx, 'announcement.delete', before.id, before, null);
   });
   return noContent();

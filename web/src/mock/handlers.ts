@@ -1698,6 +1698,11 @@ export function createMockApi({
         if (method === 'DELETE') {
           recordAudit('announcement.delete', announcement.id, announcement, null);
           state.announcements.splice(state.announcements.indexOf(announcement), 1);
+          state.notifications = state.notifications.filter(
+            (notification) =>
+              notification.kind !== 'announcement' ||
+              notification.announcement_id !== announcement.id,
+          );
           return empty();
         }
         if (method === 'PATCH') {

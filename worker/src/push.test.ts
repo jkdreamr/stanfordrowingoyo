@@ -397,8 +397,11 @@ describe('push delivery', () => {
     const row = await entry(author);
     return { author, fan, ua, row };
   }
-  it('cancels queued pushes when an announcement is deleted and retains its history', async () => {
-    const { author, fan } = await kudosSetup();
+  it('deletes only the referenced announcement notifications and queued pushes across recipients', async () => {
+    const { author, fan, ua, row } = await kudosSetup();
+    const other = await user('Casey');
+    const ub = await device();
+    expect((await api('/me/push', other, 'PUT', ub.input)).status).toBe(204);
     await sql((storage) =>
       storage.sql.exec("UPDATE users SET role='coach' WHERE id=?", fan.user.id),
     );
@@ -409,16 +412,68 @@ describe('push delivery', () => {
     });
     expect(created.status).toBe(201);
     const { id } = await created.json<{ id: string }>();
-    expect(await outbox()).toHaveLength(1);
+    expect(await outbox()).toHaveLength(2);
+    const kept = await api('/announcements', fan, 'POST', {
+      title: 'Keep this notice',
+      body: 'Body',
+      pinned: false,
+    });
+    expect(kept.status).toBe(201);
+    const keptAnnouncement = await kept.json<{ created_at: string }>();
+    expect(
+      (await api(`/entries/${row.id}/comments`, fan, 'POST', { body: 'Keep this comment' })).status,
+    ).toBe(201);
+    await sql((storage) =>
+      notify(
+        storage,
+        other.user.id,
+        fan.user.id,
+        'announcement',
+        null,
+        keptAnnouncement.created_at,
+      ),
+    );
+    const remaining = await sql((storage) => {
+      const notifications = storage.sql.exec('SELECT * FROM notifications ORDER BY id').toArray();
+      const deletedIds = notifications
+        .filter((note) => note.kind === 'announcement' && note.entry_id === id)
+        .map((note) => note.id);
+      return {
+        notifications: notifications.filter((note) => !deletedIds.includes(note.id)),
+        outbox: storage.sql
+          .exec('SELECT * FROM push_outbox ORDER BY id')
+          .toArray()
+          .filter((push) => !deletedIds.includes(push.notification_id)),
+      };
+    });
     expect((await api(`/announcements/${id}`, fan, 'DELETE')).status).toBe(204);
-    expect(await outbox()).toEqual([]);
-    expect(await (await api('/notifications', author)).json()).toMatchObject([
-      { kind: 'announcement', announcement_id: id },
-    ]);
+    await sql((storage) => {
+      expect(storage.sql.exec('SELECT * FROM notifications ORDER BY id').toArray()).toEqual(
+        remaining.notifications,
+      );
+      expect(storage.sql.exec('SELECT * FROM push_outbox ORDER BY id').toArray()).toEqual(
+        remaining.outbox,
+      );
+    });
+    for (const recipient of [author, other])
+      expect(await (await api('/notifications', recipient)).json()).toHaveLength(2);
     expect((await api(`/announcements/${id}`, author)).status).toBe(404);
     const calls = stubFetch(201);
     await sql((storage) => deliverPush(storage, bindings, Date.now() + 1000));
-    expect(calls).toHaveLength(0);
+    expect(calls).toHaveLength(4);
+    for (const call of calls) {
+      const device = call.url === ua.input.endpoint ? ua : ub;
+      const payload = JSON.parse(
+        await decrypt(
+          new Uint8Array(call.init.body as Uint8Array),
+          device.keys.privateKey,
+          device.p256dhBytes,
+          device.authBytes,
+        ),
+      ) as PushPayload;
+      expect(payload.badge).toBe(2);
+      expect(payload.body).not.toContain('Cancelled notice');
+    }
   });
   it.each([undefined, 'missing-id'])(
     'drops an unresolved announcement push reference %s without sending',

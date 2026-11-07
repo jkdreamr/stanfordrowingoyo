@@ -1,6 +1,7 @@
 import { MutationCache, QueryCache, QueryClient, notifyManager } from '@tanstack/react-query';
 import { ApiClientError } from './api';
 import { qk } from './queries';
+import type { Announcement, Notification } from '../../../shared/types';
 export function createQueryClient() {
   const expireSession = (error: unknown) => {
     if (
@@ -25,7 +26,28 @@ export function createQueryClient() {
     });
   };
   const client = new QueryClient({
-    queryCache: new QueryCache({ onError: expireSession }),
+    queryCache: new QueryCache({
+      onError: (error, query) => {
+        expireSession(error);
+        if (
+          !(error instanceof ApiClientError) ||
+          error.status !== 404 ||
+          query.queryKey[2] !== 'GET /api/announcements/:id'
+        )
+          return;
+        const id = (query.queryKey[3] as { params: { id: string } }).params.id;
+        notifyManager.batch(() => {
+          query.setState({ data: undefined, dataUpdatedAt: 0 });
+          client.setQueryData<Announcement[]>(qk.request('GET /api/announcements', {}), (rows) =>
+            rows?.filter((row) => row.id !== id),
+          );
+          client.setQueryData<Notification[]>(qk.request('GET /api/notifications', {}), (rows) =>
+            rows?.filter((row) => row.kind !== 'announcement' || row.announcement_id !== id),
+          );
+          void client.invalidateQueries({ queryKey: qk.request('GET /api/notifications', {}) });
+        });
+      },
+    }),
     mutationCache: new MutationCache({ onError: expireSession }),
     defaultOptions: {
       queries: {

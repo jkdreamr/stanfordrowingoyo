@@ -449,9 +449,12 @@ Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned ann
 Notification responses include optional `announcement_id`; opening an identified announcement fetches it
 by id even when the announcements list is stale. Announcement push URLs are
 `/announcements?announcement=<id>` and open that item; legacy notifications without an id keep the fallback.
-Deleting an announcement retains its historical notifications; identified links show “Announcement Removed”
-on 404. Its identified queued pushes are removed transactionally, and delivery drops unresolved announcement
-targets (including legacy rows whose author/time match no longer exists).
+Opening an identified announcement always revalidates, showing cached content while fetching. On 404,
+cached content is evicted from the by-id and list queries and identified notification caches; links show
+“Announcement removed” instead of an unrelated announcement. Other failures retain the generic error state.
+Deleting an announcement deletes its identified notifications and queued pushes transactionally; legacy
+notifications with no reference are unaffected. Delivery drops unresolved announcement targets (including
+legacy rows whose author/time match no longer exists). Notification refetches update unread counts and badges.
 Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
 `actor: PublicUser` and `entry_title: string | null`.
 Reports: authenticated team members may `POST /api/reports` with
