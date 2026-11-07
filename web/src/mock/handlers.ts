@@ -153,7 +153,7 @@ export function createMockApi({
       author: publicUser(userById(entry.user_id)),
       images: state.imageLinks[entry.id] || [],
       kudos_count: (state.kudos[entry.id] || []).length,
-      has_kudos: (state.kudos[entry.id] || []).includes(currentId || ''),
+      has_kudos: (state.kudos[entry.id] || []).some((k) => k.user_id === currentId),
       comment_count: state.comments.filter((c) => c.entry_id === entry.id).length,
     };
   }
@@ -780,13 +780,24 @@ export function createMockApi({
       if (parts[2] === 'entries' && resourceId) {
         const entry = entryById(resourceId);
         if (parts[4] === 'kudos') {
-          if (method !== 'POST' && method !== 'DELETE') fail(404, 'Endpoint not found');
           const list = (state.kudos[entry.id] ||= []);
-          if (method === 'POST' && !list.includes(user.id)) {
-            list.push(user.id);
+          if (method === 'GET')
+            return json(
+              [...list]
+                .sort(
+                  (a, b) =>
+                    Date.parse(b.created_at) - Date.parse(a.created_at) ||
+                    (a.user_id < b.user_id ? -1 : a.user_id > b.user_id ? 1 : 0),
+                )
+                .map((k) => publicUser(userById(k.user_id))),
+            );
+          if (method !== 'POST' && method !== 'DELETE') fail(404, 'Endpoint not found');
+          if (method === 'POST' && !list.some((k) => k.user_id === user.id)) {
+            list.push({ user_id: user.id, created_at: stamp() });
             notify(entry.user_id, 'kudos', entry);
           }
-          if (method === 'DELETE') state.kudos[entry.id] = list.filter((x) => x !== user.id);
+          if (method === 'DELETE')
+            state.kudos[entry.id] = list.filter((k) => k.user_id !== user.id);
           return empty();
         }
         if (parts[4] === 'comments') {

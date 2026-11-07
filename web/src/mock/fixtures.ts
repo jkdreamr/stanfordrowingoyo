@@ -105,7 +105,7 @@ export function createFixtures(now = new Date()) {
   }));
   const entries: Entry[] = [];
   const imageLinks: Record<string, ImageMetadata[]> = {};
-  const kudos: Record<string, string[]> = {};
+  const kudos: Record<string, { user_id: string; created_at: string }[]> = {};
   const comments: Comment[] = [];
   function add(
     user: User,
@@ -157,7 +157,9 @@ export function createFixtures(now = new Date()) {
             created_at: time,
           }))
         : [];
-    kudos[id] = users.filter((u) => u.id !== user.id && random() < 0.12).map((u) => u.id);
+    kudos[id] = users
+      .filter((u) => u.id !== user.id && random() < 0.12)
+      .map((u) => ({ user_id: u.id, created_at: time }));
     if (random() < 0.25)
       comments.push({
         id: `comment-${comments.length + 1}`,

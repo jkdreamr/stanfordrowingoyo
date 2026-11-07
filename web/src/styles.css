@@ -1,6 +1,167 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.social-entry {
+  overflow: hidden;
+}
+.social-week-hit:focus-visible {
+  outline: none;
+}
+.social-week-column:has(.social-week-hit:focus-visible) .social-week-selection {
+  stroke-width: 4;
+}
+.social-text-link {
+  color: var(--text);
+  border-radius: 4px;
+}
+.social-text-link:active {
+  background: var(--oyo-selected);
+}
+@media (hover: hover) and (pointer: fine) {
+  .social-text-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+.ui-avatar-feed {
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+}
+.social-carousel {
+  position: relative;
+}
+.social-photo-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.social-photo-track::-webkit-scrollbar {
+  display: none;
+}
+.social-photo-slide {
+  flex: 0 0 100%;
+  aspect-ratio: 4 / 3;
+  scroll-snap-align: center;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.social-photo-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.social-photo-controls {
+  display: none;
+}
+@media (pointer: fine) {
+  .social-photo-controls {
+    position: absolute;
+    inset: 0 8px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+  }
+  .social-photo-controls button {
+    pointer-events: auto;
+    background: var(--surface);
+  }
+}
+.social-viewer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #000;
+  color: #fff;
+}
+.social-viewer::backdrop {
+  background: #000;
+}
+.social-viewer .ui-icon-button {
+  color: #fff;
+  background: transparent;
+  outline: none;
+}
+.social-viewer .ui-icon-button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.social-viewer .ui-icon-button:is(:hover, :active) {
+  background: rgb(255 255 255 / 12%);
+}
+.social-viewer-toolbar {
+  position: absolute;
+  background: #000;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) calc(env(safe-area-inset-right, 0px) + 16px)
+    16px calc(env(safe-area-inset-left, 0px) + 16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+.social-viewer-track {
+  height: 100%;
+}
+.social-zoom-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 100%;
+  width: 100%;
+  overflow: hidden;
+  scroll-snap-align: center;
+}
+.social-zoom-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.social-zoom-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.social-refresh-slot {
+  position: relative;
+  height: 24px;
+}
+.social-refresh-indicator {
+  position: absolute;
+  left: calc(50% - 10px);
+  top: -72px;
+  transition: transform var(--oyo-motion-fast) var(--oyo-ease-out);
+}
+@keyframes social-kudos {
+  50% {
+    transform: scale(1.08);
+  }
+}
+.social-kudos-give {
+  animation: social-kudos var(--oyo-motion-panel) var(--oyo-ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .social-kudos-give {
+    animation: none;
+  }
+  .social-refresh-indicator {
+    transition: none;
+  }
+}
 :root {
   color-scheme: light;
   --bg: #f7f7fa;
