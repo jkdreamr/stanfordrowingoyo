@@ -25,6 +25,8 @@ import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS, ZONES } from '../../../sh
 import { GROUP_TARGETS, PLAN_SLOTS, PLAN_TOTALS, PRESETS } from '../../../shared/seed';
 import { createFixtures, publicUser } from './fixtures';
 import { generatedImage } from './images';
+import { previewRoster } from '../pages/admin/roster';
+import { factorError, seasonError, targetError } from '../pages/admin/operations';
 class MockError extends Error {
   constructor(
     public status: number,
@@ -85,6 +87,7 @@ export function createMockApi({
   let plan: Plan = { slots: structuredClone(PLAN_SLOTS), totals: structuredClone(PLAN_TOTALS) };
   const roster: RosterRow[] = state.roster;
   const audit: AuditLog[] = [];
+  const groupHistory = [{ week: '0000-01-01', targets: { ...settings.group_targets } }];
   const uploads = new Map<string, { blob: Blob; owner: string }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
   const credentialVersions = new Map<string, number>();
@@ -112,6 +115,16 @@ export function createMockApi({
   const requireStaff = () => {
     if (!staff()) fail(403, 'Staff access required');
   };
+  function recordAudit(action: string, target: string, before: unknown, after: unknown) {
+    audit.unshift({
+      id: id('audit'),
+      actor_id: me().id,
+      action,
+      target,
+      detail_json: JSON.stringify({ before, after }),
+      created_at: stamp(),
+    });
+  }
   function setSession(userId: string | null) {
     for (const [token, grant] of reauthGrants)
       if (grant.session === currentSession) reauthGrants.delete(token);
@@ -125,7 +138,9 @@ export function createMockApi({
       .sort((a, b) => b.week_start.localeCompare(a.week_start))[0];
     return {
       week_start: week,
-      target_m: personal?.target_m ?? settings.group_targets[userById(userId).group_key],
+      target_m:
+        personal?.target_m ??
+        groupHistory.filter((row) => row.week <= week).at(-1)!.targets[userById(userId).group_key],
       source: personal ? ('personal' as const) : ('group' as const),
     };
   }
@@ -338,7 +353,7 @@ export function createMockApi({
       fail(400, 'Choose up to four of your uploaded images');
   }
   function validateRoster(row: RosterInput) {
-    text(row.name, 'Name', 100);
+    text(row.name, 'Name', 80);
     if (row.email !== null && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(row.email))
       fail(400, 'Valid email required');
     if (
@@ -347,16 +362,82 @@ export function createMockApi({
       (row.side !== null && !['port', 'starboard', 'both', 'cox'].includes(row.side))
     )
       fail(400, 'Invalid roster role, group or side');
-    if (row.class_year !== null && (!Number.isInteger(row.class_year) || row.class_year < 2020))
+    if (
+      row.class_year !== null &&
+      (!Number.isInteger(row.class_year) || row.class_year < 1950 || row.class_year > 2100)
+    )
       fail(400, 'Invalid class year');
   }
+  function adminOnly() {
+    if (me().role !== 'admin') fail(403, 'Only admins can manage admin accounts');
+  }
+  function protectAdmin(target: User, body: Record<string, unknown>) {
+    if (
+      body.role === 'admin' ||
+      (target.role === 'admin' && ['role', 'active', 'group_key'].some((key) => key in body))
+    )
+      adminOnly();
+    if (
+      target.role === 'admin' &&
+      target.active &&
+      ((body.role !== undefined && body.role !== 'admin') || body.active === false) &&
+      state.users.filter((user) => user.role === 'admin' && user.active).length <= 1
+    )
+      fail(409, 'The last active admin cannot be demoted or deactivated.');
+  }
+  function saveMockRoster(
+    input: RosterInput,
+    existing?: RosterRow,
+    changed: Record<string, unknown> = { ...input },
+  ) {
+    validateRoster(input);
+    if (input.role === 'admin' || existing?.role === 'admin') adminOnly();
+    const linked = existing?.claimed_by_user_id ? userById(existing.claimed_by_user_id) : undefined;
+    if (linked?.role === 'admin') adminOnly();
+    if (linked) protectAdmin(linked, changed);
+    if (
+      roster.some(
+        (row) =>
+          row.id !== existing?.id && row.name.toLowerCase() === input.name.trim().toLowerCase(),
+      )
+    )
+      fail(409, 'This name is already on the roster.');
+    if (
+      input.email &&
+      roster.some(
+        (row) => row.id !== existing?.id && row.email?.toLowerCase() === input.email?.toLowerCase(),
+      )
+    )
+      fail(409, 'This email is already on the roster.');
+    const row = existing ?? {
+      id: id('roster'),
+      claimed_by_user_id: null,
+      added_by: me().id,
+      created_at: stamp(),
+      ...input,
+    };
+    Object.assign(row, input, {
+      name: input.name.trim(),
+      email: input.email?.toLowerCase() ?? null,
+    });
+    if (!existing) roster.push(row);
+    if (linked) {
+      for (const key of ['name', 'role', 'side', 'class_year'] as const)
+        if (key in changed) Object.assign(linked, { [key]: row[key] });
+      if ('group_key' in changed) linked.group_key = row.group_key ?? 'normal';
+      linked.updated_at = stamp();
+    }
+    return row;
+  }
   function validatePreset(p: PresetInput) {
-    text(p.name, 'Preset name');
+    text(p.name, 'Preset name', 120);
     if (
       !['erg', 'bike', 'run'].includes(p.modality) ||
       !ZONES.includes(p.zone) ||
       typeof p.active !== 'boolean' ||
-      !Number.isFinite(p.sort) ||
+      !Number.isInteger(p.sort) ||
+      p.sort < -1000000 ||
+      p.sort > 1000000 ||
       (p.distance_m !== null &&
         (!Number.isInteger(p.distance_m) || p.distance_m < 1 || p.distance_m > 200000))
     )
@@ -364,6 +445,7 @@ export function createMockApi({
   }
   function validateSlot(s: PlanSlot) {
     if (
+      !s ||
       !['frosh', 'normal', 'u23'].includes(s.group_key) ||
       ![1, 2].includes(s.week) ||
       !Number.isInteger(s.day) ||
@@ -372,7 +454,8 @@ export function createMockApi({
       !['AM', 'PM1', 'PM2'].includes(s.slot) ||
       !['team', 'oyo', 'off'].includes(s.kind) ||
       (s.zone !== null && !ZONES.includes(s.zone)) ||
-      typeof s.text !== 'string'
+      typeof s.text !== 'string' ||
+      s.text.length > 2000
     )
       fail(400, 'Invalid plan slot');
   }
@@ -488,7 +571,13 @@ export function createMockApi({
       )
         fail(403, 'Change your temporary password first');
       if (path.startsWith('/api/admin/')) requireStaff();
-      if (method !== 'GET' && path.startsWith('/api/admin/'))
+      if (
+        method !== 'GET' &&
+        path.startsWith('/api/admin/') &&
+        !['/api/admin/settings', '/api/admin/recalculate'].includes(path) &&
+        !path.startsWith('/api/admin/presets') &&
+        !(path === '/api/admin/plan' && method === 'PUT')
+      )
         audit.unshift({
           id: id('audit'),
           actor_id: user.id,
@@ -866,8 +955,8 @@ export function createMockApi({
         requireStaff();
         if (method === 'POST' && !resourceId) {
           const input = body as unknown as AnnouncementInput;
-          text(input.title, 'Title', 200);
-          text(input.body, 'Body', 10000);
+          text(input.title, 'Title', 120);
+          text(input.body, 'Body', 5000);
           if (typeof input.pinned !== 'boolean') fail(400, 'Pinned must be boolean');
           const announcement = {
             ...input,
@@ -877,6 +966,7 @@ export function createMockApi({
             created_at: stamp(),
           };
           state.announcements.unshift(announcement);
+          recordAudit('announcement.create', announcement.id, null, announcement);
           for (const u of state.users) notify(u.id, 'announcement', null);
           return json(announcement, 201);
         }
@@ -884,16 +974,19 @@ export function createMockApi({
           state.announcements.find((a) => a.id === resourceId) ||
           fail(404, 'Announcement not found');
         if (method === 'DELETE') {
+          recordAudit('announcement.delete', announcement.id, announcement, null);
           state.announcements.splice(state.announcements.indexOf(announcement), 1);
           return empty();
         }
         if (method === 'PATCH') {
-          if (body.title !== undefined) text(body.title, 'Title', 200);
-          if (body.body !== undefined) text(body.body, 'Body', 10000);
+          if (body.title !== undefined) text(body.title, 'Title', 120);
+          if (body.body !== undefined) text(body.body, 'Body', 5000);
           if (body.pinned !== undefined && typeof body.pinned !== 'boolean')
             fail(400, 'Pinned must be boolean');
+          const before = structuredClone(announcement);
           for (const key of ['title', 'body', 'pinned'])
             if (key in body) Object.assign(announcement, { [key]: body[key] });
+          recordAudit('announcement.update', announcement.id, before, announcement);
           return json(announcement);
         }
       }
@@ -922,12 +1015,14 @@ export function createMockApi({
       if (parts[2] === 'admin' && parts[3] === 'users' && parts[4]) {
         const targetUser = userById(parts[4]);
         if (parts[5] === 'reset-password' && method === 'POST') {
+          if (targetUser.role === 'admin') adminOnly();
           const temporary_password = `temp-${id('password')}`;
           setPassword(targetUser.id, temporary_password);
           targetUser.must_change_password = true;
           return json({ temporary_password });
         }
         if (method === 'PATCH') {
+          protectAdmin(targetUser, body);
           if (
             (body.role !== undefined &&
               !['rower', 'coxswain', 'coach', 'admin'].includes(String(body.role))) ||
@@ -945,40 +1040,26 @@ export function createMockApi({
       }
       if (path.startsWith('/api/admin/roster')) {
         if (path.endsWith('/import') && method === 'POST') {
-          text(body.csv, 'CSV', 100000);
+          if (typeof body.csv !== 'string' || body.csv.length > 60000)
+            fail(400, 'CSV must be at most 60,000 characters.');
+          const preview = previewRoster(body.csv as string, user.role === 'admin');
+          if (preview.headerError) fail(400, preview.headerError);
           let imported = 0;
           const errors: { row: number; message: string }[] = [];
-          const lines = (body.csv as string).trim().split(/\r?\n/);
-          if (lines[0]?.toLowerCase().startsWith('name,email,')) lines.shift();
-          lines.forEach((line, i) => {
+          preview.rows.forEach((record) => {
             try {
-              const [name, email, role, group_key, side, classYear] = line
-                .split(',')
-                .map((x) => x.trim());
-              const row = {
-                name,
-                email: email?.toLowerCase() || null,
-                role,
-                group_key: group_key || null,
-                side: side || null,
-                class_year: classYear ? Number(classYear) : null,
-              } as RosterInput;
-              validateRoster(row);
+              if (record.errors.length) fail(400, record.errors.join(' '));
+              const row = record.input;
               const existing = roster.find((r) =>
-                row.email ? r.email === row.email : r.name === row.name,
+                row.email
+                  ? r.email?.toLowerCase() === row.email.toLowerCase()
+                  : r.name.toLowerCase() === row.name.toLowerCase(),
               );
-              if (existing) Object.assign(existing, row);
-              else
-                roster.push({
-                  ...row,
-                  id: id('roster'),
-                  claimed_by_user_id: null,
-                  added_by: user.id,
-                  created_at: stamp(),
-                });
+              if (record.cells.length === 5 && existing) row.email = existing.email;
+              saveMockRoster(row, existing);
               imported++;
             } catch (error) {
-              errors.push({ row: i + 1, message: (error as Error).message });
+              errors.push({ row: record.row, message: (error as Error).message });
             }
           });
           return json({ imported, errors });
@@ -987,77 +1068,102 @@ export function createMockApi({
         if (method === 'GET' && !rosterId) return json(roster);
         if (method === 'POST' && !rosterId) {
           const input = body as unknown as RosterInput;
-          validateRoster(input);
-          if (input.email && roster.some((r) => r.email === input.email!.toLowerCase()))
-            fail(409, 'Email already on roster');
-          const row = {
-            ...input,
-            id: id('roster'),
-            claimed_by_user_id: null,
-            email: input.email?.toLowerCase() ?? null,
-            added_by: user.id,
-            created_at: stamp(),
-          };
-          roster.push(row);
-          return json(row, 201);
+          return json(saveMockRoster(input), 201);
         }
         const row = roster.find((r) => r.id === rosterId) || fail(404, 'Roster row not found');
         if (parts[5] === 'unlink' && method === 'POST') {
+          if (!row.claimed_by_user_id) fail(409, 'This roster row is not claimed.');
+          if (row.claimed_by_user_id === user.id)
+            fail(409, 'You cannot unlink your own roster row.');
+          if (userById(row.claimed_by_user_id).role === 'admin') adminOnly();
           if (row.claimed_by_user_id) userById(row.claimed_by_user_id).active = false;
           row.claimed_by_user_id = null;
           return json(row);
         }
         if (method === 'DELETE') {
+          if (row.role === 'admin') adminOnly();
+          if (row.claimed_by_user_id) fail(409, 'Unlink this roster row before deleting it.');
           roster.splice(roster.indexOf(row), 1);
           return empty();
         }
         if (method === 'PATCH') {
           const input = { ...row, ...body } as RosterInput;
-          validateRoster(input);
-          if (input.email && roster.some((r) => r.id !== row.id && r.email === input.email))
-            fail(409, 'Email already on roster');
-          for (const key of ['email', 'name', 'role', 'group_key', 'side', 'class_year'])
-            if (key in body) Object.assign(row, { [key]: body[key] });
-          if (body.name !== undefined && row.claimed_by_user_id)
-            userById(row.claimed_by_user_id).name = row.name;
-          return json(row);
+          return json(saveMockRoster(input, row, body));
         }
       }
       if (path === '/api/admin/settings') {
         if (method === 'GET') return json(settings);
         if (method === 'PATCH') {
           const next = { ...settings, ...body } as Settings;
-          text(next.team_code, 'Team code');
-          if (!/^\d{2}-\d{2}$/.test(next.season_start) || !dateValid(`2024-${next.season_start}`))
-            fail(400, 'Invalid season start');
+          if (!/^[A-Za-z0-9-]{6,64}$/.test(next.team_code))
+            fail(400, 'Team code must be 6–64 letters, numbers or hyphens.');
+          if (seasonError(next.season_start)) fail(400, 'Invalid season start');
           for (const m of Object.keys(MODE_FACTORS) as Modality[])
-            positive(next.mode_factors?.[m], 'Mode factor');
-          for (const z of ZONES) positive(next.zone_factors?.[z], 'Zone factor');
+            if (
+              typeof next.mode_factors?.[m] !== 'number' ||
+              factorError(String(next.mode_factors[m]))
+            )
+              fail(400, 'Mode factor must be from 0.01 to 100.');
+          for (const z of ZONES)
+            if (
+              typeof next.zone_factors?.[z] !== 'number' ||
+              factorError(String(next.zone_factors[z]))
+            )
+              fail(400, 'Zone factor must be from 0.01 to 100.');
           for (const g of Object.keys(GROUP_TARGETS) as GroupKey[])
-            positive(next.group_targets?.[g], 'Group target');
+            if (
+              typeof next.group_targets?.[g] !== 'number' ||
+              targetError(String(next.group_targets[g]))
+            )
+              fail(400, 'Group target must be whole meters from 1,000 to 1,000,000.');
+          const { team_code: oldCode, ...before } = settings;
+          const { team_code: newCode, ...after } = next;
+          audit.unshift({
+            id: id('audit'),
+            actor_id: user.id,
+            action: 'settings.update',
+            target: 'settings',
+            detail_json: JSON.stringify({
+              before,
+              after: { ...after, team_code_changed: oldCode !== newCode },
+            }),
+            created_at: stamp(),
+          });
           settings = next;
+          if (body.group_targets !== undefined) {
+            const week = weekStart(today(now()));
+            const existing = groupHistory.find((row) => row.week === week);
+            if (existing) existing.targets = { ...next.group_targets };
+            else groupHistory.push({ week, targets: { ...next.group_targets } });
+            groupHistory.sort((a, b) => a.week.localeCompare(b.week));
+          }
           return json(settings);
         }
       }
       if (path.startsWith('/api/admin/presets')) {
         const presetId = parts[4];
-        if (method === 'GET' && !presetId) return json(presets);
+        if (method === 'GET' && !presetId)
+          return json([...presets].sort((a, b) => a.sort - b.sort || a.id.localeCompare(b.id)));
         if (method === 'POST' && !presetId) {
           const input = body as unknown as PresetInput;
           validatePreset(input);
           const preset = { ...input, id: id('preset') };
           presets.push(preset);
+          recordAudit('preset.create', preset.id, null, preset);
           return json(preset, 201);
         }
         const preset = presets.find((p) => p.id === presetId) || fail(404, 'Preset not found');
         if (method === 'DELETE') {
+          recordAudit('preset.delete', preset.id, preset, null);
           presets = presets.filter((p) => p !== preset);
           return empty();
         }
         if (method === 'PATCH') {
           const input = { ...preset, ...body } as PresetInput;
           validatePreset(input);
+          const before = structuredClone(preset);
           Object.assign(preset, input, { id: presetId });
+          recordAudit('preset.update', preset.id, before, preset);
           return json(preset);
         }
       }
@@ -1074,11 +1180,22 @@ export function createMockApi({
                 !t ||
                 !['frosh', 'normal', 'u23'].includes(t.group_key) ||
                 ![1, 2].includes(t.week) ||
-                typeof t.label !== 'string',
+                typeof t.label !== 'string' ||
+                t.label.length > 200,
             )
           )
             fail(400, 'Invalid plan totals');
+          if (
+            new Set(
+              input.slots.map((row) => [row.group_key, row.week, row.day, row.slot].join('/')),
+            ).size !== input.slots.length ||
+            new Set(input.totals.map((row) => [row.group_key, row.week].join('/'))).size !==
+              input.totals.length
+          )
+            fail(400, 'Plan contains duplicate keys');
+          const before = plan;
           plan = structuredClone(input);
+          recordAudit('plan.replace', 'plan', before, plan);
           return json(plan);
         }
         if (method === 'POST') {
@@ -1111,7 +1228,21 @@ export function createMockApi({
         }
       }
       if (path === '/api/admin/recalculate' && method === 'POST') {
+        let updated = 0;
         for (const entry of state.entries) {
+          const meters = equivalentMeters(
+            entry.distance_m,
+            entry.modality,
+            entry.zone,
+            settings.mode_factors,
+            settings.zone_factors,
+          );
+          if (
+            entry.mode_factor !== settings.mode_factors[entry.modality] ||
+            entry.zone_factor !== settings.zone_factors[entry.zone] ||
+            entry.equiv_m !== meters
+          )
+            updated++;
           entry.mode_factor = settings.mode_factors[entry.modality];
           entry.zone_factor = settings.zone_factors[entry.zone];
           entry.equiv_m = equivalentMeters(
@@ -1122,7 +1253,15 @@ export function createMockApi({
             settings.zone_factors,
           );
         }
-        return json({ updated: state.entries.length });
+        audit.unshift({
+          id: id('audit'),
+          actor_id: user.id,
+          action: 'entries.recalculate',
+          target: 'entries',
+          detail_json: JSON.stringify({ before: null, after: { updated } }),
+          created_at: stamp(),
+        });
+        return json({ updated });
       }
       if (path === '/api/admin/compliance' && method === 'GET') {
         const week = url.searchParams.get('week') || weekStart(today(now()));
@@ -1142,26 +1281,48 @@ export function createMockApi({
         const end = url.searchParams.get('end');
         if (!dateValid(start) || !dateValid(end) || start > end)
           fail(400, 'Valid start and end dates required');
-        const quote = (value: unknown) => `"${String(value).replaceAll('"', '""')}"`;
+        const quote = (value: unknown) => {
+          let text = value == null ? '' : String(value);
+          if (typeof value === 'string' && /^[=+\-@\t\r]/.test(text)) text = "'" + text;
+          return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+        };
         return new Response(
           [
-            'date,name,modality,zone,distance_m,equiv_m,title',
+            'date,week_start,name,email,group,modality,zone,distance_m,duration_s,avg_split_s,stroke_rate,avg_hr,mode_factor,zone_factor,equiv_m,visibility,title,notes,created_at',
             ...state.entries
               .filter((e) => e.date >= start && e.date <= end)
+              .sort(
+                (a, b) =>
+                  a.date.localeCompare(b.date) ||
+                  a.created_at.localeCompare(b.created_at) ||
+                  a.id.localeCompare(b.id),
+              )
               .map((e) =>
                 [
                   e.date,
+                  e.week_start,
                   userById(e.user_id).name,
+                  userById(e.user_id).email,
+                  userById(e.user_id).group_key,
                   e.modality,
                   e.zone,
                   e.distance_m,
+                  e.duration_s ?? '',
+                  e.avg_split_s ?? '',
+                  e.stroke_rate ?? '',
+                  e.avg_hr ?? '',
+                  e.mode_factor,
+                  e.zone_factor,
                   e.equiv_m,
+                  e.visibility,
                   e.title,
+                  e.notes,
+                  e.created_at,
                 ]
                   .map(quote)
                   .join(','),
               ),
-          ].join('\r\n'),
+          ].join('\r\n') + '\r\n',
           { headers: { 'Content-Type': 'text/csv' } },
         );
       }
