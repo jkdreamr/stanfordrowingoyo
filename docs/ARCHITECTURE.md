@@ -259,9 +259,9 @@ Version 6 converts every legacy private entry to `team` without modifying workou
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
 Version 8 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
 with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key indexes owner/date windows.
-Version 13 adds nullable comment `edited_at`, per-comment mention notification history (backfilled from current
+Version 11 adds nullable comment `edited_at`, per-comment mention notification history (backfilled from current
 mentions), and durable content reports with queue/target/parent indexes. This is one transactional, idempotent
-`version < 13` migration; gaps 10–12 are intentional. Reports survive content deletion without a cascade.
+`version < 11` migration after version 10. Reports survive content deletion without a cascade.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
