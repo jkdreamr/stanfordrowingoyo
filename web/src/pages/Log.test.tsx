@@ -52,6 +52,17 @@ function setup(path = '/log', fail = false) {
   );
   return { mock, router, editId };
 }
+it('prefills validated personal plan values without changing the meter convention', async () => {
+  setup('/log?modality=bike&zone=R%2FE&distance=12000');
+  expect(((await screen.findByLabelText('Meters')) as HTMLInputElement).value).toBe('12000');
+  expect(screen.getByRole('radio', { name: 'Bike' }).getAttribute('aria-checked')).toBe('true');
+  expect((screen.getByRole('radio', { name: 'Zone R/E' }) as HTMLInputElement).checked).toBe(true);
+});
+it('ignores invalid prefill and does not apply it to presets or edits', async () => {
+  setup('/log?modality=swim&zone=Z&distance=200001');
+  expect(((await screen.findByLabelText('Meters')) as HTMLInputElement).value).toBe('');
+  expect(screen.getByRole('radio', { name: 'Erg' }).getAttribute('aria-checked')).toBe('true');
+});
 it('previews and saves a valid session, with optional details', async () => {
   const { mock } = setup();
   const meters = await screen.findByLabelText('Meters');

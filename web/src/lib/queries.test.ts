@@ -4,6 +4,16 @@ import { createQueryClient } from './queryClient';
 describe('query keys', () => {
   it('keeps resource prefixes and parameters consistent', () => {
     expect(qk.me()).toEqual(qk.request('GET /api/me', {}));
+    expect(qk.myPlan()).toEqual(qk.request('GET /api/me/plan', { query: {} }));
+    expect(qk.myPlan('2026-11-09')).toEqual(
+      qk.request('GET /api/me/plan', { query: { date: '2026-11-09' } }),
+    );
+    for (const endpoint of [
+      'POST /api/entries',
+      'PATCH /api/entries/:id',
+      'DELETE /api/entries/:id',
+    ] as const)
+      expect(invalidationKeys(endpoint)).toContainEqual(qk.myPlans().slice(0, 2));
     expect(qk.entry('one')).toEqual(qk.request('GET /api/entries/:id', { params: { id: 'one' } }));
     expect(qk.entries('mine')).toEqual(
       qk.request('GET /api/entries', { query: { scope: 'mine' } }),

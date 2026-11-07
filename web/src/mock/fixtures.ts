@@ -3,6 +3,7 @@ import type {
   Comment,
   Entry,
   ImageMetadata,
+  MyPlanInput,
   Notification,
   PublicUser,
   RosterRow,
@@ -274,6 +275,7 @@ export function createFixtures(now = new Date()) {
     },
   ];
   return {
+    myPlans: [] as (MyPlanInput & { user_id: string; updated_at: string })[],
     users,
     roster,
     entries,
