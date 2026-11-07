@@ -210,6 +210,9 @@ export function useCompliance(query: Query<'GET /api/admin/compliance'> = {}) {
 export function useExport(query: Query<'GET /api/admin/export'>, enabled = false) {
   return queryHook('GET /api/admin/export')({ query }, enabled);
 }
+export function usePasskeys(enabled = true) {
+  return queryHook('GET /api/me/passkeys')({}, enabled);
+}
 export function useAudit() {
   const enabled = useSessionEnabled();
   return useInfiniteQuery({
@@ -228,6 +231,11 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
       qk.root,
     );
   if (endpoint === 'POST /api/me/password') return [qk.me()];
+  if (
+    endpoint.startsWith('POST /api/me/passkeys') ||
+    endpoint.startsWith('DELETE /api/me/passkeys')
+  )
+    return [qk.request('GET /api/me/passkeys', {}), qk.audit()];
   if (endpoint === 'PUT /api/me/target')
     return [qk.target(), qk.root('stats'), qk.root('leaderboard'), qk.root('users')];
   if (endpoint === 'DELETE /api/comments/:id') return [qk.root('entries'), qk.audit()];
@@ -263,7 +271,8 @@ function mutationHook<K extends Write>(endpoint: K) {
       },
       onSuccess: async (data, options) => {
         if (endpoint === 'PATCH /api/me') client.setQueryData(qk.me(), data);
-        if (endpoint === 'POST /api/auth/roster') return;
+        if (endpoint === 'POST /api/auth/roster' || endpoint === 'POST /api/auth/passkey/options')
+          return;
         if (endpoint.includes('/auth/')) {
           client.clear();
           if (endpoint === 'POST /api/auth/logout') client.setQueryData(qk.me(), null);
@@ -294,6 +303,11 @@ export const useLogout = mutationHook('POST /api/auth/logout');
 export const useUpdateMe = mutationHook('PATCH /api/me');
 export const useChangePassword = mutationHook('POST /api/me/password');
 export const useVerifyPassword = mutationHook('POST /api/me/password/verify');
+export const usePasskeyLoginOptions = mutationHook('POST /api/auth/passkey/options');
+export const usePasskeyLogin = mutationHook('POST /api/auth/passkey/login');
+export const usePasskeyRegistrationOptions = mutationHook('POST /api/me/passkeys/options');
+export const useAddPasskey = mutationHook('POST /api/me/passkeys');
+export const useRemovePasskey = mutationHook('DELETE /api/me/passkeys/:id');
 export const useSetTarget = mutationHook('PUT /api/me/target');
 export const useCreateEntry = mutationHook('POST /api/entries');
 export const useUpdateEntry = mutationHook('PATCH /api/entries/:id');

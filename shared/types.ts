@@ -290,6 +290,46 @@ export interface PasswordChangeRequest {
   new_password: string;
   reauth_token?: string;
 }
+export type PasskeyTransport =
+  'ble' | 'cable' | 'hybrid' | 'internal' | 'nfc' | 'smart-card' | 'usb';
+/** A registered WebAuthn credential; key material is never returned. */
+export interface Passkey {
+  id: string;
+  name: string;
+  created_at: string;
+  last_used_at: string | null;
+  backed_up: boolean;
+}
+/** Base64url (no padding) WebAuthn values; `challenge` is single use and expires at `expires_at`. */
+export interface PasskeyLoginOptions {
+  challenge: string;
+  rp_id: string;
+  timeout_ms: number;
+  expires_at: string;
+}
+export interface PasskeyRegistrationOptions extends PasskeyLoginOptions {
+  rp_name: string;
+  user: { id: string; name: string; display_name: string };
+  exclude_credentials: { id: string; transports: PasskeyTransport[] }[];
+}
+export interface PasskeyRegistrationOptionsRequest {
+  reauth_token?: string;
+}
+export interface PasskeyAssertion {
+  id: string;
+  raw_id: string;
+  client_data_json: string;
+  authenticator_data: string;
+  signature: string;
+  user_handle: string | null;
+}
+export interface PasskeyAttestation {
+  id: string;
+  raw_id: string;
+  client_data_json: string;
+  attestation_object: string;
+  transports: PasskeyTransport[];
+}
 export type ProfilePatch = Partial<
   Pick<
     User,
@@ -329,6 +369,15 @@ export interface Api {
   'PATCH /api/me': Endpoint<ProfilePatch, User>;
   'POST /api/me/password/verify': Endpoint<PasswordVerifyRequest, PasswordVerifyResponse>;
   'POST /api/me/password': Endpoint<PasswordChangeRequest, void>;
+  'POST /api/auth/passkey/options': Endpoint<void, PasskeyLoginOptions>;
+  'POST /api/auth/passkey/login': Endpoint<PasskeyAssertion, User>;
+  'GET /api/me/passkeys': Endpoint<void, Passkey[]>;
+  'POST /api/me/passkeys/options': Endpoint<
+    PasskeyRegistrationOptionsRequest,
+    PasskeyRegistrationOptions
+  >;
+  'POST /api/me/passkeys': Endpoint<PasskeyAttestation, Passkey>;
+  'DELETE /api/me/passkeys/:id': Endpoint<void, void>;
   'GET /api/me/target': Endpoint<void, CurrentWeeklyTarget>;
   'PUT /api/me/target': Endpoint<{ target_m: number }, WeeklyTarget>;
   'GET /api/config': Endpoint<void, Config>;

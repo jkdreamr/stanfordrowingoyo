@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { Sidebar, TabBar } from './shell/Navigation';
 import { RightRail } from './shell/RightRail';
+import { PasskeyOffer } from './auth/PasskeyOffer';
 export default function AppShell() {
   const task = useLocation().pathname === '/log';
   return (
@@ -14,6 +15,7 @@ export default function AppShell() {
       </main>
       <RightRail />
       {!task && <TabBar />}
+      <PasskeyOffer />
     </div>
   );
 }

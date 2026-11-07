@@ -105,6 +105,12 @@ const endpoints: Record<keyof Api, true> = {
   'PATCH /api/me': true,
   'POST /api/me/password': true,
   'POST /api/me/password/verify': true,
+  'POST /api/auth/passkey/options': true,
+  'POST /api/auth/passkey/login': true,
+  'GET /api/me/passkeys': true,
+  'POST /api/me/passkeys/options': true,
+  'POST /api/me/passkeys': true,
+  'DELETE /api/me/passkeys/:id': true,
   'GET /api/me/target': true,
   'PUT /api/me/target': true,
   'GET /api/me/plan': true,
@@ -250,6 +256,15 @@ describe('complete API and role permissions', () => {
           sessions: [],
           rest_days: [],
         });
+      if (endpoint === 'DELETE /api/me/passkeys/:id')
+        await sql((s) =>
+          s.sql.exec(
+            "INSERT INTO passkeys VALUES (?,?,-7,'{}',0,'[]','',0,0,'Passkey',?,NULL)",
+            id,
+            staff.user.id,
+            NOW,
+          ),
+        );
       if (path === '/admin/export') path += '?start=2026-03-01&end=2026-03-10';
       const body =
         method === 'GET' || method === 'DELETE'

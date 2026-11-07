@@ -14,6 +14,7 @@ import {
   useToast,
 } from '../components/ui';
 import { FormErrors } from '../components/auth/FormErrors';
+import { PasskeySettings } from '../components/auth/PasskeySettings';
 export default function Settings() {
   const logout = useLogout();
   const { data: me } = useMe();
@@ -47,6 +48,7 @@ export default function Settings() {
           <ListRow title="Weekly Target" to="/me/target" />
           <ListRow title="Change Password" chevron onClick={() => setPassword(true)} />
         </ListGroup>
+        <PasskeySettings onError={setMessage} />
         <ListGroup>
           {me && me.role !== 'rower' && <ListRow title="Admin" to="/admin" />}
           <ListRow title="Log Out" tone="destructive" onClick={() => setConfirm(true)} />

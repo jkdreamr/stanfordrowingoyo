@@ -1,4 +1,5 @@
 import type {
+  Passkey,
   AnnouncementInput,
   AuditLog,
   Entry,
@@ -95,6 +96,15 @@ export function createMockApi({
   const uploads = new Map<string, { blob: Blob; owner: string }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
   const credentialVersions = new Map<string, number>();
+  const passkeys: (Passkey & { user_id: string })[] = [];
+  const passkeyPolicy = { requireReauth: false };
+  const publicPasskey = (p: Passkey): Passkey => ({
+    id: p.id,
+    name: p.name,
+    created_at: p.created_at,
+    last_used_at: p.last_used_at,
+    backed_up: p.backed_up,
+  });
   let currentSession = session ? crypto.randomUUID() : null;
   const reauthGrants = new Map<
     string,
@@ -506,7 +516,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 9 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 16 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -517,6 +527,75 @@ export function createMockApi({
           fail(401, 'Email or password is incorrect', 'INVALID_CREDENTIALS');
         setSession(user.id);
         return json(user);
+      }
+      if (path === '/api/auth/passkey/options' && method === 'POST') {
+        const challenge = id('challenge');
+        return json({
+          challenge: btoa(challenge).replaceAll('=', ''),
+          rp_id: new URL(request.url).hostname,
+          timeout_ms: 300000,
+          expires_at: new Date(now().getTime() + 300000).toISOString(),
+        });
+      }
+      if (path === '/api/auth/passkey/login' && method === 'POST') {
+        const passkey = passkeys.find((p) => p.id === body.id);
+        const user = passkey && state.users.find((u) => u.id === passkey.user_id);
+        if (!passkey || !user) fail(401, 'This passkey is not set up here.', 'PASSKEY_UNKNOWN');
+        if (!user.active) fail(403, 'This account is inactive.', 'ACCOUNT_INACTIVE');
+        passkey.last_used_at = stamp();
+        setSession(user.id);
+        return json(user);
+      }
+      if (path === '/api/me/passkeys' && method === 'GET')
+        return json(passkeys.filter((p) => p.user_id === me().id).map(({ user_id: _, ...p }) => p));
+      if (path === '/api/me/passkeys/options' && method === 'POST') {
+        const user = me();
+        const grant =
+          typeof body.reauth_token === 'string' ? reauthGrants.get(body.reauth_token) : undefined;
+        if (passkeyPolicy.requireReauth && grant?.userId !== user.id)
+          fail(401, 'Verify your password again.', 'REAUTH_REQUIRED');
+        const challenge = id('challenge');
+        return json({
+          challenge: btoa(challenge).replaceAll('=', ''),
+          rp_id: new URL(request.url).hostname,
+          rp_name: 'Stanford Rowing OYO',
+          timeout_ms: 300000,
+          expires_at: new Date(now().getTime() + 300000).toISOString(),
+          user: {
+            id: btoa(user.id).replaceAll('=', ''),
+            name: user.email,
+            display_name: user.name,
+          },
+          exclude_credentials: passkeys
+            .filter((p) => p.user_id === user.id)
+            .map((p) => ({ id: p.id, transports: ['internal'] })),
+        });
+      }
+      if (path === '/api/me/passkeys' && method === 'POST') {
+        const user = me();
+        if (typeof body.id !== 'string')
+          fail(400, 'Passkey could not be verified.', 'PASSKEY_INVALID');
+        if (passkeys.some((p) => p.id === body.id))
+          fail(409, 'This passkey is already set up.', 'PASSKEY_EXISTS');
+        const passkey = {
+          id: body.id,
+          user_id: user.id,
+          name: 'iPhone',
+          created_at: stamp(),
+          last_used_at: null,
+          backed_up: true,
+        };
+        passkeys.push(passkey);
+        recordAudit('passkey.add', user.id, null, { id: passkey.id, name: passkey.name });
+        return json(publicPasskey(passkey), 201);
+      }
+      if (parts[2] === 'me' && parts[3] === 'passkeys' && parts[4] && method === 'DELETE') {
+        const user = me();
+        const index = passkeys.findIndex((p) => p.id === parts[4] && p.user_id === user.id);
+        if (index < 0) fail(404, 'Passkey not found.', 'NOT_FOUND');
+        const [removed] = passkeys.splice(index, 1);
+        recordAudit('passkey.remove', user.id, { id: removed.id, name: removed.name }, null);
+        return empty();
       }
       if (path === '/api/auth/roster' && method === 'POST') {
         if (body.team_code !== settings.team_code)
@@ -1487,5 +1566,5 @@ export function createMockApi({
       throw error;
     }
   }
-  return { handle, state };
+  return { handle, state, passkeyPolicy };
 }

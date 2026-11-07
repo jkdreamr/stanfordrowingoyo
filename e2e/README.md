@@ -66,3 +66,15 @@ use HTTPS for authenticated browser testing there too.
 
 Reports are in ignored `playwright-report/`; failure screenshots and retry traces
 are in ignored `test-results/`. Vitest's defaults exclude `*.e2e.ts`.
+
+Passkey scenarios (`passkeys.e2e.ts`) use a Chrome DevTools Protocol virtual
+platform authenticator (`WebAuthn.addVirtualAuthenticator`, CTAP2, internal
+transport, resident keys, user verification) in desktop-chrome and pixel-7:
+post-login setup prompt, Not Now, conditional (autofill) sign-in, explicit
+button sign-in, Settings list/remove, and a removed passkey being rejected. The
+real worker verifies every signature; mock mode skips the ceremony test.
+WebKit limits: Playwright's WebKit has no virtual authenticator or CDP and does
+not expose `navigator.credentials`, so iphone-15 only checks the login markup
+(`autocomplete="username webauthn"`, button hidden without WebAuthn). Face ID,
+iOS Safari, the installed iOS PWA and Android biometric prompts need manual
+testing on real devices over HTTPS.
