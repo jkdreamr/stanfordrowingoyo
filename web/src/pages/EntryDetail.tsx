@@ -11,7 +11,9 @@ import {
   useMe,
 } from '../lib/queries';
 import { ApiClientError } from '../lib/api';
-import { relativeTime } from '../lib/social';
+import { mentionIds, mentionSegments, relativeTime } from '../lib/social';
+import type { PublicUser } from '../../../shared/types';
+import { MentionComposer } from '../components/social/MentionComposer';
 import {
   Avatar,
   Button,
@@ -22,7 +24,6 @@ import {
   ListRow,
   PageHeader,
   Sheet,
-  TextArea,
   useToast,
 } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
@@ -41,6 +42,7 @@ export default function EntryDetail() {
   const removeComment = useDeleteComment();
   const toast = useToast();
   const [body, setBody] = useState('');
+  const [mentioned, setMentioned] = useState<PublicUser[]>([]);
   const [error, setError] = useState('');
   const [deleting, setDeleting] = useState<string | null>(null);
   const [more, setMore] = useState(false);
@@ -61,10 +63,11 @@ export default function EntryDetail() {
     if (!body.trim() || create.isPending) return;
     setError('');
     create.mutate(
-      { params: { id }, body: { body: body.trim() } },
+      { params: { id }, body: { body: body.trim(), mention_ids: mentionIds(body, mentioned) } },
       {
         onSuccess: () => {
           setBody('');
+          setMentioned([]);
           toast.show({ title: 'Comment posted' });
         },
         onError: () => setError('Comment not saved. Try again'),
@@ -160,7 +163,20 @@ export default function EntryDetail() {
                           {relativeTime(comment.created_at)}
                         </p>
                         <p className="mt-2 whitespace-pre-wrap break-words text-callout">
-                          {comment.body}
+                          {mentionSegments(comment.body, comment.mentions ?? []).map(
+                            (segment, index) =>
+                              segment.userId ? (
+                                <Link
+                                  key={index}
+                                  to={`/users/${segment.userId}`}
+                                  className="inline-flex min-h-11 items-center text-accent-ink underline-offset-2 hover:underline"
+                                >
+                                  {segment.text}
+                                </Link>
+                              ) : (
+                                segment.text
+                              ),
+                          )}
                         </p>
                         {me && (me.id === comment.user_id || me.role !== 'rower') && (
                           <Button variant="plain" onClick={() => setDeleting(comment.id)}>
@@ -178,19 +194,14 @@ export default function EntryDetail() {
                   post();
                 }}
               >
-                <TextArea
-                  id="comment-body"
-                  label="Comment"
-                  value={body}
-                  maxLength={1000}
+                <MentionComposer
+                  body={body}
+                  onChange={setBody}
+                  selected={mentioned}
+                  onSelect={setMentioned}
+                  self={me?.id}
                   error={error}
-                  onChange={(e) => setBody(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-                      e.preventDefault();
-                      post();
-                    }
-                  }}
+                  onPost={post}
                 />
                 {body.length >= 900 && (
                   <p className="text-right text-caption text-muted">{body.length} / 1000</p>

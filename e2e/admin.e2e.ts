@@ -179,7 +179,7 @@ test('staff moderates another rower comment without deleting the workout', async
   const entry = await seedEntry(author, title);
   const body = `Comment to moderate ${commenter.user.id}`;
   await commenter.page.goto(`/entries/${entry.id}`);
-  await commenter.page.getByRole('textbox', { name: 'Comment', exact: true }).fill(body);
+  await commenter.page.getByRole('combobox', { name: 'Comment', exact: true }).fill(body);
   await commenter.page.getByRole('button', { name: 'Post Comment', exact: true }).click();
   await expect(commenter.page.getByText(body, { exact: true })).toBeVisible();
 

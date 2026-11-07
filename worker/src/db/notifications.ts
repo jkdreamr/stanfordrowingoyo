@@ -9,7 +9,12 @@ export function notify(
   entryId: string | null,
   timestamp: string,
 ) {
-  if (recipient === actor) return;
+  if (
+    recipient === actor ||
+    !storage.sql.exec('SELECT id FROM users WHERE id = ? AND active = 1', recipient).toArray()
+      .length
+  )
+    return;
   storage.sql.exec(
     'INSERT INTO notifications VALUES (?,?,?,?,?,?,?)',
     crypto.randomUUID(),

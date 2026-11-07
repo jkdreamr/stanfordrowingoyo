@@ -16,6 +16,7 @@ import { relativeTime } from '../../lib/social';
 import { KudosButton } from './KudosButton';
 import { HighlightBadge } from './HighlightBadge';
 import { PhotoCarousel } from './PhotoCarousel';
+import { WithTeammates } from './WithTeammates';
 
 export function EntryCard({
   entry,
@@ -105,6 +106,7 @@ export function EntryCard({
           )}
         </div>
       )}
+      <WithTeammates users={entry.tagged} />
       <footer className="mt-4 flex gap-2 border-t border-divider pt-2">
         <KudosButton entry={entry} />
         <Button
@@ -112,7 +114,9 @@ export function EntryCard({
           leading={<MessageCircle size={20} strokeWidth={1.75} />}
           onClick={onComment ?? (() => navigate(`/entries/${entry.id}#comments`))}
         >
-          {entry.comment_count ? `${entry.comment_count} Comments` : 'Comment'}
+          {entry.comment_count
+            ? `${entry.comment_count} ${entry.comment_count === 1 ? 'Comment' : 'Comments'}`
+            : 'Comment'}
         </Button>
       </footer>
     </article>

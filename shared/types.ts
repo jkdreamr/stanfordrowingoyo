@@ -82,8 +82,9 @@ export interface EntryInput {
   preset_id?: string | null;
   visibility: Visibility;
   image_ids?: string[];
+  tagged_user_ids?: string[];
 }
-export interface Entry extends Omit<Required<EntryInput>, 'image_ids'> {
+export interface Entry extends Omit<Required<EntryInput>, 'image_ids' | 'tagged_user_ids'> {
   id: string;
   user_id: string;
   week_start: string;
@@ -122,9 +123,11 @@ export interface Comment {
   created_at: string;
 }
 export interface CommentWithAuthor extends Comment {
+  mentions: PublicUser[];
   author: PublicUser;
 }
 export interface EntryDetail extends Entry {
+  tagged: PublicUser[];
   author: PublicUser;
   images: ImageMetadata[];
   kudos_count: number;
@@ -174,7 +177,7 @@ export interface Notification {
   entry_title: string | null;
   id: string;
   user_id: string;
-  kind: 'kudos' | 'comment' | 'announcement';
+  kind: 'kudos' | 'comment' | 'announcement' | 'tag' | 'mention';
   actor_id: string;
   entry_id: string | null;
   created_at: string;
@@ -317,7 +320,10 @@ export interface Api {
   'POST /api/entries/:id/kudos': Endpoint<void, void>;
   'DELETE /api/entries/:id/kudos': Endpoint<void, void>;
   'GET /api/entries/:id/comments': Endpoint<void, CommentWithAuthor[]>;
-  'POST /api/entries/:id/comments': Endpoint<{ body: string }, CommentWithAuthor>;
+  'POST /api/entries/:id/comments': Endpoint<
+    { body: string; mention_ids?: string[] },
+    CommentWithAuthor
+  >;
   'DELETE /api/comments/:id': Endpoint<void, void>;
   'POST /api/images': Endpoint<Blob, { id: string }>;
   'GET /api/images/:id': Endpoint<void, Blob>;
