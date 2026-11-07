@@ -239,8 +239,7 @@ it('wraps long names at 360px and remeasures the pinned You row before swapping'
 
 it('shows the empty state and the load error state', async () => {
   setup('/leaderboard', () => json([]));
-  expect(await screen.findByText('No Rankings Yet')).toBeTruthy();
-  expect(screen.getByText('Rankings appear after eligible teammates log workouts.')).toBeTruthy();
+  expect(await screen.findByRole('heading', { name: 'No Rankings Yet' })).toBeTruthy();
   cleanup();
   setup('/leaderboard', () => Promise.reject(new TypeError('offline')));
   expect(await screen.findByText('Could Not Load This Screen', {}, { timeout: 4000 })).toBeTruthy();

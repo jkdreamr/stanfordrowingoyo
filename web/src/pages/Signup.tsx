@@ -32,14 +32,6 @@ export default function Signup() {
   const title = invite
     ? 'Use Your Invite'
     : ['Join Stanford OYO', 'Find Your Name', 'Choose Your Group', 'Create Account'][step - 1];
-  const subtitle = invite
-    ? 'Sign up with the email on your team invitation'
-    : [
-        'Enter the code shared by your team',
-        'Choose your own name from the team roster',
-        'You can change your group later in Edit Profile',
-        'Use your preferred email and a secure password',
-      ][step - 1];
   useEffect(() => {
     const heading = document.querySelector<HTMLHeadingElement>('.auth-frame h1');
     if (heading) {
@@ -143,7 +135,6 @@ export default function Signup() {
   return (
     <AuthFrame
       title={title}
-      subtitle={subtitle}
       action={
         <Button
           type="submit"

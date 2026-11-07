@@ -8,9 +8,6 @@ export function AppErrorScreen({ onReload = reload }: { onReload?: () => void })
     <main className="flex min-h-screen items-center justify-center bg-bg p-6 text-text">
       <div role="alert" className="max-w-md space-y-4 text-center">
         <h1 className="text-title1">Something Went Wrong</h1>
-        <p className="text-body text-muted">
-          We couldn’t display this screen. Reload to try again.
-        </p>
         <Button onClick={onReload}>Reload</Button>
       </div>
     </main>

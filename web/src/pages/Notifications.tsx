@@ -38,11 +38,7 @@ export default function Notifications() {
         {!query.data ? (
           <LoadState error={query.isError} retry={() => void query.refetch()} />
         ) : !query.data.length ? (
-          <EmptyState
-            icon={<Bell size={20} strokeWidth={1.75} />}
-            title="No Notifications Yet"
-            body="Team updates will appear here"
-          />
+          <EmptyState icon={<Bell size={20} strokeWidth={1.75} />} title="No Notifications Yet" />
         ) : (
           ['New', 'Earlier'].map((section) => {
             const items = query.data.filter(

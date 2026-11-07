@@ -132,11 +132,7 @@ export default function Kit() {
         </UI.ListGroup>
         <section className="space-y-4">
           <h2 className="text-title2">Fields</h2>
-          <UI.TextField
-            label="Session Name"
-            placeholder="Morning Erg"
-            hint="Give this session a short name"
-          />
+          <UI.TextField label="Session Name" placeholder="Morning Erg" />
           <UI.NumberField label="Distance" suffix="m" defaultValue="12000" />
           <UI.NumberField
             label="Distance In Kilometers"
@@ -146,8 +142,8 @@ export default function Kit() {
           />
           <UI.TextField label="Split" defaultValue="1:72" error="Use a split like 1:52.4" />
           <UI.TextField label="Unavailable Field" disabled value="Team Setting" />
-          <UI.TextArea label="Notes" placeholder="How did it feel?" />
-          <UI.Select label="Group" hint="Choose a training group">
+          <UI.TextArea label="Notes" placeholder="Optional session notes" />
+          <UI.Select label="Group">
             <option>Normal</option>
             <option>Frosh</option>
           </UI.Select>
@@ -168,7 +164,6 @@ export default function Kit() {
           <UI.EmptyState
             icon={<Activity size={20} strokeWidth={1.75} />}
             title="No Sessions Yet"
-            body="Your extra training starts here"
             action={<UI.Button onClick={() => setSheet(true)}>Log Session</UI.Button>}
           />
           <UI.Tabs

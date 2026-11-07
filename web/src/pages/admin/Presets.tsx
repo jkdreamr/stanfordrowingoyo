@@ -112,11 +112,7 @@ export default function Presets() {
         ) : (
           <>
             {!query.data.some((row) => row.modality === modality) && (
-              <EmptyState
-                icon={<ListFilter size={20} />}
-                title="No Presets Yet"
-                body="Add a distance or an enter-meters option for this modality."
-              />
+              <EmptyState icon={<ListFilter size={20} />} title="No Presets Yet" />
             )}
             {ZONES.map((zone) => {
               const rows = orderedPresets(
@@ -357,7 +353,7 @@ function PresetEditor({
           {input.distance_m === null
             ? `E-meters = distance × ${formatPresetFactor(settings.mode_factors[input.modality] * settings.zone_factors[input.zone])}`
             : preview === null
-              ? 'Choose valid meters for a preview.'
+              ? 'Enter a valid distance.'
               : formatEMeters(preview)}
         </p>
         <Toggle

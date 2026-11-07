@@ -14,10 +14,7 @@ export default function ChangePassword() {
     return <Navigate to={`/login?next=${encodeURIComponent(next)}`} replace />;
   if (query.data && !query.data.must_change_password) return <Navigate to={next} replace />;
   return (
-    <AuthFrame
-      title="Change Your Password"
-      subtitle="Replace your temporary password before continuing"
-    >
+    <AuthFrame title="Change Your Password" subtitle="Set a new password to continue.">
       <ChangePasswordForm forced onSuccess={() => navigate(next, { replace: true })} />
     </AuthFrame>
   );
