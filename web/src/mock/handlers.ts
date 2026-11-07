@@ -191,6 +191,16 @@ export function createMockApi({
           : null,
     };
   }
+  function closeReports(targetType: 'entry' | 'comment', targetId: string) {
+    for (const report of reports)
+      if (
+        report.status === 'open' &&
+        (targetType === 'entry'
+          ? report.entry_id === targetId
+          : report.target_type === 'comment' && report.target_id === targetId)
+      )
+        Object.assign(report, { status: 'deleted', reviewed_at: stamp(), reviewed_by: me().id });
+  }
   function totals(entries: Entry[]): Totals {
     const result: Totals = {
       total_m: 0,
@@ -981,6 +991,7 @@ export function createMockApi({
           if (method === 'GET') return json(detail(entry));
           own(entry.user_id);
           if (method === 'DELETE') {
+            closeReports('entry', entry.id);
             state.entries.splice(state.entries.indexOf(entry), 1);
             state.comments = state.comments.filter((c) => c.entry_id !== entry.id);
             delete state.imageLinks[entry.id];
@@ -1076,11 +1087,6 @@ export function createMockApi({
           (typeof body.reason !== 'string' || body.reason.trim().length > 300)
         )
           fail(400, 'Reason must be at most 300 characters');
-        const comment =
-          body.target_type === 'comment'
-            ? state.comments.find((c) => c.id === body.target_id) || fail(404, 'Comment not found')
-            : undefined;
-        const entry = entryById(comment?.entry_id ?? String(body.target_id));
         const previous = reports.find(
           (r) =>
             r.reporter.id === user.id &&
@@ -1088,6 +1094,11 @@ export function createMockApi({
             r.target_id === body.target_id,
         );
         if (previous) return json({ id: previous.id });
+        const comment =
+          body.target_type === 'comment'
+            ? state.comments.find((c) => c.id === body.target_id) || fail(404, 'Comment not found')
+            : undefined;
+        const entry = entryById(comment?.entry_id ?? String(body.target_id));
         const report: ContentReport = {
           id: id('report'),
           target_type: body.target_type as 'entry' | 'comment',
@@ -1128,14 +1139,7 @@ export function createMockApi({
             state.comments = state.comments.filter((c) => c.entry_id !== report.entry_id);
           } else state.comments = state.comments.filter((c) => c.id !== report.target_id);
           if (content) recordAudit(`${report.target_type}.delete`, report.target_id, content, null);
-          for (const r of reports)
-            if (
-              r.status === 'open' &&
-              (report.target_type === 'entry'
-                ? r.entry_id === report.entry_id
-                : r.target_type === report.target_type && r.target_id === report.target_id)
-            )
-              Object.assign(r, { status: 'deleted', reviewed_at: stamp(), reviewed_by: user.id });
+          closeReports(report.target_type, report.target_id);
         } else
           Object.assign(report, {
             status: 'dismissed',
@@ -1149,6 +1153,7 @@ export function createMockApi({
         const comment =
           state.comments.find((c) => c.id === resourceId) || fail(404, 'Comment not found');
         own(comment.user_id);
+        closeReports('comment', comment.id);
         state.comments.splice(state.comments.indexOf(comment), 1);
         delete state.mentions[comment.id];
         return empty();
