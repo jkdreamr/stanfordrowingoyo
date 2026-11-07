@@ -167,9 +167,10 @@ function LogForm({
     try {
       const ids = await photos.save();
       const body = { ...values.input, image_ids: ids, tagged_user_ids: tagged.map((u) => u.id) };
-      const [previous, beforeSeason] = await Promise.all([
+      const [previous, beforeSeason, baseline] = await Promise.all([
         api('GET /api/stats/week', {}).catch(() => null),
         api('GET /api/stats/season', {}).catch(() => null),
+        api('GET /api/me', {}).catch(() => null),
       ]);
       const saved = entry
         ? await update.mutateAsync({ params: { id: entry.id }, body })
@@ -187,7 +188,16 @@ function LogForm({
         recordTargetFinish(previous, next, user.id, saved.week_start);
       const selected = recordCelebration(
         user.id,
-        detectBests(beforeSeason, afterSeason, saved, user),
+        detectBests(
+          beforeSeason,
+          afterSeason,
+          saved,
+          baseline ?? {
+            ...user,
+            best2k_split_s: null,
+            best6k_split_s: null,
+          },
+        ),
         targetHit
           ? {
               kind: 'target-hit',

@@ -28,7 +28,7 @@ afterEach(() => {
 function setup(
   path = '/log',
   fail = false,
-  options: { seasonFailure?: boolean; best2k?: number } = {},
+  options: { seasonFailure?: boolean; profileFailure?: boolean; best2k?: number } = {},
 ) {
   const mock = createMockApi();
   if (options.best2k !== undefined)
@@ -39,9 +39,16 @@ function setup(
     mock.state.tags[editId] = ['user-36', 'user-37', 'user-2'];
     path = `/log?edit=${editId}`;
   }
+  let profileRequests = 0;
   vi.stubGlobal(
     'fetch',
     vi.fn((url: URL, init: RequestInit) => {
+      if (
+        new URL(String(url)).pathname === '/api/me' &&
+        ++profileRequests === 2 &&
+        options.profileFailure
+      )
+        return Promise.resolve(new Response(null, { status: 500 }));
       if (options.seasonFailure && String(url).includes('/api/stats/season'))
         return Promise.resolve(new Response(null, { status: 500 }));
       if (fail && init?.method === 'POST') return Promise.reject(new TypeError('fetch'));
@@ -108,6 +115,26 @@ it('still saves and navigates when season snapshots fail, without a PR celebrati
   await screen.findByRole('heading', { name: 'Training Home' });
   expect(pendingCelebration('user-1')).toBeUndefined();
   expect(screen.getByText('Session saved')).toBeTruthy();
+});
+it('compares splits against a fresh pre-save profile rather than cached bests', async () => {
+  const { mock } = setup('/log', false, { best2k: 130 });
+  fireEvent.change(await screen.findByLabelText('Meters'), { target: { value: '2000' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Add Details' }));
+  fireEvent.change(screen.getByLabelText('Time'), { target: { value: '8:00' } });
+  mock.state.users.find((user) => user.id === 'user-1')!.best2k_split_s = 100;
+  fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+  await screen.findByRole('heading', { name: 'Training Home' });
+  expect(pendingCelebration('user-1')?.kind).not.toBe('split-2k');
+});
+it('does not celebrate cached split bests when the fresh profile baseline fails', async () => {
+  const { mock } = setup('/log', false, { best2k: 130, profileFailure: true });
+  fireEvent.change(await screen.findByLabelText('Meters'), { target: { value: '2000' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Add Details' }));
+  fireEvent.change(screen.getByLabelText('Time'), { target: { value: '8:00' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+  await screen.findByRole('heading', { name: 'Training Home' });
+  expect(pendingCelebration('user-1')?.kind).not.toBe('split-2k');
+  expect(mock.state.entries.at(-1)?.distance_m).toBe(2000);
 });
 it('shows field errors before submit and disables Save at the worker bounds', async () => {
   setup();

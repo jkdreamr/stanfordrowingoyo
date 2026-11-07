@@ -105,8 +105,8 @@ test('hold and drag scrubs Me and teammate mileage without claiming a quick swip
         await session.detach();
       }
     } else {
+      await plot.hover({ position: { x: 1, y: 100 } });
       const box = (await plot.boundingBox())!;
-      await page.mouse.move(box.x, box.y + 100);
       await expect(plot.locator('span')).toHaveCount(3);
       await page.mouse.down();
       await page.mouse.move(box.x + box.width, box.y + 100);

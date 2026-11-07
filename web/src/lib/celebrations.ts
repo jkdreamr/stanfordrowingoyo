@@ -7,7 +7,12 @@ export type Achievement = {
   value: number;
   week: string;
   entry?: string;
+  date?: string;
 };
+export function normalizeTestSplit(split: number) {
+  const value = Math.round(split * 10) / 10;
+  return Number.isFinite(value) && value >= 60 && value <= 300 ? value : null;
+}
 const priority: Achievement['kind'][] = [
   'split-2k',
   'split-6k',
@@ -50,9 +55,10 @@ export function detectBests(
     return [];
   const results: Achievement[] = [];
   const week = saved.week_start;
-  const split =
+  const rawSplit =
     saved.avg_split_s ??
     (saved.duration_s !== null ? (saved.duration_s * 500) / saved.distance_m : null);
+  const split = rawSplit === null ? null : normalizeTestSplit(rawSplit);
   const benchmark = saved.distance_m === 2000 ? me.best2k_split_s : me.best6k_split_s;
   if (
     saved.modality === 'erg' &&
@@ -70,6 +76,7 @@ export function detectBests(
       value: split,
       week,
       entry: saved.id,
+      date: saved.date,
     });
   }
   if (after.streak > before.streak && after.streak >= 2) {

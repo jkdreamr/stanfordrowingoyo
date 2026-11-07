@@ -112,6 +112,15 @@ it.each([
     ).toEqual([kind]);
   },
 );
+it('normalizes to API precision and carries the saved workout date', () => {
+  const entry = { ...saved, distance_m: 2000, avg_split_s: 98.24 };
+  expect(detectBests(stats(), stats(), entry, me)[0]).toMatchObject({
+    value: 98.2,
+    date: saved.date,
+    entry: saved.id,
+  });
+  expect(kinds(stats(), stats(), { ...entry, avg_split_s: 99.96 })).toEqual([]);
+});
 it('rejects tied/slower splits, null benchmarks, missing times, non-erg and other distances', () => {
   const entry = { ...saved, distance_m: 2000, avg_split_s: 98 };
   for (const patch of [
@@ -120,6 +129,8 @@ it('rejects tied/slower splits, null benchmarks, missing times, non-erg and othe
     { avg_split_s: null },
     { avg_split_s: NaN },
     { avg_split_s: 0 },
+    { avg_split_s: 59 },
+    { avg_split_s: 301 },
     { modality: 'bike' as const },
     { distance_m: 1999 },
   ])
