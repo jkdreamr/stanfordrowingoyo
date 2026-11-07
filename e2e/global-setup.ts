@@ -13,6 +13,13 @@ export default async function globalSetup(config: FullConfig) {
     JSON.stringify({ teamCode: '', backendReady: false }),
   );
   await writeFile(new URL('admin.json', directory), JSON.stringify({ cookies: [], origins: [] }));
+  if (process.env.E2E_MOCK === '1') {
+    await writeFile(
+      new URL('bootstrap.json', directory),
+      JSON.stringify({ teamCode: 'cardinal-oyo', backendReady: true }),
+    );
+    return;
+  }
   const api = await request.newContext({
     baseURL: config.projects[0].use.baseURL,
     ignoreHTTPSErrors: config.projects[0].use.ignoreHTTPSErrors,

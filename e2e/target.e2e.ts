@@ -2,24 +2,23 @@ import { test, expect } from './fixtures';
 import { logEntry, equivalentMeters, formatMeters } from './helpers';
 
 test('weekly target drives Home progress and remaining meters', async ({ makeRower }) => {
-  test.fixme(
-    true,
-    'Screen WeeklyTarget not built yet (web/src/pages/WeeklyTarget.tsx is a stub) — enable when it lands; Me, Log and Home are also stubs',
-  );
   const { page } = await makeRower();
-  await page.goto('/me');
-  await page.getByRole('link', { name: 'Set Weekly Target' }).click();
-  await page.getByLabel(/weekly target/i).fill('50000');
+  await page
+    .getByRole('link', { name: 'Weekly Progress. Change Your Target', exact: true })
+    .click();
+  await page.getByLabel('Personal Target', { exact: true }).fill('50000');
   await page.getByRole('button', { name: /save/i }).click();
+  await expect(page.getByText('Weekly target saved', { exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Home', exact: true }).filter({ visible: true }).click();
   await logEntry(page, 'bike', 'E', 60000, 'E2E target workout');
-  await page.goto('/');
   const meters = equivalentMeters(60000, 'bike', 'E');
-  await expect(page.getByRole('progressbar')).toHaveAttribute(
-    'aria-valuenow',
-    String((meters / 50000) * 100),
-  );
-  await expect(page.getByText(/40%/)).toBeVisible();
+  const hero = page.getByRole('link', { name: 'Weekly Progress. Change Your Target', exact: true });
+  await expect(hero.getByRole('progressbar')).toHaveAttribute('aria-valuenow', String(meters));
+  await expect(hero.getByRole('progressbar')).toHaveAttribute('aria-valuemax', '50000');
+  await expect(hero.getByText('40%', { exact: true })).toBeVisible();
   await expect(
-    page.getByText(new RegExp(`${formatMeters(50000 - meters)}.*remaining`, 'i')),
+    hero.getByText(
+      new RegExp(`${formatMeters(50000 - meters).replace(/ m$/, ' E-meters')}.*remaining`, 'i'),
+    ),
   ).toBeVisible();
 });

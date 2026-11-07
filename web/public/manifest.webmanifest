@@ -2,8 +2,9 @@
   "name": "Stanford Rowing OYO",
   "short_name": "OYO",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#fafafa",
+  "background_color": "#F7F7FA",
   "theme_color": "#8C1515",
   "icons": [
     {

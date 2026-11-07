@@ -1,7 +1,10 @@
 import { afterEach, expect, expectTypeOf, it, vi } from 'vitest';
 import type { Api, PublicUser } from '../../../shared/types';
 import { api, ApiClientError } from './api';
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.useRealTimers();
+});
 it('keeps enriched responses available through the shared client contract', () => {
   expectTypeOf<
     Api['GET /api/entries/:id/comments']['response'][number]['author']
@@ -48,8 +51,17 @@ it('encodes queries', async () => {
   expect(String(fetcher.mock.calls[0][0])).toContain('scope=user%3Aa%2Fb');
 });
 it('handles empty success', async () => {
-  setup(new Response(null, { status: 204 }));
+  const fetcher = setup(new Response(null, { status: 204 }));
   expect(await api('POST /api/auth/logout', {})).toBeUndefined();
+  expect(fetcher.mock.calls[0][1].headers).toEqual({ 'X-OYO-CSRF': '1' });
+});
+it('sends CSRF and content type on JSON writes', async () => {
+  const fetcher = setup(Response.json([]));
+  await api('POST /api/auth/roster', { body: { team_code: 'code' } });
+  expect(fetcher.mock.calls[0][1].headers).toEqual({
+    'X-OYO-CSRF': '1',
+    'Content-Type': 'application/json',
+  });
 });
 it('surfaces typed API errors', async () => {
   setup(Response.json({ error: { code: 'NO_AUTH', message: 'Log in' } }, { status: 401 }));
@@ -59,4 +71,103 @@ it('encodes path parameters', async () => {
   const fetcher = setup(new Response(null, { status: 204 }));
   await api('DELETE /api/comments/:id', { params: { id: 'a/b' } });
   expect(String(fetcher.mock.calls[0][0])).toContain('a%2Fb');
+});
+const hashingRequests = [
+  () =>
+    api('POST /api/auth/signup', { body: { email: 'rower@example.com', password: 'password' } }),
+  () => api('POST /api/auth/login', { body: { email: 'rower@example.com', password: 'password' } }),
+  () => api('POST /api/me/password/verify', { body: { current_password: 'password' } }),
+  () =>
+    api('POST /api/me/password', {
+      body: { new_password: 'new-password', reauth_token: 'opaque-token' },
+    }),
+  () => api('POST /api/admin/users/:id/reset-password', { params: { id: 'user-1' } }),
+];
+it.each(hashingRequests)(
+  'retries a hashing request once after 300ms with the same replayable body (%#)',
+  async (send) => {
+    vi.useFakeTimers();
+    const fetcher = setup(
+      new Response('<html>Worker exceeded resource limits</html>', { status: 503 }),
+    );
+    fetcher.mockResolvedValueOnce(
+      new Response('<html>Worker exceeded resource limits</html>', { status: 503 }),
+    );
+    fetcher.mockResolvedValueOnce(new Response(null, { status: 204 }));
+    const result = send();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    await vi.advanceTimersByTimeAsync(299);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    await vi.advanceTimersByTimeAsync(1);
+    await expect(result).resolves.toBeUndefined();
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(fetcher.mock.calls[1]).toEqual(fetcher.mock.calls[0]);
+    expect(
+      fetcher.mock.calls[0][1].body === undefined ||
+        typeof fetcher.mock.calls[0][1].body === 'string',
+    ).toBe(true);
+  },
+);
+it.each([500, 502, 503, 504])(
+  'limits an unenveloped %i retry to one and surfaces the busy message',
+  async (status) => {
+    vi.useFakeTimers();
+    const fetcher = setup(new Response('Worker exceeded resource limits', { status }));
+    fetcher.mockImplementation(
+      async () => new Response('Worker exceeded resource limits', { status }),
+    );
+    const result = expect(
+      api('POST /api/me/password/verify', { body: { current_password: 'password' } }),
+    ).rejects.toMatchObject({
+      status,
+      detail: { code: 'SERVER_BUSY', message: 'The server is busy. Please try again.' },
+      message: 'The server is busy. Please try again.',
+    });
+    await vi.advanceTimersByTimeAsync(300);
+    await result;
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(vi.getTimerCount()).toBe(0);
+  },
+);
+it.each([400, 401, 403, 409, 429])('never retries an unenveloped %i', async (status) => {
+  vi.useFakeTimers();
+  const fetcher = setup(new Response('Request rejected', { status }));
+  await expect(
+    api('POST /api/auth/login', { body: { email: 'rower@example.com', password: 'password' } }),
+  ).rejects.toMatchObject({ status });
+  expect(fetcher).toHaveBeenCalledTimes(1);
+  expect(vi.getTimerCount()).toBe(0);
+});
+it.each([400, 401, 409, 500, 503, 504])(
+  'never retries a JSON-enveloped %i, even on hashing endpoints',
+  async (status) => {
+    vi.useFakeTimers();
+    const detail = { code: 'EXPLICIT_ERROR', message: 'An explicit API error.' };
+    const fetcher = setup(Response.json({ error: detail }, { status }));
+    await expect(
+      api('POST /api/me/password', { body: { new_password: 'new-password' } }),
+    ).rejects.toMatchObject({ status, detail });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+  },
+);
+it('does not retry any other endpoint on 503', async () => {
+  vi.useFakeTimers();
+  const fetcher = setup(new Response('Busy', { status: 503 }));
+  await expect(
+    api('POST /api/auth/roster', { body: { team_code: 'cardinal-oyo' } }),
+  ).rejects.toMatchObject({ status: 503 });
+  expect(fetcher).toHaveBeenCalledTimes(1);
+  expect(vi.getTimerCount()).toBe(0);
+});
+it('does not retry network failures', async () => {
+  vi.useFakeTimers();
+  const fetcher = setup(new Response(null, { status: 204 }));
+  fetcher.mockRejectedValue(new TypeError('Offline'));
+  await expect(
+    api('POST /api/me/password/verify', { body: { current_password: 'password' } }),
+  ).rejects.toThrow('Offline');
+  expect(fetcher).toHaveBeenCalledTimes(1);
+  expect(vi.getTimerCount()).toBe(0);
 });
