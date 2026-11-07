@@ -205,6 +205,8 @@ users(id TEXT PK, email TEXT UNIQUE (lowercase), name, password_hash, password_s
       bio TEXT, avatar_image_id TEXT NULL, best6k_split_s REAL NULL, best2k_split_s REAL NULL,
       on_leaderboard INT, active INT, created_at, updated_at)
 sessions(token_hash PK, user_id, expires_at, created_at)
+erg_tests(id TEXT PK, user_id TEXT NOT NULL, kind ('2k'|'6k'), date, time_s REAL, split_s REAL, created_at, updated_at) -- index (user_id,kind,date)
+challenges(id TEXT PK, title, unit ('emeters'|'km'), goal_m INTEGER, modality NULL, start_date, end_date, created_by, created_at, updated_at, ended_at NULL)
 roster(id TEXT PK, name NOT NULL, email NULL, role, group_key NULL, side, class_year,
        claimed_by_user_id NULL REFERENCES users(id), added_by, created_at)
        -- unique lower(email) where not null; unique claimed_by_user_id where not null
@@ -233,6 +235,8 @@ audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
+Legacy best splits backfill one test per kind using the user's updated_at team-local date.
 Version 7 adds idempotent tag/mention tables and indexes.
 Version 8 adds personal plans and sessions after version 7; both migrations are idempotent and transactional.
 Entry deletion removes tags and mentions; comment deletion transactionally removes its mentions.
@@ -250,12 +254,39 @@ Version 6 converts every legacy private entry to `team` without modifying workou
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
 Version 8 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
 with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key indexes owner/date windows.
-Version 10 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth, created_at, updated_at)` indexed by
+Version 11 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth, created_at, updated_at)` indexed by
 `(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
-epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `< 10`, so it applies
+epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `< 11`, so it applies
 whether or not intermediate versions exist.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
+
+### Tests, recaps, and challenges
+
+- GET /api/users/:id/tests: authenticated team-visible history, newest date/created_at first.
+  PR means strictly faster than all earlier tests of that kind; first is a PR.
+- POST /api/me/tests, PATCH /api/me/tests/:id, DELETE /api/me/tests/:id:
+  owner-only (404 otherwise), at most 200 tests. Input kind 2k/6k, date (2000-01-01
+  through team-local today), exactly one time_s/split_s on create or pace edits.
+  Times and splits round to tenths, split bounds 60–300. A kind-only edit preserves time.
+  Best splits are transactionally derived MIN(split_s), NULL when none remain.
+  PATCH /api/me non-null best split records a new test today; null is an accepted no-op.
+- GET /api/stats/recap?week=YYYY-MM-DD: own completed-week recap; defaults to last week.
+  Any date selects its Monday; current/future weeks return 400. Includes own totals,
+  target, percent, hit_target, modalities, entry_count, consecutive hit weeks ending
+  at that week, highest-equivalent entry (earliest creation breaks ties), and cached
+  leaderboard team totals/counts and percent rank (null off leaderboard).
+- GET /api/challenges: authenticated active/upcoming challenges ordered by end_date.
+- GET /api/admin/challenges: staff all challenges newest first.
+- POST /api/admin/challenges, PATCH /api/admin/challenges/:id,
+  POST /api/admin/challenges/:id/end, DELETE /api/admin/challenges/:id: staff only,
+  audited challenge.create/update/end/delete. End is idempotent; editing ended challenges
+  returns 409. Title trims to 1–60 chars, goal_m integer 1–1,000,000,000 meters,
+  nullable modality, ordered valid dates spanning at most 366 days.
+  emeters sums equiv_m; km sums raw distance_m; inclusive entry dates, all users.
+  Status ended on ended_at or past end_date, upcoming before start_date, active otherwise.
+  Percent rounds to 0.1 without capping; no points. DO progress memo keys include
+  challenge data/updated_at, stats_counters.any_version and team-local today; hits scan no entries.
 
 Alongside the group/team Plan, My Fortnight is personal: `GET /api/me/plan?date=YYYY-MM-DD`
 returns `MyPlan | null` for the 14-day window containing date (default today in America/Los_Angeles).
@@ -427,6 +458,9 @@ images retain their independent authenticated ownership/avatar/entry-reference a
   `#6D6D78`, page/grouped background `#F7F7FA`, dividers `#DFDFE8`. **Cardinal `#8C1515` is the single main accent**
   (pressed `#6F1010`; on dark use `#C0352B`): primary buttons, Log button, progress rings, active tab, links.
   **Strava orange `#FC5200` (pressed `#CC4200`) only for highlights: PRs, streaks, "target hit" celebrations, best week.**
+  Podium-only medal tokens (`--medal-{gold,silver,bronze}-{ink,fill}`) tint rank badges, top borders, and subtle
+  card fills. Shared ranks share a medal; the cardinal "You" selection stays distinct. These semantic medal
+  colors do not replace cardinal controls or orange achievement highlights.
   Dark mode: background `#121214`, surface `#1C1C1F`, dividers `#2C2C31`, text `#F2F2F5`. Zone colors as in the sheet:
   E light green `#CFE6C4`, D green `#8DBE84`, C yellow `#FBE08F` (others interpolate) — used as small tags/chips only.
   Light + dark mode (system default, user toggle). System font stack (-apple-system, "SF Pro", Inter fallback). Native

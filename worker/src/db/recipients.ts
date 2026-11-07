@@ -9,8 +9,8 @@ export function recipients(storage: DurableObjectStorage, value: unknown, self: 
   if (!ids.length) return [];
   const users = storage.sql
     .exec<UserRow>(
-      `SELECT * FROM users WHERE active = 1 AND id IN (${ids.map(() => '?').join(',')}) ORDER BY name,id`,
-      ...ids,
+      'SELECT * FROM users WHERE active = 1 AND id IN (SELECT value FROM json_each(?)) ORDER BY name,id',
+      JSON.stringify(ids),
     )
     .toArray();
   if (users.length !== ids.length) return invalid('Recipients must be active users.');

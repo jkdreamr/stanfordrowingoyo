@@ -356,7 +356,11 @@ it('uses indexed batched dirty-user aggregation and three queries on warm hits; 
     expect(read()).toEqual(uncachedLeaderboard(s, date, 'percent', new Date(now)));
     const dirty = calls.filter((call) => call.query.includes('SUM(equiv_m)'));
     expect(dirty).toHaveLength(1);
-    expect(dirty[0].binds).toEqual([athlete.user.id, expect.any(String), expect.any(String)]);
+    expect(dirty[0].binds).toEqual([
+      JSON.stringify([athlete.user.id]),
+      expect.any(String),
+      expect.any(String),
+    ]);
     s.sql.exec(
       'UPDATE users SET password_hash=?,updated_at=? WHERE id=?',
       'new hash',
@@ -399,11 +403,11 @@ it('migrates existing v6-v8 data idempotently and invalidates old/new owners, ta
     s.sql.exec("UPDATE settings SET value_json='6' WHERE key='schema_version'");
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(10);
+    expect(getSetting(s, 'schema_version')).toBe(11);
     for (const prior of [6, 7, 8]) {
       setSetting(s, 'schema_version', prior);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(10);
+      expect(getSetting(s, 'schema_version')).toBe(11);
     }
     const read = () => leaderboard(s, '2026-08-30', 'season', new Date(now));
     const equivalent = () =>
@@ -431,7 +435,7 @@ it('migrates v6 without depending on a legacy entries visibility column', async 
     setSetting(s, 'schema_version', 6);
     s.sql.exec('DROP INDEX entries_feed; ALTER TABLE entries DROP COLUMN visibility');
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(10);
+    expect(getSetting(s, 'schema_version')).toBe(11);
     expect(leaderboard(s, today(new Date(now)), 'percent', new Date(now))).toEqual(
       uncachedLeaderboard(s, today(new Date(now)), 'percent', new Date(now)),
     );

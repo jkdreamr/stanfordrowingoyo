@@ -308,8 +308,8 @@ export function leaderboard(
     const targets = loadTargets(storage);
     const aggregates = storage.sql
       .exec<EntryAggregate>(
-        `SELECT user_id,date,week_start,modality,zone,SUM(equiv_m) AS equiv_m,COUNT(*) AS entry_count FROM entries WHERE user_id IN (${stale.map(() => '?').join(',')}) AND week_start >= ? AND week_start <= ? GROUP BY user_id,week_start,date,modality,zone`,
-        ...stale.map((user) => user.id),
+        'SELECT user_id,date,week_start,modality,zone,SUM(equiv_m) AS equiv_m,COUNT(*) AS entry_count FROM entries WHERE user_id IN (SELECT value FROM json_each(?)) AND week_start >= ? AND week_start <= ? GROUP BY user_id,week_start,date,modality,zone',
+        JSON.stringify(stale.map((user) => user.id)),
         weekStart(range.start),
         weekStart(lastDate),
       )

@@ -484,13 +484,13 @@ describe('push delivery', () => {
   });
 });
 
-it('migrates to v10 idempotently, with or without intermediate versions', async () => {
+it('migrates to v11 idempotently, with or without intermediate versions', async () => {
   await sql((storage) => {
     storage.sql.exec('DROP TABLE push_outbox; DROP TABLE push_subscriptions;');
     setSetting(storage, 'schema_version', 9);
     migrate(storage);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(10);
+    expect(getSetting(storage, 'schema_version')).toBe(11);
     expect(storage.sql.exec('SELECT * FROM push_subscriptions').toArray()).toEqual([]);
     expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toEqual([]);
   });

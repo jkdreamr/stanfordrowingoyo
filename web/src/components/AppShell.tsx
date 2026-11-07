@@ -1,9 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
+import { useRef } from 'react';
+import { useTabSwipe } from '../lib/useTabSwipe';
 import { Sidebar, TabBar } from './shell/Navigation';
 import { RightRail } from './shell/RightRail';
 import { NotificationSync } from './NotificationSync';
 export default function AppShell() {
   const task = useLocation().pathname === '/log';
+  const content = useRef<HTMLElement>(null);
+  useTabSwipe(content);
   return (
     <div className={`app-shell ${task ? 'app-shell-task' : ''}`}>
       <a className="skip-link" href="#main-content">
@@ -11,7 +15,7 @@ export default function AppShell() {
       </a>
       <NotificationSync />
       <Sidebar />
-      <main id="main-content" className="shell-content">
+      <main ref={content} id="main-content" className="shell-content">
         <Outlet />
       </main>
       <RightRail />
