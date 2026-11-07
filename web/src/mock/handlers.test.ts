@@ -265,6 +265,205 @@ describe('mock stats and visibility', () => {
     expect(other.total_m).toBe(1000);
     expect(other.days).toEqual([{ date: '2026-11-06', equiv_m: 1000 }]);
   });
+  it('replaces whole plans atomically, validates bounds and duplicate keys, and exposes saved groups to rowers', async () => {
+    const { request } = setup();
+    await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });
+    const before = await (await request('/admin/plan')).json();
+    const slot = {
+      group_key: 'normal',
+      week: 1,
+      day: 0,
+      slot: 'AM',
+      kind: 'oyo',
+      zone: 'E',
+      text: '12 km Steady State',
+    };
+    for (const invalid of [
+      { slots: [slot, slot], totals: [] },
+      { slots: [{ ...slot, text: 'x'.repeat(2001) }], totals: [] },
+      { slots: [slot], totals: [{ group_key: 'normal', week: 1, label: 'x'.repeat(201) }] },
+    ])
+      expect((await request('/admin/plan', 'PUT', invalid)).status).toBe(400);
+    expect(await (await request('/admin/plan')).json()).toEqual(before);
+    expect((await (await request('/admin/audit')).json()).items).toHaveLength(0);
+    const plan = {
+      slots: [slot, { ...slot, group_key: 'frosh', text: '8 km Steady State' }],
+      totals: [{ group_key: 'normal', week: 1, label: '80 km' }],
+    };
+    expect((await request('/admin/plan', 'PUT', plan)).status).toBe(200);
+    expect(await (await request('/plan?group=normal')).json()).toEqual({
+      slots: [slot],
+      totals: plan.totals,
+    });
+    expect((await (await request('/plan?group=frosh')).json()).slots).toHaveLength(1);
+    const audit = (await (await request('/admin/audit')).json()).items;
+    expect(audit).toHaveLength(1);
+    expect(audit[0].action).toBe('plan.replace');
+    expect(JSON.parse(audit[0].detail_json)).toEqual({ before, after: plan });
+  });
+  it('validates, sorts and audits successful preset and announcement writes', async () => {
+    const { request } = setup();
+    await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });
+    const preset = {
+      name: 'Endurance',
+      modality: 'bike',
+      zone: 'E',
+      distance_m: 30000,
+      sort: 30,
+      active: true,
+    };
+    for (const body of [
+      { ...preset, sort: 1.5 },
+      { ...preset, name: 'x'.repeat(121) },
+      { ...preset, sort: 1000001 },
+    ])
+      expect((await request('/admin/presets', 'POST', body)).status).toBe(400);
+    expect((await (await request('/admin/audit')).json()).items).toHaveLength(0);
+    const first = await (await request('/admin/presets', 'POST', preset)).json();
+    expect(
+      (
+        await request(`/admin/presets/${first.id}`, 'PATCH', {
+          sort: -50,
+          active: false,
+          distance_m: null,
+        })
+      ).status,
+    ).toBe(200);
+    const rows = await (await request('/admin/presets')).json();
+    expect(rows[0]).toMatchObject({ id: first.id, sort: -50, active: false, distance_m: null });
+    expect(
+      (
+        await request('/announcements', 'POST', {
+          title: 'x'.repeat(121),
+          body: 'Message',
+          pinned: false,
+        })
+      ).status,
+    ).toBe(400);
+    expect(
+      (
+        await request('/announcements', 'POST', {
+          title: 'Title',
+          body: 'x'.repeat(5001),
+          pinned: false,
+        })
+      ).status,
+    ).toBe(400);
+    const announcement = await (
+      await request('/announcements', 'POST', {
+        title: 'Boathouse Update',
+        body: 'Arrive at 6:15.',
+        pinned: false,
+      })
+    ).json();
+    await request(`/announcements/${announcement.id}`, 'PATCH', {
+      pinned: true,
+      title: 'Morning Practice',
+    });
+    expect((await (await request('/announcements')).json())[0]).toMatchObject({
+      id: announcement.id,
+      pinned: true,
+      title: 'Morning Practice',
+    });
+    await request(`/announcements/${announcement.id}`, 'DELETE');
+    await request(`/admin/presets/${first.id}`, 'DELETE');
+    const audit = await (await request('/admin/audit')).json();
+    expect(audit.items).toHaveLength(6);
+    expect(audit.items[0]).toMatchObject({ action: 'preset.delete', target: first.id });
+    const changed = audit.items.find((row: { action: string }) => row.action === 'preset.update');
+    expect(JSON.parse(changed.detail_json)).toMatchObject({
+      before: { sort: 30, active: true },
+      after: { sort: -50, active: false },
+    });
+  });
+  it('validates settings, preserves past targets, recalculates only changed entries and audits successful writes', async () => {
+    const { request, state } = setup();
+    await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });
+    const settings = await (await request('/admin/settings')).json();
+    for (const body of [
+      { team_code: 'bad' },
+      { season_start: '04-31' },
+      { mode_factors: { ...settings.mode_factors, run: 101 } },
+      { zone_factors: { ...settings.zone_factors, E: 0 } },
+      { group_targets: { ...settings.group_targets, normal: 1000.5 } },
+    ])
+      expect((await request('/admin/settings', 'PATCH', body)).status).toBe(400);
+    expect((await (await request('/admin/audit')).json()).items).toHaveLength(0);
+    const previous = await (await request('/admin/compliance?week=2026-10-26')).json();
+    const targets = { ...settings.group_targets, normal: 90000 };
+    expect(
+      (await request('/admin/settings', 'PATCH', { group_targets: targets, season_start: '02-29' }))
+        .status,
+    ).toBe(200);
+    const past = await (await request('/admin/compliance?week=2026-10-26')).json();
+    expect(past.map((row: { target_m: number }) => row.target_m)).toEqual(
+      previous.map((row: { target_m: number }) => row.target_m),
+    );
+    await request('/admin/settings', 'PATCH', { zone_factors: { ...settings.zone_factors, E: 2 } });
+    const result = await (await request('/admin/recalculate', 'POST')).json();
+    expect(result.updated).toBeGreaterThan(0);
+    expect(await (await request('/admin/recalculate', 'POST')).json()).toEqual({ updated: 0 });
+    state.entries[0].title = '=SUM(A1)';
+    const exported = await (await request('/admin/export?start=2020-01-01&end=2030-12-31')).text();
+    expect(exported).toContain("'=SUM(A1)");
+    state.entries.length = 0;
+    expect(await (await request('/admin/recalculate', 'POST')).json()).toEqual({ updated: 0 });
+    const audit = await (await request('/admin/audit')).json();
+    expect(audit.items[0]).toMatchObject({ action: 'entries.recalculate', target: 'entries' });
+    expect(audit.items.some((item: { action: string }) => item.action === 'settings.update')).toBe(
+      true,
+    );
+    const emptyExport = await (
+      await request('/admin/export?start=2026-01-01&end=2026-12-31')
+    ).text();
+    expect(emptyExport).toContain('date,week_start,name,email,group,modality');
+    expect(emptyExport.split('\r\n')).toHaveLength(2);
+    expect((await request('/admin/export?start=2026-12-31&end=2026-01-01')).status).toBe(400);
+  });
+  it('supports quoted CSV preview semantics, linked changes, duplicate checks and empty imports', async () => {
+    const { request, state } = setup();
+    await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });
+    const csv =
+      'name,email,role,group,side,class_year\n"New, Person",new@example.com,rower,frosh,both,2028\nInvalid,bad,rower,normal,,2027';
+    const imported = await (await request('/admin/roster/import', 'POST', { csv })).json();
+    expect(imported.imported).toBe(1);
+    expect(imported.errors[0].row).toBe(3);
+    const row = state.roster.find((r) => r.email === 'new@example.com')!;
+    expect(row.name).toBe('New, Person');
+    expect((await request('/admin/roster', 'POST', { ...row, email: null })).status).toBe(409);
+    expect(await (await request('/admin/roster/import', 'POST', { csv: '' })).json()).toEqual({
+      imported: 0,
+      errors: [],
+    });
+    const linked = state.roster.find((r) => r.claimed_by_user_id === 'user-1')!;
+    expect(
+      (
+        await request(`/admin/roster/${linked.id}`, 'PATCH', {
+          name: 'Renamed Athlete',
+          role: 'coxswain',
+          group_key: 'u23',
+        })
+      ).status,
+    ).toBe(200);
+    expect(state.users.find((u) => u.id === 'user-1')).toMatchObject({
+      name: 'Renamed Athlete',
+      role: 'coxswain',
+      group_key: 'u23',
+    });
+    expect((await request(`/admin/roster/${linked.id}`, 'DELETE')).status).toBe(409);
+    const admin = state.users.find((u) => u.role === 'admin')!;
+    expect((await request(`/admin/users/${admin.id}`, 'PATCH', { active: false })).status).toBe(
+      409,
+    );
+    expect(
+      (
+        await request(
+          `/admin/roster/${state.roster.find((r) => r.claimed_by_user_id === admin.id)!.id}/unlink`,
+          'POST',
+        )
+      ).status,
+    ).toBe(409);
+  });
   it('aggregates dated season meters, including multiple sessions on one date', async () => {
     const { request, state } = setup();
     for (const distance_m of [1000, 2000])

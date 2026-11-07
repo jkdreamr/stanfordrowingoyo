@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLogout } from '../lib/queries';
+import { useLogout, useMe } from '../lib/queries';
 import { authError } from '../lib/auth';
 import { useTheme } from '../lib/theme';
 import { ChangePasswordForm } from '../components/auth/ChangePasswordForm';
@@ -16,6 +16,7 @@ import {
 import { FormErrors } from '../components/auth/FormErrors';
 export default function Settings() {
   const logout = useLogout();
+  const { data: me } = useMe();
   const navigate = useNavigate();
   const [message, setMessage] = useState<string>();
   const [password, setPassword] = useState(false);
@@ -47,6 +48,9 @@ export default function Settings() {
           <ListRow title="Change Password" chevron onClick={() => setPassword(true)} />
         </ListGroup>
         <ListGroup>
+          {me && me.role !== 'rower' && (
+            <ListRow title="Admin" subtitle="Manage the team" to="/admin" />
+          )}
           <ListRow title="Log Out" tone="destructive" onClick={() => setConfirm(true)} />
         </ListGroup>
         <p className="text-center text-caption text-muted">Stanford OYO · Version 0.1.0</p>

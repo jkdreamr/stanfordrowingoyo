@@ -1,8 +1,8 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CalendarDays } from 'lucide-react';
 import { equivalentMeters, ZONES } from '../../../shared/math';
-import type { Config, GroupKey, Modality, PlanSlot, User } from '../../../shared/types';
+import type { Config, GroupKey, Modality, User } from '../../../shared/types';
 import { useConfig, useMe, usePlan } from '../lib/queries';
 import { formatEMeters, formatMeters, formatSplit, parseSplit } from '../lib/format';
 import {
@@ -17,7 +17,8 @@ import {
   ZoneChip,
 } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
-import { scheduleWeeks, slotDisplayText, SLOTS } from './plan/schedule';
+import { PlanWeek } from '../components/plan/PlanWeek';
+import { scheduleWeeks } from '../components/plan/schedule';
 import { formulaFactor, targetDistance, zonePace } from './plan/calculator';
 const GROUPS = [
   { value: 'frosh', label: 'Frosh' },
@@ -105,22 +106,6 @@ function NoItems({ title }: { title: string }) {
     />
   );
 }
-function SlotItem({ item }: { item: PlanSlot }) {
-  return (
-    <div
-      className={
-        'min-w-0 rounded-control p-3 ' +
-        (item.kind === 'team' ? 'border border-divider bg-surface' : 'bg-surface-2')
-      }
-    >
-      <div className="mb-2 flex flex-wrap items-center gap-2 text-caption font-semibold">
-        <span>{item.kind === 'oyo' ? 'OYO' : 'Team'}</span>
-        {item.kind === 'oyo' && item.zone && <ZoneChip zone={item.zone} />}
-      </div>
-      <p className="break-words text-footnote">{slotDisplayText(item)}</p>
-    </div>
-  );
-}
 function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
   const [group, setGroup] = useState(initialGroup);
   const plan = usePlan({ group });
@@ -133,63 +118,7 @@ function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
       ) : !plan.data.slots.length ? (
         <NoItems title="No Schedule Yet" />
       ) : (
-        scheduleWeeks(plan.data).map((week) => (
-          <section key={week.week}>
-            <h3 className="text-title3">Week {week.week}</h3>
-            {week.total && (
-              <p className="mt-1 text-subhead tabular-nums text-muted">{week.total}</p>
-            )}
-            <div className="mt-4 space-y-4 lg:hidden">
-              {week.days.map((day) => (
-                <div key={day.name}>
-                  <h4 className="mb-2 text-headline">{day.name}</h4>
-                  {day.off ? (
-                    <p className="text-subhead text-muted">Off</p>
-                  ) : (
-                    <div className="space-y-2">
-                      {day.slots.map((item) => (
-                        <div
-                          key={item.slot}
-                          className="grid grid-cols-[40px_minmax(0,1fr)] items-start gap-2"
-                        >
-                          <span className="pt-3 text-caption tabular-nums text-muted">
-                            {item.slot}
-                          </span>
-                          <SlotItem item={item} />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="mt-4 hidden grid-cols-[48px_repeat(7,minmax(0,1fr))] gap-2 lg:grid">
-              <div aria-hidden="true" />
-              {week.days.map((day) => (
-                <h4 key={day.name} className="text-footnote font-semibold">
-                  {day.name.slice(0, 3)}
-                </h4>
-              ))}
-              {SLOTS.map((slot, row) => (
-                <Fragment key={slot}>
-                  <p className="pt-3 text-caption tabular-nums text-muted">{slot}</p>
-                  {week.days.map((day) => {
-                    const item = day.slots.find((s) => s.slot === slot);
-                    return (
-                      <div key={day.name + slot} className="min-w-0">
-                        {item ? (
-                          <SlotItem item={item} />
-                        ) : day.off && row === 0 ? (
-                          <p className="p-3 text-footnote text-muted">Off</p>
-                        ) : null}
-                      </div>
-                    );
-                  })}
-                </Fragment>
-              ))}
-            </div>
-          </section>
-        ))
+        scheduleWeeks(plan.data).map((week) => <PlanWeek key={week.week} week={week} />)
       )}
     </div>
   );

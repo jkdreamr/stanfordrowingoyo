@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { AppErrorScreen } from './components/AppErrorBoundary';
 import { RouteEffects } from './components/shell/RouteEffects';
 import { RequireAuth } from './components/shell/RequireAuth';
+import { RequireStaff } from './components/shell/RequireStaff';
 import { AuthLayout } from './components/auth/AuthLayout';
 import ChangePassword from './pages/ChangePassword';
 import { PageHeader, EmptyState, Button } from './components/ui';
@@ -74,15 +75,20 @@ export const router = createBrowserRouter([
               { path: '/settings', element: <Settings /> },
               { path: '/me/edit', element: <EditProfile /> },
               { path: '/me/target', element: <WeeklyTarget /> },
-              { path: '/admin', element: <Admin /> },
-              { path: '/admin/roster', element: <Roster /> },
-              { path: '/admin/compliance', element: <Compliance /> },
-              { path: '/admin/settings', element: <TeamSettings /> },
-              { path: '/admin/presets', element: <Presets /> },
-              { path: '/admin/plan', element: <PlanEditor /> },
-              { path: '/admin/announcements', element: <Announcements /> },
-              { path: '/admin/export', element: <Export /> },
-              { path: '/admin/audit', element: <AuditLog /> },
+              {
+                element: <RequireStaff />,
+                children: [
+                  { path: '/admin', element: <Admin /> },
+                  { path: '/admin/roster', element: <Roster /> },
+                  { path: '/admin/compliance', element: <Compliance /> },
+                  { path: '/admin/settings', element: <TeamSettings /> },
+                  { path: '/admin/presets', element: <Presets /> },
+                  { path: '/admin/plan', element: <PlanEditor /> },
+                  { path: '/admin/announcements', element: <Announcements /> },
+                  { path: '/admin/export', element: <Export /> },
+                  { path: '/admin/audit', element: <AuditLog /> },
+                ],
+              },
               {
                 path: '*',
                 element: (
