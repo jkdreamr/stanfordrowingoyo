@@ -330,7 +330,7 @@ describe('entries and images', () => {
             "SELECT value_json FROM settings WHERE key='schema_version'",
           )
           .one().value_json,
-      ).toBe('7');
+      ).toBe('9');
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray()).toEqual(rows);
     });

@@ -297,7 +297,7 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '6',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 7)
+  if (Number(JSON.parse(version.value_json)) < 9)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS stats_versions (
   user_id TEXT PRIMARY KEY,
@@ -336,7 +336,7 @@ END;`);
       sql.exec(
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
-        '7',
+        '9',
       );
     });
 }
