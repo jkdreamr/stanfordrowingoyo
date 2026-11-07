@@ -61,7 +61,7 @@ This is an additive export; existing kit component APIs and styles are unchanged
 
 `<ActionCard to="/me/target" label="Change weekly target"><ProgressRing value={48000} max={80000} label="Weekly Target" /></ActionCard>`
 
-Target-hit text uses `--highlight-ink` (#B43900 light / #FF905C dark) for readable orange text; the ring retains `--highlight`. Photo decoding honors EXIF orientation, caps the long side at 1600px and encodes JPEG at 0.82; profile photos are center-cropped to a maximum 512px square. Processing/upload errors leave the form and its selected files intact.
+Target-hit text uses `--highlight-ink` (#B43900 light / #FF905C dark) for readable orange text; the ring retains `--highlight`. PhotoPicker remains the session-photo picker: decoding honors EXIF orientation, caps the long side at 1600px and encodes JPEG at 0.82. Profile avatars instead open a Profile Photo sheet and a Move and Scale crop step, encoding a 512px square as WebP (JPEG fallback). Avatar accepts an optional `src` for local draft previews. `usePhotos.addProcessed(Blob)` uploads that crop unchanged on Save. Processing/upload errors leave the form intact.
 
 `formatNumber(value, digits=0)` formats factors, counts and percentages without raw floats. `formatPercent(value)` adds `%`; `formatWeekday(date)` uses LA dates. Pass `config.today` as the second argument to `formatEntryDate` on API-backed screens. `daysLeft` includes Sunday; `finishWeek` always uses API-configured factors.
 
@@ -167,7 +167,7 @@ NumberField is a text input with numeric keyboard, allowing incomplete edits; pa
 | checked, onChange | boolean, (checked: boolean) => void |
 | disabled          | optional boolean                    |
 
-`<Toggle label="Share With Team" checked={shared} onChange={setShared} />`
+`<Toggle label="Pinned" checked={pinned} onChange={setPinned} />`
 
 ### Avatar
 

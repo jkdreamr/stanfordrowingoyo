@@ -92,7 +92,9 @@ burst offsets; scheduling does not affect random choices.
 
 Session rowers create 1–3 workouts, occasionally upload a generated ~300 KiB
 16x16 baseline JPEG, paginate the feed up to three pages, interact, and query
-stats. Burst rowers share successful sessions and have uniform random start
+stats. Some workouts tag 1–2 other authenticated active load
+users, and some comments mention another load user's full name with `mention_ids`.
+No real roster users are selected for tags or mentions. Burst rowers share successful sessions and have uniform random start
 offsets within the window; failed session rowers are skipped to avoid repeating
 auth failures. All rower authentication finishes before steady-state traffic;
 successful sessions are reused for the burst. `makeJpeg` in `jpeg.ts` is exported

@@ -151,11 +151,7 @@ export default function Roster() {
           <EmptyState
             icon={<Users size={20} strokeWidth={1.75} />}
             title={people.length ? 'No Matching People' : 'No Names Yet'}
-            body={
-              people.length
-                ? 'Try another name or change your filters.'
-                : 'Add a name or import the team roster to get started.'
-            }
+            body={people.length ? 'Try another name or filter.' : undefined}
             action={
               <Button
                 variant="secondary"

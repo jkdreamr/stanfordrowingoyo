@@ -102,7 +102,7 @@ export default function Plan() {
   );
 }
 function NoItems({ title }: { title: string }) {
-  return <EmptyState icon={<CalendarDays size={20} strokeWidth={1.75} />} title={title} body="" />;
+  return <EmptyState icon={<CalendarDays size={20} strokeWidth={1.75} />} title={title} />;
 }
 function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
   const [group, setGroup] = useState(initialGroup);
@@ -130,7 +130,7 @@ function Guidance({ config, group }: { config: Config; group: GroupKey }) {
   return (
     <div className="screen-stack">
       <section>
-        <h2 className="mb-4 text-title3">OYO Workouts per Fortnight</h2>
+        <h2 className="mb-4 text-title3">Fortnight Workouts</h2>
         <div className="space-y-3">
           {rows.map(([session, splits, frequency, load]) => (
             <Card key={session}>
@@ -150,12 +150,10 @@ function Guidance({ config, group }: { config: Config; group: GroupKey }) {
             </Card>
           ))}
         </div>
-        <p className="mt-4 text-footnote text-muted">
-          * Extra lifts are recommended for people who have talked about it with the coaches.
-        </p>
+        <p className="mt-4 text-footnote text-muted">* Discuss extra lifts with a coach.</p>
       </section>
       <section>
-        <h2 className="mb-4 text-title3">Weekly Volume Targets</h2>
+        <h2 className="mb-4 text-title3">Weekly Targets</h2>
         <div className="space-y-3">
           {GROUPS.map(({ value, label }) => (
             <Card key={value} className={group === value ? 'bg-selected' : ''}>

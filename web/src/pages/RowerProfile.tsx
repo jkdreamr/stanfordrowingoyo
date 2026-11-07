@@ -101,7 +101,6 @@ export default function RowerProfile() {
                     <EmptyState
                       icon={<Activity size={20} strokeWidth={1.75} aria-hidden="true" />}
                       title="No Workouts Yet"
-                      body="Shared workouts will appear here"
                     />
                   )}
                   {workouts.hasNextPage && (

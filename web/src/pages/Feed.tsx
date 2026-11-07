@@ -76,7 +76,6 @@ export default function Page() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title="No Workouts Yet"
-              body="See the work your teammates are putting in"
               action={<Button to="/log">Log Session</Button>}
             />
           )}

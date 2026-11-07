@@ -24,12 +24,12 @@ test('shell, manifest, and health load without backend auth', async ({ page, req
   if (process.env.E2E_MOCK === '1')
     expect(await page.evaluate(async () => (await fetch('/api/health')).json())).toMatchObject({
       ok: true,
-      schema_version: expect.any(Number),
+      schema_version: 8,
     });
   else {
     const health = await request.get('/api/health');
     await expect(health).toBeOK();
-    expect(await health.json()).toMatchObject({ ok: true, schema_version: expect.any(Number) });
+    expect(await health.json()).toMatchObject({ ok: true, schema_version: 8 });
   }
 });
 

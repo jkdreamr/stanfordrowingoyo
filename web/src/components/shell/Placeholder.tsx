@@ -23,11 +23,7 @@ export function Placeholder({
         trailing={actions ? <HeaderActions settings={settings} /> : undefined}
       />
       <div className="px-4">
-        <EmptyState
-          icon={<Activity size={20} strokeWidth={1.75} />}
-          title={`${title} Is Coming`}
-          body="This part of your training log is being built"
-        />
+        <EmptyState icon={<Activity size={20} strokeWidth={1.75} />} title={`${title} Is Coming`} />
         {children}
       </div>
     </>

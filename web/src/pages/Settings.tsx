@@ -48,9 +48,7 @@ export default function Settings() {
           <ListRow title="Change Password" chevron onClick={() => setPassword(true)} />
         </ListGroup>
         <ListGroup>
-          {me && me.role !== 'rower' && (
-            <ListRow title="Admin" subtitle="Manage the team" to="/admin" />
-          )}
+          {me && me.role !== 'rower' && <ListRow title="Admin" to="/admin" />}
           <ListRow title="Log Out" tone="destructive" onClick={() => setConfirm(true)} />
         </ListGroup>
         <p className="text-center text-caption text-muted">Stanford OYO · Version 0.1.0</p>
@@ -67,7 +65,7 @@ export default function Settings() {
         open={confirm}
         onClose={() => setConfirm(false)}
         title="Log Out?"
-        body="You can log back in with your team account"
+        body="You'll need to log in again."
         confirmLabel="Log Out"
         cancelLabel="Cancel"
         loading={logout.isPending}

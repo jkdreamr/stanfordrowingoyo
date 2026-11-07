@@ -26,7 +26,10 @@ function setup(path = '/log', fail = false) {
   const mock = createMockApi();
   mock.state.imageLinks = {};
   const editId = mock.state.entries.find((e) => e.user_id === 'user-1')!.id;
-  if (path === 'edit') path = `/log?edit=${editId}`;
+  if (path === 'edit') {
+    mock.state.tags[editId] = ['user-36', 'user-37', 'user-2'];
+    path = `/log?edit=${editId}`;
+  }
   vi.stubGlobal(
     'fetch',
     vi.fn((url: URL, init: RequestInit) => {
@@ -143,4 +146,47 @@ it('loads an edit session and deletes only after confirmation', async () => {
   );
   await screen.findByRole('heading', { name: 'Training Home' });
   expect(mock.state.entries.some((e) => e.id === editId)).toBe(false);
+});
+
+it('selects teammates, excludes self, enforces ten and sends the full tag set', async () => {
+  const { mock } = setup();
+  fireEvent.change(await screen.findByLabelText('Meters'), { target: { value: '1000' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Tag Teammates' }));
+  const dialog = screen.getByRole('dialog', { name: 'Tag Teammates' });
+  await within(dialog).findByRole('button', { name: 'Kannan Alford' });
+  expect(within(dialog).queryByRole('button', { name: 'Marcus Albrecht' })).toBeNull();
+  fireEvent.change(within(dialog).getByLabelText('Search Teammates'), {
+    target: { value: 'Kannan' },
+  });
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Kannan Alford' }));
+  fireEvent.change(within(dialog).getByLabelText('Search Teammates'), { target: { value: '' } });
+  const rows = within(dialog)
+    .getAllByRole('button')
+    .filter((b) => b.hasAttribute('aria-pressed'));
+  for (const row of rows.filter((b) => b.getAttribute('aria-pressed') === 'false').slice(0, 9))
+    fireEvent.click(row);
+  expect(rows.filter((b) => b.getAttribute('aria-pressed') === 'true')).toHaveLength(10);
+  expect(
+    rows
+      .filter((b) => b.getAttribute('aria-pressed') === 'false')
+      .every((b) => (b as HTMLButtonElement).disabled),
+  ).toBe(true);
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Done' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+  await screen.findByRole('heading', { name: 'Training Home' });
+  expect(mock.state.tags[mock.state.entries.at(-1)!.id]).toHaveLength(10);
+});
+it('prefills edit tags and replaces the full set on PATCH', async () => {
+  const { mock, editId } = setup('edit');
+  await screen.findByLabelText('Meters');
+  expect(screen.getByRole('button', { name: /Tag Teammates.*3 Teammates/ })).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: /Tag Teammates/ }));
+  const dialog = screen.getByRole('dialog', { name: 'Tag Teammates' });
+  const kannan = await within(dialog).findByRole('button', { name: 'Kannan Alford' });
+  expect(kannan.getAttribute('aria-pressed')).toBe('true');
+  fireEvent.click(kannan);
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Done' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+  await screen.findByRole('heading', { name: 'Training Home' });
+  expect(mock.state.tags[editId]).toEqual(['user-37', 'user-2']);
 });

@@ -102,3 +102,36 @@ describe('announcement notification resolution', () => {
     expect(notificationAnnouncements(notification, [])).toEqual([]);
   });
 });
+
+describe('teammates and mentions', () => {
+  it('formats empty, single, pair and many With labels', async () => {
+    const { withTeammates } = await import('./social');
+    const names = ['Kannan Alford', 'Gabrielle Zammit', 'Ginger Bernstein'].map((name) => ({
+      name,
+    }));
+    expect(withTeammates([])).toBe('');
+    expect(withTeammates(names.slice(0, 1))).toBe('with Kannan Alford');
+    expect(withTeammates(names.slice(0, 2))).toBe('with Kannan Alford and Gabrielle Zammit');
+    expect(withTeammates(names)).toBe('with Kannan Alford and 2 others');
+  });
+  it('segments only supplied full names, respecting boundaries, punctuation and case', async () => {
+    const { mentionSegments, mentionIds, mentionQuery } = await import('./social');
+    const users = [
+      { id: 'ann', name: 'Ann' },
+      { id: 'full', name: 'Full Name' },
+      { id: 'regex', name: 'A. (B)' },
+    ];
+    expect(mentionIds('@Anna @aNN! @FULL NAME, @A. (B)', users)).toEqual(['ann', 'full', 'regex']);
+    expect(mentionSegments('Hi @Ann!', users)).toEqual([
+      { text: 'Hi ' },
+      { text: '@Ann', userId: 'ann' },
+      { text: '!' },
+    ]);
+    expect(mentionSegments('', users)).toEqual([{ text: '' }]);
+    expect(mentionIds('@Ann2 @Unknown', users)).toEqual([]);
+    expect(mentionIds('@Ann @Ann', users)).toEqual(['ann']);
+    expect(mentionQuery('hello @Fu', 9)).toEqual({ query: 'Fu', start: 6, end: 9 });
+    expect(mentionQuery('email@Fu', 8)).toBeNull();
+    expect(mentionQuery('@', 1)?.query).toBe('');
+  });
+});

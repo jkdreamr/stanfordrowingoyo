@@ -7,7 +7,7 @@ export function resizedDimensions(width: number, height: number, maxSide = 1600)
     height: Math.max(1, Math.round(height * ratio)),
   };
 }
-async function decode(
+export async function decode(
   file: File,
 ): Promise<{ source: CanvasImageSource; width: number; height: number; close: () => void }> {
   if (typeof createImageBitmap === 'function') {
@@ -41,6 +41,25 @@ async function decode(
     URL.revokeObjectURL(url);
     throw error;
   }
+}
+export async function encodeCrop(
+  decoded: Awaited<ReturnType<typeof decode>>,
+  rect: { x: number; y: number; width: number; height: number },
+): Promise<Blob> {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = 512;
+  const context = canvas.getContext('2d');
+  if (!context) throw new Error('Photo processing is unavailable');
+  context.fillStyle = '#ffffff';
+  context.fillRect(0, 0, 512, 512);
+  context.drawImage(decoded.source, rect.x, rect.y, rect.width, rect.height, 0, 0, 512, 512);
+  const encode = (type: string) =>
+    new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, 0.85));
+  let blob = await encode('image/webp');
+  if (blob?.type !== 'image/webp') blob = await encode('image/jpeg');
+  if (!blob?.size) throw new Error('Could not process this photo');
+  if (blob.size > 1.5 * 1024 * 1024) throw new Error('Photo is too large');
+  return blob;
 }
 export async function resizeImage(file: File, maxSide = 1600, square = false): Promise<Blob> {
   if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type))

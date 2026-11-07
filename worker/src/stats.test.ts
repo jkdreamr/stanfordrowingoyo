@@ -10,7 +10,7 @@ import { getSetting, setSetting } from './db/settings';
 import { sha256 } from './auth/crypto';
 import { insertRosterFixture } from './testFixtures';
 import { route } from './router';
-import { listEntries, checkImages } from './db/entries';
+import { details, listEntries, checkImages } from './db/entries';
 import { comments } from './db/social';
 import { notifications } from './db/notifications';
 import { visibleImage } from './db/images';
@@ -95,6 +95,8 @@ beforeEach(async () => {
   await sql((storage) =>
     storage.transactionSync(() => {
       for (const table of [
+        'entry_tags',
+        'comment_mentions',
         'roster',
         'users',
         'sessions',
@@ -210,6 +212,52 @@ describe('leaderboard dates, exact ratios and defensive targets', () => {
   });
 });
 describe('batched statistics and indexed read paths', () => {
+  it('hydrates tags and mentions with constant query counts for one and many entries/comments', async () => {
+    const owner = await user('Owner');
+    const mate = await user('Mate');
+    const logged: { id: string }[] = [];
+    for (let i = 0; i < 12; i++) logged.push(await entry(owner, 1000));
+    await sql((storage) => {
+      for (const row of logged) {
+        storage.sql.exec('INSERT INTO entry_tags VALUES (?,?,?)', row.id, mate.user.id, NOW);
+        storage.sql.exec(
+          'INSERT INTO comments VALUES (?,?,?,?,?)',
+          row.id,
+          logged[0].id,
+          owner.user.id,
+          '@Mate',
+          NOW,
+        );
+        storage.sql.exec(
+          'INSERT INTO comment_mentions VALUES (?,?,?)',
+          row.id,
+          logged[0].id,
+          mate.user.id,
+        );
+      }
+      const traced = trace(storage);
+      const rows = listEntries(storage, owner.user.id, 'feed');
+      for (const size of [1, 12]) {
+        traced.queries.length = 0;
+        const hydrated = details(traced.storage, rows.slice(0, size), owner.user.id);
+        expect(hydrated).toHaveLength(size);
+        expect(hydrated.every((row) => row.tagged[0].id === mate.user.id)).toBe(true);
+        expect(traced.queries).toHaveLength(5);
+      }
+      traced.queries.length = 0;
+      expect(
+        comments(traced.storage, logged[0].id).every((row) => row.mentions[0].id === mate.user.id),
+      ).toBe(true);
+      expect(traced.queries).toHaveLength(3);
+      storage.sql.exec('DELETE FROM comments WHERE id!=?', logged[0].id);
+      traced.queries.length = 0;
+      expect(comments(traced.storage, logged[0].id)).toHaveLength(1);
+      expect(traced.queries).toHaveLength(3);
+      traced.queries.length = 0;
+      expect(comments(traced.storage, 'missing')).toEqual([]);
+      expect(traced.queries).toHaveLength(1);
+    });
+  });
   it('returns an empty leaderboard when no users are eligible', async () => {
     const owner = await user('Owner', 'admin');
     for (const metric of ['percent', 'meters', 'season']) {

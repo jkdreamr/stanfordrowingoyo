@@ -6,6 +6,7 @@ import { byId, toPublicUser } from '../db/users';
 import { audit } from '../db/audit';
 import { HttpError, json, noContent, readJson } from '../http';
 import { string } from '../validate';
+import { recipients, mentioned } from '../db/recipients';
 export function kudosUsers(ctx: Context) {
   const user = requireUser(ctx);
   return json(db.kudosUsers(ctx.storage, ctx.params.id, user.id));
@@ -34,8 +35,18 @@ export async function comment(ctx: Context) {
     body: string(body.body, 'Comment', 1, 1000, true),
     created_at: ctx.now.toISOString(),
   };
-  db.addComment(ctx.storage, comment, entry.user_id);
-  return json({ ...comment, author: toPublicUser(byId(ctx.storage, user.id)) }, 201);
+  const mentions = recipients(
+    ctx.storage,
+    body.mention_ids === undefined ? [] : body.mention_ids,
+    user.id,
+  ).filter((user) => mentioned(comment.body, user.name));
+  db.addComment(
+    ctx.storage,
+    comment,
+    entry.user_id,
+    mentions.map((user) => user.id),
+  );
+  return json({ ...comment, mentions, author: toPublicUser(byId(ctx.storage, user.id)) }, 201);
 }
 export function removeComment(ctx: Context) {
   const user = requireUser(ctx);

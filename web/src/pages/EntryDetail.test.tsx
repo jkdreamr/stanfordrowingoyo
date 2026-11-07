@@ -68,7 +68,7 @@ function setup(scope: 'home' | 'other' | 'missing' = 'home') {
       </ToastProvider>
     </QueryClientProvider>,
   );
-  return { entry, router, client };
+  return { entry, router, client, mock };
 }
 it('keeps Home rows linked to detail and reaches a prefilled own-session editor', async () => {
   const { entry, router } = setup();
@@ -96,3 +96,31 @@ for (const scope of ['other', 'missing'] as const) {
     expect(screen.queryByRole('button', { name: 'More' })).toBeNull();
   });
 }
+
+it('opens the With sheet and inserts, posts and links selected mentions', async () => {
+  const { mock, router } = setup();
+  await screen.findByText('Evening Erg');
+  await router.navigate(
+    '/entries/' + mock.state.entries.find((e) => e.title === 'Evening Erg')!.id,
+  );
+  fireEvent.click(await screen.findByRole('button', { name: 'with Kannan Alford and 2 others' }));
+  expect((await screen.findByRole('link', { name: 'Kannan Alford' })).getAttribute('href')).toBe(
+    '/users/user-36',
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+  const composer = await screen.findByRole('combobox', { name: 'Comment' });
+  fireEvent.change(composer, { target: { value: '@Kan', selectionStart: 4 } });
+  await screen.findByRole('option', { name: 'Kannan Alford' });
+  fireEvent.keyDown(composer, { key: 'ArrowDown' });
+  fireEvent.keyDown(composer, { key: 'ArrowUp' });
+  fireEvent.keyDown(composer, { key: 'Escape' });
+  expect(screen.queryByRole('listbox')).toBeNull();
+  fireEvent.change(composer, { target: { value: '@Kanna', selectionStart: 6 } });
+  fireEvent.keyDown(composer, { key: 'Enter' });
+  expect((composer as HTMLTextAreaElement).value).toBe('@Kannan Alford ');
+  fireEvent.click(screen.getByRole('button', { name: 'Post Comment' }));
+  const link = await screen.findByRole('link', { name: '@Kannan Alford' });
+  expect(link.getAttribute('href')).toBe('/users/user-36');
+  const posted = mock.state.comments.at(-1)!;
+  expect(mock.state.mentions[posted.id]).toEqual(['user-36']);
+});

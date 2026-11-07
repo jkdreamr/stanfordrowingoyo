@@ -21,7 +21,15 @@ describe('query keys', () => {
     expect(qk.entries('mine')).not.toEqual(qk.entries('feed'));
     expect(qk.comments('one')).not.toEqual(qk.comments('two'));
     expect(invalidationKeys('PUT /api/me/target')).toContainEqual(qk.root('stats'));
-    for (const resource of ['me', 'config', 'stats', 'leaderboard', 'users'])
+    for (const resource of [
+      'me',
+      'config',
+      'stats',
+      'leaderboard',
+      'users',
+      'entries',
+      'notifications',
+    ])
       expect(invalidationKeys('PATCH /api/me')).toContainEqual(qk.root(resource));
     expect(invalidationKeys('POST /api/admin/roster/:id/unlink')).toContainEqual(qk.root('users'));
     expect(invalidationKeys('POST /api/admin/roster/:id/unlink')).toContainEqual(qk.root('admin'));

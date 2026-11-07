@@ -127,8 +127,7 @@ export default function Page() {
         <TodaysPlan today={config.today} />
         {!week.hit_target && (
           <Card>
-            <h2 className="text-headline">How to Finish Your Week</h2>
-            <p className="mt-2 text-footnote text-muted">Choose one, or mix your sessions</p>
+            <h2 className="text-headline">Finish This Week</h2>
             <div className="mt-3">
               {finishWeek(week.total_m, week.target_m, config).map((s) => (
                 <div key={s.modality} className="finish-row">
@@ -187,7 +186,6 @@ export default function Page() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title="No Sessions Yet"
-              body="Your extra work starts here"
               action={<Button to="/log">Log Session</Button>}
             />
           )}

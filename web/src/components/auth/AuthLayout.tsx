@@ -29,7 +29,7 @@ export function AuthFrame({
   action,
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   children: ReactNode;
   leading?: ReactNode;
   action?: ReactNode;
@@ -75,7 +75,7 @@ export function AuthFrame({
           {leading && <div className="mb-4">{leading}</div>}
           <BrandMark />
           <h1 className="mt-6 text-title1">{title}</h1>
-          <p className="mt-3 text-callout text-muted">{subtitle}</p>
+          {subtitle && <p className="mt-3 text-callout text-muted">{subtitle}</p>}
         </header>
         {children}
       </div>

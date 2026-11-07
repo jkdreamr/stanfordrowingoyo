@@ -25,13 +25,10 @@ test('admin changes a rower role persistently', async ({ adminPage, makeRower })
 test('rower cannot enter Admin', async ({ makeRower }) => {
   const { page } = await makeRower();
   await page.goto('/admin');
-  await expect(async () => {
-    const redirected = new URL(page.url()).pathname !== '/admin';
-    const forbidden = await page.getByText(/forbidden|access denied|not authorized/i).isVisible();
-    expect(redirected || forbidden).toBe(true);
-  }).toPass();
+  await expect(page.getByRole('heading', { name: 'Staff Only', exact: true })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Back To Home' })).toHaveAttribute('href', '/');
   await page.goto('/admin/roster');
-  await expect(page.getByText(/not authorized/i)).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Staff Only', exact: true })).toBeVisible();
 });
 
 test('staff manages roster names, CSV and claimed accounts', async ({ adminPage, makeRower }) => {
@@ -179,7 +176,7 @@ test('staff moderates another rower comment without deleting the workout', async
   const entry = await seedEntry(author, title);
   const body = `Comment to moderate ${commenter.user.id}`;
   await commenter.page.goto(`/entries/${entry.id}`);
-  await commenter.page.getByRole('textbox', { name: 'Comment', exact: true }).fill(body);
+  await commenter.page.getByRole('combobox', { name: 'Comment', exact: true }).fill(body);
   await commenter.page.getByRole('button', { name: 'Post Comment', exact: true }).click();
   await expect(commenter.page.getByText(body, { exact: true })).toBeVisible();
 
