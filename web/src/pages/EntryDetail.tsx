@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Activity, MoreHorizontal, Share2 } from 'lucide-react';
+import { Activity, MessageCircle, MoreHorizontal, Share2 } from 'lucide-react';
 import {
   useComments,
   useConfig,
@@ -113,7 +113,6 @@ export default function EntryDetail() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title="Workout Not Found"
-              body="This workout is unavailable"
               action={<Button to="/feed">Back To Feed</Button>}
             />
           ) : (
@@ -146,7 +145,7 @@ export default function EntryDetail() {
                   Loading discussion
                 </p>
               ) : comments.data.length === 0 ? (
-                <p className="mb-6 text-subhead text-muted">No Comments Yet</p>
+                <EmptyState icon={<MessageCircle size={20} />} title="No Comments Yet" />
               ) : (
                 <ul className="mb-6 divide-y divide-divider">
                   {comments.data.map((comment) => (

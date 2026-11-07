@@ -105,6 +105,7 @@ async function setup(
 }
 it('starts blank, adds and edits a session with live totals, then deletes it', async () => {
   const { mock } = await setup();
+  fireEvent.click(await screen.findByRole('button', { name: 'Start Plan' }));
   fireEvent.click(await screen.findByRole('button', { name: 'Start Blank' }));
   fireEvent.click(await screen.findByRole('button', { name: 'Add Session Monday Week 1' }));
   const sheet = screen.getByRole('dialog', { name: 'Add Session' });
@@ -182,6 +183,7 @@ it('shows the upcoming plan instead of empty controls', async () => {
 });
 it('offers the just-ended fortnight and repeats into this week', async () => {
   const { mock } = await setup({ seed: 'previous' });
+  fireEvent.click(await screen.findByRole('button', { name: 'Start Plan' }));
   fireEvent.click(await screen.findByRole('button', { name: 'Repeat Fortnight' }));
   await screen.findByText('Nov 2 – Nov 15');
   expect(mock.state.myPlans.at(-1)).toMatchObject({
@@ -195,7 +197,7 @@ it('deletes a plan only after confirmation', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Delete Plan' }));
   expect(mock.state.myPlans).toHaveLength(1);
   fireEvent.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Delete Plan' }));
-  await screen.findByRole('button', { name: 'Start Blank' });
+  await screen.findByRole('button', { name: 'Start Plan' });
   expect(mock.state.myPlans).toHaveLength(0);
 });
 it('optimistically updates every matching date query, rolls back on 409 and retains the sheet draft', async () => {
@@ -265,14 +267,14 @@ it('links to both fortnights from Home without a current plan', async () => {
   expect(screen.getByRole('heading', { name: "Today's Plan" })).toBeTruthy();
   expect(screen.getByRole('link', { name: 'Sample Fortnight' }).getAttribute('href')).toBe('/plan');
   fireEvent.click(screen.getByRole('link', { name: 'My Fortnight' }));
-  expect(await screen.findByRole('button', { name: 'Start Blank' })).toBeTruthy();
+  expect(await screen.findByRole('button', { name: 'Start Plan' })).toBeTruthy();
 });
 it('shows Nothing Planned or Rest Day with the My Fortnight link', async () => {
   const { call, client } = await setup({ home: true });
   await waitFor(() => expect(client.getQueryData(qk.myPlan())).toBeNull());
   await call('/api/me/plan', 'PUT', { start_date: '2026-11-02', sessions: [], rest_days: [] });
   await client.invalidateQueries({ queryKey: qk.myPlans() });
-  expect((await screen.findByRole('link', { name: 'Nothing Planned' })).getAttribute('href')).toBe(
+  expect((await screen.findByRole('link', { name: 'Edit Plan' })).getAttribute('href')).toBe(
     '/plan?tab=mine',
   );
   await call('/api/me/plan', 'PUT', {

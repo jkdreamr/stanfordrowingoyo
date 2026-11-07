@@ -116,12 +116,12 @@ it('hides navigation for a single photo or empty image list', () => {
   rerender(<PhotoViewer images={[]} index={0} alt="Training" onClose={() => {}} />);
   expect(screen.getByRole('status').textContent).toBe('0 of 0');
 });
-function touch(target: Element, phase: string, y: number, count = 1) {
+function touch(target: Element, phase: string, y: number, count = 1, x = 0) {
   fireEvent(
     target,
     new TouchEvent(phase, {
       bubbles: true,
-      touches: Array.from({ length: count }, () => ({ clientX: 0, clientY: y })) as Touch[],
+      touches: Array.from({ length: count }, () => ({ clientX: x, clientY: y })) as Touch[],
     }),
   );
 }
@@ -150,6 +150,34 @@ it('refreshes exactly once per armed release and announces completion', async ()
   expect(refresh).toHaveBeenCalledTimes(1);
   await act(async () => done());
   expect(screen.getByRole('status').textContent).toBe('Feed updated');
+});
+it('ignores horizontal swipes, cancelled gestures, scroll and dialogs opened mid-pull', () => {
+  const refresh = vi.fn().mockResolvedValue(undefined);
+  render(
+    <PullToRefresh onRefresh={refresh} label="Leaderboard">
+      <button>Week</button>
+      <dialog>Options</dialog>
+    </PullToRefresh>,
+  );
+  const root = screen.getByRole('button', { name: 'Week' });
+  touch(root, 'touchstart', 0);
+  touch(root, 'touchmove', 20, 1, 100);
+  touch(root, 'touchmove', 160);
+  touch(root, 'touchend', 160, 0);
+  touch(root, 'touchstart', 0);
+  touch(root, 'touchmove', 160);
+  touch(root, 'touchcancel', 160, 0);
+  touch(root, 'touchend', 160, 0);
+  vi.spyOn(window, 'scrollY', 'get').mockReturnValue(10);
+  touch(root, 'touchstart', 0);
+  touch(root, 'touchmove', 160);
+  touch(root, 'touchend', 160, 0);
+  vi.spyOn(window, 'scrollY', 'get').mockReturnValue(0);
+  touch(root, 'touchstart', 0);
+  touch(root, 'touchmove', 160);
+  document.querySelector('dialog')!.setAttribute('open', '');
+  touch(root, 'touchend', 160, 0);
+  expect(refresh).not.toHaveBeenCalled();
 });
 it('ignores short pulls, input starts, multiple fingers and open dialogs; failure can retry', async () => {
   const refresh = vi.fn().mockRejectedValueOnce(new Error('offline')).mockResolvedValue(undefined);

@@ -3,7 +3,7 @@ import { ThumbsUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { EntryDetail } from '../../../../shared/types';
 import { useKudos, useKudosGivers } from '../../lib/queries';
-import { Avatar, Button, ListGroup, Sheet, Skeleton, useToast } from '../ui';
+import { Avatar, Button, EmptyState, ListGroup, Sheet, Skeleton, useToast } from '../ui';
 
 export function KudosButton({ entry }: { entry: EntryDetail }) {
   const mutation = useKudos();
@@ -84,7 +84,7 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
               </Button>
             </div>
           ) : !givers.data?.length ? (
-            <p className="py-4 text-subhead text-muted">No Kudos Yet</p>
+            <EmptyState icon={<ThumbsUp size={20} />} title="No Kudos Yet" />
           ) : (
             <ListGroup>
               {givers.data.map((user) => (

@@ -1,7 +1,7 @@
 import { Megaphone, Pin } from 'lucide-react';
 import { useAnnouncements } from '../lib/queries';
 import { formatEntryDate } from '../lib/format';
-import { Card, EmptyState, PageHeader } from '../components/ui';
+import { Button, Card, EmptyState, PageHeader } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 
 export default function Announcements() {
@@ -21,6 +21,7 @@ export default function Announcements() {
           <EmptyState
             icon={<Megaphone size={20} strokeWidth={1.75} />}
             title="No Announcements Yet"
+            action={<Button to="/feed">Open Feed</Button>}
           />
         ) : (
           announcements.map((announcement) => (

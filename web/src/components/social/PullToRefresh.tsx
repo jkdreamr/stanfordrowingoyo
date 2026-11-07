@@ -4,9 +4,13 @@ import { RefreshCw } from 'lucide-react';
 export function PullToRefresh({
   onRefresh,
   children,
+  label = 'Feed',
+  className,
 }: {
   onRefresh: () => Promise<unknown>;
   children: ReactNode;
+  label?: string;
+  className?: string;
 }) {
   const root = useRef<HTMLDivElement>(null);
   const refresh = useRef(onRefresh);
@@ -38,7 +42,11 @@ export function PullToRefresh({
     };
     const move = (e: TouchEvent) => {
       if (!start) return;
-      if (e.touches.length !== 1 || window.scrollY !== 0) {
+      if (
+        e.touches.length !== 1 ||
+        window.scrollY !== 0 ||
+        document.querySelector('dialog[open]')
+      ) {
         reset();
         return;
       }
@@ -54,7 +62,8 @@ export function PullToRefresh({
       }
     };
     const end = () => {
-      const armed = distance >= 56;
+      const armed =
+        distance >= 56 && window.scrollY === 0 && !document.querySelector('dialog[open]');
       reset();
       if (!armed || pending) return;
       pending = true;
@@ -81,20 +90,18 @@ export function PullToRefresh({
     };
   }, []);
   return (
-    <div ref={root}>
+    <div ref={root} className={className}>
       <div className="social-refresh-slot">
         <span
           className="social-refresh-indicator"
           style={{ transform: `translateY(${offset}px)`, opacity: offset || busy ? 1 : 0 }}
         >
           <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
-          <span className="sr-only">
-            {busy ? 'Refreshing feed' : offset >= 56 ? 'Release to refresh' : 'Pull to refresh'}
-          </span>
+          <span className="sr-only">{offset >= 56 ? 'Release to refresh' : 'Pull to refresh'}</span>
         </span>
       </div>
       <span role="status" className="sr-only">
-        {updated ? 'Feed updated' : ''}
+        {busy ? `Refreshing ${label.toLowerCase()}` : updated ? `${label} updated` : ''}
       </span>
       {children}
     </div>

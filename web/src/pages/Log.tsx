@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Users } from 'lucide-react';
+import { Activity, Users } from 'lucide-react';
 import { TeammatePicker } from '../components/social/TeammatePicker';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { addDays } from '../../../shared/dates';
@@ -32,6 +32,7 @@ import {
   Card,
   ConfirmSheet,
   Disclosure,
+  EmptyState,
   ListGroup,
   ListRow,
   NumberField,
@@ -480,9 +481,18 @@ function LogForm({
           {!config.presets.some(
             (p) => p.active && p.modality === draft.modality && (allZones || p.zone === draft.zone),
           ) && (
-            <p className="text-subhead text-muted">
-              No workouts in this zone. Show all zones or enter a distance
-            </p>
+            <EmptyState
+              icon={<Activity size={20} />}
+              title="No Workouts In This Zone"
+              action={
+                <Button
+                  variant="secondary"
+                  onClick={() => (allZones ? setMenu(false) : setAllZones(true))}
+                >
+                  {allZones ? 'Enter Distance' : 'Show All Zones'}
+                </Button>
+              }
+            />
           )}
         </div>
       </Sheet>

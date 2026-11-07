@@ -29,7 +29,10 @@ import { ModalityIcon } from '../components/shell/ModalityIcon';
 import { TodaysPlan } from '../components/plan/TodaysPlan';
 import { LastWeekRecap } from '../components/LastWeekRecap';
 import { TeamChallenges } from '../components/TeamChallenges';
+import { PullToRefresh } from '../components/social/PullToRefresh';
+import { useRefreshVisible } from '../lib/useRefreshVisible';
 export default function Page() {
+  const refresh = useRefreshVisible();
   const { data: user } = useMe();
   const { data: target } = useTarget();
   const configQuery = useConfig();
@@ -83,7 +86,11 @@ export default function Page() {
   return (
     <>
       <PageHeader title="This Week" trailing={<HeaderActions settings />} />
-      <div className="screen-stack">
+      <PullToRefresh
+        label="Home"
+        onRefresh={refresh}
+        className="screen-stack relative [&>.social-refresh-slot]:absolute [&>.social-refresh-slot]:inset-x-0 [&>.social-refresh-slot]:top-0"
+      >
         {user && <LastWeekRecap user={user} config={config} />}
         <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
           <div className="flex justify-center">
@@ -193,7 +200,7 @@ export default function Page() {
             <EmptyState
               icon={<Activity size={20} strokeWidth={1.75} />}
               title="No Sessions Yet"
-              action={<Button to="/log">Log Session</Button>}
+              action={<Button to="/log">Log Workout</Button>}
             />
           )}
         </section>
@@ -213,7 +220,7 @@ export default function Page() {
             </div>
           </section>
         )}
-      </div>
+      </PullToRefresh>
     </>
   );
 }

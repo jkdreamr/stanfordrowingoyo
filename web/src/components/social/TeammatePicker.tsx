@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Check, CircleX } from 'lucide-react';
+import { Check, CircleX, Users } from 'lucide-react';
 import type { PublicUser } from '../../../../shared/types';
 import { useUsers } from '../../lib/queries';
 import { normalizeName } from '../../lib/social';
-import { Avatar, Button, ListGroup, Sheet, TextField } from '../ui';
+import { Avatar, Button, EmptyState, ListGroup, Sheet, TextField } from '../ui';
 import { LoadState } from '../shell/LoadState';
 
 export function TeammatePicker({
@@ -61,7 +61,17 @@ export function TeammatePicker({
         {!users.data ? (
           <LoadState error={users.isError} retry={() => void users.refetch()} />
         ) : !matches.length ? (
-          <p className="py-4 text-subhead text-muted">No Teammates Found</p>
+          <EmptyState
+            icon={<Users size={20} />}
+            title="No Teammates Found"
+            action={
+              search ? (
+                <Button variant="secondary" onClick={() => setSearch('')}>
+                  Clear Search
+                </Button>
+              ) : undefined
+            }
+          />
         ) : (
           <ListGroup>
             {matches.map((u) => {

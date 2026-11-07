@@ -151,20 +151,23 @@ export default function Roster() {
           <EmptyState
             icon={<Users size={20} strokeWidth={1.75} />}
             title={people.length ? 'No Matching People' : 'No Names Yet'}
-            body={people.length ? 'Try another name or filter.' : undefined}
             action={
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  setSearch('');
-                  setRole('all');
-                  setGroup('all');
-                  setStatus('all');
-                  setClaimed('all');
-                }}
-              >
-                Show Everyone
-              </Button>
+              people.length ? (
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setSearch('');
+                    setRole('all');
+                    setGroup('all');
+                    setStatus('all');
+                    setClaimed('all');
+                  }}
+                >
+                  Show Everyone
+                </Button>
+              ) : (
+                <Button onClick={() => setAdd(true)}>Add Name</Button>
+              )
             }
           />
         )}
