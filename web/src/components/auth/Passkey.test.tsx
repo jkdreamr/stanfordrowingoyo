@@ -138,7 +138,7 @@ function setup(path: string, mock = createMockApi({ session: null })) {
       </ThemeProvider>
     </QueryClientProvider>,
   );
-  return { mock, router };
+  return { mock, router, client };
 }
 async function mockWithPasskey(id = 'cred-1') {
   const mock = createMockApi({ session: 'user-1' });
@@ -197,13 +197,20 @@ describe('passkey login', () => {
 
 describe('passkey enrollment', () => {
   it('offers setup once after a password login', async () => {
-    const { mock } = setup('/login');
+    const { mock, client } = setup('/login');
+    const clear = client.clear.bind(client);
+    const clearSpy = vi.spyOn(client, 'clear').mockImplementation(() => {
+      expect(sessionStorage.getItem('oyo.passkey-offer')).toBe('1');
+      clear();
+    });
     fireEvent.change(await screen.findByLabelText('Email'), {
       target: { value: mock.state.users[0].email },
     });
     fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'password' } });
     fireEvent.click(screen.getByRole('button', { name: 'Log In' }));
     const dialog = await screen.findByRole('dialog', { name: 'Log In with Passkey?' });
+    expect(clearSpy).toHaveBeenCalledOnce();
+    clearSpy.mockRestore();
     credentials.create.mockResolvedValue(attestation('cred-new'));
     fireEvent.click(within(dialog).getByRole('button', { name: 'Turn On' }));
     expect(await screen.findByText('Passkey is on')).toBeTruthy();

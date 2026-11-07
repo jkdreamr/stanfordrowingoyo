@@ -1,6 +1,6 @@
 import type { Locator, Page } from '@playwright/test';
 import { test, expect } from './fixtures';
-import { seedEntry } from './helpers';
+import { seedEntry, waitForSplash } from './helpers';
 
 test.use({ serviceWorkers: 'block' });
 
@@ -54,6 +54,7 @@ test('hold and drag scrubs Me and teammate mileage without claiming a quick swip
   await seedEntry(rower, 'Touch chart erg', 10000);
   for (const page of [rower.page, adminPage]) {
     await page.goto(page === rower.page ? '/me' : `/users/${rower.user.id}`);
+    await waitForSplash(page);
     const region = page.getByRole('region', { name: 'Season Mileage' });
     const plot = region.getByRole('img', { name: /^Cumulative E-meters/ });
     await expect(plot).toBeVisible();

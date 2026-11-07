@@ -20,6 +20,7 @@ import { api, ApiClientError, type RequestOptions } from './api';
 import { useToast } from '../components/ui/Toast';
 import { covers, personalPlan } from './myPlan';
 import { clearLogDrafts } from './logDraftStore';
+import { markPasskeyOffer } from './passkeys';
 type Get = Extract<keyof Api, `GET ${string}`>;
 type Write = Exclude<keyof Api, Get>;
 type Query<K extends keyof Api> = Api[K]['query'];
@@ -348,6 +349,8 @@ function mutationHook<K extends Write>(endpoint: K) {
         if (endpoint === 'POST /api/auth/roster' || endpoint === 'POST /api/auth/passkey/options')
           return;
         if (endpoint.includes('/auth/')) {
+          if (endpoint === 'POST /api/auth/login' && !(data as User).must_change_password)
+            markPasskeyOffer();
           client.clear();
           if (endpoint === 'POST /api/auth/logout') client.setQueryData(qk.me(), null);
           return;

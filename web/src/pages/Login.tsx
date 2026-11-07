@@ -8,7 +8,7 @@ import { PasswordField } from '../components/auth/PasswordField';
 import { AuthFrame } from '../components/auth/AuthLayout';
 import { FormErrors } from '../components/auth/FormErrors';
 import { PasskeyIcon } from '../components/auth/PasskeyIcon';
-import { biometricLabel, markPasskeyOffer } from '../lib/passkeys';
+import { biometricLabel } from '../lib/passkeys';
 import { usePasskeySignIn } from '../lib/usePasskeyLogin';
 export default function Login() {
   const mutation = useLogin();
@@ -43,7 +43,6 @@ export default function Login() {
     if (Object.keys(errors).length) return;
     try {
       const user = await mutation.mutateAsync({ body: { email, password } });
-      if (!user.must_change_password) markPasskeyOffer();
       go(user);
     } catch (error) {
       setMessage(authError(error));
