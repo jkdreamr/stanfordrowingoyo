@@ -150,6 +150,7 @@ export function ProfilePhotoCrop({
         <div
           ref={viewport}
           className="profile-photo-viewport"
+          data-no-tab-swipe
           role="group"
           aria-label="Photo crop. Use arrow keys to move the photo"
           tabIndex={0}

@@ -1130,6 +1130,11 @@ main h1[tabindex='-1']:focus {
   min-height: 100dvh;
   padding-top: env(safe-area-inset-top);
 }
+@media (max-width: 1023.98px) {
+  .app-shell {
+    overflow-x: clip;
+  }
+}
 .shell-content {
   min-width: 0;
   max-width: 720px;
