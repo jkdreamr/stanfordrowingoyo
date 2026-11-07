@@ -149,7 +149,7 @@ describe('entries and images', () => {
       expect(
         storage.sql.exec("SELECT value_json FROM settings WHERE key='schema_version'").one()
           .value_json,
-      ).toBe('9');
+      ).toBe('10');
     });
   });
   it('creates, reads, updates and deletes entries with public authors and factor snapshots', async () => {
@@ -350,7 +350,7 @@ describe('entries and images', () => {
             "SELECT value_json FROM settings WHERE key='schema_version'",
           )
           .one().value_json,
-      ).toBe('9');
+      ).toBe('10');
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray()).toEqual(rows);
     });
