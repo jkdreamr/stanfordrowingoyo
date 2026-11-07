@@ -19,7 +19,7 @@ export function WithTeammates({ users = [] }: { users: PublicUser[] }) {
           {users.slice(0, 3).map((u) => (
             <span
               key={u.id}
-              className="rounded-full ring-2 ring-surface [&>.ui-avatar]:!h-6 [&>.ui-avatar]:!w-6 [&>.ui-avatar]:!text-[10px]"
+              className="rounded-full ring-2 ring-surface [&>.ui-avatar]:!h-6 [&>.ui-avatar]:!w-6 [&>.ui-avatar]:!text-[12px]"
             >
               <Avatar name={u.name} imageId={u.avatar_image_id} size="sm" />
             </span>

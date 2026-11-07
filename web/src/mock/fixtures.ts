@@ -228,7 +228,7 @@ export function createFixtures(now = new Date()) {
       );
     });
   }
-  for (const entry of entries.filter((e) => e.visibility === 'team' && e.date >= currentWeek)) {
+  for (const entry of entries.filter((e) => e.date >= currentWeek)) {
     tags[entry.id] = ['user-36', 'user-37', 'user-2']
       .map((id) => users.find((u) => u.id === id)!)
       .filter((u) => u.id !== entry.user_id)

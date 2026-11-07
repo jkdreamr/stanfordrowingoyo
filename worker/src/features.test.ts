@@ -135,6 +135,21 @@ beforeEach(async () => {
   );
 });
 describe('entries and images', () => {
+  it('upgrades v6 databases with idempotent tag and mention tables', async () => {
+    await sql((storage) => {
+      storage.sql.exec('DROP TABLE entry_tags');
+      storage.sql.exec('DROP TABLE comment_mentions');
+      setSetting(storage, 'schema_version', 6);
+      migrate(storage);
+      migrate(storage);
+      expect(storage.sql.exec('SELECT * FROM entry_tags').toArray()).toEqual([]);
+      expect(storage.sql.exec('SELECT * FROM comment_mentions').toArray()).toEqual([]);
+      expect(
+        storage.sql.exec("SELECT value_json FROM settings WHERE key='schema_version'").one()
+          .value_json,
+      ).toBe('7');
+    });
+  });
   it('creates, reads, updates and deletes entries with public authors and factor snapshots', async () => {
     const owner = await user('Owner');
     const created = await entry(owner, {
@@ -333,7 +348,7 @@ describe('entries and images', () => {
             "SELECT value_json FROM settings WHERE key='schema_version'",
           )
           .one().value_json,
-      ).toBe('6');
+      ).toBe('7');
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray()).toEqual(rows);
     });

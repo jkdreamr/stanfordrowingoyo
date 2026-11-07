@@ -153,7 +153,7 @@ it('sends valid tag IDs and full-name mention bodies from authenticated load use
   await vi.runAllTimersAsync();
   expect(await pending).toBe(0);
   const bodies = fetcher.mock.calls
-    .filter(([, init]) => init.method === 'POST')
+    .filter(([, init]) => init.method === 'POST' && typeof init.body === 'string')
     .map(([url, init]) => ({ url, body: JSON.parse(init.body as string) }));
   const tags = bodies.filter(({ body }) => body.tagged_user_ids?.length);
   expect(tags.length).toBeGreaterThan(0);
