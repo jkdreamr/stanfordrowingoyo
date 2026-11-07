@@ -11,6 +11,7 @@ import {
   presetMeters,
 } from './content';
 import { auditEntry } from './audit';
+import { humanizeAction } from './operations';
 import { generateJoinCode, JOIN_ALPHABET } from './joinCode';
 const preset: Preset = {
   id: 'a',
@@ -107,6 +108,7 @@ describe('human audit records', () => {
   it.each([
     ['entry.delete', { title: 'QA bike D 12k' }, null, 'deleted the workout “QA bike D 12k”'],
     ['entry.delete', null, null, 'deleted a workout'],
+    ['user.remove', null, null, 'permanently removed a rower account'],
     [
       'entry.update',
       { title: 'QA bike D 12k' },
@@ -142,6 +144,7 @@ describe('human audit records', () => {
     'entries.recalculate',
     'user.reset-password',
     'user.update',
+    'user.remove',
     'roster.create',
     'roster.update',
     'roster.delete',
@@ -183,6 +186,20 @@ describe('human audit records', () => {
       { action, target, detail_json: JSON.stringify({ before, after }) },
       new Map([['person', 'Maya Chen']]),
     );
+  it('describes removal counts without restoring a deleted person’s name or email', () => {
+    const result = summarize(
+      'user.remove',
+      { role: 'rower', active: true },
+      {
+        removed: { workouts: 2, images: 1, comments: 1, kudos: 3, plans: 1, weekly_targets: 0 },
+      },
+    );
+    expect(result).toEqual({
+      sentence: 'permanently removed a rower account',
+      changes: ['2 workouts', '1 photo', '1 comment', '3 kudos', '1 private plan'],
+    });
+    expect(humanizeAction('user.remove')).toBe('Removed Account');
+  });
   it('uses resolved names and real before/after changes, not metadata or secrets', () => {
     const result = summarize(
       'user.update',

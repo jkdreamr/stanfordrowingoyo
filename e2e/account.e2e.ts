@@ -69,6 +69,16 @@ test('admin confirms permanent rower removal and linked content disappears', asy
   const teammate = await makeRower();
   const own = await seedEntry(rower, `Remove ${rower.user.id}`);
   const other = await seedEntry(teammate, `Keep ${teammate.user.id}`);
+  await expect(
+    await rower.context.request.put('/api/me/plan', {
+      headers: csrfHeaders,
+      data: {
+        start_date: mondayOf(teamToday()),
+        rest_days: [],
+        sessions: [],
+      },
+    }),
+  ).toBeOK();
   const comment = `Remove Comment ${rower.user.id}`;
   await expect(
     await rower.context.request.post(`/api/entries/${other.id}/comments`, {
@@ -150,6 +160,11 @@ test('admin confirms permanent rower removal and linked content disappears', asy
     ]),
   );
   expect(JSON.stringify(audit)).not.toContain(rower.user.email);
+  await adminPage.goto('/admin/audit');
+  await expect(adminPage.getByText(/permanently removed a rower account/).first()).toBeVisible();
+  await expect(
+    adminPage.getByText(/1 workout.*1 comment.*1 kudos.*1 private plan/).first(),
+  ).toBeVisible();
 });
 
 test('signup intro completes once across devices and can reopen from Settings', async ({
