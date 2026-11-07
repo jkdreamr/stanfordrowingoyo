@@ -1,4 +1,5 @@
 import type { Modality, Zone } from './types';
+export const PLAN_COMPLETION_RATIO = 0.8;
 export const MODE_FACTORS: Record<Modality, number> = { erg: 1, bike: 1 / 3, run: 1.25 };
 export const ZONE_FACTORS: Record<Zone, number> = {
   R: 0.8,

@@ -12,6 +12,7 @@ export function Avatar({
   size?: 'sm' | 'md' | 'lg' | 'feed';
 }) {
   const [failed, setFailed] = useState<string | null>(null);
+  const image = src || imageId;
   const initials =
     name
       .trim()
@@ -28,10 +29,10 @@ export function Avatar({
       className={`ui-avatar ui-avatar-${size}`}
       style={{ backgroundColor: `hsl(240 5% ${80 + (hash % 10)}%)` }}
     >
-      {src ? (
-        <img src={src} alt="" />
-      ) : imageId && failed !== imageId ? (
-        <ApiImage imageId={imageId} alt="" onError={() => setFailed(imageId)} />
+      {src && failed !== src ? (
+        <img src={src} alt="" onError={() => setFailed(src)} />
+      ) : !src && image && failed !== image ? (
+        <ApiImage imageId={image} alt="" onError={() => setFailed(image)} />
       ) : (
         initials
       )}

@@ -1,6 +1,6 @@
 import type { MyPlan, MyPlanInput, MyPlanSessionInput, Settings } from '../../../shared/types';
 import { addDays } from '../../../shared/dates';
-import { equivalentMeters } from '../../../shared/math';
+import { equivalentMeters, PLAN_COMPLETION_RATIO } from '../../../shared/math';
 import { getSettings } from './settings';
 import type { Row } from './row';
 import { HttpError } from '../http';
@@ -14,6 +14,7 @@ interface CompletionEntry {
   id: string;
   date: string;
   modality: string;
+  equiv_m: number;
 }
 export function getMyPlan(
   storage: DurableObjectStorage,
@@ -38,7 +39,7 @@ export function getMyPlan(
     .toArray();
   const entries = storage.sql
     .exec<Row<CompletionEntry>>(
-      'SELECT id, date, modality FROM entries WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY created_at, id',
+      'SELECT id, date, modality, equiv_m FROM entries WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY created_at, id',
       userId,
       row.start_date,
       addDays(row.start_date, 13),
@@ -52,11 +53,11 @@ function buildPlan(
   entries: Row<CompletionEntry>[],
   settings: Settings,
 ): MyPlan {
-  const available = new Map<string, string[]>();
+  const available = new Map<string, Row<CompletionEntry>[]>();
   for (const entry of entries) {
     const key = `${entry.date}|${entry.modality}`;
     const matches = available.get(key) ?? [];
-    matches.push(entry.id);
+    matches.push(entry);
     available.set(key, matches);
   }
   const planned_m: [number, number] = [0, 0];
@@ -78,10 +79,14 @@ function buildPlan(
             );
       planned_m[session.week - 1] += equiv_m ?? 0;
       const date = addDays(row.start_date, (session.week - 1) * 7 + session.day);
+      const matches = available.get(`${date}|${session.modality}`) ?? [];
+      const match = matches.findIndex(
+        (entry) => equiv_m === null || entry.equiv_m >= PLAN_COMPLETION_RATIO * equiv_m,
+      );
       return {
         ...session,
         equiv_m,
-        completed_entry_id: available.get(`${date}|${session.modality}`)?.shift() ?? null,
+        completed_entry_id: match < 0 ? null : matches.splice(match, 1)[0].id,
       };
     }),
   };
@@ -103,7 +108,7 @@ export function allMyPlans(storage: DurableObjectStorage, userId: string): MyPla
     .toArray();
   const entries = storage.sql
     .exec<Row<CompletionEntry>>(
-      'SELECT id, date, modality FROM entries WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY created_at, id',
+      'SELECT id, date, modality, equiv_m FROM entries WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY created_at, id',
       userId,
       rows[0].start_date,
       addDays(rows[rows.length - 1].start_date, 13),

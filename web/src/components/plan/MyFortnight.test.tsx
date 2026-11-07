@@ -215,6 +215,47 @@ it('optimistically updates every matching date query, rolls back on 409 and reta
   expect(client.getQueryData(qk.myPlan('2026-11-03'))).toEqual(before);
   expect((screen.getByLabelText('Meters') as HTMLInputElement).value).toBe('6000');
 });
+it.each(['Meters', 'Note'])(
+  'keeps optimistic completion consistent when editing %s',
+  async (field) => {
+    const { client, call, release } = await setup({ seed: 'current', failWrite: true });
+    await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
+    const entry = await (
+      await call('/api/entries', 'POST', {
+        date: '2026-11-02',
+        modality: 'erg',
+        zone: 'E',
+        distance_m: 12000,
+        title: 'Steady',
+        notes: '',
+      })
+    ).json();
+    await client.invalidateQueries({ queryKey: qk.myPlans() });
+    await screen.findByRole('link', { name: 'View Completed AM Monday Week 1' });
+    fireEvent.click(screen.getByRole('button', { name: 'Edit AM Monday Week 1' }));
+    fireEvent.change(screen.getByLabelText(field), {
+      target: { value: field === 'Meters' ? '24000' : 'New note' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await waitFor(() =>
+      expect(client.getQueryData(qk.myPlan())).toMatchObject({
+        sessions: [
+          {
+            note: field === 'Meters' ? 'Steady Row' : 'New note',
+            distance_m: field === 'Meters' ? 24000 : 12000,
+            completed_entry_id: field === 'Meters' ? null : entry.id,
+          },
+        ],
+      }),
+    );
+    release();
+    await screen.findByText('Plan Overlap');
+    expect(client.getQueryData(qk.myPlan())).toMatchObject({
+      sessions: [{ completed_entry_id: entry.id }],
+    });
+  },
+);
+
 it('shows today’s prefilled log link and replaces it with the completed workout link', async () => {
   const { client, call } = await setup({ seed: 'current', home: true });
   await screen.findByRole('heading', { name: "Today's Plan" });

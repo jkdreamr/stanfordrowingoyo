@@ -191,18 +191,30 @@ export function usePutMyPlan() {
           const date = (key[3] as { query?: { date?: string } }).query?.date ?? config.today;
           if (covers(body, date)) {
             const next = personalPlan(body, config, new Date().toISOString());
+            const unchangedCompletion =
+              previous?.start_date === body.start_date &&
+              previous.sessions.length === next.sessions.length &&
+              next.sessions.every((row) =>
+                previous.sessions.some(
+                  (old) =>
+                    old.week === row.week &&
+                    old.day === row.day &&
+                    old.slot === row.slot &&
+                    old.modality === row.modality &&
+                    old.equiv_m === row.equiv_m,
+                ),
+              );
             next.sessions = next.sessions.map((row) => ({
               ...row,
-              completed_entry_id:
-                previous?.start_date === body.start_date
-                  ? (previous.sessions.find(
-                      (old) =>
-                        old.week === row.week &&
-                        old.day === row.day &&
-                        old.slot === row.slot &&
-                        old.modality === row.modality,
-                    )?.completed_entry_id ?? null)
-                  : null,
+              completed_entry_id: unchangedCompletion
+                ? (previous.sessions.find(
+                    (old) =>
+                      old.week === row.week &&
+                      old.day === row.day &&
+                      old.slot === row.slot &&
+                      old.modality === row.modality,
+                  )?.completed_entry_id ?? null)
+                : null,
             }));
             client.setQueryData(key, next);
           }

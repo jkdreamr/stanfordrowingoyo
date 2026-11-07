@@ -348,7 +348,11 @@ Session keys and rest days must be unique; sessions on rest days are rejected (4
 `equiv_m` (null for unknown distance) and `completed_entry_id`. Equivalents are computed on read
 with current settings factors, never snapshotted. Completion uses the owner's workout `date`,
 without a visibility predicate, within the inclusive 14-day window. Per day, sessions in AM, PM1, PM2
-order greedily consume the oldest unmatched same-modality entry by created_at then id.
+order greedily consume the oldest qualifying unmatched same-modality entry by created_at then id.
+An entry qualifies when its `equiv_m` is at least 80% of the session's `equiv_m`
+(`PLAN_COMPLETION_RATIO` in shared math); E-meters already account for modality and zone.
+For a session with null `equiv_m` (unknown distance), any same-modality entry qualifies.
+Each entry completes at most one session.
 Deleted entries do not count. GET uses a constant number of SQL queries, including one entry query.
 
 Entry input accepts optional `tagged_user_ids: string[]`: POST sets tags; PATCH replaces the

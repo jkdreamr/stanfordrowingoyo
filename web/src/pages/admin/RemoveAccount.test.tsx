@@ -1,10 +1,11 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, QueryObserver } from '@tanstack/react-query';
 import { ToastProvider } from '../../components/ui';
 import { createFixtures } from '../../mock/fixtures';
 import { RemoveAccount } from './RemoveAccount';
+import { qk } from '../../lib/queries';
 
 const request = vi.hoisted(() => vi.fn());
 vi.mock('../../lib/api', async (original) => ({
@@ -34,7 +35,7 @@ function setup() {
       </ToastProvider>
     </QueryClientProvider>,
   );
-  return { user, close, onRemoved, invalidate };
+  return { user, close, onRemoved, invalidate, client };
 }
 it('requires the exact account email and lets the admin cancel without a request', () => {
   const { close } = setup();
@@ -59,7 +60,42 @@ it('submits confirmed removal, invalidates cached views and closes after success
     params: { id: user.id },
     body: { confirmation_email: user.email },
   });
-  expect(invalidate).toHaveBeenCalledWith({ queryKey: ['api'] });
+  expect(invalidate).toHaveBeenCalledWith({ queryKey: ['api'], predicate: expect.any(Function) });
+  expect(onRemoved.mock.invocationCallOrder[0]).toBeLessThan(
+    invalidate.mock.invocationCallOrder[0],
+  );
+});
+it('refreshes account views without requesting the removed avatar again', async () => {
+  const { user, client, onRemoved } = setup();
+  const imageKey = qk.request('GET /api/images/:id', { params: { id: 'removed-avatar' } });
+  const usersKey = qk.request('GET /api/admin/users', {});
+  const avatar = new Blob(['photo']);
+  const fetchAvatar = vi.fn(async () => avatar);
+  const fetchUsers = vi.fn(async () => []);
+  client.setQueryData(imageKey, avatar);
+  client.setQueryData(usersKey, [user]);
+  const stopAvatar = new QueryObserver(client, {
+    queryKey: imageKey,
+    queryFn: fetchAvatar,
+    staleTime: Infinity,
+  }).subscribe(() => {});
+  const stopUsers = new QueryObserver(client, {
+    queryKey: usersKey,
+    queryFn: fetchUsers,
+    staleTime: Infinity,
+  }).subscribe(() => {});
+  try {
+    fireEvent.change(screen.getByLabelText('Confirm Email'), { target: { value: user.email } });
+    fireEvent.click(screen.getByRole('button', { name: 'Remove' }));
+    await waitFor(() => expect(fetchUsers).toHaveBeenCalledOnce());
+    expect(onRemoved).toHaveBeenCalledOnce();
+    expect(fetchAvatar).not.toHaveBeenCalled();
+    expect(client.getQueryState(imageKey)?.isInvalidated).toBe(false);
+  } finally {
+    stopAvatar();
+    stopUsers();
+    client.clear();
+  }
 });
 it('keeps confirmation on an error so the admin can retry', async () => {
   request.mockRejectedValueOnce(new TypeError('offline'));

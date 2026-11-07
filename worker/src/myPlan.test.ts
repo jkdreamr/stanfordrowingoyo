@@ -15,6 +15,7 @@ import { migrate } from './db/migrate';
 import { getSetting, setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
 import { route } from './router';
+import { allMyPlans } from './db/myPlan';
 
 const bindings = env as unknown as Env;
 const NOW = '2026-03-09T18:00:00Z';
@@ -80,6 +81,7 @@ async function entry(
   date = START,
   modality = 'erg',
   time = date > START ? `${date}T18:00:00Z` : NOW,
+  patch: Partial<Pick<EntryDetail, 'distance_m' | 'zone'>> = {},
 ) {
   const response = await api(
     '/entries',
@@ -92,6 +94,7 @@ async function entry(
       distance_m: 10000,
       title: 'Logged session',
       notes: '',
+      ...patch,
     },
     time,
   );
@@ -328,6 +331,52 @@ it('uses inclusive 14-day workout windows and Los Angeles today, rejecting malfo
   for (const date of ['', '2026-02-30', '2026-3-9', 'invalid'])
     expect((await api(`/me/plan?date=${date}`, owner)).status).toBe(400);
   expect((await api('/me/plan/2026-03-10', owner, 'DELETE')).status).toBe(400);
+});
+
+it.each([
+  { distance: 100, zone: 'R' as const, planned: 9000, plannedZone: 'D' as const, complete: false },
+  { distance: 8000, zone: 'E' as const, planned: 10000, plannedZone: 'E' as const, complete: true },
+  {
+    distance: 7900,
+    zone: 'E' as const,
+    planned: 10000,
+    plannedZone: 'E' as const,
+    complete: false,
+  },
+  { distance: 100, zone: 'R' as const, planned: null, plannedZone: 'D' as const, complete: true },
+])(
+  'requires qualifying E-meters: $distance $zone against $planned $plannedZone',
+  async ({ distance, zone, planned, plannedZone, complete }) => {
+    const owner = await user('Owner');
+    const workout = await entry(owner, START, 'erg', NOW, { distance_m: distance, zone });
+    await put(owner, plan({ sessions: [session({ distance_m: planned, zone: plannedZone })] }));
+    const result = await (await api('/me/plan', owner)).json<MyPlan>();
+    expect(result.sessions[0].completed_entry_id).toBe(complete ? workout.id : null);
+    expect(
+      await sql((storage) => allMyPlans(storage, owner.user.id)[0].sessions[0].completed_entry_id),
+    ).toBe(complete ? workout.id : null);
+  },
+);
+
+it('skips small entries without consuming them so later smaller sessions can match', async () => {
+  const owner = await user('Owner');
+  const small = await entry(owner, START, 'erg', '2026-03-09T17:00:00Z', { distance_m: 1000 });
+  const big = await entry(owner, START, 'erg', NOW, { distance_m: 8000 });
+  await put(owner, plan({ sessions: [session({ slot: 'PM1', distance_m: 1000 }), session()] }));
+  let result = await (await api('/me/plan', owner)).json<MyPlan>();
+  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual([big.id, small.id]);
+  expect((await api(`/entries/${big.id}`, owner, 'DELETE')).status).toBe(204);
+  result = await (await api('/me/plan', owner)).json<MyPlan>();
+  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual([null, small.id]);
+});
+
+it('does not reserve an older big entry for a later session when AM qualifies for it', async () => {
+  const owner = await user('Owner');
+  const big = await entry(owner, START, 'erg', '2026-03-09T17:00:00Z', { distance_m: 8000 });
+  await entry(owner, START, 'erg', NOW, { distance_m: 1000 });
+  await put(owner, plan({ sessions: [session({ slot: 'PM1' }), session({ distance_m: 1000 })] }));
+  const result = await (await api('/me/plan', owner)).json<MyPlan>();
+  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual([big.id, null]);
 });
 
 it('greedily matches owner workouts by workout date and modality in slot and creation/id order', async () => {

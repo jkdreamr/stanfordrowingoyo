@@ -71,7 +71,7 @@ it('matches owner entries once in slot order, ignores other users and recomputes
     date: '2026-11-02',
     modality: 'erg',
     zone: 'E',
-    distance_m: 1000,
+    distance_m: 9600,
     title: 'Steady Row',
     notes: '',
   };

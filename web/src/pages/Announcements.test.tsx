@@ -25,6 +25,8 @@ function setup({
   stale = false,
   missing = false,
   cachedTarget = false,
+  homePending = false,
+  homeError = false,
 } = {}) {
   HTMLDialogElement.prototype.showModal = function () {
     this.setAttribute('open', '');
@@ -66,6 +68,16 @@ function setup({
   vi.stubGlobal(
     'fetch',
     vi.fn((url: URL, init: RequestInit) => {
+      if (url.pathname === '/api/config') {
+        if (homePending) return new Promise<Response>(() => {});
+        if (homeError)
+          return Promise.resolve(
+            Response.json(
+              { error: { code: 'SERVER_ERROR', message: 'Unavailable' } },
+              { status: 503 },
+            ),
+          );
+      }
       if (url.pathname === '/api/announcements/newer' && targetStatus) {
         if (targetStatus < 0) return Promise.reject(new TypeError('fetch'));
         return Promise.resolve(
@@ -250,6 +262,19 @@ it('retries a failed archive request', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
   expect(await screen.findByRole('article', { name: 'Latest Update' })).toBeTruthy();
 });
+it.each(['loading', 'error'])('keeps the Home header inline during %s', async (state) => {
+  setup({ path: '/', homePending: state === 'loading', homeError: state === 'error' });
+  if (state === 'loading') await screen.findByRole('status', { name: 'Loading' });
+  else await screen.findByRole('heading', { name: 'Could Not Load This Screen' });
+  const heading = screen.getByRole('heading', { name: 'This Week', level: 1 });
+  const header = heading.closest('.ui-page-nav-inline');
+  expect(header).toBeTruthy();
+  expect(header?.contains(screen.getByRole('button', { name: /Notifications/ }))).toBe(true);
+  expect(header?.contains(screen.getByRole('button', { name: 'Settings' }))).toBe(true);
+  expect(document.querySelector('.ui-large-title')).toBeNull();
+  expect(document.querySelector('.ui-header-sentinel')).toBeNull();
+});
+
 it('keeps announcements reachable from Home when none are pinned or published', async () => {
   setup({ path: '/', empty: true });
   fireEvent.click(await screen.findByRole('link', { name: 'Announcements' }));
