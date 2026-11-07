@@ -356,7 +356,11 @@ it('uses indexed batched dirty-user aggregation and three queries on warm hits; 
     expect(read()).toEqual(uncachedLeaderboard(s, date, 'percent', new Date(now)));
     const dirty = calls.filter((call) => call.query.includes('SUM(equiv_m)'));
     expect(dirty).toHaveLength(1);
-    expect(dirty[0].binds).toEqual([athlete.user.id, expect.any(String), expect.any(String)]);
+    expect(dirty[0].binds).toEqual([
+      JSON.stringify([athlete.user.id]),
+      expect.any(String),
+      expect.any(String),
+    ]);
     s.sql.exec(
       'UPDATE users SET password_hash=?,updated_at=? WHERE id=?',
       'new hash',

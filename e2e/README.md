@@ -11,7 +11,11 @@ retain the iPhone descriptor with a Chromium engine (not Safari coverage).
 
 The managed server builds web assets, wipes only `.wrangler/e2e-state`, and
 starts Wrangler on https://localhost:8799 with `--local-protocol https` and its
-self-signed dev certificate. Browser/API contexts and the health check ignore
+self-signed dev certificate. It enables `OYO_TEST_CLOCK=1` through Wrangler's E2E-only `--var` flag so
+`X-OYO-Test-Now` works without local secret-file changes. Production config is
+unchanged. An externally managed `E2E_BASE_URL` server must enable the clock
+itself for clock-dependent scenarios.
+Browser/API contexts and the health check ignore
 certificate errors locally. Existing servers are reused outside
 CI, without resetting their state. `E2E_BASE_URL=https://localhost:8799` skips
 server management entirely; only local servers are allowed. Use a disposable

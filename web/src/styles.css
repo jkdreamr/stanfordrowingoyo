@@ -216,6 +216,12 @@
   --highlight: #fc5200;
   --highlight-ink: #b43900;
   --highlight-pressed: #cc4200;
+  --medal-gold-ink: #765400;
+  --medal-gold-fill: #fff8e6;
+  --medal-silver-ink: #505767;
+  --medal-silver-fill: #f0f2f7;
+  --medal-bronze-ink: #7d4a29;
+  --medal-bronze-fill: #fff1e7;
 }
 .dark {
   --oyo-hover: #26262b;
@@ -234,6 +240,41 @@
   --divider: #2c2c31;
   --accent: #c0352b;
   --accent-pressed: #8c1515;
+  --medal-gold-ink: #ebc969;
+  --medal-gold-fill: #30291b;
+  --medal-silver-ink: #c4cbd8;
+  --medal-silver-fill: #272a32;
+  --medal-bronze-ink: #e8b18b;
+  --medal-bronze-fill: #32261e;
+}
+.podium-card[data-medal='gold'] {
+  --medal-ink: var(--medal-gold-ink);
+  --medal-fill: var(--medal-gold-fill);
+}
+.podium-card[data-medal='silver'] {
+  --medal-ink: var(--medal-silver-ink);
+  --medal-fill: var(--medal-silver-fill);
+}
+.podium-card[data-medal='bronze'] {
+  --medal-ink: var(--medal-bronze-ink);
+  --medal-fill: var(--medal-bronze-fill);
+}
+.podium-card {
+  background: var(--medal-fill, var(--surface));
+  border-top: 2px solid var(--medal-ink, var(--divider));
+}
+.podium-card.is-me {
+  background: var(--oyo-selected);
+}
+.podium-rank {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--medal-ink);
+  background: var(--medal-fill);
+  border: 1px solid currentColor;
 }
 body {
   margin: 0;
@@ -1110,6 +1151,11 @@ main h1[tabindex='-1']:focus {
 .app-shell {
   min-height: 100dvh;
   padding-top: env(safe-area-inset-top);
+}
+@media (max-width: 1023.98px) {
+  .app-shell {
+    overflow-x: clip;
+  }
 }
 .shell-content {
   min-width: 0;

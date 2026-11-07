@@ -204,10 +204,10 @@ describe('idempotent workout creation', () => {
       ]),
     );
   });
-  it('migrates a v9 database independently of v10 and is rerunnable', async () => {
+  it.each([9, 10])('migrates a v%i database and is rerunnable', async (version) => {
     await sql((s) => {
       s.sql.exec('DROP TABLE entry_idempotency');
-      setSetting(s, 'schema_version', 9);
+      setSetting(s, 'schema_version', version);
       migrate(s);
       expect(getSetting(s, 'schema_version')).toBe(11);
       s.sql.exec(
@@ -217,11 +217,16 @@ describe('idempotent workout creation', () => {
         'entry',
         NOW,
       );
-      setSetting(s, 'schema_version', 9);
+      setSetting(s, 'schema_version', version);
       migrate(s);
       migrate(s);
       expect(getSetting(s, 'schema_version')).toBe(11);
       expect(s.sql.exec('SELECT * FROM entry_idempotency').toArray()).toHaveLength(1);
+      expect(
+        s.sql
+          .exec("SELECT name FROM sqlite_master WHERE name IN ('erg_tests','challenges')")
+          .toArray(),
+      ).toHaveLength(2);
       expect(
         s.sql
           .exec(
