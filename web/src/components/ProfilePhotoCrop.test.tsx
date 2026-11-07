@@ -68,6 +68,11 @@ it('encodes the zoomed source crop only on Done and releases the decoded image',
     ),
   );
   fireEvent.change(screen.getByLabelText('Zoom'), { target: { value: '2' } });
+  const mask = screen.getByRole('group', { name: /Photo crop/ }).querySelector('svg')!;
+  expect(mask.querySelector('path')?.getAttribute('fill-opacity')).toBe('0.65');
+  expect(mask.querySelector('circle')?.getAttribute('stroke-opacity')).toBe('0.6');
+  expect(mask.querySelector('circle')?.getAttribute('stroke-width')).toBe('1');
+  expect(mask.querySelector('circle')?.getAttribute('vector-effect')).toBe('non-scaling-stroke');
   expect(done).not.toHaveBeenCalled();
   await act(async () => fireEvent.click(screen.getByRole('button', { name: 'Done' })));
   expect(encodeCrop).toHaveBeenCalledWith(image, { x: 300, y: 100, width: 200, height: 200 });

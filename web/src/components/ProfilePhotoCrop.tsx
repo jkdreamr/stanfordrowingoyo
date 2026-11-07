@@ -186,8 +186,18 @@ export function ProfilePhotoCrop({
             <path
               d="M0 0H300V300H0Z M150 0A150 150 0 1 0 150 300A150 150 0 1 0 150 0Z"
               fill="black"
-              fillOpacity="0.55"
+              fillOpacity="0.65"
               fillRule="evenodd"
+            />
+            <circle
+              cx="150"
+              cy="150"
+              r="149.5"
+              fill="none"
+              stroke="white"
+              strokeOpacity="0.6"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
             />
           </svg>
         </div>
