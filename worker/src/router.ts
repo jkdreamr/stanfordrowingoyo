@@ -14,6 +14,7 @@ import * as team from './routes/team';
 import * as admin from './routes/admin';
 import * as announcements from './routes/announcements';
 import * as plan from './routes/plan';
+import * as account from './routes/account';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -129,6 +130,10 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/admin/compliance', handler: admin.compliance },
   { method: 'GET', path: '/api/admin/export', handler: admin.exportCsv },
   { method: 'GET', path: '/api/admin/audit', handler: admin.getAudit },
+  // Account data export and removal (docs/ARCHITECTURE.md §6 "Account data").
+  { method: 'GET', path: '/api/me/export', handler: account.exportData },
+  { method: 'GET', path: '/api/me/export/workouts', handler: account.exportWorkouts },
+  { method: 'POST', path: '/api/admin/users/:id/remove', handler: account.removeUser },
 ];
 export function matchPath(template: string, path: string): Record<string, string> | null {
   const a = template.split('/');
