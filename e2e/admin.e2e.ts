@@ -1,5 +1,5 @@
 import { test, expect } from './fixtures';
-import { seedEntry } from './helpers';
+import { seedEntry, feedCard } from './helpers';
 import { csrfHeaders } from './api';
 
 test('admin changes a rower role persistently', async ({ adminPage, makeRower }) => {
@@ -145,4 +145,26 @@ test('admin deletes a rower post through the staff API', async ({ adminPage, mak
   expect((await feed.json()).items).not.toEqual(
     expect.arrayContaining([expect.objectContaining({ id: entry.id })]),
   );
+});
+
+test('admin deletes a rower post from the feed', async ({ adminPage, makeRower }) => {
+  const rower = await makeRower();
+  const title = `Delete ${rower.user.id}`;
+  const entry = await seedEntry(rower, title);
+  await rower.page.goto('/feed');
+  await expect(feedCard(rower.page, title)).toBeVisible();
+  await adminPage.goto(`/entries/${entry.id}`);
+  await adminPage.getByRole('button', { name: 'More', exact: true }).click();
+  await adminPage
+    .getByRole('dialog', { name: 'Workout Actions', exact: true })
+    .getByRole('button', { name: 'Delete Workout', exact: true })
+    .click();
+  await adminPage
+    .getByRole('dialog', { name: 'Delete Workout', exact: true })
+    .getByRole('button', { name: 'Delete', exact: true })
+    .click();
+  await expect(async () => {
+    await rower.page.reload();
+    await expect(feedCard(rower.page, title)).toHaveCount(0);
+  }).toPass();
 });
