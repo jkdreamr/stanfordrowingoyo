@@ -87,3 +87,12 @@ use HTTPS for authenticated browser testing there too.
 
 Reports are in ignored `playwright-report/`; failure screenshots and retry traces
 are in ignored `test-results/`. Vitest's defaults exclude `*.e2e.ts`.
+
+Offline draft tests opt into isolated persistent WebKit rower profiles under
+`test-results/`: WebKit's ephemeral contexts reject IndexedDB Blob/File writes,
+while persistent contexts support them. Other tests keep the default contexts.
+These scenarios block service workers so Playwright can intercept entry POSTs,
+including the committed-create/lost-response case. They still use the real HTTPS
+worker, synthetic roster claims and the actual WebKit engine.
+Set `OYO_SCREENSHOT_DIR` to an existing directory outside the repo to capture
+iPhone Log restoration and offline states in light and dark.

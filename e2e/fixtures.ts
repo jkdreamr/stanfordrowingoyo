@@ -19,8 +19,10 @@ interface Fixtures {
   adminPage: Page;
   makeRower: () => Promise<Rower>;
   newRowerSignup: () => Promise<RowerSignup>;
+  persistentRower: boolean;
 }
 export const test = base.extend<Fixtures>({
+  persistentRower: [false, { option: true }],
   page: async ({ page }, use) => {
     if (process.env.E2E_MOCK === '1')
       await page.addInitScript(() => localStorage.setItem('oyo-mock-session', ''));
@@ -89,10 +91,21 @@ export const test = base.extend<Fixtures>({
     }
     await use(() => newRowerSignup(adminPage.request, bootstrap, testInfo.project.name));
   },
-  makeRower: async ({ browser, newRowerSignup, baseURL }, use, testInfo) => {
+  makeRower: async (
+    { browser, playwright, browserName, newRowerSignup, baseURL, serviceWorkers, persistentRower },
+    use,
+    testInfo,
+  ) => {
     const contexts: BrowserContext[] = [];
     await use(async () => {
-      const context = await browser.newContext({ ...testInfo.project.use, baseURL });
+      const options = { ...testInfo.project.use, baseURL, serviceWorkers };
+      const context =
+        persistentRower && browserName === 'webkit'
+          ? await playwright.webkit.launchPersistentContext(
+              testInfo.outputPath(`rower-${randomUUID()}`),
+              options,
+            )
+          : await browser.newContext(options);
       contexts.push(context);
       const signup = await newRowerSignup();
       const { body, password } = signup;

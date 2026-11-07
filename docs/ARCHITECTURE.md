@@ -217,6 +217,7 @@ entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, d
         mode_factor REAL, zone_factor REAL, equiv_m INT, visibility ('team'; legacy 'private' input ignored),
         created_at, updated_at)          -- index (week_start), (user_id, date)
 images(id PK, owner_id, mime, width, height, bytes BLOB, created_at)   -- <= 1.5 MB each, client resizes
+entry_idempotency(user_id TEXT NOT NULL, key TEXT NOT NULL, entry_id TEXT NOT NULL, created_at TEXT NOT NULL, PK(user_id,key)) -- index (created_at)
 entry_images(entry_id, image_id, position, PK(entry_id, position))     -- up to 4 per entry
 entry_tags(entry_id TEXT NOT NULL, user_id TEXT NOT NULL, created_at TEXT NOT NULL, PK(entry_id,user_id)) -- index (user_id)
 kudos(entry_id, user_id, created_at, PK(entry_id, user_id))
@@ -243,6 +244,8 @@ audit_log(id PK, actor_id, action, target, detail_json, created_at)
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
 Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
 Legacy best splits backfill one test per kind using the user's updated_at team-local date.
+Version 11 adds `entry_idempotency` and its created-at index in a self-contained, idempotent transaction, independent of version 10.
+Mappings survive entry deletion and are opportunistically pruned after seven days when inserting a mapping.
 Version 7 adds idempotent tag/mention tables and indexes.
 Version 8 adds personal plans and sessions after version 7; both migrations are idempotent and transactional.
 Entry deletion removes tags and mentions; comment deletion transactionally removes its mentions.
@@ -361,6 +364,13 @@ Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visib
 `GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
 `DELETE /api/comments/:id` (author or staff).
 `PATCH /api/comments/:id` is author-only (including staff); details are above.
+`POST /api/entries` accepts optional `Idempotency-Key`: 8–128 characters from `[A-Za-z0-9_-]`;
+invalid keys return 400 `VALIDATION_ERROR`. Without it, every request creates an entry as before.
+After body validation, a key identifies the workout per authenticated user: first create returns 201,
+replays return the original entry's current `EntryDetail` with 200, ignoring body differences and
+without creating entries, notifications or audit records. A deleted original returns 404 `NOT_FOUND`.
+Entry creation and key insertion are atomic, including concurrent requests. The same key is independent
+across users. Mappings older than seven days may be removed on insert, after which keys can be reused.
 `GET /api/entries/:id/kudos` returns `PublicUser[]` newest kudos first, ties by user id ascending.
 It uses one LEFT JOIN query for entry existence and kudos→users (no N+1); no email/credentials are exposed.
 Authentication is required (401); missing entries return 404. Every workout is team-visible.

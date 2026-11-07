@@ -224,6 +224,7 @@ export function createMockApi({
   const mentionHistory = new Map<string, Set<string>>();
   const groupHistory = [{ week: '0000-01-01', targets: { ...settings.group_targets } }];
   const uploads = new Map<string, { blob: Blob; owner: string }>();
+  const entryKeys = new Map<string, { entryId: string; createdAt: number }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
   const intro = new Map(state.users.map((u) => [u.id, now().toISOString()]));
   const credentialVersions = new Map<string, number>();
@@ -1216,6 +1217,16 @@ export function createMockApi({
         if (method === 'POST') {
           const input = body as unknown as EntryInput;
           validateEntry(input);
+          const key = request.headers.get('Idempotency-Key');
+          if (key !== null && !/^[A-Za-z0-9_-]{8,128}$/.test(key))
+            fail(400, 'Invalid Idempotency-Key');
+          const scopedKey = JSON.stringify([user.id, key]);
+          const mapping = key === null ? undefined : entryKeys.get(scopedKey);
+          if (mapping) {
+            const original = state.entries.find((entry) => entry.id === mapping.entryId);
+            if (!original) fail(404, 'Entry not found');
+            return json(detail(original));
+          }
           const { image_ids = [], tagged_user_ids, ...fields } = input;
           const tags = recipientIds(tagged_user_ids, user.id);
           const entry: Entry = {
@@ -1242,6 +1253,12 @@ export function createMockApi({
             updated_at: stamp(),
           };
           state.entries.push(entry);
+          if (key !== null) {
+            const time = now().getTime();
+            for (const [storedKey, stored] of entryKeys)
+              if (stored.createdAt < time - 7 * 86400000) entryKeys.delete(storedKey);
+            entryKeys.set(scopedKey, { entryId: entry.id, createdAt: time });
+          }
           setTags(entry, tags);
           state.imageLinks[entry.id] = image_ids.map(
             (imageId) =>
