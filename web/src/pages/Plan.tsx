@@ -67,7 +67,7 @@ export default function Plan() {
   const config = useConfig();
   const me = useMe();
   return (
-    <div className="[&_.ui-tabs]:mx-4 [&_.ui-tabs]:grid [&_.ui-tabs]:grid-cols-5 [&_.ui-tabs]:gap-1 max-sm:[&_.ui-tabs_button]:text-caption max-sm:[&_.ui-tabs_button]:whitespace-normal">
+    <div className="[&_.ui-tabs]:mx-4 [&_.ui-tabs_button]:shrink-0 max-sm:[&_.ui-tabs]:gap-2 max-sm:[&_.ui-tabs_button]:text-caption">
       <PageHeader title="Plan" />
       <Tabs
         label="Plan"

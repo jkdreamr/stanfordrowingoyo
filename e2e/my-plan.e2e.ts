@@ -74,9 +74,22 @@ test('personal fortnight copies a sample, logs today and remains owner-only', as
   );
   await expect(todayCard.getByLabel('Completed', { exact: true })).toBeVisible();
   await page.goto('/plan?tab=mine');
-  await expect(
-    page.getByRole('link', { name: new RegExp(`View Completed .* ${name} Week 1`) }),
-  ).toBeVisible();
+  const completedLink = page.getByRole('link', {
+    name: new RegExp(`View Completed .* ${name} Week 1`),
+  });
+  await expect(completedLink).toBeVisible();
+  const sessionButton = completedLink.locator('..').getByRole('button');
+  await expect(sessionButton.getByLabel('Completed', { exact: true })).toBeVisible();
+  const linkBox = (await completedLink.boundingBox())!;
+  const buttonBox = (await sessionButton.boundingBox())!;
+  expect(linkBox.width).toBeGreaterThanOrEqual(44);
+  expect(linkBox.height).toBeGreaterThanOrEqual(44);
+  expect(linkBox.x).toBeGreaterThanOrEqual(buttonBox.x);
+  expect(linkBox.y).toBeGreaterThanOrEqual(buttonBox.y);
+  expect(linkBox.x + linkBox.width).toBeLessThanOrEqual(buttonBox.x + buttonBox.width + 1);
+  expect(linkBox.y + linkBox.height).toBeLessThanOrEqual(buttonBox.y + buttonBox.height + 1);
+  await completedLink.click();
+  await expect(page).toHaveURL(/\/entries\//);
   plan = await (await context.request.get('/api/me/plan')).json();
   expect(
     plan.sessions.some((row) => row.note === 'Fortnight Steady' && row.completed_entry_id),

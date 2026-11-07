@@ -203,25 +203,31 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
                       <p className="py-3 text-subhead text-muted">Rest</p>
                     ) : (
                       sessions.map((row) => (
-                        <div key={row.slot} className="flex min-w-0 items-center gap-1">
+                        <div key={row.slot} className="relative min-w-0">
                           <Button
                             variant="secondary"
                             disabled={busy}
                             title={row.note}
                             aria-label={`Edit ${row.slot} ${name} Week ${week}`}
-                            className="my-plan-session min-w-0 flex-1"
+                            className={`my-plan-session min-w-0 w-full ${row.completed_entry_id ? 'is-completed' : ''}`}
                             onClick={() => setEditor({ week, day, session: row })}
                           >
                             <SessionLine session={row} />
+                            {row.completed_entry_id && (
+                              <Check
+                                aria-label="Completed"
+                                className="absolute right-3 top-3 text-accent-ink"
+                                size={20}
+                                strokeWidth={1.75}
+                              />
+                            )}
                           </Button>
                           {row.completed_entry_id && (
                             <Link
-                              className="ui-icon-button shrink-0"
+                              className="absolute right-0 top-0 h-11 w-11 rounded-lg"
                               to={`/entries/${row.completed_entry_id}`}
                               aria-label={`View Completed ${row.slot} ${name} Week ${week}`}
-                            >
-                              <Check size={20} strokeWidth={1.75} />
-                            </Link>
+                            />
                           )}
                         </div>
                       ))
@@ -350,14 +356,16 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
 export function SessionLine({ session }: { session: MyPlanSessionInput }) {
   return (
     <span className="my-plan-line flex min-w-0 items-center gap-2 text-footnote font-normal">
-      <span className="shrink-0">
+      <span className="my-plan-metadata flex min-w-0 shrink-0 flex-wrap items-center gap-2">
         <ModalityIcon modality={session.modality} />
+        <ZoneChip zone={session.zone} />
+        {session.distance_m !== null && (
+          <span className="shrink-0 tabular-nums">{formatMeters(session.distance_m)}</span>
+        )}
       </span>
-      <ZoneChip zone={session.zone} />
-      {session.distance_m !== null && (
-        <span className="shrink-0 tabular-nums">{formatMeters(session.distance_m)}</span>
-      )}
-      <span className="my-plan-note min-w-0 truncate">{session.note}</span>
+      <span className="my-plan-note min-w-0 truncate lg:line-clamp-2 lg:break-words lg:whitespace-normal">
+        {session.note}
+      </span>
     </span>
   );
 }

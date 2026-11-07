@@ -237,6 +237,28 @@ it('shows today’s prefilled log link and replaces it with the completed workou
   );
   expect(screen.getByLabelText('Completed')).toBeTruthy();
 });
+it('keeps the completed check inside the edit button and the entry link separate', async () => {
+  const { client, call } = await setup({ seed: 'current' });
+  await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
+  const entry = await (
+    await call('/api/entries', 'POST', {
+      date: '2026-11-02',
+      modality: 'erg',
+      zone: 'E',
+      distance_m: 12000,
+      title: 'Steady',
+      notes: '',
+    })
+  ).json();
+  await client.invalidateQueries({ queryKey: qk.myPlans() });
+  const link = await screen.findByRole('link', { name: 'View Completed AM Monday Week 1' });
+  const button = screen.getByRole('button', { name: 'Edit AM Monday Week 1' });
+  expect(within(button).getByLabelText('Completed')).toBeTruthy();
+  expect(link.getAttribute('href')).toBe(`/entries/${entry.id}`);
+  expect(button.contains(link)).toBe(false);
+  fireEvent.click(button);
+  expect(screen.getByRole('dialog', { name: 'Edit Session' })).toBeTruthy();
+});
 it('hides the Home card without a current plan', async () => {
   const { client } = await setup({ home: true });
   await waitFor(() => expect(client.getQueryData(qk.myPlan())).toBeNull());

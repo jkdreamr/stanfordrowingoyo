@@ -5,7 +5,11 @@ test('Plan shows the fortnight schedule and equivalent distance calculator', asy
 }) => {
   await adminPage.goto('/plan');
   const tabs = adminPage.getByRole('tablist', { name: 'Plan', exact: true });
-  expect(await tabs.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
+  expect(await adminPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+    true,
+  );
+  for (const tab of await tabs.getByRole('tab').all())
+    expect(await tab.evaluate((el) => getComputedStyle(el).whiteSpace)).toBe('nowrap');
   await expect(
     adminPage.getByRole('heading', { level: 2, name: 'Sample Fortnight' }),
   ).toBeVisible();
