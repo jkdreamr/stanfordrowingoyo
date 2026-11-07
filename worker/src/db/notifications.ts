@@ -75,7 +75,10 @@ export function notifications(storage: DurableObjectStorage, user: string): Noti
     ...row,
     ...(row.kind === 'announcement' ? { announcement_id: row.entry_id, entry_id: null } : {}),
     actor: toPublicUser(actors.find((actor) => actor.id === row.actor_id)!),
-    entry_title: entries.find((entry) => entry.id === row.entry_id)?.title ?? null,
+    entry_title:
+      row.kind === 'announcement'
+        ? null
+        : (entries.find((entry) => entry.id === row.entry_id)?.title ?? null),
   }));
 }
 export function markRead(

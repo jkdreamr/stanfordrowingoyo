@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Bell } from 'lucide-react';
+import { ApiClientError } from '../lib/api';
 import type { Notification } from '../../../shared/types';
 import {
   useAnnouncement,
@@ -160,7 +161,11 @@ export default function Notifications() {
           </p>
         )}
         <Sheet open={opened !== null} onClose={() => setSelected(null)} title="Announcements">
-          {selected?.announcement_id && (announcement.isPending || announcement.isError) ? (
+          {selected?.announcement_id &&
+          announcement.error instanceof ApiClientError &&
+          announcement.error.status === 404 ? (
+            <EmptyState icon={<Bell size={20} />} title="Announcement Removed" />
+          ) : selected?.announcement_id && (announcement.isPending || announcement.isError) ? (
             <LoadState error={announcement.isError} retry={() => void announcement.refetch()} />
           ) : opened?.length ? (
             opened.map((a) => (

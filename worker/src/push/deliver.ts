@@ -80,7 +80,7 @@ FROM push_outbox o
 LEFT JOIN push_subscriptions s ON s.endpoint=o.endpoint
 LEFT JOIN notifications n ON n.id=o.notification_id
 LEFT JOIN users u ON u.id=n.actor_id
-LEFT JOIN entries e ON e.id=n.entry_id
+LEFT JOIN entries e ON n.kind!='announcement' AND e.id=n.entry_id
 WHERE o.next_at <= ? ORDER BY o.next_at,o.id LIMIT ?`;
 
 /** Sends a bounded batch of due pushes from the DO alarm, then reschedules for the rest. */
@@ -104,6 +104,7 @@ export async function deliverPush(
         !row.kind ||
         row.owner !== row.recipient ||
         row.read_at ||
+        (row.kind === 'announcement' && !row.announcement_title) ||
         (row.kind === 'report' &&
           !sql
             .exec(

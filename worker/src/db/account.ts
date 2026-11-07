@@ -237,7 +237,7 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
     id,
   );
   sql.exec(
-    `DELETE FROM push_outbox WHERE endpoint IN (SELECT endpoint FROM push_subscriptions WHERE user_id=?1) OR notification_id IN (SELECT id FROM notifications WHERE user_id=?1 OR actor_id=?1 OR entry_id IN (${OWN_ENTRIES.replace('?', '?1')}))`,
+    `DELETE FROM push_outbox WHERE endpoint IN (SELECT endpoint FROM push_subscriptions WHERE user_id=?1) OR notification_id IN (SELECT id FROM notifications WHERE user_id=?1 OR actor_id=?1 OR (kind!='announcement' AND entry_id IN (${OWN_ENTRIES.replace('?', '?1')})))`,
     id,
   );
   sql.exec(
@@ -250,7 +250,7 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
       id,
     );
   sql.exec(
-    `DELETE FROM notifications WHERE user_id = ?1 OR actor_id = ?1 OR entry_id IN (${OWN_ENTRIES.replace('?', '?1')})`,
+    `DELETE FROM notifications WHERE user_id = ?1 OR actor_id = ?1 OR (kind!='announcement' AND entry_id IN (${OWN_ENTRIES.replace('?', '?1')}))`,
     id,
   );
   sql.exec(

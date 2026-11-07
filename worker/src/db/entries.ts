@@ -207,7 +207,10 @@ export function deleteEntry(
       'comments',
     ])
       storage.sql.exec(`DELETE FROM ${table} WHERE entry_id = ?`, id);
-    storage.sql.exec("DELETE FROM notifications WHERE entry_id=? AND kind!='report'", id);
+    storage.sql.exec(
+      "DELETE FROM notifications WHERE entry_id=? AND kind NOT IN ('report','announcement')",
+      id,
+    );
     storage.sql.exec('DELETE FROM entries WHERE id = ?', id);
     deleteUnreferencedImages(
       storage,

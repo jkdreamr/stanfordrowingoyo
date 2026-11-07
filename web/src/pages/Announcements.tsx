@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { formatEntryDate } from '../lib/format';
 import { Button, Card, EmptyState, PageHeader } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
+import { ApiClientError } from '../lib/api';
 
 export default function Announcements() {
   const [params] = useSearchParams();
@@ -18,7 +19,13 @@ export default function Announcements() {
     <>
       <PageHeader title="Announcements" back="/" />
       <div className="screen-stack">
-        {query.isError ? (
+        {id && query.error instanceof ApiClientError && query.error.status === 404 ? (
+          <EmptyState
+            icon={<Megaphone size={20} />}
+            title="Announcement Removed"
+            action={<Button to="/announcements">All Announcements</Button>}
+          />
+        ) : query.isError ? (
           <LoadState error retry={() => void query.refetch()} />
         ) : !query.data ? (
           <LoadState />

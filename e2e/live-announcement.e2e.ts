@@ -48,4 +48,10 @@ test('a live announcement alert opens its exact announcement despite a stale lis
   await rower.page.goto(`/announcements?announcement=${latest.id}`);
   await expect(rower.page.getByRole('article', { name: latest.title, exact: true })).toBeVisible();
   await expect(rower.page.getByRole('article', { name: older.title, exact: true })).toHaveCount(0);
+  await expect(
+    await adminPage.request.delete(`/api/announcements/${latest.id}`, { headers: csrfHeaders }),
+  ).toBeOK();
+  await rower.page.reload();
+  await expect(rower.page.getByText('Announcement Removed', { exact: true })).toBeVisible();
+  await expect(rower.page.getByRole('article')).toHaveCount(0);
 });

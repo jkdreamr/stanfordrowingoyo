@@ -6,6 +6,7 @@ import type { EntryDetail, PushConfig, User } from '../../shared/types';
 import { migrate } from './db/migrate';
 import { getSetting, setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
+import { notify } from './db/notifications';
 import { deliverPush, pushPayload, PUSH_MAX_ATTEMPTS, type PushPayload } from './push/deliver';
 import { MAX_PUSH_DEVICES } from './routes/push';
 import { base64url, encryptPayload, fromBase64url, vapidConfig, vapidJwt } from './push/webpush';
@@ -396,6 +397,43 @@ describe('push delivery', () => {
     const row = await entry(author);
     return { author, fan, ua, row };
   }
+  it('cancels queued pushes when an announcement is deleted and retains its history', async () => {
+    const { author, fan } = await kudosSetup();
+    await sql((storage) =>
+      storage.sql.exec("UPDATE users SET role='coach' WHERE id=?", fan.user.id),
+    );
+    const created = await api('/announcements', fan, 'POST', {
+      title: 'Cancelled notice',
+      body: 'Body',
+      pinned: false,
+    });
+    expect(created.status).toBe(201);
+    const { id } = await created.json<{ id: string }>();
+    expect(await outbox()).toHaveLength(1);
+    expect((await api(`/announcements/${id}`, fan, 'DELETE')).status).toBe(204);
+    expect(await outbox()).toEqual([]);
+    expect(await (await api('/notifications', author)).json()).toMatchObject([
+      { kind: 'announcement', announcement_id: id },
+    ]);
+    expect((await api(`/announcements/${id}`, author)).status).toBe(404);
+    const calls = stubFetch(201);
+    await sql((storage) => deliverPush(storage, bindings, Date.now() + 1000));
+    expect(calls).toHaveLength(0);
+  });
+  it.each([undefined, 'missing-id'])(
+    'drops an unresolved announcement push reference %s without sending',
+    async (id) => {
+      const { author, fan } = await kudosSetup();
+      await sql((storage) =>
+        notify(storage, author.user.id, fan.user.id, 'announcement', null, NOW, id),
+      );
+      expect(await outbox()).toHaveLength(1);
+      const calls = stubFetch(201);
+      await sql((storage) => deliverPush(storage, bindings, Date.now() + 1000));
+      expect(calls).toHaveLength(0);
+      expect(await outbox()).toEqual([]);
+    },
+  );
   it('queues kudos pushes and schedules the alarm without sending in the request', async () => {
     const calls = stubFetch(201);
     const { fan, row } = await kudosSetup();

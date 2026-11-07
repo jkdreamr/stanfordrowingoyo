@@ -63,6 +63,10 @@ export function remove(ctx: Context) {
   if (!before) throw new HttpError(404, 'NOT_FOUND', 'Announcement not found.');
   ctx.storage.transactionSync(() => {
     ctx.storage.sql.exec('DELETE FROM announcements WHERE id = ?', before.id);
+    ctx.storage.sql.exec(
+      "DELETE FROM push_outbox WHERE notification_id IN (SELECT id FROM notifications WHERE kind='announcement' AND entry_id=?)",
+      before.id,
+    );
     audit(ctx, 'announcement.delete', before.id, before, null);
   });
   return noContent();

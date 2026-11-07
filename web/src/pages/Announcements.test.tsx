@@ -127,13 +127,21 @@ it('does not show an unrelated announcement when the notification target was rem
   setup({ path: '/notifications', stale: true, missing: true });
   fireEvent.click(await screen.findByRole('button', { name: /posted an announcement/ }));
   const sheet = await screen.findByRole('dialog', { name: 'Announcements' });
-  expect(await within(sheet).findByText('Could Not Load This Screen')).toBeTruthy();
+  expect(await within(sheet).findByText('Announcement Removed')).toBeTruthy();
   expect(within(sheet).queryByText('Earlier Update')).toBeNull();
 });
 it('opens a specific announcement from the push deep link', async () => {
   setup({ path: '/announcements?announcement=newer' });
   expect(await screen.findByRole('article', { name: 'Latest Update' })).toBeTruthy();
   expect(screen.queryByRole('article', { name: 'Earlier Update' })).toBeNull();
+});
+it('shows a removed state for a deleted push target without substituting another announcement', async () => {
+  setup({ path: '/announcements?announcement=removed' });
+  expect(await screen.findByText('Announcement Removed')).toBeTruthy();
+  expect(screen.queryByRole('article')).toBeNull();
+  expect(screen.getByRole('link', { name: 'All Announcements' }).getAttribute('href')).toBe(
+    '/announcements',
+  );
 });
 it('shows pinned and unpinned announcements newest first with full bodies and authors', async () => {
   setup();
