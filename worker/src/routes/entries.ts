@@ -132,8 +132,11 @@ export async function patch(ctx: Context) {
 }
 export function remove(ctx: Context) {
   const entry = editable(ctx);
-  deleteEntry(ctx.storage, entry.id);
-  if (entry.user_id !== requireUser(ctx).id) audit(ctx, 'entry.delete', entry.id, entry, null);
+  const user = requireUser(ctx);
+  ctx.storage.transactionSync(() => {
+    deleteEntry(ctx.storage, entry.id, user.id, ctx.now.toISOString());
+    if (entry.user_id !== user.id) audit(ctx, 'entry.delete', entry.id, entry, null);
+  });
   return noContent();
 }
 export function list(ctx: Context) {

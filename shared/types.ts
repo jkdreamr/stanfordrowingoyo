@@ -121,10 +121,29 @@ export interface Comment {
   user_id: string;
   body: string;
   created_at: string;
+  edited_at?: string | null;
 }
 export interface CommentWithAuthor extends Comment {
   mentions: PublicUser[];
   author: PublicUser;
+}
+export interface ReportTarget {
+  target_type: 'entry' | 'comment';
+  target_id: string;
+}
+export interface ReportInput extends ReportTarget {
+  reason?: string;
+}
+export interface ContentReport extends ReportTarget {
+  id: string;
+  entry_id: string;
+  reporter: PublicUser;
+  reason: string;
+  status: 'open' | 'dismissed' | 'deleted';
+  created_at: string;
+  reviewed_at: string | null;
+  reviewed_by: string | null;
+  content: { author: PublicUser; body: string; title: string | null } | null;
 }
 export interface EntryDetail extends Entry {
   tagged: PublicUser[];
@@ -202,7 +221,7 @@ export interface Notification {
   entry_title: string | null;
   id: string;
   user_id: string;
-  kind: 'kudos' | 'comment' | 'announcement' | 'tag' | 'mention';
+  kind: 'kudos' | 'comment' | 'announcement' | 'tag' | 'mention' | 'report';
   actor_id: string;
   entry_id: string | null;
   created_at: string;
@@ -350,6 +369,14 @@ export interface Api {
     CommentWithAuthor
   >;
   'DELETE /api/comments/:id': Endpoint<void, void>;
+  'PATCH /api/comments/:id': Endpoint<{ body: string; mention_ids?: string[] }, CommentWithAuthor>;
+  'POST /api/reports': Endpoint<ReportInput, { id: string }>;
+  'GET /api/admin/reports': Endpoint<
+    void,
+    Page<ContentReport>,
+    { status?: ContentReport['status']; cursor?: string }
+  >;
+  'PATCH /api/admin/reports/:id': Endpoint<{ action: 'dismiss' | 'delete' }, ContentReport>;
   'POST /api/images': Endpoint<Blob, { id: string }>;
   'GET /api/images/:id': Endpoint<void, Blob>;
   'GET /api/stats/week': Endpoint<void, WeekStats, { week?: string; user?: string }>;
