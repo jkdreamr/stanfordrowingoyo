@@ -23,19 +23,54 @@ describe('metrics', () => {
       clock.mockRestore();
     }
   });
-  it('reports auth separately while still checking its endpoint latency', () => {
+  it('reports signup separately without exempting login, even in a signup phase', () => {
     const output = vi.spyOn(console, 'log').mockImplementation(() => {});
     const table = vi.spyOn(console, 'table').mockImplementation(() => {});
     const error = vi.spyOn(console, 'error').mockImplementation(() => {});
     try {
       const result = report(
-        [{ endpoint: 'POST /api/auth/signup', scenario: 'auth', ms: 900, status: 201 }],
+        [
+          { endpoint: 'POST /api/auth/signup', scenario: 'signup', ms: 900, status: 201 },
+          { endpoint: 'POST /api/auth/login', scenario: 'signup', ms: 901, status: 200 },
+        ],
         2,
-        { auth: 1, setup: 0.2 },
+        { signup: 1, setup: 0.2 },
         800,
       );
-      expect(output).toHaveBeenCalledWith('Auth phase (rowers): 1.00 s');
-      expect(result.failures).toEqual(['POST /api/auth/signup p95 900.0 ms > 800 ms']);
+      expect(result.signupEndpoints).toMatchObject([
+        { endpoint: 'POST /api/auth/signup', p95: 900 },
+      ]);
+      expect(result.gatedEndpoints).toMatchObject([{ endpoint: 'POST /api/auth/login', p95: 901 }]);
+      expect(result.failures).toEqual(['POST /api/auth/login p95 901.0 ms > 800 ms']);
+    } finally {
+      output.mockRestore();
+      table.mockRestore();
+      error.mockRestore();
+    }
+  });
+  it('handles empty phases and still fails signup server and network errors', () => {
+    const output = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const table = vi.spyOn(console, 'table').mockImplementation(() => {});
+    const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      expect(report([], 0, {}, 800)).toMatchObject({
+        signupEndpoints: [],
+        gatedEndpoints: [],
+        failures: [],
+      });
+      const sample = {
+        endpoint: 'POST /api/auth/signup',
+        scenario: 'signup',
+        ms: 9000,
+        status: 201,
+      };
+      expect(report([sample], 1, {}, 800).failures).toEqual([]);
+      expect(report([{ ...sample, status: 500, expected: true }], 1, {}, 800).failures).toEqual([
+        '5xx responses occurred',
+      ]);
+      expect(report([{ ...sample, status: 0 }], 1, {}, 800).failures).toEqual([
+        'Network errors occurred',
+      ]);
     } finally {
       output.mockRestore();
       table.mockRestore();

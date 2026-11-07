@@ -4,13 +4,46 @@ Requires Node 22+ and npm. Load nvm first: `source ~/.nvm/nvm.sh`.
 
 ```sh
 npm install
+cp .dev.vars.example .dev.vars # local-only dummy secrets for Wrangler/load/E2E
 npm run dev       # Vite on :5173 proxies /api to Wrangler on :8787
 npm run typecheck
 npm run lint
 npm test
 npm run build     # web assets + Worker dry run (no deployment)
+npx wrangler secret put TEAM_CODE # optional: seeds team code on first boot only
+npx wrangler secret put PASSWORD_PEPPER # required: high-entropy server-only secret
 npm run deploy   # explicit Cloudflare deployment; not needed locally
 ```
+
+`TEAM_CODE` is optional and only seeds a fresh Durable Object. Codes are trimmed,
+4–64 characters, and contain only letters, numbers or hyphens. An absent secret
+uses a generated UUID; an invalid secret (including blank/short values) logs a
+warning without its value and falls back to a generated UUID rather than crashing.
+Discovery/signup compare trimmed codes case-insensitively (`koo26` and `KOO26 ` both work).
+It never replaces an existing code. Change it later in Admin → Team settings.
+
+Code brute-force protection shares a failure-only counter across roster discovery
+and normal signup: 20 wrong codes/IP/15 minutes. The next attempt returns 429
+with Retry-After, even with a correct code. Valid codes do not count or clear the
+counter; correct-code discoveries have no separate 10/IP cap. Email-bound admin
+bootstrap does not check a code and is exempt from this counter. Signup retains
+its separate 150 attempts/IP and 10 attempts/email per 15 minutes; wrong-code
+signup attempts count there too.
+
+`PASSWORD_PEPPER` is mandatory for signup, login and password changes/resets;
+missing/blank values fail closed with 500 and an explicit server log. Other routes
+remain available. Use a high-entropy secret in deployment, never the example value.
+Passwords use HMAC-SHA256 with the pepper, then 20,000-iteration PBKDF2-SHA256
+(`PASSWORD_ITERATIONS` in `worker/src/auth/crypto.ts`) to fit the Free plan CPU budget.
+Hashes store their algorithm, iterations, pepper version, salt and digest. Every
+request performs at most one PBKDF2 derivation; login never rehashes. Unsupported
+or legacy unprefixed hashes fail login with 401 and require a staff reset. Stronger
+parameters apply on the next password change or admin reset. Password changes use
+`POST /api/me/password/verify` first, then `POST /api/me/password` with the returned
+five-minute, session-bound, single-use token (optional for forced changes).
+Rotating the pepper requires bumping
+`PASSWORD_PEPPER_VERSION`; the single-secret configuration does not retain old
+keys, so retire a key only with a password-reset/migration plan for existing users.
 
 Only `GET /api/health` is implemented; the remaining backend modules return 501.
 The first API request initializes SQLite and seeds the team. Local Wrangler data

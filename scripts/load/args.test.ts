@@ -27,6 +27,8 @@ describe('CLI safety', () => {
       ['--users', '0'],
       ['--concurrency', '1.2'],
       ['--burst-window', '-1'],
+      ['--auth-ramp', '-1'],
+      ['--auth-ramp', '1.5'],
       ['--p95-ms', 'NaN'],
       ['--scenario', 'invalid'],
     ])
@@ -35,6 +37,12 @@ describe('CLI safety', () => {
       parseOptions(['--base-url', 'http://localhost', '--users', '3'], {
         LOAD_ADMIN_PASSWORD: 'example',
       }),
-    ).toMatchObject({ concurrency: 3, adminPassword: 'example' });
+    ).toMatchObject({ concurrency: 3, adminPassword: 'example', authRamp: 60, skipSignup: false });
+    expect(
+      parseOptions(['--base-url', 'http://localhost', '--auth-ramp', '0', '--skip-signup']),
+    ).toMatchObject({ authRamp: 0, skipSignup: true });
+    expect(() =>
+      parseOptions(['--base-url', 'http://localhost', '--cleanup', '--skip-signup']),
+    ).toThrow('conflict');
   });
 });

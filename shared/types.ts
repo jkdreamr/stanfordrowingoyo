@@ -34,14 +34,21 @@ export interface Session {
   created_at: string;
 }
 export interface RosterRow {
-  email: string;
+  id: string;
+  email: string | null;
   name: string;
   role: Role;
-  group_key: GroupKey;
+  group_key: GroupKey | null;
   side: Side | null;
   class_year: number | null;
+  claimed_by_user_id: string | null;
   added_by: string | null;
   created_at: string;
+}
+export interface RosterChoice {
+  id: string;
+  name: string;
+  role: Role;
 }
 export interface Settings {
   team_code: string;
@@ -209,6 +216,7 @@ export interface WeekStats extends WeekSummary {
   entries: EntryDetail[];
 }
 export interface SeasonStats extends Totals {
+  days: { date: string; equiv_m: number }[];
   start: string;
   end: string;
   weeks: WeekSummary[];
@@ -232,25 +240,44 @@ export interface Profile {
   stats: SeasonStats;
 }
 export interface SignupRequest {
-  name: string;
   email: string;
   password: string;
   team_code?: string;
+  roster_id?: string;
+  group_key?: GroupKey;
 }
 export interface LoginRequest {
   email: string;
   password: string;
 }
+export interface PasswordVerifyRequest {
+  current_password: string;
+}
+export interface PasswordVerifyResponse {
+  reauth_token: string;
+  expires_at: string;
+}
+export interface PasswordChangeRequest {
+  new_password: string;
+  reauth_token?: string;
+}
 export type ProfilePatch = Partial<
   Pick<
     User,
-    'name' | 'bio' | 'side' | 'class_year' | 'best6k_split_s' | 'best2k_split_s' | 'avatar_image_id'
+    | 'name'
+    | 'bio'
+    | 'side'
+    | 'class_year'
+    | 'best6k_split_s'
+    | 'best2k_split_s'
+    | 'avatar_image_id'
+    | 'group_key'
   >
 >;
 export type AdminUserPatch = Partial<
   Pick<User, 'role' | 'group_key' | 'on_leaderboard' | 'active'>
 >;
-export type RosterInput = Omit<RosterRow, 'added_by' | 'created_at'>;
+export type RosterInput = Omit<RosterRow, 'id' | 'claimed_by_user_id' | 'added_by' | 'created_at'>;
 export interface Config extends Omit<Settings, 'team_code'> {
   today: string;
   current_week_start: string;
@@ -266,11 +293,13 @@ export interface Endpoint<Req, Res, Query = never> {
 export interface Api {
   'GET /api/health': Endpoint<void, { ok: true; schema_version: number }>;
   'POST /api/auth/signup': Endpoint<SignupRequest, User>;
+  'POST /api/auth/roster': Endpoint<{ team_code: string }, RosterChoice[]>;
   'POST /api/auth/login': Endpoint<LoginRequest, User>;
   'POST /api/auth/logout': Endpoint<void, void>;
   'GET /api/me': Endpoint<void, User>;
   'PATCH /api/me': Endpoint<ProfilePatch, User>;
-  'POST /api/me/password': Endpoint<{ current_password: string; new_password: string }, void>;
+  'POST /api/me/password/verify': Endpoint<PasswordVerifyRequest, PasswordVerifyResponse>;
+  'POST /api/me/password': Endpoint<PasswordChangeRequest, void>;
   'GET /api/me/target': Endpoint<void, CurrentWeeklyTarget>;
   'PUT /api/me/target': Endpoint<{ target_m: number }, WeeklyTarget>;
   'GET /api/config': Endpoint<void, Config>;
@@ -283,6 +312,7 @@ export interface Api {
   'GET /api/entries/:id': Endpoint<void, EntryDetail>;
   'PATCH /api/entries/:id': Endpoint<Partial<EntryInput>, EntryDetail>;
   'DELETE /api/entries/:id': Endpoint<void, void>;
+  'GET /api/entries/:id/kudos': Endpoint<void, PublicUser[]>;
   'POST /api/entries/:id/kudos': Endpoint<void, void>;
   'DELETE /api/entries/:id/kudos': Endpoint<void, void>;
   'GET /api/entries/:id/comments': Endpoint<void, CommentWithAuthor[]>;
@@ -315,8 +345,9 @@ export interface Api {
   'POST /api/admin/users/:id/reset-password': Endpoint<void, { temporary_password: string }>;
   'GET /api/admin/roster': Endpoint<void, RosterRow[]>;
   'POST /api/admin/roster': Endpoint<RosterInput, RosterRow>;
-  'PATCH /api/admin/roster/:email': Endpoint<Partial<RosterInput>, RosterRow>;
-  'DELETE /api/admin/roster/:email': Endpoint<void, void>;
+  'PATCH /api/admin/roster/:id': Endpoint<Partial<RosterInput>, RosterRow>;
+  'DELETE /api/admin/roster/:id': Endpoint<void, void>;
+  'POST /api/admin/roster/:id/unlink': Endpoint<void, RosterRow>;
   'POST /api/admin/roster/import': Endpoint<
     { csv: string },
     { imported: number; errors: { row: number; message: string }[] }

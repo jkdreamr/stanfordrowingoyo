@@ -8,13 +8,11 @@ test('join-code signup, logout, and login', async ({ page, bootstrap, newRowerSi
   const { email, password, name } = await newRowerSignup();
   await page.goto('/signup');
   await page.getByLabel(/team.*code|join code/i).fill(bootstrap.teamCode);
-  if (bootstrap.rosterFlow) {
-    await page.getByRole('button', { name: /continue|next/i }).click();
-    await page.getByRole('button', { name, exact: true }).click();
-    await page.getByRole('button', { name: /continue|next/i }).click();
-    await page.getByRole('button', { name: 'Normal', exact: true }).click();
-    await page.getByRole('button', { name: /continue|next/i }).click();
-  } else await page.getByLabel('Name', { exact: true }).fill(name);
+  await page.getByRole('button', { name: /continue|next/i }).click();
+  await page.getByRole('button', { name, exact: true }).click();
+  await page.getByRole('button', { name: /continue|next/i }).click();
+  await page.getByRole('button', { name: 'Normal', exact: true }).click();
+  await page.getByRole('button', { name: /continue|next/i }).click();
   await page.getByLabel('Email', { exact: true }).fill(email);
   await page.getByLabel('Password', { exact: true }).fill(password);
   await page.getByRole('button', { name: /sign up|create account/i }).click();

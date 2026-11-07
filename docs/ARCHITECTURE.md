@@ -127,16 +127,75 @@ Sat AM Team Row D/C | Sun Off. Total 100k.
 
 Roles: `rower`, `coxswain`, `coach`, `admin`. **Staff** = coxswain | coach | admin. Admin additionally manages other admins.
 
-- Sign up: name, email, password (min 8), team join code (setting `team_code`) **or** email pre-listed on the roster
-  (`roster` table). Roster rows carry role, group, side, class year; signing up with that email adopts them.
-- Login: email + password. Passwords: PBKDF2-SHA256 (WebCrypto, 100k iterations, 16-byte salt).
+- Sign up: enter the team code → pick an unclaimed roster name → pick a training group (rowers only) → enter your
+  own email and password (min 8). Names and roles come from the roster, never from signup input. Staff's group selector
+  is hidden; their group defaults to the roster group or `normal`. Rowers use their selected group, then the roster
+  group, then `normal`. Side/class year are adopted from the roster. A valid code is required to discover names;
+  discovery returns only id/name/role for unclaimed rows without a bound email. Team/user directories require login.
+- Email-bound roster rows are excluded from discovery and can only be claimed by that email (case-insensitive),
+  without a team code or roster selection. An explicitly supplied, different roster id is rejected. Normal signup
+  requires a valid code and an existing, unclaimed, email-free roster id; an already claimed row returns `409 ROSTER_CLAIMED`.
+- Claiming is atomic: after PBKDF2 runs in the stateless Worker, the DO re-validates the email and claims the roster id conditionally inside
+  one SQLite transaction, then insert/update the user. Each roster row can have one claimant and each user one row.
+- Staff can unlink a mistaken claim: deactivate the user, revoke all sessions and release the roster row atomically,
+  with an audit record. An unclaimed row or your own row cannot be unlinked; only admins can unlink an admin user.
+  Unlinking does not delete entries. Signing up again with the same email reactivates and reuses an inactive account
+  **only if no roster row is still linked to it**: claim a new name, adopt its attributes, set the new password,
+  clear the forced-change flag and keep training history. Other duplicate emails return `409 EMAIL_TAKEN`.
+- Login: email + password. Passwords: HMAC-SHA256(key=`PASSWORD_PEPPER`, message=password) feeds PBKDF2-SHA256
+  in the stateless Worker (WebCrypto, `PASSWORD_ITERATIONS=20000`, 16-byte random salt, pepper version 1).
+  `password_hash` stores `pbkdf2-sha256$<iterations>$<pepper_version>$<salt_b64>$<hash_b64>`;
+  `password_salt` remains populated for compatibility. Missing/blank `PASSWORD_PEPPER` fails hashing/verifying
+  endpoints closed with 500 INTERNAL and logs `PASSWORD_PEPPER secret is not configured`; other endpoints still work.
+  Unknown-email login performs the same current HMAC+PBKDF2 work as a current-format verification.
+  Every request performs at most one PBKDF2 derivation. Login never rehashes; stronger parameters apply
+  on the next password change or admin reset. Legacy unprefixed or unparseable hashes are rejected as
+  invalid credentials (401), with a warning that contains no hash material; affected users need a staff reset.
+  Versioned hashes verify using their stored parameters. Pepper rotation requires a version bump and a plan
+  retaining access to old keys or resetting affected passwords: one configured secret does not retain retired keys.
+  The Free plan's 10 ms CPU budget motivates 20k and the one-derivation rule.
+  The DO rate-limits before derivation and re-validates account status and unchanged credentials before creating a session.
+- Password-operation prechecks authenticate without renewing or deleting sessions. Before Worker HMAC/PBKDF2
+  completes, only attempt counters can change: email/IP authentication attempts, and failed team-code attempts
+  on rejected signup. Admin-reset prechecks write nothing. Session maintenance, claims, sessions, grants and
+  credential writes happen only on the post-hash DO call. A mid-hash interruption leaves those unchanged;
+  an immediate retry consumes another attempt, subject to the existing limits and grant expiry.
+  This is not general response-loss idempotency: if a commit succeeded but its response was lost, a signup
+  retry conflicts, a consumed-grant change requires reauthentication, and another admin reset replaces the
+  previous temporary password. These endpoints do not accept idempotency keys.
 - Sessions: random 32-byte token in an HttpOnly, Secure, SameSite=Lax cookie `oyo_session`, 60-day sliding expiry;
   only SHA-256(token) stored. Logout deletes it.
 - Password reset: staff generate a one-time temporary password for a user (shown once to staff); user must change on next login.
-- Bootstrap: the roster is seeded with `joskoo@stanford.edu` as `admin`. Default `team_code` generated on first boot
-  (readable by staff in Admin → Team settings).
-- Rate-limit login/signup attempts per email+IP (simple counter table, 10 / 15 min).
-- Coxswains don't appear on leaderboards by default (`on_leaderboard` flag, staff-editable, defaults false for coxswain role).
+  Password changes and resets derive hashes in the Worker; the DO re-validates sessions, credentials and authorization before writing.
+- Normal password changes are two requests: verify the current password, then change using a re-auth grant.
+  The grant is a random 32-byte token; store only SHA-256(token), bound to session hash, user and the
+  credential hash/salt verified, with a five-minute TTL. Issuing and consuming grants recheck the live
+  session, active user and unchanged credentials synchronously after all awaits. Consumption and password
+  write are atomic; the write deletes all this user's grants and revokes other sessions. A forced change
+  (`must_change_password=1`) needs no grant, since login verified the temporary password. A normal change
+  with a missing/invalid/expired/used grant returns 401 REAUTH_REQUIRED. The legacy `current_password`
+  field on the change request is rejected with 400; it never triggers a second derivation. The new password
+  must be 8–200 characters; it is not compared to the old plaintext password across the two requests.
+- Bootstrap: the roster is seeded with Joshua Koo (`joskoo@stanford.edu`) as `admin`. On first boot, `team_code` uses the trimmed optional
+  `TEAM_CODE` Worker secret, or a generated UUID when absent. Codes must be 4–64 letters, numbers or hyphens
+  after trimming, including in admin settings PATCH. Invalid secrets (blank, short, long or invalid characters)
+  are logged without their values and replaced by a generated UUID, not a startup failure.
+  Existing settings are never overwritten; staff can change the code in Admin → Team settings.
+  Join codes are compared trimmed and case-insensitively (constant-time) in roster discovery and signup.
+- Rate-limit login/signup (also password verification and change prechecks) with independent counters: 10 attempts per
+  normalized email across IPs and 150 attempts per IP across emails, each over 15 minutes. The shared-IP
+  budget permits campus NAT onboarding (60 signups plus later logins) while bounding authenticated abuse.
+  Both are checked atomically in the DO before Worker crypto. Failures count; success clears only the
+  email bucket, never the aggregate IP budget. Exhaustion returns 429 with Retry-After.
+- A separate failed-team-code budget is shared across public roster discovery and normal signup:
+  20 wrong/missing/invalid codes per IP per 15 minutes (window starts on the first failure).
+  Check it before validating a code; after 20 failures, even a correct code gets 429 with Retry-After
+  until expiry. Valid codes neither increment nor clear this counter. Email-bound bootstrap skips
+  code validation and this counter entirely. This replaces the old 10/IP discovery-attempt limit:
+  correct-code roster discovery is not capped, so the whole team can discover from one boathouse IP.
+  Wrong-code signup also consumes the unchanged 10/email and 150/IP signup-attempt budgets above.
+- Only rowers appear on leaderboards by default (`on_leaderboard` flag, staff-editable); all staff, including admins,
+  default false. Roster seeds in `shared/seed.ts`: 35 rowers, three coxswains, Joshua Koo; no coaches.
 
 ## 5. Data model (SQLite inside one Durable Object `TeamDO`, id name "stanford")
 
@@ -146,7 +205,9 @@ users(id TEXT PK, email TEXT UNIQUE (lowercase), name, password_hash, password_s
       bio TEXT, avatar_image_id TEXT NULL, best6k_split_s REAL NULL, best2k_split_s REAL NULL,
       on_leaderboard INT, active INT, created_at, updated_at)
 sessions(token_hash PK, user_id, expires_at, created_at)
-roster(email PK, name, role, group_key, side, class_year, added_by, created_at)
+roster(id TEXT PK, name NOT NULL, email NULL, role, group_key NULL, side, class_year,
+       claimed_by_user_id NULL REFERENCES users(id), added_by, created_at)
+       -- unique lower(email) where not null; unique claimed_by_user_id where not null
 settings(key PK, value_json)            -- team_code, zone_factors, mode_factors, group_targets, season_start ("09-01")
 weekly_targets(user_id, week_start, target_m, PK(user_id, week_start))
 entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, distance_m INT, duration_s INT NULL,
@@ -167,11 +228,31 @@ audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 3 deliberately drops the legacy email-keyed roster and rebuilds/seeds the id-keyed roster (nothing deployed).
+Seeds are insert-if-missing by case-insensitive name. The claimant foreign key is initially deferred so the atomic
+claim can reserve the row before inserting its user in the same transaction.
+Version 4 adds read-path indexes: `entries(visibility,created_at DESC,id DESC)`,
+`entries(user_id,created_at DESC,id DESC)`, `comments(entry_id,created_at,id)`, `entry_images(image_id)`,
+and `notifications(user_id,created_at DESC,id DESC)`. Feed/mine, comments and notifications order by the matching
+timestamp/id direction; image-reference lookups use the image-id index.
+Version 5 adds `reauth_grants(token_hash PK, session_hash, user_id, credential_hash, credential_salt, expires_at)`.
+Expired grants are cleaned when issuing a new one; deletion consumes a grant, never storing its plaintext token.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
-Auth: `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
-(name, bio, side, class_year, best splits, avatar), `POST /api/me/password`, `PUT /api/me/target` ({target_m} → current week onward).
+Mutation requests must use JSON/image Content-Type or send `X-OYO-CSRF: 1` (including bodyless mutations); cross-site origins are rejected.
+
+Auth: public `POST /api/auth/roster` ({team_code} → RosterChoice[]),
+`POST /api/auth/signup` ({team_code?, roster_id?, email, password, group_key?} → User),
+`POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/me`, `PATCH /api/me`
+(name, bio, group_key, side, class_year, best splits, avatar), `PUT /api/me/target` ({target_m} → current week onward).
+Authenticated `POST /api/me/password/verify` takes `{ current_password: string }` and returns
+`{ reauth_token: string; expires_at: string }` (ISO). Wrong passwords return 401 INVALID_CREDENTIALS;
+verification shares the 10/email and 150/IP per 15 minutes limiter, checked before crypto.
+`POST /api/me/password` takes `{ new_password: string; reauth_token?: string }`, returns 204, and
+accepts no legacy `current_password` (400 VALIDATION_ERROR). The token is optional only for a forced
+change; otherwise missing, invalid, expired or reused tokens return 401 REAUTH_REQUIRED. Revoked sessions
+or inactive users return 401 UNAUTHENTICATED; credentials changed in flight return 409 CREDENTIALS_CHANGED.
 Config: `GET /api/config` (factors, group targets, season start, presets, zones list, server-computed
 `today` and `current_week_start` as YYYY-MM-DD in America/Los_Angeles) — public to logged-in users.
 `GET /api/me/target` returns the effective current-week target:
@@ -180,13 +261,34 @@ Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visib
 `POST /api/entries`, `GET/PATCH/DELETE /api/entries/:id` (owner or staff), `POST/DELETE /api/entries/:id/kudos`,
 `GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
 `DELETE /api/comments/:id` (author or staff).
+`GET /api/entries/:id/kudos` returns `PublicUser[]` newest kudos first, ties by user id ascending.
+It uses one LEFT JOIN query for visibility and kudos→users (no N+1); no email/credentials are exposed.
+Authentication is required (401); missing entries or another user's private entry return 404, including for staff.
+Visible entries without kudos return `[]`.
 Images: `POST /api/images` (raw body, image/jpeg|png|webp, ≤1.5MB) → {id}; `GET /api/images/:id` (immutable cache).
+Authenticated image reads require ownership, use as any user's current avatar, or attachment to an entry visible to
+the viewer (non-private or their own); otherwise 404, including conditional requests. Fresh unattached uploads remain
+owner-readable only. Detaching images, deleting entries and replacing/clearing avatars delete only the affected images
+that no entry or current avatar still references; unrelated fresh uploads are not garbage-collected.
 Stats: `GET /api/stats/week?week=YYYY-MM-DD&user=` (target, total, by day, by modality/zone, entries),
 `GET /api/stats/season?season=YYYY&user=` and `?year=YYYY` (weekly series with targets + hit flags, totals by modality/zone,
-streak of consecutive weeks hitting target, best week), `GET /api/leaderboard?week=YYYY-MM-DD&metric=percent|meters|season`.
+streak of consecutive weeks hitting target, best week, and `days: { date: string; equiv_m: number }[]`),
+`GET /api/leaderboard?week=YYYY-MM-DD&metric=percent|meters|season`.
+SeasonStats `days` is returned for both season/year variants and profile stats. One SQL aggregate query grouped by the
+stored PT entry date produces ascending YYYY-MM-DD dates within the selected range through today (or range end).
+Only days whose summed E-meters are positive are included; empty/zero-only days are omitted. Visibility rules match
+all other stats fields below.
 Team: `GET /api/users` (roster directory), `GET /api/users/:id` (public profile + stats summary).
 Leaderboard rows also include `streak` (consecutive weeks hitting target up to the selected week)
 and `entry_count` for that week.
+Week parameters accept real YYYY-MM-DD dates from 2000-01-01 through 365 days after today (otherwise 400), then
+normalize to Monday. Season leaderboard selection uses the original requested date, or today when omitted, before
+week normalization so a September rollover week selects the correct season. Percent ranking compares exact
+meters/target ratios by integer cross-multiplication, then meters; percentages are rounded only for display.
+Stats and leaderboard load personal/group target histories once per request and reuse grouped entry aggregates for
+weekly totals, counts, streaks and season breakdowns. Season/profile days still use one date aggregate query.
+These read routes stay below 20 SQL calls regardless of roster size or number of entries. Target lookup before the
+first group-history version uses its earliest version; an empty/missing history falls back to seed group targets.
 Announcements: `GET /api/announcements`, staff `POST/PATCH/DELETE`; returned announcements include `author: PublicUser`.
 Notifications: `GET /api/notifications`, `POST /api/notifications/read`; returned notifications include
 `actor: PublicUser` and `entry_title: string | null`.
@@ -194,9 +296,37 @@ Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), r
 (CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
 CSV export of entries for a date range, audit log.
+Roster routes: `GET/POST /api/admin/roster`, `PATCH/DELETE /api/admin/roster/:id`,
+`POST /api/admin/roster/import`, `POST /api/admin/roster/:id/unlink` (→ updated RosterRow).
+Roster email and group are nullable; roster ids, not emails, identify rows. Unlink is staff-only, returns 404 for
+missing rows and `409 NOT_CLAIMED` for unclaimed rows; own-row unlink returns 409, unlinking an admin requires admin.
+Roster creation requires a trimmed 1–80 character name and role; email is optional/null and normalized to lowercase.
+Names and non-null emails must be unique case-insensitively (409 on conflict). Group, side and class year may be null.
+PATCH changes only supplied fields. A claimed row's name, role, group, side and class year changes propagate to its
+linked user atomically; an omitted field does not overwrite that user's independently chosen value. Explicitly clearing
+the roster group resets a linked user's group to `normal`. Roster email edits do not change the user's login email.
+Only admins may create/edit/delete admin rows or edit a row linked to an admin; linked-user demotion preserves the
+last-active-admin protection (409). Claimed rows cannot be deleted (409); unlink first. Staff mutations are audited.
+CSV accepts an optional header and five columns (`name,role,group,side,class_year`) or six (email after name).
+Match by email when supplied, otherwise by case-insensitive name; update with the same PATCH permission/propagation
+rules, or insert. Empty nullable cells clear those values; omitting the email column preserves existing email bindings.
+Validation, permission and conflict errors are reported per physical row; permitted rows still import atomically per row.
+Self-service `PATCH /api/me` validates `group_key` and changes only that user's group, not their roster default.
+A self-service name change synchronizes the linked roster name in the same transaction, respecting name uniqueness.
+Across the Durable Object, parse request bodies first, then refresh session/user and read, authorize and write
+synchronously so no pre-await state is used for authorization or updates. Guards reload current sessions and users;
+after password crypto, password changes recheck the live session, active status and verified credential hash/salt in
+the write transaction. Login similarly compares credentials and active status after verification. Session-token hashing
+finishes before the synchronous session commit; signup claims, user writes and session creation share one transaction.
+Staff password resets reload both actor and target after hashing. Record PATCH writes use UPDATE with an existence
+check, never replacement inserts; settings, target and plan upserts use ON CONFLICT DO UPDATE without deleting rows.
 
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
-Private entries count toward the owner's totals and the leaderboard, but never appear in the feed/profile for others.
+Private entries are included in their owner's week/season/year stats and own profile stats, but excluded for every
+non-owner viewer, including staff, from all totals, day/modality/zone breakdowns, weekly summaries, target percentages,
+hit flags, streaks, best week and profile stats. The leaderboard still counts private entries in its totals, percentages,
+streaks and entry counts. Private entry contents never appear in the feed/profile for others. An image also used as a
+current avatar or on a visible entry remains readable under the independent image authorization rules above.
 
 ## 7. Frontend
 

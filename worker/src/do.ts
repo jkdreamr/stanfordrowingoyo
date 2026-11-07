@@ -1,17 +1,22 @@
 import { DurableObject } from 'cloudflare:workers';
 import type { Env } from './index';
 import { migrate } from './db/migrate';
-import { notImplemented } from './routes/stub';
+import { route } from './router';
+import { now } from './clock';
 export class TeamDO extends DurableObject<Env> {
   constructor(ctx: DurableObjectState, env: Env) {
     super(ctx, env);
     ctx.blockConcurrencyWhile(async () => {
-      migrate(ctx.storage);
+      migrate(ctx.storage, env.TEAM_CODE);
     });
   }
   async fetch(request: Request): Promise<Response> {
-    if (request.method === 'GET' && new URL(request.url).pathname === '/api/health')
-      return Response.json({ ok: true, schema_version: 1 });
-    return notImplemented();
+    return route({
+      request,
+      storage: this.ctx.storage,
+      env: this.env,
+      now: now(request, this.env),
+      params: {},
+    });
   }
 }

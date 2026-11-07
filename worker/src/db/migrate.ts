@@ -1,6 +1,11 @@
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
-import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS } from '../../../shared/seed';
-export function migrate(storage: DurableObjectStorage): void {
+import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS, ROSTER } from '../../../shared/seed';
+import {
+  TEAM_CODE_MIN_LENGTH,
+  TEAM_CODE_MAX_LENGTH,
+  isValidTeamCode,
+} from '../../../shared/teamCode';
+function migrateV1(storage: DurableObjectStorage, teamCode?: string): void {
   const sql = storage.sql;
   sql.exec('CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value_json TEXT NOT NULL)');
   const version = sql
@@ -160,8 +165,15 @@ CREATE TABLE IF NOT EXISTS rate_limits (
 );
 CREATE INDEX IF NOT EXISTS entries_week ON entries(week_start);
 CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
+    let initialCode = teamCode?.trim();
+    if (initialCode !== undefined && !isValidTeamCode(initialCode)) {
+      console.error(
+        `TEAM_CODE secret is invalid; expected ${TEAM_CODE_MIN_LENGTH}-${TEAM_CODE_MAX_LENGTH} letters, numbers, or hyphens. Using a generated code.`,
+      );
+      initialCode = undefined;
+    }
     const settings = {
-      team_code: crypto.randomUUID(),
+      team_code: initialCode ?? crypto.randomUUID(),
       zone_factors: ZONE_FACTORS,
       mode_factors: MODE_FACTORS,
       group_targets: GROUP_TARGETS,
@@ -169,17 +181,6 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
     };
     for (const [key, value] of Object.entries(settings))
       sql.exec('INSERT OR IGNORE INTO settings VALUES (?,?)', key, JSON.stringify(value));
-    sql.exec(
-      'INSERT OR IGNORE INTO roster VALUES (?,?,?,?,?,?,?,?)',
-      'joskoo@stanford.edu',
-      'Josh',
-      'admin',
-      'normal',
-      null,
-      null,
-      null,
-      new Date().toISOString(),
-    );
     for (const p of PRESETS)
       sql.exec(
         'INSERT OR IGNORE INTO presets VALUES (?,?,?,?,?,?,?)',
@@ -204,6 +205,102 @@ CREATE INDEX IF NOT EXISTS entries_user_date ON entries(user_id,date);`);
       );
     for (const p of PLAN_TOTALS)
       sql.exec('INSERT OR IGNORE INTO plan_totals VALUES (?,?,?)', p.group_key, p.week, p.label);
-    sql.exec("INSERT OR REPLACE INTO settings VALUES ('schema_version','1')");
+    sql.exec(
+      "INSERT INTO settings VALUES ('schema_version','1') ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",
+    );
   });
+}
+export function migrate(storage: DurableObjectStorage, teamCode?: string): void {
+  migrateV1(storage, teamCode);
+  const sql = storage.sql;
+  const version = sql
+    .exec<{ value_json: string }>('SELECT value_json FROM settings WHERE key = ?', 'schema_version')
+    .one();
+  if (!version || Number(JSON.parse(version.value_json)) < 2)
+    storage.transactionSync(() => {
+      const targets = sql
+        .exec<{ value_json: string }>(
+          'SELECT value_json FROM settings WHERE key = ?',
+          'group_targets',
+        )
+        .one();
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'group_target_history',
+        JSON.stringify([{ week_start: '2000-01-01', targets: JSON.parse(targets.value_json) }]),
+      );
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '2',
+      );
+    });
+  if (Number(JSON.parse(version.value_json)) < 3)
+    storage.transactionSync(() => {
+      sql.exec(`DROP TABLE roster;
+CREATE TABLE roster (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NULL,
+  role TEXT NOT NULL,
+  group_key TEXT NULL,
+  side TEXT,
+  class_year INTEGER,
+  claimed_by_user_id TEXT NULL REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED,
+  added_by TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE UNIQUE INDEX roster_email ON roster(lower(email)) WHERE email IS NOT NULL;
+CREATE UNIQUE INDEX roster_claim ON roster(claimed_by_user_id) WHERE claimed_by_user_id IS NOT NULL;`);
+      seedRoster(storage);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '3',
+      );
+    });
+  if (Number(JSON.parse(version.value_json)) < 4)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE INDEX IF NOT EXISTS entries_feed ON entries(visibility,created_at DESC,id DESC);
+CREATE INDEX IF NOT EXISTS entries_user_feed ON entries(user_id,created_at DESC,id DESC);
+CREATE INDEX IF NOT EXISTS comments_entry_created ON comments(entry_id,created_at,id);
+CREATE INDEX IF NOT EXISTS entry_images_image ON entry_images(image_id);
+CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,created_at DESC,id DESC);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '4',
+      );
+    });
+  if (Number(JSON.parse(version.value_json)) < 5)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS reauth_grants (
+  token_hash TEXT PRIMARY KEY,
+  session_hash TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  credential_hash TEXT NOT NULL,
+  credential_salt TEXT NOT NULL,
+  expires_at TEXT NOT NULL
+);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '5',
+      );
+    });
+}
+export function seedRoster(storage: DurableObjectStorage): void {
+  for (const row of ROSTER)
+    storage.sql.exec(
+      'INSERT INTO roster (id,name,email,role,group_key,side,class_year,claimed_by_user_id,added_by,created_at) SELECT ?,?,?,?,?,?,?,NULL,NULL,? WHERE NOT EXISTS (SELECT 1 FROM roster WHERE lower(name)=lower(?))',
+      crypto.randomUUID(),
+      row.name,
+      row.email,
+      row.role,
+      row.group_key,
+      row.side,
+      row.class_year,
+      new Date().toISOString(),
+      row.name,
+    );
 }

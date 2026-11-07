@@ -8,7 +8,6 @@ export const csrfHeaders = { 'X-OYO-CSRF': '1' };
 export interface Bootstrap {
   teamCode: string;
   backendReady: boolean;
-  rosterFlow: boolean;
 }
 export interface RowerSignup {
   name: string;
@@ -17,14 +16,14 @@ export interface RowerSignup {
   body: Api['POST /api/auth/signup']['request'] | ClaimSignup;
 }
 
-export async function detectRosterFlow(api: APIRequestContext, teamCode: string) {
+export async function discoverRoster(api: APIRequestContext, teamCode: string) {
   const response = await api.post('/api/auth/roster', {
     data: { team_code: teamCode },
     headers: csrfHeaders,
   });
-  if ([404, 405, 501].includes(response.status())) return false;
   await expect(response).toBeOK();
-  return true;
+  const choices: Api['POST /api/auth/roster']['response'] = await response.json();
+  return choices;
 }
 
 export async function newRowerSignup(
@@ -36,13 +35,6 @@ export async function newRowerSignup(
   const name = `E2E ${project} ${id}`;
   const email = `e2e+${project}-${id}@example.com`;
   const password = 'e2e-dev-rower-password-1';
-  if (!bootstrap.rosterFlow)
-    return {
-      name,
-      email,
-      password,
-      body: { name, email, password, team_code: bootstrap.teamCode },
-    };
   const input: LoadRosterInput = {
     name,
     email: null,
@@ -56,6 +48,8 @@ export async function newRowerSignup(
   const row: LoadRosterRow = await response.json();
   expect(row.name).toBe(name);
   expect(row.claimed_by_user_id).toBeNull();
+  const choices = await discoverRoster(api, bootstrap.teamCode);
+  expect(choices.some((choice) => choice.id === row.id && choice.name === name)).toBe(true);
   return {
     name,
     email,
