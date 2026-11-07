@@ -13,6 +13,7 @@ describe('query keys', () => {
       'users',
       'me',
       'notifications',
+      'challenges',
     ])
       expect(invalidationKeys('PATCH /api/admin/reports/:id')).toContainEqual(qk.root(resource));
   });

@@ -13,8 +13,8 @@ export function reportDetails(storage: DurableObjectStorage, rows: ReportRow[]):
   const entryIds = [...new Set(rows.map((row) => row.entry_id))];
   const entries = storage.sql
     .exec<Row<Entry>>(
-      `SELECT * FROM entries WHERE id IN (${entryIds.map(() => '?').join(',')})`,
-      ...entryIds,
+      'SELECT * FROM entries WHERE id IN (SELECT value FROM json_each(?))',
+      JSON.stringify(entryIds),
     )
     .toArray();
   const commentIds = rows
@@ -23,8 +23,8 @@ export function reportDetails(storage: DurableObjectStorage, rows: ReportRow[]):
   const comments = commentIds.length
     ? storage.sql
         .exec<Row<Comment>>(
-          `SELECT * FROM comments WHERE id IN (${commentIds.map(() => '?').join(',')})`,
-          ...commentIds,
+          'SELECT * FROM comments WHERE id IN (SELECT value FROM json_each(?))',
+          JSON.stringify(commentIds),
         )
         .toArray()
     : [];
@@ -38,8 +38,8 @@ export function reportDetails(storage: DurableObjectStorage, rows: ReportRow[]):
   const users = new Map(
     storage.sql
       .exec<UserRow>(
-        `SELECT * FROM users WHERE id IN (${userIds.map(() => '?').join(',')})`,
-        ...userIds,
+        'SELECT * FROM users WHERE id IN (SELECT value FROM json_each(?))',
+        JSON.stringify(userIds),
       )
       .toArray()
       .map((user) => [user.id, toPublicUser(user)]),

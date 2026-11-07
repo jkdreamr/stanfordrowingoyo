@@ -265,7 +265,16 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint === 'POST /api/reports') return [qk.root('admin'), qk.root('notifications')];
   if (endpoint === 'PATCH /api/admin/reports/:id')
     return [
-      ...['admin', 'entries', 'stats', 'leaderboard', 'users', 'me', 'notifications'].map(qk.root),
+      ...[
+        'admin',
+        'entries',
+        'stats',
+        'leaderboard',
+        'users',
+        'me',
+        'notifications',
+        'challenges',
+      ].map(qk.root),
     ];
   if (endpoint === 'DELETE /api/comments/:id')
     return [qk.root('entries'), qk.audit(), qk.root('admin')];
