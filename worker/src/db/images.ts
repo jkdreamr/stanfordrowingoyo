@@ -16,8 +16,8 @@ export function visibleImage(storage: DurableObjectStorage, id: string, viewer: 
 export function deleteUnreferencedImages(storage: DurableObjectStorage, ids: string[]) {
   if (!ids.length) return;
   storage.sql.exec(
-    `DELETE FROM images WHERE id IN (${ids.map(() => '?').join(',')}) AND NOT EXISTS (SELECT 1 FROM entry_images ei WHERE ei.image_id = images.id) AND NOT EXISTS (SELECT 1 FROM users u WHERE u.avatar_image_id = images.id)`,
-    ...ids,
+    'DELETE FROM images WHERE id IN (SELECT value FROM json_each(?)) AND NOT EXISTS (SELECT 1 FROM entry_images ei WHERE ei.image_id = images.id) AND NOT EXISTS (SELECT 1 FROM users u WHERE u.avatar_image_id = images.id)',
+    JSON.stringify(ids),
   );
 }
 export function insertImage(
