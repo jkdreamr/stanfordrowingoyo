@@ -628,7 +628,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 14 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 10 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();

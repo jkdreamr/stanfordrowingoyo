@@ -389,7 +389,7 @@ END;`);
         '9',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 14)
+  if (Number(JSON.parse(version.value_json)) < 10)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS erg_tests (
 id TEXT PRIMARY KEY, user_id TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('2k','6k')),
@@ -427,7 +427,7 @@ CREATE INDEX IF NOT EXISTS entries_date ON entries(date);`);
             );
         }
       sql.exec(
-        "INSERT INTO settings VALUES ('schema_version','14') ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",
+        "INSERT INTO settings VALUES ('schema_version','10') ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json",
       );
     });
 }

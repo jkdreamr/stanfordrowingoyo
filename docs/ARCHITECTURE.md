@@ -235,7 +235,7 @@ audit_log(id PK, actor_id, action, target, detail_json, created_at)
 ```
 
 Schema migrations: a `schema_version` setting; migrations run in the DO constructor via `blockConcurrencyWhile`.
-Version 14 adds idempotent erg test history, team challenges, and an entries(date) index.
+Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
 Legacy best splits backfill one test per kind using the user's updated_at team-local date.
 Version 7 adds idempotent tag/mention tables and indexes.
 Version 8 adds personal plans and sessions after version 7; both migrations are idempotent and transactional.
