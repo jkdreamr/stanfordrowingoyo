@@ -1,9 +1,12 @@
 import { afterEach, expect, expectTypeOf, it, vi } from 'vitest';
 import type { Api, PublicUser } from '../../../shared/types';
 import { api, ApiClientError } from './api';
+import { IDEMPOTENCY_HEADER } from '../../../shared/headers';
+import { authError } from './auth';
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.useRealTimers();
+  vi.restoreAllMocks();
 });
 it('keeps enriched responses available through the shared client contract', () => {
   expectTypeOf<
@@ -170,4 +173,142 @@ it('does not retry network failures', async () => {
   ).rejects.toThrow('Offline');
   expect(fetcher).toHaveBeenCalledTimes(1);
   expect(vi.getTimerCount()).toBe(0);
+});
+const entryBody = {
+  date: '2026-11-06',
+  modality: 'erg',
+  zone: 'E',
+  distance_m: 1000,
+  title: '',
+  notes: '',
+  visibility: 'team',
+} as const;
+const create = (signal?: AbortSignal) =>
+  api('POST /api/entries', { body: entryBody, idempotencyKey: 'stable-key', retry: true, signal });
+it('retries fetch TypeError with the same key and body', async () => {
+  vi.useFakeTimers();
+  const fetcher = setup(Response.json({ id: 'entry' }));
+  fetcher.mockRejectedValueOnce(new TypeError('fetch'));
+  const result = create();
+  await vi.runAllTimersAsync();
+  await expect(result).resolves.toEqual({ id: 'entry' });
+  expect(fetcher).toHaveBeenCalledTimes(2);
+  for (const [, request] of fetcher.mock.calls)
+    expect(request.headers[IDEMPOTENCY_HEADER]).toBe('stable-key');
+  expect(fetcher.mock.calls[1]).toEqual(fetcher.mock.calls[0]);
+});
+it.each([400, 409, 500, 503])('does not retry ApiError %i', async (status) => {
+  const fetcher = setup(
+    Response.json({ error: { code: 'REJECTED', message: 'Rejected' } }, { status }),
+  );
+  await expect(create()).rejects.toMatchObject({ status });
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});
+it.each([400, 409])('does not retry unenveloped %i', async (status) => {
+  const fetcher = setup(new Response('Rejected', { status }));
+  await expect(create()).rejects.toMatchObject({ status });
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});
+it.each([500, 502, 503, 504])('retries unenveloped %i', async (status) => {
+  vi.useFakeTimers();
+  const fetcher = setup(Response.json({ id: 'entry' }));
+  fetcher.mockResolvedValueOnce(new Response('Busy', { status }));
+  const result = create();
+  await vi.runAllTimersAsync();
+  await expect(result).resolves.toEqual({ id: 'entry' });
+  expect(fetcher).toHaveBeenCalledTimes(2);
+});
+it('waits offline without consuming attempts until online', async () => {
+  vi.useFakeTimers();
+  const fetcher = setup(Response.json({ id: 'entry' }));
+  const events = new EventTarget();
+  vi.stubGlobal('window', Object.assign(events, { location: { origin: 'https://oyo.example' } }));
+  vi.stubGlobal('navigator', { onLine: false });
+  const result = create();
+  await vi.advanceTimersByTimeAsync(10000);
+  expect(fetcher).not.toHaveBeenCalled();
+  vi.stubGlobal('navigator', { onLine: true });
+  events.dispatchEvent(new Event('online'));
+  await expect(result).resolves.toEqual({ id: 'entry' });
+  expect(fetcher).toHaveBeenCalledTimes(1);
+  expect(vi.getTimerCount()).toBe(0);
+});
+it('bounds offline waiting and maps the failure to the short message', async () => {
+  vi.useFakeTimers();
+  const fetcher = setup(Response.json({}));
+  vi.stubGlobal(
+    'window',
+    Object.assign(new EventTarget(), { location: { origin: 'https://oyo.example' } }),
+  );
+  vi.stubGlobal('navigator', { onLine: false });
+  const result = create().catch((error: unknown) => error);
+  await vi.advanceTimersByTimeAsync(60000);
+  const error = await result;
+  expect(error).toMatchObject({ status: 0, detail: { code: 'NETWORK_ERROR' } });
+  expect(authError(error)).toBe('No connection. Try again.');
+  expect(fetcher).not.toHaveBeenCalled();
+  expect(vi.getTimerCount()).toBe(0);
+});
+it.each([false, true])('abort stops a pending wait (offline=%s)', async (offline) => {
+  vi.useFakeTimers();
+  const fetcher = setup(Response.json({}));
+  vi.stubGlobal(
+    'window',
+    Object.assign(new EventTarget(), { location: { origin: 'https://oyo.example' } }),
+  );
+  vi.stubGlobal('navigator', { onLine: !offline });
+  fetcher.mockRejectedValue(new TypeError('fetch'));
+  const controller = new AbortController();
+  const result = create(controller.signal);
+  const rejected = expect(result).rejects.toMatchObject({ name: 'AbortError' });
+  await vi.advanceTimersByTimeAsync(0);
+  controller.abort();
+  await rejected;
+  await vi.runAllTimersAsync();
+  expect(fetcher).toHaveBeenCalledTimes(offline ? 0 : 1);
+  expect(vi.getTimerCount()).toBe(0);
+});
+it('does not retry fetch AbortError', async () => {
+  const fetcher = setup(Response.json({}));
+  fetcher.mockRejectedValue(new DOMException('Aborted', 'AbortError'));
+  await expect(create()).rejects.toMatchObject({ name: 'AbortError' });
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});
+it('exhausts six attempts with NETWORK_ERROR', async () => {
+  vi.useFakeTimers();
+  const fetcher = setup(Response.json({}));
+  fetcher.mockRejectedValue(new TypeError('fetch'));
+  const result = expect(create()).rejects.toMatchObject({
+    status: 0,
+    detail: { code: 'NETWORK_ERROR', message: 'No connection. Try again.' },
+  });
+  await vi.runAllTimersAsync();
+  await result;
+  expect(fetcher).toHaveBeenCalledTimes(6);
+  expect(vi.getTimerCount()).toBe(0);
+});
+it('retries image uploads with the original blob', async () => {
+  vi.useFakeTimers();
+  const fetcher = setup(Response.json({ id: 'image' }));
+  fetcher.mockRejectedValueOnce(new TypeError('fetch'));
+  const body = new Blob(['image'], { type: 'image/png' });
+  const result = api('POST /api/images', { body });
+  await vi.runAllTimersAsync();
+  await expect(result).resolves.toEqual({ id: 'image' });
+  expect(fetcher).toHaveBeenCalledTimes(2);
+  expect(fetcher.mock.calls[1][1].body).toBe(body);
+});
+it('ignores retry for unkeyed creates, PATCH and other writes', async () => {
+  const fetcher = setup(new Response('Busy', { status: 503 }));
+  fetcher.mockImplementation(async () => new Response('Busy', { status: 503 }));
+  await expect(api('POST /api/entries', { body: entryBody, retry: true })).rejects.toMatchObject({
+    status: 503,
+  });
+  await expect(
+    api('PATCH /api/entries/:id', { params: { id: 'entry' }, body: {}, retry: true }),
+  ).rejects.toMatchObject({ status: 503 });
+  await expect(
+    api('DELETE /api/entries/:id', { params: { id: 'entry' }, retry: true }),
+  ).rejects.toMatchObject({ status: 503 });
+  expect(fetcher).toHaveBeenCalledTimes(3);
 });
