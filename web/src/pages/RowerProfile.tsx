@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Activity, UserRound } from 'lucide-react';
-import { useConfig, useEntries, useMe, useProfile } from '../lib/queries';
+import { useConfig, useEntries, useMe, useProfile, useUsers } from '../lib/queries';
 import { ApiClientError } from '../lib/api';
 import { formatNumber } from '../lib/format';
 import { publicSubtitle } from '../lib/social';
@@ -12,8 +12,10 @@ import { ErgTests } from '../components/ErgTests';
 
 export default function RowerProfile() {
   const { id = '' } = useParams();
-  const profile = useProfile(id);
-  const workouts = useEntries(`user:${id}`);
+  const directory = useUsers();
+  const active = !!directory.data?.some((user) => user.id === id && user.active);
+  const profile = useProfile(id, active);
+  const workouts = useEntries(`user:${id}`, active);
   const { data: me } = useMe();
   const { data: config } = useConfig();
   const data = profile.data;
@@ -21,7 +23,15 @@ export default function RowerProfile() {
     <>
       <PageHeader title="Profile" back />
       <div className="screen-stack">
-        {!data ? (
+        {!directory.data ? (
+          <LoadState error={directory.isError} retry={() => void directory.refetch()} />
+        ) : !active ? (
+          <EmptyState
+            icon={<UserRound size={20} strokeWidth={1.75} aria-hidden="true" />}
+            title="No Longer On The Team"
+            action={<Button to="/team">View Team</Button>}
+          />
+        ) : !data ? (
           profile.error instanceof ApiClientError && profile.error.status === 404 ? (
             <EmptyState
               icon={<UserRound size={20} strokeWidth={1.75} aria-hidden="true" />}

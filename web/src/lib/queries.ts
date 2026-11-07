@@ -8,13 +8,14 @@
  */
 import {
   useInfiniteQuery,
+  useIsMutating,
   useMutation,
   useQuery,
   useQueryClient,
   type QueryClient,
   type QueryKey,
 } from '@tanstack/react-query';
-import type { Api, Config, EntryDetail, MyPlan, MyPlanInput } from '../../../shared/types';
+import type { Api, Config, EntryDetail, MyPlan, MyPlanInput, User } from '../../../shared/types';
 import { api, ApiClientError, type RequestOptions } from './api';
 import { useToast } from '../components/ui/Toast';
 import { covers, personalPlan } from './myPlan';
@@ -40,19 +41,31 @@ export const qk = {
     ['api', 'entries', 'GET /api/entries/:id/comments', { params: { id } }] as const,
   audit: () => ['api', 'admin', 'GET /api/admin/audit', {}] as const,
 };
+function useSessionEnabled() {
+  const loggingOut = useIsMutating({ mutationKey: ['POST /api/auth/logout'] });
+  const client = useQueryClient();
+  return loggingOut === 0 && client.getQueryData(qk.me()) !== null;
+}
 function queryHook<K extends Get>(endpoint: K) {
-  return (options: RequestOptions<K>, enabled = true) =>
-    useQuery({
+  return (options: RequestOptions<K>, enabled = true) => {
+    const sessionEnabled = useSessionEnabled();
+    return useQuery({
       queryKey: qk.request(endpoint, options),
       queryFn: ({ signal }) => api(endpoint, { ...options, signal }),
-      enabled,
+      enabled: enabled && (endpoint === 'GET /api/health' || sessionEnabled),
     });
+  };
 }
 export function useHealth() {
   return queryHook('GET /api/health')({});
 }
 export function useMe() {
-  return queryHook('GET /api/me')({});
+  const enabled = useSessionEnabled();
+  return useQuery<User | null>({
+    queryKey: qk.me(),
+    queryFn: ({ signal }) => api('GET /api/me', { signal }),
+    enabled,
+  });
 }
 export function useTarget() {
   return queryHook('GET /api/me/target')({});
@@ -60,13 +73,15 @@ export function useTarget() {
 export function useConfig() {
   return queryHook('GET /api/config')({});
 }
-export function useEntries(scope: Query<'GET /api/entries'>['scope'] = 'feed') {
+export function useEntries(scope: Query<'GET /api/entries'>['scope'] = 'feed', enabled = true) {
+  const sessionEnabled = useSessionEnabled();
   return useInfiniteQuery({
     queryKey: qk.entries(scope),
     initialPageParam: undefined as string | undefined,
     queryFn: ({ pageParam, signal }) =>
       api('GET /api/entries', { query: { scope, cursor: pageParam }, signal }),
     getNextPageParam: (page) => page.next_cursor ?? undefined,
+    enabled: enabled && sessionEnabled,
   });
 }
 export function useEntry(id: string, enabled = true) {
@@ -106,8 +121,8 @@ export function useLeaderboard(query: Query<'GET /api/leaderboard'> = {}) {
 export function useUsers() {
   return queryHook('GET /api/users')({});
 }
-export function useProfile(id: string) {
-  return queryHook('GET /api/users/:id')({ params: { id } }, !!id);
+export function useProfile(id: string, enabled = true) {
+  return queryHook('GET /api/users/:id')({ params: { id } }, enabled && !!id);
 }
 export function useErgTests(id: string) {
   return queryHook('GET /api/users/:id/tests')({ params: { id } }, !!id);
@@ -215,12 +230,14 @@ export function useExport(query: Query<'GET /api/admin/export'>, enabled = false
   return queryHook('GET /api/admin/export')({ query }, enabled);
 }
 export function useAudit() {
+  const enabled = useSessionEnabled();
   return useInfiniteQuery({
     queryKey: qk.audit(),
     initialPageParam: undefined as string | undefined,
     queryFn: ({ pageParam, signal }) =>
       api('GET /api/admin/audit', { query: { cursor: pageParam }, signal }),
     getNextPageParam: (page) => page.next_cursor ?? undefined,
+    enabled,
   });
 }
 export function invalidationKeys(endpoint: Write): QueryKey[] {
@@ -257,8 +274,10 @@ function mutationHook<K extends Write>(endpoint: K) {
   return () => {
     const client = useQueryClient();
     return useMutation({
+      mutationKey: [endpoint],
       mutationFn: (options: RequestOptions<K>) => api(endpoint, options),
       onMutate: async (options) => {
+        if (endpoint === 'POST /api/auth/logout') await client.cancelQueries({ queryKey: qk.all });
         if (endpoint === 'DELETE /api/entries/:id')
           await Promise.all(
             entryQueryKeys(options.params!.id).map((queryKey) =>
@@ -271,6 +290,7 @@ function mutationHook<K extends Write>(endpoint: K) {
         if (endpoint === 'POST /api/auth/roster') return;
         if (endpoint.includes('/auth/')) {
           client.clear();
+          if (endpoint === 'POST /api/auth/logout') client.setQueryData(qk.me(), null);
           return;
         }
         if (endpoint === 'DELETE /api/entries/:id')
