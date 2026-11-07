@@ -231,6 +231,44 @@ for (const end of ['pointerup', 'pointercancel', 'pointerout']) {
     expect(screen.queryByText('Tue, Sep 1')).toBeNull();
   });
 }
+it('ignores companion stylus touches without resetting a pen drag', () => {
+  vi.useFakeTimers();
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+    setTimeout(callback, 16),
+  );
+  vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  view();
+  const plot = screen.getByRole('img');
+  Object.defineProperty(plot, 'setPointerCapture', { value: vi.fn() });
+  vi.spyOn(plot, 'getBoundingClientRect').mockReturnValue({ left: 0, width: 300 } as DOMRect);
+  const stylus = [{ clientX: 0, clientY: 100, touchType: 'stylus' }];
+  fireEvent.touchStart(plot, { touches: stylus, changedTouches: stylus });
+  act(() => vi.advanceTimersByTime(300));
+  expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+  const pen = (type: string, clientX: number) =>
+    fireEvent(
+      plot,
+      Object.assign(new MouseEvent(type, { bubbles: true, clientX }), {
+        pointerType: 'pen',
+        pointerId: 7,
+      }),
+    );
+  pen('pointerdown', 0);
+  fireEvent.touchStart(plot, { touches: stylus, changedTouches: stylus });
+  act(() => vi.advanceTimersByTime(20));
+  expect(screen.getByText('Tue, Sep 1')).toBeTruthy();
+  fireEvent.touchMove(plot, { touches: stylus, changedTouches: stylus });
+  pen('pointermove', 300);
+  act(() => vi.advanceTimersByTime(20));
+  expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+  fireEvent.touchEnd(plot, { touches: [], changedTouches: stylus });
+  fireEvent.touchCancel(plot, { touches: [], changedTouches: stylus });
+  fireEvent.touchStart(plot, { touches: [{ clientX: 0, clientY: 100 }] });
+  act(() => vi.advanceTimersByTime(300));
+  expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+  pen('pointerup', 300);
+  expect(screen.queryByText('Mon, Sep 7')).toBeNull();
+});
 it('scrubs by keyboard, announces keyboard changes and resets on Escape', () => {
   const { container } = view();
   const plot = screen.getByRole('img');

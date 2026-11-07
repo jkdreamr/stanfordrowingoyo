@@ -113,6 +113,11 @@ export function SeasonChartView({
     let timer: ReturnType<typeof setTimeout> | undefined;
     let origin: { x: number; y: number } | null = null;
     let scrubbing = false;
+    const ignoreTouch = (event: TouchEvent) =>
+      dragging.current ||
+      [...Array.from(event.touches), ...Array.from(event.changedTouches)].some(
+        (touch) => (touch as Touch & { touchType?: string }).touchType === 'stylus',
+      );
     const end = () => {
       clearTimeout(timer);
       origin = null;
@@ -120,6 +125,7 @@ export function SeasonChartView({
       touchHandlers.current.end();
     };
     const start = (event: TouchEvent) => {
+      if (ignoreTouch(event)) return;
       end();
       if (event.touches.length !== 1) return;
       const touch = event.touches[0];
@@ -130,6 +136,7 @@ export function SeasonChartView({
       }, 250);
     };
     const move = (event: TouchEvent) => {
+      if (ignoreTouch(event)) return;
       if (!origin || event.touches.length !== 1) return end();
       const touch = event.touches[0];
       if (scrubbing) {
@@ -137,16 +144,19 @@ export function SeasonChartView({
         touchHandlers.current.move(touch.clientX);
       } else if (Math.hypot(touch.clientX - origin.x, touch.clientY - origin.y) > 8) end();
     };
+    const finish = (event: TouchEvent) => {
+      if (!ignoreTouch(event)) end();
+    };
     node.addEventListener('touchstart', start, { passive: true });
     node.addEventListener('touchmove', move, { passive: false });
-    node.addEventListener('touchend', end);
-    node.addEventListener('touchcancel', end);
+    node.addEventListener('touchend', finish);
+    node.addEventListener('touchcancel', finish);
     return () => {
       clearTimeout(timer);
       node.removeEventListener('touchstart', start);
       node.removeEventListener('touchmove', move);
-      node.removeEventListener('touchend', end);
-      node.removeEventListener('touchcancel', end);
+      node.removeEventListener('touchend', finish);
+      node.removeEventListener('touchcancel', finish);
     };
   }, []);
   useEffect(
