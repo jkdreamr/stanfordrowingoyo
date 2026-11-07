@@ -212,7 +212,7 @@ settings(key PK, value_json)            -- team_code, zone_factors, mode_factors
 weekly_targets(user_id, week_start, target_m, PK(user_id, week_start))
 entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, distance_m INT, duration_s INT NULL,
         avg_split_s REAL NULL, stroke_rate INT NULL, avg_hr INT NULL, title, notes, preset_id NULL,
-        mode_factor REAL, zone_factor REAL, equiv_m INT, visibility ('team'|'private'),
+        mode_factor REAL, zone_factor REAL, equiv_m INT, visibility ('team'; legacy 'private' input ignored),
         created_at, updated_at)          -- index (week_start), (user_id, date)
 images(id PK, owner_id, mime, width, height, bytes BLOB, created_at)   -- <= 1.5 MB each, client resizes
 entry_images(entry_id, image_id, position, PK(entry_id, position))     -- up to 4 per entry
@@ -237,6 +237,8 @@ and `notifications(user_id,created_at DESC,id DESC)`. Feed/mine, comments and no
 timestamp/id direction; image-reference lookups use the image-id index.
 Version 5 adds `reauth_grants(token_hash PK, session_hash, user_id, credential_hash, credential_salt, expires_at)`.
 Expired grants are cleaned when issuing a new one; deletion consumes a grant, never storing its plaintext token.
+Version 6 converts every legacy private entry to `team` without modifying workout content or timestamps. The update
+and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
@@ -262,12 +264,11 @@ Entries: `GET /api/entries?scope=feed|mine|user:<id>&cursor=` (feed = team-visib
 `GET/POST /api/entries/:id/comments` (both return comments with `author: PublicUser`),
 `DELETE /api/comments/:id` (author or staff).
 `GET /api/entries/:id/kudos` returns `PublicUser[]` newest kudos first, ties by user id ascending.
-It uses one LEFT JOIN query for visibility and kudos→users (no N+1); no email/credentials are exposed.
-Authentication is required (401); missing entries or another user's private entry return 404, including for staff.
+It uses one LEFT JOIN query for entry existence and kudos→users (no N+1); no email/credentials are exposed.
+Authentication is required (401); missing entries return 404. Every workout is team-visible.
 Visible entries without kudos return `[]`.
 Images: `POST /api/images` (raw body, image/jpeg|png|webp, ≤1.5MB) → {id}; `GET /api/images/:id` (immutable cache).
-Authenticated image reads require ownership, use as any user's current avatar, or attachment to an entry visible to
-the viewer (non-private or their own); otherwise 404, including conditional requests. Fresh unattached uploads remain
+Authenticated image reads require ownership, use as any user's current avatar, or attachment to any existing team entry; otherwise 404, including conditional requests. Fresh unattached uploads remain
 owner-readable only. Detaching images, deleting entries and replacing/clearing avatars delete only the affected images
 that no entry or current avatar still references; unrelated fresh uploads are not garbage-collected.
 Stats: `GET /api/stats/week?week=YYYY-MM-DD&user=` (target, total, by day, by modality/zone, entries),
@@ -322,11 +323,10 @@ Staff password resets reload both actor and target after hashing. Record PATCH w
 check, never replacement inserts; settings, target and plan upserts use ON CONFLICT DO UPDATE without deleting rows.
 
 Validation: distance 1..200,000 m; date not more than 1 day in the future and not before 2020; zone in list; modality in list.
-Private entries are included in their owner's week/season/year stats and own profile stats, but excluded for every
-non-owner viewer, including staff, from all totals, day/modality/zone breakdowns, weekly summaries, target percentages,
-hit flags, streaks, best week and profile stats. The leaderboard still counts private entries in its totals, percentages,
-streaks and entry counts. Private entry contents never appear in the feed/profile for others. An image also used as a
-current avatar or on a visible entry remains readable under the independent image authorization rules above.
+All entries are always team-visible. POST/PATCH accept the legacy `visibility` field but ignore it and store
+`team`. Profiles, feed, week/season/year stats and leaderboard totals include every workout, for all team members.
+Schema version 6 idempotently converts existing private entries to team visibility. Entry mutation remains owner/staff-only;
+images retain their independent authenticated ownership/avatar/entry-reference authorization rules above.
 
 ## 7. Frontend
 
@@ -337,7 +337,7 @@ current avatar or on a visible entry remains readable under the independent imag
   sidebar with the same destinations + content column (max ~720px) and a right rail (week ring, announcements).
 - Screens: Login/Signup, Home (week progress ring vs target, remaining meters, days left, quick-log presets, this week's
   sessions, pinned announcements, "suggested to hit target" using the distance menu), Log (modality segmented control,
-  zone picker, distance or preset, optional time/split/rate/HR, live E-meter preview, notes, photos, visibility),
+  zone picker, distance or preset, optional time/split/rate/HR, live E-meter preview, notes, photos),
   Feed (cards: avatar, name, time, title, stats, E-meters, photos carousel, kudos, comments), Entry detail,
   Leaderboard (This Week % / This Week Meters / Season; week switcher; podium for top 3; highlight me; ≥100% check),
   Me/Profile (season & year totals, weekly bar chart with target line, modality/zone breakdown, streak, best week, my

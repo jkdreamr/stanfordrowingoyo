@@ -39,15 +39,14 @@ function aggregateEntries(
   start: string,
   end: string,
   userId?: string,
-  viewer?: string,
 ) {
-  const where = userId === undefined ? '' : ' AND user_id = ? AND (visibility != ? OR user_id = ?)';
+  const where = userId === undefined ? '' : ' AND user_id = ?';
   return storage.sql
     .exec<EntryAggregate>(
       `SELECT user_id,date,week_start,modality,zone,SUM(equiv_m) AS equiv_m,COUNT(*) AS entry_count FROM entries WHERE week_start >= ? AND week_start <= ?${where} GROUP BY user_id,week_start,date,modality,zone`,
       weekStart(start),
       weekStart(end),
-      ...(userId === undefined ? [] : [userId, 'private', viewer!]),
+      ...(userId === undefined ? [] : [userId]),
     )
     .toArray();
 }
@@ -127,15 +126,13 @@ export function seasonStats(
   user: TargetUser,
   range: DateRange,
   now: Date,
-  viewer: string,
+  _viewer: string,
   through = today(now),
 ): SeasonStats {
   const lastDate = range.end < through ? range.end : through;
   const targets = loadTargets(storage, user.id);
   const entries =
-    lastDate >= range.start
-      ? aggregateEntries(storage, range.start, lastDate, user.id, viewer)
-      : [];
+    lastDate >= range.start ? aggregateEntries(storage, range.start, lastDate, user.id) : [];
   const weeks = summaries(user, range.start, lastDate, entries, targets);
   const best = weeks.reduce<WeekSummary | null>(
     (best, week) => (week.total_m > (best?.total_m ?? 0) ? week : best),
@@ -145,12 +142,10 @@ export function seasonStats(
     ...totals(entries.filter((entry) => entry.date >= range.start && entry.date <= lastDate)),
     days: storage.sql
       .exec<{ date: string; equiv_m: number }>(
-        'SELECT date,SUM(equiv_m) AS equiv_m FROM entries WHERE user_id = ? AND date >= ? AND date <= ? AND (visibility != ? OR user_id = ?) GROUP BY date HAVING SUM(equiv_m) > 0 ORDER BY date',
+        'SELECT date,SUM(equiv_m) AS equiv_m FROM entries WHERE user_id = ? AND date >= ? AND date <= ? GROUP BY date HAVING SUM(equiv_m) > 0 ORDER BY date',
         user.id,
         range.start,
         lastDate,
-        'private',
-        viewer,
       )
       .toArray(),
     start: range.start,

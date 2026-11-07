@@ -13,6 +13,11 @@ beforeAll(async () => {
   ).json();
 });
 describe('log form math and validation', () => {
+  it('builds team-visible payloads without a visibility choice in the draft', () => {
+    const draft = { ...logDraft(config.today), distance: '12000' };
+    expect(draft).not.toHaveProperty('private');
+    expect(logValues(draft, config).input.visibility).toBe('team');
+  });
   it('preserves every shared zone factor and exact bike fractions in the receipt', () => {
     for (const [zone, factor] of Object.entries(ZONE_FACTORS)) {
       expect(Number(formatFactor(factor))).toBe(factor);

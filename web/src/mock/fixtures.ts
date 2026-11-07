@@ -114,7 +114,6 @@ export function createFixtures(now = new Date()) {
     modality: Entry['modality'],
     zone: Entry['zone'],
     title: string,
-    visibility: Entry['visibility'] = 'team',
   ) {
     const id = `entry-${entries.length + 1}`;
     const time = `${day}T${String(14 + (entries.length % 8)).padStart(2, '0')}:00:00Z`;
@@ -131,7 +130,7 @@ export function createFixtures(now = new Date()) {
       equiv_m: equivalentMeters(distance, modality, zone),
       title,
       notes: random() < 0.35 ? 'Steady effort with the team. Kept the rate controlled.' : '',
-      visibility,
+      visibility: 'team',
       duration_s: Math.round(
         modality === 'bike'
           ? distance * 0.12
@@ -187,7 +186,6 @@ export function createFixtures(now = new Date()) {
             ? 'Campus Loop'
             : 'Dish Loop'
           : preset.name,
-        random() < 0.1 ? 'private' : 'team',
       );
     }
   for (const [index, user] of users.filter((u) => u.role === 'rower').entries()) {
@@ -225,7 +223,6 @@ export function createFixtures(now = new Date()) {
               : distance === 30000
                 ? '3x10k E'
                 : `${distance / 1000}k E Steady`,
-        index !== 0 && index % 5 === 0 && n === 2 ? 'private' : 'team',
       );
     });
   }

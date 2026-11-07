@@ -17,7 +17,7 @@ The screen should be understandable before its animation is noticed. Familiar co
 - Every action has a minimum **44 × 44 CSS px** hit area. Prefer 48px for primary form buttons. Visible icon may be 20–24px. Do not shrink targets on desktop.
 - Use native HTML before new dependencies. Use established accessible primitives for modal focus, menus and complex gestures. Do not build a focus trap from scratch.
 - Keep actual distance and E-meters distinct. `60,000 m Bike · Zone E` converts to `20,000 E-meters`; it is not a 20km bike ride. Use shared math and the entry's saved factors, never UI-specific multipliers.
-- Respect private entries: they count in owner totals/leaderboards but never leak to another person's feed/profile, image alt text, tooltips or preloaded hidden cards.
+- Every workout is team-visible; profiles, feed and leaderboard totals include the same workouts.
 
 ### Foundations
 
@@ -262,7 +262,7 @@ CSS carousel baseline: viewport `flex snap-x snap-mandatory overflow-x-auto over
 
 **Do:** use server ranking and metric, show week dates in America/Los_Angeles, explain that Percent compares each rower's effective target, and keep tied ranks as returned. Season metric ignores the weekly switcher; label its actual season scope. Show coxswains only when leaderboard eligibility permits. Background updates preserve scroll and don't animate rows racing around; `Updated Just Now` is enough.
 
-**Don't:** invent podium placeholders when fewer than three eligible athletes exist, infer rank from visual order alone, mix private workout details into ranking drilldowns, display raw percentages with long decimals, or use a green/orange gradient for effort.
+**Don't:** invent podium placeholders when fewer than three eligible athletes exist, infer rank from visual order alone, display raw percentages with long decimals, or use a green/orange gradient for effort.
 
 ### 3.17 Charts
 
@@ -494,7 +494,7 @@ This is the handoff checklist for screen engineers, **not a claim these screens 
 - [ ] Slow network/offline/expired session/server validation/failed image: preserve draft and old content, no false empty/saved/target-hit state, retry available.
 - [ ] Feed → detail → Back: same entry, photo and scroll; loading more doesn't remount prior cards. Sheet scrolling never drags the page.
 - [ ] Repeated taps/back/route changes during motion: no queued transitions, count mismatch, trapped scroll or stale modal.
-- [ ] Training truth: exact bike third, 6,240m campus loop, saved-factor conversions, all ten zones, LA Monday week, historical targets and current-week-only celebration. Private feed/profile boundaries remain intact.
+- [ ] Training truth: exact bike third, 6,240m campus loop, saved-factor conversions, all ten zones, LA Monday week, historical targets and current-week-only celebration. Feed/profile/leaderboard totals include every team-visible workout.
 - [ ] Staff: visible permissions match server authorization; reset passwords shown only once, export/recalculation require clear scope and confirmation.
 - [ ] Profile on real phones before adding motion or a gesture package. Transform-only is a useful baseline, not proof of 60fps.
 

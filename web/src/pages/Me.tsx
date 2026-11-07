@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Activity, Lock } from 'lucide-react';
+import { Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Modality } from '../../../shared/types';
 import { ZONES } from '../../../shared/math';
@@ -157,12 +157,6 @@ export default function Me() {
                     </p>
                     <div className="mt-2 flex items-center gap-2">
                       <ZoneChip zone={entry.zone} />
-                      {entry.visibility === 'private' && (
-                        <span className="inline-flex items-center gap-1 text-caption text-muted">
-                          <Lock size={12} strokeWidth={1.75} aria-hidden="true" />
-                          Private
-                        </span>
-                      )}
                     </div>
                   </div>
                   <p className="shrink-0 text-right text-subhead tabular-nums">

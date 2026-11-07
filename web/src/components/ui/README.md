@@ -2,7 +2,7 @@
 
 Social extensions: `ApiImage` accepts optional `className`, `loading` and `draggable` image props without changing existing consumers. `Avatar` accepts optional `size="feed"` for 40px social-card portraits; existing sizes are unchanged. `useWeekStats(query, enabled?)` supports deferred viewport fetching. Social cards compose the kit's card surface, buttons, avatars, zones and images; carousel/viewer and touch-refresh behavior live in `components/social` with scoped styles in `styles.css`.
 
-Pattern reference: [Design Guide](../../../../docs/DESIGN_GUIDE.md). Architecture §7, owner taste rules and roster signup contract take precedence. Keep the owner's iOS type scale and orange completed ring; retain all ten inline zone choices for one-handed logging. Route crossfades are intentionally omitted to avoid snapshots of private/form content. Skeletons stay static, as required by the owner.
+Pattern reference: [Design Guide](../../../../docs/DESIGN_GUIDE.md). Architecture §7, owner taste rules and roster signup contract take precedence. Keep the owner's iOS type scale and orange completed ring; retain all ten inline zone choices for one-handed logging. Route crossfades are intentionally omitted to avoid snapshots of sensitive form content. Skeletons stay static, as required by the owner.
 
 ## Semantic and Motion Tokens
 
@@ -155,7 +155,7 @@ Native dialog traps focus and makes background inert; focus returns on close. Es
 
 `<TextArea label="Notes" error={error} />`
 
-`<Select label="Visibility"><option value="team">Team</option><option value="private">Only Me</option></Select>`
+`<Select label="Group"><option value="normal">Normal</option><option value="frosh">Frosh</option></Select>`
 
 NumberField is a text input with numeric keyboard, allowing incomplete edits; parse and validate before submitting. Native Select retains platform picker behavior.
 

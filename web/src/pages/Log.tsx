@@ -382,16 +382,6 @@ function LogForm({
               {values.errors.photos}
             </p>
           )}
-          <Card>
-            <Toggle
-              label="Private"
-              checked={draft.private}
-              onChange={(value) => field('private', value)}
-            />
-            <p className="mt-2 text-footnote text-muted">
-              {draft.private ? 'Only you can see this session' : 'Visible to the team'}
-            </p>
-          </Card>
           <TextField
             id="date"
             label="Date"

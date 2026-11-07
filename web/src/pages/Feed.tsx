@@ -23,7 +23,7 @@ export default function Page() {
     if (sentinel.current) observer.observe(sentinel.current);
     return () => observer.disconnect();
   }, [feed.hasNextPage, feed.isFetching, feed.fetchNextPage]);
-  const entries = feed.data?.pages.flatMap((p) => p.items).filter((e) => e.visibility === 'team');
+  const entries = feed.data?.pages.flatMap((p) => p.items);
   return (
     <>
       <PageHeader

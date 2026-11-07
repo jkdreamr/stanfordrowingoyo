@@ -3,16 +3,15 @@ import type { Row } from './row';
 import { toPublicUser, type UserRow } from './users';
 import { notify } from './notifications';
 import { HttpError } from '../http';
-export function kudosUsers(storage: DurableObjectStorage, entry: string, viewer: string) {
+export function kudosUsers(storage: DurableObjectStorage, entry: string, _viewer: string) {
   const rows = storage.sql
     .exec<UserRow | { id: null }>(
       `SELECT u.* FROM entries e
      LEFT JOIN kudos k ON k.entry_id=e.id
      LEFT JOIN users u ON u.id=k.user_id
-     WHERE e.id=? AND (e.visibility != 'private' OR e.user_id=?)
+     WHERE e.id=?
      ORDER BY k.created_at DESC,k.user_id`,
       entry,
-      viewer,
     )
     .toArray();
   if (!rows.length) throw new HttpError(404, 'NOT_FOUND', 'Entry not found.');

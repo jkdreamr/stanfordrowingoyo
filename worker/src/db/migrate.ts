@@ -288,6 +288,15 @@ CREATE INDEX IF NOT EXISTS notifications_user_created ON notifications(user_id,c
         '5',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 6)
+    storage.transactionSync(() => {
+      sql.exec("UPDATE entries SET visibility = 'team' WHERE visibility = 'private'");
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '6',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

@@ -245,15 +245,15 @@ describe('fresh state after awaited request bodies', () => {
       expect(() => saveEntry(storage, entry, undefined, true)).toThrow('Entry not found.');
     });
   });
-  it('reloads social visibility after the comment body arrives', async () => {
+  it('reloads entry existence after the comment body arrives', async () => {
     const athlete = await user('Athlete');
     const other = await user('Other');
     const entry = await (await api('/entries', athlete, 'POST', entryBody)).json<EntryDetail>();
     await sql(async (storage) => {
       const held = delayed(storage, other, { id: entry.id });
       const pending = social.comment(held.ctx);
-      storage.sql.exec('UPDATE entries SET visibility=? WHERE id=?', 'private', entry.id);
-      held.send({ body: 'Not public anymore' });
+      storage.sql.exec('DELETE FROM entries WHERE id=?', entry.id);
+      held.send({ body: 'Entry was deleted' });
       await expect(pending).rejects.toMatchObject({ status: 404 });
       expect(storage.sql.exec('SELECT * FROM comments').toArray()).toHaveLength(0);
       expect(storage.sql.exec('SELECT * FROM notifications').toArray()).toHaveLength(0);

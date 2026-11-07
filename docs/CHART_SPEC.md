@@ -1,7 +1,7 @@
 ## Implementation notes
 
 - Use daily totals from `SeasonStats.days` on `GET /api/stats/season`; compute cumulative mileage and daily target pace client-side. All fetches every preceding season back to the season starting in 2024 in parallel, including empty seasons. The API has no earliest-entry bound, and backdated entries can predate account creation, so `created_at` is not a reliable history floor. Do not add `/api/stats/series`.
-- Other rowers' charts plot only the API-authorized data; their private entries are excluded by the backend.
+- Every workout is team-visible. Other rowers' charts show the same workout totals as their own charts and the leaderboard.
 
 ## 2. Season mileage chart spec
 
@@ -44,7 +44,7 @@
   per entry, per [ARCHITECTURE.md §2](./ARCHITECTURE.md)). The chart never uses game-capped meters (section 7); it is
   the real mileage record. **Inference:** mixing the game's capped number into the mileage line would make two
   numbers disagree on the same screen.
-- Private entries count, matching the existing rule that private entries count toward the owner's totals
+- Every workout counts, matching the team-visible entry policy
   ([ARCHITECTURE.md §6](./ARCHITECTURE.md)). Viewing another rower's profile shows the same total.
 - One point per day, including zero days, joined with straight segments. **Inference:** daily points make rest days
   read as flat stretches, which is the honest picture and matches the flat-then-jump look in the owner's screenshot.

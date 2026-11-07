@@ -6,10 +6,9 @@ import { deleteUnreferencedImages } from './images';
 export function findEntry(storage: DurableObjectStorage, id: string) {
   return storage.sql.exec<Row<Entry>>('SELECT * FROM entries WHERE id = ?', id).toArray()[0];
 }
-export function visibleEntry(storage: DurableObjectStorage, id: string, viewer: string) {
+export function visibleEntry(storage: DurableObjectStorage, id: string, _viewer: string) {
   const entry = findEntry(storage, id);
-  if (!entry || (entry.visibility === 'private' && entry.user_id !== viewer))
-    throw new HttpError(404, 'NOT_FOUND', 'Entry not found.');
+  if (!entry) throw new HttpError(404, 'NOT_FOUND', 'Entry not found.');
   return entry;
 }
 export function details(
@@ -174,8 +173,6 @@ export function listEntries(
   } else {
     clauses.push('user_id = ?');
     binds.push(scope === 'mine' ? viewer : scope.slice(5));
-    clauses.push('(visibility = ? OR user_id = ?)');
-    binds.push('team', viewer);
   }
   if (cursor) {
     clauses.push('(created_at < ? OR (created_at = ? AND id < ?))');
@@ -194,16 +191,14 @@ export function userEntries(
   user: string,
   start: string,
   end: string,
-  viewer = user,
+  _viewer = user,
 ) {
   return storage.sql
     .exec<Row<Entry>>(
-      'SELECT * FROM entries WHERE user_id = ? AND date >= ? AND date <= ? AND (visibility != ? OR user_id = ?) ORDER BY date,created_at,id',
+      'SELECT * FROM entries WHERE user_id = ? AND date >= ? AND date <= ? ORDER BY date,created_at,id',
       user,
       start,
       end,
-      'private',
-      viewer,
     )
     .toArray();
 }

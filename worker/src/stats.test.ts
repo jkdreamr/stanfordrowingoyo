@@ -241,7 +241,7 @@ describe('batched statistics and indexed read paths', () => {
         d AS (SELECT i,date('2026-03-09','-'||(i%180)||' days') AS day FROM n)
         INSERT INTO entries (id,user_id,date,week_start,modality,zone,distance_m,title,notes,mode_factor,zone_factor,equiv_m,visibility,created_at,updated_at)
         SELECT u.id||'-entry-'||d.i,u.id,d.day,date(d.day,'-'||((CAST(strftime('%w',d.day) AS INTEGER)+6)%7)||' days'),
-        'erg','E',1000,'Training','',1,1,1000,CASE WHEN d.i%3=0 THEN 'private' ELSE 'team' END,?,? FROM users u CROSS JOIN d`,
+        'erg','E',1000,'Training','',1,1,1000,'team',?,? FROM users u CROSS JOIN d`,
           NOW,
           NOW,
         );
@@ -303,12 +303,10 @@ describe('batched statistics and indexed read paths', () => {
           const owner = !path.includes('perf-1');
           const expected = storage.sql
             .exec<{ total: number }>(
-              'SELECT COALESCE(SUM(equiv_m),0) AS total FROM entries WHERE user_id=? AND date>=? AND date<=? AND (visibility!=? OR ?)',
+              'SELECT COALESCE(SUM(equiv_m),0) AS total FROM entries WHERE user_id=? AND date>=? AND date<=?',
               owner ? 'perf-0' : 'perf-1',
               range,
               '2026-03-09',
-              'private',
-              Number(owner),
             )
             .one().total;
           expect(stats.total_m).toBe(expected);
@@ -340,7 +338,7 @@ describe('batched statistics and indexed read paths', () => {
       setSetting(storage, 'schema_version', 3);
       migrate(storage);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(5);
+      expect(getSetting(storage, 'schema_version')).toBe(6);
       expect(
         storage.sql.exec('SELECT id FROM entries WHERE id=?', logged.id).toArray(),
       ).toHaveLength(1);
