@@ -64,7 +64,7 @@ self.addEventListener('notificationclick',event=>{
  }));
 });
 self.addEventListener('pushsubscriptionchange',event=>{
- event.waitUntil(fetch('/api/me/push',{credentials:'same-origin'}).then(response=>response.ok?response.json():null).then(config=>config&&config.public_key?self.registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:config.public_key}):null).then(subscription=>{
+ event.waitUntil(fetch('/api/me/push',{credentials:'same-origin'}).then(response=>response.ok?response.json():null).then(config=>config&&config.public_key?self.registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:Uint8Array.from(atob(config.public_key.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0))}):null).then(subscription=>{
   if(!subscription)return;
   const json=subscription.toJSON();
   return fetch('/api/me/push',{method:'PUT',credentials:'same-origin',headers:{'Content-Type':'application/json','X-OYO-CSRF':'1'},body:JSON.stringify({endpoint:subscription.endpoint,keys:json.keys})});
