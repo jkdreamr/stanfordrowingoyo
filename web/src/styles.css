@@ -169,6 +169,20 @@
 .social-kudos-give {
   animation: social-kudos var(--oyo-motion-panel) var(--oyo-ease-out);
 }
+.celebration-pop {
+  animation: celebration-pop 600ms var(--oyo-ease-out);
+}
+@keyframes celebration-pop {
+  0% {
+    transform: scale(0.98);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .social-double-tap {
   position: relative;
   touch-action: manipulation;
@@ -201,6 +215,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .celebration-pop {
+    animation: none;
+  }
   .social-heart-burst {
     display: none;
     animation: none;

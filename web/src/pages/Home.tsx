@@ -31,6 +31,7 @@ import { LastWeekRecap } from '../components/LastWeekRecap';
 import { TeamChallenges } from '../components/TeamChallenges';
 import { PullToRefresh } from '../components/social/PullToRefresh';
 import { useRefreshVisible } from '../lib/useRefreshVisible';
+import { Celebration } from '../components/ui/Celebration';
 export default function Page() {
   const refresh = useRefreshVisible();
   const { data: user } = useMe();
@@ -91,6 +92,7 @@ export default function Page() {
         onRefresh={refresh}
         className="screen-stack relative [&>.social-refresh-slot]:absolute [&>.social-refresh-slot]:inset-x-0 [&>.social-refresh-slot]:top-0"
       >
+        {user && <Celebration key={user.id} user={user} />}
         {user && <LastWeekRecap user={user} config={config} />}
         <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
           <div className="flex justify-center">

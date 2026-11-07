@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Activity, Users } from 'lucide-react';
 import { TeammatePicker } from '../components/social/TeammatePicker';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { addDays } from '../../../shared/dates';
+import { addDays, seasonRange } from '../../../shared/dates';
 import { equivalentMeters, targetPace } from '../../../shared/math';
 import type { Config, EntryDetail, Preset, User } from '../../../shared/types';
 import {
@@ -26,7 +26,8 @@ import { usePhotos } from '../lib/usePhotos';
 import { useUnsavedChanges } from '../lib/useUnsavedChanges';
 import { authError } from '../lib/auth';
 import { api } from '../lib/api';
-import { recordTargetFinish } from '../lib/targetFinish';
+import { clearTargetFinish, recordTargetFinish } from '../lib/targetFinish';
+import { detectBests, recordCelebration } from '../lib/celebrations';
 import {
   Button,
   Card,
@@ -166,13 +167,37 @@ function LogForm({
     try {
       const ids = await photos.save();
       const body = { ...values.input, image_ids: ids, tagged_user_ids: tagged.map((u) => u.id) };
-      const previous = await api('GET /api/stats/week', {}).catch(() => null);
+      const [previous, beforeSeason] = await Promise.all([
+        api('GET /api/stats/week', {}).catch(() => null),
+        api('GET /api/stats/season', {}).catch(() => null),
+      ]);
       const saved = entry
         ? await update.mutateAsync({ params: { id: entry.id }, body })
         : await create.mutateAsync({ body });
-      const next = await api('GET /api/stats/week', {}).catch(() => null);
-      if (next && saved.week_start === config.current_week_start)
+      const [next, afterSeason] = await Promise.all([
+        api('GET /api/stats/week', {}).catch(() => null),
+        api('GET /api/stats/season', {}).catch(() => null),
+      ]);
+      const season = seasonRange(config.today, config.season_start);
+      const targetHit =
+        next &&
+        saved.date >= season.start &&
+        saved.date <= season.end &&
+        saved.week_start === config.current_week_start &&
         recordTargetFinish(previous, next, user.id, saved.week_start);
+      const selected = recordCelebration(
+        user.id,
+        detectBests(beforeSeason, afterSeason, saved, user),
+        targetHit
+          ? {
+              kind: 'target-hit',
+              title: 'Target Hit',
+              value: next.target_m,
+              week: saved.week_start,
+            }
+          : undefined,
+      );
+      if (selected && selected.kind !== 'target-hit') clearTargetFinish(user.id, saved.week_start);
       allowNavigation();
       toast.show({
         title: 'Session saved',
