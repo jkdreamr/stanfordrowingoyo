@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Plan, PlanSlot } from '../../../../shared/types';
-import { planError, planWeek, replaceSlot, replaceTotal, slotDisplayText } from './schedule';
+import { planError, scheduleWeeks, replaceSlot, replaceTotal } from './schedule';
 const slot: PlanSlot = {
   group_key: 'normal',
   week: 1,
@@ -34,7 +34,7 @@ describe('whole-plan editing and preview', () => {
     expect(replaceTotal(plan, { ...plan.totals[0] })).toEqual(plan);
   });
   it('filters preview by group and week, orders slots and treats absent/off slots as off', () => {
-    const data = planWeek(
+    const data = scheduleWeeks(
       {
         slots: [
           { ...slot, slot: 'PM2', kind: 'oyo', zone: 'E' },
@@ -49,18 +49,11 @@ describe('whole-plan editing and preview', () => {
         ],
       },
       'normal',
-      1,
-    );
+    )[0];
     expect(data.total).toBe('80 km');
     expect(data.days[0].slots.map((row) => row.slot)).toEqual(['AM', 'PM2']);
     expect(data.days.slice(1).every((day) => day.off)).toBe(true);
-    expect(planWeek({ slots: [], totals: [] }, 'u23', 2).days).toHaveLength(7);
-  });
-  it('matches rower branch prefix stripping while preserving useful text', () => {
-    expect(slotDisplayText(slot)).toBe('Morning Row');
-    expect(slotDisplayText({ kind: 'oyo', text: 'OYO 12k Steady State' })).toBe('12k Steady State');
-    expect(slotDisplayText({ kind: 'team', text: 'Team' })).toBe('Team');
-    expect(slotDisplayText({ kind: 'off', text: '' })).toBe('');
+    expect(scheduleWeeks({ slots: [], totals: [] }, 'u23')[1].days).toHaveLength(7);
   });
   it('validates empty plans, backend bounds and duplicate keys', () => {
     expect(planError({ slots: [], totals: [] })).toBe('');

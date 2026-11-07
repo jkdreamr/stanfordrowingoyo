@@ -17,7 +17,14 @@ import {
 } from '../../components/ui';
 import { LoadState } from '../../components/shell/LoadState';
 import { PlanWeek } from '../../components/plan/PlanWeek';
-import { DAYS, SLOTS, planError, replaceSlot, replaceTotal } from '../../components/plan/schedule';
+import {
+  DAYS,
+  SLOTS,
+  planError,
+  replaceSlot,
+  replaceTotal,
+  scheduleWeeks,
+} from '../../components/plan/schedule';
 import { useAdminPlan, useReplacePlan } from '../../lib/queries';
 import { useUnsavedChanges } from '../../lib/useUnsavedChanges';
 const GROUPS = [
@@ -107,7 +114,7 @@ function PlanDraft({ initial }: { initial: Plan }) {
           {dirty ? 'Unsaved changes across the whole plan' : 'All changes saved'}
         </p>
         {view === 'preview' ? (
-          <PlanWeek plan={draft} group={group} week={week} />
+          <PlanWeek week={scheduleWeeks(draft, group)[week - 1]} preview />
         ) : (
           <>
             <TextField

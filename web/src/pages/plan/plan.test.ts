@@ -2,7 +2,7 @@ import { expect, it } from 'vitest';
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../../shared/math';
 import { PLAN_SLOTS, PLAN_TOTALS } from '../../../../shared/seed';
 import type { Config } from '../../../../shared/types';
-import { scheduleWeeks, slotDisplayText } from './schedule';
+import { scheduleWeeks, slotDisplayText } from '../../components/plan/schedule';
 import { formulaFactor, targetDistance, zonePace } from './calculator';
 const config = { mode_factors: MODE_FACTORS, zone_factors: ZONE_FACTORS } as Config;
 it.each([

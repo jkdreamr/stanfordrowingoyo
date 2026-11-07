@@ -7,20 +7,21 @@ export function slotDisplayText({ kind, text }: Pick<PlanSlot, 'kind' | 'text'>)
   const stripped = prefix ? text.replace(prefix, '') : text;
   return stripped.trim() ? stripped : text;
 }
-export function planWeek(plan: Plan, group: GroupKey, week: 1 | 2) {
-  return {
-    total: plan.totals.find((row) => row.group_key === group && row.week === week)?.label,
+export function scheduleWeeks(plan: Plan, group?: GroupKey) {
+  const slots = group ? plan.slots.filter((row) => row.group_key === group) : plan.slots;
+  const totals = group ? plan.totals.filter((row) => row.group_key === group) : plan.totals;
+  return ([1, 2] as const).map((week) => ({
+    week,
+    total: totals.find((row) => row.week === week)?.label,
     days: DAYS.map((name, day) => {
-      const slots = plan.slots
-        .filter(
-          (row) =>
-            row.group_key === group && row.week === week && row.day === day && row.kind !== 'off',
-        )
+      const sessions = slots
+        .filter((row) => row.week === week && row.day === day && row.kind !== 'off')
         .sort((a, b) => SLOTS.indexOf(a.slot) - SLOTS.indexOf(b.slot));
-      return { name, slots, off: slots.length === 0 };
+      return { name, slots: sessions, off: sessions.length === 0 };
     }),
-  };
+  }));
 }
+export type ScheduleWeek = ReturnType<typeof scheduleWeeks>[number];
 export function replaceSlot(plan: Plan, slot: PlanSlot): Plan {
   const matches = (row: PlanSlot) =>
     row.group_key === slot.group_key &&

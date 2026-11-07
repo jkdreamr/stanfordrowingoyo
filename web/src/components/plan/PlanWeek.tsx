@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
-import type { GroupKey, Plan, PlanSlot } from '../../../../shared/types';
+import type { PlanSlot } from '../../../../shared/types';
 import { ZoneChip } from '../ui';
-import { planWeek, slotDisplayText, SLOTS } from './schedule';
-function Session({ item }: { item: PlanSlot }) {
+import { slotDisplayText, SLOTS, type ScheduleWeek } from './schedule';
+function SlotItem({ item }: { item: PlanSlot }) {
   return (
     <div
       className={
@@ -14,22 +14,36 @@ function Session({ item }: { item: PlanSlot }) {
         <span>{item.kind === 'oyo' ? 'OYO' : 'Team'}</span>
         {item.kind === 'oyo' && item.zone && <ZoneChip zone={item.zone} />}
       </div>
-      <p className="break-words whitespace-pre-wrap text-footnote">{slotDisplayText(item)}</p>
+      <p className="break-words text-footnote">{slotDisplayText(item)}</p>
     </div>
   );
 }
-export function PlanWeek({ plan, group, week }: { plan: Plan; group: GroupKey; week: 1 | 2 }) {
-  const data = planWeek(plan, group, week);
+export function PlanWeek({ week, preview = false }: { week: ScheduleWeek; preview?: boolean }) {
+  const WeekHeading = preview ? 'h2' : 'h3';
+  const DayHeading = preview ? 'h3' : 'h4';
   return (
-    <section aria-label={`Week ${week} Preview`} className="[container-type:inline-size]">
-      <h2 className="text-title3">Week {week}</h2>
-      {data.total && (
-        <p className="mt-1 break-words text-subhead tabular-nums text-muted">{data.total}</p>
+    <section
+      aria-label={preview ? `Week ${week.week} Preview` : undefined}
+      className={preview ? '[container-type:inline-size]' : undefined}
+    >
+      <WeekHeading className="text-title3">Week {week.week}</WeekHeading>
+      {week.total && (
+        <p
+          className={'mt-1 text-subhead tabular-nums text-muted' + (preview ? ' break-words' : '')}
+        >
+          {week.total}
+        </p>
       )}
-      <div className="mt-4 grid gap-4 [@container(min-width:560px)]:grid-cols-2 [@container(min-width:900px)]:hidden">
-        {data.days.map((day) => (
+      <div
+        className={
+          preview
+            ? 'mt-4 grid gap-4 [@container(min-width:560px)]:grid-cols-2 [@container(min-width:900px)]:hidden'
+            : 'mt-4 space-y-4 lg:hidden'
+        }
+      >
+        {week.days.map((day) => (
           <div key={day.name}>
-            <h3 className="mb-2 text-headline">{day.name}</h3>
+            <DayHeading className="mb-2 text-headline">{day.name}</DayHeading>
             {day.off ? (
               <p className="text-subhead text-muted">Off</p>
             ) : (
@@ -40,7 +54,7 @@ export function PlanWeek({ plan, group, week }: { plan: Plan; group: GroupKey; w
                     className="grid grid-cols-[40px_minmax(0,1fr)] items-start gap-2"
                   >
                     <span className="pt-3 text-caption tabular-nums text-muted">{item.slot}</span>
-                    <Session item={item} />
+                    <SlotItem item={item} />
                   </div>
                 ))}
               </div>
@@ -48,22 +62,27 @@ export function PlanWeek({ plan, group, week }: { plan: Plan; group: GroupKey; w
           </div>
         ))}
       </div>
-      <div className="mt-4 hidden grid-cols-[48px_repeat(7,minmax(0,1fr))] gap-2 [@container(min-width:900px)]:grid">
+      <div
+        className={
+          'mt-4 hidden grid-cols-[48px_repeat(7,minmax(0,1fr))] gap-2 ' +
+          (preview ? '[@container(min-width:900px)]:grid' : 'lg:grid')
+        }
+      >
         <div aria-hidden="true" />
-        {data.days.map((day) => (
-          <h3 key={day.name} className="text-footnote font-semibold">
+        {week.days.map((day) => (
+          <DayHeading key={day.name} className="text-footnote font-semibold">
             {day.name.slice(0, 3)}
-          </h3>
+          </DayHeading>
         ))}
         {SLOTS.map((slot, index) => (
           <Fragment key={slot}>
             <p className="pt-3 text-caption tabular-nums text-muted">{slot}</p>
-            {data.days.map((day) => {
+            {week.days.map((day) => {
               const item = day.slots.find((row) => row.slot === slot);
               return (
                 <div key={day.name + slot} className="min-w-0">
                   {item ? (
-                    <Session item={item} />
+                    <SlotItem item={item} />
                   ) : day.off && index === 0 ? (
                     <p className="p-3 text-footnote text-muted">Off</p>
                   ) : null}
