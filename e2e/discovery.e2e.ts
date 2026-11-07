@@ -65,10 +65,12 @@ test('phone Home and Me expose both fortnights before and after planning', async
     .filter({ visible: true })
     .getByRole('link', { name: 'Me', exact: true })
     .click();
-  await page
+  await expect(page.getByRole('heading', { name: 'No Tests Yet', exact: true })).toBeVisible();
+  const plan = page
     .getByRole('region', { name: 'Your Training' })
-    .getByRole('link', { name: 'Plan', exact: true })
-    .click();
+    .getByRole('link', { name: 'Plan', exact: true });
+  await plan.scrollIntoViewIfNeeded();
+  await plan.click();
   await expect(page.getByRole('heading', { name: 'Sample Fortnight', exact: true })).toBeVisible();
 });
 
