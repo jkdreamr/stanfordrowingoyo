@@ -242,7 +242,7 @@ Version 5 adds `reauth_grants(token_hash PK, session_hash, user_id, credential_h
 Expired grants are cleaned when issuing a new one; deletion consumes a grant, never storing its plaintext token.
 Version 6 converts every legacy private entry to `team` without modifying workout content or timestamps. The update
 and version advance are atomic and idempotent; its self-contained migration block can be renumbered independently.
-Version 7 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
+Version 8 adds the owner-only personal fortnight tables `my_plans` and `my_plan_sessions`
 with idempotent CREATE TABLE IF NOT EXISTS. The composite plan primary key indexes owner/date windows.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.

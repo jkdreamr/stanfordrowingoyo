@@ -338,7 +338,7 @@ describe('batched statistics and indexed read paths', () => {
       setSetting(storage, 'schema_version', 3);
       migrate(storage);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(7);
+      expect(getSetting(storage, 'schema_version')).toBe(8);
       expect(
         storage.sql.exec('SELECT id FROM entries WHERE id=?', logged.id).toArray(),
       ).toHaveLength(1);

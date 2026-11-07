@@ -122,12 +122,12 @@ beforeEach(async () => {
   );
 });
 
-it('migrates v6 to v7 idempotently, retaining personal data on repeated migration', async () => {
+it('migrates v7 to v8 idempotently, retaining personal data on repeated migration', async () => {
   await sql((storage) => {
     storage.sql.exec('DROP TABLE my_plan_sessions; DROP TABLE my_plans;');
-    setSetting(storage, 'schema_version', 6);
+    setSetting(storage, 'schema_version', 7);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(7);
+    expect(getSetting(storage, 'schema_version')).toBe(8);
     storage.sql.exec('INSERT INTO my_plans VALUES (?,?,?,?)', 'owner', START, '[]', NOW);
     storage.sql.exec(
       'INSERT INTO my_plan_sessions VALUES (?,?,?,?,?,?,?,?,?)',
@@ -141,7 +141,7 @@ it('migrates v6 to v7 idempotently, retaining personal data on repeated migratio
       null,
       'Keep',
     );
-    setSetting(storage, 'schema_version', 6);
+    setSetting(storage, 'schema_version', 7);
     migrate(storage);
     migrate(storage);
     expect(storage.sql.exec('SELECT * FROM my_plans').toArray()).toHaveLength(1);
