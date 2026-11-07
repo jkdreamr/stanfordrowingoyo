@@ -114,7 +114,9 @@ export function EntryCard({
           leading={<MessageCircle size={20} strokeWidth={1.75} />}
           onClick={onComment ?? (() => navigate(`/entries/${entry.id}#comments`))}
         >
-          {entry.comment_count ? `${entry.comment_count} Comments` : 'Comment'}
+          {entry.comment_count
+            ? `${entry.comment_count} ${entry.comment_count === 1 ? 'Comment' : 'Comments'}`
+            : 'Comment'}
         </Button>
       </footer>
     </article>

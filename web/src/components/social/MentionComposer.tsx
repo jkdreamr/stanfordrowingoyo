@@ -71,7 +71,7 @@ export function MentionComposer({
               <button
                 type="button"
                 tabIndex={-1}
-                className={`flex min-h-11 w-full items-center gap-3 px-3 py-2 text-left text-callout ${active === index ? 'bg-selected' : ''}`}
+                className={`flex min-h-11 w-full items-center gap-3 px-3 py-2 text-left text-callout hover:bg-surface-2 ${active === index ? 'bg-surface-2' : ''}`}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => choose(u)}
               >

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, CircleX } from 'lucide-react';
 import type { PublicUser } from '../../../../shared/types';
 import { useUsers } from '../../lib/queries';
 import { normalizeName } from '../../lib/social';
@@ -35,12 +35,28 @@ export function TeammatePicker({
         </Button>
       }
     >
-      <TextField
-        label="Search Teammates"
-        type="search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <div className="[&_label]:sr-only">
+        <TextField
+          label="Search Teammates"
+          type="text"
+          inputMode="search"
+          placeholder="Search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          trailing={
+            search ? (
+              <button
+                type="button"
+                aria-label="Clear Search"
+                className="flex min-h-11 min-w-11 items-center justify-center text-muted"
+                onClick={() => setSearch('')}
+              >
+                <CircleX size={20} />
+              </button>
+            ) : undefined
+          }
+        />
+      </div>
       <div className="mt-4">
         {!users.data ? (
           <LoadState error={users.isError} retry={() => void users.refetch()} />

@@ -11,10 +11,32 @@ export function WithTeammates({ users = [] }: { users: PublicUser[] }) {
     <div onClick={(e) => e.stopPropagation()}>
       <button
         type="button"
-        className="min-h-11 text-left text-footnote text-muted hover:text-text"
+        className="flex min-h-11 items-center gap-2 text-left text-footnote text-muted"
+        aria-label={withTeammates(users)}
         onClick={() => setOpen(true)}
       >
-        {withTeammates(users)}
+        <span aria-hidden="true" className="flex -space-x-2">
+          {users.slice(0, 3).map((u) => (
+            <span
+              key={u.id}
+              className="rounded-full ring-2 ring-surface [&>.ui-avatar]:!h-6 [&>.ui-avatar]:!w-6 [&>.ui-avatar]:!text-[10px]"
+            >
+              <Avatar name={u.name} imageId={u.avatar_image_id} size="sm" />
+            </span>
+          ))}
+        </span>
+        <span>
+          with <span className="font-medium text-text">{users[0].name}</span>
+          {users.length > 1 && (
+            <>
+              {' '}
+              and{' '}
+              <span className="font-medium text-text">
+                {users.length === 2 ? users[1].name : `${users.length - 1} others`}
+              </span>
+            </>
+          )}
+        </span>
       </button>
       {open && (
         <Sheet open onClose={() => setOpen(false)} title="With">

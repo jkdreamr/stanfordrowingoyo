@@ -80,6 +80,12 @@ interface Rower {
   failed: boolean;
   fatal?: boolean;
 }
+export function socialRecipients(self: string, users: User[], rng: () => number): User[] {
+  const others = users.filter((u) => u.id !== self && u.active);
+  if (!others.length || rng() < 0.5) return [];
+  const start = Math.floor(rng() * others.length);
+  return [...others.slice(start), ...others.slice(0, start)].slice(0, rng() < 0.5 ? 1 : 2);
+}
 export async function ramp<T>(
   items: T[],
   seconds: number,
@@ -155,6 +161,12 @@ export async function runScenarios(
       notes: 'Synthetic QA workout',
       visibility: 'team',
     };
+    const tagged = socialRecipients(
+      r.user!.id,
+      rowers.flatMap((r) => (r.user ? [r.user] : [])),
+      r.rng,
+    );
+    if (tagged.length) body.tagged_user_ids = tagged.map((u) => u.id);
     if (images && r.rng() < 0.4) {
       const image = await r.client.request('POST /api/images', {
         body: new Blob([makeJpeg()], { type: 'image/jpeg' }),
@@ -184,9 +196,17 @@ export async function runScenarios(
       for (const entry of feed.items) {
         if (entry.user_id !== r.user?.id && r.rng() < 0.15) {
           await r.client.request('POST /api/entries/:id/kudos', { id: entry.id });
+          const mentioned = socialRecipients(
+            r.user!.id,
+            rowers.flatMap((r) => (r.user ? [r.user] : [])),
+            r.rng,
+          ).slice(0, 1);
           await r.client.request('POST /api/entries/:id/comments', {
             id: entry.id,
-            body: { body: 'Nice work! (load test)' },
+            body: {
+              body: `Nice work! ${mentioned.map((u) => `@${u.name} `).join('')}(load test)`,
+              ...(mentioned.length ? { mention_ids: mentioned.map((u) => u.id) } : {}),
+            },
           });
         }
         for (const image of entry.images)
