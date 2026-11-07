@@ -18,7 +18,7 @@ export default function ChangePassword() {
       title="Change Your Password"
       subtitle="Replace your temporary password before continuing"
     >
-      <ChangePasswordForm onSuccess={() => navigate(next, { replace: true })} />
+      <ChangePasswordForm forced onSuccess={() => navigate(next, { replace: true })} />
     </AuthFrame>
   );
 }

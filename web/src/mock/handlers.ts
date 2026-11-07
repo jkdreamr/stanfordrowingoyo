@@ -87,13 +87,25 @@ export function createMockApi({
   const audit: AuditLog[] = [];
   const uploads = new Map<string, { blob: Blob; owner: string }>();
   const passwords = new Map(state.users.map((u) => [u.id, 'password']));
+  const credentialVersions = new Map<string, number>();
+  let currentSession = session ? crypto.randomUUID() : null;
+  const reauthGrants = new Map<
+    string,
+    { userId: string; session: string; version: number; expires_at: string }
+  >();
+  function setPassword(userId: string, password: string) {
+    passwords.set(userId, password);
+    credentialVersions.set(userId, (credentialVersions.get(userId) ?? 0) + 1);
+    for (const [token, grant] of reauthGrants)
+      if (grant.userId === userId) reauthGrants.delete(token);
+  }
   const id = (prefix: string) => `${prefix}-${++sequence}`;
   const stamp = () => now().toISOString();
   const userById = (userId: string) =>
     state.users.find((u) => u.id === userId) || fail(404, 'User not found');
   const me = () => {
     const user = currentId && state.users.find((u) => u.id === currentId && u.active);
-    if (!user) fail(401, 'Please log in');
+    if (!user) fail(401, 'Please log in.', 'UNAUTHENTICATED');
     return user;
   };
   const staff = () => ['admin', 'coach', 'coxswain'].includes(me().role);
@@ -101,7 +113,10 @@ export function createMockApi({
     if (!staff()) fail(403, 'Staff access required');
   };
   function setSession(userId: string | null) {
+    for (const [token, grant] of reauthGrants)
+      if (grant.session === currentSession) reauthGrants.delete(token);
     currentId = userId;
+    currentSession = userId ? crypto.randomUUID() : null;
     onSession(userId);
   }
   function target(userId: string, week: string) {
@@ -373,7 +388,7 @@ export function createMockApi({
       if (path === '/api/auth/login' && method === 'POST') {
         const user = state.users.find((u) => u.email === String(body.email).toLowerCase());
         if (!user || !user.active || passwords.get(user.id) !== body.password)
-          fail(401, 'Email or password is incorrect');
+          fail(401, 'Email or password is incorrect', 'INVALID_CREDENTIALS');
         setSession(user.id);
         return json(user);
       }
@@ -432,12 +447,15 @@ export function createMockApi({
         };
         state.users.push(user);
         listed.claimed_by_user_id = user.id;
-        passwords.set(user.id, body.password);
+        setPassword(user.id, body.password);
         setSession(user.id);
         return json(user, 201);
       }
       const user = me();
-      if (user.must_change_password && path !== '/api/me/password' && path !== '/api/me')
+      if (
+        user.must_change_password &&
+        !['/api/me/password', '/api/me/password/verify', '/api/me'].includes(path)
+      )
         fail(403, 'Change your temporary password first');
       if (path.startsWith('/api/admin/')) requireStaff();
       if (method !== 'GET' && path.startsWith('/api/admin/'))
@@ -493,13 +511,55 @@ export function createMockApi({
           return json(user);
         }
       }
-      if (path === '/api/me/password' && method === 'POST') {
-        if (body.current_password !== passwords.get(user.id))
-          fail(400, 'Current password is incorrect');
-        if (typeof body.new_password !== 'string' || body.new_password.length < 8)
-          fail(400, 'Use at least 8 characters');
-        passwords.set(user.id, body.new_password);
+      if (['/api/me/password/verify', '/api/me/password'].includes(path) && method === 'POST') {
+        const verify = path.endsWith('/verify');
+        const value = verify ? body.current_password : body.new_password;
+        const label = verify ? 'Current password' : 'New password';
+        if (!verify && 'current_password' in body)
+          fail(400, 'Use /api/me/password/verify to verify the current password first.');
+        if (typeof value !== 'string') fail(400, `${label} must be a string.`);
+        if (value.length < 8 || value.length > 200)
+          fail(400, `${label} must contain between 8 and 200 characters.`);
+        const version = credentialVersions.get(user.id) ?? 0;
+        const session = currentSession!;
+        const checkGrant = () => {
+          if (user.must_change_password) return;
+          const grant =
+            typeof body.reauth_token === 'string' ? reauthGrants.get(body.reauth_token) : undefined;
+          if (
+            !grant ||
+            grant.userId !== user.id ||
+            grant.session !== session ||
+            grant.version !== version ||
+            Date.parse(grant.expires_at) <= now().getTime()
+          )
+            fail(401, 'Verify your current password again before changing it.', 'REAUTH_REQUIRED');
+        };
+        if (verify) {
+          if (value !== passwords.get(user.id))
+            fail(401, 'Current password is incorrect.', 'INVALID_CREDENTIALS');
+        } else checkGrant();
+        await Promise.resolve();
+        if (
+          me().id !== user.id ||
+          currentSession !== session ||
+          (credentialVersions.get(user.id) ?? 0) !== version
+        )
+          fail(409, 'Credentials changed. Please try again.', 'CREDENTIALS_CHANGED');
+        if (verify) {
+          const expires_at = new Date(now().getTime() + 5 * 60 * 1000).toISOString();
+          const reauth_token = (crypto.randomUUID() + crypto.randomUUID())
+            .replaceAll('-', '')
+            .slice(0, 43);
+          for (const [token, grant] of reauthGrants)
+            if (Date.parse(grant.expires_at) <= now().getTime()) reauthGrants.delete(token);
+          reauthGrants.set(reauth_token, { userId: user.id, session, version, expires_at });
+          return json({ reauth_token, expires_at });
+        }
+        checkGrant();
+        setPassword(user.id, value);
         user.must_change_password = false;
+        user.updated_at = stamp();
         return empty();
       }
       if (path === '/api/me/target') {
@@ -833,7 +893,7 @@ export function createMockApi({
         const targetUser = userById(parts[4]);
         if (parts[5] === 'reset-password' && method === 'POST') {
           const temporary_password = `temp-${id('password')}`;
-          passwords.set(targetUser.id, temporary_password);
+          setPassword(targetUser.id, temporary_password);
           targetUser.must_change_password = true;
           return json({ temporary_password });
         }

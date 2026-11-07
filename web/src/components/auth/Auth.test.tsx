@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { createQueryClient } from '../../lib/queryClient';
@@ -109,6 +109,11 @@ function setup(path: string, session: string | null = null, forced = false) {
 }
 function fill(label: string, value: string) {
   fireEvent.change(screen.getByLabelText(label), { target: { value } });
+}
+function passwordSubmit() {
+  return within(screen.getByRole('dialog', { name: 'Change Password' })).getByRole('button', {
+    name: 'Change Password',
+  });
 }
 async function joinRoster(name: string) {
   await screen.findByLabelText('Team Join Code');
@@ -240,7 +245,7 @@ describe('authentication flows', () => {
   it('forces a temporary password change, validates confirmation, and refreshes me', async () => {
     const { client } = setup('/feed', 'user-1', true);
     await screen.findByRole('button', { name: 'Change Password' });
-    fill('Current Password', 'password');
+    expect(screen.queryByLabelText('Current Password')).toBeNull();
     fill('New Password', 'new-password');
     fill('Confirm Password', 'different');
     fireEvent.click(screen.getByRole('button', { name: 'Change Password' }));
@@ -251,6 +256,12 @@ describe('authentication flows', () => {
     expect(
       client.getQueryData<{ must_change_password: boolean }>(qk.me())?.must_change_password,
     ).toBe(false);
+    const calls = vi
+      .mocked(fetch)
+      .mock.calls.filter(([url]) => String(url).includes('/me/password'));
+    expect(calls).toHaveLength(1);
+    expect(new URL(String(calls[0][0])).pathname).toBe('/api/me/password');
+    expect(JSON.parse(calls[0][1]!.body as string)).toEqual({ new_password: 'new-password' });
   });
   it('logs out and removes account data from the cache', async () => {
     const { client } = setup('/settings', 'user-1');
@@ -258,5 +269,190 @@ describe('authentication flows', () => {
     fireEvent.click(screen.getByRole('dialog').querySelector('footer button:last-child')!);
     await screen.findByRole('button', { name: 'Log In' });
     expect(client.getQueryData(qk.me())).toBeUndefined();
+  });
+  it('verifies the current password before changing it and never sends it to the change endpoint', async () => {
+    setup('/settings', 'user-1');
+    fireEvent.click(await screen.findByRole('button', { name: 'Change Password' }));
+    const fetcher = vi.mocked(fetch);
+    fill('Current Password', 'password');
+    fill('New Password', 'new-password');
+    fill('Confirm Password', 'new-password');
+    fireEvent.click(passwordSubmit());
+    await screen.findByText('Password changed');
+    const calls = fetcher.mock.calls.filter(([url]) => String(url).includes('/me/password'));
+    expect(calls.map(([url]) => new URL(String(url)).pathname)).toEqual([
+      '/api/me/password/verify',
+      '/api/me/password',
+    ]);
+    expect(JSON.parse(calls[0][1]!.body as string)).toEqual({ current_password: 'password' });
+    expect(JSON.parse(calls[1][1]!.body as string)).toEqual({
+      new_password: 'new-password',
+      reauth_token: expect.any(String),
+    });
+  });
+  it('validates empty and oversized password fields before making requests', async () => {
+    setup('/settings', 'user-1');
+    fireEvent.click(await screen.findByRole('button', { name: 'Change Password' }));
+    const submit = passwordSubmit();
+    fireEvent.click(submit);
+    expect(screen.getByText('Enter your current password', { selector: 'p' })).toBeTruthy();
+    fill('Current Password', 'p'.repeat(201));
+    fill('New Password', 'p'.repeat(201));
+    fill('Confirm Password', 'p'.repeat(201));
+    fireEvent.click(submit);
+    expect(screen.getByText('Use at most 200 characters', { selector: 'p' })).toBeTruthy();
+    expect(
+      vi.mocked(fetch).mock.calls.filter(([url]) => String(url).includes('/me/password')),
+    ).toHaveLength(0);
+  });
+  for (const failure of [
+    {
+      status: 401,
+      code: 'INVALID_CREDENTIALS',
+      stage: 'verify',
+      message: 'Current password is incorrect.',
+    },
+    {
+      status: 401,
+      code: 'REAUTH_REQUIRED',
+      stage: 'change',
+      message: 'For your security, enter your current password again.',
+    },
+    {
+      status: 400,
+      code: 'VALIDATION_ERROR',
+      stage: 'verify',
+      message: 'Current password must contain between 8 and 200 characters.',
+    },
+    {
+      status: 400,
+      code: 'VALIDATION_ERROR',
+      stage: 'change',
+      message: 'New password must contain between 8 and 200 characters.',
+    },
+  ]) {
+    it(`maps ${failure.code} during ${failure.stage} inline and preserves the new password for retry`, async () => {
+      setup('/settings', 'user-1');
+      fireEvent.click(await screen.findByRole('button', { name: 'Change Password' }));
+      const original = fetch;
+      let failed = false;
+      vi.stubGlobal(
+        'fetch',
+        vi.fn((url: string | URL, init?: RequestInit) => {
+          const path = new URL(String(url)).pathname;
+          if (
+            !failed &&
+            path === `/api/me/password${failure.stage === 'verify' ? '/verify' : ''}`
+          ) {
+            failed = true;
+            return Promise.resolve(
+              Response.json(
+                { error: { code: failure.code, message: failure.message } },
+                { status: failure.status },
+              ),
+            );
+          }
+          return original(url, init);
+        }),
+      );
+      fill('Current Password', 'password');
+      fill('New Password', 'new-password');
+      fill('Confirm Password', 'new-password');
+      fireEvent.click(passwordSubmit());
+      await screen.findByText(failure.message, { selector: 'p' });
+      expect((screen.getByLabelText('New Password') as HTMLInputElement).value).toBe(
+        'new-password',
+      );
+      expect((screen.getByLabelText('Confirm Password') as HTMLInputElement).value).toBe(
+        'new-password',
+      );
+      const field =
+        failure.stage === 'verify' || failure.code === 'REAUTH_REQUIRED'
+          ? 'Current Password'
+          : 'New Password';
+      expect(screen.getByLabelText(field).getAttribute('aria-invalid')).toBe('true');
+      if (failure.code === 'REAUTH_REQUIRED')
+        expect((screen.getByLabelText('Current Password') as HTMLInputElement).value).toBe('');
+      fill('Current Password', 'password');
+      fireEvent.click(passwordSubmit());
+      await screen.findByText('Password changed');
+    });
+  }
+  for (const [status, code] of [
+    [401, 'UNAUTHENTICATED'],
+    [409, 'CREDENTIALS_CHANGED'],
+  ] as const) {
+    it(`sends ${code} to Login with an explanation and clears account caches`, async () => {
+      const { client, router } = setup('/settings', 'user-1');
+      fireEvent.click(await screen.findByRole('button', { name: 'Change Password' }));
+      const original = fetch;
+      vi.stubGlobal(
+        'fetch',
+        vi.fn((url: string | URL, init?: RequestInit) =>
+          String(url).endsWith('/me/password/verify')
+            ? Promise.resolve(
+                Response.json(
+                  { error: { code, message: 'Credentials changed. Please try again.' } },
+                  { status },
+                ),
+              )
+            : original(url, init),
+        ),
+      );
+      fill('Current Password', 'password');
+      fill('New Password', 'new-password');
+      fill('Confirm Password', 'new-password');
+      fireEvent.click(passwordSubmit());
+      await screen.findByRole('button', { name: 'Log In' });
+      expect(router.state.location.pathname).toBe('/login');
+      expect(screen.getByRole('alert').textContent).toContain(
+        code === 'CREDENTIALS_CHANGED' ? 'Credentials changed.' : 'Please log in',
+      );
+      expect(client.getQueryData(qk.me())).toBeUndefined();
+    });
+  }
+  it('keeps entered passwords after a network failure and does not submit twice while pending', async () => {
+    setup('/settings', 'user-1');
+    fireEvent.click(await screen.findByRole('button', { name: 'Change Password' }));
+    let reject!: (error: Error) => void;
+    const fetcher = vi.fn(
+      () =>
+        new Promise<Response>((_resolve, fail) => {
+          reject = fail;
+        }),
+    );
+    vi.stubGlobal('fetch', fetcher);
+    fill('Current Password', 'password');
+    fill('New Password', 'new-password');
+    fill('Confirm Password', 'new-password');
+    const button = passwordSubmit();
+    fireEvent.click(button);
+    fireEvent.click(button);
+    await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
+    reject(new TypeError('Offline'));
+    await screen.findByText('Could not connect. Check your connection and try again');
+    expect((screen.getByLabelText('New Password') as HTMLInputElement).value).toBe('new-password');
+  });
+  it('shows the server-busy message after the hashing endpoint exhausts its retry', async () => {
+    setup('/settings', 'user-1');
+    fireEvent.click(await screen.findByRole('button', { name: 'Change Password' }));
+    const original = fetch;
+    const fetcher = vi.fn((url: string | URL, init?: RequestInit) =>
+      String(url).endsWith('/me/password/verify')
+        ? Promise.resolve(
+            new Response('<html>Worker exceeded resource limits</html>', { status: 503 }),
+          )
+        : original(url, init),
+    );
+    vi.stubGlobal('fetch', fetcher);
+    fill('Current Password', 'password');
+    fill('New Password', 'new-password');
+    fill('Confirm Password', 'new-password');
+    fireEvent.click(passwordSubmit());
+    await screen.findByText('The server is busy. Please try again.');
+    expect(
+      fetcher.mock.calls.filter(([url]) => String(url).endsWith('/me/password/verify')),
+    ).toHaveLength(2);
+    expect((screen.getByLabelText('New Password') as HTMLInputElement).value).toBe('new-password');
   });
 });

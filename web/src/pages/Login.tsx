@@ -11,7 +11,9 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const next = safeNext(location.search);
-  const [message, setMessage] = useState<string>();
+  const [message, setMessage] = useState<string | undefined>(() =>
+    typeof location.state?.passwordError === 'string' ? location.state.passwordError : undefined,
+  );
   const [fields, setFields] = useState<Record<string, string>>({});
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();

@@ -9,8 +9,8 @@ import type {
 } from '../../../shared/types';
 import { createMockApi } from './handlers';
 const now = () => new Date('2026-11-06T18:00:00Z');
-function setup() {
-  const mock = createMockApi({ now });
+function setup(options: Parameters<typeof createMockApi>[0] = {}) {
+  const mock = createMockApi({ now, ...options });
   const request = (path: string, method = 'GET', body?: unknown) =>
     mock.handle(
       new Request(`http://localhost/api${path}`, {
@@ -31,6 +31,178 @@ const input = {
   notes: '',
   visibility: 'team',
 };
+describe('mock password reauthentication', () => {
+  it('issues a five-minute grant, consumes it once, and revokes other grants when the password changes', async () => {
+    const { request } = setup();
+    const verify = () => request('/me/password/verify', 'POST', { current_password: 'password' });
+    const response = await verify();
+    expect(response.status).toBe(200);
+    const grant = await response.json();
+    expect(grant.reauth_token).toMatch(/^[A-Za-z0-9_-]{43}$/);
+    expect(grant.expires_at).toBe('2026-11-06T18:05:00.000Z');
+    const other = await (await verify()).json();
+    expect(
+      (
+        await request('/me/password', 'POST', {
+          new_password: 'new-password',
+          reauth_token: grant.reauth_token,
+        })
+      ).status,
+    ).toBe(204);
+    for (const token of [grant.reauth_token, other.reauth_token]) {
+      const reused = await request('/me/password', 'POST', {
+        new_password: 'another-password',
+        reauth_token: token,
+      });
+      expect(reused.status).toBe(401);
+      expect(await reused.json()).toMatchObject({ error: { code: 'REAUTH_REQUIRED' } });
+    }
+    expect((await verify()).status).toBe(401);
+    expect(
+      (await request('/me/password/verify', 'POST', { current_password: 'new-password' })).status,
+    ).toBe(200);
+    expect((await request('/me')).status).toBe(200);
+  });
+  it('requires a grant and rejects the old combined-password contract', async () => {
+    const { request } = setup();
+    for (const reauth_token of [undefined, '', 'forged-token']) {
+      const response = await request('/me/password', 'POST', {
+        new_password: 'new-password',
+        reauth_token,
+      });
+      expect(response.status).toBe(401);
+      expect(await response.json()).toEqual({
+        error: {
+          code: 'REAUTH_REQUIRED',
+          message: 'Verify your current password again before changing it.',
+        },
+      });
+    }
+    const legacy = await request('/me/password', 'POST', {
+      current_password: 'password',
+      new_password: 'new-password',
+    });
+    expect(legacy.status).toBe(400);
+    expect(await legacy.json()).toMatchObject({ error: { code: 'VALIDATION_ERROR' } });
+  });
+  it('maps an incorrect current password to INVALID_CREDENTIALS', async () => {
+    const response = await setup().request('/me/password/verify', 'POST', {
+      current_password: 'incorrect-password',
+    });
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({
+      error: { code: 'INVALID_CREDENTIALS', message: 'Current password is incorrect.' },
+    });
+  });
+  for (const [path, field] of [
+    ['/me/password/verify', 'current_password'],
+    ['/me/password', 'new_password'],
+  ] as const) {
+    for (const value of [undefined, 1234, '', 'p'.repeat(7), 'p'.repeat(201)]) {
+      it(`validates ${field} (${typeof value === 'string' ? value.length : String(value)})`, async () => {
+        const response = await setup().request(path, 'POST', { [field]: value });
+        expect(response.status).toBe(400);
+        expect(await response.json()).toMatchObject({ error: { code: 'VALIDATION_ERROR' } });
+      });
+    }
+  }
+  for (const length of [8, 200]) {
+    it(`accepts ${length}-character passwords`, async () => {
+      const { request } = setup();
+      const grant = await (
+        await request('/me/password/verify', 'POST', { current_password: 'password' })
+      ).json();
+      const password = 'p'.repeat(length);
+      expect(
+        (
+          await request('/me/password', 'POST', {
+            new_password: password,
+            reauth_token: grant.reauth_token,
+          })
+        ).status,
+      ).toBe(204);
+      expect(
+        (await request('/me/password/verify', 'POST', { current_password: password })).status,
+      ).toBe(200);
+    });
+  }
+  for (const [elapsed, status] of [
+    [299999, 204],
+    [300000, 401],
+  ]) {
+    it(`expires the grant precisely at five minutes (${elapsed}ms)`, async () => {
+      let instant = now().getTime();
+      const { request } = setup({ now: () => new Date(instant) });
+      const grant = await (
+        await request('/me/password/verify', 'POST', { current_password: 'password' })
+      ).json();
+      instant += elapsed;
+      const response = await request('/me/password', 'POST', {
+        new_password: 'new-password',
+        reauth_token: grant.reauth_token,
+      });
+      expect(response.status).toBe(status);
+      if (status === 401)
+        expect(await response.json()).toMatchObject({ error: { code: 'REAUTH_REQUIRED' } });
+    });
+  }
+  it('binds grants to the user and session, including a new login by the same user', async () => {
+    const { request, state } = setup();
+    const grant = await (
+      await request('/me/password/verify', 'POST', { current_password: 'password' })
+    ).json();
+    for (const user of ['user-2', 'user-1']) {
+      await request('/auth/logout', 'POST');
+      expect(
+        (
+          await request('/auth/login', 'POST', {
+            email: state.users.find((row) => row.id === user)!.email,
+            password: 'password',
+          })
+        ).status,
+      ).toBe(200);
+      const response = await request('/me/password', 'POST', {
+        new_password: 'new-password',
+        reauth_token: grant.reauth_token,
+      });
+      expect(response.status).toBe(401);
+      expect(await response.json()).toMatchObject({ error: { code: 'REAUTH_REQUIRED' } });
+    }
+    await request('/auth/logout', 'POST');
+    for (const path of ['/me/password/verify', '/me/password']) {
+      const response = await request(path, 'POST', {
+        ...(path.endsWith('/verify')
+          ? { current_password: 'password' }
+          : { new_password: 'new-password' }),
+      });
+      expect(response.status).toBe(401);
+      expect(await response.json()).toMatchObject({ error: { code: 'UNAUTHENTICATED' } });
+    }
+  });
+  it('allows forced temporary-password replacement without a verify call or token', async () => {
+    const { request, state } = setup();
+    state.users.find((user) => user.id === 'user-1')!.must_change_password = true;
+    expect((await request('/me/password', 'POST', { new_password: 'new-password' })).status).toBe(
+      204,
+    );
+    expect(await (await request('/me')).json()).toMatchObject({ must_change_password: false });
+  });
+  it('returns CREDENTIALS_CHANGED when credentials change during a password request', async () => {
+    const { request } = setup();
+    const grant = await (
+      await request('/me/password/verify', 'POST', { current_password: 'password' })
+    ).json();
+    const responses = await Promise.all(
+      ['first-password', 'second-password'].map((new_password) =>
+        request('/me/password', 'POST', { new_password, reauth_token: grant.reauth_token }),
+      ),
+    );
+    expect(responses.map((response) => response.status).sort()).toEqual([204, 409]);
+    expect(await responses.find((response) => response.status === 409)!.json()).toEqual({
+      error: { code: 'CREDENTIALS_CHANGED', message: 'Credentials changed. Please try again.' },
+    });
+  });
+});
 describe('mock stats and visibility', () => {
   it('aggregates dated season meters, including multiple sessions on one date', async () => {
     const { request, state } = setup();

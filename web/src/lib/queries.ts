@@ -174,6 +174,7 @@ export const useLogin = mutationHook('POST /api/auth/login');
 export const useLogout = mutationHook('POST /api/auth/logout');
 export const useUpdateMe = mutationHook('PATCH /api/me');
 export const useChangePassword = mutationHook('POST /api/me/password');
+export const useVerifyPassword = mutationHook('POST /api/me/password/verify');
 export const useSetTarget = mutationHook('PUT /api/me/target');
 export const useCreateEntry = mutationHook('POST /api/entries');
 export const useUpdateEntry = mutationHook('PATCH /api/entries/:id');

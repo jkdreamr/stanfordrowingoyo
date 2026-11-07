@@ -36,6 +36,12 @@ mock state; tests use SPA links after mutations because a full reload resets the
 mock database. Mock requests execute through in-page fetch, not Playwright's
 server-side request context. No mock run claims real cookie/backend coverage.
 
+Password scenarios cover Settings' verify-then-change requests, inline incorrect
+current-password errors with preserved values, login with the new password, and
+temporary-password login followed by forced replacement without a verify call or
+reauth token. Both mock and real runs assert the request bodies; the real forced
+flow uses the admin reset-password endpoint on an isolated test rower.
+
 Without E2E_MOCK, the HTTPS worker path remains unchanged. Main currently has
 only GET /api/health: bootstrap skips backend fixtures on POST /api/auth/signup
 501, and Login gating is fixme only on GET /api/me 501 (it needs a real 401).

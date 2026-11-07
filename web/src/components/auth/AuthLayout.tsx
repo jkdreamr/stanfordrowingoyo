@@ -8,6 +8,8 @@ export function AuthLayout() {
   const { data, isPending } = useMe();
   const location = useLocation();
   const next = safeNext(location.search);
+  if (location.pathname === '/login' && typeof location.state?.passwordError === 'string')
+    return <Outlet />;
   if (isPending) return <ShellSkeleton />;
   if (data)
     return (
