@@ -1,7 +1,30 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { resizedDimensions, resizeImage } from './images';
+import { encodeCrop, resizedDimensions, resizeImage } from './images';
 afterEach(() => vi.unstubAllGlobals());
 describe('image size math', () => {
+  it('encodes a 512px crop as WebP and falls back to JPEG', async () => {
+    const drawImage = vi.fn();
+    let webp = true;
+    let empty = false;
+    const canvas = {
+      width: 0,
+      height: 0,
+      getContext: () => ({ fillRect() {}, drawImage }),
+      toBlob: (done: (blob: Blob | null) => void, type: string) =>
+        done(empty ? null : new Blob(['photo'], { type: webp ? type : 'image/jpeg' })),
+    };
+    vi.stubGlobal('document', { createElement: () => canvas });
+    const image = { source: {} as CanvasImageSource, width: 800, height: 400, close() {} };
+    const rect = { x: 200, y: 0, width: 400, height: 400 };
+    expect((await encodeCrop(image, rect)).type).toBe('image/webp');
+    expect(canvas.width).toBe(512);
+    expect(canvas.height).toBe(512);
+    expect(drawImage).toHaveBeenCalledWith(image.source, 200, 0, 400, 400, 0, 0, 512, 512);
+    webp = false;
+    expect((await encodeCrop(image, rect)).type).toBe('image/jpeg');
+    empty = true;
+    await expect(encodeCrop(image, rect)).rejects.toThrow('Could not process');
+  });
   it('caps portrait and landscape without changing aspect ratio', () => {
     expect(resizedDimensions(4000, 3000)).toEqual({ width: 1600, height: 1200 });
     expect(resizedDimensions(3000, 4000)).toEqual({ width: 1200, height: 1600 });
