@@ -17,6 +17,7 @@ import { ThemeProvider } from '../../lib/theme';
 import { ToastProvider } from '../ui';
 const clients: ReturnType<typeof createQueryClient>[] = [];
 beforeEach(() => {
+  HTMLElement.prototype.scrollIntoView = vi.fn();
   vi.stubGlobal('matchMedia', () => ({
     matches: false,
     addEventListener() {},
@@ -123,6 +124,27 @@ async function joinRoster(name: string) {
   fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
 }
 describe('authentication flows', () => {
+  it('tracks the visual viewport and keeps focused fields in the scroll area', async () => {
+    const viewport = Object.assign(new EventTarget(), { height: 400, offsetTop: 24 });
+    vi.stubGlobal('visualViewport', viewport);
+    const removeListener = vi.spyOn(viewport, 'removeEventListener');
+    setup('/signup');
+    await screen.findByRole('button', { name: 'Continue' });
+    const frame = document.querySelector<HTMLElement>('.auth-frame')!;
+    expect(frame.style.getPropertyValue('--auth-viewport-height')).toBe('400px');
+    expect(frame.style.getPropertyValue('--auth-viewport-top')).toBe('24px');
+    viewport.height = 320;
+    viewport.dispatchEvent(new Event('resize'));
+    expect(frame.style.getPropertyValue('--auth-viewport-height')).toBe('320px');
+    fireEvent.click(screen.getByRole('button', { name: 'Have an Invite Email?' }));
+    screen.getByLabelText('Email').focus();
+    await waitFor(() =>
+      expect(HTMLElement.prototype.scrollIntoView).toHaveBeenCalledWith({ block: 'nearest' }),
+    );
+    cleanup();
+    expect(removeListener).toHaveBeenCalledWith('resize', expect.any(Function));
+    expect(removeListener).toHaveBeenCalledWith('scroll', expect.any(Function));
+  });
   it('waits without a login flash and preserves the protected destination', async () => {
     const { router } = setup('/feed');
     expect(screen.getByRole('status').getAttribute('aria-label')).toBe('Loading Your Training');

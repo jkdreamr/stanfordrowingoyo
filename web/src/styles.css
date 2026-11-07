@@ -780,6 +780,29 @@ textarea::placeholder {
   margin: 0 auto;
   padding: max(48px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
 }
+.auth-frame.auth-flow {
+  position: fixed;
+  top: var(--auth-viewport-top, 0px);
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  height: var(--auth-viewport-height, 100dvh);
+  padding: 0;
+}
+.auth-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: max(48px, env(safe-area-inset-top)) 24px 24px;
+  scroll-padding-block: 16px;
+}
+.auth-actions {
+  flex: none;
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--divider);
+  background: var(--bg);
+}
 .screen-stack {
   display: flex;
   flex-direction: column;
@@ -1022,6 +1045,9 @@ main h1[tabindex='-1']:focus {
     overflow: visible;
   }
   .auth-frame {
+    padding-top: 100px;
+  }
+  .auth-scroll {
     padding-top: 100px;
   }
   .app-shell {

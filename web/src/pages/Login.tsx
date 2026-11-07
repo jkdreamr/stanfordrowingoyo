@@ -38,8 +38,16 @@ export default function Login() {
     }
   }
   return (
-    <AuthFrame title="Stanford Rowing OYO" subtitle="Your extra training, counted">
-      <form className="space-y-5" noValidate onSubmit={(e) => void submit(e)}>
+    <AuthFrame
+      title="Stanford Rowing OYO"
+      subtitle="Your extra training, counted"
+      action={
+        <Button type="submit" form="login-form" fullWidth loading={mutation.isPending}>
+          Log In
+        </Button>
+      }
+    >
+      <form id="login-form" className="space-y-5" noValidate onSubmit={(e) => void submit(e)}>
         <FormErrors message={message} fields={fields} />
         <TextField
           id="email"
@@ -60,9 +68,6 @@ export default function Login() {
           required
           error={fields.password}
         />
-        <Button type="submit" fullWidth loading={mutation.isPending}>
-          Log In
-        </Button>
       </form>
       <p className="mt-5 text-footnote text-muted">
         Ask a coxswain or coach to reset your password

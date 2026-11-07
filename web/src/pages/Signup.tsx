@@ -144,6 +144,17 @@ export default function Signup() {
     <AuthFrame
       title={title}
       subtitle={subtitle}
+      action={
+        <Button
+          type="submit"
+          form="signup-form"
+          fullWidth
+          loading={busy}
+          disabled={step === 2 && !selected}
+        >
+          {step === 4 || invite ? 'Create Account' : 'Continue'}
+        </Button>
+      }
       leading={
         (step > 1 || invite) && (
           <Button
@@ -162,7 +173,12 @@ export default function Signup() {
           Step {formatNumber(position)} of {formatNumber(total)}
         </p>
       )}
-      <form noValidate onSubmit={(event) => void submit(event)} className="space-y-5">
+      <form
+        id="signup-form"
+        noValidate
+        onSubmit={(event) => void submit(event)}
+        className="space-y-5"
+      >
         <FormErrors message={message} fields={fields} />
         {step === 1 && !invite && (
           <TextField
@@ -269,9 +285,6 @@ export default function Signup() {
             />
           </>
         )}
-        <Button type="submit" fullWidth loading={busy} disabled={step === 2 && !selected}>
-          {step === 4 || invite ? 'Create Account' : 'Continue'}
-        </Button>
       </form>
       {step === 1 && !invite && (
         <div className="mt-3 text-center">
