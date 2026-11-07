@@ -65,7 +65,8 @@ export function usePasskeySignIn(onUser: (user: User) => void, onError: (message
           if (!cancelled) setBusy(false);
         }
       } catch (error) {
-        if (!controller.signal.aborted && !isPasskeyCancel(error))
+        // Browser-side autofill failures are silent; the button still works.
+        if (!controller.signal.aborted && !(error instanceof DOMException))
           callbacks.current.onError(passkeyError(error));
       }
     })();

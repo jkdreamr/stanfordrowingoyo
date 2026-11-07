@@ -78,3 +78,6 @@ not expose `navigator.credentials`, so iphone-15 only checks the login markup
 (`autocomplete="username webauthn"`, button hidden without WebAuthn). Face ID,
 iOS Safari, the installed iOS PWA and Android biometric prompts need manual
 testing on real devices over HTTPS.
+
+Each project sends its own `CF-Connecting-IP` (198.51.100.1–3) so the suite's signups and logins
+stay under the 150-per-IP auth limit. Cloudflare overwrites this header in production.

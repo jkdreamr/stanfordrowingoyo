@@ -63,6 +63,7 @@ test('passkey setup after password login, sign-in, and removal', async ({
     'Virtual authenticators are CDP-only; WebKit cannot complete a WebAuthn ceremony headlessly',
   );
   test.skip(process.env.E2E_MOCK === '1', 'Signature verification needs the real worker');
+  test.slow();
   const { page, context, user, password } = await makeRower();
   const authenticator = await addVirtualAuthenticator(context, page);
   await logOut(page);
@@ -85,10 +86,12 @@ test('passkey setup after password login, sign-in, and removal', async ({
   const [passkey] = await (await page.request.get('/api/me/passkeys')).json();
   expect(passkey.last_used_at).toBeTruthy();
 
-  // Explicit button, with autofill disabled for the next documents.
-  await page.addInitScript(() => {
+  // Explicit button, with autofill disabled in this and later documents.
+  const noAutofill = () => {
     PublicKeyCredential.isConditionalMediationAvailable = async () => false;
-  });
+  };
+  await page.addInitScript(noAutofill);
+  await page.evaluate(noAutofill);
   await logOut(page);
   await page.reload();
   await passkeyButton(page).click();

@@ -167,6 +167,14 @@ describe('passkey login', () => {
     expect(await screen.findByRole('heading', { name: 'Training Home' })).toBeTruthy();
     expect(credentials.get.mock.calls[0][0]).toMatchObject({ mediation: 'conditional' });
   });
+  it('keeps a failed background autofill request silent', async () => {
+    capabilities.conditional = true;
+    credentials.get.mockRejectedValueOnce(new DOMException('failed', 'NotSupportedError'));
+    setup('/login');
+    await waitFor(() => expect(credentials.get).toHaveBeenCalledTimes(1));
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(screen.queryByRole('alert')).toBeNull();
+  });
   it('explains an unknown passkey and stays quiet on cancel', async () => {
     setup('/login');
     credentials.get.mockRejectedValueOnce(new DOMException('cancel', 'NotAllowedError'));

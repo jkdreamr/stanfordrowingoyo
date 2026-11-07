@@ -445,7 +445,7 @@ images retain their independent authenticated ownership/avatar/entry-reference a
   login (not a forced change) a one-time sheet offers setup if a platform authenticator exists and the user has no
   passkeys; Not Now is remembered per user on the device. Settings lists passkeys (name, last used/added), removes
   with confirmation and sets up new ones, asking for the password when the login is older than 10 minutes. Options
-  are fetched before the tap so iOS Safari keeps the user gesture; cancel/abort is silent. Works the same in an
+  are fetched before the tap so iOS Safari keeps the user gesture; cancel/abort and browser-side autofill failures are silent. Works the same in an
   installed iOS PWA (iOS 16+) since the app keeps its own origin.
 - Numbers: show E-meters as `20,000 m` or `20.0k`; never show raw floats.
 

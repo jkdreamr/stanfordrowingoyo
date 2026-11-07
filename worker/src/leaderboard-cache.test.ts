@@ -4,7 +4,7 @@ import { beforeEach, expect, it } from 'vitest';
 import type { EntryDetail, LeaderboardRow, User, WeekStats } from '../../shared/types';
 import { today } from '../../shared/dates';
 import type { Env } from './index';
-import { leaderboard, uncachedLeaderboard } from './db/stats';
+import { AGGREGATE_BATCH, leaderboard, uncachedLeaderboard } from './db/stats';
 import { getSetting, setSetting } from './db/settings';
 import { migrate } from './db/migrate';
 import { insertRosterFixture } from './testFixtures';
@@ -378,6 +378,40 @@ it('uses indexed batched dirty-user aggregation and three queries on warm hits; 
     });
     expect(response.status).toBe(200);
     expect(calls).toHaveLength(9);
+  });
+});
+
+it('aggregates more dirty users than one statement can bind', async () => {
+  const owner = await signup('Owner');
+  const athlete = await signup('Athlete', owner);
+  await create(athlete);
+  await sql((s) => {
+    const copy = (table: string, column: string, id: string, changes: (i: number) => object) => {
+      const row = s.sql.exec(`SELECT * FROM ${table} WHERE ${column}=?`, id).one();
+      const columns = Object.keys(row);
+      for (let i = 0; i < count; i++) {
+        const next = { ...row, ...changes(i) } as Record<string, SqlStorageValue>;
+        s.sql.exec(
+          `INSERT INTO ${table} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`,
+          ...columns.map((key) => next[key]),
+        );
+      }
+    };
+    const count = AGGREGATE_BATCH * 2 + 5;
+    copy('users', 'id', athlete.user.id, (i) => ({
+      id: `bulk-${i}`,
+      email: `bulk-${i}@example.com`,
+      name: `Bulk ${i}`,
+    }));
+    copy('entries', 'user_id', athlete.user.id, (i) => ({
+      id: `bulk-entry-${i}`,
+      user_id: `bulk-${i}`,
+    }));
+    const date = today(new Date(now));
+    const rows = leaderboard(s, date, 'meters', new Date(now));
+    expect(rows.length).toBeGreaterThan(count);
+    expect(rows).toEqual(uncachedLeaderboard(s, date, 'meters', new Date(now)));
+    expect(rows.find((r) => r.user.id === `bulk-${count - 1}`)?.total_m).toBe(12000);
   });
 });
 

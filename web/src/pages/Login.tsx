@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react';
-import { ScanFace } from 'lucide-react';
 import type { User } from '../../../shared/types';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from '../lib/queries';
@@ -8,6 +7,7 @@ import { Button, TextField } from '../components/ui';
 import { PasswordField } from '../components/auth/PasswordField';
 import { AuthFrame } from '../components/auth/AuthLayout';
 import { FormErrors } from '../components/auth/FormErrors';
+import { PasskeyIcon } from '../components/auth/PasskeyIcon';
 import { biometricLabel, markPasskeyOffer } from '../lib/passkeys';
 import { usePasskeySignIn } from '../lib/usePasskeyLogin';
 export default function Login() {
@@ -24,6 +24,7 @@ export default function Login() {
       user.must_change_password ? `/change-password?next=${encodeURIComponent(next)}` : next,
       { replace: true },
     );
+  const label = biometricLabel();
   const passkey = usePasskeySignIn(go, (error) => {
     setFields({});
     setMessage(error);
@@ -52,32 +53,15 @@ export default function Login() {
     <AuthFrame
       title="Stanford Rowing OYO"
       action={
-        <div className="flex flex-col gap-3">
-          <Button
-            type="submit"
-            form="login-form"
-            fullWidth
-            loading={mutation.isPending}
-            disabled={passkey.busy}
-          >
-            Log In
-          </Button>
-          {passkey.supported && (
-            <Button
-              variant="secondary"
-              fullWidth
-              leading={<ScanFace size={20} strokeWidth={1.75} />}
-              loading={passkey.busy}
-              disabled={mutation.isPending}
-              onClick={() => {
-                setMessage(undefined);
-                void passkey.signIn();
-              }}
-            >
-              {`Log In with ${biometricLabel()}`}
-            </Button>
-          )}
-        </div>
+        <Button
+          type="submit"
+          form="login-form"
+          fullWidth
+          loading={mutation.isPending}
+          disabled={passkey.busy}
+        >
+          Log In
+        </Button>
       }
     >
       <form id="login-form" className="space-y-5" noValidate onSubmit={(e) => void submit(e)}>
@@ -102,6 +86,22 @@ export default function Login() {
           error={fields.password}
         />
       </form>
+      {passkey.supported && (
+        <Button
+          className="mt-5"
+          variant="secondary"
+          fullWidth
+          leading={<PasskeyIcon label={label} />}
+          loading={passkey.busy}
+          disabled={mutation.isPending}
+          onClick={() => {
+            setMessage(undefined);
+            void passkey.signIn();
+          }}
+        >
+          {`Log In with ${label}`}
+        </Button>
+      )}
       <p className="mt-5 text-footnote text-muted">
         Ask a coxswain or coach to reset your password
       </p>
