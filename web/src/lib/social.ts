@@ -57,6 +57,8 @@ export function notificationVerb(kind: Notification['kind']): string {
       return 'tagged you in';
     case 'mention':
       return 'mentioned you in';
+    case 'report':
+      return 'reported';
     default:
       return 'shared';
   }

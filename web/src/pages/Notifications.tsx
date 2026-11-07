@@ -95,6 +95,13 @@ export default function Notifications() {
                           >
                             {content}
                           </button>
+                        ) : n.kind === 'report' ? (
+                          <Link
+                            className="flex min-h-11 items-center gap-3 p-4 text-callout text-text"
+                            to="/admin/reports"
+                          >
+                            {content}
+                          </Link>
                         ) : !n.entry_id ? (
                           <div className="flex min-h-11 items-center gap-3 p-4 text-callout text-text">
                             {content}
