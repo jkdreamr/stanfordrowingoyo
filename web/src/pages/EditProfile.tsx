@@ -1,4 +1,6 @@
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
+import { Camera } from 'lucide-react';
+import { ProfilePhotoCrop } from '../components/ProfilePhotoCrop';
 import { useNavigate } from 'react-router-dom';
 import type { User } from '../../../shared/types';
 import { useConfig, useMe, useUpdateMe } from '../lib/queries';
@@ -11,7 +13,7 @@ import {
   Avatar,
   Button,
   ConfirmSheet,
-  PhotoPicker,
+  Sheet,
   SegmentedControl,
   Select,
   TaskHeader,
@@ -41,6 +43,15 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
   const [draft, setDraft] = useState(initial);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string>();
+  const [photoSheet, setPhotoSheet] = useState(false);
+  const [cropFile, setCropFile] = useState<File>();
+  const cameraInput = useRef<HTMLInputElement>(null);
+  const libraryInput = useRef<HTMLInputElement>(null);
+  function choose(file?: File) {
+    if (!file) return;
+    setPhotoSheet(false);
+    setCropFile(file);
+  }
   const mutation = useUpdateMe();
   const toast = useToast();
   const navigate = useNavigate();
@@ -56,7 +67,7 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
   const photos = usePhotos(initialPhotos, 1);
   const dirty =
     JSON.stringify(draft) !== JSON.stringify(initial) ||
-    photos.photos.some((p) => !!p.file) ||
+    photos.photos.some((p) => !!p.file || !!p.blob) ||
     photos.photos.length !== initialPhotos.length;
   const { blocker, allowNavigation } = useUnsavedChanges(dirty);
   const values = profileValues(draft);
@@ -105,15 +116,23 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
         <fieldset className="screen-stack" disabled={busy}>
           <FormErrors message={message} />
           <div className="flex justify-center">
-            <Avatar name={draft.name} imageId={user.avatar_image_id} size="lg" />
+            <button
+              type="button"
+              className="profile-photo-button"
+              aria-label="Change Profile Photo"
+              onClick={() => setPhotoSheet(true)}
+            >
+              <Avatar
+                name={draft.name}
+                imageId={photos.photos[0]?.id}
+                src={photos.photos[0]?.blob ? photos.photos[0].url : undefined}
+                size="lg"
+              />
+              <span className="profile-photo-badge">
+                <Camera size={16} strokeWidth={1.75} aria-hidden="true" />
+              </span>
+            </button>
           </div>
-          <PhotoPicker
-            photos={photos.photos}
-            max={1}
-            onAdd={photos.add}
-            onRemove={photos.remove}
-            disabled={busy}
-          />
           <TextField
             label="Name"
             value={draft.name}
@@ -186,6 +205,64 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
           />
         </fieldset>
       </form>
+      <input
+        hidden
+        ref={cameraInput}
+        type="file"
+        accept="image/*"
+        capture="user"
+        onChange={(event) => {
+          choose(event.target.files?.[0]);
+          event.target.value = '';
+        }}
+      />
+      <input
+        hidden
+        ref={libraryInput}
+        type="file"
+        accept="image/*"
+        onChange={(event) => {
+          choose(event.target.files?.[0]);
+          event.target.value = '';
+        }}
+      />
+      {!cropFile && (
+        <Sheet open={photoSheet} onClose={() => setPhotoSheet(false)} title="Profile Photo">
+          <div className="profile-photo-actions">
+            <Button fullWidth onClick={() => cameraInput.current?.click()}>
+              Take Photo
+            </Button>
+            <Button fullWidth onClick={() => libraryInput.current?.click()}>
+              Choose from Library
+            </Button>
+            {!!photos.photos.length && (
+              <Button
+                fullWidth
+                variant="destructive"
+                onClick={() => {
+                  photos.remove(photos.photos[0].key);
+                  setPhotoSheet(false);
+                }}
+              >
+                Remove Photo
+              </Button>
+            )}
+            <Button fullWidth variant="secondary" onClick={() => setPhotoSheet(false)}>
+              Cancel
+            </Button>
+          </div>
+        </Sheet>
+      )}
+      {cropFile && (
+        <ProfilePhotoCrop
+          file={cropFile}
+          onCancel={() => setCropFile(undefined)}
+          onDone={(blob) => {
+            photos.addProcessed(blob);
+            setCropFile(undefined);
+          }}
+        />
+      )}
       <ConfirmSheet
         open={blocker.state === 'blocked'}
         onClose={() => blocker.reset?.()}
