@@ -7,6 +7,7 @@ import type {
   GroupKey,
   LeaderboardRow,
   Modality,
+  MyPlanInput,
   Notification,
   Plan,
   PlanSlot,
@@ -29,6 +30,7 @@ import { mentionIds } from '../lib/social';
 import { generatedImage } from './images';
 import { previewRoster } from '../pages/admin/roster';
 import { factorError, seasonError, targetError } from '../pages/admin/operations';
+import { personalPlan, covers } from '../lib/myPlan';
 class MockError extends Error {
   constructor(
     public status: number,
@@ -504,7 +506,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 1 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 8 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -691,6 +693,110 @@ export function createMockApi({
         user.must_change_password = false;
         user.updated_at = stamp();
         return empty();
+      }
+      if (path === '/api/me/plan' || /^\/api\/me\/plan\/[^/]+$/.test(path)) {
+        if (url.searchParams.has('user'))
+          fail(400, 'Personal plans do not accept a user parameter.');
+        const date = url.searchParams.get('date') ?? today(now());
+        if (!dateValid(date)) fail(400, 'Invalid date');
+        if (method === 'GET' && path === '/api/me/plan') {
+          const plan = state.myPlans.find((row) => row.user_id === user.id && covers(row, date));
+          if (!plan) return json(null);
+          const { user_id: _owner, updated_at, ...input } = plan;
+          void _owner;
+          return json(
+            personalPlan(
+              input,
+              settings,
+              updated_at,
+              state.entries.filter((entry) => entry.user_id === user.id),
+            ),
+          );
+        }
+        if (method === 'PUT' && path === '/api/me/plan') {
+          const input = body as unknown as MyPlanInput;
+          if (
+            !dateValid(input.start_date) ||
+            weekStart(input.start_date) !== input.start_date ||
+            !Array.isArray(input.sessions) ||
+            input.sessions.length > 42 ||
+            !Array.isArray(input.rest_days) ||
+            input.rest_days.length > 14
+          )
+            fail(400, 'Invalid personal plan');
+          for (const row of [...input.sessions, ...input.rest_days])
+            if (
+              !row ||
+              ![1, 2].includes(row.week) ||
+              !Number.isInteger(row.day) ||
+              row.day < 0 ||
+              row.day > 6
+            )
+              fail(400, 'Invalid plan day');
+          for (const row of input.sessions)
+            if (
+              !['AM', 'PM1', 'PM2'].includes(row.slot) ||
+              !['erg', 'bike', 'run'].includes(row.modality) ||
+              !ZONES.includes(row.zone) ||
+              (row.distance_m !== null &&
+                (!Number.isInteger(row.distance_m) ||
+                  row.distance_m < 1 ||
+                  row.distance_m > 200000)) ||
+              typeof row.note !== 'string' ||
+              row.note.trim().length > 200
+            )
+              fail(400, 'Invalid session');
+          const rest = new Set(input.rest_days.map((row) => `${row.week}|${row.day}`));
+          if (
+            rest.size !== input.rest_days.length ||
+            new Set(input.sessions.map((row) => `${row.week}|${row.day}|${row.slot}`)).size !==
+              input.sessions.length ||
+            input.sessions.some((row) => rest.has(`${row.week}|${row.day}`))
+          )
+            fail(400, 'Duplicate or conflicting plan days');
+          if (
+            state.myPlans.some(
+              (row) =>
+                row.user_id === user.id &&
+                row.start_date !== input.start_date &&
+                row.start_date >= addDays(input.start_date, -13) &&
+                row.start_date <= addDays(input.start_date, 13),
+            )
+          )
+            fail(409, 'Personal plans cannot overlap.');
+          const saved = {
+            start_date: input.start_date,
+            sessions: input.sessions.map((row) => ({ ...row, note: row.note.trim() })),
+            rest_days: input.rest_days,
+            user_id: user.id,
+            updated_at: stamp(),
+          };
+          state.myPlans = [
+            ...state.myPlans.filter(
+              (row) => row.user_id !== user.id || row.start_date !== input.start_date,
+            ),
+            saved,
+          ];
+          return json(
+            personalPlan(
+              saved,
+              settings,
+              saved.updated_at,
+              state.entries.filter((entry) => entry.user_id === user.id),
+            ),
+          );
+        }
+        if (method === 'DELETE' && path !== '/api/me/plan') {
+          const start = decodeURIComponent(path.split('/').at(-1)!);
+          if (!dateValid(start) || weekStart(start) !== start) fail(400, 'Invalid start date');
+          const index = state.myPlans.findIndex(
+            (row) => row.user_id === user.id && row.start_date === start,
+          );
+          if (index < 0) fail(404, 'Personal plan not found');
+          state.myPlans.splice(index, 1);
+          return empty();
+        }
+        fail(405, 'Method not allowed');
       }
       if (path === '/api/me/target') {
         const week = weekStart(today(now()));

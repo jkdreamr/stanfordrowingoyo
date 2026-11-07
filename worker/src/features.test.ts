@@ -144,10 +144,12 @@ describe('entries and images', () => {
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entry_tags').toArray()).toEqual([]);
       expect(storage.sql.exec('SELECT * FROM comment_mentions').toArray()).toEqual([]);
+      expect(storage.sql.exec('SELECT * FROM my_plans').toArray()).toEqual([]);
+      expect(storage.sql.exec('SELECT * FROM my_plan_sessions').toArray()).toEqual([]);
       expect(
         storage.sql.exec("SELECT value_json FROM settings WHERE key='schema_version'").one()
           .value_json,
-      ).toBe('7');
+      ).toBe('8');
     });
   });
   it('creates, reads, updates and deletes entries with public authors and factor snapshots', async () => {
@@ -348,7 +350,7 @@ describe('entries and images', () => {
             "SELECT value_json FROM settings WHERE key='schema_version'",
           )
           .one().value_json,
-      ).toBe('7');
+      ).toBe('8');
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray()).toEqual(rows);
     });

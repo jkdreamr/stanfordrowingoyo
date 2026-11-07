@@ -51,6 +51,11 @@ then signup only on 401/404. There are at most two auth attempts per rower, no r
 storms. Use a fresh local database or consistent passwords. Do not run concurrently
 against the same seed emails.
 Every non-GET request sends `X-OYO-CSRF: 1`, including bodyless kudos/unlink/delete.
+After authentication, every simulated user GETs `/api/me/plan` exactly once in the
+`personal-plan` phase, for session, burst and combined runs. Every fifth user (indices
+5, 10, ...) PUTs a two-session plan starting this week's Monday from server config.
+Both endpoints appear in the standard per-endpoint latency/error report and use the
+shared API contract; personal-plan mutations send the same CSRF header as other writes.
 
 Initial authentication has its own ramp, before any session or burst work. By
 default 60 rowers start evenly from 0 through 60 seconds (`--auth-ramp 60`), with

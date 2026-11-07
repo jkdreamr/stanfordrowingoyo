@@ -13,6 +13,7 @@ import {
   loadEmail,
 } from './roster.ts';
 import type { ClaimSignup } from './contract.ts';
+import { weekStart } from '../../shared/dates.ts';
 
 export function random(seed: number) {
   let state = seed >>> 0;
@@ -245,6 +246,33 @@ export async function runScenarios(
   }
   await measurePhase(timings, options.skipSignup ? 'login' : 'signup', () =>
     ramp(rowers, options.authRamp, options.concurrency, (r) => safely(r, () => login(r))),
+  );
+  await measurePhase(timings, 'personal-plan', () =>
+    pool(
+      rowers.filter((r) => !r.failed),
+      async (r) => {
+        r.client.scenario = 'personal-plan';
+        await r.client.request('GET /api/me/plan');
+        if (r.n % 5 === 0) {
+          const config = await r.client.request('GET /api/config');
+          await r.client.request('PUT /api/me/plan', {
+            body: {
+              start_date: weekStart(config.today),
+              sessions: [0, 2].map((day) => ({
+                week: 1,
+                day,
+                slot: 'AM',
+                modality: 'erg',
+                zone: 'E',
+                distance_m: 10000,
+                note: 'Load test personal session',
+              })),
+              rest_days: [],
+            },
+          });
+        }
+      },
+    ),
   );
   if (options.scenario !== 'burst') {
     await measurePhase(timings, 'session', () =>

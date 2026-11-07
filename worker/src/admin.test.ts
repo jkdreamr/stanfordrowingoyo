@@ -107,6 +107,9 @@ const endpoints: Record<keyof Api, true> = {
   'POST /api/me/password/verify': true,
   'GET /api/me/target': true,
   'PUT /api/me/target': true,
+  'GET /api/me/plan': true,
+  'PUT /api/me/plan': true,
+  'DELETE /api/me/plan/:start': true,
   'GET /api/config': true,
   'GET /api/entries': true,
   'POST /api/entries': true,
@@ -239,7 +242,14 @@ describe('complete API and role permissions', () => {
         .replace(':group', 'normal')
         .replace(':week', '1')
         .replace(':day', '0')
-        .replace(':slot', 'AM');
+        .replace(':slot', 'AM')
+        .replace(':start', '2026-03-09');
+      if (endpoint === 'DELETE /api/me/plan/:start')
+        await api('/me/plan', staff, 'PUT', {
+          start_date: '2026-03-09',
+          sessions: [],
+          rest_days: [],
+        });
       if (path === '/admin/export') path += '?start=2026-03-01&end=2026-03-10';
       const body =
         method === 'GET' || method === 'DELETE'

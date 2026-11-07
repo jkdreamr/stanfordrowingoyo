@@ -319,6 +319,33 @@ CREATE INDEX IF NOT EXISTS comment_mentions_entry ON comment_mentions(entry_id);
         '7',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 8)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS my_plans (
+  user_id TEXT NOT NULL,
+  start_date TEXT NOT NULL,
+  rest_days_json TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY(user_id, start_date)
+);
+CREATE TABLE IF NOT EXISTS my_plan_sessions (
+  user_id TEXT NOT NULL,
+  start_date TEXT NOT NULL,
+  week INTEGER NOT NULL CHECK(week IN (1,2)),
+  day INTEGER NOT NULL CHECK(day BETWEEN 0 AND 6),
+  slot TEXT NOT NULL CHECK(slot IN ('AM','PM1','PM2')),
+  modality TEXT NOT NULL,
+  zone TEXT NOT NULL,
+  distance_m INTEGER,
+  note TEXT NOT NULL,
+  PRIMARY KEY(user_id, start_date, week, day, slot)
+);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '8',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

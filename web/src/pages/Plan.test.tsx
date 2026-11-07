@@ -49,7 +49,7 @@ it('opens a deep-linked calculator and replaces the tab query on selection', asy
   ).toBeTruthy();
   expect(screen.getByRole('heading', { level: 3, name: 'Pace' })).toBeTruthy();
   expect(screen.getByRole('heading', { level: 3, name: 'Distance' })).toBeTruthy();
-  expect(screen.getAllByRole('tab')).toHaveLength(4);
+  expect(screen.getAllByRole('tab')).toHaveLength(5);
   fireEvent.change(screen.getByLabelText('Best 6k Split'), { target: { value: 'invalid' } });
   expect(screen.getByText('Enter a split like 1:45.0')).toBeTruthy();
   fireEvent.click(screen.getByRole('tab', { name: 'Guide' }));
@@ -62,7 +62,7 @@ it('normalizes unknown tabs and loads the group schedule', async () => {
   const router = setup('/plan?tab=unknown');
   await screen.findByRole('radiogroup', { name: 'Group' });
   await screen.findByRole('heading', { level: 3, name: 'Week 1' });
-  expect(screen.getByRole('heading', { level: 2, name: 'This Fortnight' })).toBeTruthy();
+  expect(screen.getByRole('heading', { level: 2, name: 'Sample Fortnight' })).toBeTruthy();
   expect(screen.getByRole('heading', { level: 3, name: 'Week 2' })).toBeTruthy();
   expect(router.state.location.search).toBe('?tab=schedule');
   expect(screen.getByRole('radio', { name: 'Normal' }).getAttribute('aria-checked')).toBe('true');

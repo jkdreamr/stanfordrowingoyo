@@ -26,6 +26,7 @@ import {
 import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
 import { ModalityIcon } from '../components/shell/ModalityIcon';
+import { TodaysPlan } from '../components/plan/TodaysPlan';
 export default function Page() {
   const { data: user } = useMe();
   const { data: target } = useTarget();
@@ -123,6 +124,7 @@ export default function Page() {
             {target?.source === 'personal' ? 'Personal Target' : 'Group Default'}
           </p>
         </ActionCard>
+        <TodaysPlan today={config.today} />
         {!week.hit_target && (
           <Card>
             <h2 className="text-headline">Finish This Week</h2>
