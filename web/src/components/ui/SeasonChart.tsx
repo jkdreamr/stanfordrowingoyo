@@ -105,6 +105,50 @@ export function SeasonChartView({
   const pending = useRef<number | null>(null);
   const rect = useRef<DOMRect | null>(null);
   const dragging = useRef(false);
+  const chart = useRef<HTMLDivElement>(null);
+  const touchHandlers = useRef({ move: (_x: number) => {}, end: () => {} });
+  useEffect(() => {
+    const node = chart.current;
+    if (!node) return;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let origin: { x: number; y: number } | null = null;
+    let scrubbing = false;
+    const end = () => {
+      clearTimeout(timer);
+      origin = null;
+      scrubbing = false;
+      touchHandlers.current.end();
+    };
+    const start = (event: TouchEvent) => {
+      end();
+      if (event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      origin = { x: touch.clientX, y: touch.clientY };
+      timer = setTimeout(() => {
+        scrubbing = true;
+        touchHandlers.current.move(touch.clientX);
+      }, 250);
+    };
+    const move = (event: TouchEvent) => {
+      if (!origin || event.touches.length !== 1) return end();
+      const touch = event.touches[0];
+      if (scrubbing) {
+        event.preventDefault();
+        touchHandlers.current.move(touch.clientX);
+      } else if (Math.hypot(touch.clientX - origin.x, touch.clientY - origin.y) > 8) end();
+    };
+    node.addEventListener('touchstart', start, { passive: true });
+    node.addEventListener('touchmove', move, { passive: false });
+    node.addEventListener('touchend', end);
+    node.addEventListener('touchcancel', end);
+    return () => {
+      clearTimeout(timer);
+      node.removeEventListener('touchstart', start);
+      node.removeEventListener('touchmove', move);
+      node.removeEventListener('touchend', end);
+      node.removeEventListener('touchcancel', end);
+    };
+  }, []);
   useEffect(
     () => () => {
       if (frame.current !== null) cancelAnimationFrame(frame.current);
@@ -130,13 +174,16 @@ export function SeasonChartView({
       announce(`${formatShortDate(points[next].date)}, ${formatMeters(points[next].total)}`);
   };
   const pointer = (e: PointerEvent<HTMLDivElement>) => {
-    if (!dragging.current && e.pointerType !== 'mouse') return;
-    const bounds = rect.current ?? e.currentTarget.getBoundingClientRect();
+    if (e.pointerType !== 'mouse') return;
+    position(e.clientX, e.currentTarget);
+  };
+  const position = (clientX: number, node: HTMLDivElement) => {
+    const bounds = rect.current ?? node.getBoundingClientRect();
     pending.current = Math.max(
       0,
       Math.min(
         points.length - 1,
-        Math.round(((e.clientX - bounds.left) / bounds.width) * (points.length - 1)),
+        Math.round(((clientX - bounds.left) / bounds.width) * (points.length - 1)),
       ),
     );
     if (frame.current === null)
@@ -144,6 +191,12 @@ export function SeasonChartView({
         frame.current = null;
         if (pending.current !== null) move(pending.current);
       });
+  };
+  touchHandlers.current = {
+    move: (clientX) => {
+      if (chart.current) position(clientX, chart.current);
+    },
+    end: reset,
   };
   const point = points[index ?? points.length - 1];
   const gap = point ? paceGap(point) : null;
@@ -175,21 +228,24 @@ export function SeasonChartView({
         {announcement}
       </div>
       <div
+        ref={chart}
         role="img"
         aria-label={summary}
         tabIndex={0}
-        className="relative mt-4 h-[200px] w-full"
+        className="relative mt-4 h-[200px] w-full select-none"
         style={{ touchAction: 'pan-y' }}
+        onContextMenu={(e) => e.preventDefault()}
         onPointerDown={(e) => {
+          if (e.pointerType !== 'mouse') return;
           rect.current = e.currentTarget.getBoundingClientRect();
           dragging.current = true;
           e.currentTarget.setPointerCapture(e.pointerId);
           pointer(e);
         }}
         onPointerMove={pointer}
-        onPointerUp={reset}
-        onPointerCancel={reset}
-        onPointerLeave={reset}
+        onPointerUp={(e) => e.pointerType === 'mouse' && reset()}
+        onPointerCancel={(e) => e.pointerType === 'mouse' && reset()}
+        onPointerLeave={(e) => e.pointerType === 'mouse' && reset()}
         onBlur={reset}
         onKeyDown={(e) => {
           if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Escape'].includes(e.key)) return;

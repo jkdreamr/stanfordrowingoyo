@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import type { SeasonStats, WeekSummary } from '../../../shared/types';
 import { addDays } from '../../../shared/dates';
@@ -45,6 +45,7 @@ function stats(overrides: Partial<SeasonStats> = {}): SeasonStats {
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
+  vi.useRealTimers();
 });
 describe('daily mileage and pace', () => {
   it('starts a mid-season joiner at account creation in Los Angeles, not season start', () => {
@@ -168,6 +169,30 @@ function view(overrides: Partial<React.ComponentProps<typeof SeasonChartView>> =
     </MemoryRouter>,
   );
 }
+it('holds to scrub continuously, resets on release and leaves quick swipes unclaimed', () => {
+  vi.useFakeTimers();
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+    setTimeout(callback, 16),
+  );
+  vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  view();
+  const plot = screen.getByRole('img');
+  vi.spyOn(plot, 'getBoundingClientRect').mockReturnValue({ left: 0, width: 300 } as DOMRect);
+  const touch = (x: number, y = 100) => [{ clientX: x, clientY: y }];
+  fireEvent.touchStart(plot, { touches: touch(0) });
+  act(() => vi.advanceTimersByTime(270));
+  expect(screen.getByText('Tue, Sep 1')).toBeTruthy();
+  expect(fireEvent.touchMove(plot, { touches: touch(300), cancelable: true })).toBe(false);
+  act(() => vi.advanceTimersByTime(20));
+  expect(screen.getByText('Mon, Sep 7')).toBeTruthy();
+  fireEvent.touchEnd(plot, { touches: [] });
+  expect(screen.queryByText('Mon, Sep 7')).toBeNull();
+  fireEvent.touchStart(plot, { touches: touch(0) });
+  expect(fireEvent.touchMove(plot, { touches: touch(0, 150), cancelable: true })).toBe(true);
+  act(() => vi.advanceTimersByTime(300));
+  expect(screen.queryByText('Tue, Sep 1')).toBeNull();
+  fireEvent.touchCancel(plot, { touches: [] });
+});
 it('scrubs by keyboard, announces keyboard changes and resets on Escape', () => {
   const { container } = view();
   const plot = screen.getByRole('img');

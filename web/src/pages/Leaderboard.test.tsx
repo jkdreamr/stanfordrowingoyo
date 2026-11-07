@@ -95,6 +95,9 @@ it('shows a 1-2-3 podium, a list from rank 4 and highlights my row', async () =>
   ]);
   expect(cards[0].className).toContain('border-t-accent');
   expect(cards[2].className).not.toContain('border-t-accent');
+  expect(cards.map((c) => c.parentElement!.style.gridColumn)).toEqual(['2', '1', '3']);
+  expect(cards[0].style.minHeight).toBe(cards[1].style.minHeight);
+  expect(parseInt(cards[0].style.minHeight)).toBeGreaterThan(parseInt(cards[2].style.minHeight));
   const list = document.querySelector('ol[start="4"]')!;
   expect(list).not.toBeNull();
   const mine = within(list as HTMLElement).getByRole('link', { name: /Marcus Albrecht \(You\)/ });
@@ -180,13 +183,14 @@ it('pins my row only while my real row is off-screen', async () => {
   expect(pin.classList.contains('is-visible')).toBe(false);
 });
 
-it('shows only the list without podium placeholders when fewer than three rank', async () => {
+it('keeps fewer than three rowers on the podium without placeholders', async () => {
   setup('/leaderboard', async (_url, rows) => json((await rows()).slice(0, 2)));
   const items = await screen.findAllByRole('listitem');
   expect(items).toHaveLength(2);
-  expect(screen.queryByRole('list', { name: 'Top Three' })).toBeNull();
-  expect(document.querySelector('ol')!.getAttribute('start')).toBe('1');
-  expect(document.querySelector('.leaderboard-pin')).toBeNull();
+  expect(screen.getByRole('list', { name: 'Top Three' })).toBeTruthy();
+  expect(document.querySelector('ol[start]')).toBeNull();
+  expect((items[0] as HTMLElement).style.gridColumn).toBe('2');
+  expect((items[1] as HTMLElement).style.gridColumn).toBe('1');
 });
 it('wraps long names at 360px and remeasures the pinned You row before swapping', async () => {
   vi.stubGlobal('innerWidth', 360);
