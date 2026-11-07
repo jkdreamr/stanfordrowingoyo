@@ -299,3 +299,34 @@ it('shows the large Feed title at the top and compact title when its observed bo
   intersect(true, 55);
   expect((view.container.querySelector('.ui-page-compact') as HTMLElement).style.opacity).toBe('0');
 });
+
+it('renders tag, mention and unknown notification kinds without crashing', () => {
+  state.notifications = ['tag', 'mention', 'future'].map(
+    (kind, index) =>
+      ({
+        id: 'new-' + index,
+        user_id: 'viewer',
+        actor_id: user.id,
+        actor: user,
+        kind,
+        entry_id: index === 2 ? null : 'workout',
+        entry_title: 'Morning Erg',
+        created_at: '2026-11-06T12:00:00Z',
+        read_at: null,
+      }) as Notification,
+  );
+  render(
+    <MemoryRouter>
+      <Notifications />
+    </MemoryRouter>,
+  );
+  expect(screen.getByText('tagged you in')).toBeTruthy();
+  expect(screen.getByText('mentioned you in')).toBeTruthy();
+  expect(screen.getByText('shared')).toBeTruthy();
+  expect(screen.getByRole('link', { name: /tagged you in/ }).getAttribute('href')).toBe(
+    '/entries/workout',
+  );
+  expect(screen.getByRole('link', { name: /mentioned you in/ }).getAttribute('href')).toBe(
+    '/entries/workout#comments',
+  );
+});

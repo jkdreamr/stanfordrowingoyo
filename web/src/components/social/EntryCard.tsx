@@ -16,6 +16,7 @@ import { relativeTime } from '../../lib/social';
 import { KudosButton } from './KudosButton';
 import { HighlightBadge } from './HighlightBadge';
 import { PhotoCarousel } from './PhotoCarousel';
+import { WithTeammates } from './WithTeammates';
 
 export function EntryCard({
   entry,
@@ -105,6 +106,7 @@ export function EntryCard({
           )}
         </div>
       )}
+      <WithTeammates users={entry.tagged} />
       <footer className="mt-4 flex gap-2 border-t border-divider pt-2">
         <KudosButton entry={entry} />
         <Button

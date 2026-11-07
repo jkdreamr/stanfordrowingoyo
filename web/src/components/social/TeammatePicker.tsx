@@ -1,0 +1,79 @@
+import { useState } from 'react';
+import { Check } from 'lucide-react';
+import type { PublicUser } from '../../../../shared/types';
+import { useUsers } from '../../lib/queries';
+import { normalizeName } from '../../lib/social';
+import { Avatar, Button, ListGroup, Sheet, TextField } from '../ui';
+import { LoadState } from '../shell/LoadState';
+
+export function TeammatePicker({
+  self,
+  selected,
+  onChange,
+  onClose,
+}: {
+  self: string;
+  selected: PublicUser[];
+  onChange: (users: PublicUser[]) => void;
+  onClose: () => void;
+}) {
+  const users = useUsers();
+  const [search, setSearch] = useState('');
+  const matches = (users.data ?? [])
+    .filter(
+      (u) => u.active && u.id !== self && normalizeName(u.name).includes(normalizeName(search)),
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
+  return (
+    <Sheet
+      open
+      onClose={onClose}
+      title="Tag Teammates"
+      footer={
+        <Button fullWidth onClick={onClose}>
+          Done
+        </Button>
+      }
+    >
+      <TextField
+        label="Search Teammates"
+        type="search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <div className="mt-4">
+        {!users.data ? (
+          <LoadState error={users.isError} retry={() => void users.refetch()} />
+        ) : !matches.length ? (
+          <p className="py-4 text-subhead text-muted">No Teammates Found</p>
+        ) : (
+          <ListGroup>
+            {matches.map((u) => {
+              const checked = selected.some((s) => s.id === u.id);
+              return (
+                <button
+                  key={u.id}
+                  type="button"
+                  className="ui-row disabled:opacity-40"
+                  aria-pressed={checked}
+                  disabled={!checked && selected.length >= 10}
+                  onClick={() =>
+                    onChange(checked ? selected.filter((s) => s.id !== u.id) : [...selected, u])
+                  }
+                >
+                  <span aria-hidden="true" className="shrink-0">
+                    <Avatar name={u.name} imageId={u.avatar_image_id} />
+                  </span>
+                  <span className="min-w-0 flex-1 break-words text-left">{u.name}</span>
+                  {checked && (
+                    <Check aria-hidden="true" size={20} className="shrink-0 text-accent-ink" />
+                  )}
+                </button>
+              );
+            })}
+          </ListGroup>
+        )}
+      </div>
+    </Sheet>
+  );
+}

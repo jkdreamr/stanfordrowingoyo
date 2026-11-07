@@ -7,6 +7,7 @@ import type {
   GroupKey,
   LeaderboardRow,
   Modality,
+  Notification,
   Plan,
   PlanSlot,
   PresetInput,
@@ -24,6 +25,7 @@ import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shar
 import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS, ZONES } from '../../../shared/math';
 import { GROUP_TARGETS, PLAN_SLOTS, PLAN_TOTALS, PRESETS } from '../../../shared/seed';
 import { createFixtures, publicUser } from './fixtures';
+import { mentionIds } from '../lib/social';
 import { generatedImage } from './images';
 import { previewRoster } from '../pages/admin/roster';
 import { factorError, seasonError, targetError } from '../pages/admin/operations';
@@ -149,7 +151,10 @@ export function createMockApi({
       ...entry,
       author: publicUser(userById(entry.user_id)),
       images: state.imageLinks[entry.id] || [],
-      tagged: [],
+      tagged: (state.tags[entry.id] ?? [])
+        .map(userById)
+        .filter((u) => u.active)
+        .map(publicUser),
       kudos_count: (state.kudos[entry.id] || []).length,
       has_kudos: (state.kudos[entry.id] || []).some((k) => k.user_id === currentId),
       comment_count: state.comments.filter((c) => c.entry_id === entry.id).length,
@@ -444,8 +449,8 @@ export function createMockApi({
     )
       fail(400, 'Invalid plan slot');
   }
-  function notify(userId: string, kind: 'kudos' | 'comment' | 'announcement', entry: Entry | null) {
-    if (userId === me().id) return;
+  function notify(userId: string, kind: Notification['kind'], entry: Entry | null) {
+    if (userId === me().id || !userById(userId).active) return;
     state.notifications.unshift({
       id: id('notification'),
       user_id: userId,
@@ -457,6 +462,27 @@ export function createMockApi({
       created_at: stamp(),
       read_at: null,
     });
+  }
+  function recipientIds(value: unknown, self: string): string[] {
+    if (value === undefined) return [];
+    if (!Array.isArray(value) || value.some((id) => typeof id !== 'string'))
+      fail(400, 'Recipients must be user IDs');
+    const ids = [...new Set(value as string[])].filter((id) => id !== self);
+    if (ids.length > 10 || ids.some((id) => !state.users.some((u) => u.id === id && u.active)))
+      fail(400, 'Select at most ten active teammates');
+    return ids;
+  }
+  function setTags(entry: Entry, ids: string[]) {
+    const previous = state.tags[entry.id] ?? [];
+    state.tags[entry.id] = ids;
+    for (const id of ids)
+      if (
+        !previous.includes(id) &&
+        !state.notifications.some(
+          (n) => n.user_id === id && n.entry_id === entry.id && n.kind === 'tag',
+        )
+      )
+        notify(id, 'tag', entry);
   }
   async function handle(request: Request): Promise<Response> {
     try {
@@ -722,7 +748,8 @@ export function createMockApi({
         if (method === 'POST') {
           const input = body as unknown as EntryInput;
           validateEntry(input);
-          const { image_ids = [], ...fields } = input;
+          const { image_ids = [], tagged_user_ids, ...fields } = input;
+          const tags = recipientIds(tagged_user_ids, user.id);
           const entry: Entry = {
             ...fields,
             visibility: 'team',
@@ -747,6 +774,7 @@ export function createMockApi({
             updated_at: stamp(),
           };
           state.entries.push(entry);
+          setTags(entry, tags);
           state.imageLinks[entry.id] = image_ids.map(
             (imageId) =>
               Object.values(state.imageLinks)
@@ -791,7 +819,14 @@ export function createMockApi({
             return json(
               state.comments
                 .filter((c) => c.entry_id === entry.id)
-                .map((c) => ({ ...c, mentions: [], author: publicUser(userById(c.user_id)) })),
+                .map((c) => ({
+                  ...c,
+                  mentions: (state.mentions[c.id] ?? [])
+                    .map(userById)
+                    .filter((u) => u.active)
+                    .map(publicUser),
+                  author: publicUser(userById(c.user_id)),
+                })),
             );
           if (method === 'POST') {
             text(body.body, 'Comment');
@@ -802,9 +837,16 @@ export function createMockApi({
               body: body.body as string,
               created_at: stamp(),
             };
+            const supplied = recipientIds(body.mention_ids, user.id);
+            const ids = mentionIds(comment.body, supplied.map(userById));
+            state.mentions[comment.id] = ids;
             state.comments.push(comment);
-            notify(entry.user_id, 'comment', entry);
-            return json({ ...comment, mentions: [], author: publicUser(user) }, 201);
+            for (const id of ids) notify(id, 'mention', entry);
+            if (!ids.includes(entry.user_id)) notify(entry.user_id, 'comment', entry);
+            return json(
+              { ...comment, mentions: ids.map(userById).map(publicUser), author: publicUser(user) },
+              201,
+            );
           }
         }
         if (parts.length === 4) {
@@ -815,11 +857,16 @@ export function createMockApi({
             state.comments = state.comments.filter((c) => c.entry_id !== entry.id);
             delete state.imageLinks[entry.id];
             delete state.kudos[entry.id];
+            delete state.tags[entry.id];
             return empty();
           }
           if (method === 'PATCH') {
             const input = { ...entry, ...body } as EntryInput;
             validateEntry(input);
+            const tags =
+              body.tagged_user_ids === undefined
+                ? undefined
+                : recipientIds(body.tagged_user_ids, entry.user_id);
             const allowed = [
               'date',
               'modality',
@@ -848,6 +895,7 @@ export function createMockApi({
               ),
               updated_at: stamp(),
             });
+            if (tags) setTags(entry, tags);
             if (input.image_ids)
               state.imageLinks[entry.id] = input.image_ids.map(
                 (imageId) =>
@@ -869,6 +917,7 @@ export function createMockApi({
           state.comments.find((c) => c.id === resourceId) || fail(404, 'Comment not found');
         own(comment.user_id);
         state.comments.splice(state.comments.indexOf(comment), 1);
+        delete state.mentions[comment.id];
         return empty();
       }
       if (path === '/api/images' && method === 'POST') {
