@@ -20,8 +20,11 @@ export function useTargetHit(entry: EntryDetail) {
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
-  const { data } = useWeekStats({ week: entry.week_start, user: entry.user_id }, near);
-  return { ref, hit: !!data && hitsTarget(entry, data) };
+  const { data } = useWeekStats(
+    { week: entry.week_start, user: entry.user_id },
+    near && entry.author.active,
+  );
+  return { ref, hit: entry.author.active && !!data && hitsTarget(entry, data) };
 }
 export function HighlightBadge({ entry }: { entry: EntryDetail }) {
   const { ref, hit } = useTargetHit(entry);

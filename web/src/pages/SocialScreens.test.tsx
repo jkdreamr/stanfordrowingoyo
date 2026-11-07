@@ -18,6 +18,8 @@ import { PageHeader } from '../components/ui';
 const state = vi.hoisted(() => ({
   profile: undefined as Profile | undefined,
   error: null as Error | null,
+  directoryError: null as Error | null,
+  directoryPending: false,
   entries: [] as EntryDetail[],
   users: [] as PublicUser[],
   notifications: [] as Notification[],
@@ -26,23 +28,27 @@ const state = vi.hoisted(() => ({
   read: vi.fn(),
   retry: vi.fn(),
   chart: vi.fn(),
+  profileRequest: vi.fn(),
 }));
 vi.mock('../lib/queries', () => ({
-  useProfile: () => ({
-    data: state.profile,
-    error: state.error,
-    isError: !!state.error,
-    refetch: state.retry,
-  }),
-  useEntries: (scope: string) => {
-    state.scope(scope);
+  useProfile: (id: string, enabled: boolean) => {
+    state.profileRequest(id, enabled);
+    return {
+      data: state.profile,
+      error: state.error,
+      isError: !!state.error,
+      refetch: state.retry,
+    };
+  },
+  useEntries: (scope: string, enabled: boolean) => {
+    state.scope(scope, enabled);
     return { data: { pages: [{ items: state.entries }] }, hasNextPage: false };
   },
   useMe: () => ({ data: { id: 'viewer' } }),
   useConfig: () => ({ data: undefined }),
   useUsers: () => ({
-    data: state.error ? undefined : state.users,
-    isError: !!state.error,
+    data: state.directoryError || state.directoryPending ? undefined : state.users,
+    isError: !!state.directoryError,
     refetch: state.retry,
   }),
   useNotifications: () => ({
@@ -71,6 +77,7 @@ const user = {
   group_key: 'u23',
   bio: 'Steady work',
   avatar_image_id: null,
+  active: true,
 } as PublicUser;
 const profile = {
   user: { ...user, email: 'private@example.com', password_hash: 'not-public' },
@@ -90,8 +97,10 @@ beforeEach(() => {
   );
   state.profile = profile;
   state.error = null;
+  state.directoryError = null;
+  state.directoryPending = false;
   state.entries = [];
-  state.users = [];
+  state.users = [user];
   state.notifications = [];
   state.announcements = [];
   vi.clearAllMocks();
@@ -123,7 +132,7 @@ it('uses only the public identity, server streak and user-scoped API entries', (
   expect(screen.getByRole('heading', { name: user.name })).toBeTruthy();
   expect(screen.getByText('3 weeks').className).toContain('text-highlight-ink');
   expect(screen.getByText('Public Row')).toBeTruthy();
-  expect(state.scope).toHaveBeenCalledWith('user:author');
+  expect(state.scope).toHaveBeenCalledWith('user:author', true);
   expect(state.chart).toHaveBeenCalledWith({ userId: 'author', isMe: false });
   expect(screen.getByRole('region', { name: 'Season Mileage' })).toBeTruthy();
   expect(screen.getByText('Season Total')).toBeTruthy();
@@ -144,6 +153,27 @@ it('shows empty workouts and handles a missing or failed profile', () => {
   fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
   expect(state.retry).toHaveBeenCalledOnce();
 });
+it('shows a departed-user state without enabling profile, workouts or charts', () => {
+  state.users = [];
+  render(profileScreen());
+  expect(screen.getByText('No Longer On The Team')).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'View Team' }).getAttribute('href')).toBe('/team');
+  expect(state.profileRequest).toHaveBeenCalledWith('author', false);
+  expect(state.scope).toHaveBeenCalledWith('user:author', false);
+  expect(state.chart).not.toHaveBeenCalled();
+});
+it('waits for team membership and retries directory failures without per-user requests', () => {
+  state.directoryPending = true;
+  const view = render(profileScreen());
+  expect(state.profileRequest).toHaveBeenLastCalledWith('author', false);
+  expect(state.scope).toHaveBeenLastCalledWith('user:author', false);
+  state.directoryPending = false;
+  state.directoryError = new Error('offline');
+  view.rerender(profileScreen());
+  fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
+  expect(state.retry).toHaveBeenCalledOnce();
+  expect(state.chart).not.toHaveBeenCalled();
+});
 it('searches names case- and diacritic-insensitively with empty and error states', () => {
   state.users = [user, { ...user, id: 'coach', name: 'Coach Lee', role: 'coach' }];
   const view = render(
@@ -157,7 +187,7 @@ it('searches names case- and diacritic-insensitively with empty and error states
   expect(screen.queryByText('Coach Lee')).toBeNull();
   fireEvent.change(screen.getByLabelText('Search Team'), { target: { value: 'missing' } });
   expect(screen.getByText('No Matches')).toBeTruthy();
-  state.error = new Error('offline');
+  state.directoryError = new Error('offline');
   view.rerender(
     <MemoryRouter>
       <Team />
