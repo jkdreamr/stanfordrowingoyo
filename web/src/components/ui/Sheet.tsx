@@ -1,6 +1,23 @@
 import { useEffect, useId, useRef, type ReactNode } from 'react';
 import { X } from 'lucide-react';
 import { IconButton } from './IconButton';
+let pointerInput = false;
+if (typeof document !== 'undefined') {
+  document.addEventListener(
+    'pointerdown',
+    () => {
+      pointerInput = true;
+    },
+    true,
+  );
+  document.addEventListener(
+    'keydown',
+    () => {
+      pointerInput = false;
+    },
+    true,
+  );
+}
 export function Sheet({
   open,
   onClose,
@@ -18,6 +35,7 @@ export function Sheet({
   const opener = useRef<HTMLElement | null>(null);
   const release = useRef<(() => void) | undefined>();
   const titleId = useId();
+  const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     const dialog = ref.current!;
     const close = () => {
@@ -39,6 +57,11 @@ export function Sheet({
           document.body.style.paddingRight = padding;
         };
         dialog.showModal();
+        if (pointerInput) heading.current?.focus({ preventScroll: true });
+        else
+          dialog
+            .querySelector<HTMLButtonElement>('[aria-label="Close"]')
+            ?.focus({ preventScroll: true });
       }
       return;
     }
@@ -110,7 +133,7 @@ export function Sheet({
     >
       <header className="ui-sheet-header">
         <div className="flex items-center justify-between gap-4">
-          <h2 id={titleId} className="text-title3">
+          <h2 ref={heading} id={titleId} tabIndex={-1} className="text-title3 focus:outline-none">
             {title}
           </h2>
           <IconButton aria-label="Close" onClick={onClose}>

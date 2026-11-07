@@ -43,6 +43,7 @@ it('locks sheet background, supports Escape and returns focus on close', () => {
     </>,
   );
   screen.getByText('Open').focus();
+  fireEvent.pointerDown(screen.getByText('Open'));
   rerender(
     <>
       <button>Open</button>
@@ -52,6 +53,7 @@ it('locks sheet background, supports Escape and returns focus on close', () => {
     </>,
   );
   expect(document.body.style.overflow).toBe('hidden');
+  expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Options' }));
   fireEvent(screen.getByRole('dialog'), new Event('cancel', { cancelable: true }));
   expect(close).toHaveBeenCalledOnce();
   rerender(
