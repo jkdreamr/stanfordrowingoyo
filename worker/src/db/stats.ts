@@ -158,7 +158,7 @@ export function seasonStats(
 export function currentSeason(storage: DurableObjectStorage, now: Date) {
   return seasonRange(today(now), getSetting<string>(storage, 'season_start'));
 }
-export function leaderboard(
+export function uncachedLeaderboard(
   storage: DurableObjectStorage,
   date: string,
   metric: 'percent' | 'meters' | 'season',
@@ -205,6 +205,9 @@ export function leaderboard(
         .reduce((sum, entry) => sum + entry.entry_count, 0),
     };
   });
+  return rankRows(rows, metric);
+}
+function rankRows(rows: LeaderboardRow[], metric: 'percent' | 'meters' | 'season') {
   const compareScore = (a: LeaderboardRow, b: LeaderboardRow) => {
     if (metric === 'percent') {
       const ratio =
@@ -224,4 +227,137 @@ export function leaderboard(
     row.rank = i > 0 && compareScore(rows[i - 1], row) === 0 ? rows[i - 1].rank : i + 1;
   });
   return rows;
+}
+
+type UserMemo = {
+  version: number;
+  weeks: WeekSummary[];
+  seasonTotal: number;
+  entryCount: number;
+  streak: number;
+};
+type LeaderboardMemo = {
+  globalVersion: number;
+  anyVersion: number;
+  seasonStart: string;
+  context: string;
+  users: Map<string, UserMemo>;
+  rows: Map<string, LeaderboardRow[]>;
+};
+const leaderboardMemos = new WeakMap<DurableObjectStorage, LeaderboardMemo>();
+
+export function leaderboard(
+  storage: DurableObjectStorage,
+  date: string,
+  metric: 'percent' | 'meters' | 'season',
+  now: Date,
+  subjects?: UserRow[],
+): LeaderboardRow[] {
+  if (subjects) return uncachedLeaderboard(storage, date, metric, now, subjects);
+  const counters = storage.sql
+    .exec<{ global_version: number; any_version: number }>(
+      'SELECT * FROM stats_counters WHERE id=1',
+    )
+    .one();
+  const versions = new Map(
+    storage.sql
+      .exec<{ user_id: string; version: number }>('SELECT user_id,version FROM stats_versions')
+      .toArray()
+      .map((row) => [row.user_id, row.version]),
+  );
+  const users = storage.sql
+    .exec<UserRow>('SELECT * FROM users WHERE active = ? AND on_leaderboard = ?', 1, 1)
+    .toArray();
+  let memo = leaderboardMemos.get(storage);
+  if (!memo || memo.globalVersion !== counters.global_version) {
+    memo = {
+      globalVersion: counters.global_version,
+      anyVersion: counters.any_version,
+      seasonStart: getSetting<string>(storage, 'season_start'),
+      context: '',
+      users: new Map(),
+      rows: new Map(),
+    };
+    leaderboardMemos.set(storage, memo);
+  }
+  const week = weekStart(date);
+  const day = today(now);
+  const currentWeek = weekStart(day);
+  const range = seasonRange(date, memo.seasonStart);
+  const lastDate = range.end < addDays(week, 6) ? range.end : addDays(week, 6);
+  const context = JSON.stringify([range.start, range.end, week, currentWeek]);
+  if (memo.context !== context) {
+    memo.context = context;
+    memo.users.clear();
+    memo.rows.clear();
+  }
+  if (memo.anyVersion !== counters.any_version) {
+    memo.anyVersion = counters.any_version;
+    memo.rows.clear();
+  }
+  const rowKey = metric + ':' + day;
+  const cached = memo.rows.get(rowKey);
+  if (cached) {
+    const publicUsers = new Map(users.map((user) => [user.id, toPublicUser(user)]));
+    return cached.map((row) => ({ ...row, user: publicUsers.get(row.user.id)! }));
+  }
+  const stale = users.filter(
+    (user) => memo.users.get(user.id)?.version !== (versions.get(user.id) ?? 0),
+  );
+  if (stale.length) {
+    const targets = loadTargets(storage);
+    const aggregates = storage.sql
+      .exec<EntryAggregate>(
+        `SELECT user_id,date,week_start,modality,zone,SUM(equiv_m) AS equiv_m,COUNT(*) AS entry_count FROM entries WHERE user_id IN (${stale.map(() => '?').join(',')}) AND week_start >= ? AND week_start <= ? GROUP BY user_id,week_start,date,modality,zone`,
+        ...stale.map((user) => user.id),
+        weekStart(range.start),
+        weekStart(lastDate),
+      )
+      .toArray();
+    const byUser = new Map<string, EntryAggregate[]>();
+    for (const entry of aggregates) {
+      const entries = byUser.get(entry.user_id) ?? [];
+      entries.push(entry);
+      byUser.set(entry.user_id, entries);
+    }
+    for (const user of stale) {
+      const entries = byUser.get(user.id) ?? [];
+      const weeks = summaries(user, range.start, lastDate, entries, targets);
+      memo.users.set(user.id, {
+        version: versions.get(user.id) ?? 0,
+        weeks,
+        seasonTotal: entries
+          .filter((entry) => entry.date >= range.start && entry.date <= lastDate)
+          .reduce((sum, entry) => sum + entry.equiv_m, 0),
+        entryCount: entries
+          .filter((entry) => entry.week_start === week)
+          .reduce((sum, entry) => sum + entry.entry_count, 0),
+        streak: streak(weeks, currentWeek),
+      });
+    }
+  }
+  const rows = rankRows(
+    users.map((user) => {
+      const input = memo.users.get(user.id)!;
+      const weekly = input.weeks.find((row) => row.week_start === week)!;
+      const target =
+        metric === 'season'
+          ? input.weeks.reduce((sum, row) => sum + row.target_m, 0)
+          : weekly.target_m;
+      const total = metric === 'season' ? input.seasonTotal : weekly.total_m;
+      return {
+        user: toPublicUser(user),
+        target_m: target,
+        total_m: total,
+        percent: target > 0 ? Math.round((total / target) * 1000) / 10 : 0,
+        rank: 0,
+        streak: input.streak,
+        entry_count: input.entryCount,
+      };
+    }),
+    metric,
+  );
+  if (memo.rows.size >= 6) memo.rows.clear();
+  memo.rows.set(rowKey, rows);
+  return rows.map((row) => ({ ...row, user: { ...row.user } }));
 }

@@ -346,6 +346,48 @@ CREATE TABLE IF NOT EXISTS my_plan_sessions (
         '8',
       );
     });
+  if (Number(JSON.parse(version.value_json)) < 9)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS stats_versions (
+  user_id TEXT PRIMARY KEY,
+  version INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS stats_counters (
+  id INTEGER PRIMARY KEY CHECK(id = 1),
+  global_version INTEGER NOT NULL,
+  any_version INTEGER NOT NULL
+);
+INSERT OR IGNORE INTO stats_counters VALUES (1,0,0);
+CREATE INDEX IF NOT EXISTS entries_user_week ON entries(user_id,week_start);`);
+      for (const table of ['entries', 'weekly_targets'])
+        for (const event of ['INSERT', 'UPDATE', 'DELETE']) {
+          const ids = event === 'INSERT' ? ['NEW'] : event === 'DELETE' ? ['OLD'] : ['NEW', 'OLD'];
+          sql.exec(`CREATE TRIGGER IF NOT EXISTS stats_${table}_${event.toLowerCase()}
+AFTER ${event} ON ${table} BEGIN
+${ids.map((row) => `INSERT INTO stats_versions SELECT ${row}.user_id,1 WHERE ${event === 'UPDATE' && row === 'OLD' ? 'OLD.user_id != NEW.user_id' : '1'} ON CONFLICT(user_id) DO UPDATE SET version=version+1;`).join('\n')}
+UPDATE stats_counters SET any_version=any_version+1 WHERE id=1;
+END;`);
+        }
+      sql.exec(`CREATE TRIGGER IF NOT EXISTS stats_users_update
+AFTER UPDATE OF id,name,role,group_key,side,class_year,bio,avatar_image_id,best6k_split_s,best2k_split_s,on_leaderboard,active,created_at ON users BEGIN
+INSERT INTO stats_versions VALUES (NEW.id,1) ON CONFLICT(user_id) DO UPDATE SET version=version+1;
+INSERT INTO stats_versions SELECT OLD.id,1 WHERE OLD.id != NEW.id ON CONFLICT(user_id) DO UPDATE SET version=version+1;
+UPDATE stats_counters SET any_version=any_version+1 WHERE id=1;
+END;`);
+      for (const table of ['settings', 'users'])
+        for (const event of table === 'users'
+          ? ['INSERT', 'DELETE']
+          : ['INSERT', 'UPDATE', 'DELETE'])
+          sql.exec(`CREATE TRIGGER IF NOT EXISTS stats_${table}_${event.toLowerCase()}
+AFTER ${event} ON ${table} BEGIN
+UPDATE stats_counters SET global_version=global_version+1,any_version=any_version+1 WHERE id=1;
+END;`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '9',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)
