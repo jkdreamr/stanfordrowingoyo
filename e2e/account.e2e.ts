@@ -69,13 +69,24 @@ test('admin confirms permanent rower removal and linked content disappears', asy
   const teammate = await makeRower();
   const own = await seedEntry(rower, `Remove ${rower.user.id}`);
   const other = await seedEntry(teammate, `Keep ${teammate.user.id}`);
+  const config = await (await rower.context.request.get('/api/config')).json();
   await expect(
     await rower.context.request.put('/api/me/plan', {
       headers: csrfHeaders,
       data: {
-        start_date: mondayOf(teamToday()),
+        start_date: config.current_week_start,
         rest_days: [],
-        sessions: [],
+        sessions: [
+          {
+            week: 1,
+            day: 0,
+            slot: 'AM',
+            modality: 'erg',
+            zone: 'E',
+            distance_m: 10000,
+            note: 'Remove Private Plan',
+          },
+        ],
       },
     }),
   ).toBeOK();

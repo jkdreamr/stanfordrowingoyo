@@ -388,7 +388,8 @@ END;`);
         '9',
       );
     });
-  if (Number(JSON.parse(version.value_json)) < 12)
+  const introVersion = 12;
+  if (Number(JSON.parse(version.value_json)) < introVersion)
     storage.transactionSync(() => {
       sql.exec(`CREATE TABLE IF NOT EXISTS user_intro (
   user_id TEXT PRIMARY KEY,
@@ -401,7 +402,7 @@ END;`);
       sql.exec(
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
-        '12',
+        String(introVersion),
       );
     });
 }
