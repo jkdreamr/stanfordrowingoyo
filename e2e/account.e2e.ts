@@ -204,8 +204,14 @@ test('privacy is public and Settings links to it in light and dark', async ({
 }, testInfo) => {
   await page.goto('/signup');
   await page.getByRole('link', { name: 'Privacy', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Privacy', exact: true })).toBeVisible();
-  await expect(page.getByText(/My Fortnight plans are owner-only/)).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Privacy Notice', exact: true })).toBeVisible();
+  await expect(page.getByText(/My Fortnight plans are visible only to you/)).toBeVisible();
+  await expect(page.getByText('November 6, 2026')).toBeVisible();
+  await expect(page.getByText(/contact a team admin or coxswain in the app/)).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Team Directory', exact: true })).toHaveAttribute(
+    'href',
+    '/team',
+  );
   const rower = await makeRower();
   await openSettings(rower.page);
   for (const theme of ['Light', 'Dark'] as const) {
@@ -218,7 +224,9 @@ test('privacy is public and Settings links to it in light and dark', async ({
     });
     await rower.page.getByRole('button', { name: 'Skip', exact: true }).click();
     await rower.page.getByRole('link', { name: 'Privacy', exact: true }).click();
-    await expect(rower.page.getByRole('heading', { name: 'Privacy', exact: true })).toBeVisible();
+    await expect(
+      rower.page.getByRole('heading', { name: 'Privacy Notice', exact: true }),
+    ).toBeVisible();
     expect(
       await rower.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
     ).toBe(true);

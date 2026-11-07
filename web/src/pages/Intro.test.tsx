@@ -82,8 +82,11 @@ it('keeps the intro open after an offline skip and allows retry', async () => {
 
 it('makes privacy available before signup with a signup return link', async () => {
   setup({ path: '/privacy', session: null });
-  expect(screen.getByRole('heading', { name: 'Privacy' })).toBeTruthy();
-  expect(screen.getByText(/My Fortnight plans are owner-only/)).toBeTruthy();
+  expect(screen.getByRole('heading', { name: 'Privacy Notice' })).toBeTruthy();
+  expect(screen.getByText(/My Fortnight plans are visible only to you/)).toBeTruthy();
+  expect(screen.getByText('November 6, 2026').getAttribute('dateTime')).toBe('2026-11-06');
+  expect(screen.getByText(/contact a team admin or coxswain in the app/)).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Team Directory' }).getAttribute('href')).toBe('/team');
   fireEvent.click(screen.getByRole('link', { name: 'Back To Signup' }));
   expect(await screen.findByRole('heading', { name: 'Signup' })).toBeTruthy();
 });
