@@ -256,17 +256,22 @@ body {
  * compress less than controls so the whole screen never seems to lurch.
  */
 .ui-button,
-.ui-action-card,
+.ui-action-card {
+  transition: transform var(--dur-travel) var(--spring);
+}
 .drive-hero,
 .podium-card {
   transition:
     background-color var(--dur-feedback) var(--ease-out),
     color var(--dur-feedback) var(--ease-out),
     opacity var(--dur-feedback) var(--ease-out),
-    box-shadow var(--dur-state) var(--ease-out),
     transform var(--dur-travel) var(--spring);
 }
-.ui-action-card:active,
+.ui-action-card:active {
+  transform: scale(0.98);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
 .drive-hero:active,
 .podium-card:active {
   transform: scale(0.985);
@@ -275,6 +280,35 @@ body {
 }
 
 /* Controls */
+.ui-row:is(a, button):not(:disabled) {
+  position: relative;
+  isolation: isolate;
+  transition: none;
+}
+.ui-row:is(a, button):not(:disabled)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--control-shade);
+  opacity: 0;
+  transition: opacity var(--dur-travel) var(--spring);
+}
+.ui-row:is(a, button):not(:disabled):active {
+  background: transparent;
+}
+.ui-row:is(a, button):not(:disabled):active::after {
+  opacity: 1;
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-button-plain:active:not(:disabled) {
+  transform: scale(0.98);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
 .ui-button {
   border-radius: var(--radius-control);
 }
@@ -501,8 +535,11 @@ body {
 .screen-stack > :nth-child(5) {
   animation-delay: calc(var(--stagger) * 4);
 }
-.screen-stack > :nth-child(n + 6) {
+.screen-stack > :nth-child(6) {
   animation-delay: calc(var(--stagger) * 5);
+}
+:root:not([data-entered]) .screen-stack > :nth-child(n + 7) {
+  animation: none;
 }
 :root .screen-stack > .social-refresh-slot {
   animation: none;
@@ -510,7 +547,7 @@ body {
 @keyframes drive-rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 12px, 0);
+    transform: translate3d(0, 6px, 0);
   }
 }
 
@@ -1329,6 +1366,15 @@ body {
   outline: 2px solid var(--control-focus);
   outline-offset: 2px;
   transform: scale(1.02);
+  animation: zone-select var(--dur-travel) var(--spring);
+}
+@keyframes zone-select {
+  from {
+    scale: 0.96;
+  }
+  to {
+    scale: 1;
+  }
 }
 .ui-zone-option:active .ui-zone-selected {
   box-shadow: var(--raised-pressed);
@@ -1341,6 +1387,12 @@ body {
 }
 .ui-segments button {
   border-radius: 10px;
+  transition: opacity var(--dur-travel) var(--spring);
+}
+.ui-segments button:active:not(:disabled) {
+  opacity: 0.72;
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
 }
 .shell-tab,
 .shell-log-tab {
@@ -1378,6 +1430,12 @@ body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .ui-zone-option .ui-zone-selected {
+    animation: none;
+  }
+  .ui-segment-thumb {
+    scale: none !important;
+  }
   :is(.ui-button-primary, .ui-button-secondary, .ui-button-destructive):active:not(:disabled),
   .ui-icon-button:active:not(:disabled),
   .shell-log-tab:active > span:first-child,

@@ -1,9 +1,13 @@
 // @vitest-environment jsdom
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { useState } from 'react';
 import { SegmentedControl } from './SegmentedControl';
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+});
 function Example() {
   const [value, setValue] = useState('erg');
   return (
@@ -20,6 +24,36 @@ function Example() {
   );
 }
 describe('SegmentedControl', () => {
+  it('stretches only when selection changes, then cancels on unmount', () => {
+    const cancel = vi.fn();
+    const animate = vi.fn(() => ({ cancel }) as unknown as Animation);
+    vi.stubGlobal('matchMedia', () => ({ matches: false }));
+    const original = HTMLElement.prototype.animate;
+    HTMLElement.prototype.animate = animate;
+    try {
+      const { unmount } = render(<Example />);
+      expect(animate).not.toHaveBeenCalled();
+      fireEvent.click(screen.getByRole('radio', { name: 'Run' }));
+      expect(animate).toHaveBeenCalledWith(
+        [{ scale: '1 1' }, { scale: '1.04 0.98', offset: 0.35 }, { scale: '1 1' }],
+        expect.objectContaining({ duration: 520 }),
+      );
+      fireEvent.click(screen.getByRole('radio', { name: 'Run' }));
+      expect(animate).toHaveBeenCalledTimes(1);
+      unmount();
+      expect(cancel).toHaveBeenCalledTimes(1);
+    } finally {
+      HTMLElement.prototype.animate = original;
+    }
+  });
+  it('does not stretch with reduced motion', () => {
+    vi.stubGlobal('matchMedia', () => ({ matches: true }));
+    const { container } = render(<Example />);
+    const animate = vi.fn();
+    container.querySelector('.ui-segment-thumb')!.animate = animate;
+    fireEvent.click(screen.getByRole('radio', { name: 'Run' }));
+    expect(animate).not.toHaveBeenCalled();
+  });
   it('roves focus and selection, skips disabled and wraps', () => {
     render(<Example />);
     const erg = screen.getByRole('radio', { name: 'Erg' });

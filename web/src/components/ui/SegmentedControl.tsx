@@ -1,4 +1,5 @@
-import { useRef, type CSSProperties } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
+import { prefersReducedMotion } from '../../lib/motion';
 export type Segment<T extends string> = { value: T; label: string; disabled?: boolean };
 export type SegmentedControlProps<T extends string> = {
   label: string;
@@ -16,6 +17,23 @@ export function SegmentedControl<T extends string>({
 }: SegmentedControlProps<T>) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const selected = options.findIndex((o) => o.value === value);
+  const thumb = useRef<HTMLSpanElement>(null);
+  const previous = useRef(selected);
+  useEffect(() => {
+    const changed = previous.current !== selected;
+    previous.current = selected;
+    const node = thumb.current;
+    if (!changed || !node || prefersReducedMotion()) return;
+    const style = getComputedStyle(node);
+    const animation = node.animate?.(
+      [{ scale: '1 1' }, { scale: '1.04 0.98', offset: 0.35 }, { scale: '1 1' }],
+      {
+        duration: parseFloat(style.getPropertyValue('--dur-travel')) || 520,
+        easing: style.getPropertyValue('--spring').trim() || 'ease-out',
+      },
+    );
+    return () => animation?.cancel();
+  }, [selected]);
   return (
     <div
       role="radiogroup"
@@ -23,7 +41,7 @@ export function SegmentedControl<T extends string>({
       className={`ui-segments ui-segments-${size}`}
       style={{ '--count': options.length, '--selected': Math.max(0, selected) } as CSSProperties}
     >
-      {selected >= 0 && <span className="ui-segment-thumb" aria-hidden="true" />}
+      {selected >= 0 && <span ref={thumb} className="ui-segment-thumb" aria-hidden="true" />}
       {options.map((o, i) => (
         <button
           key={o.value}
