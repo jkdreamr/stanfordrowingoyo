@@ -18,7 +18,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Platypus", "Aardvark"],
-    "gem": "Axolotl"
+    "gem": "Axolotl",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "dogs",
@@ -48,7 +51,10 @@
     "wikidata": 298,
     "aliases": 349,
     "too_clever": ["Xoloitzcuintli", "Basenji"],
-    "gem": "Otterhound"
+    "gem": "Otterhound",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cats",
@@ -78,7 +84,10 @@
     "wikidata": 55,
     "aliases": 103,
     "too_clever": ["Sphynx", "Munchkin"],
-    "gem": "LaPerm"
+    "gem": "LaPerm",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "dinosaurs",
@@ -108,7 +117,10 @@
     "wikidata": 387,
     "aliases": 145,
     "too_clever": ["Archaeopteryx", "Therizinosaurus"],
-    "gem": "Parasaurolophus"
+    "gem": "Parasaurolophus",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "horses",
@@ -138,12 +150,15 @@
     "wikidata": 352,
     "aliases": 134,
     "too_clever": ["Akhal-Teke"],
-    "gem": "Marwari"
+    "gem": "Marwari",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "first-names",
     "text": "Name a first name.",
-    "active": true,
+    "active": false,
     "size": 399,
     "tiers": {
       "surface": 81,
@@ -159,7 +174,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Zephyr"],
-    "gem": "Juniper"
+    "gem": "Juniper",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "rabbits",
@@ -189,7 +207,10 @@
     "wikidata": 97,
     "aliases": 10,
     "too_clever": ["Lionhead"],
-    "gem": "Silver Fox"
+    "gem": "Silver Fox",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "birds",
@@ -219,7 +240,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Shoebill", "Kakapo"],
-    "gem": "Hoopoe"
+    "gem": "Hoopoe",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "seafood",
@@ -240,7 +264,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Fugu"],
-    "gem": "Geoduck"
+    "gem": "Geoduck",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fruits",
@@ -270,7 +297,10 @@
     "wikidata": 354,
     "aliases": 363,
     "too_clever": ["Durian", "Dragonfruit"],
-    "gem": "Rambutan"
+    "gem": "Rambutan",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "vegetables",
@@ -300,7 +330,10 @@
     "wikidata": 336,
     "aliases": 291,
     "too_clever": ["Kohlrabi", "Fiddlehead"],
-    "gem": "Romanesco"
+    "gem": "Romanesco",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "spices",
@@ -330,7 +363,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Saffron", "Asafoetida"],
-    "gem": "Grains Of Paradise"
+    "gem": "Grains Of Paradise",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cheeses",
@@ -351,7 +387,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Stinking Bishop"],
-    "gem": "Casu Marzu"
+    "gem": "Casu Marzu",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "sandwiches",
@@ -372,7 +411,10 @@
     "wikidata": 342,
     "aliases": 201,
     "too_clever": ["Banh mi"],
-    "gem": "Francesinha"
+    "gem": "Francesinha",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "sausages",
@@ -402,7 +444,10 @@
     "wikidata": 304,
     "aliases": 140,
     "too_clever": ["Haggis"],
-    "gem": "Alheira"
+    "gem": "Alheira",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "apples",
@@ -423,7 +468,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Cox Orange Pippin"],
-    "gem": "Pink Pearl"
+    "gem": "Pink Pearl",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "tea",
@@ -444,7 +492,10 @@
     "wikidata": 0,
     "aliases": 4,
     "too_clever": ["Lapsang Souchong"],
-    "gem": "Bai Mudan"
+    "gem": "Bai Mudan",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "condiments",
@@ -474,7 +525,10 @@
     "wikidata": 368,
     "aliases": 356,
     "too_clever": ["Marmite", "Vegemite"],
-    "gem": "Ajvar"
+    "gem": "Ajvar",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "beer",
@@ -504,7 +558,10 @@
     "wikidata": 108,
     "aliases": 52,
     "too_clever": ["Rauchbier"],
-    "gem": "Gose"
+    "gem": "Gose",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cocktails",
@@ -534,7 +591,10 @@
     "wikidata": 368,
     "aliases": 109,
     "too_clever": ["Corpse Reviver"],
-    "gem": "Paper Plane"
+    "gem": "Paper Plane",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "flowers",
@@ -564,7 +624,10 @@
     "wikidata": 402,
     "aliases": 966,
     "too_clever": ["Corpse Flower"],
-    "gem": "Love-In-A-Mist"
+    "gem": "Love-In-A-Mist",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "plants",
@@ -594,7 +657,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Venus Flytrap"],
-    "gem": "Welwitschia"
+    "gem": "Welwitschia",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "toxic-plants",
@@ -624,7 +690,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Gympie-Gympie"],
-    "gem": "Doll Eye"
+    "gem": "Doll Eye",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "gemstones",
@@ -654,7 +723,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Painite", "Tanzanite"],
-    "gem": "Labradorite"
+    "gem": "Labradorite",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fabrics",
@@ -675,7 +747,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Qiviut"],
-    "gem": "Seersucker"
+    "gem": "Seersucker",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "stones",
@@ -705,7 +780,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Obsidian"],
-    "gem": "Larvikite"
+    "gem": "Larvikite",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "metals",
@@ -726,7 +804,10 @@
     "wikidata": 336,
     "aliases": 180,
     "too_clever": ["Nitinol"],
-    "gem": "Galinstan"
+    "gem": "Galinstan",
+    "theme": "science",
+    "cluster": "elements",
+    "constrained": false
   },
   {
     "id": "clothing",
@@ -747,7 +828,10 @@
     "wikidata": 367,
     "aliases": 530,
     "too_clever": ["Dirndl"],
-    "gem": "Peacoat"
+    "gem": "Peacoat",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "rooms",
@@ -777,12 +861,15 @@
     "wikidata": 346,
     "aliases": 355,
     "too_clever": ["Oubliette"],
-    "gem": "Orangery"
+    "gem": "Orangery",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "objects",
     "text": "Name an everyday object.",
-    "active": true,
+    "active": false,
     "size": 387,
     "tiers": {
       "surface": 77,
@@ -798,7 +885,10 @@
     "wikidata": 0,
     "aliases": 9,
     "too_clever": ["Spork"],
-    "gem": "Thimble"
+    "gem": "Thimble",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "appliances",
@@ -828,7 +918,10 @@
     "wikidata": 384,
     "aliases": 579,
     "too_clever": ["Sous Vide Cooker"],
-    "gem": "Yogurt Maker"
+    "gem": "Yogurt Maker",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "sports",
@@ -858,7 +951,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Chess Boxing", "Quidditch"],
-    "gem": "Sepak Takraw"
+    "gem": "Sepak Takraw",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "board-games",
@@ -888,12 +984,15 @@
     "wikidata": 377,
     "aliases": 176,
     "too_clever": ["The Campaign for North Africa"],
-    "gem": "Azul"
+    "gem": "Azul",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "pokemon",
     "text": "Name a Pokémon.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 86,
@@ -918,7 +1017,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Ditto", "Wobbuffet"],
-    "gem": "Shuckle"
+    "gem": "Shuckle",
+    "theme": "games",
+    "cluster": "pokemon",
+    "constrained": false
   },
   {
     "id": "wrestling",
@@ -948,7 +1050,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Canadian Destroyer"],
-    "gem": "La magistral"
+    "gem": "La magistral",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "monsters",
@@ -969,7 +1074,10 @@
     "wikidata": 355,
     "aliases": 396,
     "too_clever": ["Tarrasque"],
-    "gem": "Peryton"
+    "gem": "Peryton",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "greek-gods",
@@ -990,7 +1098,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Priapus"],
-    "gem": "Hestia"
+    "gem": "Hestia",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "colors",
@@ -1011,7 +1122,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Chartreuse", "Vantablack"],
-    "gem": "Gamboge"
+    "gem": "Gamboge",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "crayons",
@@ -1032,7 +1146,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Razzmatazz"],
-    "gem": "Macaroni and Cheese"
+    "gem": "Macaroni and Cheese",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "countries",
@@ -1062,7 +1179,10 @@
     "wikidata": 0,
     "aliases": 6,
     "too_clever": ["Tuvalu", "Vatican City"],
-    "gem": "Bhutan"
+    "gem": "Bhutan",
+    "theme": "geography",
+    "cluster": "countries",
+    "constrained": false
   },
   {
     "id": "capitals",
@@ -1092,7 +1212,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Ngerulmud"],
-    "gem": "Thimphu"
+    "gem": "Thimphu",
+    "theme": "geography",
+    "cluster": "capitals",
+    "constrained": false
   },
   {
     "id": "nationalities",
@@ -1122,7 +1245,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Monegasque"],
-    "gem": "Seychellois"
+    "gem": "Seychellois",
+    "theme": "geography",
+    "cluster": "countries",
+    "constrained": false
   },
   {
     "id": "rivers",
@@ -1143,7 +1269,10 @@
     "wikidata": 372,
     "aliases": 526,
     "too_clever": ["Onyx"],
-    "gem": "Okavango"
+    "gem": "Okavango",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "seas",
@@ -1173,7 +1302,10 @@
     "wikidata": 85,
     "aliases": 132,
     "too_clever": ["Dead Sea"],
-    "gem": "Sargasso Sea"
+    "gem": "Sargasso Sea",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "landforms",
@@ -1203,7 +1335,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Oxbow Lake"],
-    "gem": "Tombolo"
+    "gem": "Tombolo",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "winds",
@@ -1233,7 +1368,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Katabatic Wind"],
-    "gem": "Fremantle Doctor"
+    "gem": "Fremantle Doctor",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "english-towns",
@@ -1263,7 +1401,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Bognor Regis"],
-    "gem": "Whitby"
+    "gem": "Whitby",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "tube",
@@ -1293,7 +1434,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Mornington Crescent"],
-    "gem": "Cockfosters"
+    "gem": "Cockfosters",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "states",
@@ -1323,7 +1467,10 @@
     "wikidata": 0,
     "aliases": 3,
     "too_clever": ["Northern Mariana Islands"],
-    "gem": "Guam"
+    "gem": "Guam",
+    "theme": "geography",
+    "cluster": "us-states",
+    "constrained": false
   },
   {
     "id": "languages",
@@ -1344,7 +1491,10 @@
     "wikidata": 331,
     "aliases": 1099,
     "too_clever": ["Esperanto", "Klingon"],
-    "gem": "Rotokas"
+    "gem": "Rotokas",
+    "theme": "words",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "scientists",
@@ -1374,7 +1524,10 @@
     "wikidata": 0,
     "aliases": 3,
     "too_clever": ["Richard Feynman"],
-    "gem": "Chien-Shiung Wu"
+    "gem": "Chien-Shiung Wu",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "authors",
@@ -1404,7 +1557,10 @@
     "wikidata": 403,
     "aliases": 449,
     "too_clever": ["Thomas Pynchon"],
-    "gem": "Ursula K. Le Guin"
+    "gem": "Ursula K. Le Guin",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "books",
@@ -1434,7 +1590,10 @@
     "wikidata": 394,
     "aliases": 428,
     "too_clever": ["House of Leaves"],
-    "gem": "The Shadow of the Wind"
+    "gem": "The Shadow of the Wind",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "british-actors",
@@ -1464,7 +1623,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Benedict Cumberbatch"],
-    "gem": "Olivia Colman"
+    "gem": "Olivia Colman",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "jobs",
@@ -1494,7 +1656,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Actuary"],
-    "gem": "Foley Artist"
+    "gem": "Foley Artist",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "subjects",
@@ -1524,7 +1689,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Paleography"],
-    "gem": "Dendrochronology"
+    "gem": "Dendrochronology",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "art",
@@ -1554,7 +1722,10 @@
     "wikidata": 348,
     "aliases": 331,
     "too_clever": ["Dadaism"],
-    "gem": "Orphism"
+    "gem": "Orphism",
+    "theme": "art",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "music-genres",
@@ -1584,7 +1755,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Vaporwave"],
-    "gem": "Zydeco"
+    "gem": "Zydeco",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "instruments",
@@ -1614,7 +1788,10 @@
     "wikidata": 376,
     "aliases": 592,
     "too_clever": ["Theremin"],
-    "gem": "Nyckelharpa"
+    "gem": "Nyckelharpa",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "rock-hall",
@@ -1644,7 +1821,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Frank Zappa"],
-    "gem": "Sister Rosetta Tharpe"
+    "gem": "Sister Rosetta Tharpe",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "guitars",
@@ -1674,12 +1854,15 @@
     "wikidata": 115,
     "aliases": 64,
     "too_clever": ["Strandberg"],
-    "gem": "Duesenberg"
+    "gem": "Duesenberg",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "movies",
     "text": "Name a movie.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 88,
@@ -1704,7 +1887,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Primer"],
-    "gem": "The Iron Giant"
+    "gem": "The Iron Giant",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "tv",
@@ -1734,7 +1920,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Twin Peaks"],
-    "gem": "Detectorists"
+    "gem": "Detectorists",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "elements",
@@ -1755,7 +1944,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Astatine"],
-    "gem": "Bismuth"
+    "gem": "Bismuth",
+    "theme": "science",
+    "cluster": "elements",
+    "constrained": false
   },
   {
     "id": "weather",
@@ -1776,7 +1968,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Thundersnow"],
-    "gem": "Diamond Dust"
+    "gem": "Diamond Dust",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "meteorology",
@@ -1797,7 +1992,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Petrichor"],
-    "gem": "Virga"
+    "gem": "Virga",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "constellations",
@@ -1827,7 +2025,10 @@
     "wikidata": 0,
     "aliases": 4,
     "too_clever": ["Ophiuchus"],
-    "gem": "Delphinus"
+    "gem": "Delphinus",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cars",
@@ -1848,7 +2049,10 @@
     "wikidata": 375,
     "aliases": 434,
     "too_clever": ["Koenigsegg"],
-    "gem": "Spyker"
+    "gem": "Spyker",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "companies",
@@ -1878,7 +2082,10 @@
     "wikidata": 393,
     "aliases": 914,
     "too_clever": ["Berkshire Hathaway"],
-    "gem": "Weyerhaeuser"
+    "gem": "Weyerhaeuser",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "newspapers",
@@ -1908,7 +2115,10 @@
     "wikidata": 397,
     "aliases": 437,
     "too_clever": ["The Onion"],
-    "gem": "The Asahi Shimbun"
+    "gem": "The Asahi Shimbun",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "industries",
@@ -1938,7 +2148,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Nanotechnology"],
-    "gem": "Silviculture"
+    "gem": "Silviculture",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "charities",
@@ -1968,7 +2181,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Heifer International"],
-    "gem": "Room to Read"
+    "gem": "Room to Read",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "uk-parties",
@@ -1998,7 +2214,10 @@
     "wikidata": 0,
     "aliases": 5,
     "too_clever": ["Official Monster Raving Loony Party"],
-    "gem": "Yorkshire Party"
+    "gem": "Yorkshire Party",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "agencies",
@@ -2028,7 +2247,10 @@
     "wikidata": 0,
     "aliases": 4,
     "too_clever": ["Bureau of Alcohol Tobacco and Firearms"],
-    "gem": "Bureau of Engraving and Printing"
+    "gem": "Bureau of Engraving and Printing",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "us-capitals",
@@ -2058,7 +2280,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Pierre"],
-    "gem": "Montpelier"
+    "gem": "Montpelier",
+    "theme": "geography",
+    "cluster": "capitals",
+    "constrained": false
   },
   {
     "id": "knots",
@@ -2088,7 +2313,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Monkey Fist"],
-    "gem": "Zeppelin Bend"
+    "gem": "Zeppelin Bend",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "scents",
@@ -2109,7 +2337,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Petrichor"],
-    "gem": "Vetiver"
+    "gem": "Vetiver",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fictional-materials",
@@ -2139,7 +2370,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Unobtainium"],
-    "gem": "Octiron"
+    "gem": "Octiron",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "tolkien",
@@ -2169,7 +2403,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Tom Bombadil"],
-    "gem": "Goldberry"
+    "gem": "Goldberry",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "comedy-movies",
@@ -2199,7 +2436,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["The Room"],
-    "gem": "Local Hero"
+    "gem": "Local Hero",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "horror-movies",
@@ -2229,7 +2469,10 @@
     "wikidata": 381,
     "aliases": 139,
     "too_clever": ["The Wicker Man"],
-    "gem": "Let the Right One In"
+    "gem": "Let the Right One In",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "action-movies",
@@ -2259,7 +2502,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Hard Boiled"],
-    "gem": "The Raid"
+    "gem": "The Raid",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "drama-movies",
@@ -2289,7 +2535,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Synecdoche New York"],
-    "gem": "The Station Agent"
+    "gem": "The Station Agent",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "thriller-movies",
@@ -2319,7 +2568,10 @@
     "wikidata": 408,
     "aliases": 151,
     "too_clever": ["Memento"],
-    "gem": "The Conversation"
+    "gem": "The Conversation",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cities-us",
@@ -2349,7 +2601,10 @@
     "wikidata": 0,
     "aliases": 3,
     "too_clever": ["Intercourse"],
-    "gem": "Duluth"
+    "gem": "Duluth",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-gb",
@@ -2379,7 +2634,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Llanfairpwllgwyngyll"],
-    "gem": "Stirling"
+    "gem": "Stirling",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ca",
@@ -2409,7 +2667,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Moose Jaw"],
-    "gem": "Whitehorse"
+    "gem": "Whitehorse",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-au",
@@ -2439,7 +2700,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Wagga Wagga"],
-    "gem": "Ballarat"
+    "gem": "Ballarat",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-nz",
@@ -2469,7 +2733,10 @@
     "wikidata": 399,
     "aliases": 106,
     "too_clever": ["Whanganui"],
-    "gem": "Rotorua"
+    "gem": "Rotorua",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-jp",
@@ -2490,7 +2757,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Nara"],
-    "gem": "Kanazawa"
+    "gem": "Kanazawa",
+    "theme": "geography",
+    "cluster": "japan",
+    "constrained": false
   },
   {
     "id": "cities-cn",
@@ -2520,7 +2790,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Lhasa"],
-    "gem": "Dali"
+    "gem": "Dali",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-in",
@@ -2550,7 +2823,10 @@
     "wikidata": 0,
     "aliases": 4,
     "too_clever": ["Varanasi"],
-    "gem": "Mysore"
+    "gem": "Mysore",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-br",
@@ -2580,7 +2856,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Manaus"],
-    "gem": "Olinda"
+    "gem": "Olinda",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-mx",
@@ -2610,7 +2889,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Chihuahua"],
-    "gem": "Guanajuato"
+    "gem": "Guanajuato",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-fr",
@@ -2640,7 +2922,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Carcassonne"],
-    "gem": "Annecy"
+    "gem": "Annecy",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-it",
@@ -2661,7 +2946,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["San Gimignano"],
-    "gem": "Lucca"
+    "gem": "Lucca",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-es",
@@ -2691,7 +2979,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Cuenca"],
-    "gem": "Ronda"
+    "gem": "Ronda",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-de",
@@ -2721,7 +3012,10 @@
     "wikidata": 0,
     "aliases": 2,
     "too_clever": ["Bielefeld"],
-    "gem": "Bamberg"
+    "gem": "Bamberg",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ru",
@@ -2751,7 +3045,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Norilsk"],
-    "gem": "Suzdal"
+    "gem": "Suzdal",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ar",
@@ -2781,7 +3078,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["San Carlos de Bariloche"],
-    "gem": "Ushuaia"
+    "gem": "Ushuaia",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-co",
@@ -2811,7 +3111,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Leticia"],
-    "gem": "Popayan"
+    "gem": "Popayan",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-cl",
@@ -2841,7 +3144,10 @@
     "wikidata": 178,
     "aliases": 33,
     "too_clever": ["Valparaiso"],
-    "gem": "Punta Arenas"
+    "gem": "Punta Arenas",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-pe",
@@ -2871,7 +3177,10 @@
     "wikidata": 157,
     "aliases": 40,
     "too_clever": ["Puno"],
-    "gem": "Iquitos"
+    "gem": "Iquitos",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-za",
@@ -2901,7 +3210,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Bloemfontein"],
-    "gem": "Knysna"
+    "gem": "Knysna",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-eg",
@@ -2931,7 +3243,10 @@
     "wikidata": 208,
     "aliases": 122,
     "too_clever": ["Luxor"],
-    "gem": "Aswan"
+    "gem": "Aswan",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ng",
@@ -2961,7 +3276,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Sokoto"],
-    "gem": "Calabar"
+    "gem": "Calabar",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ke",
@@ -2982,7 +3300,10 @@
     "wikidata": 31,
     "aliases": 11,
     "too_clever": ["Naivasha"],
-    "gem": "Lamu"
+    "gem": "Lamu",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-gr",
@@ -3012,7 +3333,10 @@
     "wikidata": 375,
     "aliases": 365,
     "too_clever": ["Sparta"],
-    "gem": "Nafplio"
+    "gem": "Nafplio",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-pt",
@@ -3033,7 +3357,10 @@
     "wikidata": 39,
     "aliases": 11,
     "too_clever": ["Fatima"],
-    "gem": "Tavira"
+    "gem": "Tavira",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-nl",
@@ -3063,7 +3390,10 @@
     "wikidata": 345,
     "aliases": 79,
     "too_clever": ["Gouda"],
-    "gem": "Delft"
+    "gem": "Delft",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-be",
@@ -3093,7 +3423,10 @@
     "wikidata": 204,
     "aliases": 83,
     "too_clever": ["Ypres"],
-    "gem": "Dinant"
+    "gem": "Dinant",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-pl",
@@ -3123,7 +3456,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Zakopane"],
-    "gem": "Torun"
+    "gem": "Torun",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-se",
@@ -3153,7 +3489,10 @@
     "wikidata": 342,
     "aliases": 43,
     "too_clever": ["Kiruna"],
-    "gem": "Visby"
+    "gem": "Visby",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-fi",
@@ -3174,7 +3513,10 @@
     "wikidata": 296,
     "aliases": 252,
     "too_clever": ["Rovaniemi"],
-    "gem": "Porvoo"
+    "gem": "Porvoo",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-tr",
@@ -3195,7 +3537,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Batman"],
-    "gem": "Safranbolu"
+    "gem": "Safranbolu",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-th",
@@ -3225,7 +3570,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Pai"],
-    "gem": "Lampang"
+    "gem": "Lampang",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-id",
@@ -3255,7 +3603,10 @@
     "wikidata": 0,
     "aliases": 0,
     "too_clever": ["Surakarta"],
-    "gem": "Yogyakarta"
+    "gem": "Yogyakarta",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ph",
@@ -3285,7 +3636,10 @@
     "wikidata": 0,
     "aliases": 4,
     "too_clever": ["Baguio"],
-    "gem": "Vigan"
+    "gem": "Vigan",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-vn",
@@ -3315,7 +3669,10 @@
     "wikidata": 0,
     "aliases": 1,
     "too_clever": ["Hue"],
-    "gem": "Hoi An"
+    "gem": "Hoi An",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-kr",
@@ -3336,7 +3693,10 @@
     "wikidata": 70,
     "aliases": 77,
     "too_clever": ["Jeonju"],
-    "gem": "Gyeongju"
+    "gem": "Gyeongju",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ie",
@@ -3366,7 +3726,10 @@
     "wikidata": 224,
     "aliases": 104,
     "too_clever": [],
-    "gem": "Dingle"
+    "gem": "Dingle",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ch",
@@ -3387,7 +3750,10 @@
     "wikidata": 430,
     "aliases": 530,
     "too_clever": [],
-    "gem": "Zermatt"
+    "gem": "Zermatt",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-at",
@@ -3417,7 +3783,10 @@
     "wikidata": 430,
     "aliases": 123,
     "too_clever": [],
-    "gem": "Hallstatt"
+    "gem": "Hallstatt",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-no",
@@ -3447,7 +3816,10 @@
     "wikidata": 429,
     "aliases": 142,
     "too_clever": [],
-    "gem": "Ålesund"
+    "gem": "Ålesund",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-cz",
@@ -3477,7 +3849,10 @@
     "wikidata": 430,
     "aliases": 411,
     "too_clever": [],
-    "gem": "Český Krumlov"
+    "gem": "Český Krumlov",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-hu",
@@ -3507,7 +3882,10 @@
     "wikidata": 430,
     "aliases": 77,
     "too_clever": [],
-    "gem": "Eger"
+    "gem": "Eger",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-hr",
@@ -3528,7 +3906,10 @@
     "wikidata": 430,
     "aliases": 75,
     "too_clever": [],
-    "gem": "Rovinj"
+    "gem": "Rovinj",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ma",
@@ -3549,7 +3930,10 @@
     "wikidata": 429,
     "aliases": 144,
     "too_clever": [],
-    "gem": "Chefchaouen"
+    "gem": "Chefchaouen",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-my",
@@ -3579,7 +3963,10 @@
     "wikidata": 38,
     "aliases": 28,
     "too_clever": [],
-    "gem": "Ipoh"
+    "gem": "Ipoh",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-pk",
@@ -3609,7 +3996,10 @@
     "wikidata": 195,
     "aliases": 144,
     "too_clever": [],
-    "gem": "Gilgit"
+    "gem": "Gilgit",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "cities-ro",
@@ -3639,7 +4029,10 @@
     "wikidata": 429,
     "aliases": 392,
     "too_clever": [],
-    "gem": "Sighișoara"
+    "gem": "Sighișoara",
+    "theme": "geography",
+    "cluster": "cities",
+    "constrained": false
   },
   {
     "id": "painters",
@@ -3669,7 +4062,10 @@
     "wikidata": 430,
     "aliases": 524,
     "too_clever": [],
-    "gem": "Hieronymus Bosch"
+    "gem": "Hieronymus Bosch",
+    "theme": "art",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "composers",
@@ -3699,7 +4095,10 @@
     "wikidata": 430,
     "aliases": 418,
     "too_clever": [],
-    "gem": "Erik Satie"
+    "gem": "Erik Satie",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "physicists",
@@ -3729,7 +4128,10 @@
     "wikidata": 429,
     "aliases": 525,
     "too_clever": [],
-    "gem": "Lise Meitner"
+    "gem": "Lise Meitner",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "chemists",
@@ -3759,7 +4161,10 @@
     "wikidata": 430,
     "aliases": 551,
     "too_clever": [],
-    "gem": "Rosalind Franklin"
+    "gem": "Rosalind Franklin",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mathematicians",
@@ -3789,7 +4194,10 @@
     "wikidata": 430,
     "aliases": 443,
     "too_clever": ["Paul Erdős"],
-    "gem": "Srinivasa Ramanujan"
+    "gem": "Srinivasa Ramanujan",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "philosophers",
@@ -3819,7 +4227,10 @@
     "wikidata": 430,
     "aliases": 390,
     "too_clever": [],
-    "gem": "Diogenes of Sinope"
+    "gem": "Diogenes of Sinope",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "poets",
@@ -3849,7 +4260,10 @@
     "wikidata": 429,
     "aliases": 441,
     "too_clever": [],
-    "gem": "Rumi"
+    "gem": "Rumi",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "playwrights",
@@ -3879,7 +4293,10 @@
     "wikidata": 430,
     "aliases": 450,
     "too_clever": [],
-    "gem": "Molière"
+    "gem": "Molière",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "architects",
@@ -3909,7 +4326,10 @@
     "wikidata": 430,
     "aliases": 444,
     "too_clever": [],
-    "gem": "Christopher Wren"
+    "gem": "Christopher Wren",
+    "theme": "art",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "sculptors",
@@ -3939,7 +4359,10 @@
     "wikidata": 428,
     "aliases": 442,
     "too_clever": [],
-    "gem": "Louise Bourgeois"
+    "gem": "Louise Bourgeois",
+    "theme": "art",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "photographers",
@@ -3969,12 +4392,15 @@
     "wikidata": 429,
     "aliases": 435,
     "too_clever": [],
-    "gem": "Vivian Maier"
+    "gem": "Vivian Maier",
+    "theme": "art",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "directors",
     "text": "Name a film director.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 85,
@@ -3999,7 +4425,10 @@
     "wikidata": 430,
     "aliases": 416,
     "too_clever": [],
-    "gem": "Hayao Miyazaki"
+    "gem": "Hayao Miyazaki",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "american-actors",
@@ -4029,7 +4458,10 @@
     "wikidata": 430,
     "aliases": 412,
     "too_clever": [],
-    "gem": "Bill Murray"
+    "gem": "Bill Murray",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "singers",
@@ -4059,7 +4491,10 @@
     "wikidata": 430,
     "aliases": 391,
     "too_clever": [],
-    "gem": "Nina Simone"
+    "gem": "Nina Simone",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "rappers",
@@ -4089,7 +4524,10 @@
     "wikidata": 430,
     "aliases": 259,
     "too_clever": [],
-    "gem": "MF Doom"
+    "gem": "MF Doom",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "guitarists",
@@ -4119,7 +4557,10 @@
     "wikidata": 428,
     "aliases": 374,
     "too_clever": [],
-    "gem": "Django Reinhardt"
+    "gem": "Django Reinhardt",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "drummers",
@@ -4149,7 +4590,10 @@
     "wikidata": 377,
     "aliases": 323,
     "too_clever": [],
-    "gem": "Sheila E."
+    "gem": "Sheila E.",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "pianists",
@@ -4179,7 +4623,10 @@
     "wikidata": 429,
     "aliases": 418,
     "too_clever": [],
-    "gem": "Liberace"
+    "gem": "Liberace",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "jazz",
@@ -4209,7 +4656,10 @@
     "wikidata": 430,
     "aliases": 366,
     "too_clever": [],
-    "gem": "Thelonious Monk"
+    "gem": "Thelonious Monk",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "comedians",
@@ -4239,7 +4689,10 @@
     "wikidata": 430,
     "aliases": 379,
     "too_clever": [],
-    "gem": "Mitch Hedberg"
+    "gem": "Mitch Hedberg",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "astronauts",
@@ -4269,7 +4722,10 @@
     "wikidata": 430,
     "aliases": 435,
     "too_clever": [],
-    "gem": "Chris Hadfield"
+    "gem": "Chris Hadfield",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "explorers",
@@ -4299,7 +4755,10 @@
     "wikidata": 430,
     "aliases": 493,
     "too_clever": [],
-    "gem": "Ernest Shackleton"
+    "gem": "Ernest Shackleton",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "inventors",
@@ -4329,7 +4788,10 @@
     "wikidata": 429,
     "aliases": 458,
     "too_clever": [],
-    "gem": "Hedy Lamarr"
+    "gem": "Hedy Lamarr",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "economists",
@@ -4359,7 +4821,10 @@
     "wikidata": 429,
     "aliases": 479,
     "too_clever": [],
-    "gem": "Thomas Robert Malthus"
+    "gem": "Thomas Robert Malthus",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "psychologists",
@@ -4389,7 +4854,10 @@
     "wikidata": 428,
     "aliases": 445,
     "too_clever": [],
-    "gem": "Abraham Maslow"
+    "gem": "Abraham Maslow",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "astronomers",
@@ -4419,7 +4887,10 @@
     "wikidata": 429,
     "aliases": 429,
     "too_clever": [],
-    "gem": "Tycho Brahe"
+    "gem": "Tycho Brahe",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "biologists",
@@ -4449,7 +4920,10 @@
     "wikidata": 429,
     "aliases": 506,
     "too_clever": [],
-    "gem": "Alfred Russel Wallace"
+    "gem": "Alfred Russel Wallace",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "chefs",
@@ -4479,7 +4953,10 @@
     "wikidata": 336,
     "aliases": 320,
     "too_clever": [],
-    "gem": "Auguste Escoffier"
+    "gem": "Auguste Escoffier",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fashion-designers",
@@ -4509,7 +4986,10 @@
     "wikidata": 287,
     "aliases": 266,
     "too_clever": [],
-    "gem": "Vivienne Westwood"
+    "gem": "Vivienne Westwood",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "soccer-players",
@@ -4539,7 +5019,10 @@
     "wikidata": 430,
     "aliases": 389,
     "too_clever": [],
-    "gem": "Zlatan Ibrahimović"
+    "gem": "Zlatan Ibrahimović",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "basketball-players",
@@ -4569,7 +5052,10 @@
     "wikidata": 430,
     "aliases": 438,
     "too_clever": [],
-    "gem": "Dennis Rodman"
+    "gem": "Dennis Rodman",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "baseball-players",
@@ -4599,7 +5085,10 @@
     "wikidata": 430,
     "aliases": 422,
     "too_clever": [],
-    "gem": "Yogi Berra"
+    "gem": "Yogi Berra",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "nfl-players",
@@ -4629,7 +5118,10 @@
     "wikidata": 430,
     "aliases": 332,
     "too_clever": [],
-    "gem": "Deion Sanders"
+    "gem": "Deion Sanders",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "tennis-players",
@@ -4659,7 +5151,10 @@
     "wikidata": 430,
     "aliases": 437,
     "too_clever": [],
-    "gem": "Björn Borg"
+    "gem": "Björn Borg",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "golfers",
@@ -4689,7 +5184,10 @@
     "wikidata": 430,
     "aliases": 370,
     "too_clever": [],
-    "gem": "Seve Ballesteros"
+    "gem": "Seve Ballesteros",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "boxers",
@@ -4719,7 +5217,10 @@
     "wikidata": 429,
     "aliases": 452,
     "too_clever": [],
-    "gem": "Sugar Ray Robinson"
+    "gem": "Sugar Ray Robinson",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "f1-drivers",
@@ -4749,7 +5250,10 @@
     "wikidata": 430,
     "aliases": 415,
     "too_clever": [],
-    "gem": "James Hunt"
+    "gem": "James Hunt",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "hockey-players",
@@ -4779,7 +5283,10 @@
     "wikidata": 430,
     "aliases": 401,
     "too_clever": [],
-    "gem": "Gordie Howe"
+    "gem": "Gordie Howe",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cricketers",
@@ -4809,7 +5316,10 @@
     "wikidata": 430,
     "aliases": 365,
     "too_clever": [],
-    "gem": "W. G. Grace"
+    "gem": "W. G. Grace",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "chess-players",
@@ -4839,7 +5349,10 @@
     "wikidata": 430,
     "aliases": 423,
     "too_clever": [],
-    "gem": "Judit Polgár"
+    "gem": "Judit Polgár",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "swimmers",
@@ -4869,7 +5382,10 @@
     "wikidata": 430,
     "aliases": 474,
     "too_clever": [],
-    "gem": "Johnny Weissmuller"
+    "gem": "Johnny Weissmuller",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "track-athletes",
@@ -4899,7 +5415,10 @@
     "wikidata": 430,
     "aliases": 436,
     "too_clever": [],
-    "gem": "Eliud Kipchoge"
+    "gem": "Eliud Kipchoge",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "figure-skaters",
@@ -4929,7 +5448,10 @@
     "wikidata": 430,
     "aliases": 385,
     "too_clever": [],
-    "gem": "Surya Bonaly"
+    "gem": "Surya Bonaly",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cyclists",
@@ -4959,7 +5481,10 @@
     "wikidata": 430,
     "aliases": 450,
     "too_clever": [],
-    "gem": "Marco Pantani"
+    "gem": "Marco Pantani",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "skiers",
@@ -4989,7 +5514,10 @@
     "wikidata": 430,
     "aliases": 418,
     "too_clever": [],
-    "gem": "Franz Klammer"
+    "gem": "Franz Klammer",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "gymnasts",
@@ -5019,7 +5547,10 @@
     "wikidata": 430,
     "aliases": 405,
     "too_clever": [],
-    "gem": "Olga Korbut"
+    "gem": "Olga Korbut",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "pro-wrestlers",
@@ -5049,7 +5580,10 @@
     "wikidata": 430,
     "aliases": 372,
     "too_clever": [],
-    "gem": "André the Giant"
+    "gem": "André the Giant",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mma-fighters",
@@ -5079,7 +5613,10 @@
     "wikidata": 430,
     "aliases": 436,
     "too_clever": [],
-    "gem": "Georges St-Pierre"
+    "gem": "Georges St-Pierre",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "historians",
@@ -5109,7 +5646,10 @@
     "wikidata": 430,
     "aliases": 374,
     "too_clever": [],
-    "gem": "Plutarch"
+    "gem": "Plutarch",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "childrens-authors",
@@ -5139,7 +5679,10 @@
     "wikidata": 430,
     "aliases": 445,
     "too_clever": [],
-    "gem": "Shel Silverstein"
+    "gem": "Shel Silverstein",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "scifi-authors",
@@ -5169,7 +5712,10 @@
     "wikidata": 430,
     "aliases": 420,
     "too_clever": [],
-    "gem": "Octavia E. Butler"
+    "gem": "Octavia E. Butler",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "youtubers",
@@ -5199,7 +5745,10 @@
     "wikidata": 430,
     "aliases": 343,
     "too_clever": [],
-    "gem": "Mark Rober"
+    "gem": "Mark Rober",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cartoonists",
@@ -5229,7 +5778,10 @@
     "wikidata": 429,
     "aliases": 391,
     "too_clever": [],
-    "gem": "Hergé"
+    "gem": "Hergé",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "opera-singers",
@@ -5259,7 +5811,10 @@
     "wikidata": 429,
     "aliases": 418,
     "too_clever": [],
-    "gem": "Enrico Caruso"
+    "gem": "Enrico Caruso",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "country-singers",
@@ -5289,7 +5844,10 @@
     "wikidata": 430,
     "aliases": 333,
     "too_clever": [],
-    "gem": "Patsy Cline"
+    "gem": "Patsy Cline",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "djs",
@@ -5319,7 +5877,10 @@
     "wikidata": 430,
     "aliases": 284,
     "too_clever": [],
-    "gem": "Deadmau5"
+    "gem": "Deadmau5",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "entrepreneurs",
@@ -5349,7 +5910,10 @@
     "wikidata": 430,
     "aliases": 407,
     "too_clever": [],
-    "gem": "Madam C. J. Walker"
+    "gem": "Madam C. J. Walker",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "violinists",
@@ -5379,7 +5943,10 @@
     "wikidata": 350,
     "aliases": 338,
     "too_clever": [],
-    "gem": "Lindsey Stirling"
+    "gem": "Lindsey Stirling",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "conductors",
@@ -5409,12 +5976,15 @@
     "wikidata": 430,
     "aliases": 409,
     "too_clever": [],
-    "gem": "Leopold Stokowski"
+    "gem": "Leopold Stokowski",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "monarchs",
     "text": "Name a king, queen or emperor.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 85,
@@ -5439,7 +6009,10 @@
     "wikidata": 430,
     "aliases": 235,
     "too_clever": [],
-    "gem": "Tutankhamun"
+    "gem": "Tutankhamun",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "ballet-dancers",
@@ -5469,7 +6042,10 @@
     "wikidata": 429,
     "aliases": 399,
     "too_clever": [],
-    "gem": "Margot Fonteyn"
+    "gem": "Margot Fonteyn",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "magicians",
@@ -5499,7 +6075,10 @@
     "wikidata": 336,
     "aliases": 286,
     "too_clever": [],
-    "gem": "Ricky Jay"
+    "gem": "Ricky Jay",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "rugby-players",
@@ -5529,7 +6108,10 @@
     "wikidata": 430,
     "aliases": 377,
     "too_clever": [],
-    "gem": "Gareth Edwards"
+    "gem": "Gareth Edwards",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "tv-hosts",
@@ -5559,7 +6141,10 @@
     "wikidata": 366,
     "aliases": 343,
     "too_clever": [],
-    "gem": "Fred Rogers"
+    "gem": "Fred Rogers",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mountaineers",
@@ -5589,7 +6174,10 @@
     "wikidata": 430,
     "aliases": 421,
     "too_clever": [],
-    "gem": "Junko Tabei"
+    "gem": "Junko Tabei",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "animators",
@@ -5619,7 +6207,10 @@
     "wikidata": 430,
     "aliases": 410,
     "too_clever": [],
-    "gem": "Ray Harryhausen"
+    "gem": "Ray Harryhausen",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "computer-scientists",
@@ -5649,12 +6240,15 @@
     "wikidata": 430,
     "aliases": 462,
     "too_clever": [],
-    "gem": "Donald Knuth"
+    "gem": "Donald Knuth",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "nobel-laureates",
     "text": "Name a Nobel Prize winner.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 85,
@@ -5679,12 +6273,15 @@
     "wikidata": 430,
     "aliases": 506,
     "too_clever": [],
-    "gem": "Bob Dylan"
+    "gem": "Bob Dylan",
+    "theme": "science",
+    "cluster": "nobel",
+    "constrained": false
   },
   {
     "id": "oscar-actors",
     "text": "Name an Oscar-winning actor or actress.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 86,
@@ -5709,7 +6306,10 @@
     "wikidata": 430,
     "aliases": 342,
     "too_clever": [],
-    "gem": "Marlee Matlin"
+    "gem": "Marlee Matlin",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": false
   },
   {
     "id": "superheroes",
@@ -5739,7 +6339,10 @@
     "wikidata": 411,
     "aliases": 701,
     "too_clever": [],
-    "gem": "Squirrel Girl"
+    "gem": "Squirrel Girl",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "marvel",
@@ -5769,7 +6372,10 @@
     "wikidata": 429,
     "aliases": 658,
     "too_clever": [],
-    "gem": "Howard the Duck"
+    "gem": "Howard the Duck",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "dc",
@@ -5799,7 +6405,10 @@
     "wikidata": 423,
     "aliases": 533,
     "too_clever": [],
-    "gem": "Swamp Thing"
+    "gem": "Swamp Thing",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "harry-potter",
@@ -5829,7 +6438,10 @@
     "wikidata": 341,
     "aliases": 160,
     "too_clever": [],
-    "gem": "Dobby"
+    "gem": "Dobby",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "simpsons",
@@ -5859,7 +6471,10 @@
     "wikidata": 211,
     "aliases": 156,
     "too_clever": [],
-    "gem": "Hans Moleman"
+    "gem": "Hans Moleman",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "game-characters",
@@ -5889,7 +6504,10 @@
     "wikidata": 429,
     "aliases": 593,
     "too_clever": [],
-    "gem": "Waluigi"
+    "gem": "Waluigi",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cartoon-characters",
@@ -5919,7 +6537,10 @@
     "wikidata": 429,
     "aliases": 772,
     "too_clever": [],
-    "gem": "Snagglepuss"
+    "gem": "Snagglepuss",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "anime-characters",
@@ -5949,7 +6570,10 @@
     "wikidata": 295,
     "aliases": 406,
     "too_clever": [],
-    "gem": "Totoro"
+    "gem": "Totoro",
+    "theme": "tv",
+    "cluster": "japan",
+    "constrained": false
   },
   {
     "id": "greek-myth",
@@ -5979,7 +6603,10 @@
     "wikidata": 430,
     "aliases": 261,
     "too_clever": [],
-    "gem": "Sisyphus"
+    "gem": "Sisyphus",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "norse-myth",
@@ -6000,7 +6627,10 @@
     "wikidata": 223,
     "aliases": 146,
     "too_clever": [],
-    "gem": "Ratatoskr"
+    "gem": "Ratatoskr",
+    "theme": "history",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "literary-characters",
@@ -6030,7 +6660,10 @@
     "wikidata": 245,
     "aliases": 230,
     "too_clever": [],
-    "gem": "Atticus Finch"
+    "gem": "Atticus Finch",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-classic",
@@ -6060,7 +6693,10 @@
     "wikidata": 429,
     "aliases": 88,
     "too_clever": [],
-    "gem": "Nosferatu"
+    "gem": "Nosferatu",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-1960s",
@@ -6090,7 +6726,10 @@
     "wikidata": 430,
     "aliases": 171,
     "too_clever": [],
-    "gem": "Barbarella"
+    "gem": "Barbarella",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-1970s",
@@ -6120,7 +6759,10 @@
     "wikidata": 430,
     "aliases": 164,
     "too_clever": [],
-    "gem": "Monty Python and the Holy Grail"
+    "gem": "Monty Python and the Holy Grail",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-1980s",
@@ -6150,7 +6792,10 @@
     "wikidata": 430,
     "aliases": 104,
     "too_clever": [],
-    "gem": "The Princess Bride"
+    "gem": "The Princess Bride",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-1990s",
@@ -6180,7 +6825,10 @@
     "wikidata": 429,
     "aliases": 108,
     "too_clever": [],
-    "gem": "Groundhog Day"
+    "gem": "Groundhog Day",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-2000s",
@@ -6210,7 +6858,10 @@
     "wikidata": 427,
     "aliases": 140,
     "too_clever": [],
-    "gem": "Napoleon Dynamite"
+    "gem": "Napoleon Dynamite",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-2010s",
@@ -6240,7 +6891,10 @@
     "wikidata": 428,
     "aliases": 251,
     "too_clever": [],
-    "gem": "Paddington 2"
+    "gem": "Paddington 2",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "films-2020s",
@@ -6270,7 +6924,10 @@
     "wikidata": 430,
     "aliases": 235,
     "too_clever": [],
-    "gem": "The Banshees of Inisherin"
+    "gem": "The Banshees of Inisherin",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "scifi-films",
@@ -6300,7 +6957,10 @@
     "wikidata": 429,
     "aliases": 278,
     "too_clever": [],
-    "gem": "Galaxy Quest"
+    "gem": "Galaxy Quest",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fantasy-films",
@@ -6330,7 +6990,10 @@
     "wikidata": 429,
     "aliases": 167,
     "too_clever": [],
-    "gem": "Labyrinth"
+    "gem": "Labyrinth",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "animated-films",
@@ -6360,7 +7023,10 @@
     "wikidata": 429,
     "aliases": 264,
     "too_clever": [],
-    "gem": "My Neighbor Totoro"
+    "gem": "My Neighbor Totoro",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "romance-films",
@@ -6390,7 +7056,10 @@
     "wikidata": 429,
     "aliases": 109,
     "too_clever": [],
-    "gem": "Before Sunrise"
+    "gem": "Before Sunrise",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "westerns",
@@ -6420,7 +7089,10 @@
     "wikidata": 430,
     "aliases": 46,
     "too_clever": [],
-    "gem": "Blazing Saddles"
+    "gem": "Blazing Saddles",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "musical-films",
@@ -6450,7 +7122,10 @@
     "wikidata": 430,
     "aliases": 110,
     "too_clever": [],
-    "gem": "The Rocky Horror Picture Show"
+    "gem": "The Rocky Horror Picture Show",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "war-films",
@@ -6480,7 +7155,10 @@
     "wikidata": 430,
     "aliases": 123,
     "too_clever": [],
-    "gem": "The Great Escape"
+    "gem": "The Great Escape",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "crime-films",
@@ -6510,7 +7188,10 @@
     "wikidata": 430,
     "aliases": 129,
     "too_clever": [],
-    "gem": "Fargo"
+    "gem": "Fargo",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "superhero-films",
@@ -6540,7 +7221,10 @@
     "wikidata": 290,
     "aliases": 148,
     "too_clever": [],
-    "gem": "Mystery Men"
+    "gem": "Mystery Men",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "christmas-films",
@@ -6570,7 +7254,10 @@
     "wikidata": 429,
     "aliases": 109,
     "too_clever": [],
-    "gem": "Gremlins"
+    "gem": "Gremlins",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "teen-films",
@@ -6600,7 +7287,10 @@
     "wikidata": 430,
     "aliases": 105,
     "too_clever": [],
-    "gem": "Heathers"
+    "gem": "Heathers",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "spy-films",
@@ -6630,7 +7320,10 @@
     "wikidata": 430,
     "aliases": 147,
     "too_clever": [],
-    "gem": "Spies Like Us"
+    "gem": "Spies Like Us",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "martial-arts-films",
@@ -6660,7 +7353,10 @@
     "wikidata": 429,
     "aliases": 191,
     "too_clever": [],
-    "gem": "Kung Fu Hustle"
+    "gem": "Kung Fu Hustle",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "biopics",
@@ -6690,7 +7386,10 @@
     "wikidata": 430,
     "aliases": 70,
     "too_clever": [],
-    "gem": "Ed Wood"
+    "gem": "Ed Wood",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "romcoms",
@@ -6720,7 +7419,10 @@
     "wikidata": 426,
     "aliases": 41,
     "too_clever": [],
-    "gem": "Moonstruck"
+    "gem": "Moonstruck",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mystery-films",
@@ -6750,7 +7452,10 @@
     "wikidata": 430,
     "aliases": 128,
     "too_clever": [],
-    "gem": "Clue"
+    "gem": "Clue",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "adventure-films",
@@ -6780,7 +7485,10 @@
     "wikidata": 428,
     "aliases": 277,
     "too_clever": [],
-    "gem": "Romancing the Stone"
+    "gem": "Romancing the Stone",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "disney-films",
@@ -6810,7 +7518,10 @@
     "wikidata": 248,
     "aliases": 66,
     "too_clever": [],
-    "gem": "The Emperor's New Groove"
+    "gem": "The Emperor's New Groove",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "bollywood",
@@ -6840,12 +7551,15 @@
     "wikidata": 430,
     "aliases": 104,
     "too_clever": [],
-    "gem": "Kuch Kuch Hota Hai"
+    "gem": "Kuch Kuch Hota Hai",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "japanese-films",
     "text": "Name a Japanese movie.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 89,
@@ -6870,7 +7584,10 @@
     "wikidata": 427,
     "aliases": 161,
     "too_clever": [],
-    "gem": "Tampopo"
+    "gem": "Tampopo",
+    "theme": "film",
+    "cluster": "japan",
+    "constrained": false
   },
   {
     "id": "french-films",
@@ -6900,7 +7617,10 @@
     "wikidata": 429,
     "aliases": 376,
     "too_clever": [],
-    "gem": "The Red Balloon"
+    "gem": "The Red Balloon",
+    "theme": "film",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "sitcoms",
@@ -6930,7 +7650,10 @@
     "wikidata": 429,
     "aliases": 85,
     "too_clever": [],
-    "gem": "Arrested Development"
+    "gem": "Arrested Development",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "animated-series",
@@ -6960,7 +7683,10 @@
     "wikidata": 430,
     "aliases": 216,
     "too_clever": [],
-    "gem": "Gravity Falls"
+    "gem": "Gravity Falls",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "reality-tv",
@@ -6990,7 +7716,10 @@
     "wikidata": 428,
     "aliases": 131,
     "too_clever": [],
-    "gem": "The Great British Bake Off"
+    "gem": "The Great British Bake Off",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "game-shows",
@@ -7020,7 +7749,10 @@
     "wikidata": 259,
     "aliases": 95,
     "too_clever": [],
-    "gem": "Takeshi's Castle"
+    "gem": "Takeshi's Castle",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "soap-operas",
@@ -7050,12 +7782,15 @@
     "wikidata": 344,
     "aliases": 83,
     "too_clever": [],
-    "gem": "Neighbours"
+    "gem": "Neighbours",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "anime",
     "text": "Name an anime series.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 86,
@@ -7080,7 +7815,10 @@
     "wikidata": 430,
     "aliases": 486,
     "too_clever": [],
-    "gem": "Cowboy Bebop"
+    "gem": "Cowboy Bebop",
+    "theme": "tv",
+    "cluster": "japan",
+    "constrained": false
   },
   {
     "id": "british-tv",
@@ -7110,7 +7848,10 @@
     "wikidata": 430,
     "aliases": 93,
     "too_clever": [],
-    "gem": "Blackadder"
+    "gem": "Blackadder",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "netflix",
@@ -7140,7 +7881,10 @@
     "wikidata": 430,
     "aliases": 143,
     "too_clever": [],
-    "gem": "BoJack Horseman"
+    "gem": "BoJack Horseman",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "hbo",
@@ -7170,7 +7914,10 @@
     "wikidata": 430,
     "aliases": 77,
     "too_clever": [],
-    "gem": "Flight of the Conchords"
+    "gem": "Flight of the Conchords",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "kids-tv",
@@ -7200,7 +7947,10 @@
     "wikidata": 427,
     "aliases": 207,
     "too_clever": [],
-    "gem": "Bill Nye the Science Guy"
+    "gem": "Bill Nye the Science Guy",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "k-dramas",
@@ -7230,7 +7980,10 @@
     "wikidata": 430,
     "aliases": 385,
     "too_clever": [],
-    "gem": "Extraordinary Attorney Woo"
+    "gem": "Extraordinary Attorney Woo",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "tv-channels",
@@ -7260,7 +8013,10 @@
     "wikidata": 425,
     "aliases": 343,
     "too_clever": [],
-    "gem": "The Weather Channel"
+    "gem": "The Weather Channel",
+    "theme": "tv",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "scifi-books",
@@ -7290,7 +8046,10 @@
     "wikidata": 429,
     "aliases": 80,
     "too_clever": [],
-    "gem": "The Martian"
+    "gem": "The Martian",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fantasy-books",
@@ -7320,7 +8079,10 @@
     "wikidata": 430,
     "aliases": 118,
     "too_clever": [],
-    "gem": "Howl's Moving Castle"
+    "gem": "Howl's Moving Castle",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mystery-books",
@@ -7350,7 +8112,10 @@
     "wikidata": 390,
     "aliases": 81,
     "too_clever": [],
-    "gem": "The Moonstone"
+    "gem": "The Moonstone",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "classic-novels",
@@ -7380,7 +8145,10 @@
     "wikidata": 429,
     "aliases": 223,
     "too_clever": [],
-    "gem": "Three Men in a Boat"
+    "gem": "Three Men in a Boat",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "comic-strips",
@@ -7410,12 +8178,15 @@
     "wikidata": 248,
     "aliases": 28,
     "too_clever": [],
-    "gem": "Krazy Kat"
+    "gem": "Krazy Kat",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "manga",
     "text": "Name a manga series.",
-    "active": true,
+    "active": false,
     "size": 430,
     "tiers": {
       "surface": 87,
@@ -7440,7 +8211,10 @@
     "wikidata": 429,
     "aliases": 484,
     "too_clever": [],
-    "gem": "Chi's Sweet Home"
+    "gem": "Chi's Sweet Home",
+    "theme": "books",
+    "cluster": "japan",
+    "constrained": false
   },
   {
     "id": "comic-books",
@@ -7470,7 +8244,10 @@
     "wikidata": 427,
     "aliases": 69,
     "too_clever": [],
-    "gem": "Bone"
+    "gem": "Bone",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fairy-tales",
@@ -7500,7 +8277,10 @@
     "wikidata": 427,
     "aliases": 245,
     "too_clever": [],
-    "gem": "Rumpelstiltskin"
+    "gem": "Rumpelstiltskin",
+    "theme": "books",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "albums",
@@ -7530,7 +8310,10 @@
     "wikidata": 430,
     "aliases": 43,
     "too_clever": [],
-    "gem": "Pet Sounds"
+    "gem": "Pet Sounds",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "songs",
@@ -7560,7 +8343,10 @@
     "wikidata": 424,
     "aliases": 33,
     "too_clever": [],
-    "gem": "Never Gonna Give You Up"
+    "gem": "Never Gonna Give You Up",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "ballets",
@@ -7590,7 +8376,10 @@
     "wikidata": 319,
     "aliases": 64,
     "too_clever": [],
-    "gem": "Coppélia"
+    "gem": "Coppélia",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "rock-bands",
@@ -7620,7 +8409,10 @@
     "wikidata": 424,
     "aliases": 100,
     "too_clever": [],
-    "gem": "Tenacious D"
+    "gem": "Tenacious D",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "metal-bands",
@@ -7650,7 +8442,10 @@
     "wikidata": 370,
     "aliases": 67,
     "too_clever": [],
-    "gem": "Motörhead"
+    "gem": "Motörhead",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "boy-bands",
@@ -7680,7 +8475,10 @@
     "wikidata": 377,
     "aliases": 160,
     "too_clever": [],
-    "gem": "Hanson"
+    "gem": "Hanson",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "girl-groups",
@@ -7710,7 +8508,10 @@
     "wikidata": 427,
     "aliases": 162,
     "too_clever": [],
-    "gem": "Bananarama"
+    "gem": "Bananarama",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "kpop",
@@ -7740,7 +8541,10 @@
     "wikidata": 430,
     "aliases": 226,
     "too_clever": [],
-    "gem": "NewJeans"
+    "gem": "NewJeans",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "music-festivals",
@@ -7770,7 +8574,10 @@
     "wikidata": 429,
     "aliases": 215,
     "too_clever": [],
-    "gem": "Tomorrowland"
+    "gem": "Tomorrowland",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "record-labels",
@@ -7800,7 +8607,10 @@
     "wikidata": 429,
     "aliases": 450,
     "too_clever": [],
-    "gem": "Sub Pop"
+    "gem": "Sub Pop",
+    "theme": "music",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "sculptures",
@@ -7830,7 +8640,10 @@
     "wikidata": 429,
     "aliases": 257,
     "too_clever": [],
-    "gem": "Manneken Pis"
+    "gem": "Manneken Pis",
+    "theme": "art",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "video-games",
@@ -7860,7 +8673,10 @@
     "wikidata": 429,
     "aliases": 655,
     "too_clever": [],
-    "gem": "Untitled Goose Game"
+    "gem": "Untitled Goose Game",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "nintendo-games",
@@ -7890,7 +8706,10 @@
     "wikidata": 430,
     "aliases": 498,
     "too_clever": [],
-    "gem": "Nintendogs"
+    "gem": "Nintendogs",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "game-series",
@@ -7920,7 +8739,10 @@
     "wikidata": 428,
     "aliases": 240,
     "too_clever": [],
-    "gem": "Katamari"
+    "gem": "Katamari",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "card-games",
@@ -7950,7 +8772,10 @@
     "wikidata": 430,
     "aliases": 233,
     "too_clever": [],
-    "gem": "Egyptian Ratscrew"
+    "gem": "Egyptian Ratscrew",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "toys",
@@ -7971,7 +8796,10 @@
     "wikidata": 428,
     "aliases": 611,
     "too_clever": [],
-    "gem": "Slinky"
+    "gem": "Slinky",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "car-models",
@@ -8001,7 +8829,10 @@
     "wikidata": 427,
     "aliases": 272,
     "too_clever": [],
-    "gem": "DeLorean DMC-12"
+    "gem": "DeLorean DMC-12",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "airlines",
@@ -8031,7 +8862,10 @@
     "wikidata": 430,
     "aliases": 703,
     "too_clever": [],
-    "gem": "Hawaiian Airlines"
+    "gem": "Hawaiian Airlines",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "airports",
@@ -8061,7 +8895,10 @@
     "wikidata": 429,
     "aliases": 1203,
     "too_clever": [],
-    "gem": "Princess Juliana International Airport"
+    "gem": "Princess Juliana International Airport",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "restaurant-chains",
@@ -8091,7 +8928,10 @@
     "wikidata": 429,
     "aliases": 239,
     "too_clever": [],
-    "gem": "In-N-Out Burger"
+    "gem": "In-N-Out Burger",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "retailers",
@@ -8121,7 +8961,10 @@
     "wikidata": 429,
     "aliases": 504,
     "too_clever": [],
-    "gem": "Trader Joe's"
+    "gem": "Trader Joe's",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "soft-drinks",
@@ -8151,7 +8994,10 @@
     "wikidata": 427,
     "aliases": 148,
     "too_clever": [],
-    "gem": "Irn-Bru"
+    "gem": "Irn-Bru",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "candy",
@@ -8181,7 +9027,10 @@
     "wikidata": 429,
     "aliases": 150,
     "too_clever": [],
-    "gem": "Pop Rocks"
+    "gem": "Pop Rocks",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "beer-brands",
@@ -8211,7 +9060,10 @@
     "wikidata": 370,
     "aliases": 81,
     "too_clever": [],
-    "gem": "Pabst Blue Ribbon"
+    "gem": "Pabst Blue Ribbon",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "magazines",
@@ -8241,7 +9093,10 @@
     "wikidata": 428,
     "aliases": 337,
     "too_clever": [],
-    "gem": "Mad"
+    "gem": "Mad",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "banks",
@@ -8271,7 +9126,10 @@
     "wikidata": 430,
     "aliases": 457,
     "too_clever": [],
-    "gem": "Banca Monte dei Paschi di Siena"
+    "gem": "Banca Monte dei Paschi di Siena",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "game-studios",
@@ -8301,7 +9159,10 @@
     "wikidata": 430,
     "aliases": 532,
     "too_clever": [],
-    "gem": "Supergiant Games"
+    "gem": "Supergiant Games",
+    "theme": "games",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "motorcycles",
@@ -8331,7 +9192,10 @@
     "wikidata": 428,
     "aliases": 123,
     "too_clever": [],
-    "gem": "Royal Enfield"
+    "gem": "Royal Enfield",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "websites",
@@ -8361,7 +9225,10 @@
     "wikidata": 428,
     "aliases": 893,
     "too_clever": [],
-    "gem": "Neopets"
+    "gem": "Neopets",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "apps",
@@ -8391,7 +9258,10 @@
     "wikidata": 328,
     "aliases": 341,
     "too_clever": [],
-    "gem": "Duolingo"
+    "gem": "Duolingo",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "programming-languages",
@@ -8421,7 +9291,10 @@
     "wikidata": 430,
     "aliases": 327,
     "too_clever": [],
-    "gem": "Scratch"
+    "gem": "Scratch",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "operating-systems",
@@ -8451,7 +9324,10 @@
     "wikidata": 429,
     "aliases": 521,
     "too_clever": [],
-    "gem": "BeOS"
+    "gem": "BeOS",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "fonts",
@@ -8481,7 +9357,10 @@
     "wikidata": 254,
     "aliases": 95,
     "too_clever": [],
-    "gem": "Papyrus"
+    "gem": "Papyrus",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "hotel-chains",
@@ -8511,7 +9390,10 @@
     "wikidata": 250,
     "aliases": 175,
     "too_clever": [],
-    "gem": "Motel 6"
+    "gem": "Motel 6",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "italian-food",
@@ -8541,7 +9423,10 @@
     "wikidata": 427,
     "aliases": 175,
     "too_clever": [],
-    "gem": "Cacio E Pepe"
+    "gem": "Cacio E Pepe",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "french-food",
@@ -8571,7 +9456,10 @@
     "wikidata": 212,
     "aliases": 85,
     "too_clever": [],
-    "gem": "Croque Monsieur"
+    "gem": "Croque Monsieur",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "desserts",
@@ -8601,7 +9489,10 @@
     "wikidata": 427,
     "aliases": 306,
     "too_clever": [],
-    "gem": "Baked Alaska"
+    "gem": "Baked Alaska",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cakes",
@@ -8631,7 +9522,10 @@
     "wikidata": 430,
     "aliases": 224,
     "too_clever": [],
-    "gem": "Baumkuchen"
+    "gem": "Baumkuchen",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cookies",
@@ -8661,7 +9555,10 @@
     "wikidata": 406,
     "aliases": 203,
     "too_clever": [],
-    "gem": "Stroopwafel"
+    "gem": "Stroopwafel",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "breads",
@@ -8691,7 +9588,10 @@
     "wikidata": 429,
     "aliases": 305,
     "too_clever": [],
-    "gem": "Pumpernickel"
+    "gem": "Pumpernickel",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "soups",
@@ -8721,7 +9621,10 @@
     "wikidata": 430,
     "aliases": 217,
     "too_clever": [],
-    "gem": "Borscht"
+    "gem": "Borscht",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "pastries",
@@ -8751,7 +9654,10 @@
     "wikidata": 429,
     "aliases": 306,
     "too_clever": [],
-    "gem": "Kouign-Amann"
+    "gem": "Kouign-Amann",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "pasta",
@@ -8781,7 +9687,10 @@
     "wikidata": 266,
     "aliases": 169,
     "too_clever": [],
-    "gem": "Orecchiette"
+    "gem": "Orecchiette",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "salads",
@@ -8811,7 +9720,10 @@
     "wikidata": 244,
     "aliases": 132,
     "too_clever": [],
-    "gem": "Tabbouleh"
+    "gem": "Tabbouleh",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "noodles",
@@ -8841,7 +9753,10 @@
     "wikidata": 269,
     "aliases": 140,
     "too_clever": [],
-    "gem": "Biangbiang Noodle"
+    "gem": "Biangbiang Noodle",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "wine-grapes",
@@ -8871,7 +9786,10 @@
     "wikidata": 430,
     "aliases": 185,
     "too_clever": [],
-    "gem": "Gewürztraminer"
+    "gem": "Gewürztraminer",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "liqueurs",
@@ -8892,7 +9810,10 @@
     "wikidata": 430,
     "aliases": 189,
     "too_clever": [],
-    "gem": "Chartreuse"
+    "gem": "Chartreuse",
+    "theme": "food",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mammals",
@@ -8913,7 +9834,10 @@
     "wikidata": 424,
     "aliases": 956,
     "too_clever": ["Pangolin"],
-    "gem": "Okapi"
+    "gem": "Okapi",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "reptiles",
@@ -8943,7 +9867,10 @@
     "wikidata": 425,
     "aliases": 804,
     "too_clever": [],
-    "gem": "Thorny Devil"
+    "gem": "Thorny Devil",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "amphibians",
@@ -8973,7 +9900,10 @@
     "wikidata": 426,
     "aliases": 791,
     "too_clever": [],
-    "gem": "Olm"
+    "gem": "Olm",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "cattle",
@@ -9003,7 +9933,10 @@
     "wikidata": 427,
     "aliases": 146,
     "too_clever": [],
-    "gem": "Highland Cattle"
+    "gem": "Highland Cattle",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "chickens",
@@ -9033,7 +9966,10 @@
     "wikidata": 306,
     "aliases": 60,
     "too_clever": [],
-    "gem": "Ayam Cemani"
+    "gem": "Ayam Cemani",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "sheep",
@@ -9063,7 +9999,10 @@
     "wikidata": 429,
     "aliases": 377,
     "too_clever": [],
-    "gem": "Valais Blacknose"
+    "gem": "Valais Blacknose",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "goats",
@@ -9093,7 +10032,10 @@
     "wikidata": 201,
     "aliases": 74,
     "too_clever": [],
-    "gem": "Pygmy Goat"
+    "gem": "Pygmy Goat",
+    "theme": "nature",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "minerals",
@@ -9114,7 +10056,10 @@
     "wikidata": 428,
     "aliases": 231,
     "too_clever": [],
-    "gem": "Malachite"
+    "gem": "Malachite",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "rocks",
@@ -9144,7 +10089,10 @@
     "wikidata": 430,
     "aliases": 234,
     "too_clever": [],
-    "gem": "Pumice"
+    "gem": "Pumice",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "volcanoes",
@@ -9174,7 +10122,10 @@
     "wikidata": 428,
     "aliases": 401,
     "too_clever": [],
-    "gem": "Eyjafjallajökull"
+    "gem": "Eyjafjallajökull",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mountains",
@@ -9204,7 +10155,10 @@
     "wikidata": 429,
     "aliases": 374,
     "too_clever": [],
-    "gem": "Table Mountain"
+    "gem": "Table Mountain",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "islands",
@@ -9234,7 +10188,10 @@
     "wikidata": 425,
     "aliases": 565,
     "too_clever": [],
-    "gem": "Easter Island"
+    "gem": "Easter Island",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "lakes",
@@ -9264,7 +10221,10 @@
     "wikidata": 428,
     "aliases": 406,
     "too_clever": [],
-    "gem": "Lake Titicaca"
+    "gem": "Lake Titicaca",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "waterfalls",
@@ -9294,7 +10254,10 @@
     "wikidata": 429,
     "aliases": 156,
     "too_clever": [],
-    "gem": "Gullfoss"
+    "gem": "Gullfoss",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "national-parks",
@@ -9324,7 +10287,10 @@
     "wikidata": 430,
     "aliases": 260,
     "too_clever": [],
-    "gem": "Arches National Park"
+    "gem": "Arches National Park",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "mountain-ranges",
@@ -9354,7 +10320,10 @@
     "wikidata": 430,
     "aliases": 395,
     "too_clever": [],
-    "gem": "Drakensberg"
+    "gem": "Drakensberg",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "bays",
@@ -9384,7 +10353,10 @@
     "wikidata": 429,
     "aliases": 306,
     "too_clever": [],
-    "gem": "Bay of Fundy"
+    "gem": "Bay of Fundy",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "peninsulas",
@@ -9414,7 +10386,10 @@
     "wikidata": 429,
     "aliases": 240,
     "too_clever": [],
-    "gem": "Kamchatka Peninsula"
+    "gem": "Kamchatka Peninsula",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "caves",
@@ -9444,7 +10419,10 @@
     "wikidata": 429,
     "aliases": 201,
     "too_clever": [],
-    "gem": "Blue Grotto"
+    "gem": "Blue Grotto",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "archipelagos",
@@ -9474,7 +10452,10 @@
     "wikidata": 427,
     "aliases": 481,
     "too_clever": [],
-    "gem": "Svalbard"
+    "gem": "Svalbard",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "castles",
@@ -9504,7 +10485,10 @@
     "wikidata": 429,
     "aliases": 248,
     "too_clever": [],
-    "gem": "Hearst Castle"
+    "gem": "Hearst Castle",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "palaces",
@@ -9534,7 +10518,10 @@
     "wikidata": 430,
     "aliases": 367,
     "too_clever": [],
-    "gem": "Topkapı Palace"
+    "gem": "Topkapı Palace",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "bridges",
@@ -9564,7 +10551,10 @@
     "wikidata": 430,
     "aliases": 256,
     "too_clever": [],
-    "gem": "Ponte Vecchio"
+    "gem": "Ponte Vecchio",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "skyscrapers",
@@ -9594,7 +10584,10 @@
     "wikidata": 429,
     "aliases": 400,
     "too_clever": [],
-    "gem": "Flatiron Building"
+    "gem": "Flatiron Building",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "museums",
@@ -9624,7 +10617,10 @@
     "wikidata": 428,
     "aliases": 624,
     "too_clever": [],
-    "gem": "Museum of Bad Art"
+    "gem": "Museum of Bad Art",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "stadiums",
@@ -9654,7 +10650,10 @@
     "wikidata": 430,
     "aliases": 608,
     "too_clever": [],
-    "gem": "Fenway Park"
+    "gem": "Fenway Park",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "universities",
@@ -9684,7 +10683,10 @@
     "wikidata": 430,
     "aliases": 1018,
     "too_clever": [],
-    "gem": "University of Bologna"
+    "gem": "University of Bologna",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "world-heritage",
@@ -9714,7 +10716,10 @@
     "wikidata": 428,
     "aliases": 551,
     "too_clever": [],
-    "gem": "Ha Long Bay"
+    "gem": "Ha Long Bay",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "former-countries",
@@ -9744,7 +10749,10 @@
     "wikidata": 430,
     "aliases": 763,
     "too_clever": [],
-    "gem": "Gran Colombia"
+    "gem": "Gran Colombia",
+    "theme": "history",
+    "cluster": "countries",
+    "constrained": false
   },
   {
     "id": "provinces",
@@ -9774,7 +10782,10 @@
     "wikidata": 430,
     "aliases": 928,
     "too_clever": [],
-    "gem": "Tasmania"
+    "gem": "Tasmania",
+    "theme": "geography",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "soccer-clubs",
@@ -9804,7 +10815,10 @@
     "wikidata": 428,
     "aliases": 858,
     "too_clever": [],
-    "gem": "Forest Green Rovers F.C."
+    "gem": "Forest Green Rovers F.C.",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "basketball-teams",
@@ -9834,7 +10848,10 @@
     "wikidata": 430,
     "aliases": 321,
     "too_clever": [],
-    "gem": "Harlem Globetrotters"
+    "gem": "Harlem Globetrotters",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "hockey-teams",
@@ -9864,7 +10881,10 @@
     "wikidata": 430,
     "aliases": 256,
     "too_clever": [],
-    "gem": "Seattle Kraken"
+    "gem": "Seattle Kraken",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "baseball-teams",
@@ -9894,7 +10914,10 @@
     "wikidata": 430,
     "aliases": 334,
     "too_clever": [],
-    "gem": "Savannah Bananas"
+    "gem": "Savannah Bananas",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "football-teams",
@@ -9924,7 +10947,10 @@
     "wikidata": 429,
     "aliases": 184,
     "too_clever": [],
-    "gem": "Hamilton Tiger-Cats"
+    "gem": "Hamilton Tiger-Cats",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "dances",
@@ -9954,7 +10980,10 @@
     "wikidata": 429,
     "aliases": 336,
     "too_clever": [],
-    "gem": "Lindy Hop"
+    "gem": "Lindy Hop",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "martial-arts",
@@ -9984,7 +11013,10 @@
     "wikidata": 334,
     "aliases": 145,
     "too_clever": [],
-    "gem": "Capoeira"
+    "gem": "Capoeira",
+    "theme": "sports",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "hairstyles",
@@ -10014,7 +11046,10 @@
     "wikidata": 208,
     "aliases": 256,
     "too_clever": [],
-    "gem": "Beehive"
+    "gem": "Beehive",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "furniture",
@@ -10035,7 +11070,10 @@
     "wikidata": 429,
     "aliases": 437,
     "too_clever": [],
-    "gem": "Ottoman"
+    "gem": "Ottoman",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "vehicles",
@@ -10056,7 +11094,10 @@
     "wikidata": 430,
     "aliases": 805,
     "too_clever": [],
-    "gem": "Hovercraft"
+    "gem": "Hovercraft",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "kitchen-tools",
@@ -10086,7 +11127,10 @@
     "wikidata": 351,
     "aliases": 167,
     "too_clever": [],
-    "gem": "Mezzaluna"
+    "gem": "Mezzaluna",
+    "theme": "everyday",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "units",
@@ -10107,7 +11151,10 @@
     "wikidata": 430,
     "aliases": 626,
     "too_clever": [],
-    "gem": "Furlong"
+    "gem": "Furlong",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "currencies",
@@ -10137,7 +11184,10 @@
     "wikidata": 428,
     "aliases": 509,
     "too_clever": [],
-    "gem": "Doubloon"
+    "gem": "Doubloon",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
   },
   {
     "id": "spacecraft",
@@ -10167,6 +11217,1425 @@
     "wikidata": 428,
     "aliases": 407,
     "too_clever": [],
-    "gem": "Sputnik 1"
+    "gem": "Sputnik 1",
+    "theme": "science",
+    "cluster": null,
+    "constrained": false
+  },
+  {
+    "id": "best-picture",
+    "text": "Name a Best Picture Oscar winner (through the 2026 ceremony).",
+    "active": true,
+    "size": 98,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 43,
+      "rare": 28,
+      "deep": 23,
+      "gem": 1
+    },
+    "surface": ["Forrest Gump", "The Godfather", "Titanic"],
+    "pageviews": 0,
+    "sitelinks": 16,
+    "wikidata": 0,
+    "aliases": 1,
+    "too_clever": [],
+    "gem": "Everything Everywhere All at Once",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "best-animated-feature",
+    "text": "Name a Best Animated Feature Oscar winner (through the 2026 ceremony).",
+    "active": true,
+    "size": 25,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 10,
+      "rare": 6,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Frozen", "Shrek", "Finding Nemo"],
+    "pageviews": 0,
+    "sitelinks": 3,
+    "wikidata": 0,
+    "aliases": 1,
+    "too_clever": [],
+    "gem": "Ratatouille",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "best-actor",
+    "text": "Name a Best Actor Oscar winner (through the 2026 ceremony).",
+    "active": true,
+    "size": 87,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 38,
+      "rare": 25,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": ["Daniel Day-Lewis", "Tom Hanks", "Leonardo DiCaprio"],
+    "pageviews": 0,
+    "sitelinks": 3,
+    "wikidata": 0,
+    "aliases": 85,
+    "too_clever": [],
+    "gem": "Nicolas Cage",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "best-actress",
+    "text": "Name a Best Actress Oscar winner (through the 2026 ceremony).",
+    "active": true,
+    "size": 81,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 35,
+      "rare": 23,
+      "deep": 19,
+      "gem": 1
+    },
+    "surface": ["Emma Stone", "Katharine Hepburn", "Meryl Streep"],
+    "pageviews": 0,
+    "sitelinks": 6,
+    "wikidata": 0,
+    "aliases": 78,
+    "too_clever": [],
+    "gem": "Michelle Yeoh",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "best-director",
+    "text": "Name a Best Director Oscar winner (through the 2026 ceremony).",
+    "active": true,
+    "size": 75,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 32,
+      "rare": 22,
+      "deep": 17,
+      "gem": 1
+    },
+    "surface": ["Christopher Nolan", "Steven Spielberg", "Martin Scorsese"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 75,
+    "too_clever": [],
+    "gem": "Bong Joon-ho",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "best-supporting-actor",
+    "text": "Name a Best Supporting Actor Oscar winner (through the 2026 ceremony).",
+    "active": true,
+    "size": 81,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 35,
+      "rare": 23,
+      "deep": 19,
+      "gem": 1
+    },
+    "surface": ["Morgan Freeman", "Brad Pitt", "Robert Downey Jr."],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 79,
+    "too_clever": [],
+    "gem": "Ke Huy Quan",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "best-supporting-actress",
+    "text": "Name a Best Supporting Actress Oscar winner (through the 2026 ceremony).",
+    "active": true,
+    "size": 88,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 38,
+      "rare": 25,
+      "deep": 21,
+      "gem": 1
+    },
+    "surface": ["Maggie Smith", "Viola Davis", "Anne Hathaway"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 85,
+    "too_clever": [],
+    "gem": "Marisa Tomei",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "best-original-song",
+    "text": "Name an Oscar-winning original song (through the 2026 ceremony).",
+    "active": true,
+    "size": 92,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 40,
+      "rare": 26,
+      "deep": 22,
+      "gem": 1
+    },
+    "surface": ["Let It Go", "My Heart Will Go On", "Skyfall"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Lose Yourself",
+    "theme": "music",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "nobel-literature",
+    "text": "Name a Nobel Prize in Literature laureate through 2026.",
+    "active": true,
+    "size": 123,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 54,
+      "rare": 36,
+      "deep": 29,
+      "gem": 1
+    },
+    "surface": ["Ernest Hemingway", "Bob Dylan", "Toni Morrison"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 121,
+    "too_clever": [],
+    "gem": "Kazuo Ishiguro",
+    "theme": "books",
+    "cluster": "nobel",
+    "constrained": true
+  },
+  {
+    "id": "spielberg-films",
+    "text": "Name a feature film directed by Steven Spielberg (Duel and anthology segments count).",
+    "active": true,
+    "size": 37,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 15,
+      "rare": 10,
+      "deep": 8,
+      "gem": 1
+    },
+    "surface": ["Jurassic Park", "Jaws", "E.T. the Extra-Terrestrial"],
+    "pageviews": 0,
+    "sitelinks": 6,
+    "wikidata": 0,
+    "aliases": 6,
+    "too_clever": [],
+    "gem": "Catch Me If You Can",
+    "theme": "film",
+    "cluster": "directors",
+    "constrained": true
+  },
+  {
+    "id": "hitchcock-films",
+    "text": "Name a feature film directed by Alfred Hitchcock.",
+    "active": true,
+    "size": 53,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 23,
+      "rare": 14,
+      "deep": 12,
+      "gem": 1
+    },
+    "surface": ["The Birds", "Psycho", "Vertigo"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 3,
+    "too_clever": [],
+    "gem": "Rear Window",
+    "theme": "film",
+    "cluster": "directors",
+    "constrained": true
+  },
+  {
+    "id": "kubrick-films",
+    "text": "Name a feature film directed by Stanley Kubrick.",
+    "active": true,
+    "size": 13,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["The Shining", "2001: A Space Odyssey", "A Clockwork Orange"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Full Metal Jacket",
+    "theme": "film",
+    "cluster": "directors",
+    "constrained": true
+  },
+  {
+    "id": "nolan-films",
+    "text": "Name a feature film directed by Christopher Nolan.",
+    "active": true,
+    "size": 13,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["The Dark Knight", "Inception", "Oppenheimer"],
+    "pageviews": 0,
+    "sitelinks": 3,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "The Prestige",
+    "theme": "film",
+    "cluster": "directors",
+    "constrained": true
+  },
+  {
+    "id": "tarantino-films",
+    "text": "Name a completed feature film directed by Quentin Tarantino (not guest segments).",
+    "active": true,
+    "size": 10,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Kill Bill: Volume 1", "Pulp Fiction", "Django Unchained"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 4,
+    "too_clever": [],
+    "gem": "Jackie Brown",
+    "theme": "film",
+    "cluster": "directors",
+    "constrained": true
+  },
+  {
+    "id": "burton-films",
+    "text": "Name a feature film directed by Tim Burton.",
+    "active": true,
+    "size": 20,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 8,
+      "rare": 4,
+      "deep": 4,
+      "gem": 1
+    },
+    "surface": ["Batman", "Beetlejuice", "Edward Scissorhands"],
+    "pageviews": 0,
+    "sitelinks": 5,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Big Fish",
+    "theme": "film",
+    "cluster": "directors",
+    "constrained": true
+  },
+  {
+    "id": "pixar-films",
+    "text": "Name a Pixar feature film.",
+    "active": true,
+    "size": 31,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 13,
+      "rare": 8,
+      "deep": 6,
+      "gem": 1
+    },
+    "surface": ["Toy Story", "Inside Out", "Finding Nemo"],
+    "pageviews": 0,
+    "sitelinks": 6,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Ratatouille",
+    "theme": "film",
+    "cluster": "animation",
+    "constrained": true
+  },
+  {
+    "id": "bond-films",
+    "text": "Name a James Bond film (non-Eon films count).",
+    "active": true,
+    "size": 26,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 10,
+      "rare": 7,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Casino Royale", "Skyfall", "Goldfinger"],
+    "pageviews": 0,
+    "sitelinks": 10,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "GoldenEye",
+    "theme": "film",
+    "cluster": "franchises",
+    "constrained": true
+  },
+  {
+    "id": "ghibli-films",
+    "text": "Name a Studio Ghibli feature film (Nausicaä, Ocean Waves and co-productions count).",
+    "active": true,
+    "size": 25,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 10,
+      "rare": 6,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Spirited Away", "My Neighbor Totoro", "Princess Mononoke"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "Kiki's Delivery Service",
+    "theme": "film",
+    "cluster": "japan",
+    "constrained": true
+  },
+  {
+    "id": "disney-canon",
+    "text": "Name a Walt Disney Animation Studios feature film.",
+    "active": true,
+    "size": 64,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 27,
+      "rare": 18,
+      "deep": 15,
+      "gem": 1
+    },
+    "surface": ["The Lion King", "Frozen", "Snow White and the Seven Dwarfs"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 1,
+    "too_clever": [],
+    "gem": "The Emperor's New Groove",
+    "theme": "film",
+    "cluster": "animation",
+    "constrained": true
+  },
+  {
+    "id": "nba-teams",
+    "text": "Name a 2026–27 NBA team.",
+    "active": true,
+    "size": 30,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 12,
+      "rare": 8,
+      "deep": 6,
+      "gem": 1
+    },
+    "surface": ["Chicago Bulls", "Los Angeles Lakers", "Boston Celtics"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 30,
+    "too_clever": [],
+    "gem": "Toronto Raptors",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
+    "id": "nfl-teams",
+    "text": "Name a 2026 NFL team.",
+    "active": true,
+    "size": 32,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 13,
+      "rare": 8,
+      "deep": 7,
+      "gem": 1
+    },
+    "surface": ["New England Patriots", "Kansas City Chiefs", "Dallas Cowboys"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 32,
+    "too_clever": [],
+    "gem": "Buffalo Bills",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
+    "id": "mlb-teams",
+    "text": "Name a 2026 MLB team.",
+    "active": true,
+    "size": 30,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 12,
+      "rare": 8,
+      "deep": 6,
+      "gem": 1
+    },
+    "surface": ["New York Yankees", "Boston Red Sox", "Los Angeles Dodgers"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 29,
+    "too_clever": [],
+    "gem": "Seattle Mariners",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
+    "id": "nhl-teams",
+    "text": "Name a 2026–27 NHL team.",
+    "active": true,
+    "size": 32,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 13,
+      "rare": 8,
+      "deep": 7,
+      "gem": 1
+    },
+    "surface": ["Boston Bruins", "Toronto Maple Leafs", "Montreal Canadiens"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 32,
+    "too_clever": [],
+    "gem": "Seattle Kraken",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
+    "id": "nba-mvp",
+    "text": "Name an NBA regular-season MVP winner.",
+    "active": true,
+    "size": 37,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 15,
+      "rare": 10,
+      "deep": 8,
+      "gem": 1
+    },
+    "surface": ["Michael Jordan", "LeBron James", "Kareem Abdul-Jabbar"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 37,
+    "too_clever": [],
+    "gem": "Steve Nash",
+    "theme": "sports",
+    "cluster": "awards",
+    "constrained": true
+  },
+  {
+    "id": "f1-champions",
+    "text": "Name a Formula One World Drivers' Champion.",
+    "active": true,
+    "size": 36,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 15,
+      "rare": 9,
+      "deep": 8,
+      "gem": 1
+    },
+    "surface": ["Lewis Hamilton", "Michael Schumacher", "Max Verstappen"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 31,
+    "too_clever": [],
+    "gem": "Jenson Button",
+    "theme": "sports",
+    "cluster": "racing",
+    "constrained": true
+  },
+  {
+    "id": "triple-crown-horses",
+    "text": "Name a US Triple Crown-winning racehorse.",
+    "active": true,
+    "size": 13,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Justify", "Secretariat", "American Pharoah"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Seattle Slew",
+    "theme": "sports",
+    "cluster": "racing",
+    "constrained": true
+  },
+  {
+    "id": "ucl-winners",
+    "text": "Name a European Cup or Champions League-winning club.",
+    "active": true,
+    "size": 24,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 9,
+      "rare": 6,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Liverpool", "Real Madrid", "Barcelona"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 9,
+    "too_clever": [],
+    "gem": "Nottingham Forest",
+    "theme": "sports",
+    "cluster": "soccer",
+    "constrained": true
+  },
+  {
+    "id": "us-presidents",
+    "text": "Name a US president.",
+    "active": true,
+    "size": 45,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 19,
+      "rare": 12,
+      "deep": 10,
+      "gem": 1
+    },
+    "surface": ["George Washington", "Barack Obama", "Abraham Lincoln"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 35,
+    "too_clever": [],
+    "gem": "Theodore Roosevelt",
+    "theme": "history",
+    "cluster": "us-politics",
+    "constrained": true
+  },
+  {
+    "id": "us-vice-presidents",
+    "text": "Name a US vice president.",
+    "active": true,
+    "size": 50,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 21,
+      "rare": 14,
+      "deep": 11,
+      "gem": 1
+    },
+    "surface": ["Joe Biden", "Al Gore", "Kamala Harris"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 47,
+    "too_clever": [],
+    "gem": "Charles Curtis",
+    "theme": "history",
+    "cluster": "us-politics",
+    "constrained": true
+  },
+  {
+    "id": "uk-prime-ministers",
+    "text": "Name a British prime minister through November 2026.",
+    "active": true,
+    "size": 59,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 25,
+      "rare": 17,
+      "deep": 13,
+      "gem": 1
+    },
+    "surface": ["Tony Blair", "Winston Churchill", "Margaret Thatcher"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 59,
+    "too_clever": [],
+    "gem": "Clement Attlee",
+    "theme": "history",
+    "cluster": "uk",
+    "constrained": true
+  },
+  {
+    "id": "moonwalkers",
+    "text": "Name a person who has walked on the Moon.",
+    "active": true,
+    "size": 12,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 4,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Neil Armstrong", "Alan Shepard", "Buzz Aldrin"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 12,
+    "too_clever": [],
+    "gem": "Alan Bean",
+    "theme": "history",
+    "cluster": "space",
+    "constrained": true
+  },
+  {
+    "id": "olympian-gods",
+    "text": "Name one of the Greek Olympian gods (Hades and Hestia count).",
+    "active": true,
+    "size": 14,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 3,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Zeus", "Athena", "Poseidon"],
+    "pageviews": 0,
+    "sitelinks": 14,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Dionysus",
+    "theme": "history",
+    "cluster": "myth",
+    "constrained": true
+  },
+  {
+    "id": "best-visual-effects",
+    "text": "Name a film that won the Oscar for Visual Effects (special awards count) (through the 2026 ceremony).",
+    "active": true,
+    "size": 87,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 38,
+      "rare": 25,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": ["Jurassic Park", "Avatar", "Titanic"],
+    "pageviews": 0,
+    "sitelinks": 9,
+    "wikidata": 0,
+    "aliases": 7,
+    "too_clever": [],
+    "gem": "Babe",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
+    "id": "four-letter-countries",
+    "text": "Name a country with a four-letter name.",
+    "active": true,
+    "size": 11,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 4,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Iraq", "Cuba", "Chad"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 3,
+    "too_clever": [],
+    "gem": "Fiji",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-no-a",
+    "text": "Name a country with no letter A in a common English name.",
+    "active": true,
+    "size": 36,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 15,
+      "rare": 9,
+      "deep": 8,
+      "gem": 1
+    },
+    "surface": ["Mexico", "Egypt", "Peru"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 16,
+    "too_clever": [],
+    "gem": "Seychelles",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-with-z",
+    "text": "Name a country with a Z in a common English name.",
+    "active": true,
+    "size": 19,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 7,
+      "rare": 5,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["Brazil", "New Zealand", "Zimbabwe"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 10,
+    "too_clever": [],
+    "gem": "Belize",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-b",
+    "text": "Name a country whose common English name starts with B.",
+    "active": true,
+    "size": 19,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 7,
+      "rare": 5,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["Brazil", "Belgium", "Bangladesh"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 6,
+    "too_clever": [],
+    "gem": "Bhutan",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-s",
+    "text": "Name a country whose common English name starts with S.",
+    "active": true,
+    "size": 30,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 12,
+      "rare": 8,
+      "deep": 6,
+      "gem": 1
+    },
+    "surface": ["Spain", "Sweden", "Switzerland"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 8,
+    "too_clever": [],
+    "gem": "Samoa",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-m",
+    "text": "Name a country whose common English name starts with M.",
+    "active": true,
+    "size": 18,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 7,
+      "rare": 4,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["Mexico", "Malaysia", "Morocco"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 3,
+    "too_clever": [],
+    "gem": "Madagascar",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-ia",
+    "text": "Name a country whose common English name ends in ia.",
+    "active": true,
+    "size": 42,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 18,
+      "rare": 11,
+      "deep": 9,
+      "gem": 1
+    },
+    "surface": ["Australia", "India", "Russia"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 8,
+    "too_clever": [],
+    "gem": "Namibia",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-same-letter",
+    "text": "Name a country whose common English name starts and ends with the same letter.",
+    "active": true,
+    "size": 17,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 6,
+      "rare": 4,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["Argentina", "Algeria", "Albania"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 7,
+    "too_clever": [],
+    "gem": "Seychelles",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-vowel",
+    "text": "Name a country whose common English name starts with a vowel.",
+    "active": true,
+    "size": 38,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 16,
+      "rare": 10,
+      "deep": 8,
+      "gem": 1
+    },
+    "surface": ["Australia", "India", "Italy"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 11,
+    "too_clever": [],
+    "gem": "Oman",
+    "theme": "words",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "states-two-words",
+    "text": "Name a US state with a two-word name.",
+    "active": true,
+    "size": 10,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["New York", "South Carolina", "North Carolina"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Rhode Island",
+    "theme": "words",
+    "cluster": "us-states",
+    "constrained": true
+  },
+  {
+    "id": "states-end-a",
+    "text": "Name a US state whose name ends in A.",
+    "active": true,
+    "size": 21,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 8,
+      "rare": 5,
+      "deep": 4,
+      "gem": 1
+    },
+    "surface": ["California", "Florida", "Alabama"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Alaska",
+    "theme": "words",
+    "cluster": "us-states",
+    "constrained": true
+  },
+  {
+    "id": "states-vowel",
+    "text": "Name a US state that starts with a vowel.",
+    "active": true,
+    "size": 12,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 4,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Ohio", "Arizona", "Alaska"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Oregon",
+    "theme": "words",
+    "cluster": "us-states",
+    "constrained": true
+  },
+  {
+    "id": "states-m-n",
+    "text": "Name a US state that starts with M or N.",
+    "active": true,
+    "size": 16,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 6,
+      "rare": 3,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["New York", "Michigan", "Massachusetts"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Montana",
+    "theme": "words",
+    "cluster": "us-states",
+    "constrained": true
+  },
+  {
+    "id": "greek-letters",
+    "text": "Name a Greek letter.",
+    "active": true,
+    "size": 24,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 9,
+      "rare": 6,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["alpha", "beta", "gamma"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "omega",
+    "theme": "words",
+    "cluster": "alphabets",
+    "constrained": true
+  },
+  {
+    "id": "nato-alphabet",
+    "text": "Name a NATO phonetic alphabet word.",
+    "active": true,
+    "size": 26,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 10,
+      "rare": 7,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Charlie", "Bravo", "Alfa"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "Whiskey",
+    "theme": "words",
+    "cluster": "alphabets",
+    "constrained": true
+  },
+  {
+    "id": "lanthanides",
+    "text": "Name a lanthanide.",
+    "active": true,
+    "size": 15,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 4,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Lanthanum", "Cerium", "Neodymium"],
+    "pageviews": 0,
+    "sitelinks": 15,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Europium",
+    "theme": "science",
+    "cluster": "elements",
+    "constrained": true
+  },
+  {
+    "id": "actinides",
+    "text": "Name an actinide.",
+    "active": true,
+    "size": 15,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 4,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Uranium", "Plutonium", "Actinium"],
+    "pageviews": 0,
+    "sitelinks": 12,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Einsteinium",
+    "theme": "science",
+    "cluster": "elements",
+    "constrained": true
+  },
+  {
+    "id": "planets-dwarf",
+    "text": "Name a Solar System planet or IAU-recognised dwarf planet.",
+    "active": true,
+    "size": 13,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Earth", "Mars", "Jupiter"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Pluto",
+    "theme": "science",
+    "cluster": "space",
+    "constrained": true
+  },
+  {
+    "id": "pokemon-gen1",
+    "text": "Name a first-generation Pokémon.",
+    "active": true,
+    "size": 151,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 67,
+      "rare": 44,
+      "deep": 36,
+      "gem": 1
+    },
+    "surface": ["Pikachu", "Bulbasaur", "Charizard"],
+    "pageviews": 0,
+    "sitelinks": 120,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "Snorlax",
+    "theme": "games",
+    "cluster": "pokemon",
+    "constrained": true
+  },
+  {
+    "id": "pokemon-fire",
+    "text": "Name a Fire-type Pokémon (any form).",
+    "active": true,
+    "size": 89,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 39,
+      "rare": 25,
+      "deep": 21,
+      "gem": 1
+    },
+    "surface": ["Charmander", "Charizard", "Vulpix"],
+    "pageviews": 0,
+    "sitelinks": 28,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Cyndaquil",
+    "theme": "games",
+    "cluster": "pokemon",
+    "constrained": true
+  },
+  {
+    "id": "pokemon-water",
+    "text": "Name a Water-type Pokémon (any form).",
+    "active": true,
+    "size": 161,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 71,
+      "rare": 47,
+      "deep": 39,
+      "gem": 1
+    },
+    "surface": ["Squirtle", "Magikarp", "Gyarados"],
+    "pageviews": 0,
+    "sitelinks": 46,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Psyduck",
+    "theme": "games",
+    "cluster": "pokemon",
+    "constrained": true
+  },
+  {
+    "id": "pokemon-legendary",
+    "text": "Name a Legendary or Mythical Pokémon.",
+    "active": true,
+    "size": 94,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 41,
+      "rare": 27,
+      "deep": 22,
+      "gem": 1
+    },
+    "surface": ["Mewtwo", "Lugia", "Mew"],
+    "pageviews": 0,
+    "sitelinks": 30,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Celebi",
+    "theme": "games",
+    "cluster": "pokemon",
+    "constrained": true
+  },
+  {
+    "id": "pokemon-types",
+    "text": "Name a Pokémon type (Stellar counts).",
+    "active": true,
+    "size": 19,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 7,
+      "rare": 5,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["Water", "Fire", "Grass"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "Fairy",
+    "theme": "games",
+    "cluster": "pokemon",
+    "constrained": true
+  },
+  {
+    "id": "declaration-signers",
+    "text": "Name a signer of the Declaration of Independence.",
+    "active": true,
+    "size": 56,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 24,
+      "rare": 15,
+      "deep": 13,
+      "gem": 1
+    },
+    "surface": ["Thomas Jefferson", "Benjamin Franklin", "John Hancock"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 50,
+    "too_clever": [],
+    "gem": "Button Gwinnett",
+    "theme": "history",
+    "cluster": "us-politics",
+    "constrained": true
+  },
+  {
+    "id": "english-monarchs",
+    "text": "Name an English or British monarch since 1066 (disputed claimants count).",
+    "active": true,
+    "size": 50,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 21,
+      "rare": 14,
+      "deep": 11,
+      "gem": 1
+    },
+    "surface": ["Elizabeth I", "Elizabeth II", "Henry VIII"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "Richard III",
+    "theme": "history",
+    "cluster": "uk",
+    "constrained": true
+  },
+  {
+    "id": "popes-modern",
+    "text": "Name a pope since 1878.",
+    "active": true,
+    "size": 12,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 4,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["John Paul II", "Francis", "Benedict XVI"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": [],
+    "gem": "John XXIII",
+    "theme": "history",
+    "cluster": "religion",
+    "constrained": true
   }
 ]

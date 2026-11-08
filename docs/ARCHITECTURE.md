@@ -350,10 +350,27 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
-The general-knowledge bank has 120 prompts with curated canonical answer sets.
-A fixed seeded permutation takes five consecutive entries per day (`DIVE_PROMPTS_PER_DAY`), measured
-from 2026-01-01 with positive modulo. Any `floor(N/5)` consecutive days contain no repeated
-prompt, including wraparound and dates before the epoch. There are no rowing/team prompts.
+The general-knowledge bank includes 59 complete constrained prompts, alongside the broad
+curated bank. The prospective catalog has 378 active and 32 inactive/loadable prompts, each
+with a theme and optional cluster; related Japanese content shares `japan`. Constrained sets
+have ≥8 canonical answers and no size cap; broad active sets retain ≥200 and their bundle cap.
+There are no rowing/team prompts. **Live selection remains the frozen 330-prompt legacy
+permutation**, not the prospective active catalog. `scripts/dive/legacy.json` preserves the
+original order; the same seeded permutation takes five consecutive entries/day
+(`DIVE_PROMPTS_PER_DAY`), measured from 2026-01-01 with positive modulo. Any 66 consecutive
+days contain no repeated prompt, including wraparound and dates before the epoch.
+
+`dive_answers` persists date/user/prompt index, not prompt IDs. Routes and reveal reads
+resolve IDs/text through `diveSelectionFor(date)`/`divePromptsFor(date)` at read/submit time.
+Therefore retired legacy prompts remain loadable and all pre-cutover dates must keep this
+selector forever. A generated explicit cyclic schedule will replace it only from a future
+team-local cutover date; `DIVE_SCHEDULE_CUTOVER` is currently **null**. At least 192 constrained
+prompts are needed for 64 days × ≥3/day without repeats; this phase has 59, so generation
+emits an empty schedule and diagnostic rather than weakening the rules. The schedule builder
+uses all constrained prompts plus preferred broad fillers; each five-prompt day has unique
+themes/clusters and a size mix (not all ≤24 or all >120 answers). Python/Worker validators
+and a 64-day fixture cover determinism, loadability, day rules, wraparound and historical
+IDs. Do not enable/backdate cutover or edit a live cycle to reinterpret an already-started day.
 `shared/games/dive.ts` owns normalization (NFKD, diacritics, lowercase, ampersand expansion,
 punctuation removal, hyphen/underscore/slash separation, whitespace, leading article removal,
 last-word-only simple plurals), tier constants, emoji and 0–500 verdict bands. Tiers are
@@ -372,8 +389,18 @@ committed hand overrides. When both entity signals exist, familiarity combines
 other is missing. QIDs resolve in article batches; sitelinks query in <=300-QID SPARQL
 VALUES batches. Disambiguation items and wrong-country city matches are rejected. Within
 each prompt, familiarity rank percentiles are Surface <20%, Midwater <55%, Rare <80%,
-Deep Cut otherwise. Surface anchors, explicit Too Clever picks and exactly one fun Pearl
+Deep Cut otherwise for broad sets. Constrained sets reuse same-theme entity signals when
+available; explicit Surface anchors leave remaining ranked answers in Midwater/Rare/Deep Cut
+(45%/30%/25%) to preserve tier diversity in small sets. Surface anchors, optional Too Clever picks and exactly one fun Pearl
 override those ranks. See its README/report for provenance, exclusions and regeneration.
+`constrained.json` commits reviewed complete canonical/alias snapshots, exact expected
+counts, pinned Wikipedia revisions/extraction recipes and dataset commit/checksums.
+`sources.py` verifies MediaWiki oldid/title and dataset SHA-256, with raw responses ignored
+under `.cache/`; `generate.py --verify-sources --check` re-extracts and rejects count or
+membership drift. Derived country/state predicates apply to canonicals or common English
+names in complete reviewed bases. No constrained membership is inferred from word frequency
+or silently trimmed. People surnames must be unique within a set; teams accept nicknames;
+common short film titles and existing article/typo normalization are preserved.
 The pageview candidate pool covers twice the prospective Surface population (at least
 100 names), plus all anchors/picks. Unresolved/unqueried names use the conservative
 secondary signal below resolved entities. Homographs use explicit contextual article
@@ -404,6 +431,9 @@ An original SVG water column shows the rowing shell, depth ticks and sinking mar
 motion disables sinking. Completed play reveals the log, grouped answers, Copy Result
 (`Dive YYYY-MM-DD · N m`, no spoilers) and generic live day board. Staff moderation uses
 the shared confirmation sheet. Scores/boards refresh while visible every 30 seconds.
+Team Answers with no groups shows its heading and one muted “No teammates have played yet.”
+line, without rows. In a mixed reveal, prompts with no groups are plain non-expandable rows
+with right-aligned “No teammates yet”; populated groups retain their disclosures/dividers.
 
 Games are separate from training statistics, with no bottom tab. Dates use team-local
 America/Los_Angeles `today(ctx.now)` and weeks run Monday–Sunday via `weekStart`.

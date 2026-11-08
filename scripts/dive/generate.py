@@ -21,6 +21,9 @@ import pycountry
 from wordfreq import zipf_frequency
 
 from overrides import PROMPTS, WD_SPECS
+from constrained import read_specs
+from themes import tag
+import schedule
 import pageviews
 import wikidata
 
@@ -148,7 +151,8 @@ def valid_name(name):
 
 
 def prepare(prompt):
-    values = [v for source in prompt['source'].split('+') for v in source_values(source)]
+    values = ([r['name'] for r in prompt['rows']] if prompt.get('constrained') else
+              [v for source in prompt['source'].split('+') for v in source_values(source)])
     if 'allow' in prompt:
         allowed = {normalize(x) for x in prompt['allow']}
         values = [v for v in values if normalize(v) in allowed]
@@ -252,7 +256,7 @@ def generate(prompt, familiarity, sitelinks):
         raise ValueError(f'{prompt["id"]}: conflicting tiers')
     # Cap very large sets to their highest-ranked rows plus every reviewed pick (bundle size).
     forced = anchors | clever | {gem} | {normalize(x) for x in prompt['aliases']}
-    cap = min(prompt.get('cap', MAX_SET), MAX_SET)
+    cap = len(ranked) if prompt.get('constrained') else min(prompt.get('cap', MAX_SET), MAX_SET)
     if len(ranked) > cap:
         room = cap - sum(normalize(name) in forced for name in ranked)
         kept = []
@@ -263,11 +267,15 @@ def generate(prompt, familiarity, sitelinks):
         ranked = kept
         names = {normalize(name): name for name in ranked}
     auto = automatic_aliases(prompt, names, rows)
+    free = [normalize(n) for n in ranked if normalize(n) not in anchors | clever | {gem}]
     output, tiers = [], dict.fromkeys(CODE, 0)
     for rank, name in enumerate(ranked):
         percentile = rank / len(ranked)
         tier = 'surface' if percentile < .20 else 'school' if percentile < .55 else 'rare' if percentile < .80 else 'deep'
         key = normalize(name)
+        if prompt.get('constrained') and key in free:
+            percentile = free.index(key) / len(free)
+            tier = 'school' if percentile < .45 else 'rare' if percentile < .75 else 'deep'
         if key in anchors:
             tier = 'surface'
         if key in clever:
@@ -280,6 +288,8 @@ def generate(prompt, familiarity, sitelinks):
         output.append('|'.join([display_name(name, prompt), CODE[tier], ';'.join(variants)]))
     if tiers['gem'] != 1 or not all(tiers[t] for t in ['surface', 'school', 'rare', 'deep']):
         raise ValueError(f'{prompt["id"]}: invalid tier counts {tiers}')
+    if prompt.get('constrained') and len(output) != len(prompt['rows']):
+        raise ValueError(f'{prompt["id"]}: complete constrained set lost members during normalization or encoding')
     return '\n'.join(output), dict(id=prompt['id'], text=prompt['text'], active=prompt['active'], size=len(output), tiers=tiers,
                                 surface=[r.split('|')[0] for r in output if r.split('|')[1] == 's'][:8],
                                 pageviews=sum(bool(views.get(name, {}).get('views')) for name in names.values()),
@@ -322,15 +332,26 @@ def encode_set(encoded):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='fail if regeneration differs from committed output')
+    parser.add_argument('--verify-sources', action='store_true', help='re-extract pinned sources and compare with reviewed snapshots')
     parser.add_argument('--fetch-pageviews', action='store_true', help='fetch missing contextual Wikipedia signals for the 2025 snapshot')
     parser.add_argument('--fetch-only', action='store_true', help='only update the pageview checkpoint; never rewrite generated Worker data')
     args = parser.parse_args()
     if args.fetch_only and not args.fetch_pageviews:
         parser.error('--fetch-only requires --fetch-pageviews')
-    active = [p for p in PROMPTS if p['active']]
-    if len(active) < MIN_ACTIVE or len({p['id'] for p in PROMPTS}) != len(PROMPTS):
+    constrained = read_specs(args.verify_sources)
+    retired = {'movies', 'directors', 'pokemon', 'manga', 'anime', 'japanese-films',
+               'oscar-actors', 'monarchs', 'nobel-laureates', 'first-names', 'objects'}
+    prompts = [dict(p) for p in PROMPTS]
+    for prompt in prompts:
+        tag(prompt)
+        prompt['constrained'] = False
+        if prompt['id'] in retired:
+            prompt['active'] = False
+    prompts += constrained
+    active = [p for p in prompts if p['active']]
+    if len(active) < MIN_ACTIVE or len({p['id'] for p in prompts}) != len(prompts):
         raise ValueError(f'Need at least {MIN_ACTIVE} active prompts and unique prompt ids')
-    if len({normalize(p['text']) for p in PROMPTS}) != len(PROMPTS):
+    if len({normalize(p['text']) for p in prompts}) != len(prompts):
         raise ValueError('Duplicate prompt text')
     OUTPUT.mkdir(exist_ok=True)
     (OUTPUT / 'data').mkdir(exist_ok=True)
@@ -343,21 +364,49 @@ def main():
         raise ValueError('Missing familiarity.json; regenerate with --fetch-pageviews')
     familiarity = json.loads(pageviews.OUTPUT.read_text())
     links = json.loads((Path(__file__).parent / 'sitelinks.json').read_text())['prompts']
-    for prompt in PROMPTS:
+    # Reuse contextual entity signals from broad prompts in the same theme when available.
+    pooled_views, pooled_links = {}, {}
+    for prompt in prompts:
+        if prompt['constrained']:
+            continue
+        for source, pool, field in [(familiarity, pooled_views, 'views'), (links, pooled_links, 'sitelinks')]:
+            bucket = pool.setdefault(prompt['theme'], {})
+            for name, value in source.get(prompt['id'], {}).items():
+                if value.get(field) is not None and value[field] > (bucket.get(name, {}).get(field) or -1):
+                    bucket[name] = value
+    for prompt in constrained:
+        familiarity[prompt['id']] = pooled_views.get(prompt['theme'], {})
+        links[prompt['id']] = pooled_links.get(prompt['theme'], {})
+    for prompt in prompts:
         encoded, stats = generate(prompt, familiarity, links)
-        if prompt['active'] and stats['size'] < MIN_ACTIVE_SIZE:
+        stats.update(theme=prompt['theme'], cluster=prompt.get('cluster'), constrained=prompt['constrained'])
+        if prompt['active'] and not prompt['constrained'] and stats['size'] < MIN_ACTIVE_SIZE:
             raise ValueError(f'{prompt["id"]}: active prompts need at least {MIN_ACTIVE_SIZE} answers, got {stats["size"]}; mark it inactive')
         report.append(stats)
         files[OUTPUT / 'data' / f'{prompt["id"]}.ts'] = '// Generated by scripts/dive/generate.py. Do not edit.\nimport type { AnswerSet } from \'../matcher\';\nexport default ' + json.dumps(encode_set(encoded), ensure_ascii=False) + ' satisfies AnswerSet;\n'
-    def catalog(prompts):
-        return ''.join('  { id: ' + repr(p['id']) + ', text: ' + json.dumps(p['text']) + ' },\n' for p in prompts)
+    def catalog(rows):
+        sizes = {p['id']: p['size'] for p in report}
+        return ''.join(json.dumps(dict(id=p['id'], text=p['text'], theme=p['theme'], cluster=p.get('cluster'),
+                                       constrained=p['constrained'], size=sizes[p['id']])) + ',\n' for p in rows)
+    by_id = {p['id']: p for p in prompts}
+    legacy_ids = json.loads((Path(__file__).parent / 'legacy.json').read_text())
+    legacy = [by_id[id] for id in legacy_ids]
+    scheduled, status = schedule.build([r for r in report if r['active']])
     files[OUTPUT / 'prompts.ts'] = ('// Generated by scripts/dive/generate.py. Do not edit.\n'
-        f'/** Daily rotation: every set has at least {MIN_ACTIVE_SIZE} canonical answers. */\n'
-        'export const DIVE_PROMPTS = [\n' + catalog(active) + '] as const;\n'
+        'export interface DivePrompt { id: string; text: string; theme: string; cluster: string | null; constrained: boolean; size: number; }\n'
+        '/** Prospective bank. The live selector still uses the frozen legacy order. */\n'
+        'export const DIVE_PROMPTS: readonly DivePrompt[] = [\n' + catalog(active) + '];\n'
         '/** Retired from rotation (inherently small categories); answer data stays loadable. */\n'
-        'export const DIVE_INACTIVE_PROMPTS = [\n' + catalog([p for p in PROMPTS if not p['active']]) + '] as const;\n')
+        'export const DIVE_INACTIVE_PROMPTS: readonly DivePrompt[] = [\n' + catalog([p for p in prompts if not p['active']]) + '];\n'
+        'const byId = new Map([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].map(p => [p.id, p]));\n'
+        'export const DIVE_LEGACY_PROMPTS = ' + json.dumps(legacy_ids) + '.map(id => { const prompt = byId.get(id); if (!prompt) throw new Error(`Missing legacy Dive prompt: ${id}`); return prompt; });\n')
+    files[OUTPUT / 'schedule.ts'] = ('// Generated by scripts/dive/generate.py. Do not edit.\n'
+        '/** Set a future team-local date only after the full schedule has been reviewed. */\n'
+        'export const DIVE_SCHEDULE_CUTOVER: string | null = null;\n'
+        'export const DIVE_SCHEDULE_STATUS = ' + json.dumps(status) + ';\n'
+        'export const DIVE_SCHEDULE: readonly (readonly string[])[] = ' + json.dumps(scheduled) + ';\n')
     files[OUTPUT / 'loaders.ts'] = '// Generated by scripts/dive/generate.py. Do not edit.\nimport type { AnswerSet } from \'./matcher\';\nexport const loaders: Record<string, () => Promise<{ default: AnswerSet }>> = {\n' + ''.join(
-        '  ' + repr(p['id']) + ': () => import(\'./data/' + p['id'] + "'),\n" for p in PROMPTS) + '};\n'
+        '  ' + repr(p['id']) + ': () => import(\'./data/' + p['id'] + "'),\n" for p in prompts) + '};\n'
     files[ROOT / 'scripts/dive/report.json'] = json.dumps(report, ensure_ascii=False, indent=2) + '\n'
     for path in (OUTPUT / 'data').glob('*.ts'):
         if path not in files:
@@ -384,6 +433,7 @@ def main():
     if changed:
         raise SystemExit('Generated output differs: ' + ', '.join(changed))
     sizes = sorted(p['size'] for p in report if p['active'])
+    print('Schedule disabled; ' + status + f'; legacy {len(legacy)} prompts / {len(legacy) // 5} days unchanged.')
     print(f'{len(sizes)} active + {len(report) - len(sizes)} inactive prompts; '
           f'{sum(p["size"] for p in report):,} canonical answers, {sum(p["aliases"] for p in report):,} aliases; '
           f'active sizes min {sizes[0]}, median {sizes[len(sizes) // 2]}, max {sizes[-1]}; '

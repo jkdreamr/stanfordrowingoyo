@@ -102,12 +102,36 @@ it('keeps copy retryable when clipboard access fails and renders empty groups', 
   empty.reveal![0].groups = [];
   writeText.mockRejectedValueOnce(new Error('Denied'));
   mount(empty);
-  expect(screen.getByText('No Answers')).toBeTruthy();
+  expect(screen.getByText('No teammates have played yet.')).toBeTruthy();
+  expect(screen.getByRole('region', { name: 'Team Answers' }).querySelector('details')).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
   expect((await screen.findByRole('alert')).textContent).toBe('Couldn’t copy. Try again.');
   fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
   expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
 });
+it('shows mixed empty prompts as plain rows beside populated disclosures', () => {
+  const mixed = day();
+  mixed.reveal!.push({ prompt_index: 1, prompt: 'Name a lake.', groups: [] });
+  mount(mixed);
+  const section = screen.getByRole('region', { name: 'Team Answers' });
+  expect(section.querySelectorAll('details')).toHaveLength(1);
+  const empty = screen.getByText('No teammates yet');
+  expect(empty.closest('details')).toBeNull();
+  expect(empty.parentElement?.textContent).toContain('Name a lake.');
+  expect(screen.queryByText('No teammates have played yet.')).toBeNull();
+});
+it.each([{ reveal: null }, { reveal: [] }])(
+  'handles an absent or empty reveal with one intentional empty state (%j)',
+  ({ reveal }) => {
+    const empty = day();
+    empty.reveal = reveal;
+    mount(empty);
+    expect(screen.getAllByText('No teammates have played yet.')).toHaveLength(1);
+    expect(
+      screen.getByRole('region', { name: 'Team Answers' }).querySelector('details'),
+    ).toBeNull();
+  },
+);
 it('lets staff review groups without playing, requires confirmation and keeps failed moderation retryable', async () => {
   mount(day(), true, true);
   expect(screen.queryByRole('heading', { name: 'Your Dive' })).toBeNull();
