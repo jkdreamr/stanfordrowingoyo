@@ -300,8 +300,11 @@ function ClockRound({ target, stage, setStage, lockIn }: RoundProps & { target: 
   );
 }
 
+const colorStart = (hue: number) => (hue + 150 + (hue % 60)) % 360;
+
 function ColorRound({ hue, stage, setStage, lockIn }: RoundProps & { hue: number }) {
-  const [pick, setPick] = useState((hue + 150 + (hue % 60)) % 360);
+  const [pick, setPick] = useState(() => colorStart(hue));
+  useEffect(() => setPick(colorStart(hue)), [hue]);
   useShowFor(stage, COLOR_SHOW_MS, setStage);
   return (
     <>
