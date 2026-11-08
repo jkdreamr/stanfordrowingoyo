@@ -348,7 +348,7 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
-The general-knowledge bank has 120 prompts and over 60,000 curated canonical answers.
+The general-knowledge bank has 120 prompts with curated canonical answer sets.
 A fixed seeded permutation takes seven consecutive entries per day, measured from
 2026-01-01 with positive modulo. Any `floor(N/7)` consecutive days contain no repeated
 prompt, including wraparound and dates before the epoch. There are no rowing/team prompts.
@@ -363,13 +363,29 @@ real even for the first player. The generic board remains higher-is-better; `fin
 true after team midnight (board participation can grow, individual scores never recompute).
 
 `scripts/dive/` is a reproducible Python pipeline with pinned real list sources, ignored raw
-fetch caches, `wordfreq.zipf_frequency(name,'en')`, and committed hand overrides. Within
+fetch caches, contextual English Wikipedia human pageviews (2025 monthly totals), a
+Wikidata sitelink breadth, a `wordfreq.zipf_frequency(name,'en')` fallback/tiebreak, and
+committed hand overrides. When both entity signals exist, familiarity combines
+`0.6*log1p(annual_views/5000) + 0.4*log1p(sitelinks)`; either signal works alone when the
+other is missing. QIDs resolve in article batches; sitelinks query in <=300-QID SPARQL
+VALUES batches. Disambiguation items and wrong-country city matches are rejected. Within
 each prompt, familiarity rank percentiles are Surface <20%, Midwater <55%, Rare <80%,
 Deep Cut otherwise. Surface anchors, explicit Too Clever picks and exactly one fun Pearl
 override those ranks. See its README/report for provenance, exclusions and regeneration.
-Generated Worker-only compact per-prompt modules are dynamically imported through `loaders.ts`;
-`sets.ts` parses on demand into normalized keys and length buckets, cached in an eight-entry
-promise-aware LRU. The browser imports tier helpers/types only, never answer data.
+The pageview candidate pool covers twice the prospective Surface population (at least
+100 names), plus all anchors/picks. Unresolved/unqueried names use the conservative
+secondary signal below resolved entities. Homographs use explicit contextual article
+titles and multiword corrections. ISO 639-1 languages replace the noisy ISO 639-3 tail;
+cities are capped at the 500 largest per country, movies at 1,000 per genre by source votes,
+plus reviewed additions. See the committed full-prompt review and familiarity snapshot.
+Generated Worker-only per-prompt modules contain sorted normalized-key length-bucket
+strings, a shared canonical table referenced by base-36 UTF-16
+offsets, and constant Pearl/notable metadata. `sets.ts` returns
+lazy module data directly: no request parses a set, builds key maps, or incurs parsed-LRU
+eviction. Exact canonical/alias lookup searches the key's length bucket for a
+newline/key/tab delimiter (no duplicate global index); fuzzy
+matching scans only eligible bucket strings, decoding only accepted candidate rows.
+The browser imports tier helpers/types only, never answer data.
 
 The pure Worker matcher first checks normalized canonical/alias keys. Otherwise banded,
 early-exit Levenshtein uses no fuzzy matching below length 4, distance ≤1 for length 4–7,

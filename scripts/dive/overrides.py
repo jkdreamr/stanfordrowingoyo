@@ -145,6 +145,7 @@ CITY_ALIASES = {
     'SE': {'Gothenburg': ['Goteborg']},
     'VN': {'Ho Chi Minh City': ['Saigon']},
     'ZA': {'Port Elizabeth': ['Gqeberha']},
+    'PH': {'Makati': ['Makati City'], 'Cebu City': ['Cebu'], 'Davao': ['Davao City'], 'Bacolod City': ['Bacolod']},
 }
 PROMPTS += [p(f'cities-{code.lower()}', f'a city or town in {country}', f'cities:{code}',
               gem, clever, surface, CITY_ALIASES.get(code))
@@ -162,6 +163,7 @@ EXCLUDE = {
     'english-towns': ['Llanfairpwllgwyngyll'],
     'elements': ['Unobtainium'],
     'industries': ['Asteroid mining'],
+    'objects': '''acorn;apple;bananas;beef;bread;broccoli;carrots;cat;chicken;chocolate;cow;crow;cucumber;dog;dolphin;dove;egg;fish;flowers;food;giraffe;hamster;house;ice cube;lemon;lime;lion;milk;money;orange;panda;puddle;rabbit;rat;rhino;shark;sheep;sidewalk;squirrel;tomato;tree;tiger;trucks;turtle;water;whale;zebra'''.split(';'),
 }
 REPLACEMENTS = {
     'pokemon': ['Wobbuffet'], 'seas': ['Dead Sea'], 'english-towns': ['Bognor Regis'],
@@ -200,3 +202,47 @@ Sinotyrannus'''.split()
 for prompt in PROMPTS:
     if prompt['id'] == 'dinosaurs':
         prompt['allow'] = DINOSAURS
+
+# Contextual titles prevent homographs, brands and multiword components from borrowing
+# unrelated popularity. Missing pages remain a conservative secondary-signal fallback.
+WIKI = {
+    'animals': {'ass': 'Donkey', 'fly': 'Fly', 'bear': 'Bear', 'cat': 'Cat', 'dog': 'Dog'},
+    'fruits': {'date': 'Date palm', 'Apple': 'Apple', 'Orange': 'Orange (fruit)',
+               'blood orange': 'Blood orange', 'Star fruit': 'Carambola', 'kiwi': 'Kiwifruit',
+               'fig': 'Common fig', 'Dragonfruit': 'Pitaya', 'Rambutan': 'Rambutan'},
+    'elements': {'Lead': 'Lead', 'Gold': 'Gold', 'Iron': 'Iron', 'Carbon': 'Carbon',
+                 'Oxygen': 'Oxygen', 'Hydrogen': 'Hydrogen', 'Bismuth': 'Bismuth'},
+    'metals': {'lead': 'Lead', 'Gold': 'Gold', 'Silver': 'Silver', 'Iron': 'Iron', 'Steel': 'Steel'},
+    'colors': {'Orange': 'Orange (colour)', 'Pink': 'Pink', 'Gold': 'Gold (color)',
+               'White': 'White', 'Black': 'Black', 'Red': 'Red', 'Blue': 'Blue'},
+    'plants': {'Box': 'Buxus', 'apple': 'Apple', 'Bay': 'Laurus nobilis'},
+    'languages': {'English': 'English language', 'Spanish': 'Spanish language', 'French': 'French language',
+                  'Chinese': 'Chinese language', 'German': 'German language', 'Rotokas': 'Rotokas language'},
+    'instruments': {'Drums': 'Drum', 'Guitar': 'Guitar', 'Piano': 'Piano', 'Violin': 'Violin', 'Flute': 'Flute'},
+    'sports': {'Soccer': 'Association football', 'Basketball': 'Basketball', 'Tennis': 'Tennis', 'Baseball': 'Baseball'},
+    'tea': {'Green': 'Green tea', 'Black': 'Black tea', 'Earl Grey': 'Earl Grey tea',
+            'Chamomile': 'Chamomile', 'Peppermint': 'Peppermint', 'Bai Mudan': 'Bai Mudan', 'Lapsang Souchong': 'Lapsang souchong'},
+    'jobs': {'Doctor': 'Physician', 'Nurse': 'Nursing', 'Teacher': 'Teacher', 'Engineer': 'Engineer', 'Lawyer': 'Lawyer'},
+    'companies': {'Apple': 'Apple Inc.', 'Amazon': 'Amazon (company)', 'Google': 'Google',
+                  'Microsoft': 'Microsoft', 'Walmart': 'Walmart'},
+    'guitars': {'Fender': 'Fender Musical Instruments Corporation', 'Gibson': 'Gibson (guitar company)',
+                'Martin': 'C. F. Martin & Company', 'Yamaha': 'Yamaha Corporation', 'Ibanez': 'Ibanez'},
+    'countries': {'United States': 'United States', 'China': 'China', 'France': 'France', 'India': 'India', 'Canada': 'Canada'},
+    'objects': {'Phone': 'Telephone', 'Table': 'Table (furniture)', 'television': 'Television set',
+                'radio': 'Radio receiver', 'light': 'Light fixture', 'monitor': 'Computer monitor',
+                'speakers': 'Loudspeaker', 'watch': 'Watch'},
+    'rock-hall': {'Chicago': 'Chicago (band)', 'Heart': 'Heart (band)', 'Queen': 'Queen (band)',
+                  'Genesis': 'Genesis (band)', 'Rush': 'Rush (band)', 'Yes': 'Yes (band)',
+                  'Kiss': 'Kiss (band)', 'Journey': 'Journey (band)', 'Faces': 'Faces (band)'},
+    'capitals': {'Luxembourg': 'Luxembourg City', 'Washington DC': 'Washington, D.C.'},
+}
+for prompt in PROMPTS:
+    prompt['wiki'] = WIKI.get(prompt['id'], {})
+    if prompt['id'] == 'fruits':
+        prompt['forced_tiers'] = {'blood orange': 'school', 'Star fruit': 'school', 'quince': 'school', 'nectarine': 'school'}
+    if prompt['id'] == 'seas':
+        prompt['forced_tiers'] = {'Central Baltic Sea': 'school'}
+    if prompt['id'] == 'objects':
+        prompt['aliases'].update({'Phone': ['cell phone', 'cellphone', 'mobile phone'],
+            'television': ['tv'], 'couch': ['sofa'], 'paintbrush': ['paint brush'],
+            'keychain': ['key chain'], 'watch': ['wristwatch'], 'toothpick': ['tooth pick']})

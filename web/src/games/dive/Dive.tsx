@@ -11,6 +11,7 @@ import { GameLocked } from '../GameLocked';
 import { WaterColumn } from './WaterColumn';
 import { Prompt, deadlineKey, savedDeadline } from './Prompt';
 import { Results } from './Results';
+import { AnswerReveal } from './AnswerReveal';
 
 function Session({
   day,
@@ -37,17 +38,21 @@ function Session({
       {shown !== 'prompt' && (
         <div className="flex items-center justify-between gap-4 text-subhead text-muted">
           <p>{formatShortDate(day.date)}</p>
-          <p>{day.complete ? 'Live · Today' : '7 Prompts · 25 Seconds'}</p>
+          {!day.complete && <p>7 Prompts · 25 Seconds</p>}
         </div>
       )}
       <div className={shown === 'results' ? 'space-y-6' : 'dive-layout'}>
         <div className="dive-scene">
-          <WaterColumn score={day.score} compact={shown === 'prompt'} />
+          <WaterColumn
+            key={shown === 'reveal' ? `reveal-${reveal?.prompt_index}` : 'total'}
+            score={shown === 'reveal' && reveal ? reveal.points : day.score}
+            compact={shown === 'prompt' || shown === 'reveal'}
+            tier={shown === 'reveal' ? reveal?.tier : undefined}
+          />
         </div>
         {shown === 'start' && (
           <section className="space-y-5 py-4">
             <h2 className="text-title1">Dive</h2>
-            <p className="text-callout text-muted">Rarer answers go deeper.</p>
             <Button fullWidth onClick={() => setActive(true)}>
               Begin
             </Button>
@@ -68,37 +73,18 @@ function Session({
           />
         )}
         {shown === 'reveal' && reveal && (
-          <section className="space-y-5 py-4" aria-label="Answer Result" aria-live="polite">
-            <p className="text-subhead text-muted">{reveal.prompt_index + 1} of 7</p>
-            <h2 className="text-title1">{reveal.tier}</h2>
-            <p className="break-words text-title3">{reveal.answer || 'No Answer'}</p>
-            <p className="text-title2 tabular-nums">+{reveal.points} m</p>
-            {!reveal.hidden && reveal.count > 0 && (
-              <p className="text-subhead text-muted">
-                {Math.max(0, reveal.count - 1)} {reveal.count === 2 ? 'teammate' : 'teammates'}{' '}
-                matched · {reveal.count} of {reveal.total} answers
-              </p>
-            )}
-            <Button
-              fullWidth
-              disabled={busy}
-              onClick={() => {
-                setReveal(null);
-                setActive(true);
-              }}
-            >
-              Continue
-            </Button>
-          </section>
+          <AnswerReveal
+            answer={reveal}
+            busy={busy}
+            onContinue={() => {
+              setReveal(null);
+              setActive(true);
+            }}
+          />
         )}
         {shown === 'results' && <Results day={day} staff={staff} />}
       </div>
-      {staff && !day.complete && shown !== 'prompt' && (
-        <details className="dive-staff-review">
-          <summary className="py-4 text-headline">Team Answers</summary>
-          <Results day={day} staff reviewOnly />
-        </details>
-      )}
+      {staff && !day.complete && shown !== 'prompt' && <Results day={day} staff reviewOnly />}
     </div>
   );
 }
