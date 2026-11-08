@@ -7,12 +7,12 @@
   opacity: 0;
   transition: opacity 1600ms ease-out;
   --ambient-caustic: url('/ambient/caustic-light.webp');
-  --ambient-oar: url('/ambient/oar-light.webp');
+  --ambient-swell: url('/ambient/swell-light.webp');
   --ambient-strength: 0.17;
 }
 .dark .ambient-water {
   --ambient-caustic: url('/ambient/caustic-dark.webp');
-  --ambient-oar: url('/ambient/oar-dark.webp');
+  --ambient-swell: url('/ambient/swell-dark.webp');
   --ambient-strength: 0.29;
 }
 .ambient-water[data-ready='true'] {
@@ -20,80 +20,70 @@
 }
 .ambient-water__field {
   position: absolute;
-  width: 140lvw;
-  height: 140lvh;
-  left: -20lvw;
-  top: -20lvh;
+  width: 100lvw;
+  height: 100lvh;
 }
 .ambient-water__caustic,
-.ambient-water__oar {
+.ambient-water__swell {
   position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
+  background-repeat: repeat;
   will-change: transform;
 }
 .ambient-water__caustic {
   background-image: var(--ambient-caustic);
 }
 .ambient-water__caustic--one {
-  animation: ambient-drift-one 67s ease-in-out infinite alternate;
+  inset: -280px 0 0 -420px;
+  background-size: 420px 280px;
+  opacity: 0.82;
+  animation: ambient-current-one 32s linear infinite;
 }
 .ambient-water__caustic--two {
+  inset: -200px -300px 0 0;
+  background-size: 300px 200px;
+  opacity: 0.32;
   animation:
-    ambient-drift-two 83s ease-in-out infinite alternate,
-    ambient-crossfade 53s ease-in-out infinite alternate;
+    ambient-current-two 23s linear infinite,
+    ambient-breathe 29s ease-in-out infinite;
 }
-.ambient-water__oar {
-  background-image: var(--ambient-oar);
-  background-size: contain;
-  background-position: center 120%;
-  background-repeat: no-repeat;
-  opacity: 0;
-  animation: ambient-stroke 26s infinite;
+.ambient-water__swell {
+  inset: -256px 0 0;
+  background-image: var(--ambient-swell);
+  background-size: 512px 256px;
+  opacity: 0.25;
+  animation: ambient-swell 37s linear infinite;
 }
-@keyframes ambient-drift-one {
+@keyframes ambient-current-one {
   from {
-    transform: translate(-4%, -3%) scale(1.04);
+    transform: translate(0, 0);
   }
   to {
-    transform: translate(5%, 4%) scale(1.12);
+    transform: translate(420px, 280px);
   }
 }
-@keyframes ambient-drift-two {
+@keyframes ambient-current-two {
   from {
-    transform: translate(5%, -4%) scale(1.14) rotate(8deg);
+    transform: translate(0, 0);
   }
   to {
-    transform: translate(-4%, 5%) scale(1.03) rotate(-5deg);
+    transform: translate(-300px, 200px);
   }
 }
-@keyframes ambient-crossfade {
-  from {
-    opacity: 0.12;
-  }
-  to {
-    opacity: 0.72;
-  }
-}
-@keyframes ambient-stroke {
+@keyframes ambient-breathe {
   0%,
-  64% {
-    opacity: 0;
-    transform: translate(-45%, -18%) rotate(-16deg);
-  }
-  67% {
-    opacity: 0.95;
-    transform: translate(-16%, -6%) rotate(-7deg);
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  88% {
-    opacity: 0;
-    transform: translate(42%, 22%) rotate(9deg);
-  }
   100% {
-    opacity: 0;
-    transform: translate(45%, 24%) rotate(10deg);
+    opacity: 0.26;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+@keyframes ambient-swell {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(256px);
   }
 }
 .ambient-water[data-paused='true'] * {
@@ -106,13 +96,6 @@
   .ambient-water * {
     animation: none;
     will-change: auto;
-  }
-  .ambient-water__caustic--two {
-    opacity: 0.25;
-    transform: rotate(8deg) scale(1.1);
-  }
-  .ambient-water__oar {
-    display: none;
   }
 }
 @media (forced-colors: active), (prefers-contrast: more), (prefers-reduced-transparency: reduce) {

@@ -211,35 +211,38 @@ static mark with a 120 ms fade (no handoff).
 
 ## Ambient Water
 
-The one sanctioned ambient loop: original softened cellular water caustics, with a faint oar
-shadow entering quickly and settling on a 26-second stroke. Two raster fields drift over
-67/83 seconds and crossfade over 53 seconds. No live filters or blending. The fixed, negative
-stacking layer paints above the body background but below normal-flow content and all chrome;
-its large-viewport bleed does not resize with the mobile URL bar. It fades in only after
-`afterLaunch`, so the opaque launch sheet and hero handoff remain authoritative.
+The one sanctioned ambient loop: calm water made from three pre-rendered, composited layers.
+Rounded, horizontally elongated ripple highlights flow diagonally through one another:
+420×280px tiles move right/down over 32 seconds, while fainter 300×200px tiles move left/down
+over 23 seconds. Both translate exactly one tile period with linear, continuous loops.
+Their changing overlap and a 29-second opacity breath suggest refraction rather than sliding
+nets. Very soft horizontal swell bands descend one 256px period over 37 seconds. The oar
+is omitted so the water stays primary. Only transform and opacity animate; no live filters
+or blending. Each moving layer has just one tile of overflow, sized from the large viewport
+to avoid mobile URL-bar reflow. The fixed, negative stacking layer paints above the body
+background but below content and chrome. It fades in after `afterLaunch`, preserving the
+opaque launch sheet and hero handoff.
 
 Tune or disable `ambientWaterConfig` in `AmbientWater.tsx`: `enabled: false` renders nothing;
 `intensity` is clamped to 0–1 and scales the entire group's maximum 17% light / 29% dark
-opacity (not each child independently). Transparent warm taupe filaments darken white by
-about 8–12% at their strongest overlaps without a page-wide tint; cardinal and dawn amber
-filaments remain perceptible on black. Retune the original seeded artwork with
-`node scripts/ambient/render.mjs` on Node 24; a periodic wave-warped cellular field creates
-an interconnected network of irregular curved cells, uneven focal widths and brighter
-junctions. The transparent field is blurred across a 3×3 wrap before downsampling to 320px
-WebP, so tiling stays seamless. The soft asymmetric hatchet blade, shaft and rigger stay at
-640px, with feathered raster edges and contain sizing so a sweep never clips the silhouette.
-Separate warm light and cardinal/dawn dark palettes require no runtime filters.
-The generator requires the existing Playwright
-Chromium install. No source artwork is downloaded.
+opacity (not each child independently). The primary caustic is 82% opaque inside that group;
+the secondary breathes between 26–40%, and swell is 25%. Transparent warm taupe highlights
+leave light mode near white; cardinal/dawn highlights remain perceptible on black.
+Retune the original periodic wave-interference artwork with `node scripts/ambient/render.mjs`
+on Node 24 and the existing Playwright Chromium install. Narrow focal ridges, offset soft
+halos and varying highlights are blurred across a 3×3 wrap before downsampling to 315×210px
+WebP. Swell is 256×128px. Separate palettes need no runtime filters or downloaded artwork.
 
 Contrast must be calculated from decoded WebP pixels (including alpha and codec variation),
 not from the ideal palette. Group opacity bounds all overlaps: each RGB channel inside the
 group is a convex combination of decoded source colors, so its darkest light-mode or
 brightest dark-mode contribution can be bounded independently before applying group opacity.
-The decoded conservative envelopes are light `rgb(236,229,222)` (text 13.62:1, muted 4.56:1)
-and dark `rgb(54,29,18)` (text 14.25:1, muted 6.11:1), including overlapping fields and peak
-oar opacity. Opaque cards remain unchanged. Do not raise the opacity
-caps or change the generated palette without recalculating; muted text must retain 4.5:1.
+All three fields must be included at maximum child opacity when calculating that envelope.
+Decoded conservative bounds are light `rgb(243,238,232)` (text 14.74:1, muted 4.93:1) and
+dark `rgb(40,18,11)` (text 16.18:1, muted 6.93:1). A background-only login crop measured
+mean sRGB luma 252.41/255 in light and 1.59/255 in dark at normal playback speed.
+Opaque cards remain unchanged. Do not raise the opacity caps or change the generated palette
+without recalculating; muted text must retain 4.5:1.
 
 Hidden documents pause every animation via `data-paused`. Reduced motion removes all
 animations and the entrance transition, keeping a static caustic; forced colors, increased

@@ -41,7 +41,7 @@ function Water({ intensity }: { intensity: number }) {
       <div className="ambient-water__field">
         <div className="ambient-water__caustic ambient-water__caustic--one" />
         <div className="ambient-water__caustic ambient-water__caustic--two" />
-        <div className="ambient-water__oar" />
+        <div className="ambient-water__swell" />
       </div>
     </div>
   );

@@ -21,6 +21,8 @@ it('renders an aria-hidden decorative layer at configured intensity', () => {
   expect(layer.getAttribute('data-ready')).toBe('true');
   expect((layer as HTMLElement).style.getPropertyValue('--ambient-intensity')).toBe('1');
   expect(layer.children[0].children).toHaveLength(3);
+  expect(layer.querySelector('.ambient-water__swell')).not.toBeNull();
+  expect(layer.querySelector('.ambient-water__oar')).toBeNull();
 });
 it('renders nothing when disabled', () => {
   const { container } = render(<AmbientWater config={{ ...ambientWaterConfig, enabled: false }} />);
