@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { perceptionPuzzle, scorePerception } from '../../worker/src/games/perception';
 import { closeness, dailyRandom, dayNumber, hashSeed } from './daily';
 import {
   ANSWER_LIST,
@@ -15,10 +16,8 @@ import {
   PATTERN_CELLS,
   hueDistance,
   parsePerceptionAnswer,
-  perceptionPuzzle,
   perceptionShare,
   perceptionTotal,
-  scorePerception,
   scoreReaction,
 } from './perception';
 import {

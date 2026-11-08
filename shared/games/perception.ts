@@ -1,4 +1,4 @@
-import { closeness, dailyRandom, isIntIn } from './daily';
+import { closeness, isIntIn } from './daily';
 
 export const PERCEPTION_ID = 'perception';
 export const PERCEPTION_ROUNDS = ['clock', 'color', 'dot', 'pattern', 'reaction'] as const;
@@ -33,22 +33,6 @@ export interface PerceptionAnswer {
 
 export type PerceptionScores = Record<PerceptionRound, number>;
 
-export function perceptionPuzzle(date: string): PerceptionPuzzle {
-  const rand = dailyRandom(PERCEPTION_ID, date);
-  const pick = (min: number, max: number) => min + Math.floor(rand() * (max - min + 1));
-  const clockMs = pick(25, 60) * 100;
-  const hue = pick(0, 359);
-  const dot: [number, number] = [pick(120, 880), pick(120, 880)];
-  const pool = Array.from({ length: GRID * GRID }, (_, i) => i);
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  const cells = pool.slice(0, PATTERN_CELLS).sort((a, b) => a - b);
-  const reactionDelayMs = pick(15, 45) * 100;
-  return { clockMs, hue, dot, cells, reactionDelayMs };
-}
-
 export function hueDistance(a: number, b: number): number {
   const d = Math.abs(a - b) % 360;
   return d > 180 ? 360 - d : d;
@@ -76,17 +60,6 @@ export function scorePattern(puzzle: PerceptionPuzzle, cells: number[]): number 
 export function scoreReaction(reactionMs: number): number {
   if (reactionMs < MIN_REACTION_MS) return 0;
   return closeness(Math.max(0, reactionMs - 150), 200);
-}
-
-export function scorePerception(date: string, answer: PerceptionAnswer): PerceptionScores {
-  const puzzle = perceptionPuzzle(date);
-  return {
-    clock: scoreClock(puzzle, answer.clockMs),
-    color: scoreColor(puzzle, answer.hue),
-    dot: scoreDot(puzzle, answer.dot),
-    pattern: scorePattern(puzzle, answer.cells),
-    reaction: scoreReaction(answer.reactionMs),
-  };
 }
 
 export function perceptionTotal(scores: PerceptionScores): number {

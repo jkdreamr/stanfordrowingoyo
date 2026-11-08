@@ -4,7 +4,7 @@ import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { waitForSplash } from './helpers';
 import { ANSWER_LIST, dailyAnswer } from '../worker/src/games/wordGuess';
-import { perceptionPuzzle } from '../shared/games/perception';
+import { perceptionPuzzle } from '../worker/src/games/perception';
 import { connectionsPuzzleFor } from '../worker/src/games/connectionsPuzzles';
 
 test.describe.configure({ timeout: 180_000 });
@@ -107,7 +107,10 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
   await page.keyboard.down(' ');
   await page.waitForTimeout(puzzle.clockMs);
   await page.keyboard.up(' ');
-  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Next' }).waitFor();
+  await page.reload();
+  await waitForSplash(page);
+  await expect(page.getByRole('heading', { name: 'Color Recall' })).toBeVisible();
   await page.getByRole('button', { name: 'Start' }).click();
   await page.getByRole('button', { name: 'Lock In' }).click();
   await page.getByRole('button', { name: 'Next' }).click();
@@ -202,4 +205,39 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
       })
     ).status(),
   ).toBe(405);
+});
+
+test('Perception abandons a started round on reload without allowing a redo', async ({
+  makeRower,
+}) => {
+  const { page, context } = await makeRower();
+  const config = await (await context.request.get('/api/config')).json();
+  await context.request.post('/api/entries', {
+    headers: csrfHeaders,
+    data: {
+      date: config.today,
+      modality: 'erg',
+      zone: 'E',
+      distance_m: 1000,
+      title: 'Round resume',
+      notes: '',
+    },
+  });
+  await page.goto('/games/perception');
+  await waitForSplash(page);
+  await page.getByRole('button', { name: 'Ready' }).click();
+  await expect(page.getByRole('button', { name: 'Press and Hold' })).toBeVisible();
+  await page.reload();
+  await waitForSplash(page);
+  await expect(page.getByRole('heading', { name: 'Color Recall' })).toBeVisible();
+  const resumed = await (await context.request.get('/api/games/perception/today')).json();
+  expect(resumed.scores).toEqual({ clock: 0 });
+  expect(
+    (
+      await context.request.post('/api/games/perception/start', {
+        headers: csrfHeaders,
+        data: { round: 0 },
+      })
+    ).status(),
+  ).toBe(409);
 });

@@ -2,7 +2,6 @@ import {
   PERCEPTION_ID,
   PERCEPTION_MAX,
   perceptionShare,
-  type PerceptionAnswer,
   type PerceptionScores,
 } from '../../../../shared/games/perception';
 import { DailyGameFrame } from '../DailyGameFrame';
@@ -10,11 +9,12 @@ import { PerceptionPlay } from './PerceptionPlay';
 
 export default function PerceptionGame() {
   return (
-    <DailyGameFrame<{ answer: PerceptionAnswer }>
+    <DailyGameFrame<void>
       gameId={PERCEPTION_ID}
       title="Perception"
+      serverComplete
       play={({ date, onComplete }) => (
-        <PerceptionPlay date={date} onComplete={(answer) => onComplete({ answer })} />
+        <PerceptionPlay key={date} date={date} onComplete={onComplete} />
       )}
       summarize={(result) => {
         const { scores } = result.payload as { scores: PerceptionScores };

@@ -15,17 +15,14 @@ import {
   PATTERN_SHOW_MS,
   PERCEPTION_ROUNDS,
   hueDistance,
-  perceptionPuzzle,
-  scoreClock,
-  scoreColor,
-  scoreDot,
-  scorePattern,
-  scoreReaction,
   type PerceptionAnswer,
   type PerceptionPuzzle,
   type PerceptionRound,
 } from '../../../../shared/games/perception';
 import { Button } from '../../components/ui';
+import { api } from '../../lib/api';
+import { LoadState } from '../../components/shell/LoadState';
+import type { PerceptionDay } from '../../../../shared/types';
 import type { PlayProps } from '../DailyGameFrame';
 import './perception.css';
 
@@ -42,121 +39,189 @@ const TITLE: Record<PerceptionRound, string> = {
 const swatch = (hue: number) => `hsl(${hue} 72% 50%)`;
 const now = () => performance.now();
 
-export function PerceptionPlay({ date, onComplete }: PlayProps<PerceptionAnswer>) {
-  const puzzle = useMemo(() => perceptionPuzzle(date), [date]);
+export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
+  const [puzzle, setPuzzle] = useState<PerceptionPuzzle>({
+    clockMs: 0,
+    hue: 0,
+    dot: [0, 0],
+    cells: [],
+    reactionDelayMs: 0,
+  });
   const [index, setIndex] = useState(0);
   const [stage, setStage] = useState<Stage>('brief');
   const [scores, setScores] = useState<number[]>([]);
-  const answer = useRef<Partial<PerceptionAnswer>>({});
+  const [loaded, setLoaded] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const sending = useRef(false);
+  const complete = useRef(onComplete);
+  complete.current = onComplete;
+  const apply = (day: PerceptionDay) => {
+    if (day.date !== date) {
+      setError('A New Day Has Started. Reload to Play.');
+      return;
+    }
+    setScores(PERCEPTION_ROUNDS.map((r) => day.scores[r] ?? 0));
+    setIndex(Math.min(day.round, 4));
+    setStage('brief');
+    setLoaded(true);
+    if (day.done) complete.current();
+  };
+  const resume = useCallback(async () => {
+    try {
+      apply(await api('GET /api/games/perception/today', {}));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Could Not Load Round');
+    }
+  }, [date]);
+  useEffect(() => {
+    void resume();
+  }, [resume]);
   const round = PERCEPTION_ROUNDS[index];
   const last = index === PERCEPTION_ROUNDS.length - 1;
-
-  const lockIn = useCallback((part: Partial<PerceptionAnswer>, points: number) => {
-    answer.current = { ...answer.current, ...part };
-    setScores((s) => [...s, points]);
-    setStage('reveal');
-  }, []);
-
+  const changeStage = (next: Stage) => {
+    if (sending.current) return;
+    if (stage !== 'brief') {
+      setStage(next);
+      return;
+    }
+    sending.current = true;
+    setBusy(true);
+    setError('');
+    void api('POST /api/games/perception/start', { body: { round: index } })
+      .then((day) => {
+        setPuzzle((p) => ({ ...p, ...day.stimulus }));
+        setStage(next);
+      })
+      .catch(async (e) => {
+        setError(e instanceof Error ? e.message : 'Could Not Start Round');
+        await resume();
+      })
+      .finally(() => {
+        sending.current = false;
+        setBusy(false);
+      });
+  };
+  const lockIn = (part: Partial<PerceptionAnswer>) => {
+    if (sending.current) return;
+    sending.current = true;
+    setBusy(true);
+    setError('');
+    void api('POST /api/games/perception/answer', { body: { round: index, answer: part } })
+      .then((day) => {
+        setScores(PERCEPTION_ROUNDS.map((r) => day.scores[r] ?? 0));
+        setStage('reveal');
+      })
+      .catch(async (e) => {
+        setError(e instanceof Error ? e.message : 'Could Not Save Round');
+        await resume();
+      })
+      .finally(() => {
+        sending.current = false;
+        setBusy(false);
+      });
+  };
   const next = () => {
-    if (last) onComplete(answer.current as PerceptionAnswer);
+    if (last) onComplete();
     else {
       setIndex((i) => i + 1);
       setStage('brief');
     }
   };
+  if (!loaded) return <LoadState error={Boolean(error)} retry={() => void resume()} />;
 
   return (
-    <div className="pc">
-      <ol className="pc-progress" aria-label={`Round ${index + 1} of ${PERCEPTION_ROUNDS.length}`}>
-        {PERCEPTION_ROUNDS.map((r, i) => (
-          <li
-            key={r}
-            className={
-              i < index || (i === index && stage === 'reveal')
-                ? 'pc-step-done'
-                : i === index
-                  ? 'pc-step-now'
-                  : ''
-            }
-          />
-        ))}
-      </ol>
-      <div className="pc-head">
-        <h2 className="text-headline">{TITLE[round]}</h2>
-        <span className="text-subhead text-muted tabular-nums">
-          {index + 1} / {PERCEPTION_ROUNDS.length}
-        </span>
-      </div>
-      {round === 'clock' && (
-        <ClockRound
-          key={round}
-          target={puzzle.clockMs}
-          puzzle={puzzle}
-          stage={stage}
-          setStage={setStage}
-          lockIn={lockIn}
-        />
-      )}
-      {round === 'color' && (
-        <ColorRound
-          key={round}
-          hue={puzzle.hue}
-          puzzle={puzzle}
-          stage={stage}
-          setStage={setStage}
-          lockIn={lockIn}
-        />
-      )}
-      {round === 'dot' && (
-        <DotRound
-          key={round}
-          dot={puzzle.dot}
-          puzzle={puzzle}
-          stage={stage}
-          setStage={setStage}
-          lockIn={lockIn}
-        />
-      )}
-      {round === 'pattern' && (
-        <PatternRound
-          key={round}
-          cells={puzzle.cells}
-          puzzle={puzzle}
-          stage={stage}
-          setStage={setStage}
-          lockIn={lockIn}
-        />
-      )}
-      {round === 'reaction' && (
-        <ReactionRound
-          key={round}
-          delay={puzzle.reactionDelayMs}
-          puzzle={puzzle}
-          stage={stage}
-          setStage={setStage}
-          lockIn={lockIn}
-        />
-      )}
-      {stage === 'reveal' && (
-        <div className="pc-reveal">
-          <p className="pc-score tabular-nums" role="status">
-            <span className="text-title1">{scores[index]}</span>
-            <span className="text-subhead text-muted"> / 100</span>
-          </p>
-          <Button fullWidth size="lg" onClick={next} autoFocus>
-            {last ? 'See Result' : 'Next'}
-          </Button>
+    <div className="pc" aria-busy={busy}>
+      <fieldset disabled={busy} style={{ display: 'contents' }}>
+        {error && <p role="alert">{error}</p>}
+        <ol
+          className="pc-progress"
+          aria-label={`Round ${index + 1} of ${PERCEPTION_ROUNDS.length}`}
+        >
+          {PERCEPTION_ROUNDS.map((r, i) => (
+            <li
+              key={r}
+              className={
+                i < index || (i === index && stage === 'reveal')
+                  ? 'pc-step-done'
+                  : i === index
+                    ? 'pc-step-now'
+                    : ''
+              }
+            />
+          ))}
+        </ol>
+        <div className="pc-head">
+          <h2 className="text-headline">{TITLE[round]}</h2>
+          <span className="text-subhead text-muted tabular-nums">
+            {index + 1} / {PERCEPTION_ROUNDS.length}
+          </span>
         </div>
-      )}
+        {round === 'clock' && (
+          <ClockRound
+            key={round}
+            target={puzzle.clockMs}
+            stage={stage}
+            setStage={changeStage}
+            lockIn={lockIn}
+          />
+        )}
+        {round === 'color' && (
+          <ColorRound
+            key={round}
+            hue={puzzle.hue}
+            stage={stage}
+            setStage={changeStage}
+            lockIn={lockIn}
+          />
+        )}
+        {round === 'dot' && (
+          <DotRound
+            key={round}
+            dot={puzzle.dot}
+            stage={stage}
+            setStage={changeStage}
+            lockIn={lockIn}
+          />
+        )}
+        {round === 'pattern' && (
+          <PatternRound
+            key={round}
+            cells={puzzle.cells}
+            stage={stage}
+            setStage={changeStage}
+            lockIn={lockIn}
+          />
+        )}
+        {round === 'reaction' && (
+          <ReactionRound
+            key={round}
+            delay={puzzle.reactionDelayMs}
+            stage={stage}
+            setStage={changeStage}
+            lockIn={lockIn}
+          />
+        )}
+        {stage === 'reveal' && (
+          <div className="pc-reveal">
+            <p className="pc-score tabular-nums" role="status">
+              <span className="text-title1">{scores[index]}</span>
+              <span className="text-subhead text-muted"> / 100</span>
+            </p>
+            <Button fullWidth size="lg" onClick={next} autoFocus>
+              {last ? 'See Result' : 'Next'}
+            </Button>
+          </div>
+        )}
+      </fieldset>
     </div>
   );
 }
 
 interface RoundProps {
-  puzzle: PerceptionPuzzle;
   stage: Stage;
   setStage: (s: Stage) => void;
-  lockIn: (part: Partial<PerceptionAnswer>, points: number) => void;
+  lockIn: (part: Partial<PerceptionAnswer>) => void;
 }
 
 function StartButton({ onClick, children = 'Start' }: { onClick: () => void; children?: string }) {
@@ -175,7 +240,7 @@ function useShowFor(stage: Stage, ms: number, setStage: (s: Stage) => void) {
   }, [stage, ms, setStage]);
 }
 
-function ClockRound({ puzzle, target, stage, setStage, lockIn }: RoundProps & { target: number }) {
+function ClockRound({ target, stage, setStage, lockIn }: RoundProps & { target: number }) {
   const start = useRef(0);
   const [held, setHeld] = useState<number | null>(null);
   const holding = stage === 'show';
@@ -189,7 +254,7 @@ function ClockRound({ puzzle, target, stage, setStage, lockIn }: RoundProps & { 
     if (stage !== 'show') return;
     const ms = Math.min(30_000, Math.round(now() - start.current));
     setHeld(ms);
-    lockIn({ clockMs: ms }, scoreClock(puzzle, ms));
+    lockIn({ clockMs: ms });
   };
   const onKey = (e: ReactKeyboardEvent, isDown: boolean) => {
     if (e.key !== ' ' && e.key !== 'Enter') return;
@@ -199,7 +264,9 @@ function ClockRound({ puzzle, target, stage, setStage, lockIn }: RoundProps & { 
   };
   return (
     <>
-      <p className="pc-brief">Hold for {seconds} seconds</p>
+      <p className="pc-brief">
+        {stage === 'brief' ? 'Get Ready to Hold' : `Hold for ${seconds} seconds`}
+      </p>
       {stage === 'brief' ? (
         <StartButton onClick={() => setStage('answer')}>Ready</StartButton>
       ) : (
@@ -233,7 +300,7 @@ function ClockRound({ puzzle, target, stage, setStage, lockIn }: RoundProps & { 
   );
 }
 
-function ColorRound({ puzzle, hue, stage, setStage, lockIn }: RoundProps & { hue: number }) {
+function ColorRound({ hue, stage, setStage, lockIn }: RoundProps & { hue: number }) {
   const [pick, setPick] = useState((hue + 150 + (hue % 60)) % 360);
   useShowFor(stage, COLOR_SHOW_MS, setStage);
   return (
@@ -271,11 +338,7 @@ function ColorRound({ puzzle, hue, stage, setStage, lockIn }: RoundProps & { hue
             className="pc-hue"
             aria-label="Hue"
           />
-          <Button
-            fullWidth
-            size="lg"
-            onClick={() => lockIn({ hue: pick }, scoreColor(puzzle, pick))}
-          >
+          <Button fullWidth size="lg" onClick={() => lockIn({ hue: pick })}>
             Lock In
           </Button>
         </>
@@ -284,13 +347,7 @@ function ColorRound({ puzzle, hue, stage, setStage, lockIn }: RoundProps & { hue
   );
 }
 
-function DotRound({
-  puzzle,
-  dot,
-  stage,
-  setStage,
-  lockIn,
-}: RoundProps & { dot: [number, number] }) {
+function DotRound({ dot, stage, setStage, lockIn }: RoundProps & { dot: [number, number] }) {
   const [mark, setMark] = useState<[number, number] | null>(null);
   useShowFor(stage, DOT_SHOW_MS, setStage);
   const place = (e: ReactPointerEvent<HTMLDivElement>) => {
@@ -318,12 +375,7 @@ function DotRound({
       </div>
       {stage === 'brief' && <StartButton onClick={() => setStage('show')} />}
       {stage === 'answer' && (
-        <Button
-          fullWidth
-          size="lg"
-          disabled={!mark}
-          onClick={() => mark && lockIn({ dot: mark }, scoreDot(puzzle, mark))}
-        >
+        <Button fullWidth size="lg" disabled={!mark} onClick={() => mark && lockIn({ dot: mark })}>
           Lock In
         </Button>
       )}
@@ -331,13 +383,7 @@ function DotRound({
   );
 }
 
-function PatternRound({
-  puzzle,
-  cells,
-  stage,
-  setStage,
-  lockIn,
-}: RoundProps & { cells: number[] }) {
+function PatternRound({ cells, stage, setStage, lockIn }: RoundProps & { cells: number[] }) {
   const [picked, setPicked] = useState<number[]>([]);
   useShowFor(stage, PATTERN_SHOW_MS, setStage);
   const target = useMemo(() => new Set(cells), [cells]);
@@ -392,7 +438,7 @@ function PatternRound({
           fullWidth
           size="lg"
           disabled={picked.length !== PATTERN_CELLS}
-          onClick={() => lockIn({ cells: picked }, scorePattern(puzzle, picked))}
+          onClick={() => lockIn({ cells: picked })}
         >
           Lock In
         </Button>
@@ -418,7 +464,7 @@ function ReactionRound({ delay, stage, setStage, lockIn }: RoundProps & { delay:
     const ms = go ? Math.min(3000, Math.round(now() - signalAt.current)) : -1;
     setResult(ms);
     setGo(false);
-    lockIn({ reactionMs: ms }, scoreReaction(ms));
+    lockIn({ reactionMs: ms });
   };
   return (
     <>

@@ -317,6 +317,47 @@ self-contained guarded block. Feature migrations run in ascending order 11–17,
 
 ### Daily Games
 
+Connections and Perception also use schema v17 `game_progress`. Generic
+`POST /api/games/:game/results` submissions for both return 405 after access checks.
+Results are written by the Worker transaction that finishes the game.
+
+- Connections `GET /api/games/connections/today` returns `ConnectionsDay`:
+  `{date,access,words,guesses,outcomes,outcome,mistakes,solved,finished,won,groups}`.
+  Words are empty while locked; only solved groups are revealed before completion;
+  `groups` is null until finished. `POST /api/games/connections/guess` takes
+  `{guess:string[4]}` and returns the same shape. It atomically appends one guess,
+  validates against the board and previous guesses (400, not counted), requires
+  access (403), and rejects completion replay (409). Completion uses existing scoring.
+  The old whole-log `POST /api/games/connections/check` contract remains solely
+  as an explicit 405 retirement response, never a stateless replay oracle.
+  Shuffle changes presentation only; localStorage never owns progress.
+- Perception `GET /api/games/perception/today` returns `PerceptionDay`:
+  `{date,access,round,scores,done}`. Round is the next zero-based index (0..4, 5 done);
+  score keys are only completed rounds. **A resume read consumes any started,
+  unanswered round as zero**, advances to the next, and finalizes if it was round 5.
+  Repeated reads do not skip unstarted rounds. The client reads on mount, not background
+  focus/reconnect, and resumes after uncertain network errors.
+- `POST /api/games/perception/start` takes `{round}` and returns
+  `PerceptionStart = PerceptionDay & {stimulus}`. Only the current round's stimulus is
+  returned: `{clockMs}`, `{hue}`, `{dot}`, `{cells}`, or `{reactionDelayMs}`.
+  The start timestamp is committed before responding; only then does the client show it.
+  Repeated starts, out-of-order rounds, answers without a start and replay return 409.
+- `POST /api/games/perception/answer` takes `{round,answer}`, with only that round's
+  field (`clockMs/hue/dot/cells/reactionMs`), and returns PerceptionDay. Invalid fields
+  return 400 without changing progress. Both writes require access (403). Scores are
+  server-computed. Round 5 atomically writes one result. Existing completed results cannot
+  be replayed. Leaving before a round starts has no penalty.
+- Perception generation is Worker-only, with unchanged daily targets. The web receives
+  no future targets. A build guard excludes its private generator marker and checks web
+  import boundaries. Current-round stimuli remain inspectable while shown, as in any
+  browser memory game; this is not tamper-proof proctoring.
+- Timing uses client measurements bounded by server elapsed time since start. Clock
+  hold cannot exceed elapsed +1000ms. A non-false-start reaction cannot arrive before
+  its signal delay, nor claim more than elapsed minus delay +1000ms. A false start (-1)
+  scores zero. The upper slack tolerates scheduling and precision; network latency
+  expands the server window rather than penalizing honest play. These are plausibility
+  checks, not proof of honest timing. Mock mode uses artificial, non-production targets.
+
 Schema v17 adds generic `game_progress(user_id,game,date,state_json,updated_at)` with
 primary key `(user_id,game,date)` for server-owned in-progress games. Account removal
 deletes the user's progress. Word Guess stores its ordered guesses here, never in a
@@ -476,11 +517,11 @@ malformed or implausible payloads return 400.
   client-supplied board. The server validates against the answer and accepted-guess lists,
   persists each guess, and finishes on today's answer or six misses. Score is `7 − tries`
   when solved, else 0. Stored result payload `{guesses,solved,tries,answer,marks}`.
-- `perception` takes `{answer:{clockMs,hue,dot,cells,reactionMs}}` (hold 0–30000 ms, hue
+- `perception` takes each round's answer through the dedicated endpoints above (hold 0–30000 ms, hue
   0–359, dot 0–1000 per axis, seven distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
   for early). Five rounds score 0–100 each against the daily puzzle; reactions under
   100 ms score 0. Score 0–500; stored `{answer,scores}`.
-- `connections` takes `{guesses}`: the full ordered log of 1–8 four-word guesses. Puzzles
+- `connections` takes one `{guess}` at a time; the Worker owns the ordered log of up to eight four-word guesses. Puzzles
   (≥90 original, hard-day difficulty: four groups of four, easiest to hardest, the hardest
   group always wordplay, at least three red herrings each across two or more groups, unique
   category names, and exactly one valid partition even with every herring allowed in its
@@ -488,12 +529,13 @@ malformed or implausible payloads return 400.
   `worker/src/games/connectionsPuzzles.ts`; a fixed shuffle is cycled by day number, so a
   puzzle returns only after every other one (no repeat within 60 days). The client gets
   words from `GET /api/games/connections/today` (`ConnectionsDay`, empty while locked) and
-  checks each guess with `POST /api/games/connections/check` `{guesses}` (gated, stateless
-  replay of the on-device log), which returns `ConnectionsCheck`: last outcome
+  appends each guess with `POST /api/games/connections/guess` `{guess}` (gated,
+  persisted server-side), which returns `ConnectionsDay`: last outcome
   (`correct`/`one_away`/`wrong`), mistakes, solved groups only, and all groups once finished.
   Logs with unknown, repeated or solved words, repeated guesses, or guesses after the board
-  ended return 400. Final submit replays the log and needs a finished board (four solves or
-  four mistakes). Score: solved boards `8 − mistakes` (8–5), unsolved boards the solved group
+  ended return 400 (finished boards reject further guesses with 409). The finishing guess
+  writes the result server-side (four solves or four mistakes).
+  Score: solved boards `8 − mistakes` (8–5), unsolved boards the solved group
   count (0–3), so every win outranks every loss. Stored `{guesses,solved,mistakes,won,grid,groups}`.
 
 ### Tests, recaps, and challenges

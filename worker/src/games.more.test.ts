@@ -5,9 +5,9 @@ import type { Env } from './index';
 import type { GameDayLeaderboard, GameResult, GamesToday } from '../../shared/types';
 import { sha256 } from './auth/crypto';
 import { dailyAnswer } from './games/wordGuess';
-import { perceptionPuzzle } from '../../shared/games/perception';
+import { perceptionPuzzle } from './games/perception';
 import { connectionsPuzzleFor } from './games/connectionsPuzzles';
-import type { ConnectionsCheck, ConnectionsDay } from '../../shared/types';
+import type { ConnectionsDay, PerceptionDay } from '../../shared/types';
 
 const bindings = env as unknown as Env;
 const NOW = '2026-03-18T18:00:00Z';
@@ -19,12 +19,12 @@ function sql<T>(callback: (s: DurableObjectStorage) => T | Promise<T>) {
     callback(state.storage),
   );
 }
-function api(path: string, method = 'GET', body?: unknown) {
+function api(path: string, method = 'GET', body?: unknown, now = NOW) {
   return SELF.fetch('https://oyo.test/api' + path, {
     method,
     headers: {
       Cookie: `oyo_session=${TOKEN}`,
-      'X-OYO-Test-Now': NOW,
+      'X-OYO-Test-Now': now,
       'X-OYO-CSRF': '1',
       'Content-Type': 'application/json',
     },
@@ -68,7 +68,7 @@ it('registers Word Guess, Perception and Connections behind the OYO gate', async
   expect((await submit('wordguess', { guesses: [dailyAnswer(DATE)] })).status).toBe(403);
   const day = (await (await api('/games/connections/today')).json()) as ConnectionsDay;
   expect(day.words).toEqual([]);
-  expect((await api('/games/connections/check', 'POST', { guesses: [] })).status).toBe(403);
+  expect((await api('/games/connections/guess', 'POST', { guess: [] })).status).toBe(403);
 });
 
 it('keeps Word Guess progress server-side, hides the answer and atomically awards a win', async () => {
@@ -184,61 +184,224 @@ it('resumes legacy completed Word Guess results without progress and prevents re
   expect((await api('/games/wordguess/guess', 'POST', { guess: answer })).status).toBe(409);
 });
 
-it('re-scores Perception answers from the daily puzzle', async () => {
+const at = (ms: number) => new Date(Date.parse(NOW) + ms).toISOString();
+
+it('requires ordered Perception starts, hides future targets and validates elapsed time', async () => {
+  await unlock();
+  expect(await (await api('/games/perception/today')).json()).toMatchObject({
+    round: 0,
+    scores: {},
+    done: false,
+  });
+  expect((await api('/games/perception/start', 'POST', { round: 1 })).status).toBe(409);
+  expect(
+    (await api('/games/perception/answer', 'POST', { round: 0, answer: { clockMs: 100 } })).status,
+  ).toBe(409);
+  const start = await api('/games/perception/start', 'POST', { round: 0 });
+  expect(await start.json()).toMatchObject({
+    round: 0,
+    stimulus: { clockMs: perceptionPuzzle(DATE).clockMs },
+  });
+  expect((await api('/games/perception/start', 'POST', { round: 0 })).status).toBe(409);
+  expect(
+    (
+      await api('/games/perception/answer', 'POST', {
+        round: 0,
+        answer: { clockMs: perceptionPuzzle(DATE).clockMs },
+      })
+    ).status,
+  ).toBe(400);
+  expect(
+    (
+      await api(
+        '/games/perception/answer',
+        'POST',
+        { round: 0, answer: { clockMs: 31000 } },
+        at(10000),
+      )
+    ).status,
+  ).toBe(400);
+  const answer = await api(
+    '/games/perception/answer',
+    'POST',
+    { round: 0, answer: { clockMs: perceptionPuzzle(DATE).clockMs } },
+    at(10000),
+  );
+  expect(await answer.json()).toMatchObject({ round: 1, scores: { clock: 100 }, done: false });
+  expect(
+    (
+      await api(
+        '/games/perception/answer',
+        'POST',
+        { round: 0, answer: { clockMs: 100 } },
+        at(10001),
+      )
+    ).status,
+  ).toBe(409);
+  const resumed = await (await api('/games/perception/today')).json<PerceptionDay>();
+  expect(resumed).toMatchObject({ round: 1, scores: { clock: 100 } });
+  expect(JSON.stringify(resumed)).not.toMatch(/clockMs|hue|cells|reactionDelay/);
+  expect((await submit('perception', { answer: {} })).status).toBe(405);
+  expect(await (await api('/games/perception/results/me')).json()).toBeNull();
+});
+
+it('scores all five Perception rounds and writes exactly one immutable result', async () => {
   await unlock();
   const p = perceptionPuzzle(DATE);
-  const answer = { clockMs: p.clockMs, hue: p.hue, dot: p.dot, cells: p.cells, reactionMs: 150 };
-  expect((await submit('perception', { answer: { ...answer, hue: 400 } })).status).toBe(400);
-  expect((await submit('perception', { answer: { ...answer, cells: [1, 1] } })).status).toBe(400);
-  expect((await submit('perception', 500)).status).toBe(400);
-  const res = await submit('perception', { answer });
-  expect(res.status).toBe(201);
-  const result = (await res.json()) as GameResult & { payload: { scores: Record<string, number> } };
+  const fields = ['clockMs', 'hue', 'dot', 'cells', 'reactionMs'] as const;
+  const values = [p.clockMs, p.hue, p.dot, p.cells, 150];
+  for (let round = 0; round < 5; round++) {
+    const started = await (
+      await api('/games/perception/start', 'POST', { round }, at(round * 60000))
+    ).json<{ stimulus: object }>();
+    expect(Object.keys(started.stimulus)).toEqual([
+      round === 4 ? 'reactionDelayMs' : fields[round],
+    ]);
+    if (round === 4) {
+      expect(
+        (
+          await api(
+            '/games/perception/answer',
+            'POST',
+            { round, answer: { reactionMs: 150 } },
+            at(round * 60000 + 10),
+          )
+        ).status,
+      ).toBe(400);
+      expect(
+        (
+          await api(
+            '/games/perception/answer',
+            'POST',
+            { round, answer: { reactionMs: 3000 } },
+            at(round * 60000 + p.reactionDelayMs),
+          )
+        ).status,
+      ).toBe(400);
+    }
+    const res = await api(
+      '/games/perception/answer',
+      'POST',
+      { round, answer: { [fields[round]]: values[round] } },
+      at(round * 60000 + 10000),
+    );
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ round: round + 1, done: round === 4 });
+  }
+  const result = await (await api('/games/perception/results/me')).json<GameResult>();
   expect(result.score).toBe(500);
-  expect(result.payload.scores).toEqual({
-    clock: 100,
-    color: 100,
-    dot: 100,
-    pattern: 100,
-    reaction: 100,
+  expect((await api('/games/perception/start', 'POST', { round: 4 })).status).toBe(409);
+  expect(
+    (await api('/games/perception/answer', 'POST', { round: 4, answer: { reactionMs: 150 } }))
+      .status,
+  ).toBe(409);
+  await api('/games/perception/today');
+  await sql((s) =>
+    expect(
+      s.sql.exec("SELECT * FROM game_results WHERE game_id='perception'").toArray(),
+    ).toHaveLength(1),
+  );
+});
+
+it('abandons each started Perception round as zero on resume, without skipping unstarted rounds', async () => {
+  await unlock();
+  for (let round = 0; round < 5; round++) {
+    for (let read = 0; read < 2; read++)
+      expect(await (await api('/games/perception/today')).json()).toMatchObject({ round });
+    expect((await api('/games/perception/start', 'POST', { round })).status).toBe(200);
+    const day = await (await api('/games/perception/today')).json<PerceptionDay>();
+    expect(day.round).toBe(round + 1);
+    expect(Object.values(day.scores)).toEqual(Array(round + 1).fill(0));
+    expect((await api('/games/perception/answer', 'POST', { round, answer: {} })).status).toBe(409);
+  }
+  expect(await (await api('/games/perception/results/me')).json()).toMatchObject({ score: 0 });
+  expect(await (await api('/games/perception/today')).json()).toMatchObject({
+    round: 5,
+    done: true,
   });
 });
 
-it('never ships Connections groups before they are solved', async () => {
-  await unlock();
-  const day = (await (await api('/games/connections/today')).json()) as ConnectionsDay;
-  const groups = connectionsPuzzleFor(DATE).groups.map((g) => g.words);
-  expect([...day.words].sort()).toEqual(groups.flat().sort());
-  expect(JSON.stringify(day)).not.toContain(connectionsPuzzleFor(DATE).groups[0].name);
-  const check = (guesses: string[][]) => api('/games/connections/check', 'POST', { guesses });
-  const [a, b, c, d] = groups;
-  const near = (await (await check([[a[0], a[1], a[2], b[0]]])).json()) as ConnectionsCheck;
-  expect(near).toMatchObject({ outcome: 'one_away', mistakes: 1, solved: [], groups: null });
-  const hit = (await (await check([[a[0], a[1], a[2], b[0]], a])).json()) as ConnectionsCheck;
-  expect(hit).toMatchObject({ outcome: 'correct', finished: false, groups: null });
-  expect(hit.solved).toEqual([{ ...connectionsPuzzleFor(DATE).groups[0] }]);
-  expect((await check([a, a])).status).toBe(400);
-  expect((await check([['Nope', a[0], a[1], a[2]]])).status).toBe(400);
-  const done = (await (await check([a, b, c, d])).json()) as ConnectionsCheck;
-  expect(done).toMatchObject({ outcome: 'correct', finished: true, won: true });
-  expect(done.groups).toHaveLength(4);
+it('gates Perception starts and answers', async () => {
+  expect((await api('/games/perception/start', 'POST', { round: 0 })).status).toBe(403);
+  expect(
+    (await api('/games/perception/answer', 'POST', { round: 0, answer: { clockMs: 0 } })).status,
+  ).toBe(403);
+  expect(await (await api('/games/perception/today')).json()).toMatchObject({
+    scores: {},
+    access: { unlocked: false },
+  });
 });
 
-it('re-scores the full Connections guess log and rejects forged results', async () => {
+it('persists Connections guesses, rejects invalid guesses without counting, and finishes once', async () => {
   await unlock();
-  const [a, b, c, d] = connectionsPuzzleFor(DATE).groups.map((g) => g.words);
-  const miss = [a[0], a[1], b[0], b[1]];
-  expect((await submit('connections', { guesses: [a, b, c] })).status).toBe(400);
-  expect((await submit('connections', { guesses: [a, b, c, d, miss] })).status).toBe(400);
-  expect((await submit('connections', { won: true, mistakes: 0 })).status).toBe(400);
-  const yesterday = connectionsPuzzleFor('2026-03-17').groups.map((g) => g.words);
-  expect((await submit('connections', { guesses: yesterday })).status).toBe(400);
-  const res = await submit('connections', { guesses: [miss, a, b, c, d], score: 8 });
-  expect(res.status).toBe(201);
-  const result = (await res.json()) as GameResult & { payload: { mistakes: number } };
+  const puzzle = connectionsPuzzleFor(DATE),
+    [a, b, c, d] = puzzle.groups.map((g) => g.words);
+  const guess = (value: string[]) => api('/games/connections/guess', 'POST', { guess: value });
+  const initial = await (await api('/games/connections/today')).json<ConnectionsDay>();
+  expect(initial.guesses).toEqual([]);
+  expect(initial.groups).toBeNull();
+  expect(JSON.stringify(initial)).not.toContain(puzzle.groups[0].name);
+  expect((await api('/games/connections/check', 'POST', { guesses: [a, b, c, d] })).status).toBe(
+    405,
+  );
+  const near = [a[0], a[1], a[2], b[0]];
+  expect(await (await guess(near)).json()).toMatchObject({
+    outcome: 'one_away',
+    mistakes: 1,
+    groups: null,
+  });
+  expect((await guess([...near].reverse())).status).toBe(400);
+  expect((await guess(['Nope', a[0], a[1], a[2]])).status).toBe(400);
+  expect((await guess([a[0], a[0], a[1], a[2]])).status).toBe(400);
+  expect(await (await api('/games/connections/today')).json()).toMatchObject({
+    guesses: [near],
+    outcomes: ['one_away'],
+    mistakes: 1,
+  });
+  expect(await (await guess(a)).json()).toMatchObject({ solved: [puzzle.groups[0]], groups: null });
+  expect((await submit('connections', { guesses: [a, b, c, d] })).status).toBe(405);
+  await guess(b);
+  await guess(c);
+  const replies = await Promise.all([guess(d), guess(d)]);
+  expect(replies.map((r) => r.status).sort()).toEqual([200, 409]);
+  expect(await (await api('/games/connections/today')).json()).toMatchObject({
+    finished: true,
+    won: true,
+    groups: puzzle.groups,
+    mistakes: 1,
+  });
+  const result = await (await api('/games/connections/results/me')).json<GameResult>();
   expect(result.score).toBe(7);
-  expect(result.payload).toMatchObject({ mistakes: 1, won: true, solved: [0, 1, 2, 3] });
-  expect((await submit('connections', { guesses: [a, b, c, d] })).status).toBe(409);
-  const board = (await (await api('/games/connections/leaderboard')).json()) as GameDayLeaderboard;
-  expect(board.rows).toMatchObject([{ rank: 1, score: 7, me: true }]);
+  expect((await guess(a)).status).toBe(409);
+  await sql((s) =>
+    expect(
+      s.sql.exec("SELECT * FROM game_results WHERE game_id='connections'").toArray(),
+    ).toHaveLength(1),
+  );
+});
+
+it('cannot reset a lost Connections board after its groups are revealed', async () => {
+  await unlock();
+  const [a, b] = connectionsPuzzleFor(DATE).groups.map((g) => g.words);
+  for (const guess of [
+    [a[0], a[1], b[0], b[1]],
+    [a[0], a[2], b[0], b[2]],
+    [a[0], a[3], b[0], b[3]],
+    [a[1], a[2], b[1], b[2]],
+  ])
+    expect((await api('/games/connections/guess', 'POST', { guess })).status).toBe(200);
+  expect(await (await api('/games/connections/today')).json()).toMatchObject({
+    finished: true,
+    won: false,
+    mistakes: 4,
+  });
+  expect((await api('/games/connections/guess', 'POST', { guess: a })).status).toBe(409);
+  expect(
+    (
+      await submit('connections', {
+        guesses: connectionsPuzzleFor(DATE).groups.map((g) => g.words),
+      })
+    ).status,
+  ).toBe(405);
+  expect(await (await api('/games/connections/results/me')).json()).toMatchObject({ score: 0 });
 });

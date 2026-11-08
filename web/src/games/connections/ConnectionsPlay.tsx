@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { GROUP_SIZE, MAX_GUESSES, MAX_MISTAKES } from '../../../../shared/games/connections';
-import type { ConnectionsCheck, ConnectionsRevealedGroup } from '../../../../shared/types';
-import { api, ApiClientError } from '../../lib/api';
+import { GROUP_SIZE, MAX_MISTAKES } from '../../../../shared/games/connections';
+import type { ConnectionsDay, ConnectionsRevealedGroup } from '../../../../shared/types';
+import { api } from '../../lib/api';
 import { qk } from '../../lib/queries';
 import { Button } from '../../components/ui/Button';
 import type { PlayProps } from '../DailyGameFrame';
@@ -16,35 +16,10 @@ interface Draft {
   order: string[];
 }
 
-const draftKey = (date: string) => `oyo:games:connections:${date}`;
 const guessKey = (guess: readonly string[]) => [...guess].sort().join('\n');
 /** Longest unbreakable run, so tiles shrink type instead of splitting a word. */
 const fitLength = (word: string) => Math.max(6, ...word.split(' ').map((part) => part.length));
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function loadDraft(date: string, words: string[]): Draft {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(draftKey(date)) ?? 'null') as Partial<Draft>;
-    const known = new Set(words);
-    const order =
-      Array.isArray(parsed?.order) &&
-      parsed.order.length === words.length &&
-      parsed.order.every((w) => known.has(w))
-        ? parsed.order
-        : words;
-    const guesses = Array.isArray(parsed?.guesses)
-      ? parsed.guesses
-          .filter(
-            (g): g is string[] =>
-              Array.isArray(g) && g.length === GROUP_SIZE && g.every((w) => known.has(w)),
-          )
-          .slice(0, MAX_GUESSES)
-      : [];
-    return { guesses, order };
-  } catch {
-    return { guesses: [], order: words };
-  }
-}
 
 function shuffled(words: string[]) {
   const next = [...words];
@@ -72,49 +47,26 @@ export function ConnectionsPlay({ date, onComplete }: PlayProps<ConnectionsPaylo
   });
   const words = day.data?.date === date ? day.data.words : null;
   const [draft, setDraft] = useState<Draft | null>(null);
-  const [state, setState] = useState<ConnectionsCheck | null>(null);
-  const [restoring, setRestoring] = useState(false);
+  const [state, setState] = useState<ConnectionsDay | null>(null);
   const [selected, setSelected] = useState<string[]>([]);
   const [message, setMessage] = useState('');
   const [shake, setShake] = useState(false);
   const [checking, setChecking] = useState(false);
   const finished = useRef(false);
 
-  const check = useCallback(
-    (guesses: string[][]) => api('POST /api/games/connections/check', { body: { guesses } }),
-    [],
-  );
-
   useEffect(() => {
-    if (!words || draft) return;
-    const loaded = loadDraft(date, words);
-    setDraft(loaded);
-    if (!loaded.guesses.length) return;
-    setRestoring(true);
-    check(loaded.guesses)
-      .then(setState)
-      .catch((error) => {
-        if (error instanceof ApiClientError && error.status === 400)
-          setDraft({ guesses: [], order: words });
-        else setMessage('Could Not Restore Board');
-      })
-      .finally(() => setRestoring(false));
-  }, [check, date, draft, words]);
-
-  useEffect(() => {
-    if (!draft) return;
-    try {
-      localStorage.setItem(draftKey(date), JSON.stringify(draft));
-    } catch {
-      /* storage full or blocked; progress stays in memory */
-    }
-  }, [date, draft]);
+    if (!day.data || draft) return;
+    setDraft({ guesses: day.data.guesses, order: day.data.words });
+    setState(day.data);
+  }, [day.data, draft]);
 
   useEffect(() => {
     if (!state?.finished || !draft || finished.current) return;
-    finished.current = true;
     const t = window.setTimeout(
-      () => onComplete({ guesses: draft.guesses }),
+      () => {
+        finished.current = true;
+        onComplete({ guesses: draft.guesses });
+      },
       reducedMotion() ? 600 : 2200,
     );
     return () => window.clearTimeout(t);
@@ -127,7 +79,7 @@ export function ConnectionsPlay({ date, onComplete }: PlayProps<ConnectionsPaylo
     window.setTimeout(() => setShake(false), 400);
   }, []);
 
-  if (!words || !draft || restoring)
+  if (!words || !draft)
     return (
       <div className="cx-loading" role="status">
         {day.isError ? (
@@ -158,11 +110,10 @@ export function ConnectionsPlay({ date, onComplete }: PlayProps<ConnectionsPaylo
     if (!draft || selected.length !== GROUP_SIZE || done || checking) return;
     if (draft.guesses.some((g) => guessKey(g) === guessKey(selected)))
       return flag('Already Guessed');
-    const guesses = [...draft.guesses, selected];
     setChecking(true);
     try {
-      const result = await check(guesses);
-      setDraft({ ...draft, guesses });
+      const result = await api('POST /api/games/connections/guess', { body: { guess: selected } });
+      setDraft({ ...draft, guesses: result.guesses });
       setState(result);
       if (result.outcome === 'correct') {
         setSelected([]);
@@ -171,8 +122,13 @@ export function ConnectionsPlay({ date, onComplete }: PlayProps<ConnectionsPaylo
         setSelected([]);
         setMessage('');
       } else flag(result.outcome === 'one_away' ? 'One Away' : '');
-    } catch {
-      flag('Could Not Check Guess', false);
+    } catch (error) {
+      flag(error instanceof Error ? error.message : 'Could Not Check Guess', false);
+      const resumed = await day.refetch();
+      if (resumed.data) {
+        setState(resumed.data);
+        setDraft({ ...draft, guesses: resumed.data.guesses });
+      }
     } finally {
       setChecking(false);
     }

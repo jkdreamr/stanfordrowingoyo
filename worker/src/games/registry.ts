@@ -1,6 +1,5 @@
 import type { GameScoreDirection } from '../../../shared/types';
 import type { Context } from '../context';
-import { connections, perception } from './more';
 
 export interface ServerGame {
   id: string;
@@ -10,6 +9,6 @@ export interface ServerGame {
 export const GAMES: Record<string, ServerGame> = {
   dive: { id: 'dive', direction: 'higher' },
   wordguess: { id: 'wordguess', direction: 'higher' },
-  perception,
-  connections,
+  perception: { id: 'perception', direction: 'higher' },
+  connections: { id: 'connections', direction: 'higher' },
 };

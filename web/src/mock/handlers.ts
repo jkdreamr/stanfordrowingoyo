@@ -49,7 +49,14 @@ import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import {
   parsePerceptionAnswer,
   perceptionTotal,
-  scorePerception,
+  PERCEPTION_ROUNDS,
+  scoreClock,
+  scoreColor,
+  scoreDot,
+  scorePattern,
+  scoreReaction,
+  type PerceptionScores,
+  type PerceptionAnswer,
 } from '../../../shared/games/perception';
 import {
   boardWords,
@@ -59,10 +66,7 @@ import {
 } from '../../../shared/games/connections';
 
 type MockGameScore = (payload: unknown, date: string) => { score: number; payload: unknown } | null;
-const field = (payload: unknown, key: string) =>
-  payload && typeof payload === 'object' ? (payload as Record<string, unknown>)[key] : undefined;
 let mockGuesses: Set<string> | null = null;
-// Mock mode stands in one fixed board; real puzzles stay in the Worker.
 const MOCK_CONNECTIONS = parsePuzzle([
   'Boat Classes: Eight, Quad, Pair, Single',
   'Erg Readouts: Rate, Watts, Meters, Time',
@@ -77,23 +81,15 @@ const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
   dive: null,
   wordguess: null,
-  perception: (payload, date) => {
-    const answer = parsePerceptionAnswer(field(payload, 'answer'));
-    if (!answer) return null;
-    const scores = scorePerception(date, answer);
-    return { score: perceptionTotal(scores), payload: { answer, scores } };
-  },
-  connections: (payload, date) => {
-    const puzzle = connectionsPuzzleFor(date);
-    const guesses = field(payload, 'guesses');
-    const replay = replayConnections(puzzle, guesses);
-    if (!replay?.finished) return null;
-    const { solved, mistakes, won, grid } = replay;
-    return {
-      score: connectionsScore(replay),
-      payload: { guesses, solved, mistakes, won, grid, groups: puzzle.groups },
-    };
-  },
+  perception: null,
+  connections: null,
+};
+const MOCK_PERCEPTION = {
+  clockMs: 4000,
+  hue: 200,
+  dot: [500, 500] as [number, number],
+  cells: [0, 1, 2, 3, 4, 5, 6],
+  reactionDelayMs: 2000,
 };
 class MockError extends Error {
   constructor(
@@ -149,6 +145,15 @@ export function createMockApi({
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
   const wordProgress = new Map<string, string[]>();
+  const connectionProgress = new Map<string, string[][]>();
+  const perceptionProgress = new Map<
+    string,
+    {
+      scores: Partial<PerceptionScores>;
+      answer: Partial<PerceptionAnswer>;
+      active: { round: number; at: number } | null;
+    }
+  >();
   const ergTests: ErgTest[] = state.users.flatMap((user) =>
     (['2k', '6k'] as const).flatMap((kind) => {
       const split = user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
@@ -982,19 +987,112 @@ export function createMockApi({
             score: 0,
             reveal: user.role === 'rower' ? null : [],
           });
-        if (gameId === 'connections' && parts[4] === 'today' && method === 'GET')
+        const addResult = (score: number, payload: unknown) => {
+          const stamp = now().toISOString();
+          gameResults.push({
+            game_id: gameId,
+            date,
+            user_id: user.id,
+            score,
+            payload,
+            created_at: stamp,
+            updated_at: stamp,
+          });
+        };
+        if (gameId === 'perception' && ['today', 'start', 'answer'].includes(parts[4])) {
+          const key = `${user.id}:${date}`;
+          const p = perceptionProgress.get(key) ?? { scores: {}, answer: {}, active: null };
+          perceptionProgress.set(key, p);
+          if (method === 'GET' && parts[4] === 'today' && p.active) {
+            p.scores[PERCEPTION_ROUNDS[p.active.round]] = 0;
+            p.active = null;
+          }
+          const round = Object.keys(p.scores).length;
+          if (method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (mine(date)) fail(409, 'Already played today.');
+            if (body.round !== round) fail(409, 'Play rounds in order.');
+            if (parts[4] === 'start') {
+              if (p.active) fail(409, 'Already started.');
+              p.active = { round, at: now().getTime() };
+            } else {
+              if (!p.active) fail(409, 'Start this round first.');
+              const field = ['clockMs', 'hue', 'dot', 'cells', 'reactionMs'][round];
+              const answer = parsePerceptionAnswer({
+                clockMs: 0,
+                hue: 0,
+                dot: [0, 0],
+                cells: [0, 1, 2, 3, 4, 5, 6],
+                reactionMs: -1,
+                [field]: (body.answer as Record<string, unknown>)?.[field],
+              });
+              if (!answer) fail(400, 'Invalid round answer.');
+              const elapsed = now().getTime() - p.active.at;
+              if (
+                (round === 0 && answer.clockMs > elapsed + 1000) ||
+                (round === 4 &&
+                  answer.reactionMs >= 0 &&
+                  (elapsed < MOCK_PERCEPTION.reactionDelayMs ||
+                    answer.reactionMs > elapsed - MOCK_PERCEPTION.reactionDelayMs + 1000))
+              )
+                fail(400, 'Timing is not plausible.');
+              const scores = {
+                clock: scoreClock(MOCK_PERCEPTION, answer.clockMs),
+                color: scoreColor(MOCK_PERCEPTION, answer.hue),
+                dot: scoreDot(MOCK_PERCEPTION, answer.dot),
+                pattern: scorePattern(MOCK_PERCEPTION, answer.cells),
+                reaction: scoreReaction(answer.reactionMs),
+              };
+              p.scores[PERCEPTION_ROUNDS[round]] = scores[PERCEPTION_ROUNDS[round]];
+              Object.assign(p.answer, { [field]: answer[field as keyof PerceptionAnswer] });
+              p.active = null;
+            }
+          }
+          const done = Object.keys(p.scores).length === 5;
+          if (done && !mine(date))
+            addResult(perceptionTotal(p.scores as PerceptionScores), {
+              answer: p.answer,
+              scores: p.scores,
+            });
+          const stimuli = [
+            { clockMs: MOCK_PERCEPTION.clockMs },
+            { hue: MOCK_PERCEPTION.hue },
+            { dot: MOCK_PERCEPTION.dot },
+            { cells: MOCK_PERCEPTION.cells },
+            { reactionDelayMs: MOCK_PERCEPTION.reactionDelayMs },
+          ];
           return json({
             date,
             access,
-            words: access.unlocked ? boardWords(date, connectionsPuzzleFor(date)) : [],
+            round: Object.keys(p.scores).length,
+            scores: p.scores,
+            done,
+            ...(parts[4] === 'start' ? { stimulus: stimuli[round] } : {}),
           });
-        if (gameId === 'connections' && parts[4] === 'check' && method === 'POST') {
-          if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+        }
+        if (gameId === 'connections' && ['today', 'guess', 'check'].includes(parts[4])) {
+          if (parts[4] === 'check') fail(405, 'Use the single-guess endpoint.');
+          const key = `${user.id}:${date}`;
+          const guesses = connectionProgress.get(key) ?? [];
           const puzzle = connectionsPuzzleFor(date);
-          const replay = replayConnections(puzzle, body.guesses);
-          if (!replay?.outcomes.length) fail(400, 'Guesses do not fit today’s board.');
+          if (parts[4] === 'guess' && method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (mine(date)) fail(409, 'Already played today.');
+            if (!replayConnections(puzzle, [...guesses, body.guess]))
+              fail(400, 'Repeated guess or words do not fit today’s board.');
+            guesses.push(body.guess as string[]);
+            connectionProgress.set(key, guesses);
+          }
+          const replay = replayConnections(puzzle, guesses)!;
+          if (replay.finished && !mine(date))
+            addResult(connectionsScore(replay), { ...replay, guesses, groups: puzzle.groups });
           return json({
-            outcome: replay.outcomes.at(-1),
+            date,
+            access,
+            words: access.unlocked ? boardWords(date, puzzle) : [],
+            guesses,
+            outcomes: replay.outcomes,
+            outcome: replay.outcomes.at(-1) ?? null,
             mistakes: replay.mistakes,
             finished: replay.finished,
             won: replay.won,

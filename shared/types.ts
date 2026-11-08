@@ -1,4 +1,5 @@
 import type { DiveTier } from './games/dive';
+import type { PerceptionScores, PerceptionPuzzle, PerceptionAnswer } from './games/perception';
 import type { Mark } from './games/wordGuess';
 
 export type Modality = 'erg' | 'bike' | 'run';
@@ -529,7 +530,10 @@ export interface DiveDay {
   result: GameResult | null;
   reveal: DiveReveal[] | null;
 }
-export interface ConnectionsDay {
+export interface ConnectionsDay extends Omit<ConnectionsCheck, 'outcome'> {
+  guesses: string[][];
+  outcomes: ConnectionsCheck['outcome'][];
+  outcome: ConnectionsCheck['outcome'] | null;
   date: string;
   access: GameAccess;
   /** The day's 16 words in shared starting order; empty while locked. */
@@ -556,6 +560,23 @@ export interface GameAccess {
   date: string;
   unlocked: boolean;
   reason: 'staff' | 'workout' | 'rest_day' | 'locked';
+}
+export interface PerceptionDay {
+  date: string;
+  access: GameAccess;
+  /** Next zero-based round, or 5 when done. Omitted score keys are unplayed. */
+  round: number;
+  scores: Partial<PerceptionScores>;
+  done: boolean;
+}
+export type PerceptionStimulus =
+  | Pick<PerceptionPuzzle, 'clockMs'>
+  | Pick<PerceptionPuzzle, 'hue'>
+  | Pick<PerceptionPuzzle, 'dot'>
+  | Pick<PerceptionPuzzle, 'cells'>
+  | Pick<PerceptionPuzzle, 'reactionDelayMs'>;
+export interface PerceptionStart extends PerceptionDay {
+  stimulus: PerceptionStimulus;
 }
 export interface WordGuessDay {
   date: string;
@@ -672,9 +693,17 @@ export interface Api {
     { date: string; prompt_index: number; normalized: string; hidden: boolean },
     DiveReveal
   >;
+  'GET /api/games/perception/today': Endpoint<void, PerceptionDay>;
+  'POST /api/games/perception/start': Endpoint<{ round: number }, PerceptionStart>;
+  'POST /api/games/perception/answer': Endpoint<
+    { round: number; answer: Partial<PerceptionAnswer> },
+    PerceptionDay
+  >;
   'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;
   'GET /api/games/wordguess/today': Endpoint<void, WordGuessDay>;
   'POST /api/games/wordguess/guess': Endpoint<{ guess: string }, WordGuessDay>;
+  'POST /api/games/connections/guess': Endpoint<{ guess: string[] }, ConnectionsDay>;
+  /** Retired: always responds 405. */
   'POST /api/games/connections/check': Endpoint<{ guesses: string[][] }, ConnectionsCheck>;
   'GET /api/games': Endpoint<void, GamesToday>;
   'GET /api/games/access': Endpoint<void, GameAccess>;

@@ -4,7 +4,6 @@ import {
   PERCEPTION_ID,
   parsePerceptionAnswer,
   perceptionTotal,
-  scorePerception,
 } from '../../../shared/games/perception';
 import {
   CONNECTIONS_ID,
@@ -12,6 +11,7 @@ import {
   replayConnections,
 } from '../../../shared/games/connections';
 import { connectionsPuzzleFor } from './connectionsPuzzles';
+import { scorePerception } from './perception';
 import * as v from '../validate';
 import type { ServerGame } from './registry';
 
