@@ -5,97 +5,19 @@
   pointer-events: none;
   contain: strict;
   opacity: 0;
-  transition: opacity 1600ms ease-out;
-  --ambient-caustic: url('/ambient/caustic-light.webp');
-  --ambient-swell: url('/ambient/swell-light.webp');
-  --ambient-strength: 0.17;
-}
-.dark .ambient-water {
-  --ambient-caustic: url('/ambient/caustic-dark.webp');
-  --ambient-swell: url('/ambient/swell-dark.webp');
-  --ambient-strength: 0.29;
+  transition: opacity 1200ms ease-out;
 }
 .ambient-water[data-ready='true'] {
-  opacity: calc(var(--ambient-strength) * var(--ambient-intensity));
+  opacity: 1;
 }
-.ambient-water__field {
-  position: absolute;
-  width: 100lvw;
-  height: 100lvh;
-}
-.ambient-water__caustic,
-.ambient-water__swell {
-  position: absolute;
-  background-repeat: repeat;
-  will-change: transform;
-}
-.ambient-water__caustic {
-  background-image: var(--ambient-caustic);
-}
-.ambient-water__caustic--one {
-  inset: -280px 0 0 -420px;
-  background-size: 420px 280px;
-  opacity: 0.82;
-  animation: ambient-current-one 32s linear infinite;
-}
-.ambient-water__caustic--two {
-  inset: -200px -300px 0 0;
-  background-size: 300px 200px;
-  opacity: 0.32;
-  animation:
-    ambient-current-two 23s linear infinite,
-    ambient-breathe 29s ease-in-out infinite;
-}
-.ambient-water__swell {
-  inset: -256px 0 0;
-  background-image: var(--ambient-swell);
-  background-size: 512px 256px;
-  opacity: 0.25;
-  animation: ambient-swell 37s linear infinite;
-}
-@keyframes ambient-current-one {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(420px, 280px);
-  }
-}
-@keyframes ambient-current-two {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-300px, 200px);
-  }
-}
-@keyframes ambient-breathe {
-  0%,
-  100% {
-    opacity: 0.26;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
-@keyframes ambient-swell {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(256px);
-  }
-}
-.ambient-water[data-paused='true'] * {
-  animation-play-state: paused;
+.ambient-water canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 @media (prefers-reduced-motion: reduce) {
   .ambient-water {
     transition: none;
-  }
-  .ambient-water * {
-    animation: none;
-    will-change: auto;
   }
 }
 @media (forced-colors: active), (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
