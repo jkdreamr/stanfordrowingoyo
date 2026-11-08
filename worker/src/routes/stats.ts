@@ -6,7 +6,13 @@ import { loadTargets } from '../db/targets';
 import type { Context } from '../context';
 import { requireUser } from '../auth/guards';
 import { byId } from '../db/users';
-import { currentSeason, leaderboard as getLeaderboard, seasonStats, weekStats } from '../db/stats';
+import {
+  currentSeason,
+  leaderboard as getLeaderboard,
+  seasonStats,
+  teamRace,
+  weekStats,
+} from '../db/stats';
 import { getSetting } from '../db/settings';
 import { seasonRange } from '../../../shared/dates';
 import { HttpError, json } from '../http';
@@ -107,4 +113,8 @@ export function leaderboard(ctx: Context) {
     'Metric',
   );
   return json(getLeaderboard(ctx.storage, selectedDate(ctx), metric, ctx.now));
+}
+export function race(ctx: Context) {
+  requireUser(ctx);
+  return json(teamRace(ctx.storage, selectedDate(ctx), ctx.now));
 }

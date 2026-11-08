@@ -18,6 +18,7 @@ import {
   TEAM_CODE_MAX_LENGTH,
   isValidTeamCode,
 } from '../../../shared/teamCode';
+import { BERKELEY_PACE_MAX_PERCENT, BERKELEY_PACE_MIN_PERCENT } from '../../../shared/race';
 const roles = ['rower', 'coxswain', 'coach', 'admin'] as const;
 const groups = ['frosh', 'normal', 'u23'] as const;
 const sides = ['port', 'starboard', 'both', 'cox'] as const;
@@ -377,6 +378,13 @@ export async function patchSettings(ctx: Context) {
     v.date('2000-' + start);
     after.season_start = start;
   }
+  if (body.berkeley_pace_percent !== undefined)
+    after.berkeley_pace_percent = v.int(
+      body.berkeley_pace_percent,
+      'Berkeley pace',
+      BERKELEY_PACE_MIN_PERCENT,
+      BERKELEY_PACE_MAX_PERCENT,
+    );
   for (const key of ['zone_factors', 'mode_factors', 'group_targets'] as const)
     if (body[key] !== undefined) {
       const value = v.object(body[key], key);
@@ -390,7 +398,13 @@ export async function patchSettings(ctx: Context) {
       Object.assign(after, { [key]: result });
     }
   ctx.storage.transactionSync(() => {
-    for (const key of ['team_code', 'season_start', 'zone_factors', 'mode_factors'] as const)
+    for (const key of [
+      'team_code',
+      'season_start',
+      'zone_factors',
+      'mode_factors',
+      'berkeley_pace_percent',
+    ] as const)
       if (body[key] !== undefined) setSetting(ctx.storage, key, after[key]);
     if (body.group_targets !== undefined)
       setGroupTargets(ctx.storage, weekStart(today(ctx.now)), after.group_targets);

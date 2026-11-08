@@ -7,6 +7,7 @@ import { addDays } from '../../../shared/dates';
 import type { Config, LeaderboardRow } from '../../../shared/types';
 import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
+import { BerkeleyRace } from '../components/BerkeleyRace';
 import {
   Avatar,
   Button,
@@ -345,6 +346,7 @@ function Board({ config }: { config: Config }) {
           </IconButton>
         </div>
       )}
+      {metric !== 'season' && <BerkeleyRace week={week} />}
       {query.isError ? (
         <LoadState error retry={() => void query.refetch()} />
       ) : !rows ? (

@@ -1,10 +1,17 @@
 import type { Settings } from '../../../shared/types';
+import { BERKELEY_PACE_PERCENT } from '../../../shared/race';
 export function getSetting<T>(storage: DurableObjectStorage, key: string): T {
   return JSON.parse(
     storage.sql
       .exec<{ value_json: string }>('SELECT value_json FROM settings WHERE key = ?', key)
       .one().value_json,
   ) as T;
+}
+export function optionalSetting<T>(storage: DurableObjectStorage, key: string, fallback: T): T {
+  const row = storage.sql
+    .exec<{ value_json: string }>('SELECT value_json FROM settings WHERE key = ?', key)
+    .toArray()[0];
+  return row ? (JSON.parse(row.value_json) as T) : fallback;
 }
 export function setSetting(storage: DurableObjectStorage, key: string, value: unknown) {
   storage.sql.exec(
@@ -20,6 +27,7 @@ export function getSettings(storage: DurableObjectStorage): Settings {
     zone_factors: getSetting(storage, 'zone_factors'),
     group_targets: getSetting(storage, 'group_targets'),
     season_start: getSetting(storage, 'season_start'),
+    berkeley_pace_percent: optionalSetting(storage, 'berkeley_pace_percent', BERKELEY_PACE_PERCENT),
   };
 }
 export interface TargetVersion {
