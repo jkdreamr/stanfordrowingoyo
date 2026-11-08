@@ -1,13 +1,16 @@
 """Hand-curated prompts, Pearl picks, Too Clever picks, Surface anchors and aliases.
 
 Sources are real lists; reviewed additions remain stable across regenerations.
-The source list is not claimed to exhaust every valid answer.
+The source list is not claimed to exhaust every valid answer. Wikidata-sourced prompts and
+extensions are declared in `wikidata_prompts.py` and merged here.
 """
+
+from wikidata_prompts import SPECS as WIKIDATA_SPECS
 
 
 def p(id, noun, source, gem, clever, surface, aliases=None):
     return dict(id=id, text=f"Name {noun}.", source=source, gem=gem,
-                too_clever=clever.split(';'), surface=surface.split(';'), aliases=aliases or {})
+                too_clever=[x for x in clever.split(';') if x], surface=surface.split(';'), aliases=aliases or {})
 
 
 PROMPTS = [
@@ -134,6 +137,17 @@ CITY_PICKS = [
     ('PH', 'the Philippines', 'Vigan', 'Baguio', 'Manila;Quezon City;Cebu City;Davao;Makati'),
     ('VN', 'Vietnam', 'Hoi An', 'Hue', 'Hanoi;Ho Chi Minh City;Da Nang;Hai Phong;Can Tho'),
     ('KR', 'South Korea', 'Gyeongju', 'Jeonju', 'Seoul;Busan;Incheon;Daegu;Daejeon'),
+    ('IE', 'Ireland', 'Dingle', '', 'Dublin;Cork;Galway;Limerick;Waterford'),
+    ('CH', 'Switzerland', 'Zermatt', '', 'Zurich;Geneva;Bern;Basel;Lausanne'),
+    ('AT', 'Austria', 'Hallstatt', '', 'Vienna;Salzburg;Innsbruck;Graz;Linz'),
+    ('NO', 'Norway', 'Ålesund', '', 'Oslo;Bergen;Trondheim;Stavanger;Tromsø'),
+    ('CZ', 'the Czech Republic', 'Český Krumlov', '', 'Prague;Brno;Ostrava;Plzeň;Karlovy Vary'),
+    ('HU', 'Hungary', 'Eger', '', 'Budapest;Debrecen;Szeged;Pécs;Győr'),
+    ('HR', 'Croatia', 'Rovinj', '', 'Zagreb;Split;Dubrovnik;Rijeka;Zadar'),
+    ('MA', 'Morocco', 'Chefchaouen', '', 'Marrakesh;Casablanca;Rabat;Fez;Tangier'),
+    ('MY', 'Malaysia', 'Ipoh', '', 'Kuala Lumpur;George Town;Malacca;Johor Bahru;Kota Kinabalu'),
+    ('PK', 'Pakistan', 'Gilgit', '', 'Karachi;Lahore;Islamabad;Rawalpindi;Peshawar'),
+    ('RO', 'Romania', 'Sighișoara', '', 'Bucharest;Cluj-Napoca;Timișoara;Iași;Brașov'),
 ]
 CITY_ALIASES = {
     'US': {'New York': ['New York City', 'NYC'], 'Los Angeles': ['LA']},
@@ -146,6 +160,11 @@ CITY_ALIASES = {
     'VN': {'Ho Chi Minh City': ['Saigon']},
     'ZA': {'Port Elizabeth': ['Gqeberha']},
     'PH': {'Makati': ['Makati City'], 'Cebu City': ['Cebu'], 'Davao': ['Davao City'], 'Bacolod City': ['Bacolod']},
+    'CZ': {'Prague': ['Praha']},
+    'AT': {'Vienna': ['Wien']},
+    'CH': {'Geneva': ['Geneve', 'Genf']},
+    'MA': {'Marrakesh': ['Marrakech'], 'Fez': ['Fes']},
+    'MY': {'Malacca': ['Melaka']},
 }
 PROMPTS += [p(f'cities-{code.lower()}', f'a city or town in {country}', f'cities:{code}',
               gem, clever, surface, CITY_ALIASES.get(code))
@@ -246,3 +265,40 @@ for prompt in PROMPTS:
         prompt['aliases'].update({'Phone': ['cell phone', 'cellphone', 'mobile phone'],
             'television': ['tv'], 'couch': ['sofa'], 'paintbrush': ['paint brush'],
             'keychain': ['key chain'], 'watch': ['wristwatch'], 'toothpick': ['tooth pick']})
+
+
+# Wikidata-sourced prompts (new) and extensions (rows appended to an existing source).
+WD_SPECS = {spec['id']: spec for spec in WIKIDATA_SPECS}
+by_id = {prompt['id']: prompt for prompt in PROMPTS}
+for spec in WIKIDATA_SPECS:
+    if spec.get('extend'):
+        by_id[spec['id']]['source'] += '+wd:' + spec['id']
+    else:
+        prompt = {key: spec[key] for key in ['id', 'text', 'source', 'gem', 'too_clever', 'surface', 'aliases', 'common']}
+        prompt.update(wiki={}, cap=spec['cap'])
+        PROMPTS.append(prompt)
+        by_id[spec['id']] = prompt
+WD_EXCLUDE = {
+    'former-countries': ['Nazi Germany', 'Confederate States of America', 'Islamic State'],
+    'boxers': ['Andrew Tate'],
+    'cartoon-characters': ['Santa Claus', 'Robin Hood', 'Count Dracula'],
+    'anime-characters': ['Wikipe-tan'],
+    'soft-drinks': ['yogurt', 'kumis', 'milk', 'water', 'tea', 'coffee', 'beer', 'wine'],
+    'game-studios': ['ETH Zurich'],
+    'norse-myth': ['Orion', 'Goliath'],
+    'units': ['euro', 'United States dollar', 'pi', 'bitcoin', 'Stone Age'],
+    'furniture': ['altar', 'sundial', 'coffin', 'saddle'],
+    'museums': ['Auschwitz', 'Auschwitz concentration camp', 'Auschwitz-Birkenau State Museum'],
+    # Genre/occupation tags Wikidata gets wrong for these prompts.
+    'fantasy-films': ['The Terminator', 'Terminator 2: Judgment Day', 'Terminator Genisys'],
+    'american-actors': ['Walt Disney'],
+}
+for id, names in WD_EXCLUDE.items():
+    by_id[id]['exclude'] = names
+
+# Inherently small categories stay in the manifest and data but leave the daily rotation.
+INACTIVE = {'us-capitals', 'states', 'greek-gods', 'constellations', 'elements', 'crayons', 'countries',
+            'capitals', 'winds', 'scents', 'fictional-materials', 'stones', 'agencies', 'cats', 'rabbits',
+            'spices', 'seas', 'industries', 'charities', 'cities-ke', 'cities-kr'}
+for prompt in PROMPTS:
+    prompt['active'] = prompt['id'] not in INACTIVE

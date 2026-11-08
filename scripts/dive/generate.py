@@ -20,8 +20,9 @@ import geonamescache
 import pycountry
 from wordfreq import zipf_frequency
 
-from overrides import PROMPTS
+from overrides import PROMPTS, WD_SPECS
 import pageviews
+import wikidata
 
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = Path(__file__).parent / '.cache'
@@ -29,6 +30,12 @@ OUTPUT = ROOT / 'worker/src/games/dive'
 CORPORA = 'https://raw.githubusercontent.com/dariusk/corpora/1109305242d08d851a50f929792a0e7caa7a655b/data/'
 MOVIES = 'https://raw.githubusercontent.com/vega/vega-datasets/v2.9.0/data/movies.json'
 CONSTELLATIONS = 'https://raw.githubusercontent.com/astropy/astropy/v7.1.0/astropy/coordinates/data/constellation_names.dat'
+# Inputs the Worker matcher always rejects (worker/src/games/dive/matcher.ts); never aliases.
+STOPWORDS = {'none', 'idk', 'unknown', 'pass', 'skip', 'dont know', 'i dont know', 'no idea', 'nothing', 'na'}
+MIN_ACTIVE = 320  # five prompts a day for 64 days without a repeat
+MIN_ACTIVE_SIZE = 200
+# Bundle budget: every set keeps at most this many highest-ranked canonicals (plus reviewed picks).
+MAX_SET = 430
 CODE = {'surface': 's', 'tooclever': 't', 'school': 'm', 'rare': 'r', 'deep': 'd', 'gem': 'g'}
 POINTS = {'s': 10, 't': 15, 'm': 30, 'r': 60, 'd': 85, 'g': 100}
 COMMON_NOUN_PROMPTS = {'animals', 'birds', 'fruits', 'vegetables', 'objects', 'appliances',
@@ -44,7 +51,7 @@ PLURAL_DISPLAY_EXCEPTIONS = {'clothes', 'glasses', 'scissors', 'pants', 'trouser
 
 
 def display_name(name, prompt):
-    if prompt['id'] not in COMMON_NOUN_PROMPTS:
+    if prompt['id'] not in COMMON_NOUN_PROMPTS and not prompt.get('common'):
         return name
     match = re.search(r'([^\W\d_]+)$', name)
     if match and match.group().lower() not in PLURAL_DISPLAY_EXCEPTIONS:
@@ -115,10 +122,29 @@ def source_values(source):
         movies = json.loads(fetch(MOVIES))
         selected = sorted((m for m in movies if genre == 'all' or m['Major Genre'] == genre), key=lambda m: -(m.get('IMDB Votes') or 0))
         return [str(m['Title']) for m in selected[:1000]]
+    if source.startswith('wd:'):
+        return []  # Wikidata snapshot rows are merged alias-aware in prepare().
     if source == 'constellations':
         return [line[4:].strip() for line in fetch(CONSTELLATIONS).splitlines() if line and not line.startswith('#')]
     path, field = source.split('#')
     return extract(json.loads(fetch(CORPORA + path + '.json')), field.split('.'))
+
+
+def wikidata_rows(prompt):
+    """Committed Wikidata snapshot rows for the prompt's `wd:` sources, highest-ranked first."""
+    rows = []
+    for source in prompt['source'].split('+'):
+        if source.startswith('wd:'):
+            spec = WD_SPECS[source[3:]]
+            for qid, links, label, aliases in wikidata.read(spec['id'])[:spec['cap']]:
+                if spec.get('extend') and spec['common'] and label.islower():
+                    label = re.sub(r"[^\W\d_]+(?:['’][^\W\d_]+)*", lambda m: m.group().capitalize(), label)
+                rows.append((qid, links, label, aliases))
+    return rows
+
+
+def valid_name(name):
+    return len(name.encode('utf-16-le')) // 2 <= 40 and not re.search(r'[|;\n\r\t]', name)
 
 
 def prepare(prompt):
@@ -130,10 +156,21 @@ def prepare(prompt):
     # Keep curated spelling/capitalization when a source has an equivalent normalized key.
     names = {}
     excluded = {normalize(x) for x in prompt.get('exclude', [])}
-    for name in values + forced:
+    for name in values:
         name = name.strip()
         key = normalize(name)
-        if key and key not in excluded and len(name.encode('utf-16-le')) // 2 <= 40 and not re.search(r'[|;\n\r\t]', name):
+        if key and key not in excluded and valid_name(name):
+            names[key] = name
+    # Wikidata rows never replace reviewed source spellings; a row whose label or alias is
+    # already present is the same entity under another name and is skipped.
+    for _, _, label, aliases in wikidata_rows(prompt):
+        keys = {normalize(label)} | {normalize(alias) for alias in aliases}
+        if normalize(label) and not keys & (set(names) | excluded) and valid_name(label):
+            names[normalize(label)] = label
+    for name in forced:
+        name = name.strip()
+        key = normalize(name)
+        if key and key not in excluded and valid_name(name):
             names[key] = name
     for name in forced:
         if names.get(normalize(name)) != name:
@@ -164,19 +201,69 @@ def familiarity_score(views, sitelinks, zipf):
     return (1, sum(weight * value for weight, value in sources) / sum(weight for weight, _ in sources), zipf)
 
 
+def automatic_aliases(prompt, names, rows):
+    """Wikidata aliases for kept canonicals. Reviewed aliases win; an automatic alias equal
+    to any canonical or claimed by two canonicals is ambiguous and dropped for all of them."""
+    canonical_keys = set(names)
+    reviewed = {normalize(alias) for variants in prompt['aliases'].values() for alias in variants}
+    claims, spelling = {}, {}
+    for _, _, label, aliases in rows:
+        canonical = names.get(normalize(label))
+        if canonical is None:
+            # A row skipped as a duplicate lends its label and aliases to that one canonical.
+            matches = {names[k] for k in map(normalize, aliases) if k in names}
+            if len(matches) != 1:
+                continue
+            canonical = matches.pop()
+        for alias in [label] + aliases:
+            key = normalize(alias)
+            # Keys must be normalization fixed points so stored keys never collide on re-normalizing.
+            if (not key or normalize(key) != key or key in STOPWORDS or key in canonical_keys or key in reviewed
+                    or not valid_name(alias)):
+                continue
+            claims.setdefault(key, set()).add(canonical)
+            spelling.setdefault((key, canonical), alias)
+    result = {}
+    for key, owners in sorted(claims.items()):
+        if len(owners) == 1:
+            owner = next(iter(owners))
+            result.setdefault(owner, []).append(spelling[key, owner])
+    return result
+
+
 def generate(prompt, familiarity, sitelinks):
     names = prepare(prompt)
+    rows = wikidata_rows(prompt)
+    wd_links = {}
+    for _, count, label, _ in rows:
+        wd_links.setdefault(normalize(label), count)
     views = familiarity.get(prompt['id'], {})
     links = sitelinks.get(prompt['id'], {})
     def signal(name):
-        return familiarity_score(views.get(name, {}).get('views'), links.get(name, {}).get('sitelinks'), zipf_frequency(name, 'en'))
+        count = links.get(name, {}).get('sitelinks')
+        if count is None:
+            count = wd_links.get(normalize(name))
+        return familiarity_score(views.get(name, {}).get('views'), count, zipf_frequency(name, 'en'))
     ranked = sorted(names.values(), key=lambda name: (*(-x for x in signal(name)), normalize(name)))
     anchors = {normalize(x) for x in prompt['surface']}
     clever = {normalize(x) for x in prompt['too_clever']}
     gem = normalize(prompt['gem'])
     if anchors & clever or gem in anchors | clever:
         raise ValueError(f'{prompt["id"]}: conflicting tiers')
-    rows, tiers = [], dict.fromkeys(CODE, 0)
+    # Cap very large sets to their highest-ranked rows plus every reviewed pick (bundle size).
+    forced = anchors | clever | {gem} | {normalize(x) for x in prompt['aliases']}
+    cap = min(prompt.get('cap', MAX_SET), MAX_SET)
+    if len(ranked) > cap:
+        room = cap - sum(normalize(name) in forced for name in ranked)
+        kept = []
+        for name in ranked:
+            if normalize(name) in forced or room > 0:
+                room -= normalize(name) not in forced
+                kept.append(name)
+        ranked = kept
+        names = {normalize(name): name for name in ranked}
+    auto = automatic_aliases(prompt, names, rows)
+    output, tiers = [], dict.fromkeys(CODE, 0)
     for rank, name in enumerate(ranked):
         percentile = rank / len(ranked)
         tier = 'surface' if percentile < .20 else 'school' if percentile < .55 else 'rare' if percentile < .80 else 'deep'
@@ -189,14 +276,16 @@ def generate(prompt, familiarity, sitelinks):
             tier = 'gem'
         tier = prompt.get('forced_tiers', {}).get(name, tier)
         tiers[tier] += 1
-        variants = [alias for alias in prompt['aliases'].get(name, []) if normalize(alias) != key]
-        rows.append('|'.join([display_name(name, prompt), CODE[tier], ';'.join(variants)]))
+        variants = [alias for alias in prompt['aliases'].get(name, []) + auto.get(name, []) if normalize(alias) != key]
+        output.append('|'.join([display_name(name, prompt), CODE[tier], ';'.join(variants)]))
     if tiers['gem'] != 1 or not all(tiers[t] for t in ['surface', 'school', 'rare', 'deep']):
         raise ValueError(f'{prompt["id"]}: invalid tier counts {tiers}')
-    return '\n'.join(rows), dict(id=prompt['id'], text=prompt['text'], size=len(rows), tiers=tiers,
-                                surface=[r.split('|')[0] for r in rows if r.split('|')[1] == 's'][:8],
+    return '\n'.join(output), dict(id=prompt['id'], text=prompt['text'], active=prompt['active'], size=len(output), tiers=tiers,
+                                surface=[r.split('|')[0] for r in output if r.split('|')[1] == 's'][:8],
                                 pageviews=sum(bool(views.get(name, {}).get('views')) for name in names.values()),
-                                sitelinks=sum(name in links for name in names.values()),
+                                sitelinks=sum(name in links or normalize(name) in wd_links for name in names.values()),
+                                wikidata=sum(normalize(name) in wd_links and name not in links for name in names.values()),
+                                aliases=sum(len(r.split('|')[2].split(';')) for r in output if r.split('|')[2]),
                                 too_clever=[display_name(name, prompt) for name in prompt['too_clever']], gem=display_name(prompt['gem'], prompt))
 
 
@@ -238,8 +327,9 @@ def main():
     args = parser.parse_args()
     if args.fetch_only and not args.fetch_pageviews:
         parser.error('--fetch-only requires --fetch-pageviews')
-    if len(PROMPTS) < 120 or len({p['id'] for p in PROMPTS}) != len(PROMPTS):
-        raise ValueError('Need at least 120 unique prompt ids')
+    active = [p for p in PROMPTS if p['active']]
+    if len(active) < MIN_ACTIVE or len({p['id'] for p in PROMPTS}) != len(PROMPTS):
+        raise ValueError(f'Need at least {MIN_ACTIVE} active prompts and unique prompt ids')
     if len({normalize(p['text']) for p in PROMPTS}) != len(PROMPTS):
         raise ValueError('Duplicate prompt text')
     OUTPUT.mkdir(exist_ok=True)
@@ -255,10 +345,17 @@ def main():
     links = json.loads((Path(__file__).parent / 'sitelinks.json').read_text())['prompts']
     for prompt in PROMPTS:
         encoded, stats = generate(prompt, familiarity, links)
+        if prompt['active'] and stats['size'] < MIN_ACTIVE_SIZE:
+            raise ValueError(f'{prompt["id"]}: active prompts need at least {MIN_ACTIVE_SIZE} answers, got {stats["size"]}; mark it inactive')
         report.append(stats)
         files[OUTPUT / 'data' / f'{prompt["id"]}.ts'] = '// Generated by scripts/dive/generate.py. Do not edit.\nimport type { AnswerSet } from \'../matcher\';\nexport default ' + json.dumps(encode_set(encoded), ensure_ascii=False) + ' satisfies AnswerSet;\n'
-    files[OUTPUT / 'prompts.ts'] = '// Generated by scripts/dive/generate.py. Do not edit.\nexport const DIVE_PROMPTS = [\n' + ''.join(
-        '  { id: ' + repr(p['id']) + ', text: ' + json.dumps(p['text']) + ' },\n' for p in PROMPTS) + '] as const;\n'
+    def catalog(prompts):
+        return ''.join('  { id: ' + repr(p['id']) + ', text: ' + json.dumps(p['text']) + ' },\n' for p in prompts)
+    files[OUTPUT / 'prompts.ts'] = ('// Generated by scripts/dive/generate.py. Do not edit.\n'
+        f'/** Daily rotation: every set has at least {MIN_ACTIVE_SIZE} canonical answers. */\n'
+        'export const DIVE_PROMPTS = [\n' + catalog(active) + '] as const;\n'
+        '/** Retired from rotation (inherently small categories); answer data stays loadable. */\n'
+        'export const DIVE_INACTIVE_PROMPTS = [\n' + catalog([p for p in PROMPTS if not p['active']]) + '] as const;\n')
     files[OUTPUT / 'loaders.ts'] = '// Generated by scripts/dive/generate.py. Do not edit.\nimport type { AnswerSet } from \'./matcher\';\nexport const loaders: Record<string, () => Promise<{ default: AnswerSet }>> = {\n' + ''.join(
         '  ' + repr(p['id']) + ': () => import(\'./data/' + p['id'] + "'),\n" for p in PROMPTS) + '};\n'
     files[ROOT / 'scripts/dive/report.json'] = json.dumps(report, ensure_ascii=False, indent=2) + '\n'
@@ -286,11 +383,11 @@ def main():
             path.write_text(content)
     if changed:
         raise SystemExit('Generated output differs: ' + ', '.join(changed))
-    print(f'{len(report)} prompts; {sum(p["size"] for p in report):,} canonical answers; '
-          f'{sum(p["size"] >= 100 for p in report)} sets >=100; '
-          f'{sum(p["size"] >= 200 for p in report)} sets >=200; '
-          f'range {min(p["size"] for p in report)}–{max(p["size"] for p in report)}.')
-    print('Stopped at 120 curated prompts: further expansion needs reviewed, distinct sources, not artificial letter/category slices.')
+    sizes = sorted(p['size'] for p in report if p['active'])
+    print(f'{len(sizes)} active + {len(report) - len(sizes)} inactive prompts; '
+          f'{sum(p["size"] for p in report):,} canonical answers, {sum(p["aliases"] for p in report):,} aliases; '
+          f'active sizes min {sizes[0]}, median {sizes[len(sizes) // 2]}, max {sizes[-1]}; '
+          f'{sum(s >= 500 for s in sizes)} active sets >=500.')
 
 
 if __name__ == '__main__':

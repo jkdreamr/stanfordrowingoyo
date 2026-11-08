@@ -17,6 +17,8 @@ python3 -m venv ~/work/dive-venv
 # To intentionally refresh missing 2025 Wikipedia entity signals:
 ~/work/dive-venv/bin/python scripts/dive/generate.py --fetch-pageviews
 ~/work/dive-venv/bin/python scripts/dive/sitelinks.py
+# To refresh or add Wikidata-sourced sets (sequential, paced SPARQL; resumable cache):
+~/work/dive-venv/bin/python scripts/dive/wikidata.py --missing   # or: wikidata.py <prompt-id> ...
 ```
 
 For a long-running fetch that only updates its resumable snapshot (not generated modules):
@@ -74,27 +76,46 @@ pick, not necessarily the rarest name. Points: 10 / 15 / 30 / 60 / 85 / 100; mis
 
 ## Coverage and review
 
-120 distinct general-knowledge prompts. `report.json` records current set sizes, tier counts,
-top eight Surface answers, pageview/sitelink coverage, Too Clever picks and Pearl.
-The full 120-prompt editorial review is still pending. The next regeneration applies common-noun casing and safe
-singular display forms while preserving normalized matching keys and proper names.
-Review acronyms, mass nouns and conventional plural names by hand. The shipping snapshot
-uses the checkpoint captured when the pageview fetch was stopped, plus sitelinks.
-Some naturally bounded categories
-(states, constellations, instruments) are smaller. Languages are now ISO 639-1 names plus
-reviewed additions, not 7,907 ISO 639-3 records including tiny dialect/extinct-language tails.
-Cities keep at most the 500 largest populated places per country by source population,
-movies at most 1,000 per genre by source IMDB votes, plus reviewed anchors/picks/aliases.
+330 active prompts are in the daily rotation (five a day, so no prompt repeats for
+66 days) and 21 inactive prompts stay in the manifest and data but are excluded from
+rotation. `prompts.ts` exports `DIVE_PROMPTS` (active only; the rotation uses it unchanged)
+and `DIVE_INACTIVE_PROMPTS`; `loaders.ts` covers both so stored days stay loadable.
+Generation fails if fewer than 320 prompts are active or any active set has fewer than 200
+canonical answers. Inactive (inherently small, or not yet enlarged from a reliable source): `agencies`, `capitals`, `cats`, `charities`, `cities-ke`, `cities-kr`, `constellations`, `countries`, `crayons`, `elements`, `fictional-materials`, `greek-gods`, `industries`, `rabbits`, `scents`, `seas`, `spices`, `states`, `stones`, `us-capitals`, `winds`.
+To retire or restore a prompt, edit `INACTIVE` in `overrides.py` and regenerate.
 
-We stopped at 120 reviewed topics rather than stretch to 420 by slicing alphabet letters,
-inventing subjective sets or adding obscure technical/medical lists. Thirty-six prompts
-ask for towns/cities in different countries; the remaining 84 span nature, food, science,
-arts, geography, games, materials and general culture. Expansion needs another reviewed,
-distinct source and its own anchors/aliases/Pearl. No rowing, Stanford, team or Krillion
-prompts/content are used. Sources span eras and are intentionally not advertised as
-current rankings (e.g. company and movie lists). Major commercial movies after the movie
-source's era will need additions. Broad source lists still benefit from future editorial
-review; corrections must go into the manifest, not generated modules.
+Active sets hold 205–430 canonical answers (median 430; 135,809 canonicals and 87,895
+aliases across all prompts). `report.json` records each set's size, active flag, tier counts,
+top eight Surface answers, pageview/sitelink/Wikidata coverage, alias count, Too Clever picks
+and Pearl. The ceiling is the Worker bundle budget (gzip upload under 2,800 KiB, Cloudflare's
+free limit is 3 MB), not the categories: Wikidata snapshots keep more rows than ship, and
+per-set `cap` values in `wikidata_prompts.py` (default 450, largest-first when trimming)
+choose how many of the highest-ranked rows are emitted; `MAX_SET` in `generate.py` (430)
+caps every set, largest first, including the original corpora sets. Raise it when the
+budget allows. GeoNames cities keep at most the 500 largest places per country by population
+and Vega movies at most 1,000 per genre by IMDB votes before that cap.
+
+The original 120 prompts come from the reviewed corpora/GeoNames/ISO/movie sources below.
+220 further prompts and Wikidata rows appended to 55 reviewed prompts (most were under 200) come from Wikidata:
+people by field and sport, fictional characters, films by decade/genre/country, TV, books,
+music, art, games, brands, foods and dishes by country, animals and breeds, geography,
+places, sports teams and everyday things, plus 11 more city-by-country prompts (city prompts
+are 14% of the rotation). Each Wikidata prompt is a SPARQL membership pattern (class with
+optional subclasses, occupation including subclasses, parent-taxon tree, genre, country) in
+`wikidata_prompts.py` with its own Surface anchors, optional Too Clever picks and one Pearl.
+`wikidata.py` filters junk (disambiguation/list/category items, QID or missing English labels,
+labels over 40 characters or mostly parenthetical, Latin-only taxa, fictional duplicates for
+real-world prompts) and adult or notorious entries by description. People must have an
+English description naming the field, so secondary occupations (a president who painted) are
+dropped. Aliases come from English/`mul` altLabels, P1813 short names, P1449 nicknames, P1843
+taxon common names, scientific names, IATA codes and, for people, surnames; reviewed aliases
+win, and an automatic alias equal to another canonical or claimed by two canonicals is
+dropped. A Wikidata row whose label or alias already exists in a reviewed source is the same
+entity and only lends its aliases. New sets rank by Wikidata sitelinks alone (the README's
+fallback when pageviews are missing); no new pageview fetches were needed. Wikidata class
+membership is editorially imperfect (genre tags, co-production countries); corrections go into
+the manifest (`WD_EXCLUDE`, anchors, queries), never generated modules. No rowing, Stanford,
+team or Krillion prompts/content are used; all lists, tiers and Pearls are independently sourced.
 
 Hand-checked anchors (entity signals determine ordering, not word homographs):
 
@@ -124,6 +145,12 @@ Hand-checked anchors (entity signals determine ordering, not word homographs):
   human pageview statistics from `en.wikipedia.org/w/api.php` and
   `wikimedia.org/api/rest_v1/metrics/pageviews/per-article/`. Raw search snippets are not
   redistributed. Derived counts are provenance, not copyrighted article prose.
+
+- [Wikidata](https://www.wikidata.org/), CC0 1.0 public-domain dedication, via the
+  Wikidata Query Service (`query.wikidata.org`, SPARQL), queried November 2026: entity labels,
+  aliases, class/occupation/taxon membership and `wikibase:sitelinks` counts. Derived
+  snapshots are committed as `scripts/dive/wikidata/<id>.tsv` (`qid`, sitelinks, English
+  label, aliases); raw responses stay in the ignored `.cache/wikidata/`.
 
 These are independently sourced name lists, not a copy of another game's content or
 tiers. Keep source/license attribution with redistributions of the generated data.
