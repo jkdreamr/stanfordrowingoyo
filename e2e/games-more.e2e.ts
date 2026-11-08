@@ -117,11 +117,13 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
   await page.getByRole('button', { name: 'Lock In' }).click();
   await page.getByRole('button', { name: 'Next' }).click();
   await page.getByRole('button', { name: 'Start' }).click();
-  await expect(page.getByRole('button', { name: `Square ${puzzle.cells[0] + 1}` })).toBeEnabled({
+  await expect(
+    page.getByRole('button', { name: `Square ${puzzle.cells[0] + 1}`, exact: true }),
+  ).toBeEnabled({
     timeout: 5000,
   });
   for (const cell of puzzle.cells)
-    await page.getByRole('button', { name: `Square ${cell + 1}` }).click();
+    await page.getByRole('button', { name: `Square ${cell + 1}`, exact: true }).click();
   await shots(page, project, 'perception-play');
   await page.getByRole('button', { name: 'Lock In' }).click();
   await page.getByRole('button', { name: 'Next' }).click();
