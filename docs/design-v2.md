@@ -130,7 +130,8 @@ static mark with a 120 ms fade (no handoff).
 2. **Home Week Hero.** The one bright element on Home: a tonal cardinal card with the E-meter total, a white
    progress ring and a Mon–Sun column strip (today outlined). The streak chip sits on top; the remaining E-meters (or Target Hit) chip and days left sit underneath.
 3. **Number Tickers.** Hero figures (Home volume, Me season tiles, save celebration) count up on the first view
-   in a session and when their value changes; screen readers get the final value only.
+   in a session and when their value changes, inside a cell reserved for their widest value so nothing
+   reflows; screen readers get the final value only.
 4. **Glass Tab Bar.** Frosted bar with one selection pill that travels between tabs on the spring; the selected
    icon settles from a small catch; the centered cardinal Log disc compresses on press. Five equal columns keep
    Log pixel-centered.
@@ -146,7 +147,23 @@ static mark with a 120 ms fade (no handoff).
    cardinal "You" selection) with a medal hairline on top; rank badges are polished metal over a solid
    mid-tone. Every podium text holds at least 4.5:1 in light and dark, badges included at their darkest stop.
 9. **Me Profile.** Ringed avatar, three stat tiles (Season Meters, Week Streak, Top Week) that tick up, weekly
-   columns and the season line drawing in.
+   columns and the season line drawing in; the line ends in a 7 px accent dot with a 2 px page-color ring at
+   today, fading in as the draw reaches it (static under reduced motion).
+10. **Glass Theme Switch (Settings › Appearance).** A Match System toggle plus a Dark Mode switch. The switch is
+    a native `role="switch"` button (76 × 44 target): a recessed 76 × 40 track (radius 13) with the sun and moon
+    printed on its floor at 35%, and a 32 px glass knob (radius 9, `backdrop-filter: blur(3px) saturate(140%)`,
+    top highlight, neutral drop shadows) that rides over them like a lens. Light on the left, dark on the right.
+    Press scales the knob to 0.96 (100 ms); it travels 36 px in 260 ms on `cubic-bezier(.32,.72,0,1)` with no
+    overshoot; the outgoing icon leaves in 120 ms and the incoming one arrives from 100 to 240 ms; a 12 × 2 px
+    indicator moves from the knob's top edge (light, cardinal) to its bottom edge (dark, `#F08A93`) from 40 to
+    300 ms. The page crossfades colors for 200 ms under `html.theme-anim`. Drag uses pointer capture, a 0.22
+    rubber band past the ends, and projects 150 ms of velocity on release; under 4 px is a tap. ArrowLeft is
+    light, ArrowRight is dark. With Match System on, the switch mirrors the device and is disabled. Reduced
+    motion: instant knob and a 120 ms fade; reduced transparency: a solid knob; forced colors: system colors.
+    Original code, with proportions and timing informed by Zsolt Kacso's Glass Light Toggle (measurements only;
+    none of its WebGL, bloom, grain or spring).
+11. **Pinned You Row (Leaderboard).** Shown only while your real row is off screen and the podium is out of its
+    strip; rises 8 px and fades in over 200 ms, leaves in 140 ms.
 
 ## Rollout After Approval
 
