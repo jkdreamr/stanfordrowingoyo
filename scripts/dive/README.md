@@ -87,8 +87,8 @@ including retired prompts. Adding prompts or changing active flags cannot change
 Answer rows persist date and prompt index, **not prompt IDs**: reads and submissions resolve
 IDs from the selector. A future cutover must therefore keep the legacy branch forever.
 
-The prospective bank has 378 active prompts (59 constrained, 319 broad) and 32 inactive
-prompts with loadable data. `DIVE_PROMPTS` is the prospective bank, not the live selector.
+The bank has 529 active prompts (210 constrained, 319 broad) and 32 inactive
+prompts with loadable data. `DIVE_PROMPTS` is the schedule's candidate bank, not the date selector.
 `DIVE_INACTIVE_PROMPTS` retains small categories and broad overlaps. Phase 1 prospectively
 retires `movies`, `directors`, `pokemon`, `manga`, `anime`, `japanese-films`, `oscar-actors`,
 `monarchs`, `nobel-laureates`, `first-names`, and `objects`; legacy days still use them.
@@ -149,23 +149,25 @@ fallback. Surface is explicitly anchored; unforced constrained answers rank into
 (first 45%), Rare (next 30%), Deep Cut (last 25%) so even small sets keep all tiers. Too Clever
 is optional and never manufactured. Every set has exactly one explicit Pearl.
 
-## Future schedule and cutover
+## Schedule and cutover
 
 `schedule.py` deterministically emits explicit days of five prompt IDs to Worker `schedule.ts`.
 A valid cycle is at least 64 days, has no repeated IDs, uses every constrained prompt, has
 at least three constrained prompts/day, unique themes and nonempty clusters/day, and never
 has a day entirely tiny (≤24 answers) or huge (>120 answers). Broad prompts fill remaining
 slots in reviewed preference order. Both Python and Worker validators fail invalid schedules.
-Insufficient or unbalanced catalogs emit an empty schedule with an explicit diagnostic,
-not a relaxed-rule rotation. Tests exercise a full 64-day/320-ID fixture and invalid banks.
+Insufficient or unbalanced catalogs return an empty schedule with an explicit diagnostic,
+not a relaxed-rule rotation; generation now fails rather than enable an invalid cutover.
+Tests exercise the real schedule, a full 64-day/320-ID fixture and invalid banks.
 
-**Cutover is disabled (`DIVE_SCHEDULE_CUTOVER = null`)**. This wave has 59/192 constrained
-prompts required for 64 × 3; generating a valid no-repeat schedule is not yet possible.
-The Worker fixture verifies cutover-day selection, wraparound, legacy dates, loadable IDs,
-theme/cluster/difficulty rules, and coverage. Later phases must first supply at least 192
-balanced constrained prompts and review the emitted schedule. Then deliberately set a
-future team-local cutover date in the generator, regenerate, and ship **before** that date;
-never backdate a cutover or change a cycle that could resolve an already-started day.
+**Cutover is 2026-11-10**. The 64-day/320-ID cycle uses all 210 constrained prompts
+and 110 preferred broad fillers; earlier dates use the frozen legacy permutation exactly.
+The Worker tests verify cutover-day selection, every scheduled day, wraparound, legacy
+dates through November 9, loadable IDs, theme/cluster/difficulty rules, and coverage.
+The 151 Phase 2 additions add no Pokémon or country/state letter predicates. The largest
+constrained cluster is countries (21/210, 10%). Phase 2 retires no additional broad data.
+Ship **before** the cutover; never backdate it or change a cycle that could resolve an
+already-started day. See `phase2-review.md` for the added-prompt table and editorial drops.
 
 Broad sets retain their existing canonical data and caps. `report.json` records each set's
 size, active flag, constrained flag, theme/cluster, tier counts,

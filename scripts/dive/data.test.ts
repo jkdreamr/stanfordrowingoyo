@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { expect, it } from 'vitest';
 import { addDays } from '../../shared/dates';
 import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS, normalizeAnswer } from '../../shared/games/dive';
-import { DIVE_PROMPTS, diveSelectionFor } from '../../worker/src/games/divePrompts';
+import { DIVE_PROMPTS, createDiveSelector } from '../../worker/src/games/divePrompts';
 import { boundedDistance, matchAnswer } from '../../worker/src/games/dive/matcher';
 import { fixtureSet as parseAnswerSet, decodedAnswers } from './fixtures';
 import { loaders } from '../../worker/src/games/dive/loaders';
@@ -207,6 +207,7 @@ it('anchors obvious answers at Surface, and accepts real aliases and typos on th
   expect((await answerSet('constellations')).size).toBe(88);
 });
 it('selects deterministic legacy days with no repeats in any floor(N/day)-day window', () => {
+  const legacySelection = createDiveSelector(null, []);
   const window = Math.floor(DIVE_LEGACY_PROMPTS.length / DIVE_PROMPTS_PER_DAY);
   // Product promise: no prompt returns within 60 team days.
   expect(window).toBeGreaterThanOrEqual(60);
@@ -215,10 +216,10 @@ it('selects deterministic legacy days with no repeats in any floor(N/day)-day wi
   for (const start of ['2026-01-01', '2025-10-12', '2026-07-03']) {
     for (let offset = 0; offset < DIVE_LEGACY_PROMPTS.length; offset++) {
       const date = addDays(start, offset);
-      expect(diveSelectionFor(date)).toEqual(diveSelectionFor(date));
-      expect(diveSelectionFor(date).every(({ id }) => active.has(id))).toBe(true);
+      expect(legacySelection(date)).toEqual(legacySelection(date));
+      expect(legacySelection(date).every(({ id }) => active.has(id))).toBe(true);
       const selected = Array.from({ length: window }, (_, i) =>
-        diveSelectionFor(addDays(date, i)).map(({ id }) => id),
+        legacySelection(addDays(date, i)).map(({ id }) => id),
       ).flat();
       expect(new Set(selected).size).toBe(window * DIVE_PROMPTS_PER_DAY);
     }

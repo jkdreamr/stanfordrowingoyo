@@ -2,10 +2,10 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '11': '\nabduljabbar\tb2\nbill walton\t4n\nchamberlain\t8j\njoel embiid\t9y\nkarl malone\t6o\nkobe bryant\t6a\nlebron jame\t2j\nwillis reed\t49\n',
+    '12': '\nabdul jabbar\tb2\nbill russell\tx\nderrick rose\t5g\njames harden\t51\nkevin durant\t5v\nlew alcindor\tb2\nmoses malone\t72\nnikola jokic\tez\n',
     '13': '\nallen iverson\t9i\nantetokounmpo\td3\ndirk nowitzki\tc7\njulius erving\tcn\nkevin garnett\t92\nmagic johnson\t0\nstephen curry\t2y\n',
     '7': '\nbarkley\t81\ngarnett\t92\niverson\t9i\njohnson\t0\nrussell\tx\n',
-    '12': '\nbill russell\tx\nderrick rose\t5g\njames harden\t51\nkevin durant\t5v\nlew alcindor\tb2\nmoses malone\t72\nnikola jokic\tez\n',
+    '11': '\nbill walton\t4n\nchamberlain\t8j\njoel embiid\t9y\nkarl malone\t6o\nkobe bryant\t6a\nlebron jame\t2j\nwillis reed\t49\n',
     '4': '\nbird\t1t\njame\t2j\nnash\t3e\nreed\t49\nrose\t5g\n',
     '9': '\nbob cousy\te9\nrobertson\t3r\nwestbrook\t7h\n',
     '10': '\nbob mcadoo\tac\nbob pettit\tap\ndave cowen\tel\nlarry bird\t1t\nsteve nash\t3e\ntim duncan\t26\nwes unseld\tfe\n',
@@ -14,9 +14,10 @@ export default {
     '5': '\ncousy\te9\ncowen\tel\ncurry\t2y\njokic\tez\noneal\tbo\n',
     '14': '\ndavid robinson\t1c\nmichael jordan\tg\n',
     '21': '\ngiannis antetokounmpo\td3\n',
-    '17': '\ngilgeousalexander\tfr\nrussell westbrook\t7h\n',
+    '18': '\ngilgeous alexander\tfr\n',
     '19': '\nkareem abdul jabbar\tb2\n',
     '8': '\nnowitzki\tc7\nolajuwon\tdr\nrobinson\t1c\n',
+    '17': '\nrussell westbrook\t7h\n',
     '23': '\nshai gilgeous alexander\tfr\n',
     '16': '\nwilt chamberlain\t8j\n',
   },

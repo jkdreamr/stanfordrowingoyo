@@ -363,13 +363,13 @@ days contain no repeated prompt, including wraparound and dates before the epoch
 `dive_answers` persists date/user/prompt index, not prompt IDs. Routes and reveal reads
 resolve IDs/text through `diveSelectionFor(date)`/`divePromptsFor(date)` at read/submit time.
 Therefore retired legacy prompts remain loadable and all pre-cutover dates must keep this
-selector forever. A generated explicit cyclic schedule will replace it only from a future
-team-local cutover date; `DIVE_SCHEDULE_CUTOVER` is currently **null**. At least 192 constrained
-prompts are needed for 64 days × ≥3/day without repeats; this phase has 59, so generation
-emits an empty schedule and diagnostic rather than weakening the rules. The schedule builder
+selector forever. A generated explicit cyclic schedule replaces it from team-local
+**2026-11-10** (`DIVE_SCHEDULE_CUTOVER`). The reviewed bank has 210 constrained prompts;
+the 64-day cycle uses all of them plus 110 broad fillers, without repeats. Generation
+fails rather than enabling an insufficient or unbalanced bank. The schedule builder
 uses all constrained prompts plus preferred broad fillers; each five-prompt day has unique
 themes/clusters and a size mix (not all ≤24 or all >120 answers). Python/Worker validators
-and a 64-day fixture cover determinism, loadability, day rules, wraparound and historical
+and the real cycle plus a 64-day fixture cover determinism, loadability, day rules, wraparound and historical
 IDs. Do not enable/backdate cutover or edit a live cycle to reinterpret an already-started day.
 `shared/games/dive.ts` owns normalization (NFKD, diacritics, lowercase, ampersand expansion,
 punctuation removal, hyphen/underscore/slash separation, whitespace, leading article removal,

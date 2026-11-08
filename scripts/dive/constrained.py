@@ -11,6 +11,24 @@ from sources import acquire, expect_count
 HERE = Path(__file__).parent
 
 
+def normalize(value):
+    value = ''.join(c for c in unicodedata.normalize('NFKD', value) if not unicodedata.category(c).startswith('M'))
+    value = re.sub(r'[-_/]', ' ', value.lower().replace('&', 'and'))
+    value = re.sub(r'[^a-z0-9 ]', '', value)
+    value = re.sub(r' +', ' ', value).strip()
+    value = re.sub(r'^(the|an|a) ', '', value)
+    words = value.split(' ')
+    last = words[-1]
+    if len(last) > 3:
+        if last.endswith('ies'):
+            words[-1] = last[:-3] + 'y'
+        elif re.search(r'(ses|xes|zes|ches|shes)$', last):
+            words[-1] = last[:-2]
+        elif last.endswith('s') and not re.search(r'(ss|us|is)$', last):
+            words[-1] = last[:-1]
+    return ' '.join(words)
+
+
 def letters(value):
     value = unicodedata.normalize('NFKD', value).lower()
     return ''.join(c for c in value if 'a' <= c <= 'z')
@@ -78,11 +96,12 @@ def read_specs(verify_sources=False):
             for row in rows:
                 surname = {'Bong Joon-ho': 'Bong', 'Gao Xingjian': 'Gao', 'Han Kang': 'Han', 'Mo Yan': 'Mo'}.get(row['name'])
                 surname = surname or re.sub(r'\s+(Jr\.?|Sr\.?|I{1,3})$', '', row['name']).split()[-1]
-                claims.setdefault(letters(surname), []).append(row['name'])
+                if letters(surname):
+                    claims.setdefault(normalize(surname), []).append(row['name'])
             for surname, owners in claims.items():
-                if len(owners) == 1 and surname not in {n.lower() for n in names}:
+                if len(owners) == 1 and surname not in {normalize(n) for n in names}:
                     aliases = prompt['aliases'].setdefault(owners[0], [])
-                    if surname not in [a.lower() for a in aliases]:
+                    if surname not in [normalize(a) for a in aliases]:
                         aliases.append(surname)
         specs.append(prompt)
     return specs

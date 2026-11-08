@@ -65,7 +65,7 @@ def list_values(spec):
         values = [node['title'] for node in nodes if node.get('title') != 'Chemical element']
     elif 'members' in spec:
         text = soup.get_text(' ', strip=True)
-        if any(name not in text for name in spec['members']):
+        if any(name.casefold() not in text.casefold() for name in spec['members']):
             raise ValueError(f'{spec["page"]}: reviewed member missing from pinned page')
         values = spec['members']
     else:
@@ -100,10 +100,14 @@ def table_rows(table):
             cell = next(cells, None)
             if cell is None:
                 break
-            for _ in range(int(cell.get('colspan', 1))):
+            def span(attribute):
+                match = re.match(r'\d+', str(cell.get(attribute, 1)))
+                return max(1, int(match[0])) if match else 1
+
+            for _ in range(span('colspan')):
                 row.append(cell)
-                if int(cell.get('rowspan', 1)) > 1:
-                    pending[column] = (cell, int(cell['rowspan']) - 1)
+                if span('rowspan') > 1:
+                    pending[column] = (cell, span('rowspan') - 1)
                 column += 1
         yield tr, row
 
@@ -117,14 +121,22 @@ def table_values(spec):
             if len(row) <= spec['column'] or not tr.find('td', recursive=False):
                 continue
             cell = row[spec['column']]
-            if spec.get('exclude_row') and re.search(spec['exclude_row'], tr.get_text(' ', strip=True), re.I):
+            if spec.get('exclude_row') and re.search(spec['exclude_row'], ' '.join(c.get_text(' ', strip=True) for c in row), re.I):
                 continue
-            if spec.get('winner') and not any('faeb86' in str(node.get('style', '')).lower() for node in [tr, cell]):
+            winner_style = 'faeb86' if spec.get('winner') is True else spec.get('winner')
+            if winner_style and not any(winner_style.lower() in str(node.get('style', '')).lower() for node in [tr, cell]):
                 continue
             if 'where' in spec:
                 col, pattern = spec['where']
                 if len(row) <= col or not re.search(pattern, row[col].get_text(' ', strip=True)):
                     continue
+            if 'where_not' in spec:
+                col, pattern = spec['where_not']
+                if len(row) > col and re.search(pattern, row[col].get_text(' ', strip=True)):
+                    continue
+            if spec.get('text'):
+                result.append(cell.get_text(' ', strip=True))
+                continue
             nodes = [node for node in cell.select(spec.get('select', 'a[href^="/wiki/"]:not(.image)'))
                      if node.get_text(' ', strip=True)]
             if spec.get('first', True):

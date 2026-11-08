@@ -13,6 +13,25 @@ import sources
 
 
 class SourcesTest(unittest.TestCase):
+    def test_malformed_spans_and_inherited_row_exclusions(self):
+        soup = BeautifulSoup('<table class="wikitable"><tr><th>Year</th><th>Name</th></tr>'
+                             '<tr><td rowspan="2,">2026</td><td><a href="/wiki/A">Alpha</a></td></tr>'
+                             '<tr><td><a href="/wiki/B">Beta</a></td></tr>'
+                             '<tr><td colspan="bad"><a href="/wiki/C">Gamma</a></td></tr></table>', 'html.parser')
+        spec = dict(page='Fixture', revision=123, tables=[0], column=1, expect=[2, 2])
+        with patch.object(sources, 'list_page', return_value=soup):
+            self.assertEqual(sources.table_values(spec), ['Alpha', 'Beta'])
+            self.assertEqual(sources.table_values({**spec, 'exclude_row': '2026', 'expect': [0, 0]}), [])
+            self.assertEqual(sources.table_values({**spec, 'where_not': [1, 'Alpha'], 'expect': [1, 1]}), ['Beta'])
+
+    def test_reviewed_members_ignore_case_but_not_missing_names(self):
+        soup = BeautifulSoup('<p>alpha BETA</p>', 'html.parser')
+        spec = dict(page='Fixture', revision=123, members=['Alpha', 'Beta'], expect=[2, 2])
+        with patch.object(sources, 'list_page', return_value=soup):
+            self.assertEqual(sources.list_values(spec), ['Alpha', 'Beta'])
+            with self.assertRaisesRegex(ValueError, 'missing'):
+                sources.list_values({**spec, 'members': ['Gamma']})
+
     def test_count_guards(self):
         self.assertEqual(sources.expect_count([1, 2], [2, 2], 'fixture'), [1, 2])
         for values in [[], [1], [1, 2, 3]]:
@@ -55,7 +74,7 @@ class SourcesTest(unittest.TestCase):
 class SpecsTest(unittest.TestCase):
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 59)
+        self.assertEqual(len(prompts), 210)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
@@ -63,6 +82,39 @@ class SpecsTest(unittest.TestCase):
         self.assertEqual(constrained.derive(rows, constrained.PREDICATES['countries-ia']), rows[:1])
         self.assertEqual(constrained.derive([], constrained.PREDICATES['countries-ia']), [])
         self.assertEqual(constrained.letters('São Tomé and Príncipe'), 'saotomeandprincipe')
+
+    def test_reviewed_phase_two_boundaries(self):
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        def names(id):
+            return {row['name'] for row in prompts[id]['rows']}
+        self.assertTrue({'Pretoria', 'Mbabane', 'Malabo'} <= names('africa-capitals'))
+        self.assertTrue({'Monaco', 'Vatican City', 'The Hague'} <= names('europe-capitals'))
+        self.assertTrue({'French', 'Italian'}.isdisjoint(names('europe-capitals')))
+        self.assertNotIn('TBA', names('bake-off-winners'))
+        self.assertNotIn('William Rehnquist', names('supreme-court-since-1981'))
+        self.assertTrue({'John Roberts', 'Antonin Scalia'} <= names('supreme-court-since-1981'))
+        self.assertTrue({'Floyd Landis', 'Lance Armstrong'} <= names('tour-de-france'))
+        self.assertTrue({'World War I', 'World War II'}.isdisjoint(names('tour-de-france')))
+        for id in ['wimbledon-men', 'wimbledon-women']:
+            self.assertNotIn('COVID-19 pandemic', names(id))
+        self.assertEqual(len(names('human-vitamins')), 13)
+        self.assertEqual(len(names('b-vitamins')), 8)
+
+    def test_surnames_use_matcher_normalization_and_skip_numeric_band_suffixes(self):
+        document = json.loads((constrained.HERE / 'constrained.json').read_text())
+        spec = document['prompts'][0]
+        spec['answers'] = [dict(name=name) for name in ['Tiger Woods', 'Craig Wood', 'Maroon 5',
+                            'Neil Armstrong', 'Buzz Aldrin', 'Pete Conrad', 'Jim Lovell', 'John Young']]
+        spec.update(people=True, expect=[8, 8], surface=['Neil Armstrong'], pearl='Buzz Aldrin')
+        document['prompts'] = [spec]
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / 'constrained.json').write_text(json.dumps(document))
+            with patch.object(constrained, 'HERE', Path(directory)):
+                aliases = constrained.read_specs()[0]['aliases']
+        self.assertNotIn('Tiger Woods', aliases)
+        self.assertNotIn('Craig Wood', aliases)
+        self.assertNotIn('Maroon 5', aliases)
+        self.assertEqual(aliases['Neil Armstrong'], ['armstrong'])
 
     def test_snapshot_count_and_source_drift_fail(self):
         document = json.loads((constrained.HERE / 'constrained.json').read_text())

@@ -18,23 +18,40 @@ const schedule = Array.from({ length: 64 }, (_, i) =>
   bank.slice(i * 5, i * 5 + 5).map((prompt) => prompt.id),
 );
 const cutover = '2027-01-15';
+const legacySelection = createDiveSelector(null, []);
 
 it.each([
   ['2025-10-12', ['war-films', 'cities-nl', 'soccer-players', 'djs', 'clothing']],
   ['2026-01-01', ['game-characters', 'cities-cz', 'cities-de', 'cities-pe', 'chickens']],
   ['2026-03-18', ['mammals', 'subjects', 'anime-characters', 'kpop', 'cities-fi']],
   ['2026-11-08', ['reality-tv', 'manga', 'japanese-films', 'tube', 'lakes']],
+  ['2026-11-09', ['pasta', 'tolkien', 'cities-be', 'meteorology', 'psychologists']],
   ['2027-01-01', ['k-dramas', 'cities-no', 'landforms', 'dinosaurs', 'italian-food']],
 ])('preserves pre-change legacy selection for %s, including retired prompts', (date, ids) => {
-  expect(diveSelectionFor(date).map((prompt) => prompt.id)).toEqual(ids);
+  expect(legacySelection(date).map((prompt) => prompt.id)).toEqual(ids);
+  if (date < '2026-11-10') expect(diveSelectionFor(date).map((prompt) => prompt.id)).toEqual(ids);
   expect(createDiveSelector(cutover, schedule, bank)(date).map((prompt) => prompt.id)).toEqual(ids);
 });
 
-it('keeps live cutover disabled while the constrained bank cannot fill a cycle', () => {
-  expect(DIVE_SCHEDULE_CUTOVER).toBeNull();
-  expect(DIVE_SCHEDULE).toEqual([]);
-  expect(DIVE_SCHEDULE_STATUS).toMatch(/not enough constrained prompts yet: 59\/192/);
-  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(59);
+it('enables the complete reviewed bank on November 10 with every real day valid', () => {
+  expect(DIVE_SCHEDULE_CUTOVER).toBe('2026-11-10');
+  expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 210 constrained, 110 broad');
+  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(210);
+  validateDiveSchedule(DIVE_SCHEDULE, DIVE_PROMPTS);
+  expect(DIVE_SCHEDULE).toHaveLength(64);
+  const seen = new Set<string>();
+  for (let i = 0; i < DIVE_SCHEDULE.length; i++) {
+    const day = diveSelectionFor(addDays('2026-11-10', i));
+    expect(day.map((p) => p.id)).toEqual(DIVE_SCHEDULE[i]);
+    expect(day.filter((p) => p.constrained).length).toBeGreaterThanOrEqual(3);
+    expect(new Set(day.map((p) => p.theme)).size).toBe(5);
+    const clusters = day.map((p) => p.cluster).filter(Boolean);
+    expect(new Set(clusters).size).toBe(clusters.length);
+    expect(day.every((p) => p.size <= 24) || day.every((p) => p.size > 120)).toBe(false);
+    day.forEach((p) => seen.add(p.id));
+  }
+  expect(seen.size).toBe(320);
+  expect(diveSelectionFor('2027-01-13')).toEqual(diveSelectionFor('2026-11-10'));
   expect([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].every((p) => p.theme)).toBe(true);
   for (const id of ['manga', 'anime', 'japanese-films', 'cities-jp', 'anime-characters'])
     expect([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].find((p) => p.id === id)?.cluster).toBe(
@@ -45,7 +62,7 @@ it('keeps live cutover disabled while the constrained bank cannot fill a cycle',
 it('switches only on the cutover, follows every fixture day and wraps deterministically', () => {
   validateDiveSchedule(schedule, bank);
   const selection = createDiveSelector(cutover, schedule, bank);
-  expect(selection(addDays(cutover, -1))).toEqual(diveSelectionFor(addDays(cutover, -1)));
+  expect(selection(addDays(cutover, -1))).toEqual(legacySelection(addDays(cutover, -1)));
   expect(schedule.length).toBeGreaterThanOrEqual(64);
   const seen = new Set<string>();
   for (let i = 0; i < schedule.length; i++) {
@@ -61,11 +78,13 @@ it('switches only on the cutover, follows every fixture day and wraps determinis
   }
   expect(seen.size).toBe(320);
   expect(selection(addDays(cutover, 64))).toEqual(selection(cutover));
-  expect(createDiveSelector(null, [], bank)(cutover)).toEqual(diveSelectionFor(cutover));
+  expect(createDiveSelector(null, [], bank)(cutover)).toEqual(legacySelection(cutover));
 });
 
 it('keeps every fixture scheduled ID loadable and every real constrained set complete', async () => {
   for (const id of schedule.flat()) expect((await answerSet(id)).size).toBeGreaterThanOrEqual(8);
+  for (const id of DIVE_SCHEDULE.flat())
+    expect((await answerSet(id)).size).toBeGreaterThanOrEqual(8);
   for (const prompt of DIVE_PROMPTS.filter((p) => p.constrained))
     expect((await answerSet(prompt.id)).size).toBe(prompt.size);
 }, 60_000);
