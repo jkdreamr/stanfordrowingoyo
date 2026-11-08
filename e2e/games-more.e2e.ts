@@ -84,6 +84,9 @@ test('plays Word Guess, Perception and Rate Hold once each after the OYO', async
   await enter(answer, 2);
   await expectResult(page, 'Word Guess');
   await expect(page.getByRole('region', { name: 'Your Result' })).toContainText('2 / 6');
+  await expect(page.getByRole('region', { name: 'Your Result' })).toContainText(
+    `Answer · ${answer[0].toUpperCase()}${answer.slice(1)}`,
+  );
   await shots(page, project, 'wordguess-result');
   await page.reload();
   await waitForSplash(page);

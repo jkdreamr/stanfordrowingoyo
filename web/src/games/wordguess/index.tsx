@@ -26,7 +26,7 @@ export default function WordGuessGame() {
         const marks = guesses.map((g) => score(g, answer));
         return {
           headline: `${solved ? tries : 'X'} / ${TRIES}`,
-          detail: answer.toUpperCase(),
+          detail: `Answer · ${answer[0].toUpperCase()}${answer.slice(1)}`,
           share: wordGuessShare(result.date, { solved, tries, points: result.score, marks }),
         };
       }}

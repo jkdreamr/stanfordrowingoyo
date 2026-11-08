@@ -1,12 +1,14 @@
+import { randomUUID } from 'node:crypto';
 import { mkdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import type { DiveDay, GameDayLeaderboard } from '../shared/types';
+import { divePromptsFor } from '../worker/src/games/divePrompts';
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
 
-const NOW = '2026-11-07T18:00:00Z';
+const PROJECTS = ['desktop-chrome', 'iphone-15', 'pixel-7'];
 const answers = ['Coin Toss', 'Orchid', 'Ruler', 'Ramen', 'Oak Tree', 'Bookshop', 'Lighthouse'];
 const teammates = [
   ['Coin Toss', 'Rose', 'Tape Measure', 'Ramen', 'Duck', 'Gas Station', 'Church'],
@@ -22,15 +24,20 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
   adminPage,
 }, testInfo) => {
   test.setTimeout(180000);
-  const clockHeaders = { ...testInfo.project.use.extraHTTPHeaders, 'X-OYO-Test-Now': NOW };
+  // Each project and run plays its own team day, so parallel projects never share Dive state.
+  const offset =
+    Math.max(0, PROJECTS.indexOf(testInfo.project.name)) + 3 * Math.floor(Math.random() * 100);
+  const now = new Date(Date.parse('2026-11-07T18:00:00Z') - offset * 86400000).toISOString();
+  const clockHeaders = { ...testInfo.project.use.extraHTTPHeaders, 'X-OYO-Test-Now': now };
   await adminPage.context().setExtraHTTPHeaders(clockHeaders);
+  const run = `${testInfo.project.name.slice(0, 1).toUpperCase()}${randomUUID().slice(0, 4)}`;
   const rower = await makeRower();
   const { page, context } = rower;
   await context.setExtraHTTPHeaders(clockHeaders);
   await expect(
     await context.request.patch('/api/me', {
       headers: csrfHeaders,
-      data: { name: 'Alex Rivera' },
+      data: { name: `Alex Rivera ${run}` },
     }),
   ).toBeOK();
   await page.goto('/games/dive');
@@ -50,15 +57,16 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
       await teammate.context.request.patch('/api/me', {
         headers: csrfHeaders,
         data: {
-          name: [
-            'Maya Chen',
-            'Sam Patel',
-            'Jordan Lee',
-            'Casey Morgan',
-            'Taylor Brooks',
-            'Jamie Park',
-            'Riley Hayes',
-          ][index],
+          name:
+            [
+              'Maya Chen',
+              'Sam Patel',
+              'Jordan Lee',
+              'Casey Morgan',
+              'Taylor Brooks',
+              'Jamie Park',
+              'Riley Hayes',
+            ][index] + ` ${run}`,
         },
       }),
     ).toBeOK();
@@ -118,7 +126,7 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
   await waitForSplash(page);
   await expect(page.getByRole('timer')).toBeVisible();
   await expect(
-    page.getByRole('heading', { name: 'Name a way to pick teams without arguing.' }),
+    page.getByRole('heading', { name: divePromptsFor(now.slice(0, 10))[0], exact: true }),
   ).toBeVisible();
   const deadline = await page.evaluate(
     () =>
