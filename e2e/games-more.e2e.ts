@@ -3,7 +3,7 @@ import type { Page } from '@playwright/test';
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { waitForSplash } from './helpers';
-import { ANSWER_LIST, dailyAnswer } from '../shared/games/wordGuess';
+import { ANSWER_LIST, dailyAnswer } from '../worker/src/games/wordGuess';
 import { perceptionPuzzle } from '../shared/games/perception';
 import { connectionsPuzzleFor } from '../worker/src/games/connectionsPuzzles';
 
@@ -80,6 +80,11 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
   };
   await expect(page.getByRole('grid')).toBeVisible();
   await enter(miss, 1);
+  await page.reload();
+  await waitForSplash(page);
+  await expect(page.getByRole('row', { name: 'Guess 1', exact: true })).toHaveText(
+    miss.toUpperCase(),
+  );
   await shots(page, project, 'wordguess-play');
   await enter(answer, 2);
   await expectResult(page, 'Word Guess');
@@ -117,11 +122,13 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
   await page.getByRole('button', { name: 'Lock In' }).click();
   await page.getByRole('button', { name: 'Next' }).click();
   await page.getByRole('button', { name: 'Start' }).click();
-  await expect(page.getByRole('button', { name: `Square ${puzzle.cells[0] + 1}` })).toBeEnabled({
+  await expect(
+    page.getByRole('button', { name: `Square ${puzzle.cells[0] + 1}`, exact: true }),
+  ).toBeEnabled({
     timeout: 5000,
   });
   for (const cell of puzzle.cells)
-    await page.getByRole('button', { name: `Square ${cell + 1}` }).click();
+    await page.getByRole('button', { name: `Square ${cell + 1}`, exact: true }).click();
   await shots(page, project, 'perception-play');
   await page.getByRole('button', { name: 'Lock In' }).click();
   await page.getByRole('button', { name: 'Next' }).click();
@@ -194,5 +201,5 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
         data: { payload: { guesses: [answer] } },
       })
     ).status(),
-  ).toBe(409);
+  ).toBe(405);
 });

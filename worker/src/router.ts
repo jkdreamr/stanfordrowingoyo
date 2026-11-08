@@ -24,6 +24,7 @@ import * as challenges from './routes/challenges';
 import * as games from './routes/games';
 import * as dive from './routes/dive';
 import * as connections from './routes/connections';
+import * as wordguess from './routes/wordguess';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -36,6 +37,8 @@ function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'GET', path: '/api/games/wordguess/today', handler: wordguess.current },
+  { method: 'POST', path: '/api/games/wordguess/guess', handler: wordguess.guess },
   { method: 'GET', path: '/api/games/dive/today', handler: dive.current },
   { method: 'POST', path: '/api/games/dive/answers', handler: dive.answer },
   { method: 'GET', path: '/api/games/dive/days/:date', handler: dive.past },
@@ -100,7 +103,7 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 16 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 17 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },

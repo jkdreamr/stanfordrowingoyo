@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { createQueryClient } from '../lib/queryClient';
 import { createMockApi } from '../mock/handlers';
 import { ToastProvider } from '../components/ui';
-import { dailyAnswer } from '../../../shared/games/wordGuess';
+import { perceptionPuzzle } from '../../../shared/games/perception';
 import { DailyGameFrame } from './DailyGameFrame';
 
 const client = createQueryClient();
@@ -38,11 +38,16 @@ function mount(role: 'rower' | 'coach') {
     <MemoryRouter>
       <QueryClientProvider client={client}>
         <ToastProvider>
-          <DailyGameFrame<{ guesses: string[] }>
-            gameId="wordguess"
-            title="Word Guess"
+          <DailyGameFrame<{ answer: unknown }>
+            gameId="perception"
+            title="Perception"
             play={({ date, onComplete }) => (
-              <button type="button" onClick={() => onComplete({ guesses: [dailyAnswer(date)] })}>
+              <button
+                type="button"
+                onClick={() =>
+                  onComplete({ answer: { ...perceptionPuzzle(date), reactionMs: 150 } })
+                }
+              >
                 Finish
               </button>
             )}
@@ -64,11 +69,11 @@ it('submits once, then shows the server result, share and day board', async () =
   vi.stubGlobal('navigator', { ...navigator, share });
   mount('coach');
   fireEvent.click(await screen.findByRole('button', { name: 'Finish' }));
-  expect(await screen.findByText('Score 6')).toBeTruthy();
+  expect(await screen.findByText('Score 500')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Share' }));
-  expect(share).toHaveBeenCalledWith({ title: 'Word Guess', text: 'shared text' });
+  expect(share).toHaveBeenCalledWith({ title: 'Perception', text: 'shared text' });
   await waitFor(() =>
-    expect(screen.getByRole('region', { name: 'Word Guess Day Board' }).textContent).toContain(
+    expect(screen.getByRole('region', { name: 'Perception Day Board' }).textContent).toContain(
       '1 Players',
     ),
   );

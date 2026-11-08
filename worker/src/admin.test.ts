@@ -96,6 +96,8 @@ const slot = {
 };
 // A mapped object makes additions to the shared contract a compile-time test failure.
 const endpoints: Record<keyof Api, true> = {
+  'GET /api/games/wordguess/today': true,
+  'POST /api/games/wordguess/guess': true,
   'GET /api/games/dive/today': true,
   'POST /api/games/dive/answers': true,
   'GET /api/games/dive/days/:date': true,

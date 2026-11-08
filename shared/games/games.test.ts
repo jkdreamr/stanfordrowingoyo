@@ -9,7 +9,7 @@ import {
   unpack,
   verifyWordGuess,
   wordGuessShare,
-} from './wordGuess';
+} from '../../worker/src/games/wordGuess';
 import { GUESSES } from './wordGuessGuesses';
 import {
   PATTERN_CELLS,

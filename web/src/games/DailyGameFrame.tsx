@@ -28,11 +28,13 @@ export function DailyGameFrame<P>({
   title,
   play,
   summarize,
+  serverComplete = false,
 }: {
   gameId: string;
   title: string;
   play: (props: PlayProps<P>) => ReactNode;
   summarize: (result: GameResult) => GameSummary;
+  serverComplete?: boolean;
 }) {
   const access = useGameAccess();
   const date = access.data?.date;
@@ -46,8 +48,19 @@ export function DailyGameFrame<P>({
   });
   const [pending, setPending] = useState<P | null>(null);
   const submit = useMutation({
-    mutationFn: (payload: P) =>
-      api('POST /api/games/:game/results', { params: { game: gameId }, body: { payload } }),
+    mutationFn: async (payload: P) => {
+      if (!serverComplete)
+        return api('POST /api/games/:game/results', {
+          params: { game: gameId },
+          body: { payload },
+        });
+      const result = await api('GET /api/games/:game/results/me', {
+        params: { game: gameId },
+        query: { date },
+      });
+      if (!result) throw new Error('Result is not ready.');
+      return result;
+    },
     onSuccess: (result) => {
       client.setQueryData(mineKey, result);
       void client.invalidateQueries({ queryKey: qk.root('games') });

@@ -1,15 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Delete } from 'lucide-react';
-import {
-  TRIES,
-  WORD,
-  dailyAnswer,
-  isAllowedWord,
-  letterStates,
-  score,
-  unpack,
-  type Mark,
-} from '../../../../shared/games/wordGuess';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { api } from '../../lib/api';
+import { qk } from '../../lib/queries';
+import { LoadState } from '../../components/shell/LoadState';
+import { TRIES, WORD, type Mark } from '../../../../shared/games/wordGuess';
 import type { PlayProps } from '../DailyGameFrame';
 import './wordguess.css';
 
@@ -23,56 +18,30 @@ const MARK_LABEL: Record<Mark, string> = {
   present: 'in the word',
   absent: 'not in the word',
 };
-const draftKey = (date: string) => `oyo:games:wordguess:${date}`;
-
-function loadDraft(date: string): string[] {
-  try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(draftKey(date)) ?? '[]');
-    return Array.isArray(parsed)
-      ? parsed
-          .filter((g): g is string => typeof g === 'string' && /^[a-z]{5}$/.test(g))
-          .slice(0, TRIES)
-      : [];
-  } catch {
-    return [];
-  }
-}
-
 export function WordGuessPlay({ date, onComplete }: PlayProps<WordGuessPayload>) {
-  const answer = useMemo(() => dailyAnswer(date), [date]);
-  const [guesses, setGuesses] = useState(() => loadDraft(date));
+  const client = useQueryClient();
+  const queryKey = [...qk.root('games'), 'wordguess', date];
+  const day = useQuery({
+    queryKey,
+    queryFn: ({ signal }) => api('GET /api/games/wordguess/today', { signal }),
+  });
+  const guesses = day.data?.guesses ?? [];
+  const [busy, setBusy] = useState(false);
+  const sending = useRef(false);
   const [current, setCurrent] = useState('');
   const [message, setMessage] = useState('');
   const [shake, setShake] = useState(false);
   const [revealRow, setRevealRow] = useState(-1);
-  const [extra, setExtra] = useState<ReadonlySet<string> | null>(null);
-  const done = guesses.length === TRIES || guesses.at(-1) === answer;
-  const finished = useRef(false);
+  const done = day.data?.done ?? false;
 
   useEffect(() => {
-    let live = true;
-    void import('../../../../shared/games/wordGuessGuesses').then((m) => {
-      if (live) setExtra(new Set(unpack(m.GUESSES)));
-    });
-    return () => {
-      live = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(draftKey(date), JSON.stringify(guesses));
-    } catch {
-      /* storage full or blocked; progress stays in memory */
-    }
-  }, [date, guesses]);
-
-  useEffect(() => {
-    if (!done || finished.current) return;
-    finished.current = true;
+    if (!done) return;
     const delay =
       revealRow >= 0 && !matchMedia('(prefers-reduced-motion: reduce)').matches ? 1500 : 300;
-    const t = window.setTimeout(() => onComplete({ guesses }), delay);
+    const t = window.setTimeout(
+      () => onComplete({ guesses: guesses.map((row) => row.word) }),
+      delay,
+    );
     return () => window.clearTimeout(t);
   }, [done, guesses, onComplete, revealRow]);
 
@@ -84,22 +53,37 @@ export function WordGuessPlay({ date, onComplete }: PlayProps<WordGuessPayload>)
 
   const press = useCallback(
     (key: string) => {
-      if (done) return;
+      if (done || !day.data || sending.current) return;
       setMessage('');
       if (key === 'enter') {
         if (current.length < WORD) return reject('Not Enough Letters');
-        if (!extra) return reject('Loading Words');
-        if (!isAllowedWord(current, extra)) return reject('Not in Word List');
-        setRevealRow(guesses.length);
-        setGuesses((g) => [...g, current]);
-        setCurrent('');
+        sending.current = true;
+        setBusy(true);
+        void (async () => {
+          try {
+            await client.cancelQueries({ queryKey });
+            const result = await api('POST /api/games/wordguess/guess', {
+              body: { guess: current },
+            });
+            setRevealRow(guesses.length);
+            client.setQueryData(queryKey, result);
+            setCurrent('');
+          } catch (error) {
+            reject(error instanceof Error ? error.message : 'Could Not Save Guess');
+            const refreshed = await day.refetch();
+            if ((refreshed.data?.guesses.length ?? 0) > guesses.length) setCurrent('');
+          } finally {
+            sending.current = false;
+            setBusy(false);
+          }
+        })();
       } else if (key === 'back') {
         setCurrent((c) => c.slice(0, -1));
       } else if (/^[a-z]$/.test(key)) {
         setCurrent((c) => (c.length < WORD ? c + key : c));
       }
     },
-    [current, done, extra, guesses.length, reject],
+    [current, done, day, client, queryKey, guesses.length, reject],
   );
 
   useEffect(() => {
@@ -121,13 +105,24 @@ export function WordGuessPlay({ date, onComplete }: PlayProps<WordGuessPayload>)
     return () => window.removeEventListener('keydown', onKey);
   }, [press]);
 
-  const keys = useMemo(() => letterStates(guesses, answer), [guesses, answer]);
+  const keys = useMemo(() => {
+    const out: Record<string, Mark> = {};
+    const rank = { absent: 0, present: 1, correct: 2 };
+    for (const row of guesses)
+      for (let i = 0; i < WORD; i++) {
+        const old = out[row.word[i]],
+          mark = row.marks[i];
+        if (!old || rank[mark] > rank[old]) out[row.word[i]] = mark;
+      }
+    return out;
+  }, [guesses]);
   const rows = Array.from({ length: TRIES }, (_, r) => {
-    if (r < guesses.length) return { word: guesses[r], marks: score(guesses[r], answer) };
+    if (r < guesses.length) return guesses[r];
     if (r === guesses.length) return { word: current, marks: null };
     return { word: '', marks: null };
   });
 
+  if (!day.data) return <LoadState error={day.isError} retry={() => void day.refetch()} />;
   return (
     <div className="wg">
       <div className="wg-board" role="grid" aria-label="Word Guess Board" aria-readonly="true">
@@ -177,7 +172,7 @@ export function WordGuessPlay({ date, onComplete }: PlayProps<WordGuessPayload>)
                 type="button"
                 className="wg-key wg-key-wide"
                 onClick={() => press('enter')}
-                disabled={done}
+                disabled={done || busy}
               >
                 Enter
               </button>
@@ -188,7 +183,7 @@ export function WordGuessPlay({ date, onComplete }: PlayProps<WordGuessPayload>)
                 type="button"
                 className={'wg-key' + (keys[k] ? ` wg-${keys[k]}` : '')}
                 onClick={() => press(k)}
-                disabled={done}
+                disabled={done || busy}
                 aria-label={
                   keys[k] ? `${k.toUpperCase()}, ${MARK_LABEL[keys[k]]}` : k.toUpperCase()
                 }
@@ -201,7 +196,7 @@ export function WordGuessPlay({ date, onComplete }: PlayProps<WordGuessPayload>)
                 type="button"
                 className="wg-key wg-key-wide"
                 onClick={() => press('back')}
-                disabled={done}
+                disabled={done || busy}
                 aria-label="Delete"
               >
                 <Delete size={20} strokeWidth={1.75} aria-hidden="true" />

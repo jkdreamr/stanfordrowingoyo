@@ -2,7 +2,14 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { ANSWER_LIST, dailyAnswer, verifyWordGuess, unpack } from '../../../shared/games/wordGuess';
+import {
+  ANSWER_LIST,
+  dailyAnswer,
+  verifyWordGuess,
+  unpack,
+  score,
+  isAllowedWord,
+} from '../../../worker/src/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import { parsePerceptionAnswer, perceptionPuzzle } from '../../../shared/games/perception';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -16,7 +23,25 @@ vi.mock('../lib/api', async (original) => {
   const actual = await original<typeof import('../lib/api')>();
   return {
     ...actual,
-    api: vi.fn(async (route: string, init?: { body?: { guesses: unknown } }) => {
+    api: vi.fn(async (route: string, init?: { body?: { guesses?: unknown; guess?: string } }) => {
+      if (route.includes('/wordguess/')) {
+        if (route.startsWith('POST')) {
+          const word = init?.body?.guess ?? '';
+          if (!isAllowedWord(word, new Set(unpack(GUESSES)))) throw new Error('Not in Word List');
+          wordGuesses.push(word);
+        }
+        const answer = dailyAnswer(DATE);
+        const won = wordGuesses.at(-1) === answer;
+        const done = won || wordGuesses.length === 6;
+        return {
+          date: DATE,
+          access: { unlocked: true },
+          guesses: wordGuesses.map((word) => ({ word, marks: score(word, answer) })),
+          done,
+          won,
+          answer: done ? answer : null,
+        };
+      }
       const puzzle = connectionsPuzzleFor(DATE);
       if (route === 'GET /api/games/connections/today')
         return { date: DATE, access: {}, words: boardWords(DATE, puzzle) };
@@ -34,6 +59,16 @@ vi.mock('../lib/api', async (original) => {
 });
 
 const DATE = '2026-11-07';
+let wordGuesses: string[] = [];
+function mountWord(onComplete = () => {}) {
+  return render(
+    <QueryClientProvider
+      client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
+    >
+      <WordGuessPlay date={DATE} onComplete={onComplete} />
+    </QueryClientProvider>,
+  );
+}
 beforeAll(() => {
   window.matchMedia ??= ((q: string) => ({
     matches: false,
@@ -45,26 +80,29 @@ beforeAll(() => {
 afterEach(() => {
   cleanup();
   localStorage.clear();
+  wordGuesses = [];
   vi.useRealTimers();
 });
 
 describe('WordGuessPlay', () => {
   it('plays a physical-keyboard game and submits a verifiable board', async () => {
     const onComplete = vi.fn();
-    render(<WordGuessPlay date={DATE} onComplete={onComplete} />);
+    mountWord(onComplete);
+    await screen.findByRole('grid');
     const answer = dailyAnswer(DATE);
     const miss = ANSWER_LIST.find((w) => w !== answer)!;
     const type = (word: string) => {
       for (const k of word) fireEvent.keyDown(window, { key: k });
       fireEvent.keyDown(window, { key: 'Enter' });
     };
-    await waitFor(() => {
-      type('qqqqq');
-      expect(screen.getByRole('status').textContent).toBe('Not in Word List');
-    });
+    type('qqqqq');
+    await waitFor(() => expect(screen.getByRole('status').textContent).toBe('Not in Word List'));
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Enter' }).hasAttribute('disabled')).toBe(false),
+    );
     for (let i = 0; i < 5; i++) fireEvent.keyDown(window, { key: 'Backspace' });
     type(miss);
-    expect(screen.getByRole('row', { name: 'Guess 1' })).toBeTruthy();
+    await screen.findByRole('row', { name: 'Guess 1' });
     for (const k of answer)
       fireEvent.click(screen.getByRole('button', { name: new RegExp(`^${k.toUpperCase()}(,|$)`) }));
     fireEvent.click(screen.getByRole('button', { name: 'Enter' }));
@@ -73,11 +111,14 @@ describe('WordGuessPlay', () => {
     expect(payload.guesses).toEqual([miss, answer]);
     expect(verifyWordGuess(DATE, payload.guesses, new Set(unpack(GUESSES)))?.points).toBe(5);
   });
-  it('resumes an unfinished board for the same day', () => {
+  it('resumes server progress and ignores a forged local draft', async () => {
     const miss = ANSWER_LIST.find((w) => w !== dailyAnswer(DATE))!;
-    localStorage.setItem(`oyo:games:wordguess:${DATE}`, JSON.stringify([miss]));
-    render(<WordGuessPlay date={DATE} onComplete={() => {}} />);
-    expect(screen.getByRole('row', { name: 'Guess 1' }).textContent).toBe(miss.toUpperCase());
+    wordGuesses = [miss];
+    localStorage.setItem(`oyo:games:wordguess:${DATE}`, JSON.stringify([dailyAnswer(DATE)]));
+    mountWord();
+    expect((await screen.findByRole('row', { name: 'Guess 1' })).textContent).toBe(
+      miss.toUpperCase(),
+    );
   });
 });
 

@@ -293,11 +293,24 @@ it('handles over 100 players and registry ids with JSON lists, not expanding SQL
     expect(gameRoutes(registry).week(ctx).status).toBe(200);
   });
 });
-it('migrates v16 idempotently and exports/deletes personal game data', async () => {
+it('migrates v17 idempotently and exports/deletes personal game data', async () => {
   await sql((s) => {
     s.sql.exec("UPDATE settings SET value_json='15' WHERE key='schema_version'");
     migrate(s, 'team-code');
     migrate(s, 'team-code');
+    expect(
+      s.sql
+        .exec<{ value_json: string }>("SELECT value_json FROM settings WHERE key='schema_version'")
+        .one().value_json,
+    ).toBe('17');
+    s.sql.exec(
+      'INSERT INTO game_progress VALUES (?,?,?,?,?)',
+      'u0',
+      'wordguess',
+      DATE,
+      '["crane"]',
+      NOW,
+    );
     result(s, 'u0', 'dive', DATE, 5);
     s.sql.exec(
       "INSERT INTO dive_answers VALUES (?,?,0,?,?,NULL,'miss',0,NULL,NULL,?)",
@@ -313,5 +326,19 @@ it('migrates v16 idempotently and exports/deletes personal game data', async () 
     s.transactionSync(() => removeAccount(s, byId(s, 'u0')!));
     expect(s.sql.exec('SELECT * FROM game_results').toArray()).toHaveLength(0);
     expect(s.sql.exec('SELECT * FROM dive_answers').toArray()).toHaveLength(0);
+    expect(s.sql.exec('SELECT * FROM game_progress').toArray()).toHaveLength(0);
+  });
+});
+
+it('upgrades v16 to generic v17 progress without changing existing results', async () => {
+  await sql((s) => {
+    result(s, 'u0', 'wordguess', DATE, 6);
+    s.sql.exec('DROP TABLE game_progress');
+    s.sql.exec("UPDATE settings SET value_json='16' WHERE key='schema_version'");
+    migrate(s, 'team-code');
+    s.sql.exec('INSERT INTO game_progress VALUES (?,?,?,?,?)', 'u0', 'wordguess', DATE, '[]', NOW);
+    migrate(s, 'team-code');
+    expect(s.sql.exec('SELECT * FROM game_progress').toArray()).toHaveLength(1);
+    expect(s.sql.exec('SELECT * FROM game_results').toArray()).toHaveLength(1);
   });
 });

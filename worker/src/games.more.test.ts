@@ -4,7 +4,7 @@ import { beforeEach, expect, it } from 'vitest';
 import type { Env } from './index';
 import type { GameDayLeaderboard, GameResult, GamesToday } from '../../shared/types';
 import { sha256 } from './auth/crypto';
-import { dailyAnswer } from '../../shared/games/wordGuess';
+import { dailyAnswer } from './games/wordGuess';
 import { perceptionPuzzle } from '../../shared/games/perception';
 import { connectionsPuzzleFor } from './games/connectionsPuzzles';
 import type { ConnectionsCheck, ConnectionsDay } from '../../shared/types';
@@ -38,7 +38,7 @@ beforeEach(async () => {
   await SELF.fetch('https://oyo.test/api/health');
   const hash = await sha256(TOKEN);
   await sql((s) => {
-    for (const table of ['game_results', 'entries', 'sessions', 'users'])
+    for (const table of ['game_results', 'game_progress', 'entries', 'sessions', 'users'])
       s.sql.exec(`DELETE FROM ${table}`);
     s.sql.exec(
       "INSERT INTO users (id,email,name,password_hash,password_salt,role,group_key,active,created_at,updated_at) VALUES ('u0','u0@example.com','Rower 0','unused','unused','rower','normal',1,?,?)",
@@ -71,26 +71,49 @@ it('registers Word Guess, Perception and Connections behind the OYO gate', async
   expect((await api('/games/connections/check', 'POST', { guesses: [] })).status).toBe(403);
 });
 
-it('verifies Word Guess boards against the server-dated answer and ignores client scores', async () => {
+it('keeps Word Guess progress server-side, hides the answer and atomically awards a win', async () => {
   await unlock();
   const answer = dailyAnswer(DATE);
   const other = answer === 'crane' ? 'slate' : 'crane';
-  expect((await submit('wordguess', { guesses: ['zzzzz'] })).status).toBe(400);
-  expect((await submit('wordguess', { guesses: [other] })).status).toBe(400);
-  expect(dailyAnswer('2026-03-17')).not.toBe(answer);
-  expect((await submit('wordguess', { guesses: [dailyAnswer('2026-03-17')] })).status).toBe(400);
-  expect((await submit('wordguess', { guesses: [answer, answer] })).status).toBe(400);
-  expect((await submit('wordguess', { guesses: Array(7).fill(other) })).status).toBe(400);
-  const ok = await submit('wordguess', { guesses: [other, answer] });
-  expect(ok.status).toBe(201);
-  const result = (await ok.json()) as GameResult;
+  expect(await (await api('/games/wordguess/today')).json()).toMatchObject({
+    guesses: [],
+    answer: null,
+    done: false,
+    won: false,
+  });
+  for (const guess of ['zzzzz', '', 'CRANE', 123, other + 'x'])
+    expect((await api('/games/wordguess/guess', 'POST', { guess })).status).toBe(400);
+  expect(await (await api('/games/wordguess/today')).json()).toMatchObject({ guesses: [] });
+  const miss = await api('/games/wordguess/guess', 'POST', { guess: other });
+  expect(miss.status).toBe(200);
+  expect(await miss.json()).toMatchObject({
+    guesses: [{ word: other }],
+    answer: null,
+    done: false,
+  });
+  expect(await (await api('/games/wordguess/results/me')).json()).toBeNull();
+  expect(await (await api('/games/wordguess/today')).json()).toMatchObject({
+    guesses: [{ word: other }],
+    answer: null,
+  });
+  expect((await submit('wordguess', { guesses: [answer] })).status).toBe(405);
+  const ok = await api('/games/wordguess/guess', 'POST', { guess: answer, score: 999999 });
+  expect(ok.status).toBe(200);
+  expect(await ok.json()).toMatchObject({
+    done: true,
+    won: true,
+    answer,
+    guesses: [{ word: other }, { word: answer, marks: Array(5).fill('correct') }],
+  });
+  const result = (await (await api('/games/wordguess/results/me')).json()) as GameResult;
   expect(result).toMatchObject({
     game_id: 'wordguess',
     date: DATE,
     score: 5,
     payload: { guesses: [other, answer], solved: true, tries: 2 },
   });
-  expect((await submit('wordguess', { guesses: [answer] })).status).toBe(409);
+  expect((await api('/games/wordguess/guess', 'POST', { guess: answer })).status).toBe(409);
+  expect((await submit('wordguess', { guesses: [answer] })).status).toBe(405);
   const board = (await (await api('/games/wordguess/leaderboard')).json()) as GameDayLeaderboard;
   expect(board.rows).toMatchObject([{ rank: 1, score: 5, me: true }]);
 });
@@ -101,9 +124,64 @@ it('scores an unsolved six-guess Word Guess board as zero', async () => {
   const guesses = ['crane', 'slate', 'pious', 'dough', 'lymph', 'twerk', 'fizzy']
     .filter((g) => g !== answer)
     .slice(0, 6);
-  const res = await submit('wordguess', { guesses });
-  expect(res.status).toBe(201);
-  expect(((await res.json()) as GameResult).score).toBe(0);
+  for (let i = 0; i < guesses.length; i++) {
+    const res = await api('/games/wordguess/guess', 'POST', { guess: guesses[i] });
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({
+      done: i === 5,
+      won: false,
+      answer: i === 5 ? answer : null,
+    });
+  }
+  expect((await api('/games/wordguess/guess', 'POST', { guess: answer })).status).toBe(409);
+  expect(((await (await api('/games/wordguess/results/me')).json()) as GameResult).score).toBe(0);
+});
+
+it('gates Word Guess guesses and exposes only an empty locked state', async () => {
+  expect(await (await api('/games/wordguess/today')).json()).toMatchObject({
+    access: { unlocked: false },
+    guesses: [],
+    answer: null,
+  });
+  expect((await api('/games/wordguess/guess', 'POST', { guess: dailyAnswer(DATE) })).status).toBe(
+    403,
+  );
+});
+
+it('caps concurrent Word Guess guesses at six', async () => {
+  await unlock();
+  const guess = dailyAnswer(DATE) === 'crane' ? 'slate' : 'crane';
+  const replies = await Promise.all(
+    Array.from({ length: 8 }, () => api('/games/wordguess/guess', 'POST', { guess })),
+  );
+  expect(replies.filter((res) => res.status === 200)).toHaveLength(6);
+  expect(replies.filter((res) => res.status === 409)).toHaveLength(2);
+});
+
+it('resumes legacy completed Word Guess results without progress and prevents replay', async () => {
+  await unlock();
+  const answer = dailyAnswer(DATE);
+  await sql((s) =>
+    s.sql.exec(
+      'INSERT INTO game_results VALUES (?,?,?,?,?,?,?)',
+      'wordguess',
+      DATE,
+      'u0',
+      6,
+      JSON.stringify({ guesses: [answer], solved: true, tries: 1 }),
+      NOW,
+      NOW,
+    ),
+  );
+  expect(await (await api('/games/wordguess/today')).json()).toMatchObject({
+    done: true,
+    won: true,
+    answer,
+  });
+  expect(await (await api('/games/wordguess/results/me')).json()).toMatchObject({
+    payload: { answer, marks: [Array(5).fill('correct')] },
+  });
+  expect((await api('/games/wordguess/guess', 'POST', { guess: answer })).status).toBe(409);
 });
 
 it('re-scores Perception answers from the daily puzzle', async () => {

@@ -273,7 +273,7 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 16; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 17; migrations run in the DO constructor via `blockConcurrencyWhile`.
 Version 16 adds `game_results(game_id,date,user_id,score,payload_json,created_at,updated_at)`
 with primary key `(game_id,date,user_id)` and indexes `(user_id,date)` and `(date,game_id)`;
 and `dive_answers(date,user_id,prompt_index,answer,normalized,hidden_at,hidden_by,created_at)`
@@ -311,11 +311,34 @@ Version 14 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth
 `(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
 epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `version < 14`.
 Version 15 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
-self-contained guarded block. Feature migrations run in ascending order 11–16, each advancing its own version.
+self-contained guarded block. Feature migrations run in ascending order 11–17, each advancing its own version.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
 ### Daily Games
+
+Schema v17 adds generic `game_progress(user_id,game,date,state_json,updated_at)` with
+primary key `(user_id,game,date)` for server-owned in-progress games. Account removal
+deletes the user's progress. Word Guess stores its ordered guesses here, never in a
+client-authoritative draft. The Worker-only answer list and seeded daily selection
+are unchanged; neither is imported by the web app (including mock mode).
+
+- `GET /api/games/wordguess/today` returns `WordGuessDay`:
+  `{date,access,guesses:[{word,marks}],done,won,answer:string|null}`. Date is team-local
+  server today. The caller's marks resume on reload; the answer stays null until done.
+  Locked callers can read their own state but cannot submit guesses.
+- `POST /api/games/wordguess/guess` takes `{guess}` (lowercase five-letter dictionary
+  word) and returns the same shape. The transaction rechecks access (403), rejects
+  invalid guesses with 400 without counting them, and rejects completed games or an
+  existing result with 409 `ALREADY_PLAYED`. It appends one server guess, computes marks,
+  and, on a win or sixth guess, inserts the sole `game_results` row atomically using
+  existing scoring (6..1 for a win, zero for a loss). Completed result payloads include
+  guesses, solved, tries, answer and marks; legacy completed results are enriched on read.
+  Generic `POST /api/games/wordguess/results` is disabled (405), even with a forged
+  payload; use the guess endpoint. DailyGameFrame's server-complete mode fetches that
+  existing result after the tile reveal instead of submitting client scores.
+  Mock mode uses a fixed artificial word, not the production answer bank.
+  The build runs Word Guess's web-bundle answer-bank exclusion guard alongside Dive's.
 
 Dive adds four dedicated endpoints without changing the generic hub contract:
 
@@ -443,15 +466,16 @@ aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 `GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
 with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
-Registered daily games (all `higher`, generic scorers in `worker/src/games/more.ts`, rules in
-`shared/games/`, no migration). Daily puzzles derive from the team date via a seeded
+Registered daily games (all `higher`, scoring in `worker/src/games/more.ts`, public rules in
+`shared/games/` and private answer banks in `worker/src/games/`). Daily puzzles derive from the team date via a seeded
 `mulberry32(fnv1a(id:date))` or a day-number answer index, so every teammate gets the same
 puzzle. The server recomputes every score from raw input; client scores are ignored, and
 malformed or implausible payloads return 400.
 
-- `wordguess` takes `{guesses}`: 1–6 lowercase five-letter words, each in the answer or
-  accepted-guess lists, ending on today's answer or six misses, with no earlier solve.
-  Score is `7 − tries` when solved, else 0. Stored payload `{guesses,solved,tries}`.
+- `wordguess` accepts one `{guess}` at a time via its dedicated endpoint above, never a
+  client-supplied board. The server validates against the answer and accepted-guess lists,
+  persists each guess, and finishes on today's answer or six misses. Score is `7 − tries`
+  when solved, else 0. Stored result payload `{guesses,solved,tries,answer,marks}`.
 - `perception` takes `{answer:{clockMs,hue,dot,cells,reactionMs}}` (hold 0–30000 ms, hue
   0–359, dot 0–1000 per axis, seven distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
   for early). Five rounds score 0–100 each against the daily puzzle; reactions under

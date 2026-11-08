@@ -28,7 +28,7 @@ function reset(storage: DurableObjectStorage) {
 }
 
 function expectLatest(storage: DurableObjectStorage) {
-  expect(getSetting(storage, 'schema_version')).toBe(16);
+  expect(getSetting(storage, 'schema_version')).toBe(17);
   for (const table of featureTables)
     expect(
       storage.sql

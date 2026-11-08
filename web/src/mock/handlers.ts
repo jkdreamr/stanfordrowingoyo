@@ -44,7 +44,7 @@ import {
   raceWeekBounds,
 } from '../../../shared/race';
 import { personalPlan, covers } from '../lib/myPlan';
-import { unpack, verifyWordGuess } from '../../../shared/games/wordGuess';
+import { unpack, score } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import {
   parsePerceptionAnswer,
@@ -76,16 +76,7 @@ const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
   dive: null,
-  wordguess: (payload, date) => {
-    mockGuesses ??= new Set(unpack(GUESSES));
-    const result = verifyWordGuess(date, field(payload, 'guesses'), mockGuesses);
-    return (
-      result && {
-        score: result.points,
-        payload: { guesses: field(payload, 'guesses'), solved: result.solved, tries: result.tries },
-      }
-    );
-  },
+  wordguess: null,
   perception: (payload, date) => {
     const answer = parsePerceptionAnswer(field(payload, 'answer'));
     if (!answer) return null;
@@ -157,6 +148,7 @@ export function createMockApi({
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
+  const wordProgress = new Map<string, string[]>();
   const ergTests: ErgTest[] = state.users.flatMap((user) =>
     (['2k', '6k'] as const).flatMap((kind) => {
       const split = user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
@@ -753,7 +745,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 16 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 17 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -926,6 +918,50 @@ export function createMockApi({
           gameResults.find(
             (row) => row.game_id === gameId && row.date === day && row.user_id === user.id,
           ) ?? null;
+        if (gameId === 'wordguess' && ['today', 'guess'].includes(parts[4])) {
+          const key = `${user.id}:${date}`;
+          const guesses = wordProgress.get(key) ?? [];
+          const answer = 'crane';
+          if (parts[4] === 'guess' && method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (mine(date)) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+            mockGuesses ??= new Set(unpack(GUESSES));
+            if (
+              typeof body.guess !== 'string' ||
+              (body.guess !== answer && !mockGuesses.has(body.guess))
+            )
+              fail(400, 'Not in Word List');
+            guesses.push(body.guess);
+            wordProgress.set(key, guesses);
+            if (body.guess === answer || guesses.length === 6) {
+              const stamp = now().toISOString();
+              gameResults.push({
+                game_id: gameId,
+                date,
+                user_id: user.id,
+                score: body.guess === answer ? 7 - guesses.length : 0,
+                payload: {
+                  guesses,
+                  answer,
+                  solved: body.guess === answer,
+                  tries: guesses.length,
+                  marks: guesses.map((word) => score(word, answer)),
+                },
+                created_at: stamp,
+                updated_at: stamp,
+              });
+            }
+          }
+          const done = Boolean(mine(date));
+          return json({
+            date,
+            access,
+            guesses: guesses.map((word) => ({ word, marks: score(word, answer) })),
+            done,
+            won: guesses.at(-1) === answer,
+            answer: done ? answer : null,
+          });
+        }
         if (gameId === 'dive' && parts[4] === 'today' && method === 'GET')
           return json({
             date,

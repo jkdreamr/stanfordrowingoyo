@@ -1,4 +1,4 @@
-import { unpack, verifyWordGuess, WORD_GUESS_ID } from '../../../shared/games/wordGuess';
+import { unpack, verifyWordGuess, WORD_GUESS_ID } from './wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import {
   PERCEPTION_ID,

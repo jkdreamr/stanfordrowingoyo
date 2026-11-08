@@ -1,4 +1,5 @@
 import type { DiveTier } from './games/dive';
+import type { Mark } from './games/wordGuess';
 
 export type Modality = 'erg' | 'bike' | 'run';
 export type ErgTestKind = '2k' | '6k';
@@ -556,6 +557,15 @@ export interface GameAccess {
   unlocked: boolean;
   reason: 'staff' | 'workout' | 'rest_day' | 'locked';
 }
+export interface WordGuessDay {
+  date: string;
+  access: GameAccess;
+  guesses: { word: string; marks: Mark[] }[];
+  done: boolean;
+  won: boolean;
+  /** Hidden until the game is finished. */
+  answer: string | null;
+}
 export interface GameInfo {
   id: GameId;
   direction: GameScoreDirection;
@@ -663,6 +673,8 @@ export interface Api {
     DiveReveal
   >;
   'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;
+  'GET /api/games/wordguess/today': Endpoint<void, WordGuessDay>;
+  'POST /api/games/wordguess/guess': Endpoint<{ guess: string }, WordGuessDay>;
   'POST /api/games/connections/check': Endpoint<{ guesses: string[][] }, ConnectionsCheck>;
   'GET /api/games': Endpoint<void, GamesToday>;
   'GET /api/games/access': Endpoint<void, GameAccess>;

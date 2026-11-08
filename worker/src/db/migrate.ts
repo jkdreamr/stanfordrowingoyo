@@ -587,6 +587,18 @@ CREATE INDEX IF NOT EXISTS dive_answers_group ON dive_answers(date, prompt_index
         '16',
       );
     });
+  if (version < 17)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS game_progress (
+  user_id TEXT NOT NULL, game TEXT NOT NULL, date TEXT NOT NULL,
+  state_json TEXT NOT NULL, updated_at TEXT NOT NULL,
+  PRIMARY KEY(user_id, game, date));`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '17',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)
