@@ -296,6 +296,29 @@ WD_EXCLUDE = {
 for id, names in WD_EXCLUDE.items():
     by_id[id]['exclude'] = names
 
+# Reviewed duplicates: one entity under two labels (corporate suffixes, spelling variants).
+# Each variant becomes an alias of the kept answer, so typing either still scores once.
+DEDUPE = {
+    'companies': {"McDonald's": ['McDonald’s Corporation'], 'Intel': ['Intel Corporation'],
+                  'Delta Air Lines': ['Delta Air Lines, Inc.'],
+                  'American Express': ['American Express Company'],
+                  'Western Digital': ['Western Digital Corporation']},
+    'retailers': {'Target': ['Target Corporation'], 'REWE': ['REWE Group']},
+    'restaurant-chains': {"Domino's Pizza": ["Domino's Pizza Group plc"]},
+    'game-studios': {'Atari': ['Atari Corporation']},
+    'guitars': {'Alembic': ['Alembic Inc'], 'MotorAve': ['Motor Ave']},
+    'clothing': {'Peacoat': ['Pea Coat']},
+    'art': {'Neoclassicism': ['Neo-Classicism'], 'Postminimalism': ['Post-Minimalism']},
+    'palaces': {'Sanssouci Palace': ['Sans-Souci Palace']},
+    'tea': {'Huangshan Maofeng': ['Huang Shan Mao Feng']},
+    'uk-parties': {'UK Independence Party (UKIP)': ['UK Independence Party (UK I P)']},
+}
+for id, merges in DEDUPE.items():
+    prompt = by_id[id]
+    prompt['aliases'] = {**(prompt.get('aliases') or {})}
+    for canonical, variants in merges.items():
+        prompt['aliases'][canonical] = [*prompt['aliases'].get(canonical, []), *variants]
+
 # Inherently small categories stay in the manifest and data but leave the daily rotation.
 INACTIVE = {'us-capitals', 'states', 'greek-gods', 'constellations', 'elements', 'crayons', 'countries',
             'capitals', 'winds', 'scents', 'fictional-materials', 'stones', 'agencies', 'cats', 'rabbits',

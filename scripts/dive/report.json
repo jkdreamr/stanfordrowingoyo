@@ -442,7 +442,7 @@
     "pageviews": 42,
     "sitelinks": 56,
     "wikidata": 0,
-    "aliases": 3,
+    "aliases": 4,
     "too_clever": ["Lapsang Souchong"],
     "gem": "Bai Mudan"
   },
@@ -745,7 +745,7 @@
     "pageviews": 0,
     "sitelinks": 430,
     "wikidata": 367,
-    "aliases": 527,
+    "aliases": 530,
     "too_clever": ["Dirndl"],
     "gem": "Peacoat"
   },
@@ -1551,8 +1551,8 @@
     ],
     "pageviews": 0,
     "sitelinks": 430,
-    "wikidata": 345,
-    "aliases": 329,
+    "wikidata": 348,
+    "aliases": 331,
     "too_clever": ["Dadaism"],
     "gem": "Orphism"
   },
@@ -1650,12 +1650,12 @@
     "id": "guitars",
     "text": "Name a guitar maker.",
     "active": true,
-    "size": 237,
+    "size": 235,
     "tiers": {
-      "surface": 47,
+      "surface": 46,
       "tooclever": 1,
       "school": 82,
-      "rare": 59,
+      "rare": 58,
       "deep": 47,
       "gem": 1
     },
@@ -1670,9 +1670,9 @@
       "Walden"
     ],
     "pageviews": 0,
-    "sitelinks": 186,
-    "wikidata": 117,
-    "aliases": 62,
+    "sitelinks": 184,
+    "wikidata": 115,
+    "aliases": 64,
     "too_clever": ["Strandberg"],
     "gem": "Duesenberg"
   },
@@ -1870,13 +1870,13 @@
       "Toyota",
       "The Walt Disney Company",
       "McDonald's",
-      "McDonald’s Corporation",
-      "Nintendo"
+      "Nintendo",
+      "Juventus FC"
     ],
     "pageviews": 0,
     "sitelinks": 430,
-    "wikidata": 388,
-    "aliases": 902,
+    "wikidata": 393,
+    "aliases": 914,
     "too_clever": ["Berkshire Hathaway"],
     "gem": "Weyerhaeuser"
   },
@@ -1996,7 +1996,7 @@
     "pageviews": 0,
     "sitelinks": 71,
     "wikidata": 0,
-    "aliases": 4,
+    "aliases": 5,
     "too_clever": ["Official Monster Raving Loony Party"],
     "gem": "Yorkshire Party"
   },

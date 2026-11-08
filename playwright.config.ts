@@ -18,6 +18,11 @@ if (
 }
 // Separate auth-ip rate-limit buckets per project; Cloudflare overwrites this header in production.
 const clientIp = (n: number) => ({ extraHTTPHeaders: { 'CF-Connecting-IP': `198.51.100.${n}` } });
+// Chromium turns a simulated edge swipe into overscroll history navigation ("back" to
+// about:blank). Real phones handle that gesture in the OS, so tests disable it.
+const chromiumArgs = {
+  launchOptions: { args: ['--disable-features=OverscrollHistoryNavigation'] },
+};
 export default defineConfig({
   testDir: './e2e',
   testMatch: '**/*.e2e.ts',
@@ -29,16 +34,20 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   use: { baseURL, ignoreHTTPSErrors: true, trace: 'on-first-retry', screenshot: 'only-on-failure' },
   projects: [
-    { name: 'desktop-chrome', use: { ...devices['Desktop Chrome'], ...clientIp(1) } },
+    {
+      name: 'desktop-chrome',
+      use: { ...devices['Desktop Chrome'], ...clientIp(1), ...chromiumArgs },
+    },
     {
       name: 'iphone-15',
       use: {
         ...devices['iPhone 15'],
         ...clientIp(2),
         browserName: process.env.E2E_IPHONE_ENGINE === 'chromium' ? 'chromium' : 'webkit',
+        ...(process.env.E2E_IPHONE_ENGINE === 'chromium' ? chromiumArgs : {}),
       },
     },
-    { name: 'pixel-7', use: { ...devices['Pixel 7'], ...clientIp(3) } },
+    { name: 'pixel-7', use: { ...devices['Pixel 7'], ...clientIp(3), ...chromiumArgs } },
   ],
   webServer: process.env.E2E_BASE_URL
     ? undefined
