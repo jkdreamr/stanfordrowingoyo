@@ -1,3 +1,7 @@
+/** Prompts per team day; every prompt scores at most 100 (Pearl). */
+export const DIVE_PROMPTS_PER_DAY = 5;
+export const DIVE_MAX_SCORE = DIVE_PROMPTS_PER_DAY * 100;
+
 export const DIVE_TIERS = {
   surface: { label: 'Surface', points: 10, emoji: '🫧' },
   tooclever: { label: 'Too Clever', points: 15, emoji: '🤡' },
@@ -11,11 +15,11 @@ export type DiveTier = keyof typeof DIVE_TIERS;
 
 export function diveVerdict(score: number): string {
   if (score === 0) return 'High And Dry';
-  if (score < 150) return 'Toe Dipper';
-  if (score < 300) return 'Getting Wet';
-  if (score < 450) return 'Open Water';
-  if (score < 600) return 'Deep Diver';
-  if (score < 700) return 'Abyss Explorer';
+  if (score < 100) return 'Toe Dipper';
+  if (score < 200) return 'Getting Wet';
+  if (score < 300) return 'Open Water';
+  if (score < 400) return 'Deep Diver';
+  if (score < DIVE_MAX_SCORE) return 'Abyss Explorer';
   return 'Pearl Collector';
 }
 

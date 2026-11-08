@@ -1,5 +1,5 @@
 import { today } from '../../../shared/dates';
-import { diveVerdict, normalizeAnswer } from '../../../shared/games/dive';
+import { DIVE_PROMPTS_PER_DAY, diveVerdict, normalizeAnswer } from '../../../shared/games/dive';
 import type { DiveDay } from '../../../shared/types';
 import type { Context } from '../context';
 import { refreshUser, requireStaff } from '../auth/guards';
@@ -28,7 +28,7 @@ async function day(ctx: Context, date: string): Promise<DiveDay> {
       return { ...answer, gem: set.gem, notable: set.notable };
     }),
   );
-  const complete = answers.length === 7;
+  const complete = answers.length === DIVE_PROMPTS_PER_DAY;
   const staff = user.role !== 'rower';
   const past = date < today(ctx.now);
   const result = diveResult(ctx.storage, date, user.id);
@@ -58,7 +58,7 @@ export async function past(ctx: Context) {
 export async function answer(ctx: Context) {
   refreshUser(ctx);
   const body = await readJson(ctx.request);
-  const index = v.int(body.prompt_index, 'Prompt Index', 0, 6);
+  const index = v.int(body.prompt_index, 'Prompt Index', 0, DIVE_PROMPTS_PER_DAY - 1);
   if (typeof body.answer !== 'string') v.invalid('Answer must be a string.');
   if (/\p{Cc}/u.test(body.answer)) v.invalid('Answer cannot contain control characters.');
   const value = v.string(body.answer, 'Answer', 0, 40, true);
@@ -128,7 +128,7 @@ export async function moderate(ctx: Context) {
   requireStaff(ctx);
   const body = await readJson(ctx.request);
   const date = checkedDate(ctx, body.date);
-  const index = v.int(body.prompt_index, 'Prompt Index', 0, 6);
+  const index = v.int(body.prompt_index, 'Prompt Index', 0, DIVE_PROMPTS_PER_DAY - 1);
   const normalized = v.string(body.normalized, 'Normalized Answer', 1, 120);
   if (!/^[a-z0-9]+(?: [a-z0-9]+)*$/.test(normalized)) v.invalid('Normalized Answer is invalid.');
   const hidden = v.boolean(body.hidden, 'Hidden');

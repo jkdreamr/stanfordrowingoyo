@@ -1,3 +1,4 @@
+import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
 import { DIVE_PROMPTS } from './dive/prompts';
 
 export { DIVE_PROMPTS } from './dive/prompts';
@@ -24,8 +25,11 @@ export function diveSelectionFor(date: string) {
     (Date.parse(`${date}T12:00:00Z`) - Date.parse('2026-01-01T12:00:00Z')) / 86400000,
   );
   return Array.from(
-    { length: 7 },
-    (_, i) => ordered[(((day * 7 + i) % ordered.length) + ordered.length) % ordered.length],
+    { length: DIVE_PROMPTS_PER_DAY },
+    (_, i) =>
+      ordered[
+        (((day * DIVE_PROMPTS_PER_DAY + i) % ordered.length) + ordered.length) % ordered.length
+      ],
   );
 }
 export function divePromptsFor(date: string): string[] {

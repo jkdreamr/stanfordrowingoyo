@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { DiveTier } from '../../../../shared/games/dive';
+import { DIVE_MAX_SCORE, type DiveTier } from '../../../../shared/games/dive';
 import './dive.css';
 
 export function WaterColumn({
@@ -11,7 +11,7 @@ export function WaterColumn({
   compact?: boolean;
   tier?: DiveTier;
 }) {
-  const maximum = tier ? 100 : 700;
+  const maximum = tier ? 100 : DIVE_MAX_SCORE;
   const depth = Math.max(0, Math.min(maximum, score));
   const height = compact ? 200 : 320;
   const range = height - 92;

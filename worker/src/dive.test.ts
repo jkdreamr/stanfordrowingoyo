@@ -1,7 +1,7 @@
 /// <reference types="@cloudflare/vitest-plugin/types" />
 import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { beforeEach, expect, it } from 'vitest';
-import { normalizeAnswer } from '../../shared/games/dive';
+import { DIVE_MAX_SCORE, DIVE_PROMPTS_PER_DAY, normalizeAnswer } from '../../shared/games/dive';
 import type { DiveAnswerResult, DiveDay, DiveReveal, GameDayLeaderboard } from '../../shared/types';
 import type { Env } from './index';
 import { sha256 } from './auth/crypto';
@@ -50,7 +50,7 @@ async function set(index = 0) {
   return answerSet(diveSelectionFor(DATE)[index].id);
 }
 async function complete(user = 0, miss = false) {
-  for (let i = 0; i < 7; i++)
+  for (let i = 0; i < DIVE_PROMPTS_PER_DAY; i++)
     expect(
       (await submit(i, miss ? 'zzzzzzzzzzzzzzzzzzzz' : (await set(i)).gem.answer, user)).status,
     ).toBe(201);
@@ -177,16 +177,9 @@ it('accepts unknown, empty and timeout misses while rejecting malformed writes',
   await rest();
   for (const answer of [null, 5, 'x'.repeat(41), 'a\nb', '\ta', 'a\u0000b', 'a\u007fb'])
     expect((await api('/answers', 'POST', { prompt_index: 0, answer })).status).toBe(400);
-  for (const index of [-1, 7, 0.5, '0', null])
+  for (const index of [-1, DIVE_PROMPTS_PER_DAY, 6, 0.5, '0', null])
     expect((await api('/answers', 'POST', { prompt_index: index, answer: 'hi' })).status).toBe(400);
-  for (const [index, answer] of [
-    '',
-    '   ',
-    '!!!',
-    'idk',
-    'none',
-    'zzzzzzzzzzzzzzzzzzzz',
-  ].entries()) {
+  for (const [index, answer] of ['', '   ', '!!!', 'idk', 'zzzzzzzzzzzzzzzzzzzz'].entries()) {
     const response = await submit(index, answer);
     expect(response.status).toBe(201);
     expect(await response.json()).toMatchObject({ canonical: null, tier: 'miss', points: 0 });
@@ -203,7 +196,8 @@ it('reveals team answers only on completion, groups matched aliases and normaliz
   await submit(0, `THE ${answer.toUpperCase()}`, 1);
   await submit(1, '  THE zzzzzy  ');
   await submit(1, 'zzzzzy!', 1);
-  for (let i = 2; i < 7; i++) expect((await submit(i, (await set(i)).gem.answer)).status).toBe(201);
+  for (let i = 2; i < DIVE_PROMPTS_PER_DAY; i++)
+    expect((await submit(i, (await set(i)).gem.answer)).status).toBe(201);
   const day = await current();
   expect(day.complete).toBe(true);
   expect(day.reveal![0].groups).toHaveLength(1);
@@ -236,7 +230,10 @@ it('reveals team answers only on completion, groups matched aliases and normaliz
     ).json<GameDayLeaderboard>();
   expect((await board(NOW)).final).toBe(false);
   expect((await board('2026-03-19T07:00:00Z')).final).toBe(true);
-  expect((await board(NOW)).rows[0]).toMatchObject({ rank: 1, score: 600 });
+  expect((await board(NOW)).rows[0]).toMatchObject({
+    rank: 1,
+    score: (DIVE_PROMPTS_PER_DAY - 1) * 100,
+  });
 });
 it('moderates display only, preserves all stored scores, hides other members, and audits hide/unhide', async () => {
   await Promise.all([0, 1, 2, 3].map(rest));
@@ -279,12 +276,12 @@ it('moderates display only, preserves all stored scores, hides other members, an
     points: 100,
     tier: 'gem',
   });
-  expect((await current()).score).toBe(700);
+  expect((await current()).score).toBe(DIVE_MAX_SCORE);
   expect((await current(1)).score).toBe(100);
   const unhidden = await api('/answers', 'PATCH', { ...body, hidden: false }, 59);
   expect(unhidden.status).toBe(200);
   expect((await unhidden.json<DiveReveal>()).groups[0]).toMatchObject({ count: 3, hidden: false });
-  expect((await current()).score).toBe(700);
+  expect((await current()).score).toBe(DIVE_MAX_SCORE);
   expect((await current(3)).score).toBe(100);
   expect(
     await sql((s) =>
@@ -295,9 +292,9 @@ it('moderates display only, preserves all stored scores, hides other members, an
     { action: 'dive.unhide', target: `${DATE}:0:${normalized}`, actor_id: 'u59' },
   ]);
 });
-it('stores correct immutable running sums for a 60-player seven-prompt burst', async () => {
+it('stores correct immutable running sums for a 60-player full-day burst', async () => {
   await Promise.all(Array.from({ length: 59 }, (_, i) => rest(i)));
-  for (let index = 0; index < 7; index++) {
+  for (let index = 0; index < DIVE_PROMPTS_PER_DAY; index++) {
     const chosen = await set(index);
     const responses = await Promise.all(
       Array.from({ length: 60 }, (_, user) =>
@@ -328,13 +325,13 @@ it('exports canonical/tier/points and removes Dive rows with personal game data'
   await complete();
   await sql((s) => {
     const exported = accountExport(s, byId(s, 'u0')!, NOW);
-    expect(exported.dive_answers).toHaveLength(7);
+    expect(exported.dive_answers).toHaveLength(DIVE_PROMPTS_PER_DAY);
     expect(exported.dive_answers[0]).toMatchObject({
       tier: 'gem',
       points: 100,
       canonical: expect.any(String),
     });
-    expect(exported.game_results[0].score).toBe(700);
+    expect(exported.game_results[0].score).toBe(DIVE_MAX_SCORE);
     s.transactionSync(() => removeAccount(s, byId(s, 'u0')!));
     expect(s.sql.exec('SELECT * FROM dive_answers').toArray()).toHaveLength(0);
     expect(s.sql.exec('SELECT * FROM game_results').toArray()).toHaveLength(0);
@@ -342,7 +339,7 @@ it('exports canonical/tier/points and removes Dive rows with personal game data'
 });
 it('measures end-to-end submit wall time in the Vitest Worker pool', async () => {
   const times: number[] = [];
-  for (let index = 0; index < 7; index++) {
+  for (let index = 0; index < DIVE_PROMPTS_PER_DAY; index++) {
     const start = performance.now();
     const response = await submit(index, '', 59);
     await response.arrayBuffer();

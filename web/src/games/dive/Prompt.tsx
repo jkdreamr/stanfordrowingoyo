@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { DiveAnswerResult } from '../../../../shared/types';
 import { Button, TextField } from '../../components/ui';
 import { api, ApiClientError } from '../../lib/api';
+import { DIVE_PROMPTS_PER_DAY } from '../../../../shared/games/dive';
 
 export function deadlineKey(userId: string, date: string, index: number) {
   return `oyo:dive:${userId}:${date}:${index}`;
@@ -84,7 +85,9 @@ export function Prompt({
       }}
     >
       <div className="flex items-center justify-between gap-4">
-        <p className="text-subhead text-muted">{index + 1} of 7</p>
+        <p className="text-subhead text-muted">
+          {index + 1} of {DIVE_PROMPTS_PER_DAY}
+        </p>
         <div
           className="dive-timer"
           role="timer"
@@ -107,7 +110,7 @@ export function Prompt({
         </div>
       </div>
       <div className="dive-steps" aria-hidden="true">
-        {Array.from({ length: 7 }, (_, i) => (
+        {Array.from({ length: DIVE_PROMPTS_PER_DAY }, (_, i) => (
           <span
             key={i}
             className={`dive-step ${i < index ? 'dive-step-done' : i === index ? 'dive-step-current' : ''}`}
