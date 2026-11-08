@@ -734,6 +734,10 @@
 .save-celebration.is-leaving {
   animation: save-out 200ms var(--ease-in) both;
 }
+/* An achievement card on Home waits under the overlay and pops as it lifts. */
+:root:has(.save-celebration:not(.is-leaving)) .celebration-pop {
+  animation-play-state: paused;
+}
 .save-card {
   position: relative;
   width: min(100%, 340px);

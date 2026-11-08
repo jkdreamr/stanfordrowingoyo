@@ -30,9 +30,11 @@ export function SaveCelebration() {
   const hasProgress = session.after !== undefined;
   const ratio = Math.min(1, ((filled ? session.after : session.before) ?? 0) / 100);
   return (
+    // A visual moment only: the "Session saved" toast is the announcement of record and the
+    // Home celebration card announces any achievement, so screen readers hear each once.
     <div
       className={`save-celebration ${leaving ? 'is-leaving' : ''}`}
-      role="status"
+      aria-hidden="true"
       onClick={() => setLeaving(true)}
       onAnimationEnd={(event) => {
         if (leaving && event.target === event.currentTarget) clearSave();

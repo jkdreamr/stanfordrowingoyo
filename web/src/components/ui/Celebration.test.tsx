@@ -9,7 +9,9 @@ import {
   recordCelebration,
   type Achievement,
 } from '../../lib/celebrations';
+import { announceSave, clearSave } from '../../lib/saveCelebration';
 import { Celebration } from './Celebration';
+import { SaveCelebration } from './SaveCelebration';
 import { ToastProvider } from './Toast';
 
 const mutate = vi.hoisted(() => vi.fn());
@@ -44,6 +46,7 @@ afterEach(() => {
   cleanup();
   client.clear();
   clearCelebration(user.id);
+  act(() => clearSave());
   vi.useRealTimers();
   vi.unstubAllGlobals();
 });
@@ -157,4 +160,34 @@ it('guards rapid taps and a re-shown card with a persisted success marker', asyn
 it('renders nothing without a pending achievement', () => {
   setup(null);
   expect(screen.queryByRole('status')).toBeNull();
+});
+
+it('leaves the save announcement to the toast and the achievement to the card', () => {
+  act(() => announceSave({ equiv_m: 8000, title: 'New Best Week Workout', before: 40, after: 60 }));
+  setup();
+  render(<SaveCelebration />);
+  expect(document.querySelector('.save-celebration')?.getAttribute('aria-hidden')).toBe('true');
+  expect(screen.getAllByRole('status')).toHaveLength(1);
+  expect(screen.getByRole('status').textContent).toContain('New Best Week42.0k m');
+});
+it('starts the card timer only once the save overlay has lifted', () => {
+  act(() => announceSave({ equiv_m: 8000, title: 'Morning Erg' }));
+  setup({ ...best, kind: 'longest-streak', title: 'Longest Streak', value: 5 });
+  act(() => vi.advanceTimersByTime(6000));
+  expect(screen.getByRole('status')).toBeTruthy();
+  act(() => clearSave());
+  act(() => vi.advanceTimersByTime(4999));
+  expect(screen.getByRole('status')).toBeTruthy();
+  act(() => vi.advanceTimersByTime(1));
+  expect(screen.queryByRole('status')).toBeNull();
+});
+it('starts the save overlay exit on Escape or a tap', () => {
+  act(() => announceSave({ equiv_m: 8000, title: 'Morning Erg' }));
+  render(<SaveCelebration />);
+  fireEvent.keyDown(window, { key: 'Escape' });
+  expect(document.querySelector('.save-celebration')?.className).toContain('is-leaving');
+  act(() => announceSave({ equiv_m: 8000, title: 'Evening Erg' }));
+  expect(document.querySelector('.save-celebration')?.className).not.toContain('is-leaving');
+  fireEvent.click(document.querySelector('.save-celebration')!);
+  expect(document.querySelector('.save-celebration')?.className).toContain('is-leaving');
 });
