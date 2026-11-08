@@ -1,4 +1,4 @@
-import { Waves } from 'lucide-react';
+import { Gamepad2 } from 'lucide-react';
 import { ListGroup, ListRow } from '../components/ui';
 import { useGameAccess } from './useGameAccess';
 
@@ -9,7 +9,7 @@ export function GamesCard() {
       <ListRow
         title="Daily Games"
         to="/games"
-        leading={<Waves size={20} strokeWidth={1.75} />}
+        leading={<Gamepad2 size={20} strokeWidth={1.75} />}
         subtitle={
           access.data
             ? access.data.unlocked

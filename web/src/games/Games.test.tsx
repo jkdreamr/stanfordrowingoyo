@@ -10,6 +10,7 @@ import { GameDayBoard } from './GameDayBoard';
 import Games from '../pages/Games';
 import GamesLeaderboard from '../pages/GamesLeaderboard';
 import DiveStart from './DiveStart';
+import { GamesCard } from './GamesCard';
 
 const clients: ReturnType<typeof createQueryClient>[] = [];
 beforeEach(() => {
@@ -54,7 +55,14 @@ it('shows a locked hub with a workout CTA, registered game and empty weekly boar
     '/log',
   );
   expect(screen.getByRole('link', { name: /Dive/ }).getAttribute('href')).toBe('/games/dive');
+  expect(screen.getByRole('link', { name: /Dive/ }).querySelector('.lucide-anchor')).toBeTruthy();
   expect(await screen.findByText('No Games Played Yet')).toBeTruthy();
+});
+it('distinguishes the Home games card from training with a gamepad icon', async () => {
+  mount(<GamesCard />);
+  const card = await screen.findByRole('link', { name: /Daily Games/ });
+  expect(card.querySelector('.lucide-gamepad2')).toBeTruthy();
+  expect(card.querySelector('.lucide-waves')).toBeNull();
 });
 it('renders the unlocked Dive start surface for staff', async () => {
   const { mock } = mount(<DiveStart />);

@@ -1,5 +1,5 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
-import { Waves, type LucideIcon } from 'lucide-react';
+import { Anchor, type LucideIcon } from 'lucide-react';
 import type { GameScoreDirection } from '../../../shared/types';
 import { formatNumber } from '../lib/format';
 
@@ -16,7 +16,7 @@ export const GAMES: GameDefinition[] = [
   {
     id: 'dive',
     title: 'Dive',
-    icon: Waves,
+    icon: Anchor,
     accent: 'var(--accent-ink)',
     direction: 'higher',
     component: lazy(() => import('./DiveStart')),
