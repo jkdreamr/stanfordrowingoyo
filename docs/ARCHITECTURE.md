@@ -425,6 +425,23 @@ aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 `GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
 with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
+Registered daily games (all `higher`, generic scorers in `worker/src/games/more.ts`, rules in
+`shared/games/`, no migration). Daily puzzles derive from the team date via a seeded
+`mulberry32(fnv1a(id:date))` or a day-number answer index, so every teammate gets the same
+puzzle. The server recomputes every score from raw input; client scores are ignored, and
+malformed or implausible payloads return 400.
+
+- `wordguess` takes `{guesses}`: 1–6 lowercase five-letter words, each in the answer or
+  accepted-guess lists, ending on today's answer or six misses, with no earlier solve.
+  Score is `7 − tries` when solved, else 0. Stored payload `{guesses,solved,tries}`.
+- `perception` takes `{answer:{clockMs,hue,dot,cells,reactionMs}}` (hold 0–30000 ms, hue
+  0–359, dot 0–1000 per axis, seven distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
+  for early). Five rounds score 0–100 each against the daily puzzle; reactions under
+  100 ms score 0. Score 0–500; stored `{answer,scores}`.
+- `ratehold` takes `{taps}`: three pieces of eight integer ms timestamps (0–120000, gaps
+  300–10000 ms). Each piece has three cued then five held strokes; held intervals score
+  against the daily rate. Score 0–100 (piece mean); stored `{taps,rates,held,pieces}`.
+
 ### Tests, recaps, and challenges
 
 - GET /api/users/:id/tests: authenticated team-visible history, newest date/created_at first.

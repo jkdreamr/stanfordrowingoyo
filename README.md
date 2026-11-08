@@ -65,6 +65,7 @@ Daily Games live at `/games`, separately from training leaderboards. Add a serve
 registry entry (direction and optional authoritative scorer) and a lazy client
 registry entry; generic routes and boards require no migration. Every game write
 uses the shared server OYO gate. See [the extension contract](web/src/games/README.md)
-and [architecture §6](docs/ARCHITECTURE.md#daily-games).
+and [architecture §6](docs/ARCHITECTURE.md#daily-games). Word Guess, Perception and Rate Hold
+are registered with server-rescored daily results.
 
 On-your-own training app for Stanford Rowing: log OYO sessions, track equivalent E-meters against weekly targets, see season totals, and share workouts with the team.

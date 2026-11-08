@@ -26,6 +26,7 @@ import type {
   WeekStats,
   WeekSummary,
   Zone,
+  GameResult,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
 import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS, ZONES } from '../../../shared/math';
@@ -36,6 +37,44 @@ import { generatedImage } from './images';
 import { previewRoster } from '../pages/admin/roster';
 import { factorError, seasonError, targetError } from '../pages/admin/operations';
 import { personalPlan, covers } from '../lib/myPlan';
+import { unpack, verifyWordGuess } from '../../../shared/games/wordGuess';
+import { GUESSES } from '../../../shared/games/wordGuessGuesses';
+import {
+  parsePerceptionAnswer,
+  perceptionTotal,
+  scorePerception,
+} from '../../../shared/games/perception';
+import { parseRateHoldTaps, scoreRateHold } from '../../../shared/games/rateHold';
+
+type MockGameScore = (payload: unknown, date: string) => { score: number; payload: unknown } | null;
+const field = (payload: unknown, key: string) =>
+  payload && typeof payload === 'object' ? (payload as Record<string, unknown>)[key] : undefined;
+let mockGuesses: Set<string> | null = null;
+const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  dive: null,
+  wordguess: (payload, date) => {
+    mockGuesses ??= new Set(unpack(GUESSES));
+    const result = verifyWordGuess(date, field(payload, 'guesses'), mockGuesses);
+    return (
+      result && {
+        score: result.points,
+        payload: { guesses: field(payload, 'guesses'), solved: result.solved, tries: result.tries },
+      }
+    );
+  },
+  perception: (payload, date) => {
+    const answer = parsePerceptionAnswer(field(payload, 'answer'));
+    if (!answer) return null;
+    const scores = scorePerception(date, answer);
+    return { score: perceptionTotal(scores), payload: { answer, scores } };
+  },
+  ratehold: (payload, date) => {
+    const taps = parseRateHoldTaps(field(payload, 'taps'));
+    if (!taps) return null;
+    const { total, ...result } = scoreRateHold(date, taps);
+    return { score: total, payload: { taps, ...result } };
+  },
+};
 class MockError extends Error {
   constructor(
     public status: number,
@@ -88,6 +127,7 @@ export function createMockApi({
   onSession = (_id: string | null) => {},
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
+  const gameResults: GameResult[] = [];
   const ergTests: ErgTest[] = state.users.flatMap((user) =>
     (['2k', '6k'] as const).flatMap((kind) => {
       const split = user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
@@ -842,11 +882,21 @@ export function createMockApi({
         const access = { date, unlocked: reason !== 'locked', reason };
         if (path === '/api/games/access' && method === 'GET') return json(access);
         if (path === '/api/games' && method === 'GET')
-          return json({ date, access, games: [{ id: 'dive', direction: 'higher' }], results: [] });
+          return json({
+            date,
+            access,
+            games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
+            results: gameResults.filter((row) => row.user_id === user.id && row.date === date),
+          });
         if (path === '/api/games/leaderboard' && method === 'GET')
           return json({ week_start: weekStart(url.searchParams.get('week') ?? date), rows: [] });
-        if (parts[3] !== 'dive') fail(404, 'Game not found.');
-        if (parts[4] === 'today' && method === 'GET')
+        const gameId = parts[3];
+        if (!Object.hasOwn(MOCK_GAMES, gameId)) fail(404, 'Game not found.');
+        const mine = (day: string) =>
+          gameResults.find(
+            (row) => row.game_id === gameId && row.date === day && row.user_id === user.id,
+          ) ?? null;
+        if (gameId === 'dive' && parts[4] === 'today' && method === 'GET')
           return json({
             date,
             access,
@@ -866,17 +916,52 @@ export function createMockApi({
             score: 0,
             reveal: user.role === 'rower' ? null : [],
           });
-        if (parts[4] === 'results' && method === 'GET') return json(null);
+        if (parts[4] === 'results' && method === 'GET')
+          return json(mine(url.searchParams.get('date') ?? date));
         if (parts[4] === 'results' && method === 'POST') {
           if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
-          fail(405, 'Use this game’s own submit endpoint.', 'METHOD_NOT_ALLOWED');
+          const scorer = MOCK_GAMES[gameId];
+          if (!scorer) fail(405, 'Use this game’s own submit endpoint.', 'METHOD_NOT_ALLOWED');
+          if (mine(date)) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+          const scored = scorer(body.payload, date);
+          if (!scored) fail(400, 'Invalid result.');
+          const stamp = now().toISOString();
+          const row: GameResult = {
+            game_id: gameId,
+            date,
+            user_id: user.id,
+            ...scored,
+            created_at: stamp,
+            updated_at: stamp,
+          };
+          gameResults.push(row);
+          return json(row, 201);
         }
         if (parts[4] === 'leaderboard' && method === 'GET') {
           const day = url.searchParams.get('date') ?? date;
           if (!dateValid(day) || day > date) fail(400, 'Invalid date.');
-          if (day === date && user.role === 'rower')
+          if (day === date && user.role === 'rower' && !mine(day))
             fail(403, 'Play today to see the board.', 'PLAY_FIRST');
-          return json({ game_id: 'dive', date: day, final: day < date, players: 0, rows: [] });
+          const rows = gameResults
+            .filter((row) => row.game_id === gameId && row.date === day)
+            .sort((a, b) => b.score - a.score)
+            .map((row) => ({
+              score: row.score,
+              rank:
+                1 +
+                gameResults.filter(
+                  (o) => o.game_id === gameId && o.date === day && o.score > row.score,
+                ).length,
+              user: publicUser(state.users.find((u) => u.id === row.user_id)!),
+              me: row.user_id === user.id,
+            }));
+          return json({
+            game_id: gameId,
+            date: day,
+            final: day < date,
+            players: rows.length,
+            rows,
+          });
         }
       }
       if (
