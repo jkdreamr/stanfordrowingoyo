@@ -40,9 +40,9 @@ export function TabBar() {
     <nav
       aria-label="Main Navigation"
       className="shell-tabbar"
+      data-tab={active < 0 ? 'none' : undefined}
       style={{ '--tab': Math.max(0, active) } as CSSProperties}
     >
-      <span className={`shell-tab-indicator ${active < 0 ? 'is-hidden' : ''}`} aria-hidden="true" />
       {main.slice(0, 2).map((item) => (
         <Tab key={item.to} {...item} from={pathname} />
       ))}

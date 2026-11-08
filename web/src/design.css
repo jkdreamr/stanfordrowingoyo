@@ -215,35 +215,24 @@
   position: relative;
   z-index: 1;
 }
-.shell-tab-indicator {
+.shell-tabbar::before {
+  /* The selection pill: one column wide, clipped to a 56 × 30 rounded pill behind the icon. */
+  content: '';
   position: absolute;
   top: 0;
   left: var(--tab-pad);
   width: calc((100% - 2 * var(--tab-pad)) / 5);
   height: 72px;
   pointer-events: none;
+  background: var(--oyo-selected);
+  clip-path: inset(12.5px calc(50% - 28px) 29.5px round 15px);
   transform: translate3d(calc(var(--tab, 0) * 100%), 0, 0);
   transition:
     transform var(--dur-travel) var(--spring),
     opacity var(--dur-feedback) var(--ease-out);
 }
-.shell-tab-indicator::before {
-  content: '';
-  position: absolute;
-  top: 12.5px;
-  left: 50%;
-  width: 56px;
-  height: 30px;
-  margin-left: -28px;
-  border-radius: 15px;
-  background: var(--oyo-selected);
-  transition: transform var(--dur-state) var(--ease-out);
-}
-.shell-tab-indicator.is-hidden {
+.shell-tabbar[data-tab='none']::before {
   opacity: 0;
-}
-.shell-tab-indicator.is-hidden::before {
-  transform: scale(0.7);
 }
 .shell-tab svg {
   transition: transform var(--dur-travel) var(--spring);
@@ -883,8 +872,7 @@
   .drive-hero,
   .ui-action-card,
   .shell-tab svg,
-  .shell-tab-indicator,
-  .shell-tab-indicator::before,
+  .shell-tabbar::before,
   .shell-log-tab > span:first-child,
   .ui-segment-thumb {
     transition-duration: 0ms;
