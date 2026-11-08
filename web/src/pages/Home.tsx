@@ -90,7 +90,7 @@ export default function Page() {
       <PullToRefresh
         label="Home"
         onRefresh={refresh}
-        className="screen-stack relative [&>.social-refresh-slot]:absolute [&>.social-refresh-slot]:inset-x-0 [&>.social-refresh-slot]:top-0"
+        className="screen-stack home-modules relative [&>.social-refresh-slot]:absolute [&>.social-refresh-slot]:inset-x-0 [&>.social-refresh-slot]:top-0"
       >
         {user && <Celebration key={user.id} user={user} />}
         <InstallBanner />

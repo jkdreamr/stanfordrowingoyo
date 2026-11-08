@@ -24,9 +24,11 @@
   --cardinal-deep: #6b0f0f;
   --card-border: transparent;
   --gutter: 20px;
-  --radius-card: 16px;
-  --radius-control: 999px;
-  --radius-hero: 24px;
+  --radius-card: 12px;
+  --radius-control: 10px;
+  --radius-pill: 999px;
+  --radius-hero: 16px;
+  --panel-line: rgb(0 0 0 / 9%);
   /*
    * Elevation is minimal: flat by default, one raised level for things that sit on a track
    * or the page (segment thumb, glass knob, pinned You row) and one floating level (sheets,
@@ -105,6 +107,7 @@
   --cardinal-top: #8f1a16;
   --cardinal-deep: #4f0b0b;
   --card-border: rgb(255 255 255 / 10%);
+  --panel-line: rgb(255 255 255 / 11%);
   /* Dark: surface steps and hairlines; only floating things add a deep black ambient. */
   --elev-2: 0 0 0 1px rgb(255 255 255 / 10%);
   --elev-2-press: 0 0 0 1px rgb(255 255 255 / 8%);
@@ -118,6 +121,10 @@
   --elev-cardinal-float: var(--elev-3);
 }
 
+/* Numbers are instruments: tabular figures everywhere. */
+body {
+  font-variant-numeric: tabular-nums;
+}
 /* Type: system stack, tighter display tracking, numbers as the reward */
 .text-large-title,
 .ui-large-title {
@@ -136,7 +143,7 @@
   font-size: 3.25rem;
   line-height: 1;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -217,6 +224,32 @@
 }
 .ui-list .ui-row:focus-visible {
   outline-offset: 0;
+}
+/*
+ * Instrument panels: Home's modules (and other grouped modules) sit in hairline panels, page
+ * colored, 12 px radius, no shadow. Everything else stays flat on the background.
+ */
+.home-modules > .ui-card,
+.home-modules .ui-list {
+  border: 1px solid var(--panel-line);
+  border-radius: var(--radius-card);
+}
+.home-modules > .ui-card {
+  padding: 16px;
+}
+.home-modules .ui-list {
+  padding-inline: 16px;
+}
+.home-modules .ui-card .ui-list {
+  border: 0;
+  padding-inline: 0;
+}
+/* Feed: flat posts divided by full-width hairlines. */
+@media (max-width: 1023.98px) {
+  .ui-card.social-entry {
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+  }
 }
 p.ui-group-caption {
   padding-inline: 0;
@@ -314,11 +347,11 @@ h2.ui-group-caption {
 }
 /* Minimal pill segments: a neutral track and a raised white (dark: lifted grey) thumb. */
 .ui-segments {
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-pill);
   background: var(--surface-2);
 }
 .ui-segment-thumb {
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-pill);
   box-shadow: var(--elev-2-sm);
   transition:
     transform var(--dur-travel) var(--spring),

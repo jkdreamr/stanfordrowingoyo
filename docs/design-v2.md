@@ -60,9 +60,16 @@ reduced motion keeps the shadow change instant and drops the scale.
 `soft-light` at 4%, never animated) as a premium-card material. No grain on backgrounds or other surfaces; it
 is off under `forced-colors` and `prefers-contrast: more`.
 
+**Flat first, hairline panels for modules.** Leaderboard rows, Me stats and lists, Settings, the Log form and
+generic list groups are fully flat. Home's modules (race, challenges, today's plan, sessions, announcements)
+sit in hairline panels: 1px `rgb(0 0 0 / 9%)` (dark `rgb(255 255 255 / 11%)`), 12px radius, page-colored, no
+shadow. Feed posts are flat and divided by full-width hairlines. Numbers are tabular everywhere; large figures
+alone get tight tracking (−0.03em on the hero numeral), and the week card's figure is the largest on Home.
+
 ### Shape and Space
 
-Pills for buttons and segmented controls, hero 24px, sheets 20px, pinned row 16px. 4pt grid, 20px side gutters
+Small radii: controls 10px, panels 12px, the week card 16px, sheets 20px; pills only for chips and segmented
+controls. 4pt grid, 20px side gutters
 on phones, 32px between sections, rows overhang the text column by 12px so their press highlight has room.
 
 ### Type
