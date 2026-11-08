@@ -9,6 +9,7 @@ import { byId } from './db/users';
 import { migrate } from './db/migrate';
 import { accountExport, removeAccount } from './db/account';
 import { oyoGameAccess } from './games/access';
+import { getMyPlan } from './db/myPlan';
 import { GAMES } from './games/registry';
 import { gameRoutes } from './routes/games';
 import { errorResponse } from './http';
@@ -128,6 +129,26 @@ async function rest() {
       .toArray(),
   );
 }
+it('uses the same latest covering Fortnight rest day as My Plan, including overlap and expiry', async () => {
+  await sql((s) => {
+    s.sql.exec("INSERT INTO my_plans VALUES ('u0','2026-03-09','[{\"week\":2,\"day\":2}]',?)", NOW);
+    s.sql.exec("INSERT INTO my_plans VALUES ('u0','2026-03-16','[]',?)", NOW);
+    s.sql.exec("INSERT INTO my_plans VALUES ('u0','2026-03-23','[{\"week\":1,\"day\":2}]',?)", NOW);
+    const user = byId(s, 'u0')!;
+    expect(getMyPlan(s, user.id, DATE)?.start_date).toBe('2026-03-16');
+    expect(oyoGameAccess(s, user, DATE).reason).toBe('locked');
+    s.sql.exec(
+      'UPDATE my_plans SET rest_days_json=\'[{"week":1,"day":2},{"week":2,"day":6}]\' WHERE start_date=\'2026-03-16\'',
+    );
+    expect(getMyPlan(s, user.id, DATE)?.rest_days).toContainEqual({ week: 1, day: 2 });
+    expect(oyoGameAccess(s, user, DATE).reason).toBe('rest_day');
+    s.sql.exec("DELETE FROM my_plans WHERE start_date='2026-03-23'");
+    expect(getMyPlan(s, user.id, '2026-03-29')?.rest_days).toContainEqual({ week: 2, day: 6 });
+    expect(oyoGameAccess(s, user, '2026-03-29').reason).toBe('rest_day');
+    expect(getMyPlan(s, user.id, '2026-03-30')).toBeNull();
+    expect(oyoGameAccess(s, user, '2026-03-30').reason).toBe('locked');
+  });
+});
 it('uses the team-local gate for empty, today, yesterday, deleted workouts, rest days and every staff role', async () => {
   expect(await (await api('/games/access')).json()).toEqual({
     date: DATE,

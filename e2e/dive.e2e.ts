@@ -92,6 +92,18 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
   const shots = join(homedir(), 'work', 'shots');
   await mkdir(shots, { recursive: true });
   await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' });
+  if (testInfo.project.name === 'iphone-15') {
+    await page.goto('/');
+    await waitForSplash(page);
+    const gamesCard = page.getByRole('link', { name: /Daily Games.*Play Today's Games/ });
+    await expect(gamesCard).toBeVisible();
+    await gamesCard.scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: join(shots, 'home-iphone-light.png'),
+      fullPage: false,
+      animations: 'disabled',
+    });
+  }
   await page.goto('/games');
   await waitForSplash(page);
   await expect(page.getByRole('link', { name: /Dive.*Play/ })).toBeVisible();
@@ -145,7 +157,7 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
     ),
   ).toBe(deadline);
   for (const [index, answer] of answers.entries()) {
-    await expect(page.getByText(`Prompt ${index + 1} Of 7`, { exact: true })).toBeVisible();
+    await expect(page.getByText(`${index + 1} of 7`, { exact: true })).toBeVisible();
     await page.getByLabel('Your Answer', { exact: true }).fill(answer);
     await page.getByRole('button', { name: 'Dive', exact: true }).click();
     await expect(page.getByRole('region', { name: 'Answer Result' })).toBeVisible();
