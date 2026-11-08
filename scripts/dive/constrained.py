@@ -87,7 +87,7 @@ def read_specs(verify_sources=False):
         if not set([*spec['surface'], *spec.get('too_clever', []), spec['pearl']]).issubset(names):
             raise ValueError(f'{spec["id"]}: picks must already be members')
         prompt = dict(id=spec['id'], text='Name ' + spec['text'] + '.', source='constrained:' + spec['id'],
-                      constrained=True, theme=spec['theme'], cluster=spec.get('cluster'), active=True,
+                      constrained=True, theme=spec['theme'], cluster=spec.get('cluster'), active=spec.get('active', True),
                       surface=spec['surface'], gem=spec['pearl'], too_clever=spec.get('too_clever', []),
                       aliases={r['name']: r.get('aliases', []) for r in rows if r.get('aliases')},
                       wiki={}, common=False, cap=len(rows), rows=rows, expect=spec['expect'])

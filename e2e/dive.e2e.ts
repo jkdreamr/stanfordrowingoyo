@@ -9,6 +9,8 @@ import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
 
+test.use({ serviceWorkers: 'block' });
+
 test('Dive unlocks, scores the first player immediately and keeps scores through moderation', async ({
   makeRower,
   adminPage,
@@ -81,6 +83,20 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
   await page.reload();
   await expect(page.getByRole('timer')).toBeVisible();
   expect(await page.evaluate((key) => localStorage.getItem(key), timerKey)).toBe(deadline);
+  if (testInfo.project.name === 'iphone-15') {
+    await waitForSplash(page);
+    for (const colorScheme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme });
+      if (colorScheme === 'dark') await expect(page.locator('html')).toHaveClass(/dark/);
+      else await expect(page.locator('html')).not.toHaveClass(/dark/);
+      await expect(page.getByLabel('Your Answer', { exact: true })).toBeVisible();
+      await page.screenshot({
+        path: join(shots, `phase3-iphone-${colorScheme}-play.png`),
+        animations: 'disabled',
+      });
+    }
+    await page.emulateMedia({ colorScheme: 'light' });
+  }
 
   for (const [index, choice] of choices.entries()) {
     await expect(
@@ -119,21 +135,6 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
       await page.emulateMedia({ reducedMotion: 'no-preference' });
       await expect(page.locator('.dive-marker-sinking')).toHaveCSS('animation-name', 'dive-sink');
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      if (testInfo.project.name === 'iphone-15') {
-        await page.screenshot({
-          path: join(shots, 'iphone-light-play.png'),
-          fullPage: true,
-          animations: 'disabled',
-        });
-        await page.emulateMedia({ colorScheme: 'dark' });
-        await expect(page.locator('html')).toHaveClass(/dark/);
-        await page.screenshot({
-          path: join(shots, 'iphone-dark-play.png'),
-          fullPage: true,
-          animations: 'disabled',
-        });
-        await page.emulateMedia({ colorScheme: 'light' });
-      }
       for (const [n, name] of teammateNames.entries()) {
         const teammate = await makeRower();
         await teammate.context.setExtraHTTPHeaders(clockHeaders);
@@ -191,6 +192,42 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
       fullPage: true,
       animations: 'disabled',
     });
+    // Completed players have their own group on every prompt; use the valid empty-group
+    // response shape to verify the mixed Team Answers state without mutating server data.
+    const mixed = {
+      ...result,
+      reveal: result.reveal?.map((prompt, i) => (i === 1 ? { ...prompt, groups: [] } : prompt)),
+    };
+    await page.route('**/api/games/dive/today', (route) => route.fulfill({ json: mixed }));
+    await page.reload();
+    await waitForSplash(page);
+    const teamAnswers = page.getByRole('region', { name: 'Team Answers' });
+    const empty = teamAnswers.getByText('No teammates yet', { exact: true });
+    await expect(empty).toBeVisible();
+    await expect(teamAnswers.locator('.dive-empty-group')).toHaveCount(1);
+    await expect(
+      teamAnswers.locator('.dive-empty-group').getByText(selection[1].text, { exact: true }),
+    ).toBeVisible();
+    await expect(teamAnswers.locator('.dive-empty-group details')).toHaveCount(0);
+    await expect(teamAnswers.locator('.dive-empty-group summary')).toHaveCount(0);
+    await expect(
+      teamAnswers.locator('details').first().getByText(choices[0]!.answer, { exact: false }),
+    ).toBeVisible();
+    await teamAnswers.evaluate((element) => {
+      window.scrollTo(0, window.scrollY + element.getBoundingClientRect().top - 80);
+    });
+    for (const colorScheme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme });
+      if (colorScheme === 'dark') await expect(page.locator('html')).toHaveClass(/dark/);
+      else await expect(page.locator('html')).not.toHaveClass(/dark/);
+      await expect(empty).toBeInViewport();
+      await page.screenshot({
+        path: join(shots, `phase3-iphone-${colorScheme}-team-answers.png`),
+        animations: 'disabled',
+      });
+    }
+    await page.unroute('**/api/games/dive/today');
+    await page.reload();
   }
   if (testInfo.project.name === 'desktop-chrome')
     await page.screenshot({

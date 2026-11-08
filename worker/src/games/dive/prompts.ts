@@ -2556,7 +2556,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-picture',
-    text: 'Name a Best Picture Oscar winner (through the 2026 ceremony).',
+    text: 'Name a Best Picture Oscar winner.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2564,7 +2564,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-animated-feature',
-    text: 'Name a Best Animated Feature Oscar winner (through the 2026 ceremony).',
+    text: 'Name a Best Animated Feature Oscar winner.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2572,7 +2572,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-actor',
-    text: 'Name a Best Actor Oscar winner (through the 2026 ceremony).',
+    text: 'Name a Best Actor Oscar winner.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2580,7 +2580,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-actress',
-    text: 'Name a Best Actress Oscar winner (through the 2026 ceremony).',
+    text: 'Name a Best Actress Oscar winner.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2588,7 +2588,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-director',
-    text: 'Name a Best Director Oscar winner (through the 2026 ceremony).',
+    text: 'Name a Best Director Oscar winner.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2596,7 +2596,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-supporting-actor',
-    text: 'Name a Best Supporting Actor Oscar winner (through the 2026 ceremony).',
+    text: 'Name a Best Supporting Actor Oscar winner.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2604,7 +2604,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-supporting-actress',
-    text: 'Name a Best Supporting Actress Oscar winner (through the 2026 ceremony).',
+    text: 'Name a Best Supporting Actress Oscar winner.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2612,7 +2612,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-original-song',
-    text: 'Name an Oscar-winning original song (through the 2026 ceremony).',
+    text: 'Name an Oscar-winning original song.',
     theme: 'music',
     cluster: 'oscars',
     constrained: true,
@@ -2620,7 +2620,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'nobel-literature',
-    text: 'Name a Nobel Prize in Literature laureate through 2026.',
+    text: 'Name a Nobel Prize winner in Literature.',
     theme: 'books',
     cluster: 'nobel',
     constrained: true,
@@ -2628,7 +2628,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'spielberg-films',
-    text: 'Name a feature film directed by Steven Spielberg (Duel and anthology segments count).',
+    text: 'Name a feature film directed by Steven Spielberg.',
     theme: 'film',
     cluster: 'directors',
     constrained: true,
@@ -2660,7 +2660,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'tarantino-films',
-    text: 'Name a completed feature film directed by Quentin Tarantino (not guest segments).',
+    text: 'Name a feature film directed by Quentin Tarantino.',
     theme: 'film',
     cluster: 'directors',
     constrained: true,
@@ -2684,7 +2684,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'bond-films',
-    text: 'Name a James Bond film (non-Eon films count).',
+    text: 'Name a James Bond film.',
     theme: 'film',
     cluster: 'franchises',
     constrained: true,
@@ -2692,7 +2692,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'ghibli-films',
-    text: 'Name a Studio Ghibli feature film (Nausica\u00e4, Ocean Waves and co-productions count).',
+    text: 'Name a Studio Ghibli feature film.',
     theme: 'film',
     cluster: 'japan',
     constrained: true,
@@ -2708,7 +2708,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'nba-teams',
-    text: 'Name a 2026\u201327 NBA team.',
+    text: 'Name a current NBA team.',
     theme: 'sports',
     cluster: 'leagues',
     constrained: true,
@@ -2716,7 +2716,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'nfl-teams',
-    text: 'Name a 2026 NFL team.',
+    text: 'Name a current NFL team.',
     theme: 'sports',
     cluster: 'leagues',
     constrained: true,
@@ -2724,7 +2724,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'mlb-teams',
-    text: 'Name a 2026 MLB team.',
+    text: 'Name a current MLB team.',
     theme: 'sports',
     cluster: 'leagues',
     constrained: true,
@@ -2732,7 +2732,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'nhl-teams',
-    text: 'Name a 2026\u201327 NHL team.',
+    text: 'Name a current NHL team.',
     theme: 'sports',
     cluster: 'leagues',
     constrained: true,
@@ -2788,7 +2788,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'uk-prime-ministers',
-    text: 'Name a British prime minister through November 2026.',
+    text: 'Name a British prime minister.',
     theme: 'history',
     cluster: 'uk',
     constrained: true,
@@ -2804,7 +2804,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'olympian-gods',
-    text: 'Name one of the Greek Olympian gods (Hades and Hestia count).',
+    text: 'Name a Greek Olympian god.',
     theme: 'history',
     cluster: 'myth',
     constrained: true,
@@ -2812,7 +2812,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'best-visual-effects',
-    text: 'Name a film that won the Oscar for Visual Effects (special awards count) (through the 2026 ceremony).',
+    text: 'Name a film that won the Visual Effects Oscar.',
     theme: 'film',
     cluster: 'oscars',
     constrained: true,
@@ -2828,7 +2828,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-no-a',
-    text: 'Name a country with no letter A in a common English name.',
+    text: 'Name a country with no A in its name.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2836,7 +2836,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-with-z',
-    text: 'Name a country with a Z in a common English name.',
+    text: 'Name a country with a Z in its name.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2844,7 +2844,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-b',
-    text: 'Name a country whose common English name starts with B.',
+    text: 'Name a country whose name starts with B.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2852,7 +2852,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-s',
-    text: 'Name a country whose common English name starts with S.',
+    text: 'Name a country whose name starts with S.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2860,7 +2860,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-m',
-    text: 'Name a country whose common English name starts with M.',
+    text: 'Name a country whose name starts with M.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2868,7 +2868,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-ia',
-    text: 'Name a country whose common English name ends in ia.',
+    text: 'Name a country whose name ends in IA.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2876,7 +2876,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-same-letter',
-    text: 'Name a country whose common English name starts and ends with the same letter.',
+    text: 'Name a country whose name starts and ends with the same letter.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2884,7 +2884,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'countries-vowel',
-    text: 'Name a country whose common English name starts with a vowel.',
+    text: 'Name a country whose name starts with a vowel.',
     theme: 'words',
     cluster: 'countries',
     constrained: true,
@@ -2956,7 +2956,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'planets-dwarf',
-    text: 'Name a Solar System planet or IAU-recognised dwarf planet.',
+    text: 'Name a planet or dwarf planet in our Solar System.',
     theme: 'science',
     cluster: 'space',
     constrained: true,
@@ -2972,7 +2972,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pokemon-fire',
-    text: 'Name a Fire-type Pok\u00e9mon (any form).',
+    text: 'Name a Fire-type Pok\u00e9mon.',
     theme: 'games',
     cluster: 'pokemon',
     constrained: true,
@@ -2980,7 +2980,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pokemon-water',
-    text: 'Name a Water-type Pok\u00e9mon (any form).',
+    text: 'Name a Water-type Pok\u00e9mon.',
     theme: 'games',
     cluster: 'pokemon',
     constrained: true,
@@ -2996,7 +2996,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pokemon-types',
-    text: 'Name a Pok\u00e9mon type (Stellar counts).',
+    text: 'Name a Pok\u00e9mon type.',
     theme: 'games',
     cluster: 'pokemon',
     constrained: true,
@@ -3012,7 +3012,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'english-monarchs',
-    text: 'Name an English or British monarch since 1066 (disputed claimants count).',
+    text: 'Name an English or British monarch since 1066.',
     theme: 'history',
     cluster: 'uk',
     constrained: true,
@@ -3068,7 +3068,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'brazil-states',
-    text: 'Name a Brazilian state or the Federal District.',
+    text: 'Name a Brazilian state or federal district.',
     theme: 'geography',
     cluster: 'regions',
     constrained: true,
@@ -3092,7 +3092,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'china-provinces',
-    text: 'Name a Chinese province (Taiwan counts).',
+    text: 'Name a Chinese province.',
     theme: 'geography',
     cluster: 'regions',
     constrained: true,
@@ -3100,7 +3100,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-album',
-    text: 'Name a Grammy Album of the Year winner (through 2026).',
+    text: 'Name a Grammy Album of the Year winner.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3116,7 +3116,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-album-1980-1999',
-    text: 'Name a Grammy Album of the Year winner from 1980\u20131999.',
+    text: 'Name a Grammy Album of the Year winner from 1980 to 1999.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3124,7 +3124,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-album-2000-2026',
-    text: 'Name a Grammy Album of the Year winner from 2000\u20132026.',
+    text: 'Name a Grammy Album of the Year winner since 2000.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3132,7 +3132,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-record',
-    text: 'Name a Grammy Record of the Year\u2013winning song (through 2026).',
+    text: 'Name a Grammy Record of the Year winner.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3140,7 +3140,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-record-pre1980',
-    text: 'Name a Grammy Record of the Year\u2013winning song before 1980.',
+    text: 'Name a Grammy Record of the Year winner before 1980.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3148,7 +3148,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-record-1980-1999',
-    text: 'Name a Grammy Record of the Year\u2013winning song from 1980\u20131999.',
+    text: 'Name a Grammy Record of the Year winner from 1980 to 1999.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3156,7 +3156,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-record-2000-2026',
-    text: 'Name a Grammy Record of the Year\u2013winning song from 2000\u20132026.',
+    text: 'Name a Grammy Record of the Year winner since 2000.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3164,7 +3164,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-song',
-    text: 'Name a Grammy Song of the Year winner (through 2026).',
+    text: 'Name a Grammy Song of the Year winner.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3180,7 +3180,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-song-1980-1999',
-    text: 'Name a Grammy Song of the Year winner from 1980\u20131999.',
+    text: 'Name a Grammy Song of the Year winner from 1980 to 1999.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3188,7 +3188,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-song-2000-2026',
-    text: 'Name a Grammy Song of the Year winner from 2000\u20132026.',
+    text: 'Name a Grammy Song of the Year winner since 2000.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3196,7 +3196,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-new-artist',
-    text: 'Name a Grammy Best New Artist winner (revoked awards count) (through 2026).',
+    text: 'Name a Grammy Best New Artist winner.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3204,7 +3204,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-new-artist-pre1980',
-    text: 'Name a Grammy Best New Artist winner (revoked awards count) before 1980.',
+    text: 'Name a Grammy Best New Artist winner before 1980.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3212,7 +3212,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-new-artist-1980-1999',
-    text: 'Name a Grammy Best New Artist winner (revoked awards count) from 1980\u20131999.',
+    text: 'Name a Grammy Best New Artist winner from 1980 to 1999.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3220,7 +3220,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'grammy-new-artist-2000-2026',
-    text: 'Name a Grammy Best New Artist winner (revoked awards count) from 2000\u20132026.',
+    text: 'Name a Grammy Best New Artist winner since 2000.',
     theme: 'music',
     cluster: 'grammys',
     constrained: true,
@@ -3228,7 +3228,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'booker-winners',
-    text: 'Name a Booker Prize\u2013winning novel (through 2026).',
+    text: 'Name a Booker Prize-winning novel.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3236,7 +3236,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'booker-winners-early',
-    text: 'Name a Booker Prize\u2013winning novel (1969\u20131989).',
+    text: 'Name a Booker Prize-winning novel before 1990.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3244,7 +3244,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'booker-winners-middle',
-    text: 'Name a Booker Prize\u2013winning novel (1990\u20132009).',
+    text: 'Name a Booker Prize-winning novel from 1990 to 2009.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3252,7 +3252,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'booker-winners-recent',
-    text: 'Name a Booker Prize\u2013winning novel (2010\u20132026).',
+    text: 'Name a Booker Prize-winning novel since 2010.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3260,7 +3260,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'hugo-novels',
-    text: 'Name a Hugo Award for Best Novel winner (not Retro-Hugos) (through 2026).',
+    text: 'Name a Hugo Award winner for Best Novel.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3268,7 +3268,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'hugo-novels-early',
-    text: 'Name a Hugo Award for Best Novel winner (not Retro-Hugos) (before 1980).',
+    text: 'Name a Hugo Award winner for Best Novel before 1980.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3276,7 +3276,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'hugo-novels-middle',
-    text: 'Name a Hugo Award for Best Novel winner (not Retro-Hugos) (1980\u20131999).',
+    text: 'Name a Hugo Award winner for Best Novel from 1980 to 1999.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3284,7 +3284,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'hugo-novels-recent',
-    text: 'Name a Hugo Award for Best Novel winner (not Retro-Hugos) (2000\u20132026).',
+    text: 'Name a Hugo Award winner for Best Novel since 2000.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3292,7 +3292,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'newbery-winners',
-    text: 'Name a Newbery Medal\u2013winning book (not an Honor book) (through 2026).',
+    text: 'Name a Newbery Medal-winning book.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3300,7 +3300,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'newbery-winners-early',
-    text: 'Name a Newbery Medal\u2013winning book (not an Honor book) (before 1980).',
+    text: 'Name a Newbery Medal-winning book before 1980.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3308,7 +3308,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'newbery-winners-middle',
-    text: 'Name a Newbery Medal\u2013winning book (not an Honor book) (1980\u20131999).',
+    text: 'Name a Newbery Medal-winning book from 1980 to 1999.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3316,7 +3316,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'newbery-winners-recent',
-    text: 'Name a Newbery Medal\u2013winning book (not an Honor book) (2000\u20132026).',
+    text: 'Name a Newbery Medal-winning book since 2000.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3324,7 +3324,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pulitzer-fiction',
-    text: 'Name a Pulitzer Prize for Fiction\u2013winning book (Novel award counts) (through 2026).',
+    text: 'Name a Pulitzer Prize winner for Fiction.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3332,7 +3332,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pulitzer-fiction-early',
-    text: 'Name a Pulitzer Prize for Fiction\u2013winning book (Novel award counts) (before 1980).',
+    text: 'Name a Pulitzer Prize winner for Fiction before 1980.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3340,7 +3340,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pulitzer-fiction-middle',
-    text: 'Name a Pulitzer Prize for Fiction\u2013winning book (Novel award counts) (1980\u20131999).',
+    text: 'Name a Pulitzer Prize winner for Fiction from 1980 to 1999.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3348,7 +3348,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pulitzer-fiction-recent',
-    text: 'Name a Pulitzer Prize for Fiction\u2013winning book (Novel award counts) (2000\u20132026).',
+    text: 'Name a Pulitzer Prize winner for Fiction since 2000.',
     theme: 'books',
     cluster: 'book-awards',
     constrained: true,
@@ -3372,7 +3372,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'africa-countries',
-    text: 'Name a country in Africa (partially recognised states count).',
+    text: 'Name an African country.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3380,7 +3380,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'asia-countries',
-    text: 'Name a country in Asia (transcontinental and partially recognised states count).',
+    text: 'Name an Asian country.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3388,7 +3388,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'europe-countries',
-    text: 'Name a country in Europe (transcontinental and partially recognised states count).',
+    text: 'Name a European country.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3396,7 +3396,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'oceania-countries',
-    text: 'Name a country in Oceania (Cook Islands and Niue count).',
+    text: 'Name a country in Oceania.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3404,7 +3404,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'island-countries',
-    text: 'Name an island country (Australia and partially recognised states count).',
+    text: 'Name an island country.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3420,7 +3420,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'borders-china',
-    text: 'Name a country sharing a land border with China (overseas and disputed borders count).',
+    text: 'Name a country with a land border with China.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3428,7 +3428,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'borders-russia',
-    text: 'Name a country sharing a land border with Russia (overseas and disputed borders count).',
+    text: 'Name a country with a land border with Russia.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3436,7 +3436,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'borders-france',
-    text: 'Name a country sharing a land border with France (overseas and disputed borders count).',
+    text: 'Name a country with a land border with France.',
     theme: 'geography',
     cluster: 'countries',
     constrained: true,
@@ -3508,7 +3508,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'named-uranus-moons',
-    text: 'Name an officially named moon of Uranus.',
+    text: 'Name a named moon of Uranus.',
     theme: 'science',
     cluster: 'moons',
     constrained: true,
@@ -3516,19 +3516,11 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'named-neptune-moons',
-    text: 'Name an officially named moon of Neptune.',
+    text: 'Name a named moon of Neptune.',
     theme: 'science',
     cluster: 'moons',
     constrained: true,
     size: 14,
-  },
-  {
-    id: 'zodiac-constellations',
-    text: 'Name a constellation crossed by the Sun along the ecliptic (Ophiuchus counts).',
-    theme: 'science',
-    cluster: 'zodiac',
-    constrained: true,
-    size: 13,
   },
   {
     id: 'si-named-derived-units',
@@ -3540,7 +3532,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'si-prefixes',
-    text: 'Name an official SI metric prefix.',
+    text: 'Name a metric prefix.',
     theme: 'science',
     cluster: 'units',
     constrained: true,
@@ -3548,7 +3540,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'essential-amino-acids',
-    text: 'Name an amino acid essential in the adult human diet.',
+    text: 'Name an essential amino acid.',
     theme: 'science',
     cluster: 'body',
     constrained: true,
@@ -3556,7 +3548,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'proteinogenic-amino-acids',
-    text: 'Name one of the 22 genetically encoded proteinogenic amino acids.',
+    text: 'Name a genetically encoded amino acid.',
     theme: 'science',
     cluster: 'body',
     constrained: true,
@@ -3564,7 +3556,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'symbol-mismatch',
-    text: 'Name an element whose English name and chemical symbol start with different letters.',
+    text: 'Name an element whose name and symbol start with different letters.',
     theme: 'science',
     cluster: 'elements',
     constrained: true,
@@ -3572,7 +3564,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'gaseous-elements',
-    text: 'Name an element that is a gas at standard temperature and pressure.',
+    text: "Name an element that's a gas at room temperature.",
     theme: 'science',
     cluster: 'elements',
     constrained: true,
@@ -3580,7 +3572,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'large-saturn-moons',
-    text: 'Name a moon of Saturn with a diameter over 100 kilometres.',
+    text: 'Name a moon of Saturn over 100 kilometres across.',
     theme: 'science',
     cluster: 'moons',
     constrained: true,
@@ -3588,7 +3580,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'carpal-bones',
-    text: 'Name one of the eight carpal bones in a human wrist.',
+    text: 'Name a carpal bone.',
     theme: 'science',
     cluster: 'body',
     constrained: true,
@@ -3596,7 +3588,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'skull-bones',
-    text: 'Name a named cranial or facial bone in an adult human skull.',
+    text: 'Name a cranial or facial bone.',
     theme: 'science',
     cluster: 'body',
     constrained: true,
@@ -3604,7 +3596,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'cranial-nerves',
-    text: 'Name one of the twelve numbered human cranial nerves.',
+    text: 'Name a cranial nerve.',
     theme: 'science',
     cluster: 'body',
     constrained: true,
@@ -3612,7 +3604,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'penguins',
-    text: 'Name one of the 18 traditional penguin species (split-species names count).',
+    text: 'Name a penguin species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3620,7 +3612,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'cat-family',
-    text: 'Name a living species in the cat family (domestic cats count).',
+    text: 'Name a species in the cat family.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3628,7 +3620,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'dog-family',
-    text: 'Name a living species in the dog family (domestic dogs count).',
+    text: 'Name a species in the dog family.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3636,7 +3628,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'crocodilians',
-    text: 'Name a living crocodilian species.',
+    text: 'Name a crocodilian species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3644,7 +3636,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pelicans',
-    text: 'Name a living pelican species.',
+    text: 'Name a pelican species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3652,7 +3644,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'great-apes',
-    text: 'Name a living great ape species (humans count).',
+    text: 'Name a great ape species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3660,7 +3652,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'retired-hurricanes',
-    text: 'Name a retired Atlantic tropical cyclone name (through 2025).',
+    text: 'Name a retired Atlantic hurricane name.',
     theme: 'nature',
     cluster: 'weather',
     constrained: true,
@@ -3668,7 +3660,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'beaufort-winds',
-    text: 'Name one of the named wind-force descriptions on the Beaufort scale (0\u201312).',
+    text: 'Name a wind description on the Beaufort scale.',
     theme: 'nature',
     cluster: 'weather',
     constrained: true,
@@ -3676,7 +3668,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'bears',
-    text: 'Name a living bear species (common subspecies names count).',
+    text: 'Name a bear species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3684,7 +3676,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'otters',
-    text: 'Name a living otter species.',
+    text: 'Name an otter species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3692,7 +3684,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'cranes',
-    text: 'Name a living crane species.',
+    text: 'Name a crane species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3700,7 +3692,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'storks',
-    text: 'Name a living stork species.',
+    text: 'Name a stork species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3708,7 +3700,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'cloud-genera',
-    text: 'Name one of the ten main cloud genera.',
+    text: 'Name a main type of cloud.',
     theme: 'nature',
     cluster: 'weather',
     constrained: true,
@@ -3716,7 +3708,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'baleen-whales',
-    text: 'Name a living baleen whale species.',
+    text: 'Name a baleen whale species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
@@ -3724,23 +3716,15 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'albatrosses',
-    text: 'Name a living albatross species.',
+    text: 'Name an albatross species.',
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
     size: 22,
   },
   {
-    id: 'zodiac-signs',
-    text: 'Name one of the twelve Western zodiac signs.',
-    theme: 'everyday',
-    cluster: 'zodiac',
-    constrained: true,
-    size: 12,
-  },
-  {
     id: 'iba-unforgettables',
-    text: 'Name an IBA cocktail in the The Unforgettables category (2024 list).',
+    text: "Name a cocktail on the IBA's Unforgettables list.",
     theme: 'food',
     cluster: 'cocktails',
     constrained: true,
@@ -3748,7 +3732,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'iba-contemporary',
-    text: 'Name an IBA cocktail in the Contemporary Classics category (2024 list).',
+    text: "Name a cocktail on the IBA's Contemporary Classics list.",
     theme: 'food',
     cluster: 'cocktails',
     constrained: true,
@@ -3756,19 +3740,11 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'iba-new-era',
-    text: 'Name an IBA cocktail in the New Era Drinks category (2024 list).',
+    text: "Name a cocktail on the IBA's New Era Drinks list.",
     theme: 'food',
     cluster: 'cocktails',
     constrained: true,
     size: 34,
-  },
-  {
-    id: 'chinese-zodiac',
-    text: 'Name an animal of the Chinese zodiac.',
-    theme: 'everyday',
-    cluster: 'zodiac',
-    constrained: true,
-    size: 12,
   },
   {
     id: 'stellantis-brands',
@@ -3780,7 +3756,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'star-alliance',
-    text: 'Name a full member airline of Star Alliance (November 2026).',
+    text: 'Name a Star Alliance member airline.',
     theme: 'everyday',
     cluster: 'travel',
     constrained: true,
@@ -3788,7 +3764,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'oneworld-airlines',
-    text: 'Name a full member airline of oneworld (November 2026).',
+    text: 'Name a oneworld member airline.',
     theme: 'everyday',
     cluster: 'travel',
     constrained: true,
@@ -3796,39 +3772,15 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'skyteam-airlines',
-    text: 'Name a full member airline of SkyTeam (November 2026).',
+    text: 'Name a SkyTeam member airline.',
     theme: 'everyday',
     cluster: 'travel',
     constrained: true,
     size: 18,
   },
   {
-    id: 'calendar-months',
-    text: 'Name a month of the Gregorian calendar.',
-    theme: 'everyday',
-    cluster: 'calendar',
-    constrained: true,
-    size: 12,
-  },
-  {
-    id: 'santas-reindeer',
-    text: "Name one of Santa's traditional eight reindeer or Rudolph.",
-    theme: 'everyday',
-    cluster: 'kids',
-    constrained: true,
-    size: 9,
-  },
-  {
-    id: 'cluedo-rooms',
-    text: 'Name a room on the classic Cluedo/Clue board.',
-    theme: 'everyday',
-    cluster: 'board-games',
-    constrained: true,
-    size: 9,
-  },
-  {
     id: 'emmy-drama',
-    text: 'Name an Emmy Outstanding Drama Series winner (through 2026; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Drama Series.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3836,7 +3788,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'super-bowl-mvp',
-    text: 'Name a Super Bowl MVP (through Super Bowl LX).',
+    text: 'Name a Super Bowl MVP.',
     theme: 'sports',
     cluster: 'sports-awards',
     constrained: true,
@@ -3844,7 +3796,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'heisman',
-    text: 'Name a Heisman Trophy winner (through 2025; reinstated winners count).',
+    text: 'Name a Heisman Trophy winner.',
     theme: 'sports',
     cluster: 'sports-awards',
     constrained: true,
@@ -3852,7 +3804,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-drama-early',
-    text: 'Name an Emmy Outstanding Drama Series winner (before 1980; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Drama Series before 1980.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3860,7 +3812,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-drama-middle',
-    text: 'Name an Emmy Outstanding Drama Series winner (1980\u20131999; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Drama Series from 1980 to 1999.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3868,7 +3820,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-drama-recent',
-    text: 'Name an Emmy Outstanding Drama Series winner (2000\u20132026; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Drama Series since 2000.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3876,7 +3828,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-comedy',
-    text: 'Name an Emmy Outstanding Comedy Series winner (through 2026; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Comedy Series.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3884,7 +3836,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-comedy-early',
-    text: 'Name an Emmy Outstanding Comedy Series winner (before 1980; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Comedy Series before 1980.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3892,7 +3844,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-comedy-middle',
-    text: 'Name an Emmy Outstanding Comedy Series winner (1980\u20131999; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Comedy Series from 1980 to 1999.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3900,7 +3852,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-comedy-recent',
-    text: 'Name an Emmy Outstanding Comedy Series winner (2000\u20132026; predecessor categories count).',
+    text: 'Name an Emmy winner for Outstanding Comedy Series since 2000.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3908,7 +3860,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'tour-de-france',
-    text: 'Name a Tour de France general classification winner (through 2026; stripped titles count).',
+    text: 'Name a Tour de France winner.',
     theme: 'sports',
     cluster: 'racing',
     constrained: true,
@@ -3916,7 +3868,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'masters-champions',
-    text: 'Name a Masters Tournament champion (through 2026).',
+    text: 'Name a Masters champion.',
     theme: 'sports',
     cluster: 'golf',
     constrained: true,
@@ -3924,7 +3876,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'wimbledon-men',
-    text: 'Name a men\u2019s Wimbledon singles champion in the Open Era (1968\u20132026).',
+    text: "Name a men's Wimbledon singles champion since 1968.",
     theme: 'sports',
     cluster: 'tennis',
     constrained: true,
@@ -3932,7 +3884,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'wimbledon-women',
-    text: 'Name a women\u2019s Wimbledon singles champion in the Open Era (1968\u20132026).',
+    text: "Name a women's Wimbledon singles champion since 1968.",
     theme: 'sports',
     cluster: 'tennis',
     constrained: true,
@@ -3940,7 +3892,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'emmy-limited',
-    text: 'Name an Emmy Outstanding Limited or Anthology Series winner (predecessor categories count; through 2026).',
+    text: 'Name an Emmy winner for Outstanding Limited Series.',
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
@@ -3948,7 +3900,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'early-roman-emperors',
-    text: 'Name a Roman emperor from Augustus through Severus Alexander (27 BC\u2013AD 235).',
+    text: 'Name a Roman emperor before AD 235.',
     theme: 'history',
     cluster: 'ancient',
     constrained: true,
@@ -3956,7 +3908,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'american-idol-winners',
-    text: 'Name a winner of American Idol (regular seasons, through 2026).',
+    text: 'Name an American Idol winner.',
     theme: 'tv',
     cluster: 'reality',
     constrained: true,
@@ -3964,7 +3916,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'secretaries-of-state',
-    text: 'Name a US Secretary of State (not acting; through November 2026).',
+    text: 'Name a US Secretary of State.',
     theme: 'history',
     cluster: 'us-politics',
     constrained: true,
@@ -3980,7 +3932,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'bake-off-winners',
-    text: 'Name a winner of the main Great British Bake Off series (completed series by November 2026).',
+    text: 'Name a Great British Bake Off winner.',
     theme: 'tv',
     cluster: 'reality',
     constrained: true,
@@ -3988,7 +3940,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'astronaut-group-2',
-    text: 'Name a member of NASA\u2019s 1962 Next Nine astronaut group.',
+    text: "Name a member of NASA's 1962 astronaut class.",
     theme: 'history',
     cluster: 'space',
     constrained: true,
@@ -3996,7 +3948,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'astronaut-group-3',
-    text: 'Name a member of NASA\u2019s 1963 Fourteen astronaut group.',
+    text: "Name a member of NASA's 1963 astronaut class.",
     theme: 'history',
     cluster: 'space',
     constrained: true,
@@ -4004,7 +3956,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'astronaut-group-5',
-    text: 'Name a member of NASA\u2019s 1966 Original Nineteen astronaut group.',
+    text: "Name a member of NASA's 1966 astronaut class.",
     theme: 'history',
     cluster: 'space',
     constrained: true,
@@ -4012,7 +3964,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'states-thirteen',
-    text: 'Name one of the original Thirteen Colonies (state names count).',
+    text: 'Name one of the original thirteen colonies.',
     theme: 'history',
     cluster: 'us-states',
     constrained: true,
@@ -4020,7 +3972,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'former-soviet',
-    text: 'Name a former Soviet Union republic.',
+    text: 'Name a former Soviet republic.',
     theme: 'history',
     cluster: 'countries',
     constrained: true,
@@ -4028,7 +3980,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'africa-capitals',
-    text: 'Name a capital city in Africa (multiple capitals and disputed states count).',
+    text: 'Name an African capital city.',
     theme: 'geography',
     cluster: 'capitals',
     constrained: true,
@@ -4036,7 +3988,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'human-vitamins',
-    text: 'Name one of the 13 essential human vitamins (B subtypes count separately).',
+    text: 'Name an essential human vitamin.',
     theme: 'science',
     cluster: 'body',
     constrained: true,
@@ -4044,7 +3996,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'b-vitamins',
-    text: 'Name one of the eight B vitamins.',
+    text: 'Name a B vitamin.',
     theme: 'science',
     cluster: 'body',
     constrained: true,
@@ -4052,23 +4004,15 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'iau-constellations',
-    text: 'Name one of the 88 constellations recognised by the IAU.',
+    text: 'Name an official constellation.',
     theme: 'science',
     cluster: 'constellations',
     constrained: true,
     size: 88,
   },
   {
-    id: 'us-food-allergens',
-    text: 'Name one of the nine major US food-allergen categories.',
-    theme: 'food',
-    cluster: 'allergens',
-    constrained: true,
-    size: 9,
-  },
-  {
     id: 'eu-food-allergens',
-    text: 'Name one of the 14 EU declarable food-allergen categories.',
+    text: 'Name a declarable EU food allergen.',
     theme: 'food',
     cluster: 'allergens',
     constrained: true,
@@ -4076,7 +4020,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'zelda-games',
-    text: 'Name a main-series Legend of Zelda game (through November 2026).',
+    text: 'Name a main-series Legend of Zelda game.',
     theme: 'games',
     cluster: 'nintendo',
     constrained: true,
@@ -4084,7 +4028,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'monopoly-us',
-    text: 'Name a purchasable property on the standard US Monopoly board (stations and utilities count).',
+    text: 'Name a property on the US Monopoly board.',
     theme: 'everyday',
     cluster: 'board-games',
     constrained: true,
@@ -4092,7 +4036,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'monopoly-uk',
-    text: 'Name a purchasable property on the standard UK Monopoly board (stations and utilities count).',
+    text: 'Name a property on the UK Monopoly board.',
     theme: 'everyday',
     cluster: 'board-games',
     constrained: true,
@@ -4100,7 +4044,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'asia-capitals',
-    text: 'Name a capital city in Asia (multiple capitals and disputed states count).',
+    text: 'Name an Asian capital city.',
     theme: 'geography',
     cluster: 'capitals',
     constrained: true,
@@ -4108,7 +4052,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'europe-capitals',
-    text: 'Name a capital city in Europe (multiple capitals and disputed states count).',
+    text: 'Name a European capital city.',
     theme: 'geography',
     cluster: 'capitals',
     constrained: true,
@@ -4116,7 +4060,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'states-border-canada',
-    text: 'Name a US state that shares a land or water border with Canada.',
+    text: 'Name a US state that borders Canada.',
     theme: 'geography',
     cluster: 'us-states',
     constrained: true,
@@ -4140,7 +4084,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'us-national-parks',
-    text: 'Name a US national park designated by Congress (November 2026).',
+    text: 'Name a US national park.',
     theme: 'geography',
     cluster: 'us-states',
     constrained: true,
@@ -4148,7 +4092,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'americas-capitals',
-    text: 'Name a national capital in North or South America (multiple capitals count).',
+    text: 'Name a capital city in North or South America.',
     theme: 'geography',
     cluster: 'capitals',
     constrained: true,
@@ -4156,7 +4100,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'birthstones',
-    text: 'Name a traditional or modern birthstone in the US/UK month charts.',
+    text: 'Name a traditional or modern birthstone.',
     theme: 'everyday',
     cluster: 'calendar',
     constrained: true,
@@ -4164,7 +4108,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'pantone-coty',
-    text: 'Name a Pantone Color of the Year (2000\u20132026).',
+    text: 'Name a Pantone Color of the Year.',
     theme: 'everyday',
     cluster: 'colors',
     constrained: true,
@@ -4172,7 +4116,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'winter-2026-disciplines',
-    text: 'Name a sport or discipline on the Milano Cortina 2026 Winter Olympic programme.',
+    text: 'Name a sport at the 2026 Winter Olympics.',
     theme: 'sports',
     cluster: 'olympics',
     constrained: true,
@@ -4180,7 +4124,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'greek-muses',
-    text: 'Name one of the nine classical Greek Muses.',
+    text: 'Name one of the nine Greek Muses.',
     theme: 'history',
     cluster: 'myth',
     constrained: true,
@@ -4196,7 +4140,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'egyptian-ennead',
-    text: 'Name one of the nine gods of the Great Ennead of Heliopolis.',
+    text: 'Name a god in the Egyptian Ennead.',
     theme: 'history',
     cluster: 'myth',
     constrained: true,
@@ -4204,7 +4148,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'egypt-plagues',
-    text: 'Name one of the ten biblical plagues of Egypt.',
+    text: 'Name one of the ten plagues of Egypt.',
     theme: 'history',
     cluster: 'myth',
     constrained: true,
@@ -4212,7 +4156,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'eightfold-path',
-    text: 'Name one of the eight practices of the Buddhist Noble Eightfold Path.',
+    text: 'Name a practice on the Noble Eightfold Path.',
     theme: 'everyday',
     cluster: 'religion',
     constrained: true,
@@ -4220,7 +4164,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'chinese-cuisines',
-    text: 'Name one of the Eight Great Traditions of Chinese cuisine.',
+    text: 'Name one of the eight great Chinese cuisines.',
     theme: 'food',
     cluster: 'cuisines',
     constrained: true,
@@ -4228,7 +4172,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
   },
   {
     id: 'stranger-things-s1',
-    text: 'Name an episode title from Stranger Things season one (chapter numbers optional).',
+    text: 'Name an episode from the first season of Stranger Things.',
     theme: 'tv',
     cluster: 'tv-series',
     constrained: true,
@@ -4492,6 +4436,62 @@ export const DIVE_INACTIVE_PROMPTS: readonly DivePrompt[] = [
     cluster: 'japan',
     constrained: false,
     size: 430,
+  },
+  {
+    id: 'zodiac-constellations',
+    text: 'Name a zodiac constellation.',
+    theme: 'science',
+    cluster: 'zodiac',
+    constrained: true,
+    size: 13,
+  },
+  {
+    id: 'zodiac-signs',
+    text: 'Name a Western zodiac sign.',
+    theme: 'everyday',
+    cluster: 'zodiac',
+    constrained: true,
+    size: 12,
+  },
+  {
+    id: 'chinese-zodiac',
+    text: 'Name an animal of the Chinese zodiac.',
+    theme: 'everyday',
+    cluster: 'zodiac',
+    constrained: true,
+    size: 12,
+  },
+  {
+    id: 'calendar-months',
+    text: 'Name a month of the year.',
+    theme: 'everyday',
+    cluster: 'calendar',
+    constrained: true,
+    size: 12,
+  },
+  {
+    id: 'santas-reindeer',
+    text: "Name one of Santa's reindeer.",
+    theme: 'everyday',
+    cluster: 'kids',
+    constrained: true,
+    size: 9,
+  },
+  {
+    id: 'cluedo-rooms',
+    text: 'Name a room on the Cluedo board.',
+    theme: 'everyday',
+    cluster: 'board-games',
+    constrained: true,
+    size: 9,
+  },
+  {
+    id: 'us-food-allergens',
+    text: 'Name a major US food allergen.',
+    theme: 'food',
+    cluster: 'allergens',
+    constrained: true,
+    size: 9,
   },
 ];
 const byId = new Map([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].map((p) => [p.id, p]));

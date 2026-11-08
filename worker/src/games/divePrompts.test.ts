@@ -35,8 +35,8 @@ it.each([
 
 it('enables the complete reviewed bank on November 10 with every real day valid', () => {
   expect(DIVE_SCHEDULE_CUTOVER).toBe('2026-11-10');
-  expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 210 constrained, 110 broad');
-  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(210);
+  expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 203 constrained, 117 broad');
+  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(203);
   validateDiveSchedule(DIVE_SCHEDULE, DIVE_PROMPTS);
   expect(DIVE_SCHEDULE).toHaveLength(64);
   const seen = new Set<string>();
@@ -51,6 +51,9 @@ it('enables the complete reviewed bank on November 10 with every real day valid'
     day.forEach((p) => seen.add(p.id));
   }
   expect(seen.size).toBe(320);
+  const retired = DIVE_INACTIVE_PROMPTS.filter((p) => p.constrained);
+  expect(retired).toHaveLength(7);
+  expect(retired.every((p) => !seen.has(p.id))).toBe(true);
   expect(diveSelectionFor('2027-01-13')).toEqual(diveSelectionFor('2026-11-10'));
   expect([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].every((p) => p.theme)).toBe(true);
   for (const id of ['manga', 'anime', 'japanese-films', 'cities-jp', 'anime-characters'])
@@ -86,6 +89,8 @@ it('keeps every fixture scheduled ID loadable and every real constrained set com
   for (const id of DIVE_SCHEDULE.flat())
     expect((await answerSet(id)).size).toBeGreaterThanOrEqual(8);
   for (const prompt of DIVE_PROMPTS.filter((p) => p.constrained))
+    expect((await answerSet(prompt.id)).size).toBe(prompt.size);
+  for (const prompt of DIVE_INACTIVE_PROMPTS.filter((p) => p.constrained))
     expect((await answerSet(prompt.id)).size).toBe(prompt.size);
 }, 60_000);
 

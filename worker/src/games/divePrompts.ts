@@ -1,5 +1,5 @@
 import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
-import { DIVE_PROMPTS, DIVE_INACTIVE_PROMPTS, DIVE_LEGACY_PROMPTS } from './dive/prompts';
+import { DIVE_PROMPTS, DIVE_LEGACY_PROMPTS } from './dive/prompts';
 import type { DivePrompt } from './dive/prompts';
 import { DIVE_SCHEDULE, DIVE_SCHEDULE_CUTOVER } from './dive/schedule';
 import { validateDiveSchedule } from './dive/rotation';
@@ -38,7 +38,7 @@ function legacySelectionFor(date: string) {
 export function createDiveSelector(
   cutover: string | null,
   schedule: readonly (readonly string[])[],
-  prompts: readonly DivePrompt[] = [...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS],
+  prompts: readonly DivePrompt[] = DIVE_PROMPTS,
 ) {
   const bank = new Map(prompts.map((prompt) => [prompt.id, prompt]));
   if (cutover !== null) validateDiveSchedule(schedule, prompts);

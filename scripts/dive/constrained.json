@@ -1467,7 +1467,7 @@
   "prompts": [
     {
       "id": "best-picture",
-      "text": "a Best Picture Oscar winner (through the 2026 ceremony)",
+      "text": "a Best Picture Oscar winner",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -1882,11 +1882,12 @@
       ],
       "surface": ["Titanic", "The Godfather", "Forrest Gump"],
       "pearl": "Everything Everywhere All at Once",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a Best Picture Oscar winner (through the 2026 ceremony)"
     },
     {
       "id": "best-animated-feature",
-      "text": "a Best Animated Feature Oscar winner (through the 2026 ceremony)",
+      "text": "a Best Animated Feature Oscar winner",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -2009,11 +2010,12 @@
       ],
       "surface": ["Shrek", "Frozen", "Finding Nemo"],
       "pearl": "Ratatouille",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a Best Animated Feature Oscar winner (through the 2026 ceremony)"
     },
     {
       "id": "best-actor",
-      "text": "a Best Actor Oscar winner (through the 2026 ceremony)",
+      "text": "a Best Actor Oscar winner",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -2383,11 +2385,12 @@
       ],
       "surface": ["Tom Hanks", "Leonardo DiCaprio", "Daniel Day-Lewis"],
       "pearl": "Nicolas Cage",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Best Actor Oscar winner (through the 2026 ceremony)"
     },
     {
       "id": "best-actress",
-      "text": "a Best Actress Oscar winner (through the 2026 ceremony)",
+      "text": "a Best Actress Oscar winner",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -2733,11 +2736,12 @@
       ],
       "surface": ["Meryl Streep", "Katharine Hepburn", "Emma Stone"],
       "pearl": "Michelle Yeoh",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Best Actress Oscar winner (through the 2026 ceremony)"
     },
     {
       "id": "best-director",
-      "text": "a Best Director Oscar winner (through the 2026 ceremony)",
+      "text": "a Best Director Oscar winner",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -3059,11 +3063,12 @@
       ],
       "surface": ["Steven Spielberg", "Christopher Nolan", "Martin Scorsese"],
       "pearl": "Bong Joon-ho",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Best Director Oscar winner (through the 2026 ceremony)"
     },
     {
       "id": "best-supporting-actor",
-      "text": "a Best Supporting Actor Oscar winner (through the 2026 ceremony)",
+      "text": "a Best Supporting Actor Oscar winner",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -3409,11 +3414,12 @@
       ],
       "surface": ["Morgan Freeman", "Brad Pitt", "Robert Downey Jr."],
       "pearl": "Ke Huy Quan",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Best Supporting Actor Oscar winner (through the 2026 ceremony)"
     },
     {
       "id": "best-supporting-actress",
-      "text": "a Best Supporting Actress Oscar winner (through the 2026 ceremony)",
+      "text": "a Best Supporting Actress Oscar winner",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -3787,11 +3793,12 @@
       ],
       "surface": ["Viola Davis", "Anne Hathaway", "Maggie Smith"],
       "pearl": "Marisa Tomei",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Best Supporting Actress Oscar winner (through the 2026 ceremony)"
     },
     {
       "id": "best-original-song",
-      "text": "an Oscar-winning original song (through the 2026 ceremony)",
+      "text": "an Oscar-winning original song",
       "theme": "music",
       "cluster": "oscars",
       "sources": [
@@ -4181,11 +4188,12 @@
       ],
       "surface": ["Let It Go", "My Heart Will Go On", "Skyfall"],
       "pearl": "Lose Yourself",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an Oscar-winning original song (through the 2026 ceremony)"
     },
     {
       "id": "nobel-literature",
-      "text": "a Nobel Prize in Literature laureate through 2026",
+      "text": "a Nobel Prize winner in Literature",
       "theme": "books",
       "cluster": "nobel",
       "sources": [
@@ -4697,11 +4705,12 @@
       ],
       "surface": ["Ernest Hemingway", "Bob Dylan", "Toni Morrison"],
       "pearl": "Kazuo Ishiguro",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Nobel Prize in Literature laureate through 2026"
     },
     {
       "id": "spielberg-films",
-      "text": "a feature film directed by Steven Spielberg (Duel and anthology segments count)",
+      "text": "a feature film directed by Steven Spielberg",
       "theme": "film",
       "cluster": "directors",
       "sources": [
@@ -4875,7 +4884,8 @@
       ],
       "surface": ["Jaws", "Jurassic Park", "E.T. the Extra-Terrestrial"],
       "pearl": "Catch Me If You Can",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a feature film directed by Steven Spielberg (Duel and anthology segments count)"
     },
     {
       "id": "hitchcock-films",
@@ -5273,7 +5283,7 @@
     },
     {
       "id": "tarantino-films",
-      "text": "a completed feature film directed by Quentin Tarantino (not guest segments)",
+      "text": "a feature film directed by Quentin Tarantino",
       "theme": "film",
       "cluster": "directors",
       "sources": [
@@ -5335,7 +5345,8 @@
       ],
       "surface": ["Pulp Fiction", "Kill Bill: Volume 1", "Django Unchained"],
       "pearl": "Jackie Brown",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a completed feature film directed by Quentin Tarantino (not guest segments)"
     },
     {
       "id": "burton-films",
@@ -5592,7 +5603,7 @@
     },
     {
       "id": "bond-films",
-      "text": "a James Bond film (non-Eon films count)",
+      "text": "a James Bond film",
       "theme": "film",
       "cluster": "franchises",
       "sources": [
@@ -5717,11 +5728,12 @@
       ],
       "surface": ["Goldfinger", "Skyfall", "Casino Royale"],
       "pearl": "GoldenEye",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a James Bond film (non-Eon films count)"
     },
     {
       "id": "ghibli-films",
-      "text": "a Studio Ghibli feature film (Nausicaä, Ocean Waves and co-productions count)",
+      "text": "a Studio Ghibli feature film",
       "theme": "film",
       "cluster": "japan",
       "sources": [
@@ -5842,7 +5854,8 @@
       ],
       "surface": ["Spirited Away", "My Neighbor Totoro", "Princess Mononoke"],
       "pearl": "Kiki's Delivery Service",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a Studio Ghibli feature film (Nausicaä, Ocean Waves and co-productions count)"
     },
     {
       "id": "disney-canon",
@@ -6127,7 +6140,7 @@
     },
     {
       "id": "nba-teams",
-      "text": "a 2026–27 NBA team",
+      "text": "a current NBA team",
       "theme": "sports",
       "cluster": "leagues",
       "sources": [
@@ -6297,11 +6310,12 @@
       ],
       "surface": ["Los Angeles Lakers", "Boston Celtics", "Chicago Bulls"],
       "pearl": "Toronto Raptors",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a 2026–27 NBA team"
     },
     {
       "id": "nfl-teams",
-      "text": "a 2026 NFL team",
+      "text": "a current NFL team",
       "theme": "sports",
       "cluster": "leagues",
       "sources": [
@@ -6481,11 +6495,12 @@
       ],
       "surface": ["Dallas Cowboys", "New England Patriots", "Kansas City Chiefs"],
       "pearl": "Buffalo Bills",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a 2026 NFL team"
     },
     {
       "id": "mlb-teams",
-      "text": "a 2026 MLB team",
+      "text": "a current MLB team",
       "theme": "sports",
       "cluster": "leagues",
       "sources": [
@@ -6654,11 +6669,12 @@
       ],
       "surface": ["New York Yankees", "Boston Red Sox", "Los Angeles Dodgers"],
       "pearl": "Seattle Mariners",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a 2026 MLB team"
     },
     {
       "id": "nhl-teams",
-      "text": "a 2026–27 NHL team",
+      "text": "a current NHL team",
       "theme": "sports",
       "cluster": "leagues",
       "sources": [
@@ -6838,7 +6854,8 @@
       ],
       "surface": ["Toronto Maple Leafs", "Montreal Canadiens", "Boston Bruins"],
       "pearl": "Seattle Kraken",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a 2026–27 NHL team"
     },
     {
       "id": "nba-mvp",
@@ -7816,7 +7833,7 @@
     },
     {
       "id": "uk-prime-ministers",
-      "text": "a British prime minister through November 2026",
+      "text": "a British prime minister",
       "theme": "history",
       "cluster": "uk",
       "sources": [
@@ -8074,7 +8091,8 @@
       ],
       "surface": ["Winston Churchill", "Margaret Thatcher", "Tony Blair"],
       "pearl": "Clement Attlee",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a British prime minister through November 2026"
     },
     {
       "id": "moonwalkers",
@@ -8150,7 +8168,7 @@
     },
     {
       "id": "olympian-gods",
-      "text": "one of the Greek Olympian gods (Hades and Hestia count)",
+      "text": "a Greek Olympian god",
       "theme": "history",
       "cluster": "myth",
       "sources": [
@@ -8240,11 +8258,12 @@
       ],
       "surface": ["Zeus", "Athena", "Poseidon"],
       "pearl": "Dionysus",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the Greek Olympian gods (Hades and Hestia count)"
     },
     {
       "id": "best-visual-effects",
-      "text": "a film that won the Oscar for Visual Effects (special awards count) (through the 2026 ceremony)",
+      "text": "a film that won the Visual Effects Oscar",
       "theme": "film",
       "cluster": "oscars",
       "sources": [
@@ -8620,7 +8639,8 @@
       ],
       "surface": ["Titanic", "Avatar", "Jurassic Park"],
       "pearl": "Babe",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a film that won the Oscar for Visual Effects (special awards count) (through the 2026 ceremony)"
     },
     {
       "id": "four-letter-countries",
@@ -8850,7 +8870,7 @@
     },
     {
       "id": "countries-no-a",
-      "text": "a country with no letter A in a common English name",
+      "text": "a country with no A in its name",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -9072,11 +9092,12 @@
       "expect": [36, 36],
       "surface": ["Mexico", "Peru", "Egypt"],
       "pearl": "Seychelles",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country with no letter A in a common English name"
     },
     {
       "id": "countries-with-z",
-      "text": "a country with a Z in a common English name",
+      "text": "a country with a Z in its name",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -9298,11 +9319,12 @@
       "expect": [19, 19],
       "surface": ["Brazil", "New Zealand", "Zimbabwe"],
       "pearl": "Belize",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country with a Z in a common English name"
     },
     {
       "id": "countries-b",
-      "text": "a country whose common English name starts with B",
+      "text": "a country whose name starts with B",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -9524,11 +9546,12 @@
       "expect": [19, 19],
       "surface": ["Brazil", "Belgium", "Bangladesh"],
       "pearl": "Bhutan",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country whose common English name starts with B"
     },
     {
       "id": "countries-s",
-      "text": "a country whose common English name starts with S",
+      "text": "a country whose name starts with S",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -9750,11 +9773,12 @@
       "expect": [30, 30],
       "surface": ["Spain", "Sweden", "Switzerland"],
       "pearl": "Samoa",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country whose common English name starts with S"
     },
     {
       "id": "countries-m",
-      "text": "a country whose common English name starts with M",
+      "text": "a country whose name starts with M",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -9976,11 +10000,12 @@
       "expect": [18, 18],
       "surface": ["Mexico", "Morocco", "Malaysia"],
       "pearl": "Madagascar",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country whose common English name starts with M"
     },
     {
       "id": "countries-ia",
-      "text": "a country whose common English name ends in ia",
+      "text": "a country whose name ends in IA",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -10202,11 +10227,12 @@
       "expect": [42, 42],
       "surface": ["Australia", "India", "Russia"],
       "pearl": "Namibia",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country whose common English name ends in ia"
     },
     {
       "id": "countries-same-letter",
-      "text": "a country whose common English name starts and ends with the same letter",
+      "text": "a country whose name starts and ends with the same letter",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -10428,11 +10454,12 @@
       "expect": [17, 17],
       "surface": ["Albania", "Algeria", "Argentina"],
       "pearl": "Seychelles",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country whose common English name starts and ends with the same letter"
     },
     {
       "id": "countries-vowel",
-      "text": "a country whose common English name starts with a vowel",
+      "text": "a country whose name starts with a vowel",
       "theme": "words",
       "cluster": "countries",
       "sources": [
@@ -10654,7 +10681,8 @@
       "expect": [38, 38],
       "surface": ["Australia", "India", "Italy"],
       "pearl": "Oman",
-      "derive": "countries"
+      "derive": "countries",
+      "acceptance_notes": "a country whose common English name starts with a vowel"
     },
     {
       "id": "states-two-words",
@@ -11359,7 +11387,7 @@
     },
     {
       "id": "planets-dwarf",
-      "text": "a Solar System planet or IAU-recognised dwarf planet",
+      "text": "a planet or dwarf planet in our Solar System",
       "theme": "science",
       "cluster": "space",
       "answers": [
@@ -11443,7 +11471,8 @@
       ],
       "expect": [13, 13],
       "surface": ["Earth", "Mars", "Jupiter"],
-      "pearl": "Pluto"
+      "pearl": "Pluto",
+      "acceptance_notes": "a Solar System planet or IAU-recognised dwarf planet"
     },
     {
       "id": "pokemon-gen1",
@@ -12126,7 +12155,7 @@
     },
     {
       "id": "pokemon-fire",
-      "text": "a Fire-type Pokémon (any form)",
+      "text": "a Fire-type Pokémon",
       "theme": "games",
       "cluster": "pokemon",
       "answers": [
@@ -12467,11 +12496,12 @@
       "expect": [89, 89],
       "surface": ["Charmander", "Charizard", "Vulpix"],
       "pearl": "Cyndaquil",
-      "review": "PokéAPI types joined through pokemon.species_id, deduplicated by species; additionally accept Arceus and Silvally whose item-driven forms can take this type."
+      "review": "PokéAPI types joined through pokemon.species_id, deduplicated by species; additionally accept Arceus and Silvally whose item-driven forms can take this type.",
+      "acceptance_notes": "a Fire-type Pokémon (any form)"
     },
     {
       "id": "pokemon-water",
-      "text": "a Water-type Pokémon (any form)",
+      "text": "a Water-type Pokémon",
       "theme": "games",
       "cluster": "pokemon",
       "answers": [
@@ -13028,7 +13058,8 @@
       "expect": [161, 161],
       "surface": ["Squirtle", "Magikarp", "Gyarados"],
       "pearl": "Psyduck",
-      "review": "PokéAPI types joined through pokemon.species_id, deduplicated by species; additionally accept Arceus and Silvally whose item-driven forms can take this type."
+      "review": "PokéAPI types joined through pokemon.species_id, deduplicated by species; additionally accept Arceus and Silvally whose item-driven forms can take this type.",
+      "acceptance_notes": "a Water-type Pokémon (any form)"
     },
     {
       "id": "pokemon-legendary",
@@ -13375,7 +13406,7 @@
     },
     {
       "id": "pokemon-types",
-      "text": "a Pokémon type (Stellar counts)",
+      "text": "a Pokémon type",
       "theme": "games",
       "cluster": "pokemon",
       "answers": [
@@ -13489,7 +13520,8 @@
       ],
       "expect": [19, 19],
       "surface": ["Fire", "Water", "Grass"],
-      "pearl": "Fairy"
+      "pearl": "Fairy",
+      "acceptance_notes": "a Pokémon type (Stellar counts)"
     },
     {
       "id": "declaration-signers",
@@ -13740,7 +13772,7 @@
     },
     {
       "id": "english-monarchs",
-      "text": "an English or British monarch since 1066 (disputed claimants count)",
+      "text": "an English or British monarch since 1066",
       "theme": "history",
       "cluster": "uk",
       "answers": [
@@ -13975,7 +14007,8 @@
       ],
       "expect": [50, 50],
       "surface": ["Henry VIII", "Elizabeth I", "Elizabeth II"],
-      "pearl": "Richard III"
+      "pearl": "Richard III",
+      "acceptance_notes": "an English or British monarch since 1066 (disputed claimants count)"
     },
     {
       "id": "popes-modern",
@@ -14671,7 +14704,7 @@
     },
     {
       "id": "brazil-states",
-      "text": "a Brazilian state or the Federal District",
+      "text": "a Brazilian state or federal district",
       "theme": "geography",
       "cluster": "regions",
       "sources": [
@@ -14799,7 +14832,8 @@
       ],
       "surface": ["São Paulo", "Rio de Janeiro", "Bahia"],
       "pearl": "Amazonas",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a Brazilian state or the Federal District"
     },
     {
       "id": "mexico-states",
@@ -15124,7 +15158,7 @@
     },
     {
       "id": "china-provinces",
-      "text": "a Chinese province (Taiwan counts)",
+      "text": "a Chinese province",
       "theme": "geography",
       "cluster": "regions",
       "sources": [
@@ -15236,11 +15270,12 @@
       ],
       "surface": ["Guangdong", "Sichuan", "Yunnan"],
       "pearl": "Hainan",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a Chinese province (Taiwan counts)"
     },
     {
       "id": "grammy-album",
-      "text": "a Grammy Album of the Year winner (through 2026)",
+      "text": "a Grammy Album of the Year winner",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -15538,7 +15573,8 @@
       "surface": ["Thriller", "1989", "21"],
       "pearl": "Rumours",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Album of the Year winner (through 2026)"
     },
     {
       "id": "grammy-album-pre1980",
@@ -15658,7 +15694,7 @@
     },
     {
       "id": "grammy-album-1980-1999",
-      "text": "a Grammy Album of the Year winner from 1980–1999",
+      "text": "a Grammy Album of the Year winner from 1980 to 1999",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -15760,11 +15796,12 @@
       "surface": ["Thriller", "The Bodyguard", "Jagged Little Pill"],
       "pearl": "Graceland",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Album of the Year winner from 1980–1999"
     },
     {
       "id": "grammy-album-2000-2026",
-      "text": "a Grammy Album of the Year winner from 2000–2026",
+      "text": "a Grammy Album of the Year winner since 2000",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -15896,11 +15933,12 @@
       "surface": ["1989", "Folklore", "21"],
       "pearl": "Random Access Memories",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Album of the Year winner from 2000–2026"
     },
     {
       "id": "grammy-record",
-      "text": "a Grammy Record of the Year–winning song (through 2026)",
+      "text": "a Grammy Record of the Year winner",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -16195,11 +16233,12 @@
       "surface": ["Rolling in the Deep", "Uptown Funk", "Beat It"],
       "pearl": "Hotel California",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Record of the Year–winning song (through 2026)"
     },
     {
       "id": "grammy-record-pre1980",
-      "text": "a Grammy Record of the Year–winning song before 1980",
+      "text": "a Grammy Record of the Year winner before 1980",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -16306,11 +16345,12 @@
       "surface": ["Bridge over Troubled Water", "Mrs. Robinson", "Aquarius/Let the Sunshine In"],
       "pearl": "Hotel California",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Record of the Year–winning song before 1980"
     },
     {
       "id": "grammy-record-1980-1999",
-      "text": "a Grammy Record of the Year–winning song from 1980–1999",
+      "text": "a Grammy Record of the Year winner from 1980 to 1999",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -16412,11 +16452,12 @@
       "surface": ["Beat It", "We Are the World", "I Will Always Love You"],
       "pearl": "Kiss from a Rose",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Record of the Year–winning song from 1980–1999"
     },
     {
       "id": "grammy-record-2000-2026",
-      "text": "a Grammy Record of the Year–winning song from 2000–2026",
+      "text": "a Grammy Record of the Year winner since 2000",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -16546,11 +16587,12 @@
       "surface": ["Get Lucky", "Rolling in the Deep", "Uptown Funk"],
       "pearl": "Rehab",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Record of the Year–winning song from 2000–2026"
     },
     {
       "id": "grammy-song",
-      "text": "a Grammy Song of the Year winner (through 2026)",
+      "text": "a Grammy Song of the Year winner",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -16849,7 +16891,8 @@
       "surface": ["Hello", "Every Breath You Take", "My Heart Will Go On"],
       "pearl": "Viva la Vida",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Song of the Year winner (through 2026)"
     },
     {
       "id": "grammy-song-pre1980",
@@ -16968,7 +17011,7 @@
     },
     {
       "id": "grammy-song-1980-1999",
-      "text": "a Grammy Song of the Year winner from 1980–1999",
+      "text": "a Grammy Song of the Year winner from 1980 to 1999",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -17070,11 +17113,12 @@
       "surface": ["Every Breath You Take", "We Are the World", "My Heart Will Go On"],
       "pearl": "Tears in Heaven",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Song of the Year winner from 1980–1999"
     },
     {
       "id": "grammy-song-2000-2026",
-      "text": "a Grammy Song of the Year winner from 2000–2026",
+      "text": "a Grammy Song of the Year winner since 2000",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -17204,11 +17248,12 @@
       "surface": ["Single Ladies (Put a Ring on It)", "Stay with Me", "Hello"],
       "pearl": "Viva la Vida",
       "people": false,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Song of the Year winner from 2000–2026"
     },
     {
       "id": "grammy-new-artist",
-      "text": "a Grammy Best New Artist winner (revoked awards count) (through 2026)",
+      "text": "a Grammy Best New Artist winner",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -17494,11 +17539,12 @@
       "surface": ["The Beatles", "Adele", "Billie Eilish"],
       "pearl": "Amy Winehouse",
       "people": true,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Best New Artist winner (revoked awards count) (through 2026)"
     },
     {
       "id": "grammy-new-artist-pre1980",
-      "text": "a Grammy Best New Artist winner (revoked awards count) before 1980",
+      "text": "a Grammy Best New Artist winner before 1980",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -17596,11 +17642,12 @@
       "surface": ["The Beatles", "The Carpenters", "Carly Simon"],
       "pearl": "Bette Midler",
       "people": true,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Best New Artist winner (revoked awards count) before 1980"
     },
     {
       "id": "grammy-new-artist-1980-1999",
-      "text": "a Grammy Best New Artist winner (revoked awards count) from 1980–1999",
+      "text": "a Grammy Best New Artist winner from 1980 to 1999",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -17702,11 +17749,12 @@
       "surface": ["Mariah Carey", "Cyndi Lauper", "Sheryl Crow"],
       "pearl": "Tracy Chapman",
       "people": true,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Best New Artist winner (revoked awards count) from 1980–1999"
     },
     {
       "id": "grammy-new-artist-2000-2026",
-      "text": "a Grammy Best New Artist winner (revoked awards count) from 2000–2026",
+      "text": "a Grammy Best New Artist winner since 2000",
       "theme": "music",
       "cluster": "grammys",
       "sources": [
@@ -17836,11 +17884,12 @@
       "surface": ["Adele", "Billie Eilish", "Sam Smith"],
       "pearl": "Amy Winehouse",
       "people": true,
-      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award."
+      "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
+      "acceptance_notes": "a Grammy Best New Artist winner (revoked awards count) from 2000–2026"
     },
     {
       "id": "booker-winners",
-      "text": "a Booker Prize–winning novel (through 2026)",
+      "text": "a Booker Prize-winning novel",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -18101,11 +18150,12 @@
       "surface": ["The Remains of the Day", "Life of Pi", "Wolf Hall"],
       "pearl": "The Blind Assassin",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Booker Prize–winning novel (through 2026)"
     },
     {
       "id": "booker-winners-early",
-      "text": "a Booker Prize–winning novel (1969–1989)",
+      "text": "a Booker Prize-winning novel before 1990",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -18215,11 +18265,12 @@
       "surface": ["Midnight's Children", "The Remains of the Day", "The Sea, the Sea"],
       "pearl": "Schindler's Ark",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Booker Prize–winning novel (1969–1989)"
     },
     {
       "id": "booker-winners-middle",
-      "text": "a Booker Prize–winning novel (1990–2009)",
+      "text": "a Booker Prize-winning novel from 1990 to 2009",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -18325,11 +18376,12 @@
       "surface": ["Life of Pi", "The God of Small Things", "Wolf Hall"],
       "pearl": "The Blind Assassin",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Booker Prize–winning novel (1990–2009)"
     },
     {
       "id": "booker-winners-recent",
-      "text": "a Booker Prize–winning novel (2010–2026)",
+      "text": "a Booker Prize-winning novel since 2010",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -18419,11 +18471,12 @@
       "surface": ["The Seven Moons of Maali Almeida", "Shuggie Bain", "Lincoln in the Bardo"],
       "pearl": "Girl, Woman, Other",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Booker Prize–winning novel (2010–2026)"
     },
     {
       "id": "hugo-novels",
-      "text": "a Hugo Award for Best Novel winner (not Retro-Hugos) (through 2026)",
+      "text": "a Hugo Award winner for Best Novel",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -18745,11 +18798,12 @@
       "surface": ["Dune", "American Gods", "The Left Hand of Darkness"],
       "pearl": "The Three-Body Problem",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Hugo Award for Best Novel winner (not Retro-Hugos) (through 2026)"
     },
     {
       "id": "hugo-novels-early",
-      "text": "a Hugo Award for Best Novel winner (not Retro-Hugos) (before 1980)",
+      "text": "a Hugo Award winner for Best Novel before 1980",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -18876,11 +18930,12 @@
       "surface": ["Dune", "Ringworld", "The Left Hand of Darkness"],
       "pearl": "The Man in the High Castle",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Hugo Award for Best Novel winner (not Retro-Hugos) (before 1980)"
     },
     {
       "id": "hugo-novels-middle",
-      "text": "a Hugo Award for Best Novel winner (not Retro-Hugos) (1980–1999)",
+      "text": "a Hugo Award winner for Best Novel from 1980 to 1999",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -18987,11 +19042,12 @@
       "surface": ["Neuromancer", "Ender's Game", "Hyperion"],
       "pearl": "The Diamond Age",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Hugo Award for Best Novel winner (not Retro-Hugos) (1980–1999)"
     },
     {
       "id": "hugo-novels-recent",
-      "text": "a Hugo Award for Best Novel winner (not Retro-Hugos) (2000–2026)",
+      "text": "a Hugo Award winner for Best Novel since 2000",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -19126,11 +19182,12 @@
       "surface": ["American Gods", "The Fifth Season", "Ancillary Justice"],
       "pearl": "The Three-Body Problem",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Hugo Award for Best Novel winner (not Retro-Hugos) (2000–2026)"
     },
     {
       "id": "newbery-winners",
-      "text": "a Newbery Medal–winning book (not an Honor book) (through 2026)",
+      "text": "a Newbery Medal-winning book",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -19572,11 +19629,12 @@
       "surface": ["A Wrinkle in Time", "The Giver", "Holes"],
       "pearl": "The Westing Game",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Newbery Medal–winning book (not an Honor book) (through 2026)"
     },
     {
       "id": "newbery-winners-early",
-      "text": "a Newbery Medal–winning book (not an Honor book) (before 1980)",
+      "text": "a Newbery Medal-winning book before 1980",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -19887,11 +19945,12 @@
       "surface": ["A Wrinkle in Time", "Mrs. Frisby and the Rats of NIMH", "Bridge to Terabithia"],
       "pearl": "The Westing Game",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Newbery Medal–winning book (not an Honor book) (before 1980)"
     },
     {
       "id": "newbery-winners-middle",
-      "text": "a Newbery Medal–winning book (not an Honor book) (1980–1999)",
+      "text": "a Newbery Medal-winning book from 1980 to 1999",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -20012,11 +20071,12 @@
       "surface": ["The Giver", "Holes", "Number the Stars"],
       "pearl": "Maniac Magee",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Newbery Medal–winning book (not an Honor book) (1980–1999)"
     },
     {
       "id": "newbery-winners-recent",
-      "text": "a Newbery Medal–winning book (not an Honor book) (2000–2026)",
+      "text": "a Newbery Medal-winning book since 2000",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -20172,11 +20232,12 @@
       "surface": ["The One and Only Ivan", "The Tale of Despereaux", "The Crossover"],
       "pearl": "The Graveyard Book",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Newbery Medal–winning book (not an Honor book) (2000–2026)"
     },
     {
       "id": "pulitzer-fiction",
-      "text": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (through 2026)",
+      "text": "a Pulitzer Prize winner for Fiction",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -20595,11 +20656,12 @@
       "surface": ["To Kill a Mockingbird", "The Grapes of Wrath", "Beloved"],
       "pearl": "The Road",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (through 2026)"
     },
     {
       "id": "pulitzer-fiction-early",
-      "text": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (before 1980)",
+      "text": "a Pulitzer Prize winner for Fiction before 1980",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -20831,11 +20893,12 @@
       "surface": ["To Kill a Mockingbird", "The Grapes of Wrath", "The Old Man and the Sea"],
       "pearl": "The Bridge of San Luis Rey",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (before 1980)"
     },
     {
       "id": "pulitzer-fiction-middle",
-      "text": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (1980–1999)",
+      "text": "a Pulitzer Prize winner for Fiction from 1980 to 1999",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -20938,11 +21001,12 @@
       "surface": ["Beloved", "The Color Purple", "Lonesome Dove"],
       "pearl": "The Shipping News",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (1980–1999)"
     },
     {
       "id": "pulitzer-fiction-recent",
-      "text": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (2000–2026)",
+      "text": "a Pulitzer Prize winner for Fiction since 2000",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -21073,7 +21137,8 @@
       "surface": ["The Road", "All the Light We Cannot See", "The Underground Railroad"],
       "pearl": "Middlesex",
       "people": false,
-      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos."
+      "review": "All winners in the stated award-year interval, including ties; nominees and Newbery Honors are excluded. Pulitzer includes the predecessor Novel category. Hugo excludes separately awarded Retro-Hugos.",
+      "acceptance_notes": "a Pulitzer Prize for Fiction–winning book (Novel award counts) (2000–2026)"
     },
     {
       "id": "landlocked-countries",
@@ -21386,7 +21451,7 @@
     },
     {
       "id": "africa-countries",
-      "text": "a country in Africa (partially recognised states count)",
+      "text": "an African country",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -21638,11 +21703,12 @@
       "surface": ["Egypt", "Nigeria", "South Africa"],
       "pearl": "Madagascar",
       "people": false,
-      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states."
+      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
+      "acceptance_notes": "a country in Africa (partially recognised states count)"
     },
     {
       "id": "asia-countries",
-      "text": "a country in Asia (transcontinental and partially recognised states count)",
+      "text": "an Asian country",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -21890,11 +21956,12 @@
       "surface": ["China", "Japan", "India"],
       "pearl": "Bhutan",
       "people": false,
-      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states."
+      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
+      "acceptance_notes": "a country in Asia (transcontinental and partially recognised states count)"
     },
     {
       "id": "europe-countries",
-      "text": "a country in Europe (transcontinental and partially recognised states count)",
+      "text": "a European country",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -22141,11 +22208,12 @@
       "surface": ["France", "Germany", "Italy"],
       "pearl": "Iceland",
       "people": false,
-      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states."
+      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
+      "acceptance_notes": "a country in Europe (transcontinental and partially recognised states count)"
     },
     {
       "id": "oceania-countries",
-      "text": "a country in Oceania (Cook Islands and Niue count)",
+      "text": "a country in Oceania",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -22231,11 +22299,12 @@
       "surface": ["Australia", "New Zealand", "Fiji"],
       "pearl": "Kiribati",
       "people": false,
-      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states."
+      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
+      "acceptance_notes": "a country in Oceania (Cook Islands and Niue count)"
     },
     {
       "id": "island-countries",
-      "text": "an island country (Australia and partially recognised states count)",
+      "text": "an island country",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -22464,7 +22533,8 @@
       "surface": ["Japan", "United Kingdom", "Madagascar"],
       "pearl": "Kiribati",
       "people": false,
-      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states."
+      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
+      "acceptance_notes": "an island country (Australia and partially recognised states count)"
     },
     {
       "id": "south-america-countries",
@@ -22554,7 +22624,7 @@
     },
     {
       "id": "borders-china",
-      "text": "a country sharing a land border with China (overseas and disputed borders count)",
+      "text": "a country with a land border with China",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -22648,11 +22718,12 @@
       ],
       "surface": ["India", "Russia", "Mongolia"],
       "pearl": "Bhutan",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a country sharing a land border with China (overseas and disputed borders count)"
     },
     {
       "id": "borders-russia",
-      "text": "a country sharing a land border with Russia (overseas and disputed borders count)",
+      "text": "a country with a land border with Russia",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -22753,11 +22824,12 @@
       ],
       "surface": ["China", "Finland", "Ukraine"],
       "pearl": "North Korea",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a country sharing a land border with Russia (overseas and disputed borders count)"
     },
     {
       "id": "borders-france",
-      "text": "a country sharing a land border with France (overseas and disputed borders count)",
+      "text": "a country with a land border with France",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -22833,7 +22905,8 @@
       ],
       "surface": ["Germany", "Spain", "Italy"],
       "pearl": "Brazil",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a country sharing a land border with France (overseas and disputed borders count)"
     },
     {
       "id": "period-4-elements",
@@ -23759,7 +23832,7 @@
     },
     {
       "id": "named-uranus-moons",
-      "text": "an officially named moon of Uranus",
+      "text": "a named moon of Uranus",
       "theme": "science",
       "cluster": "moons",
       "sources": [
@@ -23888,11 +23961,12 @@
       ],
       "surface": ["Titania", "Oberon", "Ariel"],
       "pearl": "Puck",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an officially named moon of Uranus"
     },
     {
       "id": "named-neptune-moons",
-      "text": "an officially named moon of Neptune",
+      "text": "a named moon of Neptune",
       "theme": "science",
       "cluster": "moons",
       "sources": [
@@ -23969,11 +24043,12 @@
       ],
       "surface": ["Triton", "Proteus", "Naiad"],
       "pearl": "Nereid",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an officially named moon of Neptune"
     },
     {
       "id": "zodiac-constellations",
-      "text": "a constellation crossed by the Sun along the ecliptic (Ophiuchus counts)",
+      "text": "a zodiac constellation",
       "theme": "science",
       "cluster": "zodiac",
       "sources": [
@@ -24045,7 +24120,10 @@
       ],
       "surface": ["Aries", "Taurus", "Gemini"],
       "pearl": "Ophiuchus",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a constellation crossed by the Sun along the ecliptic (Ophiuchus counts)",
+      "active": false,
+      "retired_reason": "Nearly all answers are familiar; too little room for tier depth."
     },
     {
       "id": "si-named-derived-units",
@@ -24157,11 +24235,12 @@
       ],
       "surface": ["newton", "joule", "watt"],
       "pearl": "becquerel",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an SI derived unit with a special name"
     },
     {
       "id": "si-prefixes",
-      "text": "an official SI metric prefix",
+      "text": "a metric prefix",
       "theme": "science",
       "cluster": "units",
       "sources": [
@@ -24279,11 +24358,12 @@
       ],
       "surface": ["kilo", "mega", "milli"],
       "pearl": "quetta",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an official SI metric prefix"
     },
     {
       "id": "essential-amino-acids",
-      "text": "an amino acid essential in the adult human diet",
+      "text": "an essential amino acid",
       "theme": "science",
       "cluster": "body",
       "sources": [
@@ -24339,11 +24419,12 @@
       ],
       "surface": ["Leucine", "Lysine", "Valine"],
       "pearl": "Tryptophan",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an amino acid essential in the adult human diet"
     },
     {
       "id": "proteinogenic-amino-acids",
-      "text": "one of the 22 genetically encoded proteinogenic amino acids",
+      "text": "a genetically encoded amino acid",
       "theme": "science",
       "cluster": "body",
       "sources": [
@@ -24451,11 +24532,12 @@
       ],
       "surface": ["Glycine", "Alanine", "Glutamic acid"],
       "pearl": "Tryptophan",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the 22 genetically encoded proteinogenic amino acids"
     },
     {
       "id": "symbol-mismatch",
-      "text": "an element whose English name and chemical symbol start with different letters",
+      "text": "an element whose name and symbol start with different letters",
       "theme": "science",
       "cluster": "elements",
       "sources": [
@@ -24530,11 +24612,12 @@
       ],
       "surface": ["Iron", "Gold", "Silver"],
       "pearl": "Tungsten",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an element whose English name and chemical symbol start with different letters"
     },
     {
       "id": "gaseous-elements",
-      "text": "an element that is a gas at standard temperature and pressure",
+      "text": "an element that's a gas at room temperature",
       "theme": "science",
       "cluster": "elements",
       "sources": [
@@ -24609,11 +24692,12 @@
       ],
       "surface": ["Oxygen", "Hydrogen", "Helium"],
       "pearl": "Neon",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an element that is a gas at standard temperature and pressure"
     },
     {
       "id": "large-saturn-moons",
-      "text": "a moon of Saturn with a diameter over 100 kilometres",
+      "text": "a moon of Saturn over 100 kilometres across",
       "theme": "science",
       "cluster": "moons",
       "sources": [
@@ -24688,11 +24772,12 @@
       ],
       "surface": ["Titan", "Enceladus", "Mimas"],
       "pearl": "Phoebe",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a moon of Saturn with a diameter over 100 kilometres"
     },
     {
       "id": "carpal-bones",
-      "text": "one of the eight carpal bones in a human wrist",
+      "text": "a carpal bone",
       "theme": "science",
       "cluster": "body",
       "sources": [
@@ -24752,11 +24837,12 @@
       ],
       "surface": ["Scaphoid", "Lunate", "Hamate"],
       "pearl": "Pisiform",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the eight carpal bones in a human wrist"
     },
     {
       "id": "skull-bones",
-      "text": "a named cranial or facial bone in an adult human skull",
+      "text": "a cranial or facial bone",
       "theme": "science",
       "cluster": "body",
       "sources": [
@@ -24846,11 +24932,12 @@
       ],
       "surface": ["Mandible", "Frontal bone", "Temporal bone"],
       "pearl": "Sphenoid bone",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a named cranial or facial bone in an adult human skull"
     },
     {
       "id": "cranial-nerves",
-      "text": "one of the twelve numbered human cranial nerves",
+      "text": "a cranial nerve",
       "theme": "science",
       "cluster": "body",
       "sources": [
@@ -24930,11 +25017,12 @@
       ],
       "surface": ["Optic nerve", "Facial nerve", "Olfactory nerve"],
       "pearl": "Vagus nerve",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the twelve numbered human cranial nerves"
     },
     {
       "id": "penguins",
-      "text": "one of the 18 traditional penguin species (split-species names count)",
+      "text": "a penguin species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -25068,11 +25156,12 @@
       "surface": ["Emperor penguin", "King penguin", "Adélie penguin"],
       "pearl": "Chinstrap penguin",
       "people": false,
-      "review": "Complete traditional 18-species grouping, including all current genus-table rows; newer splits are accepted as aliases of their traditional group, not silently rejected."
+      "review": "Complete traditional 18-species grouping, including all current genus-table rows; newer splits are accepted as aliases of their traditional group, not silently rejected.",
+      "acceptance_notes": "one of the 18 traditional penguin species (split-species names count)"
     },
     {
       "id": "cat-family",
-      "text": "a living species in the cat family (domestic cats count)",
+      "text": "a species in the cat family",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -25274,11 +25363,12 @@
       ],
       "surface": ["Lion", "Tiger", "Cheetah"],
       "pearl": "Pallas's cat",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living species in the cat family (domestic cats count)"
     },
     {
       "id": "dog-family",
-      "text": "a living species in the dog family (domestic dogs count)",
+      "text": "a species in the dog family",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -25477,11 +25567,12 @@
       ],
       "surface": ["Gray wolf", "Red fox", "African wild dog"],
       "pearl": "Japanese raccoon dog",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living species in the dog family (domestic dogs count)"
     },
     {
       "id": "crocodilians",
-      "text": "a living crocodilian species",
+      "text": "a crocodilian species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -25626,11 +25717,12 @@
       ],
       "surface": ["American alligator", "Nile crocodile", "Saltwater crocodile"],
       "pearl": "Gharial",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living crocodilian species"
     },
     {
       "id": "pelicans",
-      "text": "a living pelican species",
+      "text": "a pelican species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -25690,11 +25782,12 @@
       ],
       "surface": ["Brown pelican", "American white pelican", "Australian pelican"],
       "pearl": "Dalmatian pelican",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living pelican species"
     },
     {
       "id": "great-apes",
-      "text": "a living great ape species (humans count)",
+      "text": "a great ape species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -25752,11 +25845,12 @@
       ],
       "surface": ["Human", "Chimpanzee", "Western gorilla"],
       "pearl": "Bonobo",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living great ape species (humans count)"
     },
     {
       "id": "retired-hurricanes",
-      "text": "a retired Atlantic tropical cyclone name (through 2025)",
+      "text": "a retired Atlantic hurricane name",
       "theme": "nature",
       "cluster": "weather",
       "sources": [
@@ -26176,11 +26270,12 @@
       ],
       "surface": ["Katrina", "Andrew", "Sandy"],
       "pearl": "Opal",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a retired Atlantic tropical cyclone name (through 2025)"
     },
     {
       "id": "beaufort-winds",
-      "text": "one of the named wind-force descriptions on the Beaufort scale (0–12)",
+      "text": "a wind description on the Beaufort scale",
       "theme": "nature",
       "cluster": "weather",
       "sources": [
@@ -26258,11 +26353,12 @@
       ],
       "surface": ["Calm", "Gale", "Storm"],
       "pearl": "Hurricane",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the named wind-force descriptions on the Beaufort scale (0–12)"
     },
     {
       "id": "bears",
-      "text": "a living bear species (common subspecies names count)",
+      "text": "a bear species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -26330,11 +26426,12 @@
       ],
       "surface": ["Polar bear", "Brown bear", "Giant panda"],
       "pearl": "Sun bear",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living bear species (common subspecies names count)"
     },
     {
       "id": "otters",
-      "text": "a living otter species",
+      "text": "an otter species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -26432,11 +26529,12 @@
       ],
       "surface": ["Sea otter", "Giant otter", "North American river otter"],
       "pearl": "Asian small-clawed otter",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living otter species"
     },
     {
       "id": "cranes",
-      "text": "a living crane species",
+      "text": "a crane species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -26545,11 +26643,12 @@
       ],
       "surface": ["Sandhill crane", "Whooping crane", "Common crane"],
       "pearl": "Brolga",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living crane species"
     },
     {
       "id": "storks",
-      "text": "a living stork species",
+      "text": "a stork species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -26684,11 +26783,12 @@
       ],
       "surface": ["White stork", "Black stork", "Wood stork"],
       "pearl": "Marabou stork",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living stork species"
     },
     {
       "id": "cloud-genera",
-      "text": "one of the ten main cloud genera",
+      "text": "a main type of cloud",
       "theme": "nature",
       "cluster": "weather",
       "sources": [
@@ -26758,11 +26858,12 @@
       ],
       "surface": ["Cirrus", "Cumulus", "Stratus"],
       "pearl": "Cumulonimbus",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the ten main cloud genera"
     },
     {
       "id": "baleen-whales",
-      "text": "a living baleen whale species",
+      "text": "a baleen whale species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -26878,11 +26979,12 @@
       ],
       "surface": ["Blue whale", "Humpback whale", "Fin whale"],
       "pearl": "Bowhead whale",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living baleen whale species"
     },
     {
       "id": "albatrosses",
-      "text": "a living albatross species",
+      "text": "an albatross species",
       "theme": "nature",
       "cluster": "animals",
       "sources": [
@@ -27014,11 +27116,12 @@
       ],
       "surface": ["Wandering Albatross", "Southern royal albatross", "Laysan albatross"],
       "pearl": "Black-browed albatross",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a living albatross species"
     },
     {
       "id": "zodiac-signs",
-      "text": "one of the twelve Western zodiac signs",
+      "text": "a Western zodiac sign",
       "theme": "everyday",
       "cluster": "zodiac",
       "sources": [
@@ -27086,11 +27189,14 @@
       ],
       "surface": ["Aries", "Leo", "Scorpio"],
       "pearl": "Aquarius",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the twelve Western zodiac signs",
+      "active": false,
+      "retired_reason": "Nearly all answers are familiar; too little room for tier depth."
     },
     {
       "id": "iba-unforgettables",
-      "text": "an IBA cocktail in the The Unforgettables category (2024 list)",
+      "text": "a cocktail on the IBA's Unforgettables list",
       "theme": "food",
       "cluster": "cocktails",
       "sources": [
@@ -27281,11 +27387,12 @@
       ],
       "surface": ["Dry Martini", "Manhattan", "Negroni"],
       "pearl": "Aviation",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an IBA cocktail in the The Unforgettables category (2024 list)"
     },
     {
       "id": "iba-contemporary",
-      "text": "an IBA cocktail in the Contemporary Classics category (2024 list)",
+      "text": "a cocktail on the IBA's Contemporary Classics list",
       "theme": "food",
       "cluster": "cocktails",
       "sources": [
@@ -27475,11 +27582,12 @@
       ],
       "surface": ["Margarita", "Mojito", "Cosmopolitan"],
       "pearl": "Pisco sour",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an IBA cocktail in the Contemporary Classics category (2024 list)"
     },
     {
       "id": "iba-new-era",
-      "text": "an IBA cocktail in the New Era Drinks category (2024 list)",
+      "text": "a cocktail on the IBA's New Era Drinks list",
       "theme": "food",
       "cluster": "cocktails",
       "sources": [
@@ -27670,7 +27778,8 @@
       ],
       "surface": ["Espresso martini", "Bramble", "Porn star martini"],
       "pearl": "Penicillin",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an IBA cocktail in the New Era Drinks category (2024 list)"
     },
     {
       "id": "chinese-zodiac",
@@ -27745,7 +27854,9 @@
       ],
       "surface": ["Dragon", "Rat", "Tiger"],
       "pearl": "Rabbit",
-      "people": false
+      "people": false,
+      "active": false,
+      "retired_reason": "Nearly all answers are familiar; too little room for tier depth."
     },
     {
       "id": "stellantis-brands",
@@ -27831,7 +27942,7 @@
     },
     {
       "id": "star-alliance",
-      "text": "a full member airline of Star Alliance (November 2026)",
+      "text": "a Star Alliance member airline",
       "theme": "everyday",
       "cluster": "travel",
       "sources": [
@@ -27958,11 +28069,12 @@
       ],
       "surface": ["United Airlines", "Lufthansa", "Air Canada"],
       "pearl": "Air New Zealand",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a full member airline of Star Alliance (November 2026)"
     },
     {
       "id": "oneworld-airlines",
-      "text": "a full member airline of oneworld (November 2026)",
+      "text": "a oneworld member airline",
       "theme": "everyday",
       "cluster": "travel",
       "sources": [
@@ -28044,11 +28156,12 @@
       ],
       "surface": ["American Airlines", "British Airways", "Qantas"],
       "pearl": "Finnair",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a full member airline of oneworld (November 2026)"
     },
     {
       "id": "skyteam-airlines",
-      "text": "a full member airline of SkyTeam (November 2026)",
+      "text": "a SkyTeam member airline",
       "theme": "everyday",
       "cluster": "travel",
       "sources": [
@@ -28141,11 +28254,12 @@
       ],
       "surface": ["Delta Air Lines", "Air France", "KLM"],
       "pearl": "Vietnam Airlines",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a full member airline of SkyTeam (November 2026)"
     },
     {
       "id": "calendar-months",
-      "text": "a month of the Gregorian calendar",
+      "text": "a month of the year",
       "theme": "everyday",
       "cluster": "calendar",
       "sources": [
@@ -28214,11 +28328,14 @@
       ],
       "surface": ["January", "June", "December"],
       "pearl": "October",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a month of the Gregorian calendar",
+      "active": false,
+      "retired_reason": "Nearly all answers are familiar; too little room for tier depth."
     },
     {
       "id": "santas-reindeer",
-      "text": "one of Santa's traditional eight reindeer or Rudolph",
+      "text": "one of Santa's reindeer",
       "theme": "everyday",
       "cluster": "kids",
       "sources": [
@@ -28285,11 +28402,14 @@
       ],
       "surface": ["Rudolph", "Dasher", "Dancer"],
       "pearl": "Vixen",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of Santa's traditional eight reindeer or Rudolph",
+      "active": false,
+      "retired_reason": "Nearly all answers are familiar; too little room for tier depth."
     },
     {
       "id": "cluedo-rooms",
-      "text": "a room on the classic Cluedo/Clue board",
+      "text": "a room on the Cluedo board",
       "theme": "everyday",
       "cluster": "board-games",
       "sources": [
@@ -28356,11 +28476,14 @@
       ],
       "surface": ["Kitchen", "Library", "Study"],
       "pearl": "Conservatory",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a room on the classic Cluedo/Clue board",
+      "active": false,
+      "retired_reason": "Nearly all answers are familiar; too little room for tier depth."
     },
     {
       "id": "emmy-drama",
-      "text": "an Emmy Outstanding Drama Series winner (through 2026; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Drama Series",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -28595,11 +28718,12 @@
       "surface": ["The Sopranos", "Breaking Bad", "Game of Thrones"],
       "pearl": "Shōgun",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Drama Series winner (through 2026; predecessor categories count)"
     },
     {
       "id": "super-bowl-mvp",
-      "text": "a Super Bowl MVP (through Super Bowl LX)",
+      "text": "a Super Bowl MVP",
       "theme": "sports",
       "cluster": "sports-awards",
       "sources": [
@@ -28819,11 +28943,12 @@
       ],
       "surface": ["Tom Brady", "Patrick Mahomes", "Joe Montana"],
       "pearl": "Nick Foles",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Super Bowl MVP (through Super Bowl LX)"
     },
     {
       "id": "heisman",
-      "text": "a Heisman Trophy winner (through 2025; reinstated winners count)",
+      "text": "a Heisman Trophy winner",
       "theme": "sports",
       "cluster": "sports-awards",
       "sources": [
@@ -29203,11 +29328,12 @@
       ],
       "surface": ["Barry Sanders", "Tim Tebow", "Reggie Bush"],
       "pearl": "Charles Woodson",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Heisman Trophy winner (through 2025; reinstated winners count)"
     },
     {
       "id": "emmy-drama-early",
-      "text": "an Emmy Outstanding Drama Series winner (before 1980; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Drama Series before 1980",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -29350,11 +29476,12 @@
       "surface": ["Mission: Impossible", "The Waltons", "Marcus Welby, M.D."],
       "pearl": "The Rockford Files",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Drama Series winner (before 1980; predecessor categories count)"
     },
     {
       "id": "emmy-drama-middle",
-      "text": "an Emmy Outstanding Drama Series winner (1980–1999; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Drama Series from 1980 to 1999",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -29421,11 +29548,12 @@
       "surface": ["Hill Street Blues", "L.A. Law", "NYPD Blue"],
       "pearl": "Picket Fences",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Drama Series winner (1980–1999; predecessor categories count)"
     },
     {
       "id": "emmy-drama-recent",
-      "text": "an Emmy Outstanding Drama Series winner (2000–2026; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Drama Series since 2000",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -29500,11 +29628,12 @@
       "surface": ["Mad Men", "Breaking Bad", "Game of Thrones"],
       "pearl": "Succession",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Drama Series winner (2000–2026; predecessor categories count)"
     },
     {
       "id": "emmy-comedy",
-      "text": "an Emmy Outstanding Comedy Series winner (through 2026; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Comedy Series",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -29707,11 +29836,12 @@
       "surface": ["Friends", "Seinfeld", "Frasier"],
       "pearl": "Fleabag",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Comedy Series winner (through 2026; predecessor categories count)"
     },
     {
       "id": "emmy-comedy-early",
-      "text": "an Emmy Outstanding Comedy Series winner (before 1980; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Comedy Series before 1980",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -29810,11 +29940,12 @@
       "surface": ["I Love Lucy", "The Dick Van Dyke Show", "All in the Family"],
       "pearl": "Get Smart",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Comedy Series winner (before 1980; predecessor categories count)"
     },
     {
       "id": "emmy-comedy-middle",
-      "text": "an Emmy Outstanding Comedy Series winner (1980–1999; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Comedy Series from 1980 to 1999",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -29877,11 +30008,12 @@
       "surface": ["Cheers", "Frasier", "The Golden Girls"],
       "pearl": "The Wonder Years",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Comedy Series winner (1980–1999; predecessor categories count)"
     },
     {
       "id": "emmy-comedy-recent",
-      "text": "an Emmy Outstanding Comedy Series winner (2000–2026; predecessor categories count)",
+      "text": "an Emmy winner for Outstanding Comedy Series since 2000",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -29972,11 +30104,12 @@
       "surface": ["Modern Family", "The Office", "30 Rock"],
       "pearl": "Fleabag",
       "people": false,
-      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years."
+      "review": "Complete winning programs, deduplicated across seasons, including predecessor award titles. Time periods refer to award years.",
+      "acceptance_notes": "an Emmy Outstanding Comedy Series winner (2000–2026; predecessor categories count)"
     },
     {
       "id": "tour-de-france",
-      "text": "a Tour de France general classification winner (through 2026; stripped titles count)",
+      "text": "a Tour de France winner",
       "theme": "sports",
       "cluster": "racing",
       "sources": [
@@ -30267,11 +30400,12 @@
       ],
       "surface": ["Lance Armstrong", "Eddy Merckx", "Tadej Pogačar"],
       "pearl": "Greg LeMond",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Tour de France general classification winner (through 2026; stripped titles count)"
     },
     {
       "id": "masters-champions",
-      "text": "a Masters Tournament champion (through 2026)",
+      "text": "a Masters champion",
       "theme": "sports",
       "cluster": "golf",
       "sources": [
@@ -30519,11 +30653,12 @@
       ],
       "surface": ["Tiger Woods", "Jack Nicklaus", "Arnold Palmer"],
       "pearl": "Bubba Watson",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a Masters Tournament champion (through 2026)"
     },
     {
       "id": "wimbledon-men",
-      "text": "a men’s Wimbledon singles champion in the Open Era (1968–2026)",
+      "text": "a men's Wimbledon singles champion since 1968",
       "theme": "sports",
       "cluster": "tennis",
       "sources": [
@@ -30636,11 +30771,12 @@
       ],
       "surface": ["Roger Federer", "Rafael Nadal", "Novak Djokovic"],
       "pearl": "Goran Ivanišević",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a men’s Wimbledon singles champion in the Open Era (1968–2026)"
     },
     {
       "id": "wimbledon-women",
-      "text": "a women’s Wimbledon singles champion in the Open Era (1968–2026)",
+      "text": "a women's Wimbledon singles champion since 1968",
       "theme": "sports",
       "cluster": "tennis",
       "sources": [
@@ -30769,11 +30905,12 @@
       ],
       "surface": ["Serena Williams", "Venus Williams", "Martina Navratilova"],
       "pearl": "Jana Novotná",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a women’s Wimbledon singles champion in the Open Era (1968–2026)"
     },
     {
       "id": "emmy-limited",
-      "text": "an Emmy Outstanding Limited or Anthology Series winner (predecessor categories count; through 2026)",
+      "text": "an Emmy winner for Outstanding Limited Series",
       "theme": "tv",
       "cluster": "emmys",
       "sources": [
@@ -31011,11 +31148,12 @@
       ],
       "surface": ["Band of Brothers", "Chernobyl", "The Queen's Gambit"],
       "pearl": "Beef",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an Emmy Outstanding Limited or Anthology Series winner (predecessor categories count; through 2026)"
     },
     {
       "id": "early-roman-emperors",
-      "text": "a Roman emperor from Augustus through Severus Alexander (27 BC–AD 235)",
+      "text": "a Roman emperor before AD 235",
       "theme": "history",
       "cluster": "ancient",
       "sources": [
@@ -31143,11 +31281,12 @@
       ],
       "surface": ["Augustus", "Nero", "Caligula"],
       "pearl": "Hadrian",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a Roman emperor from Augustus through Severus Alexander (27 BC–AD 235)"
     },
     {
       "id": "american-idol-winners",
-      "text": "a winner of American Idol (regular seasons, through 2026)",
+      "text": "an American Idol winner",
       "theme": "tv",
       "cluster": "reality",
       "sources": [
@@ -31263,11 +31402,12 @@
       ],
       "surface": ["Kelly Clarkson", "Carrie Underwood", "Jordin Sparks"],
       "pearl": "Ruben Studdard",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a winner of American Idol (regular seasons, through 2026)"
     },
     {
       "id": "secretaries-of-state",
-      "text": "a US Secretary of State (not acting; through November 2026)",
+      "text": "a US Secretary of State",
       "theme": "history",
       "cluster": "us-politics",
       "sources": [
@@ -31568,7 +31708,8 @@
       ],
       "surface": ["Hillary Clinton", "Henry Kissinger", "Thomas Jefferson"],
       "pearl": "Madeleine Albright",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a US Secretary of State (not acting; through November 2026)"
     },
     {
       "id": "supreme-court-since-1981",
@@ -31658,7 +31799,7 @@
     },
     {
       "id": "bake-off-winners",
-      "text": "a winner of the main Great British Bake Off series (completed series by November 2026)",
+      "text": "a Great British Bake Off winner",
       "theme": "tv",
       "cluster": "reality",
       "sources": [
@@ -31744,11 +31885,12 @@
       ],
       "surface": ["Nadiya Hussain", "Candice Brown", "John Whaite"],
       "pearl": "Rahul Mandal",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a winner of the main Great British Bake Off series (completed series by November 2026)"
     },
     {
       "id": "astronaut-group-2",
-      "text": "a member of NASA’s 1962 Next Nine astronaut group",
+      "text": "a member of NASA's 1962 astronaut class",
       "theme": "history",
       "cluster": "space",
       "sources": [
@@ -31812,11 +31954,12 @@
       ],
       "surface": ["Neil Armstrong", "Jim Lovell", "John Young"],
       "pearl": "Pete Conrad",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a member of NASA’s 1962 Next Nine astronaut group"
     },
     {
       "id": "astronaut-group-3",
-      "text": "a member of NASA’s 1963 Fourteen astronaut group",
+      "text": "a member of NASA's 1963 astronaut class",
       "theme": "history",
       "cluster": "space",
       "sources": [
@@ -31897,11 +32040,12 @@
       ],
       "surface": ["Buzz Aldrin", "Alan Bean", "Gene Cernan"],
       "pearl": "Michael Collins",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a member of NASA’s 1963 Fourteen astronaut group"
     },
     {
       "id": "astronaut-group-5",
-      "text": "a member of NASA’s 1966 Original Nineteen astronaut group",
+      "text": "a member of NASA's 1966 astronaut class",
       "theme": "history",
       "cluster": "space",
       "sources": [
@@ -32011,11 +32155,12 @@
       ],
       "surface": ["Fred Haise", "Jack Swigert", "Ken Mattingly"],
       "pearl": "Ronald Evans",
-      "people": true
+      "people": true,
+      "acceptance_notes": "a member of NASA’s 1966 Original Nineteen astronaut group"
     },
     {
       "id": "states-thirteen",
-      "text": "one of the original Thirteen Colonies (state names count)",
+      "text": "one of the original thirteen colonies",
       "theme": "history",
       "cluster": "us-states",
       "sources": [
@@ -32100,11 +32245,12 @@
       ],
       "surface": ["Virginia", "Massachusetts", "Pennsylvania"],
       "pearl": "Rhode Island",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the original Thirteen Colonies (state names count)"
     },
     {
       "id": "former-soviet",
-      "text": "a former Soviet Union republic",
+      "text": "a former Soviet republic",
       "theme": "history",
       "cluster": "countries",
       "sources": [
@@ -32200,11 +32346,12 @@
       ],
       "surface": ["Russia", "Ukraine", "Kazakhstan"],
       "pearl": "Estonia",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a former Soviet Union republic"
     },
     {
       "id": "africa-capitals",
-      "text": "a capital city in Africa (multiple capitals and disputed states count)",
+      "text": "an African capital city",
       "theme": "geography",
       "cluster": "capitals",
       "sources": [
@@ -32522,11 +32669,12 @@
       "surface": ["Cairo", "Nairobi", "Cape Town"],
       "pearl": "Antananarivo",
       "people": false,
-      "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+      "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded.",
+      "acceptance_notes": "a capital city in Africa (multiple capitals and disputed states count)"
     },
     {
       "id": "human-vitamins",
-      "text": "one of the 13 essential human vitamins (B subtypes count separately)",
+      "text": "an essential human vitamin",
       "theme": "science",
       "cluster": "body",
       "sources": [
@@ -32624,11 +32772,12 @@
       ],
       "surface": ["Vitamin A", "Vitamin C", "Vitamin D"],
       "pearl": "Vitamin B12",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the 13 essential human vitamins (B subtypes count separately)"
     },
     {
       "id": "b-vitamins",
-      "text": "one of the eight B vitamins",
+      "text": "a B vitamin",
       "theme": "science",
       "cluster": "body",
       "sources": [
@@ -32696,11 +32845,12 @@
       ],
       "surface": ["Vitamin B1", "Vitamin B6", "Vitamin B12"],
       "pearl": "Vitamin B7",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the eight B vitamins"
     },
     {
       "id": "iau-constellations",
-      "text": "one of the 88 constellations recognised by the IAU",
+      "text": "an official constellation",
       "theme": "science",
       "cluster": "constellations",
       "sources": [
@@ -33077,11 +33227,12 @@
       ],
       "surface": ["Orion", "Ursa Major", "Cassiopeia"],
       "pearl": "Delphinus",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the 88 constellations recognised by the IAU"
     },
     {
       "id": "us-food-allergens",
-      "text": "one of the nine major US food-allergen categories",
+      "text": "a major US food allergen",
       "theme": "food",
       "cluster": "allergens",
       "sources": [
@@ -33151,11 +33302,14 @@
       "surface": ["Milk", "Eggs", "Peanuts"],
       "pearl": "Sesame",
       "people": false,
-      "review": "Reviewed labelled categories in the jurisdiction comparison table: US crustaceans do not include molluscs; EU has separate crustacean/mollusc categories and groups wheat with gluten cereals. Sulphites are included for EU declaration even though not a true allergy."
+      "review": "Reviewed labelled categories in the jurisdiction comparison table: US crustaceans do not include molluscs; EU has separate crustacean/mollusc categories and groups wheat with gluten cereals. Sulphites are included for EU declaration even though not a true allergy.",
+      "acceptance_notes": "one of the nine major US food-allergen categories",
+      "active": false,
+      "retired_reason": "Nearly all answers are familiar; too little room for tier depth."
     },
     {
       "id": "eu-food-allergens",
-      "text": "one of the 14 EU declarable food-allergen categories",
+      "text": "a declarable EU food allergen",
       "theme": "food",
       "cluster": "allergens",
       "sources": [
@@ -33253,11 +33407,12 @@
       "surface": ["Milk", "Eggs", "Peanuts"],
       "pearl": "Lupin",
       "people": false,
-      "review": "Reviewed labelled categories in the jurisdiction comparison table: US crustaceans do not include molluscs; EU has separate crustacean/mollusc categories and groups wheat with gluten cereals. Sulphites are included for EU declaration even though not a true allergy."
+      "review": "Reviewed labelled categories in the jurisdiction comparison table: US crustaceans do not include molluscs; EU has separate crustacean/mollusc categories and groups wheat with gluten cereals. Sulphites are included for EU declaration even though not a true allergy.",
+      "acceptance_notes": "one of the 14 EU declarable food-allergen categories"
     },
     {
       "id": "zelda-games",
-      "text": "a main-series Legend of Zelda game (through November 2026)",
+      "text": "a main-series Legend of Zelda game",
       "theme": "games",
       "cluster": "nintendo",
       "sources": [
@@ -33378,11 +33533,12 @@
       ],
       "surface": ["Ocarina of Time", "Breath of the Wild", "Tears of the Kingdom"],
       "pearl": "Majora's Mask",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a main-series Legend of Zelda game (through November 2026)"
     },
     {
       "id": "monopoly-us",
-      "text": "a purchasable property on the standard US Monopoly board (stations and utilities count)",
+      "text": "a property on the US Monopoly board",
       "theme": "everyday",
       "cluster": "board-games",
       "sources": [
@@ -33543,11 +33699,12 @@
       ],
       "surface": ["Boardwalk", "Park Place", "Baltic Avenue"],
       "pearl": "Marvin Gardens",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a purchasable property on the standard US Monopoly board (stations and utilities count)"
     },
     {
       "id": "monopoly-uk",
-      "text": "a purchasable property on the standard UK Monopoly board (stations and utilities count)",
+      "text": "a property on the UK Monopoly board",
       "theme": "everyday",
       "cluster": "board-games",
       "sources": [
@@ -33707,11 +33864,12 @@
       ],
       "surface": ["Mayfair", "Park Lane", "Old Kent Road"],
       "pearl": "The Angel, Islington",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a purchasable property on the standard UK Monopoly board (stations and utilities count)"
     },
     {
       "id": "asia-capitals",
-      "text": "a capital city in Asia (multiple capitals and disputed states count)",
+      "text": "an Asian capital city",
       "theme": "geography",
       "cluster": "capitals",
       "sources": [
@@ -33996,11 +34154,12 @@
       "surface": ["Tokyo", "Beijing", "New Delhi"],
       "pearl": "Thimphu",
       "people": false,
-      "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+      "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded.",
+      "acceptance_notes": "a capital city in Asia (multiple capitals and disputed states count)"
     },
     {
       "id": "europe-capitals",
-      "text": "a capital city in Europe (multiple capitals and disputed states count)",
+      "text": "a European capital city",
       "theme": "geography",
       "cluster": "capitals",
       "sources": [
@@ -34260,11 +34419,12 @@
       "surface": ["London", "Paris", "Rome"],
       "pearl": "Reykjavík",
       "people": false,
-      "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+      "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded.",
+      "acceptance_notes": "a capital city in Europe (multiple capitals and disputed states count)"
     },
     {
       "id": "states-border-canada",
-      "text": "a US state that shares a land or water border with Canada",
+      "text": "a US state that borders Canada",
       "theme": "geography",
       "cluster": "us-states",
       "sources": [
@@ -34349,7 +34509,8 @@
       ],
       "surface": ["Alaska", "Washington", "New York"],
       "pearl": "Ohio",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a US state that shares a land or water border with Canada"
     },
     {
       "id": "states-mississippi",
@@ -34491,7 +34652,7 @@
     },
     {
       "id": "us-national-parks",
-      "text": "a US national park designated by Congress (November 2026)",
+      "text": "a US national park",
       "theme": "geography",
       "cluster": "us-states",
       "sources": [
@@ -34830,11 +34991,12 @@
       ],
       "surface": ["Yellowstone", "Yosemite", "Grand Canyon"],
       "pearl": "Dry Tortugas",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a US national park designated by Congress (November 2026)"
     },
     {
       "id": "americas-capitals",
-      "text": "a national capital in North or South America (multiple capitals count)",
+      "text": "a capital city in North or South America",
       "theme": "geography",
       "cluster": "capitals",
       "sources": [
@@ -35016,11 +35178,12 @@
       ],
       "surface": ["Washington, D.C", "Ottawa", "Buenos Aires"],
       "pearl": "Paramaribo",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a national capital in North or South America (multiple capitals count)"
     },
     {
       "id": "birthstones",
-      "text": "a traditional or modern birthstone in the US/UK month charts",
+      "text": "a traditional or modern birthstone",
       "theme": "everyday",
       "cluster": "calendar",
       "sources": [
@@ -35248,11 +35411,12 @@
       "surface": ["Diamond", "ruby", "Emerald"],
       "pearl": "moonstone",
       "people": false,
-      "review": "Union of the traditional, US 1912, UK 2013 and US 2019 month columns. Chrysolite/peridot and hyacinth/zircon are reviewed canonical merges; every listed variant remains accepted."
+      "review": "Union of the traditional, US 1912, UK 2013 and US 2019 month columns. Chrysolite/peridot and hyacinth/zircon are reviewed canonical merges; every listed variant remains accepted.",
+      "acceptance_notes": "a traditional or modern birthstone in the US/UK month charts"
     },
     {
       "id": "pantone-coty",
-      "text": "a Pantone Color of the Year (2000–2026)",
+      "text": "a Pantone Color of the Year",
       "theme": "everyday",
       "cluster": "colors",
       "sources": [
@@ -35419,11 +35583,12 @@
       ],
       "surface": ["Peach Fuzz", "Very Peri", "Viva Magenta"],
       "pearl": "Mocha Mousse",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a Pantone Color of the Year (2000–2026)"
     },
     {
       "id": "winter-2026-disciplines",
-      "text": "a sport or discipline on the Milano Cortina 2026 Winter Olympic programme",
+      "text": "a sport at the 2026 Winter Olympics",
       "theme": "sports",
       "cluster": "olympics",
       "sources": [
@@ -35528,11 +35693,12 @@
       ],
       "surface": ["Ice hockey", "Figure skating", "Curling"],
       "pearl": "Ski mountaineering",
-      "people": false
+      "people": false,
+      "acceptance_notes": "a sport or discipline on the Milano Cortina 2026 Winter Olympic programme"
     },
     {
       "id": "greek-muses",
-      "text": "one of the nine classical Greek Muses",
+      "text": "one of the nine Greek Muses",
       "theme": "history",
       "cluster": "myth",
       "sources": [
@@ -35598,7 +35764,8 @@
       ],
       "surface": ["Calliope", "Clio", "Thalia"],
       "pearl": "Urania",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the nine classical Greek Muses"
     },
     {
       "id": "eight-immortals",
@@ -35674,7 +35841,7 @@
     },
     {
       "id": "egyptian-ennead",
-      "text": "one of the nine gods of the Great Ennead of Heliopolis",
+      "text": "a god in the Egyptian Ennead",
       "theme": "history",
       "cluster": "myth",
       "sources": [
@@ -35721,11 +35888,12 @@
       ],
       "surface": ["Osiris", "Isis", "Set"],
       "pearl": "Nut",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the nine gods of the Great Ennead of Heliopolis"
     },
     {
       "id": "egypt-plagues",
-      "text": "one of the ten biblical plagues of Egypt",
+      "text": "one of the ten plagues of Egypt",
       "theme": "history",
       "cluster": "myth",
       "sources": [
@@ -35801,11 +35969,12 @@
       ],
       "surface": ["Frogs", "Locusts", "Blood"],
       "pearl": "Darkness",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the ten biblical plagues of Egypt"
     },
     {
       "id": "eightfold-path",
-      "text": "one of the eight practices of the Buddhist Noble Eightfold Path",
+      "text": "a practice on the Noble Eightfold Path",
       "theme": "everyday",
       "cluster": "religion",
       "sources": [
@@ -35879,11 +36048,12 @@
       ],
       "surface": ["Right speech", "Right mindfulness", "Right livelihood"],
       "pearl": "Right effort",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the eight practices of the Buddhist Noble Eightfold Path"
     },
     {
       "id": "chinese-cuisines",
-      "text": "one of the Eight Great Traditions of Chinese cuisine",
+      "text": "one of the eight great Chinese cuisines",
       "theme": "food",
       "cluster": "cuisines",
       "sources": [
@@ -35959,11 +36129,12 @@
       ],
       "surface": ["Sichuan", "Hunan", "Shandong"],
       "pearl": "Cantonese",
-      "people": false
+      "people": false,
+      "acceptance_notes": "one of the Eight Great Traditions of Chinese cuisine"
     },
     {
       "id": "stranger-things-s1",
-      "text": "an episode title from Stranger Things season one (chapter numbers optional)",
+      "text": "an episode from the first season of Stranger Things",
       "theme": "tv",
       "cluster": "tv-series",
       "sources": [
@@ -36023,7 +36194,8 @@
       ],
       "surface": ["The Vanishing of Will Byers", "The Body", "The Monster"],
       "pearl": "The Upside Down",
-      "people": false
+      "people": false,
+      "acceptance_notes": "an episode title from Stranger Things season one (chapter numbers optional)"
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

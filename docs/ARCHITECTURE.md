@@ -365,7 +365,8 @@ resolve IDs/text through `diveSelectionFor(date)`/`divePromptsFor(date)` at read
 Therefore retired legacy prompts remain loadable and all pre-cutover dates must keep this
 selector forever. A generated explicit cyclic schedule replaces it from team-local
 **2026-11-10** (`DIVE_SCHEDULE_CUTOVER`). The reviewed bank has 210 constrained prompts;
-the 64-day cycle uses all of them plus 110 broad fillers, without repeats. Generation
+the 64-day cycle uses all 203 active sets plus 117 broad fillers, without repeats. Seven
+low-depth constrained sets are inactive but remain loadable. Generation
 fails rather than enabling an insufficient or unbalanced bank. The schedule builder
 uses all constrained prompts plus preferred broad fillers; each five-prompt day has unique
 themes/clusters and a size mix (not all ≤24 or all >120 answers). Python/Worker validators

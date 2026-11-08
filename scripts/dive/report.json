@@ -11224,7 +11224,7 @@
   },
   {
     "id": "best-picture",
-    "text": "Name a Best Picture Oscar winner (through the 2026 ceremony).",
+    "text": "Name a Best Picture Oscar winner.",
     "active": true,
     "size": 98,
     "tiers": {
@@ -11248,7 +11248,7 @@
   },
   {
     "id": "best-animated-feature",
-    "text": "Name a Best Animated Feature Oscar winner (through the 2026 ceremony).",
+    "text": "Name a Best Animated Feature Oscar winner.",
     "active": true,
     "size": 25,
     "tiers": {
@@ -11272,7 +11272,7 @@
   },
   {
     "id": "best-actor",
-    "text": "Name a Best Actor Oscar winner (through the 2026 ceremony).",
+    "text": "Name a Best Actor Oscar winner.",
     "active": true,
     "size": 87,
     "tiers": {
@@ -11296,7 +11296,7 @@
   },
   {
     "id": "best-actress",
-    "text": "Name a Best Actress Oscar winner (through the 2026 ceremony).",
+    "text": "Name a Best Actress Oscar winner.",
     "active": true,
     "size": 81,
     "tiers": {
@@ -11320,7 +11320,7 @@
   },
   {
     "id": "best-director",
-    "text": "Name a Best Director Oscar winner (through the 2026 ceremony).",
+    "text": "Name a Best Director Oscar winner.",
     "active": true,
     "size": 75,
     "tiers": {
@@ -11344,7 +11344,7 @@
   },
   {
     "id": "best-supporting-actor",
-    "text": "Name a Best Supporting Actor Oscar winner (through the 2026 ceremony).",
+    "text": "Name a Best Supporting Actor Oscar winner.",
     "active": true,
     "size": 81,
     "tiers": {
@@ -11368,7 +11368,7 @@
   },
   {
     "id": "best-supporting-actress",
-    "text": "Name a Best Supporting Actress Oscar winner (through the 2026 ceremony).",
+    "text": "Name a Best Supporting Actress Oscar winner.",
     "active": true,
     "size": 88,
     "tiers": {
@@ -11392,7 +11392,7 @@
   },
   {
     "id": "best-original-song",
-    "text": "Name an Oscar-winning original song (through the 2026 ceremony).",
+    "text": "Name an Oscar-winning original song.",
     "active": true,
     "size": 92,
     "tiers": {
@@ -11416,7 +11416,7 @@
   },
   {
     "id": "nobel-literature",
-    "text": "Name a Nobel Prize in Literature laureate through 2026.",
+    "text": "Name a Nobel Prize winner in Literature.",
     "active": true,
     "size": 123,
     "tiers": {
@@ -11440,7 +11440,7 @@
   },
   {
     "id": "spielberg-films",
-    "text": "Name a feature film directed by Steven Spielberg (Duel and anthology segments count).",
+    "text": "Name a feature film directed by Steven Spielberg.",
     "active": true,
     "size": 37,
     "tiers": {
@@ -11536,7 +11536,7 @@
   },
   {
     "id": "tarantino-films",
-    "text": "Name a completed feature film directed by Quentin Tarantino (not guest segments).",
+    "text": "Name a feature film directed by Quentin Tarantino.",
     "active": true,
     "size": 10,
     "tiers": {
@@ -11608,7 +11608,7 @@
   },
   {
     "id": "bond-films",
-    "text": "Name a James Bond film (non-Eon films count).",
+    "text": "Name a James Bond film.",
     "active": true,
     "size": 26,
     "tiers": {
@@ -11632,7 +11632,7 @@
   },
   {
     "id": "ghibli-films",
-    "text": "Name a Studio Ghibli feature film (Nausicaä, Ocean Waves and co-productions count).",
+    "text": "Name a Studio Ghibli feature film.",
     "active": true,
     "size": 25,
     "tiers": {
@@ -11680,7 +11680,7 @@
   },
   {
     "id": "nba-teams",
-    "text": "Name a 2026–27 NBA team.",
+    "text": "Name a current NBA team.",
     "active": true,
     "size": 30,
     "tiers": {
@@ -11704,7 +11704,7 @@
   },
   {
     "id": "nfl-teams",
-    "text": "Name a 2026 NFL team.",
+    "text": "Name a current NFL team.",
     "active": true,
     "size": 32,
     "tiers": {
@@ -11728,7 +11728,7 @@
   },
   {
     "id": "mlb-teams",
-    "text": "Name a 2026 MLB team.",
+    "text": "Name a current MLB team.",
     "active": true,
     "size": 30,
     "tiers": {
@@ -11752,7 +11752,7 @@
   },
   {
     "id": "nhl-teams",
-    "text": "Name a 2026–27 NHL team.",
+    "text": "Name a current NHL team.",
     "active": true,
     "size": 32,
     "tiers": {
@@ -11920,7 +11920,7 @@
   },
   {
     "id": "uk-prime-ministers",
-    "text": "Name a British prime minister through November 2026.",
+    "text": "Name a British prime minister.",
     "active": true,
     "size": 59,
     "tiers": {
@@ -11968,7 +11968,7 @@
   },
   {
     "id": "olympian-gods",
-    "text": "Name one of the Greek Olympian gods (Hades and Hestia count).",
+    "text": "Name a Greek Olympian god.",
     "active": true,
     "size": 14,
     "tiers": {
@@ -11992,7 +11992,7 @@
   },
   {
     "id": "best-visual-effects",
-    "text": "Name a film that won the Oscar for Visual Effects (special awards count) (through the 2026 ceremony).",
+    "text": "Name a film that won the Visual Effects Oscar.",
     "active": true,
     "size": 87,
     "tiers": {
@@ -12040,7 +12040,7 @@
   },
   {
     "id": "countries-no-a",
-    "text": "Name a country with no letter A in a common English name.",
+    "text": "Name a country with no A in its name.",
     "active": true,
     "size": 36,
     "tiers": {
@@ -12064,7 +12064,7 @@
   },
   {
     "id": "countries-with-z",
-    "text": "Name a country with a Z in a common English name.",
+    "text": "Name a country with a Z in its name.",
     "active": true,
     "size": 19,
     "tiers": {
@@ -12088,7 +12088,7 @@
   },
   {
     "id": "countries-b",
-    "text": "Name a country whose common English name starts with B.",
+    "text": "Name a country whose name starts with B.",
     "active": true,
     "size": 19,
     "tiers": {
@@ -12112,7 +12112,7 @@
   },
   {
     "id": "countries-s",
-    "text": "Name a country whose common English name starts with S.",
+    "text": "Name a country whose name starts with S.",
     "active": true,
     "size": 30,
     "tiers": {
@@ -12136,7 +12136,7 @@
   },
   {
     "id": "countries-m",
-    "text": "Name a country whose common English name starts with M.",
+    "text": "Name a country whose name starts with M.",
     "active": true,
     "size": 18,
     "tiers": {
@@ -12160,7 +12160,7 @@
   },
   {
     "id": "countries-ia",
-    "text": "Name a country whose common English name ends in ia.",
+    "text": "Name a country whose name ends in IA.",
     "active": true,
     "size": 42,
     "tiers": {
@@ -12184,7 +12184,7 @@
   },
   {
     "id": "countries-same-letter",
-    "text": "Name a country whose common English name starts and ends with the same letter.",
+    "text": "Name a country whose name starts and ends with the same letter.",
     "active": true,
     "size": 17,
     "tiers": {
@@ -12208,7 +12208,7 @@
   },
   {
     "id": "countries-vowel",
-    "text": "Name a country whose common English name starts with a vowel.",
+    "text": "Name a country whose name starts with a vowel.",
     "active": true,
     "size": 38,
     "tiers": {
@@ -12424,7 +12424,7 @@
   },
   {
     "id": "planets-dwarf",
-    "text": "Name a Solar System planet or IAU-recognised dwarf planet.",
+    "text": "Name a planet or dwarf planet in our Solar System.",
     "active": true,
     "size": 13,
     "tiers": {
@@ -12472,7 +12472,7 @@
   },
   {
     "id": "pokemon-fire",
-    "text": "Name a Fire-type Pokémon (any form).",
+    "text": "Name a Fire-type Pokémon.",
     "active": true,
     "size": 89,
     "tiers": {
@@ -12496,7 +12496,7 @@
   },
   {
     "id": "pokemon-water",
-    "text": "Name a Water-type Pokémon (any form).",
+    "text": "Name a Water-type Pokémon.",
     "active": true,
     "size": 161,
     "tiers": {
@@ -12544,7 +12544,7 @@
   },
   {
     "id": "pokemon-types",
-    "text": "Name a Pokémon type (Stellar counts).",
+    "text": "Name a Pokémon type.",
     "active": true,
     "size": 19,
     "tiers": {
@@ -12592,7 +12592,7 @@
   },
   {
     "id": "english-monarchs",
-    "text": "Name an English or British monarch since 1066 (disputed claimants count).",
+    "text": "Name an English or British monarch since 1066.",
     "active": true,
     "size": 50,
     "tiers": {
@@ -12760,7 +12760,7 @@
   },
   {
     "id": "brazil-states",
-    "text": "Name a Brazilian state or the Federal District.",
+    "text": "Name a Brazilian state or federal district.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -12832,7 +12832,7 @@
   },
   {
     "id": "china-provinces",
-    "text": "Name a Chinese province (Taiwan counts).",
+    "text": "Name a Chinese province.",
     "active": true,
     "size": 23,
     "tiers": {
@@ -12856,7 +12856,7 @@
   },
   {
     "id": "grammy-album",
-    "text": "Name a Grammy Album of the Year winner (through 2026).",
+    "text": "Name a Grammy Album of the Year winner.",
     "active": true,
     "size": 68,
     "tiers": {
@@ -12904,7 +12904,7 @@
   },
   {
     "id": "grammy-album-1980-1999",
-    "text": "Name a Grammy Album of the Year winner from 1980–1999.",
+    "text": "Name a Grammy Album of the Year winner from 1980 to 1999.",
     "active": true,
     "size": 20,
     "tiers": {
@@ -12928,7 +12928,7 @@
   },
   {
     "id": "grammy-album-2000-2026",
-    "text": "Name a Grammy Album of the Year winner from 2000–2026.",
+    "text": "Name a Grammy Album of the Year winner since 2000.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -12952,7 +12952,7 @@
   },
   {
     "id": "grammy-record",
-    "text": "Name a Grammy Record of the Year–winning song (through 2026).",
+    "text": "Name a Grammy Record of the Year winner.",
     "active": true,
     "size": 68,
     "tiers": {
@@ -12976,7 +12976,7 @@
   },
   {
     "id": "grammy-record-pre1980",
-    "text": "Name a Grammy Record of the Year–winning song before 1980.",
+    "text": "Name a Grammy Record of the Year winner before 1980.",
     "active": true,
     "size": 21,
     "tiers": {
@@ -13000,7 +13000,7 @@
   },
   {
     "id": "grammy-record-1980-1999",
-    "text": "Name a Grammy Record of the Year–winning song from 1980–1999.",
+    "text": "Name a Grammy Record of the Year winner from 1980 to 1999.",
     "active": true,
     "size": 20,
     "tiers": {
@@ -13024,7 +13024,7 @@
   },
   {
     "id": "grammy-record-2000-2026",
-    "text": "Name a Grammy Record of the Year–winning song from 2000–2026.",
+    "text": "Name a Grammy Record of the Year winner since 2000.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -13048,7 +13048,7 @@
   },
   {
     "id": "grammy-song",
-    "text": "Name a Grammy Song of the Year winner (through 2026).",
+    "text": "Name a Grammy Song of the Year winner.",
     "active": true,
     "size": 69,
     "tiers": {
@@ -13096,7 +13096,7 @@
   },
   {
     "id": "grammy-song-1980-1999",
-    "text": "Name a Grammy Song of the Year winner from 1980–1999.",
+    "text": "Name a Grammy Song of the Year winner from 1980 to 1999.",
     "active": true,
     "size": 20,
     "tiers": {
@@ -13120,7 +13120,7 @@
   },
   {
     "id": "grammy-song-2000-2026",
-    "text": "Name a Grammy Song of the Year winner from 2000–2026.",
+    "text": "Name a Grammy Song of the Year winner since 2000.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -13144,7 +13144,7 @@
   },
   {
     "id": "grammy-new-artist",
-    "text": "Name a Grammy Best New Artist winner (revoked awards count) (through 2026).",
+    "text": "Name a Grammy Best New Artist winner.",
     "active": true,
     "size": 66,
     "tiers": {
@@ -13168,7 +13168,7 @@
   },
   {
     "id": "grammy-new-artist-pre1980",
-    "text": "Name a Grammy Best New Artist winner (revoked awards count) before 1980.",
+    "text": "Name a Grammy Best New Artist winner before 1980.",
     "active": true,
     "size": 19,
     "tiers": {
@@ -13192,7 +13192,7 @@
   },
   {
     "id": "grammy-new-artist-1980-1999",
-    "text": "Name a Grammy Best New Artist winner (revoked awards count) from 1980–1999.",
+    "text": "Name a Grammy Best New Artist winner from 1980 to 1999.",
     "active": true,
     "size": 20,
     "tiers": {
@@ -13216,7 +13216,7 @@
   },
   {
     "id": "grammy-new-artist-2000-2026",
-    "text": "Name a Grammy Best New Artist winner (revoked awards count) from 2000–2026.",
+    "text": "Name a Grammy Best New Artist winner since 2000.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -13240,7 +13240,7 @@
   },
   {
     "id": "booker-winners",
-    "text": "Name a Booker Prize–winning novel (through 2026).",
+    "text": "Name a Booker Prize-winning novel.",
     "active": true,
     "size": 60,
     "tiers": {
@@ -13264,7 +13264,7 @@
   },
   {
     "id": "booker-winners-early",
-    "text": "Name a Booker Prize–winning novel (1969–1989).",
+    "text": "Name a Booker Prize-winning novel before 1990.",
     "active": true,
     "size": 22,
     "tiers": {
@@ -13288,7 +13288,7 @@
   },
   {
     "id": "booker-winners-middle",
-    "text": "Name a Booker Prize–winning novel (1990–2009).",
+    "text": "Name a Booker Prize-winning novel from 1990 to 2009.",
     "active": true,
     "size": 21,
     "tiers": {
@@ -13312,7 +13312,7 @@
   },
   {
     "id": "booker-winners-recent",
-    "text": "Name a Booker Prize–winning novel (2010–2026).",
+    "text": "Name a Booker Prize-winning novel since 2010.",
     "active": true,
     "size": 17,
     "tiers": {
@@ -13336,7 +13336,7 @@
   },
   {
     "id": "hugo-novels",
-    "text": "Name a Hugo Award for Best Novel winner (not Retro-Hugos) (through 2026).",
+    "text": "Name a Hugo Award winner for Best Novel.",
     "active": true,
     "size": 75,
     "tiers": {
@@ -13360,7 +13360,7 @@
   },
   {
     "id": "hugo-novels-early",
-    "text": "Name a Hugo Award for Best Novel winner (not Retro-Hugos) (before 1980).",
+    "text": "Name a Hugo Award winner for Best Novel before 1980.",
     "active": true,
     "size": 26,
     "tiers": {
@@ -13384,7 +13384,7 @@
   },
   {
     "id": "hugo-novels-middle",
-    "text": "Name a Hugo Award for Best Novel winner (not Retro-Hugos) (1980–1999).",
+    "text": "Name a Hugo Award winner for Best Novel from 1980 to 1999.",
     "active": true,
     "size": 21,
     "tiers": {
@@ -13408,7 +13408,7 @@
   },
   {
     "id": "hugo-novels-recent",
-    "text": "Name a Hugo Award for Best Novel winner (not Retro-Hugos) (2000–2026).",
+    "text": "Name a Hugo Award winner for Best Novel since 2000.",
     "active": true,
     "size": 28,
     "tiers": {
@@ -13432,7 +13432,7 @@
   },
   {
     "id": "newbery-winners",
-    "text": "Name a Newbery Medal–winning book (not an Honor book) (through 2026).",
+    "text": "Name a Newbery Medal-winning book.",
     "active": true,
     "size": 105,
     "tiers": {
@@ -13456,7 +13456,7 @@
   },
   {
     "id": "newbery-winners-early",
-    "text": "Name a Newbery Medal–winning book (not an Honor book) (before 1980).",
+    "text": "Name a Newbery Medal-winning book before 1980.",
     "active": true,
     "size": 58,
     "tiers": {
@@ -13480,7 +13480,7 @@
   },
   {
     "id": "newbery-winners-middle",
-    "text": "Name a Newbery Medal–winning book (not an Honor book) (1980–1999).",
+    "text": "Name a Newbery Medal-winning book from 1980 to 1999.",
     "active": true,
     "size": 20,
     "tiers": {
@@ -13504,7 +13504,7 @@
   },
   {
     "id": "newbery-winners-recent",
-    "text": "Name a Newbery Medal–winning book (not an Honor book) (2000–2026).",
+    "text": "Name a Newbery Medal-winning book since 2000.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -13528,7 +13528,7 @@
   },
   {
     "id": "pulitzer-fiction",
-    "text": "Name a Pulitzer Prize for Fiction–winning book (Novel award counts) (through 2026).",
+    "text": "Name a Pulitzer Prize winner for Fiction.",
     "active": true,
     "size": 99,
     "tiers": {
@@ -13552,7 +13552,7 @@
   },
   {
     "id": "pulitzer-fiction-early",
-    "text": "Name a Pulitzer Prize for Fiction–winning book (Novel award counts) (before 1980).",
+    "text": "Name a Pulitzer Prize winner for Fiction before 1980.",
     "active": true,
     "size": 52,
     "tiers": {
@@ -13576,7 +13576,7 @@
   },
   {
     "id": "pulitzer-fiction-middle",
-    "text": "Name a Pulitzer Prize for Fiction–winning book (Novel award counts) (1980–1999).",
+    "text": "Name a Pulitzer Prize winner for Fiction from 1980 to 1999.",
     "active": true,
     "size": 20,
     "tiers": {
@@ -13600,7 +13600,7 @@
   },
   {
     "id": "pulitzer-fiction-recent",
-    "text": "Name a Pulitzer Prize for Fiction–winning book (Novel award counts) (2000–2026).",
+    "text": "Name a Pulitzer Prize winner for Fiction since 2000.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -13672,7 +13672,7 @@
   },
   {
     "id": "africa-countries",
-    "text": "Name a country in Africa (partially recognised states count).",
+    "text": "Name an African country.",
     "active": true,
     "size": 56,
     "tiers": {
@@ -13696,7 +13696,7 @@
   },
   {
     "id": "asia-countries",
-    "text": "Name a country in Asia (transcontinental and partially recognised states count).",
+    "text": "Name an Asian country.",
     "active": true,
     "size": 54,
     "tiers": {
@@ -13720,7 +13720,7 @@
   },
   {
     "id": "europe-countries",
-    "text": "Name a country in Europe (transcontinental and partially recognised states count).",
+    "text": "Name a European country.",
     "active": true,
     "size": 55,
     "tiers": {
@@ -13744,7 +13744,7 @@
   },
   {
     "id": "oceania-countries",
-    "text": "Name a country in Oceania (Cook Islands and Niue count).",
+    "text": "Name a country in Oceania.",
     "active": true,
     "size": 16,
     "tiers": {
@@ -13768,7 +13768,7 @@
   },
   {
     "id": "island-countries",
-    "text": "Name an island country (Australia and partially recognised states count).",
+    "text": "Name an island country.",
     "active": true,
     "size": 50,
     "tiers": {
@@ -13816,7 +13816,7 @@
   },
   {
     "id": "borders-china",
-    "text": "Name a country sharing a land border with China (overseas and disputed borders count).",
+    "text": "Name a country with a land border with China.",
     "active": true,
     "size": 14,
     "tiers": {
@@ -13840,7 +13840,7 @@
   },
   {
     "id": "borders-russia",
-    "text": "Name a country sharing a land border with Russia (overseas and disputed borders count).",
+    "text": "Name a country with a land border with Russia.",
     "active": true,
     "size": 16,
     "tiers": {
@@ -13864,7 +13864,7 @@
   },
   {
     "id": "borders-france",
-    "text": "Name a country sharing a land border with France (overseas and disputed borders count).",
+    "text": "Name a country with a land border with France.",
     "active": true,
     "size": 11,
     "tiers": {
@@ -14080,7 +14080,7 @@
   },
   {
     "id": "named-uranus-moons",
-    "text": "Name an officially named moon of Uranus.",
+    "text": "Name a named moon of Uranus.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -14104,7 +14104,7 @@
   },
   {
     "id": "named-neptune-moons",
-    "text": "Name an officially named moon of Neptune.",
+    "text": "Name a named moon of Neptune.",
     "active": true,
     "size": 14,
     "tiers": {
@@ -14128,8 +14128,8 @@
   },
   {
     "id": "zodiac-constellations",
-    "text": "Name a constellation crossed by the Sun along the ecliptic (Ophiuchus counts).",
-    "active": true,
+    "text": "Name a zodiac constellation.",
+    "active": false,
     "size": 13,
     "tiers": {
       "surface": 3,
@@ -14176,7 +14176,7 @@
   },
   {
     "id": "si-prefixes",
-    "text": "Name an official SI metric prefix.",
+    "text": "Name a metric prefix.",
     "active": true,
     "size": 24,
     "tiers": {
@@ -14200,7 +14200,7 @@
   },
   {
     "id": "essential-amino-acids",
-    "text": "Name an amino acid essential in the adult human diet.",
+    "text": "Name an essential amino acid.",
     "active": true,
     "size": 9,
     "tiers": {
@@ -14224,7 +14224,7 @@
   },
   {
     "id": "proteinogenic-amino-acids",
-    "text": "Name one of the 22 genetically encoded proteinogenic amino acids.",
+    "text": "Name a genetically encoded amino acid.",
     "active": true,
     "size": 22,
     "tiers": {
@@ -14248,7 +14248,7 @@
   },
   {
     "id": "symbol-mismatch",
-    "text": "Name an element whose English name and chemical symbol start with different letters.",
+    "text": "Name an element whose name and symbol start with different letters.",
     "active": true,
     "size": 11,
     "tiers": {
@@ -14272,7 +14272,7 @@
   },
   {
     "id": "gaseous-elements",
-    "text": "Name an element that is a gas at standard temperature and pressure.",
+    "text": "Name an element that's a gas at room temperature.",
     "active": true,
     "size": 11,
     "tiers": {
@@ -14296,7 +14296,7 @@
   },
   {
     "id": "large-saturn-moons",
-    "text": "Name a moon of Saturn with a diameter over 100 kilometres.",
+    "text": "Name a moon of Saturn over 100 kilometres across.",
     "active": true,
     "size": 11,
     "tiers": {
@@ -14320,7 +14320,7 @@
   },
   {
     "id": "carpal-bones",
-    "text": "Name one of the eight carpal bones in a human wrist.",
+    "text": "Name a carpal bone.",
     "active": true,
     "size": 8,
     "tiers": {
@@ -14344,7 +14344,7 @@
   },
   {
     "id": "skull-bones",
-    "text": "Name a named cranial or facial bone in an adult human skull.",
+    "text": "Name a cranial or facial bone.",
     "active": true,
     "size": 14,
     "tiers": {
@@ -14368,7 +14368,7 @@
   },
   {
     "id": "cranial-nerves",
-    "text": "Name one of the twelve numbered human cranial nerves.",
+    "text": "Name a cranial nerve.",
     "active": true,
     "size": 12,
     "tiers": {
@@ -14392,7 +14392,7 @@
   },
   {
     "id": "penguins",
-    "text": "Name one of the 18 traditional penguin species (split-species names count).",
+    "text": "Name a penguin species.",
     "active": true,
     "size": 18,
     "tiers": {
@@ -14416,7 +14416,7 @@
   },
   {
     "id": "cat-family",
-    "text": "Name a living species in the cat family (domestic cats count).",
+    "text": "Name a species in the cat family.",
     "active": true,
     "size": 41,
     "tiers": {
@@ -14440,7 +14440,7 @@
   },
   {
     "id": "dog-family",
-    "text": "Name a living species in the dog family (domestic dogs count).",
+    "text": "Name a species in the dog family.",
     "active": true,
     "size": 37,
     "tiers": {
@@ -14464,7 +14464,7 @@
   },
   {
     "id": "crocodilians",
-    "text": "Name a living crocodilian species.",
+    "text": "Name a crocodilian species.",
     "active": true,
     "size": 26,
     "tiers": {
@@ -14488,7 +14488,7 @@
   },
   {
     "id": "pelicans",
-    "text": "Name a living pelican species.",
+    "text": "Name a pelican species.",
     "active": true,
     "size": 8,
     "tiers": {
@@ -14512,7 +14512,7 @@
   },
   {
     "id": "great-apes",
-    "text": "Name a living great ape species (humans count).",
+    "text": "Name a great ape species.",
     "active": true,
     "size": 8,
     "tiers": {
@@ -14536,7 +14536,7 @@
   },
   {
     "id": "retired-hurricanes",
-    "text": "Name a retired Atlantic tropical cyclone name (through 2025).",
+    "text": "Name a retired Atlantic hurricane name.",
     "active": true,
     "size": 100,
     "tiers": {
@@ -14560,7 +14560,7 @@
   },
   {
     "id": "beaufort-winds",
-    "text": "Name one of the named wind-force descriptions on the Beaufort scale (0–12).",
+    "text": "Name a wind description on the Beaufort scale.",
     "active": true,
     "size": 13,
     "tiers": {
@@ -14584,7 +14584,7 @@
   },
   {
     "id": "bears",
-    "text": "Name a living bear species (common subspecies names count).",
+    "text": "Name a bear species.",
     "active": true,
     "size": 8,
     "tiers": {
@@ -14608,7 +14608,7 @@
   },
   {
     "id": "otters",
-    "text": "Name a living otter species.",
+    "text": "Name an otter species.",
     "active": true,
     "size": 13,
     "tiers": {
@@ -14632,7 +14632,7 @@
   },
   {
     "id": "cranes",
-    "text": "Name a living crane species.",
+    "text": "Name a crane species.",
     "active": true,
     "size": 15,
     "tiers": {
@@ -14656,7 +14656,7 @@
   },
   {
     "id": "storks",
-    "text": "Name a living stork species.",
+    "text": "Name a stork species.",
     "active": true,
     "size": 20,
     "tiers": {
@@ -14680,7 +14680,7 @@
   },
   {
     "id": "cloud-genera",
-    "text": "Name one of the ten main cloud genera.",
+    "text": "Name a main type of cloud.",
     "active": true,
     "size": 10,
     "tiers": {
@@ -14704,7 +14704,7 @@
   },
   {
     "id": "baleen-whales",
-    "text": "Name a living baleen whale species.",
+    "text": "Name a baleen whale species.",
     "active": true,
     "size": 16,
     "tiers": {
@@ -14728,7 +14728,7 @@
   },
   {
     "id": "albatrosses",
-    "text": "Name a living albatross species.",
+    "text": "Name an albatross species.",
     "active": true,
     "size": 22,
     "tiers": {
@@ -14752,8 +14752,8 @@
   },
   {
     "id": "zodiac-signs",
-    "text": "Name one of the twelve Western zodiac signs.",
-    "active": true,
+    "text": "Name a Western zodiac sign.",
+    "active": false,
     "size": 12,
     "tiers": {
       "surface": 3,
@@ -14776,7 +14776,7 @@
   },
   {
     "id": "iba-unforgettables",
-    "text": "Name an IBA cocktail in the The Unforgettables category (2024 list).",
+    "text": "Name a cocktail on the IBA's Unforgettables list.",
     "active": true,
     "size": 34,
     "tiers": {
@@ -14800,7 +14800,7 @@
   },
   {
     "id": "iba-contemporary",
-    "text": "Name an IBA cocktail in the Contemporary Classics category (2024 list).",
+    "text": "Name a cocktail on the IBA's Contemporary Classics list.",
     "active": true,
     "size": 34,
     "tiers": {
@@ -14824,7 +14824,7 @@
   },
   {
     "id": "iba-new-era",
-    "text": "Name an IBA cocktail in the New Era Drinks category (2024 list).",
+    "text": "Name a cocktail on the IBA's New Era Drinks list.",
     "active": true,
     "size": 34,
     "tiers": {
@@ -14849,7 +14849,7 @@
   {
     "id": "chinese-zodiac",
     "text": "Name an animal of the Chinese zodiac.",
-    "active": true,
+    "active": false,
     "size": 12,
     "tiers": {
       "surface": 3,
@@ -14896,7 +14896,7 @@
   },
   {
     "id": "star-alliance",
-    "text": "Name a full member airline of Star Alliance (November 2026).",
+    "text": "Name a Star Alliance member airline.",
     "active": true,
     "size": 26,
     "tiers": {
@@ -14920,7 +14920,7 @@
   },
   {
     "id": "oneworld-airlines",
-    "text": "Name a full member airline of oneworld (November 2026).",
+    "text": "Name a oneworld member airline.",
     "active": true,
     "size": 15,
     "tiers": {
@@ -14944,7 +14944,7 @@
   },
   {
     "id": "skyteam-airlines",
-    "text": "Name a full member airline of SkyTeam (November 2026).",
+    "text": "Name a SkyTeam member airline.",
     "active": true,
     "size": 18,
     "tiers": {
@@ -14968,8 +14968,8 @@
   },
   {
     "id": "calendar-months",
-    "text": "Name a month of the Gregorian calendar.",
-    "active": true,
+    "text": "Name a month of the year.",
+    "active": false,
     "size": 12,
     "tiers": {
       "surface": 3,
@@ -14992,8 +14992,8 @@
   },
   {
     "id": "santas-reindeer",
-    "text": "Name one of Santa's traditional eight reindeer or Rudolph.",
-    "active": true,
+    "text": "Name one of Santa's reindeer.",
+    "active": false,
     "size": 9,
     "tiers": {
       "surface": 3,
@@ -15016,8 +15016,8 @@
   },
   {
     "id": "cluedo-rooms",
-    "text": "Name a room on the classic Cluedo/Clue board.",
-    "active": true,
+    "text": "Name a room on the Cluedo board.",
+    "active": false,
     "size": 9,
     "tiers": {
       "surface": 3,
@@ -15040,7 +15040,7 @@
   },
   {
     "id": "emmy-drama",
-    "text": "Name an Emmy Outstanding Drama Series winner (through 2026; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Drama Series.",
     "active": true,
     "size": 53,
     "tiers": {
@@ -15064,7 +15064,7 @@
   },
   {
     "id": "super-bowl-mvp",
-    "text": "Name a Super Bowl MVP (through Super Bowl LX).",
+    "text": "Name a Super Bowl MVP.",
     "active": true,
     "size": 50,
     "tiers": {
@@ -15088,7 +15088,7 @@
   },
   {
     "id": "heisman",
-    "text": "Name a Heisman Trophy winner (through 2025; reinstated winners count).",
+    "text": "Name a Heisman Trophy winner.",
     "active": true,
     "size": 90,
     "tiers": {
@@ -15112,7 +15112,7 @@
   },
   {
     "id": "emmy-drama-early",
-    "text": "Name an Emmy Outstanding Drama Series winner (before 1980; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Drama Series before 1980.",
     "active": true,
     "size": 30,
     "tiers": {
@@ -15136,7 +15136,7 @@
   },
   {
     "id": "emmy-drama-middle",
-    "text": "Name an Emmy Outstanding Drama Series winner (1980–1999; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Drama Series from 1980 to 1999.",
     "active": true,
     "size": 11,
     "tiers": {
@@ -15160,7 +15160,7 @@
   },
   {
     "id": "emmy-drama-recent",
-    "text": "Name an Emmy Outstanding Drama Series winner (2000–2026; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Drama Series since 2000.",
     "active": true,
     "size": 13,
     "tiers": {
@@ -15184,7 +15184,7 @@
   },
   {
     "id": "emmy-comedy",
-    "text": "Name an Emmy Outstanding Comedy Series winner (through 2026; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Comedy Series.",
     "active": true,
     "size": 45,
     "tiers": {
@@ -15208,7 +15208,7 @@
   },
   {
     "id": "emmy-comedy-early",
-    "text": "Name an Emmy Outstanding Comedy Series winner (before 1980; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Comedy Series before 1980.",
     "active": true,
     "size": 19,
     "tiers": {
@@ -15232,7 +15232,7 @@
   },
   {
     "id": "emmy-comedy-middle",
-    "text": "Name an Emmy Outstanding Comedy Series winner (1980–1999; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Comedy Series from 1980 to 1999.",
     "active": true,
     "size": 10,
     "tiers": {
@@ -15256,7 +15256,7 @@
   },
   {
     "id": "emmy-comedy-recent",
-    "text": "Name an Emmy Outstanding Comedy Series winner (2000–2026; predecessor categories count).",
+    "text": "Name an Emmy winner for Outstanding Comedy Series since 2000.",
     "active": true,
     "size": 17,
     "tiers": {
@@ -15280,7 +15280,7 @@
   },
   {
     "id": "tour-de-france",
-    "text": "Name a Tour de France general classification winner (through 2026; stripped titles count).",
+    "text": "Name a Tour de France winner.",
     "active": true,
     "size": 66,
     "tiers": {
@@ -15304,7 +15304,7 @@
   },
   {
     "id": "masters-champions",
-    "text": "Name a Masters Tournament champion (through 2026).",
+    "text": "Name a Masters champion.",
     "active": true,
     "size": 57,
     "tiers": {
@@ -15328,7 +15328,7 @@
   },
   {
     "id": "wimbledon-men",
-    "text": "Name a men’s Wimbledon singles champion in the Open Era (1968–2026).",
+    "text": "Name a men's Wimbledon singles champion since 1968.",
     "active": true,
     "size": 23,
     "tiers": {
@@ -15352,7 +15352,7 @@
   },
   {
     "id": "wimbledon-women",
-    "text": "Name a women’s Wimbledon singles champion in the Open Era (1968–2026).",
+    "text": "Name a women's Wimbledon singles champion since 1968.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -15376,7 +15376,7 @@
   },
   {
     "id": "emmy-limited",
-    "text": "Name an Emmy Outstanding Limited or Anthology Series winner (predecessor categories count; through 2026).",
+    "text": "Name an Emmy winner for Outstanding Limited Series.",
     "active": true,
     "size": 54,
     "tiers": {
@@ -15400,7 +15400,7 @@
   },
   {
     "id": "early-roman-emperors",
-    "text": "Name a Roman emperor from Augustus through Severus Alexander (27 BC–AD 235).",
+    "text": "Name a Roman emperor before AD 235.",
     "active": true,
     "size": 27,
     "tiers": {
@@ -15424,7 +15424,7 @@
   },
   {
     "id": "american-idol-winners",
-    "text": "Name a winner of American Idol (regular seasons, through 2026).",
+    "text": "Name an American Idol winner.",
     "active": true,
     "size": 24,
     "tiers": {
@@ -15448,7 +15448,7 @@
   },
   {
     "id": "secretaries-of-state",
-    "text": "Name a US Secretary of State (not acting; through November 2026).",
+    "text": "Name a US Secretary of State.",
     "active": true,
     "size": 70,
     "tiers": {
@@ -15496,7 +15496,7 @@
   },
   {
     "id": "bake-off-winners",
-    "text": "Name a winner of the main Great British Bake Off series (completed series by November 2026).",
+    "text": "Name a Great British Bake Off winner.",
     "active": true,
     "size": 16,
     "tiers": {
@@ -15520,7 +15520,7 @@
   },
   {
     "id": "astronaut-group-2",
-    "text": "Name a member of NASA’s 1962 Next Nine astronaut group.",
+    "text": "Name a member of NASA's 1962 astronaut class.",
     "active": true,
     "size": 9,
     "tiers": {
@@ -15544,7 +15544,7 @@
   },
   {
     "id": "astronaut-group-3",
-    "text": "Name a member of NASA’s 1963 Fourteen astronaut group.",
+    "text": "Name a member of NASA's 1963 astronaut class.",
     "active": true,
     "size": 14,
     "tiers": {
@@ -15568,7 +15568,7 @@
   },
   {
     "id": "astronaut-group-5",
-    "text": "Name a member of NASA’s 1966 Original Nineteen astronaut group.",
+    "text": "Name a member of NASA's 1966 astronaut class.",
     "active": true,
     "size": 19,
     "tiers": {
@@ -15592,7 +15592,7 @@
   },
   {
     "id": "states-thirteen",
-    "text": "Name one of the original Thirteen Colonies (state names count).",
+    "text": "Name one of the original thirteen colonies.",
     "active": true,
     "size": 13,
     "tiers": {
@@ -15616,7 +15616,7 @@
   },
   {
     "id": "former-soviet",
-    "text": "Name a former Soviet Union republic.",
+    "text": "Name a former Soviet republic.",
     "active": true,
     "size": 15,
     "tiers": {
@@ -15640,7 +15640,7 @@
   },
   {
     "id": "africa-capitals",
-    "text": "Name a capital city in Africa (multiple capitals and disputed states count).",
+    "text": "Name an African capital city.",
     "active": true,
     "size": 64,
     "tiers": {
@@ -15664,7 +15664,7 @@
   },
   {
     "id": "human-vitamins",
-    "text": "Name one of the 13 essential human vitamins (B subtypes count separately).",
+    "text": "Name an essential human vitamin.",
     "active": true,
     "size": 13,
     "tiers": {
@@ -15688,7 +15688,7 @@
   },
   {
     "id": "b-vitamins",
-    "text": "Name one of the eight B vitamins.",
+    "text": "Name a B vitamin.",
     "active": true,
     "size": 8,
     "tiers": {
@@ -15712,7 +15712,7 @@
   },
   {
     "id": "iau-constellations",
-    "text": "Name one of the 88 constellations recognised by the IAU.",
+    "text": "Name an official constellation.",
     "active": true,
     "size": 88,
     "tiers": {
@@ -15736,8 +15736,8 @@
   },
   {
     "id": "us-food-allergens",
-    "text": "Name one of the nine major US food-allergen categories.",
-    "active": true,
+    "text": "Name a major US food allergen.",
+    "active": false,
     "size": 9,
     "tiers": {
       "surface": 3,
@@ -15760,7 +15760,7 @@
   },
   {
     "id": "eu-food-allergens",
-    "text": "Name one of the 14 EU declarable food-allergen categories.",
+    "text": "Name a declarable EU food allergen.",
     "active": true,
     "size": 14,
     "tiers": {
@@ -15784,7 +15784,7 @@
   },
   {
     "id": "zelda-games",
-    "text": "Name a main-series Legend of Zelda game (through November 2026).",
+    "text": "Name a main-series Legend of Zelda game.",
     "active": true,
     "size": 21,
     "tiers": {
@@ -15808,7 +15808,7 @@
   },
   {
     "id": "monopoly-us",
-    "text": "Name a purchasable property on the standard US Monopoly board (stations and utilities count).",
+    "text": "Name a property on the US Monopoly board.",
     "active": true,
     "size": 28,
     "tiers": {
@@ -15832,7 +15832,7 @@
   },
   {
     "id": "monopoly-uk",
-    "text": "Name a purchasable property on the standard UK Monopoly board (stations and utilities count).",
+    "text": "Name a property on the UK Monopoly board.",
     "active": true,
     "size": 28,
     "tiers": {
@@ -15856,7 +15856,7 @@
   },
   {
     "id": "asia-capitals",
-    "text": "Name a capital city in Asia (multiple capitals and disputed states count).",
+    "text": "Name an Asian capital city.",
     "active": true,
     "size": 57,
     "tiers": {
@@ -15880,7 +15880,7 @@
   },
   {
     "id": "europe-capitals",
-    "text": "Name a capital city in Europe (multiple capitals and disputed states count).",
+    "text": "Name a European capital city.",
     "active": true,
     "size": 56,
     "tiers": {
@@ -15904,7 +15904,7 @@
   },
   {
     "id": "states-border-canada",
-    "text": "Name a US state that shares a land or water border with Canada.",
+    "text": "Name a US state that borders Canada.",
     "active": true,
     "size": 13,
     "tiers": {
@@ -15976,7 +15976,7 @@
   },
   {
     "id": "us-national-parks",
-    "text": "Name a US national park designated by Congress (November 2026).",
+    "text": "Name a US national park.",
     "active": true,
     "size": 64,
     "tiers": {
@@ -16000,7 +16000,7 @@
   },
   {
     "id": "americas-capitals",
-    "text": "Name a national capital in North or South America (multiple capitals count).",
+    "text": "Name a capital city in North or South America.",
     "active": true,
     "size": 36,
     "tiers": {
@@ -16024,7 +16024,7 @@
   },
   {
     "id": "birthstones",
-    "text": "Name a traditional or modern birthstone in the US/UK month charts.",
+    "text": "Name a traditional or modern birthstone.",
     "active": true,
     "size": 29,
     "tiers": {
@@ -16048,7 +16048,7 @@
   },
   {
     "id": "pantone-coty",
-    "text": "Name a Pantone Color of the Year (2000–2026).",
+    "text": "Name a Pantone Color of the Year.",
     "active": true,
     "size": 29,
     "tiers": {
@@ -16072,7 +16072,7 @@
   },
   {
     "id": "winter-2026-disciplines",
-    "text": "Name a sport or discipline on the Milano Cortina 2026 Winter Olympic programme.",
+    "text": "Name a sport at the 2026 Winter Olympics.",
     "active": true,
     "size": 16,
     "tiers": {
@@ -16096,7 +16096,7 @@
   },
   {
     "id": "greek-muses",
-    "text": "Name one of the nine classical Greek Muses.",
+    "text": "Name one of the nine Greek Muses.",
     "active": true,
     "size": 9,
     "tiers": {
@@ -16144,7 +16144,7 @@
   },
   {
     "id": "egyptian-ennead",
-    "text": "Name one of the nine gods of the Great Ennead of Heliopolis.",
+    "text": "Name a god in the Egyptian Ennead.",
     "active": true,
     "size": 9,
     "tiers": {
@@ -16168,7 +16168,7 @@
   },
   {
     "id": "egypt-plagues",
-    "text": "Name one of the ten biblical plagues of Egypt.",
+    "text": "Name one of the ten plagues of Egypt.",
     "active": true,
     "size": 10,
     "tiers": {
@@ -16192,7 +16192,7 @@
   },
   {
     "id": "eightfold-path",
-    "text": "Name one of the eight practices of the Buddhist Noble Eightfold Path.",
+    "text": "Name a practice on the Noble Eightfold Path.",
     "active": true,
     "size": 8,
     "tiers": {
@@ -16216,7 +16216,7 @@
   },
   {
     "id": "chinese-cuisines",
-    "text": "Name one of the Eight Great Traditions of Chinese cuisine.",
+    "text": "Name one of the eight great Chinese cuisines.",
     "active": true,
     "size": 8,
     "tiers": {
@@ -16240,7 +16240,7 @@
   },
   {
     "id": "stranger-things-s1",
-    "text": "Name an episode title from Stranger Things season one (chapter numbers optional).",
+    "text": "Name an episode from the first season of Stranger Things.",
     "active": true,
     "size": 8,
     "tiers": {

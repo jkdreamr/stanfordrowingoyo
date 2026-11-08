@@ -72,6 +72,19 @@ class SourcesTest(unittest.TestCase):
 
 
 class SpecsTest(unittest.TestCase):
+    def test_short_natural_texts_and_retired_sets_remain_complete(self):
+        prompts = constrained.read_specs()
+        retired = {p['id'] for p in prompts if not p['active']}
+        self.assertEqual(retired, {'calendar-months', 'zodiac-signs', 'chinese-zodiac',
+                                  'zodiac-constellations', 'santas-reindeer', 'cluedo-rooms',
+                                  'us-food-allergens'})
+        self.assertEqual(sum(p['active'] for p in prompts), 203)
+        for prompt in prompts:
+            self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
+            self.assertRegex(prompt['text'], r'^Name [^.?!]+\.$')
+            self.assertNotRegex(prompt['text'], r'[();]|through \d{4}|counts|pinned|IAU|IUCN')
+            self.assertGreaterEqual(len(prompt['rows']), 8)
+
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
         self.assertEqual(len(prompts), 210)
