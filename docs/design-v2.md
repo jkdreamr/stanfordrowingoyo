@@ -128,7 +128,7 @@ static mark with a 120 ms fade (no handoff).
    then matches the paper (`#F5F3F0` light, `#0E0D0D` dark).
 
 2. **Home Week Hero.** The one bright element on Home: a tonal cardinal card with the E-meter total, a white
-   progress ring and a Mon–Sun column strip (today outlined). Streak and To Go chips sit underneath.
+   progress ring and a Mon–Sun column strip (today outlined). The streak chip sits on top; the remaining E-meters (or Target Hit) chip and days left sit underneath.
 3. **Number Tickers.** Hero figures (Home volume, Me season tiles, save celebration) count up on the first view
    in a session and when their value changes; screen readers get the final value only.
 4. **Glass Tab Bar.** Frosted bar with one selection pill that travels between tabs on the spring; the selected

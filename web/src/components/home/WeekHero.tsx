@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, Flame } from 'lucide-react';
 import type { WeekStats } from '../../../../shared/types';
-import { formatMeters, formatNumber, formatPercent } from '../../lib/format';
+import { formatEMeters, formatMeters, formatNumber, formatPercent } from '../../lib/format';
 import { ProgressRing } from '../ui/ProgressRing';
 import { Ticker } from '../ui/Ticker';
 
@@ -89,7 +89,7 @@ export function WeekHero({
           </span>
         ))}
       </div>
-      <div className="mt-4 flex items-center justify-between gap-3 text-footnote font-semibold">
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-footnote font-semibold">
         {week.hit_target ? (
           <span className="drive-chip">
             <Check
@@ -101,7 +101,7 @@ export function WeekHero({
             Target Hit
           </span>
         ) : (
-          <span className="drive-chip">{formatMeters(remaining, true)} To Go</span>
+          <span className="drive-chip">{formatEMeters(remaining)} remaining</span>
         )}
         <span className="drive-hero-soft">
           {days === 1 ? 'Last Day' : `${formatNumber(days)} Days Left`}
