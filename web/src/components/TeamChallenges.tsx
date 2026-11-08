@@ -22,7 +22,7 @@ export function ChallengeProgress({ challenge: row }: { challenge: TeamChallenge
         className="h-2 overflow-hidden rounded-full bg-surface-2"
       >
         <div
-          className="h-full rounded-full"
+          className="drive-bar drive-bar-once h-full rounded-full"
           style={{
             width: `${Math.min(100, Math.max(0, row.percent))}%`,
             background: reached ? 'var(--highlight)' : 'var(--accent)',

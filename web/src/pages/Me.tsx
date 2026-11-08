@@ -125,6 +125,7 @@ export default function Me() {
             <div className="profile-stat">
               <span className="text-caption text-muted">Season Meters</span>
               <Ticker
+                id="season-total"
                 className="text-title2 tabular-nums"
                 value={season.data.total_m}
                 format={(n) => formatMeters(n, true)}
@@ -134,12 +135,18 @@ export default function Me() {
               <span className="text-caption text-muted">Week Streak</span>
               <span className="flex items-center gap-1 text-title2 tabular-nums">
                 {season.data.streak > 0 && <Flame size={18} strokeWidth={2} aria-hidden="true" />}
-                <Ticker value={season.data.streak} format={(n) => formatNumber(n)} duration={600} />
+                <Ticker
+                  id="season-streak"
+                  value={season.data.streak}
+                  format={(n) => formatNumber(n)}
+                  duration={600}
+                />
               </span>
             </div>
             <div className="profile-stat">
               <span className="text-caption text-muted">Top Week</span>
               <Ticker
+                id="season-best"
                 className="text-title2 tabular-nums"
                 value={season.data.best_week?.total_m ?? 0}
                 format={(n) => formatMeters(n, true)}

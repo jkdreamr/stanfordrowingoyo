@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { CircleCheck, Flame } from 'lucide-react';
 import type { SeasonStats } from '../../../shared/types';
 import { addDays } from '../../../shared/dates';
@@ -89,6 +89,8 @@ function WeeklyChart({ stats }: { stats: SeasonStats }) {
                   <rect x={x} y="28" width={step} height="164" fill="var(--surface-2)" />
                 )}
                 <rect
+                  className={`drive-col ${i === selected ? 'is-selected' : ''}`}
+                  style={{ '--i': Math.max(0, i - (weeks.length - 16)) } as CSSProperties}
                   x={x + 2}
                   y={y(w.total_m)}
                   width={Math.max(2, step - 4)}
@@ -284,7 +286,7 @@ function Breakdown({ label, value, total }: { label: ReactNode; value: number; t
       </div>
       <div className="h-1 overflow-hidden rounded bg-surface-2">
         <div
-          className="h-full bg-accent"
+          className="drive-bar h-full bg-accent"
           style={{ width: `${total ? (value / total) * 100 : 0}%` }}
         />
       </div>

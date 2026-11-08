@@ -1,48 +1,60 @@
 import { useEffect, useRef } from 'react';
+import { afterLaunch, lastShown, prefersReducedMotion, remember } from '../../lib/motion';
 
-const reduced = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-
+/**
+ * Counts a figure up to `value` with an expo-out curve. With an `id`, the first view in a
+ * session counts from `from` (default 0) and later visits start where the figure last
+ * settled, so only real changes animate.
+ */
 export function Ticker({
   value,
   format,
-  from = 0,
+  from,
+  id,
   duration = 900,
   className,
 }: {
   value: number;
   format: (value: number) => string;
   from?: number;
+  id?: string;
   duration?: number;
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const shown = useRef(from);
+  const shown = useRef(from ?? lastShown(id) ?? 0);
   const formatRef = useRef(format);
   formatRef.current = format;
+  const initial = useRef(prefersReducedMotion() ? value : shown.current);
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
     const start = shown.current;
-    if (start === value || reduced()) {
+    remember(id, value);
+    if (start === value || prefersReducedMotion()) {
       shown.current = value;
       node.textContent = formatRef.current(value);
       return;
     }
     let frame = 0;
-    const began = performance.now();
-    const step = (now: number) => {
-      const progress = Math.min(1, (now - began) / duration);
-      shown.current = start + (value - start) * (1 - (1 - progress) ** 4);
-      node.textContent = formatRef.current(progress === 1 ? value : shown.current);
-      if (progress < 1) frame = requestAnimationFrame(step);
+    const cancel = afterLaunch((began) => {
+      const step = (now: number) => {
+        const progress = Math.min(1, Math.max(0, (now - began) / duration));
+        shown.current = start + (value - start) * (1 - (1 - progress) ** 4);
+        node.textContent = formatRef.current(progress === 1 ? value : shown.current);
+        if (progress < 1) frame = requestAnimationFrame(step);
+      };
+      step(began);
+    });
+    return () => {
+      cancel();
+      cancelAnimationFrame(frame);
     };
-    frame = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(frame);
-  }, [value, duration]);
+  }, [value, duration, id]);
   return (
     <span className={className}>
       <span ref={ref} aria-hidden="true">
-        {format(reduced() ? value : from)}
+        {format(initial.current)}
       </span>
       <span className="sr-only">{format(value)}</span>
     </span>

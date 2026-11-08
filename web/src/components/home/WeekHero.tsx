@@ -32,11 +32,6 @@ export function WeekHero({
   const peak = Math.max(1, ...week.by_day.map((d) => d.equiv_m));
   return (
     <Link to="/me/target" aria-label="Weekly Progress. Change Your Target" className="drive-hero">
-      <svg className="drive-hero-wake" viewBox="0 0 300 300" fill="none" aria-hidden="true">
-        {[40, 72, 104, 136].map((r) => (
-          <circle key={r} cx="150" cy="150" r={r} stroke="currentColor" strokeWidth="1.5" />
-        ))}
-      </svg>
       <div className="flex items-center justify-between gap-3">
         <span className="text-subhead font-semibold drive-hero-soft">
           {personal ? 'Personal Target' : 'Weekly Target'}
@@ -51,7 +46,12 @@ export function WeekHero({
       <div className="mt-3 flex items-center justify-between gap-4">
         <div className="min-w-0">
           <p className="text-display">
-            <Ticker value={week.total_m} from={previous} format={(n) => formatMeters(n, true)} />
+            <Ticker
+              id="week-total"
+              value={week.total_m}
+              from={previous}
+              format={(n) => formatMeters(n, true)}
+            />
           </p>
           <p className="mt-2 text-subhead drive-hero-soft">
             of {formatMeters(week.target_m, true)} E-meters
@@ -61,6 +61,7 @@ export function WeekHero({
           size={104}
           value={week.total_m}
           previousValue={previous}
+          id="week"
           max={week.target_m}
           label="Weekly Target"
         >

@@ -22,7 +22,7 @@ import { LoadState } from '../shell/LoadState';
 const Paths = memo(function Paths({ line, pace }: { line: string; pace: string | null }) {
   return (
     <svg
-      className="absolute inset-0 h-full w-full"
+      className="season-reveal absolute inset-0 h-full w-full"
       viewBox="0 0 1000 200"
       preserveAspectRatio="none"
       aria-hidden="true"
@@ -282,7 +282,7 @@ export function SeasonChartView({
           );
         }}
       >
-        <Paths {...paths} />
+        <Paths key={range} {...paths} />
         {index !== null && point && (
           <>
             <span

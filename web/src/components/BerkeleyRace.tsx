@@ -48,7 +48,7 @@ function Lane({
       <span className="text-subhead">{name}</span>
       <span className="race-track" aria-hidden="true">
         <span
-          className={`race-fill race-fill-${tone} block`}
+          className={`race-fill race-fill-${tone} drive-bar drive-bar-once block`}
           style={{ width: `${Math.min(100, (value / max) * 100)}%` }}
         />
       </span>

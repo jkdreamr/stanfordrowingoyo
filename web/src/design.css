@@ -1,4 +1,11 @@
-/* Drive: Design v2 tokens and surfaces. Loaded after styles.css so screens adopt it by class. */
+/*
+ * Drive: Design v2. Loaded after styles.css, so screens adopt it by class.
+ *
+ * Motion follows the stroke: a quick, exact catch (press feedback ≤ 90 ms) and a weighted
+ * drive that settles (expo-out arrivals, a lightly damped spring for things that travel).
+ * Every animation is transform, opacity or clip-path, plays once where it carries meaning,
+ * and has a reduced-motion path at the end of this file.
+ */
 :root {
   --bg: #f5f3f0;
   --surface: #ffffff;
@@ -7,114 +14,82 @@
   --muted: #6b6662;
   --divider: #e6e1dc;
   --oyo-hover: #eeeae5;
-  --oyo-selected: #f7e8e6;
+  --oyo-selected: #f6e7e5;
   --oyo-skeleton: #e8e3de;
-  --cardinal-deep: #5c0a0a;
-  --cardinal-glow: #c0392b;
+  --cardinal-top: #9c1c18;
+  --cardinal-deep: #6b0f0f;
   --card-border: transparent;
   --radius-card: 20px;
   --radius-control: 14px;
-  --radius-hero: 28px;
-  --shadow-card: 0 1px 2px rgb(40 24 20 / 5%), 0 10px 28px -14px rgb(40 24 20 / 16%);
-  --shadow-float: 0 2px 6px rgb(40 24 20 / 6%), 0 22px 48px -20px rgb(40 24 20 / 28%);
-  --shadow-cardinal: 0 18px 40px -18px rgb(140 21 21 / 60%), 0 2px 6px rgb(92 10 10 / 18%);
-  --glass: rgb(250 248 246 / 76%);
+  --radius-hero: 24px;
+  --shadow-card: 0 1px 2px rgb(40 24 20 / 5%), 0 10px 28px -16px rgb(40 24 20 / 16%);
+  --shadow-float: 0 2px 6px rgb(40 24 20 / 6%), 0 22px 48px -22px rgb(40 24 20 / 28%);
+  --shadow-hero: 0 2px 4px rgb(40 24 20 / 8%), 0 20px 40px -24px rgb(40 24 20 / 45%);
+  --glass: rgb(250 248 246 / 78%);
   --glass-line: rgb(40 24 20 / 8%);
-  --ease-drive: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-recover: cubic-bezier(0.65, 0, 0.35, 1);
-  --spring-drive: cubic-bezier(0.34, 1.4, 0.64, 1);
-  --spring-pop: cubic-bezier(0.34, 1.8, 0.64, 1);
-  --spring-settle: var(--ease-drive);
-  --motion-drive: 570ms;
-  --motion-pop: 600ms;
-  --motion-rise: 520ms;
-  --motion-stagger: 45ms;
+
+  /* Motion tokens */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  --spring: cubic-bezier(0.3, 1.15, 0.5, 1);
+  --dur-press: 90ms;
+  --dur-feedback: 160ms;
+  --dur-state: 240ms;
+  --dur-enter: 440ms;
+  --dur-travel: 520ms;
+  --dur-focal: 760ms;
+  --stagger: 40ms;
 }
 @supports (transition-timing-function: linear(0, 1)) {
   :root {
-    --spring-drive: linear(
+    /* Damping ratio 0.78: travels with weight, overshoots 2% once and settles. */
+    --spring: linear(
       0,
       0.042,
-      0.145,
-      0.281,
-      0.429,
-      0.574,
-      0.705,
-      0.817,
-      0.907,
-      0.975,
-      1.023,
-      1.053,
-      1.07,
-      1.075,
-      1.073,
-      1.066,
-      1.056,
-      1.045,
-      1.034,
-      1.024,
-      1.015,
-      1.008,
-      1.003,
-      0.999,
-      0.996,
-      0.995,
-      0.994,
-      0.995,
-      0.996,
-      0.997,
-      1
-    );
-    --spring-pop: linear(
-      0,
-      0.065,
-      0.223,
-      0.426,
-      0.636,
-      0.824,
-      0.975,
-      1.081,
-      1.145,
-      1.171,
-      1.168,
-      1.146,
-      1.112,
-      1.076,
-      1.042,
-      1.013,
-      0.992,
-      0.978,
-      0.971,
+      0.144,
+      0.273,
+      0.408,
+      0.538,
+      0.653,
+      0.75,
+      0.829,
+      0.891,
+      0.937,
       0.97,
-      0.973,
-      0.978,
-      0.985,
-      0.991,
-      0.996,
-      1,
-      1.003,
+      0.993,
+      1.007,
+      1.015,
+      1.019,
+      1.02,
+      1.019,
+      1.017,
+      1.014,
+      1.011,
+      1.009,
+      1.007,
       1.005,
-      1.004,
       1.003,
       1
     );
   }
 }
 .dark {
-  --bg: #0d0c0c;
-  --surface: #171515;
+  --bg: #0e0d0d;
+  --surface: #181616;
   --surface-2: #242120;
   --text: #f5f2ef;
   --muted: #a8a19c;
   --divider: #2c2827;
   --oyo-hover: #221f1e;
-  --oyo-selected: #361d1c;
+  --oyo-selected: #33201e;
   --oyo-skeleton: #2a2625;
+  --cardinal-top: #8f1a16;
+  --cardinal-deep: #4f0b0b;
   --card-border: rgb(255 255 255 / 6%);
-  --shadow-card: 0 0 0 1px rgb(255 255 255 / 5%), 0 14px 32px -20px rgb(0 0 0 / 90%);
+  --shadow-card: 0 0 0 1px rgb(255 255 255 / 5%), inset 0 1px 0 rgb(255 255 255 / 3%);
   --shadow-float: 0 0 0 1px rgb(255 255 255 / 7%), 0 24px 48px -20px rgb(0 0 0 / 90%);
-  --shadow-cardinal: 0 20px 44px -20px rgb(192 53 43 / 45%), 0 0 0 1px rgb(255 255 255 / 6%);
-  --glass: rgb(20 18 18 / 74%);
+  --shadow-hero: 0 0 0 1px rgb(255 255 255 / 6%), 0 24px 48px -24px rgb(0 0 0 / 90%);
+  --glass: rgb(20 18 18 / 76%);
   --glass-line: rgb(255 255 255 / 7%);
 }
 
@@ -132,14 +107,11 @@
 .text-title3 {
   letter-spacing: -0.016em;
 }
-.text-headline {
-  letter-spacing: -0.008em;
-}
 .text-display {
   font-size: 3.25rem;
   line-height: 1;
   font-weight: 700;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -151,7 +123,7 @@
   box-shadow: var(--shadow-card);
 }
 .ui-card {
-  padding: 18px;
+  padding: 20px;
 }
 .ui-card .ui-list {
   border-color: transparent;
@@ -163,47 +135,54 @@
   border-color: var(--card-border);
   box-shadow: var(--shadow-float);
 }
-.ui-action-card {
+
+/*
+ * Press: the catch. Down is instant and exact; release springs back. Larger surfaces
+ * compress less than controls so the whole screen never seems to lurch.
+ */
+.ui-button,
+.ui-action-card,
+.drive-hero {
   transition:
-    transform 260ms var(--spring-drive),
-    background-color var(--oyo-motion-fast) var(--oyo-ease-out);
+    background-color var(--dur-feedback) var(--ease-out),
+    color var(--dur-feedback) var(--ease-out),
+    opacity var(--dur-feedback) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out),
+    transform var(--dur-travel) var(--spring);
 }
-.ui-action-card:active {
+.ui-button-primary:active:not(:disabled),
+.ui-button-secondary:active:not(:disabled),
+.ui-button-destructive:active:not(:disabled) {
+  transform: scale(0.97);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-action-card:active,
+.drive-hero:active {
   transform: scale(0.985);
-  transition-duration: var(--oyo-motion-press);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
 }
 
 /* Controls */
 .ui-button {
   border-radius: var(--radius-control);
-  transition:
-    background-color var(--oyo-motion-control) var(--oyo-ease-out),
-    color var(--oyo-motion-fast) var(--oyo-ease-out),
-    opacity var(--oyo-motion-fast) var(--oyo-ease-out),
-    box-shadow var(--oyo-motion-control) var(--oyo-ease-out),
-    transform 420ms var(--spring-pop);
-}
-.ui-button-primary:active:not(:disabled),
-.ui-button-secondary:active:not(:disabled),
-.ui-button-destructive:active:not(:disabled) {
-  transform: scale(0.965);
-  transition-duration: var(--oyo-motion-press);
-  transition-timing-function: var(--oyo-ease-standard);
 }
 .ui-button-primary {
-  background-image: linear-gradient(180deg, rgb(255 255 255 / 12%), rgb(255 255 255 / 0%) 60%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 16%),
-    0 8px 18px -10px rgb(140 21 21 / 70%);
+  box-shadow: 0 1px 2px rgb(40 24 20 / 12%);
 }
 .ui-button-secondary {
   background: var(--surface);
   border-color: var(--divider);
   box-shadow: 0 1px 2px rgb(40 24 20 / 6%);
 }
+.dark .ui-button-primary {
+  box-shadow: none;
+}
 .dark .ui-button-secondary {
   background: var(--surface-2);
   border-color: var(--card-border);
+  box-shadow: none;
 }
 .ui-input,
 .ui-input-wrap {
@@ -217,137 +196,295 @@
   box-shadow:
     0 1px 2px rgb(40 24 20 / 8%),
     0 4px 10px -4px rgb(40 24 20 / 14%);
-  transition: transform 460ms var(--spring-drive);
+  transition: transform var(--dur-travel) var(--spring);
 }
 .ui-icon-tile {
   border-radius: 10px;
 }
 
-/* Tab bar: frosted, Log stays in the exact middle grid column */
+/* Tab bar: frosted chrome, one selection pill that travels between tabs */
 .shell-tabbar {
+  --tab-pad: max(4px, env(safe-area-inset-left), env(safe-area-inset-right));
   background: var(--glass);
   border-top: 0.5px solid var(--glass-line);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
+.shell-tab,
+.shell-log-tab {
+  position: relative;
+  z-index: 1;
+}
+.shell-tab-indicator {
+  position: absolute;
+  top: 0;
+  left: var(--tab-pad);
+  width: calc((100% - 2 * var(--tab-pad)) / 5);
+  height: 72px;
+  pointer-events: none;
+  transform: translate3d(calc(var(--tab, 0) * 100%), 0, 0);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    opacity var(--dur-feedback) var(--ease-out);
+}
+.shell-tab-indicator::before {
+  content: '';
+  position: absolute;
+  top: 12.5px;
+  left: 50%;
+  width: 56px;
+  height: 30px;
+  margin-left: -28px;
+  border-radius: 15px;
+  background: var(--oyo-selected);
+  transition: transform var(--dur-state) var(--ease-out);
+}
+.shell-tab-indicator.is-hidden {
+  opacity: 0;
+}
+.shell-tab-indicator.is-hidden::before {
+  transform: scale(0.7);
+}
 .shell-tab svg {
-  transition: transform 420ms var(--spring-pop);
+  transition: transform var(--dur-travel) var(--spring);
 }
 .shell-tab:active svg {
   transform: scale(0.86);
-  transition-duration: var(--oyo-motion-press);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
 }
 .shell-tab.is-active svg {
-  animation: drive-tab-pop var(--motion-pop) var(--spring-pop);
-}
-.shell-tab.is-active svg path,
-.shell-tab.is-active svg rect,
-.shell-tab.is-active svg circle {
-  fill: color-mix(in srgb, currentColor 14%, transparent);
+  animation: drive-catch var(--dur-travel) var(--spring);
 }
 .shell-log-tab > span:first-child {
   width: 48px;
   height: 48px;
   border-radius: 16px;
-  background:
-    radial-gradient(120% 120% at 30% 0%, rgb(255 255 255 / 22%), transparent 55%), var(--accent);
-  box-shadow: var(--shadow-cardinal);
-  transition: transform 420ms var(--spring-pop);
+  background: var(--accent);
+  box-shadow:
+    0 1px 2px rgb(40 24 20 / 18%),
+    0 8px 20px -10px rgb(40 24 20 / 45%);
+  transition: transform var(--dur-travel) var(--spring);
 }
 .shell-log-tab:active > span:first-child {
   transform: scale(0.9);
-  transition-duration: var(--oyo-motion-press);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
 }
-@keyframes drive-tab-pop {
-  0% {
-    transform: scale(0.82);
-  }
-  100% {
-    transform: scale(1);
+@keyframes drive-catch {
+  from {
+    transform: scale(0.84);
   }
 }
 
-/* Entrance: content rises in one stroke, staggered */
-.ui-large-title,
-.screen-stack > *,
-.drive-rise {
-  animation: drive-rise var(--motion-rise) var(--ease-drive) backwards;
+/*
+ * Tab changes: content travels in the direction of the tab you chose. The old screen
+ * leaves quickly, the new one arrives with the drive curve; chrome stays put.
+ */
+.shell-content {
+  view-transition-name: shell-content;
+}
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(shell-content) {
+  animation: none;
+}
+/* Fade-through: the old screen is gone before the new one is mostly visible, so the two
+   never read as a double exposure. */
+::view-transition-old(shell-content) {
+  animation: drive-leave 90ms linear both;
+}
+::view-transition-new(shell-content) {
+  animation: drive-arrive 260ms var(--ease-out) 60ms both;
+}
+:root[data-nav-dir='back']::view-transition-old(shell-content) {
+  animation-name: drive-leave-back;
+}
+:root[data-nav-dir='back']::view-transition-new(shell-content) {
+  animation-name: drive-arrive-back;
+}
+:root[data-nav-dir='none']::view-transition-old(shell-content) {
+  animation-name: drive-fade-out;
+}
+:root[data-nav-dir='none']::view-transition-new(shell-content) {
+  animation-name: drive-fade-in;
+}
+@keyframes drive-leave {
+  to {
+    opacity: 0;
+    transform: translate3d(-8px, 0, 0);
+  }
+}
+@keyframes drive-arrive {
+  from {
+    opacity: 0;
+    transform: translate3d(16px, 0, 0);
+  }
+}
+@keyframes drive-leave-back {
+  to {
+    opacity: 0;
+    transform: translate3d(8px, 0, 0);
+  }
+}
+@keyframes drive-arrive-back {
+  from {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+}
+@keyframes drive-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes drive-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/*
+ * One entrance per session: the first screen rises in a single staggered stroke as the
+ * splash lifts. Afterwards (`data-entered`), screens arrive through the tab transition.
+ */
+:root:not([data-entered]) .ui-large-title,
+:root:not([data-entered]) .screen-stack > *,
+:root:not([data-entered]) .drive-rise {
+  animation: drive-rise var(--dur-enter) var(--ease-out) backwards;
+}
+.launching .ui-large-title,
+.launching .screen-stack > *,
+.launching .drive-rise,
+.launching .drive-day-fill,
+.launching .drive-bar {
+  animation-play-state: paused;
 }
 .screen-stack > :nth-child(2) {
-  animation-delay: calc(var(--motion-stagger) * 1);
+  animation-delay: calc(var(--stagger) * 1);
 }
 .screen-stack > :nth-child(3) {
-  animation-delay: calc(var(--motion-stagger) * 2);
+  animation-delay: calc(var(--stagger) * 2);
 }
 .screen-stack > :nth-child(4) {
-  animation-delay: calc(var(--motion-stagger) * 3);
+  animation-delay: calc(var(--stagger) * 3);
 }
 .screen-stack > :nth-child(5) {
-  animation-delay: calc(var(--motion-stagger) * 4);
+  animation-delay: calc(var(--stagger) * 4);
 }
 .screen-stack > :nth-child(n + 6) {
-  animation-delay: calc(var(--motion-stagger) * 5);
+  animation-delay: calc(var(--stagger) * 5);
 }
-.screen-stack > .social-refresh-slot {
+:root .screen-stack > .social-refresh-slot {
   animation: none;
 }
 @keyframes drive-rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 14px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+    transform: translate3d(0, 12px, 0);
   }
 }
 
-/* Home hero */
+/* Large titles fold away as the page scrolls, like a native navigation bar. */
+@supports (animation-timeline: scroll()) {
+  .ui-large-title {
+    transform-origin: left bottom;
+    animation: drive-title-fold linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 56px;
+  }
+  :root:not([data-entered]) .ui-large-title {
+    animation:
+      drive-rise var(--dur-enter) var(--ease-out) backwards,
+      drive-title-fold linear both;
+    animation-timeline: auto, scroll(root);
+    animation-range:
+      normal,
+      0 56px;
+  }
+  @keyframes drive-title-fold {
+    to {
+      opacity: 0;
+      transform: translate3d(0, -4px, 0) scale(0.94);
+    }
+  }
+}
+
+/* Data that grows: bars fill from their start, chart lines draw left to right. */
+.drive-bar {
+  transform-origin: left center;
+  animation: drive-bar var(--dur-focal) var(--ease-out) 120ms backwards;
+}
+:root[data-entered] .drive-bar-once {
+  animation: none;
+}
+@keyframes drive-bar {
+  from {
+    transform: scaleX(0);
+  }
+}
+/* Weekly volume: columns rise from the baseline, most recent weeks last; the selected
+   week keeps full ink and the rest step back. */
+.drive-col {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  fill-opacity: 0.55;
+  transition: fill-opacity var(--dur-feedback) var(--ease-out);
+  animation: drive-col var(--dur-focal) var(--ease-out) backwards;
+  animation-delay: calc(80ms + var(--i, 0) * 18ms);
+}
+.drive-col.is-selected {
+  fill-opacity: 1;
+}
+@keyframes drive-col {
+  from {
+    transform: scaleY(0);
+  }
+}
+.season-reveal {
+  animation: drive-reveal 900ms var(--ease-out) backwards;
+}
+@keyframes drive-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Home hero: the one bright element on Home */
 .drive-hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   display: block;
-  padding: 20px 20px 18px;
+  padding: 20px;
   border-radius: var(--radius-hero);
   color: #fff;
-  background: linear-gradient(155deg, #a61f1a 0%, #8c1515 46%, var(--cardinal-deep) 100%);
-  box-shadow: var(--shadow-cardinal);
-  transition: transform 300ms var(--spring-drive);
+  background: linear-gradient(
+    160deg,
+    var(--cardinal-top) 0%,
+    #8c1515 48%,
+    var(--cardinal-deep) 100%
+  );
+  box-shadow: var(--shadow-hero);
 }
-.drive-hero:active {
-  transform: scale(0.985);
-  transition-duration: var(--oyo-motion-press);
-}
-.drive-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.18;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.drive-hero-wake {
-  position: absolute;
-  z-index: -1;
-  right: -90px;
-  top: -70px;
-  width: 300px;
-  height: 300px;
-  color: #fff;
-  opacity: 0.1;
-  pointer-events: none;
+.drive-hero:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 .drive-hero-soft {
-  color: rgb(255 255 255 / 76%);
+  color: rgb(255 255 255 / 78%);
 }
 .drive-hero .ui-ring svg circle:first-child {
   stroke: rgb(255 255 255 / 18%);
 }
 .drive-hero .ui-ring-stroke {
   stroke: #fff;
-  filter: drop-shadow(0 0 6px rgb(255 255 255 / 35%));
+  transition:
+    stroke-dashoffset 1100ms var(--ease-out),
+    stroke var(--dur-state) var(--ease-out);
 }
 .drive-chip {
   display: inline-flex;
@@ -355,23 +492,21 @@
   gap: 6px;
   min-height: 28px;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 14px;
   background: rgb(255 255 255 / 14%);
   font-size: 13px;
   line-height: 18px;
   font-weight: 600;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
 }
 .drive-chip-streak svg {
-  color: var(--highlight);
-  fill: var(--highlight);
+  color: #ffb38f;
+  fill: #ffb38f;
 }
 .drive-week {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 6px;
-  margin-top: 18px;
+  gap: 8px;
+  margin-top: 20px;
 }
 .drive-day {
   display: grid;
@@ -380,33 +515,35 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 600;
-  color: rgb(255 255 255 / 64%);
+  color: rgb(255 255 255 / 66%);
 }
 .drive-day-track {
   position: relative;
   width: 100%;
   max-width: 28px;
   height: 44px;
-  border-radius: 9px;
-  background: rgb(255 255 255 / 10%);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 11%);
   overflow: hidden;
 }
 .drive-day-fill {
   position: absolute;
   inset: auto 0 0;
   height: 100%;
-  border-radius: 9px;
-  background: linear-gradient(180deg, #fff, rgb(255 255 255 / 78%));
+  border-radius: 8px;
+  background: rgb(255 255 255 / 92%);
   transform-origin: bottom;
   transform: scaleY(var(--fill, 0));
-  animation: drive-fill 700ms var(--spring-drive) both;
-  animation-delay: calc(160ms + var(--i, 0) * 40ms);
+}
+:root:not([data-entered]) .drive-day-fill {
+  animation: drive-fill var(--dur-focal) var(--spring) backwards;
+  animation-delay: calc(180ms + var(--i, 0) * var(--stagger));
 }
 .drive-day.is-today {
   color: #fff;
 }
 .drive-day.is-today .drive-day-track {
-  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 70%);
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 72%);
 }
 .drive-day.is-future .drive-day-track {
   background: rgb(255 255 255 / 6%);
@@ -417,7 +554,7 @@
   }
 }
 
-/* Puddle: the swirl an oar leaves behind; the app's signature ripple */
+/* Puddle: the swirl an oar leaves at the release. The app's one signature ripple. */
 .drive-puddle {
   position: absolute;
   pointer-events: none;
@@ -425,16 +562,16 @@
   height: 120px;
   margin: -60px 0 0 -60px;
   border-radius: 50%;
-  border: 2px solid currentColor;
+  border: 1.5px solid currentColor;
   opacity: 0;
-  animation: drive-puddle 720ms var(--ease-drive) both;
+  animation: drive-puddle 720ms var(--ease-out) both;
 }
 .drive-puddle + .drive-puddle {
   animation-delay: 110ms;
 }
 @keyframes drive-puddle {
   0% {
-    opacity: 0.55;
+    opacity: 0.5;
     transform: scale(0.2);
   }
   100% {
@@ -445,12 +582,11 @@
 
 /* Kudos */
 .social-entry {
-  padding: 18px;
+  padding: 20px;
 }
 .social-heart-burst {
   fill: var(--accent);
-  filter: drop-shadow(0 6px 16px rgb(140 21 21 / 45%));
-  animation: social-heart var(--motion-pop) var(--spring-pop) both;
+  animation: social-heart 640ms var(--spring) both;
 }
 .social-entry > .drive-puddle {
   z-index: 2;
@@ -465,32 +601,26 @@
   place-items: center;
 }
 .kudos-icon > svg {
-  transition: transform 420ms var(--spring-pop);
+  transition: transform var(--dur-travel) var(--spring);
 }
 .kudos-icon.is-giving > svg {
-  animation: kudos-pop var(--motion-pop) var(--spring-pop);
+  animation: kudos-pop var(--dur-travel) var(--spring);
 }
 .kudos-spark {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px;
-  border-radius: 50%;
-  background: var(--accent);
-  pointer-events: none;
-  animation: kudos-spark 560ms var(--ease-drive) both;
-}
-.kudos-spark:nth-child(even) {
-  background: var(--highlight);
   width: 4px;
   height: 4px;
   margin: -2px;
+  border-radius: 2px;
+  background: var(--accent);
+  pointer-events: none;
+  animation: kudos-spark 520ms var(--ease-out) both;
 }
 @keyframes kudos-pop {
   0% {
-    transform: scale(0.6) rotate(-14deg);
+    transform: scale(0.62) rotate(-12deg);
   }
   100% {
     transform: scale(1) rotate(0);
@@ -503,12 +633,12 @@
   }
   100% {
     opacity: 0;
-    transform: rotate(var(--a)) translateY(-22px) scale(0.2);
+    transform: rotate(var(--a)) translateY(-20px) scale(0.4);
   }
 }
 .kudos-count {
   display: inline-block;
-  animation: kudos-count 380ms var(--spring-drive);
+  animation: kudos-count 360ms var(--ease-out);
 }
 @keyframes kudos-count {
   from {
@@ -517,7 +647,7 @@
   }
 }
 
-/* Podium */
+/* Podium: bronze, then silver, then gold rise into place */
 .podium-card {
   position: relative;
   overflow: hidden;
@@ -525,16 +655,13 @@
   border-radius: var(--radius-card);
   background: linear-gradient(180deg, var(--medal-fill, var(--surface)), var(--surface) 78%);
   box-shadow: var(--shadow-card);
-  animation: podium-rise var(--motion-drive) var(--spring-drive) backwards;
-}
-.podium-card[data-medal='gold'] {
-  animation-delay: 200ms;
-  box-shadow:
-    var(--shadow-card),
-    0 18px 36px -22px rgb(196 150 30 / 60%);
+  animation: podium-rise var(--dur-focal) var(--spring) backwards;
 }
 .podium-card[data-medal='silver'] {
-  animation-delay: 100ms;
+  animation-delay: 90ms;
+}
+.podium-card[data-medal='gold'] {
+  animation-delay: 180ms;
 }
 .podium-card.is-me {
   background: linear-gradient(180deg, var(--oyo-selected), var(--surface) 78%);
@@ -545,7 +672,7 @@
   background: var(--medal-metal);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 55%),
-    0 4px 10px -4px var(--medal-ink);
+    0 2px 6px -2px rgb(40 24 20 / 35%);
 }
 .podium-card[data-medal='gold'] .podium-rank {
   --medal-metal: linear-gradient(145deg, #fbe7a1, #e2b84a 55%, #b8891f);
@@ -570,33 +697,19 @@
 @keyframes podium-rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 36px, 0) scale(0.96);
+    transform: translate3d(0, 32px, 0);
   }
 }
 
 /* Me */
 .profile-hero {
   position: relative;
-  isolation: isolate;
-  margin-inline: -16px;
-  padding: 24px 16px 4px;
-}
-.profile-hero::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: -64px 0 -24px;
-  mask-image: linear-gradient(to bottom, transparent, #000 45%, #000 65%, transparent);
-  background: radial-gradient(120% 100% at 0% 0%, rgb(140 21 21 / 12%), transparent 62%);
-}
-.dark .profile-hero::before {
-  background: radial-gradient(120% 100% at 0% 0%, rgb(192 53 43 / 18%), transparent 62%);
+  padding: 24px 0 4px;
 }
 .profile-hero .ui-avatar-lg {
   box-shadow:
     0 0 0 3px var(--bg),
-    0 0 0 5px var(--accent),
-    var(--shadow-cardinal);
+    0 0 0 5px var(--accent);
 }
 .profile-stats {
   display: grid;
@@ -606,7 +719,7 @@
 .profile-stat {
   display: grid;
   gap: 4px;
-  padding: 14px 12px;
+  padding: 16px 12px;
   border-radius: 16px;
   background: var(--surface);
   box-shadow: var(--shadow-card);
@@ -616,7 +729,7 @@
   fill: var(--highlight);
 }
 
-/* Save celebration */
+/* Save celebration: the logged session lands on the week */
 .save-celebration {
   position: fixed;
   inset: 0;
@@ -625,12 +738,12 @@
   place-items: center;
   padding: 24px;
   background: rgb(13 12 12 / 36%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  backdrop-filter: blur(14px) saturate(140%);
-  animation: save-fade 260ms var(--ease-drive) both;
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  animation: drive-fade-in var(--dur-state) var(--ease-out) both;
 }
 .save-celebration.is-leaving {
-  animation: save-out 240ms var(--ease-recover) both;
+  animation: save-out 200ms var(--ease-in) both;
 }
 .save-card {
   position: relative;
@@ -641,9 +754,14 @@
   color: #fff;
   overflow: hidden;
   isolation: isolate;
-  background: linear-gradient(155deg, #a61f1a 0%, #8c1515 46%, var(--cardinal-deep) 100%);
+  background: linear-gradient(
+    160deg,
+    var(--cardinal-top) 0%,
+    #8c1515 48%,
+    var(--cardinal-deep) 100%
+  );
   box-shadow: 0 30px 80px -30px rgb(0 0 0 / 60%);
-  animation: save-card-in var(--motion-drive) var(--spring-drive) backwards;
+  animation: save-card-in var(--dur-focal) var(--spring) backwards;
 }
 .save-mark {
   position: relative;
@@ -651,7 +769,7 @@
   place-items: center;
   width: 84px;
   height: 84px;
-  margin: 0 auto 18px;
+  margin: 0 auto 20px;
   color: #fff;
 }
 .save-mark > .drive-puddle {
@@ -668,17 +786,17 @@
 }
 .save-mark circle {
   stroke-dasharray: 252;
-  animation: save-draw 520ms var(--ease-drive) 80ms both;
+  animation: save-draw 520ms var(--ease-out) 80ms both;
 }
 .save-mark path {
   stroke-dasharray: 48;
-  animation: save-draw-check 320ms var(--ease-drive) 380ms both;
+  animation: save-draw-check 320ms var(--ease-out) 380ms both;
 }
 .save-bar {
   position: relative;
   height: 8px;
   margin-top: 20px;
-  border-radius: 99px;
+  border-radius: 4px;
   background: rgb(255 255 255 / 18%);
   overflow: hidden;
 }
@@ -688,12 +806,7 @@
   border-radius: inherit;
   background: #fff;
   transform-origin: left;
-  transition: transform 900ms var(--ease-drive) 300ms;
-}
-@keyframes save-fade {
-  from {
-    opacity: 0;
-  }
+  transition: transform 900ms var(--ease-out) 300ms;
 }
 @keyframes save-out {
   to {
@@ -704,7 +817,7 @@
 @keyframes save-card-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 28px, 0) scale(0.92);
+    transform: translate3d(0, 24px, 0) scale(0.94);
   }
 }
 @keyframes save-draw {
@@ -724,12 +837,20 @@
   }
 }
 
+/*
+ * Reduced motion: no travel, scale or drawing. State still changes visibly, and
+ * overlays and screen changes keep a short opacity fade so cause and effect stay legible.
+ */
 @media (prefers-reduced-motion: reduce) {
+  :root:not([data-entered]) .ui-large-title,
+  :root:not([data-entered]) .screen-stack > *,
+  :root:not([data-entered]) .drive-rise,
+  :root:not([data-entered]) .drive-day-fill,
   .ui-large-title,
-  .screen-stack > *,
-  .drive-rise,
   .podium-card,
-  .drive-day-fill,
+  .drive-bar,
+  .drive-col,
+  .season-reveal,
   .shell-tab.is-active svg,
   .kudos-icon.is-giving > svg,
   .kudos-count,
@@ -746,14 +867,33 @@
   .save-celebration.is-leaving {
     animation-duration: 120ms;
   }
-  .save-bar > span {
+  ::view-transition-old(shell-content),
+  :root[data-nav-dir]::view-transition-old(shell-content) {
+    animation: drive-fade-out 120ms linear both;
+  }
+  ::view-transition-new(shell-content),
+  :root[data-nav-dir]::view-transition-new(shell-content) {
+    animation: drive-fade-in 120ms linear both;
+  }
+  .save-bar > span,
+  .drive-hero .ui-ring-stroke {
     transition: none;
   }
   .ui-button,
   .drive-hero,
   .ui-action-card,
+  .shell-tab svg,
+  .shell-tab-indicator,
+  .shell-tab-indicator::before,
   .shell-log-tab > span:first-child,
   .ui-segment-thumb {
     transition-duration: 0ms;
+  }
+  .ui-button:active:not(:disabled),
+  .ui-action-card:active,
+  .drive-hero:active,
+  .shell-tab:active svg,
+  .shell-log-tab:active > span:first-child {
+    transform: none;
   }
 }

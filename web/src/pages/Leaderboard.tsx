@@ -47,7 +47,10 @@ function Progress({ row }: { row: LeaderboardRow }) {
       aria-valuenow={Math.floor(value)}
       className="mt-1.5 block h-1 w-full overflow-hidden rounded-sm bg-surface-2"
     >
-      <span className="block h-full rounded-[inherit] bg-accent" style={{ width: `${value}%` }} />
+      <span
+        className="drive-bar block h-full rounded-[inherit] bg-accent"
+        style={{ width: `${value}%` }}
+      />
     </span>
   );
 }
