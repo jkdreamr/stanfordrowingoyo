@@ -4,7 +4,8 @@ import { Share } from 'lucide-react';
 import type { GameResult } from '../../../shared/types';
 import { api, ApiClientError } from '../lib/api';
 import { qk } from '../lib/queries';
-import { Button, useToast } from '../components/ui';
+import { Button } from '../components/ui';
+import { useShareResult } from './share';
 import { LoadState } from '../components/shell/LoadState';
 import { useGameAccess } from './useGameAccess';
 import { GameLocked } from './GameLocked';
@@ -96,15 +97,10 @@ function GameResultView({
   result: GameResult;
   summary: GameSummary;
 }) {
-  const toast = useToast();
+  const shareResult = useShareResult();
   useEffect(() => window.scrollTo(0, 0), []);
   function share() {
-    if (navigator.share) void navigator.share({ title, text: summary.share }).catch(() => {});
-    else
-      void navigator.clipboard
-        .writeText(summary.share)
-        .then(() => toast.show({ title: 'Result Copied' }))
-        .catch(() => toast.show({ title: 'Could Not Copy Result', tone: 'error' }));
+    void shareResult(title, summary.share);
   }
   return (
     <div className="mx-auto max-w-[560px] space-y-8">

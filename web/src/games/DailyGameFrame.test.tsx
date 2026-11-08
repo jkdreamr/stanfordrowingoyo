@@ -66,7 +66,10 @@ it('submits once, then shows the server result, share and day board', async () =
   fireEvent.click(await screen.findByRole('button', { name: 'Finish' }));
   expect(await screen.findByText('Score 6')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Share' }));
-  expect(share).toHaveBeenCalledWith({ title: 'Word Guess', text: 'shared text' });
+  expect(share).toHaveBeenCalledWith({
+    title: 'Word Guess',
+    text: 'shared text\nhttps://stanford-oyo.joskoo.workers.dev',
+  });
   await waitFor(() =>
     expect(screen.getByRole('region', { name: 'Word Guess Day Board' }).textContent).toContain(
       '1 Players',

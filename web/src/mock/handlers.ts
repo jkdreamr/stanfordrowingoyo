@@ -46,6 +46,7 @@ import {
 import { personalPlan, covers } from '../lib/myPlan';
 import { unpack, verifyWordGuess } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
+import { gamesStreak } from '../../../shared/games/streak';
 import {
   parsePerceptionAnswer,
   perceptionTotal,
@@ -915,6 +916,21 @@ export function createMockApi({
           return json({
             date,
             access,
+            streak: gamesStreak(
+              [
+                ...new Set(
+                  gameResults
+                    .filter(
+                      (row) =>
+                        row.user_id === user.id &&
+                        row.date <= date &&
+                        Object.hasOwn(MOCK_GAMES, row.game_id),
+                    )
+                    .map((row) => row.date),
+                ),
+              ].sort(),
+              date,
+            ),
             games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
             results: gameResults.filter((row) => row.user_id === user.id && row.date === date),
           });

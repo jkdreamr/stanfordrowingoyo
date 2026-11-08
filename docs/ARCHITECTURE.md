@@ -317,6 +317,12 @@ self-contained guarded block. Feature migrations run in ascending order 11–16,
 
 ### Daily Games
 
+`GET /api/games` includes `streak: GamesStreak` (`current`, `best`). A played date
+has at least one result for a registered game, counted once in the team timezone
+using shared `today()`. Current is the consecutive run ending today, or yesterday
+if not played today, otherwise zero. Best is the longest run across all played dates.
+The server folds one ordered distinct-date query; no new stored state is needed.
+
 Dive adds four dedicated endpoints without changing the generic hub contract:
 
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
