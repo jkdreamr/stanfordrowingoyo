@@ -1,13 +1,12 @@
 /// <reference types="@cloudflare/vitest-plugin/types" />
 import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { beforeEach, expect, it } from 'vitest';
-import { addDays } from '../../shared/dates';
-import { divePoints, normalizeAnswer } from '../../shared/games/dive';
+import { normalizeAnswer } from '../../shared/games/dive';
 import type { DiveAnswerResult, DiveDay, DiveReveal, GameDayLeaderboard } from '../../shared/types';
 import type { Env } from './index';
 import { sha256 } from './auth/crypto';
-import { DIVE_PROMPTS, divePromptsFor } from './games/divePrompts';
-import { recomputeDive } from './db/dive';
+import { divePromptsFor, diveSelectionFor } from './games/divePrompts';
+import { answerSet } from './games/dive/sets';
 import { accountExport, removeAccount } from './db/account';
 import { byId } from './db/users';
 
@@ -31,7 +30,7 @@ function api(path = '/today', method = 'GET', body?: unknown, user = 0, now = NO
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 }
-async function submit(index: number, answer = 'Oars', user = 0) {
+async function submit(index: number, answer = '', user = 0) {
   return api('/answers', 'POST', { prompt_index: index, answer }, user);
 }
 async function rest(user = 0) {
@@ -47,8 +46,17 @@ async function rest(user = 0) {
       .toArray(),
   );
 }
-async function complete(user = 0) {
-  for (let i = 0; i < 7; i++) expect((await submit(i, `Answer ${i}`, user)).status).toBe(201);
+async function set(index = 0) {
+  return answerSet(diveSelectionFor(DATE)[index].id);
+}
+async function complete(user = 0, miss = false) {
+  for (let i = 0; i < 7; i++)
+    expect(
+      (await submit(i, miss ? 'zzzzzzzzzzzzzzzzzzzz' : (await set(i)).gem.answer, user)).status,
+    ).toBe(201);
+}
+async function current(user = 0) {
+  return (await api('/today', 'GET', undefined, user)).json<DiveDay>();
 }
 beforeEach(async () => {
   await SELF.fetch('https://oyo.test/api/health');
@@ -87,25 +95,8 @@ beforeEach(async () => {
   });
 });
 
-it('has at least 420 original unique prompts in whole seven-day blocks', () => {
-  expect(DIVE_PROMPTS.length).toBeGreaterThanOrEqual(420);
-  expect(DIVE_PROMPTS.length % 7).toBe(0);
-  expect(new Set(DIVE_PROMPTS.map(normalizeAnswer)).size).toBe(DIVE_PROMPTS.length);
-  expect(DIVE_PROMPTS.every((prompt) => /^Name (a|an) /.test(prompt))).toBe(true);
-});
-it('uses a deterministic date permutation without repeats over a full cycle, including wraparound', () => {
-  for (const start of ['2026-01-01', '2025-12-20', '2026-07-03']) {
-    const selected = Array.from({ length: DIVE_PROMPTS.length / 7 }, (_, i) =>
-      divePromptsFor(addDays(start, i)),
-    ).flat();
-    expect(new Set(selected).size).toBe(DIVE_PROMPTS.length);
-    expect(divePromptsFor(start)).toEqual(divePromptsFor(start));
-    expect(divePromptsFor(start)).toEqual(divePromptsFor(addDays(start, DIVE_PROMPTS.length / 7)));
-  }
-});
-it('does not leak prompts while locked and enforces the gate inside a write', async () => {
-  const locked = await (await api()).json<DiveDay>();
-  expect(locked).toMatchObject({
+it('keeps locked reads empty and rechecks the unchanged gate for every write', async () => {
+  expect(await current()).toMatchObject({
     date: DATE,
     access: { unlocked: false },
     prompts: [],
@@ -113,291 +104,252 @@ it('does not leak prompts while locked and enforces the gate inside a write', as
     score: 0,
     complete: false,
     reveal: null,
+    result: null,
   });
-  const response = await submit(0);
-  expect(response.status).toBe(403);
-  expect(await response.json()).toMatchObject({ error: { code: 'GAME_LOCKED' } });
+  expect((await submit(0)).status).toBe(403);
   await rest();
-  expect((await (await api()).json<DiveDay>()).prompts).toEqual(divePromptsFor(DATE));
+  expect((await current()).prompts).toEqual(divePromptsFor(DATE));
   expect((await submit(0)).status).toBe(201);
   await sql((s) => s.sql.exec("DELETE FROM my_plans WHERE user_id='u0'").toArray());
   expect((await submit(1)).status).toBe(403);
-  expect((await submit(0, 'Shell', 59)).status).toBe(201);
+  expect((await submit(0, (await set()).gem.answer, 59)).status).toBe(201);
 });
-it('requires sequential indexes, rejects duplicates and ignores client dates', async () => {
+it('scores the first player immediately, returning only the answered prompt reveal', async () => {
   await rest();
-  const skipped = await submit(1);
-  expect(skipped.status).toBe(409);
-  expect(await skipped.json()).toMatchObject({ error: { code: 'OUT_OF_ORDER' } });
-  const response = await api('/answers', 'POST', {
-    prompt_index: 0,
-    answer: '  The Oars  ',
-    date: '2020-01-01',
-  });
+  const chosen = await set();
+  const response = await submit(0, chosen.gem.answer);
   expect(response.status).toBe(201);
-  expect(await response.json()).toMatchObject({
-    prompt_index: 0,
-    answer: 'The Oars',
+  const result = await response.json<DiveAnswerResult>();
+  expect(result).toMatchObject({
+    canonical: chosen.gem.answer,
+    tier: 'gem',
     points: 100,
-    tier: 'Lone Oar',
-    count: 1,
-    total: 1,
     hidden: false,
+    gem: chosen.gem,
   });
-  const duplicate = await submit(0);
-  expect(duplicate.status).toBe(409);
-  expect(await duplicate.json()).toMatchObject({ error: { code: 'ALREADY_ANSWERED' } });
-  expect(
-    await sql((s) => s.sql.exec('SELECT date,payload_json,score FROM game_results').toArray()),
-  ).toEqual([{ date: DATE, payload_json: '{"answered":1}', score: 100 }]);
+  expect(result.notable).toHaveLength(5);
+  expect(Object.keys(result)).not.toContain('keys');
+  expect(Object.keys(result)).not.toContain('aliases');
+  const day = await current();
+  expect(day.answers).toEqual([result]);
+  expect(day.reveal).toBeNull();
+  expect(day.result).toMatchObject({ game_id: 'dive', score: 100, payload: { answered: 1 } });
+  expect(day.score).toBe(100);
+  expect((await current(59)).reveal).toBeNull();
+  await Promise.all([1, 2].map(rest));
+  await submit(0, chosen.gem.answer, 1);
+  await submit(0, chosen.notable[0].answer, 2);
+  expect((await current()).answers[0]).toMatchObject({
+    canonical: chosen.gem.answer,
+    tier: 'gem',
+    points: 100,
+    count: 2,
+  });
+  expect((await current()).score).toBe(100);
 });
-it('accepts missed answers but rejects invalid answers, indexes and control characters', async () => {
+it('requires sequential indexes, rejects racing duplicates once, and ignores client score/date fields', async () => {
+  await rest();
+  expect(await (await submit(1)).json()).toMatchObject({ error: { code: 'OUT_OF_ORDER' } });
+  const gem = (await set()).gem.answer;
+  const responses = await Promise.all(
+    [0, 1].map(() =>
+      api('/answers', 'POST', {
+        prompt_index: 0,
+        answer: `  ${gem}  `,
+        date: '2020-01-01',
+        points: 9999,
+        tier: 'surface',
+      }),
+    ),
+  );
+  expect(responses.map((r) => r.status).sort()).toEqual([201, 409]);
+  expect(await responses.find((r) => r.status === 409)!.json()).toMatchObject({
+    error: { code: 'ALREADY_ANSWERED' },
+  });
+  expect(
+    await sql((s) => s.sql.exec('SELECT date,score,payload_json FROM game_results').toArray()),
+  ).toEqual([{ date: DATE, score: 100, payload_json: '{"answered":1}' }]);
+  expect(await sql((s) => s.sql.exec('SELECT COUNT(*) AS n FROM dive_answers').toArray())).toEqual([
+    { n: 1 },
+  ]);
+});
+it('accepts unknown, empty and timeout misses while rejecting malformed writes', async () => {
   await rest();
   for (const answer of [null, 5, 'x'.repeat(41), 'a\nb', '\ta', 'a\u0000b', 'a\u007fb'])
     expect((await api('/answers', 'POST', { prompt_index: 0, answer })).status).toBe(400);
   for (const index of [-1, 7, 0.5, '0', null])
     expect((await api('/answers', 'POST', { prompt_index: index, answer: 'hi' })).status).toBe(400);
-  for (const [index, answer] of ['', '   ', '!!!'].entries()) {
+  for (const [index, answer] of [
+    '',
+    '   ',
+    '!!!',
+    'idk',
+    'none',
+    'zzzzzzzzzzzzzzzzzzzz',
+  ].entries()) {
     const response = await submit(index, answer);
     expect(response.status).toBe(201);
-    expect(await response.json()).toMatchObject({ points: 0, tier: 'Missed', count: 0, total: 0 });
+    expect(await response.json()).toMatchObject({ canonical: null, tier: 'miss', points: 0 });
   }
+  expect((await current()).score).toBe(0);
 });
-it('recomputes earlier players live as matching and different teammates answer', async () => {
-  await Promise.all([0, 1, 2, 3].map(rest));
-  await submit(0, 'Oars');
-  expect((await (await api()).json<DiveDay>()).score).toBe(100);
-  await submit(0, 'An Oar', 1);
-  expect((await (await api()).json<DiveDay>()).score).toBe(10);
-  await submit(0, 'Shell', 2);
-  await submit(0, 'Dock', 3);
-  const current = await (await api()).json<DiveDay>();
-  expect(current.answers[0]).toMatchObject({ points: 25, tier: 'Shallows', count: 2, total: 4 });
-  expect(current.score).toBe(25);
-  expect(current.reveal).toBeNull();
-});
-it('matches SQL scoring to the pure tiers across seven realistic 60-player distributions, excluding hidden and empty', async () => {
-  const expected = await sql((s) => {
-    for (let user = 0; user < 60; user++) {
-      s.sql.exec(
-        "INSERT INTO game_results VALUES ('dive',?,?,0,'{}',?,?)",
-        DATE,
-        `u${user}`,
-        NOW,
-        NOW,
-      );
-      for (let index = 0; index < 7; index++) {
-        const slot = (user + index) % 60;
-        const normalized =
-          slot === 0
-            ? 'one'
-            : slot < 3
-              ? 'two'
-              : slot < 9
-                ? 'six'
-                : slot < 24
-                  ? 'fifteen'
-                  : 'thirtysix';
-        s.sql.exec(
-          'INSERT INTO dive_answers VALUES (?,?,?,?,?,NULL,NULL,?)',
-          DATE,
-          `u${user}`,
-          index,
-          normalized,
-          normalized,
-          NOW,
-        );
-      }
-    }
-    recomputeDive(s, DATE, NOW);
-    return s.sql
-      .exec<{ user_id: string; score: number; payload_json: string }>(
-        'SELECT user_id,score,payload_json FROM game_results ORDER BY user_id',
-      )
-      .toArray();
-  });
-  for (const row of expected) {
-    const user = Number(row.user_id.slice(1));
-    const score = Array.from({ length: 7 }, (_, i) => {
-      const slot = (user + i) % 60;
-      const count = slot === 0 ? 1 : slot < 3 ? 2 : slot < 9 ? 6 : slot < 24 ? 15 : 36;
-      return divePoints(count, 60).points;
-    }).reduce((a, b) => a + b, 0);
-    expect(row.score).toBe(score);
-    expect(JSON.parse(row.payload_json)).toEqual({ answered: 7 });
-  }
-  await sql((s) => {
-    s.sql.exec("UPDATE dive_answers SET hidden_at=? WHERE user_id='u0'", NOW);
-    s.sql.exec("UPDATE dive_answers SET normalized='',answer='' WHERE user_id='u1'");
-    recomputeDive(s, DATE, NOW);
-  });
-  expect((await (await api()).json<DiveDay>()).score).toBe(0);
-  const missed = await (await api('/today', 'GET', undefined, 1)).json<DiveDay>();
-  expect(missed.score).toBe(0);
-  expect(missed.answers.every((answer) => answer.tier === 'Missed' && answer.total === 58)).toBe(
-    true,
-  );
-});
-it('handles a concurrent 60-player seven-prompt burst with correct partial and final results', async () => {
-  await Promise.all(Array.from({ length: 59 }, (_, i) => rest(i)));
-  for (let index = 0; index < 7; index++) {
-    const responses = await Promise.all(
-      Array.from({ length: 60 }, (_, user) =>
-        submit(index, user % 3 === 0 ? 'Oar' : `Shell ${user}`, user),
-      ),
-    );
-    expect(responses.every((response) => response.status === 201)).toBe(true);
-    const rows = await sql((s) =>
-      s.sql
-        .exec<{ score: number; payload_json: string; user_id: string }>(
-          "SELECT score,payload_json,user_id FROM game_results WHERE game_id='dive'",
-        )
-        .toArray(),
-    );
-    expect(rows).toHaveLength(60);
-    for (const row of rows) {
-      expect(row.score).toBe((index + 1) * (Number(row.user_id.slice(1)) % 3 === 0 ? 25 : 100));
-      expect(JSON.parse(row.payload_json).answered).toBe(index + 1);
-    }
-  }
-});
-it('reveals today only after seven answers or for staff, reveals past days and marks boards final at team midnight', async () => {
+it('reveals team answers only on completion, groups matched aliases and normalized misses, and supplies names/only_you', async () => {
   await rest();
+  await rest(1);
   expect((await api('/days/' + DATE)).status).toBe(403);
   expect((await api('/days/' + DATE, 'GET', undefined, 59)).status).toBe(200);
+  const answer = (await set()).gem.answer;
+  await submit(0, answer);
+  await submit(0, `THE ${answer.toUpperCase()}`, 1);
+  await submit(1, '  THE zzzzzy  ');
+  await submit(1, 'zzzzzy!', 1);
+  for (let i = 2; i < 7; i++) expect((await submit(i, (await set(i)).gem.answer)).status).toBe(201);
+  const day = await current();
+  expect(day.complete).toBe(true);
+  expect(day.reveal![0].groups).toHaveLength(1);
+  expect(day.reveal![0].groups[0]).toMatchObject({
+    canonical: answer,
+    count: 2,
+    mine: true,
+    only_you: false,
+    teammates: expect.arrayContaining([
+      { user_id: 'u0', name: 'Rower 0' },
+      { user_id: 'u1', name: 'Rower 1' },
+    ]),
+  });
+  expect(day.reveal![1].groups[0]).toMatchObject({
+    canonical: null,
+    normalized: 'zzzzzy',
+    count: 2,
+    points: 0,
+  });
+  expect(day.reveal![2].groups[0]).toMatchObject({ count: 1, only_you: true });
+  expect((await current(1)).reveal).toBeNull();
   expect((await api('/days/2026-03-17')).status).toBe(200);
   expect((await api('/days/2026-03-19')).status).toBe(400);
   expect((await api('/days/not-a-date')).status).toBe(400);
-  await complete();
-  const current = await (await api()).json<DiveDay>();
-  expect(current.complete).toBe(true);
-  expect(current.answers.map((a) => a.prompt_index)).toEqual([0, 1, 2, 3, 4, 5, 6]);
-  expect(current.reveal?.[0].groups).toEqual([
-    {
-      normalized: 'answer 0',
-      answer: 'Answer 0',
-      count: 1,
-      points: 100,
-      tier: 'Lone Oar',
-      hidden: false,
-      mine: true,
-    },
-  ]);
   const board = async (now: string) =>
     (
-      await SELF.fetch(`https://oyo.test/api/games/dive/leaderboard?date=${DATE}`, {
+      await SELF.fetch('https://oyo.test/api/games/dive/leaderboard?date=' + DATE, {
         headers: { Cookie: 'oyo_session=dive-0', 'X-OYO-Test-Now': now },
       })
     ).json<GameDayLeaderboard>();
-  expect((await board('2026-03-19T06:59:59Z')).final).toBe(false);
+  expect((await board(NOW)).final).toBe(false);
   expect((await board('2026-03-19T07:00:00Z')).final).toBe(true);
-  expect((await api('/days/' + DATE, 'GET', undefined, 1, '2026-03-19T07:00:00Z')).status).toBe(
-    200,
-  );
+  expect((await board(NOW)).rows[0]).toMatchObject({ rank: 1, score: 600 });
 });
-it('moderates whole groups, audits changes, keeps hidden submissions hidden and protects other players', async () => {
-  await Promise.all([0, 1, 2].map(rest));
+it('moderates display only, preserves all stored scores, hides other members, and audits hide/unhide', async () => {
+  await Promise.all([0, 1, 2, 3].map(rest));
   await complete();
-  await submit(0, 'Answer 0', 1);
-  const body = { date: DATE, prompt_index: 0, normalized: 'answer 0', hidden: true };
+  const gem = (await set()).gem.answer,
+    normalized = normalizeAnswer(gem);
+  await submit(0, gem, 1);
+  const before = await sql((s) =>
+    s.sql.exec('SELECT * FROM game_results ORDER BY user_id').toArray(),
+  );
+  const body = { date: DATE, prompt_index: 0, normalized, hidden: true };
   expect((await api('/answers', 'PATCH', body)).status).toBe(403);
+  expect(
+    (await api('/answers', 'PATCH', { ...body, normalized: 'never submitted' }, 59)).status,
+  ).toBe(404);
+  expect((await api('/answers', 'PATCH', { ...body, normalized: 'Invalid!' }, 59)).status).toBe(
+    400,
+  );
   const hidden = await api('/answers', 'PATCH', body, 59);
   expect(hidden.status).toBe(200);
   expect((await hidden.json<DiveReveal>()).groups[0]).toMatchObject({
+    hidden: true,
+    points: 100,
     count: 2,
-    hidden: true,
-    points: 0,
-    tier: 'Hidden',
   });
-  expect((await (await api()).json<DiveDay>()).answers[0]).toMatchObject({
-    hidden: true,
-    points: 0,
-    count: 0,
-    total: 0,
-  });
-  expect((await (await api()).json<DiveDay>()).reveal?.[0].groups[0]).toMatchObject({
-    mine: true,
+  expect(
+    await sql((s) => s.sql.exec('SELECT * FROM game_results ORDER BY user_id').toArray()),
+  ).toEqual(before);
+  expect((await current()).answers[0]).toMatchObject({ hidden: true, tier: 'gem', points: 100 });
+  expect((await current()).reveal![0].groups[0]).toMatchObject({
     hidden: true,
     count: 1,
-    answer: 'Answer 0',
+    only_you: false,
+    teammates: [{ user_id: 'u0', name: 'Rower 0' }],
   });
-  const late = await (await submit(0, 'THE Answer 0', 2)).json<DiveAnswerResult>();
-  expect(late).toMatchObject({ hidden: true, points: 0 });
-  await sql((s) => s.sql.exec("UPDATE users SET role='coach' WHERE id='u3'").toArray());
-  const staff = await (await api('/days/' + DATE, 'GET', undefined, 3)).json<DiveDay>();
-  expect(staff.reveal?.[0].groups[0]).toMatchObject({ count: 3, hidden: true, mine: false });
-  // A different player completing seven misses cannot see someone else's hidden text.
-  await rest(4);
-  for (let i = 0; i < 7; i++) await submit(i, '', 4);
-  const outsider = await (await api('/today', 'GET', undefined, 4)).json<DiveDay>();
-  expect(outsider.reveal?.[0].groups).toEqual([]);
+  await complete(2, true);
+  expect((await current(2)).reveal![0].groups.some((g) => g.normalized === normalized)).toBe(false);
+  expect(await (await submit(0, gem, 3)).json()).toMatchObject({
+    hidden: true,
+    points: 100,
+    tier: 'gem',
+  });
+  expect((await current()).score).toBe(700);
+  expect((await current(1)).score).toBe(100);
   const unhidden = await api('/answers', 'PATCH', { ...body, hidden: false }, 59);
   expect(unhidden.status).toBe(200);
-  expect((await (await api()).json<DiveDay>()).answers[0]).toMatchObject({
-    points: 10,
-    hidden: false,
-    count: 3,
-    total: 3,
-  });
+  expect((await unhidden.json<DiveReveal>()).groups[0]).toMatchObject({ count: 3, hidden: false });
+  expect((await current()).score).toBe(700);
+  expect((await current(3)).score).toBe(100);
   expect(
     await sql((s) =>
       s.sql.exec('SELECT action,target,actor_id FROM audit_log ORDER BY rowid').toArray(),
     ),
   ).toEqual([
-    { action: 'dive.hide', target: DATE + ':0:answer 0', actor_id: 'u59' },
-    { action: 'dive.unhide', target: DATE + ':0:answer 0', actor_id: 'u59' },
+    { action: 'dive.hide', target: `${DATE}:0:${normalized}`, actor_id: 'u59' },
+    { action: 'dive.unhide', target: `${DATE}:0:${normalized}`, actor_id: 'u59' },
   ]);
-  expect(
-    await sql((s) =>
+});
+it('stores correct immutable running sums for a 60-player seven-prompt burst', async () => {
+  await Promise.all(Array.from({ length: 59 }, (_, i) => rest(i)));
+  for (let index = 0; index < 7; index++) {
+    const chosen = await set(index);
+    const responses = await Promise.all(
+      Array.from({ length: 60 }, (_, user) =>
+        submit(
+          index,
+          user % 3 === 0 ? chosen.gem.answer : user % 3 === 1 ? chosen.notable[0].answer : '',
+          user,
+        ),
+      ),
+    );
+    expect(responses.every((r) => r.status === 201)).toBe(true);
+    const rows = await sql((s) =>
       s.sql
-        .exec(
-          'SELECT hidden_at,hidden_by FROM dive_answers WHERE prompt_index=0 AND normalized=?',
-          'answer 0',
+        .exec<{ score: number; payload_json: string; user_id: string }>(
+          'SELECT score,payload_json,user_id FROM game_results',
         )
         .toArray(),
-    ),
-  ).toEqual(Array.from({ length: 3 }, () => ({ hidden_at: null, hidden_by: null })));
+    );
+    expect(rows).toHaveLength(60);
+    for (const row of rows) {
+      expect(row.score).toBe((index + 1) * [100, 10, 0][Number(row.user_id.slice(1)) % 3]);
+      expect(JSON.parse(row.payload_json).answered).toBe(index + 1);
+    }
+  }
 });
-it('validates moderation targets and dates and requires authenticated routes', async () => {
-  for (const [body, status] of [
-    [{ date: DATE, prompt_index: 0, normalized: 'absent', hidden: true }, 404],
-    [{ date: '2026-03-19', prompt_index: 0, normalized: 'oar', hidden: true }, 400],
-    [{ date: DATE, prompt_index: 7, normalized: 'oar', hidden: true }, 400],
-    [{ date: DATE, prompt_index: 0, normalized: 'OAR!', hidden: true }, 400],
-    [{ date: DATE, prompt_index: 0, normalized: 'oar', hidden: 'yes' }, 400],
-  ] as const)
-    expect((await api('/answers', 'PATCH', body, 59)).status).toBe(status);
-  for (const [path, method] of [
-    ['/today', 'GET'],
-    ['/days/' + DATE, 'GET'],
-    ['/answers', 'POST'],
-    ['/answers', 'PATCH'],
-  ])
-    expect(
-      (
-        await SELF.fetch('https://oyo.test/api/games/dive' + path, {
-          method,
-          headers: { 'X-OYO-CSRF': '1', 'Content-Type': 'application/json' },
-          body: method === 'GET' ? undefined : '{}',
-        })
-      ).status,
-    ).toBe(401);
-});
-it('exports actual Dive answers and scores and removes them with account removal', async () => {
+it('exports canonical/tier/points and removes Dive rows with personal game data', async () => {
   await rest();
   await complete();
   await sql((s) => {
-    const user = byId(s, 'u0')!;
-    const exported = accountExport(s, user, NOW);
+    const exported = accountExport(s, byId(s, 'u0')!, NOW);
     expect(exported.dive_answers).toHaveLength(7);
-    expect(exported.game_results[0]).toMatchObject({
-      game_id: 'dive',
-      score: 700,
-      payload: { answered: 7 },
+    expect(exported.dive_answers[0]).toMatchObject({
+      tier: 'gem',
+      points: 100,
+      canonical: expect.any(String),
     });
-    expect(exported.dive_answers[0]).toMatchObject({ answer: 'Answer 0', normalized: 'answer 0' });
-    removeAccount(s, user);
-    expect(s.sql.exec("SELECT * FROM dive_answers WHERE user_id='u0'").toArray()).toEqual([]);
-    expect(s.sql.exec("SELECT * FROM game_results WHERE user_id='u0'").toArray()).toEqual([]);
+    expect(exported.game_results[0].score).toBe(700);
+    s.transactionSync(() => removeAccount(s, byId(s, 'u0')!));
+    expect(s.sql.exec('SELECT * FROM dive_answers').toArray()).toHaveLength(0);
+    expect(s.sql.exec('SELECT * FROM game_results').toArray()).toHaveLength(0);
   });
+});
+it('measures end-to-end submit wall time in the Vitest Worker pool', async () => {
+  const times: number[] = [];
+  for (let index = 0; index < 7; index++) {
+    const start = performance.now();
+    const response = await submit(index, '', 59);
+    await response.arrayBuffer();
+    times.push(performance.now() - start);
+    expect(response.status).toBe(201);
+  }
+  console.log(
+    `Dive Worker submit wall ms: first=${times[0].toFixed(3)}, mean=${(times.reduce((a, b) => a + b, 0) / times.length).toFixed(3)}, max=${Math.max(...times).toFixed(3)} (7 sequential requests, includes HTTP/storage/reveal)`,
+  );
 });

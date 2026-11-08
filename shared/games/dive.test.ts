@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { divePoints, normalizeAnswer } from './dive';
+import { DIVE_TIERS, diveVerdict, normalizeAnswer } from './dive';
 
 it.each([
   ['  THE   Red OARS  ', 'red oar'],
@@ -28,23 +28,31 @@ it.each([
   ['Oars Races', 'oars race'],
 ])('normalizes %j to %j', (raw, expected) => expect(normalizeAnswer(raw)).toBe(expected));
 
-it.each([
-  [1, 60, 100, 'Lone Oar'],
-  [2, 60, 75, 'Deep Water'],
-  [6, 60, 75, 'Deep Water'],
-  [7, 60, 50, 'Mid Lake'],
-  [15, 60, 50, 'Mid Lake'],
-  [16, 60, 25, 'Shallows'],
-  [30, 60, 25, 'Shallows'],
-  [31, 60, 10, 'Surface'],
-  [60, 60, 10, 'Surface'],
-  [0, 60, 0, 'Missed'],
-  [0, 0, 0, 'Missed'],
-])('scores %i of %i as %i %s', (count, total, points, tier) =>
-  expect(divePoints(count, total)).toEqual({ points, tier }),
-);
-
-it('prioritizes hidden over rarity and missed', () => {
-  expect(divePoints(1, 60, true)).toEqual({ points: 0, tier: 'Hidden' });
-  expect(divePoints(0, 0, true)).toEqual({ points: 0, tier: 'Hidden' });
+it('defines curated, crowd-independent points and spoiler-free share glyphs', () => {
+  expect(Object.values(DIVE_TIERS).map(({ points }) => points)).toEqual([
+    10, 15, 30, 60, 85, 100, 0,
+  ]);
+  expect(Object.values(DIVE_TIERS).map(({ emoji }) => emoji)).toEqual([
+    '🫧',
+    '🤡',
+    '🐟',
+    '🦑',
+    '🐙',
+    '🦪',
+    '⬛',
+  ]);
 });
+it.each([
+  [0, 'High And Dry'],
+  [1, 'Toe Dipper'],
+  [149, 'Toe Dipper'],
+  [150, 'Getting Wet'],
+  [299, 'Getting Wet'],
+  [300, 'Open Water'],
+  [449, 'Open Water'],
+  [450, 'Deep Diver'],
+  [599, 'Deep Diver'],
+  [600, 'Abyss Explorer'],
+  [699, 'Abyss Explorer'],
+  [700, 'Pearl Collector'],
+])('gives %i a verdict of %s', (score, verdict) => expect(diveVerdict(score)).toBe(verdict));

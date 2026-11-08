@@ -19,13 +19,18 @@ function day(): DiveDay {
     access: { date: '2026-11-07', unlocked: true, reason: 'workout' },
     complete: true,
     score: 310,
+    verdict: 'Open Water',
+    result: null,
     prompts: ['Name a flower.'],
     answers: [
       {
         prompt_index: 0,
         answer: 'Orchid',
         points: 100,
-        tier: 'Lone Oar',
+        tier: 'gem',
+        canonical: 'Orchid',
+        gem: { answer: 'Orchid', tier: 'gem', points: 100 },
+        notable: [],
         count: 1,
         total: 9,
         hidden: false,
@@ -40,7 +45,10 @@ function day(): DiveDay {
             normalized: 'orchid',
             answer: 'Orchid',
             points: 100,
-            tier: 'Lone Oar',
+            tier: 'gem',
+            canonical: 'Orchid',
+            teammates: [{ user_id: 'u1', name: 'Rower One' }],
+            only_you: true,
             count: 1,
             hidden: false,
             mine: true,
@@ -80,7 +88,7 @@ afterEach(() => {
 });
 it('copies only the date and depth, never answer spoilers', async () => {
   mount();
-  expect(screen.getByText('Orchid · Lone Oar')).toBeTruthy();
+  expect(screen.getByText('Orchid · gem')).toBeTruthy();
   expect(screen.queryByRole('button', { name: 'Hide Orchid' })).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
   expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
