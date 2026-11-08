@@ -23,7 +23,7 @@ This is the prototype direction. It is implemented as a token layer in `web/src/
 
 | Token              | Light                                                     | Dark                      |
 | ------------------ | --------------------------------------------------------- | ------------------------- |
-| `--bg`             | `#F5F3F0` warm paper                                      | `#0E0D0D`                 |
+| `--bg`             | `#F5F3F0` warm paper (also the light `theme-color`)       | `#0E0D0D` (dark one)      |
 | `--surface`        | `#FFFFFF`                                                 | `#181616`                 |
 | `--surface-2`      | `#EFECE8`                                                 | `#242120`                 |
 | `--text`           | `#1C1A19`                                                 | `#F5F2EF`                 |
@@ -86,12 +86,13 @@ or idle motion; exits are faster than arrivals; one entrance per session.
 
 Reduced motion: no travel, scale or drawing; tickers and rings jump to final values; bursts and ripples are not
 rendered; overlays and tab changes keep a 120 ms opacity fade so cause and effect stay legible; the splash is a
-static mark with a 120 ms fade.
+static mark with a 120 ms fade (no handoff).
 
 ## Motion Thesis
 
-- **Focal moment.** Home's Week Hero on the first view of a session: the E-meter total counts up, the ring
-  sweeps from empty and the day columns rise left to right, all starting as the splash curtain lifts.
+- **Focal moment.** Launch into Home's Week Hero: the cardinal splash contracts into the hero card, and as
+  the card is revealed its E-meter total counts up, the ring sweeps from empty and the day columns rise
+  left to right. Elsewhere the splash lifts as a curtain and the first screen rises once.
 - **Continuity.** Tab changes use View Transitions: the old screen fades out in 90 ms and the new one arrives
   from the direction of the chosen tab (16 px, 260 ms). The selection pill springs between tabs. Large titles
   fold away on scroll (scroll-driven animation) while the compact title fades into the frosted bar.
@@ -105,10 +106,27 @@ static mark with a 120 ms fade.
 
 ## Signature Interactions
 
-1. **Launch: "First Stroke".** Full-bleed cardinal. The Gabriel mark springs in while its ring draws; three
-   ripples spread from it like an oar's puddle; the OYO letters rise in sequence, a wake line draws under them
-   and Stanford Rowing fades in; then the sheet lifts away like a curtain to reveal Home. ~1.3 s total, tap or
-   any key skips, pure inline CSS (0 kB JS). Entrance motion waits for the curtain.
+1. **Launch: "First Stroke", then the painted handoff.** Full-bleed cardinal. The Gabriel mark springs in on
+   the optical center (50% − 24 px) while its ring draws; three ripples spread from it like an oar's puddle;
+   the OYO letters (weight 500) rise in sequence, a wake line draws under them and Stanford Rowing fades in.
+   Pure inline CSS, painted before any JS. The splash holds at least 900 ms from first paint and until auth
+   settles, then leaves one of three ways. Interactivity returns at the same moment on every path: `#root`
+   loses `inert` and the splash ignores pointers from its first exit frame.
+   - **Handoff (landing on Home).** If Home's Week Hero has rendered and sits wholly on screen, the sheet
+     becomes the hero: its `clip-path` contracts from the viewport to the hero's box with the hero's 24 px
+     radius (480 ms, `cubic-bezier(0.2, 0.8, 0.2, 1)`), the mark and ripples drop back (scale 0.92, fade,
+     ~200 ms), the hero's own tonal gradient settles in at exactly that box, and from 280 ms the cover fades
+     (200 ms) to reveal the live card. `html.launch-handoff` holds the hero's ticker, ring and day columns
+     until that reveal, so the numbers count up as the card appears; `html[data-handoff]` skips the hero's
+     own rise, because it is the destination. Home's hero queries are warmed alongside the intro check so
+     the hero is ready more often. `splash.ts` measures, `index.html` owns the CSS.
+   - **Curtain (fallback).** Any other landing route, a hero not yet rendered or not fully visible, or a tap
+     or key to skip: the sheet lifts away (380 ms) and the first screen rises in one staggered stroke.
+   - **Reduced motion.** The static mark and a 120 ms fade, whatever the route.
+
+   Transform, opacity and clip-path only. Browser chrome stays cardinal while the splash covers the page,
+   then matches the paper (`#F5F3F0` light, `#0E0D0D` dark).
+
 2. **Home Week Hero.** The one bright element on Home: a tonal cardinal card with the E-meter total, a white
    progress ring and a Mon–Sun column strip (today outlined). Streak and To Go chips sit underneath.
 3. **Number Tickers.** Hero figures (Home volume, Me season tiles, save celebration) count up on the first view
@@ -121,8 +139,12 @@ static mark with a 120 ms fade.
    water ripples at the touch point.
 7. **Session Saved Moment.** After saving, a cardinal card springs in over Home with a drawn check, ripples, the
    E-meters ticking up and the weekly bar filling from the old to the new percent; auto-dismisses in ~1.9 s,
-   tap or Escape closes it.
-8. **Podium Rise.** Bronze, silver, then gold rise into place, with metal rank badges and medal-tinted cards.
+   tap or Escape closes it. It is a visual moment only (`aria-hidden`): the "Session saved" toast announces
+   the save and the Home celebration card announces any achievement, so each is heard once. That card's
+   five-second timer and its pop wait until the overlay lifts.
+8. **Podium Rise.** Bronze, silver, then gold rise into place. Cards sit on their solid medal fill (or the
+   cardinal "You" selection) with a medal hairline on top; rank badges are polished metal over a solid
+   mid-tone. Every podium text holds at least 4.5:1 in light and dark, badges included at their darkest stop.
 9. **Me Profile.** Ringed avatar, three stat tiles (Season Meters, Week Streak, Top Week) that tick up, weekly
    columns and the season line drawing in.
 
