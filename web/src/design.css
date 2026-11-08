@@ -142,7 +142,8 @@
  */
 .ui-button,
 .ui-action-card,
-.drive-hero {
+.drive-hero,
+.podium-card {
   transition:
     background-color var(--dur-feedback) var(--ease-out),
     color var(--dur-feedback) var(--ease-out),
@@ -158,7 +159,8 @@
   transition-timing-function: var(--ease-out);
 }
 .ui-action-card:active,
-.drive-hero:active {
+.drive-hero:active,
+.podium-card:active {
   transform: scale(0.985);
   transition-duration: var(--dur-press);
   transition-timing-function: var(--ease-out);
@@ -636,14 +638,20 @@
   }
 }
 
-/* Podium: bronze, then silver, then gold rise into place */
+/*
+ * Podium: bronze, then silver, then gold rise into place. Cards sit on their solid medal
+ * fill (so every line of text is measured against one known color), and the rank badge is
+ * polished metal whose darkest stop still holds 4.5:1 against its ink.
+ */
 .podium-card {
   position: relative;
   overflow: hidden;
   border: 0;
   border-radius: var(--radius-card);
-  background: linear-gradient(180deg, var(--medal-fill, var(--surface)), var(--surface) 78%);
-  box-shadow: var(--shadow-card);
+  background-color: var(--medal-fill, var(--surface));
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--medal-ink, var(--divider)) 45%, transparent),
+    var(--shadow-card);
   animation: podium-rise var(--dur-focal) var(--spring) backwards;
 }
 .podium-card[data-medal='silver'] {
@@ -653,26 +661,31 @@
   animation-delay: 180ms;
 }
 .podium-card.is-me {
-  background: linear-gradient(180deg, var(--oyo-selected), var(--surface) 78%);
+  background-color: var(--oyo-selected);
 }
 .podium-rank {
   border: 0;
-  color: #2b1d00;
-  background: var(--medal-metal);
+  color: var(--medal-on-metal);
+  background-color: var(--medal-solid);
+  background-image: var(--medal-metal);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 55%),
     0 2px 6px -2px rgb(40 24 20 / 35%);
 }
 .podium-card[data-medal='gold'] .podium-rank {
+  --medal-on-metal: #2b1d00;
+  --medal-solid: #e2b84a;
   --medal-metal: linear-gradient(145deg, #fbe7a1, #e2b84a 55%, #b8891f);
 }
 .podium-card[data-medal='silver'] .podium-rank {
+  --medal-on-metal: #23262d;
+  --medal-solid: #c9ced8;
   --medal-metal: linear-gradient(145deg, #f4f6fa, #c9ced8 55%, #9aa1ae);
-  color: #23262d;
 }
 .podium-card[data-medal='bronze'] .podium-rank {
-  --medal-metal: linear-gradient(145deg, #f6d2b4, #d39466 55%, #a5653c);
-  color: #2e1606;
+  --medal-on-metal: #2e1606;
+  --medal-solid: #d9a074;
+  --medal-metal: linear-gradient(145deg, #f6d2b4, #d9a074 55%, #bd7d4f);
 }
 .podium-card .ui-avatar {
   box-shadow:
@@ -874,6 +887,7 @@
   }
   .ui-button,
   .drive-hero,
+  .podium-card,
   .ui-action-card,
   .shell-tab svg,
   .shell-tabbar::before,
@@ -884,6 +898,7 @@
   .ui-button:active:not(:disabled),
   .ui-action-card:active,
   .drive-hero:active,
+  .podium-card:active,
   .shell-tab:active svg,
   .shell-log-tab:active > span:first-child {
     transform: none;
