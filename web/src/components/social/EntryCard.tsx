@@ -7,7 +7,6 @@ import { useKudos } from '../../lib/queries';
 import { ModalityIcon } from '../shell/ModalityIcon';
 import {
   formatDuration,
-  formatEMeters,
   formatShortDate,
   formatMeters,
   formatNumber,
@@ -19,6 +18,7 @@ import { HighlightBadge } from './HighlightBadge';
 import { PhotoCarousel } from './PhotoCarousel';
 import { WithTeammates } from './WithTeammates';
 import { useDoubleTap } from './useDoubleTap';
+import { KudosBurst } from './KudosBurst';
 
 export function EntryCard({
   entry,
@@ -103,29 +103,36 @@ export function EntryCard({
       }}
     >
       {burst && (
-        <Heart
+        <span
           aria-hidden="true"
-          size={72}
-          className="social-heart-burst"
+          className="social-heart-location"
           style={{ left: burst.x, top: burst.y }}
-        />
+        >
+          <Heart aria-hidden="true" size={72} className="social-heart-burst" />
+          <KudosBurst />
+        </span>
       )}
-      <div className="flex items-center gap-3" data-no-double-tap>
+      <div className="social-entry-header flex items-center gap-3" data-no-double-tap>
         <Avatar size="feed" name={entry.author.name} imageId={entry.author.avatar_image_id} />
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <Link
-            className="social-text-link inline-flex min-h-11 items-center text-headline"
+            className="social-text-link social-author-link text-headline"
+            aria-label={entry.author.name}
             to={`/users/${entry.user_id}`}
           >
-            {entry.author.name}
+            <span>{entry.author.name}</span>
+            <p className="text-caption text-muted">
+              {relativeTime(entry.created_at)}
+              {entry.date !== config?.today && ` · ${formatShortDate(entry.date)}`}
+            </p>
           </Link>
-          <p className="text-caption text-muted">
-            {relativeTime(entry.created_at)}
-            {entry.date !== config?.today && ` · ${formatShortDate(entry.date)}`}
-          </p>
         </div>
+        <span className="social-modality" aria-label={entry.modality}>
+          <ModalityIcon modality={entry.modality} />
+          <span className="sr-only capitalize">{entry.modality}</span>
+        </span>
       </div>
-      <h2 className="mt-4 text-title3">
+      <h2 className="text-title3">
         <Link
           className="social-text-link inline-flex min-h-11 items-center"
           to={`/entries/${entry.id}`}
@@ -133,14 +140,14 @@ export function EntryCard({
           {entry.title}
         </Link>
       </h2>
-      <div className="mt-2 mb-4 flex items-center gap-2 text-subhead">
-        <ModalityIcon modality={entry.modality} />
-        <span className="capitalize">{entry.modality}</span>
+      <div className="social-entry-figure">
+        <p className="text-title1 tabular-nums">
+          {formatNumber(entry.equiv_m)} <span className="social-entry-unit">E-meters</span>
+        </p>
         <ZoneChip zone={entry.zone} />
       </div>
-      <p className="text-title1 tabular-nums">{formatEMeters(entry.equiv_m)}</p>
       <HighlightBadge entry={entry} />
-      <dl className="my-4 grid grid-cols-3 gap-x-4 gap-y-3 sm:flex sm:flex-wrap sm:gap-x-6">
+      <dl className="social-entry-stats">
         {stats.map(([label, value]) => (
           <div key={label}>
             <dt className="text-caption text-muted">{label}</dt>
@@ -159,7 +166,7 @@ export function EntryCard({
         />
       )}
       {entry.notes && (
-        <div className="my-4">
+        <div>
           <p
             ref={notes}
             className={`whitespace-pre-wrap break-words text-callout ${expanded ? '' : 'line-clamp-3'}`}
@@ -174,7 +181,7 @@ export function EntryCard({
         </div>
       )}
       <WithTeammates users={entry.tagged} />
-      <footer className="mt-4 flex gap-2 border-t border-divider pt-2">
+      <footer className="social-entry-footer">
         <KudosButton entry={entry} />
         <Button
           variant="plain"

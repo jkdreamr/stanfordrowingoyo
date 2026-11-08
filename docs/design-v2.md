@@ -92,8 +92,8 @@ CSS-first, zero runtime dependency: springs are encoded with CSS `linear()` easi
 
 - [x] Foundation: tokens, springs, fonts, press/entrance utilities, glass tab bar (`web/src/design/`)
 - [x] Launch splash (index.html)
-- [ ] Home
-- [ ] Feed + kudos
+- [x] Home
+- [x] Feed + kudos
 - [ ] Log + Session Logged moment
 - [ ] Leaderboard podium
 - [ ] Me

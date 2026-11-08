@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { ApiImage } from './ApiImage';
 export function Avatar({
   name,
@@ -27,7 +27,7 @@ export function Avatar({
       role="img"
       aria-label={name}
       className={`ui-avatar ui-avatar-${size}`}
-      style={{ backgroundColor: `hsl(240 5% ${80 + (hash % 10)}%)` }}
+      style={{ '--avatar-hue': [205, 155, 265, 85, 185, 295][hash % 6] } as CSSProperties}
     >
       {src && failed !== src ? (
         <img src={src} alt="" onError={() => setFailed(src)} />

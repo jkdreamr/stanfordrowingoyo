@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import type { EntryDetail } from '../../../../shared/types';
 import { useKudos, useKudosGivers } from '../../lib/queries';
 import { Avatar, Button, EmptyState, ListGroup, Sheet, Skeleton, useToast } from '../ui';
+import { KudosBurst, RollingCount } from './KudosBurst';
 
 export function KudosButton({ entry }: { entry: EntryDetail }) {
   const mutation = useKudos();
@@ -13,7 +14,7 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
   const givers = useKudosGivers(entry.id, open);
   return (
     <>
-      <div className="flex items-center">
+      <div className="social-kudos-actions flex items-center" data-active={entry.has_kudos}>
         <Button
           variant="plain"
           aria-label="Kudos"
@@ -32,14 +33,17 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
             );
           }}
           leading={
-            <ThumbsUp
-              key={give}
-              className={give > 0 && entry.has_kudos ? 'social-kudos-give' : ''}
-              onAnimationEnd={() => setGive(0)}
-              size={20}
-              strokeWidth={1.75}
-              fill={entry.has_kudos ? 'currentColor' : 'none'}
-            />
+            <span className="kudos-icon">
+              <ThumbsUp
+                key={give}
+                className={give > 0 && entry.has_kudos ? 'social-kudos-give' : ''}
+                onAnimationEnd={() => setGive(0)}
+                size={20}
+                strokeWidth={1.75}
+                fill={entry.has_kudos ? 'currentColor' : 'none'}
+              />
+              {give > 0 && entry.has_kudos && <KudosBurst key={give} />}
+            </span>
           }
         >
           Kudos
@@ -54,7 +58,7 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
               setOpen(true);
             }}
           >
-            {entry.kudos_count}
+            <RollingCount value={entry.kudos_count} />
           </Button>
         ) : (
           <span className="inline-flex min-h-11 min-w-11 items-center justify-center text-muted tabular-nums">

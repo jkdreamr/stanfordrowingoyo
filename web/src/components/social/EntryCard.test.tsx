@@ -71,7 +71,7 @@ it('shows absolute backdated workout dates, neutral links and a detail comment c
   );
   expect(screen.getByText('just now · Thu, Nov 5')).toBeTruthy();
   const detailChipSpacing = screen.getByText('erg').parentElement?.className;
-  expect(detailChipSpacing).toContain('mt-2');
+  expect(detailChipSpacing).toContain('social-modality');
   expect(screen.getByRole('link', { name: 'Alex Kim' }).className).toContain('social-text-link');
   expect(screen.getByRole('link', { name: 'Steady Row' }).className).toContain('social-text-link');
   fireEvent.click(screen.getByRole('button', { name: 'Comment' }));

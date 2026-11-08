@@ -45,7 +45,10 @@ export default function Page() {
         }
       />
       <div className="screen-stack">
-        <PullToRefresh onRefresh={() => feed.refetch({ throwOnError: true })}>
+        <PullToRefresh
+          className="feed-refresh"
+          onRefresh={() => feed.refetch({ throwOnError: true })}
+        >
           {!entries ? (
             feed.isError ? (
               <LoadState error retry={() => void feed.refetch()} />
@@ -53,7 +56,7 @@ export default function Page() {
               <FeedSkeleton />
             )
           ) : entries.length ? (
-            <div className="space-y-4">
+            <div className="space-y-4 drive-stagger feed-cards">
               {entries.map((entry) => (
                 <EntryCard key={entry.id} entry={entry} config={config} />
               ))}

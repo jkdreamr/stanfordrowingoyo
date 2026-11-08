@@ -31,7 +31,7 @@ export function HighlightBadge({ entry }: { entry: EntryDetail }) {
   return (
     <span ref={ref}>
       {hit && (
-        <span className="inline-flex items-center gap-1 text-footnote text-highlight-ink">
+        <span className="social-highlight inline-flex items-center gap-1 text-footnote text-highlight-ink">
           <Target size={20} strokeWidth={1.75} aria-hidden="true" />
           Hit Weekly Target
         </span>

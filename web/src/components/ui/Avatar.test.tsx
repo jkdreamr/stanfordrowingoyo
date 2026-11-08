@@ -27,3 +27,12 @@ it('uses initials without requesting an image when no avatar is set', () => {
   expect(screen.getByRole('img', { name: 'Avery Example' }).textContent).toBe('AE');
   expect(view.container.querySelector('img')).toBeNull();
 });
+it('assigns a stable curated hue, including for an empty name', () => {
+  const view = render(<Avatar name="Avery Example" />);
+  const hue = (screen.getByRole('img') as HTMLElement).style.getPropertyValue('--avatar-hue');
+  expect(['205', '155', '265', '85', '185', '295']).toContain(hue);
+  view.rerender(<Avatar name="Avery Example" />);
+  expect((screen.getByRole('img') as HTMLElement).style.getPropertyValue('--avatar-hue')).toBe(hue);
+  view.rerender(<Avatar name="" />);
+  expect(screen.getByRole('img').textContent).toBe('?');
+});

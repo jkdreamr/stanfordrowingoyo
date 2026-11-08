@@ -60,10 +60,13 @@
       .splash-boat {
         animation: first-stroke-arrive 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
       }
+      .splash-surge {
+        animation: first-stroke-surge 310ms ease-in-out 100ms 2;
+      }
       .splash-oar {
         transform-box: fill-box;
         transform-origin: 100% 100%;
-        animation: first-stroke-oar 310ms cubic-bezier(0.3, 0, 0.2, 1) 100ms 2;
+        animation: first-stroke-oar 310ms ease-in-out 100ms 2;
       }
       .splash-wake {
         transform-origin: 100% 50%;
@@ -72,9 +75,9 @@
       }
       .splash-oar[d='M0 0L-22 31'] {
         transform-origin: 100% 0%;
+        animation-name: first-stroke-oar-port;
       }
       .splash-caption {
-        overflow: hidden;
         margin-top: 24px;
       }
       .splash-wordmark {
@@ -99,10 +102,28 @@
       @keyframes first-stroke-oar {
         0%,
         100% {
-          transform: rotate(-22deg);
+          transform: rotate(-28deg);
         }
-        65% {
-          transform: rotate(24deg);
+        40% {
+          transform: rotate(22deg);
+        }
+      }
+      @keyframes first-stroke-surge {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        40% {
+          transform: translateX(6px);
+        }
+      }
+      @keyframes first-stroke-oar-port {
+        0%,
+        100% {
+          transform: rotate(28deg);
+        }
+        40% {
+          transform: rotate(-22deg);
         }
       }
       @keyframes first-stroke-wake {
@@ -117,7 +138,7 @@
       }
       @keyframes first-stroke-word {
         from {
-          transform: translateY(110%);
+          transform: translateY(10px);
           opacity: 0;
         }
         to {
@@ -134,6 +155,7 @@
           opacity: 0;
         }
         .splash-boat,
+        .splash-surge,
         .splash-oar,
         .splash-wake,
         .splash-wordmark {
@@ -177,16 +199,18 @@
             <path d="M-52 41H45 M-68 48H36 M-44 55H45 M-25 62H32" />
           </g>
           <g class="splash-boat">
-            <path d="M12 48Q160 33 308 48Q160 63 12 48Z" />
-            <path d="M52 48H270" opacity=".45" />
-            <g transform="translate(80 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
-            <g transform="translate(100 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
-            <g transform="translate(120 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
-            <g transform="translate(140 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
-            <g transform="translate(160 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
-            <g transform="translate(180 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
-            <g transform="translate(200 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
-            <g transform="translate(220 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+            <g class="splash-surge">
+              <path d="M12 48Q160 33 308 48Q160 63 12 48Z" />
+              <path d="M52 48H270" opacity=".45" />
+              <g transform="translate(80 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+              <g transform="translate(100 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+              <g transform="translate(120 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+              <g transform="translate(140 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+              <g transform="translate(160 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+              <g transform="translate(180 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+              <g transform="translate(200 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+              <g transform="translate(220 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+            </g>
           </g>
         </svg>
         <div class="splash-caption"><span class="splash-wordmark">OYO</span></div>

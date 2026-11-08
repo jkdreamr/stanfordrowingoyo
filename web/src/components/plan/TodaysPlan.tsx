@@ -12,7 +12,7 @@ export function TodaysPlan({ today }: { today: string }) {
   const plan = query.data;
   if (!plan || !covers(plan, today))
     return (
-      <Card>
+      <Card className="home-todays-plan">
         <h2 className="mb-3 text-headline">Today's Plan</h2>
         {query.isError && (
           <div role="alert" className="mb-3">
@@ -38,7 +38,7 @@ export function TodaysPlan({ today }: { today: string }) {
     (row) => addDays(plan.start_date, (row.week - 1) * 7 + row.day) === today,
   );
   return (
-    <Card>
+    <Card className="home-todays-plan">
       <h2 className={rest || sessions.length ? 'mb-3 text-headline' : 'text-headline'}>
         <Link className="inline-flex min-h-11 items-center text-text" to="/plan?tab=mine">
           Today's Plan

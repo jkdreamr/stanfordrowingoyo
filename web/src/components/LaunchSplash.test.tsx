@@ -4,19 +4,26 @@ import splashHtml from '../../index.html?raw';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { act, cleanup, render } from '@testing-library/react';
 import { LaunchSplash } from './LaunchSplash';
-import { syncThemeColor } from '../lib/splash';
+import { dismissSplash, syncThemeColor } from '../lib/splash';
 
 const auth = vi.hoisted(() => ({
   isPending: true,
   data: undefined as object | null | undefined,
   error: null as Error | null,
 }));
-vi.mock('../lib/queries', () => ({ useMe: () => auth }));
+const warm = vi.hoisted(() => vi.fn());
+vi.mock('../lib/queries', () => ({
+  useMe: () => auth,
+  useConfig: () => warm('config'),
+  useWeekStats: () => warm('week'),
+  useTarget: () => warm('target'),
+}));
 beforeEach(() => {
   vi.useFakeTimers();
   auth.isPending = true;
   auth.data = undefined;
   auth.error = null;
+  warm.mockClear();
   vi.stubGlobal('matchMedia', vi.fn().mockReturnValue({ matches: false }));
   document.documentElement.className = 'launching';
   document.head.innerHTML = '<meta name="theme-color"><meta name="theme-color" media="dark">';
@@ -31,6 +38,53 @@ afterEach(() => {
   document.body.innerHTML = '';
 });
 const splash = () => document.getElementById('launch-splash');
+it('warms the Home queries as soon as authentication resolves, before Home mounts', () => {
+  auth.data = { id: 'rower' };
+  auth.isPending = false;
+  render(<LaunchSplash />);
+  expect(warm).toHaveBeenCalledWith('config');
+  expect(warm).toHaveBeenCalledWith('week');
+  expect(warm).toHaveBeenCalledWith('target');
+  expect(splash()?.classList.contains('is-leaving')).toBe(false);
+});
+it('does not restart the exit when a signed-in account refresh replaces its data', async () => {
+  auth.data = { id: 'rower' };
+  auth.isPending = false;
+  document.getElementById('root')!.innerHTML = '<div data-launch-ready></div>';
+  const view = render(<LaunchSplash />);
+  await advance(780);
+  expect(splash()?.classList.contains('is-leaving')).toBe(true);
+  auth.data = { id: 'rower', name: 'Updated Name' };
+  view.rerender(<LaunchSplash />);
+  await advance(520);
+  expect(splash()).toBeNull();
+});
+it('waits for Home to commit and paint before lifting, then releases its inert root', async () => {
+  const stop = dismissSplash({ waitForHome: true });
+  await advance(900);
+  expect(splash()?.classList.contains('is-leaving')).toBe(false);
+  const home = document.createElement('div');
+  home.setAttribute('data-launch-ready', '');
+  document.getElementById('root')!.append(home);
+  await advance(100);
+  expect(splash()?.classList.contains('is-leaving')).toBe(true);
+  expect(document.getElementById('root')?.hasAttribute('inert')).toBe(false);
+  await advance(520);
+  expect(splash()).toBeNull();
+  stop?.();
+});
+it('can reveal a Home error state and cancels a pending readiness observer', async () => {
+  const stop = dismissSplash({ waitForHome: true });
+  stop?.();
+  document.getElementById('root')!.innerHTML =
+    '<div class="ui-empty">Could Not Load Your Intro</div>';
+  await advance(1000);
+  expect(splash()?.classList.contains('is-leaving')).toBe(false);
+  const cleanup = dismissSplash({ waitForHome: true });
+  await advance(100);
+  expect(splash()?.classList.contains('is-leaving')).toBe(true);
+  cleanup?.();
+});
 it('allows a click to skip the inline splash before React or authentication is ready', () => {
   const parsed = new DOMParser().parseFromString(splashHtml, 'text/html');
   const script = [...parsed.querySelectorAll('script:not([type])')].at(-1)!;

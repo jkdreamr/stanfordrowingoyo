@@ -1,4 +1,6 @@
 import { Activity } from 'lucide-react';
+import { addDays } from '../../../shared/dates';
+import { Ticker } from '../design/Ticker';
 import { useAnnouncements, useConfig, useWeekStats, useTarget, useMe } from '../lib/queries';
 import {
   formatEMeters,
@@ -55,7 +57,7 @@ export default function Page() {
   }, [pending, user, week, finishKey]);
   if (!config || !week)
     return (
-      <>
+      <div data-launch-ready={configQuery.isError || weekQuery.isError ? '' : undefined}>
         <PageHeader title="This Week" trailing={<HeaderActions settings />} inline />
         <LoadState
           error={configQuery.isError || weekQuery.isError}
@@ -64,7 +66,7 @@ export default function Page() {
             void weekQuery.refetch();
           }}
         />
-      </>
+      </div>
     );
   const remaining = Math.max(0, week.target_m - week.total_m);
   const days = daysLeft(config.today, config.current_week_start);
@@ -86,145 +88,193 @@ export default function Page() {
     ).values(),
   ];
   return (
-    <>
-      <PageHeader title="This Week" trailing={<HeaderActions settings />} inline />
+    <div className="home-page" data-launch-ready="">
       <PullToRefresh
         label="Home"
         onRefresh={refresh}
-        className="screen-stack relative [&>.social-refresh-slot]:absolute [&>.social-refresh-slot]:inset-x-0 [&>.social-refresh-slot]:top-0"
+        className="home-layout relative [&>.social-refresh-slot]:absolute [&>.social-refresh-slot]:inset-x-0 [&>.social-refresh-slot]:top-0"
       >
-        {user && <Celebration key={user.id} user={user} />}
-        <InstallBanner />
-        {user && <LastWeekRecap user={user} config={config} />}
-        <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
-          <div className="flex justify-center">
-            <ProgressRing
-              size={168}
-              value={week.total_m}
-              previousValue={finish?.target === week.target_m ? finish.previous : undefined}
-              max={week.target_m}
-              label="Weekly Target"
-            >
-              <span className="text-large-title">{formatPercent(week.percent)}</span>
-              <span className="text-caption text-muted">of target</span>
-            </ProgressRing>
-          </div>
-          <p className="mt-5 text-center text-title3 tabular-nums">
-            {formatEMeters(week.total_m, true)} / {formatEMeters(week.target_m, true)}{' '}
-            <span className="text-footnote font-normal text-muted">E-meters</span>
-          </p>
-          <p className="mt-2 text-center text-subhead text-muted">
-            {week.hit_target ? (
-              <span className="target-hit inline-flex items-center gap-1">
-                <Check
-                  size={16}
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                  className={finish ? 'ui-finish-tick' : ''}
-                />
-                Target hit
-              </span>
-            ) : (
-              `${formatEMeters(remaining)} remaining`
-            )}{' '}
-            · {days === 1 ? 'Last day' : `${formatNumber(days)} days left`}
-          </p>
-          {finish && (
-            <span role="status" className="sr-only">
-              Weekly target hit
-            </span>
-          )}
-          <p className="mt-2 text-center text-caption text-muted">
-            {target?.source === 'personal' ? 'Personal Target' : 'Group Default'}
-          </p>
-        </ActionCard>
-        <TeamChallenges today={config.today} />
-        <TodaysPlan today={config.today} />
-        <ListGroup>
-          <ListRow title="Announcements" to="/announcements" />
-        </ListGroup>
-        {!week.hit_target && (
-          <Card>
-            <h2 className="text-headline">Finish This Week</h2>
-            <div className="mt-3">
-              {finishWeek(week.total_m, week.target_m, config).map((s) => (
-                <div key={s.modality} className="finish-row">
-                  <ModalityIcon modality={s.modality} />
-                  <span className="flex-1 capitalize">{s.modality}</span>
-                  <ZoneChip zone="E" />
-                  <span className="tabular-nums">{formatKm(s.distance)}</span>
-                </div>
-              ))}
-            </div>
-          </Card>
-        )}
-        <section>
-          <h2 className="mb-3 text-headline">Quick Log</h2>
-          <div className="quick-presets">
-            {quick.map((p) => (
-              <Button
-                key={p.id}
-                to={`/log?preset=${encodeURIComponent(p.id)}`}
-                variant="secondary"
-                leading={<ModalityIcon modality={p.modality} />}
+        <div className="screen-stack home-notices drive-stagger">
+          {user && <Celebration key={user.id} user={user} />}
+          <InstallBanner />
+          {user && <LastWeekRecap user={user} config={config} />}
+        </div>
+        <div className={`home-band ${week.hit_target ? 'home-hero-hit' : ''}`}>
+          <PageHeader title="This Week" trailing={<HeaderActions settings />} inline />
+          <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
+            <div className="flex justify-center">
+              <ProgressRing
+                size={176}
+                value={week.total_m}
+                previousValue={finish?.target === week.target_m ? finish.previous : undefined}
+                max={week.target_m}
+                label="Weekly Target"
               >
-                {p.name}
-              </Button>
-            ))}
-          </div>
-        </section>
-        <section>
-          <h2 className="mb-3 text-headline">This Week’s Sessions</h2>
-          {week.entries.length ? (
-            <ListGroup>
-              {week.entries.map((e) => (
-                <ListRow
-                  key={e.id}
-                  to={`/entries/${e.id}`}
-                  title={e.title}
-                  leading={<ModalityIcon modality={e.modality} />}
-                  subtitle={
-                    <span className="flex flex-wrap items-center gap-2">
-                      <ZoneChip zone={e.zone} />
-                      <span>
-                        {formatWeekday(e.date)} · {formatKm(e.distance_m)}
-                      </span>
-                    </span>
-                  }
-                  trailing={
-                    <span className="flex flex-col items-end gap-1">
-                      <span className="text-subhead text-text">{formatNumber(e.equiv_m)}</span>
-                      <span className="text-caption">E-meters</span>
-                    </span>
-                  }
-                />
-              ))}
-            </ListGroup>
-          ) : (
-            <EmptyState
-              icon={<Activity size={20} strokeWidth={1.75} />}
-              title="No Sessions Yet"
-              action={<Button to="/log">Log Workout</Button>}
-            />
+                <span className="home-percent">
+                  <Ticker value={week.percent} format={formatPercent} />
+                </span>
+                <span className="text-caption text-muted">of target</span>
+              </ProgressRing>
+            </div>
+            <p className="mt-5 text-center text-title3 tabular-nums">
+              {formatEMeters(week.total_m, true)} / {formatEMeters(week.target_m, true)}{' '}
+              <span className="text-footnote font-normal text-muted">E-meters</span>
+            </p>
+            <p className="mt-2 text-center text-subhead text-muted">
+              {week.hit_target ? (
+                <span className="target-hit inline-flex items-center gap-1">
+                  <Check
+                    size={16}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                    className={finish ? 'ui-finish-tick' : ''}
+                  />
+                  Target hit
+                </span>
+              ) : (
+                `${formatNumber(remaining)} remaining`
+              )}{' '}
+              · {days === 1 ? 'Last day' : `${formatNumber(days)} days left`}
+            </p>
+            {finish && (
+              <span role="status" className="sr-only">
+                Weekly target hit
+              </span>
+            )}
+            <p className="mt-2 text-center text-caption text-muted">
+              {target?.source === 'personal' ? 'Personal Target' : 'Group Default'}
+            </p>
+          </ActionCard>
+          <HomeDays
+            start={week.week_start}
+            today={config.today}
+            dates={week.entries.map((e) => e.date)}
+          />
+        </div>
+        <div className="screen-stack home-sheet drive-stagger">
+          <TeamChallenges today={config.today} />
+          <TodaysPlan today={config.today} />
+          <ListGroup>
+            <ListRow title="Announcements" to="/announcements" />
+          </ListGroup>
+          {!week.hit_target && (
+            <Card>
+              <h2 className="text-headline">Finish This Week</h2>
+              <div className="mt-3">
+                {finishWeek(week.total_m, week.target_m, config).map((s) => (
+                  <div key={s.modality} className="finish-row">
+                    <ModalityIcon modality={s.modality} />
+                    <span className="flex-1 capitalize">{s.modality}</span>
+                    <ZoneChip zone="E" />
+                    <span className="tabular-nums">{formatKm(s.distance)}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
           )}
-        </section>
-        {pinned.length > 0 && (
-          <section className="xl:hidden">
-            <h2 className="mb-3 text-headline">Pinned Announcements</h2>
-            <div className="space-y-4">
-              {pinned.map((a) => (
-                <Card key={a.id}>
-                  <h3 className="text-headline">{a.title}</h3>
-                  <p className="mt-2 text-subhead text-muted">{a.body}</p>
-                  <p className="mt-4 text-caption text-muted">
-                    {a.author.name} · {formatEntryDate(a.created_at.slice(0, 10), config.today)}
-                  </p>
-                </Card>
+          <section>
+            <h2 className="mb-3 text-headline">Quick Log</h2>
+            <div className="quick-presets">
+              {quick.map((p) => (
+                <Button
+                  key={p.id}
+                  to={`/log?preset=${encodeURIComponent(p.id)}`}
+                  variant="secondary"
+                  leading={<ModalityIcon modality={p.modality} />}
+                >
+                  {p.name}
+                </Button>
               ))}
             </div>
           </section>
-        )}
+          <section>
+            <h2 className="mb-3 text-headline">This Week’s Sessions</h2>
+            {week.entries.length ? (
+              <ListGroup>
+                {week.entries.map((e) => (
+                  <ListRow
+                    key={e.id}
+                    to={`/entries/${e.id}`}
+                    title={e.title}
+                    leading={<ModalityIcon modality={e.modality} />}
+                    subtitle={
+                      <span className="flex flex-wrap items-center gap-2">
+                        <ZoneChip zone={e.zone} />
+                        <span>
+                          {formatWeekday(e.date)} · {formatKm(e.distance_m)}
+                        </span>
+                      </span>
+                    }
+                    trailing={
+                      <span className="flex flex-col items-end gap-1">
+                        <span className="text-subhead text-text">{formatNumber(e.equiv_m)}</span>
+                        <span className="text-caption">E-meters</span>
+                      </span>
+                    }
+                  />
+                ))}
+              </ListGroup>
+            ) : (
+              <EmptyState
+                icon={<Activity size={20} strokeWidth={1.75} />}
+                title="No Sessions Yet"
+                action={<Button to="/log">Log Workout</Button>}
+              />
+            )}
+          </section>
+          {pinned.length > 0 && (
+            <section className="xl:hidden">
+              <h2 className="mb-3 text-headline">Pinned Announcements</h2>
+              <div className="space-y-4">
+                {pinned.map((a) => (
+                  <Card key={a.id}>
+                    <h3 className="text-headline">{a.title}</h3>
+                    <p className="mt-2 text-subhead text-muted">{a.body}</p>
+                    <p className="mt-4 text-caption text-muted">
+                      {a.author.name} · {formatEntryDate(a.created_at.slice(0, 10), config.today)}
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       </PullToRefresh>
-    </>
+    </div>
+  );
+}
+
+export function HomeDays({
+  start,
+  today,
+  dates,
+}: {
+  start: string;
+  today: string;
+  dates: string[];
+}) {
+  return (
+    <ul className="home-days" aria-label="Days Logged This Week">
+      {Array.from({ length: 7 }, (_, i) => {
+        const date = addDays(start, i);
+        const logged = dates.includes(date);
+        const name = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(
+          new Date(`${date}T12:00:00Z`),
+        );
+        return (
+          <li key={date} aria-current={date === today ? 'date' : undefined}>
+            <span className="sr-only">
+              {name}, {logged ? 'logged' : date === today ? 'today, not logged' : 'not logged'}
+            </span>
+            <span aria-hidden="true" className="home-day-label">
+              {name.slice(0, 3)}
+            </span>
+            <span aria-hidden="true" className={`home-day-date ${logged ? 'is-logged' : ''}`}>
+              {logged ? <Check size={16} strokeWidth={2} /> : Number(date.slice(-2))}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
