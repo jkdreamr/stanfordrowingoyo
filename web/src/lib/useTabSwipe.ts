@@ -74,7 +74,6 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
     const prepareNavigation = (to: string, direction: number, reduced: boolean) => {
       const transition = { to, direction, reduced };
       pending.current = transition;
-      root.style.opacity = '0';
       clearTimeout(pendingTimer);
       pendingTimer = setTimeout(() => {
         if (pending.current !== transition) return;
@@ -100,6 +99,8 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
     const animate = (frames: Keyframe[], duration: number, done: () => void, exit = false) => {
       const token = generation;
       animation = root.animate(frames, { duration, easing, fill: 'forwards' });
+      if (document.timeline?.currentTime != null)
+        animation.startTime = document.timeline.currentTime;
       animation.finished
         .then(() => {
           if (token !== generation) return;
@@ -233,6 +234,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
       positions.set(pathname, window.scrollY);
       const finish = () => {
         committedExit = undefined;
+        root.style.opacity = '0';
         prepareNavigation(to, direction, g.reduced);
         navigate(to, { preventScrollReset: true });
       };

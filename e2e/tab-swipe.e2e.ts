@@ -188,6 +188,7 @@ async function sampleTransition(page: Page, action: () => Promise<void>) {
       opacity: number;
       transform: string;
       y: number;
+      text: boolean;
     }[] = [];
     let transitions = 0;
     const original = document.startViewTransition;
@@ -233,12 +234,40 @@ async function sampleTransition(page: Page, action: () => Promise<void>) {
         }
         const main = document.querySelector('main')!;
         const style = getComputedStyle(main);
+        const pin = main.querySelector<HTMLElement>('.leaderboard-pin');
+        const ownRow = main.querySelector<HTMLElement>('[data-rank-id] a[href="/me"]');
+        if (pin && ownRow) {
+          const row = ownRow.getBoundingClientRect();
+          const header = main.querySelector('.ui-page-nav')?.getBoundingClientRect().bottom ?? 0;
+          const pinStyle = getComputedStyle(pin);
+          if (pinStyle.visibility === 'visible' && Number(pinStyle.opacity) !== 1)
+            violations.push('pin crossfades over ranking text');
+          if (
+            row.bottom > header &&
+            row.top < rect.top &&
+            row.right > 0 &&
+            row.left < innerWidth &&
+            pinStyle.visibility === 'visible' &&
+            Number(pinStyle.opacity) > 0
+          )
+            violations.push('pin visible over an on-screen own row');
+        }
+        if (document.documentElement.hasAttribute('data-entered')) {
+          for (const element of Array.from(
+            main.querySelectorAll(
+              '.podium-card, .drive-col, .drive-bar, .sc-draw, .sc-fill-in, .sc-end',
+            ),
+          ))
+            if (getComputedStyle(element).animationName !== 'none')
+              violations.push('replayed child entrance');
+        }
         frames.push({
           path: location.pathname,
           heading: main.querySelector('h1')?.textContent ?? '',
           opacity: Number(style.opacity),
           transform: style.transform,
           y: scrollY,
+          text: !!main.textContent?.trim(),
         });
         await new Promise(requestAnimationFrame);
       } while (
@@ -269,31 +298,60 @@ async function tapTab(page: Page, name: string) {
   await page.locator('.shell-tabbar').getByRole('link', { name, exact: true }).click();
 }
 
+function expectTapArrival(
+  frames: { heading: string; opacity: number; text: boolean }[],
+  oldHeading: string,
+) {
+  expect(frames.every((frame) => frame.text)).toBe(true);
+  expect(
+    frames.filter((frame) => frame.heading === oldHeading).every((frame) => frame.opacity > 0),
+  ).toBe(true);
+  const arrival = frames.filter((frame) => frame.heading !== oldHeading);
+  expect(arrival.length).toBeGreaterThan(0);
+  expect(
+    arrival.every(
+      (frame, index) => index === 0 || frame.opacity >= arrival[index - 1].opacity - 0.001,
+    ),
+  ).toBe(true);
+}
+
 test('tab taps and swipe commits keep live navigation stable and restore cached scroll before arrival', async ({
   makeRower,
 }, info) => {
   test.skip(info.project.name === 'desktop-chrome');
   const rower = await makeRower();
   for (let i = 0; i < 5; i++) await seedEntry(rower, `Transition Erg ${i}`);
+  for (let i = 0; i < 3; i++) {
+    const rival = await makeRower();
+    await seedEntry(rival, `Transition rival ${i}`, 200000);
+  }
   const { page } = rower;
   await page.reload();
   await waitForSplash(page);
   await tapTab(page, 'Leaderboard');
   await page.getByRole('heading', { name: 'Leaderboard', exact: true }).waitFor();
+  await expect(page.locator('.leaderboard-pin')).toHaveCount(1);
   await tapTab(page, 'Feed');
   await page.getByRole('article').first().waitFor();
-  await page.waitForTimeout(300);
+  await expect
+    .poll(() => page.locator('main').evaluate((main) => main.getAnimations().length))
+    .toBe(0);
   await page.evaluate(() => scrollTo(0, 160));
   const saved = await page.evaluate(() => scrollY);
   expect(saved).toBeGreaterThan(100);
   const out = await sampleTransition(page, () => tapTab(page, 'Leaderboard'));
+  expectTapArrival(out, 'Feed');
   expect(out.some((frame) => frame.heading === 'Leaderboard')).toBe(true);
   const back = await sampleTransition(page, () => tapTab(page, 'Feed'));
+  expectTapArrival(back, 'Leaderboard');
   const arrivals = back.filter((frame) => frame.path === '/feed' && frame.heading === 'Feed');
   expect(arrivals.length).toBeGreaterThan(0);
   expect(arrivals.every((frame) => Math.abs(frame.y - saved) <= 1)).toBe(true);
   const swipeOut = await sampleTransition(page, () => swipe(page, 290, 80, 180));
   expect(swipeOut.some((frame) => frame.heading === 'Leaderboard')).toBe(true);
+  expect(
+    swipeOut.filter((frame) => frame.heading === 'Leaderboard' && frame.opacity <= 0.001).length,
+  ).toBeLessThanOrEqual(1);
   expect(
     swipeOut.filter(
       (frame) => frame.path === '/leaderboard' && frame.heading === 'Feed' && frame.opacity > 0.05,

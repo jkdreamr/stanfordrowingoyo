@@ -119,6 +119,7 @@ it('shares arrival motion for taps and ignores the active tab', async () => {
   expect(Element.prototype.animate).not.toHaveBeenCalled();
   fireEvent.click(getByRole('button', { name: 'Leaderboard' }));
   expect(navigate).toHaveBeenCalledWith('/leaderboard', { preventScrollReset: true });
+  expect(document.querySelector('main')?.style.opacity).toBe('');
   path = '/leaderboard';
   rerender(<Surface />);
   expect(Element.prototype.animate).toHaveBeenLastCalledWith(
@@ -148,9 +149,9 @@ for (const method of ['tap', 'swipe']) {
     if (method === 'tap') fireEvent.click(getByRole('button', { name: 'Leaderboard' }));
     else await swipe(target);
     expect(navigate).toHaveBeenCalledTimes(1);
-    expect(target.parentElement?.style.opacity).toBe('0');
+    expect(target.parentElement?.style.opacity).toBe(method === 'tap' ? '' : '0');
     act(() => vi.advanceTimersByTime(399));
-    expect(target.parentElement?.style.opacity).toBe('0');
+    expect(target.parentElement?.style.opacity).toBe(method === 'tap' ? '' : '0');
     act(() => vi.advanceTimersByTime(1));
     expect(target.parentElement?.style.opacity).toBe('');
     expect(target.parentElement?.style.transform).toBe('');

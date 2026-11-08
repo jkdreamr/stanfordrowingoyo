@@ -510,6 +510,9 @@ body {
 :root[data-entered] .drive-bar-once {
   animation: none;
 }
+:root[data-entered] :is(.podium-card, .drive-col, .drive-bar, .sc-draw, .sc-fill-in, .sc-end) {
+  animation: none;
+}
 @keyframes drive-bar {
   from {
     transform: scaleX(0);
@@ -801,15 +804,13 @@ body {
   opacity: 0;
   transform: translate3d(0, 8px, 0);
   transition:
-    opacity 140ms var(--ease-in),
     transform 140ms var(--ease-in),
-    visibility 0s linear 140ms;
+    visibility 0s;
 }
 .leaderboard-pin.is-visible {
   opacity: 1;
   transform: none;
   transition:
-    opacity 200ms var(--ease-out),
     transform 200ms var(--ease-out),
     visibility 0s;
 }
