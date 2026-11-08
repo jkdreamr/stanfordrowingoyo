@@ -3,22 +3,25 @@ import { mkdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import type { DiveDay, GameDayLeaderboard } from '../shared/types';
-import { divePromptsFor } from '../worker/src/games/divePrompts';
+import { divePromptsFor, diveSelectionFor } from '../worker/src/games/divePrompts';
+import { answerSet } from '../worker/src/games/dive/sets';
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
 
 const PROJECTS = ['desktop-chrome', 'iphone-15', 'pixel-7'];
-const answers = ['Coin Toss', 'Orchid', 'Ruler', 'Ramen', 'Oak Tree', 'Bookshop', 'Lighthouse'];
-const teammates = [
-  ['Coin Toss', 'Rose', 'Tape Measure', 'Ramen', 'Duck', 'Gas Station', 'Church'],
-  ['Coin Toss', 'Tulip', 'Ruler', 'Pho', 'Oak Tree', 'Bookshop', 'School'],
-  ['Captain Picks', 'Dahlia', 'Yardstick', 'Cereal', 'Fountain', 'Tourist Office', 'Bicycle'],
-  ['Drawing Names', 'Rose', 'Ruler', 'Ramen', 'Oak Tree', 'Gas Station', 'Church'],
-  ['Captain Picks', 'Tulip', 'Tape Measure', 'Ramen', 'Dog', 'Bookshop', 'School'],
-  ['Drawing Names', 'Lily', 'Ruler', 'Ramen', 'Fountain', 'Airport', 'Church'],
-  ['Drawing Names', 'Rose', 'Tape Measure', 'Ramen', 'Oak Tree', 'Gas Station', 'Bicycle'],
-];
+/** Curated answers for the day: a shared Surface answer first, then each prompt's best answer. */
+async function diveFixture(date: string) {
+  const sets = await Promise.all(diveSelectionFor(date).map((prompt) => answerSet(prompt.id)));
+  const surface = sets.map((set) => set.answers.filter((row) => row.tier === 'surface'));
+  for (const rows of surface) expect(rows.length).toBeGreaterThanOrEqual(5);
+  const best = sets.map((set) => [...set.answers].sort((a, b) => b.points - a.points)[0].answer);
+  const answers = best.map((answer, i) => (i === 0 ? surface[0][0].answer : answer));
+  const teammates = Array.from({ length: 7 }, (_, t) =>
+    surface.map((rows, i) => (i === 0 && t < 2 ? rows[0] : rows[1 + (t % 3)]).answer),
+  );
+  return { answers, teammates, staff: surface.map((rows) => rows[4].answer) };
+}
 test('Dive unlocks after a workout, plays seven prompts, persists its timer and supports staff moderation', async ({
   makeRower,
   adminPage,
@@ -29,6 +32,7 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
     Math.max(0, PROJECTS.indexOf(testInfo.project.name)) + 3 * Math.floor(Math.random() * 100);
   const now = new Date(Date.parse('2026-11-07T18:00:00Z') - offset * 86400000).toISOString();
   const clockHeaders = { ...testInfo.project.use.extraHTTPHeaders, 'X-OYO-Test-Now': now };
+  const { answers, teammates, staff } = await diveFixture(now.slice(0, 10));
   await adminPage.context().setExtraHTTPHeaders(clockHeaders);
   const run = `${testInfo.project.name.slice(0, 1).toUpperCase()}${randomUUID().slice(0, 4)}`;
   const rower = await makeRower();
@@ -44,7 +48,7 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
   await expect(page.getByText('Games Locked', { exact: true })).toBeVisible();
   const locked = await context.request.post('/api/games/dive/answers', {
     headers: csrfHeaders,
-    data: { prompt_index: 0, answer: 'Coin Toss' },
+    data: { prompt_index: 0, answer: answers[0] },
   });
   expect(locked.status()).toBe(403);
   await logEntry(page, 'erg', 'E', 10000, 'Morning Steady');
@@ -80,15 +84,7 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
       ).toBeOK();
     }
   }
-  for (const [prompt_index, answer] of [
-    'Random Numbers',
-    'Lily',
-    'Tape Measure',
-    'Oatmeal',
-    'Dog',
-    'Visitor Center',
-    'Temple',
-  ].entries()) {
+  for (const [prompt_index, answer] of staff.entries()) {
     await expect(
       await adminPage.request.post('/api/games/dive/answers', {
         headers: csrfHeaders,
@@ -208,23 +204,27 @@ test('Dive unlocks after a workout, plays seven prompts, persists its timer and 
       animations: 'disabled',
     });
   await adminPage.goto('/games/dive');
-  await adminPage.getByRole('button', { name: 'Hide Coin Toss', exact: true }).click();
+  await adminPage.getByRole('button', { name: `Hide ${answers[0]}`, exact: true }).click();
   const sheet = adminPage.getByRole('dialog');
   await expect(sheet).toBeVisible();
   await sheet.getByRole('button', { name: 'Hide Answer', exact: true }).click();
   await expect(sheet).not.toBeVisible();
   await expect(
-    adminPage.getByRole('button', { name: 'Unhide Coin Toss', exact: true }),
+    adminPage.getByRole('button', { name: `Unhide ${answers[0]}`, exact: true }),
   ).toBeVisible();
   await page.reload();
   const moderated = (await (await context.request.get('/api/games/dive/today')).json()) as DiveDay;
-  expect(moderated.answers[0]).toMatchObject({ points: 0, tier: 'Hidden', hidden: true });
-  expect(moderated.score).toBe(result.score - result.answers[0].points);
+  // Hiding only removes the group from teammates' reveal; the player's points stand.
+  const { tier, points } = result.answers[0];
+  expect(moderated.answers[0]).toMatchObject({ hidden: true, tier, points });
+  expect(moderated.score).toBe(result.score);
   const dayBoard = (await (
     await context.request.get('/api/games/dive/leaderboard')
   ).json()) as GameDayLeaderboard;
   expect(dayBoard.rows.find((row) => row.me)?.score).toBe(moderated.score);
   await expect(
-    page.getByRole('region', { name: 'Dive Log' }).getByText('Coin Toss · Hidden', { exact: true }),
+    page
+      .getByRole('region', { name: 'Dive Log' })
+      .getByText(`${answers[0]} · ${tier}`, { exact: true }),
   ).toBeVisible();
 });

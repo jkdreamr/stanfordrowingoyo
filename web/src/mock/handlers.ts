@@ -44,13 +44,27 @@ import {
   perceptionTotal,
   scorePerception,
 } from '../../../shared/games/perception';
-import { boardWords, connectionsScore, replayConnections } from '../../../shared/games/connections';
-import { connectionsPuzzleFor } from '../../../worker/src/games/connectionsPuzzles';
+import {
+  boardWords,
+  connectionsScore,
+  parsePuzzle,
+  replayConnections,
+} from '../../../shared/games/connections';
 
 type MockGameScore = (payload: unknown, date: string) => { score: number; payload: unknown } | null;
 const field = (payload: unknown, key: string) =>
   payload && typeof payload === 'object' ? (payload as Record<string, unknown>)[key] : undefined;
 let mockGuesses: Set<string> | null = null;
+// Mock mode stands in one fixed board; real puzzles stay in the Worker.
+const MOCK_CONNECTIONS = parsePuzzle([
+  'Fruits: Apple, Banana, Cherry, Grape',
+  'Planets: Mars, Venus, Saturn, Jupiter',
+  'Card Games: Poker, Bridge, Snap, Rummy',
+  'Chocolate Bars: Galaxy, Bounty, Twix, Mounds',
+  'Galaxy>1',
+]);
+const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
+
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
   dive: null,
   wordguess: (payload, date) => {
