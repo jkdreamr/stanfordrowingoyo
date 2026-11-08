@@ -52,7 +52,7 @@ it('enables the complete reviewed bank on November 10 with every real day valid'
   }
   expect(seen.size).toBe(320);
   const retired = DIVE_INACTIVE_PROMPTS.filter((p) => p.constrained);
-  expect(retired).toHaveLength(7);
+  expect(retired).toHaveLength(50);
   expect(retired.every((p) => !seen.has(p.id))).toBe(true);
   expect(diveSelectionFor('2027-01-13')).toEqual(diveSelectionFor('2026-11-10'));
   expect([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].every((p) => p.theme)).toBe(true);
@@ -60,6 +60,31 @@ it('enables the complete reviewed bank on November 10 with every real day valid'
     expect([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].find((p) => p.id === id)?.cluster).toBe(
       'japan',
     );
+});
+
+it('schedules only the all-years award sets and preserves every retired family for loading', () => {
+  const scheduled = new Set(DIVE_SCHEDULE.flat());
+  for (const id of [
+    'grammy-album',
+    'grammy-record',
+    'grammy-song',
+    'grammy-new-artist',
+    'booker-winners',
+    'hugo-novels',
+    'newbery-winners',
+    'pulitzer-fiction',
+    'emmy-drama',
+    'emmy-comedy',
+    'iba-cocktails',
+  ])
+    expect(scheduled.has(id)).toBe(true);
+  const retiredFamilies = DIVE_INACTIVE_PROMPTS.filter(
+    (p) =>
+      /-(pre1980|1980-1999|2000-2026|early|middle|recent)$/.test(p.id) ||
+      p.id.startsWith('astronaut-group-'),
+  );
+  expect(retiredFamilies).toHaveLength(33);
+  expect(retiredFamilies.every((p) => !scheduled.has(p.id))).toBe(true);
 });
 
 it('switches only on the cutover, follows every fixture day and wraps deterministically', () => {

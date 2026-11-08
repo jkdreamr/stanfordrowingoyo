@@ -80,14 +80,14 @@ pick, not necessarily the rarest name. Points: 10 / 15 / 30 / 60 / 85 / 100; mis
 
 ## Coverage and review
 
-The **live** bank remains the exact 330-prompt legacy permutation (66 days at five/day).
+Before the cutover, the bank uses the exact 330-prompt legacy permutation (66 days at five/day).
 `legacy.json` freezes its original ID order before the seeded shuffle; do not append,
 reorder or remove entries. `DIVE_LEGACY_PROMPTS` resolves those IDs from both catalogs,
 including retired prompts. Adding prompts or changing active flags cannot change old days.
 Answer rows persist date and prompt index, **not prompt IDs**: reads and submissions resolve
 IDs from the selector. A future cutover must therefore keep the legacy branch forever.
 
-The bank has 522 active prompts (203 constrained, 319 broad) and 39 inactive
+The bank has 522 active prompts (203 constrained, 319 broad) and 82 inactive
 prompts with loadable data. `DIVE_PROMPTS` is the schedule's candidate bank, not the date selector.
 `DIVE_INACTIVE_PROMPTS` retains small categories and broad overlaps. Phase 1 prospectively
 retires `movies`, `directors`, `pokemon`, `manga`, `anime`, `japanese-films`, `oscar-actors`,
@@ -170,7 +170,11 @@ Ship **before** the cutover; never backdate it or change a cycle that could reso
 already-started day. Review notes and the final prompt table live outside the repository at
 `~/work/phase2-review.md`. Phase 3 retires calendar months, Western and Chinese zodiac lists,
 zodiac constellations, Santa's reindeer, Cluedo rooms and US allergen categories for lack of
-tier depth. Their reviewed sets stay loadable. The 210 reviewed texts use short player-facing
+tier depth. Phase 4 additionally retires all 30 award-era splits, three NASA astronaut
+classes, the three arbitrary IBA cocktail-list categories, and seven near-duplicate
+chemical/vitamin subsets. One all-years prompt remains per award; all 102 IBA cocktails
+now share one complete prompt. Forty-two genuinely distinct sets replace the other removals.
+All 50 retired constrained sets remain loadable. The 253 reviewed texts use short player-facing
 questions; acceptance caveats, source scope and retirement reasons stay in the specs, not UI copy.
 
 Broad sets retain their existing canonical data and caps. `report.json` records each set's

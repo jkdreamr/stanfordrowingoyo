@@ -350,11 +350,11 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
-The general-knowledge bank includes 59 complete constrained prompts, alongside the broad
-curated bank. The prospective catalog has 378 active and 32 inactive/loadable prompts, each
+The general-knowledge bank includes 203 active complete constrained prompts, alongside the broad
+curated bank. The catalog has 522 active and 82 inactive/loadable prompts, each
 with a theme and optional cluster; related Japanese content shares `japan`. Constrained sets
 have ≥8 canonical answers and no size cap; broad active sets retain ≥200 and their bundle cap.
-There are no rowing/team prompts. **Live selection remains the frozen 330-prompt legacy
+There are no rowing/team prompts. **Before the cutover, selection uses the frozen 330-prompt legacy
 permutation**, not the prospective active catalog. `scripts/dive/legacy.json` preserves the
 original order; the same seeded permutation takes five consecutive entries/day
 (`DIVE_PROMPTS_PER_DAY`), measured from 2026-01-01 with positive modulo. Any 66 consecutive
@@ -364,9 +364,12 @@ days contain no repeated prompt, including wraparound and dates before the epoch
 resolve IDs/text through `diveSelectionFor(date)`/`divePromptsFor(date)` at read/submit time.
 Therefore retired legacy prompts remain loadable and all pre-cutover dates must keep this
 selector forever. A generated explicit cyclic schedule replaces it from team-local
-**2026-11-10** (`DIVE_SCHEDULE_CUTOVER`). The reviewed bank has 210 constrained prompts;
-the 64-day cycle uses all 203 active sets plus 117 broad fillers, without repeats. Seven
-low-depth constrained sets are inactive but remain loadable. Generation
+**2026-11-10** (`DIVE_SCHEDULE_CUTOVER`). The reviewed bank has 253 constrained prompts;
+the 64-day cycle uses all 203 active sets plus 117 broad fillers, without repeats. Fifty
+constrained sets are inactive but remain loadable: low-depth sets, award-era splits,
+NASA selection classes, arbitrary cocktail categories and near-duplicate chemical/vitamin
+subsets. Each award has one all-years prompt; the IBA cocktail categories share one complete
+prompt. Generation
 fails rather than enabling an insufficient or unbalanced bank. The schedule builder
 uses all constrained prompts plus preferred broad fillers; each five-prompt day has unique
 themes/clusters and a size mix (not all ≤24 or all >120 answers). Python/Worker validators

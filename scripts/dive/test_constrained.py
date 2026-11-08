@@ -1,6 +1,9 @@
 import hashlib
 import json
+import math
+from collections import Counter
 from pathlib import Path
+import re
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -77,7 +80,13 @@ class SpecsTest(unittest.TestCase):
         retired = {p['id'] for p in prompts if not p['active']}
         self.assertEqual(retired, {'calendar-months', 'zodiac-signs', 'chinese-zodiac',
                                   'zodiac-constellations', 'santas-reindeer', 'cluedo-rooms',
-                                  'us-food-allergens'})
+                                  'us-food-allergens', 'lanthanides', 'synthetic-elements',
+                                  'b-vitamins', 'period-4-elements', 'period-5-elements',
+                                  'period-6-elements', 'period-7-elements',
+                                  'astronaut-group-2', 'astronaut-group-3', 'astronaut-group-5',
+                                  'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
+                         {p['id'] for p in prompts if re.search(
+                             r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
         self.assertEqual(sum(p['active'] for p in prompts), 203)
         for prompt in prompts:
             self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
@@ -87,7 +96,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 210)
+        self.assertEqual(len(prompts), 253)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
@@ -98,6 +107,9 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_phase_two_boundaries(self):
         prompts = {p['id']: p for p in constrained.read_specs()}
+        active = [p for p in prompts.values() if p['active']]
+        clusters = Counter(p['cluster'] for p in active if p.get('cluster'))
+        self.assertLessEqual(max(clusters.values()), math.ceil(len(active) / 10))
         def names(id):
             return {row['name'] for row in prompts[id]['rows']}
         self.assertTrue({'Pretoria', 'Mbabane', 'Malabo'} <= names('africa-capitals'))
@@ -112,6 +124,46 @@ class SpecsTest(unittest.TestCase):
             self.assertNotIn('COVID-19 pandemic', names(id))
         self.assertEqual(len(names('human-vitamins')), 13)
         self.assertEqual(len(names('b-vitamins')), 8)
+
+    def test_collapsed_families_and_distinct_replacements(self):
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        awards = ['grammy-album', 'grammy-record', 'grammy-song', 'grammy-new-artist',
+                  'booker-winners', 'hugo-novels', 'newbery-winners', 'pulitzer-fiction',
+                  'emmy-drama', 'emmy-comedy']
+        for id in awards:
+            self.assertTrue(prompts[id]['active'], id)
+            splits = [p for key, p in prompts.items() if key.startswith(id + '-')]
+            self.assertEqual(len(splits), 3, id)
+            self.assertTrue(all(not p['active'] for p in splits), id)
+            accepted = {constrained.normalize(n) for row in prompts[id]['rows']
+                        for n in [row['name'], *row.get('aliases', [])]}
+            for split in splits:
+                self.assertTrue({constrained.normalize(r['name']) for r in split['rows']} <= accepted, split['id'])
+        def names(id):
+            return {row['name'] for row in prompts[id]['rows']}
+        self.assertEqual(len(names('iba-cocktails')), 102)
+        self.assertEqual(names('iba-cocktails'), set().union(
+            *(names(id) for id in ['iba-unforgettables', 'iba-contemporary', 'iba-new-era'])))
+        self.assertTrue({'World War II', 'Saudi Arabia', 'Morocco'}.isdisjoint(names('world-cup-hosts')))
+        self.assertEqual(len(names('world-cup-winners')), 8)
+        self.assertEqual(len(names('super-bowl-winners')), 20)
+        self.assertNotIn('Baltimore Colts', names('super-bowl-winners'))
+        self.assertNotIn('St. Louis Rams', names('super-bowl-winners'))
+        self.assertEqual(len(names('un-secretaries-general')), 10)
+        self.assertNotIn('Congo Crisis', names('un-secretaries-general'))
+        self.assertIn('Henry Dunant', names('nobel-peace'))
+        self.assertEqual(len(names('nobel-peace')), 141)
+        self.assertTrue({'Tinker Bell', 'Elsa'}.isdisjoint(names('disney-princesses')))
+        self.assertNotIn('Avengers: Doomsday', names('mcu-films'))
+        self.assertTrue({'Milan', "Cortina d'Ampezzo"} <= names('winter-olympic-hosts'))
+        self.assertTrue({'Melbourne', 'Stockholm'} <= names('summer-olympic-hosts'))
+        self.assertTrue({'Enterprise', 'galaxy'}.isdisjoint(names('star-trek-original-episodes')))
+        self.assertTrue({'Southern Sotho', 'South African Sign Language'} <= names('south-africa-languages'))
+        self.assertTrue({'Cardenio', "Love's Labour's Won", 'Sir Thomas More'} <= names('shakespeare-plays'))
+        self.assertIn('Meet the Beatles!', names('beatles-albums'))
+        self.assertIn('The Cosmos Rocks', names('queen-albums'))
+        self.assertIn('Space Oddity', prompts['bowie-albums']['aliases']['David Bowie'])
+        self.assertIn('More', prompts['pink-floyd-albums']['aliases']['Soundtrack From The Film More'])
 
     def test_surnames_use_matcher_normalization_and_skip_numeric_band_suffixes(self):
         document = json.loads((constrained.HERE / 'constrained.json').read_text())
