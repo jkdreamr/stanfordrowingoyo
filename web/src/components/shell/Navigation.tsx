@@ -10,7 +10,6 @@ import {
   User,
   type LucideIcon,
 } from 'lucide-react';
-import type { CSSProperties } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useMe, useNotifications } from '../../lib/queries';
 import { Button } from '../ui';
@@ -35,14 +34,8 @@ export function setNavDirection(from: string, to: string) {
 }
 export function TabBar() {
   const { pathname } = useLocation();
-  const active = column(pathname);
   return (
-    <nav
-      aria-label="Main Navigation"
-      className="shell-tabbar"
-      data-tab={active < 0 ? 'none' : undefined}
-      style={{ '--tab': Math.max(0, active) } as CSSProperties}
-    >
+    <nav aria-label="Main Navigation" className="shell-tabbar">
       {main.slice(0, 2).map((item) => (
         <Tab key={item.to} {...item} from={pathname} />
       ))}

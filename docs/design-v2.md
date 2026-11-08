@@ -2,10 +2,13 @@
 
 Rowing has two phases: the **catch**, a quick and precise entry, and the **drive**, a powerful release that settles.
 Every interaction follows that rhythm: a firm, immediate response to touch, then a weighted spring settle.
-The app should feel like a well-made instrument: calm, warm and confident, with motion only where it means something.
+The app should feel like a well-made instrument: clean, exact and confident, with motion only where it means
+something. The visual system follows Robinhood's clean light and dark modes, adapted to our brand: pure white
+or pure black, content directly on the background, big tabular figures, hairlines instead of boxes, and one
+accent (cardinal).
 
-This is the prototype direction. It is implemented as a token layer in `web/src/design.css` (loaded after
-`styles.css`) plus a few reusable components, so open feature branches pick it up without markup churn.
+This is implemented as a token layer in `web/src/design.css` (loaded after `styles.css`) plus a few reusable
+components, so open feature branches and secondary screens pick it up without markup churn.
 
 ## Principles
 
@@ -13,7 +16,7 @@ This is the prototype direction. It is implemented as a token layer in `web/src/
 2. **One hero per screen.** Each tab gets one rich focal surface (Week Hero, podium, profile hero). Everything else is quiet.
 3. **Numbers are the reward.** Hero figures count up; progress fills from where it was. No decorative numbers.
 4. **Cardinal is identity, orange is victory.** Cardinal for brand, controls and progress. Strava orange only for PRs, streaks and target hits.
-5. **Depth with restraint.** Frosted glass only on chrome (tab bar). Soft neutral shadows in light; hairlines and surface steps in dark. No grain, glows, colored shadows or idle pulsing.
+5. **Clean and mostly cardless.** Sections sit on the background separated by 32px of air; lists are rows with inset hairlines and no row backgrounds. Elevation only for things that float or sit on a track, plus the one hero (see Elevation). The theme switch's knob is the only glass. No glows, zero-offset halos or idle pulsing; grain only as the week card's barely-there material.
 6. **Quiet copy.** Title Case, short labels. No eyebrows, monospace micro labels, kbd chips or arrow glyphs.
 7. **Motion is optional.** Every animation has a `prefers-reduced-motion` variant (none, or a 120 ms fade). Transform, opacity and clip-path only.
 
@@ -21,28 +24,46 @@ This is the prototype direction. It is implemented as a token layer in `web/src/
 
 ### Color
 
-| Token              | Light                                                     | Dark                      |
-| ------------------ | --------------------------------------------------------- | ------------------------- |
-| `--bg`             | `#F5F3F0` warm paper (also the light `theme-color`)       | `#0E0D0D` (dark one)      |
-| `--surface`        | `#FFFFFF`                                                 | `#181616`                 |
-| `--surface-2`      | `#EFECE8`                                                 | `#242120`                 |
-| `--text`           | `#1C1A19`                                                 | `#F5F2EF`                 |
-| `--muted`          | `#6B6662`                                                 | `#A8A19C`                 |
-| `--divider`        | `#E6E1DC`                                                 | `#2C2827`                 |
-| Cardinal           | `#8C1515`                                                 | `#8C1515` / ink `#F18B83` |
-| `--cardinal-top`   | `#9C1C18` (hero tone, top)                                | `#8F1A16`                 |
-| `--cardinal-deep`  | `#6B0F0F` (hero tone, floor)                              | `#4F0B0B`                 |
-| Highlight (orange) | `#FC5200`, PR/streak only                                 | `#FC5200`                 |
-| `--glass`          | `rgb(250 248 246 / 78%)`                                  | `rgb(20 18 18 / 76%)`     |
-| Medal metals       | gold, silver, bronze gradients on podium rank badges only |
+| Token              | Light                                           | Dark                      |
+| ------------------ | ----------------------------------------------- | ------------------------- |
+| `--bg`             | `#FFFFFF` (also the light `theme-color`)        | `#000000` (dark one)      |
+| `--surface`        | `#FFFFFF` (sheets, the pinned row)              | `#111111`                 |
+| `--surface-2`      | `#F2F2F2` (control and track fills)             | `#1A1A1A`                 |
+| `--text`           | `#111111`                                       | `#F5F5F5`                 |
+| `--muted`          | `#6B6B6B` (5.3:1 on white, 4.8:1 on fills)      | `#9B9B9B`                 |
+| `--divider`        | `rgb(0 0 0 / 8%)` hairline                      | `rgb(255 255 255 / 10%)`  |
+| Cardinal           | `#8C1515`                                       | `#C0352B` / ink `#F18B83` |
+| `--cardinal-top`   | `#9C1C18` (hero tone, top)                      | `#8F1A16`                 |
+| `--cardinal-deep`  | `#6B0F0F` (hero tone, floor)                    | `#4F0B0B`                 |
+| Highlight (orange) | `#FC5200`, PR/streak only                       | `#FC5200`                 |
+| Medal metals       | gold, silver, bronze on podium rank badges only |                           |
 
-The hero is a single-hue tonal shift within cardinal, never a hue-to-hue gradient. Shadows are neutral only:
-`--shadow-card` (2-layer), `--shadow-float` (sheets, overlays) and `--shadow-hero`. Dark mode swaps shadows
-for a 1px white 5–7% hairline and surface steps.
+The hero is a single-hue tonal shift within cardinal, never a hue-to-hue gradient.
+
+### Elevation
+
+Flat by default. One light from above; shadows fall straight down (contact plus ambient), never zero-offset.
+
+| Token             | Use                                                                                    |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| `--elev-0/1`      | `none`: content, lists, inputs and tracks are flat (inputs keep a 3:1 border)          |
+| `--elev-2`        | Raised: the pinned You row, the glass knob; `--elev-2-sm` for the segment thumb        |
+| `--elev-3`        | Floating: sheets, toasts, the update banner, the save card                             |
+| `-press`          | The same object pushed one step toward the surface                                     |
+| `--elev-cardinal` | The week card and the Log button only: a faint cardinal-tinted downward shadow (light) |
+
+Dark mode: surface steps (`#000` → `#111` → `#1A1A1A`) and a 10% white hairline; only floating things add a
+deep black ambient; nothing is tinted. Presses scale (90 ms in, spring release) and drop the shadow one step;
+reduced motion keeps the shadow change instant and drops the scale.
+
+**Grain.** Only the week card carries a static, barely-there grain (one committed 128px 4-bit noise tile,
+`soft-light` at 4%, never animated) as a premium-card material. No grain on backgrounds or other surfaces; it
+is off under `forced-colors` and `prefers-contrast: more`.
 
 ### Shape and Space
 
-Cards 20px, controls 14px, hero surfaces 24px, chips 14px. 4pt grid, 16px gutter, 20px card padding.
+Pills for buttons and segmented controls, hero 24px, sheets 20px, pinned row 16px. 4pt grid, 20px side gutters
+on phones, 32px between sections, rows overhang the text column by 12px so their press highlight has room.
 
 ### Type
 
@@ -94,8 +115,9 @@ static mark with a 120 ms fade (no handoff).
   the card is revealed its E-meter total counts up, the ring sweeps from empty and the day columns rise
   left to right. Elsewhere the splash lifts as a curtain and the first screen rises once.
 - **Continuity.** Tab changes use View Transitions: the old screen fades out in 90 ms and the new one arrives
-  from the direction of the chosen tab (16 px, 260 ms). The selection pill springs between tabs. Large titles
-  fold away on scroll (scroll-driven animation) while the compact title fades into the frosted bar.
+  from the direction of the chosen tab (16 px, 260 ms). Leaderboard rows glide to their new rank (FLIP) when
+  the metric or week changes. Large titles
+  fold away on scroll (scroll-driven animation) while the compact title fades into the header bar.
 - **Feedback.** Every control compresses instantly on press and springs back on release; cards compress less
   than buttons. Kudos, double-tap and saves acknowledge with the puddle ripple.
 - **Data.** Leaderboard bars and Me breakdown bars fill from their start; weekly columns rise from the
@@ -125,16 +147,16 @@ static mark with a 120 ms fade (no handoff).
    - **Reduced motion.** The static mark and a 120 ms fade, whatever the route.
 
    Transform, opacity and clip-path only. Browser chrome stays cardinal while the splash covers the page,
-   then matches the paper (`#F5F3F0` light, `#0E0D0D` dark).
+   then matches the page (`#FFFFFF` light, `#000000` dark).
 
 2. **Home Week Hero.** The one bright element on Home: a tonal cardinal card with the E-meter total, a white
    progress ring and a Mon–Sun column strip (today outlined). The streak chip sits on top; the remaining E-meters (or Target Hit) chip and days left sit underneath.
 3. **Number Tickers.** Hero figures (Home volume, Me season tiles, save celebration) count up on the first view
    in a session and when their value changes, inside a cell reserved for their widest value so nothing
    reflows; screen readers get the final value only.
-4. **Glass Tab Bar.** Frosted bar with one selection pill that travels between tabs on the spring; the selected
-   icon settles from a small catch; the centered cardinal Log disc compresses on press. Five equal columns keep
-   Log pixel-centered.
+4. **Tab Bar.** A clean solid bar (white or black) with a hairline top border; the active tab is the accent and
+   its icon settles from a small catch; the centered cardinal Log disc compresses on press. Five equal columns
+   keep Log pixel-centered.
 5. **Directional Tab Changes.** Fade-through View Transition in the direction of travel; chrome stays put.
 6. **Kudos Burst.** Thumb pops with an 8-spark ring and the count rolls up; double-tap shows the heart plus two
    water ripples at the touch point.
@@ -162,7 +184,9 @@ static mark with a 120 ms fade (no handoff).
     motion: instant knob and a 120 ms fade; reduced transparency: a solid knob; forced colors: system colors.
     Original code, with proportions and timing informed by Zsolt Kacso's Glass Light Toggle (measurements only;
     none of its WebGL, bloom, grain or spring).
-11. **Pinned You Row (Leaderboard).** Shown only while your real row is off screen and the podium is out of its
+11. **Rank Reorder (Leaderboard).** On a metric or week switch, rows that stay on the board slide from their
+    old place to their new one (FLIP, transform only, 420 ms drive curve); reduced motion places them instantly.
+12. **Pinned You Row (Leaderboard).** Shown only while your real row is off screen and the podium is out of its
     strip; rises 8 px and fades in over 200 ms, leaves in 140 ms.
 
 ## Rollout After Approval

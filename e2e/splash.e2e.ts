@@ -103,11 +103,11 @@ for (const theme of ['light', 'dark'] as const) {
       // Browser chrome matches the page's paper once the splash is gone.
       await expect(page.locator('meta[name="theme-color"]').first()).toHaveAttribute(
         'content',
-        theme === 'dark' ? '#0E0D0D' : '#F5F3F0',
+        theme === 'dark' ? '#000000' : '#FFFFFF',
       );
       await expect(page.locator('body')).toHaveCSS(
         'background-color',
-        theme === 'dark' ? 'rgb(14, 13, 13)' : 'rgb(245, 243, 240)',
+        theme === 'dark' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
       );
     } finally {
       boot();
@@ -221,7 +221,7 @@ for (const theme of ['light', 'dark'] as const) {
     await expect(hero.getByRole('progressbar', { name: 'Weekly Target' })).toBeVisible();
     await expect(page.locator('meta[name="theme-color"]').first()).toHaveAttribute(
       'content',
-      theme === 'dark' ? '#0E0D0D' : '#F5F3F0',
+      theme === 'dark' ? '#000000' : '#FFFFFF',
     );
   });
 }

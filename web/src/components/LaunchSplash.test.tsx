@@ -159,7 +159,7 @@ it.each([false, true])(
     const { rerender } = render(<LaunchSplash />);
     settle(rerender);
     await advance(900);
-    const expected = dark ? '#0E0D0D' : '#F5F3F0';
+    const expected = dark ? '#000000' : '#FFFFFF';
     expect([...document.querySelectorAll('meta')].map((meta) => meta.content)).toEqual([
       expected,
       expected,

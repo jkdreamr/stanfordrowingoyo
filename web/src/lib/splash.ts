@@ -2,7 +2,7 @@
 export function syncThemeColor(dark: boolean) {
   const splash = document.getElementById('launch-splash');
   const launching = splash && !splash.classList.contains('is-leaving');
-  const color = launching ? '#8C1515' : dark ? '#0E0D0D' : '#F5F3F0';
+  const color = launching ? '#8C1515' : dark ? '#000000' : '#FFFFFF';
   document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
     meta.setAttribute('content', color);
   });

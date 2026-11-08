@@ -94,6 +94,97 @@
           opacity 200ms ease-out 280ms;
       }
       #launch-splash::after {
+        box-sizing: border-box;
+      }
+      #launch-splash {
+        /* The drive spring from design.css (damping 0.78, one 2% overshoot), inlined. */
+        --splash-spring: cubic-bezier(0.3, 1.15, 0.5, 1);
+        --splash-center: calc(50% - 24px);
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        overflow: hidden;
+        color: #fff;
+        cursor: pointer;
+        background:
+          radial-gradient(60% 45% at 50% 46%, #a8231c 0%, rgb(168 35 28 / 0%) 100%),
+          radial-gradient(90% 60% at 100% 0%, #b02a20 0%, rgb(176 42 32 / 0%) 60%),
+          radial-gradient(90% 70% at 0% 100%, #5c0a0a 0%, rgb(92 10 10 / 0%) 70%), #8c1515;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        clip-path: inset(0 round 0);
+        transition: transform 380ms cubic-bezier(0.65, 0, 0.35, 1);
+      }
+      @supports (transition-timing-function: linear(0, 1)) {
+        #launch-splash {
+          --splash-spring: linear(
+            0,
+            0.042,
+            0.144,
+            0.273,
+            0.408,
+            0.538,
+            0.653,
+            0.75,
+            0.829,
+            0.891,
+            0.937,
+            0.97,
+            0.993,
+            1.007,
+            1.015,
+            1.019,
+            1.02,
+            1.019,
+            1.017,
+            1.014,
+            1.011,
+            1.009,
+            1.007,
+            1.005,
+            1.003,
+            1
+          );
+        }
+      }
+      /* Curtain: the sheet lifts away. Used when Home's hero is not on screen to receive it. */
+      #launch-splash.is-leaving {
+        transform: translate3d(0, -100%, 0);
+        pointer-events: none;
+      }
+      /*
+       * Handoff: the painted sheet contracts onto Home's Week Hero (clip-path), the hero's own
+       * tonal paint settles in at its exact box, then the cover fades to reveal the live card.
+       * Input passes straight through from the first frame.
+       */
+      #launch-splash.is-leaving.is-handoff {
+        transform: none;
+        opacity: 0;
+        clip-path: inset(
+          var(--handoff-top) var(--handoff-right) var(--handoff-bottom) var(--handoff-left) round
+            24px
+        );
+        transition:
+          clip-path 480ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          opacity 200ms ease-out 280ms;
+      }
+      /* The cardinal sheet's anodized grain (the same static tile as the app). */
+      #launch-splash::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: url('/textures/grain.png') repeat;
+        background-size: 128px 128px;
+        mix-blend-mode: soft-light;
+        opacity: 0.06;
+      }
+      @media (forced-colors: active), (prefers-contrast: more) {
+        #launch-splash::before {
+          display: none;
+        }
+      }
+      #launch-splash::after {
         content: '';
         position: absolute;
         inset: var(--handoff-top, 0) var(--handoff-right, 0) var(--handoff-bottom, 0)
@@ -382,7 +473,7 @@
           const root = document.documentElement;
           root.classList.remove('launching');
           document.getElementById('root').removeAttribute('inert');
-          const color = root.classList.contains('dark') ? '#0E0D0D' : '#F5F3F0';
+          const color = root.classList.contains('dark') ? '#000000' : '#FFFFFF';
           for (const meta of document.querySelectorAll('meta[name="theme-color"]'))
             meta.setAttribute('content', color);
           const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

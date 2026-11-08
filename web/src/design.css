@@ -7,26 +7,45 @@
  * and has a reduced-motion path at the end of this file.
  */
 :root {
-  --bg: #f5f3f0;
+  /*
+   * Clean: pure white with near-black ink. Content sits directly on the background; neutral
+   * fills only for controls and tracks; hairlines separate. Cardinal is the one accent.
+   */
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: #efece8;
-  --text: #1c1a19;
-  --muted: #6b6662;
-  --divider: #e6e1dc;
-  --oyo-hover: #eeeae5;
-  --oyo-selected: #f6e7e5;
-  --oyo-skeleton: #e8e3de;
+  --surface-2: #f2f2f2;
+  --text: #111111;
+  --muted: #6b6b6b;
+  --divider: rgb(0 0 0 / 8%);
+  --oyo-hover: #f5f5f5;
+  --oyo-selected: #f8e8e8;
+  --oyo-skeleton: #efefef;
   --cardinal-top: #9c1c18;
   --cardinal-deep: #6b0f0f;
   --card-border: transparent;
-  --radius-card: 20px;
-  --radius-control: 14px;
+  --gutter: 20px;
+  --radius-card: 16px;
+  --radius-control: 999px;
   --radius-hero: 24px;
-  --shadow-card: 0 1px 2px rgb(40 24 20 / 5%), 0 10px 28px -16px rgb(40 24 20 / 16%);
-  --shadow-float: 0 2px 6px rgb(40 24 20 / 6%), 0 22px 48px -22px rgb(40 24 20 / 28%);
-  --shadow-hero: 0 2px 4px rgb(40 24 20 / 8%), 0 20px 40px -24px rgb(40 24 20 / 45%);
-  --glass: rgb(250 248 246 / 78%);
-  --glass-line: rgb(40 24 20 / 8%);
+  /*
+   * Elevation is minimal: flat by default, one raised level for things that sit on a track
+   * or the page (segment thumb, glass knob, pinned You row) and one floating level (sheets,
+   * toasts, the save card). Shadows fall straight down from one light, never zero-offset.
+   */
+  --elev-0: none;
+  --elev-1: none;
+  --elev-1-press: none;
+  --elev-2: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px -4px rgb(0 0 0 / 12%);
+  --elev-2-press: 0 1px 1px rgb(0 0 0 / 8%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --elev-2-sm: 0 1px 2px rgb(0 0 0 / 10%), 0 2px 6px -2px rgb(0 0 0 / 10%);
+  --elev-2-sm-press: 0 1px 1px rgb(0 0 0 / 10%);
+  --elev-3: 0 4px 12px rgb(0 0 0 / 6%), 0 20px 44px -16px rgb(0 0 0 / 18%);
+  /* The week card and the Log button cast a faint cardinal shadow in light mode only. */
+  --elev-cardinal-sm: 0 1px 2px rgb(92 10 10 / 18%), 0 4px 10px -4px rgb(140 21 21 / 28%);
+  --elev-cardinal-sm-press: 0 1px 1px rgb(92 10 10 / 20%);
+  --elev-cardinal: 0 1px 2px rgb(92 10 10 / 14%), 0 12px 24px -14px rgb(140 21 21 / 34%);
+  --elev-cardinal-press: 0 1px 1px rgb(92 10 10 / 16%), 0 6px 12px -8px rgb(140 21 21 / 26%);
+  --elev-cardinal-float: var(--elev-3);
 
   /* Motion tokens */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -74,23 +93,29 @@
   }
 }
 .dark {
-  --bg: #0e0d0d;
-  --surface: #181616;
-  --surface-2: #242120;
-  --text: #f5f2ef;
-  --muted: #a8a19c;
-  --divider: #2c2827;
-  --oyo-hover: #221f1e;
-  --oyo-selected: #33201e;
-  --oyo-skeleton: #2a2625;
+  --bg: #000000;
+  --surface: #111111;
+  --surface-2: #1a1a1a;
+  --text: #f5f5f5;
+  --muted: #9b9b9b;
+  --divider: rgb(255 255 255 / 10%);
+  --oyo-hover: #141414;
+  --oyo-selected: #2a1415;
+  --oyo-skeleton: #1a1a1a;
   --cardinal-top: #8f1a16;
   --cardinal-deep: #4f0b0b;
-  --card-border: rgb(255 255 255 / 6%);
-  --shadow-card: 0 0 0 1px rgb(255 255 255 / 5%), inset 0 1px 0 rgb(255 255 255 / 3%);
-  --shadow-float: 0 0 0 1px rgb(255 255 255 / 7%), 0 24px 48px -20px rgb(0 0 0 / 90%);
-  --shadow-hero: 0 0 0 1px rgb(255 255 255 / 6%), 0 24px 48px -24px rgb(0 0 0 / 90%);
-  --glass: rgb(20 18 18 / 76%);
-  --glass-line: rgb(255 255 255 / 7%);
+  --card-border: rgb(255 255 255 / 10%);
+  /* Dark: surface steps and hairlines; only floating things add a deep black ambient. */
+  --elev-2: 0 0 0 1px rgb(255 255 255 / 10%);
+  --elev-2-press: 0 0 0 1px rgb(255 255 255 / 8%);
+  --elev-2-sm: 0 0 0 1px rgb(255 255 255 / 8%);
+  --elev-2-sm-press: 0 0 0 1px rgb(255 255 255 / 6%);
+  --elev-3: 0 0 0 1px rgb(255 255 255 / 10%), 0 20px 44px -16px rgb(0 0 0 / 90%);
+  --elev-cardinal-sm: none;
+  --elev-cardinal-sm-press: none;
+  --elev-cardinal: 0 0 0 1px rgb(255 255 255 / 8%);
+  --elev-cardinal-press: 0 0 0 1px rgb(255 255 255 / 6%);
+  --elev-cardinal-float: var(--elev-3);
 }
 
 /* Type: system stack, tighter display tracking, numbers as the reward */
@@ -126,25 +151,107 @@
   visibility: hidden;
 }
 
+/*
+ * The week card's material: a barely-there static grain (one 128 px monochrome tile, soft-light,
+ * never animated) so the single cardinal object reads as a premium card. Nothing else has grain.
+ */
+.drive-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: url('/textures/grain.png') repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: soft-light;
+  opacity: 0.04;
+}
+@media (forced-colors: active), (prefers-contrast: more) {
+  .drive-hero::before {
+    display: none;
+  }
+}
+
+/* Horizontal scrollers clip vertically, so give raised children room for their shadows. */
+.quick-presets {
+  padding-block: 4px 16px;
+  margin-block: -4px -8px;
+}
+
 /* Surfaces */
+/*
+ * Cardless: sections sit directly on the background, separated by air; lists are clean rows
+ * divided by inset hairlines with no row backgrounds. Rows overhang the text column by 12 px
+ * on each side so their press highlight has room, while text stays on the gutter.
+ */
 .ui-card,
 .ui-list {
-  border-radius: var(--radius-card);
-  border-color: var(--card-border);
-  box-shadow: var(--shadow-card);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .ui-card {
-  padding: 20px;
+  padding: 0;
 }
-.ui-card .ui-list {
-  border-color: transparent;
-  background: var(--surface-2);
-  box-shadow: none;
+.ui-list {
+  overflow: visible;
+}
+.ui-list .ui-row {
+  width: calc(100% + 24px);
+  margin-inline: -12px;
+  padding-inline: 12px;
+  border-radius: 12px;
+}
+.ui-list .ui-row + .ui-row {
+  border-top: 0;
+  background-image: linear-gradient(var(--divider), var(--divider));
+  background-repeat: no-repeat;
+  background-position: 12px 0;
+  background-size: calc(100% - 24px) 1px;
+}
+.ui-list .ui-row:active,
+.ui-list .ui-row:is(a, button):hover {
+  background-color: var(--oyo-hover);
+}
+.ui-list .ui-row:focus-visible {
+  outline-offset: 0;
+}
+p.ui-group-caption {
+  padding-inline: 0;
+}
+h2.ui-group-caption {
+  padding: 0 0 4px;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.screen-stack {
+  gap: 32px;
+}
+.screen-stack h2.text-headline {
+  font-size: 20px;
+  line-height: 25px;
+  letter-spacing: -0.01em;
+}
+@media (max-width: 1023.98px) {
+  .screen-stack,
+  .ui-page-nav,
+  .ui-large-title {
+    padding-inline: var(--gutter);
+  }
+}
+.ui-sheet,
+.ui-toast {
+  box-shadow: var(--elev-3);
 }
 .ui-update-banner {
   border-radius: var(--radius-card);
   border-color: var(--card-border);
-  box-shadow: var(--shadow-float);
+  box-shadow: var(--elev-3);
 }
 
 /*
@@ -166,6 +273,7 @@
 .ui-button-secondary:active:not(:disabled),
 .ui-button-destructive:active:not(:disabled) {
   transform: scale(0.97);
+  box-shadow: var(--elev-1-press);
   transition-duration: var(--dur-press);
   transition-timing-function: var(--ease-out);
 }
@@ -173,6 +281,7 @@
 .drive-hero:active,
 .podium-card:active {
   transform: scale(0.985);
+  box-shadow: var(--elev-1-press);
   transition-duration: var(--dur-press);
   transition-timing-function: var(--ease-out);
 }
@@ -181,40 +290,50 @@
 .ui-button {
   border-radius: var(--radius-control);
 }
+/* Flat pills: primary is a cardinal fill, secondary a neutral fill. */
 .ui-button-primary {
-  box-shadow: 0 1px 2px rgb(40 24 20 / 12%);
-}
-.ui-button-secondary {
-  background: var(--surface);
-  border-color: var(--divider);
-  box-shadow: 0 1px 2px rgb(40 24 20 / 6%);
-}
-.dark .ui-button-primary {
   box-shadow: none;
 }
-.dark .ui-button-secondary {
+.ui-button-secondary,
+.ui-button-destructive {
   background: var(--surface-2);
-  border-color: var(--card-border);
+  border-color: transparent;
   box-shadow: none;
+}
+.ui-button-secondary:active:not(:disabled),
+.ui-button-destructive:active:not(:disabled) {
+  background: var(--oyo-skeleton);
+}
+.dark .ui-button-secondary:active:not(:disabled),
+.dark .ui-button-destructive:active:not(:disabled) {
+  background: #262626;
 }
 .ui-input,
 .ui-input-wrap {
   border-radius: 12px;
 }
+/* Minimal pill segments: a neutral track and a raised white (dark: lifted grey) thumb. */
 .ui-segments {
   border-radius: var(--radius-control);
+  background: var(--surface-2);
 }
 .ui-segment-thumb {
-  border-radius: 10px;
-  box-shadow:
-    0 1px 2px rgb(40 24 20 / 8%),
-    0 4px 10px -4px rgb(40 24 20 / 14%);
-  transition: transform var(--dur-travel) var(--spring);
+  border-radius: var(--radius-control);
+  box-shadow: var(--elev-2-sm);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    scale var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+  scale: 0.97;
+  box-shadow: var(--elev-2-sm-press);
+  transition-duration: var(--dur-travel), var(--dur-press), var(--dur-press);
+  transition-timing-function: var(--spring), var(--ease-out), var(--ease-out);
 }
 .dark .ui-segment-thumb {
   /* One step above the track, as on iOS: the selection reads as raised, never as a hole. */
-  background: #3a3533;
-  box-shadow: inset 0 0.5px 0 rgb(255 255 255 / 8%);
+  background: #2c2c2e;
 }
 .ui-icon-tile {
   border-radius: 10px;
@@ -230,37 +349,12 @@
   top: -96px;
 }
 
-/* Tab bar: frosted chrome, one selection pill that travels between tabs */
+/* Tab bar: a clean solid bar with a hairline; the active tab is simply the accent. */
 .shell-tabbar {
-  --tab-pad: max(4px, env(safe-area-inset-left), env(safe-area-inset-right));
-  background: var(--glass);
-  border-top: 0.5px solid var(--glass-line);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
-}
-.shell-tab,
-.shell-log-tab {
-  position: relative;
-  z-index: 1;
-}
-.shell-tabbar::before {
-  /* The selection pill: one column wide, clipped to a 56 × 30 rounded pill behind the icon. */
-  content: '';
-  position: absolute;
-  top: 0;
-  left: var(--tab-pad);
-  width: calc((100% - 2 * var(--tab-pad)) / 5);
-  height: 72px;
-  pointer-events: none;
-  background: var(--oyo-selected);
-  clip-path: inset(12.5px calc(50% - 28px) 29.5px round 15px);
-  transform: translate3d(calc(var(--tab, 0) * 100%), 0, 0);
-  transition:
-    transform var(--dur-travel) var(--spring),
-    opacity var(--dur-feedback) var(--ease-out);
-}
-.shell-tabbar[data-tab='none']::before {
-  opacity: 0;
+  background: var(--bg);
+  border-top: 1px solid var(--divider);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 .shell-tab svg {
   transition: transform var(--dur-travel) var(--spring);
@@ -278,13 +372,14 @@
   height: 48px;
   border-radius: 16px;
   background: var(--accent);
-  box-shadow:
-    0 1px 2px rgb(40 24 20 / 18%),
-    0 8px 20px -10px rgb(40 24 20 / 45%);
-  transition: transform var(--dur-travel) var(--spring);
+  box-shadow: var(--elev-cardinal-sm);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
 }
 .shell-log-tab:active > span:first-child {
   transform: scale(0.9);
+  box-shadow: var(--elev-cardinal-sm-press);
   transition-duration: var(--dur-press);
   transition-timing-function: var(--ease-out);
 }
@@ -508,7 +603,10 @@
     #8c1515 48%,
     var(--cardinal-deep) 100%
   );
-  box-shadow: var(--shadow-hero);
+  box-shadow: var(--elev-cardinal);
+}
+.drive-hero:active {
+  box-shadow: var(--elev-cardinal-press);
 }
 .drive-hero:focus-visible {
   outline: 2px solid var(--oyo-focus);
@@ -622,7 +720,8 @@
 
 /* Kudos */
 .social-entry {
-  padding: 20px;
+  padding: 8px 0 24px;
+  border-bottom: 1px solid var(--divider);
 }
 .social-heart-burst {
   fill: var(--accent);
@@ -700,7 +799,7 @@
   background-color: var(--medal-fill, var(--surface));
   box-shadow:
     inset 0 2px 0 color-mix(in srgb, var(--medal-ink, var(--divider)) 45%, transparent),
-    var(--shadow-card);
+    var(--elev-1);
   animation: podium-rise var(--dur-focal) var(--spring) backwards;
 }
 .podium-card[data-medal='silver'] {
@@ -712,6 +811,11 @@
 .podium-card.is-me {
   background-color: var(--oyo-selected);
 }
+.podium-card:active {
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--medal-ink, var(--divider)) 45%, transparent),
+    var(--elev-1-press);
+}
 .podium-rank {
   border: 0;
   color: var(--medal-on-metal);
@@ -719,7 +823,7 @@
   background-image: var(--medal-metal);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 55%),
-    0 2px 6px -2px rgb(40 24 20 / 35%);
+    0 2px 6px -2px rgb(20 20 28 / 35%);
 }
 .podium-card[data-medal='gold'] .podium-rank {
   --medal-on-metal: #2b1d00;
@@ -753,6 +857,15 @@
 }
 
 /* The pinned You row rises in when your real row leaves the screen and steps away faster. */
+.leaderboard-pin > .ui-list {
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--elev-2);
+}
+.leaderboard-pin .ui-row {
+  width: 100%;
+  margin-inline: 0;
+}
 .leaderboard-pin {
   opacity: 0;
   transform: translate3d(0, 8px, 0);
@@ -788,10 +901,13 @@
 .profile-stat {
   display: grid;
   gap: 4px;
-  padding: 16px 12px;
-  border-radius: 16px;
-  background: var(--surface);
-  box-shadow: var(--shadow-card);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.profile-stat + .profile-stat {
+  padding-left: 16px;
+  border-left: 1px solid var(--divider);
 }
 .profile-stat svg {
   color: var(--highlight);
@@ -833,7 +949,7 @@
     #8c1515 48%,
     var(--cardinal-deep) 100%
   );
-  box-shadow: 0 30px 80px -30px rgb(0 0 0 / 60%);
+  box-shadow: var(--elev-cardinal-float);
   animation: save-card-in var(--dur-focal) var(--spring) backwards;
 }
 .save-mark {
@@ -962,8 +1078,8 @@
   .drive-hero,
   .podium-card,
   .ui-action-card,
+  .glass-switch-knob,
   .shell-tab svg,
-  .shell-tabbar::before,
   .shell-log-tab > span:first-child,
   .ui-segment-thumb {
     transition-duration: 0ms;
@@ -972,9 +1088,15 @@
   .ui-action-card:active,
   .drive-hero:active,
   .podium-card:active,
+  .ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb,
+  .glass-switch:active:not(:disabled) .glass-switch-knob,
   .shell-tab:active svg,
   .shell-log-tab:active > span:first-child {
     transform: none;
+    scale: none;
+  }
+  .ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+    transition-duration: 0ms;
   }
 }
 
@@ -986,7 +1108,7 @@
  */
 .glass-switch {
   --switch-ease: cubic-bezier(0.32, 0.72, 0, 1);
-  --switch-ink: #1c1a19;
+  --switch-ink: #1c1c1f;
   --switch-mark: #8c1515;
   position: relative;
   flex-shrink: 0;
@@ -1012,9 +1134,7 @@
   inset: 2px 0;
   border-radius: 13px;
   background: rgb(0 0 0 / 7%);
-  box-shadow:
-    inset 0 1px 2px rgb(0 0 0 / 18%),
-    inset 0 0 0 1px rgb(0 0 0 / 6%);
+  box-shadow: var(--elev-0);
 }
 .glass-switch-floor {
   position: absolute;
@@ -1041,22 +1161,37 @@
   background: linear-gradient(180deg, rgb(255 255 255 / 60%), rgb(255 255 255 / 22%));
   -webkit-backdrop-filter: blur(3px) saturate(140%);
   backdrop-filter: blur(3px) saturate(140%);
+  /* The one glass object: its own rim light, then the same downward elev-2 pair as every
+     raised control (contact, then ambient). */
+  --knob-drop: 0 1px 2px rgb(20 20 28 / 18%), 0 4px 10px -2px rgb(20 20 28 / 16%);
+  --knob-drop-press: 0 1px 1px rgb(20 20 28 / 20%), 0 2px 4px -2px rgb(20 20 28 / 14%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 75%),
     inset 0 -1px 0 rgb(0 0 0 / 6%),
     inset 0 0 0 0.5px rgb(255 255 255 / 35%),
-    0 1px 2px rgb(0 0 0 / 18%),
-    0 3px 8px rgb(0 0 0 / 12%);
+    var(--knob-drop);
   translate: calc(var(--p, 0) * 36px) 0;
   transition:
     translate 260ms var(--switch-ease),
-    scale 100ms var(--ease-out);
+    scale 100ms var(--ease-out),
+    box-shadow 100ms var(--ease-out);
+}
+.dark .glass-switch-knob {
+  --knob-drop: 0 1px 2px rgb(0 0 0 / 55%), 0 4px 10px -2px rgb(0 0 0 / 60%);
+  --knob-drop-press: 0 1px 1px rgb(0 0 0 / 60%), 0 2px 4px -2px rgb(0 0 0 / 50%);
 }
 .glass-switch[data-dragging] .glass-switch-knob {
-  transition: scale 100ms var(--ease-out);
+  transition:
+    scale 100ms var(--ease-out),
+    box-shadow 100ms var(--ease-out);
 }
 .glass-switch:active:not(:disabled) .glass-switch-knob {
   scale: 0.96;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 75%),
+    inset 0 -1px 0 rgb(0 0 0 / 6%),
+    inset 0 0 0 0.5px rgb(255 255 255 / 35%),
+    var(--knob-drop-press);
 }
 .glass-switch-icon {
   grid-area: 1 / 1;
@@ -1094,13 +1229,10 @@
   background: #f08a93;
 }
 .dark .glass-switch {
-  --switch-ink: #f5f2ef;
+  --switch-ink: #f4f4f6;
 }
 .dark .glass-switch-track {
   background: rgb(255 255 255 / 6%);
-  box-shadow:
-    inset 0 1px 2px rgb(0 0 0 / 60%),
-    inset 0 0 0 1px rgb(255 255 255 / 6%);
 }
 .dark .glass-switch-knob {
   background: linear-gradient(180deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 5%));
