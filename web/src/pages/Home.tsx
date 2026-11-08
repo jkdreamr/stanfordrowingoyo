@@ -31,6 +31,7 @@ import { TodaysPlan } from '../components/plan/TodaysPlan';
 import { InstallBanner } from '../components/InstallBanner';
 import { LastWeekRecap } from '../components/LastWeekRecap';
 import { TeamChallenges } from '../components/TeamChallenges';
+import { BerkeleyRace } from '../components/BerkeleyRace';
 import { PullToRefresh } from '../components/social/PullToRefresh';
 import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Celebration } from '../components/ui/Celebration';
@@ -139,6 +140,7 @@ export default function Page() {
             {target?.source === 'personal' ? 'Personal Target' : 'Group Default'}
           </p>
         </ActionCard>
+        <BerkeleyRace week={config.current_week_start} />
         <TeamChallenges today={config.today} />
         <TodaysPlan today={config.today} />
         <ListGroup>

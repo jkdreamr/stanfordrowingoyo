@@ -38,6 +38,13 @@ export function formatEMeters(n: number, compact = false) {
       : `${Math.round(n).toLocaleString('en-US')} E-meters`
     : '—';
 }
+/** Compact volume: 950, 142.5k, 1.84M. */
+export function formatCompactMeters(n: number) {
+  if (!valid(n)) return '—';
+  if (n >= 999_950) return `${(n / 1_000_000).toFixed(2)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}k`;
+  return String(Math.round(n));
+}
 export function formatDuration(seconds: number) {
   if (!valid(seconds)) return '—';
   const n = Math.round(seconds);

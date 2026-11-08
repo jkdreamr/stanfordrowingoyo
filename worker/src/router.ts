@@ -50,6 +50,7 @@ const routes: Route[] = [
   { method: 'PATCH', path: '/api/me/tests/:id', handler: tests.patch },
   { method: 'DELETE', path: '/api/me/tests/:id', handler: tests.remove },
   { method: 'GET', path: '/api/stats/recap', handler: stats.recap },
+  { method: 'GET', path: '/api/stats/race', handler: stats.race },
   { method: 'GET', path: '/api/challenges', handler: challenges.list },
   { method: 'GET', path: '/api/admin/challenges', handler: challenges.adminList },
   { method: 'POST', path: '/api/admin/challenges', handler: challenges.create },

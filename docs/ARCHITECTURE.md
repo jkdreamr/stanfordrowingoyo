@@ -231,7 +231,8 @@ challenges(id TEXT PK, title, unit ('emeters'|'km'), goal_m INTEGER, modality NU
 roster(id TEXT PK, name NOT NULL, email NULL, role, group_key NULL, side, class_year,
        claimed_by_user_id NULL REFERENCES users(id), added_by, created_at)
        -- unique lower(email) where not null; unique claimed_by_user_id where not null
-settings(key PK, value_json)            -- team_code, zone_factors, mode_factors, group_targets, season_start ("09-01")
+settings(key PK, value_json)            -- team_code, zone_factors, mode_factors, group_targets, season_start ("09-01"),
+                                        -- berkeley_pace_percent (optional; absent = 90, no migration)
 weekly_targets(user_id, week_start, target_m, PK(user_id, week_start))
 entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, distance_m INT, duration_s INT NULL,
         avg_split_s REAL NULL, stroke_rate INT NULL, avg_hr INT NULL, title, notes, preset_id NULL,
@@ -456,6 +457,14 @@ with no generic scorer; dedicated Dive routes handle sequential answers and immu
   target, percent, hit_target, modalities, entry_count, consecutive hit weeks ending
   at that week, highest-equivalent entry (earliest creation breaks ties), and cached
   leaderboard team totals/counts and percent rank (null off leaderboard).
+- GET /api/stats/race?week=YYYY-MM-DD: authenticated `TeamRace` (Stanford vs Berkeley) for the selected
+  week (default this week; same week-date bounds as stats) and the week before. Population = active users with
+  role `rower` (same as compliance; staff never count). `stanford_m` = their summed stored `equiv_m` for the week;
+  `target_m` = their summed effective weekly targets; `berkeley_total_m` = round(target_m × ratio), ratio =
+  `berkeley_pace_percent` / 100 (`BERKELEY_PACE_RATIO` 0.9 by default, shared/race.ts). Berkeley advances linearly
+  from Monday 00:00 to the next Monday 00:00 America/Los_Angeles (`starts_at`/`ends_at`; 167/169 h on DST weeks):
+  `berkeley_m` = round(berkeley_total_m × elapsed fraction) at `as_of`, 0 before the week and the full total after.
+  `status` is upcoming/live/final from those instants. Zero rowers → all zeros. Five SQL reads, no N+1.
 - GET /api/challenges: authenticated active/upcoming challenges ordered by end_date.
 - GET /api/admin/challenges: staff all challenges newest first.
 - POST /api/admin/challenges, PATCH /api/admin/challenges/:id,
@@ -641,7 +650,8 @@ point), `VAPID_PRIVATE_KEY` (base64url 32-byte private scalar), `VAPID_SUBJECT` 
 with `wrangler secret put <NAME>`; locally put them in `.dev.vars`. Rotating keys invalidates existing subscriptions;
 clients resubscribe automatically when the server key differs.
 Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), reset password, roster CRUD + bulk import
-(CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
+(CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start,
+Berkeley pace whole percent 50–150),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
 CSV export of entries for a date range, audit log.
 Roster routes: `GET/POST /api/admin/roster`, `PATCH/DELETE /api/admin/roster/:id`,
@@ -746,10 +756,12 @@ content, staff access, owner-only My Fortnight plans, authenticated photo storag
 - Layout: mobile = bottom tab bar (Home, Feed, + Log (center, prominent), Leaderboard, Me); desktop ≥1024px = left
   sidebar with the same destinations + content column (max ~720px) and a right rail (week ring, announcements).
 - Screens: Login/Signup, Home (week progress ring vs target, remaining meters, days left, quick-log presets, this week's
-  sessions, pinned announcements, "suggested to hit target" using the distance menu), Log (modality segmented control,
+  sessions, pinned announcements, "suggested to hit target" using the distance menu, Stanford vs Berkeley race card
+  with last week's result), Log (modality segmented control,
   zone picker, distance or preset, optional time/split/rate/HR, live E-meter preview, notes, photos),
   Feed (cards: avatar, name, time, title, stats, E-meters, photos carousel, kudos, comments), Entry detail,
-  Leaderboard (This Week % / This Week Meters / Season; week switcher; podium for top 3; highlight me; ≥100% check),
+  Leaderboard (This Week % / This Week Meters / Season; week switcher; Stanford vs Berkeley race card for the selected
+  week, hidden on Season; podium for top 3; highlight me; ≥100% check),
   Me/Profile (season & year totals, weekly bar chart with target line, modality/zone breakdown, streak, best week, my
   entries, edit profile, set weekly target, splits), Rower profiles, Plan (sample fortnight for my group w/ zone colors,
   fortnight guidance table, Workout Menu, Pace & Distance Calculator), Notifications, Settings (theme, password, logout),
