@@ -251,8 +251,12 @@ test('privacy is public and Settings links to it in light and dark', async ({
   );
   const rower = await makeRower();
   await openSettings(rower.page);
+  const follow = rower.page.getByRole('switch', { name: 'Match System', exact: true });
+  if ((await follow.getAttribute('aria-checked')) === 'true') await follow.click();
   for (const theme of ['Light', 'Dark'] as const) {
-    await rower.page.getByRole('radio', { name: theme, exact: true }).click();
+    await rower.page.getByRole('switch', { name: 'Dark Mode', exact: true }).focus();
+    await rower.page.keyboard.press(theme === 'Dark' ? 'ArrowRight' : 'ArrowLeft');
+    await expect(rower.page.locator('html')).toHaveClass(theme === 'Dark' ? /dark/ : /^(?!.*dark)/);
     await rower.page.getByRole('link', { name: 'Quick Intro', exact: true }).click();
     await expect(rower.page.getByRole('heading', { name: 'E-meters', exact: true })).toBeVisible();
     await rower.page.screenshot({

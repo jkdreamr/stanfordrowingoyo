@@ -285,7 +285,7 @@ export function SeasonChartView({
       >
         <Paths key={range} {...paths} />
         {index === null && !empty && last && (
-          <span
+          <div
             key={`${range}:${paths.line.length}`}
             aria-hidden="true"
             className="season-end"

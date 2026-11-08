@@ -90,6 +90,9 @@ test('Settings appearance and change-password sheet are accessible', async ({ ma
   await page.reload();
   await expect(page.locator('html')).toHaveClass(/dark/);
   await expect(darkMode).toHaveAttribute('aria-checked', 'true');
+  // Let the launch splash lift and the first-screen entrance settle before pointing at the knob.
+  await expect(page.locator('#launch-splash')).toHaveCount(0);
+  await expect(page.locator('html')).toHaveAttribute('data-entered', '');
   // Drag: pull the knob from the dark end to the light end; a short wobble is still a tap.
   const box = (await darkMode.boundingBox())!;
   await page.mouse.move(box.x + 56, box.y + box.height / 2);
