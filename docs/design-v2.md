@@ -129,7 +129,7 @@ static mark with a 120 ms fade (no handoff).
   than buttons. Kudos, double-tap and saves acknowledge with the puddle ripple.
 - **Data.** Leaderboard bars and Me breakdown bars fill from their start; weekly columns rise from the
   baseline (most recent weeks last) and the selected week keeps full ink; the season line draws left to right
-  and redraws when the range changes.
+  once and morphs between shapes when the range changes.
 - **Budget.** Figures animate once per session and again only when the value changes, so revisiting a tab is
   calm. Nothing animates while the splash covers the screen.
 
@@ -176,8 +176,20 @@ static mark with a 120 ms fade (no handoff).
    cardinal "You" selection) with a medal hairline on top; rank badges are polished metal over a solid
    mid-tone. Every podium text holds at least 4.5:1 in light and dark, badges included at their darkest stop.
 9. **Me Profile.** Ringed avatar, three stat tiles (Season Meters, Week Streak, Top Week) that tick up, weekly
-   columns and the season line drawing in; the line ends in a 7 px accent dot with a 2 px page-color ring at
-   today, fading in as the draw reaches it (static under reduced motion).
+   columns and the season chart. The season chart sits edge to edge on the page (no card): one large tabular
+   figure (today's total), an accent delta line (`+12.4k this week`) and a muted pace line (`Behind pace by
+3.1k`) above a monotone-cubic accent line (2.25 px, round caps) that never dips, with a single-hue fill
+   fading from 22% (28% dark, a touch deeper when ahead of pace) to 0 at the baseline. Text and controls keep
+   the page gutter; the plot bleeds to the left edge and ends at the right gutter in an 8 px accent dot with a
+   2 px page-color ring. Entrance, once per mount: the line draws left to right (900 ms), the fill fades up
+   behind it and the dot pops (opacity, scale 0.6 to 1, `--ease-out`) as the draw arrives. Hold-and-drag (or
+   Left/Right) scrubs: a hairline and ringed dot follow the finger along the curve with no lag (rAF, `translate`
+   only, no React render per move), the line after the cursor steps back to 35% through a clip on a duplicate
+   path, the figure and delta show that day and the date rides above the cursor; Android gets a 5 ms buzz per
+   week boundary (not under reduced motion). On release the figure counts back to today in 420 ms. The range
+   pills sit below the chart with one selection pill that travels on `--spring`; changing range morphs the line,
+   fill, pace line and dot from the old shape to the new one (both resampled to 160 points, 420 ms,
+   `--ease-out`). Reduced motion: no draw, pop or morph; ranges swap instantly behind a 120 ms fade.
 10. **Glass Theme Switch (Settings › Appearance).** A Match System toggle plus a Dark Mode switch. The switch is
     a native `role="switch"` button (76 × 44 target): a recessed 76 × 40 track (radius 13) with the sun and moon
     printed on its floor at 35%, and a 32 px glass knob (radius 9, `backdrop-filter: blur(3px) saturate(140%)`,
