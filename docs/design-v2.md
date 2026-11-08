@@ -212,39 +212,55 @@ static mark with a 120 ms fade (no handoff).
 
 ## Ambient Water
 
-The one sanctioned ambient loop: calm water made from three pre-rendered, composited layers.
-Rounded, horizontally elongated ripple highlights flow diagonally through one another:
-420×280px tiles move right/down over 32 seconds, while fainter 300×200px tiles move left/down
-over 23 seconds. Both translate exactly one tile period with linear, continuous loops.
-Their changing overlap and a 29-second opacity breath suggest refraction rather than sliding
-nets. Very soft horizontal swell bands descend one 256px period over 37 seconds. The oar
-is omitted so the water stays primary. Only transform and opacity animate; no live filters
-or blending. Each moving layer has just one tile of overflow, sized from the large viewport
-to avoid mobile URL-bar reflow. The fixed, negative stacking layer paints above the body
-background but below content and chrome. It fades in after `afterLaunch`, preserving the
-opaque launch sheet and hero handoff.
+The one sanctioned ambient loop is a low-resolution procedural canvas: 128 pixels wide, with
+height derived from the viewport aspect ratio, independent of devicePixelRatio. Normal CSS
+stretching supplies the softness without blur filters. A procedurally seeded, periodic 4×4
+cell field forms soft sunlight rims, irregular cells, and brighter three-way junctions. The
+256×256 field caches palette values in memory, not downloaded textures. A 4096-entry sine
+lookup drives two evolving wave shears and a slower rolling swell. One reused ImageData pass
+copies packed colors and scales alpha; there are no per-frame image-buffer allocations.
+Cells are twice the previous size, about four across a 393px viewport. Rim falloff is 1.75×
+wider, spanning roughly seven canvas pixels before upscaling. At 393px viewport width, base drift is
+30.7px/s horizontally and 12.3px/s vertically (33.1px/s diagonally). Wave shears morph the
+network on 7.4–9.7 second periods, rather than moving an unchanged pattern. No raster
+downloads, WebGL, SVG filters, blending, or oar layer remain.
+The fixed negative stacking layer paints above the body background but below content. The
+route wrappers are transparent; page navigation, cards, and the Home gradient hero remain
+opaque. The layer fades in after `afterLaunch`, preserving the launch sheet and hero handoff.
 
 Tune or disable `ambientWaterConfig` in `AmbientWater.tsx`: `enabled: false` renders nothing;
-`intensity` is clamped to 0–1 and scales the entire group's maximum 17% light / 29% dark
-opacity (not each child independently). The primary caustic is 82% opaque inside that group;
-the secondary breathes between 26–40%, and swell is 25%. Transparent warm taupe highlights
-leave light mode near white; cardinal/dawn highlights remain perceptible on black.
-Retune the original periodic wave-interference artwork with `node scripts/ambient/render.mjs`
-on Node 24 and the existing Playwright Chromium install. Narrow focal ridges, offset soft
-halos and varying highlights are blurred across a 3×3 wrap before downsampling to 315×210px
-WebP. Swell is 256×128px. Separate palettes need no runtime filters or downloaded artwork.
+nonfinite intensity becomes zero and finite intensity is clamped to 0–1. Light mode shades
+cells with pale cool aqua (`rgb(115,175,201)`), leaving sunlight rims nearly transparent.
+Light alpha is capped at 49/255 (19.22%), a 30% reduction in shade contrast. Dark cells
+are deep ink/navy-black (approximately `rgb(3,6,11)` over black), not empty black. Dim,
+desaturated blue-grey rims reach approximately `rgb(24,27,33)` with a faint rose tint only
+at junctions; there is no amber or orange. Dark alpha is capped at 64/255 (25.10%). Peak
+dark luminance is about 31% of the previous cardinal/amber palette's bound. A MutationObserver
+follows the root `.dark` class. Swell and configured intensity only decrease alpha.
 
-Contrast must be calculated from decoded WebP pixels (including alpha and codec variation),
-not from the ideal palette. Group opacity bounds all overlaps: each RGB channel inside the
-group is a convex combination of decoded source colors, so its darkest light-mode or
-brightest dark-mode contribution can be bounded independently before applying group opacity.
-All three fields must be included at maximum child opacity when calculating that envelope.
-Decoded conservative bounds are light `rgb(243,238,232)` (text 14.74:1, muted 4.93:1) and
-dark `rgb(40,18,11)` (text 16.18:1, muted 6.93:1). A background-only login crop measured
-mean sRGB luma 252.41/255 in light and 1.59/255 in dark at normal playback speed.
-Opaque cards remain unchanged. Do not raise the opacity caps or change the generated palette
-without recalculating; muted text must retain 4.5:1.
+Contrast is bounded independently of wave position using source-over
+`C = alpha * source + (1 - alpha) * background` and WCAG sRGB linearization.
+Light's minimum channels are `rgb(228.10,239.63,244.62)`; conservatively rounding down to
+`rgb(228,239,244)` gives luminance 0.847586. In dark, source channel maxima occur at different
+rim/junction positions, so evaluate all 65,536 quantized palette entries, not independent maxima.
+Adding one sRGB level per channel for display rounding gives a conservative maximum
+luminance of 0.011629 (at approximately `rgb(25.35,28.11,34.13)`). Bilinear interpolation
+cannot exceed this maximum: the sRGB
+linearization function is convex, so luminance of interpolated colors is no greater than
+their weighted luminances. Swell, intensity, and entrance fade only move dark pixels towards
+black and light pixels towards white. Using `(Llighter + .05)/(Ldarker + .05)`:
+light `--text: #1c1c1f` / `--muted: #66666e` retain **14.53:1 / 4.86:1**;
+dark `--text: #f4f4f6` / `--muted: #a1a1aa` retain **15.51:1 / 6.65:1**.
+Opaque cards are unchanged. Recalculate before changing palettes or alpha caps; text must
+retain at least 7:1 and muted text at least 4.5:1.
 
-Hidden documents pause every animation via `data-paused`. Reduced motion removes all
-animations and the entrance transition, keeping a static caustic; forced colors, increased
-contrast and reduced transparency hide the layer entirely.
+requestAnimationFrame is throttled to approximately 30 fps. Each frame exposes `data-frame`
+and `data-render-ms` on the canvas for lifecycle tests and throttled performance sampling;
+the timing wraps the pixel pass, putImageData, and frame counter update. Unlike the former
+compositor-only textures, canvas intentionally updates pixels on the main thread. Measure
+both renderer cost and whole-page paint/layout rather than claiming compositor-only work.
+Hidden documents cancel RAF and stop the simulation clock; visibility restoration resumes it.
+Reduced motion renders a static frame without scheduling RAF or an entrance transition.
+Forced colors, increased contrast, and reduced transparency stop rendering and hide the layer;
+all four media queries are observed for changes. Unmount cancels launch/RAF callbacks and
+removes visibility/resize/media listeners and the theme observer.
