@@ -132,7 +132,7 @@ it('migrates v7 to v8 idempotently, retaining personal data on repeated migratio
     storage.sql.exec('DROP TABLE my_plan_sessions; DROP TABLE my_plans;');
     setSetting(storage, 'schema_version', 7);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(15);
+    expect(getSetting(storage, 'schema_version')).toBe(16);
     storage.sql.exec('INSERT INTO my_plans VALUES (?,?,?,?)', 'owner', START, '[]', NOW);
     storage.sql.exec(
       'INSERT INTO my_plan_sessions VALUES (?,?,?,?,?,?,?,?,?)',

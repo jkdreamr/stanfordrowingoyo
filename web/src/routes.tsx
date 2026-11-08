@@ -73,6 +73,20 @@ export const router = createBrowserRouter([
             element: <AppShell />,
             children: [
               { path: '/', element: <Home /> },
+              {
+                path: '/games',
+                lazy: async () => ({ Component: (await import('./pages/Games')).default }),
+              },
+              {
+                path: '/games/leaderboard',
+                lazy: async () => ({
+                  Component: (await import('./pages/GamesLeaderboard')).default,
+                }),
+              },
+              {
+                path: '/games/:id',
+                lazy: async () => ({ Component: (await import('./pages/Game')).default }),
+              },
               { path: '/recap', element: <Recap /> },
               { path: '/log', element: <Log /> },
               { path: '/feed', element: <Feed /> },

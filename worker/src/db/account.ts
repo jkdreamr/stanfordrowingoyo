@@ -1,5 +1,6 @@
 import type {
   AccountDataExport,
+  DiveAnswerExport,
   AccountExportMention,
   AccountExportPerson,
   AccountExportTag,
@@ -16,6 +17,7 @@ import { toUser, type UserRow } from './users';
 import { allMyPlans } from './myPlan';
 import { csvCell } from '../csv';
 import { closeReports } from './reports';
+import { toGameResult, type ResultRow } from './games';
 
 const OWN_ENTRIES = 'SELECT id FROM entries WHERE user_id = ?';
 const OWN_IMAGES = 'SELECT id FROM images WHERE owner_id = ?';
@@ -105,6 +107,16 @@ export function accountExport(
     'comment_id',
   );
   return {
+    game_results: sql
+      .exec<ResultRow>('SELECT * FROM game_results WHERE user_id=? ORDER BY date,game_id', id)
+      .toArray()
+      .map(toGameResult),
+    dive_answers: sql
+      .exec<Row<DiveAnswerExport>>(
+        'SELECT * FROM dive_answers WHERE user_id=? ORDER BY date,prompt_index',
+        id,
+      )
+      .toArray(),
     format_version: 1,
     exported_at: exportedAt,
     profile: toUser(user),
@@ -262,6 +274,9 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
     id,
   );
   for (const statement of [
+    'DELETE FROM game_results WHERE user_id = ?',
+    'DELETE FROM dive_answers WHERE user_id = ?',
+    'UPDATE dive_answers SET hidden_by = NULL WHERE hidden_by = ?',
     'DELETE FROM images WHERE owner_id = ?',
     'DELETE FROM entries WHERE user_id = ?',
     'DELETE FROM erg_tests WHERE user_id = ?',

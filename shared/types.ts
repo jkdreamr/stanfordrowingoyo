@@ -455,8 +455,70 @@ export interface AccountExportMention {
   author_id: string;
   created_at: string;
 }
+export type GameId = string;
+export type GameScoreDirection = 'higher' | 'lower';
+export interface GameAccess {
+  date: string;
+  unlocked: boolean;
+  reason: 'staff' | 'workout' | 'rest_day' | 'locked';
+}
+export interface GameInfo {
+  id: GameId;
+  direction: GameScoreDirection;
+}
+export interface GameResult {
+  game_id: GameId;
+  date: string;
+  user_id: string;
+  score: number;
+  payload: unknown;
+  created_at: string;
+  updated_at: string;
+}
+export interface GamesToday {
+  date: string;
+  access: GameAccess;
+  games: GameInfo[];
+  results: GameResult[];
+}
+export interface GameDayRow {
+  rank: number;
+  user: PublicUser;
+  score: number;
+  me: boolean;
+}
+export interface GameDayLeaderboard {
+  game_id: GameId;
+  date: string;
+  final: boolean;
+  players: number;
+  rows: GameDayRow[];
+}
+export interface GamesWeekRow {
+  rank: number;
+  user: PublicUser;
+  points: number;
+  days: number;
+  me: boolean;
+}
+export interface GamesWeekLeaderboard {
+  week_start: string;
+  rows: GamesWeekRow[];
+}
+export interface DiveAnswerExport {
+  date: string;
+  user_id: string;
+  prompt_index: number;
+  answer: string;
+  normalized: string;
+  hidden_at: string | null;
+  hidden_by: string | null;
+  created_at: string;
+}
 /** `GET /api/me/export`: the signed-in user's own data. Image bytes are fetched via `GET /api/images/:id`. */
 export interface AccountDataExport {
+  game_results: GameResult[];
+  dive_answers: DiveAnswerExport[];
   format_version: 1;
   exported_at: string;
   profile: User;
@@ -493,6 +555,12 @@ export interface Endpoint<Req, Res, Query = never> {
 }
 /** Canonical endpoint paths for the backend and typed browser client. Void responses use HTTP 204. */
 export interface Api {
+  'GET /api/games': Endpoint<void, GamesToday>;
+  'GET /api/games/access': Endpoint<void, GameAccess>;
+  'POST /api/games/:game/results': Endpoint<{ payload: unknown }, GameResult>;
+  'GET /api/games/:game/results/me': Endpoint<void, GameResult | null, { date?: string }>;
+  'GET /api/games/:game/leaderboard': Endpoint<void, GameDayLeaderboard, { date?: string }>;
+  'GET /api/games/leaderboard': Endpoint<void, GamesWeekLeaderboard, { week?: string }>;
   'GET /api/users/:id/tests': Endpoint<void, ErgTest[]>;
   'POST /api/me/tests': Endpoint<ErgTestInput, ErgTest>;
   'PATCH /api/me/tests/:id': Endpoint<Partial<ErgTestInput>, ErgTest>;

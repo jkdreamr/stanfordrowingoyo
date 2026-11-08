@@ -565,6 +565,27 @@ CREATE INDEX IF NOT EXISTS webauthn_challenges_expiry ON webauthn_challenges(exp
         '15',
       );
     });
+  if (version < 16)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS game_results (
+  game_id TEXT NOT NULL, date TEXT NOT NULL, user_id TEXT NOT NULL,
+  score INTEGER NOT NULL, payload_json TEXT NOT NULL,
+  created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+  PRIMARY KEY(game_id, date, user_id));
+CREATE INDEX IF NOT EXISTS game_results_user ON game_results(user_id, date);
+CREATE INDEX IF NOT EXISTS game_results_date ON game_results(date, game_id);
+CREATE TABLE IF NOT EXISTS dive_answers (
+  date TEXT NOT NULL, user_id TEXT NOT NULL, prompt_index INTEGER NOT NULL CHECK(prompt_index BETWEEN 0 AND 6),
+  answer TEXT NOT NULL, normalized TEXT NOT NULL,
+  hidden_at TEXT, hidden_by TEXT, created_at TEXT NOT NULL,
+  PRIMARY KEY(date, user_id, prompt_index));
+CREATE INDEX IF NOT EXISTS dive_answers_group ON dive_answers(date, prompt_index, normalized);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '16',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

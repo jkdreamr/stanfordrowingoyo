@@ -161,6 +161,8 @@ beforeEach(async () => {
         'entry_tags',
         'kudos',
         'comments',
+        'dive_answers',
+        'game_results',
         'comment_mentions',
         'notifications',
         'announcements',
@@ -216,6 +218,8 @@ describe('GET /api/me/export', () => {
     expect(Object.keys(data).sort()).toEqual(
       [
         'comments',
+        'dive_answers',
+        'game_results',
         'erg_tests',
         'exported_at',
         'format_version',

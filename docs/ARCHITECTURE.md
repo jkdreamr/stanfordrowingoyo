@@ -272,7 +272,14 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 15; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 16; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 16 adds `game_results(game_id,date,user_id,score,payload_json,created_at,updated_at)`
+with primary key `(game_id,date,user_id)` and indexes `(user_id,date)` and `(date,game_id)`;
+and `dive_answers(date,user_id,prompt_index,answer,normalized,hidden_at,hidden_by,created_at)`
+with primary key `(date,user_id,prompt_index)`, prompt index constrained to 0–6, and index
+`(date,prompt_index,normalized)`. Both tables and indexes use IF NOT EXISTS in one guarded
+idempotent transaction advancing to 16. Exports include the owner's game results (decoded
+payload) and Dive answer rows. Account removal deletes both and clears hidden_by references.
 Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
 Legacy best splits backfill one test per kind using the user's updated_at team-local date.
 Version 13 adds `entry_idempotency` and its created-at index in a self-contained, idempotent transaction.
@@ -302,9 +309,49 @@ Version 14 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth
 `(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
 epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `version < 14`.
 Version 15 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
-self-contained guarded block. Feature migrations run in ascending order 11–15, each advancing its own version.
+self-contained guarded block. Feature migrations run in ascending order 11–16, each advancing its own version.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
+
+### Daily Games
+
+Games are separate from training statistics, with no bottom tab. Dates use team-local
+America/Los_Angeles `today(ctx.now)` and weeks run Monday–Sunday via `weekStart`.
+`oyoGameAccess(storage,user,date)` is THE gate: coxswain/coach/admin always unlock;
+rowers unlock with any existing own entry dated today (entries are hard-deleted), or
+a rest day in the latest My Fortnight plan starting between today−13 and today.
+Rest-day offsets are `(week−1)*7+day`. Otherwise access is locked. Every game write
+refreshes the user and requires this rule server-side (403 `GAME_LOCKED`,
+"Log a workout today to play."). Deleting a workout can lock future writes again.
+
+- `GET /api/games` returns `GamesToday`: date, access, registered game info (id,
+  direction), and the caller's results today; `GET /api/games/access` returns `GameAccess`.
+- `POST /api/games/:game/results` takes `{payload: unknown}`. Server registry `score`
+  validates and computes a safe integer score and JSON payload; returns `GameResult`
+  (201). Date is always server today. Atomic one-result-per-game/day/user gives 409
+  `ALREADY_PLAYED` on repeats. Unknown games return 404; no generic scorer returns 405.
+- `GET /api/games/:game/results/me?date=` returns own `GameResult | null`.
+- `GET /api/games/:game/leaderboard?date=` defaults to today and rejects future dates.
+  Today's board requires a result today or staff status, else 403 `PLAY_FIRST`.
+  Past dates are readable by any authenticated user. `final` is date < today;
+  active players only, competition `RANK()` by the registry's higher/lower direction,
+  ties share rank, ordered by rank then name. Results may remain live until day end.
+- `GET /api/games/leaderboard?week=` returns `GamesWeekLeaderboard`; a date selects
+  its Monday (default current week; future weeks rejected). For each registered game/day
+  with N active players, points = N−competition rank+1. Sum across the week; `days`
+  counts distinct played dates. Competition rank is by total points descending; ties
+  show more days first then name but share rank. A single window-function SQL query
+  calculates placements and totals; registered/lower-direction id lists use `json_each(?)`,
+  never an expanding bound-parameter list. Weekly standings are independent of PLAY_FIRST.
+
+All handlers refresh the authenticated user and validate game ids against the registry.
+Extension contract: add a `ServerGame` in `worker/src/games/registry.ts` (id matching
+`/^[a-z][a-z0-9-]{1,31}$/`, direction, optional synchronous score callback), optional
+dedicated routes, and a typed lazy `GameDefinition` in `web/src/games/registry.ts`.
+No migration is needed. Routes, hub and generic boards pick up client entries; weekly
+aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
+`GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
+with no generic scorer; this phase reserves its answer schema but adds no gameplay.
 
 ### Tests, recaps, and challenges
 
