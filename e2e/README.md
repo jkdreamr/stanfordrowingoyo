@@ -21,19 +21,21 @@ CI, without resetting their state. `E2E_BASE_URL=https://localhost:8799` skips
 server management entirely; only local servers are allowed. Use a disposable
 database: tests create users, workouts and social data, and change a user role.
 
-For the full browser matrix, run each project with fresh managed state:
+For two consecutive full browser matrices, use fresh managed state for each run
+(leave `E2E_BASE_URL` unset and port 8799 free):
 
 ```sh
-npm run e2e -- --project=desktop-chrome
-npm run e2e -- --project=iphone-15
-npm run e2e -- --project=pixel-7
+npm run e2e
+npm run e2e
 ```
 
-Do not keep an existing server running between these commands. The combined
-matrix shares one database and localhost auth bucket; its synthetic signups can
-exceed the production signup rate limit, and accumulated leaderboard entries can
-hide lower-ranked test rowers. Per-project state keeps coverage isolated without
-changing production rate limits.
+Do not keep an existing server running between these commands. The configured
+projects have separate auth-IP buckets, but reusing the same database across full
+runs can exhaust the production auth rate limit. Accumulated leaderboard entries
+can also hide lower-ranked test rowers. If `E2E_BASE_URL` targets an external local
+server, give each full run its own disposable persistence directory; do not reset
+unrelated state. Fresh per-run state keeps coverage isolated without changing
+production rate limits, workers, retries or skips.
 
 `alignment.e2e.ts` sweeps every main, authentication and staff screen, plus
 onboarding, celebrations, empty/error states and representative sheets/dialogs,
