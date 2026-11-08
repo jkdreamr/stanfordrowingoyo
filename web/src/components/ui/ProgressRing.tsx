@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { formatMeters } from '../../lib/format';
+import { afterLaunch, lastShown, remember } from '../../lib/motion';
 export function ProgressRing({
   value,
   max,
@@ -7,6 +8,7 @@ export function ProgressRing({
   children,
   size = 144,
   previousValue,
+  id,
 }: {
   value: number;
   max: number;
@@ -14,12 +16,17 @@ export function ProgressRing({
   children?: ReactNode;
   size?: number;
   previousValue?: number;
+  /** Sweeps from empty on the first view in a session, then only animates real changes. */
+  id?: string;
 }) {
-  const [arcValue, setArcValue] = useState(previousValue ?? value);
+  const key = id && `ring:${id}`;
+  const [arcValue, setArcValue] = useState(
+    () => previousValue ?? lastShown(key) ?? (key ? 0 : value),
+  );
   useEffect(() => {
-    const frame = requestAnimationFrame(() => setArcValue(value));
-    return () => cancelAnimationFrame(frame);
-  }, [value]);
+    remember(key, value);
+    return afterLaunch(() => setArcValue(value));
+  }, [value, key]);
   const valid = Number.isFinite(value) && Number.isFinite(max) && max > 0;
   const ratio = valid ? Math.max(0, Math.min(1, value / max)) : 0;
   const circumference = 2 * Math.PI * 44;

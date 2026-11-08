@@ -65,11 +65,53 @@ test('join-code signup, logout, and login', async ({ page, bootstrap, newRowerSi
 test('Settings appearance and change-password sheet are accessible', async ({ makeRower }) => {
   const { page } = await makeRower();
   await openSettings(page);
-  await page.getByRole('radio', { name: 'Dark', exact: true }).click();
+  const follow = page.getByRole('switch', { name: 'Match System', exact: true });
+  const darkMode = page.getByRole('switch', { name: 'Dark Mode', exact: true });
+  const saved = () => page.evaluate(() => localStorage.getItem('theme'));
+  // A new account follows the device; the glass switch mirrors it and is locked.
+  await expect(follow).toHaveAttribute('aria-checked', 'true');
+  await expect(darkMode).toBeDisabled();
+  await expect(darkMode).toHaveAccessibleDescription('Following this device');
+  await follow.click();
+  await expect(follow).toHaveAttribute('aria-checked', 'false');
+  await expect(darkMode).toBeEnabled();
+  // Keyboard: ArrowRight is dark, ArrowLeft is light, Space toggles natively.
+  await darkMode.focus();
+  await page.keyboard.press('ArrowRight');
   await expect(page.locator('html')).toHaveClass(/dark/);
-  expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe('dark');
-  await page.getByRole('radio', { name: 'Light', exact: true }).click();
+  await expect(darkMode).toHaveAttribute('aria-checked', 'true');
+  expect(await saved()).toBe('dark');
+  await page.keyboard.press('ArrowLeft');
   await expect(page.locator('html')).not.toHaveClass(/dark/);
+  expect(await saved()).toBe('light');
+  await page.keyboard.press('Space');
+  await expect(darkMode).toHaveAttribute('aria-checked', 'true');
+  // Persistence across a reload, painted before React by the inline theme script.
+  await page.reload();
+  await expect(page.locator('html')).toHaveClass(/dark/);
+  await expect(darkMode).toHaveAttribute('aria-checked', 'true');
+  // Let the launch splash lift and the first-screen entrance settle before pointing at the knob.
+  await expect(page.locator('#launch-splash')).toHaveCount(0);
+  await expect(page.locator('html')).toHaveAttribute('data-entered', '');
+  // Drag: pull the knob from the dark end to the light end; a short wobble is still a tap.
+  const box = (await darkMode.boundingBox())!;
+  await page.mouse.move(box.x + 56, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + 14, box.y + box.height / 2, { steps: 8 });
+  await page.mouse.up();
+  await expect(darkMode).toHaveAttribute('aria-checked', 'false');
+  await expect(page.locator('html')).not.toHaveClass(/dark/);
+  expect(await saved()).toBe('light');
+  await page.mouse.move(box.x + 20, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + 22, box.y + box.height / 2, { steps: 2 });
+  await page.mouse.up();
+  await expect(darkMode).toHaveAttribute('aria-checked', 'true');
+  expect(await saved()).toBe('dark');
+  // Following the device again restores the system theme and locks the switch.
+  await follow.click();
+  expect(await saved()).toBe('system');
+  await expect(darkMode).toBeDisabled();
   await page.getByRole('button', { name: 'Change Password', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Change Password', exact: true });
   await expect(dialog).toBeVisible();

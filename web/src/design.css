@@ -1,0 +1,1336 @@
+/*
+ * Drive: Design v2. Loaded after styles.css, so screens adopt it by class.
+ *
+ * Motion follows the stroke: a quick, exact catch (press feedback ≤ 90 ms) and a weighted
+ * drive that settles (expo-out arrivals, a lightly damped spring for things that travel).
+ * Every animation is transform, opacity or clip-path, plays once where it carries meaning,
+ * and has a reduced-motion path at the end of this file.
+ */
+:root {
+  /* White page, white cards defined by a crisp hairline and soft depth; neutral fills for
+     recessed controls. Cardinal carries the warmth. */
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f2f2f4;
+  --text: #1c1c1f;
+  --muted: #66666e;
+  --divider: #e6e6ea;
+  --oyo-hover: #f4f4f6;
+  --oyo-selected: #f7e7e7;
+  --oyo-skeleton: #ececef;
+  --cardinal-top: #9c1c18;
+  --cardinal-deep: #6b0f0f;
+  --card-border: rgb(0 0 0 / 8%);
+  --radius-card: 20px;
+  --radius-control: 14px;
+  --radius-hero: 24px;
+  --shadow-card: 0 1px 2px rgb(20 20 28 / 5%), 0 10px 28px -16px rgb(20 20 28 / 16%);
+  --shadow-float: 0 2px 6px rgb(20 20 28 / 6%), 0 22px 48px -22px rgb(20 20 28 / 28%);
+  --shadow-hero: 0 2px 4px rgb(20 20 28 / 8%), 0 20px 40px -24px rgb(20 20 28 / 45%);
+  /* Solid cardinal objects cast a cardinal-tinted ambient in light mode, with a deep-cardinal
+     contact; dark mode keeps the neutral steps. */
+  --shadow-cardinal: 0 2px 4px rgb(92 10 10 / 18%), 0 20px 40px -24px rgb(140 21 21 / 50%);
+  --shadow-cardinal-sm: 0 1px 2px rgb(92 10 10 / 22%), 0 8px 20px -10px rgb(140 21 21 / 45%);
+  --shadow-cardinal-float: 0 4px 10px rgb(92 10 10 / 16%), 0 30px 80px -30px rgb(140 21 21 / 55%);
+  --glass: rgb(248 248 250 / 78%);
+  /*
+   * Glass material for controls, one definition: a translucent fill, a top-left rim light, a
+   * bottom inner shade, a hairline edge and a soft neutral drop. Blur is applied only where
+   * something passes beneath (switch knobs, the tab bar); elsewhere the static look is used.
+   */
+  --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(244 244 248 / 78%));
+  --glass-rim: inset 0 1px 0 rgb(255 255 255 / 95%), inset 1px 0 0 rgb(255 255 255 / 45%);
+  --glass-shade: inset 0 -1px 0 rgb(20 20 28 / 7%);
+  --glass-edge: inset 0 0 0 0.5px rgb(20 20 28 / 14%);
+  --glass-drop: 0 1px 2px rgb(20 20 28 / 12%), 0 4px 10px -3px rgb(20 20 28 / 14%);
+  --glass-drop-press: 0 1px 1px rgb(20 20 28 / 14%), 0 2px 4px -2px rgb(20 20 28 / 10%);
+  --glass-blur: blur(6px) saturate(140%);
+  --glass-shadow: var(--glass-rim), var(--glass-shade), var(--glass-edge), var(--glass-drop);
+  --glass-shadow-press:
+    var(--glass-rim), var(--glass-shade), var(--glass-edge), var(--glass-drop-press);
+  /* Tinted glass: a solid base keeps 4.5:1 for white labels; the rim and shade make it glass. */
+  --glass-tint-rim: inset 0 1px 0 rgb(255 255 255 / 26%), inset 1px 0 0 rgb(255 255 255 / 10%);
+  --glass-tint-shade: inset 0 -1px 0 rgb(0 0 0 / 22%);
+  --glass-line: rgb(20 20 28 / 8%);
+
+  /* Motion tokens */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  --spring: cubic-bezier(0.3, 1.15, 0.5, 1);
+  --dur-press: 90ms;
+  --dur-feedback: 160ms;
+  --dur-state: 240ms;
+  --dur-enter: 440ms;
+  --dur-travel: 520ms;
+  --dur-focal: 760ms;
+  --stagger: 40ms;
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    /* Damping ratio 0.78: travels with weight, overshoots 2% once and settles. */
+    --spring: linear(
+      0,
+      0.042,
+      0.144,
+      0.273,
+      0.408,
+      0.538,
+      0.653,
+      0.75,
+      0.829,
+      0.891,
+      0.937,
+      0.97,
+      0.993,
+      1.007,
+      1.015,
+      1.019,
+      1.02,
+      1.019,
+      1.017,
+      1.014,
+      1.011,
+      1.009,
+      1.007,
+      1.005,
+      1.003,
+      1
+    );
+  }
+}
+.dark {
+  --bg: #000000;
+  --surface: #121214;
+  --surface-2: #1d1d20;
+  --text: #f4f4f6;
+  --muted: #a1a1aa;
+  --divider: #26262a;
+  --oyo-hover: #18181b;
+  --oyo-selected: #33201e;
+  --oyo-skeleton: #1f1f22;
+  --cardinal-top: #8f1a16;
+  --cardinal-deep: #4f0b0b;
+  --card-border: rgb(255 255 255 / 8%);
+  --shadow-card: inset 0 1px 0 rgb(255 255 255 / 4%);
+  --shadow-float: 0 0 0 1px rgb(255 255 255 / 7%), 0 24px 48px -20px rgb(0 0 0 / 90%);
+  --shadow-hero: 0 0 0 1px rgb(255 255 255 / 6%), 0 24px 48px -24px rgb(0 0 0 / 90%);
+  --shadow-cardinal: var(--shadow-hero);
+  --shadow-cardinal-sm: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 20px -10px rgb(0 0 0 / 70%);
+  --shadow-cardinal-float: 0 30px 80px -30px rgb(0 0 0 / 60%);
+  --glass: rgb(0 0 0 / 72%);
+  --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 7%));
+  --glass-rim: inset 0 1px 0 rgb(255 255 255 / 22%), inset 1px 0 0 rgb(255 255 255 / 8%);
+  --glass-shade: inset 0 -1px 0 rgb(0 0 0 / 35%);
+  --glass-edge: inset 0 0 0 0.5px rgb(255 255 255 / 14%);
+  --glass-drop: 0 1px 2px rgb(0 0 0 / 55%), 0 4px 10px -3px rgb(0 0 0 / 60%);
+  --glass-drop-press: 0 1px 1px rgb(0 0 0 / 60%), 0 2px 4px -2px rgb(0 0 0 / 50%);
+  --glass-line: rgb(255 255 255 / 7%);
+}
+
+/* Type: system stack, tighter display tracking, numbers as the reward */
+.text-large-title,
+.ui-large-title {
+  font-weight: 700;
+  letter-spacing: -0.026em;
+}
+.text-title1 {
+  font-weight: 700;
+  letter-spacing: -0.022em;
+}
+.text-title2,
+.text-title3 {
+  letter-spacing: -0.016em;
+}
+.text-display {
+  font-size: 3.25rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tickers count inside a cell reserved for their widest value. */
+.ticker-figure {
+  display: inline-grid;
+}
+.ticker-figure > * {
+  grid-area: 1 / 1;
+}
+.ticker-reserve {
+  visibility: hidden;
+}
+
+/* Numbers are instruments: tabular figures everywhere. */
+body {
+  font-variant-numeric: tabular-nums;
+}
+/* The week card's material: a barely-there static grain (one 128 px tile, soft-light). */
+.drive-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: url('/textures/grain.png') repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: soft-light;
+  opacity: 0.04;
+}
+@media (forced-colors: active), (prefers-contrast: more) {
+  .drive-hero::before {
+    display: none;
+  }
+}
+/* On the Leaderboard, the race sits flat on the page instead of in a card. */
+.leaderboard > .race-module {
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Surfaces */
+.ui-card,
+.ui-list {
+  border-radius: var(--radius-card);
+  border-color: var(--card-border);
+  box-shadow: var(--shadow-card);
+}
+.ui-card {
+  padding: 20px;
+}
+.ui-card .ui-list {
+  border-color: transparent;
+  background: var(--surface-2);
+  box-shadow: none;
+}
+.ui-update-banner {
+  border-radius: var(--radius-card);
+  border-color: var(--card-border);
+  box-shadow: var(--shadow-float);
+}
+
+/*
+ * Press: the catch. Down is instant and exact; release springs back. Larger surfaces
+ * compress less than controls so the whole screen never seems to lurch.
+ */
+.ui-button,
+.ui-action-card,
+.drive-hero,
+.podium-card {
+  transition:
+    background-color var(--dur-feedback) var(--ease-out),
+    color var(--dur-feedback) var(--ease-out),
+    opacity var(--dur-feedback) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out),
+    transform var(--dur-travel) var(--spring);
+}
+.ui-button-primary:active:not(:disabled),
+.ui-button-secondary:active:not(:disabled),
+.ui-button-destructive:active:not(:disabled) {
+  transform: scale(0.97);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-action-card:active,
+.drive-hero:active,
+.podium-card:active {
+  transform: scale(0.985);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+
+/* Controls */
+.ui-button {
+  border-radius: var(--radius-control);
+}
+/* Tinted glass: primary (cardinal) and destructive (red) keep a solid base under the rim. */
+.ui-button-primary,
+.ui-button-destructive {
+  color: #fff;
+  box-shadow: var(--glass-tint-rim), var(--glass-tint-shade), var(--shadow-cardinal-sm);
+}
+.ui-button-destructive {
+  background: var(--danger);
+}
+.dark .ui-button-destructive {
+  /* #FF5C52 cannot hold 4.5:1 under white; the fill steps down to #C62828 (5.6:1). */
+  background: #c62828;
+}
+.ui-button-destructive:active:not(:disabled) {
+  background: var(--danger);
+}
+.dark .ui-button-destructive:active:not(:disabled) {
+  background: #b71c1c;
+}
+.ui-button-primary:active:not(:disabled),
+.ui-button-destructive:active:not(:disabled) {
+  box-shadow:
+    var(--glass-tint-rim),
+    var(--glass-tint-shade),
+    0 1px 1px rgb(20 20 28 / 18%);
+}
+/* Clear glass: secondary buttons, icon buttons and the hero chips. */
+.ui-button-secondary {
+  background: var(--glass-fill);
+  border-color: transparent;
+  box-shadow: var(--glass-shadow);
+}
+.ui-button-secondary:active:not(:disabled) {
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow-press);
+}
+.ui-page-nav .ui-icon-button,
+.ui-task-header .ui-icon-button,
+.ui-sheet-header .ui-icon-button,
+.ui-card .ui-icon-button {
+  border-radius: 50%;
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+:is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card)
+  .ui-icon-button:active:not(:disabled) {
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow-press);
+  transform: scale(0.94);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-button:disabled,
+.ui-icon-button:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+}
+.ui-input,
+.ui-input-wrap {
+  border-radius: 12px;
+}
+/* Segments: a glass thumb sliding over a recessed track. */
+.ui-segments {
+  border-radius: var(--radius-control);
+  box-shadow: inset 0 1px 2px rgb(20 20 28 / 10%);
+}
+.dark .ui-segments {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 55%);
+}
+.ui-segment-thumb {
+  border-radius: 10px;
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    scale var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+  scale: 0.97;
+  box-shadow: var(--glass-shadow-press);
+  transition-duration: var(--dur-travel), var(--dur-press), var(--dur-press);
+}
+.dark .ui-segment-thumb {
+  /* Lifted glass over the dark track. */
+  background: var(--glass-fill), #26262a;
+}
+.ui-icon-tile {
+  border-radius: 10px;
+}
+/* Under a large title, pull to refresh draws its indicator in the gap above the content, so
+   its slot takes no space: the first card sits 32px below the title instead of a 56px dead
+   band. The indicator keeps its old position relative to the content. (Home and
+   Notifications already lay the slot over their stacks.) */
+:not(.screen-stack) > .social-refresh-slot {
+  height: 0;
+}
+:not(.screen-stack) > .social-refresh-slot > .social-refresh-indicator {
+  top: -96px;
+}
+
+/* Tab bar: frosted chrome, one selection pill that travels between tabs */
+.shell-tabbar {
+  --tab-pad: max(4px, env(safe-area-inset-left), env(safe-area-inset-right));
+  background: var(--glass);
+  border-top: 0.5px solid var(--glass-line);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.shell-tab,
+.shell-log-tab {
+  position: relative;
+  z-index: 1;
+}
+.shell-tabbar::before {
+  /* The selection pill: one column wide, clipped to a 56 × 30 rounded pill behind the icon. */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--tab-pad);
+  width: calc((100% - 2 * var(--tab-pad)) / 5);
+  height: 72px;
+  pointer-events: none;
+  /* Glass pill: the tab bar is already frosted, so the pill is fill, rim and shade only. */
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 55%), rgb(255 255 255 / 0%) 70%), var(--oyo-selected);
+  clip-path: inset(12.5px calc(50% - 28px) 29.5px round 15px);
+  transform: translate3d(calc(var(--tab, 0) * 100%), 0, 0);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    opacity var(--dur-feedback) var(--ease-out);
+}
+.dark .shell-tabbar::before {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 12%), rgb(255 255 255 / 0%) 70%), var(--oyo-selected);
+}
+.shell-tabbar[data-tab='none']::before {
+  opacity: 0;
+}
+.shell-tab svg {
+  transition: transform var(--dur-travel) var(--spring);
+}
+.shell-tab:active svg {
+  transform: scale(0.86);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.shell-tab.is-active svg {
+  animation: drive-catch var(--dur-travel) var(--spring);
+}
+.shell-log-tab > span:first-child {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: var(--accent);
+  box-shadow: var(--glass-tint-rim), var(--glass-tint-shade), var(--shadow-cardinal-sm);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.shell-log-tab:active > span:first-child {
+  transform: scale(0.9);
+  box-shadow:
+    var(--glass-tint-rim),
+    var(--glass-tint-shade),
+    0 1px 1px rgb(20 20 28 / 18%);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+@keyframes drive-catch {
+  from {
+    transform: scale(0.84);
+  }
+}
+
+/*
+ * Tab changes: content travels in the direction of the tab you chose. The old screen
+ * leaves quickly, the new one arrives with the drive curve; chrome stays put.
+ */
+.shell-content {
+  view-transition-name: shell-content;
+}
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(shell-content) {
+  animation: none;
+}
+/* Fade-through: the old screen is gone before the new one is mostly visible, so the two
+   never read as a double exposure. */
+::view-transition-old(shell-content) {
+  animation: drive-leave 90ms linear both;
+}
+::view-transition-new(shell-content) {
+  animation: drive-arrive 260ms var(--ease-out) 60ms both;
+}
+:root[data-nav-dir='back']::view-transition-old(shell-content) {
+  animation-name: drive-leave-back;
+}
+:root[data-nav-dir='back']::view-transition-new(shell-content) {
+  animation-name: drive-arrive-back;
+}
+:root[data-nav-dir='none']::view-transition-old(shell-content) {
+  animation-name: drive-fade-out;
+}
+:root[data-nav-dir='none']::view-transition-new(shell-content) {
+  animation-name: drive-fade-in;
+}
+@keyframes drive-leave {
+  to {
+    opacity: 0;
+    transform: translate3d(-8px, 0, 0);
+  }
+}
+@keyframes drive-arrive {
+  from {
+    opacity: 0;
+    transform: translate3d(16px, 0, 0);
+  }
+}
+@keyframes drive-leave-back {
+  to {
+    opacity: 0;
+    transform: translate3d(8px, 0, 0);
+  }
+}
+@keyframes drive-arrive-back {
+  from {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+}
+@keyframes drive-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes drive-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/*
+ * One entrance per session: the first screen rises in a single staggered stroke as the
+ * splash lifts. Afterwards (`data-entered`), screens arrive through the tab transition.
+ */
+:root:not([data-entered]) .ui-large-title,
+:root:not([data-entered]) .screen-stack > *,
+:root:not([data-entered]) .drive-rise {
+  animation: drive-rise var(--dur-enter) var(--ease-out) backwards;
+}
+.launching .ui-large-title,
+.launching .screen-stack > *,
+.launching .drive-rise,
+.launching .drive-day-fill,
+.launching .drive-bar,
+.launch-handoff .drive-day-fill {
+  animation-play-state: paused;
+}
+/* The launch handoff paints the hero in place, so it is already where the splash lands. */
+:root[data-handoff] .screen-stack > .drive-hero {
+  animation: none;
+}
+.screen-stack > :nth-child(2) {
+  animation-delay: calc(var(--stagger) * 1);
+}
+.screen-stack > :nth-child(3) {
+  animation-delay: calc(var(--stagger) * 2);
+}
+.screen-stack > :nth-child(4) {
+  animation-delay: calc(var(--stagger) * 3);
+}
+.screen-stack > :nth-child(5) {
+  animation-delay: calc(var(--stagger) * 4);
+}
+.screen-stack > :nth-child(n + 6) {
+  animation-delay: calc(var(--stagger) * 5);
+}
+:root .screen-stack > .social-refresh-slot {
+  animation: none;
+}
+@keyframes drive-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+}
+
+/* Large titles fold away as the page scrolls, like a native navigation bar. */
+@supports (animation-timeline: scroll()) {
+  .ui-large-title {
+    transform-origin: left bottom;
+    animation: drive-title-fold linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 56px;
+  }
+  :root:not([data-entered]) .ui-large-title {
+    animation:
+      drive-rise var(--dur-enter) var(--ease-out) backwards,
+      drive-title-fold linear both;
+    animation-timeline: auto, scroll(root);
+    animation-range:
+      normal,
+      0 56px;
+  }
+  @keyframes drive-title-fold {
+    to {
+      opacity: 0;
+      transform: translate3d(0, -4px, 0) scale(0.94);
+    }
+  }
+}
+
+/* Data that grows: bars fill from their start, chart lines draw left to right. */
+.drive-bar {
+  transform-origin: left center;
+  animation: drive-bar var(--dur-focal) var(--ease-out) 120ms backwards;
+}
+:root[data-entered] .drive-bar-once {
+  animation: none;
+}
+@keyframes drive-bar {
+  from {
+    transform: scaleX(0);
+  }
+}
+/* Weekly volume: columns rise from the baseline, most recent weeks last; the selected
+   week keeps full ink and the rest step back. */
+.drive-col {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  fill-opacity: 0.55;
+  transition: fill-opacity var(--dur-feedback) var(--ease-out);
+  animation: drive-col var(--dur-focal) var(--ease-out) backwards;
+  animation-delay: calc(80ms + var(--i, 0) * 18ms);
+}
+.drive-col.is-selected {
+  fill-opacity: 1;
+}
+@keyframes drive-col {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* Home hero: the one bright element on Home */
+.drive-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: block;
+  padding: 20px;
+  border-radius: var(--radius-hero);
+  color: #fff;
+  background: linear-gradient(
+    160deg,
+    var(--cardinal-top) 0%,
+    #8c1515 48%,
+    var(--cardinal-deep) 100%
+  );
+  box-shadow: var(--shadow-cardinal);
+}
+.drive-hero:focus-visible {
+  outline: 2px solid var(--oyo-focus);
+  outline-offset: 3px;
+}
+.drive-hero-soft {
+  color: rgb(255 255 255 / 78%);
+}
+.drive-hero .ui-ring svg circle:first-child {
+  stroke: rgb(255 255 255 / 18%);
+}
+.drive-hero .ui-ring-stroke {
+  stroke: #fff;
+  transition:
+    stroke-dashoffset 1100ms var(--ease-out),
+    stroke var(--dur-state) var(--ease-out);
+}
+.drive-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgb(255 255 255 / 18%), rgb(255 255 255 / 10%));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 22%),
+    inset 0 -1px 0 rgb(0 0 0 / 12%);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+}
+.drive-chip-streak svg {
+  color: #ffb38f;
+  fill: #ffb38f;
+}
+.drive-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 20px;
+}
+.drive-day {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  color: rgb(255 255 255 / 66%);
+}
+.drive-day-track {
+  position: relative;
+  width: 100%;
+  max-width: 28px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 11%);
+  overflow: hidden;
+}
+.drive-day-fill {
+  position: absolute;
+  inset: auto 0 0;
+  height: 100%;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 92%);
+  transform-origin: bottom;
+  transform: scaleY(var(--fill, 0));
+}
+:root:not([data-entered]) .drive-day-fill {
+  animation: drive-fill var(--dur-focal) var(--spring) backwards;
+  animation-delay: calc(180ms + var(--i, 0) * var(--stagger));
+}
+.drive-day.is-today {
+  color: #fff;
+}
+.drive-day.is-today .drive-day-track {
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 72%);
+}
+.drive-day.is-future .drive-day-track {
+  background: rgb(255 255 255 / 6%);
+}
+@keyframes drive-fill {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* Puddle: the swirl an oar leaves at the release. The app's one signature ripple. */
+.drive-puddle {
+  position: absolute;
+  pointer-events: none;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+  animation: drive-puddle 720ms var(--ease-out) both;
+}
+.drive-puddle + .drive-puddle {
+  animation-delay: 110ms;
+}
+@keyframes drive-puddle {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* Kudos */
+.social-entry {
+  padding: 20px;
+}
+.social-heart-burst {
+  fill: var(--accent);
+  animation: social-heart 640ms var(--spring) both;
+}
+.social-entry > .drive-puddle {
+  z-index: 2;
+  color: var(--accent);
+  width: 160px;
+  height: 160px;
+  margin: -80px 0 0 -80px;
+}
+.kudos-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+.kudos-icon > svg {
+  transition: transform var(--dur-travel) var(--spring);
+}
+.kudos-icon.is-giving > svg {
+  animation: kudos-pop var(--dur-travel) var(--spring);
+}
+.kudos-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px;
+  border-radius: 2px;
+  background: var(--accent);
+  pointer-events: none;
+  animation: kudos-spark 520ms var(--ease-out) both;
+}
+@keyframes kudos-pop {
+  0% {
+    transform: scale(0.62) rotate(-12deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes kudos-spark {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--a)) translateY(-6px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateY(-20px) scale(0.4);
+  }
+}
+.kudos-count {
+  display: inline-block;
+  animation: kudos-count 360ms var(--ease-out);
+}
+@keyframes kudos-count {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+}
+
+/*
+ * Podium: bronze, then silver, then gold rise into place. Cards sit on their solid medal
+ * fill (so every line of text is measured against one known color), and the rank badge is
+ * polished metal whose darkest stop still holds 4.5:1 against its ink.
+ */
+.podium-card {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-card);
+  background-color: var(--medal-fill, var(--surface));
+  box-shadow:
+    inset 0 2px 0 color-mix(in srgb, var(--medal-ink, var(--divider)) 45%, transparent),
+    var(--shadow-card);
+  animation: podium-rise var(--dur-focal) var(--spring) backwards;
+}
+.podium-card[data-medal='silver'] {
+  animation-delay: 90ms;
+}
+.podium-card[data-medal='gold'] {
+  animation-delay: 180ms;
+}
+.podium-card.is-me {
+  background-color: var(--oyo-selected);
+}
+.podium-rank {
+  border: 0;
+  color: var(--medal-on-metal);
+  background-color: var(--medal-solid);
+  background-image: var(--medal-metal);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 55%),
+    0 2px 6px -2px rgb(20 20 28 / 35%);
+}
+.podium-card[data-medal='gold'] .podium-rank {
+  --medal-on-metal: #2b1d00;
+  --medal-solid: #e2b84a;
+  --medal-metal: linear-gradient(145deg, #fbe7a1, #e2b84a 55%, #b8891f);
+}
+.podium-card[data-medal='silver'] .podium-rank {
+  --medal-on-metal: #23262d;
+  --medal-solid: #c9ced8;
+  --medal-metal: linear-gradient(145deg, #f4f6fa, #c9ced8 55%, #9aa1ae);
+}
+.podium-card[data-medal='bronze'] .podium-rank {
+  --medal-on-metal: #2e1606;
+  --medal-solid: #d9a074;
+  --medal-metal: linear-gradient(145deg, #f6d2b4, #d9a074 55%, #bd7d4f);
+}
+.podium-card .ui-avatar {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px color-mix(in srgb, var(--medal-ink) 55%, transparent);
+}
+.podium-card[data-medal='gold'] .ui-avatar {
+  width: 56px;
+  height: 56px;
+}
+@keyframes podium-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+  }
+}
+
+/* The pinned You row rises in when your real row leaves the screen and steps away faster. */
+.leaderboard-pin {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+  transition:
+    opacity 140ms var(--ease-in),
+    transform 140ms var(--ease-in),
+    visibility 0s linear 140ms;
+}
+.leaderboard-pin.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    visibility 0s;
+}
+
+/* Me */
+.profile-hero {
+  position: relative;
+  padding: 8px 0 4px;
+}
+.profile-hero .ui-avatar-lg {
+  box-shadow:
+    0 0 0 3px var(--bg),
+    0 0 0 5px var(--accent);
+}
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.profile-stat {
+  display: grid;
+  gap: 4px;
+  padding: 0;
+}
+.profile-stat + .profile-stat {
+  padding-left: 16px;
+  border-left: 1px solid var(--divider);
+}
+/* Me is mostly flat: profile, figures, chart and rows sit on the page; only Erg Tests and
+   Weekly Volume keep their panels. */
+.me-flat .ui-list {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.me-flat .ui-list .ui-row {
+  padding-inline: 0;
+}
+.profile-stat svg {
+  color: var(--highlight);
+  fill: var(--highlight);
+}
+
+/* Save celebration: the logged session lands on the week */
+.save-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(13 12 12 / 36%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  animation: drive-fade-in var(--dur-state) var(--ease-out) both;
+}
+.save-celebration.is-leaving {
+  animation: save-out 200ms var(--ease-in) both;
+}
+/* An achievement card on Home waits under the overlay and pops as it lifts. */
+:root:has(.save-celebration:not(.is-leaving)) .celebration-pop {
+  animation-play-state: paused;
+}
+.save-card {
+  position: relative;
+  width: min(100%, 340px);
+  padding: 32px 24px 24px;
+  border-radius: var(--radius-hero);
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(
+    160deg,
+    var(--cardinal-top) 0%,
+    #8c1515 48%,
+    var(--cardinal-deep) 100%
+  );
+  box-shadow: var(--shadow-cardinal-float);
+  animation: save-card-in var(--dur-focal) var(--spring) backwards;
+}
+.save-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 20px;
+  color: #fff;
+}
+.save-mark > .drive-puddle {
+  left: 50%;
+  top: 50%;
+  width: 84px;
+  height: 84px;
+  margin: -42px;
+  animation-duration: 900ms;
+  animation-delay: 180ms;
+}
+.save-mark > .drive-puddle + .drive-puddle {
+  animation-delay: 320ms;
+}
+.save-mark circle {
+  stroke-dasharray: 252;
+  animation: save-draw 520ms var(--ease-out) 80ms both;
+}
+.save-mark path {
+  stroke-dasharray: 48;
+  animation: save-draw-check 320ms var(--ease-out) 380ms both;
+}
+.save-bar {
+  position: relative;
+  height: 8px;
+  margin-top: 20px;
+  border-radius: 4px;
+  background: rgb(255 255 255 / 18%);
+  overflow: hidden;
+}
+.save-bar > span {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #fff;
+  transform-origin: left;
+  transition: transform 900ms var(--ease-out) 300ms;
+}
+@keyframes save-out {
+  to {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+}
+@keyframes save-card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.94);
+  }
+}
+@keyframes save-draw {
+  from {
+    stroke-dashoffset: 252;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes save-draw-check {
+  from {
+    stroke-dashoffset: 48;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/*
+ * Reduced motion: no travel, scale or drawing. State still changes visibly, and
+ * overlays and screen changes keep a short opacity fade so cause and effect stay legible.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-entered]) .ui-large-title,
+  :root:not([data-entered]) .screen-stack > *,
+  :root:not([data-entered]) .drive-rise,
+  :root:not([data-entered]) .drive-day-fill,
+  .ui-large-title,
+  .podium-card,
+  .drive-bar,
+  .drive-col,
+  .shell-tab.is-active svg,
+  .kudos-icon.is-giving > svg,
+  .kudos-count,
+  .save-card,
+  .save-mark circle,
+  .save-mark path {
+    animation: none;
+  }
+  .drive-puddle,
+  .kudos-spark {
+    display: none;
+  }
+  .leaderboard-pin,
+  .leaderboard-pin.is-visible {
+    transform: none;
+    transition-duration: 120ms, 0ms, 0s;
+  }
+  .save-celebration,
+  .save-celebration.is-leaving {
+    animation-duration: 120ms;
+  }
+  ::view-transition-old(shell-content),
+  :root[data-nav-dir]::view-transition-old(shell-content) {
+    animation: drive-fade-out 120ms linear both;
+  }
+  ::view-transition-new(shell-content),
+  :root[data-nav-dir]::view-transition-new(shell-content) {
+    animation: drive-fade-in 120ms linear both;
+  }
+  .save-bar > span,
+  .drive-hero .ui-ring-stroke {
+    transition: none;
+  }
+  .ui-button,
+  .drive-hero,
+  .podium-card,
+  .ui-action-card,
+  .shell-tab svg,
+  .shell-tabbar::before,
+  .shell-log-tab > span:first-child,
+  .ui-segment-thumb {
+    transition-duration: 0ms;
+  }
+  .ui-button:active:not(:disabled),
+  .ui-action-card:active,
+  .drive-hero:active,
+  .podium-card:active,
+  .shell-tab:active svg,
+  .shell-log-tab:active > span:first-child,
+  :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card)
+    .ui-icon-button:active:not(:disabled) {
+    transform: none;
+  }
+  .ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+    scale: none;
+    transition-duration: 0ms;
+  }
+}
+
+/*
+ * Glass theme switch (Settings). A recessed track with the sun and moon printed on its floor;
+ * a small glass knob rides over them like a lens. Light on the left, dark on the right. The
+ * knob travels on an overshoot-free curve; nothing glows. Original CSS, proportions informed
+ * by Zsolt Kacso's Glass Light Toggle.
+ */
+.glass-switch {
+  --switch-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --switch-ink: #1c1a19;
+  --switch-mark: #8c1515;
+  position: relative;
+  flex-shrink: 0;
+  width: 76px;
+  height: 44px;
+  padding: 2px 0;
+  border-radius: 13px;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.glass-switch:focus-visible {
+  outline: 2px solid var(--oyo-focus);
+  outline-offset: 2px;
+}
+.glass-switch:disabled {
+  cursor: default;
+}
+.glass-switch:disabled > span {
+  opacity: 0.55;
+}
+.glass-switch-track {
+  position: absolute;
+  inset: 2px 0;
+  border-radius: 13px;
+  background: rgb(0 0 0 / 7%);
+  box-shadow:
+    inset 0 1px 2px rgb(0 0 0 / 18%),
+    inset 0 0 0 1px rgb(0 0 0 / 6%);
+}
+.glass-switch-floor {
+  position: absolute;
+  top: 13px;
+  color: var(--switch-ink);
+  opacity: 0.35;
+}
+.glass-switch-floor.is-sun {
+  left: 13px;
+}
+.glass-switch-floor.is-moon {
+  right: 13px;
+}
+.glass-switch-knob {
+  position: absolute;
+  top: 6px;
+  left: 4px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--switch-ink);
+  background: linear-gradient(180deg, rgb(255 255 255 / 60%), rgb(255 255 255 / 22%));
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  translate: calc(var(--p, 0) * var(--travel, 36px)) 0;
+  transition:
+    translate 260ms var(--switch-ease),
+    scale 100ms var(--ease-out),
+    box-shadow 100ms var(--ease-out);
+}
+.glass-switch[data-dragging] .glass-switch-knob {
+  transition:
+    scale 100ms var(--ease-out),
+    box-shadow 100ms var(--ease-out);
+}
+.glass-switch:active:not(:disabled) .glass-switch-knob {
+  scale: 0.96;
+  box-shadow: var(--glass-shadow-press);
+}
+.glass-switch:disabled .glass-switch-knob {
+  box-shadow: var(--glass-edge);
+}
+/* The compact on/off switch: same knob, track and motion; on fills the track with cardinal. */
+.glass-switch-toggle {
+  --travel: 20px;
+  width: 52px;
+  border-radius: 10px;
+}
+.glass-switch-toggle .glass-switch-track {
+  inset: 6px 0;
+  border-radius: 10px;
+  background: #dedee4;
+  box-shadow:
+    inset 0 1px 2px rgb(20 20 28 / 16%),
+    inset 0 0 0 1px var(--oyo-control-border);
+  transition: background-color 200ms var(--ease-out);
+}
+.glass-switch-toggle[aria-checked='true'] .glass-switch-track {
+  background: var(--accent);
+  box-shadow:
+    inset 0 1px 2px rgb(0 0 0 / 25%),
+    inset 0 0 0 1px rgb(0 0 0 / 10%);
+}
+.glass-switch-toggle .glass-switch-knob {
+  top: 9px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(246 246 250 / 88%));
+}
+.dark .glass-switch-toggle .glass-switch-track {
+  background: var(--surface-2);
+}
+.dark .glass-switch-toggle .glass-switch-knob {
+  background: linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(220 220 226 / 86%));
+}
+.glass-switch-icon {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: scale(0.6) rotate(-60deg);
+  /* Leaving: out in the first 120 ms. */
+  transition:
+    opacity 120ms var(--ease-in),
+    transform 120ms var(--ease-in);
+}
+.glass-switch[data-side='light'] .glass-switch-icon.is-sun,
+.glass-switch[data-side='dark'] .glass-switch-icon.is-moon {
+  opacity: 1;
+  transform: scale(1.12);
+  /* Arriving: in from 100 to 240 ms. */
+  transition:
+    opacity 140ms var(--ease-out) 100ms,
+    transform 140ms var(--ease-out) 100ms;
+}
+.glass-switch-indicator {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--switch-mark);
+  transition:
+    transform 260ms var(--switch-ease) 40ms,
+    background-color 160ms var(--ease-out) 40ms;
+}
+.glass-switch[data-side='dark'] .glass-switch-indicator {
+  /* Top of the knob in light, bottom in dark: 32 − 2 × 3 − 2 = 24 px. */
+  transform: translateY(24px);
+  background: #f08a93;
+}
+.dark .glass-switch {
+  --switch-ink: #f5f2ef;
+}
+.dark .glass-switch-track {
+  background: rgb(255 255 255 / 6%);
+  box-shadow:
+    inset 0 1px 2px rgb(0 0 0 / 60%),
+    inset 0 0 0 1px rgb(255 255 255 / 6%);
+}
+.dark .glass-switch-knob {
+  background: linear-gradient(180deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 5%));
+}
+/* The page crossfade while the theme changes: colors only, one beat. */
+.theme-anim,
+.theme-anim *:not(.glass-switch, .glass-switch *) {
+  transition-property: background-color, color, border-color, fill, stroke !important;
+  transition-duration: 200ms !important;
+  transition-timing-function: var(--ease-out) !important;
+  transition-delay: 0ms !important;
+}
+.theme-anim-reduced,
+.theme-anim-reduced *:not(.glass-switch, .glass-switch *) {
+  transition-duration: 120ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .glass-switch-knob,
+  .glass-switch-icon,
+  .glass-switch[data-side] .glass-switch-icon,
+  .glass-switch-indicator {
+    transition: none;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass-switch-knob,
+  .dark .glass-switch-knob,
+  .dark .glass-switch-toggle .glass-switch-knob,
+  .glass-switch-toggle .glass-switch-knob,
+  .ui-button-secondary,
+  .ui-button-secondary:active:not(:disabled),
+  .ui-segment-thumb,
+  .dark .ui-segment-thumb,
+  :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card) .ui-icon-button {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--surface);
+  }
+  .shell-tabbar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--bg);
+  }
+}
+@media (forced-colors: active) {
+  .ui-button-secondary,
+  .ui-segment-thumb,
+  :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card) .ui-icon-button {
+    background: ButtonFace;
+    border: 1px solid ButtonText;
+    box-shadow: none;
+  }
+  .ui-button-primary,
+  .ui-button-destructive,
+  .shell-log-tab > span:first-child {
+    box-shadow: none;
+    border: 1px solid ButtonText;
+  }
+}
+@media (forced-colors: active) {
+  .glass-switch-track {
+    border: 1px solid ButtonText;
+  }
+  .glass-switch-knob {
+    background: ButtonFace;
+    border: 1px solid ButtonText;
+    color: ButtonText;
+  }
+  .glass-switch-indicator {
+    background: Highlight;
+  }
+  .glass-switch:disabled > span {
+    opacity: 1;
+    border-color: GrayText;
+  }
+}

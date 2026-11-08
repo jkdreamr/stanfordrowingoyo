@@ -37,6 +37,7 @@ import {
 } from '../lib/logDraftStore';
 import { clearTargetFinish, recordTargetFinish } from '../lib/targetFinish';
 import { detectBests, recordCelebration } from '../lib/celebrations';
+import { announceSave } from '../lib/saveCelebration';
 import {
   Button,
   Card,
@@ -328,6 +329,14 @@ function LogForm({
         title: 'Session saved',
         action: { label: 'View', onClick: () => navigate(`/entries/${saved.id}`) },
       });
+      if (!entry)
+        announceSave({
+          equiv_m: saved.equiv_m,
+          title: saved.title,
+          ...(saved.week_start === config.current_week_start && previous && next
+            ? { before: previous.percent, after: next.percent }
+            : {}),
+        });
       navigate('/');
     } catch (error) {
       if (!entry && error instanceof ApiClientError && error.detail.code === 'NETWORK_ERROR') {

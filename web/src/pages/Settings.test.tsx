@@ -86,3 +86,23 @@ it('shows a download failure and enables a retry', async () => {
   fireEvent.click(screen.getByRole('button', { name: /Download My Data/ }));
   await screen.findByText('Download started');
 });
+it('follows the device until Match System is turned off, then the glass switch sets the theme', () => {
+  localStorage.removeItem('theme');
+  setup();
+  const follow = screen.getByRole('switch', { name: 'Match System' });
+  const dark = screen.getByRole('switch', { name: 'Dark Mode' }) as HTMLButtonElement;
+  expect(follow.getAttribute('aria-checked')).toBe('true');
+  expect(dark.disabled).toBe(true);
+  expect(screen.getByText('Following this device')).toBeTruthy();
+  fireEvent.click(follow);
+  expect(dark.disabled).toBe(false);
+  expect(localStorage.getItem('theme')).toBe('light');
+  fireEvent.click(dark);
+  expect(dark.getAttribute('aria-checked')).toBe('true');
+  expect(document.documentElement.classList.contains('dark')).toBe(true);
+  expect(localStorage.getItem('theme')).toBe('dark');
+  expect(document.documentElement.classList.contains('theme-anim')).toBe(true);
+  fireEvent.click(follow);
+  expect(localStorage.getItem('theme')).toBe('system');
+  expect(document.documentElement.classList.contains('dark')).toBe(false);
+});

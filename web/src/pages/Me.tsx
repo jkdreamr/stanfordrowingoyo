@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Activity, Camera } from 'lucide-react';
+import { Activity, Camera, Flame } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Modality } from '../../../shared/types';
 import { ZONES } from '../../../shared/math';
@@ -16,10 +16,11 @@ import {
   Tabs,
   ZoneChip,
 } from '../components/ui';
+import { Ticker } from '../components/ui/Ticker';
 import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
 import { useConfig, useEntries, useMe, useSeasonStats, useTarget } from '../lib/queries';
-import { formatEntryDate, formatKm, formatMeters } from '../lib/format';
+import { formatEntryDate, formatKm, formatMeters, formatNumber } from '../lib/format';
 import { MeStats } from './MeStats';
 import { ErgTests } from '../components/ErgTests';
 
@@ -39,6 +40,7 @@ export default function Me() {
   const stats = useSeasonStats(
     period === 'year' && config.data ? { year: Number(config.data.today.slice(0, 4)) } : {},
   );
+  const season = useSeasonStats();
   const [modality, setModality] = useState<'all' | Modality>('all');
   const [zone, setZone] = useState('all');
   const header = <PageHeader title="Me" trailing={<HeaderActions settings />} />;
@@ -83,8 +85,8 @@ export default function Me() {
   return (
     <>
       {header}
-      <div className="space-y-6 px-4 pb-8">
-        <section className="flex items-start gap-4 pt-6" aria-label="My Profile">
+      <div className="me-flat space-y-8 px-5 pb-8">
+        <section className="profile-hero flex items-start gap-4" aria-label="My Profile">
           <Link
             to="/me/edit"
             className="profile-photo-link"
@@ -118,6 +120,40 @@ export default function Me() {
             </Button>
           </div>
         </section>
+        {season.data && (
+          <section className="profile-stats drive-rise" aria-label="Season Highlights">
+            <div className="profile-stat">
+              <span className="text-caption text-muted">Season Meters</span>
+              <Ticker
+                id="season-total"
+                className="text-title2 tabular-nums"
+                value={season.data.total_m}
+                format={(n) => formatMeters(n, true)}
+              />
+            </div>
+            <div className="profile-stat">
+              <span className="text-caption text-muted">Week Streak</span>
+              <span className="flex items-center gap-1 text-title2 tabular-nums">
+                {season.data.streak > 0 && <Flame size={18} strokeWidth={2} aria-hidden="true" />}
+                <Ticker
+                  id="season-streak"
+                  value={season.data.streak}
+                  format={(n) => formatNumber(n)}
+                  duration={600}
+                />
+              </span>
+            </div>
+            <div className="profile-stat">
+              <span className="text-caption text-muted">Top Week</span>
+              <Ticker
+                id="season-best"
+                className="text-title2 tabular-nums"
+                value={season.data.best_week?.total_m ?? 0}
+                format={(n) => formatMeters(n, true)}
+              />
+            </div>
+          </section>
+        )}
         <ErgTests user={user} today={today} own />
         <SeasonChart />
         <section aria-label="Training Statistics">
@@ -157,12 +193,12 @@ export default function Me() {
           ) : entries.isPending ? (
             <LoadState />
           ) : filtered.length ? (
-            <div className="overflow-hidden rounded-xl border border-divider bg-surface divide-y divide-divider">
+            <div className="divide-y divide-divider border-y border-divider">
               {filtered.map((entry) => (
                 <Link
                   key={entry.id}
                   to={`/entries/${entry.id}`}
-                  className="flex min-h-20 items-start justify-between gap-3 px-4 py-4"
+                  className="flex min-h-20 items-start justify-between gap-3 py-4"
                 >
                   <div className="min-w-0">
                     <p className="break-words font-medium">{entry.title || 'Training Session'}</p>

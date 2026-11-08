@@ -6,6 +6,7 @@ import { clearCelebration, pendingCelebration, type Achievement } from '../../li
 import { formatEMeters, formatSplit } from '../../lib/format';
 import { invalidationKeys, useCreateErgTest } from '../../lib/queries';
 import { saveCelebrationTest } from '../../lib/celebrationTests';
+import { useSavedSession } from '../../lib/saveCelebration';
 import { Button } from './Button';
 import { Card } from './Card';
 import { IconButton } from './IconButton';
@@ -14,14 +15,16 @@ import { useToast } from './Toast';
 export function Celebration({ user }: { user: User }) {
   const [achievement, setAchievement] = useState(() => pendingCelebration(user.id));
   const split = achievement?.kind === 'split-2k' || achievement?.kind === 'split-6k';
+  // The save overlay covers Home for a moment; the card's time on screen starts once it lifts.
+  const covered = useSavedSession() !== null;
   useEffect(() => {
     clearCelebration(user.id);
   }, [user.id]);
   useEffect(() => {
-    if (!achievement || split) return;
+    if (!achievement || split || covered) return;
     const timer = setTimeout(() => setAchievement(undefined), 5000);
     return () => clearTimeout(timer);
-  }, [achievement, split]);
+  }, [achievement, split, covered]);
   if (!achievement) return null;
   return (
     <CelebrationCard

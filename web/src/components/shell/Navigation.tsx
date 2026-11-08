@@ -10,7 +10,8 @@ import {
   User,
   type LucideIcon,
 } from 'lucide-react';
-import { Link, NavLink } from 'react-router-dom';
+import type { CSSProperties } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useMe, useNotifications } from '../../lib/queries';
 import { Button } from '../ui';
 import { Brand } from './Brand';
@@ -20,11 +21,30 @@ export const main: { to: string; label: string; icon: LucideIcon }[] = [
   { to: '/leaderboard', label: 'Leaderboard', icon: Trophy },
   { to: '/me', label: 'Me', icon: User },
 ];
+/** Grid column of each main tab; the Log button holds column 2. */
+const column = (to: string) => {
+  const index = main.findIndex((tab) => tab.to === to);
+  return index < 0 ? -1 : index < 2 ? index : index + 1;
+};
+/** Tells the content transition which way to travel before a tab change. */
+export function setNavDirection(from: string, to: string) {
+  const a = column(from);
+  const b = column(to);
+  document.documentElement.dataset.navDir =
+    a < 0 || b < 0 || a === b ? 'none' : b > a ? 'forward' : 'back';
+}
 export function TabBar() {
+  const { pathname } = useLocation();
+  const active = column(pathname);
   return (
-    <nav aria-label="Main Navigation" className="shell-tabbar">
+    <nav
+      aria-label="Main Navigation"
+      className="shell-tabbar"
+      data-tab={active < 0 ? 'none' : undefined}
+      style={{ '--tab': Math.max(0, active) } as CSSProperties}
+    >
       {main.slice(0, 2).map((item) => (
-        <Tab key={item.to} {...item} />
+        <Tab key={item.to} {...item} from={pathname} />
       ))}
       <NavLink to="/log" className="shell-log-tab" aria-label="Log Session">
         <span>
@@ -33,16 +53,18 @@ export function TabBar() {
         <span>Log</span>
       </NavLink>
       {main.slice(2).map((item) => (
-        <Tab key={item.to} {...item} />
+        <Tab key={item.to} {...item} from={pathname} />
       ))}
     </nav>
   );
 }
-function Tab({ to, label, icon: Icon }: (typeof main)[number]) {
+function Tab({ to, label, icon: Icon, from }: (typeof main)[number] & { from: string }) {
   return (
     <NavLink
       end={to === '/'}
       to={to}
+      viewTransition
+      onClick={() => setNavDirection(from, to)}
       className={({ isActive }) => `shell-tab ${isActive ? 'is-active' : ''}`}
     >
       <Icon size={24} strokeWidth={1.75} aria-hidden="true" />

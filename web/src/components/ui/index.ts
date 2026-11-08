@@ -10,6 +10,7 @@ export * from './NumberField';
 export * from './TextArea';
 export * from './Select';
 export * from './Toggle';
+export * from './ThemeSwitch';
 export * from './Avatar';
 export * from './ZoneChip';
 export * from './ProgressRing';

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { api } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
 import { useLogout, useMe, usePushConfig } from '../lib/queries';
@@ -13,15 +13,15 @@ import { setAppBadge } from '../lib/badge';
 import { useInstall } from '../lib/install';
 import { IosInstallSteps } from '../components/InstallBanner';
 import { authError } from '../lib/auth';
-import { useTheme } from '../lib/theme';
+import { fadeTheme, useTheme } from '../lib/theme';
 import { ChangePasswordForm } from '../components/auth/ChangePasswordForm';
 import {
   ConfirmSheet,
   ListGroup,
   ListRow,
   PageHeader,
-  SegmentedControl,
   Sheet,
+  ThemeSwitch,
   Toggle,
   useToast,
 } from '../components/ui';
@@ -102,7 +102,8 @@ export default function Settings() {
   const [password, setPassword] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [downloading, setDownloading] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, dark } = useTheme();
+  const themeSwitch = useId();
   const toast = useToast();
   async function download() {
     if (downloading) return;
@@ -133,16 +134,32 @@ export default function Settings() {
       <div className="screen-stack">
         <FormErrors message={message} />
         <ListGroup header="Appearance">
-          <div className="p-4">
-            <SegmentedControl
-              label="Appearance"
-              value={theme}
-              onChange={setTheme}
-              options={[
-                { value: 'system', label: 'System' },
-                { value: 'light', label: 'Light' },
-                { value: 'dark', label: 'Dark' },
-              ]}
+          <div className="ui-row [&>div]:flex-1">
+            <Toggle
+              label="Match System"
+              checked={theme === 'system'}
+              onChange={(follow) =>
+                fadeTheme(() => setTheme(follow ? 'system' : dark ? 'dark' : 'light'))
+              }
+            />
+          </div>
+          <div className="ui-row">
+            <span className="min-w-0 flex-1">
+              <label htmlFor={themeSwitch} className="block">
+                Dark Mode
+              </label>
+              {theme === 'system' && (
+                <span id={`${themeSwitch}-note`} className="block text-footnote text-muted">
+                  Following this device
+                </span>
+              )}
+            </span>
+            <ThemeSwitch
+              id={themeSwitch}
+              dark={dark}
+              disabled={theme === 'system'}
+              aria-describedby={theme === 'system' ? `${themeSwitch}-note` : undefined}
+              onChange={(next) => fadeTheme(() => setTheme(next ? 'dark' : 'light'))}
             />
           </div>
         </ListGroup>

@@ -48,7 +48,7 @@ function Lane({
       <span className="text-subhead">{name}</span>
       <span className="race-track" aria-hidden="true">
         <span
-          className={`race-fill race-fill-${tone} block`}
+          className={`race-fill race-fill-${tone} drive-bar drive-bar-once block`}
           style={{ width: `${Math.min(100, (value / max) * 100)}%` }}
         />
       </span>
@@ -63,7 +63,7 @@ export function BerkeleyRace({ week }: { week: string }) {
   const race = query.data;
   if (!race)
     return (
-      <Card className="space-y-3" aria-busy="true">
+      <Card className="race-module space-y-3" aria-busy="true">
         <Skeleton className="h-11 w-48 rounded-md" />
         <Skeleton className="h-5 rounded-md" />
         <Skeleton className="h-5 rounded-md" />
@@ -75,7 +75,7 @@ export function BerkeleyRace({ week }: { week: string }) {
   const max = Math.max(race.week.berkeley_total_m, current.stanford, current.berkeley, 1);
   const last = race.previous.rowers > 0 ? raceAt(race.previous, now) : undefined;
   return (
-    <Card className="space-y-3">
+    <Card className="race-module space-y-3">
       <section aria-label="Stanford vs Berkeley" className="space-y-3">
         <div>
           <h2 className="text-headline">Stanford vs Berkeley</h2>

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { prefersReducedMotion } from '../lib/motion';
 import { PullToRefresh } from '../components/social/PullToRefresh';
 import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -47,7 +48,10 @@ function Progress({ row }: { row: LeaderboardRow }) {
       aria-valuenow={Math.floor(value)}
       className="mt-1.5 block h-1 w-full overflow-hidden rounded-sm bg-surface-2"
     >
-      <span className="block h-full rounded-[inherit] bg-accent" style={{ width: `${value}%` }} />
+      <span
+        className="drive-bar block h-full rounded-[inherit] bg-accent"
+        style={{ width: `${value}%` }}
+      />
     </span>
   );
 }
@@ -224,25 +228,43 @@ function SkeletonRows() {
     </div>
   );
 }
+/**
+ * Shows the pinned You row only while your real row is off screen, and never over the podium:
+ * a second observer watches the strip of viewport the pin occupies and holds the pin back
+ * while any of the top three sits in it.
+ */
 function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
   const [visible, setVisible] = useState(true);
+  const [blocked, setBlocked] = useState(false);
   useEffect(() => {
     setVisible(true);
+    setBlocked(false);
     if (!node || !pin) return;
-    let observer: IntersectionObserver | undefined;
+    let observers: IntersectionObserver[] = [];
     const observe = () => {
-      observer?.disconnect();
+      observers.forEach((observer) => observer.disconnect());
       const top = document.querySelector('.ui-page-nav')?.getBoundingClientRect().height ?? 0;
-      const bottom =
-        (parseFloat(getComputedStyle(pin).bottom) || 0) + pin.getBoundingClientRect().height;
-      observer = new IntersectionObserver(
+      const pinHeight = pin.getBoundingClientRect().height;
+      const bottom = (parseFloat(getComputedStyle(pin).bottom) || 0) + pinHeight;
+      observers = [];
+      // The podium strip first, so the row's observer is the latest (remeasured) one.
+      const podium = pin.parentElement?.querySelector('[aria-label="Top Three"]');
+      if (podium) {
+        const strip = new IntersectionObserver(([entry]) => setBlocked(entry.isIntersecting), {
+          rootMargin: `-${Math.max(0, Math.round(innerHeight - bottom))}px 0px -${Math.round(bottom - pinHeight)}px 0px`,
+        });
+        strip.observe(podium);
+        observers.push(strip);
+      }
+      const row = new IntersectionObserver(
         ([entry]) => setVisible(entry.intersectionRatio >= 0.98),
         {
           rootMargin: `-${Math.round(top)}px 0px -${Math.round(bottom)}px 0px`,
           threshold: [0, 0.98, 1],
         },
       );
-      observer.observe(node);
+      row.observe(node);
+      observers.push(row);
     };
     observe();
     const resize = new ResizeObserver(observe);
@@ -251,11 +273,40 @@ function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
     window.addEventListener('resize', observe);
     return () => {
       window.removeEventListener('resize', observe);
-      observer?.disconnect();
+      observers.forEach((observer) => observer.disconnect());
       resize.disconnect();
     };
   }, [node, pin]);
-  return !visible;
+  return !visible && !blocked;
+}
+
+/**
+ * FLIP reorder: when the metric or week changes, rows that stay on the board glide from their
+ * old place to their new one (transform only, 420 ms on the drive curve), so a rank change
+ * reads as movement rather than a reshuffle. Reduced motion: rows simply appear in place.
+ */
+function useRankFlip(list: HTMLElement | null, rows: LeaderboardRow[] | undefined) {
+  const places = useRef(new Map<string, number>());
+  useLayoutEffect(() => {
+    if (!list) return;
+    const next = new Map<string, number>();
+    const reduced = prefersReducedMotion();
+    for (const item of list.querySelectorAll<HTMLElement>('[data-rank-id]')) {
+      const id = item.dataset.rankId!;
+      const top = item.offsetTop;
+      const before = places.current.get(id);
+      next.set(id, top);
+      if (before === undefined || reduced || Math.abs(before - top) < 1) continue;
+      item.animate?.(
+        [{ transform: `translate3d(0, ${before - top}px, 0)` }, { transform: 'none' }],
+        {
+          duration: 420,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        },
+      );
+    }
+    places.current = next;
+  }, [list, rows]);
 }
 
 export default function Leaderboard() {
@@ -294,6 +345,7 @@ function Board({ config }: { config: Config }) {
   const [myRow, setMyRow] = useState<HTMLAnchorElement | null>(null);
   const [pin, setPin] = useState<HTMLDivElement | null>(null);
   const showPinned = usePinned(myRow, pin);
+  const [rankList, setRankList] = useState<HTMLOListElement | null>(null);
 
   const update = (next: { metric?: LeaderboardMetric; week?: string }) => {
     const search = new URLSearchParams(params);
@@ -310,6 +362,7 @@ function Board({ config }: { config: Config }) {
   const podium = rows ? rows.slice(0, 3) : [];
   const rest = rows ? rows.slice(podium.length) : [];
   const mine = rows?.find((r) => r.user.id === me?.id);
+  useRankFlip(rankList, rows);
   const isCurrent = week === currentWeek;
 
   return (
@@ -372,10 +425,11 @@ function Board({ config }: { config: Config }) {
             <Podium rows={podium} metric={metric} meId={me?.id} rowRef={setMyRow} />
           )}
           {rest.length > 0 && (
-            <ol start={podium.length + 1} className="ui-list m-0 list-none p-0">
+            <ol ref={setRankList} start={podium.length + 1} className="ui-list m-0 list-none p-0">
               {rest.map((row) => (
                 <li
                   key={row.user.id}
+                  data-rank-id={row.user.id}
                   value={row.rank}
                   className="border-b border-divider last:border-b-0"
                 >

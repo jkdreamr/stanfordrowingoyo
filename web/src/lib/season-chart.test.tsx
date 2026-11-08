@@ -5,9 +5,21 @@ import { MemoryRouter } from 'react-router-dom';
 import type { SeasonStats, WeekSummary } from '../../../shared/types';
 import { addDays } from '../../../shared/dates';
 import {
+  FLOOR,
+  MORPH_SAMPLES,
+  areaPath,
   chartPath,
   cumulativeSeries,
+  curveAt,
+  curvePath,
+  easeOut,
+  formatDelta,
+  morphCurve,
+  monotoneTangents,
   paceGap,
+  paceLabel,
+  plotCurve,
+  resample,
   rangeStart,
   sampleWeekly,
   selectRange,
@@ -130,7 +142,7 @@ describe('range and plotting helpers', () => {
     const selected = selectRange(cumulativeSeries([stats()], '2026-09-07'), '1W', start);
     expect(selected).toHaveLength(1);
     expect(selected[0]).toMatchObject({ total: 300, day: 0 });
-    expect(chartPath(selected, yDomain(selected, '1W'))).toContain('L1000');
+    expect(chartPath(selected, yDomain(selected, '1W'))).toMatch(/ 1000,[\d.]+$/);
   });
   it('samples only beyond 400 days and retains both ends', () => {
     const points = Array.from({ length: 405 }, (_, i) => ({
@@ -272,7 +284,7 @@ it('ignores companion stylus touches without resetting a pen drag', () => {
 it('scrubs by keyboard, announces keyboard changes and resets on Escape', () => {
   const { container } = view();
   const plot = screen.getByRole('img');
-  const path = container.querySelector('path')!;
+  const path = container.querySelector('.sc-past .sc-line')!;
   const original = path.getAttribute('d');
   fireEvent.keyDown(plot, { key: 'Home' });
   expect(screen.getByText('100 m')).toBeTruthy();
@@ -290,7 +302,7 @@ it('shows empty state with pace and own-only log action', () => {
   expect(screen.getByText('0 m')).toBeTruthy();
   expect(screen.getByText('No sessions logged this season')).toBeTruthy();
   expect(screen.getByRole('link', { name: 'Log a Session' }).getAttribute('href')).toBe('/log');
-  expect(container.querySelectorAll('path')).toHaveLength(2);
+  expect(container.querySelectorAll('.sc-pace')).toHaveLength(1);
   rerender(
     <MemoryRouter>
       <SeasonChartView
@@ -305,8 +317,8 @@ it('shows empty state with pace and own-only log action', () => {
 });
 it('omits pace for coxswains and zero targets', () => {
   const { container, rerender } = view({ coxswain: true });
-  expect(container.querySelectorAll('path')).toHaveLength(1);
-  expect(screen.queryByText(/target pace/)).toBeNull();
+  expect(container.querySelectorAll('.sc-pace')).toHaveLength(0);
+  expect(screen.queryByText(/pace/)).toBeNull();
   rerender(
     <MemoryRouter>
       <SeasonChartView
@@ -316,12 +328,223 @@ it('omits pace for coxswains and zero targets', () => {
       />
     </MemoryRouter>,
   );
-  expect(container.querySelectorAll('path')).toHaveLength(1);
-  expect(screen.queryByText(/target pace/)).toBeNull();
+  expect(container.querySelectorAll('.sc-pace')).toHaveLength(0);
+  expect(screen.queryByText(/pace/)).toBeNull();
 });
 it('shows a flat cumulative week with zero new meters on Monday', () => {
   view();
   fireEvent.click(screen.getByRole('button', { name: '1W' }));
   expect(screen.getByText('+0 m this week')).toBeTruthy();
   expect(screen.getByText('300 m')).toBeTruthy();
+});
+
+/** Every point the emitted path draws, read back from its cubic Bézier segments. */
+function tracePath(d: string, steps = 24) {
+  const numbers = (d.match(/-?\d+(?:\.\d+)?/g) ?? []).map(Number);
+  const out: { x: number; y: number }[] = [];
+  let x0 = numbers[0];
+  let y0 = numbers[1];
+  out.push({ x: x0, y: y0 });
+  for (let i = 2; i + 5 < numbers.length; i += 6) {
+    const [x1, y1, x2, y2, x3, y3] = numbers.slice(i, i + 6);
+    for (let s = 1; s <= steps; s++) {
+      const t = s / steps;
+      const u = 1 - t;
+      out.push({
+        x: u ** 3 * x0 + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t ** 3 * x3,
+        y: u ** 3 * y0 + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t ** 3 * y3,
+      });
+    }
+    x0 = x3;
+    y0 = y3;
+  }
+  return out;
+}
+const rising = (values: number[]) =>
+  values.map((total, i) => ({ date: addDays('2026-09-01', i), total, day: 0, pace: null }));
+describe('smooth line, morph and figure', () => {
+  it('never dips below an earlier value for non-decreasing data, and passes through every day', () => {
+    let seed = 7;
+    const random = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
+    for (let run = 0; run < 40; run++) {
+      let total = 0;
+      const points = rising(
+        Array.from({ length: 2 + Math.floor(random() * 60) }, () => {
+          const r = random();
+          total += r < 0.45 ? 0 : r < 0.9 ? random() * 12000 : random() * 60000;
+          return total;
+        }),
+      );
+      const domain = yDomain(points, run % 2 ? 'Season' : '1M');
+      const curve = plotCurve(points, domain);
+      const traced = tracePath(curvePath(curve));
+      for (let i = 1; i < traced.length; i++) {
+        expect(traced[i].x).toBeGreaterThanOrEqual(traced[i - 1].x - 1e-6);
+        // SVG y grows downward, so a rising total never makes y grow.
+        expect(traced[i].y).toBeLessThanOrEqual(traced[i - 1].y + 0.01);
+      }
+      curve.xs.forEach((x, i) => expect(curveAt(curve, x)).toBeCloseTo(curve.ys[i], 6));
+      for (let x = 0; x < 1000; x += 7) {
+        expect(curveAt(curve, x + 7)).toBeLessThanOrEqual(curveAt(curve, x) + 1e-9);
+      }
+    }
+  });
+  it('keeps flat runs flat and stays within the plot', () => {
+    const points = rising([0, 0, 0, 5000, 5000, 5000, 9000]);
+    const curve = plotCurve(points, yDomain(points, 'Season'));
+    const m = monotoneTangents(curve.xs, curve.ys);
+    expect(m.slice(0, 2).every((v) => v === 0)).toBe(true);
+    expect(m[4]).toBe(0);
+    const traced = tracePath(curvePath(curve));
+    expect(traced.every((p) => p.y <= FLOOR + 1e-9 && p.y >= 0)).toBe(true);
+    expect(
+      traced.filter((p) => p.x <= curve.xs[2]).every((p) => Math.abs(p.y - curve.ys[0]) < 1e-9),
+    ).toBe(true);
+    expect(areaPath(curvePath(curve))).toMatch(new RegExp(`L1000,${FLOOR}L0,${FLOOR}Z$`));
+    expect(areaPath('')).toBe('');
+  });
+  it('resamples any range to the same x positions and morphs between them monotonically', () => {
+    const week = plotCurve(rising([100, 100, 900, 2000]), [0, 2200]);
+    const season = plotCurve(rising(Array.from({ length: 70 }, (_, i) => i * i * 10)), [0, 50000]);
+    const a = resample(week);
+    const b = resample(season);
+    expect(a).toHaveLength(MORPH_SAMPLES);
+    expect(b).toHaveLength(MORPH_SAMPLES);
+    expect(a[0]).toBeCloseTo(week.ys[0]);
+    expect(a.at(-1)).toBeCloseTo(week.ys.at(-1)!);
+    expect(b.at(-1)).toBeCloseTo(season.ys.at(-1)!);
+    expect(morphCurve(a, b, 0).ys).toEqual(a);
+    expect(morphCurve(a, b, 1).ys).toEqual(b);
+    for (const t of [0.25, 0.5, 0.8]) {
+      const frame = morphCurve(a, b, t);
+      expect(frame.xs.at(-1)).toBe(1000);
+      const traced = tracePath(curvePath(frame), 6);
+      for (let i = 1; i < traced.length; i++)
+        expect(traced[i].y).toBeLessThanOrEqual(traced[i - 1].y + 0.01);
+      frame.ys.forEach((y, i) => {
+        expect(y).toBeLessThanOrEqual(Math.max(a[i], b[i]) + 1e-9);
+        expect(y).toBeGreaterThanOrEqual(Math.min(a[i], b[i]) - 1e-9);
+      });
+    }
+    expect(resample(plotCurve([], [0, 1]))).toEqual(Array(MORPH_SAMPLES).fill(FLOOR));
+  });
+  it('eases like --ease-out and formats the figure lines', () => {
+    expect(easeOut(0)).toBe(0);
+    expect(easeOut(1)).toBe(1);
+    expect(easeOut(0.5)).toBeGreaterThan(0.85);
+    expect(easeOut(0.3)).toBeLessThan(easeOut(0.31));
+    expect(formatDelta(0)).toBe('0 m');
+    expect(formatDelta(300)).toBe('300 m');
+    expect(formatDelta(-5)).toBe('0 m');
+    expect(formatDelta(12_400)).toBe('12.4k');
+    expect(formatDelta(1_840_000)).toBe('1.84M');
+    expect(paceLabel(null)).toBe('');
+    expect(paceLabel(0)).toBe('On pace');
+    expect(paceLabel(3100)).toBe('Ahead of pace by 3.1k');
+    expect(paceLabel(-450)).toBe('Behind pace by 450 m');
+  });
+});
+it('morphs the line to the new range and lands exactly on its path', () => {
+  vi.useFakeTimers();
+  let now = 0;
+  vi.stubGlobal('performance', { now: () => now });
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+    setTimeout(() => callback((now += 16)), 16),
+  );
+  vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  const { container, rerender } = view({ today: '2026-09-09', currentWeekStart: '2026-09-07' });
+  const line = container.querySelector('.sc-past .sc-line')!;
+  const area = container.querySelector('.sc-past .sc-area')!;
+  const season = line.getAttribute('d');
+  fireEvent.click(screen.getByRole('button', { name: '1W' }));
+  const week = container.querySelector('.sc-future .sc-line')!.getAttribute('d');
+  expect(week).not.toBe(season);
+  // The first frame starts from the old shape, resampled.
+  expect(line.getAttribute('d')).not.toBe(week);
+  act(() => vi.advanceTimersByTime(200));
+  const mid = line.getAttribute('d');
+  expect(mid).not.toBe(week);
+  expect(area.getAttribute('d')).toBe(areaPath(mid!));
+  // A parent render with equal data (new object identities) keeps the morph in flight.
+  rerender(
+    <MemoryRouter>
+      <SeasonChartView
+        stats={stats()}
+        today="2026-09-09"
+        currentWeekStart="2026-09-07"
+        range="1W"
+      />
+    </MemoryRouter>,
+  );
+  expect(line.getAttribute('d')).toBe(mid);
+  act(() => vi.advanceTimersByTime(32));
+  expect(line.getAttribute('d')).not.toBe(week);
+  act(() => vi.advanceTimersByTime(400));
+  expect(line.getAttribute('d')).toBe(week);
+  expect(area.getAttribute('d')).toBe(areaPath(week!));
+  expect(screen.getByRole('button', { name: '1W' }).getAttribute('aria-pressed')).toBe('true');
+});
+it('swaps ranges instantly under reduced motion', () => {
+  vi.stubGlobal('matchMedia', (query: string) => ({ matches: query.includes('reduce') }));
+  const { container } = view({ today: '2026-09-09', currentWeekStart: '2026-09-07' });
+  fireEvent.click(screen.getByRole('button', { name: '1W' }));
+  const line = container.querySelector('.sc-past .sc-line')!;
+  expect(line.getAttribute('d')).toBe(
+    container.querySelector('.sc-future .sc-line')!.getAttribute('d'),
+  );
+});
+it('shows the scrubbed value, dims the future and springs back to today on release', () => {
+  vi.useFakeTimers();
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+    setTimeout(() => callback(performance.now()), 16),
+  );
+  vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  const { container } = view();
+  const plot = screen.getByRole('img');
+  const figure = container.querySelector('.sc-figure')!;
+  expect(figure.textContent).toBe('300 m');
+  fireEvent.keyDown(plot, { key: 'Home' });
+  expect(figure.textContent).toBe('100 m');
+  expect(screen.getByText('+100 m since Sep 1')).toBeTruthy();
+  expect(screen.getByText('On pace')).toBeTruthy();
+  expect(plot.hasAttribute('data-scrubbing')).toBe(true);
+  expect(container.querySelector('clipPath rect')!.getAttribute('width')).toBe('20');
+  expect(plot.querySelectorAll('span')).toHaveLength(3);
+  fireEvent.keyDown(plot, { key: 'Escape' });
+  expect(plot.hasAttribute('data-scrubbing')).toBe(false);
+  expect(plot.querySelectorAll('span')).toHaveLength(0);
+  expect(container.querySelector('clipPath rect')!.getAttribute('width')).toBe('1040');
+  expect(screen.getByText('Behind pace by 500 m')).toBeTruthy();
+  act(() => vi.advanceTimersByTime(600));
+  expect(figure.textContent).toBe('300 m');
+});
+it('buzzes once per week boundary crossed while scrubbing, unless motion is reduced', () => {
+  vi.useFakeTimers();
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+    setTimeout(callback, 16),
+  );
+  vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  const vibrate = vi.fn();
+  Object.defineProperty(navigator, 'vibrate', { value: vibrate, configurable: true });
+  view();
+  const plot = screen.getByRole('img');
+  vi.spyOn(plot, 'getBoundingClientRect').mockReturnValue({ left: 0, width: 300 } as DOMRect);
+  const touch = (x: number) => [{ clientX: x, clientY: 100 }];
+  fireEvent.touchStart(plot, { touches: touch(0) });
+  act(() => vi.advanceTimersByTime(270));
+  fireEvent.touchMove(plot, { touches: touch(240), cancelable: true });
+  act(() => vi.advanceTimersByTime(20));
+  expect(vibrate).not.toHaveBeenCalled();
+  fireEvent.touchMove(plot, { touches: touch(300), cancelable: true });
+  act(() => vi.advanceTimersByTime(20));
+  expect(vibrate).toHaveBeenCalledWith(5);
+  fireEvent.touchEnd(plot, { touches: [] });
+  vi.stubGlobal('matchMedia', (query: string) => ({ matches: query.includes('reduce') }));
+  vibrate.mockClear();
+  fireEvent.touchStart(plot, { touches: touch(0) });
+  act(() => vi.advanceTimersByTime(270));
+  fireEvent.touchMove(plot, { touches: touch(300), cancelable: true });
+  act(() => vi.advanceTimersByTime(20));
+  expect(vibrate).not.toHaveBeenCalled();
+  delete (navigator as { vibrate?: unknown }).vibrate;
 });
