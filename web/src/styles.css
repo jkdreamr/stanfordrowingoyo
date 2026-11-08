@@ -360,7 +360,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif;
   font-size: 17px;
   line-height: 22px;
-  font-variant-numeric: tabular-nums;
 }
 .ui-update-banner {
   width: calc(100% - 32px);

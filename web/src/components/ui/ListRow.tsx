@@ -37,7 +37,7 @@ export function ListRow({
         <span className="block">{title}</span>
         {subtitle && <span className="block text-footnote text-muted">{subtitle}</span>}
       </span>
-      {trailing && <span className="text-subhead text-muted tabular-nums">{trailing}</span>}
+      {trailing && <span className="text-subhead text-muted">{trailing}</span>}
       {chevron && (
         <ChevronRight
           aria-hidden="true"

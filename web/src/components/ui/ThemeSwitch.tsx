@@ -1,7 +1,7 @@
 import { useRef, useState, type CSSProperties, type PointerEvent } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
-/** Knob travel in px. Theme: track 76 − knob 32 − 2 × 4 inset; toggle: 52 − 26 − 2 × 3. */
+/** Knob travel in px. Tracks 76/60 − knob 32 − 2 × 4 inset. */
 const TRAVEL = { theme: 36, toggle: 20 } as const;
 /** Movement below this many px is a tap, not a drag. */
 const TAP_SLOP = 4;
