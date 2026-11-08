@@ -11,9 +11,14 @@ export const remember = (id: string | undefined, value: number) => {
   if (id) shown.set(id, value);
 };
 
+/** True while the splash still covers the screen, or covers the hero during the handoff. */
+const covered = (root: HTMLElement) =>
+  root.classList.contains('launching') || root.classList.contains('launch-handoff');
+
 /**
- * Runs `start` on the next frame once the launch splash has lifted, so focal motion plays
- * where people can see it rather than behind the splash. Returns a cancel function.
+ * Runs `start` on the next frame once the launch splash has lifted (or, during the painted
+ * handoff, once it starts revealing Home's hero), so focal motion plays where people can see
+ * it rather than behind the splash. Returns a cancel function.
  */
 export function afterLaunch(start: (now: number) => void): () => void {
   const root = document.documentElement;
@@ -21,12 +26,12 @@ export function afterLaunch(start: (now: number) => void): () => void {
   const run = () => {
     frame = requestAnimationFrame(start);
   };
-  if (!root.classList.contains('launching')) {
+  if (!covered(root)) {
     run();
     return () => cancelAnimationFrame(frame);
   }
   const observer = new MutationObserver(() => {
-    if (root.classList.contains('launching')) return;
+    if (covered(root)) return;
     observer.disconnect();
     run();
   });

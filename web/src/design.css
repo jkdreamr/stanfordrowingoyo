@@ -348,8 +348,13 @@
 .launching .screen-stack > *,
 .launching .drive-rise,
 .launching .drive-day-fill,
-.launching .drive-bar {
+.launching .drive-bar,
+.launch-handoff .drive-day-fill {
   animation-play-state: paused;
+}
+/* The launch handoff paints the hero in place, so it is already where the splash lands. */
+:root[data-handoff] .screen-stack > .drive-hero {
+  animation: none;
 }
 .screen-stack > :nth-child(2) {
   animation-delay: calc(var(--stagger) * 1);

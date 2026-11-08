@@ -17,10 +17,14 @@
       }
       #launch-splash,
       #launch-splash *,
-      #launch-splash *::before {
+      #launch-splash *::before,
+      #launch-splash::after {
         box-sizing: border-box;
       }
       #launch-splash {
+        /* The drive spring from design.css (damping 0.78, one 2% overshoot), inlined. */
+        --splash-spring: cubic-bezier(0.3, 1.15, 0.5, 1);
+        --splash-center: calc(50% - 24px);
         position: fixed;
         inset: 0;
         z-index: 10000;
@@ -33,17 +37,85 @@
           radial-gradient(90% 70% at 0% 100%, #5c0a0a 0%, rgb(92 10 10 / 0%) 70%), #8c1515;
         font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif;
         -webkit-font-smoothing: antialiased;
+        clip-path: inset(0 round 0);
         transition: transform 380ms cubic-bezier(0.65, 0, 0.35, 1);
-        will-change: transform;
       }
+      @supports (transition-timing-function: linear(0, 1)) {
+        #launch-splash {
+          --splash-spring: linear(
+            0,
+            0.042,
+            0.144,
+            0.273,
+            0.408,
+            0.538,
+            0.653,
+            0.75,
+            0.829,
+            0.891,
+            0.937,
+            0.97,
+            0.993,
+            1.007,
+            1.015,
+            1.019,
+            1.02,
+            1.019,
+            1.017,
+            1.014,
+            1.011,
+            1.009,
+            1.007,
+            1.005,
+            1.003,
+            1
+          );
+        }
+      }
+      /* Curtain: the sheet lifts away. Used when Home's hero is not on screen to receive it. */
       #launch-splash.is-leaving {
         transform: translate3d(0, -100%, 0);
         pointer-events: none;
       }
+      /*
+       * Handoff: the painted sheet contracts onto Home's Week Hero (clip-path), the hero's own
+       * tonal paint settles in at its exact box, then the cover fades to reveal the live card.
+       * Input passes straight through from the first frame.
+       */
+      #launch-splash.is-leaving.is-handoff {
+        transform: none;
+        opacity: 0;
+        clip-path: inset(
+          var(--handoff-top) var(--handoff-right) var(--handoff-bottom) var(--handoff-left) round
+            24px
+        );
+        transition:
+          clip-path 480ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          opacity 200ms ease-out 280ms;
+      }
+      #launch-splash::after {
+        content: '';
+        position: absolute;
+        inset: var(--handoff-top, 0) var(--handoff-right, 0) var(--handoff-bottom, 0)
+          var(--handoff-left, 0);
+        border-radius: 24px;
+        background: linear-gradient(
+          160deg,
+          var(--cardinal-top, #9c1c18) 0%,
+          #8c1515 48%,
+          var(--cardinal-deep, #6b0f0f) 100%
+        );
+        opacity: 0;
+        pointer-events: none;
+      }
+      #launch-splash.is-handoff::after {
+        opacity: 1;
+        transition: opacity 200ms ease-out 80ms;
+      }
       .splash-water {
         position: absolute;
         left: 50%;
-        top: calc(50% - 30px);
+        top: var(--splash-center);
         width: 0;
         height: 0;
       }
@@ -64,10 +136,10 @@
         animation-delay: 460ms;
       }
       .splash-brand {
+        /* The mark's center sits on --splash-center, a little above the optical middle. */
         position: absolute;
-        inset: 0;
+        inset: calc(var(--splash-center) - 48px) 0 auto;
         display: grid;
-        place-content: center;
         justify-items: center;
         gap: 22px;
         transition:
@@ -78,13 +150,21 @@
         transform: translate3d(0, 30%, 0) scale(0.96);
         opacity: 0;
       }
+      #launch-splash.is-handoff .splash-brand,
+      #launch-splash.is-handoff .splash-water {
+        transform: scale(0.92);
+        opacity: 0;
+        transition:
+          transform 220ms cubic-bezier(0.5, 0, 0.75, 0),
+          opacity 180ms ease-in;
+      }
       .splash-mark {
         position: relative;
         width: 96px;
         height: 96px;
         border-radius: 50%;
         box-shadow: 0 24px 48px -16px rgb(40 0 0 / 60%);
-        animation: splash-mark-enter 560ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        animation: splash-mark-enter 600ms var(--splash-spring) both;
       }
       .splash-mark img {
         position: absolute;
@@ -129,13 +209,13 @@
         display: flex;
         gap: 0.08em;
         font-size: 34px;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 1;
-        letter-spacing: -0.02em;
+        letter-spacing: 0.02em;
       }
       .splash-wordmark span {
         display: block;
-        animation: splash-letter 520ms cubic-bezier(0.34, 1.4, 0.64, 1) 220ms both;
+        animation: splash-letter 520ms var(--splash-spring) 220ms both;
       }
       .splash-wordmark span:nth-child(2) {
         animation-delay: 280ms;
@@ -149,18 +229,18 @@
         border-radius: 2px;
         background: rgb(255 255 255 / 70%);
         transform-origin: left;
-        animation: splash-wake 420ms cubic-bezier(0.22, 1, 0.36, 1) 400ms both;
+        animation: splash-wake 420ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both;
       }
       .splash-sub {
         font-size: 15px;
         line-height: 20px;
         font-weight: 500;
-        color: rgb(255 255 255 / 76%);
+        color: rgb(255 255 255 / 80%);
         animation: splash-fade 360ms ease-out 480ms both;
       }
       @keyframes splash-mark-enter {
         from {
-          transform: scale(0.6);
+          transform: scale(0.72);
           opacity: 0;
         }
         to {
@@ -188,7 +268,7 @@
       }
       @keyframes splash-letter {
         from {
-          transform: translateY(14px);
+          transform: translateY(12px);
           opacity: 0;
         }
         to {
@@ -302,7 +382,7 @@
           const root = document.documentElement;
           root.classList.remove('launching');
           document.getElementById('root').removeAttribute('inert');
-          const color = root.classList.contains('dark') ? '#0D0C0C' : '#F5F3F0';
+          const color = root.classList.contains('dark') ? '#0E0D0D' : '#F5F3F0';
           for (const meta of document.querySelectorAll('meta[name="theme-color"]'))
             meta.setAttribute('content', color);
           const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
