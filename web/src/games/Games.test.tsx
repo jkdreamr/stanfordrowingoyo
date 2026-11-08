@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import type { ReactNode } from 'react';
@@ -86,9 +86,22 @@ it('navigates board dates without future days and displays a short week range', 
   expect(next.disabled).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: 'Previous Day' }));
   expect(await screen.findByText('Tue, Mar 17')).toBeTruthy();
-  expect(await screen.findAllByText('No Results Yet')).toHaveLength(GAMES.length);
+  expect(await screen.findAllByText('Play To See This Day’s Board')).toHaveLength(GAMES.length);
   expect(next.disabled).toBe(false);
   fireEvent.click(next);
   expect(await screen.findByText('Today', { exact: true })).toBeTruthy();
   expect(next.disabled).toBe(true);
+});
+
+it.each(['coxswain', 'coach'] as const)('keeps %s boards gated in mock mode too', async (role) => {
+  const { mock } = mount(<GameDayBoard gameId="wordguess" date="2026-03-18" />);
+  mock.state.users.find((u) => u.id === 'user-1')!.role = role;
+  expect(await screen.findByText('Play To See Today’s Board')).toBeTruthy();
+});
+it('lets admins view past boards without playing', async () => {
+  const { mock } = mount(<GamesLeaderboard />);
+  mock.state.users.find((u) => u.id === 'user-1')!.role = 'admin';
+  await screen.findByText('Mar 16 – 22');
+  fireEvent.click(screen.getByRole('button', { name: 'Previous Day' }));
+  await waitFor(() => expect(screen.getAllByText('No Results Yet')).toHaveLength(GAMES.length));
 });

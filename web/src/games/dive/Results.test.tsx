@@ -58,14 +58,14 @@ function day(): DiveDay {
     ],
   };
 }
-function mount(data = day(), staff = false, reviewOnly = false) {
+function mount(data = day(), canModerate = false, reviewOnly = false) {
   const client = new QueryClient({
     defaultOptions: { mutations: { retry: false }, queries: { retry: false } },
   });
   clients.push(client);
   return render(
     <QueryClientProvider client={client}>
-      <Results day={data} staff={staff} reviewOnly={reviewOnly} />
+      <Results day={data} canModerate={canModerate} reviewOnly={reviewOnly} />
     </QueryClientProvider>,
   );
 }
@@ -108,7 +108,7 @@ it('keeps copy retryable when clipboard access fails and renders empty groups', 
   fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
   expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
 });
-it('lets staff review groups without playing, requires confirmation and keeps failed moderation retryable', async () => {
+it('lets admins review groups without playing, requires confirmation and keeps failed moderation retryable', async () => {
   mount(day(), true, true);
   expect(screen.queryByRole('heading', { name: 'Your Dive' })).toBeNull();
   vi.mocked(api).mockRejectedValueOnce(new Error('No connection. Try again.'));

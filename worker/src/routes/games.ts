@@ -4,7 +4,7 @@ import { refreshUser } from '../auth/guards';
 import { toPublicUser, type UserRow } from '../db/users';
 import { HttpError, json, readJson } from '../http';
 import * as v from '../validate';
-import { oyoGameAccess, requireGameAccess } from '../games/access';
+import { oyoGameAccess, requireGameAccess, requireGameFinished } from '../games/access';
 import { GAMES, type ServerGame } from '../games/registry';
 import { toGameResult, type ResultRow } from '../db/games';
 
@@ -95,8 +95,7 @@ export function gameRoutes(registry: Record<string, ServerGame>) {
       const user = refreshUser(ctx),
         selected = game(ctx),
         day = date(ctx);
-      if (day === today(ctx.now) && user.role === 'rower' && !mine(ctx, selected.id, day, user.id))
-        throw new HttpError(403, 'PLAY_FIRST', 'Play today to see the board.');
+      requireGameFinished(ctx, user, selected.id, day);
       const ranked = ctx.storage.sql
         .exec<UserRow & { score: number; rank: number }>(
           `SELECT u.*,r.score,RANK() OVER (ORDER BY r.score ${selected.direction === 'lower' ? 'ASC' : 'DESC'}) AS rank FROM game_results r JOIN users u ON u.id=r.user_id WHERE r.game_id=? AND r.date=? AND u.active=1 ORDER BY rank,u.name,u.id`,

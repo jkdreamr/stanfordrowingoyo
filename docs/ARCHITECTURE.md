@@ -386,8 +386,8 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
   (text only, empty when locked), ordered caller answers with their own prompt reveals,
   completion, immutable running score, verdict, caller's generic result and nullable team reveal.
-  Today never exposes team groups before the caller completes all five, including staff;
-  staff can explicitly review them through the day endpoint.
+  Only admins may see team groups before completing all five prompts;
+  coxswains/coaches retain the same spoiler gate as rowers.
 - `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
   accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
@@ -400,15 +400,17 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   prompt's `gem` and at most five `notable` answers (three familiar Surface answers and two
   Deep Cuts), never a whole set or reveals for unanswered prompts.
 - `GET /api/games/dive/days/:date` returns `DiveDay` with revealed prompt groups for past
-  dates. Today requires five answers or staff (403 `PLAY_FIRST`); future dates are invalid.
-- `PATCH /api/games/dive/answers` is staff-only, takes
+  dates only if the caller finished that date’s Dive, unless admin (403 `PLAY_FIRST`).
+  Future dates are invalid.
+- `PATCH /api/games/dive/answers` requires staff plus completion of that date’s Dive
+  and today’s Dive (admins bypass both completion checks), takes
   `{date,prompt_index,normalized,hidden:boolean}` and returns that prompt's `DiveReveal`.
   It hides/unhides a whole group, sets/clears `hidden_at` and `hidden_by`, and audits
   `dive.hide`/`dive.unhide`. Moderation is display-only: neither stored answer points/tiers
   nor `game_results` scores/timestamps change. Later matching submissions inherit hidden
   display state but still earn their curated points. Non-staff see no hidden groups except
   their own answer marked `hidden` (without other hidden members/names/counts). Staff can
-  inspect all groups. Groups use normalized canonical keys for matches (aliases and fuzzy
+  inspect all groups after completion; admins can inspect them at any time. Groups use normalized canonical keys for matches (aliases and fuzzy
   matches converge), normalized free text for misses, and include `canonical`, `teammates`
   (`user_id`, `name`), count and `only_you` (caller is in a group with no teammate).
   `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
@@ -486,8 +488,8 @@ refreshes the user and requires this rule server-side (403 `GAME_LOCKED`,
   `ALREADY_PLAYED` on repeats. Unknown games return 404; no generic scorer returns 405.
 - `GET /api/games/:game/results/me?date=` returns own `GameResult | null`.
 - `GET /api/games/:game/leaderboard?date=` defaults to today and rejects future dates.
-  Today's board requires a result today or staff status, else 403 `PLAY_FIRST`.
-  Past dates are readable by any authenticated user. `final` is date < today;
+  Every date's board requires completion of that date's game, unless admin (403 `PLAY_FIRST`).
+  A partial Dive result does not count: all prompts must be answered. `final` is date < today;
   active players only, competition `RANK()` by the registry's higher/lower direction,
   ties share rank, ordered by rank then name. Results may remain live until day end.
 - `GET /api/games/leaderboard?week=` returns `GamesWeekLeaderboard`; a date selects
@@ -497,6 +499,17 @@ refreshes the user and requires this rule server-side (403 `GAME_LOCKED`,
   show more days first then name but share rank. A single window-function SQL query
   calculates placements and totals; registered/lower-direction id lists use `json_each(?)`,
   never an expanding bound-parameter list. Weekly standings are independent of PLAY_FIRST.
+
+Coxswains and coaches bypass only the OYO unlock gate (`reason: staff`).
+They play without early spoilers, like rowers: no other players' Dive answers or daily
+boards until finishing the requested day's game, including past-day views.
+Only `role: admin` (including Joshua Koo, joskoo@stanford.edu) bypasses that completion
+rule. The Dive UI uses the early review endpoint and moderation before play only for
+admins. Coxswains/coaches may moderate from a completed day's reveal, only after
+finishing today's Dive too; the Worker enforces this on PATCH. Locked-in per-prompt feedback remains available to
+every player. Word Guess answers/Connections groups stay hidden until completion,
+and Perception serves only each started round's stimulus; staff status adds no shortcuts.
+Weekly aggregate standings remain independent of daily spoiler gating.
 
 All handlers refresh the authenticated user and validate game ids against the registry.
 Extension contract: add a `ServerGame` in `worker/src/games/registry.ts` (id matching

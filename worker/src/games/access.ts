@@ -1,4 +1,5 @@
 import type { GameAccess } from '../../../shared/types';
+import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
 import { addDays } from '../../../shared/dates';
 import type { UserRow } from '../db/users';
 import type { Context } from '../context';
@@ -41,4 +42,26 @@ export function requireGameAccess(ctx: Context, user: UserRow, date: string) {
   const access = oyoGameAccess(ctx.storage, user, date);
   if (!access.unlocked) throw new HttpError(403, 'GAME_LOCKED', 'Log a workout today to play.');
   return access;
+}
+
+export function requireGameFinished(ctx: Context, user: UserRow, game: string, date: string) {
+  if (user.role === 'admin') return;
+  const complete =
+    game === 'dive'
+      ? ctx.storage.sql
+          .exec<{ answered: number }>(
+            'SELECT COUNT(*) AS answered FROM dive_answers WHERE user_id=? AND date=?',
+            user.id,
+            date,
+          )
+          .toArray()[0].answered === DIVE_PROMPTS_PER_DAY
+      : ctx.storage.sql
+          .exec(
+            'SELECT 1 FROM game_results WHERE user_id=? AND game_id=? AND date=?',
+            user.id,
+            game,
+            date,
+          )
+          .toArray().length > 0;
+  if (!complete) throw new HttpError(403, 'PLAY_FIRST', 'Finish this day’s game first.');
 }

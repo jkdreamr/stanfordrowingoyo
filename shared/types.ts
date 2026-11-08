@@ -528,6 +528,7 @@ export interface DiveDay {
   score: number;
   verdict: string;
   result: GameResult | null;
+  /** Only after this date is complete; admins may review before playing. */
   reveal: DiveReveal[] | null;
 }
 export interface ConnectionsDay extends Omit<ConnectionsCheck, 'outcome'> {

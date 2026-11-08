@@ -190,7 +190,7 @@ it('reveals team answers only on completion, groups matched aliases and normaliz
   await rest();
   await rest(1);
   expect((await api('/days/' + DATE)).status).toBe(403);
-  expect((await api('/days/' + DATE, 'GET', undefined, 59)).status).toBe(200);
+  expect((await api('/days/' + DATE, 'GET', undefined, 59)).status).toBe(403);
   const answer = (await set()).gem.answer;
   await submit(0, answer);
   await submit(0, `THE ${answer.toUpperCase()}`, 1);
@@ -219,7 +219,7 @@ it('reveals team answers only on completion, groups matched aliases and normaliz
   });
   expect(day.reveal![2].groups[0]).toMatchObject({ count: 1, only_you: true });
   expect((await current(1)).reveal).toBeNull();
-  expect((await api('/days/2026-03-17')).status).toBe(200);
+  expect((await api('/days/2026-03-17')).status).toBe(403);
   expect((await api('/days/2026-03-19')).status).toBe(400);
   expect((await api('/days/not-a-date')).status).toBe(400);
   const board = async (now: string) =>
@@ -236,6 +236,7 @@ it('reveals team answers only on completion, groups matched aliases and normaliz
   });
 });
 it('moderates display only, preserves all stored scores, hides other members, and audits hide/unhide', async () => {
+  await sql((s) => s.sql.exec("UPDATE users SET role='admin' WHERE id='u59'"));
   await Promise.all([0, 1, 2, 3].map(rest));
   await complete();
   const gem = (await set()).gem.answer,
@@ -349,4 +350,74 @@ it('measures end-to-end submit wall time in the Vitest Worker pool', async () =>
   console.log(
     `Dive Worker submit wall ms: first=${times[0].toFixed(3)}, mean=${(times.reduce((a, b) => a + b, 0) / times.length).toFixed(3)}, max=${Math.max(...times).toFixed(3)} (7 sequential requests, includes HTTP/storage/reveal)`,
   );
+});
+
+it.each(['coxswain', 'coach'] as const)(
+  'keeps %s spoilers and moderation locked until all prompts are answered',
+  async (role) => {
+    await sql((s) => s.sql.exec("UPDATE users SET role=? WHERE id='u59'", role));
+    await rest();
+    await complete();
+    const body = {
+      date: DATE,
+      prompt_index: 0,
+      normalized: normalizeAnswer((await set()).gem.answer),
+      hidden: true,
+    };
+    expect((await current(59)).access).toMatchObject({ unlocked: true, reason: 'staff' });
+    expect((await current(59)).reveal).toBeNull();
+    expect((await api('/days/' + DATE, 'GET', undefined, 59)).status).toBe(403);
+    expect((await api('/days/2026-03-17', 'GET', undefined, 59)).status).toBe(403);
+    expect((await api('/answers', 'PATCH', body, 59)).status).toBe(403);
+    const board = () =>
+      SELF.fetch('https://oyo.test/api/games/dive/leaderboard', {
+        headers: { Cookie: 'oyo_session=dive-59', 'X-OYO-Test-Now': NOW },
+      });
+    expect((await board()).status).toBe(403);
+    await submit(0, '', 59);
+    expect((await board()).status).toBe(403);
+    for (let i = 1; i < DIVE_PROMPTS_PER_DAY; i++) await submit(i, '', 59);
+    expect((await current(59)).reveal).not.toBeNull();
+    expect((await api('/days/' + DATE, 'GET', undefined, 59)).status).toBe(200);
+    expect((await board()).status).toBe(200);
+    expect((await api('/answers', 'PATCH', body, 59)).status).toBe(200);
+    expect((await api('/days/' + DATE, 'GET', undefined, 59, '2026-03-19T18:00:00Z')).status).toBe(
+      200,
+    );
+    const tomorrow = '2026-03-19T18:00:00Z';
+    expect((await api('/answers', 'PATCH', body, 59, tomorrow)).status).toBe(403);
+    for (let i = 0; i < DIVE_PROMPTS_PER_DAY; i++)
+      expect(
+        (await api('/answers', 'POST', { prompt_index: i, answer: '' }, 59, tomorrow)).status,
+      ).toBe(201);
+    expect((await api('/answers', 'PATCH', body, 59, tomorrow)).status).toBe(200);
+  },
+);
+
+it('allows admins to reveal, moderate and read current/past boards without playing', async () => {
+  await sql((s) => s.sql.exec("UPDATE users SET role='admin' WHERE id='u59'"));
+  await rest();
+  await submit(0, (await set()).gem.answer);
+  expect((await current(59)).reveal![0].groups).toHaveLength(1);
+  expect((await api('/days/' + DATE, 'GET', undefined, 59)).status).toBe(200);
+  expect((await api('/days/2026-03-17', 'GET', undefined, 59)).status).toBe(200);
+  const response = await SELF.fetch('https://oyo.test/api/games/dive/leaderboard', {
+    headers: { Cookie: 'oyo_session=dive-59', 'X-OYO-Test-Now': NOW },
+  });
+  expect(response.status).toBe(200);
+  expect(
+    (
+      await api(
+        '/answers',
+        'PATCH',
+        {
+          date: DATE,
+          prompt_index: 0,
+          normalized: normalizeAnswer((await set()).gem.answer),
+          hidden: true,
+        },
+        59,
+      )
+    ).status,
+  ).toBe(200);
 });

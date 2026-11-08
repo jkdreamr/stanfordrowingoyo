@@ -405,3 +405,56 @@ it('cannot reset a lost Connections board after its groups are revealed', async 
   ).toBe(405);
   expect(await (await api('/games/connections/results/me')).json()).toMatchObject({ score: 0 });
 });
+
+it.each(['coxswain', 'coach'] as const)(
+  'lets %s play without OYO but not read spoilers or boards before completion',
+  async (role) => {
+    await sql((s) => s.sql.exec("UPDATE users SET role=? WHERE id='u0'", role));
+    expect(await (await api('/games/access')).json()).toMatchObject({
+      unlocked: true,
+      reason: 'staff',
+    });
+    expect(await (await api('/games/wordguess/today')).json()).toMatchObject({
+      answer: null,
+      done: false,
+    });
+    expect(await (await api('/games/connections/today')).json()).toMatchObject({
+      groups: null,
+      finished: false,
+    });
+    expect(await (await api('/games/perception/today')).json()).toMatchObject({
+      round: 0,
+      scores: {},
+      done: false,
+    });
+    for (const game of ['wordguess', 'connections', 'perception']) {
+      expect((await api('/games/' + game + '/leaderboard')).status).toBe(403);
+      expect((await api('/games/' + game + '/leaderboard?date=2026-03-17')).status).toBe(403);
+    }
+    expect((await api('/games/perception/start', 'POST', { round: 4 })).status).toBe(409);
+    await api('/games/wordguess/guess', 'POST', { guess: dailyAnswer(DATE) });
+    for (const group of connectionsPuzzleFor(DATE).groups)
+      await api('/games/connections/guess', 'POST', { guess: group.words });
+    for (let round = 0; round < 5; round++) {
+      await api('/games/perception/start', 'POST', { round });
+      await api('/games/perception/today');
+    }
+    expect(await (await api('/games/wordguess/today')).json()).toMatchObject({
+      answer: dailyAnswer(DATE),
+      done: true,
+    });
+    expect(await (await api('/games/connections/today')).json()).toMatchObject({
+      finished: true,
+      groups: connectionsPuzzleFor(DATE).groups,
+    });
+    for (const game of ['wordguess', 'connections', 'perception'])
+      expect((await api('/games/' + game + '/leaderboard')).status).toBe(200);
+  },
+);
+it('lets admins see every daily board before playing', async () => {
+  await sql((s) => s.sql.exec("UPDATE users SET role='admin' WHERE id='u0'"));
+  for (const game of ['wordguess', 'connections', 'perception']) {
+    expect((await api('/games/' + game + '/leaderboard')).status).toBe(200);
+    expect((await api('/games/' + game + '/leaderboard?date=2026-03-17')).status).toBe(200);
+  }
+});

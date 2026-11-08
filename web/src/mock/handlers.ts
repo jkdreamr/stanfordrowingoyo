@@ -44,6 +44,7 @@ import {
   raceWeekBounds,
 } from '../../../shared/race';
 import { personalPlan, covers } from '../lib/myPlan';
+import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
 import { unpack, score } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import {
@@ -985,7 +986,7 @@ export function createMockApi({
             answers: [],
             complete: false,
             score: 0,
-            reveal: user.role === 'rower' ? null : [],
+            reveal: user.role === 'admin' ? [] : null,
           });
         const addResult = (score: number, payload: unknown) => {
           const stamp = now().toISOString();
@@ -1124,7 +1125,12 @@ export function createMockApi({
         if (parts[4] === 'leaderboard' && method === 'GET') {
           const day = url.searchParams.get('date') ?? date;
           if (!dateValid(day) || day > date) fail(400, 'Invalid date.');
-          if (day === date && user.role === 'rower' && !mine(day))
+          if (
+            user.role !== 'admin' &&
+            (!mine(day) ||
+              (gameId === 'dive' &&
+                (mine(day)?.payload as { answered?: number })?.answered !== DIVE_PROMPTS_PER_DAY))
+          )
             fail(403, 'Play today to see the board.', 'PLAY_FIRST');
           const rows = gameResults
             .filter((row) => row.game_id === gameId && row.date === day)

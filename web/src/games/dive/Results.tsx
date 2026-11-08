@@ -9,11 +9,11 @@ import { GameDayBoard } from '../GameDayBoard';
 
 export function Results({
   day,
-  staff,
+  canModerate,
   reviewOnly = false,
 }: {
   day: DiveDay;
-  staff: boolean;
+  canModerate: boolean;
   reviewOnly?: boolean;
 }) {
   const client = useQueryClient();
@@ -114,7 +114,7 @@ export function Results({
                       {group.only_you && <span className="dive-only-you">Only You</span>}
                     </div>
                     <span className="shrink-0 text-subhead tabular-nums">{group.points} m</span>
-                    {staff && (
+                    {canModerate && (
                       <Button
                         variant="plain"
                         size="sm"

@@ -5,7 +5,7 @@ import type { Context } from '../context';
 import { refreshUser, requireStaff } from '../auth/guards';
 import { audit } from '../db/audit';
 import { diveAnswers, diveReveal, diveResult } from '../db/dive';
-import { oyoGameAccess, requireGameAccess } from '../games/access';
+import { oyoGameAccess, requireGameAccess, requireGameFinished } from '../games/access';
 import { divePromptsFor, diveSelectionFor } from '../games/divePrompts';
 import { answerSet } from '../games/dive/sets';
 import { matchAnswer } from '../games/dive/matcher';
@@ -41,20 +41,20 @@ async function day(ctx: Context, date: string): Promise<DiveDay> {
     score: result?.score ?? 0,
     verdict: diveVerdict(result?.score ?? 0),
     result,
-    reveal: complete || past ? diveReveal(ctx.storage, date, user.id, staff) : null,
+    reveal:
+      complete || user.role === 'admin' ? diveReveal(ctx.storage, date, user.id, staff) : null,
   };
 }
 export async function current(ctx: Context) {
   return json(await day(ctx, today(ctx.now)));
 }
 export async function past(ctx: Context) {
+  const user = refreshUser(ctx);
   const date = checkedDate(ctx, ctx.params.date);
-  const result = await day(ctx, date);
-  if (date === today(ctx.now) && !result.complete && ctx.user!.role === 'rower')
-    throw new HttpError(403, 'PLAY_FIRST', 'Finish today’s Dive to see answers.');
-  if (ctx.user!.role !== 'rower') result.reveal = diveReveal(ctx.storage, date, ctx.user!.id, true);
-  return json(result);
+  requireGameFinished(ctx, user, 'dive', date);
+  return json(await day(ctx, date));
 }
+
 export async function answer(ctx: Context) {
   refreshUser(ctx);
   const body = await readJson(ctx.request);
@@ -136,6 +136,8 @@ export async function moderate(ctx: Context) {
     ctx.storage.transactionSync(() => {
       const user = refreshUser(ctx);
       requireStaff(ctx);
+      requireGameFinished(ctx, user, 'dive', date);
+      if (date !== today(ctx.now)) requireGameFinished(ctx, user, 'dive', today(ctx.now));
       requireGameAccess(ctx, user, date);
       const before = ctx.storage.sql
         .exec<{ hidden_at: string | null; hidden_by: string | null }>(

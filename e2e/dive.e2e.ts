@@ -228,3 +228,79 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
     page.getByRole('region', { name: 'Dive Log' }).getByText('Hidden From Team', { exact: true }),
   ).toBeVisible();
 });
+
+for (const role of ['coxswain', 'coach'] as const) {
+  test(`${role} plays without OYO and only reviews or moderates after finishing`, async ({
+    makeRower,
+    adminPage,
+  }, testInfo) => {
+    const player = await makeRower();
+    const date = `2026-11-${20 + ['desktop-chrome', 'iphone-15', 'pixel-7'].indexOf(testInfo.project.name) * 2 + (role === 'coach' ? 1 : 0)}`;
+    const headers = {
+      ...testInfo.project.use.extraHTTPHeaders,
+      'X-OYO-Test-Now': date + 'T18:00:00Z',
+    };
+    await player.context.setExtraHTTPHeaders(headers);
+    await adminPage.context().setExtraHTTPHeaders(headers);
+    await expect(
+      await adminPage.request.patch('/api/admin/users/' + player.user.id, {
+        headers: csrfHeaders,
+        data: { role },
+      }),
+    ).toBeOK();
+    await expect(
+      await adminPage.request.post('/api/games/dive/answers', {
+        headers: csrfHeaders,
+        data: { prompt_index: 0, answer: 'spoiler guard' },
+      }),
+    ).toBeOK();
+    const before: DiveDay = await (
+      await player.context.request.get('/api/games/dive/today')
+    ).json();
+    expect(before.access).toMatchObject({ unlocked: true, reason: 'staff' });
+    expect(before.reveal).toBeNull();
+    expect((await player.context.request.get('/api/games/dive/days/' + date)).status()).toBe(403);
+    expect((await player.context.request.get('/api/games/dive/leaderboard')).status()).toBe(403);
+    const body = { date, prompt_index: 0, normalized: 'spoiler guard', hidden: true };
+    expect(
+      (
+        await player.context.request.patch('/api/games/dive/answers', {
+          headers: csrfHeaders,
+          data: body,
+        })
+      ).status(),
+    ).toBe(403);
+    const admin: DiveDay = await (await adminPage.request.get('/api/games/dive/today')).json();
+    expect(admin.complete).toBe(false);
+    expect(admin.reveal![0].groups).toHaveLength(1);
+    await player.page.goto('/games/dive');
+    await expect(player.page.getByRole('button', { name: 'Begin', exact: true })).toBeVisible();
+    await expect(player.page.getByRole('region', { name: 'Team Answers' })).toHaveCount(0);
+    await expect(
+      player.context.request.post('/api/games/dive/answers', {
+        headers: csrfHeaders,
+        data: { prompt_index: 0, answer: '' },
+      }),
+    ).resolves.toBeOK();
+    expect((await player.context.request.get('/api/games/dive/leaderboard')).status()).toBe(403);
+    for (let i = 1; i < DIVE_PROMPTS_PER_DAY; i++)
+      await expect(
+        await player.context.request.post('/api/games/dive/answers', {
+          headers: csrfHeaders,
+          data: { prompt_index: i, answer: '' },
+        }),
+      ).toBeOK();
+    await player.page.reload();
+    await expect(player.page.getByRole('region', { name: 'Team Answers' })).toBeVisible();
+    await expect(
+      player.page.getByRole('button', { name: 'Hide spoiler guard', exact: true }),
+    ).toBeVisible();
+    expect((await player.context.request.get('/api/games/dive/leaderboard')).status()).toBe(200);
+    await expect(
+      await player.context.request.patch('/api/games/dive/answers', {
+        headers: csrfHeaders,
+        data: body,
+      }),
+    ).toBeOK();
+  });
+}

@@ -17,13 +17,13 @@ import { DIVE_PROMPTS_PER_DAY } from '../../../../shared/games/dive';
 function Session({
   day,
   userId,
-  staff,
+  canModerate,
   refresh,
   busy,
 }: {
   day: DiveDay;
   userId: string;
-  staff: boolean;
+  canModerate: boolean;
   refresh: () => Promise<unknown>;
   busy: boolean;
 }) {
@@ -83,9 +83,11 @@ function Session({
             }}
           />
         )}
-        {shown === 'results' && <Results day={day} staff={staff} />}
+        {shown === 'results' && <Results day={day} canModerate={canModerate} />}
       </div>
-      {staff && !day.complete && shown !== 'prompt' && <Results day={day} staff reviewOnly />}
+      {canModerate && !day.complete && shown !== 'prompt' && (
+        <Results day={day} canModerate reviewOnly />
+      )}
     </div>
   );
 }
@@ -93,11 +95,11 @@ export default function Dive() {
   const client = useQueryClient();
   const access = useGameAccess();
   const me = useMe();
-  const staff = !!me.data && me.data.role !== 'rower';
+  const admin = me.data?.role === 'admin';
   const query = useQuery({
-    queryKey: [...qk.root('games'), 'dive', access.data?.date, staff],
+    queryKey: [...qk.root('games'), 'dive', access.data?.date, admin],
     queryFn: ({ signal }) =>
-      staff
+      admin
         ? api('GET /api/games/dive/days/:date', { params: { date: access.data!.date }, signal })
         : api('GET /api/games/dive/today', { signal }),
     enabled: !!access.data?.unlocked && !!me.data,
@@ -112,7 +114,7 @@ export default function Dive() {
       key={`${query.data.date}:${me.data?.id ?? 'me'}`}
       day={query.data}
       userId={me.data?.id ?? 'me'}
-      staff={staff}
+      canModerate={!!me.data && me.data.role !== 'rower' && (admin || query.data.complete)}
       busy={query.isFetching}
       refresh={() => client.invalidateQueries({ queryKey: qk.root('games') })}
     />

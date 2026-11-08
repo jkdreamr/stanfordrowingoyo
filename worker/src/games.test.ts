@@ -233,13 +233,24 @@ it('enforces PLAY_FIRST, ranks ties in both directions, excludes inactive player
     ['u2', 1],
     ['u0', 3],
   ]);
+  expect((await call('day', 'distance', '?date=2026-03-17')).status).toBe(403);
+  await sql((s) => result(s, 'u0', 'distance', '2026-03-17', 20));
   expect((await call('day', 'distance', '?date=2026-03-17')).body).toMatchObject({
-    players: 0,
+    players: 1,
     final: true,
   });
   await sql((s) => {
     s.sql.exec('DELETE FROM game_results');
     s.sql.exec("UPDATE users SET role='coach' WHERE id='u0'");
+  });
+  expect((await call('day')).status).toBe(403);
+  await sql((s) => s.sql.exec("UPDATE users SET role='coxswain' WHERE id='u0'"));
+  expect((await call('day')).status).toBe(403);
+  await sql((s) => result(s, 'u0', 'distance', DATE, 10));
+  expect((await call('day')).status).toBe(200);
+  await sql((s) => {
+    s.sql.exec('DELETE FROM game_results');
+    s.sql.exec("UPDATE users SET role='admin' WHERE id='u0'");
   });
   expect((await call('day')).status).toBe(200);
 });

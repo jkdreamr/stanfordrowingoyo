@@ -21,7 +21,11 @@ export function GameDayBoard({ gameId, date }: { gameId: string; date: string })
     refetchInterval: date === config.data?.today ? 30000 : false,
   });
   if (board.error instanceof ApiClientError && board.error.detail.code === 'PLAY_FIRST')
-    return <p className="py-6 text-subhead text-muted">Play To See Today’s Board</p>;
+    return (
+      <p className="py-6 text-subhead text-muted">
+        {date === config.data?.today ? 'Play To See Today’s Board' : 'Play To See This Day’s Board'}
+      </p>
+    );
   if (!board.data) return <LoadState error={board.isError} retry={() => void board.refetch()} />;
   const definition = GAMES.find((game) => game.id === gameId);
   return (
