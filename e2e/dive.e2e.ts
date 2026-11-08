@@ -38,9 +38,12 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
   );
   const rower = await makeRower();
   const { page, context } = rower;
+  const suffix = rower.user.id.slice(0, 8);
+  const playerName = `Alex Rivera ${suffix}`;
+  const teammateNames = ['Maya Chen', 'Sam Patel', 'Jordan Lee'].map((name) => `${name} ${suffix}`);
   await context.setExtraHTTPHeaders(clockHeaders);
   await expect(
-    await context.request.patch('/api/me', { headers: csrfHeaders, data: { name: 'Alex Rivera' } }),
+    await context.request.patch('/api/me', { headers: csrfHeaders, data: { name: playerName } }),
   ).toBeOK();
   await page.goto('/games/dive');
   await expect(page.getByText('Games Locked', { exact: true })).toBeVisible();
@@ -97,7 +100,11 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
     const reveal = page.getByRole('region', { name: 'Answer Result' });
     await expect(reveal).toBeVisible();
     await expect(
-      reveal.getByRole('heading', { name: DIVE_TIERS[choice?.tier ?? 'miss'].label, exact: true }),
+      reveal.getByRole('heading', {
+        name: DIVE_TIERS[choice?.tier ?? 'miss'].label,
+        exact: true,
+        level: 2,
+      }),
     ).toBeVisible();
     await expect(
       reveal.locator('.dive-answer-notes').getByText(sets[index].gem.answer, { exact: true }),
@@ -125,7 +132,7 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
         });
         await page.emulateMedia({ colorScheme: 'light' });
       }
-      for (const [n, name] of ['Maya Chen', 'Sam Patel', 'Jordan Lee'].entries()) {
+      for (const [n, name] of teammateNames.entries()) {
         const teammate = await makeRower();
         await teammate.context.setExtraHTTPHeaders(clockHeaders);
         await expect(
@@ -158,7 +165,7 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
     .first()
     .locator('.dive-group')
     .filter({ hasText: choices[0]!.answer });
-  for (const name of ['Alex Rivera', 'Maya Chen', 'Sam Patel'])
+  for (const name of [playerName, ...teammateNames.slice(0, 2)])
     await expect(firstGroup.getByText(new RegExp(name))).toBeVisible();
   await expect(
     page

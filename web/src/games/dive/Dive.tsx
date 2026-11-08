@@ -92,10 +92,14 @@ export default function Dive() {
   const client = useQueryClient();
   const access = useGameAccess();
   const me = useMe();
+  const staff = !!me.data && me.data.role !== 'rower';
   const query = useQuery({
-    queryKey: [...qk.root('games'), 'dive', access.data?.date],
-    queryFn: ({ signal }) => api('GET /api/games/dive/today', { signal }),
-    enabled: !!access.data?.unlocked,
+    queryKey: [...qk.root('games'), 'dive', access.data?.date, staff],
+    queryFn: ({ signal }) =>
+      staff
+        ? api('GET /api/games/dive/days/:date', { params: { date: access.data!.date }, signal })
+        : api('GET /api/games/dive/today', { signal }),
+    enabled: !!access.data?.unlocked && !!me.data,
     refetchInterval: 30000,
   });
   if (!access.data) return <LoadState error={access.isError} retry={() => void access.refetch()} />;
@@ -107,7 +111,7 @@ export default function Dive() {
       key={`${query.data.date}:${me.data?.id ?? 'me'}`}
       day={query.data}
       userId={me.data?.id ?? 'me'}
-      staff={!!me.data && me.data.role !== 'rower'}
+      staff={staff}
       busy={query.isFetching}
       refresh={() => client.invalidateQueries({ queryKey: qk.root('games') })}
     />

@@ -197,7 +197,7 @@ def generate(prompt, familiarity, sitelinks):
                                 surface=[r.split('|')[0] for r in rows if r.split('|')[1] == 's'][:8],
                                 pageviews=sum(bool(views.get(name, {}).get('views')) for name in names.values()),
                                 sitelinks=sum(name in links for name in names.values()),
-                                too_clever=prompt['too_clever'], gem=prompt['gem'])
+                                too_clever=[display_name(name, prompt) for name in prompt['too_clever']], gem=display_name(prompt['gem'], prompt))
 
 
 def encode_set(encoded):

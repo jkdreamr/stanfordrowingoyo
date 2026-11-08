@@ -14,8 +14,8 @@
     "surface": ["Cat", "Dog", "Bird", "Lion", "Human", "Fish", "Tiger", "Cow"],
     "pageviews": 51,
     "sitelinks": 91,
-    "too_clever": ["platypus", "aardvark"],
-    "gem": "axolotl"
+    "too_clever": ["Platypus", "Aardvark"],
+    "gem": "Axolotl"
   },
   {
     "id": "dogs",
@@ -294,7 +294,7 @@
     "pageviews": 60,
     "sitelinks": 84,
     "too_clever": ["Saffron", "Asafoetida"],
-    "gem": "Grains of paradise"
+    "gem": "Grains Of Paradise"
   },
   {
     "id": "cheeses",
@@ -312,7 +312,7 @@
     "pageviews": 22,
     "sitelinks": 307,
     "too_clever": ["Stinking Bishop"],
-    "gem": "Casu marzu"
+    "gem": "Casu Marzu"
   },
   {
     "id": "sandwiches",
@@ -500,8 +500,8 @@
     ],
     "pageviews": 28,
     "sitelinks": 46,
-    "too_clever": ["Corpse flower"],
-    "gem": "Love-in-a-mist"
+    "too_clever": ["Corpse Flower"],
+    "gem": "Love-In-A-Mist"
   },
   {
     "id": "plants",
@@ -527,7 +527,7 @@
     ],
     "pageviews": 101,
     "sitelinks": 194,
-    "too_clever": ["Venus flytrap"],
+    "too_clever": ["Venus Flytrap"],
     "gem": "Welwitschia"
   },
   {
@@ -554,8 +554,8 @@
     ],
     "pageviews": 5,
     "sitelinks": 77,
-    "too_clever": ["Gympie-gympie"],
-    "gem": "Doll eyes"
+    "too_clever": ["Gympie-Gympie"],
+    "gem": "Doll Eye"
   },
   {
     "id": "gemstones",
@@ -734,8 +734,8 @@
     ],
     "pageviews": 0,
     "sitelinks": 93,
-    "too_clever": ["Sous vide cooker"],
-    "gem": "Yogurt maker"
+    "too_clever": ["Sous Vide Cooker"],
+    "gem": "Yogurt Maker"
   },
   {
     "id": "sports",
@@ -761,8 +761,8 @@
     ],
     "pageviews": 0,
     "sitelinks": 342,
-    "too_clever": ["Chess boxing", "Quidditch"],
-    "gem": "Sepak takraw"
+    "too_clever": ["Chess Boxing", "Quidditch"],
+    "gem": "Sepak Takraw"
   },
   {
     "id": "board-games",
@@ -1076,7 +1076,7 @@
     ],
     "pageviews": 0,
     "sitelinks": 116,
-    "too_clever": ["Oxbow lake"],
+    "too_clever": ["Oxbow Lake"],
     "gem": "Tombolo"
   },
   {
@@ -1103,7 +1103,7 @@
     ],
     "pageviews": 0,
     "sitelinks": 56,
-    "too_clever": ["Katabatic wind"],
+    "too_clever": ["Katabatic Wind"],
     "gem": "Fremantle Doctor"
   },
   {
@@ -1338,7 +1338,7 @@
     "pageviews": 0,
     "sitelinks": 195,
     "too_clever": ["Actuary"],
-    "gem": "Foley artist"
+    "gem": "Foley Artist"
   },
   {
     "id": "subjects",
@@ -1581,7 +1581,7 @@
     "pageviews": 0,
     "sitelinks": 18,
     "too_clever": ["Thundersnow"],
-    "gem": "Diamond dust"
+    "gem": "Diamond Dust"
   },
   {
     "id": "meteorology",
@@ -1859,8 +1859,8 @@
     ],
     "pageviews": 0,
     "sitelinks": 100,
-    "too_clever": ["Monkey fist"],
-    "gem": "Zeppelin bend"
+    "too_clever": ["Monkey Fist"],
+    "gem": "Zeppelin Bend"
   },
   {
     "id": "scents",
