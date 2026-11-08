@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import type { ReactNode } from 'react';
@@ -8,6 +8,7 @@ import { createQueryClient } from '../lib/queryClient';
 import { createMockApi } from '../mock/handlers';
 import { GameDayBoard } from './GameDayBoard';
 import Games from '../pages/Games';
+import GamesLeaderboard from '../pages/GamesLeaderboard';
 import DiveStart from './DiveStart';
 
 const clients: ReturnType<typeof createQueryClient>[] = [];
@@ -63,9 +64,22 @@ it('renders the unlocked Dive start surface for staff', async () => {
 });
 it('shows the PLAY_FIRST state without leaking board rows', async () => {
   mount(<GameDayBoard gameId="dive" date="2026-03-18" />);
-  expect(await screen.findByText('Play Today To See The Board')).toBeTruthy();
+  expect(await screen.findByText('Play To See Today’s Board')).toBeTruthy();
 });
 it('provides a retry action when hub loading fails', async () => {
   mount(<Games />, true);
   expect(await screen.findByRole('button', { name: 'Try Again' })).toBeTruthy();
+});
+it('navigates board dates without future days and displays a short week range', async () => {
+  mount(<GamesLeaderboard />);
+  expect(await screen.findByText('Mar 16 – 22')).toBeTruthy();
+  const next = screen.getByRole('button', { name: 'Next Day' }) as HTMLButtonElement;
+  expect(next.disabled).toBe(true);
+  fireEvent.click(screen.getByRole('button', { name: 'Previous Day' }));
+  expect(await screen.findByText('Tue, Mar 17')).toBeTruthy();
+  expect(await screen.findByText('No Results Yet')).toBeTruthy();
+  expect(next.disabled).toBe(false);
+  fireEvent.click(next);
+  expect(await screen.findByText('Today', { exact: true })).toBeTruthy();
+  expect(next.disabled).toBe(true);
 });

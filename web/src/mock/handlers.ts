@@ -846,6 +846,26 @@ export function createMockApi({
         if (path === '/api/games/leaderboard' && method === 'GET')
           return json({ week_start: weekStart(url.searchParams.get('week') ?? date), rows: [] });
         if (parts[3] !== 'dive') fail(404, 'Game not found.');
+        if (parts[4] === 'today' && method === 'GET')
+          return json({
+            date,
+            access,
+            prompts: access.unlocked
+              ? [
+                  'Name a part of a rowing shell.',
+                  'Name a fruit with a peel.',
+                  'Name a Bay Area city.',
+                  'Name a thing in a gym bag.',
+                  'Name a Stanford campus landmark.',
+                  'Name an animal with stripes.',
+                  'Name a snack after a long row.',
+                ]
+              : [],
+            answers: [],
+            complete: false,
+            score: 0,
+            reveal: user.role === 'rower' ? null : [],
+          });
         if (parts[4] === 'results' && method === 'GET') return json(null);
         if (parts[4] === 'results' && method === 'POST') {
           if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');

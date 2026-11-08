@@ -96,6 +96,10 @@ const slot = {
 };
 // A mapped object makes additions to the shared contract a compile-time test failure.
 const endpoints: Record<keyof Api, true> = {
+  'GET /api/games/dive/today': true,
+  'POST /api/games/dive/answers': true,
+  'GET /api/games/dive/days/:date': true,
+  'PATCH /api/games/dive/answers': true,
   'GET /api/games': true,
   'GET /api/games/access': true,
   'POST /api/games/:game/results': true,
@@ -304,6 +308,7 @@ describe('complete API and role permissions', () => {
                       ? resetUser.user.id
                       : rower.user.id);
       path = path
+        .replace(':date', '2026-03-01')
         .replace(':game', 'dive')
         .replace(':id', id)
         .replace(':group', 'normal')
