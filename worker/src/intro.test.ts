@@ -77,7 +77,7 @@ it.each([9, 10, 11])(
       storage.sql.exec('DROP TABLE user_intro');
       setSetting(storage, 'schema_version', version);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(17);
+      expect(getSetting(storage, 'schema_version')).toBe(18);
       const before = storage.sql
         .exec<{ completed_at: string }>(
           'SELECT completed_at FROM user_intro WHERE user_id = ?',

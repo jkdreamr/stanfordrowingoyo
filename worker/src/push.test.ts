@@ -9,6 +9,7 @@ import { insertRosterFixture } from './testFixtures';
 import { notify } from './db/notifications';
 import { deliverPush, pushPayload, PUSH_MAX_ATTEMPTS, type PushPayload } from './push/deliver';
 import { MAX_PUSH_DEVICES } from './routes/push';
+import { enqueueReminders, reminderEligible } from './push/reminders';
 import { base64url, encryptPayload, fromBase64url, vapidConfig, vapidJwt } from './push/webpush';
 
 const bindings = env as unknown as Env;
@@ -161,6 +162,8 @@ beforeEach(async () => {
         'announcements',
         'push_subscriptions',
         'push_outbox',
+        'reminder_sends',
+        'my_plans',
       ])
         storage.sql.exec(`DELETE FROM ${table}`);
       migrate(storage);
@@ -266,6 +269,7 @@ it('builds push copy and deep links for every notification kind', () => {
     actor_name: 'Avery Lee',
     entry_title: 'Morning 6k',
     announcement_title: null,
+    reminder_date: null,
   };
   const cases = [
     ['kudos', 'Gave kudos to Morning 6k', '/entries/e%2F1', 'kudos:e/1'],
@@ -353,6 +357,69 @@ describe('push subscription routes', () => {
 });
 
 describe('push delivery', () => {
+  it('selects only opted-in active locked rowers with devices, once per team-local day', async () => {
+    const people = await Promise.all(
+      ['Eligible', 'Staff', 'Inactive', 'Logged', 'Rest', 'NoDevice', 'Off'].map(user),
+    );
+    for (const person of people.filter((p) => p.user.name !== 'NoDevice')) {
+      const target = await device();
+      expect((await api('/me/push', person, 'PUT', target.input)).status).toBe(204);
+    }
+    await entry(people[3]);
+    await sql((storage) => {
+      storage.sql.exec("UPDATE users SET role='coach' WHERE id=?", people[1].user.id);
+      storage.sql.exec('UPDATE users SET active=0 WHERE id=?', people[2].user.id);
+    });
+    expect((await api('/me', people[6], 'PATCH', { evening_reminder: false })).status).toBe(200);
+    expect((await api('/me', people[6], 'PATCH', { evening_reminder: 'false' })).status).toBe(400);
+    await sql(async (storage) => {
+      storage.sql.exec(
+        `INSERT INTO my_plans (user_id,start_date,rest_days_json,updated_at)
+        VALUES (?,?,?,?)`,
+        people[4].user.id,
+        '2026-03-09',
+        '[{"week":1,"day":0}]',
+        NOW,
+      );
+      await enqueueReminders(storage, new Date('2026-03-10T01:30:00Z'));
+      expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toHaveLength(0);
+      await enqueueReminders(storage, new Date('2026-03-10T02:30:00Z'));
+      await enqueueReminders(storage, new Date('2026-03-10T02:30:00Z'));
+      await enqueueReminders(storage, new Date('2026-03-10T03:30:00Z'));
+      expect(storage.sql.exec('SELECT user_id,date FROM reminder_sends').toArray()).toEqual([
+        { user_id: people[0].user.id, date: '2026-03-09' },
+      ]);
+      expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toHaveLength(1);
+    });
+    const calls = stubFetch(201);
+    await sql((storage) => deliverPush(storage, bindings, Date.parse('2026-03-10T02:31:00Z')));
+    expect(calls).toHaveLength(1);
+    expect(await outbox()).toHaveLength(0);
+  });
+
+  it('covers standard time and drops reminders when a workout is logged before delivery', async () => {
+    const person = await user('LateLogger');
+    const target = await device();
+    await api('/me/push', person, 'PUT', target.input);
+    await sql(async (storage) => {
+      await enqueueReminders(storage, new Date('2026-01-10T02:30:00Z'));
+      expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toHaveLength(0);
+      await enqueueReminders(storage, new Date('2026-01-10T03:30:00Z'));
+      expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toHaveLength(1);
+      expect(reminderEligible(storage, person.user.id, '2026-01-09')).toBe(true);
+      storage.sql.exec('UPDATE users SET evening_reminder=0 WHERE id=?', person.user.id);
+      expect(reminderEligible(storage, person.user.id, '2026-01-09')).toBe(false);
+      storage.sql.exec('UPDATE users SET evening_reminder=1 WHERE id=?', person.user.id);
+    });
+    await entry(person);
+    await sql((storage) =>
+      storage.sql.exec("UPDATE entries SET date='2026-01-09' WHERE user_id=?", person.user.id),
+    );
+    const calls = stubFetch(201);
+    await sql((storage) => deliverPush(storage, bindings, Date.parse('2026-01-10T03:31:00Z')));
+    expect(calls).toHaveLength(0);
+    expect(await outbox()).toHaveLength(0);
+  });
   it('delivers reports only to current active staff and skips empty queues', async () => {
     const staff = await user('Staff');
     const reporter = await user('Reporter');
@@ -618,7 +685,7 @@ it('migrates to v15 idempotently, with or without intermediate versions', async 
     setSetting(storage, 'schema_version', 9);
     migrate(storage);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(17);
+    expect(getSetting(storage, 'schema_version')).toBe(18);
     expect(storage.sql.exec('SELECT * FROM push_subscriptions').toArray()).toEqual([]);
     expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toEqual([]);
   });

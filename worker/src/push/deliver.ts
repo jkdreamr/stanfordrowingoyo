@@ -1,6 +1,8 @@
 import type { Notification } from '../../../shared/types';
 import type { Env } from '../index';
 import { sendPush, vapidConfig, type PushTarget } from './webpush';
+import { reminderEligible } from './reminders';
+import { today } from '../../../shared/dates';
 
 export const PUSH_BATCH = 10;
 export const PUSH_MAX_ATTEMPTS = 5;
@@ -20,6 +22,7 @@ interface OutboxRow extends PushTarget {
   actor_name: string | null;
   entry_title: string | null;
   announcement_title: string | null;
+  reminder_date: string | null;
 }
 
 export interface PushPayload {
@@ -40,6 +43,14 @@ const verbs: Record<Notification['kind'], string> = {
 };
 
 export function pushPayload(row: OutboxRow, unread: number): PushPayload {
+  if (row.reminder_date)
+    return {
+      title: 'OYO',
+      body: "Log today's OYO to unlock the Daily Games.",
+      url: '/log',
+      tag: 'oyo-reminder',
+      badge: Math.min(unread, 99),
+    };
   const kind = row.kind!;
   const title = row.actor_name ?? 'Stanford Rowing';
   const entry = row.entry_title?.trim() || 'your workout';
@@ -73,7 +84,7 @@ export async function schedulePush(storage: DurableObjectStorage, at = Date.now(
   if (current === null || current > at) await storage.setAlarm(at);
 }
 
-const DUE_SQL = `SELECT o.id,o.attempts,o.notification_id,o.endpoint,s.p256dh,s.auth,s.user_id AS owner,
+const DUE_SQL = `SELECT o.id,o.attempts,o.notification_id,o.reminder_date,o.endpoint,s.p256dh,s.auth,s.user_id AS owner,
 n.user_id AS recipient,n.kind,n.entry_id,n.created_at,n.read_at,u.name AS actor_name,e.title AS entry_title,
 (SELECT a.title FROM announcements a WHERE n.kind='announcement' AND (a.id=n.entry_id OR (n.entry_id IS NULL AND a.author_id=n.actor_id AND a.created_at=n.created_at)) LIMIT 1) AS announcement_title
 FROM push_outbox o
@@ -101,8 +112,11 @@ export async function deliverPush(
     rows.map(async (row) => {
       if (
         !row.owner ||
-        !row.kind ||
-        row.owner !== row.recipient ||
+        (row.reminder_date
+          ? row.notification_id !== 'reminder:' + row.owner ||
+            row.reminder_date !== today(new Date(now)) ||
+            !reminderEligible(storage, row.owner, row.reminder_date)
+          : !row.kind || row.owner !== row.recipient) ||
         row.read_at ||
         (row.kind === 'announcement' && !row.announcement_title) ||
         (row.kind === 'report' &&

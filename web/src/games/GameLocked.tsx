@@ -5,9 +5,8 @@ export function GameLocked() {
   return (
     <EmptyState
       icon={<LockKeyhole size={20} strokeWidth={1.75} />}
-      title="Games Locked"
-      body="Log a workout today to play"
-      action={<Button to="/log">Log a Workout</Button>}
+      title="Log today's OYO to unlock"
+      action={<Button to="/log">Log Workout</Button>}
     />
   );
 }

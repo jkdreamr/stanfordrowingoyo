@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import { join } from 'node:path';
 import { test, expect } from './fixtures';
 import type { Page } from '@playwright/test';
 import { csrfHeaders } from './api';
@@ -63,6 +64,26 @@ test('push toggle subscribes and unsubscribes this device', async ({ makeRower }
   await toggle.click();
   expect((await put).status()).toBe(204);
   await expect(toggle).toHaveAttribute('aria-checked', 'true');
+  const reminder = a.page.getByRole('switch', { name: 'Evening Reminder', exact: true });
+  await expect(reminder).toHaveAttribute('aria-checked', 'true');
+  if (process.env.E2E_SHOTS_DIR) {
+    await reminder.scrollIntoViewIfNeeded();
+    for (const theme of ['light', 'dark']) {
+      await a.page.evaluate(
+        (dark) => document.documentElement.classList.toggle('dark', dark),
+        theme === 'dark',
+      );
+      await a.page.screenshot({
+        path: join(process.env.E2E_SHOTS_DIR, `settings-${testInfo.project.name}-${theme}.png`),
+        animations: 'disabled',
+      });
+    }
+  }
+  await reminder.click();
+  await expect(reminder).toHaveAttribute('aria-checked', 'false');
+  expect(await (await a.context.request.get('/api/me')).json()).toMatchObject({
+    evening_reminder: false,
+  });
   const remove = a.page.waitForResponse(
     (r) => r.url().endsWith('/api/me/push') && r.request().method() === 'DELETE',
   );

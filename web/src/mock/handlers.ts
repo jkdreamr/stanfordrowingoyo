@@ -752,7 +752,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 17 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 18 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -1444,6 +1444,8 @@ export function createMockApi({
           )
             fail(400, 'Choose a valid group');
           if (body.bio !== undefined && typeof body.bio !== 'string') fail(400, 'Bio must be text');
+          if (body.evening_reminder !== undefined && typeof body.evening_reminder !== 'boolean')
+            fail(400, 'Evening reminder must be a boolean');
           if (
             body.side !== undefined &&
             body.side !== null &&
@@ -1463,7 +1465,15 @@ export function createMockApi({
             uploads.get(String(body.avatar_image_id))?.owner !== user.id
           )
             fail(400, 'Upload your avatar first');
-          for (const key of ['name', 'bio', 'side', 'class_year', 'group_key', 'avatar_image_id'])
+          for (const key of [
+            'name',
+            'bio',
+            'side',
+            'class_year',
+            'group_key',
+            'avatar_image_id',
+            'evening_reminder',
+          ])
             if (key in body) Object.assign(user, { [key]: body[key] });
           user.updated_at = stamp();
           for (const kind of ['2k', '6k'] as const) {

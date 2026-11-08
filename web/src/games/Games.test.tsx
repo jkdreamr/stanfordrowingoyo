@@ -52,7 +52,7 @@ function mount(node: ReactNode, fail = false) {
 }
 it('shows a locked hub with a workout CTA, registered game and empty weekly board', async () => {
   mount(<Games />);
-  expect((await screen.findByRole('link', { name: 'Log a Workout' })).getAttribute('href')).toBe(
+  expect((await screen.findByRole('link', { name: 'Log Workout' })).getAttribute('href')).toBe(
     '/log',
   );
   expect(screen.getByRole('link', { name: /Dive/ }).getAttribute('href')).toBe('/games/dive');
@@ -69,7 +69,7 @@ it('renders the unlocked Dive start surface for staff', async () => {
   const { mock } = mount(<DiveStart />);
   mock.state.users.find((user) => user.id === 'user-1')!.role = 'coach';
   expect(await screen.findByRole('heading', { name: 'Dive' })).toBeTruthy();
-  expect(screen.queryByText('Games Locked')).toBeNull();
+  expect(screen.queryByText("Log today's OYO to unlock")).toBeNull();
 });
 it('shows the PLAY_FIRST state without leaking board rows', async () => {
   mount(<GameDayBoard gameId="dive" date="2026-03-18" />);

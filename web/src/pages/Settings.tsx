@@ -1,7 +1,7 @@
 import { useEffect, useId, useState } from 'react';
 import { api } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
-import { useLogout, useMe, usePushConfig } from '../lib/queries';
+import { useLogout, useMe, usePushConfig, useUpdateMe } from '../lib/queries';
 import {
   currentSubscription,
   disablePush,
@@ -34,6 +34,8 @@ const pushFooter: Record<PushSupport, string | undefined> = {
   unsupported: 'Not supported in this browser.',
 };
 function NotificationSettings() {
+  const { data: me } = useMe();
+  const update = useUpdateMe();
   const { data: config } = usePushConfig();
   const install = useInstall();
   const toast = useToast();
@@ -76,6 +78,17 @@ function NotificationSettings() {
           onChange={(next) => void change(next)}
         />
       </div>
+      {enabled && me?.role === 'rower' && (
+        <div className="px-4 py-2">
+          <Toggle
+            label="Evening Reminder"
+            checked={me.evening_reminder}
+            disabled={update.isPending}
+            onChange={(next) => update.mutate({ body: { evening_reminder: next } })}
+          />
+          <p className="text-footnote text-muted">7:30 pm if you haven't logged.</p>
+        </div>
+      )}
       {support === 'needs-install' && install.mode === 'ios' && (
         <>
           <ListRow title="Add to Home Screen" chevron onClick={() => setSteps(true)} />
