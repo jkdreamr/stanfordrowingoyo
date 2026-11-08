@@ -691,7 +691,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 15 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 16 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -832,6 +832,61 @@ export function createMockApi({
         return json(user, 201);
       }
       const user = me();
+      if (parts[2] === 'games') {
+        const date = today(now());
+        const plan = state.myPlans
+          .filter((row) => row.user_id === user.id && covers(row, date))
+          .sort((a, b) => b.start_date.localeCompare(a.start_date))[0];
+        const reason =
+          user.role !== 'rower'
+            ? 'staff'
+            : state.entries.some((row) => row.user_id === user.id && row.date === date)
+              ? 'workout'
+              : plan?.rest_days.some(
+                    ({ week, day }) => addDays(plan.start_date, (week - 1) * 7 + day) === date,
+                  )
+                ? 'rest_day'
+                : 'locked';
+        const access = { date, unlocked: reason !== 'locked', reason };
+        if (path === '/api/games/access' && method === 'GET') return json(access);
+        if (path === '/api/games' && method === 'GET')
+          return json({ date, access, games: [{ id: 'dive', direction: 'higher' }], results: [] });
+        if (path === '/api/games/leaderboard' && method === 'GET')
+          return json({ week_start: weekStart(url.searchParams.get('week') ?? date), rows: [] });
+        if (parts[3] !== 'dive') fail(404, 'Game not found.');
+        if (parts[4] === 'today' && method === 'GET')
+          return json({
+            date,
+            access,
+            prompts: access.unlocked
+              ? [
+                  'Name a part of a rowing shell.',
+                  'Name a fruit with a peel.',
+                  'Name a Bay Area city.',
+                  'Name a thing in a gym bag.',
+                  'Name a Stanford campus landmark.',
+                  'Name an animal with stripes.',
+                  'Name a snack after a long row.',
+                ]
+              : [],
+            answers: [],
+            complete: false,
+            score: 0,
+            reveal: user.role === 'rower' ? null : [],
+          });
+        if (parts[4] === 'results' && method === 'GET') return json(null);
+        if (parts[4] === 'results' && method === 'POST') {
+          if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+          fail(405, 'Use this game’s own submit endpoint.', 'METHOD_NOT_ALLOWED');
+        }
+        if (parts[4] === 'leaderboard' && method === 'GET') {
+          const day = url.searchParams.get('date') ?? date;
+          if (!dateValid(day) || day > date) fail(400, 'Invalid date.');
+          if (day === date && user.role === 'rower')
+            fail(403, 'Play today to see the board.', 'PLAY_FIRST');
+          return json({ game_id: 'dive', date: day, final: day < date, players: 0, rows: [] });
+        }
+      }
       if (
         user.must_change_password &&
         !['/api/me/password', '/api/me/password/verify', '/api/me'].includes(path)
@@ -883,6 +938,8 @@ export function createMockApi({
       if (path === '/api/me/export' && method === 'GET') {
         const person = (id: string) => ({ id, name: userById(id).name });
         const data: AccountDataExport = {
+          game_results: [],
+          dive_answers: [],
           format_version: 1,
           exported_at: stamp(),
           profile: user,

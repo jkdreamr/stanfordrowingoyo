@@ -273,7 +273,15 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 15; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 16; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 16 adds `game_results(game_id,date,user_id,score,payload_json,created_at,updated_at)`
+with primary key `(game_id,date,user_id)` and indexes `(user_id,date)` and `(date,game_id)`;
+and `dive_answers(date,user_id,prompt_index,answer,normalized,hidden_at,hidden_by,created_at)`
+with primary key `(date,user_id,prompt_index)`, prompt index constrained to 0–6 (the route accepts
+0–4 for today's five prompts; the wider check needs no migration), and index
+`(date,prompt_index,normalized)`. Both tables and indexes use IF NOT EXISTS in one guarded
+idempotent transaction advancing to 16. Exports include the owner's game results (decoded
+payload) and Dive answer rows. Account removal deletes both and clears hidden_by references.
 Version 10 adds idempotent erg test history, team challenges, and an entries(date) index.
 Legacy best splits backfill one test per kind using the user's updated_at team-local date.
 Version 13 adds `entry_idempotency` and its created-at index in a self-contained, idempotent transaction.
@@ -303,9 +311,137 @@ Version 14 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth
 `(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
 epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `version < 14`.
 Version 15 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
-self-contained guarded block. Feature migrations run in ascending order 11–15, each advancing its own version.
+self-contained guarded block. Feature migrations run in ascending order 11–16, each advancing its own version.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
+
+### Daily Games
+
+Dive adds four dedicated endpoints without changing the generic hub contract:
+
+- `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
+  (text only, empty when locked), ordered caller answers with their own prompt reveals,
+  completion, immutable running score, verdict, caller's generic result and nullable team reveal.
+  Today never exposes team groups before the caller completes all five, including staff;
+  staff can explicitly review them through the day endpoint.
+- `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
+  `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
+  accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
+  Empty answers represent timeouts. Trimmed answers are at most 40 characters; control characters
+  are rejected. Canonical match (nullable), tier and points are stored at submit time in
+  v16's Dive-owned `dive_answers` columns `canonical TEXT`, `tier TEXT NOT NULL`,
+  `points INTEGER NOT NULL`. The first answer creates a generic result; payload is
+  `{answered:n}`. In the same transaction its score increments by those stored points.
+  Neither other players nor moderation can change them. The response includes the current
+  prompt's `gem` and at most five `notable` answers (three familiar Surface answers and two
+  Deep Cuts), never a whole set or reveals for unanswered prompts.
+- `GET /api/games/dive/days/:date` returns `DiveDay` with revealed prompt groups for past
+  dates. Today requires five answers or staff (403 `PLAY_FIRST`); future dates are invalid.
+- `PATCH /api/games/dive/answers` is staff-only, takes
+  `{date,prompt_index,normalized,hidden:boolean}` and returns that prompt's `DiveReveal`.
+  It hides/unhides a whole group, sets/clears `hidden_at` and `hidden_by`, and audits
+  `dive.hide`/`dive.unhide`. Moderation is display-only: neither stored answer points/tiers
+  nor `game_results` scores/timestamps change. Later matching submissions inherit hidden
+  display state but still earn their curated points. Non-staff see no hidden groups except
+  their own answer marked `hidden` (without other hidden members/names/counts). Staff can
+  inspect all groups. Groups use normalized canonical keys for matches (aliases and fuzzy
+  matches converge), normalized free text for misses, and include `canonical`, `teammates`
+  (`user_id`, `name`), count and `only_you` (caller is in a group with no teammate).
+  `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
+  counts are informational, never used to award points. No crowd-ranking CTE remains.
+
+The general-knowledge bank has 120 prompts with curated canonical answer sets.
+A fixed seeded permutation takes five consecutive entries per day (`DIVE_PROMPTS_PER_DAY`), measured
+from 2026-01-01 with positive modulo. Any `floor(N/5)` consecutive days contain no repeated
+prompt, including wraparound and dates before the epoch. There are no rowing/team prompts.
+`shared/games/dive.ts` owns normalization (NFKD, diacritics, lowercase, ampersand expansion,
+punctuation removal, hyphen/underscore/slash separation, whitespace, leading article removal,
+last-word-only simple plurals), tier constants, emoji and 0–500 verdict bands. Tiers are
+`surface` Surface 10 🫧, `tooclever` Too Clever 15 🤡, `school` Midwater 30 🐟,
+`rare` Rare 60 🦑, `deep` Deep Cut 85 🐙, `gem` Pearl 100 🦪, `miss` 0 ⬛.
+Verdicts: 0 High And Dry; 1–99 Toe Dipper; 100–199 Getting Wet; 200–299 Open Water;
+300–399 Deep Diver; 400–499 Abyss Explorer; 500 Pearl Collector. Scores are immediately
+real even for the first player. The generic board remains higher-is-better; `final` becomes
+true after team midnight (board participation can grow, individual scores never recompute).
+
+`scripts/dive/` is a reproducible Python pipeline with pinned real list sources, ignored raw
+fetch caches, contextual English Wikipedia human pageviews (2025 monthly totals), a
+Wikidata sitelink breadth, a `wordfreq.zipf_frequency(name,'en')` fallback/tiebreak, and
+committed hand overrides. When both entity signals exist, familiarity combines
+`0.6*log1p(annual_views/5000) + 0.4*log1p(sitelinks)`; either signal works alone when the
+other is missing. QIDs resolve in article batches; sitelinks query in <=300-QID SPARQL
+VALUES batches. Disambiguation items and wrong-country city matches are rejected. Within
+each prompt, familiarity rank percentiles are Surface <20%, Midwater <55%, Rare <80%,
+Deep Cut otherwise. Surface anchors, explicit Too Clever picks and exactly one fun Pearl
+override those ranks. See its README/report for provenance, exclusions and regeneration.
+The pageview candidate pool covers twice the prospective Surface population (at least
+100 names), plus all anchors/picks. Unresolved/unqueried names use the conservative
+secondary signal below resolved entities. Homographs use explicit contextual article
+titles and multiword corrections. ISO 639-1 languages replace the noisy ISO 639-3 tail;
+cities are capped at the 500 largest per country, movies at 1,000 per genre by source votes,
+plus reviewed additions. See the committed full-prompt review and familiarity snapshot.
+Generated Worker-only per-prompt modules contain sorted normalized-key length-bucket
+strings, a shared canonical table referenced by base-36 UTF-16
+offsets, and constant Pearl/notable metadata. `sets.ts` returns
+lazy module data directly: no request parses a set, builds key maps, or incurs parsed-LRU
+eviction. Exact canonical/alias lookup searches the key's length bucket for a
+newline/key/tab delimiter (no duplicate global index); fuzzy
+matching scans only eligible bucket strings, decoding only accepted candidate rows.
+The browser imports tier helpers/types only, never answer data.
+
+The pure Worker matcher first checks normalized canonical/alias keys. Otherwise banded,
+early-exit Levenshtein uses no fuzzy matching below length 4, distance ≤1 for length 4–7,
+distance ≤2 for length ≥8; length-difference prefiltering is mandatory. Only a unique best
+canonical wins (aliases of the same canonical do not count as ties); ambiguous, empty,
+unknown, timeout and non-answer stopword inputs miss for zero. No external request or
+frequency lookup happens at submit time. Data integrity/matcher/selection tests cover all
+sets; `scripts/dive/check-web.mjs` checks built web assets for Pearl-string leaks.
+
+The Dive client persists each 25-second deadline under a user/date/prompt localStorage key;
+reload/visibility changes use the original wall-clock deadline, expiry submits an empty answer,
+and rejected/network writes offer Retry. This is a client timer, not an anti-cheat deadline.
+An original SVG water column shows the rowing shell, depth ticks and sinking marker; reduced
+motion disables sinking. Completed play reveals the log, grouped answers, Copy Result
+(`Dive YYYY-MM-DD · N m`, no spoilers) and generic live day board. Staff moderation uses
+the shared confirmation sheet. Scores/boards refresh while visible every 30 seconds.
+
+Games are separate from training statistics, with no bottom tab. Dates use team-local
+America/Los_Angeles `today(ctx.now)` and weeks run Monday–Sunday via `weekStart`.
+`oyoGameAccess(storage,user,date)` is THE gate: coxswain/coach/admin always unlock;
+rowers unlock with any existing own entry dated today (entries are hard-deleted), or
+a rest day in the latest My Fortnight plan starting between today−13 and today.
+Rest-day offsets are `(week−1)*7+day`. Otherwise access is locked. Every game write
+refreshes the user and requires this rule server-side (403 `GAME_LOCKED`,
+"Log a workout today to play."). Deleting a workout can lock future writes again.
+
+- `GET /api/games` returns `GamesToday`: date, access, registered game info (id,
+  direction), and the caller's results today; `GET /api/games/access` returns `GameAccess`.
+- `POST /api/games/:game/results` takes `{payload: unknown}`. Server registry `score`
+  validates and computes a safe integer score and JSON payload; returns `GameResult`
+  (201). Date is always server today. Atomic one-result-per-game/day/user gives 409
+  `ALREADY_PLAYED` on repeats. Unknown games return 404; no generic scorer returns 405.
+- `GET /api/games/:game/results/me?date=` returns own `GameResult | null`.
+- `GET /api/games/:game/leaderboard?date=` defaults to today and rejects future dates.
+  Today's board requires a result today or staff status, else 403 `PLAY_FIRST`.
+  Past dates are readable by any authenticated user. `final` is date < today;
+  active players only, competition `RANK()` by the registry's higher/lower direction,
+  ties share rank, ordered by rank then name. Results may remain live until day end.
+- `GET /api/games/leaderboard?week=` returns `GamesWeekLeaderboard`; a date selects
+  its Monday (default current week; future weeks rejected). For each registered game/day
+  with N active players, points = N−competition rank+1. Sum across the week; `days`
+  counts distinct played dates. Competition rank is by total points descending; ties
+  show more days first then name but share rank. A single window-function SQL query
+  calculates placements and totals; registered/lower-direction id lists use `json_each(?)`,
+  never an expanding bound-parameter list. Weekly standings are independent of PLAY_FIRST.
+
+All handlers refresh the authenticated user and validate game ids against the registry.
+Extension contract: add a `ServerGame` in `worker/src/games/registry.ts` (id matching
+`/^[a-z][a-z0-9-]{1,31}$/`, direction, optional synchronous score callback), optional
+dedicated routes, and a typed lazy `GameDefinition` in `web/src/games/registry.ts`.
+No migration is needed. Routes, hub and generic boards pick up client entries; weekly
+aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
+`GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
+with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
 ### Tests, recaps, and challenges
 
