@@ -10,6 +10,7 @@ import {
 import { formatEntryDate, formatKm, formatNumber, formatWeekday } from '../lib/format';
 import { daysLeft, finishWeek } from '../lib/week';
 import { useEffect, useState } from 'react';
+import { GamesCard } from '../games/GamesCard';
 import { clearTargetFinish, pendingTargetFinish } from '../lib/targetFinish';
 import {
   Button,
@@ -180,6 +181,7 @@ export default function Page() {
             />
           )}
         </section>
+        <GamesCard />
         {pinned.length > 0 && (
           <section className="xl:hidden">
             <h2 className="mb-3 text-headline">Pinned Announcements</h2>

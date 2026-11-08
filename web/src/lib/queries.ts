@@ -220,7 +220,11 @@ export function usePutMyPlan() {
         if (date && covers(plan, date)) client.setQueryData(key, plan);
       }
     },
-    onSettled: () => client.invalidateQueries({ queryKey: qk.myPlans() }),
+    onSettled: () =>
+      Promise.all([
+        client.invalidateQueries({ queryKey: qk.myPlans() }),
+        client.invalidateQueries({ queryKey: qk.root('games') }),
+      ]),
   });
 }
 export function useDeleteMyPlan() {
@@ -233,6 +237,7 @@ export function useDeleteMyPlan() {
       for (const [key, value] of client.getQueriesData<MyPlan | null>({ queryKey: qk.myPlans() }))
         if (value?.start_date === start) client.setQueryData(key, null);
       await client.invalidateQueries({ queryKey: qk.myPlans() });
+      await client.invalidateQueries({ queryKey: qk.root('games') });
     },
   });
 }
@@ -317,7 +322,7 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
   if (endpoint.includes('comments')) return [qk.root('entries'), qk.root('admin')];
   if (endpoint.includes('/entries'))
     return [
-      ...['entries', 'stats', 'leaderboard', 'users', 'me', 'challenges'].map(qk.root),
+      ...['entries', 'stats', 'leaderboard', 'users', 'me', 'challenges', 'games'].map(qk.root),
       qk.audit(),
     ];
   if (endpoint === 'DELETE /api/announcements/:id')

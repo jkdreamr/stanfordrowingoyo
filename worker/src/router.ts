@@ -21,6 +21,9 @@ import * as account from './routes/account';
 import * as push from './routes/push';
 import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
+import * as games from './routes/games';
+import * as dive from './routes/dive';
+import * as connections from './routes/connections';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -33,6 +36,18 @@ function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'GET', path: '/api/games/dive/today', handler: dive.current },
+  { method: 'POST', path: '/api/games/dive/answers', handler: dive.answer },
+  { method: 'GET', path: '/api/games/dive/days/:date', handler: dive.past },
+  { method: 'PATCH', path: '/api/games/dive/answers', handler: dive.moderate },
+  { method: 'GET', path: '/api/games/connections/today', handler: connections.current },
+  { method: 'POST', path: '/api/games/connections/check', handler: connections.check },
+  { method: 'GET', path: '/api/games', handler: games.list },
+  { method: 'GET', path: '/api/games/access', handler: games.access },
+  { method: 'GET', path: '/api/games/leaderboard', handler: games.week },
+  { method: 'POST', path: '/api/games/:game/results', handler: games.submit },
+  { method: 'GET', path: '/api/games/:game/results/me', handler: games.me },
+  { method: 'GET', path: '/api/games/:game/leaderboard', handler: games.day },
   { method: 'GET', path: '/api/users/:id/tests', handler: tests.list },
   { method: 'POST', path: '/api/me/tests', handler: tests.create },
   { method: 'PATCH', path: '/api/me/tests/:id', handler: tests.patch },
@@ -85,7 +100,7 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 15 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 16 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },

@@ -27,6 +27,7 @@ import type {
   WeekSummary,
   Zone,
   RaceWeek,
+  GameResult,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
 import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS, ZONES } from '../../../shared/math';
@@ -43,6 +44,66 @@ import {
   raceWeekBounds,
 } from '../../../shared/race';
 import { personalPlan, covers } from '../lib/myPlan';
+import { unpack, verifyWordGuess } from '../../../shared/games/wordGuess';
+import { GUESSES } from '../../../shared/games/wordGuessGuesses';
+import {
+  parsePerceptionAnswer,
+  perceptionTotal,
+  scorePerception,
+} from '../../../shared/games/perception';
+import {
+  boardWords,
+  connectionsScore,
+  parsePuzzle,
+  replayConnections,
+} from '../../../shared/games/connections';
+
+type MockGameScore = (payload: unknown, date: string) => { score: number; payload: unknown } | null;
+const field = (payload: unknown, key: string) =>
+  payload && typeof payload === 'object' ? (payload as Record<string, unknown>)[key] : undefined;
+let mockGuesses: Set<string> | null = null;
+// Mock mode stands in one fixed board; real puzzles stay in the Worker.
+const MOCK_CONNECTIONS = parsePuzzle([
+  'Boat Classes: Eight, Quad, Pair, Single',
+  'Erg Readouts: Rate, Watts, Meters, Time',
+  'Bowling Terms: Split, Spare, Strike, Frame',
+  'Sound Like Rowing Words: Ore, Skull, Whey, Ate',
+  'Ate>0',
+  'Skull>0',
+  'Split>1',
+]);
+const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
+
+const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  dive: null,
+  wordguess: (payload, date) => {
+    mockGuesses ??= new Set(unpack(GUESSES));
+    const result = verifyWordGuess(date, field(payload, 'guesses'), mockGuesses);
+    return (
+      result && {
+        score: result.points,
+        payload: { guesses: field(payload, 'guesses'), solved: result.solved, tries: result.tries },
+      }
+    );
+  },
+  perception: (payload, date) => {
+    const answer = parsePerceptionAnswer(field(payload, 'answer'));
+    if (!answer) return null;
+    const scores = scorePerception(date, answer);
+    return { score: perceptionTotal(scores), payload: { answer, scores } };
+  },
+  connections: (payload, date) => {
+    const puzzle = connectionsPuzzleFor(date);
+    const guesses = field(payload, 'guesses');
+    const replay = replayConnections(puzzle, guesses);
+    if (!replay?.finished) return null;
+    const { solved, mistakes, won, grid } = replay;
+    return {
+      score: connectionsScore(replay),
+      payload: { guesses, solved, mistakes, won, grid, groups: puzzle.groups },
+    };
+  },
+};
 class MockError extends Error {
   constructor(
     public status: number,
@@ -95,6 +156,7 @@ export function createMockApi({
   onSession = (_id: string | null) => {},
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
+  const gameResults: GameResult[] = [];
   const ergTests: ErgTest[] = state.users.flatMap((user) =>
     (['2k', '6k'] as const).flatMap((kind) => {
       const split = user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
@@ -691,7 +753,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 15 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 16 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -832,6 +894,126 @@ export function createMockApi({
         return json(user, 201);
       }
       const user = me();
+      if (parts[2] === 'games') {
+        const date = today(now());
+        const plan = state.myPlans
+          .filter((row) => row.user_id === user.id && covers(row, date))
+          .sort((a, b) => b.start_date.localeCompare(a.start_date))[0];
+        const reason =
+          user.role !== 'rower'
+            ? 'staff'
+            : state.entries.some((row) => row.user_id === user.id && row.date === date)
+              ? 'workout'
+              : plan?.rest_days.some(
+                    ({ week, day }) => addDays(plan.start_date, (week - 1) * 7 + day) === date,
+                  )
+                ? 'rest_day'
+                : 'locked';
+        const access = { date, unlocked: reason !== 'locked', reason };
+        if (path === '/api/games/access' && method === 'GET') return json(access);
+        if (path === '/api/games' && method === 'GET')
+          return json({
+            date,
+            access,
+            games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
+            results: gameResults.filter((row) => row.user_id === user.id && row.date === date),
+          });
+        if (path === '/api/games/leaderboard' && method === 'GET')
+          return json({ week_start: weekStart(url.searchParams.get('week') ?? date), rows: [] });
+        const gameId = parts[3];
+        if (!Object.hasOwn(MOCK_GAMES, gameId)) fail(404, 'Game not found.');
+        const mine = (day: string) =>
+          gameResults.find(
+            (row) => row.game_id === gameId && row.date === day && row.user_id === user.id,
+          ) ?? null;
+        if (gameId === 'dive' && parts[4] === 'today' && method === 'GET')
+          return json({
+            date,
+            access,
+            prompts: access.unlocked
+              ? [
+                  'Name a part of a rowing shell.',
+                  'Name a fruit with a peel.',
+                  'Name a Bay Area city.',
+                  'Name a thing in a gym bag.',
+                  'Name a Stanford campus landmark.',
+                  'Name an animal with stripes.',
+                  'Name a snack after a long row.',
+                ]
+              : [],
+            answers: [],
+            complete: false,
+            score: 0,
+            reveal: user.role === 'rower' ? null : [],
+          });
+        if (gameId === 'connections' && parts[4] === 'today' && method === 'GET')
+          return json({
+            date,
+            access,
+            words: access.unlocked ? boardWords(date, connectionsPuzzleFor(date)) : [],
+          });
+        if (gameId === 'connections' && parts[4] === 'check' && method === 'POST') {
+          if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+          const puzzle = connectionsPuzzleFor(date);
+          const replay = replayConnections(puzzle, body.guesses);
+          if (!replay?.outcomes.length) fail(400, 'Guesses do not fit today’s board.');
+          return json({
+            outcome: replay.outcomes.at(-1),
+            mistakes: replay.mistakes,
+            finished: replay.finished,
+            won: replay.won,
+            solved: replay.solved.map((level) => puzzle.groups[level]),
+            groups: replay.finished ? puzzle.groups : null,
+          });
+        }
+        if (parts[4] === 'results' && method === 'GET')
+          return json(mine(url.searchParams.get('date') ?? date));
+        if (parts[4] === 'results' && method === 'POST') {
+          if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+          const scorer = MOCK_GAMES[gameId];
+          if (!scorer) fail(405, 'Use this game’s own submit endpoint.', 'METHOD_NOT_ALLOWED');
+          if (mine(date)) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+          const scored = scorer(body.payload, date);
+          if (!scored) fail(400, 'Invalid result.');
+          const stamp = now().toISOString();
+          const row: GameResult = {
+            game_id: gameId,
+            date,
+            user_id: user.id,
+            ...scored,
+            created_at: stamp,
+            updated_at: stamp,
+          };
+          gameResults.push(row);
+          return json(row, 201);
+        }
+        if (parts[4] === 'leaderboard' && method === 'GET') {
+          const day = url.searchParams.get('date') ?? date;
+          if (!dateValid(day) || day > date) fail(400, 'Invalid date.');
+          if (day === date && user.role === 'rower' && !mine(day))
+            fail(403, 'Play today to see the board.', 'PLAY_FIRST');
+          const rows = gameResults
+            .filter((row) => row.game_id === gameId && row.date === day)
+            .sort((a, b) => b.score - a.score)
+            .map((row) => ({
+              score: row.score,
+              rank:
+                1 +
+                gameResults.filter(
+                  (o) => o.game_id === gameId && o.date === day && o.score > row.score,
+                ).length,
+              user: publicUser(state.users.find((u) => u.id === row.user_id)!),
+              me: row.user_id === user.id,
+            }));
+          return json({
+            game_id: gameId,
+            date: day,
+            final: day < date,
+            players: rows.length,
+            rows,
+          });
+        }
+      }
       if (
         user.must_change_password &&
         !['/api/me/password', '/api/me/password/verify', '/api/me'].includes(path)
@@ -883,6 +1065,8 @@ export function createMockApi({
       if (path === '/api/me/export' && method === 'GET') {
         const person = (id: string) => ({ id, name: userById(id).name });
         const data: AccountDataExport = {
+          game_results: [],
+          dive_answers: [],
           format_version: 1,
           exported_at: stamp(),
           profile: user,

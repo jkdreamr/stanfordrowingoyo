@@ -1,0 +1,255 @@
+.dive-water {
+  overflow: hidden;
+  border-radius: 12px;
+  background: #234c5d;
+}
+.dive-water svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.dive-sky {
+  fill: #e1edf0;
+}
+.dive-band-0 {
+  fill: #315f70;
+}
+.dive-band-1 {
+  fill: #2b5669;
+}
+.dive-band-2 {
+  fill: #234c5d;
+}
+.dive-band-3 {
+  fill: #1c4153;
+}
+.dive-band-4 {
+  fill: #163749;
+}
+.dive-surface {
+  fill: none;
+  stroke: #94b9c4;
+  stroke-width: 2;
+}
+.dive-boat {
+  color: #8c1515;
+}
+.dive-ruler {
+  fill: #e1edf0;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.dive-ruler path {
+  stroke: #abc9d1;
+  stroke-width: 1;
+}
+.dive-line {
+  stroke: #abc9d1;
+  stroke-dasharray: 2 6;
+  opacity: 0.6;
+}
+.dive-marker {
+  fill: #fff;
+  transition: transform 600ms var(--oyo-ease-out);
+}
+.dive-marker path {
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+.dive-marker-sinking {
+  animation: dive-sink 700ms var(--oyo-ease-out) both;
+  transition: none;
+}
+@keyframes dive-sink {
+  from {
+    transform: translate(428px, 64px);
+  }
+  to {
+    transform: translate(428px, var(--dive-marker-y));
+  }
+}
+.dive-reveal {
+  padding: 16px 0;
+  min-width: 0;
+}
+.dive-answer-notes {
+  display: grid;
+  gap: 20px;
+  border-block: 1px solid var(--divider);
+  padding-block: 20px;
+}
+.dive-clever-callout {
+  padding: 16px;
+  border: 1px dashed var(--oyo-accent-ink);
+  border-radius: 12px;
+  background: var(--oyo-selected);
+}
+.dive-only-you {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--divider);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.dive-reveal button,
+.dive-log button,
+.dive-group button {
+  min-height: 44px;
+  min-width: 44px;
+}
+.dive-marker-halo {
+  fill: #163749;
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+.dive-depth {
+  fill: #fff;
+  font-size: 48px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.dive-unit {
+  font-size: 24px;
+  font-weight: 400;
+}
+.dive-depth-label {
+  fill: #e1edf0;
+  font-size: 20px;
+}
+.dive-ripple {
+  fill: none;
+  stroke: #8ab2c0;
+  stroke-width: 1;
+  opacity: 0.3;
+}
+.dark .dive-sky {
+  fill: #26383e;
+}
+.dark .dive-boat {
+  color: #ed9b93;
+}
+.dark .dive-band-0 {
+  fill: #254a59;
+}
+.dark .dive-band-1 {
+  fill: #204250;
+}
+.dark .dive-band-2 {
+  fill: #1a3949;
+}
+.dark .dive-band-3 {
+  fill: #153141;
+}
+.dark .dive-band-4 {
+  fill: #102a38;
+}
+.dive-layout {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+.dive-prompt {
+  min-width: 0;
+}
+.dive-session-playing .dive-layout {
+  gap: 16px;
+}
+.dive-prompt-title {
+  text-wrap: balance;
+}
+.dive-timer {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+.dive-timer svg {
+  width: 48px;
+  height: 48px;
+  transform: rotate(-90deg);
+}
+.dive-timer circle {
+  fill: none;
+  stroke: var(--divider);
+  stroke-width: 3;
+}
+.dive-timer .dive-timer-progress {
+  stroke: var(--oyo-accent-ink);
+  stroke-linecap: round;
+}
+.dive-timer-value {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.dive-steps {
+  display: flex;
+  gap: 4px;
+}
+.dive-step {
+  height: 4px;
+  flex: 1;
+  background: var(--divider);
+  border-radius: 2px;
+}
+.dive-step-done {
+  background: var(--oyo-accent-ink);
+}
+.dive-step-current {
+  background: var(--text);
+}
+.dive-log {
+  border-top: 1px solid var(--divider);
+}
+.dive-log li {
+  display: flex;
+  align-items: start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--divider);
+}
+.dive-answer-groups details {
+  border-bottom: 1px solid var(--divider);
+}
+.dive-answer-groups summary {
+  min-height: 56px;
+  padding: 16px 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.dive-answer-groups summary::marker {
+  color: var(--muted);
+}
+.dive-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+}
+.dive-group-mine {
+  background: var(--oyo-selected);
+}
+.dive-group-text {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 640px) {
+  .dive-layout .dive-prompt {
+    width: 100%;
+    max-width: 480px;
+    justify-self: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dive-marker {
+    transition: none;
+    animation: none;
+  }
+}

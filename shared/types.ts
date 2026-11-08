@@ -1,3 +1,5 @@
+import type { DiveTier } from './games/dive';
+
 export type Modality = 'erg' | 'bike' | 'run';
 export type ErgTestKind = '2k' | '6k';
 export interface ErgTestInput {
@@ -480,8 +482,140 @@ export interface AccountExportMention {
   author_id: string;
   created_at: string;
 }
+export type GameId = string;
+export interface DiveNotableAnswer {
+  answer: string;
+  tier: DiveTier;
+  points: number;
+}
+export interface DiveAnswerResult {
+  prompt_index: number;
+  answer: string;
+  points: number;
+  tier: DiveTier;
+  count: number;
+  total: number;
+  hidden: boolean;
+  canonical: string | null;
+  gem: DiveNotableAnswer;
+  notable: DiveNotableAnswer[];
+}
+export interface DiveRevealGroup {
+  normalized: string;
+  answer: string;
+  count: number;
+  points: number;
+  tier: DiveTier;
+  hidden: boolean;
+  mine: boolean;
+  canonical: string | null;
+  teammates: { user_id: string; name: string }[];
+  only_you: boolean;
+}
+export interface DiveReveal {
+  prompt_index: number;
+  prompt: string;
+  groups: DiveRevealGroup[];
+}
+export interface DiveDay {
+  date: string;
+  access: GameAccess;
+  prompts: string[];
+  answers: DiveAnswerResult[];
+  complete: boolean;
+  score: number;
+  verdict: string;
+  result: GameResult | null;
+  reveal: DiveReveal[] | null;
+}
+export interface ConnectionsDay {
+  date: string;
+  access: GameAccess;
+  /** The day's 16 words in shared starting order; empty while locked. */
+  words: string[];
+}
+export interface ConnectionsRevealedGroup {
+  name: string;
+  words: string[];
+  /** 0 easiest to 3 hardest. */
+  level: number;
+}
+export interface ConnectionsCheck {
+  outcome: 'correct' | 'one_away' | 'wrong';
+  mistakes: number;
+  finished: boolean;
+  won: boolean;
+  /** Solved groups in solve order. */
+  solved: ConnectionsRevealedGroup[];
+  /** Every group once the board is finished, otherwise null. */
+  groups: ConnectionsRevealedGroup[] | null;
+}
+export type GameScoreDirection = 'higher' | 'lower';
+export interface GameAccess {
+  date: string;
+  unlocked: boolean;
+  reason: 'staff' | 'workout' | 'rest_day' | 'locked';
+}
+export interface GameInfo {
+  id: GameId;
+  direction: GameScoreDirection;
+}
+export interface GameResult {
+  game_id: GameId;
+  date: string;
+  user_id: string;
+  score: number;
+  payload: unknown;
+  created_at: string;
+  updated_at: string;
+}
+export interface GamesToday {
+  date: string;
+  access: GameAccess;
+  games: GameInfo[];
+  results: GameResult[];
+}
+export interface GameDayRow {
+  rank: number;
+  user: PublicUser;
+  score: number;
+  me: boolean;
+}
+export interface GameDayLeaderboard {
+  game_id: GameId;
+  date: string;
+  final: boolean;
+  players: number;
+  rows: GameDayRow[];
+}
+export interface GamesWeekRow {
+  rank: number;
+  user: PublicUser;
+  points: number;
+  days: number;
+  me: boolean;
+}
+export interface GamesWeekLeaderboard {
+  week_start: string;
+  rows: GamesWeekRow[];
+}
+export interface DiveAnswerExport {
+  date: string;
+  user_id: string;
+  prompt_index: number;
+  answer: string;
+  normalized: string;
+  canonical: string | null;
+  tier: DiveTier;
+  points: number;
+  hidden_at: string | null;
+  hidden_by: string | null;
+  created_at: string;
+}
 /** `GET /api/me/export`: the signed-in user's own data. Image bytes are fetched via `GET /api/images/:id`. */
 export interface AccountDataExport {
+  game_results: GameResult[];
+  dive_answers: DiveAnswerExport[];
   format_version: 1;
   exported_at: string;
   profile: User;
@@ -518,6 +652,24 @@ export interface Endpoint<Req, Res, Query = never> {
 }
 /** Canonical endpoint paths for the backend and typed browser client. Void responses use HTTP 204. */
 export interface Api {
+  'GET /api/games/dive/today': Endpoint<void, DiveDay>;
+  'POST /api/games/dive/answers': Endpoint<
+    { prompt_index: number; answer: string },
+    DiveAnswerResult
+  >;
+  'GET /api/games/dive/days/:date': Endpoint<void, DiveDay>;
+  'PATCH /api/games/dive/answers': Endpoint<
+    { date: string; prompt_index: number; normalized: string; hidden: boolean },
+    DiveReveal
+  >;
+  'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;
+  'POST /api/games/connections/check': Endpoint<{ guesses: string[][] }, ConnectionsCheck>;
+  'GET /api/games': Endpoint<void, GamesToday>;
+  'GET /api/games/access': Endpoint<void, GameAccess>;
+  'POST /api/games/:game/results': Endpoint<{ payload: unknown }, GameResult>;
+  'GET /api/games/:game/results/me': Endpoint<void, GameResult | null, { date?: string }>;
+  'GET /api/games/:game/leaderboard': Endpoint<void, GameDayLeaderboard, { date?: string }>;
+  'GET /api/games/leaderboard': Endpoint<void, GamesWeekLeaderboard, { week?: string }>;
   'GET /api/users/:id/tests': Endpoint<void, ErgTest[]>;
   'POST /api/me/tests': Endpoint<ErgTestInput, ErgTest>;
   'PATCH /api/me/tests/:id': Endpoint<Partial<ErgTestInput>, ErgTest>;
