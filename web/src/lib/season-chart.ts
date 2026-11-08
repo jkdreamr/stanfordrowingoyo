@@ -1,5 +1,6 @@
 import { addDays, today, weekStart } from '../../../shared/dates';
 import type { SeasonStats } from '../../../shared/types';
+import { formatCompactMeters } from './format';
 
 export const CHART_RANGES = ['1W', '1M', '3M', 'Season', 'All'] as const;
 export type ChartRange = (typeof CHART_RANGES)[number];
@@ -77,16 +78,124 @@ export function yDomain(points: ChartPoint[], range: ChartRange): [number, numbe
 }
 export const paceGap = (point: ChartPoint) =>
   point.pace === null ? null : Math.round(point.total - point.pace);
-export function chartPath(points: ChartPoint[], domain: [number, number], pace = false) {
+/** Plot geometry lives in a 1000 × 200 viewBox: values map from FLOOR (domain min) up to TOP. */
+export const FLOOR = 188;
+const RISE = 156;
+/** Every range is resampled to this many evenly spaced points so any two shapes can morph. */
+export const MORPH_SAMPLES = 160;
+export interface Curve {
+  xs: number[];
+  ys: number[];
+  /** Hermite tangents (dy/dx) at each knot. */
+  m: number[];
+}
+export function plotCurve(points: ChartPoint[], domain: [number, number], pace = false): Curve {
   const [min, max] = domain;
-  if (!points.length) return '';
-  const path = points
-    .map(
-      (p, i) =>
-        `${i ? 'L' : 'M'}${((i * 1000) / Math.max(1, points.length - 1)).toFixed(2)},${(188 - (((pace ? (p.pace ?? 0) : p.total) - min) / (max - min)) * 156).toFixed(2)}`,
-    )
-    .join(' ');
-  return points.length === 1
-    ? `${path} L1000,${(188 - (((pace ? (points[0].pace ?? 0) : points[0].total) - min) / (max - min)) * 156).toFixed(2)}`
-    : path;
+  const value = (p: ChartPoint) => (pace ? (p.pace ?? 0) : p.total);
+  const ys = points.map((p) => FLOOR - ((value(p) - min) / (max - min)) * RISE);
+  const xs = points.map((_, i) => (i * 1000) / Math.max(1, points.length - 1));
+  if (points.length === 1) {
+    xs.push(1000);
+    ys.push(ys[0]);
+  }
+  return { xs, ys, m: monotoneTangents(xs, ys) };
+}
+/**
+ * Steffen's monotone tangents: every tangent is at most twice the smaller adjacent secant
+ * and zero at any local extremum or flat run, so the cubic never overshoots the data. A
+ * cumulative (non-decreasing) series therefore draws as a line that never dips.
+ */
+export function monotoneTangents(xs: number[], ys: number[]): number[] {
+  const n = xs.length;
+  if (n < 2) return ys.map(() => 0);
+  const secant = (i: number) => (ys[i + 1] - ys[i]) / (xs[i + 1] - xs[i] || 1);
+  const m = new Array<number>(n);
+  m[0] = secant(0);
+  m[n - 1] = secant(n - 2);
+  for (let i = 1; i < n - 1; i++) {
+    const s0 = secant(i - 1);
+    const s1 = secant(i);
+    const h0 = xs[i] - xs[i - 1];
+    const h1 = xs[i + 1] - xs[i];
+    const p = (s0 * h1 + s1 * h0) / (h0 + h1);
+    m[i] =
+      (Math.sign(s0) + Math.sign(s1)) * Math.min(Math.abs(s0), Math.abs(s1), 0.5 * Math.abs(p));
+  }
+  return m;
+}
+const f = (n: number) => (Math.round(n * 100) / 100).toString();
+/** A smooth SVG path through the knots: one cubic Bézier per interval (Hermite form). */
+export function curvePath({ xs, ys, m }: Curve): string {
+  if (!xs.length) return '';
+  let d = `M${f(xs[0])},${f(ys[0])}`;
+  for (let i = 0; i < xs.length - 1; i++) {
+    const h = (xs[i + 1] - xs[i]) / 3;
+    d += `C${f(xs[i] + h)},${f(ys[i] + m[i] * h)} ${f(xs[i + 1] - h)},${f(ys[i + 1] - m[i + 1] * h)} ${f(xs[i + 1])},${f(ys[i + 1])}`;
+  }
+  return d;
+}
+/** The shaded region under a line path, closed along the baseline. */
+export const areaPath = (line: string) => (line ? `${line}L1000,${FLOOR}L0,${FLOOR}Z` : '');
+/** The curve's height at viewBox x, so the scrub dot sits exactly on the drawn line. */
+export function curveAt({ xs, ys, m }: Curve, x: number): number {
+  const n = xs.length;
+  if (!n) return FLOOR;
+  if (x <= xs[0]) return ys[0];
+  if (x >= xs[n - 1]) return ys[n - 1];
+  let lo = 0;
+  let hi = n - 1;
+  while (hi - lo > 1) {
+    const mid = (lo + hi) >> 1;
+    if (xs[mid] <= x) lo = mid;
+    else hi = mid;
+  }
+  const h = xs[hi] - xs[lo];
+  const t = (x - xs[lo]) / h;
+  const t2 = t * t;
+  const t3 = t2 * t;
+  return (
+    (2 * t3 - 3 * t2 + 1) * ys[lo] +
+    (t3 - 2 * t2 + t) * h * m[lo] +
+    (-2 * t3 + 3 * t2) * ys[hi] +
+    (t3 - t2) * h * m[hi]
+  );
+}
+/** Heights at `count` evenly spaced x positions across the plot, read off the smooth curve. */
+export function resample(curve: Curve, count = MORPH_SAMPLES): number[] {
+  return Array.from({ length: count }, (_, i) => curveAt(curve, (i * 1000) / (count - 1)));
+}
+/** A morph frame: blends two resampled shapes and smooths the result. Monotone in, monotone out. */
+export function morphCurve(from: number[], to: number[], t: number): Curve {
+  const ys = to.map((y, i) => from[i] + (y - from[i]) * t);
+  const xs = ys.map((_, i) => (i * 1000) / (ys.length - 1));
+  return { xs, ys, m: monotoneTangents(xs, ys) };
+}
+export function chartPath(points: ChartPoint[], domain: [number, number], pace = false) {
+  return curvePath(plotCurve(points, domain, pace));
+}
+/** Compact delta for the line under the figure: 300 m, 12.4k, 1.84M. */
+export function formatDelta(meters: number) {
+  const n = Math.max(0, meters);
+  return n < 1000 ? `${Math.round(n).toLocaleString('en-US')} m` : formatCompactMeters(n);
+}
+export function paceLabel(gap: number | null) {
+  if (gap === null) return '';
+  if (gap === 0) return 'On pace';
+  return gap < 0 ? `Behind pace by ${formatDelta(-gap)}` : `Ahead of pace by ${formatDelta(gap)}`;
+}
+/** `--ease-out` (cubic-bezier(0.16, 1, 0.3, 1)) for rAF-driven motion that must match CSS. */
+export function easeOut(t: number) {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  const [x1, y1, x2, y2] = [0.16, 1, 0.3, 1];
+  const bezier = (u: number, a: number, b: number) =>
+    3 * a * u * (1 - u) ** 2 + 3 * b * u * u * (1 - u) + u ** 3;
+  let lo = 0;
+  let hi = 1;
+  for (let i = 0; i < 24; i++) {
+    const mid = (lo + hi) / 2;
+    if (bezier(mid, x1, x2) < t) lo = mid;
+    else hi = mid;
+  }
+  return bezier((lo + hi) / 2, y1, y2);
 }

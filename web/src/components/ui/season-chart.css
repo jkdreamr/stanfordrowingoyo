@@ -1,0 +1,303 @@
+/*
+ * Season chart: one big figure, a smooth cardinal line with a single-hue fade under it,
+ * edge to edge on the page. Text and controls keep the page gutter; the plot bleeds through
+ * it on the left and stops at the right gutter, where today's dot sits.
+ */
+.sc {
+  --sc-fill-top: 0.22;
+  --sc-ring: var(--bg);
+  position: relative;
+  font-variant-numeric: tabular-nums;
+}
+.dark .sc {
+  --sc-fill-top: 0.28;
+}
+/* Ahead of pace, the shading deepens a touch. */
+.sc[data-ahead] {
+  --sc-fill-top: 0.27;
+}
+.dark .sc[data-ahead] {
+  --sc-fill-top: 0.34;
+}
+
+.sc-head {
+  min-height: 96px;
+}
+.sc-figure {
+  font-size: 2.125rem;
+  line-height: 2.5625rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.sc-delta {
+  margin-top: 2px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+.sc-pace-text {
+  margin-top: 2px;
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--muted);
+}
+.sc-pace-text.is-ahead {
+  color: var(--text);
+}
+
+/* Plot: 200 px tall, so viewBox y units are pixels. */
+.sc-plot {
+  position: relative;
+  height: 200px;
+  margin: 16px calc(-1 * var(--sc-bleed-r, 0px)) 0 calc(-1 * var(--sc-bleed-l, 0px));
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  outline: none;
+}
+.sc-plot:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--oyo-focus, var(--accent-ink));
+  border-radius: 4px;
+}
+.sc-canvas {
+  position: absolute;
+  inset: 0 var(--sc-bleed-r, 0px) 0 0;
+}
+.sc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.sc-baseline {
+  position: absolute;
+  top: 188px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--divider);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.sc-stop-top {
+  stop-color: var(--accent);
+  stop-opacity: var(--sc-fill-top);
+  transition: stop-opacity var(--dur-state) var(--ease-out);
+}
+.sc-stop-floor {
+  stop-color: var(--accent);
+  stop-opacity: 0;
+}
+.sc-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.25px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sc-pace {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1px;
+  stroke-dasharray: 3 4;
+  stroke-linecap: round;
+  opacity: 0.75;
+}
+
+/* Past and future: while scrubbing, the line after the cursor steps back to 35%. */
+.sc-future {
+  opacity: 0;
+}
+.sc-plot[data-scrubbing] .sc-future {
+  opacity: 0.35;
+}
+
+/* Today's dot, and the scrub cursor: a hairline, a ringed dot and the date above it. */
+.sc-end,
+.sc-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--sc-ring);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+.sc-end {
+  left: 100%;
+  width: 8px;
+  height: 8px;
+  transition: opacity var(--dur-feedback) var(--ease-out);
+}
+.sc-plot[data-scrubbing] .sc-end {
+  opacity: 0.35;
+}
+.sc-dot {
+  width: 10px;
+  height: 10px;
+  will-change: translate;
+  animation: sc-catch 140ms var(--ease-out) backwards;
+}
+.sc-hair {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 1px;
+  height: 166px;
+  margin-left: -0.5px;
+  background: color-mix(in srgb, var(--text) 30%, transparent);
+  pointer-events: none;
+  will-change: translate;
+}
+.sc-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted);
+  pointer-events: none;
+  will-change: translate;
+}
+
+.sc-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -4px;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* Range: equal pills with one selection that travels on the spring. */
+.sc-ranges {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 12px;
+}
+.sc-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  transition: translate var(--dur-travel) var(--spring);
+  pointer-events: none;
+}
+.dark .sc-pill {
+  background: color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.sc-range {
+  position: relative;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 22px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition:
+    color var(--dur-feedback) var(--ease-out),
+    scale var(--dur-press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.sc-range[aria-pressed='true'] {
+  color: var(--accent-ink);
+}
+.sc-range:active {
+  scale: 0.94;
+}
+.sc-range:focus-visible {
+  outline: 2px solid var(--oyo-focus, var(--accent-ink));
+  outline-offset: -2px;
+}
+@media (hover: hover) {
+  .sc-range[aria-pressed='false']:hover {
+    color: var(--text);
+  }
+}
+
+/* Entrance, once per mount: the line draws left to right, the fill fades up behind it and
+   today's dot arrives as the draw reaches it. Held while the launch splash covers the page. */
+.sc-draw {
+  animation: sc-draw 900ms var(--ease-out) backwards;
+}
+.sc-fill-in {
+  animation: sc-fill-in 700ms var(--ease-out) 120ms backwards;
+}
+.sc-end {
+  animation: sc-pop 260ms var(--ease-out) 620ms backwards;
+}
+.launching .sc-draw,
+.launching .sc-fill-in,
+.launching .sc-end {
+  animation-play-state: paused;
+}
+@keyframes sc-draw {
+  from {
+    clip-path: inset(-8px 100% -8px 0);
+  }
+  to {
+    clip-path: inset(-8px -8px -8px 0);
+  }
+}
+@keyframes sc-fill-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sc-pop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+@keyframes sc-catch {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-draw,
+  .sc-fill-in,
+  .sc-end,
+  .sc-dot {
+    animation: none;
+  }
+  .sc-pill,
+  .sc-range {
+    transition-duration: 0ms;
+  }
+}
+@media (forced-colors: active) {
+  .sc-line,
+  .sc-pace {
+    stroke: CanvasText;
+  }
+  .sc-end,
+  .sc-dot,
+  .sc-hair {
+    background: CanvasText;
+  }
+  .sc-pill {
+    background: Highlight;
+  }
+  .sc-range[aria-pressed='true'] {
+    color: HighlightText;
+  }
+}
