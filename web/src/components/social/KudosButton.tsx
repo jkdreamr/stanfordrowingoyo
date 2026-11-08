@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { ThumbsUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { EntryDetail } from '../../../../shared/types';
@@ -32,14 +32,25 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
             );
           }}
           leading={
-            <ThumbsUp
-              key={give}
-              className={give > 0 && entry.has_kudos ? 'social-kudos-give' : ''}
-              onAnimationEnd={() => setGive(0)}
-              size={20}
-              strokeWidth={1.75}
-              fill={entry.has_kudos ? 'currentColor' : 'none'}
-            />
+            <span className={`kudos-icon ${give > 0 && entry.has_kudos ? 'is-giving' : ''}`}>
+              <ThumbsUp
+                key={give}
+                className={give > 0 && entry.has_kudos ? 'social-kudos-give' : ''}
+                onAnimationEnd={() => setGive(0)}
+                size={20}
+                strokeWidth={1.75}
+                fill={entry.has_kudos ? 'currentColor' : 'none'}
+              />
+              {give > 0 &&
+                entry.has_kudos &&
+                [0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+                  <i
+                    key={angle}
+                    className="kudos-spark"
+                    style={{ '--a': `${angle}deg` } as CSSProperties}
+                  />
+                ))}
+            </span>
           }
         >
           Kudos
@@ -54,7 +65,9 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
               setOpen(true);
             }}
           >
-            {entry.kudos_count}
+            <span key={entry.kudos_count} className={give > 0 ? 'kudos-count' : undefined}>
+              {entry.kudos_count}
+            </span>
           </Button>
         ) : (
           <span className="inline-flex min-h-11 min-w-11 items-center justify-center text-muted tabular-nums">

@@ -106,7 +106,7 @@ function setup(overrides: Partial<EntryDetail> = {}, full = false) {
 function tap(element: Element, x = 80, y = 100) {
   fireEvent.click(element, { detail: 1, clientX: x, clientY: y });
 }
-it('gives kudos exactly once for repeated double taps and removes the heart after 600ms', () => {
+it('gives kudos exactly once for repeated double taps and removes the heart after 850ms', () => {
   const { container } = setup();
   const body = screen.getByText('Distance');
   tap(body);
@@ -118,7 +118,7 @@ it('gives kudos exactly once for repeated double taps and removes the heart afte
     expect.any(Object),
   );
   expect(container.querySelector('.social-heart-burst')).toBeTruthy();
-  act(() => vi.advanceTimersByTime(600));
+  act(() => vi.advanceTimersByTime(850));
   expect(container.querySelector('.social-heart-burst')).toBeNull();
 });
 it('never un-kudoses an already-kudosed workout', () => {

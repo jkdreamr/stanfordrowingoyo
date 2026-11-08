@@ -25,16 +25,43 @@
         inset: 0;
         z-index: 10000;
         overflow: hidden;
-        background: #8c1515;
         color: #fff;
-        opacity: 1;
-        transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+        background:
+          radial-gradient(60% 45% at 50% 46%, #a8231c 0%, rgb(168 35 28 / 0%) 100%),
+          radial-gradient(90% 60% at 100% 0%, #b02a20 0%, rgb(176 42 32 / 0%) 60%),
+          radial-gradient(90% 70% at 0% 100%, #5c0a0a 0%, rgb(92 10 10 / 0%) 70%), #8c1515;
         font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif;
         -webkit-font-smoothing: antialiased;
+        transition: transform 380ms cubic-bezier(0.65, 0, 0.35, 1);
+        will-change: transform;
       }
       #launch-splash.is-leaving {
-        opacity: 0;
+        transform: translate3d(0, -100%, 0);
         pointer-events: none;
+      }
+      .splash-water {
+        position: absolute;
+        left: 50%;
+        top: calc(50% - 30px);
+        width: 0;
+        height: 0;
+      }
+      .splash-puddle {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        margin: -110px;
+        border-radius: 50%;
+        border: 1.5px solid rgb(255 255 255 / 55%);
+        opacity: 0;
+        animation: splash-puddle 1100ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+      }
+      .splash-puddle:nth-child(2) {
+        animation-delay: 300ms;
+      }
+      .splash-puddle:nth-child(3) {
+        animation-delay: 460ms;
       }
       .splash-brand {
         position: absolute;
@@ -42,24 +69,22 @@
         display: grid;
         place-content: center;
         justify-items: center;
-        gap: 20px;
-      }
-      .splash-emblem {
-        opacity: 1;
-        transform: scale(1);
+        gap: 22px;
         transition:
-          transform 250ms cubic-bezier(0.32, 0, 0.67, 0),
-          opacity 250ms ease-out;
+          transform 380ms cubic-bezier(0.65, 0, 0.35, 1),
+          opacity 260ms ease-out;
       }
-      #launch-splash.is-leaving .splash-emblem {
-        transform: scale(1.08);
+      #launch-splash.is-leaving .splash-brand {
+        transform: translate3d(0, 30%, 0) scale(0.96);
         opacity: 0;
       }
       .splash-mark {
         position: relative;
         width: 96px;
         height: 96px;
-        animation: splash-mark-enter 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        border-radius: 50%;
+        box-shadow: 0 24px 48px -16px rgb(40 0 0 / 60%);
+        animation: splash-mark-enter 560ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
       }
       .splash-mark img {
         position: absolute;
@@ -68,6 +93,7 @@
         height: 84px;
         border-radius: 50%;
         opacity: 0;
+        transition: opacity 160ms ease-out;
       }
       .splash-mark img.is-loaded {
         opacity: 1;
@@ -85,38 +111,57 @@
         border: 2px solid #fff;
         border-radius: 50%;
         clip-path: inset(0 50% 0 0);
-        animation: splash-ring-draw 175ms linear 40ms both;
+        animation: splash-ring-draw 170ms linear 90ms both;
       }
       .splash-ring-half + .splash-ring-half {
         clip-path: inset(0 50% 0 0);
       }
       .splash-ring-half + .splash-ring-half::before {
         clip-path: inset(0 0 0 50%);
-        animation-delay: 215ms;
+        animation-delay: 260ms;
       }
       .splash-caption {
-        transition: opacity 180ms ease-out;
-      }
-      #launch-splash.is-leaving .splash-caption {
-        opacity: 0;
+        display: grid;
+        justify-items: center;
+        gap: 10px;
       }
       .splash-wordmark {
-        display: block;
-        font-size: 28px;
-        font-weight: 500;
+        display: flex;
+        gap: 0.08em;
+        font-size: 34px;
+        font-weight: 700;
         line-height: 1;
-        letter-spacing: 0.14em;
-        text-indent: 0.14em;
-        animation: splash-wordmark-enter 280ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+        letter-spacing: -0.02em;
+      }
+      .splash-wordmark span {
+        display: block;
+        animation: splash-letter 520ms cubic-bezier(0.34, 1.4, 0.64, 1) 220ms both;
+      }
+      .splash-wordmark span:nth-child(2) {
+        animation-delay: 280ms;
+      }
+      .splash-wordmark span:nth-child(3) {
+        animation-delay: 340ms;
+      }
+      .splash-wake {
+        width: 56px;
+        height: 2px;
+        border-radius: 2px;
+        background: rgb(255 255 255 / 70%);
+        transform-origin: left;
+        animation: splash-wake 420ms cubic-bezier(0.22, 1, 0.36, 1) 400ms both;
+      }
+      .splash-sub {
+        font-size: 15px;
+        line-height: 20px;
+        font-weight: 500;
+        color: rgb(255 255 255 / 76%);
+        animation: splash-fade 360ms ease-out 480ms both;
       }
       @keyframes splash-mark-enter {
         from {
-          transform: scale(0.8);
+          transform: scale(0.6);
           opacity: 0;
-        }
-        72% {
-          transform: scale(1.035);
-          opacity: 1;
         }
         to {
           transform: scale(1);
@@ -131,37 +176,62 @@
           transform: rotate(180deg);
         }
       }
-      @keyframes splash-wordmark-enter {
+      @keyframes splash-puddle {
+        0% {
+          opacity: 0.7;
+          transform: scale(0.42);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.9);
+        }
+      }
+      @keyframes splash-letter {
         from {
-          transform: translateY(8px);
+          transform: translateY(14px);
           opacity: 0;
         }
         to {
-          transform: translateY(0);
+          transform: none;
           opacity: 1;
+        }
+      }
+      @keyframes splash-wake {
+        from {
+          transform: scaleX(0);
+        }
+      }
+      @keyframes splash-fade {
+        from {
+          opacity: 0;
         }
       }
       @media (prefers-reduced-motion: reduce) {
         #launch-splash {
           transition: opacity 120ms ease-out;
         }
+        #launch-splash.is-leaving {
+          transform: none;
+          opacity: 0;
+        }
+        .splash-puddle {
+          display: none;
+        }
         .splash-mark,
         .splash-ring-half::before,
-        .splash-wordmark {
+        .splash-wordmark span,
+        .splash-wake,
+        .splash-sub {
           animation: none;
         }
         .splash-ring-half::before {
           transform: rotate(180deg);
         }
-        .splash-emblem,
-        .splash-caption {
+        .splash-brand {
           transition: none;
         }
-        #launch-splash.is-leaving .splash-emblem {
+        #launch-splash.is-leaving .splash-brand {
           transform: none;
-          opacity: 1;
-        }
-        #launch-splash.is-leaving .splash-caption {
           opacity: 1;
         }
       }
@@ -186,6 +256,11 @@
   </head>
   <body>
     <div id="launch-splash" role="status" aria-label="Opening OYO">
+      <div class="splash-water" aria-hidden="true">
+        <span class="splash-puddle"></span>
+        <span class="splash-puddle"></span>
+        <span class="splash-puddle"></span>
+      </div>
       <div class="splash-brand">
         <div class="splash-emblem">
           <div class="splash-mark">
@@ -201,7 +276,13 @@
             <div class="splash-ring-half"></div>
           </div>
         </div>
-        <div class="splash-caption"><span class="splash-wordmark">OYO</span></div>
+        <div class="splash-caption">
+          <span class="splash-wordmark" aria-hidden="true"
+            ><span>O</span><span>Y</span><span>O</span></span
+          >
+          <span class="splash-wake" aria-hidden="true"></span>
+          <span class="splash-sub">Stanford Rowing</span>
+        </div>
       </div>
     </div>
     <script>
@@ -215,6 +296,20 @@
           image.addEventListener('load', loaded, { once: true });
           if (image.complete) loaded();
         }
+        const skip = () => {
+          if (splash.classList.contains('is-leaving')) return;
+          splash.classList.add('is-leaving');
+          const root = document.documentElement;
+          root.classList.remove('launching');
+          document.getElementById('root').removeAttribute('inert');
+          const color = root.classList.contains('dark') ? '#0D0C0C' : '#F5F3F0';
+          for (const meta of document.querySelectorAll('meta[name="theme-color"]'))
+            meta.setAttribute('content', color);
+          const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          setTimeout(() => splash.remove(), reduce ? 120 : 380);
+        };
+        splash.addEventListener('pointerdown', skip, { once: true });
+        addEventListener('keydown', skip, { once: true });
       })();
     </script>
     <div id="root" inert></div>

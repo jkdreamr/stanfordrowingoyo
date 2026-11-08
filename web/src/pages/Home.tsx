@@ -1,26 +1,23 @@
 import { Activity } from 'lucide-react';
-import { useAnnouncements, useConfig, useWeekStats, useTarget, useMe } from '../lib/queries';
 import {
-  formatEMeters,
-  formatEntryDate,
-  formatKm,
-  formatNumber,
-  formatPercent,
-  formatWeekday,
-} from '../lib/format';
+  useAnnouncements,
+  useConfig,
+  useSeasonStats,
+  useWeekStats,
+  useTarget,
+  useMe,
+} from '../lib/queries';
+import { formatEntryDate, formatKm, formatNumber, formatWeekday } from '../lib/format';
 import { daysLeft, finishWeek } from '../lib/week';
 import { useEffect, useState } from 'react';
-import { Check } from 'lucide-react';
 import { clearTargetFinish, pendingTargetFinish } from '../lib/targetFinish';
 import {
-  ActionCard,
   Button,
   Card,
   EmptyState,
   ListGroup,
   ListRow,
   PageHeader,
-  ProgressRing,
   ZoneChip,
 } from '../components/ui';
 import { HeaderActions } from '../components/shell/HeaderActions';
@@ -33,12 +30,14 @@ import { TeamChallenges } from '../components/TeamChallenges';
 import { PullToRefresh } from '../components/social/PullToRefresh';
 import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Celebration } from '../components/ui/Celebration';
+import { WeekHero } from '../components/home/WeekHero';
 export default function Page() {
   const refresh = useRefreshVisible();
   const { data: user } = useMe();
   const { data: target } = useTarget();
   const configQuery = useConfig();
   const weekQuery = useWeekStats();
+  const { data: season } = useSeasonStats();
   const { data: announcements = [] } = useAnnouncements();
   const pinned = announcements.filter((a) => a.pinned);
   const config = configQuery.data;
@@ -66,7 +65,6 @@ export default function Page() {
         />
       </>
     );
-  const remaining = Math.max(0, week.target_m - week.total_m);
   const days = daysLeft(config.today, config.current_week_start);
   const recent = week.entries.map((e) => e.preset_id).filter(Boolean);
   const presets = config.presets
@@ -96,48 +94,20 @@ export default function Page() {
         {user && <Celebration key={user.id} user={user} />}
         <InstallBanner />
         {user && <LastWeekRecap user={user} config={config} />}
-        <ActionCard to="/me/target" label="Weekly Progress. Change Your Target">
-          <div className="flex justify-center">
-            <ProgressRing
-              size={168}
-              value={week.total_m}
-              previousValue={finish?.target === week.target_m ? finish.previous : undefined}
-              max={week.target_m}
-              label="Weekly Target"
-            >
-              <span className="text-large-title">{formatPercent(week.percent)}</span>
-              <span className="text-caption text-muted">of target</span>
-            </ProgressRing>
-          </div>
-          <p className="mt-5 text-center text-title3 tabular-nums">
-            {formatEMeters(week.total_m, true)} / {formatEMeters(week.target_m, true)}{' '}
-            <span className="text-footnote font-normal text-muted">E-meters</span>
-          </p>
-          <p className="mt-2 text-center text-subhead text-muted">
-            {week.hit_target ? (
-              <span className="target-hit inline-flex items-center gap-1">
-                <Check
-                  size={16}
-                  strokeWidth={1.75}
-                  aria-hidden="true"
-                  className={finish ? 'ui-finish-tick' : ''}
-                />
-                Target hit
-              </span>
-            ) : (
-              `${formatEMeters(remaining)} remaining`
-            )}{' '}
-            · {days === 1 ? 'Last day' : `${formatNumber(days)} days left`}
-          </p>
-          {finish && (
-            <span role="status" className="sr-only">
-              Weekly target hit
-            </span>
-          )}
-          <p className="mt-2 text-center text-caption text-muted">
-            {target?.source === 'personal' ? 'Personal Target' : 'Group Default'}
-          </p>
-        </ActionCard>
+        <WeekHero
+          week={week}
+          today={config.today}
+          days={days}
+          personal={target?.source === 'personal'}
+          streak={season?.streak}
+          previous={finish?.target === week.target_m ? finish.previous : undefined}
+          finishing={!!finish}
+        />
+        {finish && (
+          <span role="status" className="sr-only">
+            Weekly target hit
+          </span>
+        )}
         <TeamChallenges today={config.today} />
         <TodaysPlan today={config.today} />
         <ListGroup>

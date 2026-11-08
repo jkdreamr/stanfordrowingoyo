@@ -1,0 +1,759 @@
+/* Drive: Design v2 tokens and surfaces. Loaded after styles.css so screens adopt it by class. */
+:root {
+  --bg: #f5f3f0;
+  --surface: #ffffff;
+  --surface-2: #efece8;
+  --text: #1c1a19;
+  --muted: #6b6662;
+  --divider: #e6e1dc;
+  --oyo-hover: #eeeae5;
+  --oyo-selected: #f7e8e6;
+  --oyo-skeleton: #e8e3de;
+  --cardinal-deep: #5c0a0a;
+  --cardinal-glow: #c0392b;
+  --card-border: transparent;
+  --radius-card: 20px;
+  --radius-control: 14px;
+  --radius-hero: 28px;
+  --shadow-card: 0 1px 2px rgb(40 24 20 / 5%), 0 10px 28px -14px rgb(40 24 20 / 16%);
+  --shadow-float: 0 2px 6px rgb(40 24 20 / 6%), 0 22px 48px -20px rgb(40 24 20 / 28%);
+  --shadow-cardinal: 0 18px 40px -18px rgb(140 21 21 / 60%), 0 2px 6px rgb(92 10 10 / 18%);
+  --glass: rgb(250 248 246 / 76%);
+  --glass-line: rgb(40 24 20 / 8%);
+  --ease-drive: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-recover: cubic-bezier(0.65, 0, 0.35, 1);
+  --spring-drive: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --spring-pop: cubic-bezier(0.34, 1.8, 0.64, 1);
+  --spring-settle: var(--ease-drive);
+  --motion-drive: 570ms;
+  --motion-pop: 600ms;
+  --motion-rise: 520ms;
+  --motion-stagger: 45ms;
+}
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --spring-drive: linear(
+      0,
+      0.042,
+      0.145,
+      0.281,
+      0.429,
+      0.574,
+      0.705,
+      0.817,
+      0.907,
+      0.975,
+      1.023,
+      1.053,
+      1.07,
+      1.075,
+      1.073,
+      1.066,
+      1.056,
+      1.045,
+      1.034,
+      1.024,
+      1.015,
+      1.008,
+      1.003,
+      0.999,
+      0.996,
+      0.995,
+      0.994,
+      0.995,
+      0.996,
+      0.997,
+      1
+    );
+    --spring-pop: linear(
+      0,
+      0.065,
+      0.223,
+      0.426,
+      0.636,
+      0.824,
+      0.975,
+      1.081,
+      1.145,
+      1.171,
+      1.168,
+      1.146,
+      1.112,
+      1.076,
+      1.042,
+      1.013,
+      0.992,
+      0.978,
+      0.971,
+      0.97,
+      0.973,
+      0.978,
+      0.985,
+      0.991,
+      0.996,
+      1,
+      1.003,
+      1.005,
+      1.004,
+      1.003,
+      1
+    );
+  }
+}
+.dark {
+  --bg: #0d0c0c;
+  --surface: #171515;
+  --surface-2: #242120;
+  --text: #f5f2ef;
+  --muted: #a8a19c;
+  --divider: #2c2827;
+  --oyo-hover: #221f1e;
+  --oyo-selected: #361d1c;
+  --oyo-skeleton: #2a2625;
+  --card-border: rgb(255 255 255 / 6%);
+  --shadow-card: 0 0 0 1px rgb(255 255 255 / 5%), 0 14px 32px -20px rgb(0 0 0 / 90%);
+  --shadow-float: 0 0 0 1px rgb(255 255 255 / 7%), 0 24px 48px -20px rgb(0 0 0 / 90%);
+  --shadow-cardinal: 0 20px 44px -20px rgb(192 53 43 / 45%), 0 0 0 1px rgb(255 255 255 / 6%);
+  --glass: rgb(20 18 18 / 74%);
+  --glass-line: rgb(255 255 255 / 7%);
+}
+
+/* Type: system stack, tighter display tracking, numbers as the reward */
+.text-large-title,
+.ui-large-title {
+  font-weight: 700;
+  letter-spacing: -0.026em;
+}
+.text-title1 {
+  font-weight: 700;
+  letter-spacing: -0.022em;
+}
+.text-title2,
+.text-title3 {
+  letter-spacing: -0.016em;
+}
+.text-headline {
+  letter-spacing: -0.008em;
+}
+.text-display {
+  font-size: 3.25rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Surfaces */
+.ui-card,
+.ui-list {
+  border-radius: var(--radius-card);
+  border-color: var(--card-border);
+  box-shadow: var(--shadow-card);
+}
+.ui-card {
+  padding: 18px;
+}
+.ui-card .ui-list {
+  border-color: transparent;
+  background: var(--surface-2);
+  box-shadow: none;
+}
+.ui-update-banner {
+  border-radius: var(--radius-card);
+  border-color: var(--card-border);
+  box-shadow: var(--shadow-float);
+}
+.ui-action-card {
+  transition:
+    transform 260ms var(--spring-drive),
+    background-color var(--oyo-motion-fast) var(--oyo-ease-out);
+}
+.ui-action-card:active {
+  transform: scale(0.985);
+  transition-duration: var(--oyo-motion-press);
+}
+
+/* Controls */
+.ui-button {
+  border-radius: var(--radius-control);
+  transition:
+    background-color var(--oyo-motion-control) var(--oyo-ease-out),
+    color var(--oyo-motion-fast) var(--oyo-ease-out),
+    opacity var(--oyo-motion-fast) var(--oyo-ease-out),
+    box-shadow var(--oyo-motion-control) var(--oyo-ease-out),
+    transform 420ms var(--spring-pop);
+}
+.ui-button-primary:active:not(:disabled),
+.ui-button-secondary:active:not(:disabled),
+.ui-button-destructive:active:not(:disabled) {
+  transform: scale(0.965);
+  transition-duration: var(--oyo-motion-press);
+  transition-timing-function: var(--oyo-ease-standard);
+}
+.ui-button-primary {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 12%), rgb(255 255 255 / 0%) 60%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 16%),
+    0 8px 18px -10px rgb(140 21 21 / 70%);
+}
+.ui-button-secondary {
+  background: var(--surface);
+  border-color: var(--divider);
+  box-shadow: 0 1px 2px rgb(40 24 20 / 6%);
+}
+.dark .ui-button-secondary {
+  background: var(--surface-2);
+  border-color: var(--card-border);
+}
+.ui-input,
+.ui-input-wrap {
+  border-radius: 12px;
+}
+.ui-segments {
+  border-radius: var(--radius-control);
+}
+.ui-segment-thumb {
+  border-radius: 10px;
+  box-shadow:
+    0 1px 2px rgb(40 24 20 / 8%),
+    0 4px 10px -4px rgb(40 24 20 / 14%);
+  transition: transform 460ms var(--spring-drive);
+}
+.ui-icon-tile {
+  border-radius: 10px;
+}
+
+/* Tab bar: frosted, Log stays in the exact middle grid column */
+.shell-tabbar {
+  background: var(--glass);
+  border-top: 0.5px solid var(--glass-line);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.shell-tab svg {
+  transition: transform 420ms var(--spring-pop);
+}
+.shell-tab:active svg {
+  transform: scale(0.86);
+  transition-duration: var(--oyo-motion-press);
+}
+.shell-tab.is-active svg {
+  animation: drive-tab-pop var(--motion-pop) var(--spring-pop);
+}
+.shell-tab.is-active svg path,
+.shell-tab.is-active svg rect,
+.shell-tab.is-active svg circle {
+  fill: color-mix(in srgb, currentColor 14%, transparent);
+}
+.shell-log-tab > span:first-child {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background:
+    radial-gradient(120% 120% at 30% 0%, rgb(255 255 255 / 22%), transparent 55%), var(--accent);
+  box-shadow: var(--shadow-cardinal);
+  transition: transform 420ms var(--spring-pop);
+}
+.shell-log-tab:active > span:first-child {
+  transform: scale(0.9);
+  transition-duration: var(--oyo-motion-press);
+}
+@keyframes drive-tab-pop {
+  0% {
+    transform: scale(0.82);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Entrance: content rises in one stroke, staggered */
+.ui-large-title,
+.screen-stack > *,
+.drive-rise {
+  animation: drive-rise var(--motion-rise) var(--ease-drive) backwards;
+}
+.screen-stack > :nth-child(2) {
+  animation-delay: calc(var(--motion-stagger) * 1);
+}
+.screen-stack > :nth-child(3) {
+  animation-delay: calc(var(--motion-stagger) * 2);
+}
+.screen-stack > :nth-child(4) {
+  animation-delay: calc(var(--motion-stagger) * 3);
+}
+.screen-stack > :nth-child(5) {
+  animation-delay: calc(var(--motion-stagger) * 4);
+}
+.screen-stack > :nth-child(n + 6) {
+  animation-delay: calc(var(--motion-stagger) * 5);
+}
+.screen-stack > .social-refresh-slot {
+  animation: none;
+}
+@keyframes drive-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Home hero */
+.drive-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: block;
+  padding: 20px 20px 18px;
+  border-radius: var(--radius-hero);
+  color: #fff;
+  background: linear-gradient(155deg, #a61f1a 0%, #8c1515 46%, var(--cardinal-deep) 100%);
+  box-shadow: var(--shadow-cardinal);
+  transition: transform 300ms var(--spring-drive);
+}
+.drive-hero:active {
+  transform: scale(0.985);
+  transition-duration: var(--oyo-motion-press);
+}
+.drive-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.drive-hero-wake {
+  position: absolute;
+  z-index: -1;
+  right: -90px;
+  top: -70px;
+  width: 300px;
+  height: 300px;
+  color: #fff;
+  opacity: 0.1;
+  pointer-events: none;
+}
+.drive-hero-soft {
+  color: rgb(255 255 255 / 76%);
+}
+.drive-hero .ui-ring svg circle:first-child {
+  stroke: rgb(255 255 255 / 18%);
+}
+.drive-hero .ui-ring-stroke {
+  stroke: #fff;
+  filter: drop-shadow(0 0 6px rgb(255 255 255 / 35%));
+}
+.drive-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 14%);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.drive-chip-streak svg {
+  color: var(--highlight);
+  fill: var(--highlight);
+}
+.drive-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 18px;
+}
+.drive-day {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  color: rgb(255 255 255 / 64%);
+}
+.drive-day-track {
+  position: relative;
+  width: 100%;
+  max-width: 28px;
+  height: 44px;
+  border-radius: 9px;
+  background: rgb(255 255 255 / 10%);
+  overflow: hidden;
+}
+.drive-day-fill {
+  position: absolute;
+  inset: auto 0 0;
+  height: 100%;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #fff, rgb(255 255 255 / 78%));
+  transform-origin: bottom;
+  transform: scaleY(var(--fill, 0));
+  animation: drive-fill 700ms var(--spring-drive) both;
+  animation-delay: calc(160ms + var(--i, 0) * 40ms);
+}
+.drive-day.is-today {
+  color: #fff;
+}
+.drive-day.is-today .drive-day-track {
+  box-shadow: 0 0 0 1.5px rgb(255 255 255 / 70%);
+}
+.drive-day.is-future .drive-day-track {
+  background: rgb(255 255 255 / 6%);
+}
+@keyframes drive-fill {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* Puddle: the swirl an oar leaves behind; the app's signature ripple */
+.drive-puddle {
+  position: absolute;
+  pointer-events: none;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  animation: drive-puddle 720ms var(--ease-drive) both;
+}
+.drive-puddle + .drive-puddle {
+  animation-delay: 110ms;
+}
+@keyframes drive-puddle {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+/* Kudos */
+.social-entry {
+  padding: 18px;
+}
+.social-heart-burst {
+  fill: var(--accent);
+  filter: drop-shadow(0 6px 16px rgb(140 21 21 / 45%));
+  animation: social-heart var(--motion-pop) var(--spring-pop) both;
+}
+.social-entry > .drive-puddle {
+  z-index: 2;
+  color: var(--accent);
+  width: 160px;
+  height: 160px;
+  margin: -80px 0 0 -80px;
+}
+.kudos-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+}
+.kudos-icon > svg {
+  transition: transform 420ms var(--spring-pop);
+}
+.kudos-icon.is-giving > svg {
+  animation: kudos-pop var(--motion-pop) var(--spring-pop);
+}
+.kudos-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px;
+  border-radius: 50%;
+  background: var(--accent);
+  pointer-events: none;
+  animation: kudos-spark 560ms var(--ease-drive) both;
+}
+.kudos-spark:nth-child(even) {
+  background: var(--highlight);
+  width: 4px;
+  height: 4px;
+  margin: -2px;
+}
+@keyframes kudos-pop {
+  0% {
+    transform: scale(0.6) rotate(-14deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes kudos-spark {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--a)) translateY(-6px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--a)) translateY(-22px) scale(0.2);
+  }
+}
+.kudos-count {
+  display: inline-block;
+  animation: kudos-count 380ms var(--spring-drive);
+}
+@keyframes kudos-count {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+}
+
+/* Podium */
+.podium-card {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, var(--medal-fill, var(--surface)), var(--surface) 78%);
+  box-shadow: var(--shadow-card);
+  animation: podium-rise var(--motion-drive) var(--spring-drive) backwards;
+}
+.podium-card[data-medal='gold'] {
+  animation-delay: 200ms;
+  box-shadow:
+    var(--shadow-card),
+    0 18px 36px -22px rgb(196 150 30 / 60%);
+}
+.podium-card[data-medal='silver'] {
+  animation-delay: 100ms;
+}
+.podium-card.is-me {
+  background: linear-gradient(180deg, var(--oyo-selected), var(--surface) 78%);
+}
+.podium-rank {
+  border: 0;
+  color: #2b1d00;
+  background: var(--medal-metal);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 55%),
+    0 4px 10px -4px var(--medal-ink);
+}
+.podium-card[data-medal='gold'] .podium-rank {
+  --medal-metal: linear-gradient(145deg, #fbe7a1, #e2b84a 55%, #b8891f);
+}
+.podium-card[data-medal='silver'] .podium-rank {
+  --medal-metal: linear-gradient(145deg, #f4f6fa, #c9ced8 55%, #9aa1ae);
+  color: #23262d;
+}
+.podium-card[data-medal='bronze'] .podium-rank {
+  --medal-metal: linear-gradient(145deg, #f6d2b4, #d39466 55%, #a5653c);
+  color: #2e1606;
+}
+.podium-card .ui-avatar {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px color-mix(in srgb, var(--medal-ink) 55%, transparent);
+}
+.podium-card[data-medal='gold'] .ui-avatar {
+  width: 56px;
+  height: 56px;
+}
+@keyframes podium-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0) scale(0.96);
+  }
+}
+
+/* Me */
+.profile-hero {
+  position: relative;
+  isolation: isolate;
+  margin-inline: -16px;
+  padding: 24px 16px 4px;
+}
+.profile-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -64px 0 -24px;
+  mask-image: linear-gradient(to bottom, transparent, #000 45%, #000 65%, transparent);
+  background: radial-gradient(120% 100% at 0% 0%, rgb(140 21 21 / 12%), transparent 62%);
+}
+.dark .profile-hero::before {
+  background: radial-gradient(120% 100% at 0% 0%, rgb(192 53 43 / 18%), transparent 62%);
+}
+.profile-hero .ui-avatar-lg {
+  box-shadow:
+    0 0 0 3px var(--bg),
+    0 0 0 5px var(--accent),
+    var(--shadow-cardinal);
+}
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.profile-stat {
+  display: grid;
+  gap: 4px;
+  padding: 14px 12px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+.profile-stat svg {
+  color: var(--highlight);
+  fill: var(--highlight);
+}
+
+/* Save celebration */
+.save-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(13 12 12 / 36%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  animation: save-fade 260ms var(--ease-drive) both;
+}
+.save-celebration.is-leaving {
+  animation: save-out 240ms var(--ease-recover) both;
+}
+.save-card {
+  position: relative;
+  width: min(100%, 340px);
+  padding: 32px 24px 24px;
+  border-radius: var(--radius-hero);
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(155deg, #a61f1a 0%, #8c1515 46%, var(--cardinal-deep) 100%);
+  box-shadow: 0 30px 80px -30px rgb(0 0 0 / 60%);
+  animation: save-card-in var(--motion-drive) var(--spring-drive) backwards;
+}
+.save-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 18px;
+  color: #fff;
+}
+.save-mark > .drive-puddle {
+  left: 50%;
+  top: 50%;
+  width: 84px;
+  height: 84px;
+  margin: -42px;
+  animation-duration: 900ms;
+  animation-delay: 180ms;
+}
+.save-mark > .drive-puddle + .drive-puddle {
+  animation-delay: 320ms;
+}
+.save-mark circle {
+  stroke-dasharray: 252;
+  animation: save-draw 520ms var(--ease-drive) 80ms both;
+}
+.save-mark path {
+  stroke-dasharray: 48;
+  animation: save-draw-check 320ms var(--ease-drive) 380ms both;
+}
+.save-bar {
+  position: relative;
+  height: 8px;
+  margin-top: 20px;
+  border-radius: 99px;
+  background: rgb(255 255 255 / 18%);
+  overflow: hidden;
+}
+.save-bar > span {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #fff;
+  transform-origin: left;
+  transition: transform 900ms var(--ease-drive) 300ms;
+}
+@keyframes save-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes save-out {
+  to {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+}
+@keyframes save-card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.92);
+  }
+}
+@keyframes save-draw {
+  from {
+    stroke-dashoffset: 252;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes save-draw-check {
+  from {
+    stroke-dashoffset: 48;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-large-title,
+  .screen-stack > *,
+  .drive-rise,
+  .podium-card,
+  .drive-day-fill,
+  .shell-tab.is-active svg,
+  .kudos-icon.is-giving > svg,
+  .kudos-count,
+  .save-card,
+  .save-mark circle,
+  .save-mark path {
+    animation: none;
+  }
+  .drive-puddle,
+  .kudos-spark {
+    display: none;
+  }
+  .save-celebration,
+  .save-celebration.is-leaving {
+    animation-duration: 120ms;
+  }
+  .save-bar > span {
+    transition: none;
+  }
+  .ui-button,
+  .drive-hero,
+  .ui-action-card,
+  .shell-log-tab > span:first-child,
+  .ui-segment-thumb {
+    transition-duration: 0ms;
+  }
+}

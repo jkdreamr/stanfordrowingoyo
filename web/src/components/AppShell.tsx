@@ -5,6 +5,7 @@ import { Sidebar, TabBar } from './shell/Navigation';
 import { RightRail } from './shell/RightRail';
 import { NotificationSync } from './NotificationSync';
 import { PasskeyOffer } from './auth/PasskeyOffer';
+import { SaveCelebration } from './ui/SaveCelebration';
 export default function AppShell() {
   const task = useLocation().pathname === '/log';
   const content = useRef<HTMLElement>(null);
@@ -22,6 +23,7 @@ export default function AppShell() {
       <RightRail />
       {!task && <TabBar />}
       <PasskeyOffer />
+      <SaveCelebration />
     </div>
   );
 }

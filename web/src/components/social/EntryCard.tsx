@@ -46,7 +46,7 @@ export function EntryCard({
       const bounds = card.current!.getBoundingClientRect();
       setBurst({ x: x - bounds.left, y: y - bounds.top });
       clearTimeout(burstTimer.current);
-      burstTimer.current = setTimeout(() => setBurst(undefined), 600);
+      burstTimer.current = setTimeout(() => setBurst(undefined), 850);
     }
     mutation.mutate(
       { id: entry.id, hasKudos: true },
@@ -103,12 +103,16 @@ export function EntryCard({
       }}
     >
       {burst && (
-        <Heart
-          aria-hidden="true"
-          size={72}
-          className="social-heart-burst"
-          style={{ left: burst.x, top: burst.y }}
-        />
+        <>
+          <span className="drive-puddle" style={{ left: burst.x, top: burst.y }} />
+          <span className="drive-puddle" style={{ left: burst.x, top: burst.y }} />
+          <Heart
+            aria-hidden="true"
+            size={72}
+            className="social-heart-burst"
+            style={{ left: burst.x, top: burst.y }}
+          />
+        </>
       )}
       <div className="flex items-center gap-3" data-no-double-tap>
         <Avatar size="feed" name={entry.author.name} imageId={entry.author.avatar_image_id} />
