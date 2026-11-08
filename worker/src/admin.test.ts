@@ -100,6 +100,8 @@ const endpoints: Record<keyof Api, true> = {
   'POST /api/games/dive/answers': true,
   'GET /api/games/dive/days/:date': true,
   'PATCH /api/games/dive/answers': true,
+  'GET /api/games/connections/today': true,
+  'POST /api/games/connections/check': true,
   'GET /api/games': true,
   'GET /api/games/access': true,
   'POST /api/games/:game/results': true,

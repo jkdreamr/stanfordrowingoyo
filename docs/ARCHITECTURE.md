@@ -443,6 +443,35 @@ aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 `GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
 with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
+Registered daily games (all `higher`, generic scorers in `worker/src/games/more.ts`, rules in
+`shared/games/`, no migration). Daily puzzles derive from the team date via a seeded
+`mulberry32(fnv1a(id:date))` or a day-number answer index, so every teammate gets the same
+puzzle. The server recomputes every score from raw input; client scores are ignored, and
+malformed or implausible payloads return 400.
+
+- `wordguess` takes `{guesses}`: 1–6 lowercase five-letter words, each in the answer or
+  accepted-guess lists, ending on today's answer or six misses, with no earlier solve.
+  Score is `7 − tries` when solved, else 0. Stored payload `{guesses,solved,tries}`.
+- `perception` takes `{answer:{clockMs,hue,dot,cells,reactionMs}}` (hold 0–30000 ms, hue
+  0–359, dot 0–1000 per axis, seven distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
+  for early). Five rounds score 0–100 each against the daily puzzle; reactions under
+  100 ms score 0. Score 0–500; stored `{answer,scores}`.
+- `connections` takes `{guesses}`: the full ordered log of 1–8 four-word guesses. Puzzles
+  (≥90 original, hard-day difficulty: four groups of four, easiest to hardest, the hardest
+  group always wordplay, at least three red herrings each across two or more groups, unique
+  category names, and exactly one valid partition even with every herring allowed in its
+  decoy group) live only in
+  `worker/src/games/connectionsPuzzles.ts`; a fixed shuffle is cycled by day number, so a
+  puzzle returns only after every other one (no repeat within 60 days). The client gets
+  words from `GET /api/games/connections/today` (`ConnectionsDay`, empty while locked) and
+  checks each guess with `POST /api/games/connections/check` `{guesses}` (gated, stateless
+  replay of the on-device log), which returns `ConnectionsCheck`: last outcome
+  (`correct`/`one_away`/`wrong`), mistakes, solved groups only, and all groups once finished.
+  Logs with unknown, repeated or solved words, repeated guesses, or guesses after the board
+  ended return 400. Final submit replays the log and needs a finished board (four solves or
+  four mistakes). Score: solved boards `8 − mistakes` (8–5), unsolved boards the solved group
+  count (0–3), so every win outranks every loss. Stored `{guesses,solved,mistakes,won,grid,groups}`.
+
 ### Tests, recaps, and challenges
 
 - GET /api/users/:id/tests: authenticated team-visible history, newest date/created_at first.

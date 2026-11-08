@@ -17,3 +17,8 @@
   across registered games, with distinct played dates counted once.
 
 Dive currently has only its start surface; its dedicated gameplay arrives separately.
+
+`DailyGameFrame` wraps a generic-scorer game: access gate, own result, one-shot submit,
+result card with Share, and the day board. Pass `play({date,onComplete})` and
+`summarize(result)`. Word Guess, Perception and Connections use it; their pure rules live in
+`shared/games/` and are reused by the Worker scorers.

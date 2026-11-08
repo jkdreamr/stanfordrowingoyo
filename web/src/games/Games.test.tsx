@@ -10,6 +10,7 @@ import { GameDayBoard } from './GameDayBoard';
 import Games from '../pages/Games';
 import GamesLeaderboard from '../pages/GamesLeaderboard';
 import DiveStart from './DiveStart';
+import { GAMES } from './registry';
 import { GamesCard } from './GamesCard';
 
 const clients: ReturnType<typeof createQueryClient>[] = [];
@@ -85,7 +86,7 @@ it('navigates board dates without future days and displays a short week range', 
   expect(next.disabled).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: 'Previous Day' }));
   expect(await screen.findByText('Tue, Mar 17')).toBeTruthy();
-  expect(await screen.findByText('No Results Yet')).toBeTruthy();
+  expect(await screen.findAllByText('No Results Yet')).toHaveLength(GAMES.length);
   expect(next.disabled).toBe(false);
   fireEvent.click(next);
   expect(await screen.findByText('Today', { exact: true })).toBeTruthy();

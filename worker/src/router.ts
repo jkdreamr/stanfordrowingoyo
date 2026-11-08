@@ -23,6 +23,7 @@ import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 import * as games from './routes/games';
 import * as dive from './routes/dive';
+import * as connections from './routes/connections';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -39,6 +40,8 @@ const routes: Route[] = [
   { method: 'POST', path: '/api/games/dive/answers', handler: dive.answer },
   { method: 'GET', path: '/api/games/dive/days/:date', handler: dive.past },
   { method: 'PATCH', path: '/api/games/dive/answers', handler: dive.moderate },
+  { method: 'GET', path: '/api/games/connections/today', handler: connections.current },
+  { method: 'POST', path: '/api/games/connections/check', handler: connections.check },
   { method: 'GET', path: '/api/games', handler: games.list },
   { method: 'GET', path: '/api/games/access', handler: games.access },
   { method: 'GET', path: '/api/games/leaderboard', handler: games.week },
