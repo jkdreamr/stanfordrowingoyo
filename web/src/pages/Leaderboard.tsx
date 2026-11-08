@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { prefersReducedMotion } from '../lib/motion';
 import { PullToRefresh } from '../components/social/PullToRefresh';
 import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -279,6 +280,35 @@ function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
   return !visible && !blocked;
 }
 
+/**
+ * FLIP reorder: when the metric or week changes, rows that stay on the board glide from their
+ * old place to their new one (transform only, 420 ms on the drive curve), so a rank change
+ * reads as movement rather than a reshuffle. Reduced motion: rows simply appear in place.
+ */
+function useRankFlip(list: HTMLElement | null, rows: LeaderboardRow[] | undefined) {
+  const places = useRef(new Map<string, number>());
+  useLayoutEffect(() => {
+    if (!list) return;
+    const next = new Map<string, number>();
+    const reduced = prefersReducedMotion();
+    for (const item of list.querySelectorAll<HTMLElement>('[data-rank-id]')) {
+      const id = item.dataset.rankId!;
+      const top = item.offsetTop;
+      const before = places.current.get(id);
+      next.set(id, top);
+      if (before === undefined || reduced || Math.abs(before - top) < 1) continue;
+      item.animate?.(
+        [{ transform: `translate3d(0, ${before - top}px, 0)` }, { transform: 'none' }],
+        {
+          duration: 420,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        },
+      );
+    }
+    places.current = next;
+  }, [list, rows]);
+}
+
 export default function Leaderboard() {
   const refresh = useRefreshVisible();
   const configQuery = useConfig();
@@ -306,6 +336,7 @@ function Board({ config }: { config: Config }) {
   const [myRow, setMyRow] = useState<HTMLAnchorElement | null>(null);
   const [pin, setPin] = useState<HTMLDivElement | null>(null);
   const showPinned = usePinned(myRow, pin);
+  const [rankList, setRankList] = useState<HTMLOListElement | null>(null);
 
   const update = (next: { metric?: LeaderboardMetric; week?: string }) => {
     const search = new URLSearchParams(params);
@@ -322,6 +353,7 @@ function Board({ config }: { config: Config }) {
   const podium = rows ? rows.slice(0, 3) : [];
   const rest = rows ? rows.slice(podium.length) : [];
   const mine = rows?.find((r) => r.user.id === me?.id);
+  useRankFlip(rankList, rows);
   const isCurrent = week === currentWeek;
 
   return (
@@ -384,10 +416,11 @@ function Board({ config }: { config: Config }) {
             <Podium rows={podium} metric={metric} meId={me?.id} rowRef={setMyRow} />
           )}
           {rest.length > 0 && (
-            <ol start={podium.length + 1} className="ui-list m-0 list-none p-0">
+            <ol ref={setRankList} start={podium.length + 1} className="ui-list m-0 list-none p-0">
               {rest.map((row) => (
                 <li
                   key={row.user.id}
+                  data-rank-id={row.user.id}
                   value={row.rank}
                   className="border-b border-divider last:border-b-0"
                 >
