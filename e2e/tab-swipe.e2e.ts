@@ -350,7 +350,7 @@ test('tab taps and swipe commits keep live navigation stable and restore cached 
   const swipeOut = await sampleTransition(page, () => swipe(page, 290, 80, 180));
   expect(swipeOut.some((frame) => frame.heading === 'Leaderboard')).toBe(true);
   expect(
-    swipeOut.filter((frame) => frame.heading === 'Leaderboard' && frame.opacity <= 0.001).length,
+    swipeOut.filter((frame) => frame.path === '/leaderboard' && frame.opacity <= 0.001).length,
   ).toBeLessThanOrEqual(1);
   expect(
     swipeOut.filter(

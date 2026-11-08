@@ -236,7 +236,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
         committedExit = undefined;
         root.style.opacity = '0';
         prepareNavigation(to, direction, g.reduced);
-        navigate(to, { preventScrollReset: true });
+        navigate(to, { preventScrollReset: true, flushSync: true });
       };
       committedExit = finish;
       animate(

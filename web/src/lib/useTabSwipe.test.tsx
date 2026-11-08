@@ -63,7 +63,10 @@ for (const interruption of ['touchstart', 'second finger', 'resize']) {
       mobile = false;
       fireEvent(window, new Event('resize'));
     } else touch(target, 'touchstart', 200, 200, interruption === 'second finger' ? 2 : 1);
-    expect(navigate).toHaveBeenCalledExactlyOnceWith('/leaderboard', { preventScrollReset: true });
+    expect(navigate).toHaveBeenCalledExactlyOnceWith('/leaderboard', {
+      preventScrollReset: true,
+      flushSync: true,
+    });
     expect(target.parentElement?.style.transform).toBe('');
     expect(target.parentElement?.style.opacity).toBe('0');
     expect(cancel).not.toHaveBeenCalled();
@@ -86,7 +89,7 @@ it('restores the latest scroll after leaving a tab by another navigation method'
   rerender(<Surface />);
   vi.stubGlobal('scrollY', 0);
   await swipe(getByTestId('target'), 80, 280);
-  expect(navigate).toHaveBeenLastCalledWith('/', { preventScrollReset: true });
+  expect(navigate).toHaveBeenLastCalledWith('/', { preventScrollReset: true, flushSync: true });
   path = '/';
   rerender(<Surface />);
   expect(scrollTo).toHaveBeenLastCalledWith(0, 375);
@@ -222,7 +225,10 @@ for (const [from, to, destination] of [
   it(`commits to neighbouring tab ${destination}`, async () => {
     const { getByTestId } = render(<Surface />);
     await swipe(getByTestId('target'), from, to);
-    expect(navigate).toHaveBeenLastCalledWith(destination, { preventScrollReset: true });
+    expect(navigate).toHaveBeenLastCalledWith(destination, {
+      preventScrollReset: true,
+      flushSync: true,
+    });
   });
 }
 it('never prevents vertical scrolling and stays vertically locked', async () => {
@@ -313,7 +319,10 @@ it('commits a fast short flick', async () => {
   now = 50;
   touch(target, 'touchend', 240, 200, 0);
   await act(async () => {});
-  expect(navigate).toHaveBeenCalledWith('/leaderboard', { preventScrollReset: true });
+  expect(navigate).toHaveBeenCalledWith('/leaderboard', {
+    preventScrollReset: true,
+    flushSync: true,
+  });
 });
 it('snaps back a slow short drag', async () => {
   let now = 0;
