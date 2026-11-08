@@ -503,6 +503,28 @@ export interface DiveDay {
   result: GameResult | null;
   reveal: DiveReveal[] | null;
 }
+export interface ConnectionsDay {
+  date: string;
+  access: GameAccess;
+  /** The day's 16 words in shared starting order; empty while locked. */
+  words: string[];
+}
+export interface ConnectionsRevealedGroup {
+  name: string;
+  words: string[];
+  /** 0 easiest to 3 hardest. */
+  level: number;
+}
+export interface ConnectionsCheck {
+  outcome: 'correct' | 'one_away' | 'wrong';
+  mistakes: number;
+  finished: boolean;
+  won: boolean;
+  /** Solved groups in solve order. */
+  solved: ConnectionsRevealedGroup[];
+  /** Every group once the board is finished, otherwise null. */
+  groups: ConnectionsRevealedGroup[] | null;
+}
 export type GameScoreDirection = 'higher' | 'lower';
 export interface GameAccess {
   date: string;
@@ -615,6 +637,8 @@ export interface Api {
     { date: string; prompt_index: number; normalized: string; hidden: boolean },
     DiveReveal
   >;
+  'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;
+  'POST /api/games/connections/check': Endpoint<{ guesses: string[][] }, ConnectionsCheck>;
   'GET /api/games': Endpoint<void, GamesToday>;
   'GET /api/games/access': Endpoint<void, GameAccess>;
   'POST /api/games/:game/results': Endpoint<{ payload: unknown }, GameResult>;

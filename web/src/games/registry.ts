@@ -1,5 +1,6 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
-import { Activity, Anchor, Eye, Grid3x3, type LucideIcon } from 'lucide-react';
+import { Anchor, Eye, Grid3x3, LayoutGrid, type LucideIcon } from 'lucide-react';
+import { formatConnectionsScore } from '../../../shared/games/connections';
 import type { GameScoreDirection } from '../../../shared/types';
 import { formatNumber } from '../lib/format';
 
@@ -41,12 +42,12 @@ export const GAMES: GameDefinition[] = [
     formatScore: (score) => `${score} / 500`,
   },
   {
-    id: 'ratehold',
-    title: 'Rate Hold',
-    icon: Activity,
+    id: 'connections',
+    title: 'Connections',
+    icon: LayoutGrid,
     accent: 'var(--accent-ink)',
     direction: 'higher',
-    component: lazy(() => import('./ratehold')),
-    formatScore: (score) => `${score} / 100`,
+    component: lazy(() => import('./connections')),
+    formatScore: formatConnectionsScore,
   },
 ];

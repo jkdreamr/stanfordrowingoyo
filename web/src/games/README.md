@@ -20,5 +20,5 @@ Dive currently has only its start surface; its dedicated gameplay arrives separa
 
 `DailyGameFrame` wraps a generic-scorer game: access gate, own result, one-shot submit,
 result card with Share, and the day board. Pass `play({date,onComplete})` and
-`summarize(result)`. Word Guess, Perception and Rate Hold use it; their pure rules live in
+`summarize(result)`. Word Guess, Perception and Connections use it; their pure rules live in
 `shared/games/` and are reused by the Worker scorers.

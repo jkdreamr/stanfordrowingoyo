@@ -5,7 +5,7 @@ import { csrfHeaders } from './api';
 import { waitForSplash } from './helpers';
 import { ANSWER_LIST, dailyAnswer } from '../shared/games/wordGuess';
 import { perceptionPuzzle } from '../shared/games/perception';
-import { intervalMs, rateHoldRates, STROKES_PER_PIECE } from '../shared/games/rateHold';
+import { connectionsPuzzleFor } from '../worker/src/games/connectionsPuzzles';
 
 test.describe.configure({ timeout: 180_000 });
 
@@ -34,7 +34,7 @@ async function expectResult(page: Page, title: string) {
   await expect(board).toContainText('· You');
 }
 
-test('plays Word Guess, Perception and Rate Hold once each after the OYO', async ({
+test('plays Word Guess, Perception and Connections once each after the OYO', async ({
   makeRower,
 }, testInfo) => {
   const { page, context } = await makeRower();
@@ -55,7 +55,7 @@ test('plays Word Guess, Perception and Rate Hold once each after the OYO', async
 
   await page.goto('/games');
   await waitForSplash(page);
-  for (const name of ['Word Guess', 'Perception', 'Rate Hold'])
+  for (const name of ['Word Guess', 'Perception', 'Connections'])
     await expect(page.getByRole('link', { name: new RegExp(`^${name}`) })).toContainText('Play');
 
   // Word Guess: a miss then the daily answer, on-screen keys on phones, keyboard on desktop.
@@ -132,29 +132,61 @@ test('plays Word Guess, Perception and Rate Hold once each after the OYO', async
   await expect(page.getByRole('region', { name: 'Your Result' })).toContainText('/ 500');
   await shots(page, project, 'perception-result');
 
-  // Rate Hold: three pieces of eight strokes at the daily rates.
-  await page.goto('/games/ratehold');
+  // Connections: deselect, One Away, a solve, reload persistence, then the rest.
+  await page.goto('/games/connections');
   await waitForSplash(page);
-  const rates = rateHoldRates(date);
-  for (const [i, rate] of rates.entries()) {
-    await page.getByRole('button', { name: 'Start Piece' }).click();
-    const pad = page.getByTestId('catch-pad');
-    for (let stroke = 0; stroke < STROKES_PER_PIECE; stroke++) {
-      if (stroke) await page.waitForTimeout(intervalMs(rate));
-      await pad.dispatchEvent('pointerdown', { pointerType: 'touch', isPrimary: true, button: 0 });
-      if (i === 0 && stroke === 4) await shots(page, project, 'ratehold-play');
-    }
-    await page
-      .getByRole('button', { name: i === rates.length - 1 ? 'See Result' : 'Next Piece' })
-      .click();
+  const [a, b, c, d] = connectionsPuzzleFor(date).groups.map((g) => g.words);
+  const words = page.getByRole('group', { name: 'Words' });
+  await expect(words.getByRole('button')).toHaveCount(16);
+  const viewport = page.viewportSize()!;
+  await page.setViewportSize({ width: 360, height: viewport.height });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
+  for (const tile of await words.getByRole('button').evaluateAll((els) =>
+    els.map((el) => {
+      const box = el.getBoundingClientRect();
+      return { width: box.width, height: box.height, text: el.firstElementChild!.scrollWidth };
+    }),
+  )) {
+    expect(tile.height).toBeGreaterThanOrEqual(44);
+    expect(tile.width).toBeGreaterThanOrEqual(44);
+    expect(tile.text).toBeLessThanOrEqual(tile.width);
   }
-  await expectResult(page, 'Rate Hold');
-  await expect(page.getByRole('region', { name: 'Your Result' })).toContainText('/ 100');
-  await shots(page, project, 'ratehold-result');
+  await page.setViewportSize(viewport);
+  const tap = async (list: string[]) => {
+    for (const w of list) await words.getByRole('button', { name: w, exact: true }).click();
+  };
+  const submit = page.getByRole('button', { name: 'Submit' });
+  await tap(a);
+  await page.getByRole('button', { name: 'Deselect All' }).click();
+  await expect(words.getByRole('button', { pressed: true })).toHaveCount(0);
+  await tap([a[0], a[1], a[2], b[0]]);
+  await submit.click();
+  await expect(page.getByRole('status').filter({ hasText: 'One Away' })).toBeVisible();
+  await expect(page.getByRole('img', { name: '3 Mistakes Left' })).toBeVisible();
+  await page.getByRole('button', { name: 'Deselect All' }).click();
+  await tap(d);
+  await submit.click();
+  await expect(page.getByRole('listitem')).toHaveCount(1);
+  await page.getByRole('button', { name: 'Shuffle' }).click();
+  await tap([b[0], b[1]]);
+  await shots(page, project, 'connections-play');
+  await page.reload();
+  await waitForSplash(page);
+  await expect(page.getByRole('listitem')).toHaveCount(1);
+  await expect(page.getByRole('img', { name: '3 Mistakes Left' })).toBeVisible();
+  for (const group of [a, b, c]) {
+    await tap(group);
+    await submit.click();
+    await expect(words.getByRole('button', { name: group[0], exact: true })).toHaveCount(0);
+  }
+  await expectResult(page, 'Connections');
+  await expect(page.getByRole('region', { name: 'Your Result' })).toContainText('4 / 4');
+  await expect(page.getByRole('region', { name: 'Your Result' })).toContainText('1 Mistake');
+  await shots(page, project, 'connections-result');
 
   await page.goto('/games');
   await expect(page.getByRole('link', { name: /^Word Guess/ })).toContainText('2 / 6');
-  await expect(page.getByRole('link', { name: /^Rate Hold/ })).toContainText('/ 100');
+  await expect(page.getByRole('link', { name: /^Connections/ })).toContainText('4 / 4');
   expect(
     (
       await context.request.post('/api/games/wordguess/results', {

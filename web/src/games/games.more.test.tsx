@@ -5,10 +5,33 @@ import { MemoryRouter } from 'react-router-dom';
 import { ANSWER_LIST, dailyAnswer, verifyWordGuess, unpack } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import { parsePerceptionAnswer, perceptionPuzzle } from '../../../shared/games/perception';
-import { parseRateHoldTaps, rateHoldRates, intervalMs } from '../../../shared/games/rateHold';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { boardWords, replayConnections } from '../../../shared/games/connections';
+import { connectionsPuzzleFor } from '../../../worker/src/games/connectionsPuzzles';
 import { WordGuessPlay } from './wordguess/WordGuessPlay';
 import { PerceptionPlay } from './perception/PerceptionPlay';
-import { RateHoldPlay } from './ratehold/RateHoldPlay';
+import { ConnectionsPlay } from './connections/ConnectionsPlay';
+
+vi.mock('../lib/api', async (original) => {
+  const actual = await original<typeof import('../lib/api')>();
+  return {
+    ...actual,
+    api: vi.fn(async (route: string, init?: { body?: { guesses: unknown } }) => {
+      const puzzle = connectionsPuzzleFor(DATE);
+      if (route === 'GET /api/games/connections/today')
+        return { date: DATE, access: {}, words: boardWords(DATE, puzzle) };
+      const replay = replayConnections(puzzle, init?.body?.guesses)!;
+      return {
+        outcome: replay.outcomes.at(-1),
+        mistakes: replay.mistakes,
+        finished: replay.finished,
+        won: replay.won,
+        solved: replay.solved.map((l) => puzzle.groups[l]),
+        groups: replay.finished ? puzzle.groups : null,
+      };
+    }),
+  };
+});
 
 const DATE = '2026-11-07';
 beforeAll(() => {
@@ -103,28 +126,57 @@ describe('PerceptionPlay', () => {
   });
 });
 
-describe('RateHoldPlay', () => {
-  it('records three pieces of plausible taps', () => {
-    const onComplete = vi.fn();
-    let clock = 0;
-    vi.spyOn(performance, 'now').mockImplementation(() => clock);
+describe('ConnectionsPlay', () => {
+  const groups = connectionsPuzzleFor(DATE).groups;
+  const view = (onComplete = vi.fn()) =>
     render(
-      <MemoryRouter>
-        <RateHoldPlay date={DATE} onComplete={onComplete} />
-      </MemoryRouter>,
+      <QueryClientProvider client={new QueryClient()}>
+        <ConnectionsPlay date={DATE} onComplete={onComplete} />
+      </QueryClientProvider>,
     );
-    for (const [i, rate] of rateHoldRates(DATE).entries()) {
-      fireEvent.click(screen.getByRole('button', { name: 'Start Piece' }));
-      const pad = screen.getByTestId('catch-pad');
-      for (let s = 0; s < 8; s++) {
-        clock += s === 0 ? 0 : intervalMs(rate);
-        fireEvent.pointerDown(pad);
-      }
-      expect(screen.getByText(rate.toFixed(1))).toBeTruthy();
-      fireEvent.click(screen.getByRole('button', { name: i === 2 ? 'See Result' : 'Next Piece' }));
+  const tile = (word: string) => screen.getByRole('button', { name: word });
+  const pick = (words: string[]) => words.forEach((w) => fireEvent.click(tile(w)));
+
+  it('selects, deselects, shows One Away, collapses solves and persists progress', async () => {
+    const onComplete = vi.fn();
+    view(onComplete);
+    await screen.findByRole('group', { name: 'Words' });
+    expect(screen.getAllByRole('button', { pressed: false })).toHaveLength(16);
+    const [a, b, c, d] = groups.map((g) => g.words);
+    pick([a[0], a[1], a[2], a[3], b[0]]);
+    expect(screen.getAllByRole('button', { pressed: true })).toHaveLength(4);
+    fireEvent.click(screen.getByRole('button', { name: 'Deselect All' }));
+    expect(screen.queryAllByRole('button', { pressed: true })).toHaveLength(0);
+    pick([a[0], a[1], a[2], b[0]]);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    await waitFor(() => expect(screen.getByRole('status').textContent).toBe('One Away'));
+    expect(screen.getByRole('img', { name: '3 Mistakes Left' })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    expect(screen.getByRole('status').textContent).toBe('Already Guessed');
+    fireEvent.click(screen.getByRole('button', { name: 'Deselect All' }));
+    pick(d);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+    await waitFor(() => expect(screen.getAllByRole('listitem')).toHaveLength(1));
+    expect(screen.getByRole('listitem').textContent).toContain(groups[3].name);
+    expect(screen.queryByRole('button', { name: d[0] })).toBeNull();
+    const order = screen.getAllByRole('button', { pressed: false }).map((el) => el.textContent);
+    fireEvent.click(screen.getByRole('button', { name: 'Shuffle' }));
+    const shuffled = screen.getAllByRole('button', { pressed: false }).map((el) => el.textContent);
+    expect([...shuffled].sort()).toEqual([...order].sort());
+
+    cleanup();
+    view(onComplete);
+    await screen.findByRole('group', { name: 'Words' });
+    await waitFor(() => expect(screen.getAllByRole('listitem')).toHaveLength(1));
+    expect(screen.getByRole('img', { name: '3 Mistakes Left' })).toBeTruthy();
+    for (const g of [a, b, c]) {
+      pick(g);
+      fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+      await waitFor(() => expect(screen.queryByRole('button', { name: g[0] })).toBeNull());
     }
-    const { taps } = onComplete.mock.calls[0][0];
-    expect(parseRateHoldTaps(taps)).toEqual(taps);
-    vi.restoreAllMocks();
+    await waitFor(() => expect(onComplete).toHaveBeenCalledTimes(1), { timeout: 4000 });
+    expect(onComplete.mock.calls[0][0]).toEqual({
+      guesses: [[a[0], a[1], a[2], b[0]], d, a, b, c],
+    });
   });
 });

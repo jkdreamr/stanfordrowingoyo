@@ -6,7 +6,12 @@ import {
   perceptionTotal,
   scorePerception,
 } from '../../../shared/games/perception';
-import { RATE_HOLD_ID, parseRateHoldTaps, scoreRateHold } from '../../../shared/games/rateHold';
+import {
+  CONNECTIONS_ID,
+  connectionsScore,
+  replayConnections,
+} from '../../../shared/games/connections';
+import { connectionsPuzzleFor } from './connectionsPuzzles';
 import * as v from '../validate';
 import type { ServerGame } from './registry';
 
@@ -40,13 +45,18 @@ export const perception: ServerGame = {
   },
 };
 
-export const rateHold: ServerGame = {
-  id: RATE_HOLD_ID,
+export const connections: ServerGame = {
+  id: CONNECTIONS_ID,
   direction: 'higher',
   score(payload, _ctx, date) {
-    const taps = parseRateHoldTaps(field(payload, 'taps'));
-    if (!taps) v.invalid('Stroke taps are out of range.');
-    const { total, ...result } = scoreRateHold(date, taps);
-    return { score: total, payload: { taps, ...result } };
+    const puzzle = connectionsPuzzleFor(date);
+    const guesses = field(payload, 'guesses');
+    const replay = replayConnections(puzzle, guesses);
+    if (!replay?.finished) v.invalid('Guesses do not make a finished board for today.');
+    const { solved, mistakes, won, grid } = replay;
+    return {
+      score: connectionsScore(replay),
+      payload: { guesses, solved, mistakes, won, grid, groups: puzzle.groups },
+    };
   },
 };

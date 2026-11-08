@@ -22,15 +22,21 @@ import {
   scoreReaction,
 } from './perception';
 import {
-  CUED_STROKES,
-  PIECES,
-  STROKES_PER_PIECE,
-  intervalMs,
-  parseRateHoldTaps,
-  rateHoldRates,
-  rateHoldShare,
-  scoreRateHold,
-} from './rateHold';
+  CONNECTIONS_MAX,
+  MAX_MISTAKES,
+  boardWords,
+  connectionsScore,
+  connectionsShare,
+  formatConnectionsScore,
+  parsePuzzle,
+  puzzleIndex,
+  replayConnections,
+  type ConnectionsPuzzle,
+} from './connections';
+import {
+  CONNECTIONS_PUZZLES,
+  connectionsPuzzleFor,
+} from '../../worker/src/games/connectionsPuzzles';
 
 const extra = new Set(unpack(GUESSES));
 const dates = Array.from({ length: 60 }, (_, i) =>
@@ -187,56 +193,136 @@ describe('perception', () => {
   });
 });
 
-describe('rate hold', () => {
-  const steady = (rate: number, jitter = 0) =>
-    Array.from({ length: STROKES_PER_PIECE }, (_, i) =>
-      Math.round(i * intervalMs(rate) + (i % 2 ? jitter : 0)),
-    );
-  it('builds a stepped daily piece', () => {
-    for (const date of dates) {
-      const rates = rateHoldRates(date);
-      expect(rates).toHaveLength(PIECES);
-      expect(rates[1] - rates[0]).toBe(4);
-      expect(rates[0]).toBeGreaterThanOrEqual(18);
-      expect(rates[0]).toBeLessThanOrEqual(24);
-      expect(rateHoldRates(date)).toEqual(rates);
+describe('connections', () => {
+  const puzzles = CONNECTIONS_PUZZLES.map(parsePuzzle);
+  const norm = (w: string) => w.toLowerCase();
+
+  /** Counts partitions into four groups of four where each group fits a distinct category. */
+  function solutions(p: ConnectionsPuzzle) {
+    const fits = p.groups.map((g, i) => {
+      const set = new Set(g.words);
+      if (p.herring.group === i) set.add(p.herring.word);
+      return set;
+    });
+    const words = p.groups.flatMap((g) => g.words);
+    let count = 0;
+    const assign = (k: number, used: number[]) => {
+      if (k === words.length) return void count++;
+      for (let c = 0; c < 4; c++)
+        if (used[c] < 4 && fits[c].has(words[k])) {
+          used[c]++;
+          assign(k + 1, used);
+          used[c]--;
+        }
+    };
+    assign(0, [0, 0, 0, 0]);
+    return count;
+  }
+
+  it('has at least 90 well-formed original puzzles', () => {
+    expect(puzzles.length).toBeGreaterThanOrEqual(90);
+    const boards = new Set<string>();
+    for (const p of puzzles) {
+      expect(p.groups).toHaveLength(4);
+      expect(p.groups.map((g) => g.level)).toEqual([0, 1, 2, 3]);
+      const words = p.groups.flatMap((g) => g.words);
+      for (const g of p.groups) {
+        expect(g.name.length).toBeGreaterThan(1);
+        expect(g.words).toHaveLength(4);
+      }
+      expect(words).toHaveLength(16);
+      expect(new Set(words.map(norm)).size).toBe(16);
+      for (const w of words) {
+        expect(w).toMatch(/^[A-Za-z][A-Za-z' .-]*$/);
+        for (const part of w.split(' ')) expect(part.length).toBeLessThanOrEqual(9);
+        expect(p.groups.filter((g) => g.words.includes(w))).toHaveLength(1);
+      }
+      boards.add([...words].map(norm).sort().join());
+    }
+    expect(boards.size).toBe(puzzles.length);
+  });
+
+  it('gives every puzzle one red herring and exactly one valid solution', () => {
+    for (const p of puzzles) {
+      const own = p.groups.findIndex((g) => g.words.includes(p.herring.word));
+      expect(own).toBeGreaterThanOrEqual(0);
+      expect(p.herring.group).not.toBe(own);
+      expect(p.herring.group).toBeGreaterThanOrEqual(0);
+      expect(p.herring.group).toBeLessThan(4);
+      expect(solutions(p)).toBe(1);
     }
   });
-  it('scores perfect timing at 100 and drift lower', () => {
-    const date = '2026-11-07';
-    const rates = rateHoldRates(date);
-    const perfect = scoreRateHold(
-      date,
-      rates.map((r) => steady(r)),
+
+  it('picks one shared puzzle per date with no repeat inside 60 days', () => {
+    const n = CONNECTIONS_PUZZLES.length;
+    const year = Array.from({ length: 400 }, (_, i) =>
+      new Date(Date.UTC(2026, 0, 1 + i)).toISOString().slice(0, 10),
     );
-    expect(perfect.total).toBe(100);
-    expect(perfect.held).toEqual(rates);
-    expect(rateHoldShare(date, perfect)).toContain('100/100');
-    const slow = scoreRateHold(
-      date,
-      rates.map((r) => steady(r - 3)),
+    const picks = year.map((d) => puzzleIndex(d, n));
+    for (let i = 0; i < picks.length; i++)
+      expect(picks.slice(Math.max(0, i - 59), i)).not.toContain(picks[i]);
+    expect(new Set(picks.slice(0, n)).size).toBe(n);
+    expect(connectionsPuzzleFor('2026-11-07')).toBe(connectionsPuzzleFor('2026-11-07'));
+    const board = boardWords('2026-11-07', connectionsPuzzleFor('2026-11-07'));
+    expect(boardWords('2026-11-07', connectionsPuzzleFor('2026-11-07'))).toEqual(board);
+    expect([...board].sort()).toEqual(
+      connectionsPuzzleFor('2026-11-07')
+        .groups.flatMap((g) => g.words)
+        .sort(),
     );
-    expect(slow.total).toBeLessThan(60);
-    expect(slow.held[0]).toBeCloseTo(rates[0] - 3, 0);
   });
-  it('only scores the held strokes', () => {
-    const date = '2026-11-07';
-    const rates = rateHoldRates(date);
-    const taps = rates.map((r) => {
-      const t = steady(r);
-      t[0] = t[1] - 2000;
-      return t.map((x) => x + 2000);
-    });
-    expect(CUED_STROKES).toBeGreaterThan(1);
-    expect(scoreRateHold(date, taps).total).toBe(100);
+
+  const p = puzzles[0];
+  const [a, b, c, d] = p.groups.map((g) => g.words);
+  const oneAway = [a[0], a[1], a[2], b[0]];
+  const wrong = [a[0], a[1], b[0], b[1]];
+
+  it('replays solves, One Away and mistakes', () => {
+    const r = replayConnections(p, [oneAway, d, wrong, a, b, c])!;
+    expect(r.outcomes).toEqual(['one_away', 'correct', 'wrong', 'correct', 'correct', 'correct']);
+    expect(r).toMatchObject({ solved: [3, 0, 1, 2], mistakes: 2, finished: true, won: true });
+    expect(connectionsScore(r)).toBe(6);
+    expect(formatConnectionsScore(6)).toBe('4 / 4 · 2 Mistakes');
+    expect(connectionsShare('2026-11-07', 6, r.grid).split('\n')).toEqual([
+      'OYO Connections 2026-11-07 4/4',
+      '',
+      '\u{1F7E8}\u{1F7E8}\u{1F7E8}\u{1F7E9}',
+      '\u{1F7EA}\u{1F7EA}\u{1F7EA}\u{1F7EA}',
+      '\u{1F7E8}\u{1F7E8}\u{1F7E9}\u{1F7E9}',
+      '\u{1F7E8}\u{1F7E8}\u{1F7E8}\u{1F7E8}',
+      '\u{1F7E9}\u{1F7E9}\u{1F7E9}\u{1F7E9}',
+      '\u{1F7E6}\u{1F7E6}\u{1F7E6}\u{1F7E6}',
+    ]);
   });
-  it('rejects implausible taps', () => {
-    const good = [steady(20), steady(24), steady(28)];
-    expect(parseRateHoldTaps(good)).toEqual(good);
-    expect(parseRateHoldTaps(good.slice(0, 2))).toBeNull();
-    expect(parseRateHoldTaps([good[0].slice(1), good[1], good[2]])).toBeNull();
-    expect(parseRateHoldTaps([good[0].map((_, i) => i * 100), good[1], good[2]])).toBeNull();
-    expect(parseRateHoldTaps([[...good[0]].reverse(), good[1], good[2]])).toBeNull();
-    expect(parseRateHoldTaps([good[0].map((t) => t + 0.5), good[1], good[2]])).toBeNull();
+
+  it('ranks every win above every loss and fewer mistakes higher', () => {
+    expect(connectionsScore(replayConnections(p, [a, b, c, d])!)).toBe(CONNECTIONS_MAX);
+    const misses = [wrong, oneAway, [a[0], b[0], c[0], d[0]], [a[1], b[1], c[1], d[1]]];
+    const lost = replayConnections(p, [
+      a,
+      [b[0], b[1], c[0], c[1]],
+      [b[0], b[1], b[2], c[0]],
+      [b[0], c[0], d[0], d[1]],
+      [b[1], c[1], d[1], d[2]],
+    ])!;
+    expect(lost).toMatchObject({ finished: true, won: false, mistakes: MAX_MISTAKES });
+    expect(connectionsScore(lost)).toBe(1);
+    expect(formatConnectionsScore(1)).toBe('1 / 4 · 4 Mistakes');
+    const scores = [0, 1, 2, 3].map((m) =>
+      connectionsScore(replayConnections(p, [...misses.slice(0, m), a, b, c, d])!),
+    );
+    expect(scores).toEqual([8, 7, 6, 5]);
+  });
+
+  it('rejects boards a real game cannot produce', () => {
+    expect(replayConnections(p, 'nope')).toBeNull();
+    expect(replayConnections(p, [[a[0], a[1], a[2]]])).toBeNull();
+    expect(replayConnections(p, [[a[0], a[0], a[1], a[2]]])).toBeNull();
+    expect(replayConnections(p, [[a[0], a[1], a[2], 'Zzz']])).toBeNull();
+    expect(replayConnections(p, [a, a])).toBeNull();
+    expect(replayConnections(p, [wrong, [...wrong].reverse()])).toBeNull();
+    expect(replayConnections(p, [a, b, c, d, wrong])).toBeNull();
+    expect(replayConnections(p, Array(9).fill(wrong))).toBeNull();
+    expect(replayConnections(p, [a, [a[0], b[0], b[1], b[2]]])).toBeNull();
   });
 });

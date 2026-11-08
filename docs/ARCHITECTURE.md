@@ -438,9 +438,18 @@ malformed or implausible payloads return 400.
   0–359, dot 0–1000 per axis, seven distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
   for early). Five rounds score 0–100 each against the daily puzzle; reactions under
   100 ms score 0. Score 0–500; stored `{answer,scores}`.
-- `ratehold` takes `{taps}`: three pieces of eight integer ms timestamps (0–120000, gaps
-  300–10000 ms). Each piece has three cued then five held strokes; held intervals score
-  against the daily rate. Score 0–100 (piece mean); stored `{taps,rates,held,pieces}`.
+- `connections` takes `{guesses}`: the full ordered log of 1–8 four-word guesses. Puzzles
+  (≥90 original, four groups of four, easiest to hardest, one red herring each) live only in
+  `worker/src/games/connectionsPuzzles.ts`; a fixed shuffle is cycled by day number, so a
+  puzzle returns only after every other one (no repeat within 60 days). The client gets
+  words from `GET /api/games/connections/today` (`ConnectionsDay`, empty while locked) and
+  checks each guess with `POST /api/games/connections/check` `{guesses}` (gated, stateless
+  replay of the on-device log), which returns `ConnectionsCheck`: last outcome
+  (`correct`/`one_away`/`wrong`), mistakes, solved groups only, and all groups once finished.
+  Logs with unknown, repeated or solved words, repeated guesses, or guesses after the board
+  ended return 400. Final submit replays the log and needs a finished board (four solves or
+  four mistakes). Score: solved boards `8 − mistakes` (8–5), unsolved boards the solved group
+  count (0–3), so every win outranks every loss. Stored `{guesses,solved,mistakes,won,grid,groups}`.
 
 ### Tests, recaps, and challenges
 

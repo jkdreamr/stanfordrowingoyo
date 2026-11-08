@@ -44,7 +44,8 @@ import {
   perceptionTotal,
   scorePerception,
 } from '../../../shared/games/perception';
-import { parseRateHoldTaps, scoreRateHold } from '../../../shared/games/rateHold';
+import { boardWords, connectionsScore, replayConnections } from '../../../shared/games/connections';
+import { connectionsPuzzleFor } from '../../../worker/src/games/connectionsPuzzles';
 
 type MockGameScore = (payload: unknown, date: string) => { score: number; payload: unknown } | null;
 const field = (payload: unknown, key: string) =>
@@ -68,11 +69,16 @@ const MOCK_GAMES: Record<string, MockGameScore | null> = {
     const scores = scorePerception(date, answer);
     return { score: perceptionTotal(scores), payload: { answer, scores } };
   },
-  ratehold: (payload, date) => {
-    const taps = parseRateHoldTaps(field(payload, 'taps'));
-    if (!taps) return null;
-    const { total, ...result } = scoreRateHold(date, taps);
-    return { score: total, payload: { taps, ...result } };
+  connections: (payload, date) => {
+    const puzzle = connectionsPuzzleFor(date);
+    const guesses = field(payload, 'guesses');
+    const replay = replayConnections(puzzle, guesses);
+    if (!replay?.finished) return null;
+    const { solved, mistakes, won, grid } = replay;
+    return {
+      score: connectionsScore(replay),
+      payload: { guesses, solved, mistakes, won, grid, groups: puzzle.groups },
+    };
   },
 };
 class MockError extends Error {
@@ -916,6 +922,26 @@ export function createMockApi({
             score: 0,
             reveal: user.role === 'rower' ? null : [],
           });
+        if (gameId === 'connections' && parts[4] === 'today' && method === 'GET')
+          return json({
+            date,
+            access,
+            words: access.unlocked ? boardWords(date, connectionsPuzzleFor(date)) : [],
+          });
+        if (gameId === 'connections' && parts[4] === 'check' && method === 'POST') {
+          if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+          const puzzle = connectionsPuzzleFor(date);
+          const replay = replayConnections(puzzle, body.guesses);
+          if (!replay?.outcomes.length) fail(400, 'Guesses do not fit today’s board.');
+          return json({
+            outcome: replay.outcomes.at(-1),
+            mistakes: replay.mistakes,
+            finished: replay.finished,
+            won: replay.won,
+            solved: replay.solved.map((level) => puzzle.groups[level]),
+            groups: replay.finished ? puzzle.groups : null,
+          });
+        }
         if (parts[4] === 'results' && method === 'GET')
           return json(mine(url.searchParams.get('date') ?? date));
         if (parts[4] === 'results' && method === 'POST') {

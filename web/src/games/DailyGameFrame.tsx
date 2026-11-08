@@ -18,6 +18,8 @@ export interface PlayProps<P> {
 export interface GameSummary {
   headline: ReactNode;
   detail?: ReactNode;
+  /** Full-width content under the headline row. */
+  body?: ReactNode;
   share: string;
 }
 
@@ -124,6 +126,7 @@ function GameResultView({
             Share
           </Button>
         </div>
+        {summary.body}
       </section>
       <GameDayBoard gameId={result.game_id} date={result.date} />
     </div>

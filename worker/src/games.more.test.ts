@@ -6,7 +6,8 @@ import type { GameDayLeaderboard, GameResult, GamesToday } from '../../shared/ty
 import { sha256 } from './auth/crypto';
 import { dailyAnswer } from '../../shared/games/wordGuess';
 import { perceptionPuzzle } from '../../shared/games/perception';
-import { intervalMs, rateHoldRates, STROKES_PER_PIECE } from '../../shared/games/rateHold';
+import { connectionsPuzzleFor } from './games/connectionsPuzzles';
+import type { ConnectionsCheck, ConnectionsDay } from '../../shared/types';
 
 const bindings = env as unknown as Env;
 const NOW = '2026-03-18T18:00:00Z';
@@ -60,11 +61,14 @@ async function unlock() {
   expect(workout.status).toBe(201);
 }
 
-it('registers Word Guess, Perception and Rate Hold behind the OYO gate', async () => {
+it('registers Word Guess, Perception and Connections behind the OYO gate', async () => {
   const list = (await (await api('/games')).json()) as GamesToday;
-  expect(list.games.map((g) => g.id)).toEqual(['dive', 'wordguess', 'perception', 'ratehold']);
+  expect(list.games.map((g) => g.id)).toEqual(['dive', 'wordguess', 'perception', 'connections']);
   expect(list.games.every((g) => g.direction === 'higher')).toBe(true);
   expect((await submit('wordguess', { guesses: [dailyAnswer(DATE)] })).status).toBe(403);
+  const day = (await (await api('/games/connections/today')).json()) as ConnectionsDay;
+  expect(day.words).toEqual([]);
+  expect((await api('/games/connections/check', 'POST', { guesses: [] })).status).toBe(403);
 });
 
 it('verifies Word Guess boards against the server-dated answer and ignores client scores', async () => {
@@ -122,18 +126,41 @@ it('re-scores Perception answers from the daily puzzle', async () => {
   });
 });
 
-it('re-scores Rate Hold taps against the daily rates', async () => {
+it('never ships Connections groups before they are solved', async () => {
   await unlock();
-  const taps = rateHoldRates(DATE).map((rate) =>
-    Array.from({ length: STROKES_PER_PIECE }, (_, i) => Math.round(1000 + i * intervalMs(rate))),
-  );
-  expect((await submit('ratehold', { taps: taps.slice(0, 2) })).status).toBe(400);
-  expect(
-    (await submit('ratehold', { taps: [[1, 2, 3, 4, 5, 6, 7, 8], ...taps.slice(1)] })).status,
-  ).toBe(400);
-  const res = await submit('ratehold', { taps });
+  const day = (await (await api('/games/connections/today')).json()) as ConnectionsDay;
+  const groups = connectionsPuzzleFor(DATE).groups.map((g) => g.words);
+  expect([...day.words].sort()).toEqual(groups.flat().sort());
+  expect(JSON.stringify(day)).not.toContain(connectionsPuzzleFor(DATE).groups[0].name);
+  const check = (guesses: string[][]) => api('/games/connections/check', 'POST', { guesses });
+  const [a, b, c, d] = groups;
+  const near = (await (await check([[a[0], a[1], a[2], b[0]]])).json()) as ConnectionsCheck;
+  expect(near).toMatchObject({ outcome: 'one_away', mistakes: 1, solved: [], groups: null });
+  const hit = (await (await check([[a[0], a[1], a[2], b[0]], a])).json()) as ConnectionsCheck;
+  expect(hit).toMatchObject({ outcome: 'correct', finished: false, groups: null });
+  expect(hit.solved).toEqual([{ ...connectionsPuzzleFor(DATE).groups[0] }]);
+  expect((await check([a, a])).status).toBe(400);
+  expect((await check([['Nope', a[0], a[1], a[2]]])).status).toBe(400);
+  const done = (await (await check([a, b, c, d])).json()) as ConnectionsCheck;
+  expect(done).toMatchObject({ outcome: 'correct', finished: true, won: true });
+  expect(done.groups).toHaveLength(4);
+});
+
+it('re-scores the full Connections guess log and rejects forged results', async () => {
+  await unlock();
+  const [a, b, c, d] = connectionsPuzzleFor(DATE).groups.map((g) => g.words);
+  const miss = [a[0], a[1], b[0], b[1]];
+  expect((await submit('connections', { guesses: [a, b, c] })).status).toBe(400);
+  expect((await submit('connections', { guesses: [a, b, c, d, miss] })).status).toBe(400);
+  expect((await submit('connections', { won: true, mistakes: 0 })).status).toBe(400);
+  const yesterday = connectionsPuzzleFor('2026-03-17').groups.map((g) => g.words);
+  expect((await submit('connections', { guesses: yesterday })).status).toBe(400);
+  const res = await submit('connections', { guesses: [miss, a, b, c, d], score: 8 });
   expect(res.status).toBe(201);
-  const result = (await res.json()) as GameResult;
-  expect(result.score).toBeGreaterThanOrEqual(99);
-  expect(result.score).toBeLessThanOrEqual(100);
+  const result = (await res.json()) as GameResult & { payload: { mistakes: number } };
+  expect(result.score).toBe(7);
+  expect(result.payload).toMatchObject({ mistakes: 1, won: true, solved: [0, 1, 2, 3] });
+  expect((await submit('connections', { guesses: [a, b, c, d] })).status).toBe(409);
+  const board = (await (await api('/games/connections/leaderboard')).json()) as GameDayLeaderboard;
+  expect(board.rows).toMatchObject([{ rank: 1, score: 7, me: true }]);
 });
