@@ -456,7 +456,10 @@ malformed or implausible payloads return 400.
   for early). Five rounds score 0–100 each against the daily puzzle; reactions under
   100 ms score 0. Score 0–500; stored `{answer,scores}`.
 - `connections` takes `{guesses}`: the full ordered log of 1–8 four-word guesses. Puzzles
-  (≥90 original, four groups of four, easiest to hardest, one red herring each) live only in
+  (≥90 original, hard-day difficulty: four groups of four, easiest to hardest, the hardest
+  group always wordplay, at least three red herrings each across two or more groups, unique
+  category names, and exactly one valid partition even with every herring allowed in its
+  decoy group) live only in
   `worker/src/games/connectionsPuzzles.ts`; a fixed shuffle is cycled by day number, so a
   puzzle returns only after every other one (no repeat within 60 days). The client gets
   words from `GET /api/games/connections/today` (`ConnectionsDay`, empty while locked) and

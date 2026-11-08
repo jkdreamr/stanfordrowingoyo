@@ -18,7 +18,8 @@ export interface ConnectionsGroup {
 }
 export interface ConnectionsPuzzle {
   groups: ConnectionsGroup[];
-  herring: { word: string; group: number };
+  /** Board words that also look like they belong to another group (`group`). */
+  herrings: { word: string; group: number }[];
 }
 export type GuessOutcome = 'correct' | 'one_away' | 'wrong';
 export interface ConnectionsReplay {
@@ -32,7 +33,7 @@ export interface ConnectionsReplay {
   grid: number[][];
 }
 
-/** Parses `'Name: A, B, C, D'` groups plus a trailing `'Word>n'` herring. */
+/** Parses `'Name: A, B, C, D'` groups plus trailing `'Word>n'` red herrings. */
 export function parsePuzzle(raw: readonly string[]): ConnectionsPuzzle {
   const groups = raw.slice(0, GROUPS).map((text, level) => {
     const split = text.indexOf(': ');
@@ -45,8 +46,11 @@ export function parsePuzzle(raw: readonly string[]): ConnectionsPuzzle {
       level,
     };
   });
-  const [word, group] = (raw[GROUPS] ?? '').split('>');
-  return { groups, herring: { word, group: Number(group) } };
+  const herrings = raw.slice(GROUPS).map((text) => {
+    const [word, group] = text.split('>');
+    return { word, group: Number(group) };
+  });
+  return { groups, herrings };
 }
 
 /** Cycles a fixed shuffle of every puzzle, so a puzzle returns only after `count` days. */

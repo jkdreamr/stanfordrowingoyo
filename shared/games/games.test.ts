@@ -197,11 +197,14 @@ describe('connections', () => {
   const puzzles = CONNECTIONS_PUZZLES.map(parsePuzzle);
   const norm = (w: string) => w.toLowerCase();
 
-  /** Counts partitions into four groups of four where each group fits a distinct category. */
+  /**
+   * Counts partitions into four groups of four where each group fits a distinct category,
+   * treating every red herring as a member of its decoy group too.
+   */
   function solutions(p: ConnectionsPuzzle) {
     const fits = p.groups.map((g, i) => {
       const set = new Set(g.words);
-      if (p.herring.group === i) set.add(p.herring.word);
+      for (const h of p.herrings) if (h.group === i) set.add(h.word);
       return set;
     });
     const words = p.groups.flatMap((g) => g.words);
@@ -242,15 +245,26 @@ describe('connections', () => {
     expect(boards.size).toBe(puzzles.length);
   });
 
-  it('gives every puzzle one red herring and exactly one valid solution', () => {
+  it('gives every puzzle at least three red herrings across two groups and one solution', () => {
     for (const p of puzzles) {
-      const own = p.groups.findIndex((g) => g.words.includes(p.herring.word));
-      expect(own).toBeGreaterThanOrEqual(0);
-      expect(p.herring.group).not.toBe(own);
-      expect(p.herring.group).toBeGreaterThanOrEqual(0);
-      expect(p.herring.group).toBeLessThan(4);
+      expect(p.herrings.length).toBeGreaterThanOrEqual(3);
+      expect(new Set(p.herrings.map((h) => h.group)).size).toBeGreaterThanOrEqual(2);
+      expect(new Set(p.herrings.map((h) => `${h.word}>${h.group}`)).size).toBe(p.herrings.length);
+      for (const h of p.herrings) {
+        const own = p.groups.findIndex((g) => g.words.includes(h.word));
+        expect(own).toBeGreaterThanOrEqual(0);
+        expect(h.group).not.toBe(own);
+        expect(h.group).toBeGreaterThanOrEqual(0);
+        expect(h.group).toBeLessThan(4);
+      }
+      // Exhaustive: no swap cycle of decoys may produce a second valid board.
       expect(solutions(p)).toBe(1);
     }
+  });
+
+  it('never repeats a category name across puzzles', () => {
+    const names = puzzles.flatMap((p) => p.groups.map((g) => g.name.toLowerCase()));
+    expect(new Set(names).size).toBe(names.length);
   });
 
   it('picks one shared puzzle per date with no repeat inside 60 days', () => {

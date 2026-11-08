@@ -64,11 +64,13 @@ const field = (payload: unknown, key: string) =>
 let mockGuesses: Set<string> | null = null;
 // Mock mode stands in one fixed board; real puzzles stay in the Worker.
 const MOCK_CONNECTIONS = parsePuzzle([
-  'Fruits: Apple, Banana, Cherry, Grape',
-  'Planets: Mars, Venus, Saturn, Jupiter',
-  'Card Games: Poker, Bridge, Snap, Rummy',
-  'Chocolate Bars: Galaxy, Bounty, Twix, Mounds',
-  'Galaxy>1',
+  'Boat Classes: Eight, Quad, Pair, Single',
+  'Erg Readouts: Rate, Watts, Meters, Time',
+  'Bowling Terms: Split, Spare, Strike, Frame',
+  'Sound Like Rowing Words: Ore, Skull, Whey, Ate',
+  'Ate>0',
+  'Skull>0',
+  'Split>1',
 ]);
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
