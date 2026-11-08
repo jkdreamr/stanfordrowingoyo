@@ -17,10 +17,12 @@ vi.mock('../components/shell/Navigation', () => ({
 }));
 function Surface() {
   const ref = useRef<HTMLElement>(null);
-  useTabSwipe(ref);
+  const navigateTab = useTabSwipe(ref);
   return (
     <main ref={ref}>
       <div data-testid="target" />
+      <button onClick={() => navigateTab('/leaderboard')}>Leaderboard</button>
+      <button onClick={() => navigateTab('/feed')}>Feed</button>
     </main>
   );
 }
@@ -35,19 +37,22 @@ beforeEach(() => {
     },
   }));
   Element.prototype.animate = vi.fn(
-    () => ({ finished: Promise.resolve(), cancel: vi.fn() }) as unknown as Animation,
+    () =>
+      ({ finished: Promise.resolve(), cancel: vi.fn(), finish: vi.fn() }) as unknown as Animation,
   );
 });
 for (const interruption of ['touchstart', 'second finger', 'resize']) {
   it(`finishes a committed exit exactly once on ${interruption}`, async () => {
     let finish!: () => void;
+    const cancel = vi.fn();
     vi.mocked(Element.prototype.animate).mockImplementation(
       () =>
         ({
           finished: new Promise<void>((resolve) => {
             finish = resolve;
           }),
-          cancel: vi.fn(),
+          cancel,
+          finish: vi.fn(),
         }) as unknown as Animation,
     );
     const { getByTestId } = render(<Surface />);
@@ -60,8 +65,8 @@ for (const interruption of ['touchstart', 'second finger', 'resize']) {
     } else touch(target, 'touchstart', 200, 200, interruption === 'second finger' ? 2 : 1);
     expect(navigate).toHaveBeenCalledExactlyOnceWith('/leaderboard', { preventScrollReset: true });
     expect(target.parentElement?.style.transform).toBe('');
-    expect(target.parentElement?.style.opacity).toBe('');
-    expect(target.parentElement?.style.willChange).toBe('');
+    expect(target.parentElement?.style.opacity).toBe('0');
+    expect(cancel).not.toHaveBeenCalled();
     await act(async () => finish());
     expect(navigate).toHaveBeenCalledTimes(1);
   });
@@ -84,8 +89,56 @@ it('restores the latest scroll after leaving a tab by another navigation method'
   expect(navigate).toHaveBeenLastCalledWith('/', { preventScrollReset: true });
   path = '/';
   rerender(<Surface />);
-  act(() => frames.at(-1)!(performance.now()));
   expect(scrollTo).toHaveBeenLastCalledWith(0, 375);
+});
+it('keeps the exit hidden until the destination layout replaces it', async () => {
+  const cancel = vi.fn();
+  vi.mocked(Element.prototype.animate).mockReturnValue({
+    finished: Promise.resolve(),
+    cancel,
+  } as unknown as Animation);
+  const { getByTestId, rerender } = render(<Surface />);
+  await swipe(getByTestId('target'));
+  expect(cancel).not.toHaveBeenCalled();
+  expect(getByTestId('target').parentElement?.style.opacity).toBe('0');
+  path = '/leaderboard';
+  rerender(<Surface />);
+  expect(cancel).toHaveBeenCalled();
+  expect(Element.prototype.animate).toHaveBeenLastCalledWith(
+    [
+      { transform: 'translate3d(24px,0,0)', opacity: 0 },
+      { transform: 'translate3d(0,0,0)', opacity: 1 },
+    ],
+    expect.objectContaining({ duration: 220 }),
+  );
+});
+it('shares arrival motion for taps and ignores the active tab', async () => {
+  const { getByRole, rerender } = render(<Surface />);
+  fireEvent.click(getByRole('button', { name: 'Feed' }));
+  expect(navigate).not.toHaveBeenCalled();
+  expect(Element.prototype.animate).not.toHaveBeenCalled();
+  fireEvent.click(getByRole('button', { name: 'Leaderboard' }));
+  expect(navigate).toHaveBeenCalledWith('/leaderboard', { preventScrollReset: true });
+  path = '/leaderboard';
+  rerender(<Surface />);
+  expect(Element.prototype.animate).toHaveBeenLastCalledWith(
+    [
+      { transform: 'translate3d(24px,0,0)', opacity: 0 },
+      { transform: 'translate3d(0,0,0)', opacity: 1 },
+    ],
+    expect.objectContaining({ duration: 220 }),
+  );
+  await act(async () => {});
+  expect(document.querySelector('main')?.getAttribute('style')).toBe('');
+});
+it('keeps desktop taps instant', () => {
+  mobile = false;
+  const { getByRole, rerender } = render(<Surface />);
+  fireEvent.click(getByRole('button', { name: 'Leaderboard' }));
+  expect(navigate).toHaveBeenCalledWith('/leaderboard', { preventScrollReset: false });
+  path = '/leaderboard';
+  rerender(<Surface />);
+  expect(Element.prototype.animate).not.toHaveBeenCalled();
 });
 it('only registers passive scroll recording for mobile tab routes, including after resize', () => {
   mobile = false;
@@ -126,13 +179,16 @@ async function swipe(target: Element, from = 280, to = 80, y = 200) {
   await act(async () => {});
   return move;
 }
-it('commits left and right to their neighbouring tabs', async () => {
-  const { getByTestId } = render(<Surface />);
-  await swipe(getByTestId('target'));
-  expect(navigate).toHaveBeenLastCalledWith('/leaderboard', { preventScrollReset: true });
-  await swipe(getByTestId('target'), 80, 280);
-  expect(navigate).toHaveBeenLastCalledWith('/', { preventScrollReset: true });
-});
+for (const [from, to, destination] of [
+  [280, 80, '/leaderboard'],
+  [80, 280, '/'],
+] as const) {
+  it(`commits to neighbouring tab ${destination}`, async () => {
+    const { getByTestId } = render(<Surface />);
+    await swipe(getByTestId('target'), from, to);
+    expect(navigate).toHaveBeenLastCalledWith(destination, { preventScrollReset: true });
+  });
+}
 it('never prevents vertical scrolling and stays vertically locked', async () => {
   const { getByTestId } = render(<Surface />);
   const target = getByTestId('target');
@@ -210,7 +266,7 @@ it('uses opacity only with reduced motion', async () => {
     expect.anything(),
   );
 });
-it('commits a fast short flick but snaps back a slow short drag', async () => {
+it('commits a fast short flick', async () => {
   let now = 0;
   vi.spyOn(performance, 'now').mockImplementation(() => now);
   const { getByTestId } = render(<Surface />);
@@ -222,7 +278,12 @@ it('commits a fast short flick but snaps back a slow short drag', async () => {
   touch(target, 'touchend', 240, 200, 0);
   await act(async () => {});
   expect(navigate).toHaveBeenCalledWith('/leaderboard', { preventScrollReset: true });
-  navigate.mockClear();
+});
+it('snaps back a slow short drag', async () => {
+  let now = 0;
+  vi.spyOn(performance, 'now').mockImplementation(() => now);
+  const { getByTestId } = render(<Surface />);
+  const target = getByTestId('target');
   touch(target, 'touchstart', 280);
   now = 500;
   touch(target, 'touchmove', 240);
