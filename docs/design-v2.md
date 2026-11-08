@@ -13,7 +13,7 @@ This is the prototype direction. It is implemented as a token layer in `web/src/
 2. **One hero per screen.** Each tab gets one rich focal surface (Week Hero, podium, profile hero). Everything else is quiet.
 3. **Numbers are the reward.** Hero figures count up; progress fills from where it was. No decorative numbers.
 4. **Cardinal is identity, orange is victory.** Cardinal for brand, controls and progress. Strava orange only for PRs, streaks and target hits.
-5. **Depth with restraint.** Frosted glass only on chrome (tab bar). Soft neutral shadows in light; hairlines and surface steps in dark. No grain, glows, colored shadows or idle pulsing.
+5. **Depth with restraint.** Cards on a white or black page, defined by a hairline and soft neutral depth. Controls share one glass material (below); the tab bar is frosted. Hairlines and surface steps in dark. No glows or idle pulsing; the only tinted shadows sit under solid cardinal objects in light mode, and the only grain is the week card's barely-there material.
 6. **Quiet copy.** Title Case, short labels. No eyebrows, monospace micro labels, kbd chips or arrow glyphs.
 7. **Motion is optional.** Every animation has a `prefers-reduced-motion` variant (none, or a 120 ms fade). Transform, opacity and clip-path only.
 
@@ -21,24 +21,50 @@ This is the prototype direction. It is implemented as a token layer in `web/src/
 
 ### Color
 
-| Token              | Light                                                     | Dark                      |
-| ------------------ | --------------------------------------------------------- | ------------------------- |
-| `--bg`             | `#F5F3F0` warm paper (also the light `theme-color`)       | `#0E0D0D` (dark one)      |
-| `--surface`        | `#FFFFFF`                                                 | `#181616`                 |
-| `--surface-2`      | `#EFECE8`                                                 | `#242120`                 |
-| `--text`           | `#1C1A19`                                                 | `#F5F2EF`                 |
-| `--muted`          | `#6B6662`                                                 | `#A8A19C`                 |
-| `--divider`        | `#E6E1DC`                                                 | `#2C2827`                 |
-| Cardinal           | `#8C1515`                                                 | `#8C1515` / ink `#F18B83` |
-| `--cardinal-top`   | `#9C1C18` (hero tone, top)                                | `#8F1A16`                 |
-| `--cardinal-deep`  | `#6B0F0F` (hero tone, floor)                              | `#4F0B0B`                 |
-| Highlight (orange) | `#FC5200`, PR/streak only                                 | `#FC5200`                 |
-| `--glass`          | `rgb(250 248 246 / 78%)`                                  | `rgb(20 18 18 / 76%)`     |
-| Medal metals       | gold, silver, bronze gradients on podium rank badges only |
+| Token              | Light                                                     | Dark                         |
+| ------------------ | --------------------------------------------------------- | ---------------------------- |
+| `--bg`             | `#FFFFFF` (also the light `theme-color`)                  | `#000000` (dark one)         |
+| `--surface`        | `#FFFFFF` cards, with an 8% black hairline and soft depth | `#121214`, 8% white hairline |
+| `--surface-2`      | `#F2F2F4` recessed fills (tracks, inputs)                 | `#1D1D20`                    |
+| `--text`           | `#1C1C1F`                                                 | `#F4F4F6`                    |
+| `--muted`          | `#66666E` (5.7:1 on white, 5.1:1 on fills)                | `#A1A1AA`                    |
+| `--divider`        | `#E6E6EA`                                                 | `#26262A`                    |
+| Cardinal           | `#8C1515`                                                 | `#C0352B` / ink `#F18B83`    |
+| `--cardinal-top`   | `#9C1C18` (hero tone, top)                                | `#8F1A16`                    |
+| `--cardinal-deep`  | `#6B0F0F` (hero tone, floor)                              | `#4F0B0B`                    |
+| Highlight (orange) | `#FC5200`, PR/streak only                                 | `#FC5200`                    |
+| Medal metals       | gold, silver, bronze gradients on podium rank badges only |                              |
 
-The hero is a single-hue tonal shift within cardinal, never a hue-to-hue gradient. Shadows are neutral only:
-`--shadow-card` (2-layer), `--shadow-float` (sheets, overlays) and `--shadow-hero`. Dark mode swaps shadows
-for a 1px white 5–7% hairline and surface steps.
+The hero is a single-hue tonal shift within cardinal, never a hue-to-hue gradient. Shadows are neutral
+(`rgb(20 20 28 / x)`): `--shadow-card` (2-layer), `--shadow-float` (sheets, overlays) and `--shadow-hero`.
+In light mode, solid cardinal objects (the week card, the Log disc, primary buttons, the save card) cast a
+cardinal-tinted ambient with a deep-cardinal contact instead (`--shadow-cardinal*`). Dark mode swaps shadows
+for hairlines, surface steps and a faint top highlight. The week card alone carries a static, barely-there
+grain (one committed 128px tile, `soft-light` at 4%, off under forced colors and increased contrast).
+
+### Glass Controls
+
+One material for every control, defined once in `design.css`: `--glass-fill` (a translucent white, or white
+16–7% in dark), `--glass-rim` (top-left lit 1px inset), `--glass-shade` (bottom inner shade), `--glass-edge`
+(a 0.5px inset hairline) and `--glass-drop` (soft neutral drop), composed as `--glass-shadow` and
+`--glass-shadow-press`. Blur (`--glass-blur`, 6px, saturate 140%) runs only where something passes beneath:
+switch knobs and the frosted tab bar; everything else uses the static look.
+
+- **Switches:** every switch is `GlassSwitch` (the Dark Mode switch's component): a recessed track, a glass
+  knob, overshoot-free travel, drag with a rubber band, arrow keys. Toggles fill the track with cardinal when on.
+- **Segmented controls:** a glass thumb sliding over a recessed track.
+- **Clear glass:** secondary buttons, header and sheet icon buttons, the hero chips.
+- **Tinted glass:** primary buttons, destructive buttons and the Log disc keep a solid base (white labels hold
+  4.5:1; dark destructive steps to `#C62828`) under the rim and shade.
+- **Tab pill:** glass over the frosted bar.
+- Presses scale and drop the shadow a step; disabled controls fade to 45% with no shine. Reduced transparency
+  gives solid surfaces, forced colors system colors, reduced motion instant changes.
+
+### Layout
+
+Cards everywhere except where flat reads better: on the Leaderboard the Stanford vs Berkeley race sits on the
+page; on Me the profile, the season figures (a typographic row divided by hairlines), the edge-to-edge chart
+and the lists are flat, with only Erg Tests and Weekly Volume in panels. Numbers use tabular figures app-wide.
 
 ### Shape and Space
 
@@ -125,7 +151,7 @@ static mark with a 120 ms fade (no handoff).
    - **Reduced motion.** The static mark and a 120 ms fade, whatever the route.
 
    Transform, opacity and clip-path only. Browser chrome stays cardinal while the splash covers the page,
-   then matches the paper (`#F5F3F0` light, `#0E0D0D` dark).
+   then matches the page (`#FFFFFF` light, `#000000` dark).
 
 2. **Home Week Hero.** The one bright element on Home: a tonal cardinal card with the E-meter total, a white
    progress ring and a Mon–Sun column strip (today outlined). The streak chip sits on top; the remaining E-meters (or Target Hit) chip and days left sit underneath.
