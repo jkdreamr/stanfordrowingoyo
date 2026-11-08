@@ -41,6 +41,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
     let animation: Animation | undefined;
     let frame = 0;
     let scrollFrame = 0;
+    let pendingTimer: ReturnType<typeof setTimeout> | undefined;
     let generation = 0;
     let committedExit: (() => void) | undefined;
     let gesture:
@@ -65,9 +66,21 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
       gesture = undefined;
       cancelAnimationFrame(frame);
       cancelAnimationFrame(scrollFrame);
+      clearTimeout(pendingTimer);
       animation?.cancel();
       animation = undefined;
       clearStyles();
+    };
+    const prepareNavigation = (to: string, direction: number, reduced: boolean) => {
+      const transition = { to, direction, reduced };
+      pending.current = transition;
+      root.style.opacity = '0';
+      clearTimeout(pendingTimer);
+      pendingTimer = setTimeout(() => {
+        if (pending.current !== transition) return;
+        pending.current = null;
+        reset();
+      }, 400);
     };
     const interrupt = () => {
       if (pending.current) return true;
@@ -130,8 +143,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
       reset();
       if (media.matches && index >= 0 && next >= 0) {
         positions.set(pathname, window.scrollY);
-        pending.current = { to, direction: Math.sign(next - index), reduced: reduced.matches };
-        root.style.opacity = '0';
+        prepareNavigation(to, Math.sign(next - index), reduced.matches);
       }
       navigate(to, { preventScrollReset: media.matches && index >= 0 && next >= 0 });
     };
@@ -221,8 +233,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
       positions.set(pathname, window.scrollY);
       const finish = () => {
         committedExit = undefined;
-        pending.current = { to, direction, reduced: g.reduced };
-        root.style.opacity = '0';
+        prepareNavigation(to, direction, g.reduced);
         navigate(to, { preventScrollReset: true });
       };
       committedExit = finish;

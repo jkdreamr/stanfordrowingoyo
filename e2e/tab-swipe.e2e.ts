@@ -67,7 +67,16 @@ async function swipe(page: Page, from = 290, to = 80, y = 240, endY = y) {
       { from, to, y, endY },
     );
   }
-  await page.waitForTimeout(500);
+  await expect
+    .poll(() =>
+      page.locator('main').evaluate((main) => ({
+        animations: main.getAnimations().length,
+        opacity: main.style.opacity,
+        transform: main.style.transform,
+        willChange: main.style.willChange,
+      })),
+    )
+    .toEqual({ animations: 0, opacity: '', transform: '', willChange: '' });
 }
 
 test('mouse drag does not switch tabs', async ({ makeRower }, info) => {
@@ -168,6 +177,8 @@ test('touch tabs respect boundaries, exclusions and reduced motion', async ({
 
 async function sampleTransition(page: Page, action: () => Promise<void>) {
   const sampling = page.evaluate(async () => {
+    const state = window as typeof window & { tabSampleDoneAt: number | null };
+    state.tabSampleDoneAt = null;
     const nav = document.querySelector<HTMLElement>('nav.shell-tabbar')!;
     const baseline = nav.getBoundingClientRect();
     const violations: string[] = [];
@@ -185,7 +196,7 @@ async function sampleTransition(page: Page, action: () => Promise<void>) {
         transitions++;
         return original.apply(this, args);
       };
-    const deadline = performance.now() + 1100;
+    const deadline = performance.now() + 10_000;
     try {
       do {
         const rect = nav.getBoundingClientRect();
@@ -230,13 +241,23 @@ async function sampleTransition(page: Page, action: () => Promise<void>) {
           y: scrollY,
         });
         await new Promise(requestAnimationFrame);
-      } while (performance.now() < deadline);
+      } while (
+        performance.now() < deadline &&
+        (state.tabSampleDoneAt === null || performance.now() < state.tabSampleDoneAt + 350)
+      );
     } finally {
       if (original) document.startViewTransition = original;
     }
     return { frames, violations: [...new Set(violations)], transitions };
   });
-  await action();
+  try {
+    await action();
+  } finally {
+    await page.evaluate(() => {
+      (window as typeof window & { tabSampleDoneAt: number | null }).tabSampleDoneAt =
+        performance.now();
+    });
+  }
   const result = await sampling;
   expect(result.transitions).toBe(0);
   expect(result.violations).toEqual([]);
@@ -303,6 +324,7 @@ test('reduced motion, active tabs and rapid retargeting leave no stale main styl
   expect(frames.every((frame) => frame.transform === 'none')).toBe(true);
   const swipeFrames = await sampleTransition(page, () => swipe(page, 290, 80, 180));
   expect(swipeFrames.every((frame) => frame.transform === 'none')).toBe(true);
+  await expect(page).toHaveURL(/\/leaderboard$/);
   await tapTab(page, 'Leaderboard');
   expect(await page.locator('main').evaluate((main) => main.getAnimations().length)).toBe(0);
   await page.emulateMedia({ reducedMotion: 'no-preference' });

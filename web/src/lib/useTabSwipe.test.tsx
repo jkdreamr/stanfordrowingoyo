@@ -140,6 +140,40 @@ it('keeps desktop taps instant', () => {
   rerender(<Surface />);
   expect(Element.prototype.animate).not.toHaveBeenCalled();
 });
+for (const method of ['tap', 'swipe']) {
+  it(`recovers from a stalled ${method} navigation within 400ms`, async () => {
+    vi.useFakeTimers();
+    const { getByRole, getByTestId } = render(<Surface />);
+    const target = getByTestId('target');
+    if (method === 'tap') fireEvent.click(getByRole('button', { name: 'Leaderboard' }));
+    else await swipe(target);
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(target.parentElement?.style.opacity).toBe('0');
+    act(() => vi.advanceTimersByTime(399));
+    expect(target.parentElement?.style.opacity).toBe('0');
+    act(() => vi.advanceTimersByTime(1));
+    expect(target.parentElement?.style.opacity).toBe('');
+    expect(target.parentElement?.style.transform).toBe('');
+    expect(target.parentElement?.style.willChange).toBe('');
+    await swipe(target);
+    expect(navigate).toHaveBeenCalledTimes(2);
+  });
+}
+it('does not let a departed navigation timer cancel the destination arrival', async () => {
+  vi.useFakeTimers();
+  const cancel = vi.fn();
+  vi.mocked(Element.prototype.animate).mockReturnValue({
+    finished: new Promise(() => {}),
+    cancel,
+  } as unknown as Animation);
+  const { getByRole, rerender } = render(<Surface />);
+  fireEvent.click(getByRole('button', { name: 'Leaderboard' }));
+  path = '/leaderboard';
+  rerender(<Surface />);
+  cancel.mockClear();
+  act(() => vi.advanceTimersByTime(400));
+  expect(cancel).not.toHaveBeenCalled();
+});
 it('only registers passive scroll recording for mobile tab routes, including after resize', () => {
   mobile = false;
   const add = vi.spyOn(window, 'addEventListener');
@@ -158,6 +192,7 @@ it('only registers passive scroll recording for mobile tab routes, including aft
 });
 afterEach(() => {
   cleanup();
+  vi.useRealTimers();
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
   navigate.mockClear();
