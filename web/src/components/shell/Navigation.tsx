@@ -26,14 +26,7 @@ const column = (to: string) => {
   const index = main.findIndex((tab) => tab.to === to);
   return index < 0 ? -1 : index < 2 ? index : index + 1;
 };
-/** Tells the content transition which way to travel before a tab change. */
-export function setNavDirection(from: string, to: string) {
-  const a = column(from);
-  const b = column(to);
-  document.documentElement.dataset.navDir =
-    a < 0 || b < 0 || a === b ? 'none' : b > a ? 'forward' : 'back';
-}
-export function TabBar() {
+export function TabBar({ onNavigate }: { onNavigate: (to: string) => void }) {
   const { pathname } = useLocation();
   const active = column(pathname);
   return (
@@ -44,7 +37,7 @@ export function TabBar() {
       style={{ '--tab': Math.max(0, active) } as CSSProperties}
     >
       {main.slice(0, 2).map((item) => (
-        <Tab key={item.to} {...item} from={pathname} />
+        <Tab key={item.to} {...item} onNavigate={onNavigate} />
       ))}
       <NavLink to="/log" className="shell-log-tab" aria-label="Log Session">
         <span>
@@ -53,18 +46,27 @@ export function TabBar() {
         <span>Log</span>
       </NavLink>
       {main.slice(2).map((item) => (
-        <Tab key={item.to} {...item} from={pathname} />
+        <Tab key={item.to} {...item} onNavigate={onNavigate} />
       ))}
     </nav>
   );
 }
-function Tab({ to, label, icon: Icon, from }: (typeof main)[number] & { from: string }) {
+function Tab({
+  to,
+  label,
+  icon: Icon,
+  onNavigate,
+}: (typeof main)[number] & { onNavigate: (to: string) => void }) {
   return (
     <NavLink
       end={to === '/'}
       to={to}
-      viewTransition
-      onClick={() => setNavDirection(from, to)}
+      onClick={(event) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+          return;
+        event.preventDefault();
+        onNavigate(to);
+      }}
       className={({ isActive }) => `shell-tab ${isActive ? 'is-active' : ''}`}
     >
       <Icon size={24} strokeWidth={1.75} aria-hidden="true" />

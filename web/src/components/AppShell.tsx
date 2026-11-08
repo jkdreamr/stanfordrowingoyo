@@ -10,7 +10,7 @@ import { SaveCelebration } from './ui/SaveCelebration';
 export default function AppShell() {
   const task = useLocation().pathname === '/log';
   const content = useRef<HTMLElement>(null);
-  useTabSwipe(content);
+  const navigateTab = useTabSwipe(content);
   // One entrance per session: once the first screen has risen in, later screens arrive
   // through the tab transition instead of replaying the staggered entrance.
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function AppShell() {
         <Outlet />
       </main>
       <RightRail />
-      {!task && <TabBar />}
+      {!task && <TabBar onNavigate={navigateTab} />}
       <PasskeyOffer />
       <SaveCelebration />
     </div>

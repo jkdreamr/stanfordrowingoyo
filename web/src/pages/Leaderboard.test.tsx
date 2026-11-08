@@ -163,6 +163,7 @@ it('pins my row only while my real row is off-screen', async () => {
   expect(pin.classList.contains('is-visible')).toBe(false);
   const observer = observers.find((o) => o.target === real)!;
   expect(observer).toBeTruthy();
+  const podium = screen.getByRole('list', { name: 'Top Three' });
   const fire = (ratio: number) =>
     act(() =>
       observer.callback(
@@ -171,6 +172,15 @@ it('pins my row only while my real row is off-screen', async () => {
       ),
     );
   fire(0);
+  expect(pin.classList.contains('is-visible')).toBe(false);
+  act(() =>
+    observers
+      .find((o) => o.target === podium)!
+      .callback(
+        [{ isIntersecting: false } as IntersectionObserverEntry],
+        {} as IntersectionObserver,
+      ),
+  );
   expect(pin.classList.contains('is-visible')).toBe(true);
   expect(pin.getAttribute('aria-hidden')).toBe('false');
   expect(
@@ -178,6 +188,8 @@ it('pins my row only while my real row is off-screen', async () => {
       .getByRole('link')
       .getAttribute('href'),
   ).toBe('/me');
+  fire(0.5);
+  expect(pin.classList.contains('is-visible')).toBe(false);
   fire(1);
   expect(pin.classList.contains('is-visible')).toBe(false);
 });
@@ -213,7 +225,16 @@ it('wraps long names at 360px and remeasures the pinned You row before swapping'
   const pin = document.querySelector('.leaderboard-pin') as HTMLElement;
   vi.spyOn(pin, 'getBoundingClientRect').mockReturnValue({ height: 128 } as DOMRect);
   act(() => resizeCallbacks.forEach((callback) => callback()));
-  expect(observers.at(-1)?.margin).toBe('-0px 0px -128px 0px');
+  expect(observers.at(-1)?.margin).toBe('-0px 0px -0px 0px');
+  act(() =>
+    observers
+      .filter((o) => o.target === screen.getByRole('list', { name: 'Top Three' }))
+      .at(-1)!
+      .callback(
+        [{ isIntersecting: false } as IntersectionObserverEntry],
+        {} as IntersectionObserver,
+      ),
+  );
   act(() =>
     observers
       .at(-1)!
@@ -228,7 +249,7 @@ it('wraps long names at 360px and remeasures the pinned You row before swapping'
   expect(pin.querySelector('.truncate, .line-clamp-2')).toBeNull();
   vi.mocked(pin.getBoundingClientRect).mockReturnValue({ height: 152 } as DOMRect);
   act(() => resizeCallbacks.forEach((callback) => callback()));
-  expect(observers.at(-1)?.margin).toBe('-0px 0px -152px 0px');
+  expect(observers.at(-1)?.margin).toBe('-0px 0px -0px 0px');
   act(() =>
     observers
       .at(-1)!

@@ -25,6 +25,7 @@
   line-gap-override: 0%;
 }
 :root {
+  view-transition-name: none;
   /* White page, white cards defined by a crisp hairline and soft depth; neutral fills for
      recessed controls. Cardinal carries the warmth. */
   --bg: #ffffff;
@@ -435,67 +436,6 @@ body {
   }
 }
 
-/*
- * Tab changes: content travels in the direction of the tab you chose. The old screen
- * leaves quickly, the new one arrives with the drive curve; chrome stays put.
- */
-.shell-content {
-  view-transition-name: shell-content;
-}
-::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-group(shell-content) {
-  animation: none;
-}
-/* Fade-through: the old screen is gone before the new one is mostly visible, so the two
-   never read as a double exposure. */
-::view-transition-old(shell-content) {
-  animation: drive-leave 90ms linear both;
-}
-::view-transition-new(shell-content) {
-  animation: drive-arrive 260ms var(--ease-out) 60ms both;
-}
-:root[data-nav-dir='back']::view-transition-old(shell-content) {
-  animation-name: drive-leave-back;
-}
-:root[data-nav-dir='back']::view-transition-new(shell-content) {
-  animation-name: drive-arrive-back;
-}
-:root[data-nav-dir='none']::view-transition-old(shell-content) {
-  animation-name: drive-fade-out;
-}
-:root[data-nav-dir='none']::view-transition-new(shell-content) {
-  animation-name: drive-fade-in;
-}
-@keyframes drive-leave {
-  to {
-    opacity: 0;
-    transform: translate3d(-8px, 0, 0);
-  }
-}
-@keyframes drive-arrive {
-  from {
-    opacity: 0;
-    transform: translate3d(16px, 0, 0);
-  }
-}
-@keyframes drive-leave-back {
-  to {
-    opacity: 0;
-    transform: translate3d(8px, 0, 0);
-  }
-}
-@keyframes drive-arrive-back {
-  from {
-    opacity: 0;
-    transform: translate3d(-16px, 0, 0);
-  }
-}
-@keyframes drive-fade-out {
-  to {
-    opacity: 0;
-  }
-}
 @keyframes drive-fade-in {
   from {
     opacity: 0;
@@ -582,6 +522,9 @@ body {
   animation: drive-bar var(--dur-focal) var(--ease-out) 120ms backwards;
 }
 :root[data-entered] .drive-bar-once {
+  animation: none;
+}
+:root[data-entered] :is(.podium-card, .drive-col, .drive-bar, .sc-draw, .sc-fill-in, .sc-end) {
   animation: none;
 }
 @keyframes drive-bar {
@@ -927,15 +870,13 @@ body {
   opacity: 0;
   transform: translate3d(0, 8px, 0);
   transition:
-    opacity 140ms var(--ease-in),
     transform 140ms var(--ease-in),
-    visibility 0s linear 140ms;
+    visibility 0s;
 }
 .leaderboard-pin.is-visible {
   opacity: 1;
   transform: none;
   transition:
-    opacity 200ms var(--ease-out),
     transform 200ms var(--ease-out),
     visibility 0s;
 }
@@ -1125,14 +1066,6 @@ body {
   .save-celebration,
   .save-celebration.is-leaving {
     animation-duration: 120ms;
-  }
-  ::view-transition-old(shell-content),
-  :root[data-nav-dir]::view-transition-old(shell-content) {
-    animation: drive-fade-out 120ms linear both;
-  }
-  ::view-transition-new(shell-content),
-  :root[data-nav-dir]::view-transition-new(shell-content) {
-    animation: drive-fade-in 120ms linear both;
   }
   .save-bar > span,
   .drive-hero .ui-ring-stroke {

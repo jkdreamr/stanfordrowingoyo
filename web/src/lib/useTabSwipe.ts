@@ -31,6 +31,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const pending = useRef<{ to: string; direction: number; reduced: boolean } | null>(null);
+  const tap = useRef<(to: string) => void>(() => {});
   useLayoutEffect(() => {
     const root = ref.current;
     if (!root) return;
@@ -40,6 +41,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
     let animation: Animation | undefined;
     let frame = 0;
     let scrollFrame = 0;
+    let pendingTimer: ReturnType<typeof setTimeout> | undefined;
     let generation = 0;
     let committedExit: (() => void) | undefined;
     let gesture:
@@ -64,24 +66,48 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
       gesture = undefined;
       cancelAnimationFrame(frame);
       cancelAnimationFrame(scrollFrame);
+      clearTimeout(pendingTimer);
       animation?.cancel();
       animation = undefined;
       clearStyles();
     };
-    const interrupt = () => {
-      const finish = committedExit;
-      reset();
-      finish?.();
-      return !!finish;
+    const prepareNavigation = (to: string, direction: number, reduced: boolean) => {
+      const transition = { to, direction, reduced };
+      pending.current = transition;
+      clearTimeout(pendingTimer);
+      pendingTimer = setTimeout(() => {
+        if (pending.current !== transition) return;
+        pending.current = null;
+        reset();
+      }, 400);
     };
-    const animate = (frames: Keyframe[], duration: number, done: () => void) => {
+    const interrupt = () => {
+      if (pending.current) return true;
+      const finish = committedExit;
+      if (finish) {
+        generation++;
+        gesture = undefined;
+        cancelAnimationFrame(frame);
+        cancelAnimationFrame(scrollFrame);
+        animation?.finish();
+        finish();
+        return true;
+      }
+      reset();
+      return false;
+    };
+    const animate = (frames: Keyframe[], duration: number, done: () => void, exit = false) => {
       const token = generation;
       animation = root.animate(frames, { duration, easing, fill: 'forwards' });
+      if (document.timeline?.currentTime != null)
+        animation.startTime = document.timeline.currentTime;
       animation.finished
         .then(() => {
           if (token !== generation) return;
-          animation?.cancel();
-          animation = undefined;
+          if (!exit) {
+            animation?.cancel();
+            animation = undefined;
+          }
           done();
         })
         .catch(() => {});
@@ -96,14 +122,14 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
         if (document.documentElement.scrollHeight - innerHeight < y && performance.now() < deadline)
           scrollFrame = requestAnimationFrame(restore);
       };
-      scrollFrame = requestAnimationFrame(restore);
+      restore();
       root.style.willChange = arriving.reduced ? 'opacity' : 'transform, opacity';
       animate(
         arriving.reduced
           ? [{ opacity: 0 }, { opacity: 1 }]
           : [
               {
-                transform: `translate3d(${arriving.direction * innerWidth * 0.25}px,0,0)`,
+                transform: `translate3d(${arriving.direction * 24}px,0,0)`,
                 opacity: 0,
               },
               { transform: 'translate3d(0,0,0)', opacity: 1 },
@@ -112,6 +138,16 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
         clearStyles,
       );
     }
+    tap.current = (to) => {
+      const next = main.findIndex((tab) => tab.to === to);
+      if (to === pathname) return;
+      reset();
+      if (media.matches && index >= 0 && next >= 0) {
+        positions.set(pathname, window.scrollY);
+        prepareNavigation(to, Math.sign(next - index), reduced.matches);
+      }
+      navigate(to, { preventScrollReset: media.matches && index >= 0 && next >= 0 });
+    };
     const start = (event: TouchEvent) => {
       if (interrupt()) return;
       if (index < 0 || !media.matches || event.touches.length !== 1) return;
@@ -166,6 +202,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
         });
     };
     const end = () => {
+      if (pending.current) return;
       const g = gesture;
       gesture = undefined;
       cancelAnimationFrame(frame);
@@ -197,8 +234,9 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
       positions.set(pathname, window.scrollY);
       const finish = () => {
         committedExit = undefined;
-        pending.current = { to, direction, reduced: g.reduced };
-        navigate(to, { preventScrollReset: true });
+        root.style.opacity = '0';
+        prepareNavigation(to, direction, g.reduced);
+        navigate(to, { preventScrollReset: true, flushSync: true });
       };
       committedExit = finish;
       animate(
@@ -210,6 +248,7 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
             ],
         g.reduced ? 120 : 180,
         finish,
+        true,
       );
     };
     const fingers = (event: TouchEvent) => {
@@ -243,4 +282,5 @@ export function useTabSwipe(ref: RefObject<HTMLElement>) {
       window.removeEventListener('scroll', recordScroll);
     };
   }, [pathname, navigate, ref]);
+  return (to: string) => tap.current(to);
 }

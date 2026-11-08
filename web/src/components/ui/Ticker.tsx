@@ -22,7 +22,9 @@ export function Ticker({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const shown = useRef(from ?? lastShown(id) ?? 0);
+  const shown = useRef(
+    from ?? lastShown(id) ?? (document.documentElement.hasAttribute('data-entered') ? value : 0),
+  );
   const formatRef = useRef(format);
   formatRef.current = format;
   const initial = useRef(prefersReducedMotion() ? value : shown.current);
