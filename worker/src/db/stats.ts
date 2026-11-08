@@ -3,7 +3,9 @@ import { ZONES } from '../../../shared/math';
 import type {
   Entry,
   LeaderboardRow,
+  RaceWeek,
   SeasonStats,
+  TeamRace,
   Totals,
   User,
   WeekStats,
@@ -11,7 +13,13 @@ import type {
 } from '../../../shared/types';
 import { userEntries, details } from './entries';
 import { effectiveTarget, loadTargets } from './targets';
-import { getSetting } from './settings';
+import { getSetting, optionalSetting } from './settings';
+import {
+  BERKELEY_PACE_PERCENT,
+  berkeleyTotal,
+  ghostMeters,
+  raceWeekBounds,
+} from '../../../shared/race';
 import { toPublicUser, type UserRow } from './users';
 export function totals(entries: Pick<Entry, 'equiv_m' | 'modality' | 'zone'>[]): Totals {
   const result: Totals = {
@@ -360,4 +368,49 @@ export function leaderboard(
   if (memo.rows.size >= 6) memo.rows.clear();
   memo.rows.set(rowKey, rows);
   return rows.map((row) => ({ ...row, user: { ...row.user } }));
+}
+
+/** Stanford vs Berkeley for the selected week and the one before it, over active rowers. */
+export function teamRace(storage: DurableObjectStorage, date: string, now: Date): TeamRace {
+  const week = weekStart(date);
+  const previous = addDays(week, -7);
+  const ratio = optionalSetting(storage, 'berkeley_pace_percent', BERKELEY_PACE_PERCENT) / 100;
+  const users = storage.sql
+    .exec<Pick<UserRow, 'id' | 'group_key'>>(
+      'SELECT id,group_key FROM users WHERE active = ? AND role = ?',
+      1,
+      'rower',
+    )
+    .toArray();
+  const meters = new Map(
+    storage.sql
+      .exec<{ week_start: string; total_m: number }>(
+        'SELECT week_start,SUM(equiv_m) AS total_m FROM entries WHERE week_start IN (?,?) AND user_id IN (SELECT id FROM users WHERE active = ? AND role = ?) GROUP BY week_start',
+        previous,
+        week,
+        1,
+        'rower',
+      )
+      .toArray()
+      .map((row) => [row.week_start, row.total_m]),
+  );
+  const target = loadTargets(storage);
+  const at = now.getTime();
+  const build = (start: string): RaceWeek => {
+    const bounds = raceWeekBounds(start);
+    const target_m = users.reduce((sum, user) => sum + target(user, start).target_m, 0);
+    const berkeley_total_m = berkeleyTotal(target_m, ratio);
+    return {
+      week_start: start,
+      starts_at: new Date(bounds.start).toISOString(),
+      ends_at: new Date(bounds.end).toISOString(),
+      status: at < bounds.start ? 'upcoming' : at < bounds.end ? 'live' : 'final',
+      rowers: users.length,
+      stanford_m: meters.get(start) ?? 0,
+      target_m,
+      berkeley_total_m,
+      berkeley_m: ghostMeters(berkeley_total_m, bounds.start, bounds.end, at),
+    };
+  };
+  return { as_of: now.toISOString(), ratio, week: build(week), previous: build(previous) };
 }

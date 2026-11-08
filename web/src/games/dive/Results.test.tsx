@@ -86,13 +86,16 @@ afterEach(() => {
   clients.splice(0).forEach((client) => client.clear());
   Reflect.deleteProperty(navigator, 'clipboard');
 });
-it('copies only the date and depth, never answer spoilers', async () => {
+it('shows canonical tiers, verdict, teammate names and Only You; shares a spoiler-free emoji grid', async () => {
   mount();
-  expect(screen.getByText('Orchid · gem')).toBeTruthy();
+  expect(screen.getByText('Orchid · Pearl')).toBeTruthy();
+  expect(screen.getByText('Open Water')).toBeTruthy();
+  expect(screen.getByText('Rower One')).toBeTruthy();
+  expect(screen.getByText('Only You')).toBeTruthy();
   expect(screen.queryByRole('button', { name: 'Hide Orchid' })).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
   expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
-  expect(writeText).toHaveBeenCalledWith('Dive 2026-11-07 · 310 m');
+  expect(writeText).toHaveBeenCalledWith('Dive 2026-11-07 · 310 m\n🦪');
 });
 it('keeps copy retryable when clipboard access fails and renders empty groups', async () => {
   const empty = day();
@@ -110,6 +113,7 @@ it('lets staff review groups without playing, requires confirmation and keeps fa
   expect(screen.queryByRole('heading', { name: 'Your Dive' })).toBeNull();
   vi.mocked(api).mockRejectedValueOnce(new Error('No connection. Try again.'));
   fireEvent.click(screen.getByRole('button', { name: 'Hide Orchid' }));
+  expect(screen.getByText('Hide This Answer From Team View. Scores Stay The Same.')).toBeTruthy();
   expect(screen.getByRole('dialog')).toBeTruthy();
   expect(api).not.toHaveBeenCalled();
   fireEvent.click(screen.getByRole('button', { name: 'Hide Answer' }));
@@ -120,4 +124,22 @@ it('lets staff review groups without playing, requires confirmation and keeps fa
   expect(api).toHaveBeenCalledWith('PATCH /api/games/dive/answers', {
     body: { date: '2026-11-07', prompt_index: 0, normalized: 'orchid', hidden: true },
   });
+});
+it('keeps hidden-answer tier and points and offers display-only restoration', async () => {
+  const hidden = day();
+  hidden.answers[0].hidden = true;
+  hidden.reveal![0].groups[0].hidden = true;
+  mount(hidden, true);
+  expect(screen.getByText('Orchid · Pearl')).toBeTruthy();
+  expect(screen.getAllByText('100 m')).toHaveLength(2);
+  fireEvent.click(screen.getByRole('button', { name: 'Unhide Orchid' }));
+  expect(screen.getByText('Restore This Answer To Team View. Scores Stay The Same.')).toBeTruthy();
+});
+it('logs misses without inventing a canonical and shares the miss square', async () => {
+  const missed = day();
+  missed.answers[0] = { ...missed.answers[0], canonical: null, tier: 'miss', points: 0 };
+  mount(missed);
+  expect(screen.getByText('Not On The List · Miss')).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
+  await waitFor(() => expect(writeText).toHaveBeenCalledWith('Dive 2026-11-07 · 310 m\n⬛'));
 });

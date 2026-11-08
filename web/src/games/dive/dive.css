@@ -56,6 +56,49 @@
   stroke: #fff;
   stroke-width: 1.5;
 }
+.dive-marker-sinking {
+  animation: dive-sink 700ms var(--oyo-ease-out) both;
+  transition: none;
+}
+@keyframes dive-sink {
+  from {
+    transform: translate(428px, 64px);
+  }
+  to {
+    transform: translate(428px, var(--dive-marker-y));
+  }
+}
+.dive-reveal {
+  padding: 16px 0;
+  min-width: 0;
+}
+.dive-answer-notes {
+  display: grid;
+  gap: 20px;
+  border-block: 1px solid var(--divider);
+  padding-block: 20px;
+}
+.dive-clever-callout {
+  padding: 16px;
+  border: 1px dashed var(--oyo-accent-ink);
+  border-radius: 12px;
+  background: var(--oyo-selected);
+}
+.dive-only-you {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--divider);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.dive-reveal button,
+.dive-log button,
+.dive-group button {
+  min-height: 44px;
+  min-width: 44px;
+}
 .dive-marker-halo {
   fill: #163749;
   stroke: #fff;
@@ -207,5 +250,6 @@
 @media (prefers-reduced-motion: reduce) {
   .dive-marker {
     transition: none;
+    animation: none;
   }
 }

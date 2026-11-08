@@ -1,11 +1,28 @@
+import type { CSSProperties } from 'react';
+import type { DiveTier } from '../../../../shared/games/dive';
 import './dive.css';
 
-export function WaterColumn({ score, compact = false }: { score: number; compact?: boolean }) {
-  const depth = Math.max(0, Math.min(700, score));
+export function WaterColumn({
+  score,
+  compact = false,
+  tier,
+}: {
+  score: number;
+  compact?: boolean;
+  tier?: DiveTier;
+}) {
+  const maximum = tier ? 100 : 700;
+  const depth = Math.max(0, Math.min(maximum, score));
   const height = compact ? 200 : 320;
   const range = height - 92;
+  const position = 64 + (depth / maximum) * range;
   return (
-    <div className="dive-water" role="img" aria-label={`Depth: ${score} meters out of 700`}>
+    <div
+      className="dive-water"
+      role="img"
+      aria-label={`Depth: ${score} meters out of ${maximum}`}
+      data-tier={tier}
+    >
       <svg viewBox={`0 0 560 ${height}`} aria-hidden="true">
         <rect width="560" height={height} className="dive-sky" />
         {[0, 1, 2, 3, 4].map((band) => (
@@ -35,8 +52,8 @@ export function WaterColumn({ score, compact = false }: { score: number; compact
           <circle cx="22" cy="-6" r="4" fill="currentColor" />
         </g>
         <g className="dive-ruler">
-          {[0, 175, 350, 525, 700].map((tick) => (
-            <g key={tick} transform={`translate(484 ${64 + (tick / 700) * range})`}>
+          {[0, maximum / 4, maximum / 2, maximum * 0.75, maximum].map((tick) => (
+            <g key={tick} transform={`translate(484 ${64 + (tick / maximum) * range})`}>
               <path d="M0 0 H12" />
               <text x="20" y="4">
                 {tick}
@@ -46,8 +63,13 @@ export function WaterColumn({ score, compact = false }: { score: number; compact
         </g>
         <path d={`M428 64 V${64 + range}`} className="dive-line" />
         <g
-          className="dive-marker"
-          style={{ transform: `translate(428px, ${64 + (depth / 700) * range}px)` }}
+          className={`dive-marker ${tier && depth > 0 ? 'dive-marker-sinking' : ''}`}
+          style={
+            {
+              transform: `translate(428px, ${position}px)`,
+              '--dive-marker-y': `${position}px`,
+            } as CSSProperties
+          }
         >
           <circle r="14" className="dive-marker-halo" />
           <circle r="6" />
@@ -60,7 +82,7 @@ export function WaterColumn({ score, compact = false }: { score: number; compact
           </tspan>
         </text>
         <text x="34" y="152" className="dive-depth-label">
-          Total Depth
+          {tier ? 'Answer Depth' : 'Total Depth'}
         </text>
         <path
           d="M24 264 Q52 258 80 264 M250 218 Q272 214 294 218 M126 296 Q155 290 184 296"

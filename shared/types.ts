@@ -109,6 +109,8 @@ export interface Settings {
   mode_factors: Record<Modality, number>;
   group_targets: Record<GroupKey, number>;
   season_start: string;
+  /** Berkeley finishes each week at this percent of the team's summed targets. */
+  berkeley_pace_percent: number;
 }
 export interface CurrentWeeklyTarget {
   week_start: string;
@@ -337,6 +339,29 @@ export interface LeaderboardRow {
   total_m: number;
   percent: number;
   rank: number;
+}
+/** One week of Stanford vs Berkeley. Berkeley is a ghost crew pacing a share of the team's targets. */
+export interface RaceWeek {
+  week_start: string;
+  /** Monday 00:00 and the next Monday 00:00, America/Los_Angeles, as ISO instants. */
+  starts_at: string;
+  ends_at: string;
+  status: 'upcoming' | 'live' | 'final';
+  /** Active leaderboard rowers counted on both sides. */
+  rowers: number;
+  stanford_m: number;
+  /** Sum of those rowers' weekly targets. */
+  target_m: number;
+  /** round(target_m × ratio): where Berkeley finishes on Sunday night. */
+  berkeley_total_m: number;
+  /** Berkeley's position at `as_of`, linear through the week. */
+  berkeley_m: number;
+}
+export interface TeamRace {
+  as_of: string;
+  ratio: number;
+  week: RaceWeek;
+  previous: RaceWeek;
 }
 export interface ComplianceRow extends LeaderboardRow {
   last_log: string | null;
@@ -714,6 +739,7 @@ export interface Api {
     SeasonStats,
     ({ season?: number; year?: never } | { year: number; season?: never }) & { user?: string }
   >;
+  'GET /api/stats/race': Endpoint<void, TeamRace, { week?: string }>;
   'GET /api/leaderboard': Endpoint<
     void,
     LeaderboardRow[],

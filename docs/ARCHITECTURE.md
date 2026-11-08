@@ -231,7 +231,8 @@ challenges(id TEXT PK, title, unit ('emeters'|'km'), goal_m INTEGER, modality NU
 roster(id TEXT PK, name NOT NULL, email NULL, role, group_key NULL, side, class_year,
        claimed_by_user_id NULL REFERENCES users(id), added_by, created_at)
        -- unique lower(email) where not null; unique claimed_by_user_id where not null
-settings(key PK, value_json)            -- team_code, zone_factors, mode_factors, group_targets, season_start ("09-01")
+settings(key PK, value_json)            -- team_code, zone_factors, mode_factors, group_targets, season_start ("09-01"),
+                                        -- berkeley_pace_percent (optional; absent = 90, no migration)
 weekly_targets(user_id, week_start, target_m, PK(user_id, week_start))
 entries(id PK, user_id, date, week_start, modality ('erg'|'bike'|'run'), zone, distance_m INT, duration_s INT NULL,
         avg_split_s REAL NULL, stroke_rate INT NULL, avg_hr INT NULL, title, notes, preset_id NULL,
@@ -348,7 +349,7 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
-The general-knowledge bank has 120 prompts and over 60,000 curated canonical answers.
+The general-knowledge bank has 120 prompts with curated canonical answer sets.
 A fixed seeded permutation takes seven consecutive entries per day, measured from
 2026-01-01 with positive modulo. Any `floor(N/7)` consecutive days contain no repeated
 prompt, including wraparound and dates before the epoch. There are no rowing/team prompts.
@@ -363,13 +364,29 @@ real even for the first player. The generic board remains higher-is-better; `fin
 true after team midnight (board participation can grow, individual scores never recompute).
 
 `scripts/dive/` is a reproducible Python pipeline with pinned real list sources, ignored raw
-fetch caches, `wordfreq.zipf_frequency(name,'en')`, and committed hand overrides. Within
+fetch caches, contextual English Wikipedia human pageviews (2025 monthly totals), a
+Wikidata sitelink breadth, a `wordfreq.zipf_frequency(name,'en')` fallback/tiebreak, and
+committed hand overrides. When both entity signals exist, familiarity combines
+`0.6*log1p(annual_views/5000) + 0.4*log1p(sitelinks)`; either signal works alone when the
+other is missing. QIDs resolve in article batches; sitelinks query in <=300-QID SPARQL
+VALUES batches. Disambiguation items and wrong-country city matches are rejected. Within
 each prompt, familiarity rank percentiles are Surface <20%, Midwater <55%, Rare <80%,
 Deep Cut otherwise. Surface anchors, explicit Too Clever picks and exactly one fun Pearl
 override those ranks. See its README/report for provenance, exclusions and regeneration.
-Generated Worker-only compact per-prompt modules are dynamically imported through `loaders.ts`;
-`sets.ts` parses on demand into normalized keys and length buckets, cached in an eight-entry
-promise-aware LRU. The browser imports tier helpers/types only, never answer data.
+The pageview candidate pool covers twice the prospective Surface population (at least
+100 names), plus all anchors/picks. Unresolved/unqueried names use the conservative
+secondary signal below resolved entities. Homographs use explicit contextual article
+titles and multiword corrections. ISO 639-1 languages replace the noisy ISO 639-3 tail;
+cities are capped at the 500 largest per country, movies at 1,000 per genre by source votes,
+plus reviewed additions. See the committed full-prompt review and familiarity snapshot.
+Generated Worker-only per-prompt modules contain sorted normalized-key length-bucket
+strings, a shared canonical table referenced by base-36 UTF-16
+offsets, and constant Pearl/notable metadata. `sets.ts` returns
+lazy module data directly: no request parses a set, builds key maps, or incurs parsed-LRU
+eviction. Exact canonical/alias lookup searches the key's length bucket for a
+newline/key/tab delimiter (no duplicate global index); fuzzy
+matching scans only eligible bucket strings, decoding only accepted candidate rows.
+The browser imports tier helpers/types only, never answer data.
 
 The pure Worker matcher first checks normalized canonical/alias keys. Otherwise banded,
 early-exit Levenshtein uses no fuzzy matching below length 4, distance ≤1 for length 4–7,
@@ -466,6 +483,14 @@ malformed or implausible payloads return 400.
   target, percent, hit_target, modalities, entry_count, consecutive hit weeks ending
   at that week, highest-equivalent entry (earliest creation breaks ties), and cached
   leaderboard team totals/counts and percent rank (null off leaderboard).
+- GET /api/stats/race?week=YYYY-MM-DD: authenticated `TeamRace` (Stanford vs Berkeley) for the selected
+  week (default this week; same week-date bounds as stats) and the week before. Population = active users with
+  role `rower` (same as compliance; staff never count). `stanford_m` = their summed stored `equiv_m` for the week;
+  `target_m` = their summed effective weekly targets; `berkeley_total_m` = round(target_m × ratio), ratio =
+  `berkeley_pace_percent` / 100 (`BERKELEY_PACE_RATIO` 0.9 by default, shared/race.ts). Berkeley advances linearly
+  from Monday 00:00 to the next Monday 00:00 America/Los_Angeles (`starts_at`/`ends_at`; 167/169 h on DST weeks):
+  `berkeley_m` = round(berkeley_total_m × elapsed fraction) at `as_of`, 0 before the week and the full total after.
+  `status` is upcoming/live/final from those instants. Zero rowers → all zeros. Five SQL reads, no N+1.
 - GET /api/challenges: authenticated active/upcoming challenges ordered by end_date.
 - GET /api/admin/challenges: staff all challenges newest first.
 - POST /api/admin/challenges, PATCH /api/admin/challenges/:id,
@@ -651,7 +676,8 @@ point), `VAPID_PRIVATE_KEY` (base64url 32-byte private scalar), `VAPID_SUBJECT` 
 with `wrangler secret put <NAME>`; locally put them in `.dev.vars`. Rotating keys invalidates existing subscriptions;
 clients resubscribe automatically when the server key differs.
 Staff (`/api/admin/*`): users list/edit (role, group, on_leaderboard, active), reset password, roster CRUD + bulk import
-(CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start),
+(CSV paste: name,email,role,group,side,class_year), settings (team code, factors, group targets, season start,
+Berkeley pace whole percent 50–150),
 presets CRUD, plan CRUD, recalculate entries, compliance view for a week (each rower: target, total, %, last log),
 CSV export of entries for a date range, audit log.
 Roster routes: `GET/POST /api/admin/roster`, `PATCH/DELETE /api/admin/roster/:id`,
@@ -756,10 +782,12 @@ content, staff access, owner-only My Fortnight plans, authenticated photo storag
 - Layout: mobile = bottom tab bar (Home, Feed, + Log (center, prominent), Leaderboard, Me); desktop ≥1024px = left
   sidebar with the same destinations + content column (max ~720px) and a right rail (week ring, announcements).
 - Screens: Login/Signup, Home (week progress ring vs target, remaining meters, days left, quick-log presets, this week's
-  sessions, pinned announcements, "suggested to hit target" using the distance menu), Log (modality segmented control,
+  sessions, pinned announcements, "suggested to hit target" using the distance menu, Stanford vs Berkeley race card
+  with last week's result), Log (modality segmented control,
   zone picker, distance or preset, optional time/split/rate/HR, live E-meter preview, notes, photos),
   Feed (cards: avatar, name, time, title, stats, E-meters, photos carousel, kudos, comments), Entry detail,
-  Leaderboard (This Week % / This Week Meters / Season; week switcher; podium for top 3; highlight me; ≥100% check),
+  Leaderboard (This Week % / This Week Meters / Season; week switcher; Stanford vs Berkeley race card for the selected
+  week, hidden on Season; podium for top 3; highlight me; ≥100% check),
   Me/Profile (season & year totals, weekly bar chart with target line, modality/zone breakdown, streak, best week, my
   entries, edit profile, set weekly target, splits), Rower profiles, Plan (sample fortnight for my group w/ zone colors,
   fortnight guidance table, Workout Menu, Pace & Distance Calculator), Notifications, Settings (theme, password, logout),

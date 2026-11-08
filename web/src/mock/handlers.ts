@@ -26,6 +26,7 @@ import type {
   WeekStats,
   WeekSummary,
   Zone,
+  RaceWeek,
   GameResult,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
@@ -35,7 +36,13 @@ import { createFixtures, publicUser } from './fixtures';
 import { mentionIds } from '../lib/social';
 import { generatedImage } from './images';
 import { previewRoster } from '../pages/admin/roster';
-import { factorError, seasonError, targetError } from '../pages/admin/operations';
+import { factorError, paceError, seasonError, targetError } from '../pages/admin/operations';
+import {
+  BERKELEY_PACE_PERCENT,
+  berkeleyTotal,
+  ghostMeters,
+  raceWeekBounds,
+} from '../../../shared/race';
 import { personalPlan, covers } from '../lib/myPlan';
 import { unpack, verifyWordGuess } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
@@ -276,6 +283,7 @@ export function createMockApi({
     zone_factors: { ...ZONE_FACTORS },
     group_targets: { ...GROUP_TARGETS },
     season_start: '09-01',
+    berkeley_pace_percent: BERKELEY_PACE_PERCENT,
   };
   let presets = structuredClone(PRESETS);
   let plan: Plan = { slots: structuredClone(PLAN_SLOTS), totals: structuredClone(PLAN_TOTALS) };
@@ -1202,6 +1210,40 @@ export function createMockApi({
         recordAudit(before ? 'challenge.update' : 'challenge.create', row.id, before, row);
         return json(challengeView(row), before ? 200 : 201);
       }
+      if (path === '/api/stats/race' && method === 'GET') {
+        const date = url.searchParams.get('week') ?? today(now());
+        if (!dateValid(date) || date < '2000-01-01' || date > addDays(today(now()), 365))
+          fail(400, 'Week date must be between 2000-01-01 and one year from today.');
+        const at = now().getTime();
+        const ratio = settings.berkeley_pace_percent / 100;
+        const rowers = state.users.filter((u) => u.active && u.role === 'rower');
+        const ids = new Set(rowers.map((u) => u.id));
+        const build = (start: string): RaceWeek => {
+          const bounds = raceWeekBounds(start);
+          const target_m = rowers.reduce((n, u) => n + target(u.id, start).target_m, 0);
+          const berkeley_total_m = berkeleyTotal(target_m, ratio);
+          return {
+            week_start: start,
+            starts_at: new Date(bounds.start).toISOString(),
+            ends_at: new Date(bounds.end).toISOString(),
+            status: at < bounds.start ? 'upcoming' : at < bounds.end ? 'live' : 'final',
+            rowers: rowers.length,
+            stanford_m: state.entries
+              .filter((e) => e.week_start === start && ids.has(e.user_id))
+              .reduce((n, e) => n + e.equiv_m, 0),
+            target_m,
+            berkeley_total_m,
+            berkeley_m: ghostMeters(berkeley_total_m, bounds.start, bounds.end, at),
+          };
+        };
+        const week = weekStart(date);
+        return json({
+          as_of: now().toISOString(),
+          ratio,
+          week: build(week),
+          previous: build(addDays(week, -7)),
+        });
+      }
       if (path === '/api/stats/recap' && method === 'GET') {
         const date = url.searchParams.get('week') ?? addDays(weekStart(today(now())), -7);
         if (!dateValid(date) || date < '2000-01-01' || weekStart(date) >= weekStart(today(now())))
@@ -2126,6 +2168,8 @@ export function createMockApi({
           if (!/^[A-Za-z0-9-]{6,64}$/.test(next.team_code))
             fail(400, 'Team code must be 6–64 letters, numbers or hyphens.');
           if (seasonError(next.season_start)) fail(400, 'Invalid season start');
+          if (paceError(String(next.berkeley_pace_percent)))
+            fail(400, 'Berkeley pace must be a whole percent from 50 to 150.');
           for (const m of Object.keys(MODE_FACTORS) as Modality[])
             if (
               typeof next.mode_factors?.[m] !== 'number' ||

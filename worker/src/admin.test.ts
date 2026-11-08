@@ -113,6 +113,7 @@ const endpoints: Record<keyof Api, true> = {
   'PATCH /api/me/tests/:id': true,
   'DELETE /api/me/tests/:id': true,
   'GET /api/stats/recap': true,
+  'GET /api/stats/race': true,
   'GET /api/challenges': true,
   'GET /api/admin/challenges': true,
   'POST /api/admin/challenges': true,

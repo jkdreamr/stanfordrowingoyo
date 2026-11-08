@@ -4,7 +4,8 @@ import { expect, it } from 'vitest';
 import { addDays } from '../../shared/dates';
 import { DIVE_TIERS, normalizeAnswer } from '../../shared/games/dive';
 import { DIVE_PROMPTS, diveSelectionFor } from '../../worker/src/games/divePrompts';
-import { boundedDistance, matchAnswer, parseAnswerSet } from '../../worker/src/games/dive/matcher';
+import { boundedDistance, matchAnswer } from '../../worker/src/games/dive/matcher';
+import { fixtureSet as parseAnswerSet, decodedAnswers } from './fixtures';
 import { loaders } from '../../worker/src/games/dive/loaders';
 import { answerSet } from '../../worker/src/games/dive/sets';
 
@@ -47,6 +48,44 @@ it('does not cross-match unrelated answers or bypass length limits and stopwords
   expect(matchAnswer('abcdefg', guarded).canonical).toBeNull();
   expect(matchAnswer('abcdxxxxij', guarded).canonical).toBeNull();
   expect(matchAnswer('dog', fixture).canonical).toBeNull();
+});
+it('preserves typo matches through the character-deficit filter, including repeats and aliases', () => {
+  const set = parseAnswerSet(
+    'balloon|s|helium balloon\nbaboon|g|\nbanana|r|yellow fruit\ncacao|d|cocoa',
+  );
+  const entries = decodedAnswers(set).flatMap((row) =>
+    [row.answer, ...row.aliases].map((value) => ({
+      key: normalizeAnswer(value),
+      canonical: row.answer,
+    })),
+  );
+  for (const entry of entries) {
+    for (let i = 0; i <= entry.key.length; i++) {
+      for (const value of [
+        entry.key.slice(0, i) + 'z' + entry.key.slice(i),
+        entry.key.slice(0, i) + entry.key.slice(i + 1),
+        entry.key.slice(0, i) + 'z' + entry.key.slice(i + 1),
+      ]) {
+        const key = normalizeAnswer(value),
+          limit = key.length < 4 ? 0 : key.length < 8 ? 1 : 2;
+        const candidates = entries
+          .map((row) => ({ ...row, distance: boundedDistance(key, row.key, limit) }))
+          .filter((row) => row.distance <= limit);
+        const best = Math.min(...candidates.map((row) => row.distance));
+        const winners = new Set(
+          candidates.filter((row) => row.distance === best).map((row) => row.canonical),
+        );
+        expect(matchAnswer(value, set).canonical, value).toBe(
+          winners.size === 1 ? [...winners][0] : null,
+        );
+      }
+    }
+  }
+});
+it('decodes UTF-16 canonical offsets without parsing the answer table', () => {
+  const set = parseAnswerSet('Café🍐|s|cafe fruit\nRambutan|g|');
+  expect(matchAnswer('cafe fruit', set).canonical).toBe('Café🍐');
+  expect(matchAnswer('rambutan', set).points).toBe(100);
 });
 it('rejects malformed sets, normalized key collisions and missing or multiple Pearls', () => {
   for (const encoded of [
@@ -113,29 +152,38 @@ it('validates all generated sets: tiers, single Pearl, globally unique keys/alia
     hundreds = 0;
   for (const prompt of DIVE_PROMPTS) {
     const set = await answerSet(prompt.id);
+    expect(Object.keys(set).sort()).toEqual(['answers', 'buckets', 'gem', 'notable', 'size']);
+    const answers = decodedAnswers(set);
     const stats = report.find((row) => row.id === prompt.id)!;
-    expect(set.answers.length, prompt.id).toBe(stats.size);
+    expect(answers.length, prompt.id).toBe(stats.size);
     if (stats.size >= 100) large++;
     if (stats.size >= 200) hundreds++;
-    expect(set.answers.filter((row) => row.tier === 'gem')).toHaveLength(1);
+    expect(answers.filter((row) => row.tier === 'gem')).toHaveLength(1);
     expect(set.gem.answer).toBe(stats.gem);
     expect(
-      set.answers
+      answers
         .filter((row) => row.tier === 'tooclever')
         .map((row) => normalizeAnswer(row.answer))
         .sort(),
     ).toEqual(stats.too_clever.map(normalizeAnswer).sort());
-    const keys = set.answers.flatMap((row) => [row.answer, ...row.aliases].map(normalizeAnswer));
+    const keys = answers.flatMap((row) => [row.answer, ...row.aliases].map(normalizeAnswer));
     expect(new Set(keys).size, prompt.id).toBe(keys.length);
-    expect(set.keys.size).toBe(keys.length);
-    for (const row of set.answers) {
+    for (const [length, bucket] of Object.entries(set.buckets)) {
+      for (const line of bucket.trim().split('\n')) {
+        expect(line.split('\t')[0].length).toBe(Number(length));
+      }
+    }
+    expect(Object.values(set.buckets).flatMap((bucket) => bucket.trim().split('\n'))).toHaveLength(
+      keys.length,
+    );
+    for (const row of answers) {
       expect(DIVE_TIERS[row.tier].points).toBe(row.points);
       expect(row.tier).not.toBe('miss');
       for (const alias of row.aliases) expect(matchAnswer(alias, set).canonical).toBe(row.answer);
     }
     for (const tier of ['surface', 'school', 'rare', 'deep'])
       expect(
-        set.answers.some((row) => row.tier === tier),
+        answers.some((row) => row.tier === tier),
         `${prompt.id}/${tier}`,
       ).toBe(true);
     expect(set.notable.length).toBeLessThanOrEqual(5);
@@ -156,7 +204,7 @@ it('anchors obvious answers at Surface, and accepts real aliases and typos on th
   expect(matchAnswer('Nyckelharp', await answerSet('instruments')).canonical).toBe('Nyckelharpa');
   expect(matchAnswer('rambutan', await answerSet('elements')).canonical).toBeNull();
   expect(matchAnswer('fish', await answerSet('dinosaurs')).canonical).toBeNull();
-  expect((await answerSet('constellations')).answers).toHaveLength(88);
+  expect((await answerSet('constellations')).size).toBe(88);
 });
 it('selects deterministic seven-prompt team days with no repeats in any floor(N/7)-day window', () => {
   const window = Math.floor(DIVE_PROMPTS.length / 7);
@@ -171,12 +219,11 @@ it('selects deterministic seven-prompt team days with no repeats in any floor(N/
     }
   }
 });
-it('shares pending loads, bounds the parsed LRU, and rejects unknown prompt IDs', async () => {
-  const first = answerSet('animals');
-  expect(answerSet('animals')).toBe(first);
-  await first;
+it('uses immutable module data without a parsed cache or eviction penalty, and rejects unknown prompt IDs', async () => {
+  const first = await answerSet('animals');
+  expect(await answerSet('animals')).toBe(first);
   for (const { id } of DIVE_PROMPTS.slice(1, 10)) await answerSet(id);
-  expect(answerSet('animals')).not.toBe(first);
+  expect(await answerSet('animals')).toBe(first);
   expect(() => answerSet('__proto__')).toThrow('Unknown Dive prompt');
   expect(Object.keys(loaders)).toHaveLength(DIVE_PROMPTS.length);
 });

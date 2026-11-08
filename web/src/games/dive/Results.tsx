@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { DiveDay, DiveReveal, DiveRevealGroup } from '../../../../shared/types';
+import { DIVE_TIERS } from '../../../../shared/games/dive';
 import { Button, ConfirmSheet } from '../../components/ui';
 import { api } from '../../lib/api';
 import { qk } from '../../lib/queries';
@@ -39,14 +40,21 @@ export function Results({
       {!reviewOnly && (
         <section aria-label="Dive Log">
           <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="text-title2">Your Dive</h2>
+            <div>
+              <h2 className="text-title2">Your Dive</h2>
+              <p className="mt-1 text-callout text-muted">{day.verdict}</p>
+            </div>
             <Button
               variant="secondary"
               size="sm"
               onClick={async () => {
                 setCopyError(false);
                 try {
-                  await navigator.clipboard.writeText(`Dive ${day.date} · ${day.score} m`);
+                  const grid = [...day.answers]
+                    .sort((a, b) => a.prompt_index - b.prompt_index)
+                    .map((answer) => DIVE_TIERS[answer.tier].emoji)
+                    .join('');
+                  await navigator.clipboard.writeText(`Dive ${day.date} · ${day.score} m\n${grid}`);
                   setCopied(true);
                 } catch {
                   setCopyError(true);
@@ -67,8 +75,11 @@ export function Results({
                 <div className="min-w-0 flex-1">
                   <p className="text-subhead font-medium">{day.prompts[answer.prompt_index]}</p>
                   <p className="mt-1 break-words text-subhead text-muted">
-                    {answer.answer || 'No Answer'} · {answer.tier}
+                    {answer.canonical ?? 'Not On The List'} · {DIVE_TIERS[answer.tier].label}
                   </p>
+                  {answer.hidden && (
+                    <p className="mt-1 text-footnote text-muted">Hidden From Team</p>
+                  )}
                 </div>
                 <span className="shrink-0 text-subhead tabular-nums">{answer.points} m</span>
               </li>
@@ -76,8 +87,8 @@ export function Results({
           </ol>
         </section>
       )}
-      <section className="dive-answer-groups" aria-label="Today's Answers">
-        <h2 className="mb-3 text-title2">Today’s Answers</h2>
+      <section className="dive-answer-groups" aria-label="Team Answers">
+        <h2 className="mb-3 text-title2">Team Answers</h2>
         {day.reveal?.map((prompt) => (
           <details key={prompt.prompt_index} open={prompt.prompt_index === 0}>
             <summary className="text-subhead">{prompt.prompt}</summary>
@@ -94,10 +105,13 @@ export function Results({
                         {group.mine && <span className="text-subhead text-muted"> · You</span>}
                       </p>
                       <p className="mt-1 text-footnote text-muted">
-                        {group.tier}
-                        {!group.hidden &&
-                          ` · ${group.count} ${group.count === 1 ? 'Answer' : 'Answers'}`}
+                        {DIVE_TIERS[group.tier].label}
+                        {group.hidden && ' · Hidden From Team'}
                       </p>
+                      <p className="mt-1 text-subhead text-muted">
+                        {group.teammates.map((teammate) => teammate.name).join(', ')}
+                      </p>
+                      {group.only_you && <span className="dive-only-you">Only You</span>}
                     </div>
                     <span className="shrink-0 text-subhead tabular-nums">{group.points} m</span>
                     {staff && (
@@ -130,8 +144,8 @@ export function Results({
         body={
           moderation.error?.message ??
           (target?.group.hidden
-            ? 'Restore this answer and its points for everyone.'
-            : 'Hide this answer and remove its points for everyone.')
+            ? 'Restore This Answer To Team View. Scores Stay The Same.'
+            : 'Hide This Answer From Team View. Scores Stay The Same.')
         }
         confirmLabel={target?.group.hidden ? 'Unhide Answer' : 'Hide Answer'}
         cancelLabel="Cancel"
