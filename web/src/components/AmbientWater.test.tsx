@@ -121,22 +121,29 @@ it.each([
 it.each([-1, NaN, 2])('clamps intensity %s and every light alpha', (intensity) => {
   render(<AmbientWater config={{ enabled: true, intensity }} />);
   for (let i = 3; i < pixels.length; i += 4)
-    expect(pixels[i]).toBeLessThanOrEqual(intensity === 2 ? 70 : 0);
+    expect(pixels[i]).toBeLessThanOrEqual(intensity === 2 ? 49 : 0);
 });
 it('updates the palette on theme mutation and bounds dark alpha', async () => {
   render(<AmbientWater />);
   const light = pixels.slice();
   await act(async () => document.documentElement.classList.add('dark'));
   expect(pixels).not.toEqual(light);
-  let transparent = 0;
-  let glow = 0;
-  for (let i = 3; i < pixels.length; i += 4) {
-    expect(pixels[i]).toBeLessThanOrEqual(128);
-    if (pixels[i] === 0) transparent++;
-    if (pixels[i] > 96) glow++;
+  let cells = 0;
+  let shimmer = 0;
+  for (let i = 0; i < pixels.length; i += 4) {
+    expect(pixels[i + 3]).toBeGreaterThan(0);
+    expect(pixels[i + 3]).toBeLessThanOrEqual(64);
+    expect(pixels[i + 2]).toBeGreaterThan(pixels[i]);
+    const luminance = [0.2126, 0.7152, 0.0722].reduce((sum, weight, channel) => {
+      const value = (pixels[i + channel] * pixels[i + 3]) / (255 * 255);
+      return sum + weight * (value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+    }, 0);
+    expect(luminance).toBeLessThan(0.012);
+    if (pixels[i] < 24) cells++;
+    if (pixels[i] > 80) shimmer++;
   }
-  expect(transparent).toBeGreaterThan(0);
-  expect(glow).toBeGreaterThan(0);
+  expect(cells).toBeGreaterThan(0);
+  expect(shimmer).toBeGreaterThan(0);
 });
 it('keeps pale aqua cells and near-transparent sunlight rims', () => {
   render(<AmbientWater />);
@@ -145,10 +152,30 @@ it('keeps pale aqua cells and near-transparent sunlight rims', () => {
   for (let i = 0; i < pixels.length; i += 4) {
     expect([...pixels.slice(i, i + 3)]).toEqual([115, 175, 201]);
     if (pixels[i + 3] < 3) rims++;
-    if (pixels[i + 3] > 55) cells++;
+    if (pixels[i + 3] > 38) cells++;
   }
   expect(rims).toBeGreaterThan(0);
   expect(cells).toBeGreaterThan(0);
+});
+it('clears dark ink and shimmer at zero intensity', async () => {
+  render(<AmbientWater config={{ enabled: true, intensity: 0 }} />);
+  await act(async () => document.documentElement.classList.add('dark'));
+  for (let i = 3; i < pixels.length; i += 4) expect(pixels[i]).toBe(0);
+});
+it('keeps roughly four broad cells across the viewport', () => {
+  const { container } = render(<AmbientWater />);
+  const { width, height } = container.querySelector('canvas')!;
+  let entries = 0;
+  for (let y = 0; y < height; y++) {
+    let inRim = false;
+    for (let x = 0; x < width; x++) {
+      const rim = pixels[(y * width + x) * 4 + 3] < 10;
+      if (rim && !inRim) entries++;
+      inRim = rim;
+    }
+  }
+  expect(entries / height).toBeGreaterThan(3);
+  expect(entries / height).toBeLessThan(6);
 });
 it('handles an unavailable canvas context without scheduling frames', () => {
   vi.mocked(HTMLCanvasElement.prototype.getContext).mockReturnValue(null);

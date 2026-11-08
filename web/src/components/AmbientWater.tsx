@@ -10,11 +10,11 @@ const sin = (phase: number) => sine[((phase * 651.898647) | 0) & 4095];
 const caustics = (() => {
   const light = new Uint8ClampedArray(256 * 256 * 4);
   const dark = new Uint8ClampedArray(256 * 256 * 4);
-  const seeds = Float32Array.from({ length: 128 }, (_, i) => sin(i * 127.1 + 31.7) * 8);
+  const seeds = Float32Array.from({ length: 32 }, (_, i) => sin(i * 127.1 + 31.7) * 16);
   for (let y = 0; y < 256; y++) {
     for (let x = 0; x < 256; x++) {
-      const col = x >> 5;
-      const row = y >> 5;
+      const col = x >> 6;
+      const row = y >> 6;
       let first = Infinity;
       let second = Infinity;
       let third = Infinity;
@@ -22,9 +22,9 @@ const caustics = (() => {
         for (let dx = -1; dx <= 1; dx++) {
           const cx = col + dx;
           const cy = row + dy;
-          const seed = ((cy & 7) * 8 + (cx & 7)) * 2;
-          const sx = cx * 32 + 16 + seeds[seed];
-          const sy = cy * 32 + 16 + seeds[seed + 1];
+          const seed = ((cy & 3) * 4 + (cx & 3)) * 2;
+          const sx = cx * 64 + 32 + seeds[seed];
+          const sy = cy * 64 + 32 + seeds[seed + 1];
           const distance = (x - sx) ** 2 + (y - sy) ** 2;
           if (distance < first) {
             third = second;
@@ -37,17 +37,17 @@ const caustics = (() => {
         }
       }
       const p = (y * 256 + x) * 4;
-      const edge = Math.max(0, 1 - (Math.sqrt(second) - Math.sqrt(first)) / 8);
+      const edge = Math.max(0, 1 - (Math.sqrt(second) - Math.sqrt(first)) / 14);
       const rim = edge * edge * (3 - 2 * edge);
-      const knot = Math.max(0, 1 - (Math.sqrt(third) - Math.sqrt(first)) / 6) * rim;
+      const knot = Math.max(0, 1 - (Math.sqrt(third) - Math.sqrt(first)) / 10) * rim;
       light[p] = 115;
       light[p + 1] = 175;
       light[p + 2] = 201;
-      light[p + 3] = Math.min(70, (1 - rim) * 70);
-      dark[p] = 140 + 52 * rim + 28 * knot;
-      dark[p + 1] = 21 + 32 * rim + 72 * knot;
-      dark[p + 2] = 21 + 22 * rim + 27 * knot;
-      dark[p + 3] = Math.min(128, rim * (128 - 38 * knot));
+      light[p + 3] = Math.min(49, (1 - rim) * 49);
+      dark[p] = 12 + 84 * rim + 20 * knot;
+      dark[p + 1] = 24 + 84 * rim - 12 * knot;
+      dark[p + 2] = 44 + 88 * rim - 4 * knot;
+      dark[p + 3] = 64;
     }
   }
   return {
@@ -82,10 +82,17 @@ function createRenderer(canvas: HTMLCanvasElement) {
       );
       const row = y * 512;
       const swell = (0.9 + 0.1 * sin(y * 0.025 - t * 0.35)) * intensity;
-      for (let x = 0; x < canvas.width; x++, p += 4) {
-        const color = field[((row + vertical[x]) & 65535) + ((x * 2 + horizontal) & 255)];
-        words[p >> 2] =
-          (color & colorMask) | ((((color >>> alphaShift) & 255) * swell) << alphaShift);
+      if (dark) {
+        const alphaOffset = (Math.floor(64 * swell) - 64) << alphaShift;
+        for (let x = 0; x < canvas.width; x++, p++) {
+          words[p] =
+            field[((row + vertical[x]) & 65535) + ((x * 2 + horizontal) & 255)] + alphaOffset;
+        }
+      } else {
+        for (let x = 0; x < canvas.width; x++, p++) {
+          const color = field[((row + vertical[x]) & 65535) + ((x * 2 + horizontal) & 255)];
+          words[p] = (color & colorMask) | ((((color >>> alphaShift) & 255) * swell) << alphaShift);
+        }
       }
     }
     ctx.putImageData(image, 0, 0);
