@@ -98,7 +98,7 @@ vi.mock('../lib/api', async (original) => {
         const replay = replayConnections(puzzle, connectionGuesses)!;
         return {
           date: DATE,
-          access: {},
+          access: { unlocked: true, reason: 'staff', date: DATE },
           words: boardWords(DATE, puzzle),
           guesses: [...connectionGuesses],
           outcomes: replay.outcomes,

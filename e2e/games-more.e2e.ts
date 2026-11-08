@@ -8,6 +8,7 @@ import { perceptionPuzzle } from '../worker/src/games/perception';
 import { connectionsPuzzleFor } from '../worker/src/games/connectionsPuzzles';
 
 test.describe.configure({ timeout: 180_000 });
+test.use({ serviceWorkers: 'block' });
 
 async function shots(page: Page, project: string, name: string) {
   const dir = process.env.E2E_SHOTS_DIR;
@@ -135,6 +136,17 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
 
   // Perception: five rounds aimed at the daily puzzle.
   const puzzle = perceptionPuzzle(date);
+  const wallStart = Date.now();
+  const clockStart = Date.parse(`${date}T18:00:00Z`);
+  // Server timing checks need the test clock to advance with real elapsed time.
+  await page.route('**/api/games/perception/**', (route) =>
+    route.continue({
+      headers: {
+        ...route.request().headers(),
+        'x-oyo-test-now': new Date(clockStart + Date.now() - wallStart).toISOString(),
+      },
+    }),
+  );
   await page.goto('/games/perception');
   await waitForSplash(page);
   await page.getByRole('button', { name: 'Ready' }).click();

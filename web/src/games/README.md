@@ -12,13 +12,15 @@
   route, hub and day boards pick it up automatically; no migration is needed.
 - Use `useGameAccess` and `GameLocked` in the component. Invalidate the `games`
   query root after writes. Scores, payloads, access and dates come from the server.
-- Day boards use competition ranks and hide today's board until the caller plays
-  (staff exempt). Past days are final. Weekly points sum `players - rank + 1`
+- Day boards use competition ranks and require completion of the requested day's game
+  (only admins exempt). Dive requires all prompts, not its partial result. Past days are final. Weekly points sum `players - rank + 1`
   across registered games, with distinct played dates counted once.
 
-Dive currently has only its start surface; its dedicated gameplay arrives separately.
+Dive uses dedicated answer/reveal routes; non-admin staff may moderate only after completion.
 
-`DailyGameFrame` wraps a generic-scorer game: access gate, own result, one-shot submit,
-result card with Share, and the day board. Pass `play({date,onComplete})` and
-`summarize(result)`. Word Guess, Perception and Connections use it; their pure rules live in
-`shared/games/` and are reused by the Worker scorers.
+`DailyGameFrame` wraps the access gate, own result, result card with spoiler-free Share,
+and day board. Pass `play({date,onComplete})` and `summarize(result)`.
+Word Guess, Perception and Connections use `serverComplete`: their dedicated endpoints
+own progress and write results, and the frame fetches the completed result rather than
+submitting a payload. Their generic result endpoints return 405. Answer banks and future
+stimulus generation stay Worker-only. Streaks and recap highlights read `game_results`.

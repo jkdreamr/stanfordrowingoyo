@@ -274,10 +274,10 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
 Schema migrations: a `schema_version` setting, currently 18; migrations run in the DO constructor via `blockConcurrencyWhile`.
-Version 17 adds game progress before version 18. Version 18 It adds `users.evening_reminder`
+Version 17 adds game progress before version 18. Version 18 adds `users.evening_reminder`
 (integer boolean, default 1), nullable `push_outbox.reminder_date`, and `reminder_sends(user_id,date)`
-with a composite primary key for daily idempotency. Merge v17 before v18: the scalar version guard
-would otherwise skip v17 on already-upgraded databases.
+with a composite primary key for daily idempotency. The guarded migrations run in order,
+including 17 then 18, on fresh databases and upgrades from 16.
 Version 16 adds `game_results(game_id,date,user_id,score,payload_json,created_at,updated_at)`
 with primary key `(game_id,date,user_id)` and indexes `(user_id,date)` and `(date,game_id)`;
 and `dive_answers(date,user_id,prompt_index,answer,normalized,hidden_at,hidden_by,created_at)`
@@ -390,6 +390,11 @@ has at least one result for a registered game, counted once in the team timezone
 using shared `today()`. Current is the consecutive run ending today, or yesterday
 if not played today, otherwise zero. Best is the longest run across all played dates.
 The server folds one ordered distinct-date query; no new stored state is needed.
+Streaks and weekly recap highlights read the same server-written `game_results` rows.
+Share summaries use completed server result payloads, not local drafts or future targets.
+Workout mutations invalidate the games query root, including cached Word Guess and
+Connections day queries. Perception resumes on mount after access unlocks, never from
+background invalidation that would abandon an active round.
 
 Dive adds four dedicated endpoints without changing the generic hub contract:
 

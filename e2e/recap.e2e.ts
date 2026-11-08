@@ -1,7 +1,7 @@
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { addDays } from '../shared/dates';
-import { dailyAnswer } from '../shared/games/wordGuess';
+import { dailyAnswer } from '../worker/src/games/wordGuess';
 import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { Page } from '@playwright/test';
@@ -50,9 +50,9 @@ test('completed weekly recap shows highlights, team totals and shares an image',
   const entry = await response.json();
   if (clockEnabled) {
     await expect(
-      await rower.context.request.post('/api/games/wordguess/results', {
+      await rower.context.request.post('/api/games/wordguess/guess', {
         headers: csrfHeaders,
-        data: { payload: { guesses: [dailyAnswer(sunday)] } },
+        data: { guess: dailyAnswer(sunday) },
       }),
     ).toBeOK();
     await rower.context.setExtraHTTPHeaders({ 'X-OYO-Test-Now': monday + 'T18:00:00Z' });

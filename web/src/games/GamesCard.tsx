@@ -43,7 +43,9 @@ export function GamesCard() {
         subtitle={
           access?.unlocked
             ? `Play Today's Games${streak > 0 ? ` · ${streak} Day Streak` : ''}`
-            : streak > 0 ? `${streak} Day Streak` : undefined
+            : streak > 0
+              ? `${streak} Day Streak`
+              : undefined
         }
       />
       {access?.reason === 'locked' && <GameLocked />}

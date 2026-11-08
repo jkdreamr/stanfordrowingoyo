@@ -458,3 +458,36 @@ it('lets admins see every daily board before playing', async () => {
     expect((await api('/games/' + game + '/leaderboard?date=2026-03-17')).status).toBe(200);
   }
 });
+
+it('counts authoritative completions in both streaks and recap highlights', async () => {
+  await unlock();
+  expect(await (await api('/games')).json()).toMatchObject({ streak: { current: 0, best: 0 } });
+  expect((await api('/games/wordguess/guess', 'POST', { guess: 'zzzzz' })).status).toBe(400);
+  expect(await (await api('/games')).json()).toMatchObject({ streak: { current: 0, best: 0 } });
+  expect((await api('/games/wordguess/guess', 'POST', { guess: dailyAnswer(DATE) })).status).toBe(
+    200,
+  );
+  for (const group of connectionsPuzzleFor(DATE).groups)
+    expect((await api('/games/connections/guess', 'POST', { guess: group.words })).status).toBe(
+      200,
+    );
+  expect(await (await api('/games')).json()).toMatchObject({ streak: { current: 1, best: 1 } });
+  await sql((s) => s.sql.exec("UPDATE users SET role='coach' WHERE id='u0'"));
+  expect(
+    (
+      await api(
+        '/games/wordguess/guess',
+        'POST',
+        { guess: dailyAnswer('2026-03-22') },
+        '2026-03-22T18:00:00Z',
+      )
+    ).status,
+  ).toBe(200);
+  expect(
+    await (
+      await api('/stats/recap?week=2026-03-16', 'GET', undefined, '2026-03-23T18:00:00Z')
+    ).json(),
+  ).toMatchObject({
+    games: { played: 3, days: 2, best_dive: null, word_guess_solves: 2, streak: 1 },
+  });
+});

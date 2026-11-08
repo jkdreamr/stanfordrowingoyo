@@ -26,6 +26,8 @@ test('locked Daily Games opens Log and unlocks immediately after saving', async 
   await title.scrollIntoViewIfNeeded();
   await shots('locked-home');
   await page.getByRole('link', { name: 'Daily Games', exact: true }).click();
+  await expect(page).toHaveURL(/\/games$/);
+  await expect(page.getByRole('heading', { name: 'Daily Games', exact: true })).toBeVisible();
   await expect(title).toBeVisible();
   await shots('locked-hub');
   await page.getByRole('link', { name: 'Log Workout', exact: true }).click();

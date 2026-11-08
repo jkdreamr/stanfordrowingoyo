@@ -55,7 +55,7 @@ export function ConnectionsPlay({ date, onComplete }: PlayProps<ConnectionsPaylo
   const finished = useRef(false);
 
   useEffect(() => {
-    if (!day.data || draft) return;
+    if (!day.data?.access.unlocked || draft) return;
     setDraft({ guesses: day.data.guesses, order: day.data.words });
     setState(day.data);
   }, [day.data, draft]);

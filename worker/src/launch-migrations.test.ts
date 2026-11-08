@@ -16,6 +16,10 @@ const featureTables = [
   'push_outbox',
   'passkeys',
   'webauthn_challenges',
+  'game_results',
+  'dive_answers',
+  'game_progress',
+  'reminder_sends',
 ];
 
 function reset(storage: DurableObjectStorage) {
@@ -29,6 +33,18 @@ function reset(storage: DurableObjectStorage) {
 
 function expectLatest(storage: DurableObjectStorage) {
   expect(getSetting(storage, 'schema_version')).toBe(18);
+  expect(
+    storage.sql
+      .exec<{ name: string }>('PRAGMA table_info(users)')
+      .toArray()
+      .map((c) => c.name),
+  ).toContain('evening_reminder');
+  expect(
+    storage.sql
+      .exec<{ name: string }>('PRAGMA table_info(push_outbox)')
+      .toArray()
+      .map((c) => c.name),
+  ).toContain('reminder_date');
   for (const table of featureTables)
     expect(
       storage.sql
@@ -43,7 +59,7 @@ function expectLatest(storage: DurableObjectStorage) {
   ).toContain('edited_at');
 }
 
-it('migrates an empty database from 0 to 15 and is idempotent', async () => {
+it('migrates an empty database from 0 to 18 and is idempotent', async () => {
   const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
   await runInDurableObject(stub, (_, state) => {
     const storage = state.storage;
@@ -169,5 +185,52 @@ it('upgrades populated v10 tables to 15 without changing existing rows', async (
     expectLatest(storage);
     for (const table of featureTables)
       expect(sql.exec(`SELECT * FROM ${table}`).toArray()).toEqual(features.get(table));
+  });
+});
+
+it('upgrades a v16 database through v17 then v18 without losing results', async () => {
+  const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
+  await runInDurableObject(stub, (_, state) => {
+    const storage = state.storage;
+    reset(storage);
+    migrate({
+      sql: storage.sql,
+      transactionSync(fn: () => unknown) {
+        const version = storage.sql
+          .exec<{ value_json: string }>(
+            "SELECT value_json FROM settings WHERE key='schema_version'",
+          )
+          .toArray()[0];
+        if (!version || Number(version.value_json) < 16) return storage.transactionSync(fn);
+      },
+    } as DurableObjectStorage);
+    expect(getSetting(storage, 'schema_version')).toBe(16);
+    storage.sql.exec(
+      "INSERT INTO game_results VALUES ('wordguess','2026-03-09','u',6,'{}',?,?)",
+      now,
+      now,
+    );
+    const versions: number[] = [];
+    migrate({
+      sql: storage.sql,
+      transactionSync(fn: () => unknown) {
+        const result = storage.transactionSync(fn);
+        versions.push(getSetting<number>(storage, 'schema_version')!);
+        return result;
+      },
+    } as DurableObjectStorage);
+    expect(versions).toEqual([17, 18]);
+    expectLatest(storage);
+    storage.sql.exec("INSERT INTO game_progress VALUES ('u','wordguess','2026-03-10','{}',?)", now);
+    storage.sql.exec("INSERT INTO reminder_sends VALUES ('u','2026-03-10')");
+    migrate(storage);
+    expectLatest(storage);
+    expect(storage.sql.exec('SELECT score FROM game_results').toArray()).toEqual([{ score: 6 }]);
+    expect(storage.sql.exec('SELECT user_id FROM game_progress').toArray()).toEqual([
+      { user_id: 'u' },
+    ]);
+    expect(storage.sql.exec('SELECT user_id FROM reminder_sends').toArray()).toEqual([
+      { user_id: 'u' },
+    ]);
   });
 });
