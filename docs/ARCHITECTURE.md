@@ -487,6 +487,17 @@ malformed or implausible payloads return 400.
   target, percent, hit_target, modalities, entry_count, consecutive hit weeks ending
   at that week, highest-equivalent entry (earliest creation breaks ties), and cached
   leaderboard team totals/counts and percent rank (null off leaderboard).
+  Also `race`: that week's final `RaceWeek` (same rules as /api/stats/race; null with zero rowers);
+  `plan` (`RecapPlanWeek`): the recap week inside the owner's My Fortnight plan covering its Monday,
+  with week 1|2, planned/logged E-meters and complete (`logged_m >= planned_m`), null without a plan
+  or with no planned meters; `games` (`RecapGames`): own `game_results` rows that week (`played`,
+  distinct `days`, `best_dive` score or null, `word_guess_solves` where payload `solved` is true) and
+  `streak`, consecutive days with any result ending on that Sunday (0 when Sunday has none). The
+  games week is one indexed read; the streak read runs only when Sunday was played. No schema change.
+  The client shows it on Home Monday–Wednesday of the next team-local week until dismissed
+  (per user and week in localStorage) for users who joined before that week ended, always at
+  `/recap` (linked from Me, with earlier weeks), and shares it as a 1080×1920 PNG rendered on a
+  canvas (`navigator.share` with files, download otherwise).
 - GET /api/stats/race?week=YYYY-MM-DD: authenticated `TeamRace` (Stanford vs Berkeley) for the selected
   week (default this week; same week-date bounds as stats) and the week before. Population = active users with
   role `rower` (same as compliance; staff never count). `stanford_m` = their summed stored `equiv_m` for the week;

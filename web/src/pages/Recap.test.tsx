@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import type { Config, User, WeeklyRecap } from '../../../shared/types';
@@ -26,6 +26,19 @@ const data: WeeklyRecap = {
   best_effort: null,
   team: { total_m: 200000, entry_count: 20, rowers: 4, rowers_hit_target: 2 },
   rank: 2,
+  race: {
+    week_start: '2026-03-09',
+    starts_at: '2026-03-09T07:00:00.000Z',
+    ends_at: '2026-03-16T07:00:00.000Z',
+    status: 'final',
+    rowers: 4,
+    stanford_m: 200000,
+    target_m: 240000,
+    berkeley_total_m: 216000,
+    berkeley_m: 216000,
+  },
+  plan: null,
+  games: { played: 0, days: 0, best_dive: null, word_guess_solves: 0, streak: 0 },
 };
 beforeEach(() => {
   localStorage.clear();
@@ -38,17 +51,21 @@ beforeEach(() => {
   );
   vi.stubGlobal('requestAnimationFrame', (fn: FrameRequestCallback) => setTimeout(() => fn(0), 0));
   vi.stubGlobal('cancelAnimationFrame', clearTimeout);
+  vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
 });
 afterEach(() => {
   cleanup();
   clients.forEach((client) => client.clear());
   clients.length = 0;
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
 });
 function mount(node: React.ReactNode, path = '/recap', fail = false, result = data) {
-  const fetch = vi.fn(async (_url: URL, _init: RequestInit) => {
+  const fetch = vi.fn(async (url: URL, _init: RequestInit) => {
     if (fail) throw new Error('Unavailable');
-    return new Response(JSON.stringify(result), {
+    const path = new URL(String(url), 'http://oyo.test').pathname;
+    const body = path === '/api/me' ? user : path === '/api/config' ? config : result;
+    return new Response(JSON.stringify(body), {
       headers: { 'Content-Type': 'application/json' },
     });
   });
@@ -86,6 +103,10 @@ it('dismisses per user and week and persists across remounts', async () => {
     (await screen.findByRole('link', { name: 'View Last Week Recap' })).getAttribute('href'),
   ).toBe('/recap?week=2026-03-09');
   expect(screen.getByText('97% · 6 Workouts')).toBeTruthy();
+  const card = within(screen.getByRole('region', { name: 'Last Week' }));
+  expect(card.getByText('Team Rank')).toBeTruthy();
+  expect(card.getByText('Lost')).toBeTruthy();
+  expect(card.getByText('Mar 9 – 15')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Dismiss Last Week Recap' }));
   expect(localStorage.getItem(recapKey(user.id, '2026-03-09'))).toBe('1');
   view.unmount();
@@ -107,7 +128,7 @@ it('does not fetch on hidden days and hides failed recap cards', async () => {
   await waitFor(() => expect(failed.client.isFetching()).toBe(0));
   expect(screen.queryByRole('region', { name: 'Last Week' })).toBeNull();
 });
-it('renders a recap with modality, best effort, team and share data', async () => {
+it('renders a recap with highlights, modality, best effort, team and share data', async () => {
   const mock = createMockApi();
   const entry = mock.state.entries[0];
   const share = vi.fn().mockResolvedValue(undefined);
@@ -118,24 +139,41 @@ it('renders a recap with modality, best effort, team and share data', async () =
     percent: 110,
     streak: 3,
     best_effort: entry,
+    plan: { start_date: '2026-03-02', week: 2, planned_m: 50000, logged_m: 58200, complete: true },
+    games: { played: 5, days: 4, best_dive: 70, word_guess_solves: 2, streak: 3 },
   });
   await screen.findByRole('heading', { name: 'Week of Mar 9' });
-  expect(String(view.fetch.mock.calls[0]?.[0])).toContain('week=2026-03-11');
+  expect(view.fetch.mock.calls.some(([url]) => String(url).includes('recap?week=2026-03-11'))).toBe(
+    true,
+  );
   expect(screen.getByRole('progressbar', { name: 'Weekly Target' })).toBeTruthy();
   expect(screen.getByText('Target Hit')).toBeTruthy();
-  expect(screen.getByText('3').className).toContain('target-hit');
+  expect(screen.getByText('3 Week Streak')).toBeTruthy();
+  expect(screen.getByText('Mar 9 – 15')).toBeTruthy();
+  const highlights = within(screen.getByRole('region', { name: 'Highlights' }));
+  expect(highlights.getByText('of 4 Rowers')).toBeTruthy();
+  expect(highlights.getByText('Lost')).toBeTruthy();
+  expect(highlights.getByText('200.0k to 216.0k')).toBeTruthy();
+  expect(highlights.getByText('Complete')).toBeTruthy();
+  expect(highlights.getByText('Week 2 · 58.2k of 50.0k')).toBeTruthy();
+  expect(highlights.getByText('Best Dive 70 · 2 Word Guess Solves · 3 Day Streak')).toBeTruthy();
   expect(screen.getByRole('link', { name: new RegExp(entry.title) }).getAttribute('href')).toBe(
     '/entries/' + entry.id,
   );
   expect(screen.getByText('2 / 4')).toBeTruthy();
-  expect(screen.getByText('#2')).toBeTruthy();
   expect(screen.getByText('40,000 E-meters')).toBeTruthy();
-  fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+  expect((screen.getByRole('button', { name: 'Next Week' }) as HTMLButtonElement).disabled).toBe(
+    true,
+  );
+  fireEvent.click(screen.getByRole('button', { name: 'Share Recap' }));
   expect(share).toHaveBeenCalledWith({
     title: 'Week of Mar 9',
-    text: 'Week of Mar 9: 58.2k / 60.0k E-meters · 6 workouts',
+    text: 'Week of Mar 9: 58.2k / 60.0k E-meters (110%) · 6 workouts · #2 on the team · Stanford lost by 16.0k',
     url: window.location.origin + '/recap?week=2026-03-09',
   });
+  expect(
+    (screen.getByRole('button', { name: 'Previous Week' }) as HTMLButtonElement).disabled,
+  ).toBe(true);
   Object.defineProperty(navigator, 'share', { value: undefined, configurable: true });
 });
 it('renders empty values and copies the completed-week link as share fallback', async () => {
@@ -148,10 +186,13 @@ it('renders empty values and copies the completed-week link as share fallback', 
     percent: 0,
     entry_count: 0,
     rank: null,
+    race: null,
   });
   await screen.findByText('No Workouts');
+  expect(screen.queryByText('Team Rank')).toBeNull();
+  expect(screen.queryByText('vs Berkeley')).toBeNull();
   expect(screen.getByText('Target Not Hit')).toBeTruthy();
-  fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Share Recap' }));
   await screen.findByText('Link Copied');
   expect(writeText).toHaveBeenCalledWith(window.location.origin + '/recap?week=2026-03-09');
   expect(recapShareText({ ...data, entry_count: 1 })).toContain('1 workout');
@@ -160,5 +201,5 @@ it('shows screen errors with retry and no share button', async () => {
   mount(<Recap />, '/recap?week=bad', true);
   await screen.findByText('Could Not Load This Screen');
   expect(screen.getByRole('button', { name: 'Try Again' })).toBeTruthy();
-  expect(screen.queryByRole('button', { name: 'Share' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'Share Recap' })).toBeNull();
 });

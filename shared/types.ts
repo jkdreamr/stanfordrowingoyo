@@ -31,6 +31,28 @@ export interface WeeklyRecap {
   best_effort: Entry | null;
   team: { total_m: number; entry_count: number; rowers: number; rowers_hit_target: number };
   rank: number | null;
+  /** That week's final Stanford vs Berkeley race; null when the team had no rowers. */
+  race: RaceWeek | null;
+  /** The recap week inside the owner's My Fortnight plan; null without a plan or planned meters. */
+  plan: RecapPlanWeek | null;
+  games: RecapGames;
+}
+export interface RecapPlanWeek {
+  start_date: string;
+  week: 1 | 2;
+  planned_m: number;
+  logged_m: number;
+  complete: boolean;
+}
+export interface RecapGames {
+  /** Daily game results that week, counting each game once per day. */
+  played: number;
+  /** Days with at least one result. */
+  days: number;
+  best_dive: number | null;
+  word_guess_solves: number;
+  /** Consecutive days with a result, ending on that week's Sunday (0 when Sunday was missed). */
+  streak: number;
 }
 export type ChallengeUnit = 'emeters' | 'km';
 export interface TeamChallengeInput {

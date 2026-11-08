@@ -1,5 +1,6 @@
 import type {
   AccountDataExport,
+  WeeklyRecap,
   ErgTest,
   TeamChallenge,
   Passkey,
@@ -444,6 +445,28 @@ export function createMockApi({
     let count = 0;
     for (; w >= first && summary(userId, w).hit_target; w = addDays(w, -7)) count++;
     return count;
+  }
+  function raceWeek(start: string): RaceWeek {
+    const at = now().getTime();
+    const ratio = settings.berkeley_pace_percent / 100;
+    const rowers = state.users.filter((u) => u.active && u.role === 'rower');
+    const ids = new Set(rowers.map((u) => u.id));
+    const bounds = raceWeekBounds(start);
+    const target_m = rowers.reduce((n, u) => n + target(u.id, start).target_m, 0);
+    const berkeley_total_m = berkeleyTotal(target_m, ratio);
+    return {
+      week_start: start,
+      starts_at: new Date(bounds.start).toISOString(),
+      ends_at: new Date(bounds.end).toISOString(),
+      status: at < bounds.start ? 'upcoming' : at < bounds.end ? 'live' : 'final',
+      rowers: rowers.length,
+      stanford_m: state.entries
+        .filter((e) => e.week_start === start && ids.has(e.user_id))
+        .reduce((n, e) => n + e.equiv_m, 0),
+      target_m,
+      berkeley_total_m,
+      berkeley_m: ghostMeters(berkeley_total_m, bounds.start, bounds.end, at),
+    };
   }
   function weekStats(userId: string, week: string): WeekStats {
     const all = state.entries.filter((e) => e.user_id === userId && e.week_start === week);
@@ -1216,34 +1239,12 @@ export function createMockApi({
         const date = url.searchParams.get('week') ?? today(now());
         if (!dateValid(date) || date < '2000-01-01' || date > addDays(today(now()), 365))
           fail(400, 'Week date must be between 2000-01-01 and one year from today.');
-        const at = now().getTime();
-        const ratio = settings.berkeley_pace_percent / 100;
-        const rowers = state.users.filter((u) => u.active && u.role === 'rower');
-        const ids = new Set(rowers.map((u) => u.id));
-        const build = (start: string): RaceWeek => {
-          const bounds = raceWeekBounds(start);
-          const target_m = rowers.reduce((n, u) => n + target(u.id, start).target_m, 0);
-          const berkeley_total_m = berkeleyTotal(target_m, ratio);
-          return {
-            week_start: start,
-            starts_at: new Date(bounds.start).toISOString(),
-            ends_at: new Date(bounds.end).toISOString(),
-            status: at < bounds.start ? 'upcoming' : at < bounds.end ? 'live' : 'final',
-            rowers: rowers.length,
-            stanford_m: state.entries
-              .filter((e) => e.week_start === start && ids.has(e.user_id))
-              .reduce((n, e) => n + e.equiv_m, 0),
-            target_m,
-            berkeley_total_m,
-            berkeley_m: ghostMeters(berkeley_total_m, bounds.start, bounds.end, at),
-          };
-        };
         const week = weekStart(date);
         return json({
           as_of: now().toISOString(),
-          ratio,
-          week: build(week),
-          previous: build(addDays(week, -7)),
+          ratio: settings.berkeley_pace_percent / 100,
+          week: raceWeek(week),
+          previous: raceWeek(addDays(week, -7)),
         });
       }
       if (path === '/api/stats/recap' && method === 'GET') {
@@ -1256,6 +1257,35 @@ export function createMockApi({
         const entries = state.entries
           .filter((e) => e.user_id === user.id && e.week_start === week)
           .sort((a, b) => b.equiv_m - a.equiv_m || a.created_at.localeCompare(b.created_at));
+        const race = raceWeek(week),
+          sunday = addDays(week, 6);
+        const games = gameResults.filter(
+          (g) => g.user_id === user.id && g.date >= week && g.date <= sunday,
+        );
+        const played = new Set(gameResults.filter((g) => g.user_id === user.id).map((g) => g.date));
+        let gameStreak = 0;
+        while (played.has(addDays(sunday, -gameStreak))) gameStreak++;
+        const owned = state.myPlans.find((row) => row.user_id === user.id && covers(row, week));
+        let recapPlan: WeeklyRecap['plan'] = null;
+        if (owned) {
+          const { user_id: _owner, updated_at, ...input } = owned;
+          void _owner;
+          const plan = personalPlan(
+            input,
+            settings,
+            updated_at,
+            state.entries.filter((entry) => entry.user_id === user.id),
+          );
+          const index = week < addDays(plan.start_date, 7) ? 0 : 1;
+          if (plan.planned_m[index] > 0)
+            recapPlan = {
+              start_date: plan.start_date,
+              week: (index + 1) as 1 | 2,
+              planned_m: plan.planned_m[index],
+              logged_m: plan.logged_m[index],
+              complete: plan.logged_m[index] >= plan.planned_m[index],
+            };
+        }
         let streak = 0;
         for (
           let d = week;
@@ -1276,6 +1306,19 @@ export function createMockApi({
               .length,
           },
           rank: board.find((r) => r.user.id === user.id)?.rank ?? null,
+          race: race.rowers > 0 ? race : null,
+          plan: recapPlan,
+          games: {
+            played: games.length,
+            days: new Set(games.map((g) => g.date)).size,
+            best_dive: games.some((g) => g.game_id === 'dive')
+              ? Math.max(...games.filter((g) => g.game_id === 'dive').map((g) => g.score))
+              : null,
+            word_guess_solves: games.filter(
+              (g) => g.game_id === 'wordguess' && (g.payload as { solved?: boolean })?.solved,
+            ).length,
+            streak: gameStreak,
+          },
         });
       }
       if (path === '/api/me') {
