@@ -724,6 +724,58 @@ body {
   }
 }
 
+/* Weekly recap: figures reveal one after another, then count up. */
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+@media (min-width: 1024px) {
+  .recap-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.recap-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+}
+.recap-tile dd {
+  margin: 0;
+}
+.recap-tile-value {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.recap-reveal {
+  animation: recap-rise var(--dur-focal) var(--ease-out) backwards;
+  animation-delay: calc(200ms + var(--i, 0) * 80ms);
+}
+@keyframes recap-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.97);
+    filter: blur(6px);
+  }
+}
+@keyframes recap-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .recap-reveal {
+    animation: recap-fade var(--dur-state) linear backwards;
+    animation-delay: 0ms;
+  }
+}
+
 /* Kudos */
 .social-entry {
   padding: 20px;

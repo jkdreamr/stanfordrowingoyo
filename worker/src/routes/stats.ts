@@ -1,5 +1,5 @@
 import { addDays, weekStart, today, yearRange } from '../../../shared/dates';
-import type { Entry, WeeklyRecap } from '../../../shared/types';
+import type { Entry, RecapGames, RecapPlanWeek, WeeklyRecap } from '../../../shared/types';
 import type { Row } from '../db/row';
 import { weekSummary, streak, totals } from '../db/stats';
 import { loadTargets } from '../db/targets';
@@ -16,6 +16,8 @@ import {
 import { getSetting } from '../db/settings';
 import { seasonRange } from '../../../shared/dates';
 import { HttpError, json } from '../http';
+import { getMyPlan } from '../db/myPlan';
+import { WORD_GUESS_ID } from '../../../shared/games/wordGuess';
 import * as v from '../validate';
 function subject(ctx: Context) {
   const viewer = requireUser(ctx);
@@ -74,8 +76,75 @@ export function recap(ctx: Context) {
         .length,
     },
     rank: board.find((row) => row.user.id === user.id)?.rank ?? null,
+    race: recapRace(ctx, week),
+    plan: recapPlan(ctx.storage, user.id, week),
+    games: recapGames(ctx.storage, user.id, week),
   };
   return json(result);
+}
+function recapRace(ctx: Context, week: string) {
+  const race = teamRace(ctx.storage, week, ctx.now).week;
+  return race.rowers > 0 ? race : null;
+}
+function recapPlan(
+  storage: DurableObjectStorage,
+  userId: string,
+  week: string,
+): RecapPlanWeek | null {
+  const plan = getMyPlan(storage, userId, week);
+  if (!plan) return null;
+  const index = week < addDays(plan.start_date, 7) ? 0 : 1;
+  const planned_m = plan.planned_m[index],
+    logged_m = plan.logged_m[index];
+  if (planned_m <= 0) return null;
+  return {
+    start_date: plan.start_date,
+    week: (index + 1) as 1 | 2,
+    planned_m,
+    logged_m,
+    complete: logged_m >= planned_m,
+  };
+}
+function recapGames(storage: DurableObjectStorage, userId: string, week: string): RecapGames {
+  const sunday = addDays(week, 6);
+  const rows = storage.sql
+    .exec<{ game_id: string; date: string; score: number; payload_json: string }>(
+      'SELECT game_id,date,score,payload_json FROM game_results WHERE user_id=? AND date BETWEEN ? AND ?',
+      userId,
+      week,
+      sunday,
+    )
+    .toArray();
+  let best_dive: number | null = null,
+    word_guess_solves = 0;
+  for (const row of rows) {
+    if (row.game_id === 'dive') best_dive = Math.max(best_dive ?? 0, row.score);
+    if (row.game_id === WORD_GUESS_ID && JSON.parse(row.payload_json)?.solved === true)
+      word_guess_solves++;
+  }
+  let streak = 0;
+  if (rows.some((row) => row.date === sunday)) {
+    const dates = storage.sql
+      .exec<{ date: string }>(
+        'SELECT DISTINCT date FROM game_results WHERE user_id=? AND date<=? ORDER BY date DESC LIMIT 400',
+        userId,
+        sunday,
+      )
+      .toArray();
+    for (
+      let day = sunday;
+      streak < dates.length && dates[streak].date === day;
+      day = addDays(day, -1)
+    )
+      streak++;
+  }
+  return {
+    played: rows.length,
+    days: new Set(rows.map((row) => row.date)).size,
+    best_dive,
+    word_guess_solves,
+    streak,
+  };
 }
 function selectedDate(ctx: Context) {
   const value = new URL(ctx.request.url).searchParams.get('week');
