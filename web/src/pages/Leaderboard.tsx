@@ -265,6 +265,11 @@ export default function Leaderboard() {
     <>
       {header}
       <PullToRefresh label="Leaderboard" onRefresh={refresh}>
+        <div className="flex justify-end px-4">
+          <Button to="/games/leaderboard" variant="plain">
+            Games
+          </Button>
+        </div>
         {configQuery.data ? (
           <Board config={configQuery.data} />
         ) : (

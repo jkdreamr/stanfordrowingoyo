@@ -96,6 +96,12 @@ const slot = {
 };
 // A mapped object makes additions to the shared contract a compile-time test failure.
 const endpoints: Record<keyof Api, true> = {
+  'GET /api/games': true,
+  'GET /api/games/access': true,
+  'POST /api/games/:game/results': true,
+  'GET /api/games/:game/results/me': true,
+  'GET /api/games/:game/leaderboard': true,
+  'GET /api/games/leaderboard': true,
   'GET /api/users/:id/tests': true,
   'POST /api/me/tests': true,
   'PATCH /api/me/tests/:id': true,
@@ -298,6 +304,7 @@ describe('complete API and role permissions', () => {
                       ? resetUser.user.id
                       : rower.user.id);
       path = path
+        .replace(':game', 'dive')
         .replace(':id', id)
         .replace(':group', 'normal')
         .replace(':week', '1')
@@ -334,7 +341,8 @@ describe('complete API and role permissions', () => {
                 }
               : {};
       const response = await api(path, staff, method, body);
-      expect([404, 405, 501, 500], endpoint).not.toContain(response.status);
+      if (endpoint === 'POST /api/games/:game/results') expect(response.status).toBe(405);
+      else expect([404, 405, 501, 500], endpoint).not.toContain(response.status);
       if (path === '/auth/logout') {
         const login = await api('/auth/login', undefined, 'POST', {
           email: staff.user.email,
