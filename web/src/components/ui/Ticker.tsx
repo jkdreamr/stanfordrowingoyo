@@ -51,10 +51,14 @@ export function Ticker({
       cancelAnimationFrame(frame);
     };
   }, [value, duration, id]);
+  // The figure counts inside a grid cell sized by invisible copies of its start and final
+  // values, so the layout never reflows while it counts.
   return (
     <span className={className}>
-      <span ref={ref} aria-hidden="true">
-        {format(initial.current)}
+      <span className="ticker-figure" aria-hidden="true">
+        <span ref={ref}>{format(initial.current)}</span>
+        <span className="ticker-reserve">{format(shown.current)}</span>
+        <span className="ticker-reserve">{format(value)}</span>
       </span>
       <span className="sr-only">{format(value)}</span>
     </span>
