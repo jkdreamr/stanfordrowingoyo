@@ -35,6 +35,19 @@ exceed the production signup rate limit, and accumulated leaderboard entries can
 hide lower-ranked test rowers. Per-project state keeps coverage isolated without
 changing production rate limits.
 
+`alignment.e2e.ts` sweeps every main, authentication and staff screen, plus
+onboarding, celebrations, empty/error states and representative sheets/dialogs,
+in light and dark. It checks equal tab widths/centers and label baselines within
+1px, 44px tab targets, centered empty states/headings, header icons, sheet bounds,
+text clipping and horizontal overflow. Deliberate ellipses/line clamps, accessible-only text
+and horizontally scrollable content are excluded from clipping checks.
+The iPhone project covers 375×667, 393×852 and 430×932 with WebKit; Pixel covers
+360×800 and 412×915 with Chromium; desktop covers 1440×1000. Each case runs only
+in its designated project, so other-project cases are intentionally skipped.
+Screenshots and per-screen `geometry.json` go to the test output directory, or
+`E2E_ALIGNMENT_DIR` when set to a persistent directory outside the repository.
+These are browser viewport checks, not physical-device or installed-PWA tests.
+
 Global setup signs up the roster-seeded admin without a join code, logging in
 only if signup reports 409. Set `E2E_ADMIN_PASSWORD` for an existing database;
 the default is `e2e-dev-admin-password-1`. Admin auth runs once for all projects,

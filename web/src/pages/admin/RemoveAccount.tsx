@@ -30,9 +30,12 @@ export function RemoveAccount({
         params: { id: user.id },
         body: { confirmation_email: email.trim() },
       });
-      await client.invalidateQueries({ queryKey: qk.all });
       toast.show({ title: 'Account removed' });
       onRemoved();
+      await client.invalidateQueries({
+        queryKey: qk.all,
+        predicate: (query) => query.queryKey[1] !== 'images',
+      });
     } catch (error) {
       setMessage(authError(error));
     } finally {

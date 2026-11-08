@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Check, MoreHorizontal, Plus } from 'lucide-react';
 import { addDays } from '../../../../shared/dates';
 import { ZONES } from '../../../../shared/math';
@@ -176,15 +175,31 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
       </div>
       {([1, 2] as const).map((week) => (
         <section key={week} aria-label={`Week ${week}`}>
-          <h3 className="text-title3">Week {week}</h3>
-          <p className="mt-1 text-subhead tabular-nums text-muted">
-            {formatNumber(totals[week - 1])} / {formatNumber(target.data!.target_m)} E-meters
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-title3">Week {week}</h3>
+            {totals[week - 1] > 0 && plan.logged_m[week - 1] >= totals[week - 1] && (
+              <span className="target-hit inline-flex items-center gap-1 text-subhead">
+                <Check size={16} strokeWidth={1.75} aria-hidden="true" />
+                Complete
+              </span>
+            )}
+          </div>
+          <p
+            className="mt-1 text-subhead tabular-nums"
+            aria-label={`Week ${week} Logged vs Planned E-meters`}
+          >
+            {formatNumber(plan.logged_m[week - 1])} / {formatNumber(totals[week - 1])} m
+          </p>
+          <p className="mt-1 text-footnote tabular-nums text-muted">
+            Planned / Target · {formatNumber(totals[week - 1])} /{' '}
+            {formatNumber(target.data!.target_m)} E-meters
           </p>
           <progress
             className="my-plan-progress mt-3"
-            aria-label={`Week ${week} Planned E-meters`}
-            value={totals[week - 1]}
-            max={Math.max(1, target.data!.target_m)}
+            aria-label={`Week ${week} Logged vs Planned E-meters`}
+            aria-valuetext={`${formatNumber(plan.logged_m[week - 1])} of ${formatNumber(totals[week - 1])} E-meters`}
+            value={totals[week - 1] > 0 ? plan.logged_m[week - 1] : 0}
+            max={Math.max(1, totals[week - 1])}
           />
           <div className="mt-4 grid gap-4 lg:grid-cols-7">
             {DAYS.map((name, day) => {
@@ -228,26 +243,11 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
                             disabled={busy}
                             title={row.note}
                             aria-label={`Edit ${row.slot} ${name} Week ${week}`}
-                            className={`my-plan-session min-w-0 w-full ${row.completed_entry_id ? 'is-completed' : ''}`}
+                            className="my-plan-session min-w-0 w-full"
                             onClick={() => setEditor({ week, day, session: row })}
                           >
                             <SessionLine session={row} />
-                            {row.completed_entry_id && (
-                              <Check
-                                aria-label="Completed"
-                                className="absolute right-3 top-3 text-accent-ink"
-                                size={20}
-                                strokeWidth={1.75}
-                              />
-                            )}
                           </Button>
-                          {row.completed_entry_id && (
-                            <Link
-                              className="absolute right-0 top-0 h-11 w-11 rounded-lg"
-                              to={`/entries/${row.completed_entry_id}`}
-                              aria-label={`View Completed ${row.slot} ${name} Week ${week}`}
-                            />
-                          )}
                         </div>
                       ))
                     )}

@@ -6,15 +6,18 @@ export function PageHeader({
   title,
   back,
   trailing,
+  inline = false,
 }: {
   title: string;
   back?: string | true;
   trailing?: ReactNode;
+  inline?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
+    if (inline) return;
     const observer = new IntersectionObserver(
       ([entry]) => setCollapsed(!entry.isIntersecting && entry.boundingClientRect.top < 60),
       {
@@ -23,7 +26,14 @@ export function PageHeader({
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, []);
+  }, [inline]);
+  if (inline)
+    return (
+      <div className="ui-page-nav ui-page-nav-inline">
+        <h1 className="text-title1">{title}</h1>
+        <div>{trailing}</div>
+      </div>
+    );
   return (
     <>
       <div className={`ui-page-nav ${collapsed ? 'ui-page-nav-collapsed' : ''}`}>

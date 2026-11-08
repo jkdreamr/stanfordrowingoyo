@@ -56,7 +56,7 @@ export default function Page() {
   if (!config || !week)
     return (
       <>
-        <PageHeader title="This Week" trailing={<HeaderActions settings />} />
+        <PageHeader title="This Week" trailing={<HeaderActions settings />} inline />
         <LoadState
           error={configQuery.isError || weekQuery.isError}
           retry={() => {
@@ -87,7 +87,7 @@ export default function Page() {
   ];
   return (
     <>
-      <PageHeader title="This Week" trailing={<HeaderActions settings />} />
+      <PageHeader title="This Week" trailing={<HeaderActions settings />} inline />
       <PullToRefresh
         label="Home"
         onRefresh={refresh}

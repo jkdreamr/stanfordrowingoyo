@@ -105,7 +105,7 @@ it('computes per-week totals using current factors and excludes null distances',
     plannedTotals([session], { ...factors, mode_factors: { ...MODE_FACTORS, erg: 2 } }),
   ).toEqual([24000, 0]);
 });
-it('matches one entry per session in slot order and created_at/id order', () => {
+it('buckets stored logged E-meters by plan week, independently of sessions', () => {
   const plan = personalPlan(
     {
       start_date: '2026-11-02',
@@ -115,13 +115,35 @@ it('matches one entry per session in slot order and created_at/id order', () => 
     factors,
     '',
     [
-      { id: 'b', date: '2026-11-02', modality: 'erg', created_at: '2026-11-02T12:00:00Z' },
-      { id: 'a', date: '2026-11-02', modality: 'erg', created_at: '2026-11-02T12:00:00Z' },
-      { id: 'bike', date: '2026-11-02', modality: 'bike', created_at: '' },
-      { id: 'outside', date: '2026-11-16', modality: 'erg', created_at: '' },
+      {
+        date: '2026-11-02',
+        equiv_m: 12000,
+      },
+      {
+        date: '2026-11-08',
+        equiv_m: 12000,
+      },
+      { date: '2026-11-09', equiv_m: 6000 },
+      { date: '2026-11-15', equiv_m: 4000 },
+      { date: '2026-11-01', equiv_m: 12000 },
+      { date: '2026-11-16', equiv_m: 12000 },
     ],
   );
-  expect(plan.sessions.map((row) => row.completed_entry_id)).toEqual(['a', 'b', null]);
+  expect(plan.logged_m).toEqual([24000, 10000]);
+  expect(plan.sessions.map((row) => row.slot)).toEqual(['AM', 'PM1', 'PM2']);
+});
+it('returns zero logged totals for an empty plan without entries', () => {
+  const result = personalPlan(
+    {
+      start_date: '2026-11-02',
+      sessions: [],
+      rest_days: [],
+    },
+    factors,
+    '',
+  );
+  expect(result.logged_m).toEqual([0, 0]);
+  expect(result.planned_m).toEqual([0, 0]);
 });
 it('accepts valid log prefills independently and ignores invalid or superseded values', () => {
   expect(logPrefill(new URLSearchParams('modality=bike&zone=R%2FE&distance=12000'))).toEqual({

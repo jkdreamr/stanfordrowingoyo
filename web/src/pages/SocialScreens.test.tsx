@@ -334,6 +334,19 @@ it('shows the large Feed title at the top and compact title when its observed bo
   expect((view.container.querySelector('.ui-page-compact') as HTMLElement).style.opacity).toBe('0');
 });
 
+it('keeps the inline Home heading beside its actions without an empty navigation row', () => {
+  const view = render(
+    <MemoryRouter>
+      <PageHeader title="This Week" trailing={<button>Notifications</button>} inline />
+    </MemoryRouter>,
+  );
+  const nav = view.container.querySelector('.ui-page-nav-inline');
+  expect(nav?.contains(screen.getByRole('heading', { name: 'This Week', level: 1 }))).toBe(true);
+  expect(nav?.contains(screen.getByRole('button', { name: 'Notifications' }))).toBe(true);
+  expect(view.container.querySelector('.ui-large-title')).toBeNull();
+  expect(view.container.querySelector('.ui-header-sentinel')).toBeNull();
+});
+
 it('renders tag, mention and unknown notification kinds without crashing', () => {
   state.notifications = ['tag', 'mention', 'future'].map(
     (kind, index) =>

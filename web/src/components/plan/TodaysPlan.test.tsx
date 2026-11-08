@@ -45,9 +45,57 @@ it('keeps navigation available for a plan outside today’s fortnight', () => {
     sessions: [],
     rest_days: [],
     planned_m: [0, 0],
+    logged_m: [0, 0],
     updated_at: '2026-10-05T12:00:00Z',
   };
   setup();
   expect(screen.getByRole('heading', { name: "Today's Plan" })).toBeTruthy();
   expect(screen.getByRole('link', { name: 'My Fortnight' })).toBeTruthy();
+});
+it('avoids double spacing above the centered Nothing Planned state', () => {
+  query.data = {
+    start_date: '2026-11-02',
+    sessions: [],
+    rest_days: [],
+    planned_m: [0, 0],
+    logged_m: [0, 0],
+    updated_at: '2026-11-02T12:00:00Z',
+  };
+  setup();
+  expect(screen.getByRole('heading', { name: "Today's Plan" }).classList.contains('mb-3')).toBe(
+    false,
+  );
+  expect(screen.getByText('Nothing Planned').closest('.today-plan-empty')).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Edit Plan' }).getAttribute('href')).toBe(
+    '/plan?tab=mine',
+  );
+});
+it.each(['session', 'rest'] as const)('keeps heading spacing for a planned %s', (kind) => {
+  query.data = {
+    start_date: '2026-11-02',
+    sessions:
+      kind === 'session'
+        ? [
+            {
+              week: 1,
+              day: 0,
+              slot: 'AM',
+              modality: 'erg',
+              zone: 'E',
+              distance_m: 12000,
+              note: 'Steady Row',
+              equiv_m: 12000,
+            },
+          ]
+        : [],
+    rest_days: kind === 'rest' ? [{ week: 1, day: 0 }] : [],
+    planned_m: [12000, 0],
+    logged_m: [0, 0],
+    updated_at: '2026-11-02T12:00:00Z',
+  };
+  setup();
+  expect(screen.getByRole('heading', { name: "Today's Plan" }).classList.contains('mb-3')).toBe(
+    true,
+  );
+  expect(screen.queryByText('Nothing Planned')).toBeNull();
 });

@@ -191,20 +191,10 @@ export function usePutMyPlan() {
           const date = (key[3] as { query?: { date?: string } }).query?.date ?? config.today;
           if (covers(body, date)) {
             const next = personalPlan(body, config, new Date().toISOString());
-            next.sessions = next.sessions.map((row) => ({
-              ...row,
-              completed_entry_id:
-                previous?.start_date === body.start_date
-                  ? (previous.sessions.find(
-                      (old) =>
-                        old.week === row.week &&
-                        old.day === row.day &&
-                        old.slot === row.slot &&
-                        old.modality === row.modality,
-                    )?.completed_entry_id ?? null)
-                  : null,
-            }));
-            client.setQueryData(key, next);
+            if (previous?.start_date === body.start_date) {
+              next.logged_m = previous.logged_m;
+              client.setQueryData(key, next);
+            }
           }
         }
       return snapshots;

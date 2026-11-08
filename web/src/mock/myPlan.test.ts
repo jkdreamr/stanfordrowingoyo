@@ -61,7 +61,7 @@ it('rejects malformed dates, enums, duplicates, bounds and rest/session conflict
   expect((await request('/me/plan?date=invalid')).status).toBe(400);
   expect((await request('/me/plan?user=user-2')).status).toBe(400);
 });
-it('matches owner entries once in slot order, ignores other users and recomputes with current factors', async () => {
+it('totals owner workouts, ignores other users and recomputes planned totals with current factors', async () => {
   const { request, state } = setup();
   await request('/me/plan', 'PUT', {
     ...input,
@@ -71,24 +71,18 @@ it('matches owner entries once in slot order, ignores other users and recomputes
     date: '2026-11-02',
     modality: 'erg',
     zone: 'E',
-    distance_m: 1000,
+    distance_m: 9600,
     title: 'Steady Row',
     notes: '',
   };
-  const saved = await (await request('/entries', 'POST', body)).json();
+  await request('/entries', 'POST', body);
   let plan = await (await request()).json();
-  expect(
-    plan.sessions.map((row: { completed_entry_id: string | null }) => row.completed_entry_id),
-  ).toEqual([saved.id, null]);
+  expect(plan.logged_m).toEqual([9600, 0]);
   expect(plan.sessions[0].note).toBe('Steady');
   expect(plan.planned_m).toEqual([24000, 0]);
   state.entries[0].user_id = 'user-2';
   plan = await (await request()).json();
-  expect(
-    plan.sessions.every(
-      (row: { completed_entry_id: string | null }) => row.completed_entry_id === null,
-    ),
-  ).toBe(true);
+  expect(plan.logged_m).toEqual([0, 0]);
   await request('/auth/login', 'POST', { email: state.users.at(-1)!.email, password: 'password' });
   expect(await (await request()).json()).toBeNull();
   expect((await request('/me/plan/2026-11-02', 'DELETE')).status).toBe(404);
