@@ -105,7 +105,7 @@ it('computes per-week totals using current factors and excludes null distances',
     plannedTotals([session], { ...factors, mode_factors: { ...MODE_FACTORS, erg: 2 } }),
   ).toEqual([24000, 0]);
 });
-it('matches one entry per session in slot order and created_at/id order', () => {
+it('buckets stored logged E-meters by plan week, independently of sessions', () => {
   const plan = personalPlan(
     {
       start_date: '2026-11-02',
@@ -116,73 +116,34 @@ it('matches one entry per session in slot order and created_at/id order', () => 
     '',
     [
       {
-        id: 'b',
         date: '2026-11-02',
-        modality: 'erg',
         equiv_m: 12000,
-        created_at: '2026-11-02T12:00:00Z',
       },
       {
-        id: 'a',
-        date: '2026-11-02',
-        modality: 'erg',
+        date: '2026-11-08',
         equiv_m: 12000,
-        created_at: '2026-11-02T12:00:00Z',
       },
-      { id: 'bike', date: '2026-11-02', modality: 'bike', equiv_m: 12000, created_at: '' },
-      { id: 'outside', date: '2026-11-16', modality: 'erg', equiv_m: 12000, created_at: '' },
+      { date: '2026-11-09', equiv_m: 6000 },
+      { date: '2026-11-15', equiv_m: 4000 },
+      { date: '2026-11-01', equiv_m: 12000 },
+      { date: '2026-11-16', equiv_m: 12000 },
     ],
   );
-  expect(plan.sessions.map((row) => row.completed_entry_id)).toEqual(['a', 'b', null]);
+  expect(plan.logged_m).toEqual([24000, 10000]);
+  expect(plan.sessions.map((row) => row.slot)).toEqual(['AM', 'PM1', 'PM2']);
 });
-it.each([
-  { meters: 80, distance: 9000, zone: 'D' as const, complete: false },
-  { meters: 9600, distance: 12000, zone: 'E' as const, complete: true },
-  { meters: 9480, distance: 12000, zone: 'E' as const, complete: false },
-  { meters: 80, distance: null, zone: 'D' as const, complete: true },
-])(
-  'matches the server threshold for $meters E-meters and $distance $zone',
-  ({ meters, distance, zone, complete }) => {
-    const result = personalPlan(
-      {
-        start_date: '2026-11-02',
-        sessions: [{ ...session, distance_m: distance, zone }],
-        rest_days: [],
-      },
-      factors,
-      '',
-      [{ id: 'entry', date: '2026-11-02', modality: 'erg', equiv_m: meters, created_at: '' }],
-    );
-    expect(result.sessions[0].completed_entry_id).toBe(complete ? 'entry' : null);
-  },
-);
-it('leaves a skipped small entry available for a later smaller session', () => {
+it('returns zero logged totals for an empty plan without entries', () => {
   const result = personalPlan(
     {
       start_date: '2026-11-02',
-      sessions: [{ ...session, slot: 'PM1', distance_m: 1000 }, session],
+      sessions: [],
       rest_days: [],
     },
     factors,
     '',
-    [
-      {
-        id: 'small',
-        date: '2026-11-02',
-        modality: 'erg',
-        equiv_m: 1000,
-        created_at: '2026-11-02T12:00:00Z',
-      },
-      {
-        id: 'big',
-        date: '2026-11-02',
-        modality: 'erg',
-        equiv_m: 9600,
-        created_at: '2026-11-02T13:00:00Z',
-      },
-    ],
   );
-  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual(['big', 'small']);
+  expect(result.logged_m).toEqual([0, 0]);
+  expect(result.planned_m).toEqual([0, 0]);
 });
 it('accepts valid log prefills independently and ignores invalid or superseded values', () => {
   expect(logPrefill(new URLSearchParams('modality=bike&zone=R%2FE&distance=12000'))).toEqual({

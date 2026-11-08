@@ -1,7 +1,10 @@
 import type { Page } from '@playwright/test';
+import { mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
 import type { Config, MyPlan, Plan } from '../shared/types';
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
+import { waitForSplash } from './helpers';
 
 async function editSession(page: Page, note: string) {
   const sheet = page.getByRole('dialog');
@@ -71,30 +74,14 @@ test('personal fortnight copies a sample, logs today and remains owner-only', as
   await expect(page.getByRole('heading', { name: "Today's Plan", exact: true })).toBeVisible();
   await expect(todayCard.getByRole('link', { name: /Fortnight Steady/ })).toHaveAttribute(
     'href',
-    /^\/entries\//,
+    '/log?modality=erg&zone=E&distance=12000',
   );
-  await expect(todayCard.getByLabel('Completed', { exact: true })).toBeVisible();
   await page.goto('/plan?tab=mine');
-  const completedLink = page.getByRole('link', {
-    name: new RegExp(`View Completed .* ${name} Week 1`),
-  });
-  await expect(completedLink).toBeVisible();
-  const sessionButton = completedLink.locator('..').getByRole('button');
-  await expect(sessionButton.getByLabel('Completed', { exact: true })).toBeVisible();
-  const linkBox = (await completedLink.boundingBox())!;
-  const buttonBox = (await sessionButton.boundingBox())!;
-  expect(linkBox.width).toBeGreaterThanOrEqual(44);
-  expect(linkBox.height).toBeGreaterThanOrEqual(44);
-  expect(linkBox.x).toBeGreaterThanOrEqual(buttonBox.x);
-  expect(linkBox.y).toBeGreaterThanOrEqual(buttonBox.y);
-  expect(linkBox.x + linkBox.width).toBeLessThanOrEqual(buttonBox.x + buttonBox.width + 1);
-  expect(linkBox.y + linkBox.height).toBeLessThanOrEqual(buttonBox.y + buttonBox.height + 1);
-  await completedLink.click();
-  await expect(page).toHaveURL(/\/entries\//);
   plan = await (await context.request.get('/api/me/plan')).json();
-  expect(
-    plan.sessions.some((row) => row.note === 'Fortnight Steady' && row.completed_entry_id),
-  ).toBe(true);
+  expect(plan.logged_m).toEqual([12000, 0]);
+  await expect(
+    page.getByRole('region', { name: 'Week 1', exact: true }).getByRole('progressbar'),
+  ).toHaveAttribute('value', '12000');
   const otherPlan = await teammate.context.request.get('/api/me/plan');
   await expect(otherPlan).toBeOK();
   expect(await otherPlan.json()).toBeNull();
@@ -109,4 +96,78 @@ test('personal fortnight copies a sample, logs today and remains owner-only', as
       })
     ).status(),
   ).toBe(404);
+});
+
+test('weekly progress reaches Complete and keeps logged totals fresh', async ({
+  makeRower,
+}, info) => {
+  const { page, context } = await makeRower();
+  const config: Config = await (await context.request.get('/api/config')).json();
+  await expect(
+    await context.request.put('/api/me/plan', {
+      headers: csrfHeaders,
+      data: {
+        start_date: config.current_week_start,
+        sessions: [
+          {
+            week: 1,
+            day: 0,
+            slot: 'AM',
+            modality: 'erg',
+            zone: 'E',
+            distance_m: 9000,
+            note: 'Steady Row',
+          },
+        ],
+        rest_days: [],
+      },
+    }),
+  ).toBeOK();
+  await expect(
+    await context.request.post('/api/entries', {
+      headers: csrfHeaders,
+      data: {
+        date: config.today,
+        modality: 'bike',
+        zone: 'E',
+        distance_m: 21600,
+        title: 'Easy Spin',
+        notes: '',
+      },
+    }),
+  ).toBeOK();
+  await page.setViewportSize({ width: 393, height: 852 });
+  await page.addInitScript(() => localStorage.setItem('theme', 'system'));
+  await page.goto('/plan?tab=mine');
+  const week = page.getByRole('region', { name: 'Week 1', exact: true });
+  await expect(week.getByText('7,200 / 9,000 m', { exact: true })).toBeVisible();
+  await expect(week.getByText('Complete', { exact: true })).toHaveCount(0);
+  const capture = async (state: string) => {
+    if (info.project.name !== 'iphone-15' || !process.env.E2E_MY_PLAN_DIR) return;
+    await waitForSplash(page);
+    await mkdir(process.env.E2E_MY_PLAN_DIR, { recursive: true });
+    for (const colorScheme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
+      await page.evaluate(() => document.fonts.ready);
+      await page.screenshot({
+        path: join(process.env.E2E_MY_PLAN_DIR, `my-fortnight-${state}-${colorScheme}-393.png`),
+        scale: 'css',
+      });
+    }
+  };
+  await capture('incomplete');
+  await page.getByRole('link', { name: 'Log Session', exact: true }).click();
+  await page.getByLabel('Meters', { exact: true }).fill('1800');
+  await page.getByLabel('Title', { exact: true }).fill('Finish the Week');
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await page.getByRole('button', { name: 'Dismiss Notification', exact: true }).click();
+  await page.getByRole('link', { name: "Today's Plan", exact: true }).click();
+  await expect(week.getByText('9,000 / 9,000 m', { exact: true })).toBeVisible();
+  await expect(week.getByText('Complete', { exact: true })).toBeVisible();
+  await expect(
+    page
+      .getByRole('region', { name: 'Week 2', exact: true })
+      .getByText('Complete', { exact: true }),
+  ).toHaveCount(0);
+  await capture('complete');
 });

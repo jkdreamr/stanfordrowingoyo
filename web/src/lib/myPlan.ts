@@ -1,5 +1,5 @@
 import { addDays, TIME_ZONE } from '../../../shared/dates';
-import { equivalentMeters, PLAN_COMPLETION_RATIO, ZONES } from '../../../shared/math';
+import { equivalentMeters, ZONES } from '../../../shared/math';
 import type {
   Config,
   Entry,
@@ -66,20 +66,21 @@ export function personalPlan(
   input: MyPlanInput,
   factors: Pick<Config, 'mode_factors' | 'zone_factors'>,
   updated_at: string,
-  entries: Pick<Entry, 'id' | 'date' | 'modality' | 'created_at' | 'equiv_m'>[] = [],
+  entries: Pick<Entry, 'date' | 'equiv_m'>[] = [],
 ): MyPlan {
-  const remaining = [...entries].sort(
-    (a, b) => a.created_at.localeCompare(b.created_at) || a.id.localeCompare(b.id),
-  );
+  const logged_m: [number, number] = [0, 0];
+  for (const entry of entries)
+    if (covers(input, entry.date))
+      logged_m[entry.date < addDays(input.start_date, 7) ? 0 : 1] += entry.equiv_m;
   return {
     start_date: input.start_date,
     rest_days: input.rest_days,
     updated_at,
     planned_m: plannedTotals(input.sessions, factors),
+    logged_m,
     sessions: [...input.sessions]
       .sort((a, b) => a.week - b.week || a.day - b.day || a.slot.localeCompare(b.slot))
       .map((row) => {
-        const date = addDays(input.start_date, (row.week - 1) * 7 + row.day);
         const equiv_m =
           row.distance_m === null
             ? null
@@ -90,17 +91,9 @@ export function personalPlan(
                 factors.mode_factors,
                 factors.zone_factors,
               );
-        const match = remaining.findIndex(
-          (entry) =>
-            entry.date === date &&
-            entry.modality === row.modality &&
-            (equiv_m === null || entry.equiv_m >= PLAN_COMPLETION_RATIO * equiv_m),
-        );
-        const completed_entry_id = match < 0 ? null : remaining.splice(match, 1)[0].id;
         return {
           ...row,
           equiv_m,
-          completed_entry_id,
         };
       }),
   };

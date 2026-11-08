@@ -941,9 +941,6 @@ textarea::placeholder {
   min-width: 0;
   width: 100%;
 }
-.my-plan-session.is-completed {
-  padding-right: 56px;
-}
 @media (min-width: 1024px) {
   .app-shell:has(.my-fortnight) {
     grid-template-columns: minmax(0, 1fr);
@@ -957,14 +954,8 @@ textarea::placeholder {
   .my-plan-session {
     padding: 8px;
   }
-  .my-plan-session.is-completed {
-    padding-right: 8px;
-  }
   .my-plan-metadata {
     width: 100%;
-  }
-  .my-plan-session.is-completed .my-plan-metadata {
-    padding-right: 32px;
   }
   .my-plan-line {
     flex-wrap: wrap;

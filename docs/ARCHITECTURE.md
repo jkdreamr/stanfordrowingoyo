@@ -344,16 +344,18 @@ are excluded from CSV exports and audit logs. Existing /me session and deactivat
 Each session has week 1|2, integer day 0=Monday..6, slot AM|PM1|PM2, valid modality/zone,
 nullable integer distance_m 1..200000 and a trimmed note of at most 200 characters.
 Session keys and rest days must be unique; sessions on rest days are rejected (400 VALIDATION_ERROR).
-`MyPlan` adds `updated_at`, per-week `planned_m: [number, number]`, and per-session
-`equiv_m` (null for unknown distance) and `completed_entry_id`. Equivalents are computed on read
-with current settings factors, never snapshotted. Completion uses the owner's workout `date`,
-without a visibility predicate, within the inclusive 14-day window. Per day, sessions in AM, PM1, PM2
-order greedily consume the oldest qualifying unmatched same-modality entry by created_at then id.
-An entry qualifies when its `equiv_m` is at least 80% of the session's `equiv_m`
-(`PLAN_COMPLETION_RATIO` in shared math); E-meters already account for modality and zone.
-For a session with null `equiv_m` (unknown distance), any same-modality entry qualifies.
-Each entry completes at most one session.
-Deleted entries do not count. GET uses a constant number of SQL queries, including one entry query.
+`MyPlan` adds `updated_at`, per-week `planned_m: [number, number]` and
+`logged_m: [number, number]`, and per-session `equiv_m` (null for unknown distance).
+Planned equivalents are computed on read with current settings factors, never snapshotted;
+unknown distances contribute zero. Logged totals sum stored `equiv_m` from all the owner's
+non-deleted workouts, regardless of modality, zone or visibility, by workout `date`:
+week 1 is start_date through +6 days, week 2 is +7 through +13, inclusive.
+A week is complete when `planned_m[w] > 0` and `logged_m[w] >= planned_m[w]`.
+There is no per-session completion or entry matching. GET keeps a constant SQL query count,
+computing logged totals from its existing entry query. Account export uses one range query
+for entries and buckets them per plan. Workout creation, editing and deletion invalidate plan
+queries. Unsaved edits retain logged totals only for an unchanged start date; a changed start
+waits for the saved response before showing logged totals.
 
 Entry input accepts optional `tagged_user_ids: string[]`: POST sets tags; PATCH replaces the
 set only when supplied. Entry itself omits this input-only field; EntryDetail adds

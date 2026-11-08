@@ -1,11 +1,26 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import type { Config } from '../../../../shared/types';
 import { createQueryClient } from '../../lib/queryClient';
-import { qk } from '../../lib/queries';
+import {
+  qk,
+  useCreateEntry,
+  useUpdateEntry,
+  useDeleteEntry,
+  usePutMyPlan,
+} from '../../lib/queries';
 import { createMockApi } from '../../mock/handlers';
 import { ToastProvider } from '../ui';
 import Plan from '../../pages/Plan';
@@ -33,7 +48,12 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 async function setup(
-  options: { home?: boolean; failWrite?: boolean; seed?: 'current' | 'next' | 'previous' } = {},
+  options: {
+    home?: boolean;
+    failWrite?: boolean;
+    seed?: 'current' | 'next' | 'previous';
+    planned?: number;
+  } = {},
 ) {
   const mock = createMockApi({ now: () => new Date('2026-11-02T18:00:00Z') });
   mock.state.entries = [];
@@ -61,7 +81,7 @@ async function setup(
           slot: 'AM',
           modality: 'erg',
           zone: 'E',
-          distance_m: 12000,
+          distance_m: options.planned === 0 ? null : (options.planned ?? 12000),
           note: 'Steady Row',
         },
       ],
@@ -111,7 +131,7 @@ it('starts blank, adds and edits a session with live totals, then deletes it', a
   const sheet = screen.getByRole('dialog', { name: 'Add Session' });
   fireEvent.change(within(sheet).getByLabelText('Meters'), { target: { value: '12000' } });
   fireEvent.change(within(sheet).getByLabelText('Note'), { target: { value: 'Steady Row' } });
-  await screen.findByText('12,000 / 80,000 E-meters');
+  await screen.findByText('Planned / Target · 12,000 / 80,000 E-meters');
   fireEvent.click(within(sheet).getByRole('button', { name: 'Save' }));
   await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
   fireEvent.click(screen.getByRole('button', { name: 'Edit AM Monday Week 1' }));
@@ -120,7 +140,7 @@ it('starts blank, adds and edits a session with live totals, then deletes it', a
   fireEvent.change(within(edit).getByLabelText('Meters'), { target: { value: '30000' } });
   fireEvent.click(within(edit).getByRole('radio', { name: 'km' }));
   expect((within(edit).getByLabelText('Kilometers') as HTMLInputElement).value).toBe('30');
-  await screen.findByText('10,000 / 80,000 E-meters');
+  await screen.findByText('Planned / Target · 10,000 / 80,000 E-meters');
   fireEvent.click(within(edit).getByRole('button', { name: 'Save' }));
   await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
   expect(mock.state.myPlans[0].sessions[0]).toMatchObject({ modality: 'bike', distance_m: 30000 });
@@ -216,11 +236,11 @@ it('optimistically updates every matching date query, rolls back on 409 and reta
   expect((screen.getByLabelText('Meters') as HTMLInputElement).value).toBe('6000');
 });
 it.each(['Meters', 'Note'])(
-  'keeps optimistic completion consistent when editing %s',
+  'keeps saved logged totals while optimistically editing %s',
   async (field) => {
     const { client, call, release } = await setup({ seed: 'current', failWrite: true });
     await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
-    const entry = await (
+    await (
       await call('/api/entries', 'POST', {
         date: '2026-11-02',
         modality: 'erg',
@@ -231,7 +251,7 @@ it.each(['Meters', 'Note'])(
       })
     ).json();
     await client.invalidateQueries({ queryKey: qk.myPlans() });
-    await screen.findByRole('link', { name: 'View Completed AM Monday Week 1' });
+    await screen.findByText('Complete');
     fireEvent.click(screen.getByRole('button', { name: 'Edit AM Monday Week 1' }));
     fireEvent.change(screen.getByLabelText(field), {
       target: { value: field === 'Meters' ? '24000' : 'New note' },
@@ -239,11 +259,11 @@ it.each(['Meters', 'Note'])(
     fireEvent.click(screen.getByRole('button', { name: 'Save' }));
     await waitFor(() =>
       expect(client.getQueryData(qk.myPlan())).toMatchObject({
+        logged_m: [12000, 0],
         sessions: [
           {
             note: field === 'Meters' ? 'Steady Row' : 'New note',
             distance_m: field === 'Meters' ? 24000 : 12000,
-            completed_entry_id: field === 'Meters' ? null : entry.id,
           },
         ],
       }),
@@ -251,18 +271,19 @@ it.each(['Meters', 'Note'])(
     release();
     await screen.findByText('Plan Overlap');
     expect(client.getQueryData(qk.myPlan())).toMatchObject({
-      sessions: [{ completed_entry_id: entry.id }],
+      logged_m: [12000, 0],
+      planned_m: [12000, 0],
     });
   },
 );
 
-it('shows today’s prefilled log link and replaces it with the completed workout link', async () => {
+it('keeps today’s prefilled log link after a workout is logged', async () => {
   const { client, call } = await setup({ seed: 'current', home: true });
   await screen.findByRole('heading', { name: "Today's Plan" });
   expect((await screen.findByRole('link', { name: /Steady Row/ })).getAttribute('href')).toBe(
     '/log?modality=erg&zone=E&distance=12000',
   );
-  const entry = await (
+  await (
     await call('/api/entries', 'POST', {
       date: '2026-11-02',
       modality: 'erg',
@@ -275,33 +296,55 @@ it('shows today’s prefilled log link and replaces it with the completed workou
   await client.invalidateQueries({ queryKey: qk.myPlans() });
   await waitFor(() =>
     expect(screen.getByRole('link', { name: /Steady Row/ }).getAttribute('href')).toBe(
-      `/entries/${entry.id}`,
+      '/log?modality=erg&zone=E&distance=12000',
     ),
   );
-  expect(screen.getByLabelText('Completed')).toBeTruthy();
+  expect(screen.queryByLabelText('Completed')).toBeNull();
 });
-it('keeps the completed check inside the edit button and the entry link separate', async () => {
-  const { client, call } = await setup({ seed: 'current' });
-  await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
-  const entry = await (
-    await call('/api/entries', 'POST', {
-      date: '2026-11-02',
-      modality: 'erg',
-      zone: 'E',
-      distance_m: 12000,
-      title: 'Steady',
-      notes: '',
-    })
-  ).json();
-  await client.invalidateQueries({ queryKey: qk.myPlans() });
-  const link = await screen.findByRole('link', { name: 'View Completed AM Monday Week 1' });
-  const button = screen.getByRole('button', { name: 'Edit AM Monday Week 1' });
-  expect(within(button).getByLabelText('Completed')).toBeTruthy();
-  expect(link.getAttribute('href')).toBe(`/entries/${entry.id}`);
-  expect(button.contains(link)).toBe(false);
-  fireEvent.click(button);
-  expect(screen.getByRole('dialog', { name: 'Edit Session' })).toBeTruthy();
-});
+it.each([
+  { logged: 12000, planned: 12000, complete: true },
+  { logged: 11999, planned: 12000, complete: false },
+  { logged: 13000, planned: 12000, complete: true },
+  { logged: 12000, planned: 0, complete: false },
+])(
+  'shows weekly completion for $logged logged / $planned planned',
+  async ({ logged, planned, complete }) => {
+    const { client, call } = await setup({ seed: 'current', planned });
+    await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
+    await (
+      await call('/api/entries', 'POST', {
+        date: '2026-11-02',
+        modality: 'erg',
+        zone: 'E',
+        distance_m: logged,
+        title: 'Steady',
+        notes: '',
+      })
+    ).json();
+    await client.invalidateQueries({ queryKey: qk.myPlans() });
+    const week = screen.getByRole('region', { name: /^Week 1$/ });
+    await within(week).findByText(
+      `${logged.toLocaleString('en-US')} / ${planned.toLocaleString('en-US')} m`,
+    );
+    expect(within(week).queryByText('Complete') !== null).toBe(complete);
+    expect(within(week).getByRole('progressbar').getAttribute('value')).toBe(
+      String(planned > 0 ? logged : 0),
+    );
+    expect(within(week).getByRole('progressbar').getAttribute('max')).toBe(
+      String(Math.max(1, planned)),
+    );
+    expect(
+      within(week).getByText(
+        `${logged.toLocaleString('en-US')} / ${planned.toLocaleString('en-US')} m`,
+      ),
+    ).toBeTruthy();
+    const button = screen.getByRole('button', { name: 'Edit AM Monday Week 1' });
+    expect(within(button).queryByLabelText('Completed')).toBeNull();
+    expect(screen.queryByRole('link', { name: /View Completed/ })).toBeNull();
+    fireEvent.click(button);
+    expect(screen.getByRole('dialog', { name: 'Edit Session' })).toBeTruthy();
+  },
+);
 it('links to both fortnights from Home without a current plan', async () => {
   const { client } = await setup({ home: true });
   await waitFor(() => expect(client.getQueryData(qk.myPlan())).toBeNull());
@@ -309,6 +352,63 @@ it('links to both fortnights from Home without a current plan', async () => {
   expect(screen.getByRole('link', { name: 'Sample Fortnight' }).getAttribute('href')).toBe('/plan');
   fireEvent.click(screen.getByRole('link', { name: 'My Fortnight' }));
   expect(await screen.findByRole('button', { name: 'Start Plan' })).toBeTruthy();
+});
+it('refetches mounted weekly totals after workout creation, editing and deletion', async () => {
+  const { client } = await setup({ seed: 'current' });
+  await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
+  const { result } = renderHook(
+    () => ({ create: useCreateEntry(), update: useUpdateEntry(), remove: useDeleteEntry() }),
+    {
+      wrapper: ({ children }) => (
+        <QueryClientProvider client={client}>
+          <ToastProvider>{children}</ToastProvider>
+        </QueryClientProvider>
+      ),
+    },
+  );
+  let id = '';
+  await act(async () => {
+    const entry = await result.current.create.mutateAsync({
+      body: {
+        date: '2026-11-02',
+        modality: 'erg',
+        zone: 'E',
+        distance_m: 12000,
+        title: 'Steady',
+        notes: '',
+        visibility: 'team',
+      },
+    });
+    id = entry.id;
+  });
+  await screen.findByText('Complete');
+  await act(async () => {
+    await result.current.update.mutateAsync({ params: { id }, body: { distance_m: 6000 } });
+  });
+  await screen.findByText('6,000 / 12,000 m');
+  expect(screen.queryByText('Complete')).toBeNull();
+  await act(async () => {
+    await result.current.remove.mutateAsync({ params: { id } });
+  });
+  await screen.findByText('0 / 12,000 m');
+});
+it('waits for the server instead of reusing totals for a changed start date', async () => {
+  const { client, release } = await setup({ seed: 'current', failWrite: true });
+  await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
+  const before = client.getQueryData<import('../../../../shared/types').MyPlan>(qk.myPlan())!;
+  const { result } = renderHook(() => usePutMyPlan(), {
+    wrapper: ({ children }) => (
+      <QueryClientProvider client={client}>
+        <ToastProvider>{children}</ToastProvider>
+      </QueryClientProvider>
+    ),
+  });
+  act(() => result.current.mutate({ ...before, start_date: '2026-10-26' }));
+  await waitFor(() => expect(result.current.isPending).toBe(true));
+  expect(client.getQueryData(qk.myPlan())).toEqual(before);
+  release();
+  await waitFor(() => expect(result.current.isError).toBe(true));
+  expect(client.getQueryData(qk.myPlan())).toEqual(before);
 });
 it('shows Nothing Planned or Rest Day with the My Fortnight link', async () => {
   const { call, client } = await setup({ home: true });

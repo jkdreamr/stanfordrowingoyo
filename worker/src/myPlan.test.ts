@@ -281,6 +281,7 @@ it('accepts empty plans, all rest days, nullable distances, boundaries and trimm
     sessions: [],
     rest_days,
     planned_m: [0, 0],
+    logged_m: [0, 0],
   });
   const result = await put(
     owner,
@@ -333,109 +334,64 @@ it('uses inclusive 14-day workout windows and Los Angeles today, rejecting malfo
   expect((await api('/me/plan/2026-03-10', owner, 'DELETE')).status).toBe(400);
 });
 
-it.each([
-  { distance: 100, zone: 'R' as const, planned: 9000, plannedZone: 'D' as const, complete: false },
-  { distance: 8000, zone: 'E' as const, planned: 10000, plannedZone: 'E' as const, complete: true },
-  {
-    distance: 7900,
-    zone: 'E' as const,
-    planned: 10000,
-    plannedZone: 'E' as const,
-    complete: false,
-  },
-  { distance: 100, zone: 'R' as const, planned: null, plannedZone: 'D' as const, complete: true },
-])(
-  'requires qualifying E-meters: $distance $zone against $planned $plannedZone',
-  async ({ distance, zone, planned, plannedZone, complete }) => {
-    const owner = await user('Owner');
-    const workout = await entry(owner, START, 'erg', NOW, { distance_m: distance, zone });
-    await put(owner, plan({ sessions: [session({ distance_m: planned, zone: plannedZone })] }));
-    const result = await (await api('/me/plan', owner)).json<MyPlan>();
-    expect(result.sessions[0].completed_entry_id).toBe(complete ? workout.id : null);
-    expect(
-      await sql((storage) => allMyPlans(storage, owner.user.id)[0].sessions[0].completed_entry_id),
-    ).toBe(complete ? workout.id : null);
-  },
-);
-
-it('skips small entries without consuming them so later smaller sessions can match', async () => {
-  const owner = await user('Owner');
-  const small = await entry(owner, START, 'erg', '2026-03-09T17:00:00Z', { distance_m: 1000 });
-  const big = await entry(owner, START, 'erg', NOW, { distance_m: 8000 });
-  await put(owner, plan({ sessions: [session({ slot: 'PM1', distance_m: 1000 }), session()] }));
-  let result = await (await api('/me/plan', owner)).json<MyPlan>();
-  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual([big.id, small.id]);
-  expect((await api(`/entries/${big.id}`, owner, 'DELETE')).status).toBe(204);
-  result = await (await api('/me/plan', owner)).json<MyPlan>();
-  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual([null, small.id]);
-});
-
-it('does not reserve an older big entry for a later session when AM qualifies for it', async () => {
-  const owner = await user('Owner');
-  const big = await entry(owner, START, 'erg', '2026-03-09T17:00:00Z', { distance_m: 8000 });
-  await entry(owner, START, 'erg', NOW, { distance_m: 1000 });
-  await put(owner, plan({ sessions: [session({ slot: 'PM1' }), session({ distance_m: 1000 })] }));
-  const result = await (await api('/me/plan', owner)).json<MyPlan>();
-  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual([big.id, null]);
-});
-
-it('greedily matches owner workouts by workout date and modality in slot and creation/id order', async () => {
+it('sums all owner modalities and zones into inclusive plan weeks, excluding outside and deleted entries', async () => {
   const owner = await user('Owner');
   const other = await user('Other');
-  const last = await entry(owner, addDays(START, 13));
   await entry(other);
   await entry(owner, addDays(START, -1));
   await entry(owner, addDays(START, 14));
-  const run = await entry(owner, START, 'run');
+  const erg = await entry(owner, START, 'erg', NOW, { zone: 'R' });
+  const bike = await entry(owner, addDays(START, 6), 'bike');
+  const run = await entry(owner, addDays(START, 7), 'run');
+  const last = await entry(owner, addDays(START, 13));
+  const deleted = await entry(owner);
+  expect((await api(`/entries/${deleted.id}`, owner, 'DELETE')).status).toBe(204);
+  await sql((storage) =>
+    storage.sql.exec('UPDATE entries SET visibility = ? WHERE id = ?', 'private', bike.id),
+  );
+  const result = await put(owner);
+  expect(result.logged_m).toEqual([erg.equiv_m + bike.equiv_m, run.equiv_m + last.equiv_m]);
+  expect((await (await api('/me/plan', owner)).json<MyPlan>()).logged_m).toEqual(result.logged_m);
+});
+
+it('exports logged totals for multiple plans with one entry range query, ignoring gaps and other owners', async () => {
+  const owner = await user('Owner');
+  const other = await user('Other');
+  await put(owner);
+  await put(owner, plan({ start_date: addDays(START, 28) }));
   const first = await entry(owner);
-  await sql((storage) =>
-    storage.sql.exec(
-      'UPDATE entries SET created_at = ? WHERE id = ?',
-      '2026-03-01T00:00:00Z',
-      first.id,
-    ),
-  );
-  await put(
-    owner,
-    plan({
-      sessions: [
-        session({ slot: 'PM1' }),
-        session({ slot: 'PM2', modality: 'bike' }),
-        session(),
-        session({ day: 1 }),
-        session({ week: 2, day: 6 }),
-      ],
-    }),
-  );
-  let result = await (await api('/me/plan', owner)).json<MyPlan>();
-  expect(result.sessions.map((row) => row.completed_entry_id)).toEqual([
-    first.id,
-    null,
-    null,
-    null,
-    last.id,
+  const second = await entry(owner, addDays(START, 7), 'bike');
+  const third = await entry(owner, addDays(START, 28), 'run');
+  const fourth = await entry(owner, addDays(START, 41));
+  await entry(owner, addDays(START, 14));
+  await entry(other);
+  const result = await sql((storage) => {
+    const queries: string[] = [];
+    const traced = new Proxy(storage, {
+      get(target, key) {
+        if (key === 'sql')
+          return new Proxy(target.sql, {
+            get(sql, name) {
+              if (name === 'exec')
+                return (...args: Parameters<SqlStorage['exec']>) => {
+                  queries.push(args[0]);
+                  return sql.exec(...args);
+                };
+              const value = Reflect.get(sql, name, sql);
+              return typeof value === 'function' ? value.bind(sql) : value;
+            },
+          });
+        const value = Reflect.get(target, key, target);
+        return typeof value === 'function' ? value.bind(target) : value;
+      },
+    });
+    return { plans: allMyPlans(traced, owner.user.id), queries };
+  });
+  expect(result.plans.map((row) => row.logged_m)).toEqual([
+    [first.equiv_m, second.equiv_m],
+    [third.equiv_m, fourth.equiv_m],
   ]);
-  const second = await entry(owner);
-  const third = await entry(owner);
-  await sql((storage) =>
-    storage.sql.exec(
-      'UPDATE entries SET created_at = ? WHERE id IN (?,?)',
-      NOW,
-      second.id,
-      third.id,
-    ),
-  );
-  result = await (await api('/me/plan', owner)).json<MyPlan>();
-  expect(result.sessions.slice(0, 3).map((row) => row.completed_entry_id)).toEqual([
-    first.id,
-    [second.id, third.id].sort()[0],
-    null,
-  ]);
-  expect(result.sessions.some((row) => row.completed_entry_id === run.id)).toBe(false);
-  expect((await api(`/entries/${first.id}`, owner, 'DELETE')).status).toBe(204);
-  result = await (await api('/me/plan', owner)).json<MyPlan>();
-  expect(result.sessions[0].completed_entry_id).toBe([second.id, third.id].sort()[0]);
-  expect(result.sessions.some((row) => row.completed_entry_id === first.id)).toBe(false);
+  expect(result.queries.filter((query) => query.includes('FROM entries'))).toHaveLength(1);
 });
 
 it('recomputes equivalents and per-week sums from current settings without recalculating entries', async () => {

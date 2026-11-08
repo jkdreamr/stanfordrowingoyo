@@ -269,8 +269,8 @@ describe('GET /api/me/export', () => {
     expect(data.plans[1].sessions[0]).toMatchObject({
       note: 'Avery plan A',
       equiv_m: 10000,
-      completed_entry_id: own.id,
     });
+    expect(data.plans[1].logged_m).toEqual([own.equiv_m, 0]);
     expect(data.tagged_in).toEqual([
       {
         entry_id: blakeEntry.id,

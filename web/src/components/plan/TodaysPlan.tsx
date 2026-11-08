@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CalendarDays, Check } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
 import { addDays } from '../../../../shared/dates';
 import { useMyPlan } from '../../lib/queries';
 import { covers, planLogLink } from '../../lib/myPlan';
@@ -51,7 +51,7 @@ export function TodaysPlan({ today }: { today: string }) {
           {sessions.map((row) => (
             <ListRow
               key={row.slot}
-              to={row.completed_entry_id ? `/entries/${row.completed_entry_id}` : planLogLink(row)}
+              to={planLogLink(row)}
               title={
                 row.note ||
                 `${row.modality === 'erg' ? 'Erg' : row.modality === 'bike' ? 'Bike' : 'Run'} ${row.slot}`
@@ -64,11 +64,6 @@ export function TodaysPlan({ today }: { today: string }) {
                     <span className="tabular-nums">{formatMeters(row.distance_m)}</span>
                   )}
                 </span>
-              }
-              trailing={
-                row.completed_entry_id ? (
-                  <Check size={20} strokeWidth={1.75} aria-label="Completed" />
-                ) : undefined
               }
             />
           ))}

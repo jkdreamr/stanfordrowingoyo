@@ -84,7 +84,7 @@ describe('query keys', () => {
       'PATCH /api/entries/:id',
       'DELETE /api/entries/:id',
     ] as const)
-      expect(invalidationKeys(endpoint)).toContainEqual(qk.myPlans().slice(0, 2));
+      expect(invalidationKeys(endpoint)).toContainEqual(qk.root('me'));
     expect(qk.entry('one')).toEqual(qk.request('GET /api/entries/:id', { params: { id: 'one' } }));
     expect(qk.entries('mine')).toEqual(
       qk.request('GET /api/entries', { query: { scope: 'mine' } }),

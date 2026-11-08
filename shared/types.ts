@@ -252,18 +252,18 @@ export interface MyPlanSessionInput {
 }
 export interface MyPlanSession extends MyPlanSessionInput {
   equiv_m: number | null;
-  /**
-   * Oldest qualifying unmatched same-date, same-modality entry ID, or null.
-   * Requires entry.equiv_m >= 80% of session.equiv_m unless session.equiv_m is null.
-   * Greedy AM/PM1/PM2 by created_at then id; one entry per session, never reused.
-   */
-  completed_entry_id: string | null;
 }
 export interface MyPlan {
   start_date: string;
   sessions: MyPlanSession[];
   rest_days: { week: 1 | 2; day: number }[];
   planned_m: [number, number];
+  /**
+   * Stored E-meters of all non-deleted owner workouts, regardless of modality, zone or visibility.
+   * Week 1 is start_date..+6; week 2 is +7..+13, inclusive, by workout date.
+   * Complete when planned_m[w] > 0 and logged_m[w] >= planned_m[w].
+   */
+  logged_m: [number, number];
   updated_at: string;
 }
 export interface MyPlanInput {

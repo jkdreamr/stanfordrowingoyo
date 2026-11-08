@@ -1,6 +1,6 @@
 import type { MyPlan, MyPlanInput, MyPlanSessionInput, Settings } from '../../../shared/types';
 import { addDays } from '../../../shared/dates';
-import { equivalentMeters, PLAN_COMPLETION_RATIO } from '../../../shared/math';
+import { equivalentMeters } from '../../../shared/math';
 import { getSettings } from './settings';
 import type { Row } from './row';
 import { HttpError } from '../http';
@@ -10,10 +10,8 @@ interface PlanRow {
   rest_days_json: string;
   updated_at: string;
 }
-interface CompletionEntry {
-  id: string;
+interface LoggedEntry {
   date: string;
-  modality: string;
   equiv_m: number;
 }
 export function getMyPlan(
@@ -38,8 +36,8 @@ export function getMyPlan(
     )
     .toArray();
   const entries = storage.sql
-    .exec<Row<CompletionEntry>>(
-      'SELECT id, date, modality, equiv_m FROM entries WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY created_at, id',
+    .exec<Row<LoggedEntry>>(
+      'SELECT date, equiv_m FROM entries WHERE user_id = ? AND date BETWEEN ? AND ?',
       userId,
       row.start_date,
       addDays(row.start_date, 13),
@@ -50,15 +48,13 @@ export function getMyPlan(
 function buildPlan(
   row: Row<PlanRow>,
   sessions: Row<MyPlanSessionInput>[],
-  entries: Row<CompletionEntry>[],
+  entries: Row<LoggedEntry>[],
   settings: Settings,
 ): MyPlan {
-  const available = new Map<string, Row<CompletionEntry>[]>();
+  const logged_m: [number, number] = [0, 0];
   for (const entry of entries) {
-    const key = `${entry.date}|${entry.modality}`;
-    const matches = available.get(key) ?? [];
-    matches.push(entry);
-    available.set(key, matches);
+    if (entry.date >= row.start_date && entry.date <= addDays(row.start_date, 13))
+      logged_m[entry.date < addDays(row.start_date, 7) ? 0 : 1] += entry.equiv_m;
   }
   const planned_m: [number, number] = [0, 0];
   return {
@@ -66,6 +62,7 @@ function buildPlan(
     updated_at: row.updated_at,
     rest_days: JSON.parse(row.rest_days_json),
     planned_m,
+    logged_m,
     sessions: sessions.map((session) => {
       const equiv_m =
         session.distance_m === null
@@ -78,15 +75,9 @@ function buildPlan(
               settings.zone_factors,
             );
       planned_m[session.week - 1] += equiv_m ?? 0;
-      const date = addDays(row.start_date, (session.week - 1) * 7 + session.day);
-      const matches = available.get(`${date}|${session.modality}`) ?? [];
-      const match = matches.findIndex(
-        (entry) => equiv_m === null || entry.equiv_m >= PLAN_COMPLETION_RATIO * equiv_m,
-      );
       return {
         ...session,
         equiv_m,
-        completed_entry_id: match < 0 ? null : matches.splice(match, 1)[0].id,
       };
     }),
   };
@@ -107,8 +98,8 @@ export function allMyPlans(storage: DurableObjectStorage, userId: string): MyPla
     )
     .toArray();
   const entries = storage.sql
-    .exec<Row<CompletionEntry>>(
-      'SELECT id, date, modality, equiv_m FROM entries WHERE user_id = ? AND date BETWEEN ? AND ? ORDER BY created_at, id',
+    .exec<Row<LoggedEntry>>(
+      'SELECT date, equiv_m FROM entries WHERE user_id = ? AND date BETWEEN ? AND ?',
       userId,
       rows[0].start_date,
       addDays(rows[rows.length - 1].start_date, 13),
@@ -121,7 +112,7 @@ export function allMyPlans(storage: DurableObjectStorage, userId: string): MyPla
     group.push(session);
     sessionsByStart.set(start_date, group);
   }
-  const entriesByDate = new Map<string, Row<CompletionEntry>[]>();
+  const entriesByDate = new Map<string, Row<LoggedEntry>[]>();
   for (const entry of entries) {
     const group = entriesByDate.get(entry.date) ?? [];
     group.push(entry);

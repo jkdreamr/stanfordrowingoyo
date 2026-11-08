@@ -45,6 +45,7 @@ it('keeps navigation available for a plan outside today’s fortnight', () => {
     sessions: [],
     rest_days: [],
     planned_m: [0, 0],
+    logged_m: [0, 0],
     updated_at: '2026-10-05T12:00:00Z',
   };
   setup();
@@ -57,6 +58,7 @@ it('avoids double spacing above the centered Nothing Planned state', () => {
     sessions: [],
     rest_days: [],
     planned_m: [0, 0],
+    logged_m: [0, 0],
     updated_at: '2026-11-02T12:00:00Z',
   };
   setup();
@@ -83,12 +85,12 @@ it.each(['session', 'rest'] as const)('keeps heading spacing for a planned %s', 
               distance_m: 12000,
               note: 'Steady Row',
               equiv_m: 12000,
-              completed_entry_id: null,
             },
           ]
         : [],
     rest_days: kind === 'rest' ? [{ week: 1, day: 0 }] : [],
     planned_m: [12000, 0],
+    logged_m: [0, 0],
     updated_at: '2026-11-02T12:00:00Z',
   };
   setup();
