@@ -121,6 +121,7 @@ export default function Notifications() {
                       <li key={n.id} className={section === 'New' ? 'bg-selected' : ''}>
                         {n.kind === 'announcement' ? (
                           <button
+                            data-announcement-id={n.announcement_id}
                             className="flex min-h-11 w-full items-center gap-3 p-4 text-left text-callout text-text"
                             onClick={() => {
                               setSelected(n);

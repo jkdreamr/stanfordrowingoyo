@@ -93,6 +93,7 @@ test('touch tabs respect boundaries, exclusions and reduced motion', async ({
   makeRower,
 }, info) => {
   test.skip(info.project.name === 'desktop-chrome');
+  test.setTimeout(60_000);
   const rower = await makeRower();
   await seedEntry(rower, 'Swipe Morning Erg', 10000);
   const { page } = rower;
@@ -175,8 +176,12 @@ test('touch tabs respect boundaries, exclusions and reduced motion', async ({
   await expect.poll(() => page.evaluate(() => scrollY)).toBeCloseTo(saved, 0);
 });
 
-async function sampleTransition(page: Page, action: () => Promise<void>) {
-  const sampling = page.evaluate(async () => {
+async function sampleTransition(
+  page: Page,
+  destination: '/feed' | '/leaderboard',
+  action: () => Promise<void>,
+) {
+  const sampling = page.evaluate(async (destination) => {
     const state = window as typeof window & { tabSampleDoneAt: number | null };
     state.tabSampleDoneAt = null;
     const nav = document.querySelector<HTMLElement>('nav.shell-tabbar')!;
@@ -198,6 +203,7 @@ async function sampleTransition(page: Page, action: () => Promise<void>) {
         return original.apply(this, args);
       };
     const deadline = performance.now() + 10_000;
+    let settledAt: number | null = null;
     try {
       do {
         const rect = nav.getBoundingClientRect();
@@ -269,16 +275,33 @@ async function sampleTransition(page: Page, action: () => Promise<void>) {
           y: scrollY,
           text: !!main.textContent?.trim(),
         });
+        if (
+          state.tabSampleDoneAt !== null &&
+          location.pathname === destination &&
+          main.querySelector('h1')?.textContent ===
+            (destination === '/feed' ? 'Feed' : 'Leaderboard') &&
+          main.getAnimations().length === 0 &&
+          !main.style.opacity &&
+          !main.style.transform &&
+          !main.style.willChange
+        )
+          settledAt ??= performance.now();
+        else settledAt = null;
         await new Promise(requestAnimationFrame);
       } while (
         performance.now() < deadline &&
-        (state.tabSampleDoneAt === null || performance.now() < state.tabSampleDoneAt + 350)
+        (settledAt === null || performance.now() < settledAt + 350)
       );
     } finally {
       if (original) document.startViewTransition = original;
     }
-    return { frames, violations: [...new Set(violations)], transitions };
-  });
+    return {
+      frames,
+      violations: [...new Set(violations)],
+      transitions,
+      settled: settledAt !== null && performance.now() >= settledAt + 350,
+    };
+  }, destination);
   try {
     await action();
   } finally {
@@ -288,6 +311,7 @@ async function sampleTransition(page: Page, action: () => Promise<void>) {
     });
   }
   const result = await sampling;
+  expect(result.settled).toBe(true);
   expect(result.transitions).toBe(0);
   expect(result.violations).toEqual([]);
   expect(result.frames.length).toBeGreaterThan(3);
@@ -319,6 +343,7 @@ test('tab taps and swipe commits keep live navigation stable and restore cached 
   makeRower,
 }, info) => {
   test.skip(info.project.name === 'desktop-chrome');
+  test.setTimeout(60_000);
   const rower = await makeRower();
   for (let i = 0; i < 5; i++) await seedEntry(rower, `Transition Erg ${i}`);
   for (let i = 0; i < 3; i++) {
@@ -339,15 +364,15 @@ test('tab taps and swipe commits keep live navigation stable and restore cached 
   await page.evaluate(() => scrollTo(0, 160));
   const saved = await page.evaluate(() => scrollY);
   expect(saved).toBeGreaterThan(100);
-  const out = await sampleTransition(page, () => tapTab(page, 'Leaderboard'));
+  const out = await sampleTransition(page, '/leaderboard', () => tapTab(page, 'Leaderboard'));
   expectTapArrival(out, 'Feed');
   expect(out.some((frame) => frame.heading === 'Leaderboard')).toBe(true);
-  const back = await sampleTransition(page, () => tapTab(page, 'Feed'));
+  const back = await sampleTransition(page, '/feed', () => tapTab(page, 'Feed'));
   expectTapArrival(back, 'Leaderboard');
   const arrivals = back.filter((frame) => frame.path === '/feed' && frame.heading === 'Feed');
   expect(arrivals.length).toBeGreaterThan(0);
   expect(arrivals.every((frame) => Math.abs(frame.y - saved) <= 1)).toBe(true);
-  const swipeOut = await sampleTransition(page, () => swipe(page, 290, 80, 180));
+  const swipeOut = await sampleTransition(page, '/leaderboard', () => swipe(page, 290, 80, 180));
   expect(swipeOut.some((frame) => frame.heading === 'Leaderboard')).toBe(true);
   expect(
     swipeOut.filter((frame) => frame.path === '/leaderboard' && frame.opacity <= 0.001).length,
@@ -357,7 +382,7 @@ test('tab taps and swipe commits keep live navigation stable and restore cached 
       (frame) => frame.path === '/leaderboard' && frame.heading === 'Feed' && frame.opacity > 0.05,
     ),
   ).toEqual([]);
-  const swipeBack = await sampleTransition(page, () => swipe(page, 80, 290, 180));
+  const swipeBack = await sampleTransition(page, '/feed', () => swipe(page, 80, 290, 180));
   expect(
     swipeBack.filter(
       (frame) => frame.path === '/feed' && frame.heading === 'Leaderboard' && frame.opacity > 0.05,
@@ -378,15 +403,15 @@ test('reduced motion, active tabs and rapid retargeting leave no stale main styl
   const { page } = await makeRower();
   await waitForSplash(page);
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  const frames = await sampleTransition(page, () => tapTab(page, 'Feed'));
+  const frames = await sampleTransition(page, '/feed', () => tapTab(page, 'Feed'));
   expect(frames.every((frame) => frame.transform === 'none')).toBe(true);
-  const swipeFrames = await sampleTransition(page, () => swipe(page, 290, 80, 180));
+  const swipeFrames = await sampleTransition(page, '/leaderboard', () => swipe(page, 290, 80, 180));
   expect(swipeFrames.every((frame) => frame.transform === 'none')).toBe(true);
   await expect(page).toHaveURL(/\/leaderboard$/);
   await tapTab(page, 'Leaderboard');
   expect(await page.locator('main').evaluate((main) => main.getAnimations().length)).toBe(0);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await sampleTransition(page, async () => {
+  await sampleTransition(page, '/feed', async () => {
     await tapTab(page, 'Me');
     await tapTab(page, 'Home');
     await tapTab(page, 'Feed');

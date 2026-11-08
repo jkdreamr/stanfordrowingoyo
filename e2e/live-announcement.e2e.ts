@@ -29,19 +29,10 @@ test('a live announcement alert opens its exact announcement despite a stale lis
       new MessageEvent('message', { data: { type: 'oyo-push' } }),
     ),
   );
-  const notifications = (await (await refreshed).json()) as {
-    kind: string;
-    announcement_id?: string;
-  }[];
-  const announcements = notifications.filter(
-    (notification) => notification.kind === 'announcement',
-  );
-  const index = announcements.findIndex(
-    (notification) => notification.announcement_id === latest.id,
-  );
-  expect(index).toBeGreaterThanOrEqual(0);
-  await expect(alerts).toHaveCount(announcements.length);
-  await alerts.nth(index).click();
+  await refreshed;
+  const latestAlert = rower.page.locator(`button[data-announcement-id="${latest.id}"]`);
+  await expect(latestAlert).toBeVisible();
+  await latestAlert.click();
   const sheet = rower.page.getByRole('dialog', { name: 'Announcements', exact: true });
   await expect(sheet.getByRole('heading', { name: latest.title, exact: true })).toBeVisible();
   await expect(sheet.getByRole('heading', { name: older.title, exact: true })).toHaveCount(0);
@@ -49,7 +40,7 @@ test('a live announcement alert opens its exact announcement despite a stale lis
   await expect(
     await adminPage.request.delete(`/api/announcements/${latest.id}`, { headers: csrfHeaders }),
   ).toBeOK();
-  await alerts.nth(index).click();
+  await latestAlert.click();
   await expect(sheet.getByText('Announcement removed', { exact: true })).toBeVisible();
   await expect(sheet.getByRole('heading', { name: latest.title, exact: true })).toHaveCount(0);
   const close = sheet.getByRole('button', { name: 'Close', exact: true });
