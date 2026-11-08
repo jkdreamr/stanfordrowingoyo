@@ -119,8 +119,9 @@ static mark with a 120 ms fade (no handoff).
 - **Focal moment.** Launch into Home's Week Hero: the cardinal splash contracts into the hero card, and as
   the card is revealed its E-meter total counts up, the ring sweeps from empty and the day columns rise
   left to right. Elsewhere the splash lifts as a curtain and the first screen rises once.
-- **Continuity.** Tab changes use View Transitions: the old screen fades out in 90 ms and the new one arrives
-  from the direction of the chosen tab (16 px, 260 ms). The selection pill springs between tabs. Large titles
+- **Continuity.** Phone tab taps and swipes share a WAAPI content arrival from the direction of travel
+  (24 px, 220 ms; opacity-only 120 ms for reduced motion), with no View Transition snapshots. Scroll restores
+  before arrival; the live tab bar's selection pill springs between tabs. Large titles
   fold away on scroll (scroll-driven animation) while the compact title fades into the frosted bar.
 - **Feedback.** Every control compresses instantly on press and springs back on release; cards compress less
   than buttons. Kudos, double-tap and saves acknowledge with the puddle ripple.
@@ -161,7 +162,7 @@ static mark with a 120 ms fade (no handoff).
 4. **Glass Tab Bar.** Frosted bar with one selection pill that travels between tabs on the spring; the selected
    icon settles from a small catch; the centered cardinal Log disc compresses on press. Five equal columns keep
    Log pixel-centered.
-5. **Directional Tab Changes.** Fade-through View Transition in the direction of travel; chrome stays put.
+5. **Directional Tab Changes.** WAAPI content arrival in the direction of travel; chrome stays live.
 6. **Kudos Burst.** Thumb pops with an 8-spark ring and the count rolls up; double-tap shows the heart plus two
    water ripples at the touch point.
 7. **Session Saved Moment.** After saving, a cardinal card springs in over Home with a drawn check, ripples, the
