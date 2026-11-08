@@ -227,25 +227,43 @@ function SkeletonRows() {
     </div>
   );
 }
+/**
+ * Shows the pinned You row only while your real row is off screen, and never over the podium:
+ * a second observer watches the strip of viewport the pin occupies and holds the pin back
+ * while any of the top three sits in it.
+ */
 function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
   const [visible, setVisible] = useState(true);
+  const [blocked, setBlocked] = useState(false);
   useEffect(() => {
     setVisible(true);
+    setBlocked(false);
     if (!node || !pin) return;
-    let observer: IntersectionObserver | undefined;
+    let observers: IntersectionObserver[] = [];
     const observe = () => {
-      observer?.disconnect();
+      observers.forEach((observer) => observer.disconnect());
       const top = document.querySelector('.ui-page-nav')?.getBoundingClientRect().height ?? 0;
-      const bottom =
-        (parseFloat(getComputedStyle(pin).bottom) || 0) + pin.getBoundingClientRect().height;
-      observer = new IntersectionObserver(
+      const pinHeight = pin.getBoundingClientRect().height;
+      const bottom = (parseFloat(getComputedStyle(pin).bottom) || 0) + pinHeight;
+      observers = [];
+      // The podium strip first, so the row's observer is the latest (remeasured) one.
+      const podium = pin.parentElement?.querySelector('[aria-label="Top Three"]');
+      if (podium) {
+        const strip = new IntersectionObserver(([entry]) => setBlocked(entry.isIntersecting), {
+          rootMargin: `-${Math.max(0, Math.round(innerHeight - bottom))}px 0px -${Math.round(bottom - pinHeight)}px 0px`,
+        });
+        strip.observe(podium);
+        observers.push(strip);
+      }
+      const row = new IntersectionObserver(
         ([entry]) => setVisible(entry.intersectionRatio >= 0.98),
         {
           rootMargin: `-${Math.round(top)}px 0px -${Math.round(bottom)}px 0px`,
           threshold: [0, 0.98, 1],
         },
       );
-      observer.observe(node);
+      row.observe(node);
+      observers.push(row);
     };
     observe();
     const resize = new ResizeObserver(observe);
@@ -254,11 +272,11 @@ function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
     window.addEventListener('resize', observe);
     return () => {
       window.removeEventListener('resize', observe);
-      observer?.disconnect();
+      observers.forEach((observer) => observer.disconnect());
       resize.disconnect();
     };
   }, [node, pin]);
-  return !visible;
+  return !visible && !blocked;
 }
 
 export default function Leaderboard() {

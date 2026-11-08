@@ -723,6 +723,24 @@
   }
 }
 
+/* The pinned You row rises in when your real row leaves the screen and steps away faster. */
+.leaderboard-pin {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+  transition:
+    opacity 140ms var(--ease-in),
+    transform 140ms var(--ease-in),
+    visibility 0s linear 140ms;
+}
+.leaderboard-pin.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    visibility 0s;
+}
+
 /* Me */
 .profile-hero {
   position: relative;
@@ -888,6 +906,11 @@
   .drive-puddle,
   .kudos-spark {
     display: none;
+  }
+  .leaderboard-pin,
+  .leaderboard-pin.is-visible {
+    transform: none;
+    transition-duration: 120ms, 0ms, 0s;
   }
   .save-celebration,
   .save-celebration.is-leaving {

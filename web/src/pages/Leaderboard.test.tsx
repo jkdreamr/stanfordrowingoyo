@@ -247,3 +247,23 @@ it('shows the empty state and the load error state', async () => {
   setup('/leaderboard', () => Promise.reject(new TypeError('offline')));
   expect(await screen.findByText('Could Not Load This Screen', {}, { timeout: 4000 })).toBeTruthy();
 });
+
+it('holds the pinned row back while the podium sits in its strip', async () => {
+  setup();
+  const real = await screen.findByRole('link', { name: /Marcus Albrecht \(You\)/ });
+  const pin = document.querySelector('.leaderboard-pin')!;
+  const podium = screen.getByRole('list', { name: 'Top Three' });
+  const fire = (target: Element, entry: Partial<IntersectionObserverEntry>) =>
+    act(() =>
+      observers
+        .filter((o) => o.target === target)
+        .at(-1)!
+        .callback([entry as IntersectionObserverEntry], {} as IntersectionObserver),
+    );
+  fire(real, { intersectionRatio: 0, isIntersecting: false });
+  fire(podium, { isIntersecting: true });
+  expect(pin.classList.contains('is-visible')).toBe(false);
+  expect(pin.getAttribute('aria-hidden')).toBe('true');
+  fire(podium, { isIntersecting: false });
+  expect(pin.classList.contains('is-visible')).toBe(true);
+});
