@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/queryClient';
 import { router } from './routes';
 import './styles.css';
+import './design/drive.css';
 import { ThemeProvider } from './lib/theme';
 import { ToastProvider } from './components/ui/Toast';
 import { PwaUpdates } from './components/PwaUpdates';

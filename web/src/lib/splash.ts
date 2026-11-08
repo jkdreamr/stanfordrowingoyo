@@ -1,7 +1,7 @@
 export function syncThemeColor(dark: boolean) {
   const splash = document.getElementById('launch-splash');
   const launching = splash && !splash.classList.contains('is-leaving');
-  const color = launching ? '#8C1515' : dark ? '#121214' : '#F7F7FA';
+  const color = launching ? '#8C1515' : dark ? '#0E0D0E' : '#F6F5F3';
   document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
     meta.setAttribute('content', color);
   });
@@ -10,7 +10,7 @@ export function syncThemeColor(dark: boolean) {
 export function dismissSplash() {
   const splash = document.getElementById('launch-splash');
   if (!splash) return;
-  const minimum = 600;
+  const minimum = 780;
   const elapsed = performance.now() - Number(splash.dataset.started ?? 0);
   let removal: ReturnType<typeof setTimeout> | undefined;
   const dismissal = setTimeout(
@@ -19,7 +19,7 @@ export function dismissSplash() {
       document.documentElement.classList.remove('launching');
       document.getElementById('root')?.removeAttribute('inert');
       syncThemeColor(document.documentElement.classList.contains('dark'));
-      const fade = matchMedia('(prefers-reduced-motion: reduce)').matches ? 120 : 250;
+      const fade = matchMedia('(prefers-reduced-motion: reduce)').matches ? 120 : 520;
       removal = setTimeout(() => splash.remove(), fade);
     },
     Math.max(0, minimum - elapsed),

@@ -8,7 +8,20 @@
     <meta name="theme-color" content="#8C1515" />
     <meta name="theme-color" content="#8C1515" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#8C1515" media="(prefers-color-scheme: dark)" />
+    <link
+      rel="preload"
+      href="/fonts/source-serif-4-latin-600.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <style>
+      @font-face {
+        font-family: 'Source Serif 4';
+        font-weight: 600;
+        font-display: swap;
+        src: url('/fonts/source-serif-4-latin-600.woff2') format('woff2');
+      }
       html.launching {
         background: #8c1515;
       }
@@ -16,124 +29,95 @@
         margin: 0;
       }
       #launch-splash,
-      #launch-splash *,
-      #launch-splash *::before {
+      #launch-splash * {
         box-sizing: border-box;
       }
       #launch-splash {
         position: fixed;
         inset: 0;
-        z-index: 10000;
-        overflow: hidden;
-        background: #8c1515;
-        color: #fff;
-        opacity: 1;
-        transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1);
-        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', Inter, sans-serif;
-        -webkit-font-smoothing: antialiased;
+        z-index: 9999;
+        display: grid;
+        place-items: center;
+        color: white;
+        background: radial-gradient(120% 90% at 20% 0%, #b3261e 0%, #8c1515 45%, #5a0c0c 100%);
+        transition: transform 520ms var(--spring-smooth, cubic-bezier(0.16, 1, 0.3, 1));
+      }
+      .dark #launch-splash {
+        background: radial-gradient(120% 90% at 20% 0%, #b3261e 0%, #8c1515 45%, #3e0808 100%);
       }
       #launch-splash.is-leaving {
-        opacity: 0;
-        pointer-events: none;
+        transform: translateY(-100%);
       }
       .splash-brand {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-content: center;
-        justify-items: center;
-        gap: 20px;
+        width: min(60vw, 320px);
+        text-align: center;
+        transform: translateY(-12px);
       }
-      .splash-emblem {
-        opacity: 1;
-        transform: scale(1);
-        transition:
-          transform 250ms cubic-bezier(0.32, 0, 0.67, 0),
-          opacity 250ms ease-out;
+      .splash-eight {
+        width: 100%;
+        overflow: visible;
       }
-      #launch-splash.is-leaving .splash-emblem {
-        transform: scale(1.08);
-        opacity: 0;
+      .splash-boat {
+        animation: first-stroke-arrive 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
       }
-      .splash-mark {
-        position: relative;
-        width: 96px;
-        height: 96px;
-        animation: splash-mark-enter 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      .splash-oar {
+        transform-box: fill-box;
+        transform-origin: 100% 100%;
+        animation: first-stroke-oar 310ms cubic-bezier(0.3, 0, 0.2, 1) 100ms 2;
       }
-      .splash-mark img {
-        position: absolute;
-        inset: 6px;
-        width: 84px;
-        height: 84px;
-        border-radius: 50%;
-        opacity: 0;
+      .splash-wake {
+        transform-origin: 100% 50%;
+        transform-box: fill-box;
+        animation: first-stroke-wake 600ms ease-out 100ms both;
       }
-      .splash-mark img.is-loaded {
-        opacity: 1;
-      }
-      .splash-ring-half,
-      .splash-ring-half::before {
-        position: absolute;
-        inset: 0;
-      }
-      .splash-ring-half {
-        clip-path: inset(0 0 0 50%);
-      }
-      .splash-ring-half::before {
-        content: '';
-        border: 2px solid #fff;
-        border-radius: 50%;
-        clip-path: inset(0 50% 0 0);
-        animation: splash-ring-draw 175ms linear 40ms both;
-      }
-      .splash-ring-half + .splash-ring-half {
-        clip-path: inset(0 50% 0 0);
-      }
-      .splash-ring-half + .splash-ring-half::before {
-        clip-path: inset(0 0 0 50%);
-        animation-delay: 215ms;
+      .splash-oar[d='M0 0L-22 31'] {
+        transform-origin: 100% 0%;
       }
       .splash-caption {
-        transition: opacity 180ms ease-out;
-      }
-      #launch-splash.is-leaving .splash-caption {
-        opacity: 0;
+        overflow: hidden;
+        margin-top: 24px;
       }
       .splash-wordmark {
         display: block;
-        font-size: 28px;
-        font-weight: 500;
-        line-height: 1;
-        letter-spacing: 0.14em;
-        text-indent: 0.14em;
-        animation: splash-wordmark-enter 280ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+        font:
+          600 48px/1.1 'Source Serif 4',
+          Georgia,
+          serif;
+        letter-spacing: -0.035em;
+        animation: first-stroke-word 300ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
       }
-      @keyframes splash-mark-enter {
+      @keyframes first-stroke-arrive {
         from {
-          transform: scale(0.8);
+          transform: translateX(-100px);
           opacity: 0;
         }
-        72% {
-          transform: scale(1.035);
-          opacity: 1;
-        }
         to {
-          transform: scale(1);
+          transform: translateX(0);
           opacity: 1;
         }
       }
-      @keyframes splash-ring-draw {
-        from {
-          transform: rotate(0deg);
+      @keyframes first-stroke-oar {
+        0%,
+        100% {
+          transform: rotate(-22deg);
         }
-        to {
-          transform: rotate(180deg);
+        65% {
+          transform: rotate(24deg);
         }
       }
-      @keyframes splash-wordmark-enter {
+      @keyframes first-stroke-wake {
         from {
-          transform: translateY(8px);
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        to {
+          transform: scaleX(1);
+          opacity: 0.35;
+        }
+      }
+      @keyframes first-stroke-word {
+        from {
+          transform: translateY(110%);
           opacity: 0;
         }
         to {
@@ -145,24 +129,18 @@
         #launch-splash {
           transition: opacity 120ms ease-out;
         }
-        .splash-mark,
-        .splash-ring-half::before,
+        #launch-splash.is-leaving {
+          transform: none;
+          opacity: 0;
+        }
+        .splash-boat,
+        .splash-oar,
+        .splash-wake,
         .splash-wordmark {
           animation: none;
         }
-        .splash-ring-half::before {
-          transform: rotate(180deg);
-        }
-        .splash-emblem,
-        .splash-caption {
-          transition: none;
-        }
-        #launch-splash.is-leaving .splash-emblem {
-          transform: none;
-          opacity: 1;
-        }
-        #launch-splash.is-leaving .splash-caption {
-          opacity: 1;
+        .splash-wake {
+          opacity: 0.35;
         }
       }
     </style>
@@ -186,38 +164,54 @@
   </head>
   <body>
     <div id="launch-splash" role="status" aria-label="Opening OYO">
-      <div class="splash-brand">
-        <div class="splash-emblem">
-          <div class="splash-mark">
-            <img
-              src="/splash/gabriel-96.webp"
-              srcset="/splash/gabriel-96.webp 1x, /splash/gabriel-192.webp 2x"
-              width="84"
-              height="84"
-              alt=""
-              decoding="async"
-            />
-            <div class="splash-ring-half"></div>
-            <div class="splash-ring-half"></div>
-          </div>
-        </div>
+      <div class="splash-brand" aria-hidden="true">
+        <svg
+          class="splash-eight"
+          viewBox="0 0 320 96"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        >
+          <g class="splash-wake">
+            <path d="M-52 41H45 M-68 48H36 M-44 55H45 M-25 62H32" />
+          </g>
+          <g class="splash-boat">
+            <path d="M12 48Q160 33 308 48Q160 63 12 48Z" />
+            <path d="M52 48H270" opacity=".45" />
+            <g transform="translate(80 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+            <g transform="translate(100 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+            <g transform="translate(120 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+            <g transform="translate(140 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+            <g transform="translate(160 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+            <g transform="translate(180 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+            <g transform="translate(200 44)"><path class="splash-oar" d="M0 0L-22 -31" /></g>
+            <g transform="translate(220 52)"><path class="splash-oar" d="M0 0L-22 31" /></g>
+          </g>
+        </svg>
         <div class="splash-caption"><span class="splash-wordmark">OYO</span></div>
       </div>
     </div>
+    <div id="root" inert></div>
     <script>
       (() => {
         const splash = document.getElementById('launch-splash');
         splash.dataset.started = String(performance.now());
-        for (const image of splash.querySelectorAll('img')) {
-          const loaded = () => {
-            if (image.naturalWidth > 0) image.classList.add('is-loaded');
-          };
-          image.addEventListener('load', loaded, { once: true });
-          if (image.complete) loaded();
-        }
+        splash.addEventListener(
+          'click',
+          () => {
+            document.documentElement.classList.remove('launching');
+            document.getElementById('root').removeAttribute('inert');
+            const dark = document.documentElement.classList.contains('dark');
+            document
+              .querySelectorAll('meta[name="theme-color"]')
+              .forEach((meta) => (meta.content = dark ? '#0E0D0E' : '#F6F5F3'));
+            splash.remove();
+          },
+          { once: true },
+        );
       })();
     </script>
-    <div id="root" inert></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -10,7 +10,9 @@ import {
   User,
   type LucideIcon,
 } from 'lucide-react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import type { CSSProperties } from 'react';
+import { driveTabs, tabTransition, useTabTransition } from '../../design/useTabTransition';
 import { useMe, useNotifications } from '../../lib/queries';
 import { Button } from '../ui';
 import { Brand } from './Brand';
@@ -21,12 +23,23 @@ export const main: { to: string; label: string; icon: LucideIcon }[] = [
   { to: '/me', label: 'Me', icon: User },
 ];
 export function TabBar() {
+  const active = driveTabs.indexOf(useLocation().pathname);
+  const logTransition = useTabTransition('/log');
   return (
-    <nav aria-label="Main Navigation" className="shell-tabbar">
+    <nav
+      aria-label="Main Navigation"
+      className="shell-tabbar"
+      style={
+        {
+          '--active-index': Math.max(0, active),
+          '--tab-indicator': active < 0 ? 0 : 1,
+        } as CSSProperties
+      }
+    >
       {main.slice(0, 2).map((item) => (
         <Tab key={item.to} {...item} />
       ))}
-      <NavLink to="/log" className="shell-log-tab" aria-label="Log Session">
+      <NavLink to="/log" className="shell-log-tab" aria-label="Log Session" {...logTransition}>
         <span>
           <Plus size={24} strokeWidth={1.75} aria-hidden="true" />
         </span>
@@ -39,8 +52,10 @@ export function TabBar() {
   );
 }
 function Tab({ to, label, icon: Icon }: (typeof main)[number]) {
+  const transition = useTabTransition(to);
   return (
     <NavLink
+      {...transition}
       end={to === '/'}
       to={to}
       className={({ isActive }) => `shell-tab ${isActive ? 'is-active' : ''}`}
@@ -51,6 +66,7 @@ function Tab({ to, label, icon: Icon }: (typeof main)[number]) {
   );
 }
 export function Sidebar() {
+  const { pathname } = useLocation();
   const { data: user } = useMe();
   const { data: notifications = [] } = useNotifications();
   const unread = notifications.filter((n) => !n.read_at).length;
@@ -66,13 +82,19 @@ export function Sidebar() {
       <Link to="/" className="shell-brand-link" aria-label="Stanford OYO Home">
         <Brand />
       </Link>
-      <Button to="/log" fullWidth leading={<Plus size={20} strokeWidth={1.75} />}>
+      <Button
+        to="/log"
+        fullWidth
+        leading={<Plus size={20} strokeWidth={1.75} />}
+        {...tabTransition(pathname, '/log')}
+      >
         Log Session
       </Button>
       <nav aria-label="Main Navigation" className="mt-6 space-y-1">
         {links.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
+            {...tabTransition(pathname, to)}
             to={to}
             end={to === '/'}
             className={({ isActive }) => `shell-nav-row ${isActive ? 'is-active' : ''}`}

@@ -40,18 +40,34 @@ export default {
         sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro', 'Inter', 'sans-serif'],
       },
       fontSize: {
-        'large-title': ['2.125rem', { lineHeight: '2.5625rem', fontWeight: '600' }],
-        title1: ['1.75rem', { lineHeight: '2.125rem', fontWeight: '600' }],
-        title2: ['1.375rem', { lineHeight: '1.75rem', fontWeight: '600' }],
-        title3: ['1.25rem', { lineHeight: '1.5625rem', fontWeight: '600' }],
-        headline: ['1.0625rem', { lineHeight: '1.375rem', fontWeight: '600' }],
+        display: ['3.5rem', { lineHeight: '3.5rem', fontWeight: '600', letterSpacing: '-0.035em' }],
+        'large-title': [
+          '2.125rem',
+          { lineHeight: '2.5rem', fontWeight: '600', letterSpacing: '-0.01em' },
+        ],
+        title1: [
+          '1.75rem',
+          { lineHeight: '2.125rem', fontWeight: '600', letterSpacing: '-0.02em' },
+        ],
+        title2: [
+          '1.375rem',
+          { lineHeight: '1.75rem', fontWeight: '600', letterSpacing: '-0.015em' },
+        ],
+        title3: [
+          '1.25rem',
+          { lineHeight: '1.5625rem', fontWeight: '600', letterSpacing: '-0.01em' },
+        ],
+        headline: [
+          '1.0625rem',
+          { lineHeight: '1.375rem', fontWeight: '600', letterSpacing: '-0.005em' },
+        ],
         body: ['1.0625rem', '1.375rem'],
         callout: ['1rem', '1.3125rem'],
-        subhead: ['0.9375rem', '1.25rem'],
+        subhead: ['0.9375rem', { lineHeight: '1.25rem', fontWeight: '500' }],
         footnote: ['0.8125rem', '1.125rem'],
-        caption: ['0.75rem', '1rem'],
+        caption: ['0.75rem', { lineHeight: '1rem', fontWeight: '500' }],
       },
-      borderRadius: { control: '8px', card: '12px', sheet: '20px' },
+      borderRadius: { control: '14px', card: '20px', sheet: '28px' },
       transitionTimingFunction: {
         standard: 'var(--oyo-ease-standard)',
         out: 'var(--oyo-ease-out)',

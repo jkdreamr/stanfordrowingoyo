@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import { StrictMode } from 'react';
+import splashHtml from '../../index.html?raw';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { act, cleanup, render } from '@testing-library/react';
 import { LaunchSplash } from './LaunchSplash';
@@ -30,6 +31,15 @@ afterEach(() => {
   document.body.innerHTML = '';
 });
 const splash = () => document.getElementById('launch-splash');
+it('allows a click to skip the inline splash before React or authentication is ready', () => {
+  const parsed = new DOMParser().parseFromString(splashHtml, 'text/html');
+  const script = [...parsed.querySelectorAll('script:not([type])')].at(-1)!;
+  new Function(script.textContent!)();
+  splash()?.click();
+  expect(splash()).toBeNull();
+  expect(document.documentElement.classList.contains('launching')).toBe(false);
+  expect(document.getElementById('root')?.hasAttribute('inert')).toBe(false);
+});
 async function advance(ms: number) {
   await act(async () => vi.advanceTimersByTimeAsync(ms));
 }
@@ -43,24 +53,24 @@ it('keeps the original HTML while auth is pending and counts the minimum from HT
   await advance(400);
   const { rerender } = render(<LaunchSplash />);
   settle(rerender);
-  await advance(199);
+  await advance(379);
   expect(splash()).toBe(original);
   expect(splash()?.classList.contains('is-leaving')).toBe(false);
   expect(document.getElementById('root')?.hasAttribute('inert')).toBe(true);
   await advance(1);
   expect(splash()?.classList.contains('is-leaving')).toBe(true);
   expect(document.getElementById('root')?.hasAttribute('inert')).toBe(false);
-  await advance(250);
+  await advance(520);
   expect(splash()).toBeNull();
 });
 
-it('waits for slow auth, but never waits for images and exits within 250ms of late readiness', async () => {
+it('waits for slow auth, but never waits for images and exits within 520ms of late readiness', async () => {
   const { rerender } = render(<LaunchSplash />);
   await advance(2500);
   expect(splash()).not.toBeNull();
   expect(document.querySelector('img')?.naturalWidth).toBe(0);
   settle(rerender);
-  await advance(251);
+  await advance(521);
   expect(splash()).toBeNull();
 });
 
@@ -71,7 +81,7 @@ it.each(['signed out', 'network error', 'server error'])(
     else auth.error = new Error(result);
     const { rerender } = render(<LaunchSplash />);
     settle(rerender);
-    await advance(850);
+    await advance(1300);
     expect(splash()).toBeNull();
   },
 );
@@ -79,7 +89,7 @@ it.each(['signed out', 'network error', 'server error'])(
 it('does not restart for navigation, focus, background return or later auth changes', async () => {
   const { rerender } = render(<LaunchSplash />);
   settle(rerender);
-  await advance(850);
+  await advance(1300);
   auth.isPending = true;
   rerender(<LaunchSplash />);
   window.dispatchEvent(new Event('focus'));
@@ -94,10 +104,10 @@ it('does not restart for navigation, focus, background return or later auth chan
 it('does not cancel an exit when another auth fetch starts', async () => {
   const { rerender } = render(<LaunchSplash />);
   settle(rerender);
-  await advance(600);
+  await advance(780);
   auth.isPending = true;
   rerender(<LaunchSplash />);
-  await advance(250);
+  await advance(520);
   expect(splash()).toBeNull();
 });
 
@@ -108,7 +118,7 @@ it('survives StrictMode effect replay without starting the minimum again', async
       <LaunchSplash />
     </StrictMode>,
   );
-  await advance(850);
+  await advance(1300);
   expect(splash()).toBeNull();
 });
 
@@ -147,8 +157,8 @@ it.each([false, true])(
     ]);
     const { rerender } = render(<LaunchSplash />);
     settle(rerender);
-    await advance(600);
-    const expected = dark ? '#121214' : '#F7F7FA';
+    await advance(780);
+    const expected = dark ? '#0E0D0E' : '#F6F5F3';
     expect([...document.querySelectorAll('meta')].map((meta) => meta.content)).toEqual([
       expected,
       expected,

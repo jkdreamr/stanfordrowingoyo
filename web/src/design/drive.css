@@ -1,0 +1,349 @@
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/source-serif-4-latin-600.woff2') format('woff2');
+}
+
+:root {
+  --bg: #f6f5f3;
+  --surface: #fff;
+  --surface-2: #efedea;
+  --surface-3: #fff;
+  --text: #1d1b1a;
+  --muted: #6e6a67;
+  --text-secondary: var(--muted);
+  --divider: #e7e3df;
+  --accent: #8c1515;
+  --accent-pressed: #6f1010;
+  --accent-ink: #8c1515;
+  --accent-tint: #f7ecea;
+  --ember: radial-gradient(120% 90% at 20% 0%, #b3261e 0%, #8c1515 45%, #5a0c0c 100%);
+  --highlight: #fc5200;
+  --highlight-tint: #fff0e8;
+  --oyo-hover: var(--surface-2);
+  --oyo-selected: var(--accent-tint);
+  --oyo-skeleton: var(--divider);
+  --shadow-card: 0 1px 2px rgb(29 27 26 / 4%), 0 8px 24px -12px rgb(29 27 26 / 14%);
+  --shadow-raised: 0 2px 6px rgb(29 27 26 / 6%), 0 18px 40px -16px rgb(29 27 26 / 22%);
+  --radius-card: 20px;
+  --radius-control: 14px;
+  --radius-sheet: 28px;
+  --ease-catch: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --stagger: 45ms;
+  --spring-snappy: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --spring-bouncy: cubic-bezier(0.22, 1.25, 0.4, 1);
+  --tab-glass: rgb(255 255 255 / 82%);
+}
+.dark {
+  --bg: #0e0d0e;
+  --surface: #18171a;
+  --surface-2: #232126;
+  --surface-3: #2b2930;
+  --text: #f4f2f1;
+  --muted: #a29e9b;
+  --divider: rgb(255 255 255 / 7%);
+  --accent: #c0352b;
+  --accent-pressed: #8c1515;
+  --accent-ink: #f18b83;
+  --accent-tint: rgb(192 53 43 / 14%);
+  --ember: radial-gradient(120% 90% at 20% 0%, #b3261e 0%, #8c1515 45%, #3e0808 100%);
+  --highlight-ink: #ff7a3d;
+  --highlight-tint: rgb(252 82 0 / 14%);
+  --shadow-card: inset 0 1px 0 rgb(255 255 255 / 4%);
+  --shadow-raised: inset 0 1px 0 rgb(255 255 255 / 4%);
+  --tab-glass: rgb(24 23 26 / 82%);
+}
+/* scripts/drive-springs.mjs: mass 1; 420/30/380ms, 240/critical/520ms, 260/14/760ms. */
+@supports (animation-timing-function: linear(0, 1)) {
+  :root {
+    --spring-snappy: linear(
+      0,
+      0.0172,
+      0.0625,
+      0.1273,
+      0.2048,
+      0.2892,
+      0.3761,
+      0.4619,
+      0.5441,
+      0.6209,
+      0.6912,
+      0.7541,
+      0.8096,
+      0.8575,
+      0.8983,
+      0.9323,
+      0.9601,
+      0.9823,
+      0.9995,
+      1.0126,
+      1.0219,
+      1.0283,
+      1.0321,
+      1.0339,
+      1.0342,
+      1.0332,
+      1.0314,
+      1.0291,
+      1.0263,
+      1.0234,
+      1.0204,
+      1.0175,
+      1.0147,
+      1.0122,
+      1.0099,
+      1.0078,
+      1.006,
+      1.0044,
+      1.0031,
+      1.002,
+      1
+    );
+    --spring-smooth: linear(
+      0,
+      0.0178,
+      0.0623,
+      0.1233,
+      0.1932,
+      0.2668,
+      0.3404,
+      0.4115,
+      0.4787,
+      0.5409,
+      0.5978,
+      0.6492,
+      0.6952,
+      0.7361,
+      0.7722,
+      0.804,
+      0.8317,
+      0.8558,
+      0.8768,
+      0.8949,
+      0.9104,
+      0.9238,
+      0.9353,
+      0.9452,
+      0.9536,
+      0.9607,
+      0.9668,
+      0.972,
+      0.9764,
+      0.9801,
+      0.9833,
+      0.9859,
+      0.9882,
+      0.9901,
+      0.9917,
+      0.993,
+      0.9941,
+      0.9951,
+      0.9959,
+      0.9966,
+      1
+    );
+    --spring-bouncy: linear(
+      0,
+      0.0427,
+      0.1537,
+      0.308,
+      0.4828,
+      0.6591,
+      0.8221,
+      0.9616,
+      1.0716,
+      1.1501,
+      1.198,
+      1.2185,
+      1.2163,
+      1.197,
+      1.1661,
+      1.1288,
+      1.0897,
+      1.0524,
+      1.0195,
+      0.9927,
+      0.9728,
+      0.9597,
+      0.953,
+      0.9517,
+      0.9547,
+      0.9606,
+      0.9684,
+      0.977,
+      0.9854,
+      0.9931,
+      0.9995,
+      1.0045,
+      1.0079,
+      1.0099,
+      1.0106,
+      1.0103,
+      1.0092,
+      1.0076,
+      1.0058,
+      1.0039,
+      1
+    );
+  }
+}
+.ui-card,
+.ui-list {
+  border: 0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.ui-card {
+  padding: 20px;
+}
+.screen-stack {
+  gap: 16px;
+}
+@media (min-width: 390px) and (max-width: 1023.98px) {
+  .screen-stack {
+    padding-inline: 20px;
+  }
+}
+.dark .ui-card,
+.dark .ui-list {
+  border: 1px solid var(--divider);
+}
+.ui-button,
+.ui-segments {
+  border-radius: var(--radius-control);
+}
+.ui-sheet {
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+}
+.ui-large-title,
+.ui-page-nav-inline h1 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.ui-page-nav-inline h1 {
+  margin: 0;
+  padding: 0;
+}
+.ui-button,
+.drive-press,
+.shell-log-tab > span:first-child {
+  transition: transform 380ms var(--spring-snappy);
+}
+.ui-button:active:not(:disabled),
+.drive-press:active,
+.shell-log-tab:active > span:first-child {
+  transform: scale(0.97);
+  transition: transform 90ms var(--ease-catch);
+}
+.ui-segment-thumb {
+  border-radius: 10px;
+  transition: transform 380ms var(--spring-snappy);
+}
+.drive-enter {
+  animation: drive-enter 520ms var(--spring-smooth) both;
+  animation-delay: calc(var(--stagger) * min(var(--i, 0), 8));
+}
+@keyframes drive-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.shell-tabbar {
+  isolation: isolate;
+  background: var(--tab-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.shell-tabbar::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  left: max(4px, env(safe-area-inset-left), env(safe-area-inset-right));
+  top: 8px;
+  height: 56px;
+  width: calc((100% - 2 * max(4px, env(safe-area-inset-left), env(safe-area-inset-right))) / 5);
+  border-radius: 20px;
+  background: var(--accent-tint);
+  opacity: var(--tab-indicator, 1);
+  transform: translateX(calc(var(--active-index, 0) * 100%)) scaleX(0.86);
+  transition:
+    transform 380ms var(--spring-snappy),
+    opacity 120ms ease-out;
+}
+.shell-tab.is-active svg {
+  animation: drive-tab-catch 760ms var(--spring-bouncy);
+}
+@keyframes drive-tab-catch {
+  from {
+    transform: scale(0.86);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.shell-log-tab > span:first-child {
+  border-radius: 50%;
+  background: linear-gradient(145deg, #a51c1c, #8c1515);
+  box-shadow: 0 3px 8px rgb(0 0 0 / 16%);
+}
+.shell-content {
+  view-transition-name: drive-content;
+}
+::view-transition-group(drive-content) {
+  animation: none;
+}
+::view-transition-old(drive-content) {
+  animation: drive-tab-out 180ms var(--ease-exit) both;
+}
+::view-transition-new(drive-content) {
+  animation: drive-tab-in 300ms var(--spring-smooth) both;
+}
+@keyframes drive-tab-out {
+  to {
+    opacity: 0;
+    transform: translateX(calc(-16px * var(--tab-direction, 1)));
+  }
+}
+@keyframes drive-tab-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(16px * var(--tab-direction, 1)));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drive-enter,
+  .shell-tab.is-active svg {
+    animation: none;
+  }
+  .ui-button,
+  .drive-press,
+  .ui-segment-thumb,
+  .shell-tabbar::before,
+  .shell-log-tab > span:first-child {
+    transition: opacity 120ms ease-out;
+  }
+  .ui-button:active:not(:disabled),
+  .drive-press:active,
+  .shell-log-tab:active > span:first-child {
+    transform: none;
+    transition: none;
+  }
+  ::view-transition-old(drive-content),
+  ::view-transition-new(drive-content) {
+    animation: none;
+  }
+}
