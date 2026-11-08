@@ -208,3 +208,39 @@ static mark with a 120 ms fade (no handoff).
 - Fold `design.css` tokens into `styles.css` and the Tailwind config; delete overrides superseded by tokens.
 - Apply hero, tile and stagger patterns to the remaining screens (Plan, Entry detail, Settings, games).
 - E2E coverage for splash skip and save celebration on all three Playwright projects.
+
+## Ambient Water
+
+The one sanctioned ambient loop: original softened cellular water caustics, with a faint oar
+shadow entering quickly and settling on a 26-second stroke. Two raster fields drift over
+67/83 seconds and crossfade over 53 seconds. No live filters or blending. The fixed, negative
+stacking layer paints above the body background but below normal-flow content and all chrome;
+its large-viewport bleed does not resize with the mobile URL bar. It fades in only after
+`afterLaunch`, so the opaque launch sheet and hero handoff remain authoritative.
+
+Tune or disable `ambientWaterConfig` in `AmbientWater.tsx`: `enabled: false` renders nothing;
+`intensity` is clamped to 0–1 and scales the entire group's maximum 17% light / 29% dark
+opacity (not each child independently). Transparent warm taupe filaments darken white by
+about 8–12% at their strongest overlaps without a page-wide tint; cardinal and dawn amber
+filaments remain perceptible on black. Retune the original seeded artwork with
+`node scripts/ambient/render.mjs` on Node 24; a periodic wave-warped cellular field creates
+an interconnected network of irregular curved cells, uneven focal widths and brighter
+junctions. The transparent field is blurred across a 3×3 wrap before downsampling to 320px
+WebP, so tiling stays seamless. The soft asymmetric hatchet blade, shaft and rigger stay at
+640px, with feathered raster edges and contain sizing so a sweep never clips the silhouette.
+Separate warm light and cardinal/dawn dark palettes require no runtime filters.
+The generator requires the existing Playwright
+Chromium install. No source artwork is downloaded.
+
+Contrast must be calculated from decoded WebP pixels (including alpha and codec variation),
+not from the ideal palette. Group opacity bounds all overlaps: each RGB channel inside the
+group is a convex combination of decoded source colors, so its darkest light-mode or
+brightest dark-mode contribution can be bounded independently before applying group opacity.
+The decoded conservative envelopes are light `rgb(236,229,222)` (text 13.62:1, muted 4.56:1)
+and dark `rgb(54,29,18)` (text 14.25:1, muted 6.11:1), including overlapping fields and peak
+oar opacity. Opaque cards remain unchanged. Do not raise the opacity
+caps or change the generated palette without recalculating; muted text must retain 4.5:1.
+
+Hidden documents pause every animation via `data-paused`. Reduced motion removes all
+animations and the entrance transition, keeping a static caustic; forced colors, increased
+contrast and reduced transparency hide the layer entirely.

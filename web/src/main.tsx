@@ -13,6 +13,7 @@ import { AppErrorBoundary } from './components/AppErrorBoundary';
 import { OfflineBanner } from './components/OfflineBanner';
 import { listenForInstall } from './lib/install';
 import { LaunchSplash } from './components/LaunchSplash';
+import { AmbientWater } from './components/AmbientWater';
 
 listenForInstall();
 if (import.meta.env.DEV && import.meta.env.VITE_MOCK === '1') await import('./mock/install');
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <ToastProvider>
             <PwaUpdates />
             <OfflineBanner />
+            <AmbientWater />
             <RouterProvider router={router} />
           </ToastProvider>
         </ThemeProvider>
