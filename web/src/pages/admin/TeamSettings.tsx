@@ -15,7 +15,7 @@ import { useRecalculate, useSettings, useUpdateSettings } from '../../lib/querie
 import { useUnsavedChanges } from '../../lib/useUnsavedChanges';
 import { formatNumber } from '../../lib/format';
 import { groups, groupLabels } from './roster';
-import { factorError, seasonError, targetError } from './operations';
+import { factorError, paceError, seasonError, targetError } from './operations';
 import { generateJoinCode } from './joinCode';
 
 export default function TeamSettings() {
@@ -38,7 +38,8 @@ function SettingsForm({ settings }: { settings: Settings }) {
   const [modes, setModes] = useState(() => strings(settings.mode_factors));
   const [targets, setTargets] = useState(() => strings(settings.group_targets));
   const [season, setSeason] = useState(settings.season_start);
-  const snapshot = JSON.stringify({ zones, modes, targets, season });
+  const [pace, setPace] = useState(String(settings.berkeley_pace_percent));
+  const snapshot = JSON.stringify({ zones, modes, targets, season, pace });
   const [saved, setSaved] = useState(snapshot);
   const [confirm, setConfirm] = useState<'code' | 'recalculate'>();
   const [result, setResult] = useState<number>();
@@ -53,13 +54,15 @@ function SettingsForm({ settings }: { settings: Settings }) {
     mode_factors: numeric(modes) as Settings['mode_factors'],
     group_targets: numeric(targets) as Settings['group_targets'],
     season_start: season,
+    berkeley_pace_percent: Number(pace),
   };
   const dirty = snapshot !== saved;
   const { blocker } = useUnsavedChanges(dirty);
   const invalid =
     [...Object.values(zones), ...Object.values(modes)].some((value) => factorError(value)) ||
     Object.values(targets).some((value) => targetError(value)) ||
-    !!seasonError(season);
+    !!seasonError(season) ||
+    !!paceError(pace);
   const busy = update.isPending || recalculate.isPending;
   async function save() {
     try {
@@ -169,6 +172,17 @@ function SettingsForm({ settings }: { settings: Settings }) {
                 />
               </div>
             ))}
+          </ListGroup>
+          <ListGroup header="Berkeley Pace" footer="50–150% of summed rower targets.">
+            <div className="p-4">
+              <NumberField
+                label="Pace"
+                suffix="%"
+                value={pace}
+                error={paceError(pace)}
+                onChange={(e) => setPace(e.target.value)}
+              />
+            </div>
           </ListGroup>
           <ListGroup header="Season Start">
             <div className="space-y-2 p-4">

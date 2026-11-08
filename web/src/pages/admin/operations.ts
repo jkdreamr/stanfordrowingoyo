@@ -1,3 +1,4 @@
+import { BERKELEY_PACE_MAX_PERCENT, BERKELEY_PACE_MIN_PERCENT } from '../../../../shared/race';
 import type { ComplianceRow, Settings } from '../../../../shared/types';
 import { addDays, seasonRange } from '../../../../shared/dates';
 
@@ -35,6 +36,15 @@ export function targetError(value: string) {
   return value.trim() && Number.isInteger(n) && n >= 1000 && n <= 1000000
     ? ''
     : 'Use whole meters from 1,000 to 1,000,000.';
+}
+export function paceError(value: string) {
+  const n = Number(value);
+  return value.trim() &&
+    Number.isInteger(n) &&
+    n >= BERKELEY_PACE_MIN_PERCENT &&
+    n <= BERKELEY_PACE_MAX_PERCENT
+    ? ''
+    : `Use a whole percent from ${BERKELEY_PACE_MIN_PERCENT} to ${BERKELEY_PACE_MAX_PERCENT}.`;
 }
 export function seasonError(value: string) {
   return validDate('2000-' + value) ? '' : 'Choose a real month and day.';
