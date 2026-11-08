@@ -8,8 +8,12 @@ async function doubleTap(target: Locator, mobile: boolean, whitespace = false) {
   const bounds = (await target.boundingBox())!;
   const options = whitespace ? { position: { x: bounds.width - 2, y: bounds.height - 2 } } : {};
   if (mobile) {
-    await target.tap(options);
-    await target.tap(options);
+    const point = options.position ?? { x: bounds.width / 2, y: bounds.height / 2 };
+    const x = bounds.x + point.x,
+      y = bounds.y + point.y;
+    // Locator actionability waits between taps can exceed the gesture window in WebKit.
+    await target.page().touchscreen.tap(x, y);
+    await target.page().touchscreen.tap(x, y);
   } else await target.dblclick(options);
 }
 test('double-tap gives once on feed body, photos and detail; single taps and viewer zoom survive', async ({
@@ -83,6 +87,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   expect(posts).toBe(2);
   await card.getByText('Distance', { exact: true }).click();
   await expect(page).toHaveURL(new RegExp(`/entries/${entry.id}$`));
+  await expect(page.getByRole('heading', { name: 'Comments', exact: true })).toBeVisible();
   const detail = page.getByRole('article');
   const detailKudos = detail.getByRole('button', { name: 'Kudos', exact: true });
   await detailKudos.click();
