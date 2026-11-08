@@ -5,7 +5,13 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { ThemeSwitch } from './ThemeSwitch';
 
 afterEach(cleanup);
-function Harness({ onChange = () => {}, disabled = false }) {
+function Harness({
+  onChange = () => {},
+  disabled = false,
+}: {
+  onChange?: (dark: boolean) => void;
+  disabled?: boolean;
+}) {
   const [dark, setDark] = useState(false);
   return (
     <ThemeSwitch
