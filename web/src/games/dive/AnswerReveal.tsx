@@ -1,4 +1,4 @@
-import { DIVE_TIERS } from '../../../../shared/games/dive';
+import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS } from '../../../../shared/games/dive';
 import type { DiveAnswerResult } from '../../../../shared/types';
 import { Button } from '../../components/ui';
 
@@ -19,7 +19,9 @@ export function AnswerReveal({
   const notable = [first, second].filter((item) => item !== undefined);
   return (
     <section className="dive-reveal space-y-5" aria-label="Answer Result" aria-live="polite">
-      <p className="text-subhead text-muted">{answer.prompt_index + 1} of 7</p>
+      <p className="text-subhead text-muted">
+        {answer.prompt_index + 1} of {DIVE_PROMPTS_PER_DAY}
+      </p>
       <div className={answer.tier === 'tooclever' ? 'dive-clever-callout' : undefined}>
         <div className="flex items-baseline justify-between gap-4">
           <h2 className="text-title1">{DIVE_TIERS[answer.tier].label}</h2>

@@ -2,7 +2,7 @@ import { mkdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import type { DiveAnswerResult, DiveDay, GameDayLeaderboard } from '../shared/types';
-import { DIVE_TIERS } from '../shared/games/dive';
+import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS } from '../shared/games/dive';
 import { diveSelectionFor } from '../worker/src/games/divePrompts';
 import { answerSet } from '../worker/src/games/dive/sets';
 import { test, expect } from './fixtures';
@@ -83,7 +83,9 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
   expect(await page.evaluate((key) => localStorage.getItem(key), timerKey)).toBe(deadline);
 
   for (const [index, choice] of choices.entries()) {
-    await expect(page.getByText(`${index + 1} of 7`, { exact: true })).toBeVisible();
+    await expect(
+      page.getByText(`${index + 1} of ${DIVE_PROMPTS_PER_DAY}`, { exact: true }),
+    ).toBeVisible();
     await page.getByLabel('Your Answer', { exact: true }).fill(choice?.answer ?? 'zzzzzzzzzz');
     const saving = page.waitForResponse(
       (response) =>

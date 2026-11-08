@@ -12,6 +12,7 @@ import { WaterColumn } from './WaterColumn';
 import { Prompt, deadlineKey, savedDeadline } from './Prompt';
 import { Results } from './Results';
 import { AnswerReveal } from './AnswerReveal';
+import { DIVE_PROMPTS_PER_DAY } from '../../../../shared/games/dive';
 
 function Session({
   day,
@@ -38,7 +39,7 @@ function Session({
       {shown !== 'prompt' && (
         <div className="flex items-center justify-between gap-4 text-subhead text-muted">
           <p>{formatShortDate(day.date)}</p>
-          {!day.complete && <p>7 Prompts · 25 Seconds</p>}
+          {!day.complete && <p>{DIVE_PROMPTS_PER_DAY} Prompts · 25 Seconds</p>}
         </div>
       )}
       <div className={shown === 'results' ? 'space-y-6' : 'dive-layout'}>

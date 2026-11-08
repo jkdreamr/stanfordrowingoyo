@@ -2,11 +2,12 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { expect, it } from 'vitest';
 import { addDays } from '../../shared/dates';
-import { DIVE_TIERS, normalizeAnswer } from '../../shared/games/dive';
+import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS, normalizeAnswer } from '../../shared/games/dive';
 import { DIVE_PROMPTS, diveSelectionFor } from '../../worker/src/games/divePrompts';
 import { boundedDistance, matchAnswer } from '../../worker/src/games/dive/matcher';
 import { fixtureSet as parseAnswerSet, decodedAnswers } from './fixtures';
 import { loaders } from '../../worker/src/games/dive/loaders';
+import { DIVE_INACTIVE_PROMPTS } from '../../worker/src/games/dive/prompts';
 import { answerSet } from '../../worker/src/games/dive/sets';
 
 const fixture = parseAnswerSet(
@@ -137,27 +138,26 @@ it('agrees with full Levenshtein for insertion, deletion, substitution and early
 it('validates all generated sets: tiers, single Pearl, globally unique keys/aliases per set and explicit Too Clever picks', async () => {
   const report = JSON.parse(readFileSync(new URL('./report.json', import.meta.url), 'utf8')) as {
     id: string;
+    active: boolean;
     size: number;
     gem: string;
     too_clever: string[];
   }[];
-  expect(DIVE_PROMPTS.length).toBeGreaterThanOrEqual(120);
-  expect(new Set(DIVE_PROMPTS.map(({ text }) => normalizeAnswer(text))).size).toBe(
-    DIVE_PROMPTS.length,
+  const all = [...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS];
+  expect(DIVE_PROMPTS.length).toBeGreaterThanOrEqual(320);
+  expect(new Set(all.map(({ text }) => normalizeAnswer(text))).size).toBe(all.length);
+  expect(new Set(all.map(({ id }) => id)).size).toBe(all.length);
+  expect(all.some(({ text }) => /rowing|stanford|teammate|krillion/i.test(text))).toBe(false);
+  expect(report.filter((row) => row.active).map((row) => row.id)).toEqual(
+    DIVE_PROMPTS.map(({ id }) => id),
   );
-  expect(DIVE_PROMPTS.some(({ text }) => /rowing|stanford|teammate|krillion/i.test(text))).toBe(
-    false,
-  );
-  let large = 0,
-    hundreds = 0;
-  for (const prompt of DIVE_PROMPTS) {
+  for (const prompt of all) {
     const set = await answerSet(prompt.id);
     expect(Object.keys(set).sort()).toEqual(['answers', 'buckets', 'gem', 'notable', 'size']);
     const answers = decodedAnswers(set);
     const stats = report.find((row) => row.id === prompt.id)!;
     expect(answers.length, prompt.id).toBe(stats.size);
-    if (stats.size >= 100) large++;
-    if (stats.size >= 200) hundreds++;
+    if (stats.active) expect(stats.size, prompt.id).toBeGreaterThanOrEqual(200);
     expect(answers.filter((row) => row.tier === 'gem')).toHaveLength(1);
     expect(set.gem.answer).toBe(stats.gem);
     expect(
@@ -188,9 +188,7 @@ it('validates all generated sets: tiers, single Pearl, globally unique keys/alia
       ).toBe(true);
     expect(set.notable.length).toBeLessThanOrEqual(5);
   }
-  expect(large).toBeGreaterThan(DIVE_PROMPTS.length / 2);
-  expect(hundreds).toBeGreaterThan(DIVE_PROMPTS.length / 2);
-});
+}, 60_000);
 it('anchors obvious answers at Surface, and accepts real aliases and typos on the generated data', async () => {
   for (const [id, answer] of [
     ['animals', 'dog'],
@@ -206,16 +204,21 @@ it('anchors obvious answers at Surface, and accepts real aliases and typos on th
   expect(matchAnswer('fish', await answerSet('dinosaurs')).canonical).toBeNull();
   expect((await answerSet('constellations')).size).toBe(88);
 });
-it('selects deterministic seven-prompt team days with no repeats in any floor(N/7)-day window', () => {
-  const window = Math.floor(DIVE_PROMPTS.length / 7);
+it('selects deterministic team days from active prompts with no repeats in any floor(N/day)-day window', () => {
+  const window = Math.floor(DIVE_PROMPTS.length / DIVE_PROMPTS_PER_DAY);
+  // Product promise: no prompt returns within 60 team days.
+  expect(window).toBeGreaterThanOrEqual(60);
+  expect(window).toBeGreaterThanOrEqual(64);
+  const active = new Set(DIVE_PROMPTS.map(({ id }) => id));
   for (const start of ['2026-01-01', '2025-10-12', '2026-07-03']) {
     for (let offset = 0; offset < DIVE_PROMPTS.length; offset++) {
       const date = addDays(start, offset);
       expect(diveSelectionFor(date)).toEqual(diveSelectionFor(date));
+      expect(diveSelectionFor(date).every(({ id }) => active.has(id))).toBe(true);
       const selected = Array.from({ length: window }, (_, i) =>
         diveSelectionFor(addDays(date, i)).map(({ id }) => id),
       ).flat();
-      expect(new Set(selected).size).toBe(window * 7);
+      expect(new Set(selected).size).toBe(window * DIVE_PROMPTS_PER_DAY);
     }
   }
 });
@@ -225,7 +228,7 @@ it('uses immutable module data without a parsed cache or eviction penalty, and r
   for (const { id } of DIVE_PROMPTS.slice(1, 10)) await answerSet(id);
   expect(await answerSet('animals')).toBe(first);
   expect(() => answerSet('__proto__')).toThrow('Unknown Dive prompt');
-  expect(Object.keys(loaders)).toHaveLength(DIVE_PROMPTS.length);
+  expect(Object.keys(loaders)).toHaveLength(DIVE_PROMPTS.length + DIVE_INACTIVE_PROMPTS.length);
 });
 it('keeps production web imports disconnected from Worker answer modules', () => {
   function files(path: string): string[] {

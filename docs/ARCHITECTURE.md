@@ -277,7 +277,8 @@ Schema migrations: a `schema_version` setting, currently 16; migrations run in t
 Version 16 adds `game_results(game_id,date,user_id,score,payload_json,created_at,updated_at)`
 with primary key `(game_id,date,user_id)` and indexes `(user_id,date)` and `(date,game_id)`;
 and `dive_answers(date,user_id,prompt_index,answer,normalized,hidden_at,hidden_by,created_at)`
-with primary key `(date,user_id,prompt_index)`, prompt index constrained to 0–6, and index
+with primary key `(date,user_id,prompt_index)`, prompt index constrained to 0–6 (the route accepts
+0–4 for today's five prompts; the wider check needs no migration), and index
 `(date,prompt_index,normalized)`. Both tables and indexes use IF NOT EXISTS in one guarded
 idempotent transaction advancing to 16. Exports include the owner's game results (decoded
 payload) and Dive answer rows. Account removal deletes both and clears hidden_by references.
@@ -321,7 +322,7 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
   (text only, empty when locked), ordered caller answers with their own prompt reveals,
   completion, immutable running score, verdict, caller's generic result and nullable team reveal.
-  Today never exposes team groups before the caller completes all seven, including staff;
+  Today never exposes team groups before the caller completes all five, including staff;
   staff can explicitly review them through the day endpoint.
 - `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
@@ -335,7 +336,7 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   prompt's `gem` and at most five `notable` answers (three familiar Surface answers and two
   Deep Cuts), never a whole set or reveals for unanswered prompts.
 - `GET /api/games/dive/days/:date` returns `DiveDay` with revealed prompt groups for past
-  dates. Today requires seven answers or staff (403 `PLAY_FIRST`); future dates are invalid.
+  dates. Today requires five answers or staff (403 `PLAY_FIRST`); future dates are invalid.
 - `PATCH /api/games/dive/answers` is staff-only, takes
   `{date,prompt_index,normalized,hidden:boolean}` and returns that prompt's `DiveReveal`.
   It hides/unhides a whole group, sets/clears `hidden_at` and `hidden_by`, and audits
@@ -350,16 +351,16 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
 The general-knowledge bank has 120 prompts with curated canonical answer sets.
-A fixed seeded permutation takes seven consecutive entries per day, measured from
-2026-01-01 with positive modulo. Any `floor(N/7)` consecutive days contain no repeated
+A fixed seeded permutation takes five consecutive entries per day (`DIVE_PROMPTS_PER_DAY`), measured
+from 2026-01-01 with positive modulo. Any `floor(N/5)` consecutive days contain no repeated
 prompt, including wraparound and dates before the epoch. There are no rowing/team prompts.
 `shared/games/dive.ts` owns normalization (NFKD, diacritics, lowercase, ampersand expansion,
 punctuation removal, hyphen/underscore/slash separation, whitespace, leading article removal,
-last-word-only simple plurals), tier constants, emoji and 0–700 verdict bands. Tiers are
+last-word-only simple plurals), tier constants, emoji and 0–500 verdict bands. Tiers are
 `surface` Surface 10 🫧, `tooclever` Too Clever 15 🤡, `school` Midwater 30 🐟,
 `rare` Rare 60 🦑, `deep` Deep Cut 85 🐙, `gem` Pearl 100 🦪, `miss` 0 ⬛.
-Verdicts: 0 High And Dry; 1–149 Toe Dipper; 150–299 Getting Wet; 300–449 Open Water;
-450–599 Deep Diver; 600–699 Abyss Explorer; 700 Pearl Collector. Scores are immediately
+Verdicts: 0 High And Dry; 1–99 Toe Dipper; 100–199 Getting Wet; 200–299 Open Water;
+300–399 Deep Diver; 400–499 Abyss Explorer; 500 Pearl Collector. Scores are immediately
 real even for the first player. The generic board remains higher-is-better; `final` becomes
 true after team midnight (board participation can grow, individual scores never recompute).
 
