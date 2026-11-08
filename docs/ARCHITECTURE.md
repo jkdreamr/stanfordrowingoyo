@@ -927,7 +927,8 @@ content, staff access, owner-only My Fortnight plans, authenticated photo storag
   colors do not replace cardinal controls or orange achievement highlights.
   Dark mode: background `#121214`, surface `#1C1C1F`, dividers `#2C2C31`, text `#F2F2F5`. Zone colors as in the sheet:
   E light green `#CFE6C4`, D green `#8DBE84`, C yellow `#FBE08F` (others interpolate) — used as small tags/chips only.
-  Light + dark mode (system default, user toggle). System font stack (-apple-system, "SF Pro", Inter fallback). Native
+  Light + dark mode (system default, user toggle). Self-hosted Inter Variable (Latin subset,
+  precached), with a metric-adjusted local fallback and system sans-serif fallbacks. Native
   feel: 44px+ touch targets, segmented controls, sheets, no tiny tracked uppercase labels, no monospace micro labels,
   text ≥ 12px, Title Case buttons. Skeleton loaders, empty states, optimistic kudos, toast feedback, press states.
 - Passkeys UI: Login shows "Log In with Face ID/Touch ID/Fingerprint/Windows Hello/Passkey" (label from the
