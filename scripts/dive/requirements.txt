@@ -1,3 +1,4 @@
 wordfreq==3.1.1
 pycountry==26.2.16
 geonamescache==3.0.2
+beautifulsoup4==4.14.3

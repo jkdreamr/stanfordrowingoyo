@@ -1,0 +1,224 @@
+import hashlib
+import json
+import math
+from collections import Counter
+from pathlib import Path
+import re
+import tempfile
+import unittest
+from unittest.mock import patch
+
+from bs4 import BeautifulSoup
+
+import constrained
+import schedule
+import sources
+
+
+class SourcesTest(unittest.TestCase):
+    def test_malformed_spans_and_inherited_row_exclusions(self):
+        soup = BeautifulSoup('<table class="wikitable"><tr><th>Year</th><th>Name</th></tr>'
+                             '<tr><td rowspan="2,">2026</td><td><a href="/wiki/A">Alpha</a></td></tr>'
+                             '<tr><td><a href="/wiki/B">Beta</a></td></tr>'
+                             '<tr><td colspan="bad"><a href="/wiki/C">Gamma</a></td></tr></table>', 'html.parser')
+        spec = dict(page='Fixture', revision=123, tables=[0], column=1, expect=[2, 2])
+        with patch.object(sources, 'list_page', return_value=soup):
+            self.assertEqual(sources.table_values(spec), ['Alpha', 'Beta'])
+            self.assertEqual(sources.table_values({**spec, 'exclude_row': '2026', 'expect': [0, 0]}), [])
+            self.assertEqual(sources.table_values({**spec, 'where_not': [1, 'Alpha'], 'expect': [1, 1]}), ['Beta'])
+
+    def test_reviewed_members_ignore_case_but_not_missing_names(self):
+        soup = BeautifulSoup('<p>alpha BETA</p>', 'html.parser')
+        spec = dict(page='Fixture', revision=123, members=['Alpha', 'Beta'], expect=[2, 2])
+        with patch.object(sources, 'list_page', return_value=soup):
+            self.assertEqual(sources.list_values(spec), ['Alpha', 'Beta'])
+            with self.assertRaisesRegex(ValueError, 'missing'):
+                sources.list_values({**spec, 'members': ['Gamma']})
+
+    def test_count_guards(self):
+        self.assertEqual(sources.expect_count([1, 2], [2, 2], 'fixture'), [1, 2])
+        for values in [[], [1], [1, 2, 3]]:
+            with self.assertRaisesRegex(ValueError, 'expected'):
+                sources.expect_count(values, [2, 2], 'fixture')
+
+    def test_revision_and_title_are_pinned(self):
+        with self.assertRaises(ValueError):
+            sources.list_page('Fixture', 0)
+        response = dict(parse=dict(title='Fixture', revid=123, text={'*': '<p>Hello<sup>1</sup></p>'}))
+        with patch.object(sources, 'fetch', return_value=json.dumps(response)) as fetch:
+            self.assertEqual(sources.list_page('Fixture', 123).get_text(), 'Hello')
+            self.assertIn('oldid=123', fetch.call_args[0][0])
+        for title, revision in [('Other', 123), ('Fixture', 124)]:
+            with patch.object(sources, 'fetch', return_value=json.dumps(response)):
+                with self.assertRaisesRegex(ValueError, 'mismatch'):
+                    sources.list_page(title, revision)
+
+    def test_dataset_checksum_formats_and_empty(self):
+        for raw, format, expected in [('id,name\n1,Alpha\n', 'csv', [{'id': '1', 'name': 'Alpha'}]), ('[]', 'json', [])]:
+            with patch.object(sources, 'fetch', return_value=raw):
+                self.assertEqual(sources.dataset('https://example.test/pin', hashlib.sha256(raw.encode()).hexdigest(), format), expected)
+                with self.assertRaisesRegex(ValueError, 'checksum'):
+                    sources.dataset('https://example.test/pin', '0' * 64, format)
+        with self.assertRaisesRegex(ValueError, 'SHA-256'):
+            sources.dataset('https://example.test/unpinned', '', 'csv')
+
+    def test_rowspan_winner_extraction_and_expected_count(self):
+        soup = BeautifulSoup('<table class="wikitable"><tr><th>Year</th><th>Name</th></tr>'
+                             '<tr><td rowspan="2">2026</td><td style="background:#faeb86"><a href="/wiki/A">Alpha</a></td></tr>'
+                             '<tr><td><a href="/wiki/B">Beta</a></td></tr></table>', 'html.parser')
+        spec = dict(page='Fixture', revision=123, tables=[0], column=1, expect=[2, 2])
+        with patch.object(sources, 'list_page', return_value=soup):
+            self.assertEqual(sources.table_values(spec), ['Alpha', 'Beta'])
+            self.assertEqual(sources.table_values({**spec, 'winner': True, 'expect': [1, 1]}), ['Alpha'])
+            with self.assertRaises(ValueError):
+                sources.table_values({**spec, 'expect': [3, 3]})
+
+
+class SpecsTest(unittest.TestCase):
+    def test_short_natural_texts_and_retired_sets_remain_complete(self):
+        prompts = constrained.read_specs()
+        retired = {p['id'] for p in prompts if not p['active']}
+        self.assertEqual(retired, {'calendar-months', 'zodiac-signs', 'chinese-zodiac',
+                                  'zodiac-constellations', 'santas-reindeer', 'cluedo-rooms',
+                                  'us-food-allergens', 'lanthanides', 'synthetic-elements',
+                                  'b-vitamins', 'period-4-elements', 'period-5-elements',
+                                  'period-6-elements', 'period-7-elements',
+                                  'astronaut-group-2', 'astronaut-group-3', 'astronaut-group-5',
+                                  'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
+                         {p['id'] for p in prompts if re.search(
+                             r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
+        self.assertEqual(sum(p['active'] for p in prompts), 203)
+        for prompt in prompts:
+            self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
+            self.assertRegex(prompt['text'], r'^Name [^.?!]+\.$')
+            self.assertNotRegex(prompt['text'], r'[();]|through \d{4}|counts|pinned|IAU|IUCN')
+            self.assertGreaterEqual(len(prompt['rows']), 8)
+
+    def test_reviewed_bank_and_alias_predicates(self):
+        prompts = constrained.read_specs()
+        self.assertEqual(len(prompts), 253)
+        for prompt in prompts:
+            self.assertGreaterEqual(len(prompt['rows']), 8)
+            self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
+        rows = [dict(name='Czech Republic', names=['Czechia'], aliases=['CZ']), dict(name='France')]
+        self.assertEqual(constrained.derive(rows, constrained.PREDICATES['countries-ia']), rows[:1])
+        self.assertEqual(constrained.derive([], constrained.PREDICATES['countries-ia']), [])
+        self.assertEqual(constrained.letters('São Tomé and Príncipe'), 'saotomeandprincipe')
+
+    def test_reviewed_phase_two_boundaries(self):
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        active = [p for p in prompts.values() if p['active']]
+        clusters = Counter(p['cluster'] for p in active if p.get('cluster'))
+        self.assertLessEqual(max(clusters.values()), math.ceil(len(active) / 10))
+        def names(id):
+            return {row['name'] for row in prompts[id]['rows']}
+        self.assertTrue({'Pretoria', 'Mbabane', 'Malabo'} <= names('africa-capitals'))
+        self.assertTrue({'Monaco', 'Vatican City', 'The Hague'} <= names('europe-capitals'))
+        self.assertTrue({'French', 'Italian'}.isdisjoint(names('europe-capitals')))
+        self.assertNotIn('TBA', names('bake-off-winners'))
+        self.assertNotIn('William Rehnquist', names('supreme-court-since-1981'))
+        self.assertTrue({'John Roberts', 'Antonin Scalia'} <= names('supreme-court-since-1981'))
+        self.assertTrue({'Floyd Landis', 'Lance Armstrong'} <= names('tour-de-france'))
+        self.assertTrue({'World War I', 'World War II'}.isdisjoint(names('tour-de-france')))
+        for id in ['wimbledon-men', 'wimbledon-women']:
+            self.assertNotIn('COVID-19 pandemic', names(id))
+        self.assertEqual(len(names('human-vitamins')), 13)
+        self.assertEqual(len(names('b-vitamins')), 8)
+
+    def test_collapsed_families_and_distinct_replacements(self):
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        awards = ['grammy-album', 'grammy-record', 'grammy-song', 'grammy-new-artist',
+                  'booker-winners', 'hugo-novels', 'newbery-winners', 'pulitzer-fiction',
+                  'emmy-drama', 'emmy-comedy']
+        for id in awards:
+            self.assertTrue(prompts[id]['active'], id)
+            splits = [p for key, p in prompts.items() if key.startswith(id + '-')]
+            self.assertEqual(len(splits), 3, id)
+            self.assertTrue(all(not p['active'] for p in splits), id)
+            accepted = {constrained.normalize(n) for row in prompts[id]['rows']
+                        for n in [row['name'], *row.get('aliases', [])]}
+            for split in splits:
+                self.assertTrue({constrained.normalize(r['name']) for r in split['rows']} <= accepted, split['id'])
+        def names(id):
+            return {row['name'] for row in prompts[id]['rows']}
+        self.assertEqual(len(names('iba-cocktails')), 102)
+        self.assertEqual(names('iba-cocktails'), set().union(
+            *(names(id) for id in ['iba-unforgettables', 'iba-contemporary', 'iba-new-era'])))
+        self.assertTrue({'World War II', 'Saudi Arabia', 'Morocco'}.isdisjoint(names('world-cup-hosts')))
+        self.assertEqual(len(names('world-cup-winners')), 8)
+        self.assertEqual(len(names('super-bowl-winners')), 20)
+        self.assertNotIn('Baltimore Colts', names('super-bowl-winners'))
+        self.assertNotIn('St. Louis Rams', names('super-bowl-winners'))
+        self.assertEqual(len(names('un-secretaries-general')), 10)
+        self.assertNotIn('Congo Crisis', names('un-secretaries-general'))
+        self.assertIn('Henry Dunant', names('nobel-peace'))
+        self.assertEqual(len(names('nobel-peace')), 141)
+        self.assertTrue({'Tinker Bell', 'Elsa'}.isdisjoint(names('disney-princesses')))
+        self.assertNotIn('Avengers: Doomsday', names('mcu-films'))
+        self.assertTrue({'Milan', "Cortina d'Ampezzo"} <= names('winter-olympic-hosts'))
+        self.assertTrue({'Melbourne', 'Stockholm'} <= names('summer-olympic-hosts'))
+        self.assertTrue({'Enterprise', 'galaxy'}.isdisjoint(names('star-trek-original-episodes')))
+        self.assertTrue({'Southern Sotho', 'South African Sign Language'} <= names('south-africa-languages'))
+        self.assertTrue({'Cardenio', "Love's Labour's Won", 'Sir Thomas More'} <= names('shakespeare-plays'))
+        self.assertIn('Meet the Beatles!', names('beatles-albums'))
+        self.assertIn('The Cosmos Rocks', names('queen-albums'))
+        self.assertIn('Space Oddity', prompts['bowie-albums']['aliases']['David Bowie'])
+        self.assertIn('More', prompts['pink-floyd-albums']['aliases']['Soundtrack From The Film More'])
+
+    def test_surnames_use_matcher_normalization_and_skip_numeric_band_suffixes(self):
+        document = json.loads((constrained.HERE / 'constrained.json').read_text())
+        spec = document['prompts'][0]
+        spec['answers'] = [dict(name=name) for name in ['Tiger Woods', 'Craig Wood', 'Maroon 5',
+                            'Neil Armstrong', 'Buzz Aldrin', 'Pete Conrad', 'Jim Lovell', 'John Young']]
+        spec.update(people=True, expect=[8, 8], surface=['Neil Armstrong'], pearl='Buzz Aldrin')
+        document['prompts'] = [spec]
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / 'constrained.json').write_text(json.dumps(document))
+            with patch.object(constrained, 'HERE', Path(directory)):
+                aliases = constrained.read_specs()[0]['aliases']
+        self.assertNotIn('Tiger Woods', aliases)
+        self.assertNotIn('Craig Wood', aliases)
+        self.assertNotIn('Maroon 5', aliases)
+        self.assertEqual(aliases['Neil Armstrong'], ['armstrong'])
+
+    def test_snapshot_count_and_source_drift_fail(self):
+        document = json.loads((constrained.HERE / 'constrained.json').read_text())
+        document['prompts'][0]['expect'] = [999, 999]
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / 'constrained.json').write_text(json.dumps(document))
+            with patch.object(constrained, 'HERE', Path(directory)):
+                with self.assertRaisesRegex(ValueError, 'expected'):
+                    constrained.read_specs()
+        with patch.object(constrained, 'acquire', return_value=['source drift']):
+            with self.assertRaisesRegex(ValueError, 'differs'):
+                constrained.read_specs(verify_sources=True)
+
+
+class ScheduleTest(unittest.TestCase):
+    def fixture(self):
+        return [dict(id=f'p{i}', theme=f'theme{i % 5}', cluster=f'cluster{i % 5}',
+                     constrained=i < 192, size=[12, 80, 200][i % 3]) for i in range(320)]
+
+    def test_schedule_is_deterministic_complete_and_valid(self):
+        prompts = self.fixture()
+        days, status = schedule.build(prompts)
+        self.assertEqual(len(days), 64, status)
+        self.assertEqual(schedule.build(prompts)[0], days)
+        self.assertEqual(len(set(id for day in days for id in day)), 320)
+        schedule.validate(days, prompts)
+
+    def test_insufficient_and_impossible_banks(self):
+        for prompts in [[], self.fixture()[:191]]:
+            days, status = schedule.build(prompts)
+            self.assertEqual(days, [])
+            self.assertIn('not enough constrained', status)
+        prompts = self.fixture()
+        for prompt in prompts:
+            prompt['theme'] = 'same'
+        self.assertEqual(schedule.build(prompts)[0], [])
+        with self.assertRaisesRegex(ValueError, '64 days'):
+            schedule.validate([], [])
+
+
+if __name__ == '__main__':
+    unittest.main()

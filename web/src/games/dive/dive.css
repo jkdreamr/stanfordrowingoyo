@@ -213,8 +213,20 @@
   padding: 16px 0;
   border-bottom: 1px solid var(--divider);
 }
-.dive-answer-groups details {
+.dive-answer-groups details,
+.dive-empty-group {
   border-bottom: 1px solid var(--divider);
+}
+.dive-empty-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 56px;
+  padding: 16px 4px;
+}
+.dive-empty-group > .text-muted {
+  flex-shrink: 0;
 }
 .dive-answer-groups summary {
   min-height: 56px;
