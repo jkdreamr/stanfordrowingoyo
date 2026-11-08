@@ -381,6 +381,12 @@ are unchanged; neither is imported by the web app (including mock mode).
   Mock mode uses a fixed artificial word, not the production answer bank.
   The build runs Word Guess's web-bundle answer-bank exclusion guard alongside Dive's.
 
+`GET /api/games` includes `streak: GamesStreak` (`current`, `best`). A played date
+has at least one result for a registered game, counted once in the team timezone
+using shared `today()`. Current is the consecutive run ending today, or yesterday
+if not played today, otherwise zero. Best is the longest run across all played dates.
+The server folds one ordered distinct-date query; no new stored state is needed.
+
 Dive adds four dedicated endpoints without changing the generic hub contract:
 
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts

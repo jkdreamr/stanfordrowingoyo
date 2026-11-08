@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Share } from 'lucide-react';
+import { useShareResult } from '../share';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { DiveDay, DiveReveal, DiveRevealGroup } from '../../../../shared/types';
 import { DIVE_TIERS } from '../../../../shared/games/dive';
@@ -17,8 +19,7 @@ export function Results({
   reviewOnly?: boolean;
 }) {
   const client = useQueryClient();
-  const [copied, setCopied] = useState(false);
-  const [copyError, setCopyError] = useState(false);
+  const shareResult = useShareResult();
   const [target, setTarget] = useState<{ prompt: DiveReveal; group: DiveRevealGroup } | null>(null);
   const moderation = useMutation({
     mutationFn: () =>
@@ -46,29 +47,18 @@ export function Results({
             </div>
             <Button
               variant="secondary"
-              size="sm"
+              leading={<Share size={20} strokeWidth={1.75} />}
               onClick={async () => {
-                setCopyError(false);
-                try {
-                  const grid = [...day.answers]
-                    .sort((a, b) => a.prompt_index - b.prompt_index)
-                    .map((answer) => DIVE_TIERS[answer.tier].emoji)
-                    .join('');
-                  await navigator.clipboard.writeText(`Dive ${day.date} · ${day.score} m\n${grid}`);
-                  setCopied(true);
-                } catch {
-                  setCopyError(true);
-                }
+                const grid = [...day.answers]
+                  .sort((a, b) => a.prompt_index - b.prompt_index)
+                  .map((answer) => DIVE_TIERS[answer.tier].emoji)
+                  .join('');
+                await shareResult('Dive', `OYO Dive ${day.date} ${day.score} m\n${grid}`);
               }}
             >
-              {copied ? 'Copied' : 'Copy Result'}
+              Share
             </Button>
           </div>
-          {copyError && (
-            <p role="alert" className="mb-4 text-subhead text-muted">
-              Couldn’t copy. Try again.
-            </p>
-          )}
           <ol className="dive-log">
             {day.answers.map((answer) => (
               <li key={answer.prompt_index}>

@@ -1,9 +1,11 @@
 import { Gamepad2 } from 'lucide-react';
 import { ListGroup, ListRow } from '../components/ui';
-import { useGameAccess } from './useGameAccess';
+import { useGamesToday } from './useGameAccess';
 
 export function GamesCard() {
-  const access = useGameAccess();
+  const games = useGamesToday();
+  const access = games.data?.access;
+  const streak = games.data?.streak.current ?? 0;
   return (
     <ListGroup>
       <ListRow
@@ -11,10 +13,8 @@ export function GamesCard() {
         to="/games"
         leading={<Gamepad2 size={20} strokeWidth={1.75} />}
         subtitle={
-          access.data
-            ? access.data.unlocked
-              ? "Play Today's Games"
-              : 'Log a workout to unlock'
+          access
+            ? `${access.unlocked ? "Play Today's Games" : 'Log A Workout To Unlock'}${streak > 0 ? ` · ${streak} Day Streak` : ''}`
             : undefined
         }
       />

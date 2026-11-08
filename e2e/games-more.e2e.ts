@@ -12,6 +12,7 @@ test.describe.configure({ timeout: 180_000 });
 async function shots(page: Page, project: string, name: string) {
   const dir = process.env.E2E_SHOTS_DIR;
   if (!dir || !['iphone-15', 'desktop-chrome'].includes(project)) return;
+  await waitForSplash(page);
   for (const theme of project === 'iphone-15' ? ['light', 'dark'] : ['light']) {
     await page.evaluate(
       (value) => document.documentElement.classList.toggle('dark', value === 'dark'),
@@ -20,6 +21,7 @@ async function shots(page: Page, project: string, name: string) {
     await page.screenshot({
       path: join(dir, `${name}-${project}-${theme}.png`),
       animations: 'disabled',
+      scale: 'css',
     });
   }
   await page.evaluate(() => document.documentElement.classList.remove('dark'));
@@ -39,7 +41,28 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
 }, testInfo) => {
   const { page, context } = await makeRower();
   const project = testInfo.project.name;
+  if (project === 'iphone-15') await page.setViewportSize({ width: 393, height: 852 });
   const phone = project !== 'desktop-chrome';
+  const dates: Record<string, string> = {
+    'desktop-chrome': '2026-12-01',
+    'iphone-15': '2026-12-02',
+    'pixel-7': '2026-12-03',
+  };
+  await context.setExtraHTTPHeaders({
+    ...testInfo.project.use.extraHTTPHeaders,
+    'X-OYO-Test-Now': `${dates[project]}T18:00:00Z`,
+  });
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'share', { configurable: true, value: undefined });
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: async (text: string) => {
+          sessionStorage.setItem('shared-result', text);
+        },
+      },
+    });
+  });
   const config = await (await context.request.get('/api/config')).json();
   const date: string = config.today;
 
@@ -93,6 +116,19 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
     `Answer · ${answer[0].toUpperCase()}${answer.slice(1)}`,
   );
   await shots(page, project, 'wordguess-result');
+  await page.getByRole('button', { name: 'Share', exact: true }).click();
+  await expect(page.getByText('Result Copied', { exact: true })).toBeVisible();
+  const copied = await page.evaluate(() => sessionStorage.getItem('shared-result'));
+  expect(copied).toContain('https://stanford-oyo.joskoo.workers.dev');
+  expect(copied!.toLowerCase()).not.toContain(answer.toLowerCase());
+  await page.goto('/games');
+  await expect(page.getByText('1 Day Streak · Best 1')).toBeVisible();
+  await shots(page, project, 'games-streak');
+  await page.goto('/');
+  await expect(page.getByRole('link', { name: /Daily Games/ })).toContainText('1 Day Streak');
+  await page.getByRole('link', { name: /Daily Games/ }).scrollIntoViewIfNeeded();
+  await shots(page, project, 'home-streak');
+  await page.goto('/games/wordguess');
   await page.reload();
   await waitForSplash(page);
   await expectResult(page, 'Word Guess');

@@ -21,7 +21,7 @@ export default function PerceptionGame() {
         const share = perceptionShare(result.date, scores);
         return {
           headline: `${result.score} / ${PERCEPTION_MAX}`,
-          detail: share.split('\n')[1],
+          detail: `Clock ${scores.clock} · Color ${scores.color} · Spot ${scores.dot} · Pattern ${scores.pattern} · React ${scores.reaction}`,
           share,
         };
       }}

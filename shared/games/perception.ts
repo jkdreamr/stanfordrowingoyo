@@ -98,9 +98,11 @@ const LABEL: Record<PerceptionRound, string> = {
 };
 
 export function perceptionShare(date: string, scores: PerceptionScores): string {
-  const lines = PERCEPTION_ROUNDS.map((r) => `${LABEL[r]} ${scores[r]}`);
-  return [
-    `OYO Perception ${date} ${perceptionTotal(scores)}/${PERCEPTION_MAX}`,
-    lines.join(' · '),
-  ].join('\n');
+  const lines = PERCEPTION_ROUNDS.map((r) => {
+    const filled = Math.max(0, Math.min(5, Math.round((scores[r] / 100) * 5)));
+    return `${LABEL[r]} ${'🟩'.repeat(filled)}${'⬜'.repeat(5 - filled)} ${scores[r]}`;
+  });
+  return [`OYO Perception ${date} ${perceptionTotal(scores)}/${PERCEPTION_MAX}`, ...lines].join(
+    '\n',
+  );
 }

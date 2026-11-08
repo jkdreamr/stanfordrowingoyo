@@ -4,6 +4,7 @@ import { useGamesToday } from '../games/useGameAccess';
 import { GameLocked } from '../games/GameLocked';
 import { GameWeekBoard } from '../games/GameWeekBoard';
 import { GAMES } from '../games/registry';
+import { Flame } from 'lucide-react';
 
 export default function Games() {
   const games = useGamesToday();
@@ -23,6 +24,14 @@ export default function Games() {
           <LoadState error={games.isError} retry={() => void games.refetch()} />
         ) : (
           <>
+            {(games.data.streak.current > 0 || games.data.streak.best > 0) && (
+              <p className="flex items-center gap-2 text-subhead text-muted">
+                {games.data.streak.current > 0 && (
+                  <Flame size={20} color="#FC5200" aria-hidden="true" />
+                )}
+                {games.data.streak.current} Day Streak · Best {games.data.streak.best}
+              </p>
+            )}
             {!games.data.access.unlocked && <GameLocked />}
             <ListGroup>
               {GAMES.filter((game) => games.data.games.some((info) => info.id === game.id)).map(

@@ -601,7 +601,12 @@ export interface GameResult {
   created_at: string;
   updated_at: string;
 }
+export interface GamesStreak {
+  current: number;
+  best: number;
+}
 export interface GamesToday {
+  streak: GamesStreak;
   date: string;
   access: GameAccess;
   games: GameInfo[];

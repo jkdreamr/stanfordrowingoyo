@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { DiveDay } from '../../../../shared/types';
 import { api } from '../../lib/api';
 import Dive from './Dive';
+import { ToastProvider } from '../../components/ui';
 const { identity } = vi.hoisted(() => ({ identity: { id: 'staff', role: 'coach' } }));
 vi.mock('../../lib/api', () => ({ api: vi.fn() }));
 vi.mock('../../lib/queries', () => ({
@@ -58,7 +59,9 @@ function mount(data = day) {
   vi.mocked(api).mockResolvedValue(data);
   render(
     <QueryClientProvider client={client}>
-      <Dive />
+      <ToastProvider>
+        <Dive />
+      </ToastProvider>
     </QueryClientProvider>,
   );
 }

@@ -75,7 +75,10 @@ it('loads the server-completed result once, then shows the server result, share 
   fireEvent.click(screen.getByRole('button', { name: 'Finish' }));
   expect(await screen.findByText('Score 0')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Share' }));
-  expect(share).toHaveBeenCalledWith({ title: 'Perception', text: 'shared text' });
+  expect(share).toHaveBeenCalledWith({
+    title: 'Perception',
+    text: 'shared text\nhttps://stanford-oyo.joskoo.workers.dev',
+  });
   await waitFor(() =>
     expect(screen.getByRole('region', { name: 'Perception Day Board' }).textContent).toContain(
       '1 Players',

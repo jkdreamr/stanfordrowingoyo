@@ -1,4 +1,5 @@
 import { addDays, today, weekStart } from '../../../shared/dates';
+import { gamesStreak } from '../../../shared/games/streak';
 import type { Context } from '../context';
 import { refreshUser } from '../auth/guards';
 import { toPublicUser, type UserRow } from '../db/users';
@@ -38,6 +39,18 @@ export function gameRoutes(registry: Record<string, ServerGame>) {
         day = today(ctx.now);
       return json({
         date: day,
+        streak: gamesStreak(
+          ctx.storage.sql
+            .exec<{ date: string }>(
+              'SELECT DISTINCT date FROM game_results WHERE user_id=? AND date<=? AND game_id IN (SELECT value FROM json_each(?)) ORDER BY date',
+              user.id,
+              day,
+              JSON.stringify(Object.keys(registry)),
+            )
+            .toArray()
+            .map((row) => row.date),
+          day,
+        ),
         access: oyoGameAccess(ctx.storage, user, day),
         games: Object.values(registry).map(({ id, direction }) => ({ id, direction })),
         results: ctx.storage.sql

@@ -129,6 +129,23 @@ async function rest() {
       .toArray(),
   );
 }
+it.each([
+  [[], 0, 0],
+  [['2026-03-18'], 1, 1],
+  [['2026-03-16', '2026-03-17'], 2, 2],
+  [['2026-03-14', '2026-03-15'], 0, 2],
+  [['2026-03-10', '2026-03-11', '2026-03-12', '2026-03-18'], 1, 3],
+] as [string[], number, number][])('computes streak for %j', async (dates, current, best) => {
+  await sql((s) => {
+    for (const date of dates) {
+      result(s, 'u0', 'wordguess', date, 1);
+      result(s, 'u0', 'perception', date, 50);
+    }
+    result(s, 'u1', 'wordguess', DATE, 1);
+    result(s, 'u0', 'unregistered', '2026-03-13', 1);
+  });
+  expect(await (await api('/games')).json()).toMatchObject({ streak: { current, best } });
+});
 it('uses the same latest covering Fortnight rest day as My Plan, including overlap and expiry', async () => {
   await sql((s) => {
     s.sql.exec("INSERT INTO my_plans VALUES ('u0','2026-03-09','[{\"week\":2,\"day\":2}]',?)", NOW);
