@@ -84,7 +84,7 @@ export function Prompt({
       }}
     >
       <div className="flex items-center justify-between gap-4">
-        <p className="text-subhead text-muted">Prompt {index + 1} Of 7</p>
+        <p className="text-subhead text-muted">{index + 1} of 7</p>
         <div
           className="dive-timer"
           role="timer"

@@ -69,7 +69,7 @@ function Session({
         )}
         {shown === 'reveal' && reveal && (
           <section className="space-y-5 py-4" aria-label="Answer Result" aria-live="polite">
-            <p className="text-subhead text-muted">Prompt {reveal.prompt_index + 1} Of 7</p>
+            <p className="text-subhead text-muted">{reveal.prompt_index + 1} of 7</p>
             <h2 className="text-title1">{reveal.tier}</h2>
             <p className="break-words text-title3">{reveal.answer || 'No Answer'}</p>
             <p className="text-title2 tabular-nums">+{reveal.points} m</p>
