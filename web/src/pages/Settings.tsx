@@ -68,7 +68,7 @@ function NotificationSettings() {
   };
   return (
     <ListGroup header="Notifications" footer={pushFooter[support]}>
-      <div className="ui-row [&>div]:flex-1">
+      <div className="px-4 py-2">
         <Toggle
           label="Push Notifications"
           checked={!!enabled && support === 'ready'}
