@@ -382,7 +382,7 @@
           const root = document.documentElement;
           root.classList.remove('launching');
           document.getElementById('root').removeAttribute('inert');
-          const color = root.classList.contains('dark') ? '#0E0D0D' : '#F5F3F0';
+          const color = root.classList.contains('dark') ? '#000000' : '#FFFFFF';
           for (const meta of document.querySelectorAll('meta[name="theme-color"]'))
             meta.setAttribute('content', color);
           const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

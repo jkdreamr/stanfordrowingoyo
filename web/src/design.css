@@ -7,26 +7,51 @@
  * and has a reduced-motion path at the end of this file.
  */
 :root {
-  --bg: #f5f3f0;
+  /* White page, white cards defined by a crisp hairline and soft depth; neutral fills for
+     recessed controls. Cardinal carries the warmth. */
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: #efece8;
-  --text: #1c1a19;
-  --muted: #6b6662;
-  --divider: #e6e1dc;
-  --oyo-hover: #eeeae5;
-  --oyo-selected: #f6e7e5;
-  --oyo-skeleton: #e8e3de;
+  --surface-2: #f2f2f4;
+  --text: #1c1c1f;
+  --muted: #66666e;
+  --divider: #e6e6ea;
+  --oyo-hover: #f4f4f6;
+  --oyo-selected: #f7e7e7;
+  --oyo-skeleton: #ececef;
   --cardinal-top: #9c1c18;
   --cardinal-deep: #6b0f0f;
-  --card-border: transparent;
+  --card-border: rgb(0 0 0 / 8%);
   --radius-card: 20px;
   --radius-control: 14px;
   --radius-hero: 24px;
-  --shadow-card: 0 1px 2px rgb(40 24 20 / 5%), 0 10px 28px -16px rgb(40 24 20 / 16%);
-  --shadow-float: 0 2px 6px rgb(40 24 20 / 6%), 0 22px 48px -22px rgb(40 24 20 / 28%);
-  --shadow-hero: 0 2px 4px rgb(40 24 20 / 8%), 0 20px 40px -24px rgb(40 24 20 / 45%);
-  --glass: rgb(250 248 246 / 78%);
-  --glass-line: rgb(40 24 20 / 8%);
+  --shadow-card: 0 1px 2px rgb(20 20 28 / 5%), 0 10px 28px -16px rgb(20 20 28 / 16%);
+  --shadow-float: 0 2px 6px rgb(20 20 28 / 6%), 0 22px 48px -22px rgb(20 20 28 / 28%);
+  --shadow-hero: 0 2px 4px rgb(20 20 28 / 8%), 0 20px 40px -24px rgb(20 20 28 / 45%);
+  /* Solid cardinal objects cast a cardinal-tinted ambient in light mode, with a deep-cardinal
+     contact; dark mode keeps the neutral steps. */
+  --shadow-cardinal: 0 2px 4px rgb(92 10 10 / 18%), 0 20px 40px -24px rgb(140 21 21 / 50%);
+  --shadow-cardinal-sm: 0 1px 2px rgb(92 10 10 / 22%), 0 8px 20px -10px rgb(140 21 21 / 45%);
+  --shadow-cardinal-float: 0 4px 10px rgb(92 10 10 / 16%), 0 30px 80px -30px rgb(140 21 21 / 55%);
+  --glass: rgb(248 248 250 / 78%);
+  /*
+   * Glass material for controls, one definition: a translucent fill, a top-left rim light, a
+   * bottom inner shade, a hairline edge and a soft neutral drop. Blur is applied only where
+   * something passes beneath (switch knobs, the tab bar); elsewhere the static look is used.
+   */
+  --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(244 244 248 / 78%));
+  --glass-rim: inset 0 1px 0 rgb(255 255 255 / 95%), inset 1px 0 0 rgb(255 255 255 / 45%);
+  --glass-shade: inset 0 -1px 0 rgb(20 20 28 / 7%);
+  --glass-edge: inset 0 0 0 0.5px rgb(20 20 28 / 14%);
+  --glass-drop: 0 1px 2px rgb(20 20 28 / 12%), 0 4px 10px -3px rgb(20 20 28 / 14%);
+  --glass-drop-press: 0 1px 1px rgb(20 20 28 / 14%), 0 2px 4px -2px rgb(20 20 28 / 10%);
+  --glass-blur: blur(6px) saturate(140%);
+  --glass-shadow: var(--glass-rim), var(--glass-shade), var(--glass-edge), var(--glass-drop);
+  --glass-shadow-press:
+    var(--glass-rim), var(--glass-shade), var(--glass-edge), var(--glass-drop-press);
+  /* Tinted glass: a solid base keeps 4.5:1 for white labels; the rim and shade make it glass. */
+  --glass-tint-rim: inset 0 1px 0 rgb(255 255 255 / 26%), inset 1px 0 0 rgb(255 255 255 / 10%);
+  --glass-tint-shade: inset 0 -1px 0 rgb(0 0 0 / 22%);
+  --glass-line: rgb(20 20 28 / 8%);
 
   /* Motion tokens */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -74,22 +99,31 @@
   }
 }
 .dark {
-  --bg: #0e0d0d;
-  --surface: #181616;
-  --surface-2: #242120;
-  --text: #f5f2ef;
-  --muted: #a8a19c;
-  --divider: #2c2827;
-  --oyo-hover: #221f1e;
+  --bg: #000000;
+  --surface: #121214;
+  --surface-2: #1d1d20;
+  --text: #f4f4f6;
+  --muted: #a1a1aa;
+  --divider: #26262a;
+  --oyo-hover: #18181b;
   --oyo-selected: #33201e;
-  --oyo-skeleton: #2a2625;
+  --oyo-skeleton: #1f1f22;
   --cardinal-top: #8f1a16;
   --cardinal-deep: #4f0b0b;
-  --card-border: rgb(255 255 255 / 6%);
-  --shadow-card: 0 0 0 1px rgb(255 255 255 / 5%), inset 0 1px 0 rgb(255 255 255 / 3%);
+  --card-border: rgb(255 255 255 / 8%);
+  --shadow-card: inset 0 1px 0 rgb(255 255 255 / 4%);
   --shadow-float: 0 0 0 1px rgb(255 255 255 / 7%), 0 24px 48px -20px rgb(0 0 0 / 90%);
   --shadow-hero: 0 0 0 1px rgb(255 255 255 / 6%), 0 24px 48px -24px rgb(0 0 0 / 90%);
-  --glass: rgb(20 18 18 / 76%);
+  --shadow-cardinal: var(--shadow-hero);
+  --shadow-cardinal-sm: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 20px -10px rgb(0 0 0 / 70%);
+  --shadow-cardinal-float: 0 30px 80px -30px rgb(0 0 0 / 60%);
+  --glass: rgb(0 0 0 / 72%);
+  --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 7%));
+  --glass-rim: inset 0 1px 0 rgb(255 255 255 / 22%), inset 1px 0 0 rgb(255 255 255 / 8%);
+  --glass-shade: inset 0 -1px 0 rgb(0 0 0 / 35%);
+  --glass-edge: inset 0 0 0 0.5px rgb(255 255 255 / 14%);
+  --glass-drop: 0 1px 2px rgb(0 0 0 / 55%), 0 4px 10px -3px rgb(0 0 0 / 60%);
+  --glass-drop-press: 0 1px 1px rgb(0 0 0 / 60%), 0 2px 4px -2px rgb(0 0 0 / 50%);
   --glass-line: rgb(255 255 255 / 7%);
 }
 
@@ -124,6 +158,37 @@
 }
 .ticker-reserve {
   visibility: hidden;
+}
+
+/* Numbers are instruments: tabular figures everywhere. */
+body {
+  font-variant-numeric: tabular-nums;
+}
+/* The week card's material: a barely-there static grain (one 128 px tile, soft-light). */
+.drive-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: url('/textures/grain.png') repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: soft-light;
+  opacity: 0.04;
+}
+@media (forced-colors: active), (prefers-contrast: more) {
+  .drive-hero::before {
+    display: none;
+  }
+}
+/* On the Leaderboard, the race sits flat on the page instead of in a card. */
+.leaderboard > .race-module {
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 /* Surfaces */
@@ -181,40 +246,95 @@
 .ui-button {
   border-radius: var(--radius-control);
 }
-.ui-button-primary {
-  box-shadow: 0 1px 2px rgb(40 24 20 / 12%);
+/* Tinted glass: primary (cardinal) and destructive (red) keep a solid base under the rim. */
+.ui-button-primary,
+.ui-button-destructive {
+  color: #fff;
+  box-shadow: var(--glass-tint-rim), var(--glass-tint-shade), var(--shadow-cardinal-sm);
 }
+.ui-button-destructive {
+  background: var(--danger);
+}
+.dark .ui-button-destructive {
+  /* #FF5C52 cannot hold 4.5:1 under white; the fill steps down to #C62828 (5.6:1). */
+  background: #c62828;
+}
+.ui-button-destructive:active:not(:disabled) {
+  background: var(--danger);
+}
+.dark .ui-button-destructive:active:not(:disabled) {
+  background: #b71c1c;
+}
+.ui-button-primary:active:not(:disabled),
+.ui-button-destructive:active:not(:disabled) {
+  box-shadow:
+    var(--glass-tint-rim),
+    var(--glass-tint-shade),
+    0 1px 1px rgb(20 20 28 / 18%);
+}
+/* Clear glass: secondary buttons, icon buttons and the hero chips. */
 .ui-button-secondary {
-  background: var(--surface);
-  border-color: var(--divider);
-  box-shadow: 0 1px 2px rgb(40 24 20 / 6%);
+  background: var(--glass-fill);
+  border-color: transparent;
+  box-shadow: var(--glass-shadow);
 }
-.dark .ui-button-primary {
-  box-shadow: none;
+.ui-button-secondary:active:not(:disabled) {
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow-press);
 }
-.dark .ui-button-secondary {
-  background: var(--surface-2);
-  border-color: var(--card-border);
+.ui-page-nav .ui-icon-button,
+.ui-task-header .ui-icon-button,
+.ui-sheet-header .ui-icon-button,
+.ui-card .ui-icon-button {
+  border-radius: 50%;
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+:is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card)
+  .ui-icon-button:active:not(:disabled) {
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow-press);
+  transform: scale(0.94);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-button:disabled,
+.ui-icon-button:disabled {
+  opacity: 0.45;
   box-shadow: none;
 }
 .ui-input,
 .ui-input-wrap {
   border-radius: 12px;
 }
+/* Segments: a glass thumb sliding over a recessed track. */
 .ui-segments {
   border-radius: var(--radius-control);
+  box-shadow: inset 0 1px 2px rgb(20 20 28 / 10%);
+}
+.dark .ui-segments {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 55%);
 }
 .ui-segment-thumb {
   border-radius: 10px;
-  box-shadow:
-    0 1px 2px rgb(40 24 20 / 8%),
-    0 4px 10px -4px rgb(40 24 20 / 14%);
-  transition: transform var(--dur-travel) var(--spring);
+  background: var(--glass-fill);
+  box-shadow: var(--glass-shadow);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    scale var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+  scale: 0.97;
+  box-shadow: var(--glass-shadow-press);
+  transition-duration: var(--dur-travel), var(--dur-press), var(--dur-press);
 }
 .dark .ui-segment-thumb {
-  /* One step above the track, as on iOS: the selection reads as raised, never as a hole. */
-  background: #3a3533;
-  box-shadow: inset 0 0.5px 0 rgb(255 255 255 / 8%);
+  /* Lifted glass over the dark track. */
+  background: var(--glass-fill), #26262a;
 }
 .ui-icon-tile {
   border-radius: 10px;
@@ -252,12 +372,18 @@
   width: calc((100% - 2 * var(--tab-pad)) / 5);
   height: 72px;
   pointer-events: none;
-  background: var(--oyo-selected);
+  /* Glass pill: the tab bar is already frosted, so the pill is fill, rim and shade only. */
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 55%), rgb(255 255 255 / 0%) 70%), var(--oyo-selected);
   clip-path: inset(12.5px calc(50% - 28px) 29.5px round 15px);
   transform: translate3d(calc(var(--tab, 0) * 100%), 0, 0);
   transition:
     transform var(--dur-travel) var(--spring),
     opacity var(--dur-feedback) var(--ease-out);
+}
+.dark .shell-tabbar::before {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 12%), rgb(255 255 255 / 0%) 70%), var(--oyo-selected);
 }
 .shell-tabbar[data-tab='none']::before {
   opacity: 0;
@@ -278,13 +404,17 @@
   height: 48px;
   border-radius: 16px;
   background: var(--accent);
-  box-shadow:
-    0 1px 2px rgb(40 24 20 / 18%),
-    0 8px 20px -10px rgb(40 24 20 / 45%);
-  transition: transform var(--dur-travel) var(--spring);
+  box-shadow: var(--glass-tint-rim), var(--glass-tint-shade), var(--shadow-cardinal-sm);
+  transition:
+    transform var(--dur-travel) var(--spring),
+    box-shadow var(--dur-state) var(--ease-out);
 }
 .shell-log-tab:active > span:first-child {
   transform: scale(0.9);
+  box-shadow:
+    var(--glass-tint-rim),
+    var(--glass-tint-shade),
+    0 1px 1px rgb(20 20 28 / 18%);
   transition-duration: var(--dur-press);
   transition-timing-function: var(--ease-out);
 }
@@ -479,7 +609,7 @@
     #8c1515 48%,
     var(--cardinal-deep) 100%
   );
-  box-shadow: var(--shadow-hero);
+  box-shadow: var(--shadow-cardinal);
 }
 .drive-hero:focus-visible {
   outline: 2px solid var(--oyo-focus);
@@ -504,7 +634,10 @@
   min-height: 28px;
   padding: 4px 10px;
   border-radius: 14px;
-  background: rgb(255 255 255 / 14%);
+  background: linear-gradient(180deg, rgb(255 255 255 / 18%), rgb(255 255 255 / 10%));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 22%),
+    inset 0 -1px 0 rgb(0 0 0 / 12%);
   font-size: 13px;
   line-height: 18px;
   font-weight: 600;
@@ -690,7 +823,7 @@
   background-image: var(--medal-metal);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 55%),
-    0 2px 6px -2px rgb(40 24 20 / 35%);
+    0 2px 6px -2px rgb(20 20 28 / 35%);
 }
 .podium-card[data-medal='gold'] .podium-rank {
   --medal-on-metal: #2b1d00;
@@ -759,10 +892,22 @@
 .profile-stat {
   display: grid;
   gap: 4px;
-  padding: 16px 12px;
-  border-radius: 16px;
-  background: var(--surface);
-  box-shadow: var(--shadow-card);
+  padding: 0;
+}
+.profile-stat + .profile-stat {
+  padding-left: 16px;
+  border-left: 1px solid var(--divider);
+}
+/* Me is mostly flat: profile, figures, chart and rows sit on the page; only Erg Tests and
+   Weekly Volume keep their panels. */
+.me-flat .ui-list {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.me-flat .ui-list .ui-row {
+  padding-inline: 0;
 }
 .profile-stat svg {
   color: var(--highlight);
@@ -804,7 +949,7 @@
     #8c1515 48%,
     var(--cardinal-deep) 100%
   );
-  box-shadow: 0 30px 80px -30px rgb(0 0 0 / 60%);
+  box-shadow: var(--shadow-cardinal-float);
   animation: save-card-in var(--dur-focal) var(--spring) backwards;
 }
 .save-mark {
@@ -942,8 +1087,14 @@
   .drive-hero:active,
   .podium-card:active,
   .shell-tab:active svg,
-  .shell-log-tab:active > span:first-child {
+  .shell-log-tab:active > span:first-child,
+  :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card)
+    .ui-icon-button:active:not(:disabled) {
     transform: none;
+  }
+  .ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+    scale: none;
+    transition-duration: 0ms;
   }
 }
 
@@ -1008,24 +1159,61 @@
   border-radius: 9px;
   color: var(--switch-ink);
   background: linear-gradient(180deg, rgb(255 255 255 / 60%), rgb(255 255 255 / 22%));
-  -webkit-backdrop-filter: blur(3px) saturate(140%);
-  backdrop-filter: blur(3px) saturate(140%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 75%),
-    inset 0 -1px 0 rgb(0 0 0 / 6%),
-    inset 0 0 0 0.5px rgb(255 255 255 / 35%),
-    0 1px 2px rgb(0 0 0 / 18%),
-    0 3px 8px rgb(0 0 0 / 12%);
-  translate: calc(var(--p, 0) * 36px) 0;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  translate: calc(var(--p, 0) * var(--travel, 36px)) 0;
   transition:
     translate 260ms var(--switch-ease),
-    scale 100ms var(--ease-out);
+    scale 100ms var(--ease-out),
+    box-shadow 100ms var(--ease-out);
 }
 .glass-switch[data-dragging] .glass-switch-knob {
-  transition: scale 100ms var(--ease-out);
+  transition:
+    scale 100ms var(--ease-out),
+    box-shadow 100ms var(--ease-out);
 }
 .glass-switch:active:not(:disabled) .glass-switch-knob {
   scale: 0.96;
+  box-shadow: var(--glass-shadow-press);
+}
+.glass-switch:disabled .glass-switch-knob {
+  box-shadow: var(--glass-edge);
+}
+/* The compact on/off switch: same knob, track and motion; on fills the track with cardinal. */
+.glass-switch-toggle {
+  --travel: 20px;
+  width: 52px;
+  border-radius: 10px;
+}
+.glass-switch-toggle .glass-switch-track {
+  inset: 6px 0;
+  border-radius: 10px;
+  background: #dedee4;
+  box-shadow:
+    inset 0 1px 2px rgb(20 20 28 / 16%),
+    inset 0 0 0 1px var(--oyo-control-border);
+  transition: background-color 200ms var(--ease-out);
+}
+.glass-switch-toggle[aria-checked='true'] .glass-switch-track {
+  background: var(--accent);
+  box-shadow:
+    inset 0 1px 2px rgb(0 0 0 / 25%),
+    inset 0 0 0 1px rgb(0 0 0 / 10%);
+}
+.glass-switch-toggle .glass-switch-knob {
+  top: 9px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(246 246 250 / 88%));
+}
+.dark .glass-switch-toggle .glass-switch-track {
+  background: var(--surface-2);
+}
+.dark .glass-switch-toggle .glass-switch-knob {
+  background: linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(220 220 226 / 86%));
 }
 .glass-switch-icon {
   grid-area: 1 / 1;
@@ -1096,10 +1284,37 @@
 }
 @media (prefers-reduced-transparency: reduce) {
   .glass-switch-knob,
-  .dark .glass-switch-knob {
+  .dark .glass-switch-knob,
+  .dark .glass-switch-toggle .glass-switch-knob,
+  .glass-switch-toggle .glass-switch-knob,
+  .ui-button-secondary,
+  .ui-button-secondary:active:not(:disabled),
+  .ui-segment-thumb,
+  .dark .ui-segment-thumb,
+  :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card) .ui-icon-button {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: var(--surface);
+  }
+  .shell-tabbar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--bg);
+  }
+}
+@media (forced-colors: active) {
+  .ui-button-secondary,
+  .ui-segment-thumb,
+  :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card) .ui-icon-button {
+    background: ButtonFace;
+    border: 1px solid ButtonText;
+    box-shadow: none;
+  }
+  .ui-button-primary,
+  .ui-button-destructive,
+  .shell-log-tab > span:first-child {
+    box-shadow: none;
+    border: 1px solid ButtonText;
   }
 }
 @media (forced-colors: active) {

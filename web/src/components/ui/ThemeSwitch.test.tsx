@@ -32,7 +32,7 @@ it('is a native switch with a 44 x 76 target and decorative icons', () => {
   const control = screen.getByRole('switch', { name: 'Dark Mode' });
   expect(control.tagName).toBe('BUTTON');
   expect(control.getAttribute('aria-checked')).toBe('false');
-  expect(control.className).toBe('glass-switch');
+  expect(control.className).toBe('glass-switch glass-switch-theme');
   expect(control.querySelectorAll('svg')).toHaveLength(4);
   control.querySelectorAll(':scope > span').forEach((layer) => {
     expect(layer.getAttribute('aria-hidden')).toBe('true');

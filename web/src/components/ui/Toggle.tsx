@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { GlassSwitch } from './ThemeSwitch';
 export function Toggle({
   label,
   checked,
@@ -14,18 +15,7 @@ export function Toggle({
   return (
     <div className="flex items-center justify-between gap-4">
       <label htmlFor={id}>{label}</label>
-      <button
-        id={id}
-        type="button"
-        role="switch"
-        aria-checked={checked}
-        disabled={disabled}
-        onClick={() => onChange(!checked)}
-        className="ui-toggle"
-      >
-        <span />
-        <span />
-      </button>
+      <GlassSwitch id={id} checked={checked} disabled={disabled} onChange={onChange} />
     </div>
   );
 }
