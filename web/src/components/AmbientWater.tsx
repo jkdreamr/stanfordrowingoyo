@@ -7,54 +7,85 @@ export const ambientWaterConfig = { enabled: true, intensity: 1 };
 const sine = Float32Array.from({ length: 4096 }, (_, i) => Math.sin((i * Math.PI * 2) / 4096));
 const sin = (phase: number) => sine[((phase * 651.898647) | 0) & 4095];
 
+const caustics = (() => {
+  const light = new Uint8ClampedArray(256 * 256 * 4);
+  const dark = new Uint8ClampedArray(256 * 256 * 4);
+  const seeds = Float32Array.from({ length: 128 }, (_, i) => sin(i * 127.1 + 31.7) * 8);
+  for (let y = 0; y < 256; y++) {
+    for (let x = 0; x < 256; x++) {
+      const col = x >> 5;
+      const row = y >> 5;
+      let first = Infinity;
+      let second = Infinity;
+      let third = Infinity;
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          const cx = col + dx;
+          const cy = row + dy;
+          const seed = ((cy & 7) * 8 + (cx & 7)) * 2;
+          const sx = cx * 32 + 16 + seeds[seed];
+          const sy = cy * 32 + 16 + seeds[seed + 1];
+          const distance = (x - sx) ** 2 + (y - sy) ** 2;
+          if (distance < first) {
+            third = second;
+            second = first;
+            first = distance;
+          } else if (distance < second) {
+            third = second;
+            second = distance;
+          } else if (distance < third) third = distance;
+        }
+      }
+      const p = (y * 256 + x) * 4;
+      const edge = Math.max(0, 1 - (Math.sqrt(second) - Math.sqrt(first)) / 8);
+      const rim = edge * edge * (3 - 2 * edge);
+      const knot = Math.max(0, 1 - (Math.sqrt(third) - Math.sqrt(first)) / 6) * rim;
+      light[p] = 115;
+      light[p + 1] = 175;
+      light[p + 2] = 201;
+      light[p + 3] = Math.min(70, (1 - rim) * 70);
+      dark[p] = 140 + 52 * rim + 28 * knot;
+      dark[p + 1] = 21 + 32 * rim + 72 * knot;
+      dark[p + 2] = 21 + 22 * rim + 27 * knot;
+      dark[p + 3] = Math.min(128, rim * (128 - 38 * knot));
+    }
+  }
+  return {
+    light: new Uint32Array(light.buffer),
+    dark: new Uint32Array(dark.buffer),
+  };
+})();
+
 function createRenderer(canvas: HTMLCanvasElement) {
-  canvas.width = 64;
-  canvas.height = Math.max(1, Math.ceil((64 * innerHeight) / innerWidth));
+  canvas.width = 128;
+  canvas.height = Math.max(1, Math.ceil((128 * innerHeight) / innerWidth));
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
   const image = ctx.createImageData(canvas.width, canvas.height);
   const pixels = image.data;
-  const count = canvas.width * canvas.height;
-  const xPhase = new Float32Array(count);
-  const yPhase = new Float32Array(count);
-  const diagonal = new Float32Array(count);
-  const swell = new Float32Array(count);
-  for (let y = 0, i = 0; y < canvas.height; y++) {
-    for (let x = 0; x < canvas.width; x++, i++) {
-      const u = (x / canvas.width) * 7;
-      const v = (y / canvas.width) * 7;
-      xPhase[i] = u * 1.6;
-      yPhase[i] = v * 1.35;
-      diagonal[i] = (u + v) * 1.1;
-      swell[i] = v * 0.35;
-    }
-  }
+  const words = new Uint32Array(pixels.buffer);
+  const vertical = new Int32Array(canvas.width);
+  const alphaShift = new Uint8Array(new Uint32Array([0x01000000]).buffer)[3] === 1 ? 24 : 0;
+  const colorMask = ~(255 << alphaShift);
   let frame = 0;
   return (time: number, dark: boolean, intensity: number) => {
     const start = performance.now();
-    const t = time * 0.00085;
-    for (let i = 0, p = 0; i < count; i++, p += 4) {
-      const x = xPhase[i];
-      const y = yPhase[i];
-      const bendX = sin(y * 0.65 + t * 0.32);
-      const bendY = sin(x * 0.7 - t * 0.27);
-      const wave =
-        sin(x + bendX * 1.2 + t) +
-        sin(y + bendY * 1.1 - t * 0.8) +
-        0.55 * sin(diagonal[i] + t * 0.65) +
-        0.35 * sin(swell[i] - t * 0.32);
-      const pool = Math.max(0, Math.min(1, 0.5 + wave / 5.8));
-      const smooth = pool * pool * (3 - 2 * pool);
-      if (dark) {
-        pixels[p] = 140 + 65 * smooth;
-        pixels[p + 1] = 21 + 99 * smooth;
-        pixels[p + 2] = 21 + 44 * smooth;
-        pixels[p + 3] = Math.min(96, smooth * 96) * intensity;
-      } else {
-        pixels[p] = 174 + 14 * smooth;
-        pixels[p + 1] = 188 - 10 * smooth;
-        pixels[p + 2] = 197 - 37 * smooth;
-        pixels[p + 3] = Math.min(76, (1 - smooth) * 76) * intensity;
+    const t = time * 0.001;
+    const field = dark ? caustics.dark : caustics.light;
+    for (let x = 0; x < canvas.width; x++) {
+      vertical[x] =
+        (Math.floor(-t * 8 + 9 * sin(x * 0.14 - t * 0.8) + 4 * sin(x * 0.3 + t * 0.7)) & 255) << 8;
+    }
+    for (let y = 0, p = 0; y < canvas.height; y++) {
+      const horizontal = Math.floor(
+        -t * 20 + 10 * sin(y * 0.15 + t * 0.85) + 4 * sin(y * 0.31 - t * 0.65),
+      );
+      const row = y * 512;
+      const swell = (0.9 + 0.1 * sin(y * 0.025 - t * 0.35)) * intensity;
+      for (let x = 0; x < canvas.width; x++, p += 4) {
+        const color = field[((row + vertical[x]) & 65535) + ((x * 2 + horizontal) & 255)];
+        words[p >> 2] =
+          (color & colorMask) | ((((color >>> alphaShift) & 255) * swell) << alphaShift);
       }
     }
     ctx.putImageData(image, 0, 0);

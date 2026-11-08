@@ -10,7 +10,7 @@ test('procedural water changes pixels behind content and freezes under reduced m
   const canvas = layer.locator('canvas');
   await expect(layer).toHaveAttribute('aria-hidden', 'true');
   await expect(layer).toHaveAttribute('data-ready', 'true');
-  await expect(canvas).toHaveAttribute('width', '64');
+  await expect(canvas).toHaveAttribute('width', '128');
   const hero = page.getByRole('link', { name: 'Weekly Progress. Change Your Target', exact: true });
   const box = await hero.boundingBox();
   expect(box).not.toBeNull();

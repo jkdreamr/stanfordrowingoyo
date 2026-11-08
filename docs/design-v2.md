@@ -211,32 +211,43 @@ static mark with a 120 ms fade (no handoff).
 
 ## Ambient Water
 
-The one sanctioned ambient loop is a low-resolution procedural canvas: 64 pixels wide, with
+The one sanctioned ambient loop is a low-resolution procedural canvas: 128 pixels wide, with
 height derived from the viewport aspect ratio, independent of devicePixelRatio. Normal CSS
-stretching supplies the softness without blur filters. Summed, smoothly bent sine waves form
-broad, changing pools and refraction bands, with a slower rolling swell. A 4096-entry sine
-lookup table and precomputed spatial phases feed one reused ImageData/Uint8ClampedArray pass.
-No raster downloads, WebGL, SVG filters, blending, or oar layer remain. The principal ripple
-period is about 7.4 seconds, with slower cross-currents; movement is visible over 2–3 seconds.
+stretching supplies the softness without blur filters. A procedurally seeded, periodic 8×8
+cell field forms soft sunlight rims, irregular cells, and brighter three-way junctions. The
+256×256 field caches palette values in memory, not downloaded textures. A 4096-entry sine
+lookup drives two evolving wave shears and a slower rolling swell. One reused ImageData pass
+copies packed colors and scales alpha; there are no per-frame image-buffer allocations.
+Rims span roughly four canvas pixels before upscaling. At 393px viewport width, base drift is
+30.7px/s horizontally and 12.3px/s vertically (33.1px/s diagonally). Wave shears morph the
+network on 7.4–9.7 second periods, rather than moving an unchanged pattern. No raster
+downloads, WebGL, SVG filters, blending, or oar layer remain.
 The fixed negative stacking layer paints above the body background but below content. The
 route wrappers are transparent; page navigation, cards, and the Home gradient hero remain
 opaque. The layer fades in after `afterLaunch`, preserving the launch sheet and hero handoff.
 
 Tune or disable `ambientWaterConfig` in `AmbientWater.tsx`: `enabled: false` renders nothing;
 nonfinite intensity becomes zero and finite intensity is clamped to 0–1. Light mode shades
-troughs with sandy blue-grey/taupe, leaving bright pools transparent. Dark mode interpolates
-cardinal into dawn amber in the brightest pools. A MutationObserver follows the root `.dark`
-class. Alpha is clamped in code to 76/255 (29.80%) in light and 96/255 (37.65%) in dark.
+cells with pale cool aqua (`rgb(115,175,201)`), leaving sunlight rims nearly transparent.
+Dark cells are transparent; rims glow cardinal/rose (`#8C1515`–`#C0352B`), with dawn amber
+restricted to junctions. A MutationObserver follows the root `.dark` class. Alpha is clamped
+to 70/255 (27.45%) in light. Dark rim alpha is at most 128/255 (50.20%), falling towards
+90/255 at amber knots so the warm color never becomes a brown fill. Swell and configured
+intensity only decrease alpha.
 
-Contrast is bounded independently of wave position: the conservative minimum source channels
-in light are `rgb(174,178,160)`, and maximum channels in dark are `rgb(205,120,65)`.
-Using source-over `C = alpha * source + (1 - alpha) * background`, the page background
-is never darker than `rgb(230.86,232.05,226.69)` in light or brighter than
-`rgb(77.18,45.18,24.47)` in dark. These channel envelopes deliberately combine extrema that
-need not coincide. Bilinear scaling and the entrance fade only interpolate within the bounds.
-Applying WCAG sRGB linearization and `(Llighter + .05)/(Ldarker + .05)` to the actual tokens:
-light `--text: #1c1c1f` / `--muted: #66666e` retain **13.80:1 / 4.62:1**;
-dark `--text: #f4f4f6` / `--muted: #a1a1aa` retain **11.19:1 / 4.80:1**.
+Contrast is bounded independently of wave position using source-over
+`C = alpha * source + (1 - alpha) * background` and WCAG sRGB linearization.
+Light's minimum channels are `rgb(216.57,233.04,240.18)`; conservatively rounding down to
+`rgb(216,233,240)` gives luminance 0.791680. In dark, the palette correlates source color
+with alpha, so evaluate all 65,536 quantized palette entries, not independent channel maxima.
+The maximum luminance after composition is 0.035908. Adding one sRGB level per channel for
+display rounding gives a conservative maximum of 0.037135 (at approximately
+`rgb(84.08,43.32,25.85)`). Bilinear interpolation cannot exceed this maximum: the sRGB
+linearization function is convex, so luminance of interpolated colors is no greater than
+their weighted luminances. Swell, intensity, and entrance fade only move dark pixels towards
+black and light pixels towards white. Using `(Llighter + .05)/(Ldarker + .05)`:
+light `--text: #1c1c1f` / `--muted: #66666e` retain **13.63:1 / 4.56:1**;
+dark `--text: #f4f4f6` / `--muted: #a1a1aa` retain **10.97:1 / 4.70:1**.
 Opaque cards are unchanged. Recalculate before changing palettes or alpha caps; text must
 retain at least 7:1 and muted text at least 4.5:1.
 

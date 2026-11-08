@@ -61,7 +61,7 @@ function media(query: string, matches: boolean) {
 it('renders a decorative low-resolution canvas and evolving pixels at 30 fps', () => {
   const { container } = render(<AmbientWater />);
   expect(container.firstElementChild!.getAttribute('aria-hidden')).toBe('true');
-  expect(container.querySelector('canvas')!.width).toBe(64);
+  expect(container.querySelector('canvas')!.width).toBe(128);
   expect(put).toHaveBeenCalledTimes(1);
   frame(100);
   const first = pixels.slice();
@@ -121,14 +121,34 @@ it.each([
 it.each([-1, NaN, 2])('clamps intensity %s and every light alpha', (intensity) => {
   render(<AmbientWater config={{ enabled: true, intensity }} />);
   for (let i = 3; i < pixels.length; i += 4)
-    expect(pixels[i]).toBeLessThanOrEqual(intensity === 2 ? 76 : 0);
+    expect(pixels[i]).toBeLessThanOrEqual(intensity === 2 ? 70 : 0);
 });
 it('updates the palette on theme mutation and bounds dark alpha', async () => {
   render(<AmbientWater />);
   const light = pixels.slice();
   await act(async () => document.documentElement.classList.add('dark'));
   expect(pixels).not.toEqual(light);
-  for (let i = 3; i < pixels.length; i += 4) expect(pixels[i]).toBeLessThanOrEqual(96);
+  let transparent = 0;
+  let glow = 0;
+  for (let i = 3; i < pixels.length; i += 4) {
+    expect(pixels[i]).toBeLessThanOrEqual(128);
+    if (pixels[i] === 0) transparent++;
+    if (pixels[i] > 96) glow++;
+  }
+  expect(transparent).toBeGreaterThan(0);
+  expect(glow).toBeGreaterThan(0);
+});
+it('keeps pale aqua cells and near-transparent sunlight rims', () => {
+  render(<AmbientWater />);
+  let rims = 0;
+  let cells = 0;
+  for (let i = 0; i < pixels.length; i += 4) {
+    expect([...pixels.slice(i, i + 3)]).toEqual([115, 175, 201]);
+    if (pixels[i + 3] < 3) rims++;
+    if (pixels[i + 3] > 55) cells++;
+  }
+  expect(rims).toBeGreaterThan(0);
+  expect(cells).toBeGreaterThan(0);
 });
 it('handles an unavailable canvas context without scheduling frames', () => {
   vi.mocked(HTMLCanvasElement.prototype.getContext).mockReturnValue(null);
