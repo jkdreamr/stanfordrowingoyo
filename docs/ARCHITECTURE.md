@@ -273,7 +273,11 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 16; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 18; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 18 reserves version 17 for concurrent game-progress work. It adds `users.evening_reminder`
+(integer boolean, default 1), nullable `push_outbox.reminder_date`, and `reminder_sends(user_id,date)`
+with a composite primary key for daily idempotency. Merge v17 before v18: the scalar version guard
+would otherwise skip v17 on already-upgraded databases.
 Version 16 adds `game_results(game_id,date,user_id,score,payload_json,created_at,updated_at)`
 with primary key `(game_id,date,user_id)` and indexes `(user_id,date)` and `(date,game_id)`;
 and `dive_answers(date,user_id,prompt_index,answer,normalized,hidden_at,hidden_by,created_at)`
@@ -675,6 +679,23 @@ TTL 1 day), then reschedules for the remainder. Payload `{ title: actor name, bo
 badge (unread count, max 99) }`; kudos on one entry share a tag. Already-read notifications are skipped. 404/410
 deletes the subscription; 429/5xx/network errors retry with 30 s × 2ⁿ backoff (or Retry-After, max 1 h) up to 5
 attempts; other errors drop the row. Without VAPID config the outbox is discarded.
+Evening reminders: `User.evening_reminder: boolean`, writable via `ProfilePatch` on `PATCH /api/me`,
+defaults ON because delivery already requires explicit per-device push permission in Settings.
+It is omitted from PublicUser. Rowers with push enabled see an independent Evening Reminder toggle;
+staff never receive reminders. Cron triggers at 02:30 and 03:30 UTC dispatch only during the 19:00
+America/Los_Angeles hour, covering 7:30 pm in both daylight and standard time. Active opted-in rowers
+with a subscription are selected; the canonical `oyoGameAccess` excludes today's logs and My Fortnight
+rest days. A transactional daily claim prevents duplicate enqueueing. Reminders are not inbox items:
+outbox rows use a reserved `reminder:<user_id>` notification id and `reminder_date`, with payload title `OYO`, body
+`Log today's OYO to unlock the Daily Games.`, url `/log`, tag `oyo-reminder`. The existing alarm sends
+at most 10 pushes per invocation; it rechecks eligibility and date before sending and discards stale
+reminders. Normal push retries apply. Free plan limits are 10 ms CPU per Worker request/Cron and
+5 Cron triggers per account (Cloudflare Workers platform limits); Cron makes one DO call and performs
+no cryptography. Sixty users are selected cheaply in the DO and device delivery is batched, not one
+60-user network/crypto request. Production CPU and real-device push require operational verification.
+Locked Home Daily Games and Games hub states say `Log today's OYO to unlock` with a primary
+`Log Workout` link to `/log`. Entry writes invalidate game queries immediately. Returning to the Home
+card after unlocking gives a brief scale/fade on its icon; reduced-motion users get an instant swap.
 Secrets (never committed; generate with `npm run vapid:keys`): `VAPID_PUBLIC_KEY` (base64url uncompressed P-256
 point), `VAPID_PRIVATE_KEY` (base64url 32-byte private scalar), `VAPID_SUBJECT` (`mailto:` or `https:` contact). Set
 with `wrangler secret put <NAME>`; locally put them in `.dev.vars`. Rotating keys invalidates existing subscriptions;

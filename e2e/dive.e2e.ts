@@ -46,7 +46,7 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
     await context.request.patch('/api/me', { headers: csrfHeaders, data: { name: playerName } }),
   ).toBeOK();
   await page.goto('/games/dive');
-  await expect(page.getByText('Games Locked', { exact: true })).toBeVisible();
+  await expect(page.getByText("Log today's OYO to unlock", { exact: true })).toBeVisible();
   expect(
     (
       await context.request.post('/api/games/dive/answers', {

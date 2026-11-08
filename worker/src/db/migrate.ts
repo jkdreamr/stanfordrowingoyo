@@ -587,6 +587,22 @@ CREATE INDEX IF NOT EXISTS dive_answers_group ON dive_answers(date, prompt_index
         '16',
       );
     });
+  if (version < 18)
+    storage.transactionSync(() => {
+      const columns = sql.exec<{ name: string }>('PRAGMA table_info(users)').toArray();
+      if (!columns.some((column) => column.name === 'evening_reminder'))
+        sql.exec('ALTER TABLE users ADD COLUMN evening_reminder INTEGER NOT NULL DEFAULT 1');
+      const outbox = sql.exec<{ name: string }>('PRAGMA table_info(push_outbox)').toArray();
+      if (!outbox.some((column) => column.name === 'reminder_date'))
+        sql.exec('ALTER TABLE push_outbox ADD COLUMN reminder_date TEXT');
+      sql.exec(`CREATE TABLE IF NOT EXISTS reminder_sends (
+        user_id TEXT NOT NULL, date TEXT NOT NULL, PRIMARY KEY(user_id,date));`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '18',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

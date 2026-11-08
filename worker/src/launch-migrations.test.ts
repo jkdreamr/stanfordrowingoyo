@@ -28,7 +28,7 @@ function reset(storage: DurableObjectStorage) {
 }
 
 function expectLatest(storage: DurableObjectStorage) {
-  expect(getSetting(storage, 'schema_version')).toBe(16);
+  expect(getSetting(storage, 'schema_version')).toBe(18);
   for (const table of featureTables)
     expect(
       storage.sql
@@ -135,7 +135,12 @@ it('upgrades populated v10 tables to 15 without changing existing rows', async (
               expect(edited_at).toBeNull();
               return row;
             })
-          : rows,
+          : table === 'users'
+            ? rows.map(({ evening_reminder, ...row }) => {
+                expect(evening_reminder).toBe(1);
+                return row;
+              })
+            : rows,
       ).toEqual(before.get(table));
     }
     expect(sql.exec('SELECT * FROM comment_mention_history').toArray()).toEqual([

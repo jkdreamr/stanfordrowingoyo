@@ -16,10 +16,17 @@ export function toUser(row: UserRow): User {
     active: !!user.active,
     on_leaderboard: !!user.on_leaderboard,
     must_change_password: !!user.must_change_password,
+    evening_reminder: !!user.evening_reminder,
   };
 }
 export function toPublicUser(row: UserRow): PublicUser {
-  const { email: _email, must_change_password: _change, ...user } = toUser(row);
+  const {
+    email: _email,
+    must_change_password: _change,
+    evening_reminder: _reminder,
+    ...user
+  } = toUser(row);
+  void _reminder;
   void _email;
   void _change;
   return user;

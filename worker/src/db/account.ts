@@ -243,6 +243,7 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
     .toArray())
     closeReports(storage, { target_type: 'comment', target_id: comment.id }, null, timestamp);
   sql.exec('DELETE FROM content_reports WHERE reporter_id=?', id);
+  sql.exec('DELETE FROM reminder_sends WHERE user_id=?', id);
   sql.exec('UPDATE content_reports SET reviewed_by=NULL WHERE reviewed_by=?', id);
   sql.exec(
     `DELETE FROM comment_mention_history WHERE user_id=?1 OR entry_id IN (${OWN_ENTRIES.replace('?', '?1')}) OR comment_id IN (SELECT id FROM comments WHERE user_id=?1)`,

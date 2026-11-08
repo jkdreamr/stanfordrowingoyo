@@ -62,6 +62,7 @@ export interface User {
   email: string;
   name: string;
   must_change_password: boolean;
+  evening_reminder: boolean;
   role: Role;
   group_key: GroupKey;
   side: Side | null;
@@ -79,7 +80,7 @@ export interface StoredUser extends User {
   password_hash: string;
   password_salt: string;
 }
-export type PublicUser = Omit<User, 'email' | 'must_change_password'>;
+export type PublicUser = Omit<User, 'email' | 'must_change_password' | 'evening_reminder'>;
 export interface Session {
   token_hash: string;
   user_id: string;
@@ -443,6 +444,7 @@ export type ProfilePatch = Partial<
     | 'best2k_split_s'
     | 'avatar_image_id'
     | 'group_key'
+    | 'evening_reminder'
   >
 >;
 export type AdminUserPatch = Partial<

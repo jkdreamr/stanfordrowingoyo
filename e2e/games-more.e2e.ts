@@ -45,7 +45,7 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
 
   await page.goto('/games/wordguess');
   await waitForSplash(page);
-  await expect(page.getByText('Games Locked')).toBeVisible();
+  await expect(page.getByText("Log today's OYO to unlock")).toBeVisible();
   await expect(
     await context.request.post('/api/entries', {
       headers: csrfHeaders,

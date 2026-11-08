@@ -56,7 +56,7 @@ function mount(role: 'rower' | 'coach') {
 }
 it('gates locked rowers before play', async () => {
   mount('rower');
-  expect(await screen.findByText('Games Locked')).toBeTruthy();
+  expect(await screen.findByText("Log today's OYO to unlock")).toBeTruthy();
   expect(screen.queryByRole('button', { name: 'Finish' })).toBeNull();
 });
 it('submits once, then shows the server result, share and day board', async () => {
