@@ -1,53 +1,50 @@
 import type { DiveAnswerResult, DiveReveal } from '../../../shared/types';
-import { divePoints } from '../../../shared/games/dive';
 import { divePromptsFor } from '../games/divePrompts';
+import { toGameResult, type ResultRow } from './games';
 
-const counts = `WITH counts AS (
-  SELECT prompt_index,normalized,COUNT(*) AS n FROM dive_answers
-  WHERE date=? AND hidden_at IS NULL AND normalized<>'' GROUP BY prompt_index,normalized
-), totals AS (SELECT prompt_index,SUM(n) AS n FROM counts GROUP BY prompt_index)`;
-
-export function recomputeDive(storage: DurableObjectStorage, date: string, now: string) {
-  storage.sql.exec(
-    `${counts}, scores AS (
-    SELECT a.user_id,COUNT(*) AS answered,SUM(CASE
-      WHEN a.hidden_at IS NOT NULL OR a.normalized='' THEN 0
-      WHEN c.n=1 THEN 100 WHEN c.n*10<=t.n THEN 75 WHEN c.n*4<=t.n THEN 50
-      WHEN c.n*2<=t.n THEN 25 ELSE 10 END) AS score
-    FROM dive_answers a LEFT JOIN counts c USING(prompt_index,normalized)
-    LEFT JOIN totals t USING(prompt_index) WHERE a.date=? GROUP BY a.user_id
-  ) UPDATE game_results SET score=COALESCE((SELECT score FROM scores WHERE user_id=game_results.user_id),0),
-    payload_json=json_object('answered',COALESCE((SELECT answered FROM scores WHERE user_id=game_results.user_id),0)),
-    updated_at=? WHERE game_id='dive' AND date=?`,
-    date,
-    date,
-    now,
-    date,
-  );
+export function diveResult(storage: DurableObjectStorage, date: string, userId: string) {
+  const row = storage.sql
+    .exec<ResultRow>(
+      "SELECT * FROM game_results WHERE game_id='dive' AND date=? AND user_id=?",
+      date,
+      userId,
+    )
+    .toArray()[0];
+  return row ? toGameResult(row) : null;
 }
 
 export function diveAnswers(
   storage: DurableObjectStorage,
   date: string,
   userId: string,
-): DiveAnswerResult[] {
+): Omit<DiveAnswerResult, 'gem' | 'notable'>[] {
   return storage.sql
-    .exec<{ prompt_index: number; answer: string; count: number; total: number; hidden: number }>(
-      `${counts}
-    SELECT a.prompt_index,a.answer,CASE WHEN a.hidden_at IS NOT NULL THEN 0 ELSE COALESCE(c.n,0) END AS count,
+    .exec<{
+      prompt_index: number;
+      answer: string;
+      canonical: string | null;
+      tier: DiveAnswerResult['tier'];
+      points: number;
+      count: number;
+      total: number;
+      hidden: number;
+    }>(
+      `WITH counts AS (
+      SELECT prompt_index,normalized,COUNT(*) AS n FROM dive_answers
+      WHERE date=? AND hidden_at IS NULL GROUP BY prompt_index,normalized
+    ), totals AS (SELECT prompt_index,SUM(n) AS n FROM counts GROUP BY prompt_index)
+    SELECT a.prompt_index,a.answer,a.canonical,a.tier,a.points,
+      CASE WHEN a.hidden_at IS NOT NULL THEN 0 ELSE COALESCE(c.n,0) END AS count,
       COALESCE(t.n,0) AS total,a.hidden_at IS NOT NULL AS hidden
-    FROM dive_answers a LEFT JOIN counts c USING(prompt_index,normalized) LEFT JOIN totals t USING(prompt_index)
+    FROM dive_answers a LEFT JOIN counts c USING(prompt_index,normalized)
+    LEFT JOIN totals t USING(prompt_index)
     WHERE a.date=? AND a.user_id=? ORDER BY a.prompt_index`,
       date,
       date,
       userId,
     )
     .toArray()
-    .map((row) => ({
-      ...row,
-      hidden: !!row.hidden,
-      ...divePoints(row.count, row.total, !!row.hidden),
-    }));
+    .map((row) => ({ ...row, hidden: !!row.hidden }));
 }
 
 export function diveReveal(
@@ -60,31 +57,35 @@ export function diveReveal(
     .exec<{
       prompt_index: number;
       normalized: string;
+      canonical: string | null;
       answer: string;
       count: number;
-      total: number;
+      points: number;
+      tier: DiveAnswerResult['tier'];
       hidden: number;
       mine: number;
+      group_count: number;
+      teammates_json: string;
     }>(
-      `${counts}, ordered AS (
-    SELECT *,ROW_NUMBER() OVER(PARTITION BY prompt_index,normalized ORDER BY created_at,user_id) AS ordinal
-    FROM dive_answers WHERE date=? AND normalized<>''
-  ), groups AS (
-    SELECT prompt_index,normalized,MAX(CASE WHEN ordinal=1 THEN answer END) AS first_answer,
-      MAX(CASE WHEN user_id=? THEN answer END) AS my_answer,COUNT(*) AS count,
-      MAX(hidden_at IS NOT NULL) AS hidden,MAX(user_id=?) AS mine
-    FROM ordered GROUP BY prompt_index,normalized
-  ) SELECT g.prompt_index,g.normalized,CASE WHEN g.hidden AND NOT ? THEN g.my_answer ELSE g.first_answer END AS answer,
-      CASE WHEN g.hidden AND NOT ? THEN 1 ELSE g.count END AS count,COALESCE(t.n,0) AS total,g.hidden,g.mine
-    FROM groups g LEFT JOIN totals t USING(prompt_index) WHERE NOT g.hidden OR ? OR g.mine
-    ORDER BY g.prompt_index,g.count DESC,g.normalized`,
-      date,
+      `WITH group_sizes AS (
+      SELECT prompt_index,normalized,COUNT(*) AS n FROM dive_answers WHERE date=?
+      GROUP BY prompt_index,normalized
+    ) SELECT a.prompt_index,a.normalized,a.canonical,
+      COALESCE(a.canonical,MIN(a.answer)) AS answer,COUNT(*) AS count,
+      MAX(a.points) AS points,MIN(a.tier) AS tier,
+      MAX(a.hidden_at IS NOT NULL) AS hidden,MAX(a.user_id=?) AS mine,
+      MAX(g.n) AS group_count,
+      json_group_array(json_object('user_id',u.id,'name',u.name)) AS teammates_json
+    FROM dive_answers a JOIN users u ON u.id=a.user_id
+    JOIN group_sizes g ON g.prompt_index=a.prompt_index AND g.normalized=a.normalized
+    WHERE a.date=? AND (a.hidden_at IS NULL OR ? OR a.user_id=?)
+    GROUP BY a.prompt_index,a.normalized,a.canonical
+    ORDER BY a.prompt_index,count DESC,a.normalized`,
       date,
       userId,
+      date,
+      Number(staff),
       userId,
-      Number(staff),
-      Number(staff),
-      Number(staff),
     )
     .toArray();
   return divePromptsFor(date).map((prompt, prompt_index) => ({
@@ -92,11 +93,12 @@ export function diveReveal(
     prompt,
     groups: rows
       .filter((row) => row.prompt_index === prompt_index)
-      .map(({ prompt_index: _, total, ...row }) => ({
+      .map(({ prompt_index: _, teammates_json, group_count, ...row }) => ({
         ...row,
         hidden: !!row.hidden,
         mine: !!row.mine,
-        ...divePoints(row.count, total, !!row.hidden),
+        teammates: JSON.parse(teammates_json) as { user_id: string; name: string }[],
+        only_you: !!row.mine && group_count === 1,
       })),
   }));
 }

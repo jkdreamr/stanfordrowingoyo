@@ -1,0 +1,1964 @@
+[
+  {
+    "id": "animals",
+    "text": "Name an animal.",
+    "size": 247,
+    "tiers": {
+      "surface": 50,
+      "tooclever": 2,
+      "school": 86,
+      "rare": 61,
+      "deep": 47,
+      "gem": 1
+    },
+    "surface": ["human", "dog", "ass", "fish", "cat"],
+    "too_clever": ["platypus", "aardvark"],
+    "gem": "axolotl"
+  },
+  {
+    "id": "dogs",
+    "text": "Name a dog breed.",
+    "size": 453,
+    "tiers": {
+      "surface": 94,
+      "tooclever": 2,
+      "school": 156,
+      "rare": 112,
+      "deep": 88,
+      "gem": 1
+    },
+    "surface": [
+      "Spanish Water Dog",
+      "Carolina Dog",
+      "Billy",
+      "Moscow Water Dog",
+      "Small Greek Domestic Dog"
+    ],
+    "too_clever": ["Xoloitzcuintli", "Basenji"],
+    "gem": "Otterhound"
+  },
+  {
+    "id": "cats",
+    "text": "Name a cat breed.",
+    "size": 97,
+    "tiers": {
+      "surface": 23,
+      "tooclever": 2,
+      "school": 30,
+      "rare": 23,
+      "deep": 18,
+      "gem": 1
+    },
+    "surface": ["Russian Blue", "Asian", "Thai", "Turkish Van", "Dragon Li"],
+    "too_clever": ["Sphynx", "Munchkin"],
+    "gem": "LaPerm"
+  },
+  {
+    "id": "dinosaurs",
+    "text": "Name a dinosaur.",
+    "size": 145,
+    "tiers": {
+      "surface": 28,
+      "tooclever": 2,
+      "school": 50,
+      "rare": 36,
+      "deep": 28,
+      "gem": 1
+    },
+    "surface": ["Tyrannosaurus", "Triceratops", "Velociraptor", "Brontosaurus", "Stegosaurus"],
+    "too_clever": ["Archaeopteryx", "Therizinosaurus"],
+    "gem": "Parasaurolophus"
+  },
+  {
+    "id": "horses",
+    "text": "Name a horse breed.",
+    "size": 347,
+    "tiers": {
+      "surface": 72,
+      "tooclever": 1,
+      "school": 118,
+      "rare": 86,
+      "deep": 69,
+      "gem": 1
+    },
+    "surface": ["National Show Horse", "Don", "Paint", "American Indian Horse", "Russian Don"],
+    "too_clever": ["Akhal-Teke"],
+    "gem": "Marwari"
+  },
+  {
+    "id": "first-names",
+    "text": "Name a first name.",
+    "size": 399,
+    "tiers": {
+      "surface": 80,
+      "tooclever": 1,
+      "school": 140,
+      "rare": 100,
+      "deep": 77,
+      "gem": 1
+    },
+    "surface": ["Hope", "John", "Summer", "David", "James"],
+    "too_clever": ["Zephyr"],
+    "gem": "Juniper"
+  },
+  {
+    "id": "rabbits",
+    "text": "Name a rabbit breed.",
+    "size": 50,
+    "tiers": {
+      "surface": 13,
+      "tooclever": 1,
+      "school": 17,
+      "rare": 10,
+      "deep": 8,
+      "gem": 1
+    },
+    "surface": ["American", "Silver", "English Spot", "Florida White", "New Zealand"],
+    "too_clever": ["Lionhead"],
+    "gem": "Silver Fox"
+  },
+  {
+    "id": "birds",
+    "text": "Name a bird.",
+    "size": 1000,
+    "tiers": {
+      "surface": 200,
+      "tooclever": 2,
+      "school": 350,
+      "rare": 248,
+      "deep": 199,
+      "gem": 1
+    },
+    "surface": ["Common House-Martin", "Southern Martin", "Black Rail", "Wild Turkey", "King Rail"],
+    "too_clever": ["Shoebill", "Kakapo"],
+    "gem": "Hoopoe"
+  },
+  {
+    "id": "seafood",
+    "text": "Name a type of seafood.",
+    "size": 310,
+    "tiers": {
+      "surface": 62,
+      "tooclever": 1,
+      "school": 109,
+      "rare": 75,
+      "deep": 62,
+      "gem": 1
+    },
+    "surface": ["fish", "black sea bass", "European sea bass", "drum", "Salmon"],
+    "too_clever": ["Fugu"],
+    "gem": "Geoduck"
+  },
+  {
+    "id": "fruits",
+    "text": "Name a fruit.",
+    "size": 80,
+    "tiers": {
+      "surface": 18,
+      "tooclever": 2,
+      "school": 26,
+      "rare": 19,
+      "deep": 14,
+      "gem": 1
+    },
+    "surface": ["date", "Apple", "Orange", "blood orange", "Star fruit"],
+    "too_clever": ["Durian", "Dragonfruit"],
+    "gem": "Rambutan"
+  },
+  {
+    "id": "vegetables",
+    "text": "Name a vegetable.",
+    "size": 119,
+    "tiers": {
+      "surface": 26,
+      "tooclever": 2,
+      "school": 40,
+      "rare": 30,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": ["corn", "Potato", "green pepper", "sweet potato", "broad beans"],
+    "too_clever": ["Kohlrabi", "Fiddlehead"],
+    "gem": "Romanesco"
+  },
+  {
+    "id": "spices",
+    "text": "Name an herb, spice or seasoning.",
+    "size": 186,
+    "tiers": {
+      "surface": 38,
+      "tooclever": 2,
+      "school": 63,
+      "rare": 45,
+      "deep": 37,
+      "gem": 1
+    },
+    "surface": ["Rose", "Salt", "Pepper", "Long Pepper", "Bay leaf"],
+    "too_clever": ["Saffron", "Asafoetida"],
+    "gem": "Grains of paradise"
+  },
+  {
+    "id": "cheeses",
+    "text": "Name a cheese or fermented dairy product.",
+    "size": 1937,
+    "tiers": {
+      "surface": 387,
+      "tooclever": 1,
+      "school": 677,
+      "rare": 484,
+      "deep": 387,
+      "gem": 1
+    },
+    "surface": ["so", "Civil", "cheese", "American Cheese", "Golden Cross"],
+    "too_clever": ["Stinking Bishop"],
+    "gem": "Casu marzu"
+  },
+  {
+    "id": "sandwiches",
+    "text": "Name a type of sandwich.",
+    "size": 173,
+    "tiers": {
+      "surface": 39,
+      "tooclever": 1,
+      "school": 57,
+      "rare": 42,
+      "deep": 33,
+      "gem": 1
+    },
+    "surface": ["Club", "Mother-in-law", "Hot dog", "St. Paul", "Hot brown"],
+    "too_clever": ["Banh mi"],
+    "gem": "Francesinha"
+  },
+  {
+    "id": "sausages",
+    "text": "Name a type of sausage.",
+    "size": 205,
+    "tiers": {
+      "surface": 40,
+      "tooclever": 1,
+      "school": 71,
+      "rare": 51,
+      "deep": 41,
+      "gem": 1
+    },
+    "surface": ["Hot dog", "half-smoke", "devon", "blood sausage", "summer sausage"],
+    "too_clever": ["Haggis"],
+    "gem": "Alheira"
+  },
+  {
+    "id": "apples",
+    "text": "Name an apple variety.",
+    "size": 1002,
+    "tiers": {
+      "surface": 205,
+      "tooclever": 1,
+      "school": 346,
+      "rare": 249,
+      "deep": 200,
+      "gem": 1
+    },
+    "surface": ["No. 1", "Family", "Water", "John", "York"],
+    "too_clever": ["Cox Orange Pippin"],
+    "gem": "Pink Pearl"
+  },
+  {
+    "id": "tea",
+    "text": "Name a tea variety or blend.",
+    "size": 527,
+    "tiers": {
+      "surface": 108,
+      "tooclever": 1,
+      "school": 182,
+      "rare": 130,
+      "deep": 105,
+      "gem": 1
+    },
+    "surface": ["White", "Black", "Green", "Peace", "Christmas"],
+    "too_clever": ["Lapsang Souchong"],
+    "gem": "Bai Mudan"
+  },
+  {
+    "id": "condiments",
+    "text": "Name a condiment.",
+    "size": 101,
+    "tiers": {
+      "surface": 24,
+      "tooclever": 2,
+      "school": 32,
+      "rare": 22,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": ["Salt", "Hot sauce", "Fish sauce", "Dip", "Olive oil"],
+    "too_clever": ["Marmite", "Vegemite"],
+    "gem": "Ajvar"
+  },
+  {
+    "id": "beer",
+    "text": "Name a beer style.",
+    "size": 143,
+    "tiers": {
+      "surface": 33,
+      "tooclever": 1,
+      "school": 47,
+      "rare": 34,
+      "deep": 27,
+      "gem": 1
+    },
+    "surface": [
+      "european-style dark",
+      "field beer",
+      "california common beer",
+      "session beer",
+      "smoke beer"
+    ],
+    "too_clever": ["Rauchbier"],
+    "gem": "Gose"
+  },
+  {
+    "id": "cocktails",
+    "text": "Name a cocktail.",
+    "size": 80,
+    "tiers": {
+      "surface": 20,
+      "tooclever": 1,
+      "school": 24,
+      "rare": 19,
+      "deep": 15,
+      "gem": 1
+    },
+    "surface": ["God Father", "God Mother", "Black Russian", "White Lady", "Rose"],
+    "too_clever": ["Corpse Reviver"],
+    "gem": "Paper Plane"
+  },
+  {
+    "id": "flowers",
+    "text": "Name a flowering plant.",
+    "size": 65,
+    "tiers": {
+      "surface": 13,
+      "tooclever": 1,
+      "school": 21,
+      "rare": 16,
+      "deep": 13,
+      "gem": 1
+    },
+    "surface": ["forget me not", "Rose", "bird of paradise", "Lily", "water lily"],
+    "too_clever": ["Corpse flower"],
+    "gem": "Love-in-a-mist"
+  },
+  {
+    "id": "plants",
+    "text": "Name a plant.",
+    "size": 626,
+    "tiers": {
+      "surface": 127,
+      "tooclever": 1,
+      "school": 218,
+      "rare": 155,
+      "deep": 124,
+      "gem": 1
+    },
+    "surface": ["Box", "Touch-me-not", "Rose", "apple", "Bay"],
+    "too_clever": ["Venus flytrap"],
+    "gem": "Welwitschia"
+  },
+  {
+    "id": "toxic-plants",
+    "text": "Name a poisonous plant.",
+    "size": 311,
+    "tiers": {
+      "surface": 66,
+      "tooclever": 1,
+      "school": 107,
+      "rare": 74,
+      "deep": 62,
+      "gem": 1
+    },
+    "surface": ["May apple", "Century plant", "Sweet William", "Coffee plant", "Christmas rose"],
+    "too_clever": ["Gympie-gympie"],
+    "gem": "Doll eyes"
+  },
+  {
+    "id": "gemstones",
+    "text": "Name a gemstone.",
+    "size": 351,
+    "tiers": {
+      "surface": 71,
+      "tooclever": 2,
+      "school": 121,
+      "rare": 86,
+      "deep": 70,
+      "gem": 1
+    },
+    "surface": ["bone", "Diamond", "jet", "pearl", "Ruby"],
+    "too_clever": ["Painite", "Tanzanite"],
+    "gem": "Labradorite"
+  },
+  {
+    "id": "fabrics",
+    "text": "Name a fabric.",
+    "size": 207,
+    "tiers": {
+      "surface": 42,
+      "tooclever": 1,
+      "school": 71,
+      "rare": 52,
+      "deep": 40,
+      "gem": 1
+    },
+    "surface": ["stuff", "felt", "c change", "jersey", "oxford"],
+    "too_clever": ["Qiviut"],
+    "gem": "Seersucker"
+  },
+  {
+    "id": "stones",
+    "text": "Name a decorative stone.",
+    "size": 95,
+    "tiers": {
+      "surface": 18,
+      "tooclever": 1,
+      "school": 34,
+      "rare": 22,
+      "deep": 19,
+      "gem": 1
+    },
+    "surface": ["beer stone", "portland hard blue", "jerusalem stone", "portland stone", "Marble"],
+    "too_clever": ["Obsidian"],
+    "gem": "Larvikite"
+  },
+  {
+    "id": "metals",
+    "text": "Name a metal or alloy.",
+    "size": 95,
+    "tiers": {
+      "surface": 19,
+      "tooclever": 1,
+      "school": 34,
+      "rare": 22,
+      "deep": 18,
+      "gem": 1
+    },
+    "surface": ["lead", "Gold", "Silver", "Iron", "Steel"],
+    "too_clever": ["Nitinol"],
+    "gem": "Galinstan"
+  },
+  {
+    "id": "clothing",
+    "text": "Name an item of clothing.",
+    "size": 91,
+    "tiers": {
+      "surface": 20,
+      "tooclever": 1,
+      "school": 31,
+      "rare": 22,
+      "deep": 16,
+      "gem": 1
+    },
+    "surface": ["top", "Dress", "baby grow", "suit", "shoes"],
+    "too_clever": ["Dirndl"],
+    "gem": "Peacoat"
+  },
+  {
+    "id": "rooms",
+    "text": "Name a type of room.",
+    "size": 110,
+    "tiers": {
+      "surface": 26,
+      "tooclever": 1,
+      "school": 35,
+      "rare": 27,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": ["office", "study", "game room", "family room", "control room"],
+    "too_clever": ["Oubliette"],
+    "gem": "Orangery"
+  },
+  {
+    "id": "objects",
+    "text": "Name an everyday object.",
+    "size": 443,
+    "tiers": {
+      "surface": 90,
+      "tooclever": 1,
+      "school": 154,
+      "rare": 111,
+      "deep": 86,
+      "gem": 1
+    },
+    "surface": ["house", "money", "water", "white out", "Book"],
+    "too_clever": ["Spork"],
+    "gem": "Thimble"
+  },
+  {
+    "id": "appliances",
+    "text": "Name a household appliance.",
+    "size": 109,
+    "tiers": {
+      "surface": 25,
+      "tooclever": 1,
+      "school": 34,
+      "rare": 28,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": ["hair iron", "window fan", "field kitchen", "hot plate", "home server"],
+    "too_clever": ["Sous vide cooker"],
+    "gem": "Yogurt maker"
+  },
+  {
+    "id": "sports",
+    "text": "Name a sport.",
+    "size": 958,
+    "tiers": {
+      "surface": 192,
+      "tooclever": 2,
+      "school": 334,
+      "rare": 238,
+      "deep": 191,
+      "gem": 1
+    },
+    "surface": ["Keep away", "One Day International", "Running", "Field game", "Football"],
+    "too_clever": ["Chess boxing", "Quidditch"],
+    "gem": "Sepak takraw"
+  },
+  {
+    "id": "board-games",
+    "text": "Name a board game.",
+    "size": 216,
+    "tiers": {
+      "surface": 47,
+      "tooclever": 1,
+      "school": 72,
+      "rare": 52,
+      "deep": 43,
+      "gem": 1
+    },
+    "surface": ["About Time", "Go", "Take Off!", "The Game of Life", "Small World"],
+    "too_clever": ["The Campaign for North Africa"],
+    "gem": "Azul"
+  },
+  {
+    "id": "pokemon",
+    "text": "Name a Pokémon.",
+    "size": 648,
+    "tiers": {
+      "surface": 128,
+      "tooclever": 2,
+      "school": 226,
+      "rare": 162,
+      "deep": 129,
+      "gem": 1
+    },
+    "surface": ["Ho-Oh", "Persian", "Durant", "Electrode", "Gloom"],
+    "too_clever": ["Ditto", "Wobbuffet"],
+    "gem": "Shuckle"
+  },
+  {
+    "id": "wrestling",
+    "text": "Name a wrestling move.",
+    "size": 271,
+    "tiers": {
+      "surface": 59,
+      "tooclever": 1,
+      "school": 94,
+      "rare": 63,
+      "deep": 53,
+      "gem": 1
+    },
+    "surface": ["Go 2 Sleep", "Death Drop", "Kick", "Back kick", "Shooting star"],
+    "too_clever": ["Canadian Destroyer"],
+    "gem": "La magistral"
+  },
+  {
+    "id": "monsters",
+    "text": "Name a mythical creature.",
+    "size": 102,
+    "tiers": {
+      "surface": 22,
+      "tooclever": 1,
+      "school": 35,
+      "rare": 25,
+      "deep": 18,
+      "gem": 1
+    },
+    "surface": ["giant", "angel", "ghost", "Dragon", "phoenix"],
+    "too_clever": ["Tarrasque"],
+    "gem": "Peryton"
+  },
+  {
+    "id": "greek-gods",
+    "text": "Name a Greek god or Titan.",
+    "size": 65,
+    "tiers": {
+      "surface": 13,
+      "tooclever": 1,
+      "school": 23,
+      "rare": 14,
+      "deep": 13,
+      "gem": 1
+    },
+    "surface": ["Chaos", "Apollo", "Atlas", "Zeus", "Aura"],
+    "too_clever": ["Priapus"],
+    "gem": "Hestia"
+  },
+  {
+    "id": "colors",
+    "text": "Name a color.",
+    "size": 1011,
+    "tiers": {
+      "surface": 203,
+      "tooclever": 2,
+      "school": 354,
+      "rare": 252,
+      "deep": 199,
+      "gem": 1
+    },
+    "surface": ["White", "Black", "Red", "Gold", "Blue"],
+    "too_clever": ["Chartreuse", "Vantablack"],
+    "gem": "Gamboge"
+  },
+  {
+    "id": "crayons",
+    "text": "Name a Crayola crayon color.",
+    "size": 120,
+    "tiers": {
+      "surface": 24,
+      "tooclever": 1,
+      "school": 42,
+      "rare": 29,
+      "deep": 23,
+      "gem": 1
+    },
+    "surface": ["White", "Black", "Red", "Gold", "Blue"],
+    "too_clever": ["Razzmatazz"],
+    "gem": "Macaroni and Cheese"
+  },
+  {
+    "id": "countries",
+    "text": "Name a country.",
+    "size": 198,
+    "tiers": {
+      "surface": 40,
+      "tooclever": 2,
+      "school": 68,
+      "rare": 50,
+      "deep": 37,
+      "gem": 1
+    },
+    "surface": ["United States", "China", "Australia", "India", "Canada"],
+    "too_clever": ["Tuvalu", "Vatican City"],
+    "gem": "Bhutan"
+  },
+  {
+    "id": "capitals",
+    "text": "Name a national capital.",
+    "size": 197,
+    "tiers": {
+      "surface": 40,
+      "tooclever": 1,
+      "school": 69,
+      "rare": 49,
+      "deep": 37,
+      "gem": 1
+    },
+    "surface": ["London", "Paris", "Mexico City", "Port Louis", "Rome"],
+    "too_clever": ["Ngerulmud"],
+    "gem": "Thimphu"
+  },
+  {
+    "id": "nationalities",
+    "text": "Name a nationality.",
+    "size": 226,
+    "tiers": {
+      "surface": 46,
+      "tooclever": 1,
+      "school": 79,
+      "rare": 56,
+      "deep": 43,
+      "gem": 1
+    },
+    "surface": ["American", "English", "British", "French", "Chinese"],
+    "too_clever": ["Monegasque"],
+    "gem": "Seychellois"
+  },
+  {
+    "id": "rivers",
+    "text": "Name a river.",
+    "size": 219,
+    "tiers": {
+      "surface": 45,
+      "tooclever": 1,
+      "school": 74,
+      "rare": 55,
+      "deep": 43,
+      "gem": 1
+    },
+    "surface": ["White", "Red", "Green", "James", "Peace"],
+    "too_clever": ["Onyx"],
+    "gem": "Okavango"
+  },
+  {
+    "id": "seas",
+    "text": "Name a sea.",
+    "size": 141,
+    "tiers": {
+      "surface": 29,
+      "tooclever": 1,
+      "school": 48,
+      "rare": 34,
+      "deep": 28,
+      "gem": 1
+    },
+    "surface": ["White Sea", "Black Sea", "North Sea", "Red Sea", "English Channel"],
+    "too_clever": ["Dead Sea"],
+    "gem": "Sargasso Sea"
+  },
+  {
+    "id": "landforms",
+    "text": "Name a geographical feature.",
+    "size": 502,
+    "tiers": {
+      "surface": 101,
+      "tooclever": 1,
+      "school": 176,
+      "rare": 124,
+      "deep": 99,
+      "gem": 1
+    },
+    "surface": ["office", "water well", "room", "road", "human house"],
+    "too_clever": ["Oxbow lake"],
+    "gem": "Tombolo"
+  },
+  {
+    "id": "winds",
+    "text": "Name a named wind.",
+    "size": 114,
+    "tiers": {
+      "surface": 25,
+      "tooclever": 1,
+      "school": 36,
+      "rare": 29,
+      "deep": 22,
+      "gem": 1
+    },
+    "surface": ["Trade wind", "cape doctor", "witch of November", "barber", "santa ana"],
+    "too_clever": ["Katabatic wind"],
+    "gem": "Fremantle Doctor"
+  },
+  {
+    "id": "english-towns",
+    "text": "Name a town or city in England.",
+    "size": 986,
+    "tiers": {
+      "surface": 198,
+      "tooclever": 1,
+      "school": 343,
+      "rare": 246,
+      "deep": 197,
+      "gem": 1
+    },
+    "surface": ["York", "Deal", "London", "March", "Reading"],
+    "too_clever": ["Bognor Regis"],
+    "gem": "Whitby"
+  },
+  {
+    "id": "tube",
+    "text": "Name a London Underground station.",
+    "size": 267,
+    "tiers": {
+      "surface": 56,
+      "tooclever": 1,
+      "school": 91,
+      "rare": 66,
+      "deep": 52,
+      "gem": 1
+    },
+    "surface": ["White City", "Bank", "Old Street", "Canada Water", "Green Park"],
+    "too_clever": ["Mornington Crescent"],
+    "gem": "Cockfosters"
+  },
+  {
+    "id": "states",
+    "text": "Name a US state or territory.",
+    "size": 57,
+    "tiers": {
+      "surface": 13,
+      "tooclever": 1,
+      "school": 20,
+      "rare": 13,
+      "deep": 9,
+      "gem": 1
+    },
+    "surface": ["New York", "Washington", "California", "Texas", "Florida"],
+    "too_clever": ["Northern Mariana Islands"],
+    "gem": "Guam"
+  },
+  {
+    "id": "languages",
+    "text": "Name a language.",
+    "size": 7907,
+    "tiers": {
+      "surface": 1580,
+      "tooclever": 2,
+      "school": 2767,
+      "rare": 1977,
+      "deep": 1580,
+      "gem": 1
+    },
+    "surface": ["To", "As", "Are", "So'a", "She"],
+    "too_clever": ["Esperanto", "Klingon"],
+    "gem": "Rotokas"
+  },
+  {
+    "id": "scientists",
+    "text": "Name a scientist.",
+    "size": 329,
+    "tiers": {
+      "surface": 68,
+      "tooclever": 1,
+      "school": 113,
+      "rare": 82,
+      "deep": 64,
+      "gem": 1
+    },
+    "surface": ["Michael E. Brown", "Robert Brown", "John Ray", "William Smith", "Max Born"],
+    "too_clever": ["Richard Feynman"],
+    "gem": "Chien-Shiung Wu"
+  },
+  {
+    "id": "authors",
+    "text": "Name an author.",
+    "size": 233,
+    "tiers": {
+      "surface": 50,
+      "tooclever": 1,
+      "school": 79,
+      "rare": 56,
+      "deep": 46,
+      "gem": 1
+    },
+    "surface": ["John Green", "E. L. James", "Lee Child", "William P. Young", "Robert L. Short"],
+    "too_clever": ["Thomas Pynchon"],
+    "gem": "Ursula K. Le Guin"
+  },
+  {
+    "id": "books",
+    "text": "Name a book.",
+    "size": 248,
+    "tiers": {
+      "surface": 53,
+      "tooclever": 1,
+      "school": 84,
+      "rare": 60,
+      "deep": 49,
+      "gem": 1
+    },
+    "surface": ["Me Before You", "The Help", "Night", "Life After Life", "Love Story"],
+    "too_clever": ["House of Leaves"],
+    "gem": "The Shadow of the Wind"
+  },
+  {
+    "id": "british-actors",
+    "text": "Name a British actor.",
+    "size": 700,
+    "tiers": {
+      "surface": 143,
+      "tooclever": 1,
+      "school": 241,
+      "rare": 174,
+      "deep": 140,
+      "gem": 1
+    },
+    "surface": ["Will Young", "Michael York", "Mark Strong", "John Hurt", "Charles Dance"],
+    "too_clever": ["Benedict Cumberbatch"],
+    "gem": "Olivia Colman"
+  },
+  {
+    "id": "jobs",
+    "text": "Name an occupation.",
+    "size": 972,
+    "tiers": {
+      "surface": 195,
+      "tooclever": 1,
+      "school": 340,
+      "rare": 242,
+      "deep": 193,
+      "gem": 1
+    },
+    "surface": ["director", "model", "music director", "author", "judge"],
+    "too_clever": ["Actuary"],
+    "gem": "Foley artist"
+  },
+  {
+    "id": "subjects",
+    "text": "Name an academic subject.",
+    "size": 253,
+    "tiers": {
+      "surface": 54,
+      "tooclever": 1,
+      "school": 86,
+      "rare": 63,
+      "deep": 48,
+      "gem": 1
+    },
+    "surface": ["History", "Social Work", "English", "International Business", "Dance"],
+    "too_clever": ["Paleography"],
+    "gem": "Dendrochronology"
+  },
+  {
+    "id": "art",
+    "text": "Name an art movement or style.",
+    "size": 140,
+    "tiers": {
+      "surface": 32,
+      "tooclever": 1,
+      "school": 45,
+      "rare": 33,
+      "deep": 28,
+      "gem": 1
+    },
+    "surface": ["video art", "street art", "new media art", "video game art", "land art"],
+    "too_clever": ["Dadaism"],
+    "gem": "Orphism"
+  },
+  {
+    "id": "music-genres",
+    "text": "Name a music genre.",
+    "size": 375,
+    "tiers": {
+      "surface": 77,
+      "tooclever": 1,
+      "school": 130,
+      "rare": 91,
+      "deep": 75,
+      "gem": 1
+    },
+    "surface": ["House", "Full on", "New-age", "Space house", "2-step"],
+    "too_clever": ["Vaporwave"],
+    "gem": "Zydeco"
+  },
+  {
+    "id": "instruments",
+    "text": "Name a musical instrument.",
+    "size": 57,
+    "tiers": {
+      "surface": 13,
+      "tooclever": 1,
+      "school": 19,
+      "rare": 13,
+      "deep": 10,
+      "gem": 1
+    },
+    "surface": ["Guitar", "Piano", "grand piano", "baby grand piano", "air horn"],
+    "too_clever": ["Theremin"],
+    "gem": "Nyckelharpa"
+  },
+  {
+    "id": "rock-hall",
+    "text": "Name a Rock and Roll Hall of Fame artist.",
+    "size": 222,
+    "tiers": {
+      "surface": 49,
+      "tooclever": 1,
+      "school": 75,
+      "rare": 54,
+      "deep": 42,
+      "gem": 1
+    },
+    "surface": ["The Who", "Yes", "The Police", "Heart", "Green Day"],
+    "too_clever": ["Frank Zappa"],
+    "gem": "Sister Rosetta Tharpe"
+  },
+  {
+    "id": "guitars",
+    "text": "Name a guitar maker.",
+    "size": 157,
+    "tiers": {
+      "surface": 35,
+      "tooclever": 1,
+      "school": 52,
+      "rare": 37,
+      "deep": 31,
+      "gem": 1
+    },
+    "surface": ["Music Man", "First Act", "G&L", "Martin", "Taylor"],
+    "too_clever": ["Strandberg"],
+    "gem": "Duesenberg"
+  },
+  {
+    "id": "movies",
+    "text": "Name a movie.",
+    "size": 3359,
+    "tiers": {
+      "surface": 677,
+      "tooclever": 1,
+      "school": 1173,
+      "rare": 836,
+      "deep": 671,
+      "gem": 1
+    },
+    "surface": ["They", "The One", "Up", "In & Out", "Good"],
+    "too_clever": ["Primer"],
+    "gem": "The Iron Giant"
+  },
+  {
+    "id": "tv",
+    "text": "Name a TV show.",
+    "size": 997,
+    "tiers": {
+      "surface": 202,
+      "tooclever": 1,
+      "school": 346,
+      "rare": 249,
+      "deep": 198,
+      "gem": 1
+    },
+    "surface": ["Made", "Over There", "See It Now", "Next", "Family"],
+    "too_clever": ["Twin Peaks"],
+    "gem": "Detectorists"
+  },
+  {
+    "id": "elements",
+    "text": "Name a chemical element.",
+    "size": 118,
+    "tiers": {
+      "surface": 24,
+      "tooclever": 1,
+      "school": 40,
+      "rare": 29,
+      "deep": 23,
+      "gem": 1
+    },
+    "surface": ["Lead", "Gold", "Silver", "Iron", "Carbon"],
+    "too_clever": ["Astatine"],
+    "gem": "Bismuth"
+  },
+  {
+    "id": "weather",
+    "text": "Name a weather condition.",
+    "size": 263,
+    "tiers": {
+      "surface": 53,
+      "tooclever": 1,
+      "school": 92,
+      "rare": 66,
+      "deep": 50,
+      "gem": 1
+    },
+    "surface": ["Clear", "Fair", "Rain", "Smoke", "Snow"],
+    "too_clever": ["Thundersnow"],
+    "gem": "Diamond dust"
+  },
+  {
+    "id": "meteorology",
+    "text": "Name a meteorological term.",
+    "size": 641,
+    "tiers": {
+      "surface": 129,
+      "tooclever": 1,
+      "school": 224,
+      "rare": 158,
+      "deep": 128,
+      "gem": 1
+    },
+    "surface": ["season", "front", "summer", "training", "air current"],
+    "too_clever": ["Petrichor"],
+    "gem": "Virga"
+  },
+  {
+    "id": "constellations",
+    "text": "Name a constellation.",
+    "size": 88,
+    "tiers": {
+      "surface": 21,
+      "tooclever": 1,
+      "school": 28,
+      "rare": 20,
+      "deep": 17,
+      "gem": 1
+    },
+    "surface": ["Cancer", "Leo", "Phoenix", "Leo Minor", "Hercules"],
+    "too_clever": ["Ophiuchus"],
+    "gem": "Delphinus"
+  },
+  {
+    "id": "cars",
+    "text": "Name a car brand.",
+    "size": 66,
+    "tiers": {
+      "surface": 15,
+      "tooclever": 1,
+      "school": 22,
+      "rare": 16,
+      "deep": 11,
+      "gem": 1
+    },
+    "surface": ["Smart", "Seat", "Ford", "Mini", "Morgan"],
+    "too_clever": ["Koenigsegg"],
+    "gem": "Spyker"
+  },
+  {
+    "id": "companies",
+    "text": "Name a company.",
+    "size": 492,
+    "tiers": {
+      "surface": 100,
+      "tooclever": 1,
+      "school": 170,
+      "rare": 122,
+      "deep": 98,
+      "gem": 1
+    },
+    "surface": ["AT&T", "American International Group", "Bank of America", "Google", "Target"],
+    "too_clever": ["Berkshire Hathaway"],
+    "gem": "Weyerhaeuser"
+  },
+  {
+    "id": "newspapers",
+    "text": "Name a newspaper.",
+    "size": 105,
+    "tiers": {
+      "surface": 22,
+      "tooclever": 1,
+      "school": 35,
+      "rare": 26,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": [
+      "The Times",
+      "The Record",
+      "The New York Times",
+      "The Morning Call",
+      "New York Post"
+    ],
+    "too_clever": ["The Onion"],
+    "gem": "The Asahi Shimbun"
+  },
+  {
+    "id": "industries",
+    "text": "Name an industry.",
+    "size": 153,
+    "tiers": {
+      "surface": 34,
+      "tooclever": 1,
+      "school": 51,
+      "rare": 38,
+      "deep": 28,
+      "gem": 1
+    },
+    "surface": ["Music", "Research", "Military", "Design", "Technology"],
+    "too_clever": ["Nanotechnology"],
+    "gem": "Silviculture"
+  },
+  {
+    "id": "charities",
+    "text": "Name a charity.",
+    "size": 101,
+    "tiers": {
+      "surface": 23,
+      "tooclever": 1,
+      "school": 34,
+      "rare": 24,
+      "deep": 18,
+      "gem": 1
+    },
+    "surface": [
+      "Young Life",
+      "City of Hope",
+      "Save the Children",
+      "Food for the Poor",
+      "Step Up for Students"
+    ],
+    "too_clever": ["Heifer International"],
+    "gem": "Room to Read"
+  },
+  {
+    "id": "uk-parties",
+    "text": "Name a British political party, past or present.",
+    "size": 573,
+    "tiers": {
+      "surface": 116,
+      "tooclever": 1,
+      "school": 199,
+      "rare": 142,
+      "deep": 114,
+      "gem": 1
+    },
+    "surface": [
+      "Life",
+      "Something New",
+      "Power To The People",
+      "People First Party",
+      "The Say No Party"
+    ],
+    "too_clever": ["Official Monster Raving Loony Party"],
+    "gem": "Yorkshire Party"
+  },
+  {
+    "id": "agencies",
+    "text": "Name a US federal agency.",
+    "size": 103,
+    "tiers": {
+      "surface": 25,
+      "tooclever": 1,
+      "school": 33,
+      "rare": 25,
+      "deep": 18,
+      "gem": 1
+    },
+    "surface": [
+      "Department of State",
+      "Department of Education",
+      "Department of Energy",
+      "Department of Justice",
+      "Department of Defense"
+    ],
+    "too_clever": ["Bureau of Alcohol Tobacco and Firearms"],
+    "gem": "Bureau of Engraving and Printing"
+  },
+  {
+    "id": "us-capitals",
+    "text": "Name a US state capital.",
+    "size": 50,
+    "tiers": {
+      "surface": 13,
+      "tooclever": 1,
+      "school": 14,
+      "rare": 12,
+      "deep": 9,
+      "gem": 1
+    },
+    "surface": ["Little Rock", "Boston", "Jackson", "Columbia", "Atlanta"],
+    "too_clever": ["Pierre"],
+    "gem": "Montpelier"
+  },
+  {
+    "id": "knots",
+    "text": "Name a type of knot.",
+    "size": 214,
+    "tiers": {
+      "surface": 44,
+      "tooclever": 1,
+      "school": 73,
+      "rare": 53,
+      "deep": 42,
+      "gem": 1
+    },
+    "surface": [
+      "round turn",
+      "Figure eight",
+      "simple Simon under",
+      "figure-eight loop",
+      "figure-of-nine loop"
+    ],
+    "too_clever": ["Monkey fist"],
+    "gem": "Zeppelin bend"
+  },
+  {
+    "id": "scents",
+    "text": "Name a scent.",
+    "size": 169,
+    "tiers": {
+      "surface": 37,
+      "tooclever": 1,
+      "school": 56,
+      "rare": 43,
+      "deep": 31,
+      "gem": 1
+    },
+    "surface": ["summer", "date", "spring", "winter", "Rose"],
+    "too_clever": ["Petrichor"],
+    "gem": "Vetiver"
+  },
+  {
+    "id": "fictional-materials",
+    "text": "Name a fictional material.",
+    "size": 171,
+    "tiers": {
+      "surface": 37,
+      "tooclever": 1,
+      "school": 57,
+      "rare": 41,
+      "deep": 34,
+      "gem": 1
+    },
+    "surface": ["Metal X", "Ice-nine", "Dark Metal", "Smart metal", "Sky-iron"],
+    "too_clever": ["Unobtainium"],
+    "gem": "Octiron"
+  },
+  {
+    "id": "tolkien",
+    "text": "Name a Tolkien character.",
+    "size": 596,
+    "tiers": {
+      "surface": 119,
+      "tooclever": 1,
+      "school": 208,
+      "rare": 148,
+      "deep": 119,
+      "gem": 1
+    },
+    "surface": ["William", "Brand", "Man in the Moon", "Brand II", "Pearl Took"],
+    "too_clever": ["Tom Bombadil"],
+    "gem": "Goldberry"
+  },
+  {
+    "id": "comedy-movies",
+    "text": "Name a comedy movie.",
+    "size": 669,
+    "tiers": {
+      "surface": 135,
+      "tooclever": 1,
+      "school": 234,
+      "rare": 166,
+      "deep": 132,
+      "gem": 1
+    },
+    "surface": ["In & Out", "Made", "Life", "Year One", "The Man"],
+    "too_clever": ["The Room"],
+    "gem": "Local Hero"
+  },
+  {
+    "id": "horror-movies",
+    "text": "Name a horror movie.",
+    "size": 203,
+    "tiers": {
+      "surface": 45,
+      "tooclever": 1,
+      "school": 67,
+      "rare": 49,
+      "deep": 40,
+      "gem": 1
+    },
+    "surface": ["They", "The Others", "Saw", "Day of the Dead", "The House of the Dead"],
+    "too_clever": ["The Wicker Man"],
+    "gem": "Let the Right One In"
+  },
+  {
+    "id": "action-movies",
+    "text": "Name an action movie.",
+    "size": 419,
+    "tiers": {
+      "surface": 86,
+      "tooclever": 1,
+      "school": 144,
+      "rare": 104,
+      "deep": 83,
+      "gem": 1
+    },
+    "surface": ["The One", "The A-Team", "Never Back Down", "War", "Wanted"],
+    "too_clever": ["Hard Boiled"],
+    "gem": "The Raid"
+  },
+  {
+    "id": "drama-movies",
+    "text": "Name a drama movie.",
+    "size": 785,
+    "tiers": {
+      "surface": 161,
+      "tooclever": 1,
+      "school": 274,
+      "rare": 193,
+      "deep": 155,
+      "gem": 1
+    },
+    "surface": ["Good", "I'm Not There", "A Good Year", "The Company", "That Thing You Do!"],
+    "too_clever": ["Synecdoche New York"],
+    "gem": "The Station Agent"
+  },
+  {
+    "id": "thriller-movies",
+    "text": "Name a thriller movie.",
+    "size": 242,
+    "tiers": {
+      "surface": 52,
+      "tooclever": 1,
+      "school": 84,
+      "rare": 56,
+      "deep": 48,
+      "gem": 1
+    },
+    "surface": ["Out of Time", "The Game", "Show Me", "Enough", "The Order"],
+    "too_clever": ["Memento"],
+    "gem": "The Conversation"
+  },
+  {
+    "id": "cities-us",
+    "text": "Name a city or town in the United States.",
+    "size": 2940,
+    "tiers": {
+      "surface": 588,
+      "tooclever": 1,
+      "school": 1027,
+      "rare": 735,
+      "deep": 588,
+      "gem": 1
+    },
+    "surface": ["New City", "University", "New Hope", "York", "High Point"],
+    "too_clever": ["Intercourse"],
+    "gem": "Duluth"
+  },
+  {
+    "id": "cities-gb",
+    "text": "Name a city or town in the United Kingdom.",
+    "size": 860,
+    "tiers": {
+      "surface": 171,
+      "tooclever": 1,
+      "school": 301,
+      "rare": 215,
+      "deep": 171,
+      "gem": 1
+    },
+    "surface": ["York", "Deal", "London", "March", "Reading"],
+    "too_clever": ["Llanfairpwllgwyngyll"],
+    "gem": "Stirling"
+  },
+  {
+    "id": "cities-ca",
+    "text": "Name a city or town in Canada.",
+    "size": 505,
+    "tiers": {
+      "surface": 101,
+      "tooclever": 1,
+      "school": 176,
+      "rare": 125,
+      "deep": 101,
+      "gem": 1
+    },
+    "surface": ["London", "West End", "White Rock", "High Park North", "Mission"],
+    "too_clever": ["Moose Jaw"],
+    "gem": "Whitehorse"
+  },
+  {
+    "id": "cities-au",
+    "text": "Name a city or town in Australia.",
+    "size": 311,
+    "tiers": {
+      "surface": 63,
+      "tooclever": 1,
+      "school": 107,
+      "rare": 77,
+      "deep": 62,
+      "gem": 1
+    },
+    "surface": ["Officer", "Gold Coast", "Central Coast", "Orange", "Point Cook"],
+    "too_clever": ["Wagga Wagga"],
+    "gem": "Ballarat"
+  },
+  {
+    "id": "cities-nz",
+    "text": "Name a city or town in New Zealand.",
+    "size": 58,
+    "tiers": {
+      "surface": 15,
+      "tooclever": 1,
+      "school": 16,
+      "rare": 14,
+      "deep": 11,
+      "gem": 1
+    },
+    "surface": ["Cambridge", "Hamilton", "Lincoln", "North Shore", "Hamilton East"],
+    "too_clever": ["Whanganui"],
+    "gem": "Rotorua"
+  },
+  {
+    "id": "cities-jp",
+    "text": "Name a city or town in Japan.",
+    "size": 1248,
+    "tiers": {
+      "surface": 248,
+      "tooclever": 1,
+      "school": 437,
+      "rare": 312,
+      "deep": 249,
+      "gem": 1
+    },
+    "surface": ["Date", "Mine", "Obama", "Tokyo", "Sue"],
+    "too_clever": ["Nara"],
+    "gem": "Kanazawa"
+  },
+  {
+    "id": "cities-cn",
+    "text": "Name a city or town in China.",
+    "size": 1916,
+    "tiers": {
+      "surface": 382,
+      "tooclever": 1,
+      "school": 670,
+      "rare": 479,
+      "deep": 383,
+      "gem": 1
+    },
+    "surface": ["Ya'an", "Fate", "Hong Kong", "Beijing", "Shanghai"],
+    "too_clever": ["Lhasa"],
+    "gem": "Dali"
+  },
+  {
+    "id": "cities-in",
+    "text": "Name a city or town in India.",
+    "size": 3669,
+    "tiers": {
+      "surface": 732,
+      "tooclever": 1,
+      "school": 1284,
+      "rare": 918,
+      "deep": 733,
+      "gem": 1
+    },
+    "surface": ["Along", "Un", "Kim", "Pen", "Ali"],
+    "too_clever": ["Varanasi"],
+    "gem": "Mysore"
+  },
+  {
+    "id": "cities-br",
+    "text": "Name a city or town in Brazil.",
+    "size": 2238,
+    "tiers": {
+      "surface": 446,
+      "tooclever": 1,
+      "school": 783,
+      "rare": 560,
+      "deep": 447,
+      "gem": 1
+    },
+    "surface": ["Central", "Park Way", "Carolina", "Colorado", "Rio Real"],
+    "too_clever": ["Manaus"],
+    "gem": "Olinda"
+  },
+  {
+    "id": "cities-mx",
+    "text": "Name a city or town in Mexico.",
+    "size": 623,
+    "tiers": {
+      "surface": 124,
+      "tooclever": 1,
+      "school": 217,
+      "rare": 156,
+      "deep": 124,
+      "gem": 1
+    },
+    "surface": ["Mexico City", "Don Antonio", "La Cruz", "San Antonio de la Cal", "San Fernando"],
+    "too_clever": ["Chihuahua"],
+    "gem": "Guanajuato"
+  },
+  {
+    "id": "cities-fr",
+    "text": "Name a city or town in France.",
+    "size": 691,
+    "tiers": {
+      "surface": 139,
+      "tooclever": 1,
+      "school": 240,
+      "rare": 172,
+      "deep": 138,
+      "gem": 1
+    },
+    "surface": ["Nice", "Paris", "La Defense", "Orange", "Gap"],
+    "too_clever": ["Carcassonne"],
+    "gem": "Annecy"
+  },
+  {
+    "id": "cities-it",
+    "text": "Name a city or town in Italy.",
+    "size": 659,
+    "tiers": {
+      "surface": 131,
+      "tooclever": 1,
+      "school": 230,
+      "rare": 165,
+      "deep": 131,
+      "gem": 1
+    },
+    "surface": ["Rome", "Milan", "Florence", "Venice", "Bra"],
+    "too_clever": ["San Gimignano"],
+    "gem": "Lucca"
+  },
+  {
+    "id": "cities-es",
+    "text": "Name a city or town in Spain.",
+    "size": 732,
+    "tiers": {
+      "surface": 145,
+      "tooclever": 1,
+      "school": 256,
+      "rare": 183,
+      "deep": 146,
+      "gem": 1
+    },
+    "surface": ["Salt", "Los Angeles", "La Carolina", "Madrid", "San Diego"],
+    "too_clever": ["Cuenca"],
+    "gem": "Ronda"
+  },
+  {
+    "id": "cities-de",
+    "text": "Name a city or town in Germany.",
+    "size": 1133,
+    "tiers": {
+      "surface": 225,
+      "tooclever": 1,
+      "school": 397,
+      "rare": 283,
+      "deep": 226,
+      "gem": 1
+    },
+    "surface": ["Much", "Wedding", "Berlin", "Horn", "Munich"],
+    "too_clever": ["Bielefeld"],
+    "gem": "Bamberg"
+  },
+  {
+    "id": "cities-ru",
+    "text": "Name a city or town in Russia.",
+    "size": 1091,
+    "tiers": {
+      "surface": 217,
+      "tooclever": 1,
+      "school": 382,
+      "rare": 272,
+      "deep": 218,
+      "gem": 1
+    },
+    "surface": ["Buy", "Gay", "Marks", "Moscow", "Anna"],
+    "too_clever": ["Norilsk"],
+    "gem": "Suzdal"
+  },
+  {
+    "id": "cities-ar",
+    "text": "Name a city or town in Argentina.",
+    "size": 312,
+    "tiers": {
+      "surface": 63,
+      "tooclever": 1,
+      "school": 107,
+      "rare": 78,
+      "deep": 62,
+      "gem": 1
+    },
+    "surface": ["Federal", "Victoria", "San Francisco", "Allen", "Lincoln"],
+    "too_clever": ["San Carlos de Bariloche"],
+    "gem": "Ushuaia"
+  },
+  {
+    "id": "cities-co",
+    "text": "Name a city or town in Colombia.",
+    "size": 310,
+    "tiers": {
+      "surface": 63,
+      "tooclever": 1,
+      "school": 107,
+      "rare": 77,
+      "deep": 61,
+      "gem": 1
+    },
+    "surface": ["Florida", "La Virginia", "Madrid", "Kennedy", "San Diego"],
+    "too_clever": ["Leticia"],
+    "gem": "Popayan"
+  },
+  {
+    "id": "cities-cl",
+    "text": "Name a city or town in Chile.",
+    "size": 146,
+    "tiers": {
+      "surface": 31,
+      "tooclever": 1,
+      "school": 48,
+      "rare": 36,
+      "deep": 29,
+      "gem": 1
+    },
+    "surface": ["Victoria", "San Antonio", "San Carlos", "La Cruz", "Santa Cruz"],
+    "too_clever": ["Valparaiso"],
+    "gem": "Punta Arenas"
+  },
+  {
+    "id": "cities-pe",
+    "text": "Name a city or town in Peru.",
+    "size": 139,
+    "tiers": {
+      "surface": 30,
+      "tooclever": 1,
+      "school": 45,
+      "rare": 35,
+      "deep": 27,
+      "gem": 1
+    },
+    "surface": ["San Martin", "Jesus Maria", "Imperial", "San Antonio", "San Juan"],
+    "too_clever": ["Puno"],
+    "gem": "Iquitos"
+  },
+  {
+    "id": "cities-za",
+    "text": "Name a city or town in South Africa.",
+    "size": 303,
+    "tiers": {
+      "surface": 61,
+      "tooclever": 1,
+      "school": 104,
+      "rare": 76,
+      "deep": 60,
+      "gem": 1
+    },
+    "surface": ["George", "East London", "White River", "Virginia", "Carolina"],
+    "too_clever": ["Bloemfontein"],
+    "gem": "Knysna"
+  },
+  {
+    "id": "cities-eg",
+    "text": "Name a city or town in Egypt.",
+    "size": 236,
+    "tiers": {
+      "surface": 46,
+      "tooclever": 1,
+      "school": 82,
+      "rare": 59,
+      "deep": 47,
+      "gem": 1
+    },
+    "surface": ["Port Said", "6th of October City", "Cairo", "New Cairo", "Alexandria"],
+    "too_clever": ["Luxor"],
+    "gem": "Aswan"
+  },
+  {
+    "id": "cities-ng",
+    "text": "Name a city or town in Nigeria.",
+    "size": 268,
+    "tiers": {
+      "surface": 52,
+      "tooclever": 1,
+      "school": 94,
+      "rare": 67,
+      "deep": 53,
+      "gem": 1
+    },
+    "surface": ["Lagos", "Aba", "Ode", "Jos", "Port Harcourt"],
+    "too_clever": ["Sokoto"],
+    "gem": "Calabar"
+  },
+  {
+    "id": "cities-ke",
+    "text": "Name a city or town in Kenya.",
+    "size": 120,
+    "tiers": {
+      "surface": 22,
+      "tooclever": 1,
+      "school": 42,
+      "rare": 30,
+      "deep": 24,
+      "gem": 1
+    },
+    "surface": ["Nairobi", "Mai", "Hola", "Mombasa", "Kikuyu"],
+    "too_clever": ["Naivasha"],
+    "gem": "Lamu"
+  },
+  {
+    "id": "cities-gr",
+    "text": "Name a city or town in Greece.",
+    "size": 120,
+    "tiers": {
+      "surface": 22,
+      "tooclever": 1,
+      "school": 42,
+      "rare": 30,
+      "deep": 24,
+      "gem": 1
+    },
+    "surface": ["Athens", "Rhodes", "Kos", "Corfu", "Thessaloniki"],
+    "too_clever": ["Sparta"],
+    "gem": "Nafplio"
+  },
+  {
+    "id": "cities-pt",
+    "text": "Name a city or town in Portugal.",
+    "size": 178,
+    "tiers": {
+      "surface": 35,
+      "tooclever": 1,
+      "school": 61,
+      "rare": 45,
+      "deep": 35,
+      "gem": 1
+    },
+    "surface": ["Lagos", "Lisbon", "Porto", "Monsanto", "Maia"],
+    "too_clever": ["Fatima"],
+    "gem": "Tavira"
+  },
+  {
+    "id": "cities-nl",
+    "text": "Name a city or town in the Netherlands.",
+    "size": 243,
+    "tiers": {
+      "surface": 47,
+      "tooclever": 1,
+      "school": 85,
+      "rare": 61,
+      "deep": 48,
+      "gem": 1
+    },
+    "surface": ["Best", "Goes", "Amsterdam", "Borne", "The Hague"],
+    "too_clever": ["Gouda"],
+    "gem": "Delft"
+  },
+  {
+    "id": "cities-be",
+    "text": "Name a city or town in Belgium.",
+    "size": 227,
+    "tiers": {
+      "surface": 45,
+      "tooclever": 1,
+      "school": 78,
+      "rare": 57,
+      "deep": 45,
+      "gem": 1
+    },
+    "surface": ["Forest", "Manage", "Boom", "Peer", "Brussels"],
+    "too_clever": ["Ypres"],
+    "gem": "Dinant"
+  },
+  {
+    "id": "cities-pl",
+    "text": "Name a city or town in Poland.",
+    "size": 361,
+    "tiers": {
+      "surface": 71,
+      "tooclever": 1,
+      "school": 126,
+      "rare": 90,
+      "deep": 72,
+      "gem": 1
+    },
+    "surface": ["Police", "Warsaw", "Krakow", "Katowice", "Gdansk"],
+    "too_clever": ["Zakopane"],
+    "gem": "Torun"
+  },
+  {
+    "id": "cities-se",
+    "text": "Name a city or town in Sweden.",
+    "size": 109,
+    "tiers": {
+      "surface": 20,
+      "tooclever": 1,
+      "school": 38,
+      "rare": 28,
+      "deep": 21,
+      "gem": 1
+    },
+    "surface": ["Boo", "Stockholm", "Lund", "Gothenburg", "Uppsala"],
+    "too_clever": ["Kiruna"],
+    "gem": "Visby"
+  },
+  {
+    "id": "cities-fi",
+    "text": "Name a city or town in Finland.",
+    "size": 102,
+    "tiers": {
+      "surface": 20,
+      "tooclever": 1,
+      "school": 35,
+      "rare": 25,
+      "deep": 20,
+      "gem": 1
+    },
+    "surface": ["Nokia", "Helsinki", "East Helsinki", "Kemi", "Salo"],
+    "too_clever": ["Rovaniemi"],
+    "gem": "Porvoo"
+  },
+  {
+    "id": "cities-tr",
+    "text": "Name a city or town in Turkey.",
+    "size": 424,
+    "tiers": {
+      "surface": 84,
+      "tooclever": 1,
+      "school": 149,
+      "rare": 106,
+      "deep": 83,
+      "gem": 1
+    },
+    "surface": ["Of", "Van", "Tire", "Istanbul", "Ankara"],
+    "too_clever": ["Batman"],
+    "gem": "Safranbolu"
+  },
+  {
+    "id": "cities-th",
+    "text": "Name a city or town in Thailand.",
+    "size": 328,
+    "tiers": {
+      "surface": 65,
+      "tooclever": 1,
+      "school": 114,
+      "rare": 82,
+      "deep": 65,
+      "gem": 1
+    },
+    "surface": ["Bang O", "Ban Na", "Ban Mo", "Bang Ban", "Ban Na San"],
+    "too_clever": ["Pai"],
+    "gem": "Lampang"
+  },
+  {
+    "id": "cities-id",
+    "text": "Name a city or town in Indonesia.",
+    "size": 444,
+    "tiers": {
+      "surface": 87,
+      "tooclever": 1,
+      "school": 156,
+      "rare": 111,
+      "deep": 88,
+      "gem": 1
+    },
+    "surface": ["Metro", "Jakarta", "Kamal", "Soe", "Pare"],
+    "too_clever": ["Surakarta"],
+    "gem": "Yogyakarta"
+  },
+  {
+    "id": "cities-ph",
+    "text": "Name a city or town in the Philippines.",
+    "size": 505,
+    "tiers": {
+      "surface": 100,
+      "tooclever": 1,
+      "school": 176,
+      "rare": 126,
+      "deep": 101,
+      "gem": 1
+    },
+    "surface": ["Mexico", "Bay", "Angeles City", "Port Area", "Asia"],
+    "too_clever": ["Baguio"],
+    "gem": "Vigan"
+  },
+  {
+    "id": "cities-vn",
+    "text": "Name a city or town in Vietnam.",
+    "size": 293,
+    "tiers": {
+      "surface": 57,
+      "tooclever": 1,
+      "school": 103,
+      "rare": 73,
+      "deep": 58,
+      "gem": 1
+    },
+    "surface": ["Can Tho", "Bo", "Sa Dec", "La Gi", "Hanoi"],
+    "too_clever": ["Hue"],
+    "gem": "Hoi An"
+  },
+  {
+    "id": "cities-kr",
+    "text": "Name a city or town in South Korea.",
+    "size": 146,
+    "tiers": {
+      "surface": 29,
+      "tooclever": 1,
+      "school": 50,
+      "rare": 36,
+      "deep": 29,
+      "gem": 1
+    },
+    "surface": ["Seoul", "Ara-dong", "Busan", "Ora-dong", "Incheon"],
+    "too_clever": ["Jeonju"],
+    "gem": "Gyeongju"
+  }
+]

@@ -1,5 +1,23 @@
-export type DiveTier =
-  'Lone Oar' | 'Deep Water' | 'Mid Lake' | 'Shallows' | 'Surface' | 'Missed' | 'Hidden';
+export const DIVE_TIERS = {
+  surface: { label: 'Surface', points: 10, emoji: '🫧' },
+  tooclever: { label: 'Too Clever', points: 15, emoji: '🤡' },
+  school: { label: 'Midwater', points: 30, emoji: '🐟' },
+  rare: { label: 'Rare', points: 60, emoji: '🦑' },
+  deep: { label: 'Deep Cut', points: 85, emoji: '🐙' },
+  gem: { label: 'Pearl', points: 100, emoji: '🦪' },
+  miss: { label: 'Miss', points: 0, emoji: '⬛' },
+} as const;
+export type DiveTier = keyof typeof DIVE_TIERS;
+
+export function diveVerdict(score: number): string {
+  if (score === 0) return 'High And Dry';
+  if (score < 150) return 'Toe Dipper';
+  if (score < 300) return 'Getting Wet';
+  if (score < 450) return 'Open Water';
+  if (score < 600) return 'Deep Diver';
+  if (score < 700) return 'Abyss Explorer';
+  return 'Pearl Collector';
+}
 
 export function normalizeAnswer(answer: string): string {
   const words = answer
@@ -21,18 +39,4 @@ export function normalizeAnswer(answer: string): string {
       words[words.length - 1] = last.slice(0, -1);
   }
   return words.join(' ');
-}
-
-export function divePoints(
-  count: number,
-  total: number,
-  hidden = false,
-): { points: number; tier: DiveTier } {
-  if (hidden) return { points: 0, tier: 'Hidden' };
-  if (!count || !total) return { points: 0, tier: 'Missed' };
-  if (count === 1) return { points: 100, tier: 'Lone Oar' };
-  if (count * 10 <= total) return { points: 75, tier: 'Deep Water' };
-  if (count * 4 <= total) return { points: 50, tier: 'Mid Lake' };
-  if (count * 2 <= total) return { points: 25, tier: 'Shallows' };
-  return { points: 10, tier: 'Surface' };
 }

@@ -577,6 +577,7 @@ CREATE INDEX IF NOT EXISTS game_results_date ON game_results(date, game_id);
 CREATE TABLE IF NOT EXISTS dive_answers (
   date TEXT NOT NULL, user_id TEXT NOT NULL, prompt_index INTEGER NOT NULL CHECK(prompt_index BETWEEN 0 AND 6),
   answer TEXT NOT NULL, normalized TEXT NOT NULL,
+  canonical TEXT, tier TEXT NOT NULL, points INTEGER NOT NULL,
   hidden_at TEXT, hidden_by TEXT, created_at TEXT NOT NULL,
   PRIMARY KEY(date, user_id, prompt_index));
 CREATE INDEX IF NOT EXISTS dive_answers_group ON dive_answers(date, prompt_index, normalized);`);

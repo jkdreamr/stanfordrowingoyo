@@ -300,7 +300,7 @@ it('migrates v16 idempotently and exports/deletes personal game data', async () 
     migrate(s, 'team-code');
     result(s, 'u0', 'dive', DATE, 5);
     s.sql.exec(
-      'INSERT INTO dive_answers VALUES (?,?,0,?,?,NULL,NULL,?)',
+      "INSERT INTO dive_answers VALUES (?,?,0,?,?,NULL,'miss',0,NULL,NULL,?)",
       DATE,
       'u0',
       'Boat',

@@ -8,3 +8,5 @@ dist/
 e2e/.auth/
 playwright-report/
 test-results/
+scripts/dive/.cache/
+scripts/dive/__pycache__/

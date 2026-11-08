@@ -458,6 +458,11 @@ export interface AccountExportMention {
   created_at: string;
 }
 export type GameId = string;
+export interface DiveNotableAnswer {
+  answer: string;
+  tier: DiveTier;
+  points: number;
+}
 export interface DiveAnswerResult {
   prompt_index: number;
   answer: string;
@@ -466,6 +471,9 @@ export interface DiveAnswerResult {
   count: number;
   total: number;
   hidden: boolean;
+  canonical: string | null;
+  gem: DiveNotableAnswer;
+  notable: DiveNotableAnswer[];
 }
 export interface DiveRevealGroup {
   normalized: string;
@@ -475,6 +483,9 @@ export interface DiveRevealGroup {
   tier: DiveTier;
   hidden: boolean;
   mine: boolean;
+  canonical: string | null;
+  teammates: { user_id: string; name: string }[];
+  only_you: boolean;
 }
 export interface DiveReveal {
   prompt_index: number;
@@ -488,6 +499,8 @@ export interface DiveDay {
   answers: DiveAnswerResult[];
   complete: boolean;
   score: number;
+  verdict: string;
+  result: GameResult | null;
   reveal: DiveReveal[] | null;
 }
 export type GameScoreDirection = 'higher' | 'lower';
@@ -545,6 +558,9 @@ export interface DiveAnswerExport {
   prompt_index: number;
   answer: string;
   normalized: string;
+  canonical: string | null;
+  tier: DiveTier;
+  points: number;
   hidden_at: string | null;
   hidden_by: string | null;
   created_at: string;

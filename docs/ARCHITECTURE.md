@@ -318,31 +318,66 @@ self-contained guarded block. Feature migrations run in ascending order 11–16,
 Dive adds four dedicated endpoints without changing the generic hub contract:
 
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
-  (empty when locked), ordered caller answers, completion, current score and nullable reveal.
-- `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the provisional
+  (text only, empty when locked), ordered caller answers with their own prompt reveals,
+  completion, immutable running score, verdict, caller's generic result and nullable team reveal.
+  Today never exposes team groups before the caller completes all seven, including staff;
+  staff can explicitly review them through the day endpoint.
+- `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
   accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
   Empty answers represent timeouts. Trimmed answers are at most 40 characters; control characters
-  are rejected. The first answer creates a generic result; payload is `{answered:n}`.
+  are rejected. Canonical match (nullable), tier and points are stored at submit time in
+  v16's Dive-owned `dive_answers` columns `canonical TEXT`, `tier TEXT NOT NULL`,
+  `points INTEGER NOT NULL`. The first answer creates a generic result; payload is
+  `{answered:n}`. In the same transaction its score increments by those stored points.
+  Neither other players nor moderation can change them. The response includes the current
+  prompt's `gem` and at most five `notable` answers (three familiar Surface answers and two
+  Deep Cuts), never a whole set or reveals for unanswered prompts.
 - `GET /api/games/dive/days/:date` returns `DiveDay` with revealed prompt groups for past
   dates. Today requires seven answers or staff (403 `PLAY_FIRST`); future dates are invalid.
 - `PATCH /api/games/dive/answers` is staff-only, takes
   `{date,prompt_index,normalized,hidden:boolean}` and returns that prompt's `DiveReveal`.
-  It hides/unhides a whole normalized group, sets/clears `hidden_at` and `hidden_by`,
-  recomputes scores and audits `dive.hide`/`dive.unhide`. Later matching submissions inherit
-  the group's hidden state. Non-staff see no hidden groups except their own raw answer flagged
-  Hidden (without revealing other hidden answers or their counts). Staff can inspect all groups.
+  It hides/unhides a whole group, sets/clears `hidden_at` and `hidden_by`, and audits
+  `dive.hide`/`dive.unhide`. Moderation is display-only: neither stored answer points/tiers
+  nor `game_results` scores/timestamps change. Later matching submissions inherit hidden
+  display state but still earn their curated points. Non-staff see no hidden groups except
+  their own answer marked `hidden` (without other hidden members/names/counts). Staff can
+  inspect all groups. Groups use normalized canonical keys for matches (aliases and fuzzy
+  matches converge), normalized free text for misses, and include `canonical`, `teammates`
+  (`user_id`, `name`), count and `only_you` (caller is in a group with no teammate).
+  `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
+  counts are informational, never used to award points. No crowd-ranking CTE remains.
 
-The original 420-prompt bank uses a fixed seeded permutation. Seven consecutive entries per
-day, measured from 2026-01-01 with positive modulo, prevent repeats for 60 consecutive days.
+The general-knowledge bank has 120 prompts and over 60,000 curated canonical answers.
+A fixed seeded permutation takes seven consecutive entries per day, measured from
+2026-01-01 with positive modulo. Any `floor(N/7)` consecutive days contain no repeated
+prompt, including wraparound and dates before the epoch. There are no rowing/team prompts.
 `shared/games/dive.ts` owns normalization (NFKD, diacritics, lowercase, ampersand expansion,
 punctuation removal, hyphen/underscore/slash separation, whitespace, leading article removal,
-last-word-only simple plurals) and the pure scoring tiers. For each prompt, only non-hidden,
-nonempty normalized answers count toward N and matching count c: c=1 earns 100 (Lone Oar),
-c×10≤N earns 75 (Deep Water), c×4≤N earns 50 (Mid Lake), c×2≤N earns 25 (Shallows),
-otherwise 10 (Surface). Missed and Hidden earn zero. One CTE-backed SQL UPDATE recomputes
-every Dive result for the date after each answer/moderation; no JavaScript player-scoring loop.
-Scores are live until team midnight, then the generic board's `final` flag becomes true.
+last-word-only simple plurals), tier constants, emoji and 0–700 verdict bands. Tiers are
+`surface` Surface 10 🫧, `tooclever` Too Clever 15 🤡, `school` Midwater 30 🐟,
+`rare` Rare 60 🦑, `deep` Deep Cut 85 🐙, `gem` Pearl 100 🦪, `miss` 0 ⬛.
+Verdicts: 0 High And Dry; 1–149 Toe Dipper; 150–299 Getting Wet; 300–449 Open Water;
+450–599 Deep Diver; 600–699 Abyss Explorer; 700 Pearl Collector. Scores are immediately
+real even for the first player. The generic board remains higher-is-better; `final` becomes
+true after team midnight (board participation can grow, individual scores never recompute).
+
+`scripts/dive/` is a reproducible Python pipeline with pinned real list sources, ignored raw
+fetch caches, `wordfreq.zipf_frequency(name,'en')`, and committed hand overrides. Within
+each prompt, familiarity rank percentiles are Surface <20%, Midwater <55%, Rare <80%,
+Deep Cut otherwise. Surface anchors, explicit Too Clever picks and exactly one fun Pearl
+override those ranks. See its README/report for provenance, exclusions and regeneration.
+Generated Worker-only compact per-prompt modules are dynamically imported through `loaders.ts`;
+`sets.ts` parses on demand into normalized keys and length buckets, cached in an eight-entry
+promise-aware LRU. The browser imports tier helpers/types only, never answer data.
+
+The pure Worker matcher first checks normalized canonical/alias keys. Otherwise banded,
+early-exit Levenshtein uses no fuzzy matching below length 4, distance ≤1 for length 4–7,
+distance ≤2 for length ≥8; length-difference prefiltering is mandatory. Only a unique best
+canonical wins (aliases of the same canonical do not count as ties); ambiguous, empty,
+unknown, timeout and non-answer stopword inputs miss for zero. No external request or
+frequency lookup happens at submit time. Data integrity/matcher/selection tests cover all
+sets; `scripts/dive/check-web.mjs` checks built web assets for Pearl-string leaks.
 
 The Dive client persists each 25-second deadline under a user/date/prompt localStorage key;
 reload/visibility changes use the original wall-clock deadline, expiry submits an empty answer,
@@ -388,7 +423,7 @@ dedicated routes, and a typed lazy `GameDefinition` in `web/src/games/registry.t
 No migration is needed. Routes, hub and generic boards pick up client entries; weekly
 aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 `GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
-with no generic scorer; dedicated Dive routes handle sequential answers and live scoring.
+with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
 ### Tests, recaps, and challenges
 
