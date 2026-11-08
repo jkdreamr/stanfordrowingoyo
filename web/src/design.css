@@ -200,8 +200,23 @@
     0 4px 10px -4px rgb(40 24 20 / 14%);
   transition: transform var(--dur-travel) var(--spring);
 }
+.dark .ui-segment-thumb {
+  /* One step above the track, as on iOS: the selection reads as raised, never as a hole. */
+  background: #3a3533;
+  box-shadow: inset 0 0.5px 0 rgb(255 255 255 / 8%);
+}
 .ui-icon-tile {
   border-radius: 10px;
+}
+/* Under a large title, pull to refresh draws its indicator in the gap above the content, so
+   its slot takes no space: the first card sits 32px below the title instead of a 56px dead
+   band. The indicator keeps its old position relative to the content. (Home and
+   Notifications already lay the slot over their stacks.) */
+:not(.screen-stack) > .social-refresh-slot {
+  height: 0;
+}
+:not(.screen-stack) > .social-refresh-slot > .social-refresh-indicator {
+  top: -96px;
 }
 
 /* Tab bar: frosted chrome, one selection pill that travels between tabs */
@@ -467,7 +482,7 @@
   box-shadow: var(--shadow-hero);
 }
 .drive-hero:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--oyo-focus);
   outline-offset: 3px;
 }
 .drive-hero-soft {
@@ -711,7 +726,7 @@
 /* Me */
 .profile-hero {
   position: relative;
-  padding: 24px 0 4px;
+  padding: 8px 0 4px;
 }
 .profile-hero .ui-avatar-lg {
   box-shadow:
