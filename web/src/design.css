@@ -455,6 +455,24 @@
 .season-reveal {
   animation: drive-reveal 900ms var(--ease-out) backwards;
 }
+/* The season line ends in a dot at today, arriving as the draw reaches it. */
+.season-end {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--bg);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: season-end 220ms var(--ease-out) 700ms backwards;
+}
+@keyframes season-end {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+}
 @keyframes drive-reveal {
   from {
     clip-path: inset(0 100% 0 0);
@@ -895,6 +913,7 @@
   .drive-bar,
   .drive-col,
   .season-reveal,
+  .season-end,
   .shell-tab.is-active svg,
   .kudos-icon.is-giving > svg,
   .kudos-count,

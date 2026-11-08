@@ -209,6 +209,7 @@ export function SeasonChartView({
     end: reset,
   };
   const point = points[index ?? points.length - 1];
+  const last = points.at(-1);
   const gap = point ? paceGap(point) : null;
   const baseline = series.find((p) => p.date === start);
   const delta = point
@@ -283,6 +284,17 @@ export function SeasonChartView({
         }}
       >
         <Paths key={range} {...paths} />
+        {index === null && !empty && last && (
+          <span
+            key={`${range}:${paths.line.length}`}
+            aria-hidden="true"
+            className="season-end"
+            style={{
+              left: '100%',
+              top: `${(188 - ((last.total - domain[0]) / (domain[1] - domain[0])) * 156) / 2}%`,
+            }}
+          />
+        )}
         {index !== null && point && (
           <>
             <span
