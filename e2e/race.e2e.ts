@@ -2,7 +2,14 @@ import { test, expect } from './fixtures';
 import { seedEntry } from './helpers';
 import type { TeamRace } from '../shared/types';
 
-const result = /^(?:(?:Stanford|Berkeley) (?:Ahead|Won) by [\d,]+ m|Tied)$/;
+const result = /^(?:(?:Stanford|Berkeley) (?:Ahead|Won) by [\d.]+[kM]? E-meters|Tied)$/;
+const lines = (text: string) => {
+  const range = document.createRange();
+  range.selectNodeContents(
+    Array.from(document.querySelectorAll('p')).find((p) => p.textContent === text)!,
+  );
+  return new Set(Array.from(range.getClientRects()).map((rect) => Math.round(rect.top))).size;
+};
 
 test('Stanford vs Berkeley race shows on Home and the Leaderboard', async ({ makeRower }) => {
   const rower = await makeRower();
@@ -26,12 +33,24 @@ test('Stanford vs Berkeley race shows on Home and the Leaderboard', async ({ mak
   const width = await page.evaluate(() => document.documentElement.clientWidth);
   expect(box!.x).toBeGreaterThanOrEqual(0);
   expect(box!.x + box!.width).toBeLessThanOrEqual(width);
+  for (const text of [
+    await home.getByText(result).innerText(),
+    await home.getByText(/^Last Week: /).innerText(),
+  ])
+    expect(await page.evaluate(lines, text)).toBe(1);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const duration of await home
+    .locator('.race-fill')
+    .evaluateAll((fills) => fills.map((fill) => getComputedStyle(fill).transitionDuration)))
+    expect(duration).toBe('0s');
 
   await page.goto('/leaderboard');
   const board = page.getByRole('region', { name: 'Stanford vs Berkeley' });
   await expect(board.getByText(result)).toBeVisible();
   await page.getByRole('button', { name: 'Previous Week' }).click();
-  await expect(board.getByText(/^(?:(?:Stanford|Berkeley) Won by [\d,]+ m|Tied)$/)).toBeVisible();
+  await expect(
+    board.getByText(/^(?:(?:Stanford|Berkeley) Won by [\d.]+[kM]? E-meters|Tied)$/),
+  ).toBeVisible();
   await expect(board.getByText(/^Last Week: /)).toHaveCount(0);
   await page
     .getByRole('radiogroup', { name: 'Leaderboard Metric' })

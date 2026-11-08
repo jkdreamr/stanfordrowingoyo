@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { RaceWeek, TeamRace } from '../../../shared/types';
 import { ghostMeters, raceLeader } from '../../../shared/race';
-import { formatMeters } from '../lib/format';
+import { formatCompactMeters } from '../lib/format';
 import { useRace } from '../lib/queries';
 import { Card, Skeleton } from './ui';
 
@@ -21,7 +21,7 @@ export function raceResult(stanford: number, berkeley: number, final: boolean) {
   const name = leader === 'stanford' ? 'Stanford' : 'Berkeley';
   return {
     leader,
-    text: `${name} ${final ? 'Won' : 'Ahead'} by ${formatMeters(Math.abs(stanford - berkeley))}`,
+    text: `${name} ${final ? 'Won' : 'Ahead'} by ${formatCompactMeters(Math.abs(stanford - berkeley))} E-meters`,
   };
 }
 function useNow(race: TeamRace | undefined, updatedAt: number) {
@@ -52,7 +52,7 @@ function Lane({
           style={{ width: `${Math.min(100, (value / max) * 100)}%` }}
         />
       </span>
-      <span className="text-subhead tabular-nums">{formatMeters(value)}</span>
+      <span className="text-subhead tabular-nums">{formatCompactMeters(value)}</span>
     </div>
   );
 }

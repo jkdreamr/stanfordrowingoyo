@@ -1516,12 +1516,6 @@ main h1[tabindex='-1']:focus {
   background: var(--cal-blue);
   box-shadow: inset -3px 0 0 var(--cal-gold);
 }
-.race-dot {
-  width: 8px;
-  height: 8px;
-  flex: none;
-  border-radius: 999px;
-}
 @media (prefers-reduced-motion: reduce) {
   .race-fill {
     transition: none;
