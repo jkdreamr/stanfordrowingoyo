@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PullToRefresh } from '../components/social/PullToRefresh';
 import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Check, ChevronLeft, ChevronRight, Flame, Trophy } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Flame, Gamepad2, Trophy } from 'lucide-react';
 import { addDays } from '../../../shared/dates';
 import type { Config, LeaderboardRow } from '../../../shared/types';
 import { HeaderActions } from '../components/shell/HeaderActions';
@@ -266,7 +266,11 @@ export default function Leaderboard() {
       {header}
       <PullToRefresh label="Leaderboard" onRefresh={refresh}>
         <div className="flex justify-end px-4">
-          <Button to="/games/leaderboard" variant="plain">
+          <Button
+            to="/games/leaderboard"
+            variant="plain"
+            leading={<Gamepad2 size={20} strokeWidth={1.75} />}
+          >
             Games
           </Button>
         </div>
