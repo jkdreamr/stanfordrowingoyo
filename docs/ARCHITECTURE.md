@@ -315,6 +315,43 @@ self-contained guarded block. Feature migrations run in ascending order 11–16,
 
 ### Daily Games
 
+Dive adds four dedicated endpoints without changing the generic hub contract:
+
+- `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
+  (empty when locked), ordered caller answers, completion, current score and nullable reveal.
+- `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the provisional
+  `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
+  accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
+  Empty answers represent timeouts. Trimmed answers are at most 40 characters; control characters
+  are rejected. The first answer creates a generic result; payload is `{answered:n}`.
+- `GET /api/games/dive/days/:date` returns `DiveDay` with revealed prompt groups for past
+  dates. Today requires seven answers or staff (403 `PLAY_FIRST`); future dates are invalid.
+- `PATCH /api/games/dive/answers` is staff-only, takes
+  `{date,prompt_index,normalized,hidden:boolean}` and returns that prompt's `DiveReveal`.
+  It hides/unhides a whole normalized group, sets/clears `hidden_at` and `hidden_by`,
+  recomputes scores and audits `dive.hide`/`dive.unhide`. Later matching submissions inherit
+  the group's hidden state. Non-staff see no hidden groups except their own raw answer flagged
+  Hidden (without revealing other hidden answers or their counts). Staff can inspect all groups.
+
+The original 420-prompt bank uses a fixed seeded permutation. Seven consecutive entries per
+day, measured from 2026-01-01 with positive modulo, prevent repeats for 60 consecutive days.
+`shared/games/dive.ts` owns normalization (NFKD, diacritics, lowercase, ampersand expansion,
+punctuation removal, hyphen/underscore/slash separation, whitespace, leading article removal,
+last-word-only simple plurals) and the pure scoring tiers. For each prompt, only non-hidden,
+nonempty normalized answers count toward N and matching count c: c=1 earns 100 (Lone Oar),
+c×10≤N earns 75 (Deep Water), c×4≤N earns 50 (Mid Lake), c×2≤N earns 25 (Shallows),
+otherwise 10 (Surface). Missed and Hidden earn zero. One CTE-backed SQL UPDATE recomputes
+every Dive result for the date after each answer/moderation; no JavaScript player-scoring loop.
+Scores are live until team midnight, then the generic board's `final` flag becomes true.
+
+The Dive client persists each 25-second deadline under a user/date/prompt localStorage key;
+reload/visibility changes use the original wall-clock deadline, expiry submits an empty answer,
+and rejected/network writes offer Retry. This is a client timer, not an anti-cheat deadline.
+An original SVG water column shows the rowing shell, depth ticks and sinking marker; reduced
+motion disables sinking. Completed play reveals the log, grouped answers, Copy Result
+(`Dive YYYY-MM-DD · N m`, no spoilers) and generic live day board. Staff moderation uses
+the shared confirmation sheet. Scores/boards refresh while visible every 30 seconds.
+
 Games are separate from training statistics, with no bottom tab. Dates use team-local
 America/Los_Angeles `today(ctx.now)` and weeks run Monday–Sunday via `weekStart`.
 `oyoGameAccess(storage,user,date)` is THE gate: coxswain/coach/admin always unlock;
@@ -351,7 +388,7 @@ dedicated routes, and a typed lazy `GameDefinition` in `web/src/games/registry.t
 No migration is needed. Routes, hub and generic boards pick up client entries; weekly
 aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 `GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
-with no generic scorer; this phase reserves its answer schema but adds no gameplay.
+with no generic scorer; dedicated Dive routes handle sequential answers and live scoring.
 
 ### Tests, recaps, and challenges
 

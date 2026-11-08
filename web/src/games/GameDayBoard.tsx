@@ -18,9 +18,10 @@ export function GameDayBoard({ gameId, date }: { gameId: string; date: string })
       }),
     retry: (count, error) =>
       !(error instanceof ApiClientError && error.status === 403) && count < 2,
+    refetchInterval: date === config.data?.today ? 30000 : false,
   });
   if (board.error instanceof ApiClientError && board.error.detail.code === 'PLAY_FIRST')
-    return <p className="py-6 text-subhead text-muted">Play Today To See The Board</p>;
+    return <p className="py-6 text-subhead text-muted">Play To See Today’s Board</p>;
   if (!board.data) return <LoadState error={board.isError} retry={() => void board.refetch()} />;
   const definition = GAMES.find((game) => game.id === gameId);
   return (

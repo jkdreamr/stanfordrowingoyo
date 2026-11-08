@@ -1,3 +1,5 @@
+import type { DiveTier } from './games/dive';
+
 export type Modality = 'erg' | 'bike' | 'run';
 export type ErgTestKind = '2k' | '6k';
 export interface ErgTestInput {
@@ -456,6 +458,38 @@ export interface AccountExportMention {
   created_at: string;
 }
 export type GameId = string;
+export interface DiveAnswerResult {
+  prompt_index: number;
+  answer: string;
+  points: number;
+  tier: DiveTier;
+  count: number;
+  total: number;
+  hidden: boolean;
+}
+export interface DiveRevealGroup {
+  normalized: string;
+  answer: string;
+  count: number;
+  points: number;
+  tier: DiveTier;
+  hidden: boolean;
+  mine: boolean;
+}
+export interface DiveReveal {
+  prompt_index: number;
+  prompt: string;
+  groups: DiveRevealGroup[];
+}
+export interface DiveDay {
+  date: string;
+  access: GameAccess;
+  prompts: string[];
+  answers: DiveAnswerResult[];
+  complete: boolean;
+  score: number;
+  reveal: DiveReveal[] | null;
+}
 export type GameScoreDirection = 'higher' | 'lower';
 export interface GameAccess {
   date: string;
@@ -555,6 +589,16 @@ export interface Endpoint<Req, Res, Query = never> {
 }
 /** Canonical endpoint paths for the backend and typed browser client. Void responses use HTTP 204. */
 export interface Api {
+  'GET /api/games/dive/today': Endpoint<void, DiveDay>;
+  'POST /api/games/dive/answers': Endpoint<
+    { prompt_index: number; answer: string },
+    DiveAnswerResult
+  >;
+  'GET /api/games/dive/days/:date': Endpoint<void, DiveDay>;
+  'PATCH /api/games/dive/answers': Endpoint<
+    { date: string; prompt_index: number; normalized: string; hidden: boolean },
+    DiveReveal
+  >;
   'GET /api/games': Endpoint<void, GamesToday>;
   'GET /api/games/access': Endpoint<void, GameAccess>;
   'POST /api/games/:game/results': Endpoint<{ payload: unknown }, GameResult>;
