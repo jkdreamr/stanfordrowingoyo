@@ -295,6 +295,8 @@
   --medal-silver-fill: #f0f2f7;
   --medal-bronze-ink: #7d4a29;
   --medal-bronze-fill: #fff1e7;
+  --cal-blue: #003262;
+  --cal-gold: #fdb515;
 }
 .dark {
   --oyo-hover: #26262b;
@@ -313,6 +315,8 @@
   --divider: #2c2c31;
   --accent: #c0352b;
   --accent-pressed: #8c1515;
+  --cal-blue: #3b7ea1;
+  --cal-gold: #fdb515;
   --medal-gold-ink: #ebc969;
   --medal-gold-fill: #30291b;
   --medal-silver-ink: #c4cbd8;
@@ -1486,4 +1490,40 @@ main h1[tabindex='-1']:focus {
   padding: 0;
   font-size: 15px;
   font-weight: 600;
+}
+
+.race-lane {
+  display: grid;
+  grid-template-columns: 4.75rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+.race-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+.race-fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width var(--oyo-motion-progress) cubic-bezier(0.2, 0, 0, 1);
+}
+.race-fill-stanford {
+  background: var(--accent);
+}
+.race-fill-berkeley {
+  background: var(--cal-blue);
+  box-shadow: inset -3px 0 0 var(--cal-gold);
+}
+.race-dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 999px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .race-fill {
+    transition: none;
+  }
 }

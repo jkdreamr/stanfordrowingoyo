@@ -28,6 +28,7 @@ const settings: Settings = {
   team_code: 'ROWCREW8',
   season_start: '09-01',
   group_targets: { normal: 80000, frosh: 60000, u23: 100000 },
+  berkeley_pace_percent: 90,
 };
 describe('preset logic', () => {
   it('shows one decimal for whole factors without rounding away meaningful fractional digits', () => {

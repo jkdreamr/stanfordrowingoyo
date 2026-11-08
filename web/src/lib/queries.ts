@@ -127,6 +127,9 @@ export const useDeleteChallenge = mutationHook('DELETE /api/admin/challenges/:id
 export function useSeasonStats(query: Query<'GET /api/stats/season'> = {}) {
   return queryHook('GET /api/stats/season')({ query });
 }
+export function useRace(query: Query<'GET /api/stats/race'> = {}, enabled = true) {
+  return queryHook('GET /api/stats/race')({ query }, enabled);
+}
 export function useLeaderboard(query: Query<'GET /api/leaderboard'> = {}) {
   return queryHook('GET /api/leaderboard')({ query });
 }
