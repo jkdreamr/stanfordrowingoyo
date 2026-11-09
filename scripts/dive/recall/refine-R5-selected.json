@@ -1,0 +1,435 @@
+{
+  "oscar-five-wins-no-best-picture": [
+    "Cabaret",
+    "Star Wars",
+    "Mad Max: Fury Road",
+    "Mad Max Fury Road",
+    "Fury Road",
+    "La La Land",
+    "Gravity",
+    "Dune",
+    "Hugo",
+    "The Aviator",
+    "Aviator",
+    "Saving Private Ryan",
+    "Doctor Zhivago",
+    "Dr. Zhivago",
+    "Mary Poppins",
+    "Who's Afraid of Virginia Woolf?",
+    "A Place in the Sun",
+    "The King and I",
+    "Wilson",
+    "The Bad and the Beautiful",
+    {
+      "guess": "Poor Things",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Jaws",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "The Matrix",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Avatar",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Raiders of the Lost Ark",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "The Fellowship of the Ring",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Inception",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Life of Pi",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Black Panther",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Pan's Labyrinth",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Gone with the Wind",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "The Wizard of Oz",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "E.T.",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Dune: Part Two",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Sinners",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Frankenstein",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Titanic",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    },
+    {
+      "guess": "Chicago",
+      "invalid": "Fewer than five competitive wins or won Best Picture."
+    }
+  ],
+  "oscar-song-and-score-films": [
+    "Titanic",
+    "The Lion King",
+    "Lion King",
+    "Aladdin",
+    "The Little Mermaid",
+    "Little Mermaid",
+    "Beauty and the Beast",
+    "Pocahontas",
+    "Mary Poppins",
+    "The Wizard of Oz",
+    "Wizard of Oz",
+    "Slumdog Millionaire",
+    "La La Land",
+    "Breakfast at Tiffany's",
+    "Born Free",
+    "The Way We Were",
+    "Butch Cassidy and the Sundance Kid",
+    "Butch Cassidy",
+    "Fame",
+    "Gigi",
+    "Pinocchio",
+    "High Noon",
+    "The Lord of the Rings: The Return of the King",
+    "Return of the King",
+    "Love Is a Many-Splendored Thing",
+    {
+      "guess": "Frozen",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Coco",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Tarzan",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Toy Story",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "The Sound of Music",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Purple Rain",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Dirty Dancing",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Skyfall",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Flashdance",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Mulan",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Up",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Black Panther",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "The Jungle Book",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "A Star Is Born",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "8 Mile",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Top Gun",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Shaft",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Chariots of Fire",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Doctor Zhivago",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    }
+  ],
+  "oscar-costume-and-design-films": [
+    "Titanic",
+    "Moulin Rouge!",
+    "Moulin Rouge",
+    "Chicago",
+    "Memoirs of a Geisha",
+    "Black Panther",
+    "Mad Max: Fury Road",
+    "Fury Road",
+    "Poor Things",
+    "Wicked",
+    "The Great Gatsby",
+    "Alice in Wonderland",
+    "The Grand Budapest Hotel",
+    "Grand Budapest Hotel",
+    "Amadeus",
+    "The Last Emperor",
+    "Gandhi",
+    "My Fair Lady",
+    "Ben-Hur",
+    "Cleopatra",
+    "Star Wars",
+    "The Aviator",
+    "The Lord of the Rings: The Return of the King",
+    "Return of the King",
+    "Shakespeare in Love",
+    "The English Patient",
+    "Barry Lyndon",
+    {
+      "guess": "Marie Antoinette",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Gladiator",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Dune",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Little Women",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Pride and Prejudice",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Sweeney Todd",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Elizabeth",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Gone with the Wind",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    "West Side Story",
+    "Frankenstein",
+    "Doctor Zhivago",
+    "The Sting",
+    {
+      "guess": "Hugo",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Pan's Labyrinth",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Lincoln",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Phantom Thread",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Les Misérables",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Anna Karenina",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Cabaret",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    "Gigi",
+    "An American in Paris",
+    {
+      "guess": "Dick Tracy",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Bram Stoker's Dracula",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Mank",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    }
+  ],
+  "oscar-supporting-pair-films": [
+    "Everything Everywhere All at Once",
+    "EEAAO",
+    "The Fighter",
+    "Hannah and Her Sisters",
+    "From Here to Eternity",
+    "A Streetcar Named Desire",
+    "Streetcar Named Desire",
+    "West Side Story",
+    "The Last Picture Show",
+    "Sayonara",
+    "Julia",
+    {
+      "guess": "Mrs. Miniver",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Going My Way",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Ben-Hur",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Spartacus",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Dallas Buyers Club",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Silver Linings Playbook",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "The Departed",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Kramer vs. Kramer",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Ordinary People",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Terms of Endearment",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Tootsie",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Network",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "One Flew Over the Cuckoo's Nest",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Cocoon",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Chicago",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "The Dark Knight",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Oppenheimer",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "12 Years a Slave",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Marriage Story",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Moonlight",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Fences",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Whiplash",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Judas and the Black Messiah",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Minari",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "The Holdovers",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Mystic River",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Million Dollar Baby",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "Gone with the Wind",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    },
+    {
+      "guess": "The Bad and the Beautiful",
+      "invalid": "Did not win both required categories for the same film at the same ceremony."
+    }
+  ]
+}

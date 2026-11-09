@@ -14,6 +14,50 @@ const batchTwo = JSON.parse(
 const batchThree = JSON.parse(
   readFileSync(new URL('./recall/batch-3-selected.json', import.meta.url)),
 );
+const retiredR5 = new Set([
+  'kubrick-films',
+  'burton-films',
+  'miyazaki-films',
+  'wes-anderson-features',
+]);
+
+test('Oscar intersections retain frozen guesses and meet exact recall without out-of-scope hits', async () => {
+  const bytes = readFileSync(new URL('./recall/refine-R5-raw.json', import.meta.url));
+  assert.equal(
+    createHash('sha256').update(bytes).digest('hex'),
+    'ecc225396a21d6d3dd72d55022faf134fda581913a35dbfa389370fc4ca6bd7e',
+  );
+  const raw = JSON.parse(bytes);
+  const corpus = JSON.parse(
+    readFileSync(new URL('./recall/refine-R5-selected.json', import.meta.url)),
+  );
+  const ids = Object.keys(corpus);
+  assert.equal(ids.length, 4);
+  for (const [id, guesses] of Object.entries(corpus))
+    assert.deepEqual(
+      guesses.map((g) => (typeof g === 'string' ? g : g.guess)),
+      raw[id],
+    );
+  const result = await evaluateCorpus({
+    corpus,
+    schedule: [ids],
+    prompts: ids.map((id) => ({ id, constrained: true })),
+    loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
+    normalize: normalizeAnswer,
+  });
+  assert.deepEqual(result.missingData, []);
+  for (const prompt of result.prompts) {
+    assert.ok(prompt.total > 0 && prompt.rate >= 0.95, `${prompt.id}: ${prompt.misses.join(', ')}`);
+    const set = (await import(`../../worker/src/games/dive/data/${prompt.id}.ts`)).default;
+    for (const guess of prompt.invalid)
+      assert.equal(
+        exactHit(guess.guess, set, normalizeAnswer),
+        false,
+        `${prompt.id}: ${guess.guess}`,
+      );
+    assert.equal(exactHit('', set, normalizeAnswer), false);
+  }
+});
 
 test('refinement preserves four frozen common-form guesses and accepts each exactly', async () => {
   const corpus = JSON.parse(
@@ -172,17 +216,18 @@ test('fourth constrained batch preserves frozen guesses and accepts reviewed mem
       raw[id],
     );
   }
+  const activeIds = ids.filter((id) => !retiredR5.has(id));
   const result = await evaluateCorpus({
     corpus,
-    schedule: [ids],
-    prompts: ids.map((id) => ({ id, constrained: true })),
+    schedule: [activeIds],
+    prompts: activeIds.map((id) => ({ id, constrained: true })),
     loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
     normalize: normalizeAnswer,
   });
   const audit = JSON.parse(readFileSync(new URL('./recall/batch-4-audit.json', import.meta.url)));
   assert.deepEqual(
     result.prompts,
-    audit.prompts.map((prompt) => prompt.after),
+    audit.prompts.filter((prompt) => activeIds.includes(prompt.id)).map((prompt) => prompt.after),
   );
   for (const prompt of result.prompts) {
     assert.ok(prompt.total > 0 && prompt.rate >= 0.95, `${prompt.id}: ${prompt.misses.join(', ')}`);
@@ -234,10 +279,11 @@ test('second constrained batch retains every brainstorm and meets exact recall p
   const ids = Object.keys(batchTwo);
   assert.equal(ids.length, 30);
   for (const guesses of Object.values(batchTwo)) assert.ok(guesses.length >= 25);
+  const activeIds = ids.filter((id) => !retiredR5.has(id));
   const result = await evaluateCorpus({
     corpus: batchTwo,
-    schedule: [ids],
-    prompts: ids.map((id) => ({ id, constrained: true })),
+    schedule: [activeIds],
+    prompts: activeIds.map((id) => ({ id, constrained: true })),
     loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
     normalize: normalizeAnswer,
   });
