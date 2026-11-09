@@ -173,8 +173,11 @@ export function useNotifications(poll = false) {
 export function usePushConfig(enabled = true) {
   return queryHook('GET /api/me/push')({}, enabled);
 }
-export function usePlan(query: Query<'GET /api/plan'> = {}) {
-  return queryHook('GET /api/plan')({ query });
+export function usePlan(query: Query<'GET /api/plan'> = {}, enabled = true) {
+  return queryHook('GET /api/plan')({ query }, enabled);
+}
+export function useExamplePlan(query: Query<'GET /api/plan/example'> = {}) {
+  return queryHook('GET /api/plan/example')({ query });
 }
 export function useMyPlan(date?: string, enabled = true) {
   return queryHook('GET /api/me/plan')({ query: date ? { date } : {} }, enabled);
@@ -253,8 +256,8 @@ export function useSettings() {
 export function usePresets() {
   return queryHook('GET /api/admin/presets')({});
 }
-export function useAdminPlan() {
-  return queryHook('GET /api/admin/plan')({});
+export function useAdminPlan(query: Query<'GET /api/admin/plan'> = {}) {
+  return queryHook('GET /api/admin/plan')({ query });
 }
 export function useCompliance(query: Query<'GET /api/admin/compliance'> = {}) {
   return queryHook('GET /api/admin/compliance')({ query });
@@ -334,7 +337,7 @@ export function invalidationKeys(endpoint: Write): QueryKey[] {
     if (/settings|presets/.test(endpoint)) keys.push(qk.root('config'));
     if (/settings|recalculate|users|roster/.test(endpoint))
       keys.push(...['me', 'entries', 'stats', 'leaderboard', 'users'].map(qk.root));
-    if (endpoint.includes('/plan')) keys.push(qk.root('plan'));
+    if (endpoint.includes('/plan')) keys.push(qk.root('plan'), qk.root('games'));
     return keys;
   }
   return [];
@@ -422,8 +425,6 @@ export const useCreatePreset = mutationHook('POST /api/admin/presets');
 export const useUpdatePreset = mutationHook('PATCH /api/admin/presets/:id');
 export const useDeletePreset = mutationHook('DELETE /api/admin/presets/:id');
 export const useReplacePlan = mutationHook('PUT /api/admin/plan');
-export const useCreatePlanSlot = mutationHook('POST /api/admin/plan');
-export const useDeletePlanSlot = mutationHook('DELETE /api/admin/plan/:group/:week/:day/:slot');
 export const useRecalculate = mutationHook('POST /api/admin/recalculate');
 
 export function updateCachedKudos(data: unknown, id: string, hasKudos: boolean): unknown {

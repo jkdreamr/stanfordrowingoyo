@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { Config, MyPlan, Plan } from '../shared/types';
+import type { Config, MyPlan, ExamplePlan } from '../shared/types';
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { waitForSplash } from './helpers';
@@ -23,9 +23,9 @@ test('personal fortnight copies a sample, logs today and remains owner-only', as
   const teammate = await makeRower();
   const { page, context, user } = owner;
   const config: Config = await (await context.request.get('/api/config')).json();
-  const sampleResponse = await context.request.get(`/api/plan?group=${user.group_key}`);
+  const sampleResponse = await context.request.get(`/api/plan/example?group=${user.group_key}`);
   await expect(sampleResponse).toBeOK();
-  const sample: Plan = await sampleResponse.json();
+  const sample: ExamplePlan = await sampleResponse.json();
   const hasSample = sample.slots.some((row) => row.kind === 'oyo');
   await page.goto('/plan?tab=mine');
   await page.getByRole('button', { name: 'Start Plan', exact: true }).click();

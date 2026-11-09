@@ -5,7 +5,12 @@ import { waitForSplash } from './helpers';
 test('locked Daily Games opens Log and unlocks immediately after saving', async ({
   makeRower,
 }, info) => {
-  const { page } = await makeRower();
+  const { page, context } = await makeRower();
+  await context.setExtraHTTPHeaders({
+    ...info.project.use.extraHTTPHeaders,
+    'X-OYO-Test-Now': '2026-11-11T18:00:00Z',
+  });
+  await page.reload();
   await waitForSplash(page);
   const shots = async (name: string) => {
     if (!process.env.E2E_SHOTS_DIR) return;

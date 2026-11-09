@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import type { EntryDetail, Page, User, WeekStats } from '../../shared/types';
 import { IDEMPOTENCY_HEADER } from '../../shared/headers';
 import type { Env } from './index';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { getSetting, setSetting } from './db/settings';
 import { insertImage } from './db/images';
 import { insertRosterFixture } from './testFixtures';
@@ -209,7 +209,7 @@ describe('idempotent workout creation', () => {
       s.sql.exec('DROP TABLE entry_idempotency');
       setSetting(s, 'schema_version', version);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(18);
+      expect(getSetting(s, 'schema_version')).toBe(20);
       s.sql.exec(
         'INSERT INTO entry_idempotency VALUES (?,?,?,?)',
         'user',
@@ -220,7 +220,7 @@ describe('idempotent workout creation', () => {
       setSetting(s, 'schema_version', version);
       migrate(s);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(18);
+      expect(getSetting(s, 'schema_version')).toBe(20);
       expect(s.sql.exec('SELECT * FROM entry_idempotency').toArray()).toHaveLength(1);
       expect(
         s.sql

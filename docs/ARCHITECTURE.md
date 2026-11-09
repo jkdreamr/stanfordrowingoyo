@@ -104,7 +104,7 @@ Rule: a preset stores `modality`, `zone`, `name`, and either a fixed `distance_m
 loop distances so the math reproduces the sheet: campus loop = 6,240 m, Dish loop from A hall = 11,280 m. Presets are
 staff-editable.
 
-### Sample fortnights (Plan screen; staff-editable). Slots: AM, PM1, PM2 for Mon..Sun. Kind: `team` (white), `oyo` (zone colored), `off`.
+### Example Fortnight (last Plan tab; read-only). Slots: AM, PM1, PM2 for Mon..Sun. Kind: `team` (white), `oyo` (zone colored), `off`.
 
 Frosh W1: Mon AM Team Row E, PM1 Team Erg C (counts for OYO extra meters) | Tue AM Team Row C Stake Race, PM1 Team Lift |
 Wed AM OYO E Erg 3x6k r1' (18k) | Thu AM Team Row E, PM1 Team Lift | Fri AM Team Row E/D, PM1 OYO E Bike 42k (14k), PM2 OYO E campus loop run (8k) |
@@ -254,7 +254,10 @@ announcements(id PK, author_id, title, body, pinned INT, created_at)
 presets(id PK, modality, zone, name, distance_m INT NULL, sort INT, active INT)   -- NULL distance = user enters meters
 plan_slots(group_key, week INT (1|2), day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
            PK(group_key, week, day, slot))
-plan_totals(group_key, week, label)     -- e.g. "60k Equivalent"
+plan_totals(group_key, week, label)     -- read-only Example Fortnight; unchanged legacy data
+team_plan_slots(week_start TEXT, day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text, counts_oyo INTEGER NOT NULL DEFAULT 0,
+                PK(week_start,day,slot)) -- one team-wide dated schedule, not per group
+team_plan_totals(week_start TEXT PK, label)
 my_plans(user_id, start_date, rest_days_json, updated_at, PK(user_id, start_date))
 my_plan_sessions(user_id, start_date, week, day, slot, modality, zone, distance_m NULL, note,
                  PK(user_id, start_date, week, day, slot))
@@ -273,7 +276,23 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 18; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 20; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 19 transactionally creates the dated team-plan tables with IF NOT EXISTS and seeds only
+2026-11-09 with the supplied 14 slots (all zones NULL, no total), using INSERT OR IGNORE inside
+the guarded v19 step. It never copies the old example fortnight, modifies legacy tables, or
+overwrites staff edits; later migrations/requests never reseed a cleared or edited week.
+Version 20 transactionally adds `counts_oyo` (guarded by column existence, default 0).
+Only the 2026-11-09 Monday PM1 row whose text still exactly matches the v19 seed is
+given zone B; edited text and other rows are untouched. No seeded slot is flagged;
+all seeded `counts_oyo` values remain false.
+Dated slot JSON always returns a boolean `counts_oyo`; writes may omit it (defaults false),
+and reject non-booleans. This informational team-session tag does not change kind, game access,
+personal planned meters or logged-meter calculation. Schedule and My Fortnight show
+“Counts toward OYO” with the zone chip; the team-slot editor toggle and week copy preserve it.
+Versions 18 and 19 are unchanged.
+Version 20 also inserts Thomas Kelley as an unclaimed rower with null email, group,
+side and class year, using the seeded UUID scheme, only when no case-insensitive name
+match exists. The shared fresh roster includes him once; existing manual rows are preserved.
 Version 17 adds game progress before version 18. Version 18 adds `users.evening_reminder`
 (integer boolean, default 1), nullable `push_outbox.reminder_date`, and `reminder_sends(user_id,date)`
 with a composite primary key for daily idempotency. The guarded migrations run in order,
@@ -592,7 +611,12 @@ America/Los_Angeles `today(ctx.now)` and weeks run Monday–Sunday via `weekStar
 `oyoGameAccess(storage,user,date)` is THE gate: coxswain/coach/admin always unlock;
 rowers unlock with any existing own entry dated today (entries are hard-deleted), or
 a rest day in the latest My Fortnight plan starting between today−13 and today.
-Rest-day offsets are `(week−1)*7+day`. Otherwise access is locked. Every game write
+Rest-day offsets are `(week−1)*7+day`. After staff, workout and rest-day checks, a rower
+(including a null-group rower) unlocks with reason `no_oyo` if `team_plan_slots` contains at
+least one slot for `weekStart(date)` and none with `kind='oyo'` for that Monday-based day index.
+Even an explicitly off day unlocks; an entirely unposted week remains locked. Only the dated
+team-wide schedule affects this rule, never Example Fortnight. Browser copy is
+“No OYO on today's team schedule.” Otherwise access is locked. Every game write
 refreshes the user and requires this rule server-side (403 `GAME_LOCKED`,
 "Log a workout today to play."). Deleting a workout can lock future writes again.
 
@@ -720,7 +744,41 @@ display percentages. My Fortnight and Me meter-based progress remains exact.
   Percent rounds to 0.1 without capping; no points. DO progress memo keys include
   challenge data/updated_at, stats_counters.any_version and team-local today; hits scan no entries.
 
-Alongside the group/team Plan, My Fortnight is personal: `GET /api/me/plan?date=YYYY-MM-DD`
+### Dated team schedule and read-only examples
+
+`GET /api/plan?week=YYYY-MM-DD` requires a signed-in user and returns `TeamPlan`:
+`{week_start, slots:[{day,slot,kind,zone,text}], total:string|null}`. There is no group parameter.
+Week defaults to the current LA Monday. A supplied week must be a real Monday YYYY-MM-DD
+from 2000-01-01 through team-local today + 365 days; invalid, non-Monday, and out-of-range
+dates return 400 (no normalization). Empty weeks return empty slots and null total.
+`GET /api/admin/plan?week=` is staff-only and returns `Plan`:
+`{week_start, slots:[{day,slot,kind,zone,text}], totals:[{label}]}`, with zero or one total.
+`PUT /api/admin/plan` accepts that same shape, atomically replacing only that week;
+optional `?week=` must match body `week_start`. Day is integer 0–6, slot AM|PM1|PM2,
+kind team|oyo|off, zone any supported zone or null (including OYO), text ≤2000 characters
+with newlines preserved, label ≤200. Duplicate (day,slot) keys and multiple totals return 400.
+Empty slots clear the week's posted schedule and disable its no-OYO unlock. Slot/total deletion,
+insertion, and `plan.replace` audit (target `plan/YYYY-MM-DD`, before/after full week) are one
+transaction. Other weeks and the legacy tables are untouched. Old per-slot admin POST/DELETE
+routes are removed; all current clients save whole dated weeks. CSV/account exports do not
+read team schedule tables; historical audit actions remain readable.
+
+Schedule shows “Week of Nov 9”, 44px previous/next arrows, “This Week” away from current week,
+today's highlighted heading, and “Coming Soon” / “This week's schedule hasn't been posted yet.”
+when empty. There is no group selector. AM/PM1-only weeks display AM/PM; weeks containing PM2
+keep AM/PM1/PM2, consistently in the editor. Text renders with preserved line breaks.
+The editor loads the selected week, protects unsaved week/route navigation with Discard Changes,
+and copies the previous week into a draft only (including empty weeks). Copy confirms before
+replacing any non-empty draft; Save Plan is the only publish action.
+
+`GET /api/plan/example?group=frosh|normal|u23` requires a signed-in user, defaults group to the
+caller's group, and returns `ExamplePlan`: the old `{slots,totals}` shape with group_key and
+week 1|2 on rows. This is the only reader of old `plan_slots`/`plan_totals`. The last Plan tab,
+“Example Fortnight” (key `example`, after Calculator), preserves the old group selector,
+two weeks, totals and sample content. It is read-only; the dated editor cannot modify it.
+The six-tab row scrolls horizontally on small screens.
+
+Alongside the dated team Plan and read-only Example Fortnight, My Fortnight is personal: `GET /api/me/plan?date=YYYY-MM-DD`
 returns `MyPlan | null` for the 14-day window containing date (default today in America/Los_Angeles).
 `PUT /api/me/plan` takes `MyPlanInput` and atomically replaces the plan starting on its Monday
 `start_date`; another start within ±13 days returns 409, while ±14-day neighbours are allowed.
@@ -731,6 +789,12 @@ are excluded from CSV exports and audit logs. Existing /me session and deactivat
 Each session has week 1|2, integer day 0=Monday..6, slot AM|PM1|PM2, valid modality/zone,
 nullable integer distance_m 1..200000 and a trimmed note of at most 200 characters.
 Session keys and rest days must be unique; sessions on rest days are rejected (400 VALIDATION_ERROR).
+My Fortnight fetches the two dated weeks covering its 14-day window with `GET /api/plan?week=`.
+Each day's team slots (all kinds) appear as secondary read-only rows above the owner's sessions,
+with slot labels and multiline text. A missing week shows “Team schedule coming soon” once per week;
+load errors have a retry without blocking personal editing. Team rows never enter personal sessions,
+planned_m, logged_m, targets, rest days, or writes; Start from Sample still uses read-only Example Fortnight.
+
 `MyPlan` adds `updated_at`, per-week `planned_m: [number, number]` and
 `logged_m: [number, number]`, and per-session `equiv_m` (null for unknown distance).
 Planned equivalents are computed on read with current settings factors, never snapshotted;

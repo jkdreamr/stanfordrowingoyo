@@ -1,5 +1,6 @@
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
 import { today } from '../../../shared/dates';
+import { TEAM_PLAN_SEED_SLOTS, TEAM_PLAN_SEED_WEEK } from '../../../shared/teamPlan';
 import { GROUP_TARGETS, PRESETS, PLAN_SLOTS, PLAN_TOTALS, ROSTER } from '../../../shared/seed';
 import {
   TEAM_CODE_MIN_LENGTH,
@@ -613,6 +614,61 @@ CREATE INDEX IF NOT EXISTS dive_answers_group ON dive_answers(date, prompt_index
         'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
         'schema_version',
         '18',
+      );
+    });
+  if (version < 19)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS team_plan_slots (
+        week_start TEXT NOT NULL, day INTEGER NOT NULL CHECK(day BETWEEN 0 AND 6),
+        slot TEXT NOT NULL CHECK(slot IN ('AM','PM1','PM2')),
+        kind TEXT NOT NULL CHECK(kind IN ('team','oyo','off')), zone TEXT, text TEXT NOT NULL,
+        PRIMARY KEY(week_start,day,slot));
+        CREATE TABLE IF NOT EXISTS team_plan_totals (
+        week_start TEXT PRIMARY KEY NOT NULL, label TEXT NOT NULL);`);
+      for (const row of TEAM_PLAN_SEED_SLOTS)
+        sql.exec(
+          'INSERT OR IGNORE INTO team_plan_slots VALUES (?,?,?,?,?,?)',
+          TEAM_PLAN_SEED_WEEK,
+          row.day,
+          row.slot,
+          row.kind,
+          row.zone,
+          row.text,
+        );
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '19',
+      );
+    });
+  if (version < 20)
+    storage.transactionSync(() => {
+      const columns = sql.exec<{ name: string }>('PRAGMA table_info(team_plan_slots)').toArray();
+      if (!columns.some((column) => column.name === 'counts_oyo'))
+        sql.exec('ALTER TABLE team_plan_slots ADD COLUMN counts_oyo INTEGER NOT NULL DEFAULT 0');
+      const mondayErg = TEAM_PLAN_SEED_SLOTS.find((row) => row.day === 0 && row.slot === 'PM1')!;
+      sql.exec(
+        "UPDATE team_plan_slots SET zone='B' WHERE week_start=? AND day=0 AND slot='PM1' AND text=?",
+        TEAM_PLAN_SEED_WEEK,
+        mondayErg.text,
+      );
+      const row = ROSTER.find((row) => row.name === 'Thomas Kelley')!;
+      sql.exec(
+        'INSERT INTO roster (id,name,email,role,group_key,side,class_year,claimed_by_user_id,added_by,created_at) SELECT ?,?,?,?,?,?,?,NULL,NULL,? WHERE NOT EXISTS (SELECT 1 FROM roster WHERE lower(name)=lower(?))',
+        crypto.randomUUID(),
+        row.name,
+        row.email,
+        row.role,
+        row.group_key,
+        row.side,
+        row.class_year,
+        new Date().toISOString(),
+        row.name,
+      );
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '20',
       );
     });
 }

@@ -3,7 +3,7 @@ import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Env } from './index';
 import type { EntryDetail, PushConfig, User } from '../../shared/types';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { getSetting, setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
 import { notify } from './db/notifications';
@@ -685,7 +685,7 @@ it('migrates to v15 idempotently, with or without intermediate versions', async 
     setSetting(storage, 'schema_version', 9);
     migrate(storage);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(18);
+    expect(getSetting(storage, 'schema_version')).toBe(20);
     expect(storage.sql.exec('SELECT * FROM push_subscriptions').toArray()).toEqual([]);
     expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toEqual([]);
   });

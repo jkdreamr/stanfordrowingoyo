@@ -13,7 +13,7 @@ import type {
   User,
 } from '../../shared/types';
 import type { Env } from './index';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { setSetting } from './db/settings';
 import { parseCsv } from './csv';
 import { insertRosterFixture } from './testFixtures';
@@ -185,6 +185,7 @@ const endpoints: Record<keyof Api, true> = {
   'GET /api/notifications': true,
   'POST /api/notifications/read': true,
   'GET /api/plan': true,
+  'GET /api/plan/example': true,
   'GET /api/admin/users': true,
   'PATCH /api/admin/users/:id': true,
   'POST /api/admin/users/:id/reset-password': true,
@@ -203,8 +204,6 @@ const endpoints: Record<keyof Api, true> = {
   'DELETE /api/admin/presets/:id': true,
   'GET /api/admin/plan': true,
   'PUT /api/admin/plan': true,
-  'POST /api/admin/plan': true,
-  'DELETE /api/admin/plan/:group/:week/:day/:slot': true,
   'POST /api/admin/recalculate': true,
   'GET /api/admin/compliance': true,
   'GET /api/admin/export': true,
@@ -256,7 +255,6 @@ describe('complete API and role permissions', () => {
         await api('/announcements', staff, 'POST', { title: 'News', body: 'Hello', pinned: false })
       ).json<{ id: string }>();
       const p = await (await api('/admin/presets', staff, 'POST', preset)).json<Preset>();
-      await api('/admin/plan', staff, 'POST', slot);
       await api('/admin/roster', staff, 'POST', rosterRow);
       const rosterId = (await (await api('/admin/roster', staff)).json<RosterRow[]>()).find(
         (row) => row.email === rosterRow.email,
@@ -417,7 +415,15 @@ describe('complete API and role permissions', () => {
     expect((await api('/admin/settings', cox, 'PATCH', { season_start: '09-02' })).status).toBe(
       200,
     );
-    expect((await api('/admin/plan', cox, 'POST', slot)).status).toBe(201);
+    expect(
+      (
+        await api('/admin/plan', cox, 'PUT', {
+          week_start: '2026-03-09',
+          slots: [slot],
+          totals: [],
+        })
+      ).status,
+    ).toBe(200);
     expect(
       (await api('/announcements', cox, 'POST', { title: 'News', body: 'Hello', pinned: false }))
         .status,
@@ -910,31 +916,35 @@ describe('announcements and plan', () => {
     for (const action of ['announcement.create', 'announcement.update', 'announcement.delete'])
       expect(actions).toContain(action);
   });
-  it('replaces plan transactionally, filters groups, upserts and deletes slots, rejects invalid duplicates', async () => {
+  it('replaces a dated team week transactionally and rejects duplicate slots', async () => {
     const cox = await user('Cox', 'coxswain');
     const rower = await user('Rower');
     const plan = {
-      slots: [{ ...slot, group_key: 'frosh', text: 'Frosh' }, slot],
-      totals: [{ group_key: 'normal', week: 1, label: '20k' }],
+      week_start: '2026-03-09',
+      slots: [
+        { day: 0, slot: 'AM', kind: 'oyo', zone: null, text: 'Training\nOYO', counts_oyo: false },
+      ],
+      totals: [{ label: '20k' }],
     };
     expect((await api('/admin/plan', cox, 'PUT', plan)).status).toBe(200);
     expect(await (await api('/admin/plan', cox)).json()).toEqual(plan);
-    expect((await (await api('/plan', rower)).json<Plan>()).slots).toHaveLength(1);
-    expect((await (await api('/plan?group=frosh', rower)).json<Plan>()).slots[0].text).toBe(
-      'Frosh',
+    expect(await (await api('/plan', rower)).json()).toEqual({
+      week_start: plan.week_start,
+      slots: plan.slots,
+      total: '20k',
+    });
+    expect(
+      (await api('/admin/plan', cox, 'PUT', { ...plan, slots: [...plan.slots, ...plan.slots] }))
+        .status,
+    ).toBe(400);
+    expect((await (await api('/admin/plan', cox)).json<Plan>()).slots).toHaveLength(1);
+    expect((await api('/admin/plan', cox, 'PUT', { ...plan, slots: [], totals: [] })).status).toBe(
+      200,
     );
-    for (const bad of [
-      { slots: [slot, slot], totals: [] },
-      { slots: [{ ...slot, day: 7 }], totals: [] },
-      { slots: [], totals: [{ group_key: 'normal', week: 3, label: 'Bad' }] },
-    ])
-      expect((await api('/admin/plan', cox, 'PUT', bad)).status).toBe(400);
-    expect((await (await api('/admin/plan', cox)).json<Plan>()).slots).toHaveLength(2);
-    expect((await api('/admin/plan', cox, 'POST', { ...slot, text: 'Updated' })).status).toBe(201);
-    expect((await (await api('/plan', rower)).json<Plan>()).slots[0].text).toBe('Updated');
-    expect((await api('/admin/plan/normal/1/0/AM', cox, 'DELETE')).status).toBe(204);
-    expect((await api('/admin/plan/normal/1/0/AM', cox, 'DELETE')).status).toBe(404);
-    expect((await api('/admin/plan', cox, 'PUT', { slots: [], totals: [] })).status).toBe(200);
-    expect(await (await api('/plan', rower)).json()).toEqual({ slots: [], totals: [] });
+    expect(await (await api('/plan', rower)).json()).toEqual({
+      week_start: plan.week_start,
+      slots: [],
+      total: null,
+    });
   });
 });

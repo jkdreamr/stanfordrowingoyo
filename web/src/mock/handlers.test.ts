@@ -436,42 +436,47 @@ describe('mock stats and visibility', () => {
     const other: SeasonStats = await (await request('/stats/season?user=user-1')).json();
     expect(other).toEqual(own);
   });
-  it('replaces whole plans atomically, validates bounds and duplicate keys, and exposes saved groups to rowers', async () => {
+  it('replaces dated team weeks atomically, preserves other weeks and audits dated targets', async () => {
     const { request } = setup();
     await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });
+    const week_start = '2026-11-02';
     const before = await (await request('/admin/plan')).json();
-    const slot = {
-      group_key: 'normal',
-      week: 1,
-      day: 0,
-      slot: 'AM',
-      kind: 'oyo',
-      zone: 'E',
-      text: '12 km Steady State',
-    };
+    const slot = { day: 0, slot: 'AM', kind: 'oyo', zone: null, text: 'First line\nSecond line' };
+    const plan = { week_start, slots: [slot], totals: [{ label: '80 km' }] };
+    const seeded = await (await request('/plan?week=2026-11-09')).json();
     for (const invalid of [
-      { slots: [slot, slot], totals: [] },
-      { slots: [{ ...slot, text: 'x'.repeat(2001) }], totals: [] },
-      { slots: [slot], totals: [{ group_key: 'normal', week: 1, label: 'x'.repeat(201) }] },
+      { ...plan, slots: [slot, slot] },
+      { ...plan, slots: [{ ...slot, counts_oyo: 'true' }] },
+      { ...plan, slots: [{ ...slot, text: 'x'.repeat(2001) }] },
+      { ...plan, totals: [{ label: 'x'.repeat(201) }] },
+      { ...plan, week_start: '2026-11-03' },
+      { ...plan, week_start: '2026-02-30' },
+      { ...plan, totals: [{ label: '' }, { label: '' }] },
     ])
       expect((await request('/admin/plan', 'PUT', invalid)).status).toBe(400);
     expect(await (await request('/admin/plan')).json()).toEqual(before);
     expect((await (await request('/admin/audit')).json()).items).toHaveLength(0);
-    const plan = {
-      slots: [slot, { ...slot, group_key: 'frosh', text: '8 km Steady State' }],
-      totals: [{ group_key: 'normal', week: 1, label: '80 km' }],
-    };
     expect((await request('/admin/plan', 'PUT', plan)).status).toBe(200);
-    expect(await (await request('/plan?group=normal')).json()).toEqual({
-      slots: [slot],
-      totals: plan.totals,
+    expect(await (await request('/plan')).json()).toEqual({
+      week_start,
+      slots: [{ ...slot, counts_oyo: false }],
+      total: '80 km',
     });
-    expect((await (await request('/plan?group=frosh')).json()).slots).toHaveLength(1);
+    expect(await (await request('/plan?week=2026-11-09')).json()).toEqual(seeded);
     const audit = (await (await request('/admin/audit')).json()).items;
     expect(audit).toHaveLength(1);
     expect(audit[0].action).toBe('plan.replace');
-    expect(JSON.parse(audit[0].detail_json)).toEqual({ before, after: plan });
+    expect(audit[0].target).toBe('plan/2026-11-02');
+    expect(JSON.parse(audit[0].detail_json)).toEqual({
+      before,
+      after: { ...plan, slots: [{ ...slot, counts_oyo: false }] },
+    });
+    expect(
+      (await request('/admin/plan', 'PUT', { week_start, slots: [], totals: [] })).status,
+    ).toBe(200);
+    expect(await (await request('/plan')).json()).toEqual({ week_start, slots: [], total: null });
   });
+
   it('validates, sorts and audits successful preset and announcement writes', async () => {
     const { request } = setup();
     await request('/auth/login', 'POST', { email: 'joskoo@stanford.edu', password: 'password' });

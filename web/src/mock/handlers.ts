@@ -16,6 +16,7 @@ import type {
   MyPlanInput,
   Notification,
   Plan,
+  ExamplePlan,
   PlanSlot,
   PresetInput,
   RosterInput,
@@ -39,6 +40,7 @@ import {
   ZONES,
 } from '../../../shared/math';
 import { GROUP_TARGETS, PLAN_SLOTS, PLAN_TOTALS, PRESETS } from '../../../shared/seed';
+import { TEAM_PLAN_CURRENT_SLOTS, TEAM_PLAN_SEED_WEEK } from '../../../shared/teamPlan';
 import { createFixtures, publicUser } from './fixtures';
 import { mentionIds } from '../lib/social';
 import { generatedImage } from './images';
@@ -337,7 +339,37 @@ export function createMockApi({
     berkeley_pace_percent: BERKELEY_PACE_PERCENT,
   };
   let presets = structuredClone(PRESETS);
-  let plan: Plan = { slots: structuredClone(PLAN_SLOTS), totals: structuredClone(PLAN_TOTALS) };
+  const examplePlan: ExamplePlan = {
+    slots: structuredClone(PLAN_SLOTS),
+    totals: structuredClone(PLAN_TOTALS),
+  };
+  const teamPlans = new Map<string, Plan>([
+    [
+      TEAM_PLAN_SEED_WEEK,
+      {
+        week_start: TEAM_PLAN_SEED_WEEK,
+        slots: structuredClone(TEAM_PLAN_CURRENT_SLOTS),
+        totals: [],
+      },
+    ],
+  ]);
+  function datedWeek(value: unknown) {
+    const parsed = new Date(String(value) + 'T12:00:00Z');
+    if (
+      typeof value !== 'string' ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(value) ||
+      !Number.isFinite(parsed.getTime()) ||
+      parsed.toISOString().slice(0, 10) !== value ||
+      value < '2000-01-01' ||
+      value > addDays(today(now()), 365) ||
+      weekStart(value) !== value
+    )
+      fail(400, 'Week must be a real Monday between 2000 and one year from today');
+    return value as string;
+  }
+  function datedPlan(week: string): Plan {
+    return teamPlans.get(week) ?? { week_start: week, slots: [], totals: [] };
+  }
   const roster: RosterRow[] = state.roster;
   const audit: AuditLog[] = [];
   const reports: ContentReport[] = [];
@@ -750,14 +782,13 @@ export function createMockApi({
   function validateSlot(s: PlanSlot) {
     if (
       !s ||
-      !['frosh', 'normal', 'u23'].includes(s.group_key) ||
-      ![1, 2].includes(s.week) ||
       !Number.isInteger(s.day) ||
       s.day < 0 ||
       s.day > 6 ||
       !['AM', 'PM1', 'PM2'].includes(s.slot) ||
       !['team', 'oyo', 'off'].includes(s.kind) ||
       (s.zone !== null && !ZONES.includes(s.zone)) ||
+      (s.counts_oyo !== undefined && typeof s.counts_oyo !== 'boolean') ||
       typeof s.text !== 'string' ||
       s.text.length > 2000
     )
@@ -824,7 +855,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 18 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 20 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -970,6 +1001,8 @@ export function createMockApi({
         const plan = state.myPlans
           .filter((row) => row.user_id === user.id && covers(row, date))
           .sort((a, b) => b.start_date.localeCompare(a.start_date))[0];
+        const scheduled = datedPlan(weekStart(date)).slots;
+        const dayIndex = (new Date(date + 'T12:00:00Z').getUTCDay() + 6) % 7;
         const reason =
           user.role !== 'rower'
             ? 'staff'
@@ -979,7 +1012,10 @@ export function createMockApi({
                     ({ week, day }) => addDays(plan.start_date, (week - 1) * 7 + day) === date,
                   )
                 ? 'rest_day'
-                : 'locked';
+                : scheduled.length &&
+                    !scheduled.some((row) => row.day === dayIndex && row.kind === 'oyo')
+                  ? 'no_oyo'
+                  : 'locked';
         const access = { date, unlocked: reason !== 'locked', reason };
         if (path === '/api/games/access' && method === 'GET') return json(access);
         if (path === '/api/games' && method === 'GET')
@@ -2261,12 +2297,20 @@ export function createMockApi({
           if (n.user_id === user.id && (body.ids as string[]).includes(n.id)) n.read_at = stamp();
         return empty();
       }
-      if (path === '/api/plan' && method === 'GET') {
-        const group = url.searchParams.get('group') || user.group_key;
+      if (path === '/api/plan/example' && method === 'GET') {
+        const group = url.searchParams.get('group') ?? user.group_key;
         if (!['frosh', 'normal', 'u23'].includes(group)) fail(400, 'Invalid group');
         return json({
-          slots: plan.slots.filter((s) => s.group_key === group),
-          totals: plan.totals.filter((t) => t.group_key === group),
+          slots: examplePlan.slots.filter((row) => row.group_key === group),
+          totals: examplePlan.totals.filter((row) => row.group_key === group),
+        });
+      }
+      if (path === '/api/plan' && method === 'GET') {
+        const plan = datedPlan(datedWeek(url.searchParams.get('week') ?? weekStart(today(now()))));
+        return json({
+          week_start: plan.week_start,
+          slots: plan.slots,
+          total: plan.totals[0]?.label ?? null,
         });
       }
       if (path === '/api/admin/users' && method === 'GET') return json(state.users);
@@ -2536,64 +2580,53 @@ export function createMockApi({
           return json(preset);
         }
       }
-      if (path.startsWith('/api/admin/plan')) {
-        if (method === 'GET') return json(plan);
+      if (path === '/api/admin/plan') {
+        if (method === 'GET')
+          return json(
+            datedPlan(datedWeek(url.searchParams.get('week') ?? weekStart(today(now())))),
+          );
         if (method === 'PUT') {
           const input = body as unknown as Plan;
-          if (!Array.isArray(input.slots) || !Array.isArray(input.totals))
-            fail(400, 'Plan slots and totals required');
+          const week = datedWeek(input.week_start);
+          const queryWeek = url.searchParams.get('week');
+          if (queryWeek !== null && datedWeek(queryWeek) !== week)
+            fail(400, 'Query week must match week_start');
+          if (
+            !Array.isArray(input.slots) ||
+            !Array.isArray(input.totals) ||
+            input.totals.length > 1
+          )
+            fail(400, 'Plan slots and at most one total required');
           input.slots.forEach(validateSlot);
           if (
             input.totals.some(
-              (t) =>
-                !t ||
-                !['frosh', 'normal', 'u23'].includes(t.group_key) ||
-                ![1, 2].includes(t.week) ||
-                typeof t.label !== 'string' ||
-                t.label.length > 200,
+              (row) => !row || typeof row.label !== 'string' || row.label.length > 200,
             )
           )
             fail(400, 'Invalid plan totals');
           if (
-            new Set(
-              input.slots.map((row) => [row.group_key, row.week, row.day, row.slot].join('/')),
-            ).size !== input.slots.length ||
-            new Set(input.totals.map((row) => [row.group_key, row.week].join('/'))).size !==
-              input.totals.length
+            new Set(input.slots.map((row) => [row.day, row.slot].join('/'))).size !==
+            input.slots.length
           )
             fail(400, 'Plan contains duplicate keys');
-          const before = plan;
-          plan = structuredClone(input);
-          recordAudit('plan.replace', 'plan', before, plan);
+          const before = datedPlan(week);
+          const plan: Plan = {
+            week_start: week,
+            slots: input.slots
+              .map(({ day, slot, kind, zone, text, counts_oyo = false }) => ({
+                day,
+                slot,
+                kind,
+                zone,
+                text,
+                counts_oyo,
+              }))
+              .sort((a, b) => a.day - b.day || a.slot.localeCompare(b.slot)),
+            totals: input.totals.map(({ label }) => ({ label })),
+          };
+          teamPlans.set(week, plan);
+          recordAudit('plan.replace', `plan/${week}`, before, plan);
           return json(plan);
-        }
-        if (method === 'POST') {
-          const slot = body as unknown as PlanSlot;
-          validateSlot(slot);
-          const existing = plan.slots.find(
-            (s) =>
-              s.group_key === slot.group_key &&
-              s.week === slot.week &&
-              s.day === slot.day &&
-              s.slot === slot.slot,
-          );
-          if (existing) Object.assign(existing, slot);
-          else plan.slots.push(slot);
-          return json(slot, 201);
-        }
-        if (method === 'DELETE' && parts.length === 8) {
-          const previous = plan.slots.length;
-          plan.slots = plan.slots.filter(
-            (s) =>
-              !(
-                s.group_key === parts[4] &&
-                s.week === Number(parts[5]) &&
-                s.day === Number(parts[6]) &&
-                s.slot === parts[7]
-              ),
-          );
-          if (previous === plan.slots.length) fail(404, 'Plan slot not found');
-          return empty();
         }
       }
       if (path === '/api/admin/recalculate' && method === 'POST') {

@@ -26,7 +26,9 @@ function setup() {
 }
 it('keeps both plan destinations available while loading', () => {
   setup();
-  expect(screen.getByRole('link', { name: 'Sample Fortnight' }).getAttribute('href')).toBe('/plan');
+  expect(screen.getByRole('link', { name: 'Example Fortnight' }).getAttribute('href')).toBe(
+    '/plan?tab=example',
+  );
   expect(screen.getByRole('link', { name: 'My Fortnight' }).getAttribute('href')).toBe(
     '/plan?tab=mine',
   );
@@ -37,7 +39,7 @@ it('offers retry and navigation when the personal plan fails to load', () => {
   expect(screen.getByRole('alert').textContent).toContain('Could Not Load Your Plan');
   fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
   expect(query.refetch).toHaveBeenCalledOnce();
-  expect(screen.getByRole('link', { name: 'Sample Fortnight' })).toBeTruthy();
+  expect(screen.getByRole('link', { name: 'Example Fortnight' })).toBeTruthy();
 });
 it('keeps navigation available for a plan outside today’s fortnight', () => {
   query.data = {

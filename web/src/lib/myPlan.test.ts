@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 import { MODE_FACTORS, ZONE_FACTORS } from '../../../shared/math';
-import type { MyPlanSessionInput, Plan } from '../../../shared/types';
+import type { MyPlanSessionInput, ExamplePlan } from '../../../shared/types';
 import {
   inferModality,
   logPrefill,
@@ -32,7 +32,7 @@ it('infers cycling before running and otherwise defaults to erg', () => {
     expect(inferModality(text)).toBe(modality);
 });
 it('copies only OYO slots, strips the prefix, limits notes and supplies defaults', () => {
-  const sample: Plan = {
+  const sample: ExamplePlan = {
     totals: [],
     slots: [
       {
