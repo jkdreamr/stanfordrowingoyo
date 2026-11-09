@@ -32,7 +32,13 @@ import type {
   DiveAnswerResult,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
-import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS, ZONES } from '../../../shared/math';
+import {
+  equivalentMeters,
+  floorPercent,
+  MODE_FACTORS,
+  ZONE_FACTORS,
+  ZONES,
+} from '../../../shared/math';
 import { GROUP_TARGETS, PLAN_SLOTS, PLAN_TOTALS, PRESETS } from '../../../shared/seed';
 import { createFixtures, publicUser } from './fixtures';
 import { mentionIds } from '../lib/social';
@@ -340,7 +346,7 @@ export function createMockApi({
       status:
         row.ended_at || row.end_date < day ? 'ended' : row.start_date > day ? 'upcoming' : 'active',
       progress_m,
-      percent: Math.round((progress_m / row.goal_m) * 1000) / 10,
+      percent: floorPercent((progress_m * 100) / row.goal_m, 1),
     };
   }
   let currentId = session;
@@ -499,7 +505,7 @@ export function createMockApi({
       ...total,
       week_start: week,
       target_m,
-      percent: target_m ? (total.total_m / target_m) * 100 : 0,
+      percent: target_m ? floorPercent((total.total_m * 100) / target_m, 1) : 0,
       hit_target: target_m > 0 && total.total_m >= target_m,
     };
   }
@@ -595,7 +601,7 @@ export function createMockApi({
           user: publicUser(user),
           target_m,
           total_m,
-          percent: target_m > 0 ? Math.round((total_m / target_m) * 1000) / 10 : 0,
+          percent: target_m > 0 ? floorPercent((total_m * 100) / target_m, 1) : 0,
           rank: 0,
           streak: streak(user.id, week),
           entry_count: state.entries.filter((e) => e.user_id === user.id && e.week_start === week)
