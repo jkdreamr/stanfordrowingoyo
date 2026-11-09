@@ -74,6 +74,10 @@ def build(prompts):
             result[i].append(prompt)
         if failed or any(len(day) < 3 for day in result):
             continue
+        if any(len(day) == PER_DAY and
+               {size_band(p['size']) for p in day} in [{'tiny'}, {'large'}]
+               for day in result):
+            continue
         available = list(broad)
         for day in sorted(result, key=len, reverse=True):
             while len(day) < PER_DAY:

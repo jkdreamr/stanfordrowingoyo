@@ -58017,6 +58017,4267 @@
       "scope": "Pinned public-domain ENABLE pattern pool, wordfreq 3.1.1 Zipf >=3 editorial familiarity floor; valid audited low-frequency variants are retained as explicit exceptions. Predicates apply before normalization. Explicit editorial exclusion of slurs, not exclusion for technical/medical vocabulary.",
       "too_clever": ["facetious", "sequoia"],
       "dictionary_supplements": ["cautioner"]
+    },
+    {
+      "id": "celebrations-chocolates",
+      "text": "a chocolate in the standard UK Celebrations assortment",
+      "theme": "food",
+      "cluster": "boxed-chocolates",
+      "active": true,
+      "answers": [
+        {
+          "name": "Maltesers Teaser",
+          "aliases": ["Malteser", "Malteser Teaser", "Teasers"]
+        },
+        {
+          "name": "Mars",
+          "aliases": ["Mars bar"]
+        },
+        {
+          "name": "Milky Way",
+          "aliases": ["Milky Way bar"]
+        },
+        {
+          "name": "Snickers",
+          "aliases": ["Snickers bar"]
+        },
+        {
+          "name": "Galaxy",
+          "aliases": ["Galaxy chocolate", "Dove"]
+        },
+        {
+          "name": "Galaxy Caramel",
+          "aliases": ["Galaxy caramel chocolate", "Dove Caramel"]
+        },
+        {
+          "name": "Twix",
+          "aliases": ["Twix bar"]
+        },
+        {
+          "name": "Bounty",
+          "aliases": ["Bounty bar"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Celebrations (confectionery)",
+          "revision": 1381627394,
+          "members": [
+            "Maltesers Teaser",
+            "Mars",
+            "Milky Way",
+            "Snickers",
+            "Galaxy",
+            "Galaxy/Dove Caramel",
+            "Twix",
+            "Bounty"
+          ],
+          "reviewed": [
+            "Maltesers Teaser",
+            "Mars",
+            "Milky Way",
+            "Snickers",
+            "Galaxy",
+            "Galaxy/Dove Caramel",
+            "Twix",
+            "Bounty"
+          ],
+          "expect": [8, 8]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Mars", "Snickers", "Twix"],
+      "pearl": "Galaxy Caramel",
+      "scope": "Current standard UK assortment, not discontinued Topic/Truffle or special Bounty-free trials; Dove names alias Galaxy."
+    },
+    {
+      "id": "heroes-chocolates",
+      "text": "a chocolate in the standard British Cadbury Heroes assortment",
+      "theme": "food",
+      "cluster": "boxed-chocolates",
+      "active": true,
+      "answers": [
+        {
+          "name": "Fudge",
+          "aliases": ["Cadbury Fudge"]
+        },
+        {
+          "name": "Dairy Milk Caramel",
+          "aliases": ["Caramel", "Cadbury Caramel", "Cadbury Dairy Milk Caramel"]
+        },
+        {
+          "name": "Dairy Milk",
+          "aliases": ["Cadbury Dairy Milk"]
+        },
+        {
+          "name": "Wispa",
+          "aliases": ["Cadbury Wispa"]
+        },
+        {
+          "name": "Twirl",
+          "aliases": ["Cadbury Twirl"]
+        },
+        {
+          "name": "Creme Egg Twisted",
+          "aliases": ["Twisted", "Cadbury Creme Egg Twisted"]
+        },
+        {
+          "name": "Eclair",
+          "aliases": ["Cadbury Eclair"]
+        },
+        {
+          "name": "Dinky Decker",
+          "aliases": ["Double Decker", "Cadbury Dinky Decker"]
+        },
+        {
+          "name": "Crunchie Bits",
+          "aliases": ["Crunchie", "Cadbury Crunchie Bits"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Cadbury Heroes",
+          "revision": 1381627252,
+          "members": [
+            "Fudge",
+            "Dairy Milk Caramel",
+            "Dairy Milk",
+            "Wispa",
+            "Twirl",
+            "Creme Egg Twisted",
+            "Eclair",
+            "Double Decker",
+            "Crunchie"
+          ],
+          "reviewed": [
+            "Fudge",
+            "Dairy Milk Caramel",
+            "Dairy Milk",
+            "Wispa",
+            "Twirl",
+            "Creme Egg Twisted",
+            "Eclair",
+            "Double Decker",
+            "Crunchie"
+          ],
+          "expect": [9, 9]
+        }
+      ],
+      "expect": [9, 9],
+      "surface": ["Dairy Milk", "Fudge", "Twirl"],
+      "pearl": "Eclair",
+      "scope": "Standard Britain/Ireland/Isle of Man list; not discontinued items, seasonal specials, South Africa or Australasian Favourites."
+    },
+    {
+      "id": "quality-street-chocolates",
+      "text": "a current in-tin Quality Street sweet",
+      "theme": "food",
+      "cluster": "boxed-chocolates",
+      "active": true,
+      "answers": [
+        {
+          "name": "The Purple One"
+        },
+        {
+          "name": "The Green Triangle"
+        },
+        {
+          "name": "Toffee Finger",
+          "aliases": ["Chocolate Toffee Finger", "Golden Toffee Finger"]
+        },
+        {
+          "name": "Strawberry Delight",
+          "aliases": ["Strawberry Cream", "Strawberry Creme"]
+        },
+        {
+          "name": "Caramel Swirl"
+        },
+        {
+          "name": "Milk Choc Block",
+          "aliases": ["Milk Chocolate Block"]
+        },
+        {
+          "name": "Orange Chocolate Crunch",
+          "aliases": ["The Orange Crunch"]
+        },
+        {
+          "name": "Orange Creme",
+          "aliases": ["Orange Cream"]
+        },
+        {
+          "name": "Fudge"
+        },
+        {
+          "name": "Coconut Eclair",
+          "aliases": ["Coconut"]
+        },
+        {
+          "name": "Toffee Penny"
+        },
+        {
+          "name": "Coffee Creme",
+          "aliases": ["Coffee Cream"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Quality Street (confectionery)",
+          "revision": 1380010398,
+          "members": [
+            "The Purple One",
+            "The Green Triangle",
+            "Toffee Finger",
+            "Strawberry Delight",
+            "Caramel Swirl",
+            "Milk Choc Block",
+            "Orange Chocolate Crunch",
+            "Orange Creme",
+            "Fudge",
+            "Coconut Eclair",
+            "Toffee Penny",
+            "Coffee Creme"
+          ],
+          "reviewed": [
+            "The Purple One",
+            "The Green Triangle",
+            "Toffee Finger",
+            "Strawberry Delight",
+            "Caramel Swirl",
+            "Milk Choc Block",
+            "Orange Chocolate Crunch",
+            "Orange Creme",
+            "Fudge",
+            "Coconut Eclair",
+            "Toffee Penny",
+            "Coffee Creme"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["The Purple One", "The Green Triangle", "Toffee Penny"],
+      "pearl": "Coffee Creme",
+      "scope": "Current in-tin list including store-specific Coffee Creme. Excludes the separately sold Matchmakers/Intrigue ranges and discontinued varieties."
+    },
+    {
+      "id": "uk-three-michelin-stars",
+      "text": "a restaurant currently holding three Michelin stars in the UK",
+      "theme": "food",
+      "cluster": "restaurants",
+      "active": true,
+      "answers": [
+        {
+          "name": "Alain Ducasse at the Dorchester",
+          "aliases": ["Alain Ducasse", "Ducasse at the Dorchester"]
+        },
+        {
+          "name": "Le Gavroche"
+        },
+        {
+          "name": "Chez Nico"
+        },
+        {
+          "name": "The Fat Duck"
+        },
+        {
+          "name": "La Tante Claire"
+        },
+        {
+          "name": "Restaurant Gordon Ramsay",
+          "aliases": [
+            "Gordon Ramsay",
+            "Gordon Ramsay at Royal Hospital Road",
+            "Royal Hospital Road"
+          ]
+        },
+        {
+          "name": "The Restaurant Marco Pierre White",
+          "aliases": ["Marco Pierre White", "Oak Room"]
+        },
+        {
+          "name": "The Waterside Inn"
+        },
+        {
+          "name": "The Araki"
+        },
+        {
+          "name": "Sketch (The Lecture Room & Library)",
+          "aliases": ["Sketch", "Sketch Lecture Room and Library", "Lecture Room and Library"]
+        },
+        {
+          "name": "Hélène Darroze at The Connaught",
+          "aliases": ["Helene Darroze", "The Connaught"]
+        },
+        {
+          "name": "Core by Clare Smyth",
+          "aliases": ["Core"]
+        },
+        {
+          "name": "L'Enclume",
+          "aliases": ["L Enclume"]
+        },
+        {
+          "name": "The Ledbury"
+        },
+        {
+          "name": "Moor Hall"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Michelin 3-star restaurants in the United Kingdom",
+          "revision": 1381054681,
+          "members": [
+            "Alain Ducasse at the Dorchester",
+            "Le Gavroche",
+            "Chez Nico",
+            "The Fat Duck",
+            "La Tante Claire",
+            "Restaurant Gordon Ramsay",
+            "The Restaurant Marco Pierre White",
+            "The Waterside Inn",
+            "The Araki",
+            "Sketch (The Lecture Room & Library)",
+            "Hélène Darroze at The Connaught",
+            "Core by Clare Smyth",
+            "L'Enclume",
+            "The Ledbury",
+            "Moor Hall"
+          ],
+          "reviewed": [
+            "Alain Ducasse at the Dorchester",
+            "Le Gavroche",
+            "Chez Nico",
+            "The Fat Duck",
+            "La Tante Claire",
+            "Restaurant Gordon Ramsay",
+            "The Restaurant Marco Pierre White",
+            "The Waterside Inn",
+            "The Araki",
+            "Sketch (The Lecture Room & Library)",
+            "Hélène Darroze at The Connaught",
+            "Core by Clare Smyth",
+            "L'Enclume",
+            "The Ledbury",
+            "Moor Hall"
+          ],
+          "expect": [15, 15]
+        }
+      ],
+      "expect": [15, 15],
+      "surface": ["The Fat Duck", "Restaurant Gordon Ramsay", "The Waterside Inn"],
+      "pearl": "Chez Nico",
+      "scope": "Every historical three-star holder in the UK table, not just current holders; names of the same restaurant after relocation are aliases."
+    },
+    {
+      "id": "worlds-best-restaurants",
+      "text": "a restaurant ranked first in The World's 50 Best Restaurants",
+      "theme": "food",
+      "cluster": "restaurants",
+      "active": true,
+      "answers": [
+        {
+          "name": "El Bulli",
+          "aliases": ["ElBulli"]
+        },
+        {
+          "name": "The French Laundry"
+        },
+        {
+          "name": "The Fat Duck"
+        },
+        {
+          "name": "Noma"
+        },
+        {
+          "name": "El Celler de Can Roca",
+          "aliases": ["Celler de Can Roca"]
+        },
+        {
+          "name": "Osteria Francescana"
+        },
+        {
+          "name": "Eleven Madison Park",
+          "aliases": ["EMP"]
+        },
+        {
+          "name": "Mirazur"
+        },
+        {
+          "name": "Geranium"
+        },
+        {
+          "name": "Central"
+        },
+        {
+          "name": "Disfrutar"
+        },
+        {
+          "name": "Maido"
+        },
+        {
+          "name": "Asador Etxebarri"
+        }
+      ],
+      "sources": [
+        {
+          "page": "The World's 50 Best Restaurants",
+          "revision": 1383881938,
+          "members": [
+            "El Bulli",
+            "The French Laundry",
+            "The Fat Duck",
+            "Noma",
+            "El Celler de Can Roca",
+            "Osteria Francescana",
+            "Eleven Madison Park",
+            "Mirazur",
+            "Geranium",
+            "Central",
+            "Disfrutar",
+            "Maido",
+            "Asador Etxebarri"
+          ],
+          "reviewed": [
+            "El Bulli",
+            "The French Laundry",
+            "The Fat Duck",
+            "Noma",
+            "El Celler de Can Roca",
+            "Osteria Francescana",
+            "Eleven Madison Park",
+            "Mirazur",
+            "Geranium",
+            "Central",
+            "Disfrutar",
+            "Maido",
+            "Asador Etxebarri"
+          ],
+          "expect": [13, 13]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["Noma", "El Bulli", "The French Laundry"],
+      "pearl": "Maido",
+      "scope": "First-place winners only, through the pinned table; runners-up and regional lists do not qualify."
+    },
+    {
+      "id": "masterchef-us-winners",
+      "text": "a winner of the main US MasterChef series",
+      "theme": "food",
+      "cluster": "masterchef",
+      "active": true,
+      "answers": [
+        {
+          "name": "Whitney Miller",
+          "aliases": ["Whitney"]
+        },
+        {
+          "name": "Jennifer Behm",
+          "aliases": ["Jennifer"]
+        },
+        {
+          "name": "Christine Hà",
+          "aliases": ["Christine"]
+        },
+        {
+          "name": "Luca Manfè",
+          "aliases": ["Luca"]
+        },
+        {
+          "name": "Courtney Lapresi",
+          "aliases": ["Courtney"]
+        },
+        {
+          "name": "Claudia Sandoval",
+          "aliases": ["Claudia"]
+        },
+        {
+          "name": "Shaun O'Neale",
+          "aliases": ["Shaun O Neale", "Shaun"]
+        },
+        {
+          "name": "Dino Angelo Luciano",
+          "aliases": ["Dino"]
+        },
+        {
+          "name": "Gerron Hurt",
+          "aliases": ["Gerron"]
+        },
+        {
+          "name": "Dorian Hunter",
+          "aliases": ["Dorian"]
+        },
+        {
+          "name": "Kelsey Murphy",
+          "aliases": ["Kelsey"]
+        },
+        {
+          "name": "Dara Yu",
+          "aliases": ["Dara"]
+        },
+        {
+          "name": "Grant Gillon",
+          "aliases": ["Grant"]
+        },
+        {
+          "name": "Michael Leonard",
+          "aliases": ["Michael"]
+        },
+        {
+          "name": "Jessica Bosworth",
+          "aliases": ["Jessica"]
+        },
+        {
+          "name": "Jesse Rosenwald",
+          "aliases": ["Jesse"]
+        },
+        {
+          "name": "Jake Kelley",
+          "aliases": ["Jake"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "MasterChef (American TV series)",
+          "revision": 1383961325,
+          "members": [
+            "Whitney Miller",
+            "Jennifer Behm",
+            "Christine Hà",
+            "Luca Manfè",
+            "Courtney Lapresi",
+            "Claudia Sandoval",
+            "Shaun O'Neale",
+            "Dino Angelo Luciano",
+            "Gerron Hurt",
+            "Dorian Hunter",
+            "Kelsey Murphy",
+            "Dara Yu",
+            "Grant Gillon",
+            "Michael Leonard",
+            "Jessica Bosworth & Jesse Rosenwald",
+            "Jake Kelley"
+          ],
+          "reviewed": [
+            "Whitney Miller",
+            "Jennifer Behm",
+            "Christine Hà",
+            "Luca Manfè",
+            "Courtney Lapresi",
+            "Claudia Sandoval",
+            "Shaun O'Neale",
+            "Dino Angelo Luciano",
+            "Gerron Hurt",
+            "Dorian Hunter",
+            "Kelsey Murphy",
+            "Dara Yu",
+            "Grant Gillon",
+            "Michael Leonard",
+            "Jessica Bosworth & Jesse Rosenwald",
+            "Jake Kelley"
+          ],
+          "expect": [16, 16]
+        }
+      ],
+      "expect": [17, 17],
+      "surface": ["Whitney Miller", "Christine Hà", "Luca Manfè"],
+      "pearl": "Dara Yu",
+      "scope": "Main US seasons, including both people in a winning pair; not Junior, Celebrity or overseas editions.",
+      "people": true
+    },
+    {
+      "id": "world-cheese-champions",
+      "text": "a cheese variety named World Cheese Awards champion",
+      "theme": "food",
+      "cluster": "cheese-awards",
+      "active": true,
+      "answers": [
+        {
+          "name": "Blue Cheshire",
+          "aliases": ["Cheshire", "Blue Cheshire cheese"]
+        },
+        {
+          "name": "Blue Stilton",
+          "aliases": ["Stilton", "Blue Stilton cheese"]
+        },
+        {
+          "name": "Cheddar",
+          "aliases": [
+            "Mature Cheddar",
+            "Mature Traditional Cheddar",
+            "Mature West Country Farmhouse Cheddar",
+            "Cheddar cheese"
+          ]
+        },
+        {
+          "name": "Fourme d'Ambert",
+          "aliases": ["Fourme d Ambert", "Fourme d'Ambert cheese"]
+        },
+        {
+          "name": "Gruyère",
+          "aliases": [
+            "Le Gruyere",
+            "Gruyere AOP",
+            "Le Gruyere AOP",
+            "Gruyere AOC",
+            "Le Gruyere Premier Cru",
+            "Le Gruyere AOC Reserve",
+            "Gruyere Premier Cru",
+            "Gruyere Reserve",
+            "Gruyere AOC Reserve",
+            "Gruyère cheese"
+          ]
+        },
+        {
+          "name": "Double Gloucester",
+          "aliases": ["Gloucester", "Double Gloucester cheese"]
+        },
+        {
+          "name": "Brie de Meaux",
+          "aliases": ["Brie", "Brie de Meaux cheese"]
+        },
+        {
+          "name": "Shropshire Blue",
+          "aliases": ["Shropshire Blue cheese"]
+        },
+        {
+          "name": "Lord of the Hundreds",
+          "aliases": ["Lord of the Hundreds cheese"]
+        },
+        {
+          "name": "Parmigiano Reggiano",
+          "aliases": ["Parmesan", "Parmigiano Reggiano cheese"]
+        },
+        {
+          "name": "Kollumer",
+          "aliases": ["Gouda", "Kollumer 18 months", "Kollumer cheese"]
+        },
+        {
+          "name": "Camembert",
+          "aliases": [
+            "Camembert de Normandie",
+            "Camembert Super Medaillon",
+            "Chevre d'Or Camembert",
+            "Camembert cheese"
+          ]
+        },
+        {
+          "name": "Ossau-Iraty",
+          "aliases": ["Ossau-Iraty cheese"]
+        },
+        {
+          "name": "Queso Arico Curado Pimentón",
+          "aliases": ["Arico", "Arico Curado Pimenton", "Queso Arico Curado Pimentón cheese"]
+        },
+        {
+          "name": "Le Cendrillon",
+          "aliases": ["Cendrillon", "Le Cendrillon cheese"]
+        },
+        {
+          "name": "Cornish Blue",
+          "aliases": ["Cornish Blue cheese"]
+        },
+        {
+          "name": "Manchego",
+          "aliases": ["Manchego DO Gran Reserva", "Manchego Gran Reserva", "Manchego cheese"]
+        },
+        {
+          "name": "Montagnolo Affiné",
+          "aliases": ["Montagnolo", "Montagnolo Dolce", "Montagnolo Affiné cheese"]
+        },
+        {
+          "name": "Bath Blue",
+          "aliases": ["Bath Blue cheese"]
+        },
+        {
+          "name": "Kraftkar",
+          "aliases": ["Kraftkar cheese"]
+        },
+        {
+          "name": "Cornish Kern",
+          "aliases": ["Cornish Kern cheese"]
+        },
+        {
+          "name": "Fanaost",
+          "aliases": ["Fanaost cheese"]
+        },
+        {
+          "name": "Rogue River Blue",
+          "aliases": ["Rogue River Blue cheese"]
+        },
+        {
+          "name": "Olavidia",
+          "aliases": ["Olavidia cheese"]
+        },
+        {
+          "name": "Nidelven Blå",
+          "aliases": ["Nidelven Blue", "Nidelven Blå cheese"]
+        },
+        {
+          "name": "Queijo de Ovelha Amanteigado",
+          "aliases": [
+            "Quinta do Pomar",
+            "Ovelha Amanteigado",
+            "Queijo de Ovelha Amanteigado cheese"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Guild of Fine Food",
+          "revision": 1359453934,
+          "members": [
+            "Blue Cheshire by Hutchinson-Smith & Sons",
+            "Blue Stilton by Dairy Crest",
+            "Mature Traditional Cheddar by Dairy Crest",
+            "Fourme d'Ambert by Hennart Frères",
+            "Le Gruyère Premier Cru by von Mühlenen",
+            "Double Gloucester by Dairy Crest",
+            "Brie de Meaux AOC by Hennart Frères",
+            "Shropshire Blue by Cropwell Bishop Creamery",
+            "Lord of the Hundreds by Traditional Cheese Dairy",
+            "Parmigiano Reggiano by Caseificio Vittorio Quistello",
+            "Kollumer 18 months by Frico Cheese",
+            "Mature West Country Farmhouse Cheddar by Brue Valley Farms",
+            "Camembert Super Medaillon by Isigny Sainte-Mère Mature Cheddar by Carbery",
+            "Le Gruyère AOC Reserve by von Mühlenen",
+            "Chevre d'Or Camembert by Eurial-Poitouaine/Eurilai",
+            "Camembert de Normandie by Isigny Sainte-Mère",
+            "Ossau-Iraty by Fromagerie Agour",
+            "Brie de Meaux by Rénard Gillard",
+            "Queso Arico Curado Pimentón by Sociedad Canaria de Formento",
+            "Le Cendrillon by La Maison Alexis de Portneuf",
+            "Cornish Blue by Cornish Cheese Company",
+            "Manchego DO Gran Reserva by Dehesa de Los Llanos",
+            "Montagnolo Affiné by Käserei Champignon",
+            "Bath Blue by Bath Soft Cheese",
+            "Le Gruyère AOP by von Mühlenen",
+            "Kraftkar by Tingvollost",
+            "Cornish Kern by Lynher Dairies Cheese Company",
+            "Fanaost by Ostegården",
+            "Rogue River Blue by Rogue Creamery",
+            "Olavidia by Qesos y Besos (Lacteos Romero Pelaez)",
+            "Le Gruyère AOC by Vorderfultigen Gourmino",
+            "Nidelven Blå by Gangstad Gårdsysteri",
+            "Queijo de Ovelha Amanteigado by Quinta do Pomar",
+            "Le Gruyère AOP by Bergkäserei Vorderfultigen"
+          ],
+          "reviewed": [
+            "Blue Cheshire by Hutchinson-Smith & Sons",
+            "Blue Stilton by Dairy Crest",
+            "Mature Traditional Cheddar by Dairy Crest",
+            "Fourme d'Ambert by Hennart Frères",
+            "Le Gruyère Premier Cru by von Mühlenen",
+            "Double Gloucester by Dairy Crest",
+            "Brie de Meaux AOC by Hennart Frères",
+            "Shropshire Blue by Cropwell Bishop Creamery",
+            "Lord of the Hundreds by Traditional Cheese Dairy",
+            "Parmigiano Reggiano by Caseificio Vittorio Quistello",
+            "Kollumer 18 months by Frico Cheese",
+            "Mature West Country Farmhouse Cheddar by Brue Valley Farms",
+            "Camembert Super Medaillon by Isigny Sainte-Mère Mature Cheddar by Carbery",
+            "Le Gruyère AOC Reserve by von Mühlenen",
+            "Chevre d'Or Camembert by Eurial-Poitouaine/Eurilai",
+            "Camembert de Normandie by Isigny Sainte-Mère",
+            "Ossau-Iraty by Fromagerie Agour",
+            "Brie de Meaux by Rénard Gillard",
+            "Queso Arico Curado Pimentón by Sociedad Canaria de Formento",
+            "Le Cendrillon by La Maison Alexis de Portneuf",
+            "Cornish Blue by Cornish Cheese Company",
+            "Manchego DO Gran Reserva by Dehesa de Los Llanos",
+            "Montagnolo Affiné by Käserei Champignon",
+            "Bath Blue by Bath Soft Cheese",
+            "Le Gruyère AOP by von Mühlenen",
+            "Kraftkar by Tingvollost",
+            "Cornish Kern by Lynher Dairies Cheese Company",
+            "Fanaost by Ostegården",
+            "Rogue River Blue by Rogue Creamery",
+            "Olavidia by Qesos y Besos (Lacteos Romero Pelaez)",
+            "Le Gruyère AOC by Vorderfultigen Gourmino",
+            "Nidelven Blå by Gangstad Gårdsysteri",
+            "Queijo de Ovelha Amanteigado by Quinta do Pomar",
+            "Le Gruyère AOP by Bergkäserei Vorderfultigen"
+          ],
+          "expect": [34, 34]
+        }
+      ],
+      "expect": [26, 26],
+      "surface": ["Cheddar", "Gruyère", "Camembert"],
+      "pearl": "Cornish Kern",
+      "scope": "Champion varieties from every year, both 2001 joint winners. Repeated producers/ages/labels of Cheddar, Gruyere and Camembert merge into varieties; protected regional/product names remain distinct."
+    },
+    {
+      "id": "iba-bloody-mary-ingredients",
+      "text": "an ingredient or garnish in the IBA's Bloody Mary recipe",
+      "theme": "food",
+      "cluster": "cocktail-recipes",
+      "active": true,
+      "answers": [
+        {
+          "name": "Vodka"
+        },
+        {
+          "name": "Tomato juice",
+          "aliases": ["Tomato"]
+        },
+        {
+          "name": "Lemon juice",
+          "aliases": ["Lemon"]
+        },
+        {
+          "name": "Worcestershire sauce",
+          "aliases": ["Worcester sauce", "Lea & Perrins"]
+        },
+        {
+          "name": "Tabasco sauce",
+          "aliases": ["Tabasco", "Hot sauce"]
+        },
+        {
+          "name": "Celery salt",
+          "aliases": ["Salt"]
+        },
+        {
+          "name": "Black pepper",
+          "aliases": ["Pepper", "Ground black pepper"]
+        },
+        {
+          "name": "Celery",
+          "aliases": ["Celery stalk"]
+        },
+        {
+          "name": "Lemon wedge"
+        },
+        {
+          "name": "Ice"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Bloody Mary (cocktail)",
+          "revision": 1375731196,
+          "members": [
+            "vodka",
+            "tomato juice",
+            "lemon juice",
+            "Worcestershire sauce",
+            "Tabasco sauce",
+            "Celery salt",
+            "Black pepper",
+            "Celery",
+            "lemon wedge",
+            "ice"
+          ],
+          "reviewed": [
+            "vodka",
+            "tomato juice",
+            "lemon juice",
+            "Worcestershire sauce",
+            "Tabasco sauce",
+            "Celery salt",
+            "Black pepper",
+            "Celery",
+            "lemon wedge",
+            "ice"
+          ],
+          "expect": [10, 10]
+        }
+      ],
+      "expect": [10, 10],
+      "surface": ["Vodka", "Tomato juice", "Celery"],
+      "pearl": "Worcestershire sauce",
+      "scope": "Pinned IBA infobox recipe including optional garnishes and preparation ice; not ingredients merely used in other Bloody Mary variants."
+    },
+    {
+      "id": "iba-singapore-sling-ingredients",
+      "text": "an ingredient or garnish in the IBA's Singapore Sling recipe",
+      "theme": "food",
+      "cluster": "cocktail-recipes",
+      "active": true,
+      "answers": [
+        {
+          "name": "Gin"
+        },
+        {
+          "name": "Kirsch",
+          "aliases": [
+            "Cherry liqueur",
+            "Cherry brandy",
+            "Cherry Heering",
+            "Heering",
+            "Kirschwasser",
+            "Brandy"
+          ]
+        },
+        {
+          "name": "Cointreau",
+          "aliases": ["Triple sec", "Orange liqueur"]
+        },
+        {
+          "name": "Bénédictine",
+          "aliases": ["DOM Benedictine", "D O M Benedictine", "Herbal liqueur"]
+        },
+        {
+          "name": "Pineapple juice"
+        },
+        {
+          "name": "Lime juice",
+          "aliases": ["Lime"]
+        },
+        {
+          "name": "Grenadine"
+        },
+        {
+          "name": "Angostura bitters",
+          "aliases": ["Bitters"]
+        },
+        {
+          "name": "Pineapple",
+          "aliases": ["Pineapple slice"]
+        },
+        {
+          "name": "Maraschino cherry",
+          "aliases": ["Cherry", "Cocktail cherry"]
+        },
+        {
+          "name": "Ice"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Singapore sling",
+          "revision": 1375736086,
+          "members": [
+            "gin",
+            "Kirsch",
+            "Cherry liqueur",
+            "Cointreau",
+            "Bénédictine",
+            "pineapple juice",
+            "lime juice",
+            "Grenadine",
+            "Angostura bitters",
+            "Pineapple",
+            "Maraschino cherry",
+            "ice"
+          ],
+          "reviewed": [
+            "gin",
+            "Kirsch",
+            "Cherry liqueur",
+            "Cointreau",
+            "Bénédictine",
+            "pineapple juice",
+            "lime juice",
+            "Grenadine",
+            "Angostura bitters",
+            "Pineapple",
+            "Maraschino cherry",
+            "ice"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [11, 11],
+      "surface": ["Gin", "Pineapple juice", "Grenadine"],
+      "pearl": "Bénédictine",
+      "scope": "Pinned IBA infobox ingredients, fruit garnishes and shaking ice. Cherry liqueur/brandy accepted as the usual modern substitute for Kirsch."
+    },
+    {
+      "id": "original-care-bears",
+      "text": "one of the original ten Care Bears",
+      "theme": "everyday",
+      "cluster": "care-bears",
+      "active": true,
+      "answers": [
+        {
+          "name": "Bedtime Bear",
+          "aliases": ["Bedtime"]
+        },
+        {
+          "name": "Birthday Bear",
+          "aliases": ["Birthday"]
+        },
+        {
+          "name": "Cheer Bear",
+          "aliases": ["Cheer"]
+        },
+        {
+          "name": "Friend Bear",
+          "aliases": ["Friend"]
+        },
+        {
+          "name": "Funshine Bear",
+          "aliases": ["Funshine"]
+        },
+        {
+          "name": "Good Luck Bear",
+          "aliases": ["Good Luck"]
+        },
+        {
+          "name": "Grumpy Bear",
+          "aliases": ["Grumpy"]
+        },
+        {
+          "name": "Love-a-Lot Bear",
+          "aliases": ["Love-a-Lot"]
+        },
+        {
+          "name": "Tenderheart Bear",
+          "aliases": ["Tenderheart"]
+        },
+        {
+          "name": "Wish Bear",
+          "aliases": ["Wish"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Care Bears",
+          "revision": 334854550,
+          "members": [
+            "Bedtime Bear",
+            "Birthday Bear",
+            "Cheer Bear",
+            "Friend Bear",
+            "Funshine Bear",
+            "Good Luck Bear",
+            "Grumpy Bear",
+            "Love-a-Lot Bear",
+            "Tenderheart Bear",
+            "Wish Bear"
+          ],
+          "reviewed": [
+            "Bedtime Bear",
+            "Birthday Bear",
+            "Cheer Bear",
+            "Friend Bear",
+            "Funshine Bear",
+            "Good Luck Bear",
+            "Grumpy Bear",
+            "Love-a-Lot Bear",
+            "Tenderheart Bear",
+            "Wish Bear"
+          ],
+          "expect": [10, 10]
+        }
+      ],
+      "expect": [10, 10],
+      "surface": ["Cheer Bear", "Grumpy Bear", "Tenderheart Bear"],
+      "pearl": "Birthday Bear",
+      "scope": "Original 1980s ten; later Care Bears and Care Bear Cousins do not qualify. Historical set is unchanged; pinned 2009 source preserves the explicit character list."
+    },
+    {
+      "id": "headphone-jack-iphones",
+      "text": "an iPhone model with a built-in headphone jack",
+      "theme": "everyday",
+      "cluster": "iphone-models",
+      "active": true,
+      "answers": [
+        {
+          "name": "iPhone",
+          "aliases": ["Original iPhone", "iPhone 2G", "iPhone first generation", "iPhone 1"]
+        },
+        {
+          "name": "iPhone 3G",
+          "aliases": ["3G"]
+        },
+        {
+          "name": "iPhone 3GS",
+          "aliases": ["3GS"]
+        },
+        {
+          "name": "iPhone 4",
+          "aliases": ["4"]
+        },
+        {
+          "name": "iPhone 4s",
+          "aliases": ["4s"]
+        },
+        {
+          "name": "iPhone 5",
+          "aliases": ["5"]
+        },
+        {
+          "name": "iPhone 5c",
+          "aliases": ["5c"]
+        },
+        {
+          "name": "iPhone 5s",
+          "aliases": ["5s"]
+        },
+        {
+          "name": "iPhone 6",
+          "aliases": ["6"]
+        },
+        {
+          "name": "iPhone 6 Plus",
+          "aliases": ["6 Plus"]
+        },
+        {
+          "name": "iPhone 6s",
+          "aliases": ["6s"]
+        },
+        {
+          "name": "iPhone 6s Plus",
+          "aliases": ["6s Plus"]
+        },
+        {
+          "name": "iPhone SE (2016)",
+          "aliases": [
+            "iPhone SE",
+            "iPhone SE first generation",
+            "iPhone SE 1st generation",
+            "iPhone SE 1",
+            "SE (2016)",
+            "SE first generation"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of iPhone models",
+          "revision": 1383790974,
+          "members": [
+            "iPhone",
+            "iPhone 3G",
+            "iPhone 3GS",
+            "iPhone 4",
+            "iPhone 4s",
+            "iPhone 5",
+            "iPhone 5c",
+            "iPhone 5s",
+            "iPhone 6",
+            "iPhone 6s",
+            "iPhone SE (1st)"
+          ],
+          "reviewed": [
+            "iPhone",
+            "iPhone 3G",
+            "iPhone 3GS",
+            "iPhone 4",
+            "iPhone 4s",
+            "iPhone 5",
+            "iPhone 5c",
+            "iPhone 5s",
+            "iPhone 6",
+            "iPhone 6s",
+            "iPhone SE (1st)"
+          ],
+          "expect": [11, 11]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["iPhone", "iPhone 6", "iPhone 5"],
+      "pearl": "iPhone SE (2016)",
+      "scope": "Built-in 3.5 mm jack: original through 6s/6s Plus and first-generation SE. Plus models split from grouped source rows; adapters/Lightning/USB-C do not count."
+    },
+    {
+      "id": "crayola-retired-1990",
+      "text": "a Crayola crayon color retired in 1990",
+      "theme": "everyday",
+      "cluster": "crayola",
+      "active": true,
+      "answers": [
+        {
+          "name": "Maize"
+        },
+        {
+          "name": "Lemon Yellow"
+        },
+        {
+          "name": "Blue Gray",
+          "aliases": ["Blue-Grey"]
+        },
+        {
+          "name": "Raw Umber"
+        },
+        {
+          "name": "Green Blue"
+        },
+        {
+          "name": "Orange Red"
+        },
+        {
+          "name": "Orange Yellow"
+        },
+        {
+          "name": "Violet Blue"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Crayola crayon colors",
+          "revision": 1380229775,
+          "members": [
+            "Maize",
+            "Lemon Yellow",
+            "Blue-Gray",
+            "Raw Umber",
+            "Green-Blue",
+            "Orange-Red",
+            "Orange-Yellow",
+            "Violet-Blue"
+          ],
+          "reviewed": [
+            "Maize",
+            "Lemon Yellow",
+            "Blue-Gray",
+            "Raw Umber",
+            "Green-Blue",
+            "Orange-Red",
+            "Orange-Yellow",
+            "Violet-Blue"
+          ],
+          "expect": [8, 8]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Lemon Yellow", "Maize"],
+      "pearl": "Raw Umber",
+      "scope": "The eight 1990 retirements, not later retirements or renamings; hyphenated/unhyphenated and gray/grey accepted."
+    },
+    {
+      "id": "disney-princess-lineup",
+      "text": "a member of the official Disney Princess lineup",
+      "theme": "everyday",
+      "cluster": "disney-princess",
+      "active": true,
+      "answers": [
+        {
+          "name": "Snow White",
+          "aliases": ["Princess Snow White"]
+        },
+        {
+          "name": "Cinderella",
+          "aliases": ["Princess Cinderella"]
+        },
+        {
+          "name": "Aurora",
+          "aliases": ["Briar Rose", "Sleeping Beauty", "Princess Aurora"]
+        },
+        {
+          "name": "Ariel",
+          "aliases": ["Princess Ariel"]
+        },
+        {
+          "name": "Belle",
+          "aliases": ["Princess Belle"]
+        },
+        {
+          "name": "Jasmine",
+          "aliases": ["Princess Jasmine"]
+        },
+        {
+          "name": "Pocahontas",
+          "aliases": ["Princess Pocahontas"]
+        },
+        {
+          "name": "Mulan",
+          "aliases": ["Fa Mulan", "Hua Mulan", "Princess Mulan"]
+        },
+        {
+          "name": "Tiana",
+          "aliases": ["Princess Tiana"]
+        },
+        {
+          "name": "Rapunzel",
+          "aliases": ["Princess Rapunzel"]
+        },
+        {
+          "name": "Merida",
+          "aliases": ["Princess Merida"]
+        },
+        {
+          "name": "Moana",
+          "aliases": ["Vaiana", "Princess Vaiana", "Princess Moana"]
+        },
+        {
+          "name": "Raya",
+          "aliases": ["Princess Raya"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Disney Princess",
+          "revision": 1382167715,
+          "members": [
+            "Snow White",
+            "Cinderella",
+            "Aurora",
+            "Ariel",
+            "Belle",
+            "Jasmine",
+            "Pocahontas",
+            "Mulan",
+            "Tiana",
+            "Rapunzel",
+            "Merida",
+            "Moana",
+            "Raya"
+          ],
+          "reviewed": [
+            "Snow White",
+            "Cinderella",
+            "Aurora",
+            "Ariel",
+            "Belle",
+            "Jasmine",
+            "Pocahontas",
+            "Mulan",
+            "Tiana",
+            "Rapunzel",
+            "Merida",
+            "Moana",
+            "Raya"
+          ],
+          "expect": [13, 13]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["Cinderella", "Ariel", "Snow White"],
+      "pearl": "Raya",
+      "scope": "The 13 official Disney Princess brand members; Frozen is a separate franchise and honorary/guest characters are not lineup members."
+    },
+    {
+      "id": "lego-ideas-sets",
+      "text": "a numbered LEGO Ideas set released for sale",
+      "theme": "everyday",
+      "cluster": "lego-ideas",
+      "active": true,
+      "answers": [
+        {
+          "name": "Shinkai 6500 Submarine",
+          "aliases": ["Shinkai 6500"]
+        },
+        {
+          "name": "Hayabusa"
+        },
+        {
+          "name": "Minecraft Micro World",
+          "aliases": ["Minecraft"]
+        },
+        {
+          "name": "The DeLorean Time Machine",
+          "aliases": ["Back to the Future", "DeLorean"]
+        },
+        {
+          "name": "Curiosity Rover",
+          "aliases": [
+            "NASA Mars Science Laboratory Curiosity Rover",
+            "Mars Science Laboratory",
+            "Curiosity"
+          ]
+        },
+        {
+          "name": "Ghostbusters Ecto-1",
+          "aliases": ["Ghostbusters", "Ecto-1"]
+        },
+        {
+          "name": "Exo Suit"
+        },
+        {
+          "name": "Research Institute"
+        },
+        {
+          "name": "Birds"
+        },
+        {
+          "name": "The Big Bang Theory"
+        },
+        {
+          "name": "Doctor Who",
+          "aliases": ["TARDIS"]
+        },
+        {
+          "name": "WALL•E",
+          "aliases": ["WALL E"]
+        },
+        {
+          "name": "Maze"
+        },
+        {
+          "name": "Caterham Seven 620R"
+        },
+        {
+          "name": "Yellow Submarine"
+        },
+        {
+          "name": "Adventure Time"
+        },
+        {
+          "name": "NASA Apollo Saturn V",
+          "aliases": ["Saturn V", "Apollo Saturn V"]
+        },
+        {
+          "name": "Old Fishing Store"
+        },
+        {
+          "name": "Women of NASA"
+        },
+        {
+          "name": "Ship in a Bottle"
+        },
+        {
+          "name": "TRON: Legacy"
+        },
+        {
+          "name": "Voltron"
+        },
+        {
+          "name": "Pop-Up Book"
+        },
+        {
+          "name": "The Flintstones"
+        },
+        {
+          "name": "Steamboat Willie"
+        },
+        {
+          "name": "Tree House"
+        },
+        {
+          "name": "Central Perk",
+          "aliases": ["Friends"]
+        },
+        {
+          "name": "Dinosaur Fossils"
+        },
+        {
+          "name": "International Space Station",
+          "aliases": ["ISS"]
+        },
+        {
+          "name": "Pirates of Barracuda Bay"
+        },
+        {
+          "name": "Grand Piano"
+        },
+        {
+          "name": "123 Sesame Street",
+          "aliases": ["Sesame Street"]
+        },
+        {
+          "name": "Medieval Blacksmith"
+        },
+        {
+          "name": "Winnie the Pooh"
+        },
+        {
+          "name": "Typewriter"
+        },
+        {
+          "name": "Seinfeld"
+        },
+        {
+          "name": "LEGO Ideas Fender Stratocaster",
+          "aliases": ["Fender Stratocaster", "Stratocaster"]
+        },
+        {
+          "name": "LEGO Ideas Home Alone",
+          "aliases": ["Home Alone", "McCallister House"]
+        },
+        {
+          "name": "Sonic the Hedgehog - Green Hill Zone",
+          "aliases": ["Sonic the Hedgehog", "Green Hill Zone"]
+        },
+        {
+          "name": "The Globe"
+        },
+        {
+          "name": "Vincent van Gogh - The Starry Night",
+          "aliases": ["The Starry Night", "Vincent van Gogh Starry Night"]
+        },
+        {
+          "name": "Jazz Quartet"
+        },
+        {
+          "name": "Motorised Lighthouse"
+        },
+        {
+          "name": "The Office"
+        },
+        {
+          "name": "Table Football"
+        },
+        {
+          "name": "A-Frame Cabin"
+        },
+        {
+          "name": "BTS Dynamite"
+        },
+        {
+          "name": "Tales of the Space Age"
+        },
+        {
+          "name": "Sanderson Sisters' Cottage",
+          "aliases": ["Disney Hocus Pocus The Sanderson Sisters Cottage", "Hocus Pocus"]
+        },
+        {
+          "name": "The Insect Collection"
+        },
+        {
+          "name": "Viking Village"
+        },
+        {
+          "name": "The Orient Express Train"
+        },
+        {
+          "name": "Polaroid Onestep SX-70 Camera"
+        },
+        {
+          "name": "Family Tree"
+        },
+        {
+          "name": "Red London Telephone Box"
+        },
+        {
+          "name": "Dungeons & Dragons: Red Dragon's Tale",
+          "aliases": [
+            "Dungeons & Dragons",
+            "D and D",
+            "D&D",
+            "Red Dragons Tale",
+            "Dungeons & Dragons: Red Dragon s Tale"
+          ]
+        },
+        {
+          "name": "Tuxedo Cat"
+        },
+        {
+          "name": "Jaws"
+        },
+        {
+          "name": "The Nightmare Before Christmas",
+          "aliases": ["Disney Tim Burtons The Nightmare Before Christmas"]
+        },
+        {
+          "name": "Magic of Disney"
+        },
+        {
+          "name": "The Botanical Garden"
+        },
+        {
+          "name": "Twilight The Cullen House"
+        },
+        {
+          "name": "The Evolution of STEM"
+        },
+        {
+          "name": "River Steamboat"
+        },
+        {
+          "name": "Disney Pixar Luxo Jr."
+        },
+        {
+          "name": "Minifigure Vending Machine"
+        },
+        {
+          "name": "Italian Riviera"
+        },
+        {
+          "name": "Willy Wonka & the Chocolate Factory"
+        },
+        {
+          "name": "Gremlins : Gizmo",
+          "aliases": ["Gizmo", "Gremlins"]
+        },
+        {
+          "name": "Mineral Collection"
+        },
+        {
+          "name": "The Goonies"
+        },
+        {
+          "name": "Love Birds"
+        },
+        {
+          "name": "Orange Cat"
+        },
+        {
+          "name": "Floating Sea Otters"
+        },
+        {
+          "name": "The Adventures of Tintin"
+        },
+        {
+          "name": "Peanuts : Snoopy's Doghouse",
+          "aliases": ["Snoopy", "Snoopys Doghouse", "Peanuts : Snoopy s Doghouse"]
+        },
+        {
+          "name": "The X-Files"
+        },
+        {
+          "name": "E.T. The Extra-Terrestrial"
+        },
+        {
+          "name": "La Catrina"
+        },
+        {
+          "name": "Wallace & Gromit"
+        },
+        {
+          "name": "Downton Abbey"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Lego Ideas sets",
+          "revision": 1383826371,
+          "members": [
+            "Shinkai 6500 Submarine ( Shinkai Expedition)",
+            "Hayabusa (Asteroid Exploration Spacecraft Hayabusa )",
+            "Minecraft Micro World ( Lego Minecraft )",
+            "The DeLorean Time Machine ( Back to the Future DeLorean Time Machine )",
+            "NASA Mars Science Laboratory Curiosity Rover (Mars Science Laboratory Curiosity Rover)",
+            "Ghostbusters Ecto-1 ( Ghostbusters 30th Anniversary)",
+            "Exo Suit (Exo Suit)",
+            "Research Institute (Female Minifigure Set)",
+            "Birds (Lego Bird Project)",
+            "The Big Bang Theory (The Big Bang Theory)",
+            "Doctor Who ( Doctor Who and Companions )",
+            "WALL•E (WALL-E)",
+            "Maze (Labyrinth Marble Maze)",
+            "Caterham Seven 620R ( Caterham Super Seven )",
+            "Yellow Submarine ( Beatles Yellow Submarine )",
+            "Adventure Time (Brick-built Adventure Time figures)",
+            "NASA Apollo Saturn V ( Apollo 11 Saturn V )",
+            "Old Fishing Store (Old Fishing Store)",
+            "Women of NASA (Women of NASA)",
+            "Ship in a Bottle (Ship In A Bottle, The Flagship Leviathan)",
+            "TRON: Legacy (Tron Legacy Light Cycle)",
+            "Voltron (Voltron – Defender of the Universe)",
+            "Pop-Up Book (Pop-Up Book)",
+            "The Flintstones (The Flintstones)",
+            "Steamboat Willie (Steamboat Willie)",
+            "Tree House (Treehouse)",
+            "Central Perk (The Central Perk Coffee of Friends)",
+            "Dinosaur Fossils (Dinosaurs Fossils Skeletons - Natural History Collection)",
+            "International Space Station (International Space Station)",
+            "Pirates of Barracuda Bay (The Pirate Bay)",
+            "Grand Piano (Playable Lego Piano)",
+            "123 Sesame Street (123 Sesame Street)",
+            "Medieval Blacksmith (Medieval Blacksmith)",
+            "Winnie the Pooh (Winnie the Pooh)",
+            "Typewriter (LEGO Typewriter )",
+            "Seinfeld (Seinfeld 30th Anniversary)",
+            "LEGO Ideas Fender Stratocaster (Legendary Stratocaster)",
+            "LEGO Ideas Home Alone (Home Alone. McCallister's House.)",
+            "Sonic the Hedgehog - Green Hill Zone ( Sonic Mania – Green Hill Zone)",
+            "The Globe (Earth Globe)",
+            "Vincent van Gogh - The Starry Night ( Vincent van Gogh : The Starry Night)",
+            "Jazz Quartet (Jazz Quartet)",
+            "Motorised Lighthouse (Motorized Lighthouse )",
+            "The Office ( The Office )",
+            "Table Football ( Foosball Table )",
+            "A-Frame Cabin (A-Frame Cabin)",
+            "BTS Dynamite (BTS \"Dynamite\")",
+            "Tales of the Space Age (Tales of the space age)",
+            "Disney Hocus Pocus: The Sanderson Sisters' Cottage (Hocus Pocus – The Sanderson Sisters' Cottage)",
+            "The Insect Collection (LEGO Insects)",
+            "Viking Village (Viking Village)",
+            "The Orient Express Train (The Orient Express, a Legendary Train)",
+            "Polaroid Onestep SX-70 Camera (Polaroid Onestep SX-70)",
+            "Family Tree (Family Tree)",
+            "Red London Telephone Box (Red London Telephone Box)",
+            "Dungeons & Dragons: Red Dragon's Tale (Dragon's Keep: Journey's End)",
+            "Tuxedo Cat (Cat)",
+            "Jaws (Jaws)",
+            "Disney Tim Burton's The Nightmare Before Christmas (The Nightmare Before Christmas)",
+            "Magic of Disney (The Magic of Disney)",
+            "The Botanical Garden (The Botanical Garden)",
+            "Twilight The Cullen House (Twilight: Cullen House)",
+            "The Evolution of STEM (Knowledge is Power)",
+            "River Steamboat (Western River Steamboat)",
+            "Disney Pixar Luxo Jr. (Disney Pixar Luxo Jr.)",
+            "Minifigure Vending Machine (Minifigure Prize Machine)",
+            "Italian Riviera (The Italian Riviera)",
+            "Willy Wonka & the Chocolate Factory (Willy Wonka & the Chocolate Factory)",
+            "Gremlins : Gizmo (Gizmo)",
+            "Mineral Collection (Minerals Display)",
+            "The Goonies (The Goonies 1985)",
+            "Love Birds (Love Birds)",
+            "Orange Cat (Tuxedo Cat)",
+            "Floating Sea Otters (Floating Sea Otter)",
+            "The Adventures of Tintin (Tintin - Space Rocket)",
+            "Peanuts : Snoopy's Doghouse (Snoopy - Campfire)",
+            "The X-Files (The X-Files: The Truth Is Out There)",
+            "E.T. The Extra-Terrestrial (E.T. The Extra-Terrestrial)",
+            "La Catrina      (La Catrina)",
+            "Wallace & Gromit (Wallace & Gromit)",
+            "Downton Abbey (Downton Abbey: Highclere Castle)"
+          ],
+          "reviewed": [
+            "Shinkai 6500 Submarine ( Shinkai Expedition)",
+            "Hayabusa (Asteroid Exploration Spacecraft Hayabusa )",
+            "Minecraft Micro World ( Lego Minecraft )",
+            "The DeLorean Time Machine ( Back to the Future DeLorean Time Machine )",
+            "NASA Mars Science Laboratory Curiosity Rover (Mars Science Laboratory Curiosity Rover)",
+            "Ghostbusters Ecto-1 ( Ghostbusters 30th Anniversary)",
+            "Exo Suit (Exo Suit)",
+            "Research Institute (Female Minifigure Set)",
+            "Birds (Lego Bird Project)",
+            "The Big Bang Theory (The Big Bang Theory)",
+            "Doctor Who ( Doctor Who and Companions )",
+            "WALL•E (WALL-E)",
+            "Maze (Labyrinth Marble Maze)",
+            "Caterham Seven 620R ( Caterham Super Seven )",
+            "Yellow Submarine ( Beatles Yellow Submarine )",
+            "Adventure Time (Brick-built Adventure Time figures)",
+            "NASA Apollo Saturn V ( Apollo 11 Saturn V )",
+            "Old Fishing Store (Old Fishing Store)",
+            "Women of NASA (Women of NASA)",
+            "Ship in a Bottle (Ship In A Bottle, The Flagship Leviathan)",
+            "TRON: Legacy (Tron Legacy Light Cycle)",
+            "Voltron (Voltron – Defender of the Universe)",
+            "Pop-Up Book (Pop-Up Book)",
+            "The Flintstones (The Flintstones)",
+            "Steamboat Willie (Steamboat Willie)",
+            "Tree House (Treehouse)",
+            "Central Perk (The Central Perk Coffee of Friends)",
+            "Dinosaur Fossils (Dinosaurs Fossils Skeletons - Natural History Collection)",
+            "International Space Station (International Space Station)",
+            "Pirates of Barracuda Bay (The Pirate Bay)",
+            "Grand Piano (Playable Lego Piano)",
+            "123 Sesame Street (123 Sesame Street)",
+            "Medieval Blacksmith (Medieval Blacksmith)",
+            "Winnie the Pooh (Winnie the Pooh)",
+            "Typewriter (LEGO Typewriter )",
+            "Seinfeld (Seinfeld 30th Anniversary)",
+            "LEGO Ideas Fender Stratocaster (Legendary Stratocaster)",
+            "LEGO Ideas Home Alone (Home Alone. McCallister's House.)",
+            "Sonic the Hedgehog - Green Hill Zone ( Sonic Mania – Green Hill Zone)",
+            "The Globe (Earth Globe)",
+            "Vincent van Gogh - The Starry Night ( Vincent van Gogh : The Starry Night)",
+            "Jazz Quartet (Jazz Quartet)",
+            "Motorised Lighthouse (Motorized Lighthouse )",
+            "The Office ( The Office )",
+            "Table Football ( Foosball Table )",
+            "A-Frame Cabin (A-Frame Cabin)",
+            "BTS Dynamite (BTS \"Dynamite\")",
+            "Tales of the Space Age (Tales of the space age)",
+            "Disney Hocus Pocus: The Sanderson Sisters' Cottage (Hocus Pocus – The Sanderson Sisters' Cottage)",
+            "The Insect Collection (LEGO Insects)",
+            "Viking Village (Viking Village)",
+            "The Orient Express Train (The Orient Express, a Legendary Train)",
+            "Polaroid Onestep SX-70 Camera (Polaroid Onestep SX-70)",
+            "Family Tree (Family Tree)",
+            "Red London Telephone Box (Red London Telephone Box)",
+            "Dungeons & Dragons: Red Dragon's Tale (Dragon's Keep: Journey's End)",
+            "Tuxedo Cat (Cat)",
+            "Jaws (Jaws)",
+            "Disney Tim Burton's The Nightmare Before Christmas (The Nightmare Before Christmas)",
+            "Magic of Disney (The Magic of Disney)",
+            "The Botanical Garden (The Botanical Garden)",
+            "Twilight The Cullen House (Twilight: Cullen House)",
+            "The Evolution of STEM (Knowledge is Power)",
+            "River Steamboat (Western River Steamboat)",
+            "Disney Pixar Luxo Jr. (Disney Pixar Luxo Jr.)",
+            "Minifigure Vending Machine (Minifigure Prize Machine)",
+            "Italian Riviera (The Italian Riviera)",
+            "Willy Wonka & the Chocolate Factory (Willy Wonka & the Chocolate Factory)",
+            "Gremlins : Gizmo (Gizmo)",
+            "Mineral Collection (Minerals Display)",
+            "The Goonies (The Goonies 1985)",
+            "Love Birds (Love Birds)",
+            "Orange Cat (Tuxedo Cat)",
+            "Floating Sea Otters (Floating Sea Otter)",
+            "The Adventures of Tintin (Tintin - Space Rocket)",
+            "Peanuts : Snoopy's Doghouse (Snoopy - Campfire)",
+            "The X-Files (The X-Files: The Truth Is Out There)",
+            "E.T. The Extra-Terrestrial (E.T. The Extra-Terrestrial)",
+            "La Catrina      (La Catrina)",
+            "Wallace & Gromit (Wallace & Gromit)",
+            "Downton Abbey (Downton Abbey: Highclere Castle)"
+          ],
+          "expect": [81, 81]
+        }
+      ],
+      "expect": [81, 81],
+      "surface": ["The Big Bang Theory", "The DeLorean Time Machine", "Doctor Who"],
+      "pearl": "Exo Suit",
+      "scope": "Released numbered Cuusoo/Ideas main-series sets as of the source date; not announced future sets, rejected projects, promotional gifts, Target collaborations or similarly themed non-Ideas products."
+    },
+    {
+      "id": "u2-studio-albums",
+      "text": "a U2 studio album",
+      "theme": "music",
+      "cluster": "artist-albums",
+      "active": true,
+      "answers": [
+        {
+          "name": "Boy"
+        },
+        {
+          "name": "October"
+        },
+        {
+          "name": "War"
+        },
+        {
+          "name": "The Unforgettable Fire"
+        },
+        {
+          "name": "The Joshua Tree"
+        },
+        {
+          "name": "Rattle and Hum"
+        },
+        {
+          "name": "Achtung Baby"
+        },
+        {
+          "name": "Zooropa"
+        },
+        {
+          "name": "Pop"
+        },
+        {
+          "name": "All That You Can't Leave Behind",
+          "aliases": ["All That You Cannot Leave Behind", "All That You Can t Leave Behind"]
+        },
+        {
+          "name": "How to Dismantle an Atomic Bomb",
+          "aliases": ["Atomic Bomb"]
+        },
+        {
+          "name": "No Line on the Horizon"
+        },
+        {
+          "name": "Songs of Innocence"
+        },
+        {
+          "name": "Songs of Experience"
+        },
+        {
+          "name": "Songs of Surrender"
+        },
+        {
+          "name": "Original Soundtracks 1",
+          "aliases": ["Passengers", "Original Soundtracks One"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "U2 discography",
+          "revision": 1383548258,
+          "members": [
+            "Boy",
+            "October",
+            "War",
+            "The Unforgettable Fire",
+            "The Joshua Tree",
+            "Rattle and Hum",
+            "Achtung Baby",
+            "Zooropa",
+            "Pop",
+            "All That You Can't Leave Behind",
+            "How to Dismantle an Atomic Bomb",
+            "No Line on the Horizon",
+            "Songs of Innocence",
+            "Songs of Experience",
+            "Songs of Surrender",
+            "Original Soundtracks 1"
+          ],
+          "reviewed": [
+            "Boy",
+            "October",
+            "War",
+            "The Unforgettable Fire",
+            "The Joshua Tree",
+            "Rattle and Hum",
+            "Achtung Baby",
+            "Zooropa",
+            "Pop",
+            "All That You Can't Leave Behind",
+            "How to Dismantle an Atomic Bomb",
+            "No Line on the Horizon",
+            "Songs of Innocence",
+            "Songs of Experience",
+            "Songs of Surrender",
+            "Original Soundtracks 1"
+          ],
+          "expect": [16, 16]
+        }
+      ],
+      "expect": [16, 16],
+      "surface": ["The Joshua Tree", "War", "Achtung Baby"],
+      "pearl": "Zooropa",
+      "scope": "Released U2 studio albums including re-recording Songs of Surrender and the Passengers collaboration Original Soundtracks 1. Carnaval de Luz is announced for 13 November 2026, after this audit, so excluded; no live albums, EPs or compilations."
+    },
+    {
+      "id": "radiohead-studio-albums",
+      "text": "a Radiohead studio album",
+      "theme": "music",
+      "cluster": "artist-albums",
+      "active": true,
+      "answers": [
+        {
+          "name": "Pablo Honey"
+        },
+        {
+          "name": "The Bends"
+        },
+        {
+          "name": "OK Computer",
+          "aliases": ["OK Computer OKNOTOK 1997 2017", "OKNOTOK"]
+        },
+        {
+          "name": "Kid A",
+          "aliases": ["Kid A Mnesia"]
+        },
+        {
+          "name": "Amnesiac"
+        },
+        {
+          "name": "Hail to the Thief"
+        },
+        {
+          "name": "In Rainbows"
+        },
+        {
+          "name": "The King of Limbs"
+        },
+        {
+          "name": "A Moon Shaped Pool"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Radiohead discography",
+          "revision": 1384171354,
+          "members": [
+            "Pablo Honey",
+            "The Bends",
+            "OK Computer",
+            "Kid A",
+            "Amnesiac",
+            "Hail to the Thief",
+            "In Rainbows",
+            "The King of Limbs",
+            "A Moon Shaped Pool"
+          ],
+          "reviewed": [
+            "Pablo Honey",
+            "The Bends",
+            "OK Computer",
+            "Kid A",
+            "Amnesiac",
+            "Hail to the Thief",
+            "In Rainbows",
+            "The King of Limbs",
+            "A Moon Shaped Pool"
+          ],
+          "expect": [9, 9]
+        }
+      ],
+      "expect": [9, 9],
+      "surface": ["OK Computer", "The Bends", "Kid A"],
+      "pearl": "Amnesiac",
+      "scope": "Nine studio albums, not reissues, live albums, compilations, solo projects or the Smile. Recognizable reissue labels OKNOTOK and Kid A Mnesia alias the represented original studio album rather than creating extra canonicals."
+    },
+    {
+      "id": "beyonce-studio-albums",
+      "text": "a Beyoncé solo studio album",
+      "theme": "music",
+      "cluster": "artist-albums",
+      "active": true,
+      "answers": [
+        {
+          "name": "Dangerously in Love"
+        },
+        {
+          "name": "B'Day",
+          "aliases": ["B Day"]
+        },
+        {
+          "name": "I Am... Sasha Fierce",
+          "aliases": ["Sasha Fierce"]
+        },
+        {
+          "name": "4",
+          "aliases": ["Four"]
+        },
+        {
+          "name": "Beyoncé",
+          "aliases": ["Self Titled", "Beyonce Self Titled"]
+        },
+        {
+          "name": "Lemonade"
+        },
+        {
+          "name": "Renaissance",
+          "aliases": ["Act I Renaissance", "Act 1 Renaissance"]
+        },
+        {
+          "name": "Cowboy Carter",
+          "aliases": ["Act II Cowboy Carter", "Act 2 Cowboy Carter", "CowboyCarter"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Beyoncé",
+          "revision": 1381203361,
+          "members": [
+            "Dangerously in Love",
+            "B'Day",
+            "I Am... Sasha Fierce",
+            "4",
+            "Beyoncé",
+            "Lemonade",
+            "Renaissance",
+            "Cowboy Carter"
+          ],
+          "reviewed": [
+            "Dangerously in Love",
+            "B'Day",
+            "I Am... Sasha Fierce",
+            "4",
+            "Beyoncé",
+            "Lemonade",
+            "Renaissance",
+            "Cowboy Carter"
+          ],
+          "expect": [8, 8]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Lemonade", "Renaissance", "Beyoncé"],
+      "pearl": "4",
+      "scope": "Eight solo studio albums; The Gift is a soundtrack, Homecoming live, Everything Is Love a Carters collaboration, Destiny’s Child a group."
+    },
+    {
+      "id": "super-bowl-halftime-leads",
+      "text": "a headliner or special guest in a Super Bowl halftime show since 1993",
+      "theme": "music",
+      "cluster": "super-bowl-halftime",
+      "active": true,
+      "answers": [
+        {
+          "name": "Michael Jackson",
+          "aliases": ["MJ", "King of Pop"]
+        },
+        {
+          "name": "Clint Black",
+          "aliases": ["Black"]
+        },
+        {
+          "name": "Tanya Tucker",
+          "aliases": ["Tucker"]
+        },
+        {
+          "name": "Travis Tritt",
+          "aliases": ["Tritt"]
+        },
+        {
+          "name": "The Judds"
+        },
+        {
+          "name": "Patti LaBelle",
+          "aliases": ["LaBelle"]
+        },
+        {
+          "name": "Tony Bennett",
+          "aliases": ["Bennett"]
+        },
+        {
+          "name": "Miami Sound Machine"
+        },
+        {
+          "name": "Diana Ross",
+          "aliases": ["Ross"]
+        },
+        {
+          "name": "The Blues Brothers",
+          "aliases": ["Blues Brothers Band"]
+        },
+        {
+          "name": "Dan Aykroyd",
+          "aliases": ["Aykroyd"]
+        },
+        {
+          "name": "John Goodman",
+          "aliases": ["Goodman"]
+        },
+        {
+          "name": "Jim Belushi",
+          "aliases": ["James Belushi", "Belushi"]
+        },
+        {
+          "name": "Boyz II Men"
+        },
+        {
+          "name": "Smokey Robinson",
+          "aliases": ["Robinson"]
+        },
+        {
+          "name": "Martha Reeves",
+          "aliases": ["Reeves"]
+        },
+        {
+          "name": "The Temptations"
+        },
+        {
+          "name": "Queen Latifah"
+        },
+        {
+          "name": "Gloria Estefan",
+          "aliases": ["Estefan"]
+        },
+        {
+          "name": "Stevie Wonder",
+          "aliases": ["Wonder"]
+        },
+        {
+          "name": "Phil Collins",
+          "aliases": ["Collins"]
+        },
+        {
+          "name": "Christina Aguilera",
+          "aliases": ["Aguilera"]
+        },
+        {
+          "name": "Enrique Iglesias",
+          "aliases": ["Iglesias"]
+        },
+        {
+          "name": "Toni Braxton",
+          "aliases": ["Braxton"]
+        },
+        {
+          "name": "Aerosmith"
+        },
+        {
+          "name": "NSYNC",
+          "aliases": ["N-Sync"]
+        },
+        {
+          "name": "U2"
+        },
+        {
+          "name": "Shania Twain",
+          "aliases": ["Twain"]
+        },
+        {
+          "name": "No Doubt"
+        },
+        {
+          "name": "Janet Jackson",
+          "aliases": ["Janet"]
+        },
+        {
+          "name": "P. Diddy",
+          "aliases": ["Diddy", "Puff Daddy", "Sean Combs"]
+        },
+        {
+          "name": "Nelly"
+        },
+        {
+          "name": "Kid Rock"
+        },
+        {
+          "name": "Justin Timberlake",
+          "aliases": ["Timberlake"]
+        },
+        {
+          "name": "Jessica Simpson",
+          "aliases": ["Simpson"]
+        },
+        {
+          "name": "Paul McCartney",
+          "aliases": ["Macca", "McCartney"]
+        },
+        {
+          "name": "The Rolling Stones"
+        },
+        {
+          "name": "Prince",
+          "aliases": ["Prince Rogers Nelson", "The Artist Formerly Known as Prince", "TAFKAP"]
+        },
+        {
+          "name": "Tom Petty and the Heartbreakers",
+          "aliases": ["Tom Petty"]
+        },
+        {
+          "name": "Bruce Springsteen",
+          "aliases": ["The Boss", "Springsteen"]
+        },
+        {
+          "name": "E Street Band"
+        },
+        {
+          "name": "The Who"
+        },
+        {
+          "name": "The Black Eyed Peas"
+        },
+        {
+          "name": "Madonna",
+          "aliases": ["Queen of Pop"]
+        },
+        {
+          "name": "Beyoncé",
+          "aliases": ["Beyonce Knowles", "Queen Bey", "Beyonce Knowles Carter"]
+        },
+        {
+          "name": "Bruno Mars",
+          "aliases": ["Peter Hernandez", "Mars"]
+        },
+        {
+          "name": "Katy Perry",
+          "aliases": ["Perry"]
+        },
+        {
+          "name": "Coldplay"
+        },
+        {
+          "name": "Lady Gaga",
+          "aliases": ["Gaga", "Mother Monster", "Stefani Germanotta"]
+        },
+        {
+          "name": "Maroon 5"
+        },
+        {
+          "name": "Shakira"
+        },
+        {
+          "name": "Jennifer Lopez",
+          "aliases": ["J Lo", "JLo", "Lopez"]
+        },
+        {
+          "name": "The Weeknd",
+          "aliases": ["Abel Tesfaye"]
+        },
+        {
+          "name": "Dr. Dre",
+          "aliases": ["Dre", "Andre Young"]
+        },
+        {
+          "name": "Snoop Dogg",
+          "aliases": ["Snoop", "Snoop Doggy Dogg", "Snoop Lion", "Calvin Broadus"]
+        },
+        {
+          "name": "Eminem",
+          "aliases": ["Slim Shady", "Marshall Mathers"]
+        },
+        {
+          "name": "Mary J. Blige",
+          "aliases": ["Blige"]
+        },
+        {
+          "name": "Kendrick Lamar",
+          "aliases": ["Kendrick Duckworth", "K Dot", "K.Dot", "Lamar"]
+        },
+        {
+          "name": "Rihanna",
+          "aliases": ["RiRi", "Robyn Rihanna Fenty", "Rihanna Fenty"]
+        },
+        {
+          "name": "Usher",
+          "aliases": ["Usher Raymond"]
+        },
+        {
+          "name": "Bad Bunny",
+          "aliases": ["Benito", "Benito Martinez Ocasio"]
+        },
+        {
+          "name": "Marion Ravenwood",
+          "aliases": ["Ravenwood"]
+        },
+        {
+          "name": "Teddy Pendergrass",
+          "aliases": ["Pendergrass"]
+        },
+        {
+          "name": "Arturo Sandoval",
+          "aliases": ["Sandoval"]
+        },
+        {
+          "name": "ZZ Top"
+        },
+        {
+          "name": "James Brown",
+          "aliases": ["Brown"]
+        },
+        {
+          "name": "Grambling State University Marching Band",
+          "aliases": ["Grambling State University"]
+        },
+        {
+          "name": "Big Bad Voodoo Daddy"
+        },
+        {
+          "name": "Savion Glover",
+          "aliases": ["Glover"]
+        },
+        {
+          "name": "Georgia State University Marching Band",
+          "aliases": ["Georgia State University"]
+        },
+        {
+          "name": "Britney Spears",
+          "aliases": ["Spears"]
+        },
+        {
+          "name": "Sting"
+        },
+        {
+          "name": "Spirit of Houston"
+        },
+        {
+          "name": "Ocean of Soul"
+        },
+        {
+          "name": "Florida A&M University Marching 100 Band"
+        },
+        {
+          "name": "The Miami Horns"
+        },
+        {
+          "name": "Slash"
+        },
+        {
+          "name": "North Texas drill teams",
+          "aliases": ["Dallas/Ft. Worth"]
+        },
+        {
+          "name": "Prairie View A&M Marching Storm",
+          "aliases": ["Prairie View A&M University Marching Storm"]
+        },
+        {
+          "name": "LMFAO"
+        },
+        {
+          "name": "Cirque du Soleil"
+        },
+        {
+          "name": "Nicki Minaj",
+          "aliases": ["Minaj"]
+        },
+        {
+          "name": "M.I.A."
+        },
+        {
+          "name": "Cee Lo Green",
+          "aliases": ["Green", "Cee Lo", "CeeLo"]
+        },
+        {
+          "name": "Andy Lewis",
+          "aliases": ["Lewis"]
+        },
+        {
+          "name": "Avon High School Drumline",
+          "aliases": ["Avon High School"]
+        },
+        {
+          "name": "Center Grove High School Drumline",
+          "aliases": ["Center Grove High School"]
+        },
+        {
+          "name": "Fishers High School Drumline",
+          "aliases": ["Fishers High School"]
+        },
+        {
+          "name": "Franklin Central High School Drumline",
+          "aliases": ["Franklin Central High School"]
+        },
+        {
+          "name": "Southern University Dancing Dolls",
+          "aliases": ["Southern University"]
+        },
+        {
+          "name": "Indianapolis choir",
+          "aliases": ["Indianapolis"]
+        },
+        {
+          "name": "Destiny's Child"
+        },
+        {
+          "name": "Red Hot Chili Peppers"
+        },
+        {
+          "name": "Lenny Kravitz",
+          "aliases": ["Kravitz"]
+        },
+        {
+          "name": "Missy Elliott",
+          "aliases": ["Elliott", "Missy"]
+        },
+        {
+          "name": "ASU Sun Devil Marching Band",
+          "aliases": ["Arizona State University Sun Devil Marching Band"]
+        },
+        {
+          "name": "Mark Ronson",
+          "aliases": ["Ronson"]
+        },
+        {
+          "name": "Gustavo Dudamel",
+          "aliases": ["Dudamel"]
+        },
+        {
+          "name": "University of California Marching Band"
+        },
+        {
+          "name": "Youth Orchestra Los Angeles"
+        },
+        {
+          "name": "University of Minnesota Marching Band"
+        },
+        {
+          "name": "Travis Scott",
+          "aliases": ["Scott"]
+        },
+        {
+          "name": "Big Boi",
+          "aliases": ["Antwan Patton"]
+        },
+        {
+          "name": "J Balvin",
+          "aliases": ["Balvin"]
+        },
+        {
+          "name": "50 Cent"
+        },
+        {
+          "name": "Anderson .Paak"
+        },
+        {
+          "name": "Alicia Keys"
+        },
+        {
+          "name": "Jermaine Dupri",
+          "aliases": ["Dupri"]
+        },
+        {
+          "name": "H.E.R.",
+          "aliases": ["Gabriella Wilson", "Gabi Wilson"]
+        },
+        {
+          "name": "will.i.am"
+        },
+        {
+          "name": "Lil Jon"
+        },
+        {
+          "name": "Ludacris"
+        },
+        {
+          "name": "Sonic Boom of the South"
+        },
+        {
+          "name": "Samuel L. Jackson"
+        },
+        {
+          "name": "SZA"
+        },
+        {
+          "name": "Serena Williams"
+        },
+        {
+          "name": "Mustard",
+          "aliases": ["DJ Mustard", "Dijon McFarlane"]
+        },
+        {
+          "name": "Ricky Martin",
+          "aliases": ["Martin"]
+        },
+        {
+          "name": "Indiana Jones",
+          "aliases": ["Jones"]
+        },
+        {
+          "name": "Edward James Olmos",
+          "aliases": ["Olmos"]
+        },
+        {
+          "name": "Catherine Crier",
+          "aliases": ["Crier"]
+        },
+        {
+          "name": "The Tennessee Kids"
+        },
+        {
+          "name": "Emme Muñiz",
+          "aliases": ["Muñiz"]
+        },
+        {
+          "name": "Georgia State University choir",
+          "aliases": ["Georgia State choir"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Super Bowl halftime shows",
+          "revision": 1383084804,
+          "members": [
+            "Michael Jackson",
+            "Clint Black",
+            "Tanya Tucker",
+            "Travis Tritt",
+            "The Judds",
+            "Patti LaBelle",
+            "Tony Bennett",
+            "Miami Sound Machine",
+            "Diana Ross",
+            "The Blues Brothers",
+            "Dan Aykroyd",
+            "John Goodman",
+            "Jim Belushi",
+            "Boyz II Men",
+            "Smokey Robinson",
+            "Martha Reeves",
+            "The Temptations",
+            "Queen Latifah",
+            "Gloria Estefan",
+            "Stevie Wonder",
+            "Phil Collins",
+            "Christina Aguilera",
+            "Enrique Iglesias",
+            "Toni Braxton",
+            "Aerosmith",
+            "NSYNC",
+            "U2",
+            "Shania Twain",
+            "No Doubt",
+            "Janet Jackson",
+            "P. Diddy",
+            "Nelly",
+            "Kid Rock",
+            "Justin Timberlake",
+            "Jessica Simpson",
+            "Paul McCartney",
+            "The Rolling Stones",
+            "Prince",
+            "Tom Petty and the Heartbreakers",
+            "Bruce Springsteen",
+            "E Street Band",
+            "The Who",
+            "The Black Eyed Peas",
+            "Madonna",
+            "Beyoncé",
+            "Bruno Mars",
+            "Katy Perry",
+            "Coldplay",
+            "Lady Gaga",
+            "Maroon 5",
+            "Shakira",
+            "Jennifer Lopez",
+            "The Weeknd",
+            "Dr. Dre",
+            "Snoop Dogg",
+            "Eminem",
+            "Mary J. Blige",
+            "Kendrick Lamar",
+            "Rihanna",
+            "Usher",
+            "Bad Bunny",
+            "Marion Ravenwood",
+            "Teddy Pendergrass",
+            "Arturo Sandoval",
+            "ZZ Top",
+            "James Brown",
+            "Grambling State University",
+            "Big Bad Voodoo Daddy",
+            "Savion Glover",
+            "Georgia State University",
+            "Britney Spears",
+            "Sting",
+            "Spirit of Houston",
+            "Ocean of Soul",
+            "Florida A&M University Marching 100 Band",
+            "The Miami Horns",
+            "Slash",
+            "Dallas/Ft. Worth",
+            "Prairie View A&M University Marching Storm",
+            "LMFAO",
+            "Cirque du Soleil",
+            "Nicki Minaj",
+            "M.I.A.",
+            "Cee Lo Green",
+            "Andy Lewis",
+            "Avon High School",
+            "Center Grove High School",
+            "Fishers High School",
+            "Franklin Central High School",
+            "Southern University",
+            "Indianapolis",
+            "Destiny's Child",
+            "Red Hot Chili Peppers",
+            "Lenny Kravitz",
+            "Missy Elliott",
+            "Arizona State University Sun Devil Marching Band",
+            "Mark Ronson",
+            "Gustavo Dudamel",
+            "University of California Marching Band",
+            "Youth Orchestra Los Angeles",
+            "University of Minnesota Marching Band",
+            "Travis Scott",
+            "Big Boi",
+            "J Balvin",
+            "50 Cent",
+            "Anderson .Paak",
+            "Alicia Keys",
+            "Jermaine Dupri",
+            "H.E.R.",
+            "will.i.am",
+            "Lil Jon",
+            "Ludacris",
+            "Sonic Boom of the South",
+            "Samuel L. Jackson",
+            "SZA",
+            "Serena Williams",
+            "Mustard",
+            "Ricky Martin",
+            "Indiana Jones",
+            "Edward James Olmos",
+            "Catherine Crier",
+            "The Tennessee Kids",
+            "Emme Muñiz"
+          ],
+          "reviewed": [
+            "Michael Jackson",
+            "Clint Black",
+            "Tanya Tucker",
+            "Travis Tritt",
+            "The Judds",
+            "Patti LaBelle",
+            "Tony Bennett",
+            "Miami Sound Machine",
+            "Diana Ross",
+            "The Blues Brothers",
+            "Dan Aykroyd",
+            "John Goodman",
+            "Jim Belushi",
+            "Boyz II Men",
+            "Smokey Robinson",
+            "Martha Reeves",
+            "The Temptations",
+            "Queen Latifah",
+            "Gloria Estefan",
+            "Stevie Wonder",
+            "Phil Collins",
+            "Christina Aguilera",
+            "Enrique Iglesias",
+            "Toni Braxton",
+            "Aerosmith",
+            "NSYNC",
+            "U2",
+            "Shania Twain",
+            "No Doubt",
+            "Janet Jackson",
+            "P. Diddy",
+            "Nelly",
+            "Kid Rock",
+            "Justin Timberlake",
+            "Jessica Simpson",
+            "Paul McCartney",
+            "The Rolling Stones",
+            "Prince",
+            "Tom Petty and the Heartbreakers",
+            "Bruce Springsteen",
+            "E Street Band",
+            "The Who",
+            "The Black Eyed Peas",
+            "Madonna",
+            "Beyoncé",
+            "Bruno Mars",
+            "Katy Perry",
+            "Coldplay",
+            "Lady Gaga",
+            "Maroon 5",
+            "Shakira",
+            "Jennifer Lopez",
+            "The Weeknd",
+            "Dr. Dre",
+            "Snoop Dogg",
+            "Eminem",
+            "Mary J. Blige",
+            "Kendrick Lamar",
+            "Rihanna",
+            "Usher",
+            "Bad Bunny",
+            "Marion Ravenwood",
+            "Teddy Pendergrass",
+            "Arturo Sandoval",
+            "ZZ Top",
+            "James Brown",
+            "Grambling State University",
+            "Big Bad Voodoo Daddy",
+            "Savion Glover",
+            "Georgia State University",
+            "Britney Spears",
+            "Sting",
+            "Spirit of Houston",
+            "Ocean of Soul",
+            "Florida A&M University Marching 100 Band",
+            "The Miami Horns",
+            "Slash",
+            "Dallas/Ft. Worth",
+            "Prairie View A&M University Marching Storm",
+            "LMFAO",
+            "Cirque du Soleil",
+            "Nicki Minaj",
+            "M.I.A.",
+            "Cee Lo Green",
+            "Andy Lewis",
+            "Avon High School",
+            "Center Grove High School",
+            "Fishers High School",
+            "Franklin Central High School",
+            "Southern University",
+            "Indianapolis",
+            "Destiny's Child",
+            "Red Hot Chili Peppers",
+            "Lenny Kravitz",
+            "Missy Elliott",
+            "Arizona State University Sun Devil Marching Band",
+            "Mark Ronson",
+            "Gustavo Dudamel",
+            "University of California Marching Band",
+            "Youth Orchestra Los Angeles",
+            "University of Minnesota Marching Band",
+            "Travis Scott",
+            "Big Boi",
+            "J Balvin",
+            "50 Cent",
+            "Anderson .Paak",
+            "Alicia Keys",
+            "Jermaine Dupri",
+            "H.E.R.",
+            "will.i.am",
+            "Lil Jon",
+            "Ludacris",
+            "Sonic Boom of the South",
+            "Samuel L. Jackson",
+            "SZA",
+            "Serena Williams",
+            "Mustard",
+            "Ricky Martin",
+            "Indiana Jones",
+            "Edward James Olmos",
+            "Catherine Crier",
+            "The Tennessee Kids",
+            "Emme Muñiz"
+          ],
+          "expect": [123, 123]
+        }
+      ],
+      "expect": [124, 124],
+      "surface": ["Michael Jackson", "Prince", "Rihanna"],
+      "pearl": "The Who",
+      "scope": "Featured headliners and special guests, 1993 onward; includes bands, choirs, dancers, narrators and credited fictional stage roles. Not pregame/national-anthem performers, unfeatured backing personnel or announced future shows. Grouped credits retain the act and its named performers."
+    },
+    {
+      "id": "bond-theme-songs",
+      "text": "a main theme song from an official James Bond film",
+      "theme": "music",
+      "cluster": "bond-themes",
+      "active": true,
+      "answers": [
+        {
+          "name": "James Bond Theme"
+        },
+        {
+          "name": "Three Blind Mice",
+          "aliases": ["Kingston Calypso"]
+        },
+        {
+          "name": "From Russia with Love"
+        },
+        {
+          "name": "Goldfinger"
+        },
+        {
+          "name": "Thunderball"
+        },
+        {
+          "name": "You Only Live Twice"
+        },
+        {
+          "name": "On Her Majesty's Secret Service",
+          "aliases": ["On Her Majesty s Secret Service", "OHMSS"]
+        },
+        {
+          "name": "Diamonds Are Forever"
+        },
+        {
+          "name": "Live and Let Die"
+        },
+        {
+          "name": "The Man with the Golden Gun"
+        },
+        {
+          "name": "Nobody Does It Better"
+        },
+        {
+          "name": "Moonraker"
+        },
+        {
+          "name": "For Your Eyes Only"
+        },
+        {
+          "name": "All Time High"
+        },
+        {
+          "name": "A View to a Kill"
+        },
+        {
+          "name": "The Living Daylights"
+        },
+        {
+          "name": "Licence to Kill",
+          "aliases": ["License to Kill"]
+        },
+        {
+          "name": "GoldenEye"
+        },
+        {
+          "name": "Tomorrow Never Dies"
+        },
+        {
+          "name": "The World Is Not Enough"
+        },
+        {
+          "name": "Die Another Day"
+        },
+        {
+          "name": "You Know My Name"
+        },
+        {
+          "name": "Another Way to Die"
+        },
+        {
+          "name": "Skyfall"
+        },
+        {
+          "name": "Writing's on the Wall",
+          "aliases": ["Writing s on the Wall"]
+        },
+        {
+          "name": "No Time to Die"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Music of the James Bond series",
+          "revision": 1377310608,
+          "members": [
+            "James Bond Theme",
+            "Three Blind Mice",
+            "\"Opening Titles: James Bond Is Back/From Russia with Love/James Bond Theme\"",
+            "Goldfinger",
+            "\"Thunderball\"",
+            "You Only Live Twice",
+            "\"On Her Majesty's Secret Service\"",
+            "\"Diamonds Are Forever\"",
+            "Live and Let Die",
+            "\"The Man with the Golden Gun\"",
+            "Nobody Does It Better",
+            "\"Moonraker\"",
+            "For Your Eyes Only",
+            "All Time High",
+            "A View to a Kill",
+            "The Living Daylights",
+            "Licence to Kill",
+            "GoldenEye",
+            "Tomorrow Never Dies",
+            "The World Is Not Enough",
+            "Die Another Day",
+            "You Know My Name",
+            "Another Way to Die",
+            "Skyfall",
+            "Writing's on the Wall",
+            "No Time to Die"
+          ],
+          "reviewed": [
+            "James Bond Theme",
+            "Three Blind Mice",
+            "\"Opening Titles: James Bond Is Back/From Russia with Love/James Bond Theme\"",
+            "Goldfinger",
+            "\"Thunderball\"",
+            "You Only Live Twice",
+            "\"On Her Majesty's Secret Service\"",
+            "\"Diamonds Are Forever\"",
+            "Live and Let Die",
+            "\"The Man with the Golden Gun\"",
+            "Nobody Does It Better",
+            "\"Moonraker\"",
+            "For Your Eyes Only",
+            "All Time High",
+            "A View to a Kill",
+            "The Living Daylights",
+            "Licence to Kill",
+            "GoldenEye",
+            "Tomorrow Never Dies",
+            "The World Is Not Enough",
+            "Die Another Day",
+            "You Know My Name",
+            "Another Way to Die",
+            "Skyfall",
+            "Writing's on the Wall",
+            "No Time to Die"
+          ],
+          "expect": [26, 26]
+        }
+      ],
+      "expect": [26, 26],
+      "surface": ["Goldfinger", "Skyfall", "Live and Let Die"],
+      "pearl": "All Time High",
+      "scope": "All official Eon main-title themes, including instrumental title tracks; not incidental music, unused alternatives, closing songs or unofficial films."
+    },
+    {
+      "id": "lloyd-webber-musicals",
+      "text": "a stage musical composed by Andrew Lloyd Webber",
+      "theme": "music",
+      "cluster": "webber-musicals",
+      "active": true,
+      "answers": [
+        {
+          "name": "The Likes of Us"
+        },
+        {
+          "name": "Joseph",
+          "aliases": [
+            "Joseph and the Amazing Technicolor Dreamcoat",
+            "Joseph and the Amazing Dreamcoat",
+            "Joseph and His Amazing Technicolor Dreamcoat"
+          ]
+        },
+        {
+          "name": "Jesus Christ Superstar",
+          "aliases": ["JCS"]
+        },
+        {
+          "name": "Jeeves",
+          "aliases": ["By Jeeves"]
+        },
+        {
+          "name": "Evita"
+        },
+        {
+          "name": "Tell Me on a Sunday"
+        },
+        {
+          "name": "Cats"
+        },
+        {
+          "name": "Song and Dance"
+        },
+        {
+          "name": "Starlight Express"
+        },
+        {
+          "name": "Cricket"
+        },
+        {
+          "name": "The Phantom of the Opera",
+          "aliases": ["Phantom", "POTO"]
+        },
+        {
+          "name": "Aspects of Love"
+        },
+        {
+          "name": "Sunset Boulevard"
+        },
+        {
+          "name": "Whistle Down the Wind"
+        },
+        {
+          "name": "The Beautiful Game",
+          "aliases": ["The Boys in the Photograph"]
+        },
+        {
+          "name": "The Woman in White"
+        },
+        {
+          "name": "Love Never Dies"
+        },
+        {
+          "name": "The Wizard of Oz"
+        },
+        {
+          "name": "Stephen Ward"
+        },
+        {
+          "name": "School of Rock"
+        },
+        {
+          "name": "Cinderella",
+          "aliases": ["Bad Cinderella"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Andrew Lloyd Webber",
+          "revision": 1383207155,
+          "members": [
+            "The Likes of Us",
+            "Joseph and the Amazing Technicolor Dreamcoat",
+            "Jesus Christ Superstar",
+            "Jeeves",
+            "Evita",
+            "Tell Me on a Sunday",
+            "Cats",
+            "Song and Dance",
+            "Starlight Express",
+            "Cricket",
+            "The Phantom of the Opera",
+            "Aspects of Love",
+            "Sunset Boulevard",
+            "Whistle Down the Wind",
+            "The Beautiful Game",
+            "The Woman in White",
+            "Love Never Dies",
+            "The Wizard of Oz",
+            "Stephen Ward",
+            "School of Rock",
+            "Cinderella"
+          ],
+          "reviewed": [
+            "The Likes of Us",
+            "Joseph and the Amazing Technicolor Dreamcoat",
+            "Jesus Christ Superstar",
+            "Jeeves",
+            "Evita",
+            "Tell Me on a Sunday",
+            "Cats",
+            "Song and Dance",
+            "Starlight Express",
+            "Cricket",
+            "The Phantom of the Opera",
+            "Aspects of Love",
+            "Sunset Boulevard",
+            "Whistle Down the Wind",
+            "The Beautiful Game",
+            "The Woman in White",
+            "Love Never Dies",
+            "The Wizard of Oz",
+            "Stephen Ward",
+            "School of Rock",
+            "Cinderella"
+          ],
+          "expect": [21, 21]
+        }
+      ],
+      "expect": [21, 21],
+      "surface": ["Cats", "The Phantom of the Opera", "Evita"],
+      "pearl": "Cricket",
+      "scope": "Stage-musicals catalogue including one-act Cricket and additional-score Wizard of Oz. Revisions By Jeeves/Bad Cinderella/The Boys in the Photograph alias the underlying musical; Requiem is not a musical."
+    },
+    {
+      "id": "rock-hall-multiple-inductees",
+      "text": "an artist inducted into the Rock and Roll Hall of Fame more than once",
+      "theme": "music",
+      "cluster": "rock-hall",
+      "active": true,
+      "answers": [
+        {
+          "name": "Jeff Beck"
+        },
+        {
+          "name": "Matt Cameron"
+        },
+        {
+          "name": "Johnny Carter"
+        },
+        {
+          "name": "Eric Clapton"
+        },
+        {
+          "name": "Phil Collins"
+        },
+        {
+          "name": "David Crosby"
+        },
+        {
+          "name": "Peter Gabriel"
+        },
+        {
+          "name": "Dave Grohl"
+        },
+        {
+          "name": "George Harrison"
+        },
+        {
+          "name": "Michael Jackson",
+          "aliases": ["MJ", "King of Pop"]
+        },
+        {
+          "name": "Carole King"
+        },
+        {
+          "name": "John Lennon"
+        },
+        {
+          "name": "Curtis Mayfield"
+        },
+        {
+          "name": "Paul McCartney",
+          "aliases": ["Macca"]
+        },
+        {
+          "name": "Clyde McPhatter"
+        },
+        {
+          "name": "Graham Nash"
+        },
+        {
+          "name": "Stevie Nicks"
+        },
+        {
+          "name": "Ozzy Osbourne",
+          "aliases": ["Ozzy"]
+        },
+        {
+          "name": "Jimmy Page"
+        },
+        {
+          "name": "Lou Reed"
+        },
+        {
+          "name": "Gregg Rolie"
+        },
+        {
+          "name": "Paul Simon"
+        },
+        {
+          "name": "Ringo Starr",
+          "aliases": ["Ringo"]
+        },
+        {
+          "name": "Rod Stewart"
+        },
+        {
+          "name": "Stephen Stills"
+        },
+        {
+          "name": "Sammy Strain"
+        },
+        {
+          "name": "Tina Turner"
+        },
+        {
+          "name": "Ronnie Wood",
+          "aliases": ["Ron Wood"]
+        },
+        {
+          "name": "Neil Young"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Rock and Roll Hall of Fame inductees",
+          "revision": 1380288559,
+          "members": [
+            "Jeff Beck",
+            "Matt Cameron",
+            "Johnny Carter",
+            "Eric Clapton",
+            "Phil Collins",
+            "David Crosby",
+            "Peter Gabriel",
+            "Dave Grohl",
+            "George Harrison",
+            "Michael Jackson",
+            "Carole King",
+            "John Lennon",
+            "Curtis Mayfield",
+            "Paul McCartney",
+            "Clyde McPhatter",
+            "Graham Nash",
+            "Stevie Nicks",
+            "Ozzy Osbourne",
+            "Jimmy Page",
+            "Lou Reed",
+            "Gregg Rolie",
+            "Paul Simon",
+            "Ringo Starr",
+            "Rod Stewart",
+            "Stephen Stills",
+            "Sammy Strain",
+            "Tina Turner",
+            "Ronnie Wood",
+            "Neil Young"
+          ],
+          "reviewed": [
+            "Jeff Beck",
+            "Matt Cameron",
+            "Johnny Carter",
+            "Eric Clapton",
+            "Phil Collins",
+            "David Crosby",
+            "Peter Gabriel",
+            "Dave Grohl",
+            "George Harrison",
+            "Michael Jackson",
+            "Carole King",
+            "John Lennon",
+            "Curtis Mayfield",
+            "Paul McCartney",
+            "Clyde McPhatter",
+            "Graham Nash",
+            "Stevie Nicks",
+            "Ozzy Osbourne",
+            "Jimmy Page",
+            "Lou Reed",
+            "Gregg Rolie",
+            "Paul Simon",
+            "Ringo Starr",
+            "Rod Stewart",
+            "Stephen Stills",
+            "Sammy Strain",
+            "Tina Turner",
+            "Ronnie Wood",
+            "Neil Young"
+          ],
+          "expect": [29, 29]
+        }
+      ],
+      "expect": [29, 29],
+      "surface": ["Eric Clapton", "Michael Jackson", "Stevie Nicks"],
+      "pearl": "Sammy Strain",
+      "scope": "Every person in the multiple-inductees table, across qualifying induction categories; individuals, not groups or merely multi-nominated artists.",
+      "people": true
+    },
+    {
+      "id": "fellowship-members",
+      "text": "one of the nine members of the Fellowship of the Ring",
+      "theme": "books",
+      "cluster": "tolkien-fellowship",
+      "active": true,
+      "answers": [
+        {
+          "name": "Frodo Baggins",
+          "aliases": ["Frodo"]
+        },
+        {
+          "name": "Samwise Gamgee",
+          "aliases": ["Sam", "Sam Gamgee", "Samwise"]
+        },
+        {
+          "name": "Meriadoc Brandybuck",
+          "aliases": ["Merry", "Merry Brandybuck", "Meriadoc"]
+        },
+        {
+          "name": "Peregrin Took",
+          "aliases": ["Pippin", "Pippin Took", "Peregrin"]
+        },
+        {
+          "name": "Aragorn",
+          "aliases": ["Strider", "Elessar", "Aragorn son of Arathorn", "Estel", "Thorongil"]
+        },
+        {
+          "name": "Gandalf",
+          "aliases": [
+            "Gandalf the Grey",
+            "Gandalf the Gray",
+            "Gandalf the White",
+            "Mithrandir",
+            "Olorin"
+          ]
+        },
+        {
+          "name": "Legolas",
+          "aliases": ["Legolas Greenleaf"]
+        },
+        {
+          "name": "Gimli",
+          "aliases": ["Gimli son of Gloin"]
+        },
+        {
+          "name": "Boromir"
+        }
+      ],
+      "sources": [
+        {
+          "page": "The Fellowship of the Ring",
+          "revision": 1384349434,
+          "members": [
+            "Frodo Baggins",
+            "Sam Gamgee",
+            "Merry Brandybuck",
+            "Pippin Took",
+            "Aragorn",
+            "Gandalf",
+            "Legolas",
+            "Gimli",
+            "Boromir"
+          ],
+          "reviewed": [
+            "Frodo Baggins",
+            "Sam Gamgee",
+            "Merry Brandybuck",
+            "Pippin Took",
+            "Aragorn",
+            "Gandalf",
+            "Legolas",
+            "Gimli",
+            "Boromir"
+          ],
+          "expect": [9, 9]
+        }
+      ],
+      "expect": [9, 9],
+      "surface": ["Frodo Baggins", "Gandalf", "Aragorn"],
+      "pearl": "Boromir",
+      "scope": "The nine who set out from Rivendell, not helpers, Council attendees or later allies."
+    },
+    {
+      "id": "hemingway-novels",
+      "text": "a novel or novella by Ernest Hemingway",
+      "theme": "books",
+      "cluster": "hemingway",
+      "active": true,
+      "answers": [
+        {
+          "name": "The Torrents of Spring"
+        },
+        {
+          "name": "The Sun Also Rises",
+          "aliases": ["Fiesta"]
+        },
+        {
+          "name": "A Farewell to Arms"
+        },
+        {
+          "name": "To Have and Have Not"
+        },
+        {
+          "name": "For Whom the Bell Tolls"
+        },
+        {
+          "name": "Across the River and into the Trees",
+          "aliases": ["Across the River"]
+        },
+        {
+          "name": "The Old Man and the Sea"
+        },
+        {
+          "name": "Islands in the Stream",
+          "aliases": ["Islands in Stream"]
+        },
+        {
+          "name": "The Garden of Eden"
+        },
+        {
+          "name": "True at First Light"
+        },
+        {
+          "name": "Under Kilimanjaro"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Ernest Hemingway bibliography",
+          "revision": 1355572418,
+          "members": [
+            "The Torrents of Spring",
+            "The Sun Also Rises",
+            "A Farewell to Arms",
+            "To Have and Have Not",
+            "For Whom the Bell Tolls",
+            "Across the River and into the Trees",
+            "The Old Man and the Sea",
+            "Islands in the Stream",
+            "The Garden of Eden",
+            "True at First Light",
+            "Under Kilimanjaro"
+          ],
+          "reviewed": [
+            "The Torrents of Spring",
+            "The Sun Also Rises",
+            "A Farewell to Arms",
+            "To Have and Have Not",
+            "For Whom the Bell Tolls",
+            "Across the River and into the Trees",
+            "The Old Man and the Sea",
+            "Islands in the Stream",
+            "The Garden of Eden",
+            "True at First Light",
+            "Under Kilimanjaro"
+          ],
+          "expect": [11, 11]
+        }
+      ],
+      "expect": [11, 11],
+      "surface": ["The Old Man and the Sea", "The Sun Also Rises", "A Farewell to Arms"],
+      "pearl": "The Torrents of Spring",
+      "scope": "All novels/novellas, including posthumous works and the borderline fictionalized memoir versions True at First Light/Under Kilimanjaro; not straightforward nonfiction, short stories or story collections."
+    },
+    {
+      "id": "christie-poirot-novels",
+      "text": "an Agatha Christie novel or novella featuring Hercule Poirot",
+      "theme": "books",
+      "cluster": "christie-poirot",
+      "active": true,
+      "answers": [
+        {
+          "name": "The Mysterious Affair at Styles"
+        },
+        {
+          "name": "The Murder on the Links"
+        },
+        {
+          "name": "The Murder of Roger Ackroyd"
+        },
+        {
+          "name": "The Big Four"
+        },
+        {
+          "name": "The Mystery of the Blue Train"
+        },
+        {
+          "name": "Peril at End House"
+        },
+        {
+          "name": "Lord Edgware Dies",
+          "aliases": ["Thirteen at Dinner"]
+        },
+        {
+          "name": "Murder on the Orient Express",
+          "aliases": ["Murder in the Calais Coach"]
+        },
+        {
+          "name": "Three Act Tragedy",
+          "aliases": ["Murder in Three Acts"]
+        },
+        {
+          "name": "Death in the Clouds",
+          "aliases": ["Death in the Air"]
+        },
+        {
+          "name": "The A.B.C. Murders"
+        },
+        {
+          "name": "Murder in Mesopotamia"
+        },
+        {
+          "name": "Cards on the Table"
+        },
+        {
+          "name": "Dumb Witness",
+          "aliases": ["Poirot Loses a Client"]
+        },
+        {
+          "name": "Death on the Nile"
+        },
+        {
+          "name": "Appointment with Death"
+        },
+        {
+          "name": "Hercule Poirot's Christmas",
+          "aliases": ["Murder for Christmas", "A Holiday for Murder", "Hercule Poirot s Christmas"]
+        },
+        {
+          "name": "Sad Cypress"
+        },
+        {
+          "name": "One, Two, Buckle My Shoe",
+          "aliases": ["The Patriotic Murders", "An Overdose of Death"]
+        },
+        {
+          "name": "Evil Under the Sun"
+        },
+        {
+          "name": "Five Little Pigs",
+          "aliases": ["Murder in Retrospect"]
+        },
+        {
+          "name": "The Hollow",
+          "aliases": ["Murder After Hours"]
+        },
+        {
+          "name": "Taken at the Flood",
+          "aliases": ["There Is a Tide"]
+        },
+        {
+          "name": "Mrs McGinty's Dead",
+          "aliases": ["Mrs McGinty s Dead"]
+        },
+        {
+          "name": "After the Funeral",
+          "aliases": ["Funerals Are Fatal"]
+        },
+        {
+          "name": "Hickory Dickory Dock",
+          "aliases": ["Hickory Dickory Death"]
+        },
+        {
+          "name": "Dead Man's Folly",
+          "aliases": ["Dead Man s Folly"]
+        },
+        {
+          "name": "Cat Among the Pigeons"
+        },
+        {
+          "name": "The Clocks"
+        },
+        {
+          "name": "Third Girl"
+        },
+        {
+          "name": "Hallowe'en Party",
+          "aliases": ["Hallowe en Party"]
+        },
+        {
+          "name": "Elephants Can Remember"
+        },
+        {
+          "name": "Curtain",
+          "aliases": ["Curtain Poirots Last Case"]
+        },
+        {
+          "name": "Hercule Poirot and the Greenshore Folly",
+          "aliases": ["Greenshore Folly"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Agatha Christie bibliography",
+          "revision": 1384518688,
+          "members": [
+            "The Mysterious Affair at Styles",
+            "The Murder on the Links",
+            "The Murder of Roger Ackroyd",
+            "The Big Four",
+            "The Mystery of the Blue Train",
+            "Peril at End House",
+            "Lord Edgware Dies",
+            "Murder on the Orient Express",
+            "Three Act Tragedy",
+            "Death in the Clouds",
+            "The A.B.C. Murders",
+            "Murder in Mesopotamia",
+            "Cards on the Table",
+            "Dumb Witness",
+            "Death on the Nile",
+            "Appointment with Death",
+            "Hercule Poirot's Christmas",
+            "Sad Cypress",
+            "One, Two, Buckle My Shoe",
+            "Evil Under the Sun",
+            "Five Little Pigs",
+            "The Hollow",
+            "Taken at the Flood",
+            "Mrs McGinty's Dead",
+            "After the Funeral",
+            "Hickory Dickory Dock",
+            "Dead Man's Folly",
+            "Cat Among the Pigeons",
+            "The Clocks",
+            "Third Girl",
+            "Hallowe'en Party",
+            "Elephants Can Remember",
+            "Curtain",
+            "Hercule Poirot and the Greenshore Folly"
+          ],
+          "reviewed": [
+            "The Mysterious Affair at Styles",
+            "The Murder on the Links",
+            "The Murder of Roger Ackroyd",
+            "The Big Four",
+            "The Mystery of the Blue Train",
+            "Peril at End House",
+            "Lord Edgware Dies",
+            "Murder on the Orient Express",
+            "Three Act Tragedy",
+            "Death in the Clouds",
+            "The A.B.C. Murders",
+            "Murder in Mesopotamia",
+            "Cards on the Table",
+            "Dumb Witness",
+            "Death on the Nile",
+            "Appointment with Death",
+            "Hercule Poirot's Christmas",
+            "Sad Cypress",
+            "One, Two, Buckle My Shoe",
+            "Evil Under the Sun",
+            "Five Little Pigs",
+            "The Hollow",
+            "Taken at the Flood",
+            "Mrs McGinty's Dead",
+            "After the Funeral",
+            "Hickory Dickory Dock",
+            "Dead Man's Folly",
+            "Cat Among the Pigeons",
+            "The Clocks",
+            "Third Girl",
+            "Hallowe'en Party",
+            "Elephants Can Remember",
+            "Curtain",
+            "Hercule Poirot and the Greenshore Folly"
+          ],
+          "expect": [34, 34]
+        }
+      ],
+      "expect": [34, 34],
+      "surface": [
+        "Murder on the Orient Express",
+        "Death on the Nile",
+        "The Murder of Roger Ackroyd"
+      ],
+      "pearl": "Sad Cypress",
+      "scope": "All 33 novels plus the posthumous Greenshore Folly novella; US titles accepted. Not short-story collections, plays, Charles Osborne novelizations or Sophie Hannah continuations."
+    },
+    {
+      "id": "uk-childrens-laureates",
+      "text": "a UK Children's Laureate",
+      "theme": "books",
+      "cluster": "childrens-laureates",
+      "active": true,
+      "answers": [
+        {
+          "name": "Quentin Blake"
+        },
+        {
+          "name": "Anne Fine"
+        },
+        {
+          "name": "Michael Morpurgo"
+        },
+        {
+          "name": "Jacqueline Wilson"
+        },
+        {
+          "name": "Michael Rosen"
+        },
+        {
+          "name": "Anthony Browne"
+        },
+        {
+          "name": "Julia Donaldson"
+        },
+        {
+          "name": "Malorie Blackman"
+        },
+        {
+          "name": "Chris Riddell"
+        },
+        {
+          "name": "Lauren Child"
+        },
+        {
+          "name": "Cressida Cowell"
+        },
+        {
+          "name": "Joseph Coelho"
+        },
+        {
+          "name": "Frank Cottrell Boyce",
+          "aliases": ["Cottrell Boyce"]
+        },
+        {
+          "name": "Patrice Lawrence"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Children's Laureate",
+          "revision": 1372072402,
+          "members": [
+            "Quentin Blake",
+            "Anne Fine",
+            "Michael Morpurgo",
+            "Jacqueline Wilson",
+            "Michael Rosen",
+            "Anthony Browne",
+            "Julia Donaldson",
+            "Malorie Blackman",
+            "Chris Riddell",
+            "Lauren Child",
+            "Cressida Cowell",
+            "Joseph Coelho",
+            "Frank Cottrell Boyce",
+            "Patrice Lawrence"
+          ],
+          "reviewed": [
+            "Quentin Blake",
+            "Anne Fine",
+            "Michael Morpurgo",
+            "Jacqueline Wilson",
+            "Michael Rosen",
+            "Anthony Browne",
+            "Julia Donaldson",
+            "Malorie Blackman",
+            "Chris Riddell",
+            "Lauren Child",
+            "Cressida Cowell",
+            "Joseph Coelho",
+            "Frank Cottrell Boyce",
+            "Patrice Lawrence"
+          ],
+          "expect": [14, 14]
+        }
+      ],
+      "expect": [14, 14],
+      "surface": ["Michael Rosen", "Julia Donaldson", "Jacqueline Wilson"],
+      "pearl": "Anne Fine",
+      "scope": "UK national Children’s Laureates, not regional, international or Waterstones Children’s Book Prize winners.",
+      "people": true
+    },
+    {
+      "id": "leonardo-paintings",
+      "text": "a painting attributed to Leonardo da Vinci",
+      "theme": "art",
+      "cluster": "leonardo",
+      "active": true,
+      "answers": [
+        {
+          "name": "The Annunciation"
+        },
+        {
+          "name": "Madonna of the Carnation"
+        },
+        {
+          "name": "The Baptism of Christ"
+        },
+        {
+          "name": "Ginevra de' Benci"
+        },
+        {
+          "name": "Benois Madonna",
+          "aliases": ["Madonna and Child with Flowers"]
+        },
+        {
+          "name": "The Adoration of the Magi"
+        },
+        {
+          "name": "Saint Jerome in the Wilderness",
+          "aliases": ["Saint Jerome", "St Jerome", "St Jerome in the Wilderness"]
+        },
+        {
+          "name": "Madonna Litta"
+        },
+        {
+          "name": "Virgin of the Rocks",
+          "aliases": [
+            "Madonna of the Rocks",
+            "Virgin of the Rocks Louvre version",
+            "Virgin of the Rocks London version"
+          ]
+        },
+        {
+          "name": "Portrait of a Musician"
+        },
+        {
+          "name": "Lady with an Ermine",
+          "aliases": ["Lady with Ermine"]
+        },
+        {
+          "name": "La Belle Ferronnière",
+          "aliases": ["La Belle Ferroniere", "Portrait of an Unknown Woman"]
+        },
+        {
+          "name": "The Last Supper"
+        },
+        {
+          "name": "Sala delle Asse"
+        },
+        {
+          "name": "Madonna of the Yarnwinder",
+          "aliases": ["The Buccleuch Madonna", "The Lansdowne Madonna"]
+        },
+        {
+          "name": "Salvator Mundi"
+        },
+        {
+          "name": "Virgin and Child with Saint Anne",
+          "aliases": ["Virgin and Child with St Anne"]
+        },
+        {
+          "name": "Mona Lisa",
+          "aliases": ["La Gioconda", "La Joconde"]
+        },
+        {
+          "name": "La Scapigliata",
+          "aliases": ["The Head of a Woman"]
+        },
+        {
+          "name": "Saint John the Baptist",
+          "aliases": ["St John the Baptist"]
+        },
+        {
+          "name": "Dragon shield"
+        },
+        {
+          "name": "The Head of Medusa",
+          "aliases": ["Medusa"]
+        },
+        {
+          "name": "San Bernardo Altarpiece"
+        },
+        {
+          "name": "The Battle of Anghiari"
+        },
+        {
+          "name": "Leda and the Swan"
+        },
+        {
+          "name": "Angel of the Annunciation"
+        },
+        {
+          "name": "Dreyfus Madonna",
+          "aliases": ["Madonna and Child with a Pomegranate"]
+        },
+        {
+          "name": "Tobias and the Angel"
+        },
+        {
+          "name": "The Holy Infants Embracing",
+          "aliases": ["Holy Children Embracing"]
+        },
+        {
+          "name": "Portrait of a Lady in Profile"
+        },
+        {
+          "name": "Madonna and Child with St Joseph"
+        },
+        {
+          "name": "Portrait of Luca Pacioli"
+        },
+        {
+          "name": "Christ Carrying the Cross"
+        },
+        {
+          "name": "Isleworth Mona Lisa"
+        },
+        {
+          "name": "Lucan portrait of Leonardo da Vinci"
+        },
+        {
+          "name": "Bacchus"
+        },
+        {
+          "name": "Mary Magdalene"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of works by Leonardo da Vinci",
+          "revision": 1367482915,
+          "members": [
+            "The Annunciation",
+            "Madonna of the Carnation",
+            "The Baptism of Christ †",
+            "Ginevra de' Benci",
+            "Benois Madonna",
+            "The Adoration of the Magi (unfinished)",
+            "Saint Jerome in the Wilderness (unfinished)",
+            "Madonna Litta †",
+            "Virgin of the Rocks (Louvre version)",
+            "Portrait of a Musician (unfinished) ‡",
+            "Lady with an Ermine",
+            "La Belle Ferronnière",
+            "Virgin of the Rocks (London version) †",
+            "The Last Supper",
+            "Sala delle Asse",
+            "Madonna of the Yarnwinder ( The Buccleuch Madonna ) †",
+            "Salvator Mundi ‡",
+            "Madonna of the Yarnwinder ( The Lansdowne Madonna ) †",
+            "The Virgin and Child with Saint Anne",
+            "Mona Lisa (unfinished)",
+            "La Scapigliata (unfinished)",
+            "Saint John the Baptist",
+            "Dragon shield",
+            "The Head of Medusa",
+            "San Bernardo Altarpiece (unfinished)",
+            "The Battle of Anghiari",
+            "Leda and the Swan",
+            "Angel of the Annunciation",
+            "Madonna and Child with a Pomegranate ( The Dreyfus Madonna )",
+            "Tobias and the Angel †",
+            "The Holy Infants Embracing",
+            "Portrait of a Lady in Profile",
+            "Virgin of the Rocks Chéramy †",
+            "Madonna and Child with St Joseph or Adoration of the Christ Child",
+            "Portrait of Luca Pacioli †",
+            "Christ Carrying the Cross †",
+            "Isleworth Mona Lisa †",
+            "Lucan portrait of Leonardo da Vinci",
+            "Bacchus",
+            "Mary Magdalene"
+          ],
+          "reviewed": [
+            "The Annunciation",
+            "Madonna of the Carnation",
+            "The Baptism of Christ †",
+            "Ginevra de' Benci",
+            "Benois Madonna",
+            "The Adoration of the Magi (unfinished)",
+            "Saint Jerome in the Wilderness (unfinished)",
+            "Madonna Litta †",
+            "Virgin of the Rocks (Louvre version)",
+            "Portrait of a Musician (unfinished) ‡",
+            "Lady with an Ermine",
+            "La Belle Ferronnière",
+            "Virgin of the Rocks (London version) †",
+            "The Last Supper",
+            "Sala delle Asse",
+            "Madonna of the Yarnwinder ( The Buccleuch Madonna ) †",
+            "Salvator Mundi ‡",
+            "Madonna of the Yarnwinder ( The Lansdowne Madonna ) †",
+            "The Virgin and Child with Saint Anne",
+            "Mona Lisa (unfinished)",
+            "La Scapigliata (unfinished)",
+            "Saint John the Baptist",
+            "Dragon shield",
+            "The Head of Medusa",
+            "San Bernardo Altarpiece (unfinished)",
+            "The Battle of Anghiari",
+            "Leda and the Swan",
+            "Angel of the Annunciation",
+            "Madonna and Child with a Pomegranate ( The Dreyfus Madonna )",
+            "Tobias and the Angel †",
+            "The Holy Infants Embracing",
+            "Portrait of a Lady in Profile",
+            "Virgin of the Rocks Chéramy †",
+            "Madonna and Child with St Joseph or Adoration of the Christ Child",
+            "Portrait of Luca Pacioli †",
+            "Christ Carrying the Cross †",
+            "Isleworth Mona Lisa †",
+            "Lucan portrait of Leonardo da Vinci",
+            "Bacchus",
+            "Mary Magdalene"
+          ],
+          "expect": [40, 40]
+        }
+      ],
+      "expect": [37, 37],
+      "surface": ["Mona Lisa", "The Last Supper", "Lady with an Ermine"],
+      "pearl": "Sala delle Asse",
+      "scope": "Surviving, lost and disputed attributed paintings, including collaborations, unfinished works and painted shield. Chalk drawings, cartoons, sculpture and codices excluded. Versions of the same composition merge; disputed attributions are not silently omitted."
+    },
+    {
+      "id": "big-brother-us-winners",
+      "text": "a winner of the main US Big Brother series",
+      "theme": "tv",
+      "cluster": "big-brother",
+      "active": true,
+      "answers": [
+        {
+          "name": "Eddie McGee"
+        },
+        {
+          "name": "Will Kirby",
+          "aliases": ["Dr Will", "Doctor Will"]
+        },
+        {
+          "name": "Lisa Donahue"
+        },
+        {
+          "name": "Jun Song"
+        },
+        {
+          "name": "Drew Daniel"
+        },
+        {
+          "name": "Maggie Ausburn"
+        },
+        {
+          "name": "Mike \"Boogie\" Malin",
+          "aliases": ["Mike Malin", "Mike Boogie", "Boogie"]
+        },
+        {
+          "name": "Dick Donato",
+          "aliases": ["Evel Dick", "Evil Dick"]
+        },
+        {
+          "name": "Adam Jasinski"
+        },
+        {
+          "name": "Dan Gheesling"
+        },
+        {
+          "name": "Jordan Lloyd"
+        },
+        {
+          "name": "Hayden Moss"
+        },
+        {
+          "name": "Rachel Reilly"
+        },
+        {
+          "name": "Ian Terry"
+        },
+        {
+          "name": "Andy Herren"
+        },
+        {
+          "name": "Derrick Levasseur"
+        },
+        {
+          "name": "Steve Moses"
+        },
+        {
+          "name": "Nicole Franzel"
+        },
+        {
+          "name": "Josh Martinez"
+        },
+        {
+          "name": "Kaycee Clark"
+        },
+        {
+          "name": "Jackson Michie",
+          "aliases": ["Michie"]
+        },
+        {
+          "name": "Cody Calafiore"
+        },
+        {
+          "name": "Xavier Prather"
+        },
+        {
+          "name": "Taylor Hale"
+        },
+        {
+          "name": "Jagateshwar \"Jag\" Bains",
+          "aliases": ["Jag Bains", "Jag"]
+        },
+        {
+          "name": "Chelsie Baham"
+        },
+        {
+          "name": "Ashley Hollis"
+        },
+        {
+          "name": "Rick Devens"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Big Brother (American TV series)",
+          "revision": 1383299130,
+          "members": [
+            "Eddie McGee",
+            "Will Kirby",
+            "Lisa Donahue",
+            "Jun Song",
+            "Drew Daniel",
+            "Maggie Ausburn",
+            "Mike \"Boogie\" Malin",
+            "Dick Donato",
+            "Adam Jasinski",
+            "Dan Gheesling",
+            "Jordan Lloyd",
+            "Hayden Moss",
+            "Rachel Reilly",
+            "Ian Terry",
+            "Andy Herren",
+            "Derrick Levasseur",
+            "Steve Moses",
+            "Nicole Franzel",
+            "Josh Martinez",
+            "Kaycee Clark",
+            "Jackson Michie",
+            "Cody Calafiore",
+            "Xavier Prather",
+            "Taylor Hale",
+            "Jagateshwar \"Jag\" Bains",
+            "Chelsie Baham",
+            "Ashley Hollis",
+            "Rick Devens"
+          ],
+          "reviewed": [
+            "Eddie McGee",
+            "Will Kirby",
+            "Lisa Donahue",
+            "Jun Song",
+            "Drew Daniel",
+            "Maggie Ausburn",
+            "Mike \"Boogie\" Malin",
+            "Dick Donato",
+            "Adam Jasinski",
+            "Dan Gheesling",
+            "Jordan Lloyd",
+            "Hayden Moss",
+            "Rachel Reilly",
+            "Ian Terry",
+            "Andy Herren",
+            "Derrick Levasseur",
+            "Steve Moses",
+            "Nicole Franzel",
+            "Josh Martinez",
+            "Kaycee Clark",
+            "Jackson Michie",
+            "Cody Calafiore",
+            "Xavier Prather",
+            "Taylor Hale",
+            "Jagateshwar \"Jag\" Bains",
+            "Chelsie Baham",
+            "Ashley Hollis",
+            "Rick Devens"
+          ],
+          "expect": [28, 28]
+        }
+      ],
+      "expect": [28, 28],
+      "surface": ["Will Kirby", "Dan Gheesling", "Derrick Levasseur"],
+      "pearl": "Jun Song",
+      "scope": "Main numbered US seasons; not Celebrity, Over the Top, Reindeer Games or international versions.",
+      "people": true
+    },
+    {
+      "id": "smash-64-fighters",
+      "text": "a playable fighter in the original Nintendo 64 Super Smash Bros",
+      "theme": "games",
+      "cluster": "smash-roster",
+      "active": true,
+      "answers": [
+        {
+          "name": "Mario",
+          "aliases": ["Mario Mario", "Super Mario"]
+        },
+        {
+          "name": "Donkey Kong",
+          "aliases": ["DK"]
+        },
+        {
+          "name": "Link"
+        },
+        {
+          "name": "Samus",
+          "aliases": ["Samus Aran"]
+        },
+        {
+          "name": "Yoshi"
+        },
+        {
+          "name": "Kirby"
+        },
+        {
+          "name": "Fox",
+          "aliases": ["Fox McCloud"]
+        },
+        {
+          "name": "Pikachu",
+          "aliases": ["Pika"]
+        },
+        {
+          "name": "Luigi",
+          "aliases": ["Luigi Mario"]
+        },
+        {
+          "name": "Ness"
+        },
+        {
+          "name": "Captain Falcon",
+          "aliases": ["Falcon"]
+        },
+        {
+          "name": "Jigglypuff",
+          "aliases": ["Jiggs", "Puff"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Super Smash Bros. (video game)",
+          "revision": 1374248228,
+          "members": [
+            "Mario",
+            "Donkey Kong",
+            "Link",
+            "Samus",
+            "Yoshi",
+            "Kirby",
+            "Fox",
+            "Pikachu",
+            "Luigi",
+            "Ness",
+            "Jigglypuff"
+          ],
+          "reviewed": [
+            "Mario",
+            "Donkey Kong",
+            "Link",
+            "Samus",
+            "Yoshi",
+            "Kirby",
+            "Fox",
+            "Pikachu",
+            "Luigi",
+            "Ness",
+            "Jigglypuff"
+          ],
+          "expect": [11, 11]
+        },
+        {
+          "page": "F-Zero",
+          "revision": 1384247792,
+          "members": ["Captain Falcon"],
+          "reviewed": ["Captain Falcon"],
+          "expect": [1, 1]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["Mario", "Pikachu", "Link"],
+      "pearl": "Ness",
+      "scope": "The original 12, including four unlockables, not the sequels, items, stage cameos or bosses."
+    },
+    {
+      "id": "eevee-evolutions",
+      "text": "a Pokémon that Eevee evolves into",
+      "theme": "games",
+      "cluster": "eeveelutions",
+      "active": true,
+      "answers": [
+        {
+          "name": "Vaporeon"
+        },
+        {
+          "name": "Jolteon"
+        },
+        {
+          "name": "Flareon"
+        },
+        {
+          "name": "Espeon"
+        },
+        {
+          "name": "Umbreon"
+        },
+        {
+          "name": "Leafeon"
+        },
+        {
+          "name": "Glaceon"
+        },
+        {
+          "name": "Sylveon"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Eevee",
+          "revision": 1383813956,
+          "members": [
+            "Vaporeon",
+            "Jolteon",
+            "Flareon",
+            "Espeon",
+            "Umbreon",
+            "Leafeon",
+            "Glaceon",
+            "Sylveon"
+          ],
+          "reviewed": [
+            "Vaporeon",
+            "Jolteon",
+            "Flareon",
+            "Espeon",
+            "Umbreon",
+            "Leafeon",
+            "Glaceon",
+            "Sylveon"
+          ],
+          "expect": [8, 8]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Vaporeon", "Jolteon", "Flareon"],
+      "pearl": "Leafeon",
+      "scope": "Eight species Eevee can evolve into, not Eevee itself, cosmetic/Gigantamax/partner forms or other evolutionary families."
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

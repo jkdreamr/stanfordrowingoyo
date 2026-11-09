@@ -88,7 +88,7 @@ class SpecsTest(unittest.TestCase):
                                   'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
-        self.assertEqual(sum(p['active'] for p in prompts), 258)
+        self.assertEqual(sum(p['active'] for p in prompts), 287)
         for prompt in prompts:
             self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
             self.assertRegex(prompt['text'], r'^Name [^.?!]+\.$')
@@ -97,7 +97,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 308)
+        self.assertEqual(len(prompts), 337)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
@@ -105,6 +105,28 @@ class SpecsTest(unittest.TestCase):
         self.assertEqual(constrained.derive(rows, constrained.PREDICATES['countries-ia']), rows[:1])
         self.assertEqual(constrained.derive([], constrained.PREDICATES['countries-ia']), [])
         self.assertEqual(constrained.letters('São Tomé and Príncipe'), 'saotomeandprincipe')
+
+    def test_third_batch_closed_scopes_and_future_exclusions(self):
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        names = lambda id: {r['name'] for r in prompts[id]['rows']}
+        self.assertEqual(len(names('original-care-bears')), 10)
+        self.assertEqual(len(names('smash-64-fighters')), 12)
+        self.assertEqual(len(names('eevee-evolutions')), 8)
+        self.assertNotIn('Eevee', names('eevee-evolutions'))
+        self.assertNotIn('Bowser', names('smash-64-fighters'))
+        self.assertNotIn('Topic', names('celebrations-chocolates'))
+        self.assertNotIn('Elsa', names('disney-princess-lineup'))
+        self.assertNotIn('Vitruvian Man', names('leonardo-paintings'))
+        self.assertIn('Salvator Mundi', names('leonardo-paintings'))
+        self.assertIn('Ice', names('iba-singapore-sling-ingredients'))
+        self.assertIn('Original Soundtracks 1', names('u2-studio-albums'))
+        self.assertNotIn('Carnaval de Luz', names('u2-studio-albums'))
+        self.assertEqual(len(names('super-bowl-halftime-leads')), 124)
+        self.assertIn('will.i.am', names('super-bowl-halftime-leads'))
+        aliases = prompts['super-bowl-halftime-leads']['aliases']
+        for name, variant in [('Mustard', 'djmustard'), ('H.E.R.', 'gabriellawilson'),
+                              ('Justin Timberlake', 'timberlake')]:
+            self.assertIn(variant, {a.lower().replace(' ', '') for a in aliases.get(name, [])})
 
     def test_second_batch_word_patterns_and_editorial_boundaries(self):
         document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
@@ -248,6 +270,26 @@ class ScheduleTest(unittest.TestCase):
         self.assertEqual(schedule.build(prompts)[0], [])
         with self.assertRaisesRegex(ValueError, '64 days'):
             schedule.validate([], [])
+
+    def test_fully_constrained_bank_keeps_a_difficulty_mix(self):
+        prompts = self.fixture()
+        for i, prompt in enumerate(prompts):
+            prompt.update(constrained=True, size=12 if i < 160 else 80)
+        days, status = schedule.build(prompts)
+        self.assertEqual(len(days), 64, status)
+        schedule.validate(days, prompts)
+
+    def test_fully_constrained_homogeneous_days_retry_and_fail_cleanly(self):
+        for size in [12, 200]:
+            prompts = self.fixture()[:5]
+            for prompt in prompts:
+                prompt.update(constrained=True, size=size)
+            with patch.object(schedule, 'MIN_DAYS', 1), \
+                    patch.object(schedule.random, 'Random', wraps=schedule.random.Random) as random:
+                days, status = schedule.build(prompts)
+            self.assertEqual(days, [])
+            self.assertIn('unable to satisfy', status)
+            self.assertEqual(random.call_count, 200)
 
 
 if __name__ == '__main__':

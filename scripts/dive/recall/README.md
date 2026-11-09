@@ -106,3 +106,29 @@ All 30 new prompts have at least 25 frozen guesses and at least 95% exact recall
 The three ENABLE prompts are independently checked for their spelling predicates
 and the 2,000-answer cap. Their original-spelling constraints are intentionally
 separate from the unchanged production normalizer's plural folding and stopwords.
+
+## Third replacement batch
+
+`batch-3-raw.json` preserves all 35 brainstormed candidates, including six rejected
+concepts. `batch-3-selected.json` contains 29 selected prompts and reviewed-invalid
+annotations without replacing any raw guess. `batch-3-audit.json` records the same
+denominator before/after, corpus hashes, sizes, tiers, aliases and gzip estimates.
+See `batch-3-review.md` for source scopes, carryovers, scheduler correction and the
+gameplay/safety budget reserves.
+
+Reproduce the current combined cycle:
+
+```sh
+source ~/.nvm/nvm.sh
+node --input-type=module - "$HOME/work/dive-batch3-corpus.json" <<'JS'
+import { readFileSync, writeFileSync } from 'node:fs';
+const read = (name) => JSON.parse(readFileSync(`scripts/dive/recall/${name}.json`, 'utf8'));
+writeFileSync(process.argv[2], JSON.stringify({ ...read('corpus'), ...read('batch-1-selected'), ...read('batch-2-selected'), ...read('batch-3-selected') }, null, 2) + '\n');
+JS
+node scripts/dive/recall.mjs --corpus "$HOME/work/dive-batch3-corpus.json" --report "$HOME/work/dive-batch3-report.json"
+node --test scripts/dive/recall.test.mjs
+```
+
+All 29 selected prompts have at least 25 frozen guesses and 100% exact valid-guess
+recall. The Node regression also rejects all reviewed nonmembers. The historical
+corpus remains unmodified. Displaced broad data stay loadable for legacy dates.
