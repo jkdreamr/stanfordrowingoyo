@@ -17,8 +17,9 @@ export function pwaPlugin(): Plugin {
       function scan(dir: string) {
         for (const entry of readdirSync(dir, { withFileTypes: true })) {
           const path = join(dir, entry.name);
-          if (entry.isDirectory()) scan(path);
-          else if (
+          if (entry.isDirectory()) {
+            if (path !== join(directory, 'worldle')) scan(path);
+          } else if (
             /\.(html|js|css|png|webp|svg|webmanifest|woff2)$/.test(entry.name) &&
             entry.name !== 'sw.js'
           )

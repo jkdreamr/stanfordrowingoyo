@@ -1,0 +1,1660 @@
+[
+  {
+    "code": "AFG",
+    "name": "Afghanistan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["AFG"]
+  },
+  {
+    "code": "ALB",
+    "name": "Albania",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["ALB"]
+  },
+  {
+    "code": "DZA",
+    "name": "Algeria",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["DZA"]
+  },
+  {
+    "code": "ASM",
+    "name": "American Samoa",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["ASM"],
+    "parts": {
+      "bbox": [-171, -14.6, -169.3, -13.8]
+    }
+  },
+  {
+    "code": "AND",
+    "name": "Andorra",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["AND"]
+  },
+  {
+    "code": "AGO",
+    "name": "Angola",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["AGO"]
+  },
+  {
+    "code": "ATG",
+    "name": "Antigua and Barbuda",
+    "aliases": ["Antigua"],
+    "tier": 3,
+    "ne": ["ATG"]
+  },
+  {
+    "code": "ARG",
+    "name": "Argentina",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ARG"]
+  },
+  {
+    "code": "ARM",
+    "name": "Armenia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["ARM"]
+  },
+  {
+    "code": "ABW",
+    "name": "Aruba",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["ABW"]
+  },
+  {
+    "code": "AUS",
+    "name": "Australia",
+    "aliases": ["Australia Commonwealth"],
+    "tier": 1,
+    "ne": ["AUS"]
+  },
+  {
+    "code": "AUT",
+    "name": "Austria",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["AUT"]
+  },
+  {
+    "code": "AZE",
+    "name": "Azerbaijan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["AZE"]
+  },
+  {
+    "code": "BHS",
+    "name": "Bahamas",
+    "aliases": ["The Bahamas"],
+    "tier": 2,
+    "ne": ["BHS"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "BHR",
+    "name": "Bahrain",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["BHR"]
+  },
+  {
+    "code": "BGD",
+    "name": "Bangladesh",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["BGD"]
+  },
+  {
+    "code": "BRB",
+    "name": "Barbados",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["BRB"]
+  },
+  {
+    "code": "BLR",
+    "name": "Belarus",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["BLR"]
+  },
+  {
+    "code": "BEL",
+    "name": "Belgium",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["BEL"]
+  },
+  {
+    "code": "BLZ",
+    "name": "Belize",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["BLZ"]
+  },
+  {
+    "code": "BEN",
+    "name": "Benin",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["BEN"]
+  },
+  {
+    "code": "BMU",
+    "name": "Bermuda",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["BMU"]
+  },
+  {
+    "code": "BTN",
+    "name": "Bhutan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["BTN"]
+  },
+  {
+    "code": "BOL",
+    "name": "Bolivia",
+    "aliases": ["Plurinational State of Bolivia"],
+    "tier": 1,
+    "ne": ["BOL"]
+  },
+  {
+    "code": "BIH",
+    "name": "Bosnia and Herzegovina",
+    "aliases": ["Bosnia", "Bosnia & Herzegovina"],
+    "tier": 2,
+    "ne": ["BIH"]
+  },
+  {
+    "code": "BWA",
+    "name": "Botswana",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["BWA"]
+  },
+  {
+    "code": "BRA",
+    "name": "Brazil",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["BRA"]
+  },
+  {
+    "code": "VGB",
+    "name": "British Virgin Islands",
+    "aliases": ["BVI"],
+    "tier": 3,
+    "ne": ["VGB"]
+  },
+  {
+    "code": "BRN",
+    "name": "Brunei",
+    "aliases": ["Brunei Darussalam"],
+    "tier": 3,
+    "ne": ["BRN"]
+  },
+  {
+    "code": "BGR",
+    "name": "Bulgaria",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["BGR"]
+  },
+  {
+    "code": "BFA",
+    "name": "Burkina Faso",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["BFA"]
+  },
+  {
+    "code": "BDI",
+    "name": "Burundi",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["BDI"]
+  },
+  {
+    "code": "CPV",
+    "name": "Cabo Verde",
+    "aliases": ["Cape Verde"],
+    "tier": 3,
+    "ne": ["CPV"]
+  },
+  {
+    "code": "KHM",
+    "name": "Cambodia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["KHM"]
+  },
+  {
+    "code": "CMR",
+    "name": "Cameroon",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["CMR"]
+  },
+  {
+    "code": "CAN",
+    "name": "Canada",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["CAN"]
+  },
+  {
+    "code": "CYM",
+    "name": "Cayman Islands",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["CYM"]
+  },
+  {
+    "code": "CAF",
+    "name": "Central African Republic",
+    "aliases": ["Central African Republic CAR"],
+    "tier": 2,
+    "ne": ["CAF"]
+  },
+  {
+    "code": "TCD",
+    "name": "Chad",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["TCD"]
+  },
+  {
+    "code": "CHL",
+    "name": "Chile",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["CHL"],
+    "parts": {
+      "bbox": [-78, -57, -66, -17]
+    }
+  },
+  {
+    "code": "CHN",
+    "name": "China",
+    "aliases": ["People's Republic of China", "PRC"],
+    "tier": 1,
+    "ne": ["CHN"]
+  },
+  {
+    "code": "COL",
+    "name": "Colombia",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["COL"],
+    "parts": {
+      "bbox": [-80, -5, -66, 14]
+    }
+  },
+  {
+    "code": "COM",
+    "name": "Comoros",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["COM"]
+  },
+  {
+    "code": "COK",
+    "name": "Cook Islands",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["COK"],
+    "parts": {
+      "bbox": [-160, -23, -157, -18]
+    }
+  },
+  {
+    "code": "CRI",
+    "name": "Costa Rica",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["CRI"]
+  },
+  {
+    "code": "HRV",
+    "name": "Croatia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["HRV"]
+  },
+  {
+    "code": "CUB",
+    "name": "Cuba",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["CUB"]
+  },
+  {
+    "code": "CUW",
+    "name": "Curaçao",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["CUW"]
+  },
+  {
+    "code": "CYP",
+    "name": "Cyprus",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["CYP", "CYN", "CNM", "WSB", "ESB"]
+  },
+  {
+    "code": "CZE",
+    "name": "Czechia",
+    "aliases": ["Czech Republic"],
+    "tier": 2,
+    "ne": ["CZE"]
+  },
+  {
+    "code": "CIV",
+    "name": "Côte d'Ivoire",
+    "aliases": ["Ivory Coast"],
+    "tier": 2,
+    "ne": ["CIV"]
+  },
+  {
+    "code": "COD",
+    "name": "Democratic Republic of the Congo",
+    "aliases": ["DRC", "DR Congo", "Congo-Kinshasa", "Democratic Republic of Congo"],
+    "tier": 1,
+    "ne": ["COD"]
+  },
+  {
+    "code": "DNK",
+    "name": "Denmark",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["DNK"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "DJI",
+    "name": "Djibouti",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["DJI"]
+  },
+  {
+    "code": "DMA",
+    "name": "Dominica",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["DMA"]
+  },
+  {
+    "code": "DOM",
+    "name": "Dominican Republic",
+    "aliases": ["Dominican Rep"],
+    "tier": 2,
+    "ne": ["DOM"]
+  },
+  {
+    "code": "ECU",
+    "name": "Ecuador",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ECU"],
+    "parts": {
+      "bbox": [-82, -6, -74, 2]
+    }
+  },
+  {
+    "code": "EGY",
+    "name": "Egypt",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["EGY"]
+  },
+  {
+    "code": "SLV",
+    "name": "El Salvador",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SLV"]
+  },
+  {
+    "code": "GNQ",
+    "name": "Equatorial Guinea",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["GNQ"]
+  },
+  {
+    "code": "ERI",
+    "name": "Eritrea",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["ERI"]
+  },
+  {
+    "code": "EST",
+    "name": "Estonia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["EST"]
+  },
+  {
+    "code": "SWZ",
+    "name": "Eswatini",
+    "aliases": ["Swaziland"],
+    "tier": 3,
+    "ne": ["SWZ"]
+  },
+  {
+    "code": "ETH",
+    "name": "Ethiopia",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ETH"]
+  },
+  {
+    "code": "FLK",
+    "name": "Falkland Islands",
+    "aliases": ["Falklands", "Malvinas", "Islas Malvinas"],
+    "tier": 3,
+    "ne": ["FLK"]
+  },
+  {
+    "code": "FRO",
+    "name": "Faroe Islands",
+    "aliases": ["Faeroe Islands"],
+    "tier": 3,
+    "ne": ["FRO"]
+  },
+  {
+    "code": "FJI",
+    "name": "Fiji",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["FJI"],
+    "parts": {
+      "bbox": [174, -21, -178, -16],
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "FIN",
+    "name": "Finland",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["FIN"]
+  },
+  {
+    "code": "FRA",
+    "name": "France",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["FRA"],
+    "parts": {
+      "bbox": [-6, 41, 10, 52]
+    }
+  },
+  {
+    "code": "GUF",
+    "name": "French Guiana",
+    "aliases": ["Guyane"],
+    "tier": 3,
+    "ne": ["FRA"],
+    "parts": {
+      "bbox": [-55, 2, -51, 6]
+    }
+  },
+  {
+    "code": "PYF",
+    "name": "French Polynesia",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["PYF"],
+    "parts": {
+      "bbox": [-153, -19, -148, -15]
+    }
+  },
+  {
+    "code": "GAB",
+    "name": "Gabon",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["GAB"]
+  },
+  {
+    "code": "GMB",
+    "name": "Gambia",
+    "aliases": ["The Gambia"],
+    "tier": 2,
+    "ne": ["GMB"]
+  },
+  {
+    "code": "GEO",
+    "name": "Georgia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["GEO"]
+  },
+  {
+    "code": "DEU",
+    "name": "Germany",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["DEU"]
+  },
+  {
+    "code": "GHA",
+    "name": "Ghana",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["GHA"]
+  },
+  {
+    "code": "GRC",
+    "name": "Greece",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["GRC"]
+  },
+  {
+    "code": "GRL",
+    "name": "Greenland",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["GRL"]
+  },
+  {
+    "code": "GRD",
+    "name": "Grenada",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["GRD"]
+  },
+  {
+    "code": "GLP",
+    "name": "Guadeloupe",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["FRA"],
+    "parts": {
+      "bbox": [-62, 15.7, -60, 16.6]
+    }
+  },
+  {
+    "code": "GUM",
+    "name": "Guam",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["GUM"]
+  },
+  {
+    "code": "GTM",
+    "name": "Guatemala",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["GTM"]
+  },
+  {
+    "code": "GIN",
+    "name": "Guinea",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["GIN"]
+  },
+  {
+    "code": "GNB",
+    "name": "Guinea-Bissau",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["GNB"]
+  },
+  {
+    "code": "GUY",
+    "name": "Guyana",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["GUY"]
+  },
+  {
+    "code": "HTI",
+    "name": "Haiti",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["HTI"]
+  },
+  {
+    "code": "HND",
+    "name": "Honduras",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["HND"]
+  },
+  {
+    "code": "HKG",
+    "name": "Hong Kong",
+    "aliases": ["Hong Kong SAR"],
+    "tier": 3,
+    "ne": ["HKG"]
+  },
+  {
+    "code": "HUN",
+    "name": "Hungary",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["HUN"]
+  },
+  {
+    "code": "ISL",
+    "name": "Iceland",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ISL"]
+  },
+  {
+    "code": "IND",
+    "name": "India",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["IND"]
+  },
+  {
+    "code": "IDN",
+    "name": "Indonesia",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["IDN"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "IRN",
+    "name": "Iran",
+    "aliases": ["Islamic Republic of Iran"],
+    "tier": 1,
+    "ne": ["IRN"]
+  },
+  {
+    "code": "IRQ",
+    "name": "Iraq",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["IRQ"]
+  },
+  {
+    "code": "IRL",
+    "name": "Ireland",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["IRL"]
+  },
+  {
+    "code": "IMN",
+    "name": "Isle of Man",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["IMN"]
+  },
+  {
+    "code": "ISR",
+    "name": "Israel",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ISR"]
+  },
+  {
+    "code": "ITA",
+    "name": "Italy",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ITA"]
+  },
+  {
+    "code": "JAM",
+    "name": "Jamaica",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["JAM"]
+  },
+  {
+    "code": "JPN",
+    "name": "Japan",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["JPN"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "JOR",
+    "name": "Jordan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["JOR"]
+  },
+  {
+    "code": "KAZ",
+    "name": "Kazakhstan",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["KAZ"]
+  },
+  {
+    "code": "KEN",
+    "name": "Kenya",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["KEN"]
+  },
+  {
+    "code": "KIR",
+    "name": "Kiribati",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["KIR"],
+    "parts": {
+      "bbox": [169, -3, 177, 5]
+    }
+  },
+  {
+    "code": "KOS",
+    "name": "Kosovo",
+    "aliases": ["Republic of Kosovo"],
+    "tier": 2,
+    "ne": ["KOS"]
+  },
+  {
+    "code": "KWT",
+    "name": "Kuwait",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["KWT"]
+  },
+  {
+    "code": "KGZ",
+    "name": "Kyrgyzstan",
+    "aliases": ["Kyrgyz Republic"],
+    "tier": 2,
+    "ne": ["KGZ"]
+  },
+  {
+    "code": "LAO",
+    "name": "Laos",
+    "aliases": ["Lao PDR", "Lao People's Democratic Republic"],
+    "tier": 2,
+    "ne": ["LAO"]
+  },
+  {
+    "code": "LVA",
+    "name": "Latvia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["LVA"]
+  },
+  {
+    "code": "LBN",
+    "name": "Lebanon",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["LBN"]
+  },
+  {
+    "code": "LSO",
+    "name": "Lesotho",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["LSO"]
+  },
+  {
+    "code": "LBR",
+    "name": "Liberia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["LBR"]
+  },
+  {
+    "code": "LBY",
+    "name": "Libya",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["LBY"]
+  },
+  {
+    "code": "LIE",
+    "name": "Liechtenstein",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["LIE"]
+  },
+  {
+    "code": "LTU",
+    "name": "Lithuania",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["LTU"]
+  },
+  {
+    "code": "LUX",
+    "name": "Luxembourg",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["LUX"]
+  },
+  {
+    "code": "MAC",
+    "name": "Macao",
+    "aliases": ["Macau"],
+    "tier": 3,
+    "ne": ["MAC"]
+  },
+  {
+    "code": "MDG",
+    "name": "Madagascar",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["MDG"]
+  },
+  {
+    "code": "MWI",
+    "name": "Malawi",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["MWI"]
+  },
+  {
+    "code": "MYS",
+    "name": "Malaysia",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["MYS"],
+    "parts": {
+      "gapKm": 1000
+    }
+  },
+  {
+    "code": "MDV",
+    "name": "Maldives",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["MDV"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "MLI",
+    "name": "Mali",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["MLI"]
+  },
+  {
+    "code": "MLT",
+    "name": "Malta",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["MLT"]
+  },
+  {
+    "code": "MHL",
+    "name": "Marshall Islands",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["MHL"],
+    "parts": {
+      "gapKm": 1400
+    }
+  },
+  {
+    "code": "MTQ",
+    "name": "Martinique",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["FRA"],
+    "parts": {
+      "bbox": [-62, 14, -60, 16]
+    }
+  },
+  {
+    "code": "MRT",
+    "name": "Mauritania",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["MRT"]
+  },
+  {
+    "code": "MUS",
+    "name": "Mauritius",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["MUS"]
+  },
+  {
+    "code": "MEX",
+    "name": "Mexico",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["MEX"]
+  },
+  {
+    "code": "FSM",
+    "name": "Micronesia",
+    "aliases": ["Federated States of Micronesia"],
+    "tier": 3,
+    "ne": ["FSM"],
+    "parts": {
+      "gapKm": 1400
+    }
+  },
+  {
+    "code": "MDA",
+    "name": "Moldova",
+    "aliases": ["Republic of Moldova"],
+    "tier": 2,
+    "ne": ["MDA"]
+  },
+  {
+    "code": "MCO",
+    "name": "Monaco",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["MCO"]
+  },
+  {
+    "code": "MNG",
+    "name": "Mongolia",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["MNG"]
+  },
+  {
+    "code": "MNE",
+    "name": "Montenegro",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["MNE"]
+  },
+  {
+    "code": "MAR",
+    "name": "Morocco",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["MAR"]
+  },
+  {
+    "code": "MOZ",
+    "name": "Mozambique",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["MOZ"]
+  },
+  {
+    "code": "MMR",
+    "name": "Myanmar",
+    "aliases": ["Burma"],
+    "tier": 2,
+    "ne": ["MMR"]
+  },
+  {
+    "code": "NAM",
+    "name": "Namibia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["NAM"]
+  },
+  {
+    "code": "NRU",
+    "name": "Nauru",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["NRU"]
+  },
+  {
+    "code": "NPL",
+    "name": "Nepal",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["NPL"]
+  },
+  {
+    "code": "NLD",
+    "name": "Netherlands",
+    "aliases": ["Holland"],
+    "tier": 1,
+    "ne": ["NLD"],
+    "parts": {
+      "bbox": [3, 50, 8, 54]
+    }
+  },
+  {
+    "code": "NCL",
+    "name": "New Caledonia",
+    "aliases": ["Nouvelle Caledonie"],
+    "tier": 3,
+    "ne": ["NCL"]
+  },
+  {
+    "code": "NZL",
+    "name": "New Zealand",
+    "aliases": ["NZ"],
+    "tier": 1,
+    "ne": ["NZL"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "NIC",
+    "name": "Nicaragua",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["NIC"]
+  },
+  {
+    "code": "NER",
+    "name": "Niger",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["NER"]
+  },
+  {
+    "code": "NGA",
+    "name": "Nigeria",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["NGA"]
+  },
+  {
+    "code": "PRK",
+    "name": "North Korea",
+    "aliases": ["DPRK", "Democratic People's Republic of Korea"],
+    "tier": 1,
+    "ne": ["PRK"]
+  },
+  {
+    "code": "MKD",
+    "name": "North Macedonia",
+    "aliases": ["Macedonia"],
+    "tier": 2,
+    "ne": ["MKD"]
+  },
+  {
+    "code": "MNP",
+    "name": "Northern Mariana Islands",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["MNP"]
+  },
+  {
+    "code": "NOR",
+    "name": "Norway",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["NOR"],
+    "parts": {
+      "bbox": [4, 57, 32, 72]
+    }
+  },
+  {
+    "code": "OMN",
+    "name": "Oman",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["OMN"]
+  },
+  {
+    "code": "PAK",
+    "name": "Pakistan",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["PAK"]
+  },
+  {
+    "code": "PLW",
+    "name": "Palau",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["PLW"],
+    "parts": {
+      "bbox": [134, 6.8, 135, 8]
+    }
+  },
+  {
+    "code": "PSX",
+    "name": "Palestine",
+    "aliases": ["State of Palestine", "Palestinian Territories"],
+    "tier": 2,
+    "ne": ["PSX"]
+  },
+  {
+    "code": "PAN",
+    "name": "Panama",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["PAN"]
+  },
+  {
+    "code": "PNG",
+    "name": "Papua New Guinea",
+    "aliases": ["PNG"],
+    "tier": 2,
+    "ne": ["PNG"]
+  },
+  {
+    "code": "PRY",
+    "name": "Paraguay",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["PRY"]
+  },
+  {
+    "code": "PER",
+    "name": "Peru",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["PER"]
+  },
+  {
+    "code": "PHL",
+    "name": "Philippines",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["PHL"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "POL",
+    "name": "Poland",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["POL"]
+  },
+  {
+    "code": "PRT",
+    "name": "Portugal",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["PRT"],
+    "parts": {
+      "bbox": [-10, 36, -6, 43]
+    }
+  },
+  {
+    "code": "PRI",
+    "name": "Puerto Rico",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["PRI"]
+  },
+  {
+    "code": "QAT",
+    "name": "Qatar",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["QAT"]
+  },
+  {
+    "code": "COG",
+    "name": "Republic of the Congo",
+    "aliases": ["Congo", "Congo-Brazzaville", "Republic of Congo"],
+    "tier": 2,
+    "ne": ["COG"]
+  },
+  {
+    "code": "ROU",
+    "name": "Romania",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ROU"]
+  },
+  {
+    "code": "RUS",
+    "name": "Russia",
+    "aliases": ["Russian Federation"],
+    "tier": 1,
+    "ne": ["RUS"]
+  },
+  {
+    "code": "RWA",
+    "name": "Rwanda",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["RWA"]
+  },
+  {
+    "code": "REU",
+    "name": "Réunion",
+    "aliases": ["Reunion Island"],
+    "tier": 3,
+    "ne": ["FRA"],
+    "parts": {
+      "bbox": [55, -22, 56, -20]
+    }
+  },
+  {
+    "code": "KNA",
+    "name": "Saint Kitts and Nevis",
+    "aliases": ["St Kitts", "St Kitts and Nevis", "Saint Kitts"],
+    "tier": 3,
+    "ne": ["KNA"]
+  },
+  {
+    "code": "LCA",
+    "name": "Saint Lucia",
+    "aliases": ["St Lucia"],
+    "tier": 3,
+    "ne": ["LCA"]
+  },
+  {
+    "code": "VCT",
+    "name": "Saint Vincent and the Grenadines",
+    "aliases": ["St Vincent", "St Vincent and the Grenadines", "Saint Vincent"],
+    "tier": 3,
+    "ne": ["VCT"]
+  },
+  {
+    "code": "WSM",
+    "name": "Samoa",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["WSM"]
+  },
+  {
+    "code": "SMR",
+    "name": "San Marino",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["SMR"]
+  },
+  {
+    "code": "SAU",
+    "name": "Saudi Arabia",
+    "aliases": ["Kingdom of Saudi Arabia"],
+    "tier": 1,
+    "ne": ["SAU"]
+  },
+  {
+    "code": "SEN",
+    "name": "Senegal",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SEN"]
+  },
+  {
+    "code": "SRB",
+    "name": "Serbia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SRB"]
+  },
+  {
+    "code": "SYC",
+    "name": "Seychelles",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["SYC"],
+    "parts": {
+      "bbox": [55.2, -4.9, 56, -4.2]
+    }
+  },
+  {
+    "code": "SLE",
+    "name": "Sierra Leone",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SLE"]
+  },
+  {
+    "code": "SGP",
+    "name": "Singapore",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["SGP"]
+  },
+  {
+    "code": "SVK",
+    "name": "Slovakia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SVK"]
+  },
+  {
+    "code": "SVN",
+    "name": "Slovenia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SVN"]
+  },
+  {
+    "code": "SLB",
+    "name": "Solomon Islands",
+    "aliases": ["Solomons"],
+    "tier": 2,
+    "ne": ["SLB"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "SOM",
+    "name": "Somalia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SOM", "SOL"]
+  },
+  {
+    "code": "ZAF",
+    "name": "South Africa",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ZAF"]
+  },
+  {
+    "code": "KOR",
+    "name": "South Korea",
+    "aliases": ["Korea", "Republic of Korea"],
+    "tier": 1,
+    "ne": ["KOR"]
+  },
+  {
+    "code": "SDS",
+    "name": "South Sudan",
+    "aliases": ["Republic of South Sudan"],
+    "tier": 2,
+    "ne": ["SDS"]
+  },
+  {
+    "code": "ESP",
+    "name": "Spain",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["ESP"],
+    "parts": {
+      "bbox": [-10, 35, 5, 44]
+    }
+  },
+  {
+    "code": "LKA",
+    "name": "Sri Lanka",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["LKA"]
+  },
+  {
+    "code": "SDN",
+    "name": "Sudan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SDN"]
+  },
+  {
+    "code": "SUR",
+    "name": "Suriname",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["SUR"]
+  },
+  {
+    "code": "SWE",
+    "name": "Sweden",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["SWE"]
+  },
+  {
+    "code": "CHE",
+    "name": "Switzerland",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["CHE"]
+  },
+  {
+    "code": "SYR",
+    "name": "Syria",
+    "aliases": ["Syrian Arab Republic"],
+    "tier": 2,
+    "ne": ["SYR"]
+  },
+  {
+    "code": "STP",
+    "name": "São Tomé and Príncipe",
+    "aliases": ["Sao Tome"],
+    "tier": 3,
+    "ne": ["STP"]
+  },
+  {
+    "code": "TWN",
+    "name": "Taiwan",
+    "aliases": ["Republic of China"],
+    "tier": 1,
+    "ne": ["TWN"]
+  },
+  {
+    "code": "TJK",
+    "name": "Tajikistan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["TJK"]
+  },
+  {
+    "code": "TZA",
+    "name": "Tanzania",
+    "aliases": ["United Republic of Tanzania"],
+    "tier": 1,
+    "ne": ["TZA"]
+  },
+  {
+    "code": "THA",
+    "name": "Thailand",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["THA"]
+  },
+  {
+    "code": "TLS",
+    "name": "Timor-Leste",
+    "aliases": ["East Timor"],
+    "tier": 2,
+    "ne": ["TLS"]
+  },
+  {
+    "code": "TGO",
+    "name": "Togo",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["TGO"]
+  },
+  {
+    "code": "TON",
+    "name": "Tonga",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["TON"],
+    "parts": {
+      "bbox": [-176, -22, -173, -18],
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "TTO",
+    "name": "Trinidad and Tobago",
+    "aliases": ["Trinidad"],
+    "tier": 2,
+    "ne": ["TTO"]
+  },
+  {
+    "code": "TUN",
+    "name": "Tunisia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["TUN"]
+  },
+  {
+    "code": "TUR",
+    "name": "Turkey",
+    "aliases": ["Türkiye"],
+    "tier": 1,
+    "ne": ["TUR"]
+  },
+  {
+    "code": "TKM",
+    "name": "Turkmenistan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["TKM"]
+  },
+  {
+    "code": "TCA",
+    "name": "Turks and Caicos Islands",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["TCA"]
+  },
+  {
+    "code": "TUV",
+    "name": "Tuvalu",
+    "aliases": [],
+    "tier": 3,
+    "ne": ["TUV"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "VIR",
+    "name": "U.S. Virgin Islands",
+    "aliases": ["USVI", "United States Virgin Islands", "US Virgin Islands"],
+    "tier": 3,
+    "ne": ["VIR"]
+  },
+  {
+    "code": "UGA",
+    "name": "Uganda",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["UGA"]
+  },
+  {
+    "code": "UKR",
+    "name": "Ukraine",
+    "aliases": [],
+    "tier": 1,
+    "ne": ["UKR"]
+  },
+  {
+    "code": "ARE",
+    "name": "United Arab Emirates",
+    "aliases": ["UAE", "U.A.E."],
+    "tier": 1,
+    "ne": ["ARE"]
+  },
+  {
+    "code": "GBR",
+    "name": "United Kingdom",
+    "aliases": ["UK", "U.K.", "Great Britain", "Britain"],
+    "tier": 1,
+    "ne": ["GBR"]
+  },
+  {
+    "code": "USA",
+    "name": "United States",
+    "aliases": ["USA", "US", "U.S.A.", "America", "United States of America"],
+    "tier": 1,
+    "ne": ["USA"],
+    "parts": {
+      "bbox": [-125, 24, -66, 50]
+    }
+  },
+  {
+    "code": "URY",
+    "name": "Uruguay",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["URY"]
+  },
+  {
+    "code": "UZB",
+    "name": "Uzbekistan",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["UZB"]
+  },
+  {
+    "code": "VUT",
+    "name": "Vanuatu",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["VUT"],
+    "parts": {
+      "gapKm": 650
+    }
+  },
+  {
+    "code": "VAT",
+    "name": "Vatican City",
+    "aliases": ["Holy See", "Vatican"],
+    "tier": 3,
+    "ne": ["VAT"]
+  },
+  {
+    "code": "VEN",
+    "name": "Venezuela",
+    "aliases": ["Bolivarian Republic of Venezuela"],
+    "tier": 1,
+    "ne": ["VEN"]
+  },
+  {
+    "code": "VNM",
+    "name": "Vietnam",
+    "aliases": ["Viet Nam"],
+    "tier": 1,
+    "ne": ["VNM"]
+  },
+  {
+    "code": "SAH",
+    "name": "Western Sahara",
+    "aliases": ["Sahrawi Arab Democratic Republic"],
+    "tier": 2,
+    "ne": ["SAH"]
+  },
+  {
+    "code": "YEM",
+    "name": "Yemen",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["YEM"]
+  },
+  {
+    "code": "ZMB",
+    "name": "Zambia",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["ZMB"]
+  },
+  {
+    "code": "ZWE",
+    "name": "Zimbabwe",
+    "aliases": [],
+    "tier": 2,
+    "ne": ["ZWE"]
+  }
+]

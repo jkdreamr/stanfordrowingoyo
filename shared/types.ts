@@ -646,6 +646,25 @@ export interface GameInfo {
   id: GameId;
   direction: GameScoreDirection;
 }
+export interface WorldleGuess {
+  name: string;
+  km: number;
+  bearing: number;
+  direction: 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW';
+  proximity: number;
+  correct: boolean;
+}
+export interface WorldleDay {
+  date: string;
+  access: GameAccess;
+  /** Opaque silhouette id; null while locked. */
+  shape: string | null;
+  guesses: WorldleGuess[];
+  done: boolean;
+  won: boolean;
+  /** Hidden until completion, including for staff and admins. */
+  answer: { name: string; lat: number; lon: number } | null;
+}
 export interface GameResult {
   game_id: GameId;
   date: string;
@@ -744,6 +763,8 @@ export interface Endpoint<Req, Res, Query = never> {
 }
 /** Canonical endpoint paths for the backend and typed browser client. Void responses use HTTP 204. */
 export interface Api {
+  'GET /api/games/worldle/today': Endpoint<void, WorldleDay>;
+  'POST /api/games/worldle/guess': Endpoint<{ guess: string; date?: string }, WorldleDay>;
   'GET /api/games/dive/today': Endpoint<void, DiveDay>;
   'POST /api/games/dive/answers': Endpoint<
     { prompt_index: number; answer: string },

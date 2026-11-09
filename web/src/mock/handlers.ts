@@ -30,6 +30,7 @@ import type {
   Zone,
   RaceWeek,
   GameResult,
+  WorldleGuess,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
 import {
@@ -78,6 +79,8 @@ import {
   type PerceptionRoundAnswer,
 } from '../../../shared/games/perceptionV2';
 import { dayNumber, dailyRandom } from '../../../shared/games/daily';
+import { normalizeCountry, resolveCountry, proximity } from '../../../shared/games/worldle';
+import { worldleNames } from '../../../shared/games/worldleNames';
 import {
   boardWords,
   connectionsScore,
@@ -99,6 +102,7 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  worldle: null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -199,6 +203,7 @@ export function createMockApi({
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
   const wordProgress = new Map<string, string[]>();
+  const worldleProgress = new Map<string, WorldleGuess[]>();
   const connectionProgress = new Map<string, string[][]>();
   const perceptionProgress = new Map<
     string,
@@ -1053,6 +1058,67 @@ export function createMockApi({
           gameResults.find(
             (row) => row.game_id === gameId && row.date === day && row.user_id === user.id,
           ) ?? null;
+        if (gameId === 'worldle' && ['today', 'guess'].includes(parts[4])) {
+          const key = `${user.id}:${date}`;
+          const guesses = worldleProgress.get(key) ?? [];
+          const answer = { name: 'Mock Island', lat: 0, lon: 0 };
+          if (parts[4] === 'guess' && method === 'POST') {
+            if (body.date !== undefined && (typeof body.date !== 'string' || !dateValid(body.date)))
+              fail(400, 'Date must be a real YYYY-MM-DD date.');
+            if (body.date !== undefined && body.date !== date)
+              fail(409, 'A New Day Has Started. Reload to Play.', 'DAY_CHANGED');
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (mine(date)) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+            const correct =
+              typeof body.guess === 'string' && normalizeCountry(body.guess) === 'mock island';
+            const index = typeof body.guess === 'string' ? resolveCountry(body.guess) : null;
+            if (!correct && index === null) fail(400, 'Unknown country');
+            const name = correct ? answer.name : worldleNames[index!].name;
+            if (guesses.some((row) => row.name === name)) fail(400, 'Already guessed');
+            const km = correct ? 0 : 1000 + index!;
+            guesses.push({
+              name,
+              km,
+              bearing: correct ? 0 : 45,
+              direction: correct ? 'N' : 'NE',
+              proximity: correct ? 100 : proximity(km),
+              correct,
+            });
+            worldleProgress.set(key, guesses);
+            if (correct || guesses.length === 6) {
+              const stamp = now().toISOString();
+              gameResults.push({
+                game_id: gameId,
+                date,
+                user_id: user.id,
+                score: correct ? 7 - guesses.length : 0,
+                payload: {
+                  guesses: guesses.map((row) => row.name),
+                  solved: correct,
+                  tries: guesses.length,
+                  answer: answer.name,
+                  rows: guesses.map(({ km, direction, proximity }) => ({
+                    km,
+                    direction,
+                    proximity,
+                  })),
+                },
+                created_at: stamp,
+                updated_at: stamp,
+              });
+            }
+          }
+          const done = Boolean(mine(date));
+          return json({
+            date,
+            access,
+            shape: access.unlocked ? '0000000000000000' : null,
+            guesses,
+            done,
+            won: guesses.at(-1)?.correct ?? false,
+            answer: done ? answer : null,
+          });
+        }
         if (gameId === 'wordguess' && ['today', 'guess'].includes(parts[4])) {
           const key = `${user.id}:${date}`;
           const guesses = wordProgress.get(key) ?? [];

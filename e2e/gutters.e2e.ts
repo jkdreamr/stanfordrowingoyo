@@ -101,6 +101,7 @@ test('page titles and content share their responsive gutters', async ({
     '/games/wordguess',
     '/games/connections',
     '/games/perception',
+    '/games/worldle',
     '/games/missing',
   ];
   const routes = desktop

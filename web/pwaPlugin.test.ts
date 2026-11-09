@@ -53,6 +53,17 @@ it('supports an empty output directory without caching the worker itself', async
   expect(await build()).toContain('const ASSETS=[]');
 });
 
+it('does not embed Worldle silhouette IDs in the app-shell precache', async () => {
+  const { dist, build } = fixture();
+  mkdirSync(join(dist, 'worldle'));
+  writeFileSync(join(dist, 'index.html'), '<html></html>');
+  writeFileSync(join(dist, 'worldle', '0123456789abcdef.svg'), '<svg/>');
+  writeFileSync(join(dist, 'worldle', 'world.svg'), '<svg/>');
+  const source = await build();
+  expect(source).toContain('const ASSETS=["/index.html"]');
+  expect(source).not.toContain('0123456789abcdef');
+});
+
 it('surfaces a missing build output rather than generating an incomplete cache', async () => {
   const { dist, build } = fixture();
   rmSync(dist, { recursive: true });

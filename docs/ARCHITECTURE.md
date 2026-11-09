@@ -340,6 +340,49 @@ self-contained guarded block. Feature migrations run in ascending order 11–18,
 
 ### Daily Games
 
+Worldle (`worldle`, higher score wins) uses a daily country silhouette and six guesses.
+`WORLDLE_ENABLED` in `worker/src/games/features.ts` defaults to true; false removes
+it from the server registry and makes all `/api/games/worldle/*` routes return 404.
+No schema migration is needed: `game_progress.state_json` stores an array of canonical
+country-pool indices, and `game_results` stores immutable completions.
+
+- `GET /api/games/worldle/today` returns `WorldleDay`: `{ date, access: GameAccess,
+shape: string | null, guesses: WorldleGuess[], done: boolean, won: boolean,
+answer: { name: string, lat: number, lon: number } | null }`.
+- `WorldleGuess` is `{ name: string, km: number, bearing: number,
+direction: 'N'|'NE'|'E'|'SE'|'S'|'SW'|'W'|'NW', proximity: number, correct: boolean }`.
+  Great-circle distance uses R=6371 km and is rounded to integer km; the initial
+  bearing is integer degrees 0–359 from the guessed centroid toward the answer.
+  Proximity is `floor(max(20000-km,0)/20000*100)`. A correct guess returns distance
+  0, bearing 0, direction N and proximity 100.
+- `shape` is today's opaque 16-lowercase-hex id, for `/worldle/<id>.svg`, or null
+  while `access.unlocked` is false. `answer` remains null until completion for
+  **every** role, including staff and admins. Coxswains/coaches/admins unlock with
+  reason `staff` without a workout, but receive no answer-preview privilege.
+- `POST /api/games/worldle/guess` accepts `{ guess: string, date?: string }` and
+  returns `WorldleDay`. Inside `transactionSync`, refresh the user, check the optional
+  date against team-local today (409 `DAY_CHANGED`, before changes), then enforce
+  access (403 `GAME_LOCKED`). Completed games/results reject replay with 409
+  `ALREADY_PLAYED`. Unknown countries return 400 `Unknown country`; duplicate
+  canonical guesses (including aliases) return 400 `Already guessed`. Neither counts.
+  A win or sixth guess atomically writes one result: score `7-tries` on a win,
+  otherwise 0; payload `{ guesses: names[], solved, tries, answer: name,
+rows: [{ km, direction, proximity }] }`.
+- There is no generic scorer: the generic results POST returns 405 after the
+  standard access gate. Existing own-results, daily/weekly boards and streaks
+  consume the registered completion normally; day-board access rules are unchanged.
+
+`worker/src/games/worldle/data.ts` contains only centroid tuples, opaque ids and a
+packed three-cycle schedule, starting 2026-11-16. Two base-36 characters encode each
+pool index; cyclic modulo also maps dates before the start to the tail. Lookup is
+constant-time, with no geometry work per request. Names/aliases are shared separately
+in `shared/games/worldleNames.ts`; normalization and distance/share helpers live in
+`shared/games/worldle.ts`. Share text follows Word Guess's `OYO <game> YYYY-MM-DD N/6`
+header convention (X on a loss), followed by proximity squares and direction arrows,
+never country names. The content pipeline and pinned schedule are documented in
+`scripts/worldle/README.md`. The browser game registration/UI is a separate step;
+mock mode uses an artificial Mock Island answer and never imports Worker data.
+
 Connections and Perception also use schema v17 `game_progress`. Generic
 `POST /api/games/:game/results` submissions for both return 405 after access checks.
 Results are written by the Worker transaction that finishes the game.
