@@ -61,8 +61,8 @@ cranial-nerves|Trigeminal nerve|Trijeminal nerve;Trigemminal nerve
 cranial-nerves|Glossopharyngeal nerve|Glossofaryngeal nerve;Glossopharangeal nerve
 olympian-gods|Hephaestus|Hefestus;Hephaestos
 olympian-gods|Aphrodite|Afrodyte;Aphroditee
-canada-provinces|Saskatchewan|Saskachewan;Saskatchawan
-canada-provinces|Newfoundland and Labrador|Newfoundland Labrador;Newfoundlend and Labradore
+borders-austria|Liechtenstein|Liechtenstien;Liechtensteinn
+borders-dr-congo|Central African Republic|Central Afrikan Republic;Central African Republc
 states-two-words|North Carolina|North Karolina;Nort Carolyna
 states-two-words|New Hampshire|New Hampsheer;New Hampshirr
 countries-with-z|Kazakhstan|Kazakstan;Kazakhstann
@@ -75,7 +75,7 @@ penguins|Emperor penguin|Emperer pengwin;Emperor penguen
 true-seal-species|Leopard seal|Leoperd seel;Leopard seall
 essential-amino-acids|Methionine|Methyonene;Methioninne
 disney-princess-lineup|Cinderella|Sinderela;Cinderrella
-nato-alphabet|Whiskey|Wiskey;Whiskee
+enable-qwerty-top-row|typewriter|typewritter;typwriter
 si-prefixes|Quecto|Quekto;Quectoo
 eightfold-path|Right mindfulness|Right mindfullnes;Mindfulness
 egyptian-ennead|Nephthys|Nefthys;Nephthyss

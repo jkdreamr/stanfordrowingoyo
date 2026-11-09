@@ -157,6 +157,7 @@ export async function main(args = process.argv.slice(2)) {
         'batch-2-selected.json',
         'batch-3-selected.json',
         'batch-4-selected.json',
+        'batch-5-selected.json',
         'supplemental-selected.json',
       ]) {
         const additions = JSON.parse(

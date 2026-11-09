@@ -12329,7 +12329,7 @@
   {
     "id": "greek-letters",
     "text": "Name a Greek letter.",
-    "active": true,
+    "active": false,
     "size": 24,
     "tiers": {
       "surface": 3,
@@ -12353,7 +12353,7 @@
   {
     "id": "nato-alphabet",
     "text": "Name a NATO phonetic alphabet word.",
-    "active": true,
+    "active": false,
     "size": 26,
     "tiers": {
       "surface": 3,
@@ -12641,7 +12641,7 @@
   {
     "id": "canada-provinces",
     "text": "Name a Canadian province or territory.",
-    "active": true,
+    "active": false,
     "size": 13,
     "tiers": {
       "surface": 3,
@@ -13625,7 +13625,7 @@
   {
     "id": "landlocked-countries",
     "text": "Name a landlocked country.",
-    "active": true,
+    "active": false,
     "size": 47,
     "tiers": {
       "surface": 3,
@@ -13673,7 +13673,7 @@
   {
     "id": "africa-countries",
     "text": "Name an African country.",
-    "active": true,
+    "active": false,
     "size": 56,
     "tiers": {
       "surface": 3,
@@ -13697,7 +13697,7 @@
   {
     "id": "asia-countries",
     "text": "Name an Asian country.",
-    "active": true,
+    "active": false,
     "size": 54,
     "tiers": {
       "surface": 3,
@@ -13721,7 +13721,7 @@
   {
     "id": "europe-countries",
     "text": "Name a European country.",
-    "active": true,
+    "active": false,
     "size": 55,
     "tiers": {
       "surface": 3,
@@ -13745,7 +13745,7 @@
   {
     "id": "oceania-countries",
     "text": "Name a country in Oceania.",
-    "active": true,
+    "active": false,
     "size": 16,
     "tiers": {
       "surface": 3,
@@ -13793,7 +13793,7 @@
   {
     "id": "south-america-countries",
     "text": "Name a country in South America.",
-    "active": true,
+    "active": false,
     "size": 12,
     "tiers": {
       "surface": 3,
@@ -15641,7 +15641,7 @@
   {
     "id": "africa-capitals",
     "text": "Name an African capital city.",
-    "active": true,
+    "active": false,
     "size": 64,
     "tiers": {
       "surface": 3,
@@ -15857,7 +15857,7 @@
   {
     "id": "asia-capitals",
     "text": "Name an Asian capital city.",
-    "active": true,
+    "active": false,
     "size": 57,
     "tiers": {
       "surface": 3,
@@ -15881,7 +15881,7 @@
   {
     "id": "europe-capitals",
     "text": "Name a European capital city.",
-    "active": true,
+    "active": false,
     "size": 56,
     "tiers": {
       "surface": 3,
@@ -16001,7 +16001,7 @@
   {
     "id": "americas-capitals",
     "text": "Name a capital city in North or South America.",
-    "active": true,
+    "active": false,
     "size": 36,
     "tiers": {
       "surface": 3,
@@ -16433,7 +16433,7 @@
   {
     "id": "australia-states-territories",
     "text": "Name an Australian state or territory.",
-    "active": true,
+    "active": false,
     "size": 16,
     "tiers": {
       "surface": 3,
@@ -20137,6 +20137,342 @@
     "gem": "Onward",
     "theme": "film",
     "cluster": "animation",
+    "constrained": true
+  },
+  {
+    "id": "borders-germany",
+    "text": "Name a country with a land border with Germany.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 2,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["France", "Poland"],
+    "pageviews": 0,
+    "sitelinks": 8,
+    "wikidata": 0,
+    "aliases": 22,
+    "too_clever": [],
+    "gem": "Luxembourg",
+    "theme": "geography",
+    "cluster": "borders-germany",
+    "constrained": true
+  },
+  {
+    "id": "borders-dr-congo",
+    "text": "Name a country with a land border with the Democratic Republic of the Congo.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 2,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Zambia", "Angola"],
+    "pageviews": 0,
+    "sitelinks": 3,
+    "wikidata": 0,
+    "aliases": 11,
+    "too_clever": [],
+    "gem": "Central African Republic",
+    "theme": "geography",
+    "cluster": "borders-dr-congo",
+    "constrained": true
+  },
+  {
+    "id": "borders-austria",
+    "text": "Name a country with a land border with Austria.",
+    "active": true,
+    "size": 8,
+    "tiers": {
+      "surface": 1,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Germany"],
+    "pageviews": 0,
+    "sitelinks": 5,
+    "wikidata": 0,
+    "aliases": 16,
+    "too_clever": [],
+    "gem": "Liechtenstein",
+    "theme": "geography",
+    "cluster": "borders-austria",
+    "constrained": true
+  },
+  {
+    "id": "borders-zambia",
+    "text": "Name a country with a land border with Zambia.",
+    "active": true,
+    "size": 8,
+    "tiers": {
+      "surface": 1,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Zimbabwe"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 12,
+    "too_clever": [],
+    "gem": "Botswana",
+    "theme": "geography",
+    "cluster": "borders-zambia",
+    "constrained": true
+  },
+  {
+    "id": "high-capitals",
+    "text": "Name a national capital more than 2,000 metres above sea level.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 2,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Mexico City", "Quito"],
+    "pageviews": 0,
+    "sitelinks": 3,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "Thimphu",
+    "theme": "geography",
+    "cluster": "high-capitals",
+    "constrained": true
+  },
+  {
+    "id": "drive-left-countries",
+    "text": "Name a UN member country where road traffic normally drives on the left.",
+    "active": true,
+    "size": 54,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 23,
+      "rare": 14,
+      "deep": 12,
+      "gem": 1
+    },
+    "surface": ["Japan", "Australia", "United Kingdom"],
+    "pageviews": 0,
+    "sitelinks": 23,
+    "wikidata": 0,
+    "aliases": 30,
+    "too_clever": ["Samoa"],
+    "gem": "Suriname",
+    "theme": "geography",
+    "cluster": "drive-left-countries",
+    "constrained": true
+  },
+  {
+    "id": "crescent-flags",
+    "text": "Name a UN member country whose national flag contains a crescent.",
+    "active": true,
+    "size": 19,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 7,
+      "rare": 4,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["Turkey", "Pakistan", "Malaysia"],
+    "pageviews": 0,
+    "sitelinks": 8,
+    "wikidata": 0,
+    "aliases": 10,
+    "too_clever": ["Nepal"],
+    "gem": "Croatia",
+    "theme": "geography",
+    "cluster": "crescent-flags",
+    "constrained": true
+  },
+  {
+    "id": "multi-zone-countries",
+    "text": "Name a country using multiple standard time zones, including overseas territory.",
+    "active": true,
+    "size": 22,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 9,
+      "rare": 5,
+      "deep": 4,
+      "gem": 1
+    },
+    "surface": ["United States", "Russia", "Canada"],
+    "pageviews": 0,
+    "sitelinks": 17,
+    "wikidata": 0,
+    "aliases": 29,
+    "too_clever": [],
+    "gem": "South Africa",
+    "theme": "geography",
+    "cluster": "multi-zone-countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-peaks-5000",
+    "text": "Name a country with a mountain summit higher than 5,000 metres.",
+    "active": true,
+    "size": 27,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 11,
+      "rare": 7,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["China", "Pakistan", "Nepal"],
+    "pageviews": 0,
+    "sitelinks": 21,
+    "wikidata": 0,
+    "aliases": 31,
+    "too_clever": [],
+    "gem": "Uganda",
+    "theme": "geography",
+    "cluster": "countries-peaks-5000",
+    "constrained": true
+  },
+  {
+    "id": "moscow-1980-boycott",
+    "text": "Name an Olympic team that did not compete at the 1980 Moscow Summer Games.",
+    "active": true,
+    "size": 68,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 29,
+      "rare": 19,
+      "deep": 16,
+      "gem": 1
+    },
+    "surface": ["United States", "Japan", "Canada"],
+    "pageviews": 0,
+    "sitelinks": 39,
+    "wikidata": 0,
+    "aliases": 46,
+    "too_clever": [],
+    "gem": "Liechtenstein",
+    "theme": "geography",
+    "cluster": "moscow-1980-boycott",
+    "constrained": true
+  },
+  {
+    "id": "olympic-capitals",
+    "text": "Name a present-day national capital that has hosted the Summer or Winter Olympics.",
+    "active": true,
+    "size": 15,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 5,
+      "rare": 3,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Paris", "London", "Tokyo"],
+    "pageviews": 0,
+    "sitelinks": 15,
+    "wikidata": 0,
+    "aliases": 8,
+    "too_clever": ["Stockholm"],
+    "gem": "Sarajevo",
+    "theme": "geography",
+    "cluster": "olympic-capitals",
+    "constrained": true
+  },
+  {
+    "id": "enable-greek-hidden",
+    "text": "Name a familiar 4–12-letter word containing a three-letter Greek letter name.",
+    "active": true,
+    "size": 198,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 87,
+      "rare": 58,
+      "deep": 48,
+      "gem": 1
+    },
+    "surface": ["metal", "restaurant", "chicken"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": ["epsilon"],
+    "gem": "rhododendron",
+    "theme": "words",
+    "cluster": "enable-patterns",
+    "constrained": true
+  },
+  {
+    "id": "enable-qwerty-top-row",
+    "text": "Name a familiar 4–12-letter word on QWERTY’s top letter row, allowing plurals.",
+    "active": true,
+    "size": 146,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 64,
+      "rare": 42,
+      "deep": 35,
+      "gem": 1
+    },
+    "surface": ["power", "pretty", "type"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 0,
+    "too_clever": ["typewriter"],
+    "gem": "perpetuity",
+    "theme": "words",
+    "cluster": "enable-patterns",
+    "constrained": true
+  },
+  {
+    "id": "english-eurovision-countries",
+    "text": "Name a country that won Eurovision with English lyrics, in whole or in part.",
+    "active": true,
+    "size": 19,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 7,
+      "rare": 4,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["United Kingdom", "Sweden", "Ireland"],
+    "pageviews": 0,
+    "sitelinks": 15,
+    "wikidata": 0,
+    "aliases": 27,
+    "too_clever": ["Ukraine"],
+    "gem": "Azerbaijan",
+    "theme": "geography",
+    "cluster": "english-eurovision-countries",
     "constrained": true
   }
 ]

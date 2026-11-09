@@ -85,7 +85,12 @@ class SpecsTest(unittest.TestCase):
                                   'b-vitamins', 'period-4-elements', 'period-5-elements',
                                   'period-6-elements', 'period-7-elements',
                                   'astronaut-group-2', 'astronaut-group-3', 'astronaut-group-5',
-                                  'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
+                                  'iba-unforgettables', 'iba-contemporary', 'iba-new-era',
+                                  'africa-countries', 'asia-countries', 'europe-countries',
+                                  'south-america-countries', 'oceania-countries', 'africa-capitals',
+                                  'asia-capitals', 'europe-capitals', 'americas-capitals',
+                                  'canada-provinces', 'australia-states-territories',
+                                  'landlocked-countries', 'greek-letters', 'nato-alphabet'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
         self.assertEqual(sum(p['active'] for p in prompts), 320)
@@ -97,7 +102,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 371)
+        self.assertEqual(len(prompts), 385)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
@@ -128,6 +133,66 @@ class SpecsTest(unittest.TestCase):
         for name, variant in [('Mustard', 'djmustard'), ('H.E.R.', 'gabriellawilson'),
                               ('Justin Timberlake', 'timberlake')]:
             self.assertIn(variant, {a.lower().replace(' ', '') for a in aliases.get(name, [])})
+
+    def test_plain_list_swaps_and_word_pattern_boundaries(self):
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        specs = {p['id']: p for p in document['prompts']}
+        retired = ['africa-countries', 'asia-countries', 'europe-countries', 'south-america-countries',
+                   'oceania-countries', 'africa-capitals', 'asia-capitals', 'europe-capitals',
+                   'americas-capitals', 'canada-provinces', 'australia-states-territories',
+                   'landlocked-countries', 'greek-letters', 'nato-alphabet']
+        self.assertTrue(all(not specs[id]['active'] for id in retired))
+        ids = ['borders-germany', 'borders-dr-congo', 'borders-austria', 'borders-zambia',
+               'high-capitals', 'drive-left-countries', 'crescent-flags', 'multi-zone-countries',
+               'countries-peaks-5000', 'moscow-1980-boycott', 'olympic-capitals',
+               'english-eurovision-countries', 'enable-greek-hidden', 'enable-qwerty-top-row']
+        self.assertEqual([specs[id]['theme'] for id in ids].count('geography'), 12)
+        self.assertEqual([specs[id]['theme'] for id in ids].count('words'), 2)
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        def names(id):
+            return {r['name'] for r in prompts[id]['rows']}
+        for id in ids:
+            self.assertTrue(specs[id]['active'])
+            self.assertEqual(specs[id]['expect'], [len(names(id))] * 2)
+            self.assertLessEqual(len(names(id)), 430)
+            self.assertTrue(specs[id]['sources'])
+            self.assertTrue(all(s['revision'] and s['expect'] for s in specs[id]['sources']))
+        self.assertEqual(len(names('high-capitals')), 9)
+        self.assertIn('Sucre', names('high-capitals'))
+        self.assertNotIn('Kabul', names('high-capitals'))
+        self.assertEqual(len(names('drive-left-countries')), 54)
+        self.assertNotIn('Hong Kong', names('drive-left-countries'))
+        self.assertNotIn('United States', names('drive-left-countries'))
+        self.assertEqual(len(names('crescent-flags')), 19)
+        self.assertTrue({'Iran', 'Brunei', 'Nepal', 'Moldova'} <= names('crescent-flags'))
+        self.assertNotIn('Western Sahara', names('crescent-flags'))
+        self.assertEqual(len(names('multi-zone-countries')), 22)
+        self.assertTrue({'South Africa', 'Denmark'} <= names('multi-zone-countries'))
+        self.assertTrue({'China', 'Kazakhstan', 'Greenland'}.isdisjoint(names('multi-zone-countries')))
+        self.assertEqual(len(names('countries-peaks-5000')), 27)
+        self.assertTrue({'Indonesia', 'Venezuela'}.isdisjoint(names('countries-peaks-5000')))
+        self.assertEqual(len(names('olympic-capitals')), 15)
+        self.assertTrue({'Sarajevo', 'Stockholm'} <= names('olympic-capitals'))
+        self.assertNotIn('Singapore', names('olympic-capitals'))
+        self.assertEqual(len(names('moscow-1980-boycott')), 68)
+        self.assertIn('West Germany', names('moscow-1980-boycott'))
+        self.assertTrue({'East Germany', 'New Zealand'}.isdisjoint(names('moscow-1980-boycott')))
+        self.assertEqual(len(names('english-eurovision-countries')), 19)
+        self.assertIn('Ukraine', names('english-eurovision-countries'))
+        self.assertTrue({'West Germany', 'Serbia'}.isdisjoint(names('english-eurovision-countries')))
+        for id in ['enable-greek-hidden', 'enable-qwerty-top-row']:
+            spec = specs[id]
+            excluded = {constrained.normalize(w) for w in spec['editorial_exclusions']}
+            for row in spec['answers']:
+                self.assertTrue(4 <= len(row['name']) <= 12)
+                self.assertNotIn(constrained.normalize(row['name']), excluded)
+                if id == 'enable-greek-hidden':
+                    for word in [row['name'], *row.get('aliases', [])]:
+                        self.assertTrue(any(n in word for n in ['eta', 'rho', 'tau', 'phi', 'chi', 'psi']))
+                else:
+                    self.assertLessEqual(set(row['name']), set('qwertyuiop'))
+                    self.assertTrue(all(constrained.normalize(a) == constrained.normalize(row['name'])
+                                        for a in row.get('aliases', [])))
 
     def test_second_batch_word_patterns_and_editorial_boundaries(self):
         document = json.loads((Path(__file__).parent / 'constrained.json').read_text())

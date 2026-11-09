@@ -132,3 +132,24 @@ node --test scripts/dive/recall.test.mjs
 All 29 selected prompts have at least 25 frozen guesses and 100% exact valid-guess
 recall. The Node regression also rejects all reviewed nonmembers. The historical
 corpus remains unmodified. Displaced broad data stay loadable for legacy dates.
+
+## Plain-list swaps (batch 5)
+
+Only the 14 S1-flagged prompts are retired in this batch; 12 geography and two
+word-pattern prompts replace them. The five `batch-5-*-raw.json`/`batch-5-raw.json`
+files preserve pre-source brainstorms, including six rejected candidates.
+`batch-5-selected.json` retains every selected guess in its original order,
+except the second identical `Czech Republic` in the Austria brainstorm. All 14
+selected brainstorms still contain at least 25 distinct submissions.
+
+`batch-5-audit.json` records frozen hashes, exact results before/after the alias
+review, sizes, tiers, aliases and standalone gzip. Before/after share the same
+reviewed denominator; the initial result uses the same sourced canonical sets
+before adding reviewed spelling/formal-name aliases. One valid Greek-pattern
+guess remains a miss because of an explicit ethnic-slur editorial exclusion;
+it is not falsely marked invalid. See `batch-5-review.md` for source scopes.
+
+The ordinary `node scripts/dive/recall.mjs` command includes all five replacement
+batches and the supplemental Pixar corpus. Retired prompts stay in historical
+corpora but are excluded from post-cutover cycle rates. No legacy source or
+data module is removed. The wider plain-language scan is deferred.

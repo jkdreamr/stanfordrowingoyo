@@ -11340,7 +11340,8 @@
       ],
       "expect": [24, 24],
       "surface": ["alpha", "beta", "gamma"],
-      "pearl": "omega"
+      "pearl": "omega",
+      "active": false
     },
     {
       "id": "nato-alphabet",
@@ -11472,7 +11473,8 @@
       ],
       "expect": [26, 26],
       "surface": ["Alfa", "Bravo", "Charlie"],
-      "pearl": "Whiskey"
+      "pearl": "Whiskey",
+      "active": false
     },
     {
       "id": "lanthanides",
@@ -14569,7 +14571,8 @@
       ],
       "surface": ["Ontario", "Quebec", "British Columbia"],
       "pearl": "Yukon",
-      "people": false
+      "people": false,
+      "active": false
     },
     {
       "id": "german-states",
@@ -22025,7 +22028,8 @@
       "surface": ["Switzerland", "Mongolia", "Bolivia"],
       "pearl": "Lesotho",
       "people": false,
-      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states."
+      "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
+      "active": false
     },
     {
       "id": "africa-landlocked",
@@ -22389,7 +22393,8 @@
       "pearl": "Madagascar",
       "people": false,
       "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
-      "acceptance_notes": "a country in Africa (partially recognised states count)"
+      "acceptance_notes": "a country in Africa (partially recognised states count)",
+      "active": false
     },
     {
       "id": "asia-countries",
@@ -22660,7 +22665,8 @@
       "pearl": "Bhutan",
       "people": false,
       "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
-      "acceptance_notes": "a country in Asia (transcontinental and partially recognised states count)"
+      "acceptance_notes": "a country in Asia (transcontinental and partially recognised states count)",
+      "active": false
     },
     {
       "id": "europe-countries",
@@ -22943,7 +22949,8 @@
       "pearl": "Iceland",
       "people": false,
       "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
-      "acceptance_notes": "a country in Europe (transcontinental and partially recognised states count)"
+      "acceptance_notes": "a country in Europe (transcontinental and partially recognised states count)",
+      "active": false
     },
     {
       "id": "oceania-countries",
@@ -23037,7 +23044,8 @@
       "pearl": "Kiribati",
       "people": false,
       "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
-      "acceptance_notes": "a country in Oceania (Cook Islands and Niue count)"
+      "acceptance_notes": "a country in Oceania (Cook Islands and Niue count)",
+      "active": false
     },
     {
       "id": "island-countries",
@@ -23371,7 +23379,8 @@
       ],
       "surface": ["Brazil", "Argentina", "Chile"],
       "pearl": "Suriname",
-      "people": false
+      "people": false,
+      "active": false
     },
     {
       "id": "borders-china",
@@ -33997,7 +34006,8 @@
       "pearl": "Antananarivo",
       "people": false,
       "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded.",
-      "acceptance_notes": "a capital city in Africa (multiple capitals and disputed states count)"
+      "acceptance_notes": "a capital city in Africa (multiple capitals and disputed states count)",
+      "active": false
     },
     {
       "id": "human-vitamins",
@@ -35526,7 +35536,8 @@
       "pearl": "Thimphu",
       "people": false,
       "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded.",
-      "acceptance_notes": "a capital city in Asia (multiple capitals and disputed states count)"
+      "acceptance_notes": "a capital city in Asia (multiple capitals and disputed states count)",
+      "active": false
     },
     {
       "id": "europe-capitals",
@@ -35807,7 +35818,8 @@
       "pearl": "Reykjavík",
       "people": false,
       "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded.",
-      "acceptance_notes": "a capital city in Europe (multiple capitals and disputed states count)"
+      "acceptance_notes": "a capital city in Europe (multiple capitals and disputed states count)",
+      "active": false
     },
     {
       "id": "states-border-canada",
@@ -36613,7 +36625,8 @@
       "surface": ["Washington, D.C", "Ottawa", "Buenos Aires"],
       "pearl": "Paramaribo",
       "people": false,
-      "acceptance_notes": "a national capital in North or South America (multiple capitals count)"
+      "acceptance_notes": "a national capital in North or South America (multiple capitals count)",
+      "active": false
     },
     {
       "id": "birthstones",
@@ -39345,7 +39358,8 @@
       "surface": ["New South Wales", "Queensland", "Victoria"],
       "pearl": "Norfolk Island",
       "people": false,
-      "review": "All six states, three internal territories (including Jervis Bay) and seven external territories. Former territories in subsequent tables are excluded; standard abbreviations and island short names are accepted."
+      "review": "All six states, three internal territories (including Jervis Bay) and seven external territories. Former territories in subsequent tables are excluded; standard abbreviations and island short names are accepted.",
+      "active": false
     },
     {
       "id": "new-zealand-regions",
@@ -70451,6 +70465,3645 @@
       "too_clever": ["WALL-E"],
       "pearl": "Onward",
       "scope": "All released Pixar features whose official English title is one whitespace-separated word; WALL-E counts as one hyphenated word, and articles count as words. Includes Disney+-first features, not unreleased announcements. Distinct from pixar-films because multiword titles such as Toy Story, Finding Nemo and Inside Out do not qualify."
+    },
+    {
+      "id": "borders-germany",
+      "text": "a country with a land border with Germany",
+      "theme": "geography",
+      "cluster": "borders-germany",
+      "active": true,
+      "sources": [
+        {
+          "page": "Germany",
+          "revision": 1383879332,
+          "members": [
+            "Austria",
+            "Belgium",
+            "Czech Republic",
+            "Denmark",
+            "France",
+            "Luxembourg",
+            "Netherlands",
+            "Poland",
+            "Switzerland"
+          ],
+          "expect": [9, 9],
+          "reviewed": [
+            "Austria",
+            "Belgium",
+            "Czech Republic",
+            "Denmark",
+            "France",
+            "Luxembourg",
+            "Netherlands",
+            "Poland",
+            "Switzerland"
+          ],
+          "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "Austria",
+          "aliases": ["Österreich", "Oesterreich", "Republic of Austria"],
+          "names": []
+        },
+        {
+          "name": "Belgium",
+          "aliases": ["België", "Belgique", "Belgien", "Kingdom of Belgium"],
+          "names": []
+        },
+        {
+          "name": "Czech Republic",
+          "aliases": ["Czechia", "Česko"],
+          "names": ["Czechia"]
+        },
+        {
+          "name": "Denmark",
+          "aliases": ["Kingdom of Denmark"],
+          "names": []
+        },
+        {
+          "name": "France",
+          "aliases": ["French Republic"],
+          "names": []
+        },
+        {
+          "name": "Luxembourg",
+          "aliases": ["Luxemburg", "Lëtzebuerg", "Grand Duchy of Luxembourg"],
+          "names": []
+        },
+        {
+          "name": "Netherlands",
+          "aliases": ["Holland", "Kingdom of the Netherlands"],
+          "names": ["Holland"]
+        },
+        {
+          "name": "Poland",
+          "aliases": ["Republic of Poland"],
+          "names": []
+        },
+        {
+          "name": "Switzerland",
+          "aliases": ["Schweiz", "Suisse", "Svizzera", "Svizra", "Swiss Confederation"],
+          "names": []
+        }
+      ],
+      "surface": ["France", "Poland"],
+      "pearl": "Luxembourg",
+      "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+    },
+    {
+      "id": "borders-dr-congo",
+      "text": "a country with a land border with the Democratic Republic of the Congo",
+      "theme": "geography",
+      "cluster": "borders-dr-congo",
+      "active": true,
+      "sources": [
+        {
+          "page": "Democratic Republic of the Congo",
+          "revision": 1384529201,
+          "members": [
+            "Angola",
+            "Burundi",
+            "Central African Republic",
+            "Republic of the Congo",
+            "Rwanda",
+            "South Sudan",
+            "Tanzania",
+            "Uganda",
+            "Zambia"
+          ],
+          "expect": [9, 9],
+          "reviewed": [
+            "Angola",
+            "Burundi",
+            "Central African Republic",
+            "Republic of the Congo",
+            "Rwanda",
+            "South Sudan",
+            "Tanzania",
+            "Uganda",
+            "Zambia"
+          ],
+          "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "Angola",
+          "aliases": ["Republic of Angola"],
+          "names": []
+        },
+        {
+          "name": "Burundi",
+          "aliases": ["Republic of Burundi"],
+          "names": []
+        },
+        {
+          "name": "Central African Republic",
+          "aliases": ["CAR", "Central Africa Republic"],
+          "names": []
+        },
+        {
+          "name": "Republic of the Congo",
+          "aliases": ["Congo", "Congo Brazzaville", "Republic of Congo"],
+          "names": ["Congo", "Congo Brazzaville"]
+        },
+        {
+          "name": "Rwanda",
+          "aliases": ["Republic of Rwanda"],
+          "names": []
+        },
+        {
+          "name": "South Sudan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Tanzania",
+          "aliases": ["United Republic of Tanzania"],
+          "names": []
+        },
+        {
+          "name": "Uganda",
+          "aliases": ["Republic of Uganda"],
+          "names": []
+        },
+        {
+          "name": "Zambia",
+          "aliases": ["Republic of Zambia"],
+          "names": []
+        }
+      ],
+      "surface": ["Angola", "Zambia"],
+      "pearl": "Central African Republic",
+      "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+    },
+    {
+      "id": "borders-austria",
+      "text": "a country with a land border with Austria",
+      "theme": "geography",
+      "cluster": "borders-austria",
+      "active": true,
+      "sources": [
+        {
+          "page": "Austria",
+          "revision": 1384573482,
+          "members": [
+            "Czech Republic",
+            "Germany",
+            "Hungary",
+            "Italy",
+            "Liechtenstein",
+            "Slovakia",
+            "Slovenia",
+            "Switzerland"
+          ],
+          "expect": [8, 8],
+          "reviewed": [
+            "Czech Republic",
+            "Germany",
+            "Hungary",
+            "Italy",
+            "Liechtenstein",
+            "Slovakia",
+            "Slovenia",
+            "Switzerland"
+          ],
+          "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+        }
+      ],
+      "expect": [8, 8],
+      "answers": [
+        {
+          "name": "Czech Republic",
+          "aliases": ["Czechia", "Česko"],
+          "names": ["Czechia"]
+        },
+        {
+          "name": "Germany",
+          "aliases": ["Federal Republic of Germany", "German Federal Republic"],
+          "names": []
+        },
+        {
+          "name": "Hungary",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Italy",
+          "aliases": ["Italia", "Italian Republic"],
+          "names": []
+        },
+        {
+          "name": "Liechtenstein",
+          "aliases": ["Principality of Liechtenstein"],
+          "names": []
+        },
+        {
+          "name": "Slovakia",
+          "aliases": ["Slovak Republic", "Slovensko"],
+          "names": []
+        },
+        {
+          "name": "Slovenia",
+          "aliases": ["Slovenija", "Republic of Slovenia"],
+          "names": []
+        },
+        {
+          "name": "Switzerland",
+          "aliases": ["Schweiz", "Suisse", "Svizzera", "Svizra", "Swiss Confederation"],
+          "names": []
+        }
+      ],
+      "surface": ["Germany"],
+      "pearl": "Liechtenstein",
+      "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+    },
+    {
+      "id": "borders-zambia",
+      "text": "a country with a land border with Zambia",
+      "theme": "geography",
+      "cluster": "borders-zambia",
+      "active": true,
+      "sources": [
+        {
+          "page": "Zambia",
+          "revision": 1384540213,
+          "members": [
+            "Angola",
+            "Botswana",
+            "Democratic Republic of the Congo",
+            "Malawi",
+            "Mozambique",
+            "Namibia",
+            "Tanzania",
+            "Zimbabwe"
+          ],
+          "expect": [8, 8],
+          "reviewed": [
+            "Angola",
+            "Botswana",
+            "Democratic Republic of the Congo",
+            "Malawi",
+            "Mozambique",
+            "Namibia",
+            "Tanzania",
+            "Zimbabwe"
+          ],
+          "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+        }
+      ],
+      "expect": [8, 8],
+      "answers": [
+        {
+          "name": "Angola",
+          "aliases": ["Republic of Angola"],
+          "names": []
+        },
+        {
+          "name": "Botswana",
+          "aliases": ["Republic of Botswana"],
+          "names": []
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire", "Democratic Republic of Congo"],
+          "names": ["DR Congo", "Congo Kinshasa", "Zaire"]
+        },
+        {
+          "name": "Malawi",
+          "aliases": ["Republic of Malawi"],
+          "names": []
+        },
+        {
+          "name": "Mozambique",
+          "aliases": ["Republic of Mozambique"],
+          "names": []
+        },
+        {
+          "name": "Namibia",
+          "aliases": ["Republic of Namibia"],
+          "names": []
+        },
+        {
+          "name": "Tanzania",
+          "aliases": ["United Republic of Tanzania"],
+          "names": []
+        },
+        {
+          "name": "Zimbabwe",
+          "aliases": ["Republic of Zimbabwe"],
+          "names": []
+        }
+      ],
+      "surface": ["Zimbabwe"],
+      "pearl": "Botswana",
+      "review": "Reviewed the complete geographic neighbour enumeration, including borders along rivers and lakes. No maritime-only neighbours or disputed historical claims."
+    },
+    {
+      "id": "high-capitals",
+      "text": "a national capital more than 2,000 metres above sea level",
+      "theme": "geography",
+      "cluster": "high-capitals",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of capital cities by elevation",
+          "revision": 1378836165,
+          "members": [
+            "Addis Ababa",
+            "Asmara",
+            "Bogotá",
+            "La Paz",
+            "Mexico City",
+            "Quito",
+            "Sanaa",
+            "Sucre",
+            "Thimphu"
+          ],
+          "expect": [9, 9],
+          "reviewed": [
+            "Addis Ababa",
+            "Asmara",
+            "Bogotá",
+            "La Paz",
+            "Mexico City",
+            "Quito",
+            "Sanaa",
+            "Sucre",
+            "Thimphu"
+          ],
+          "review": "Complete sovereign-state capital table filtered at elevation strictly above 2,000 metres. Both La Paz and Sucre count; no dependent territories, provincial capitals or disputed-state table."
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "La Paz"
+        },
+        {
+          "name": "Quito"
+        },
+        {
+          "name": "Sucre"
+        },
+        {
+          "name": "Bogotá"
+        },
+        {
+          "name": "Addis Ababa"
+        },
+        {
+          "name": "Thimphu"
+        },
+        {
+          "name": "Asmara"
+        },
+        {
+          "name": "Sanaa"
+        },
+        {
+          "name": "Mexico City",
+          "aliases": ["Ciudad de Mexico", "CDMX"]
+        }
+      ],
+      "surface": ["Quito", "Mexico City"],
+      "pearl": "Thimphu",
+      "review": "Complete sovereign-state capital table filtered at elevation strictly above 2,000 metres. Both La Paz and Sucre count; no dependent territories, provincial capitals or disputed-state table."
+    },
+    {
+      "id": "drive-left-countries",
+      "text": "a UN member country where road traffic normally drives on the left",
+      "theme": "geography",
+      "cluster": "drive-left-countries",
+      "active": true,
+      "sources": [
+        {
+          "page": "Left- and right-hand traffic",
+          "revision": 1384515038,
+          "members": [
+            "Antigua and Barbuda",
+            "Australia",
+            "Bahamas",
+            "Bangladesh",
+            "Barbados",
+            "Bhutan",
+            "Botswana",
+            "Brunei",
+            "Cyprus",
+            "Dominica",
+            "Eswatini",
+            "Fiji",
+            "Grenada",
+            "Guyana",
+            "India",
+            "Indonesia",
+            "Ireland",
+            "Jamaica",
+            "Japan",
+            "Kenya",
+            "Kiribati",
+            "Lesotho",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Malta",
+            "Mauritius",
+            "Mozambique",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "New Zealand",
+            "Pakistan",
+            "Papua New Guinea",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "Seychelles",
+            "Singapore",
+            "Solomon Islands",
+            "South Africa",
+            "Sri Lanka",
+            "Suriname",
+            "Tanzania",
+            "Thailand",
+            "Timor-Leste",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tuvalu",
+            "Uganda",
+            "United Kingdom proper",
+            "Zambia",
+            "Zimbabwe"
+          ],
+          "expect": [54, 54],
+          "reviewed": [
+            "Antigua and Barbuda",
+            "Australia",
+            "Bahamas",
+            "Bangladesh",
+            "Barbados",
+            "Bhutan",
+            "Botswana",
+            "Brunei",
+            "Cyprus",
+            "Dominica",
+            "Eswatini",
+            "Fiji",
+            "Grenada",
+            "Guyana",
+            "India",
+            "Indonesia",
+            "Ireland",
+            "Jamaica",
+            "Japan",
+            "Kenya",
+            "Kiribati",
+            "Lesotho",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Malta",
+            "Mauritius",
+            "Mozambique",
+            "Namibia",
+            "Nauru",
+            "Nepal",
+            "New Zealand",
+            "Pakistan",
+            "Papua New Guinea",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "Seychelles",
+            "Singapore",
+            "Solomon Islands",
+            "South Africa",
+            "Sri Lanka",
+            "Suriname",
+            "Tanzania",
+            "Thailand",
+            "Timor-Leste",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tuvalu",
+            "Uganda",
+            "United Kingdom proper",
+            "Zambia",
+            "Zimbabwe"
+          ],
+          "review": "Complete current road-traffic table, left-hand-traffic rows for sovereign UN member states themselves. Dependencies and isolated exceptions do not make a right-driving country qualify."
+        }
+      ],
+      "expect": [54, 54],
+      "answers": [
+        {
+          "name": "Antigua and Barbuda",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Australia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bahamas",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bangladesh",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Barbados",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bhutan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Botswana",
+          "aliases": ["Republic of Botswana"],
+          "names": []
+        },
+        {
+          "name": "Brunei",
+          "aliases": ["Brunei Darussalam"],
+          "names": []
+        },
+        {
+          "name": "Cyprus",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Dominica",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Eswatini",
+          "aliases": ["Swaziland", "Kingdom of Eswatini"],
+          "names": ["Swaziland"]
+        },
+        {
+          "name": "Fiji",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Grenada",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Guyana",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "India",
+          "aliases": ["Republic of India", "Bharat"],
+          "names": []
+        },
+        {
+          "name": "Indonesia",
+          "aliases": ["Republic of Indonesia"],
+          "names": []
+        },
+        {
+          "name": "Ireland",
+          "aliases": ["Éire", "Republic of Ireland"],
+          "names": []
+        },
+        {
+          "name": "Jamaica",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Japan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Kenya",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Kiribati",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Lesotho",
+          "aliases": ["Kingdom of Lesotho"],
+          "names": []
+        },
+        {
+          "name": "Malawi",
+          "aliases": ["Republic of Malawi"],
+          "names": []
+        },
+        {
+          "name": "Malaysia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Maldives",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Malta",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Mauritius",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Mozambique",
+          "aliases": ["Republic of Mozambique"],
+          "names": []
+        },
+        {
+          "name": "Namibia",
+          "aliases": ["Republic of Namibia"],
+          "names": []
+        },
+        {
+          "name": "Nauru",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Nepal",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "New Zealand",
+          "aliases": ["NZ", "Aotearoa"],
+          "names": []
+        },
+        {
+          "name": "Pakistan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Papua New Guinea",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Saint Kitts and Nevis",
+          "aliases": ["St Kitts and Nevis"],
+          "names": []
+        },
+        {
+          "name": "Saint Lucia",
+          "aliases": ["St Lucia"],
+          "names": []
+        },
+        {
+          "name": "Saint Vincent and the Grenadines",
+          "aliases": ["St Vincent and the Grenadines"],
+          "names": []
+        },
+        {
+          "name": "Samoa",
+          "aliases": ["Western Samoa"],
+          "names": []
+        },
+        {
+          "name": "Seychelles",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Singapore",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Solomon Islands",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "South Africa",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Sri Lanka",
+          "aliases": ["Ceylon"],
+          "names": []
+        },
+        {
+          "name": "Suriname",
+          "aliases": ["Surinam", "Republic of Suriname"],
+          "names": []
+        },
+        {
+          "name": "Tanzania",
+          "aliases": ["United Republic of Tanzania"],
+          "names": []
+        },
+        {
+          "name": "Thailand",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Timor-Leste",
+          "aliases": ["East Timor"],
+          "names": ["East Timor"]
+        },
+        {
+          "name": "Tonga",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Trinidad and Tobago",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Tuvalu",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Uganda",
+          "aliases": ["Republic of Uganda"],
+          "names": []
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"],
+          "names": ["Britain", "Great Britain"]
+        },
+        {
+          "name": "Zambia",
+          "aliases": ["Republic of Zambia"],
+          "names": []
+        },
+        {
+          "name": "Zimbabwe",
+          "aliases": ["Republic of Zimbabwe"],
+          "names": []
+        }
+      ],
+      "surface": ["United Kingdom", "Japan", "Australia"],
+      "pearl": "Suriname",
+      "review": "Complete current road-traffic table, left-hand-traffic rows for sovereign UN member states themselves. Dependencies and isolated exceptions do not make a right-driving country qualify.",
+      "too_clever": ["Samoa"]
+    },
+    {
+      "id": "crescent-flags",
+      "text": "a UN member country whose national flag contains a crescent",
+      "theme": "geography",
+      "cluster": "crescent-flags",
+      "active": true,
+      "sources": [
+        {
+          "page": "Star and crescent",
+          "revision": 1380100644,
+          "members": [
+            "Algeria",
+            "Azerbaijan",
+            "Comoros",
+            "Croatia",
+            "Libya",
+            "Malaysia",
+            "Mauritania",
+            "Moldova",
+            "Nepal",
+            "Pakistan",
+            "Singapore",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Uzbekistan"
+          ],
+          "expect": [15, 15],
+          "reviewed": [
+            "Algeria",
+            "Azerbaijan",
+            "Comoros",
+            "Croatia",
+            "Libya",
+            "Malaysia",
+            "Mauritania",
+            "Moldova",
+            "Nepal",
+            "Pakistan",
+            "Singapore",
+            "Tunisia",
+            "Turkey",
+            "Turkmenistan",
+            "Uzbekistan"
+          ],
+          "review": "Reviewed current UN-member national flags for a visible crescent, including crescents within the coat of arms/emblem and stylised moon symbols. Includes Iran, Brunei, Mongolia, Nepal, Croatia and Moldova. Full moons/discs alone do not count; dependent/disputed states and historical flags are excluded."
+        },
+        {
+          "page": "Crescent",
+          "revision": 1382950280,
+          "members": ["Maldives"],
+          "expect": [1, 1],
+          "reviewed": ["Maldives"],
+          "review": "Reviewed current UN-member national flags for a visible crescent, including crescents within the coat of arms/emblem and stylised moon symbols. Includes Iran, Brunei, Mongolia, Nepal, Croatia and Moldova. Full moons/discs alone do not count; dependent/disputed states and historical flags are excluded."
+        },
+        {
+          "page": "Flag of Iran",
+          "revision": 1381398178,
+          "members": ["Iran"],
+          "expect": [1, 1],
+          "reviewed": ["Iran"],
+          "review": "Reviewed current UN-member national flags for a visible crescent, including crescents within the coat of arms/emblem and stylised moon symbols. Includes Iran, Brunei, Mongolia, Nepal, Croatia and Moldova. Full moons/discs alone do not count; dependent/disputed states and historical flags are excluded."
+        },
+        {
+          "page": "Flag of Brunei",
+          "revision": 1374735358,
+          "members": ["Brunei"],
+          "expect": [1, 1],
+          "reviewed": ["Brunei"],
+          "review": "Reviewed current UN-member national flags for a visible crescent, including crescents within the coat of arms/emblem and stylised moon symbols. Includes Iran, Brunei, Mongolia, Nepal, Croatia and Moldova. Full moons/discs alone do not count; dependent/disputed states and historical flags are excluded."
+        },
+        {
+          "page": "Flag of Mongolia",
+          "revision": 1375778602,
+          "members": ["Mongolia"],
+          "expect": [1, 1],
+          "reviewed": ["Mongolia"],
+          "review": "Reviewed current UN-member national flags for a visible crescent, including crescents within the coat of arms/emblem and stylised moon symbols. Includes Iran, Brunei, Mongolia, Nepal, Croatia and Moldova. Full moons/discs alone do not count; dependent/disputed states and historical flags are excluded."
+        }
+      ],
+      "expect": [19, 19],
+      "answers": [
+        {
+          "name": "Algeria",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Azerbaijan",
+          "aliases": ["Republic of Azerbaijan", "Azerbaijan Republic"],
+          "names": []
+        },
+        {
+          "name": "Brunei",
+          "aliases": ["Brunei Darussalam"],
+          "names": []
+        },
+        {
+          "name": "Comoros",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Croatia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Iran",
+          "aliases": ["Islamic Republic of Iran", "Persia"],
+          "names": ["Persia"]
+        },
+        {
+          "name": "Libya",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Malaysia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Maldives",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Mauritania",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Moldova",
+          "aliases": ["Moldavia", "Republic of Moldova"],
+          "names": ["Moldavia"]
+        },
+        {
+          "name": "Mongolia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Nepal",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Pakistan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Singapore",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Tunisia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Turkey",
+          "aliases": ["Türkiye", "Republic of Turkey"],
+          "names": ["Türkiye", "Turkiye"]
+        },
+        {
+          "name": "Turkmenistan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Uzbekistan",
+          "aliases": ["Republic of Uzbekistan"],
+          "names": []
+        }
+      ],
+      "surface": ["Turkey", "Pakistan", "Malaysia"],
+      "pearl": "Croatia",
+      "review": "Reviewed current UN-member national flags for a visible crescent, including crescents within the coat of arms/emblem and stylised moon symbols. Includes Iran, Brunei, Mongolia, Nepal, Croatia and Moldova. Full moons/discs alone do not count; dependent/disputed states and historical flags are excluded.",
+      "too_clever": ["Nepal"]
+    },
+    {
+      "id": "multi-zone-countries",
+      "text": "a country using multiple standard time zones, including overseas territory",
+      "theme": "geography",
+      "cluster": "multi-zone-countries",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of time zones by country",
+          "revision": 1383779613,
+          "members": [
+            "Australia",
+            "Brazil",
+            "Canada",
+            "Chile",
+            "Democratic Republic of the Congo",
+            "Denmark",
+            "Ecuador",
+            "Federated States of Micronesia",
+            "France",
+            "Indonesia",
+            "Kingdom of the Netherlands",
+            "Kiribati",
+            "Mexico",
+            "Mongolia",
+            "New Zealand",
+            "Papua New Guinea",
+            "Portugal",
+            "Russia",
+            "South Africa",
+            "Spain",
+            "United Kingdom",
+            "United States"
+          ],
+          "expect": [22, 22],
+          "reviewed": [
+            "Australia",
+            "Brazil",
+            "Canada",
+            "Chile",
+            "Democratic Republic of the Congo",
+            "Denmark",
+            "Ecuador",
+            "Federated States of Micronesia",
+            "France",
+            "Indonesia",
+            "Kingdom of the Netherlands",
+            "Kiribati",
+            "Mexico",
+            "Mongolia",
+            "New Zealand",
+            "Papua New Guinea",
+            "Portugal",
+            "Russia",
+            "South Africa",
+            "Spain",
+            "United Kingdom",
+            "United States"
+          ],
+          "review": "Complete country table filtered by more than one standard time zone, including overseas dependencies and uninhabited territory; not the seasonal switching of one zone for daylight saving. Antarctica is not a country. Kazakhstan now uses one standard zone."
+        }
+      ],
+      "expect": [22, 22],
+      "answers": [
+        {
+          "name": "France",
+          "aliases": ["French Republic"],
+          "names": []
+        },
+        {
+          "name": "Russia",
+          "aliases": ["Russian Federation", "Rossiya"],
+          "names": []
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"],
+          "names": ["America"]
+        },
+        {
+          "name": "Australia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"],
+          "names": ["Britain", "Great Britain"]
+        },
+        {
+          "name": "Canada",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "New Zealand",
+          "aliases": ["NZ", "Aotearoa"],
+          "names": []
+        },
+        {
+          "name": "Brazil",
+          "aliases": ["Brasil", "Federative Republic of Brazil"],
+          "names": []
+        },
+        {
+          "name": "Denmark",
+          "aliases": ["Kingdom of Denmark"],
+          "names": []
+        },
+        {
+          "name": "Mexico",
+          "aliases": ["Mexican Republic", "United Mexican States"],
+          "names": []
+        },
+        {
+          "name": "Chile",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Indonesia",
+          "aliases": ["Republic of Indonesia"],
+          "names": []
+        },
+        {
+          "name": "Kiribati",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire", "Democratic Republic of Congo"],
+          "names": ["DR Congo", "Congo Kinshasa", "Zaire"]
+        },
+        {
+          "name": "Ecuador",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Micronesia",
+          "aliases": ["Federated States of Micronesia", "FSM"],
+          "names": ["Federated States of Micronesia"]
+        },
+        {
+          "name": "Netherlands",
+          "aliases": ["Holland", "Kingdom of the Netherlands"],
+          "names": ["Holland"]
+        },
+        {
+          "name": "Mongolia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Papua New Guinea",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Portugal",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "South Africa",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Spain",
+          "aliases": ["España", "Kingdom of Spain"],
+          "names": []
+        }
+      ],
+      "surface": ["Russia", "United States", "Canada"],
+      "pearl": "South Africa",
+      "review": "Complete country table filtered by more than one standard time zone, including overseas dependencies and uninhabited territory; not the seasonal switching of one zone for daylight saving. Antarctica is not a country. Kazakhstan now uses one standard zone."
+    },
+    {
+      "id": "countries-peaks-5000",
+      "text": "a country with a mountain summit higher than 5,000 metres",
+      "theme": "geography",
+      "cluster": "countries-peaks-5000",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of elevation extremes by country",
+          "revision": 1381548721,
+          "members": [
+            "Afghanistan",
+            "Argentina",
+            "Bhutan",
+            "Bolivia",
+            "Canada",
+            "Chile",
+            "China",
+            "Colombia",
+            "Democratic Republic of the Congo",
+            "Ecuador",
+            "Georgia",
+            "India",
+            "Iran",
+            "Kazakhstan",
+            "Kenya",
+            "Kyrgyzstan",
+            "Mexico",
+            "Myanmar",
+            "Nepal",
+            "Pakistan",
+            "Peru",
+            "Russia",
+            "Tajikistan",
+            "Tanzania",
+            "Turkey",
+            "Uganda",
+            "United States"
+          ],
+          "expect": [27, 27],
+          "reviewed": [
+            "Afghanistan",
+            "Argentina",
+            "Bhutan",
+            "Bolivia",
+            "Canada",
+            "Chile",
+            "China",
+            "Colombia",
+            "Democratic Republic of the Congo",
+            "Ecuador",
+            "Georgia",
+            "India",
+            "Iran",
+            "Kazakhstan",
+            "Kenya",
+            "Kyrgyzstan",
+            "Mexico",
+            "Myanmar",
+            "Nepal",
+            "Pakistan",
+            "Peru",
+            "Russia",
+            "Tajikistan",
+            "Tanzania",
+            "Turkey",
+            "Uganda",
+            "United States"
+          ],
+          "review": "Complete elevation-extremes table, sovereign states with a maximum elevation strictly greater than 5,000 metres. Shared summits count for each country. Excludes dependencies and the Earth summary row."
+        }
+      ],
+      "expect": [27, 27],
+      "answers": [
+        {
+          "name": "Afghanistan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bhutan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bolivia",
+          "aliases": ["Plurinational State of Bolivia"],
+          "names": []
+        },
+        {
+          "name": "Canada",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Chile",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "China",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Colombia",
+          "aliases": ["Republic of Colombia"],
+          "names": []
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire", "Democratic Republic of Congo"],
+          "names": ["DR Congo", "Congo Kinshasa", "Zaire"]
+        },
+        {
+          "name": "Ecuador",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Georgia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "India",
+          "aliases": ["Republic of India", "Bharat"],
+          "names": []
+        },
+        {
+          "name": "Iran",
+          "aliases": ["Islamic Republic of Iran", "Persia"],
+          "names": ["Persia"]
+        },
+        {
+          "name": "Kazakhstan",
+          "aliases": ["Kazakstan", "Kazakh Republic", "Republic of Kazakhstan"],
+          "names": []
+        },
+        {
+          "name": "Kenya",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Kyrgyzstan",
+          "aliases": ["Kirgizstan", "Kyrgyz Republic", "Kirghizia"],
+          "names": ["Kirghizia"]
+        },
+        {
+          "name": "Mexico",
+          "aliases": ["Mexican Republic", "United Mexican States"],
+          "names": []
+        },
+        {
+          "name": "Myanmar",
+          "aliases": ["Burma"],
+          "names": ["Burma"]
+        },
+        {
+          "name": "Nepal",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Pakistan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Peru",
+          "aliases": ["Republic of Peru"],
+          "names": []
+        },
+        {
+          "name": "Russia",
+          "aliases": ["Russian Federation", "Rossiya"],
+          "names": []
+        },
+        {
+          "name": "Tajikistan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Tanzania",
+          "aliases": ["United Republic of Tanzania"],
+          "names": []
+        },
+        {
+          "name": "Turkey",
+          "aliases": ["Türkiye", "Republic of Turkey"],
+          "names": ["Türkiye", "Turkiye"]
+        },
+        {
+          "name": "Uganda",
+          "aliases": ["Republic of Uganda"],
+          "names": []
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"],
+          "names": ["America"]
+        }
+      ],
+      "surface": ["Nepal", "China", "Pakistan"],
+      "pearl": "Uganda",
+      "review": "Complete elevation-extremes table, sovereign states with a maximum elevation strictly greater than 5,000 metres. Shared summits count for each country. Excludes dependencies and the Earth summary row."
+    },
+    {
+      "id": "moscow-1980-boycott",
+      "text": "an Olympic team that did not compete at the 1980 Moscow Summer Games",
+      "theme": "geography",
+      "cluster": "moscow-1980-boycott",
+      "active": true,
+      "sources": [
+        {
+          "page": "1980 Summer Olympics boycott",
+          "revision": 1384208051,
+          "members": [
+            "Albania",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belize",
+            "Bermuda",
+            "Bolivia",
+            "Canada",
+            "Cayman Islands",
+            "Central African Republic",
+            "Chad",
+            "Chile",
+            "China",
+            "Chinese Taipei ( Taiwan )",
+            "Egypt",
+            "El Salvador",
+            "Fiji",
+            "Gabon",
+            "Ghana",
+            "Haiti",
+            "Honduras",
+            "Hong Kong",
+            "Indonesia",
+            "Iran",
+            "Israel",
+            "Ivory Coast",
+            "Japan",
+            "Kenya",
+            "Liberia",
+            "Liechtenstein",
+            "Malawi",
+            "Malaysia",
+            "Mauritania",
+            "Mauritius",
+            "Monaco",
+            "Morocco",
+            "Netherlands Antilles",
+            "Niger",
+            "North Yemen",
+            "Norway",
+            "Pakistan",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Philippines",
+            "Qatar",
+            "Saudi Arabia",
+            "Singapore",
+            "Somalia",
+            "South Korea",
+            "Sudan",
+            "Suriname",
+            "Swaziland",
+            "Thailand",
+            "The Gambia",
+            "Togo",
+            "Tunisia",
+            "Turkey",
+            "United Arab Emirates",
+            "United States",
+            "Upper Volta",
+            "Uruguay",
+            "Virgin Islands",
+            "West Germany",
+            "Zaire"
+          ],
+          "expect": [68, 68],
+          "reviewed": [
+            "Albania",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Bahamas",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belize",
+            "Bermuda",
+            "Bolivia",
+            "Canada",
+            "Cayman Islands",
+            "Central African Republic",
+            "Chad",
+            "Chile",
+            "China",
+            "Chinese Taipei ( Taiwan )",
+            "Egypt",
+            "El Salvador",
+            "Fiji",
+            "Gabon",
+            "Ghana",
+            "Haiti",
+            "Honduras",
+            "Hong Kong",
+            "Indonesia",
+            "Iran",
+            "Israel",
+            "Ivory Coast",
+            "Japan",
+            "Kenya",
+            "Liberia",
+            "Liechtenstein",
+            "Malawi",
+            "Malaysia",
+            "Mauritania",
+            "Mauritius",
+            "Monaco",
+            "Morocco",
+            "Netherlands Antilles",
+            "Niger",
+            "North Yemen",
+            "Norway",
+            "Pakistan",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Philippines",
+            "Qatar",
+            "Saudi Arabia",
+            "Singapore",
+            "Somalia",
+            "South Korea",
+            "Sudan",
+            "Suriname",
+            "Swaziland",
+            "Thailand",
+            "The Gambia",
+            "Togo",
+            "Tunisia",
+            "Turkey",
+            "United Arab Emirates",
+            "United States",
+            "Upper Volta",
+            "Uruguay",
+            "Virgin Islands",
+            "West Germany",
+            "Zaire"
+          ],
+          "review": "Complete 68-team non-participating list, including territories and political/economic withdrawals, not only the US-led boycott. Those that competed under an Olympic/NOC flag are not absent. Taiwan, Albania and other exceptional withdrawal cases count. West Germany is distinct from participating East Germany."
+        }
+      ],
+      "expect": [68, 68],
+      "answers": [
+        {
+          "name": "Albania",
+          "aliases": ["Shqipëria"],
+          "names": []
+        },
+        {
+          "name": "Antigua and Barbuda",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Argentina",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bahamas",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bahrain",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bangladesh",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Barbados",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Belize",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Bermuda"
+        },
+        {
+          "name": "Bolivia",
+          "aliases": ["Plurinational State of Bolivia"],
+          "names": []
+        },
+        {
+          "name": "Canada",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Cayman Islands"
+        },
+        {
+          "name": "Central African Republic",
+          "aliases": ["CAR", "Central Africa Republic"],
+          "names": []
+        },
+        {
+          "name": "Chad",
+          "aliases": ["Republic of Chad", "Tchad"],
+          "names": []
+        },
+        {
+          "name": "Chile",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "China",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Egypt",
+          "aliases": ["Arab Republic of Egypt"],
+          "names": []
+        },
+        {
+          "name": "El Salvador",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Fiji",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Gabon",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Gambia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "West Germany",
+          "aliases": ["Germany", "Federal Republic of Germany", "FRG", "West German team"],
+          "names": []
+        },
+        {
+          "name": "Ghana",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Haiti",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Honduras",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Hong Kong"
+        },
+        {
+          "name": "Indonesia",
+          "aliases": ["Republic of Indonesia"],
+          "names": []
+        },
+        {
+          "name": "Iran",
+          "aliases": ["Islamic Republic of Iran", "Persia"],
+          "names": ["Persia"]
+        },
+        {
+          "name": "Israel",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Ivory Coast",
+          "aliases": ["Côte d’Ivoire"],
+          "names": ["Côte d’Ivoire"]
+        },
+        {
+          "name": "Japan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Kenya",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "South Korea",
+          "aliases": ["Republic of Korea", "ROK"],
+          "names": []
+        },
+        {
+          "name": "Liberia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Liechtenstein",
+          "aliases": ["Principality of Liechtenstein"],
+          "names": []
+        },
+        {
+          "name": "Malawi",
+          "aliases": ["Republic of Malawi"],
+          "names": []
+        },
+        {
+          "name": "Malaysia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Mauritania",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Mauritius",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Monaco",
+          "aliases": ["Principality of Monaco"],
+          "names": []
+        },
+        {
+          "name": "Morocco",
+          "aliases": ["Maroc", "Kingdom of Morocco"],
+          "names": []
+        },
+        {
+          "name": "Netherlands Antilles"
+        },
+        {
+          "name": "Niger",
+          "aliases": ["Niger Republic", "Republic of Niger"],
+          "names": []
+        },
+        {
+          "name": "Norway",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Pakistan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Panama",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Papua New Guinea",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Paraguay",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Philippines",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Qatar",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Saudi Arabia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Singapore",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Somalia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Sudan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Suriname",
+          "aliases": ["Surinam", "Republic of Suriname"],
+          "names": []
+        },
+        {
+          "name": "Eswatini",
+          "aliases": ["Swaziland", "Kingdom of Eswatini"],
+          "names": ["Swaziland"]
+        },
+        {
+          "name": "Taiwan",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Thailand",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Togo",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Tunisia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Turkey",
+          "aliases": ["Türkiye", "Republic of Turkey"],
+          "names": ["Türkiye", "Turkiye"]
+        },
+        {
+          "name": "United Arab Emirates",
+          "aliases": ["UAE", "Emirates"],
+          "names": []
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"],
+          "names": ["America"]
+        },
+        {
+          "name": "Burkina Faso",
+          "aliases": ["Burkina"],
+          "names": []
+        },
+        {
+          "name": "Uruguay",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "US Virgin Islands",
+          "aliases": ["Virgin Islands", "United States Virgin Islands"]
+        },
+        {
+          "name": "North Yemen",
+          "aliases": ["Yemen", "Yemen Arab Republic"]
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire", "Democratic Republic of Congo"],
+          "names": ["DR Congo", "Congo Kinshasa", "Zaire"]
+        }
+      ],
+      "surface": ["United States", "Japan", "Canada"],
+      "pearl": "Liechtenstein",
+      "review": "Complete 68-team non-participating list, including territories and political/economic withdrawals, not only the US-led boycott. Those that competed under an Olympic/NOC flag are not absent. Taiwan, Albania and other exceptional withdrawal cases count. West Germany is distinct from participating East Germany."
+    },
+    {
+      "id": "olympic-capitals",
+      "text": "a present-day national capital that has hosted the Summer or Winter Olympics",
+      "theme": "geography",
+      "cluster": "olympic-capitals",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of Olympic Games host cities",
+          "revision": 1383437929,
+          "expect": [15, 15],
+          "members": [
+            "Amsterdam",
+            "Athens",
+            "Beijing",
+            "Berlin",
+            "Helsinki",
+            "London",
+            "Mexico City",
+            "Moscow",
+            "Oslo",
+            "Paris",
+            "Rome",
+            "Sarajevo",
+            "Seoul",
+            "Stockholm",
+            "Tokyo"
+          ],
+          "reviewed": [
+            "Amsterdam",
+            "Athens",
+            "Beijing",
+            "Berlin",
+            "Helsinki",
+            "London",
+            "Mexico City",
+            "Moscow",
+            "Oslo",
+            "Paris",
+            "Rome",
+            "Sarajevo",
+            "Seoul",
+            "Stockholm",
+            "Tokyo"
+          ],
+          "review": "Complete intersection of already hosted Summer/Winter Olympic cities through 2026 with present national capitals; includes Sarajevo, now a capital, and split-host Stockholm 1956. No Youth Olympics, future or cancelled editions."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in Asia",
+          "revision": 1384120050,
+          "expect": [49, 49],
+          "tables": [0],
+          "column": 4,
+          "reviewed": [
+            "Abu Dhabi",
+            "Amman",
+            "Ankara",
+            "Ashgabat",
+            "Astana",
+            "Baghdad",
+            "Baku",
+            "Bandar Seri Begawan",
+            "Bangkok",
+            "Beijing",
+            "Beirut",
+            "Bishkek",
+            "Cairo",
+            "Damascus",
+            "Dhaka",
+            "Dili",
+            "Doha",
+            "Dushanbe",
+            "Hanoi",
+            "Islamabad",
+            "Jakarta",
+            "Jerusalem",
+            "Kabul",
+            "Kathmandu",
+            "Kuala Lumpur",
+            "Kuwait City",
+            "Malé",
+            "Manama",
+            "Manila",
+            "Moscow",
+            "Muscat",
+            "Nay Pyi Taw",
+            "New Delhi",
+            "Nicosia",
+            "Phnom Penh",
+            "Pyongyang",
+            "Riyadh",
+            "Sana'a",
+            "Seoul",
+            "Singapore",
+            "Sri Jayawardenepura Kotte",
+            "Tashkent",
+            "Tbilisi",
+            "Tehran",
+            "Thimphu",
+            "Tokyo",
+            "Ulaanbaatar",
+            "Vientiane",
+            "Yerevan"
+          ],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in Asia",
+          "revision": 1384120050,
+          "expect": [2, 2],
+          "tables": [1],
+          "column": 5,
+          "reviewed": ["Ramallah", "Taipei"],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in Asia",
+          "revision": 1384120050,
+          "expect": [3, 3],
+          "tables": [2],
+          "column": 5,
+          "reviewed": ["North Nicosia", "Sukhumi", "Tskhinvali"],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in Asia",
+          "revision": 1384120050,
+          "expect": [3, 3],
+          "members": ["Sri Jayawardenepura Kotte", "Putrajaya", "Kuala Lumpur"],
+          "reviewed": ["Sri Jayawardenepura Kotte", "Putrajaya", "Kuala Lumpur"],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "Colombo",
+          "revision": 1384270762,
+          "expect": [1, 1],
+          "members": ["Colombo"],
+          "reviewed": ["Colombo"],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "Aden",
+          "revision": 1383159174,
+          "expect": [1, 1],
+          "members": ["Aden"],
+          "reviewed": ["Aden"],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in Europe",
+          "revision": 1384538189,
+          "expect": [48, 48],
+          "tables": [0],
+          "column": 4,
+          "exclude_row": "Principality of Monaco|Vatican City State",
+          "reviewed": [
+            "Amsterdam",
+            "Andorra la Vella",
+            "Ankara",
+            "Astana",
+            "Athens",
+            "Baku",
+            "Belgrade",
+            "Berlin",
+            "Bern",
+            "Bratislava",
+            "Brussels",
+            "Bucharest",
+            "Budapest",
+            "Chișinău",
+            "Copenhagen",
+            "Dublin",
+            "Helsinki",
+            "Kyiv",
+            "Lisbon",
+            "Ljubljana",
+            "London",
+            "Luxembourg",
+            "Madrid",
+            "Minsk",
+            "Moscow",
+            "Nicosia",
+            "Oslo",
+            "Paris",
+            "Podgorica",
+            "Prague",
+            "Reykjavík",
+            "Riga",
+            "Rome",
+            "San Marino",
+            "Sarajevo",
+            "Skopje",
+            "Sofia",
+            "Stockholm",
+            "Tallinn",
+            "Tbilisi",
+            "Tirana",
+            "Vaduz",
+            "Valletta",
+            "Vienna",
+            "Vilnius",
+            "Warsaw",
+            "Yerevan",
+            "Zagreb"
+          ],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in Europe",
+          "revision": 1384538189,
+          "expect": [5, 5],
+          "tables": [1],
+          "column": 5,
+          "reviewed": ["North Nicosia", "Pristina", "Sukhumi", "Tiraspol", "Tskhinvali"],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in Europe",
+          "revision": 1384538189,
+          "expect": [3, 3],
+          "members": ["The Hague", "Monaco", "Vatican City"],
+          "reviewed": ["The Hague", "Monaco", "Vatican City"],
+          "review": "Reviewed sovereign-state and partially recognised-state sections; all listed English capitals, plus listed executive/legislative/economic capitals, accepted generously. Dependent territories excluded."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in North America",
+          "revision": 1374975109,
+          "expect": [23, 23],
+          "tables": [0],
+          "column": 4,
+          "reviewed": [
+            "Basseterre",
+            "Belmopan",
+            "Bridgetown",
+            "Castries",
+            "Guatemala City",
+            "Havana",
+            "Kingston",
+            "Kingstown",
+            "Managua",
+            "Mexico City",
+            "Nassau",
+            "Ottawa",
+            "Panama City",
+            "Port of Spain",
+            "Port-au-Prince",
+            "Roseau",
+            "San José",
+            "San Salvador",
+            "Santo Domingo",
+            "St. George's",
+            "St. John's",
+            "Tegucigalpa",
+            "Washington, D.C"
+          ],
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in South America",
+          "revision": 1383708708,
+          "expect": [12, 12],
+          "tables": [0],
+          "column": 4,
+          "reviewed": [
+            "Asunción",
+            "Bogotá",
+            "Brasília",
+            "Buenos Aires",
+            "Caracas",
+            "Georgetown",
+            "Lima",
+            "Montevideo",
+            "Paramaribo",
+            "Quito",
+            "Santiago",
+            "Sucre"
+          ],
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+        },
+        {
+          "page": "List of sovereign states and dependent territories in South America",
+          "revision": 1383708708,
+          "expect": [1, 1],
+          "members": ["La Paz"],
+          "reviewed": ["La Paz"],
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+        }
+      ],
+      "expect": [15, 15],
+      "answers": [
+        {
+          "name": "Amsterdam"
+        },
+        {
+          "name": "Athens",
+          "aliases": ["Athina", "Athinae"]
+        },
+        {
+          "name": "Beijing",
+          "aliases": ["Peking", "Peiping"]
+        },
+        {
+          "name": "Berlin"
+        },
+        {
+          "name": "Helsinki"
+        },
+        {
+          "name": "London"
+        },
+        {
+          "name": "Mexico City",
+          "aliases": ["CDMX", "Ciudad de Mexico"]
+        },
+        {
+          "name": "Moscow",
+          "aliases": ["Moskva"]
+        },
+        {
+          "name": "Oslo"
+        },
+        {
+          "name": "Paris"
+        },
+        {
+          "name": "Rome",
+          "aliases": ["Roma"]
+        },
+        {
+          "name": "Sarajevo"
+        },
+        {
+          "name": "Seoul"
+        },
+        {
+          "name": "Stockholm"
+        },
+        {
+          "name": "Tokyo"
+        }
+      ],
+      "surface": ["London", "Paris", "Tokyo"],
+      "pearl": "Sarajevo",
+      "review": "Complete intersection of already hosted Summer/Winter Olympic cities through 2026 with present national capitals; includes Sarajevo, now a capital, and split-host Stockholm 1956. No Youth Olympics, future or cancelled editions.",
+      "too_clever": ["Stockholm"]
+    },
+    {
+      "id": "enable-greek-hidden",
+      "text": "a familiar 4–12-letter word containing a three-letter Greek letter name",
+      "theme": "words",
+      "cluster": "enable-patterns",
+      "active": true,
+      "sources": [
+        {
+          "dataset": "https://raw.githubusercontent.com/dolph/dictionary/233d25a56b9ac8bef906916ccf091a976995cce0/enable1.txt",
+          "sha256": "3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89",
+          "format": "lines",
+          "revision": "233d25a56b9ac8bef906916ccf091a976995cce0",
+          "expect": [172823, 172823]
+        },
+        {
+          "page": "Greek alphabet",
+          "revision": 1382353071,
+          "tables": [0],
+          "column": 1,
+          "expect": [24, 24],
+          "reviewed": [
+            "alpha",
+            "beta",
+            "chi",
+            "delta",
+            "epsilon",
+            "eta",
+            "gamma",
+            "iota",
+            "kappa",
+            "lambda, lamda, labda",
+            "mu",
+            "nu",
+            "omega",
+            "omicron",
+            "phi",
+            "pi",
+            "psi",
+            "rho",
+            "sigma",
+            "tau",
+            "theta",
+            "upsilon",
+            "xi",
+            "zeta"
+          ],
+          "review": "Reviewed table membership; names deduplicated after extraction. The final canonical count is separately pinned on the prompt."
+        }
+      ],
+      "expect": [198, 198],
+      "answers": [
+        {
+          "name": "children"
+        },
+        {
+          "name": "child"
+        },
+        {
+          "name": "chief",
+          "aliases": ["chiefs"]
+        },
+        {
+          "name": "china"
+        },
+        {
+          "name": "watching"
+        },
+        {
+          "name": "secretary",
+          "aliases": ["secretaries"]
+        },
+        {
+          "name": "details",
+          "aliases": ["detail"]
+        },
+        {
+          "name": "machine",
+          "aliases": ["machines"]
+        },
+        {
+          "name": "metal",
+          "aliases": ["metals"]
+        },
+        {
+          "name": "teaching",
+          "aliases": ["teachings"]
+        },
+        {
+          "name": "restaurant",
+          "aliases": ["restaurants"]
+        },
+        {
+          "name": "taught"
+        },
+        {
+          "name": "chicken",
+          "aliases": ["chickens"]
+        },
+        {
+          "name": "achieve",
+          "aliases": ["achieves"]
+        },
+        {
+          "name": "retail"
+        },
+        {
+          "name": "childhood"
+        },
+        {
+          "name": "detailed"
+        },
+        {
+          "name": "neighborhood"
+        },
+        {
+          "name": "achieved"
+        },
+        {
+          "name": "philosophy",
+          "aliases": ["philosophies"]
+        },
+        {
+          "name": "reaching"
+        },
+        {
+          "name": "architecture"
+        },
+        {
+          "name": "achievement",
+          "aliases": ["achievements"]
+        },
+        {
+          "name": "searching"
+        },
+        {
+          "name": "chip",
+          "aliases": ["chips"]
+        },
+        {
+          "name": "coaching"
+        },
+        {
+          "name": "franchise"
+        },
+        {
+          "name": "graphic",
+          "aliases": ["graphics"]
+        },
+        {
+          "name": "touching"
+        },
+        {
+          "name": "beta"
+        },
+        {
+          "name": "catching"
+        },
+        {
+          "name": "chill",
+          "aliases": ["chills"]
+        },
+        {
+          "name": "approaching"
+        },
+        {
+          "name": "retain",
+          "aliases": ["retains"]
+        },
+        {
+          "name": "vegetables",
+          "aliases": ["vegetable"]
+        },
+        {
+          "name": "archives",
+          "aliases": ["archive"]
+        },
+        {
+          "name": "matching"
+        },
+        {
+          "name": "monetary"
+        },
+        {
+          "name": "architect",
+          "aliases": ["architects"]
+        },
+        {
+          "name": "chick",
+          "aliases": ["chicks"]
+        },
+        {
+          "name": "retained"
+        },
+        {
+          "name": "chile"
+        },
+        {
+          "name": "switching"
+        },
+        {
+          "name": "achieving"
+        },
+        {
+          "name": "machinery"
+        },
+        {
+          "name": "upside"
+        },
+        {
+          "name": "chin"
+        },
+        {
+          "name": "launching"
+        },
+        {
+          "name": "geographic"
+        },
+        {
+          "name": "demographic",
+          "aliases": ["demographics"]
+        },
+        {
+          "name": "retailers",
+          "aliases": ["retailer"]
+        },
+        {
+          "name": "dolphins",
+          "aliases": ["dolphin"]
+        },
+        {
+          "name": "psychiatric"
+        },
+        {
+          "name": "brotherhood"
+        },
+        {
+          "name": "geographical"
+        },
+        {
+          "name": "stretching"
+        },
+        {
+          "name": "marching"
+        },
+        {
+          "name": "metallic"
+        },
+        {
+          "name": "detained"
+        },
+        {
+          "name": "psychic"
+        },
+        {
+          "name": "detached"
+        },
+        {
+          "name": "metabolism"
+        },
+        {
+          "name": "retaining"
+        },
+        {
+          "name": "vegetarian",
+          "aliases": ["vegetarians"]
+        },
+        {
+          "name": "vegetation"
+        },
+        {
+          "name": "photographic"
+        },
+        {
+          "name": "pitching"
+        },
+        {
+          "name": "meta"
+        },
+        {
+          "name": "childish"
+        },
+        {
+          "name": "chili"
+        },
+        {
+          "name": "metaphor",
+          "aliases": ["metaphors"]
+        },
+        {
+          "name": "philosopher",
+          "aliases": ["philosophers"]
+        },
+        {
+          "name": "dietary"
+        },
+        {
+          "name": "psychiatrist"
+        },
+        {
+          "name": "chilling"
+        },
+        {
+          "name": "preaching"
+        },
+        {
+          "name": "chic"
+        },
+        {
+          "name": "proprietary"
+        },
+        {
+          "name": "punching"
+        },
+        {
+          "name": "trophies"
+        },
+        {
+          "name": "researching"
+        },
+        {
+          "name": "detailing"
+        },
+        {
+          "name": "metabolic"
+        },
+        {
+          "name": "societal"
+        },
+        {
+          "name": "catastrophic"
+        },
+        {
+          "name": "franchises"
+        },
+        {
+          "name": "planetary"
+        },
+        {
+          "name": "psychiatry"
+        },
+        {
+          "name": "scratching"
+        },
+        {
+          "name": "chimney",
+          "aliases": ["chimneys"]
+        },
+        {
+          "name": "retaliation"
+        },
+        {
+          "name": "getaway"
+        },
+        {
+          "name": "chilly"
+        },
+        {
+          "name": "chilled"
+        },
+        {
+          "name": "detachment"
+        },
+        {
+          "name": "graphical"
+        },
+        {
+          "name": "petals",
+          "aliases": ["petal"]
+        },
+        {
+          "name": "caretaker"
+        },
+        {
+          "name": "secretariat"
+        },
+        {
+          "name": "powerhouse"
+        },
+        {
+          "name": "sapphire"
+        },
+        {
+          "name": "timetable"
+        },
+        {
+          "name": "chiefly"
+        },
+        {
+          "name": "childbirth"
+        },
+        {
+          "name": "archived"
+        },
+        {
+          "name": "fetal"
+        },
+        {
+          "name": "collapsing"
+        },
+        {
+          "name": "detainees"
+        },
+        {
+          "name": "skeletal"
+        },
+        {
+          "name": "biographical"
+        },
+        {
+          "name": "synopsis"
+        },
+        {
+          "name": "uphill"
+        },
+        {
+          "name": "itching"
+        },
+        {
+          "name": "morphine"
+        },
+        {
+          "name": "motherhood"
+        },
+        {
+          "name": "anarchist",
+          "aliases": ["anarchists"]
+        },
+        {
+          "name": "mischief"
+        },
+        {
+          "name": "graphite"
+        },
+        {
+          "name": "archipelago"
+        },
+        {
+          "name": "philanthropy"
+        },
+        {
+          "name": "orchid",
+          "aliases": ["orchids"]
+        },
+        {
+          "name": "pedophile",
+          "aliases": ["pedophiles"]
+        },
+        {
+          "name": "aching"
+        },
+        {
+          "name": "chilli"
+        },
+        {
+          "name": "archival"
+        },
+        {
+          "name": "retake"
+        },
+        {
+          "name": "attaching"
+        },
+        {
+          "name": "hierarchical"
+        },
+        {
+          "name": "chipped"
+        },
+        {
+          "name": "branching"
+        },
+        {
+          "name": "biographies"
+        },
+        {
+          "name": "metaphysical"
+        },
+        {
+          "name": "achievable"
+        },
+        {
+          "name": "chihuahua"
+        },
+        {
+          "name": "detain"
+        },
+        {
+          "name": "cheetah"
+        },
+        {
+          "name": "staunch"
+        },
+        {
+          "name": "philharmonic"
+        },
+        {
+          "name": "handkerchief"
+        },
+        {
+          "name": "pornographic"
+        },
+        {
+          "name": "clutching"
+        },
+        {
+          "name": "budgetary"
+        },
+        {
+          "name": "chipping"
+        },
+        {
+          "name": "theta"
+        },
+        {
+          "name": "acetate"
+        },
+        {
+          "name": "crunching"
+        },
+        {
+          "name": "mischievous"
+        },
+        {
+          "name": "overarching"
+        },
+        {
+          "name": "poaching"
+        },
+        {
+          "name": "chime",
+          "aliases": ["chimes"]
+        },
+        {
+          "name": "etching"
+        },
+        {
+          "name": "grandchild"
+        },
+        {
+          "name": "retainer"
+        },
+        {
+          "name": "stitching"
+        },
+        {
+          "name": "screeching"
+        },
+        {
+          "name": "metaphorical"
+        },
+        {
+          "name": "pedophilia"
+        },
+        {
+          "name": "retaliate"
+        },
+        {
+          "name": "syphilis"
+        },
+        {
+          "name": "wrenching"
+        },
+        {
+          "name": "campsite"
+        },
+        {
+          "name": "retailing"
+        },
+        {
+          "name": "chivalry"
+        },
+        {
+          "name": "machining"
+        },
+        {
+          "name": "metabolites"
+        },
+        {
+          "name": "metaphysics"
+        },
+        {
+          "name": "scorching"
+        },
+        {
+          "name": "zeta"
+        },
+        {
+          "name": "amphibious"
+        },
+        {
+          "name": "childless"
+        },
+        {
+          "name": "ditching"
+        },
+        {
+          "name": "hatching"
+        },
+        {
+          "name": "lynching"
+        },
+        {
+          "name": "marketable"
+        },
+        {
+          "name": "holographic"
+        },
+        {
+          "name": "parochial"
+        },
+        {
+          "name": "bleaching"
+        },
+        {
+          "name": "enriching"
+        },
+        {
+          "name": "pinching"
+        },
+        {
+          "name": "anarchism"
+        },
+        {
+          "name": "chia"
+        },
+        {
+          "name": "chino"
+        },
+        {
+          "name": "diarrhoea"
+        },
+        {
+          "name": "topographic"
+        },
+        {
+          "name": "chit"
+        },
+        {
+          "name": "schism"
+        },
+        {
+          "name": "sepsis"
+        },
+        {
+          "name": "sketching"
+        },
+        {
+          "name": "taunting"
+        },
+        {
+          "name": "metastatic"
+        },
+        {
+          "name": "sphinx"
+        },
+        {
+          "name": "taunt"
+        },
+        {
+          "name": "epsilon"
+        },
+        {
+          "name": "microchip"
+        },
+        {
+          "name": "taupe"
+        },
+        {
+          "name": "rhododendron"
+        },
+        {
+          "name": "capsicum"
+        },
+        {
+          "name": "rhomboid"
+        }
+      ],
+      "surface": ["metal", "chicken", "restaurant"],
+      "pearl": "rhododendron",
+      "review": "Complete pinned ENABLE predicate filter with wordfreq 3.1.1 Zipf >=3, reviewed frozen-guess familiarity exceptions, and explicit editorial exclusions. Predicates apply to original spellings; normalization-equivalent plurals are aliases. No arbitrary size cap.",
+      "pattern": ["eta", "rho", "tau", "phi", "chi", "psi"],
+      "word_length": [4, 12],
+      "zipf_floor": 3,
+      "frequency_exceptions": [
+        "capsicum",
+        "epsilon",
+        "microchip",
+        "rhododendron",
+        "rhomboid",
+        "taunt",
+        "taupe"
+      ],
+      "editorial_exclusions": [
+        "bitching",
+        "chico",
+        "chink",
+        "chinks",
+        "chinky",
+        "eros",
+        "eyre",
+        "gypsies",
+        "gypsy",
+        "gypsydom",
+        "gypsyish",
+        "otto",
+        "ree",
+        "retard",
+        "retarded",
+        "schiller",
+        "tit",
+        "titty",
+        "toro"
+      ],
+      "too_clever": ["epsilon"]
+    },
+    {
+      "id": "enable-qwerty-top-row",
+      "text": "a familiar 4–12-letter word on QWERTY’s top letter row, allowing plurals",
+      "theme": "words",
+      "cluster": "enable-patterns",
+      "active": true,
+      "sources": [
+        {
+          "dataset": "https://raw.githubusercontent.com/dolph/dictionary/233d25a56b9ac8bef906916ccf091a976995cce0/enable1.txt",
+          "sha256": "3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89",
+          "format": "lines",
+          "revision": "233d25a56b9ac8bef906916ccf091a976995cce0",
+          "expect": [172823, 172823]
+        },
+        {
+          "page": "QWERTY",
+          "revision": 1377674197,
+          "members": ["QWERTY"],
+          "expect": [1, 1],
+          "reviewed": ["QWERTY"],
+          "review": "The literal QWERTY top letter row, Q W E R T Y U I O P; keyboard letters only. Plural forms are accepted under the unchanged singular-folding normalizer."
+        }
+      ],
+      "expect": [146, 146],
+      "answers": [
+        {
+          "name": "your",
+          "aliases": ["yours"]
+        },
+        {
+          "name": "were"
+        },
+        {
+          "name": "power",
+          "aliases": ["powers"]
+        },
+        {
+          "name": "true"
+        },
+        {
+          "name": "pretty"
+        },
+        {
+          "name": "report",
+          "aliases": ["reports"]
+        },
+        {
+          "name": "quite"
+        },
+        {
+          "name": "type",
+          "aliases": ["types"]
+        },
+        {
+          "name": "property",
+          "aliases": ["properties"]
+        },
+        {
+          "name": "poor"
+        },
+        {
+          "name": "wrote"
+        },
+        {
+          "name": "write",
+          "aliases": ["writes"]
+        },
+        {
+          "name": "tour",
+          "aliases": ["tours"]
+        },
+        {
+          "name": "trip",
+          "aliases": ["trips"]
+        },
+        {
+          "name": "peter",
+          "aliases": ["peters"]
+        },
+        {
+          "name": "prior"
+        },
+        {
+          "name": "tree",
+          "aliases": ["trees"]
+        },
+        {
+          "name": "worry",
+          "aliases": ["worries"]
+        },
+        {
+          "name": "twitter"
+        },
+        {
+          "name": "require",
+          "aliases": ["requires"]
+        },
+        {
+          "name": "port",
+          "aliases": ["ports"]
+        },
+        {
+          "name": "proper"
+        },
+        {
+          "name": "upper"
+        },
+        {
+          "name": "writer",
+          "aliases": ["writers"]
+        },
+        {
+          "name": "route",
+          "aliases": ["routes"]
+        },
+        {
+          "name": "quiet"
+        },
+        {
+          "name": "pure"
+        },
+        {
+          "name": "territory",
+          "aliases": ["territories"]
+        },
+        {
+          "name": "error",
+          "aliases": ["errors"]
+        },
+        {
+          "name": "quit",
+          "aliases": ["quits"]
+        },
+        {
+          "name": "quote",
+          "aliases": ["quotes"]
+        },
+        {
+          "name": "tower",
+          "aliases": ["towers"]
+        },
+        {
+          "name": "output",
+          "aliases": ["outputs"]
+        },
+        {
+          "name": "wire",
+          "aliases": ["wires"]
+        },
+        {
+          "name": "priority",
+          "aliases": ["priorities"]
+        },
+        {
+          "name": "root",
+          "aliases": ["roots"]
+        },
+        {
+          "name": "poetry"
+        },
+        {
+          "name": "pope",
+          "aliases": ["popes"]
+        },
+        {
+          "name": "reporter",
+          "aliases": ["reporters"]
+        },
+        {
+          "name": "equity",
+          "aliases": ["equities"]
+        },
+        {
+          "name": "wore"
+        },
+        {
+          "name": "terror"
+        },
+        {
+          "name": "outer"
+        },
+        {
+          "name": "pipe",
+          "aliases": ["pipes"]
+        },
+        {
+          "name": "terry"
+        },
+        {
+          "name": "perry"
+        },
+        {
+          "name": "poet",
+          "aliases": ["poets"]
+        },
+        {
+          "name": "tweet",
+          "aliases": ["tweets"]
+        },
+        {
+          "name": "tier",
+          "aliases": ["tiers"]
+        },
+        {
+          "name": "torture"
+        },
+        {
+          "name": "peer",
+          "aliases": ["peers"]
+        },
+        {
+          "name": "pepper",
+          "aliases": ["peppers"]
+        },
+        {
+          "name": "potter"
+        },
+        {
+          "name": "pour",
+          "aliases": ["pours"]
+        },
+        {
+          "name": "euro",
+          "aliases": ["euros"]
+        },
+        {
+          "name": "riot",
+          "aliases": ["riots"]
+        },
+        {
+          "name": "petty"
+        },
+        {
+          "name": "rope",
+          "aliases": ["ropes"]
+        },
+        {
+          "name": "retire",
+          "aliases": ["retires"]
+        },
+        {
+          "name": "tire",
+          "aliases": ["tires"]
+        },
+        {
+          "name": "wipe",
+          "aliases": ["wipes"]
+        },
+        {
+          "name": "puppy",
+          "aliases": ["puppies"]
+        },
+        {
+          "name": "pity"
+        },
+        {
+          "name": "porter"
+        },
+        {
+          "name": "prey"
+        },
+        {
+          "name": "troy"
+        },
+        {
+          "name": "prep"
+        },
+        {
+          "name": "trio"
+        },
+        {
+          "name": "tory",
+          "aliases": ["tories"]
+        },
+        {
+          "name": "utter"
+        },
+        {
+          "name": "prototype",
+          "aliases": ["prototypes"]
+        },
+        {
+          "name": "pier",
+          "aliases": ["piers"]
+        },
+        {
+          "name": "puppet",
+          "aliases": ["puppets"]
+        },
+        {
+          "name": "queue",
+          "aliases": ["queues"]
+        },
+        {
+          "name": "trout"
+        },
+        {
+          "name": "prop",
+          "aliases": ["props"]
+        },
+        {
+          "name": "queer"
+        },
+        {
+          "name": "retro"
+        },
+        {
+          "name": "tore"
+        },
+        {
+          "name": "pottery"
+        },
+        {
+          "name": "purity"
+        },
+        {
+          "name": "troop",
+          "aliases": ["troops"]
+        },
+        {
+          "name": "piper"
+        },
+        {
+          "name": "ripe"
+        },
+        {
+          "name": "tutor",
+          "aliases": ["tutors"]
+        },
+        {
+          "name": "poop"
+        },
+        {
+          "name": "torque"
+        },
+        {
+          "name": "query",
+          "aliases": ["queries"]
+        },
+        {
+          "name": "rite",
+          "aliases": ["rites"]
+        },
+        {
+          "name": "poorer"
+        },
+        {
+          "name": "poppy"
+        },
+        {
+          "name": "witty"
+        },
+        {
+          "name": "weir"
+        },
+        {
+          "name": "tyre",
+          "aliases": ["tyres"]
+        },
+        {
+          "name": "equip"
+        },
+        {
+          "name": "router",
+          "aliases": ["routers"]
+        },
+        {
+          "name": "rewrite"
+        },
+        {
+          "name": "petite"
+        },
+        {
+          "name": "repertoire"
+        },
+        {
+          "name": "trey"
+        },
+        {
+          "name": "rotor"
+        },
+        {
+          "name": "trooper",
+          "aliases": ["troopers"]
+        },
+        {
+          "name": "turret",
+          "aliases": ["turrets"]
+        },
+        {
+          "name": "etiquette"
+        },
+        {
+          "name": "peep",
+          "aliases": ["peeps"]
+        },
+        {
+          "name": "otter",
+          "aliases": ["otters"]
+        },
+        {
+          "name": "weep"
+        },
+        {
+          "name": "quieter"
+        },
+        {
+          "name": "eerie"
+        },
+        {
+          "name": "prettier"
+        },
+        {
+          "name": "proprietor"
+        },
+        {
+          "name": "typo",
+          "aliases": ["typos"]
+        },
+        {
+          "name": "writ"
+        },
+        {
+          "name": "pore",
+          "aliases": ["pores"]
+        },
+        {
+          "name": "rupture"
+        },
+        {
+          "name": "petit"
+        },
+        {
+          "name": "tote"
+        },
+        {
+          "name": "potty"
+        },
+        {
+          "name": "typewriter",
+          "aliases": ["typewriters"]
+        },
+        {
+          "name": "troupe"
+        },
+        {
+          "name": "terrier"
+        },
+        {
+          "name": "wept"
+        },
+        {
+          "name": "ripper"
+        },
+        {
+          "name": "trot"
+        },
+        {
+          "name": "tori"
+        },
+        {
+          "name": "tout"
+        },
+        {
+          "name": "putt"
+        },
+        {
+          "name": "rower"
+        },
+        {
+          "name": "topper"
+        },
+        {
+          "name": "repo"
+        },
+        {
+          "name": "tort"
+        },
+        {
+          "name": "trope",
+          "aliases": ["tropes"]
+        },
+        {
+          "name": "piety"
+        },
+        {
+          "name": "rout"
+        },
+        {
+          "name": "roper"
+        },
+        {
+          "name": "rupee",
+          "aliases": ["rupees"]
+        },
+        {
+          "name": "priory"
+        },
+        {
+          "name": "toot"
+        },
+        {
+          "name": "tutu"
+        },
+        {
+          "name": "yeti"
+        },
+        {
+          "name": "repertory"
+        },
+        {
+          "name": "perpetuity"
+        },
+        {
+          "name": "putty"
+        },
+        {
+          "name": "tripe"
+        },
+        {
+          "name": "qwerty"
+        },
+        {
+          "name": "peppery"
+        }
+      ],
+      "surface": ["type", "power", "pretty"],
+      "pearl": "perpetuity",
+      "review": "Complete pinned ENABLE predicate filter with wordfreq 3.1.1 Zipf >=3, reviewed frozen-guess familiarity exceptions, and explicit editorial exclusions. Predicates apply to original spellings; normalization-equivalent plurals are aliases. No arbitrary size cap. Plurals are explicitly allowed in the prompt, matching the existing singular-folding normalizer; no protected matching code changed.",
+      "pattern": ["qwertyuiop"],
+      "word_length": [4, 12],
+      "zipf_floor": 3,
+      "frequency_exceptions": ["peppery", "perpetuity", "putty", "qwerty", "repertory", "tripe"],
+      "editorial_exclusions": [
+        "bitching",
+        "chico",
+        "chink",
+        "chinks",
+        "chinky",
+        "eros",
+        "eyre",
+        "gypsies",
+        "gypsy",
+        "gypsydom",
+        "gypsyish",
+        "otto",
+        "ree",
+        "retard",
+        "retarded",
+        "schiller",
+        "tit",
+        "titty",
+        "toro"
+      ],
+      "too_clever": ["typewriter"]
+    },
+    {
+      "id": "english-eurovision-countries",
+      "text": "a country that won Eurovision with English lyrics, in whole or in part",
+      "theme": "geography",
+      "cluster": "english-eurovision-countries",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of languages in the Eurovision Song Contest",
+          "revision": 1370137679,
+          "tables": [1],
+          "column": 3,
+          "where": [1, "^English$"],
+          "first": false,
+          "expect": [19, 19],
+          "reviewed": [
+            "Austria",
+            "Azerbaijan",
+            "Bulgaria",
+            "Denmark",
+            "Estonia",
+            "Finland",
+            "Germany",
+            "Greece",
+            "Ireland",
+            "Israel",
+            "Latvia",
+            "Netherlands",
+            "Norway",
+            "Russia",
+            "Sweden",
+            "Switzerland",
+            "Turkey",
+            "Ukraine",
+            "United Kingdom"
+          ],
+          "review": "Complete English row of the winners-by-language table through 2026; mixed-language winners count when the winning song has English lyrics. Countries deduplicate across repeated wins. No runner-up, invented-language or French-only winners."
+        }
+      ],
+      "expect": [19, 19],
+      "answers": [
+        {
+          "name": "Austria",
+          "aliases": ["Österreich", "Oesterreich", "Republic of Austria"],
+          "names": []
+        },
+        {
+          "name": "Azerbaijan",
+          "aliases": ["Republic of Azerbaijan", "Azerbaijan Republic"],
+          "names": []
+        },
+        {
+          "name": "Bulgaria",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Denmark",
+          "aliases": ["Kingdom of Denmark"],
+          "names": []
+        },
+        {
+          "name": "Estonia",
+          "aliases": ["Eesti"],
+          "names": []
+        },
+        {
+          "name": "Finland",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Germany",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Greece",
+          "aliases": ["Hellas", "Ellada", "Hellenic Republic"],
+          "names": []
+        },
+        {
+          "name": "Ireland",
+          "aliases": ["Éire", "Republic of Ireland"],
+          "names": []
+        },
+        {
+          "name": "Israel",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Latvia",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Netherlands",
+          "aliases": ["Holland", "Kingdom of the Netherlands"],
+          "names": ["Holland"]
+        },
+        {
+          "name": "Norway",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "Russia",
+          "aliases": ["Russian Federation", "Rossiya"],
+          "names": []
+        },
+        {
+          "name": "Sweden",
+          "aliases": ["Sverige"],
+          "names": []
+        },
+        {
+          "name": "Switzerland",
+          "aliases": ["Schweiz", "Suisse", "Svizzera", "Svizra", "Swiss Confederation"],
+          "names": []
+        },
+        {
+          "name": "Turkey",
+          "aliases": ["Türkiye", "Republic of Turkey"],
+          "names": ["Türkiye", "Turkiye"]
+        },
+        {
+          "name": "Ukraine",
+          "aliases": [],
+          "names": []
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"],
+          "names": ["Britain", "Great Britain"]
+        }
+      ],
+      "surface": ["United Kingdom", "Ireland", "Sweden"],
+      "pearl": "Azerbaijan",
+      "review": "Complete English row of the winners-by-language table through 2026; mixed-language winners count when the winning song has English lyrics. Countries deduplicate across repeated wins. No runner-up, invented-language or French-only winners.",
+      "too_clever": ["Ukraine"]
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

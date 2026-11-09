@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { URL } from 'node:url';
@@ -13,6 +14,52 @@ const batchTwo = JSON.parse(
 const batchThree = JSON.parse(
   readFileSync(new URL('./recall/batch-3-selected.json', import.meta.url)),
 );
+
+test('plain-list swaps preserve frozen brainstorms and meet per-prompt exact recall', async () => {
+  const audit = JSON.parse(readFileSync(new URL('./recall/batch-5-audit.json', import.meta.url)));
+  const corpus = JSON.parse(
+    readFileSync(new URL('./recall/batch-5-selected.json', import.meta.url)),
+  );
+  const raw = {};
+  for (const [file, hash] of Object.entries(audit.raw_sha256)) {
+    const bytes = readFileSync(new URL(`./recall/${file}`, import.meta.url));
+    assert.equal(createHash('sha256').update(bytes).digest('hex'), hash);
+    Object.assign(raw, JSON.parse(bytes));
+  }
+  const ids = Object.keys(corpus);
+  assert.equal(ids.length, 14);
+  for (const [id, guesses] of Object.entries(corpus)) {
+    assert.ok(raw[id].length >= 25);
+    assert.deepEqual(
+      guesses.map((g) => (typeof g === 'string' ? g : g.guess)),
+      [...new Set(raw[id])],
+    );
+  }
+  const result = await evaluateCorpus({
+    corpus,
+    schedule: [ids],
+    prompts: ids.map((id) => ({ id, constrained: true })),
+    normalize: normalizeAnswer,
+    loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
+  });
+  assert.deepEqual(
+    result.prompts,
+    audit.prompts.map((p) => p.after),
+  );
+  assert.deepEqual(result.missingData, []);
+  for (const prompt of result.prompts) {
+    assert.ok(prompt.total > 0 && prompt.rate >= 0.95, `${prompt.id}: ${prompt.misses.join(', ')}`);
+    const set = (await import(`../../worker/src/games/dive/data/${prompt.id}.ts`)).default;
+    for (const guess of prompt.invalid)
+      assert.equal(
+        exactHit(guess.guess, set, normalizeAnswer),
+        false,
+        `${prompt.id}: ${guess.guess}`,
+      );
+    assert.equal(exactHit('', set, normalizeAnswer), false);
+  }
+  assert.deepEqual(result.prompts.find((p) => p.id === 'enable-greek-hidden').misses, ['gypsies']);
+});
 
 test('composite corpora merge disjoint inputs, allow empty inputs and reject duplicate prompts', () => {
   assert.deepEqual(combineCorpora([{ a: ['A'] }, { b: ['B'] }]), { a: ['A'], b: ['B'] });
