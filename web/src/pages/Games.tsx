@@ -36,30 +36,38 @@ export default function Games() {
             {games.data.access.reason === 'no_oyo' && (
               <p className="text-subhead text-muted">No OYO on today's team schedule.</p>
             )}
-            <ListGroup>
-              {GAMES.filter((game) => games.data.games.some((info) => info.id === game.id)).map(
-                (game) => {
-                  const result = games.data.results.find((row) => row.game_id === game.id);
-                  return (
-                    <ListRow
-                      key={game.id}
-                      title={game.title}
-                      to={`/games/${game.id}`}
-                      leading={
-                        <game.icon size={20} strokeWidth={1.75} style={{ color: game.accent }} />
-                      }
-                      trailing={
-                        result
-                          ? game.formatScore(result.score)
-                          : games.data.access.unlocked
-                            ? 'Play'
-                            : 'Locked'
-                      }
-                    />
-                  );
-                },
-              )}
-            </ListGroup>
+            {(['puzzle', 'arcade'] as const).map((kind) => {
+              const enabled = GAMES.filter(
+                (game) =>
+                  (game.kind ?? 'puzzle') === kind &&
+                  games.data.games.some((info) => info.id === game.id),
+              );
+              if (!enabled.length) return null;
+              return (
+                <ListGroup key={kind} header={kind === 'arcade' ? 'Arcade' : 'Daily Puzzles'}>
+                  {enabled.map((game) => {
+                    const result = games.data.results.find((row) => row.game_id === game.id);
+                    return (
+                      <ListRow
+                        key={game.id}
+                        title={game.title}
+                        to={`/games/${game.id}`}
+                        leading={
+                          <game.icon size={20} strokeWidth={1.75} style={{ color: game.accent }} />
+                        }
+                        trailing={
+                          result
+                            ? game.formatScore(result.score)
+                            : games.data.access.unlocked
+                              ? 'Play'
+                              : 'Locked'
+                        }
+                      />
+                    );
+                  })}
+                </ListGroup>
+              );
+            })}
             <GameWeekBoard />
           </>
         )}

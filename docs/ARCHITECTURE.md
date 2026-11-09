@@ -392,10 +392,28 @@ Results are written by the Worker transaction that finishes the game.
   and contact answers before `visibleMs` or claiming `contactMs > elapsed - visibleMs + 1000`.
   All timing rejections are 400, `Timing is not plausible for this round.` No progress is consumed.
 
+#### Daily Arcade
+
+Generic `GET /api/games/:game/today` returns `ArcadeDay` with access, date,
+runs (attempt, status, score, stats and timestamps), attempts_left and best.
+Locked reads still show runs but seed is null. `POST /api/games/:game/runs/start`
+takes `{date}` and returns the day plus an opaque `run` token, attempt and seed.
+Only this response exposes a run token. `POST /api/games/:game/runs/finish` takes
+`{date,run,score,stats}` and returns the day. Writes require game access and the
+current LA date; stale dates return 409 DAY_CHANGED without changes.
+There are three runs per game/day; starting again abandons the active run and
+consumes that attempt. Finished/abandoned tokens cannot be replayed. The best
+finished score owns game_results and boards; payload tracks every attempt.
+The Worker derives the daily seed with hashSeed(`arcade:${game}:${date}`).
+Chicken Crossing is gated by `ARCADE_CHICKEN_ENABLED = true` and has no generic
+result submission (405). Unknown/disabled arcade ids return 404.
+Arcade runs are client-simulated and client-scored; the server only plausibility-checks them (consistency, elapsed-time and hop-rate bounds, maximum). They are not tamper-proof.
+
 #### Enabled games for launch
 
 `DIVE_ENABLED = false` in `worker/src/games/features.ts` is the single production
-switch for Dive. Launch includes Word Guess, Connections and Perception only.
+switch for Dive. Launch includes Word Guess, Connections, Perception and Chicken Crossing
+(the first Daily Arcade game, gated by `ARCADE_CHICKEN_ENABLED`).
 Set it to `true` and rebuild to restore Dive; no data migration or browser flag is needed.
 `GET /api/games` returns only enabled games, results and enabled-game streaks.
 Clients use this list for the hub, game navigation and day boards; disabled game

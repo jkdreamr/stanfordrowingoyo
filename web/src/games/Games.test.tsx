@@ -60,6 +60,13 @@ it('shows a locked hub with a workout CTA, registered game and empty weekly boar
     '/log',
   );
   expect(screen.queryByRole('link', { name: /Dive/ })).toBeNull();
+  expect(screen.getByRole('heading', { name: 'Daily Puzzles' })).toBeTruthy();
+  expect(screen.getByRole('heading', { name: 'Arcade' })).toBeTruthy();
+  expect(
+    within(screen.getByRole('region', { name: 'Arcade' })).getByRole('link', {
+      name: /Chicken Crossing/,
+    }),
+  ).toBeTruthy();
   for (const game of GAMES)
     expect(screen.getByRole('link', { name: new RegExp(game.title) }).getAttribute('href')).toBe(
       `/games/${game.id}`,
@@ -72,6 +79,33 @@ it('distinguishes the Home games card from training with a gamepad icon', async 
   expect(card.querySelector('.lucide-gamepad2')).toBeTruthy();
   expect(card.querySelector('.lucide-waves')).toBeNull();
   expect(screen.queryByText(/Dive/)).toBeNull();
+});
+it('hides Arcade when no arcade games are enabled', async () => {
+  mount(<Games />, false, {
+    '/api/games': {
+      date: '2026-03-18',
+      access: { date: '2026-03-18', unlocked: true, reason: 'staff' },
+      streak: { current: 0, best: 0 },
+      games: [{ id: 'wordguess', direction: 'higher' }],
+      results: [],
+    },
+  });
+  await screen.findByRole('heading', { name: 'Daily Puzzles' });
+  expect(screen.queryByRole('heading', { name: 'Arcade' })).toBeNull();
+});
+it('shows an arcade best score instead of Play in the hub', async () => {
+  mount(<Games />, false, {
+    '/api/games': {
+      date: '2026-03-18',
+      access: { date: '2026-03-18', unlocked: true, reason: 'staff' },
+      streak: { current: 1, best: 1 },
+      games: [{ id: 'chicken-crossing', direction: 'higher' }],
+      results: [{ game_id: 'chicken-crossing', score: 87 }],
+    },
+  });
+  const row = await screen.findByRole('link', { name: /Chicken Crossing/ });
+  expect(row.textContent).toContain('87 pts');
+  expect(row.textContent).not.toContain('Play');
 });
 it.skip('Dive disabled for launch: renders the unlocked Dive start surface for staff', async () => {
   const { mock } = mount(<DiveStart />);
@@ -113,7 +147,7 @@ it.each(['coxswain', 'coach'] as const)(
     mock.state.users.find((user) => user.id === 'user-1')!.role = role;
     await screen.findAllByText('Play To See Today’s Board');
     expect(screen.queryByRole('region', { name: 'Dive Day Board' })).toBeNull();
-    expect(screen.getAllByRole('region', { name: / Day Board$/ })).toHaveLength(3);
+    expect(screen.getAllByRole('region', { name: / Day Board$/ })).toHaveLength(GAMES.length);
     for (const game of GAMES) {
       const board = within(screen.getByRole('region', { name: `${game.title} Day Board` }));
       expect(board.getByRole('heading', { name: game.title })).toBeTruthy();

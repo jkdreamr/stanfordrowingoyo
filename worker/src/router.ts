@@ -27,6 +27,7 @@ import { DIVE_ENABLED } from './games/features';
 import * as connections from './routes/connections';
 import * as wordguess from './routes/wordguess';
 import * as perception from './routes/perception';
+import * as arcade from './routes/arcade';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -51,6 +52,9 @@ const routes: Route[] = [
   { method: 'GET', path: '/api/games/connections/today', handler: connections.current },
   { method: 'POST', path: '/api/games/connections/check', handler: connections.check },
   { method: 'POST', path: '/api/games/connections/guess', handler: connections.guess },
+  { method: 'GET', path: '/api/games/:game/today', handler: arcade.current },
+  { method: 'POST', path: '/api/games/:game/runs/start', handler: arcade.start },
+  { method: 'POST', path: '/api/games/:game/runs/finish', handler: arcade.finish },
   { method: 'GET', path: '/api/games', handler: games.list },
   { method: 'GET', path: '/api/games/access', handler: games.access },
   { method: 'GET', path: '/api/games/leaderboard', handler: games.week },

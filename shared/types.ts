@@ -608,6 +608,29 @@ export interface GameAccess {
   unlocked: boolean;
   reason: 'staff' | 'workout' | 'rest_day' | 'no_oyo' | 'locked';
 }
+export interface ArcadeRun {
+  attempt: number;
+  status: 'active' | 'finished' | 'abandoned';
+  score: number | null;
+  stats: unknown | null;
+  started_at: string;
+  finished_at: string | null;
+}
+export interface ArcadeDay {
+  game_id: string;
+  date: string;
+  access: GameAccess;
+  seed: number | null;
+  runs_per_day: number;
+  runs: ArcadeRun[];
+  attempts_left: number;
+  best: number | null;
+}
+export interface ArcadeRunStart extends ArcadeDay {
+  run: string;
+  attempt: number;
+  seed: number;
+}
 export interface PerceptionDay {
   date: string;
   access: GameAccess;
@@ -766,6 +789,12 @@ export interface Api {
   'POST /api/games/connections/guess': Endpoint<{ guess: string[] }, ConnectionsDay>;
   /** Retired: always responds 405. */
   'POST /api/games/connections/check': Endpoint<{ guesses: string[][] }, ConnectionsCheck>;
+  'GET /api/games/:game/today': Endpoint<void, ArcadeDay>;
+  'POST /api/games/:game/runs/start': Endpoint<{ date: string }, ArcadeRunStart>;
+  'POST /api/games/:game/runs/finish': Endpoint<
+    { date: string; run: string; score: number; stats: unknown },
+    ArcadeDay
+  >;
   'GET /api/games': Endpoint<void, GamesToday>;
   'GET /api/games/access': Endpoint<void, GameAccess>;
   'POST /api/games/:game/results': Endpoint<{ payload: unknown }, GameResult>;

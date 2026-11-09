@@ -30,6 +30,7 @@ import type {
   Zone,
   RaceWeek,
   GameResult,
+  ArcadeRun,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
 import {
@@ -77,7 +78,9 @@ import {
   type PerceptionRoundId,
   type PerceptionRoundAnswer,
 } from '../../../shared/games/perceptionV2';
-import { dayNumber, dailyRandom } from '../../../shared/games/daily';
+import { dayNumber, dailyRandom, hashSeed } from '../../../shared/games/daily';
+import { ARCADE_RUNS_PER_DAY } from '../../../shared/games/arcade';
+import { CHICKEN_ID, validateChickenRun } from '../../../shared/games/chickenCrossing';
 import {
   boardWords,
   connectionsScore,
@@ -99,6 +102,7 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  'chicken-crossing': null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -198,6 +202,7 @@ export function createMockApi({
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
+  const arcadeRuns = new Map<string, (ArcadeRun & { id: string })[]>();
   const wordProgress = new Map<string, string[]>();
   const connectionProgress = new Map<string, string[][]>();
   const perceptionProgress = new Map<
@@ -1053,6 +1058,84 @@ export function createMockApi({
           gameResults.find(
             (row) => row.game_id === gameId && row.date === day && row.user_id === user.id,
           ) ?? null;
+        if (gameId === CHICKEN_ID && (parts[4] === 'today' || parts[4] === 'runs')) {
+          const key = `${user.id}:${gameId}:${date}`;
+          const runs = arcadeRuns.get(key) ?? [];
+          const seed = hashSeed(`arcade:${gameId}:${date}`);
+          const view = () => ({
+            game_id: gameId,
+            date,
+            access,
+            seed: access.unlocked ? seed : null,
+            runs_per_day: ARCADE_RUNS_PER_DAY,
+            runs: runs.map(({ id: _id, ...run }) => {
+              void _id;
+              return run;
+            }),
+            attempts_left: ARCADE_RUNS_PER_DAY - runs.length,
+            best: mine(date)?.score ?? null,
+          });
+          if (parts[4] === 'today' && method === 'GET') return json(view());
+          if (method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (!dateValid(body.date)) fail(400, 'Invalid date.');
+            if (body.date !== date)
+              fail(409, 'A New Day Has Started. Reload to Play.', 'DAY_CHANGED');
+            const stamp = now().toISOString();
+            if (parts[5] === 'start') {
+              if (runs.length >= ARCADE_RUNS_PER_DAY) fail(409, 'No runs left.', 'NO_RUNS_LEFT');
+              for (const run of runs)
+                if (run.status === 'active') {
+                  run.status = 'abandoned';
+                  run.finished_at = stamp;
+                }
+              const id = crypto.randomUUID();
+              runs.push({
+                id,
+                attempt: runs.length + 1,
+                status: 'active',
+                score: null,
+                stats: null,
+                started_at: stamp,
+                finished_at: null,
+              });
+              arcadeRuns.set(key, runs);
+              return json({ ...view(), run: id, attempt: runs.length, seed });
+            }
+            if (parts[5] === 'finish') {
+              const score = body.score;
+              if (typeof score !== 'number') fail(400, 'Run is not plausible.');
+              const run = runs.find((run) => run.id === body.run);
+              if (!run) fail(409, 'Run not found.', 'RUN_UNKNOWN');
+              if (run.status !== 'active') fail(409, 'Run already finished.', 'RUN_FINISHED');
+              const stats = validateChickenRun(
+                score,
+                body.stats,
+                now().getTime() - Date.parse(run.started_at),
+              );
+              if (!stats) fail(400, 'Run is not plausible.');
+              run.status = 'finished';
+              run.score = score;
+              run.stats = stats;
+              run.finished_at = stamp;
+              const result = mine(date);
+              if (result) {
+                result.score = Math.max(result.score, score);
+                result.updated_at = stamp;
+              } else
+                gameResults.push({
+                  game_id: gameId,
+                  date,
+                  user_id: user.id,
+                  score,
+                  payload: {},
+                  created_at: stamp,
+                  updated_at: stamp,
+                });
+              return json(view());
+            }
+          }
+        }
         if (gameId === 'wordguess' && ['today', 'guess'].includes(parts[4])) {
           const key = `${user.id}:${date}`;
           const guesses = wordProgress.get(key) ?? [];
