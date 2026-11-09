@@ -1,1 +1,1 @@
-export const DIVE_ENABLED = false;
+export const DIVE_ENABLED = true;

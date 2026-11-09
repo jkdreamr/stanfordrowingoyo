@@ -10,9 +10,8 @@ import { answerSet } from './games/dive/sets';
 import { accountExport, removeAccount } from './db/account';
 import { byId } from './db/users';
 import { matchAnswer, suggestAnswer } from './games/dive/matcher';
-import { DIVE_ENABLED } from './games/features';
 
-describe.skipIf(!DIVE_ENABLED)('Dive disabled for launch', () => {
+describe('Dive', () => {
   const bindings = env as unknown as Env;
   const NOW = '2026-03-18T18:00:00Z',
     DATE = '2026-03-18';

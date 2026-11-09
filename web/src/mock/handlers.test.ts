@@ -9,7 +9,6 @@ import type {
   PerceptionStart,
 } from '../../../shared/types';
 import { createMockApi } from './handlers';
-import { DIVE_ENABLED } from '../../../worker/src/games/features';
 const now = () => new Date('2026-11-06T18:00:00Z');
 function setup(options: Parameters<typeof createMockApi>[0] = {}) {
   const mock = createMockApi({ now, ...options });
@@ -33,7 +32,7 @@ const input = {
   notes: '',
   visibility: 'team',
 };
-describe.skipIf(!DIVE_ENABLED)('Dive disabled for launch', () => {
+describe('Dive', () => {
   it.each(['answers', 'guesses'])('enforces the 60-character mock Dive %s cap', async (path) => {
     const { request, state } = setup();
     await request('/auth/login', 'POST', {

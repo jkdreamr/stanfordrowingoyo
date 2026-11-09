@@ -9,7 +9,6 @@ import { PERCEPTION_POOL } from '../shared/games/perceptionV2';
 import { perceptionClock, perceptionTitles, playPerception } from './perception';
 import { connectionsPuzzleFor } from '../worker/src/games/connectionsPuzzles';
 import { DIVE_PROMPTS_PER_DAY } from '../shared/games/dive';
-import { DIVE_ENABLED } from '../worker/src/games/features';
 
 test.describe.configure({ timeout: 180_000 });
 test.use({ serviceWorkers: 'block' });
@@ -52,7 +51,6 @@ for (const { id, title, outcome } of [
     test(`${title} ${outcome} shares and leaves for ${destination} without a render error`, async ({
       makeRower,
     }, testInfo) => {
-      test.skip(id === 'dive' && !DIVE_ENABLED, 'Dive disabled for launch');
       const { page, context } = await makeRower();
       if (testInfo.project.name === 'pixel-7')
         await page.setViewportSize({ width: 412, height: 915 });

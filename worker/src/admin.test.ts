@@ -17,7 +17,6 @@ import { migrate } from './db/migrate';
 import { setSetting } from './db/settings';
 import { parseCsv } from './csv';
 import { insertRosterFixture } from './testFixtures';
-import { DIVE_ENABLED } from './games/features';
 const bindings = env as unknown as Env;
 const NOW = '2026-03-09T18:00:00Z';
 type Client = { cookie: string; user: User; rosterId: string };
@@ -359,8 +358,7 @@ describe('complete API and role permissions', () => {
                 }
               : {};
       const response = await api(path, staff, method, body);
-      if (!DIVE_ENABLED && path.startsWith('/games/dive/')) expect(response.status).toBe(404);
-      else if (
+      if (
         endpoint === 'POST /api/games/:game/results' ||
         endpoint === 'POST /api/games/connections/check'
       )

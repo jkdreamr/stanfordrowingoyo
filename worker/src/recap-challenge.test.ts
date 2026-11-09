@@ -270,9 +270,9 @@ it('recaps the final race, My Fortnight week and games highlights in one respons
     complete: true,
   });
   expect(recap.games).toEqual({
-    played: 3,
-    days: 2,
-    best_dive: null,
+    played: 5,
+    days: 4,
+    best_dive: 70,
     word_guess_solves: 1,
     streak: 2,
   });
@@ -291,11 +291,11 @@ it('recaps the final race, My Fortnight week and games highlights in one respons
   ).toHaveLength(3);
   expect(quiet.plan).toBeNull();
   expect(quiet.games).toEqual({
-    played: 0,
-    days: 0,
-    best_dive: null,
+    played: 1,
+    days: 1,
+    best_dive: 80,
     word_guess_solves: 0,
-    streak: 0,
+    streak: 1,
   });
   await sql((s) => s.sql.exec("UPDATE users SET role='coach'"));
   expect((await (await api('/stats/recap', a)).json<WeeklyRecap>()).race).toBeNull();
