@@ -166,6 +166,12 @@ export async function main(args = process.argv.slice(2)) {
         );
         corpus = combineCorpora([corpus, additions]);
       }
+      corpus = {
+        ...corpus,
+        ...JSON.parse(
+          await readFile(join(repo, 'scripts/dive/recall', 'refine-R9-selected.json'), 'utf8'),
+        ),
+      };
       corpusText = JSON.stringify(corpus);
     }
     const result = await evaluateCorpus({

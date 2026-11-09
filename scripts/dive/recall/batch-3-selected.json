@@ -1283,13 +1283,34 @@
     "Sketch Lecture Room and Library",
     "The Lecture Room and Library",
     "L Enclume",
-    "Le Gavroche",
-    "La Tante Claire",
-    "The Restaurant Marco Pierre White",
-    "Marco Pierre White",
-    "The Oak Room",
-    "The Araki",
-    "Araki",
+    {
+      "guess": "Le Gavroche",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "La Tante Claire",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Restaurant Marco Pierre White",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "Marco Pierre White",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Oak Room",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Araki",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "Araki",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
     {
       "guess": "The Ritz",
       "invalid": "Two-star restaurants, not historical UK three-star holders in the complete Michelin roll."
