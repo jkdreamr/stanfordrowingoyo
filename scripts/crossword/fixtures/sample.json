@@ -1,0 +1,56 @@
+{
+  "start": "2026-11-16",
+  "puzzles": [
+    {
+      "grid": ["HEART", "EMBER", "ABUSE", "RESIN", "TREND"],
+      "across": {
+        "1": "Organ that beats",
+        "6": "Glowing coal",
+        "7": "Mistreat",
+        "8": "Sticky tree substance",
+        "9": "Fashion direction"
+      },
+      "down": {
+        "1": "Valentine symbol",
+        "2": "Fire remnant",
+        "3": "Misuse",
+        "4": "Amber precursor",
+        "5": "General tendency"
+      }
+    },
+    {
+      "grid": ["SATOR", "AREPO", "TENET", "OPERA", "ROTAS"],
+      "across": {
+        "1": "Latin sower",
+        "6": "Name in an ancient word square",
+        "7": "Core belief",
+        "8": "Sung stage work",
+        "9": "Work schedules, in Britain"
+      },
+      "down": {
+        "1": "Latin planter",
+        "2": "Ancient square name",
+        "3": "Doctrine",
+        "4": "Verdi work",
+        "5": "Duty schedules"
+      }
+    },
+    {
+      "grid": ["ROTAS", "OPERA", "TENET", "AREPO", "SATOR"],
+      "across": {
+        "1": "British duty lists",
+        "6": "Musical drama",
+        "7": "Principle",
+        "8": "Mysterious ancient name",
+        "9": "Sower, in Latin"
+      },
+      "down": {
+        "1": "Shift schedules",
+        "2": "Puccini production",
+        "3": "Article of faith",
+        "4": "Word-square name",
+        "5": "Latin seed planter"
+      }
+    }
+  ]
+}

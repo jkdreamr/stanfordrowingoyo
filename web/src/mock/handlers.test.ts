@@ -32,6 +32,46 @@ const input = {
   notes: '',
   visibility: 'team',
 };
+it('ranks artificial crossword results by lower solve time plus penalties', async () => {
+  let elapsed = 0;
+  const base = Date.parse('2026-11-16T18:00:00Z');
+  const { request, state } = setup({ now: () => new Date(base + elapsed) });
+  for (const [index, duration] of [
+    [0, 120000],
+    [1, 10000],
+  ] as const) {
+    state.users[index].role = 'admin';
+    expect(
+      (
+        await request('/auth/login', 'POST', {
+          email: state.users[index].email,
+          password: 'password',
+        })
+      ).status,
+    ).toBe(200);
+    expect((await request('/games/crossword/start', 'POST', { date: '2026-11-16' })).status).toBe(
+      200,
+    );
+    elapsed += duration;
+    const result = await request('/games/crossword/reveal', 'POST', {
+      date: '2026-11-16',
+      cells: Array<string>(25).fill(''),
+      scope: 'puzzle',
+      cell: 6,
+      dir: 'across',
+    });
+    expect(result.status).toBe(200);
+    expect(await result.json()).toMatchObject({ finished: true, penalty: 135, reveals: 9 });
+  }
+  const board = await request('/games/crossword/leaderboard');
+  expect(await board.json()).toMatchObject({
+    players: 2,
+    rows: [
+      { score: 145, rank: 1, user: { id: state.users[1].id } },
+      { score: 255, rank: 2, user: { id: state.users[0].id } },
+    ],
+  });
+});
 it('keeps artificial mock Perception v2 stimuli, scoring and timing consistent', async () => {
   const base = Date.parse('2026-11-10T18:00:00Z');
   let elapsed = 0;

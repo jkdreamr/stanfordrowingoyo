@@ -340,6 +340,52 @@ self-contained guarded block. Feature migrations run in ascending order 11–18,
 
 ### Daily Games
 
+#### Mini Crossword
+
+`CROSSWORD_ENABLED = true` registers `crossword` with score direction `lower`.
+Disabling it removes the game from listings, boards, recap and streaks and returns
+404 for its API routes. No migration: progress uses v17 `game_progress` and results
+use v16 `game_results`.
+
+`GET /api/games/crossword/today` is side-effect free and never starts the clock.
+`available_from` is the source start date, allowing the web to describe the first
+puzzle's arrival without importing private data or hard-coding the schedule.
+All dedicated endpoints return `CrosswordDay`: date, access, availability, started,
+server start/time/elapsed seconds, blocks, clues, 25 cells, wrong/revealed indices,
+check/reveal counts, penalty, finished, incorrect and nullable solution. Locked
+callers receive no blocks or clues; clues remain empty until start and solutions
+remain null until completion. `POST /start {date?}` starts once, idempotently.
+`POST /progress {date?,cells}` resumes server-owned letters. `POST /check` and
+`POST /reveal` add `{scope:'cell'|'word'|'puzzle',cell,dir:'across'|'down'}`.
+Cell and direction must identify a white cell and a valid word even for puzzle scope.
+Checks cost 5/10/20 seconds per action, marking only filled incorrect cells.
+Changing a letter clears its wrong mark. Reveals cost 15 seconds per newly revealed
+cell that was not already correct; those cells are locked. `reveals` counts cells,
+not actions. Reveal auto-finishes a correct grid. `POST /finish {date?,cells}`
+finishes only a correct grid, otherwise returns 200 (`incorrect` for a full wrong
+attempt). Score is server elapsed seconds rounded and clamped to 1–3599 plus
+penalty. Completion atomically records `{seconds,penalty,checks,reveals,solution}`.
+Progress stores `{started_at,cells,wrong,revealed,checks,reveals,penalty,incorrect}`;
+`incorrect` remembers the last full wrong finish attempt across resume reads until
+an effective cell edit clears it. The web only announces its own finish response,
+not persisted incorrect state, and clears that feedback on the next edit.
+All writes require game access inside the transaction, reject stale dates with
+409 `DAY_CHANGED`, completion replay with 409 `ALREADY_PLAYED`, and invalid input
+with 400 without state changes. Generic result submission returns 405.
+
+`npm run crossword:build -- [source-path]` validates the source (default
+`scripts/crossword/puzzles.json`, falling back to the three-puzzle fixture), then
+deterministically encrypts compact ordered grid/clue records using AES-256-GCM.
+Only key/IV/hash/count/start metadata is bundled in the Worker. Ciphertext lives in
+`web/public/games/crossword.dat`, copied by Vite; the public Worker path returns
+404 while internal `ASSETS.fetch` loads and verifies it once per isolate. Encryption
+is defense-in-depth, not secrecy against repository access. Tests enforce freshness;
+the build leak guard excludes plaintext rows/signature and private web imports.
+Schedule index is LA days since source start: unavailable before start, then cycles
+from the first puzzle after the last. Existing dates are stable as long as the
+source start and ordered bank remain unchanged; extending/replacing a live bank
+must preserve already-scheduled dates (including cycled dates).
+
 Connections and Perception also use schema v17 `game_progress`. Generic
 `POST /api/games/:game/results` submissions for both return 405 after access checks.
 Results are written by the Worker transaction that finishes the game.

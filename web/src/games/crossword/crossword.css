@@ -1,0 +1,347 @@
+.xw {
+  --xw-black: #242428;
+  --xw-word: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  --xw-solved: color-mix(in srgb, var(--highlight) 12%, var(--surface));
+  width: min(100%, 680px);
+  margin-inline: auto;
+  color: var(--text);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.xw-start {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 16px;
+  padding: 40px 16px;
+}
+.xw-start h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+.xw-start p {
+  font-size: 15px;
+  line-height: 1.5;
+}
+.xw-muted {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.xw-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  height: 44px;
+}
+.xw-time {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.xw-tools {
+  display: flex;
+  gap: 4px;
+}
+.xw-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.xw-grid {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--text);
+  border: 2px solid var(--text);
+  gap: 1px;
+}
+.xw-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  min-height: 0;
+}
+.xw-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--text);
+  font-size: clamp(22px, 6vw, 32px);
+  font-weight: 500;
+  line-height: 1;
+  min-width: 0;
+  min-height: 0;
+}
+.xw-cell button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.xw-cell button:focus-visible {
+  outline: 3px solid var(--oyo-focus);
+  outline-offset: -4px;
+  z-index: 1;
+}
+.xw-number {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+}
+.xw-black {
+  background: var(--xw-black);
+}
+.dark .xw {
+  --xw-black: #08080a;
+}
+.xw-word {
+  background: var(--xw-word);
+}
+.xw-active {
+  background: var(--accent);
+  color: #fff;
+}
+.xw-wrong::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-top: 12px solid var(--accent-ink);
+  border-left: 12px solid transparent;
+  pointer-events: none;
+}
+.xw-wrong.xw-active::after {
+  border-top-color: #fff;
+}
+.xw-revealed::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-bottom: 10px solid var(--text-secondary);
+  border-right: 10px solid transparent;
+  pointer-events: none;
+  z-index: 1;
+}
+.xw-revealed.xw-active::before {
+  border-bottom-color: #fff;
+}
+.xw-clues {
+  display: grid;
+  gap: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.xw-clues h2 {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 8px 8px;
+  border-bottom: 1px solid var(--divider);
+}
+.xw-clues button {
+  display: flex;
+  gap: 8px;
+  text-align: left;
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  min-height: 44px;
+}
+.xw-clues button span {
+  font-weight: 600;
+  min-width: 16px;
+}
+.xw-clues .xw-clue-active {
+  background: var(--accent);
+  color: #fff;
+}
+.xw-crossing {
+  background: var(--xw-word);
+}
+.xw-message {
+  min-height: 24px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  margin: 4px 0;
+}
+.xw-penalty {
+  color: var(--accent-ink);
+  font-variant-numeric: tabular-nums;
+  animation: xw-note 200ms ease-out;
+}
+.xw-phone {
+  display: none;
+}
+.xw-menu {
+  display: grid;
+  gap: 8px;
+}
+.xw-menu .ui-button > span {
+  justify-content: space-between;
+  width: 100%;
+}
+.xw-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 14px;
+}
+.xw-result .xw-grid {
+  width: min(100%, 260px);
+}
+.xw-solved .xw-cell:not(.xw-black) {
+  background: var(--xw-solved);
+  color: var(--text);
+  animation: xw-solve 400ms ease-out both;
+  animation-delay: calc(var(--xw-order) * 30ms);
+}
+.xw-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+@keyframes xw-solve {
+  from {
+    background: var(--surface);
+  }
+  to {
+    background: var(--xw-solved);
+  }
+}
+@keyframes xw-note {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 767px), (pointer: coarse) {
+  .shell-content:has(.xw[aria-label='Crossword Game']) .ui-large-title {
+    display: none;
+  }
+  .shell-content:has(.xw[aria-label='Crossword Game']) .ui-page-compact {
+    opacity: 1 !important;
+  }
+  .xw-layout {
+    display: flex;
+    justify-content: center;
+  }
+  .xw-grid {
+    width: min(
+      100%,
+      340px,
+      calc(100dvh - 456px - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+    );
+  }
+  .xw-clues {
+    display: none;
+  }
+  .xw-toolbar {
+    margin-bottom: 8px;
+  }
+  .xw-phone {
+    display: block;
+    padding-bottom: 4px;
+  }
+  .xw-cluebar {
+    display: flex;
+    align-items: stretch;
+    min-height: 56px;
+    background: var(--xw-word);
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .xw-cluebar > button {
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .xw-cluebar .xw-current-clue {
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    text-align: left;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .xw-current-clue strong {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .xw-keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .xw-keyrow {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+  .xw-keyrow button {
+    flex: 1;
+    max-width: 40px;
+    min-width: 0;
+    height: 44px;
+    border-radius: 5px;
+    background: var(--divider);
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .xw-keyrow:nth-child(2) {
+    padding-inline: 12px;
+  }
+  .xw-keyrow:last-child {
+    padding-inline: 24px;
+  }
+  .xw-keyrow .xw-delete {
+    flex: 1.5;
+    max-width: 56px;
+  }
+  .xw-keyrow button:active {
+    background: var(--text-secondary);
+    color: var(--surface);
+  }
+  .xw-keyrow button:disabled {
+    opacity: 0.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .xw-solved .xw-cell:not(.xw-black),
+  .xw-penalty {
+    animation: none;
+  }
+}

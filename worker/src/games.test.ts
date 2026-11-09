@@ -191,7 +191,12 @@ it('excludes existing Dive results from played today, weekly points and game str
     results: { game_id: string }[];
     streak: { current: number; best: number };
   }>();
-  expect(list.games.map((game) => game.id)).toEqual(['wordguess', 'perception', 'connections']);
+  expect(list.games.map((game) => game.id)).toEqual([
+    'crossword',
+    'wordguess',
+    'perception',
+    'connections',
+  ]);
   expect(list.results.map((row) => row.game_id)).toEqual(['perception']);
   expect(list.streak).toEqual({ current: 1, best: 1 });
   const week = (await call('week')).body as GamesWeekLeaderboard;

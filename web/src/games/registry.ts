@@ -3,6 +3,7 @@ import { Anchor, Eye, Grid3x3, LayoutGrid, type LucideIcon } from 'lucide-react'
 import { formatConnectionsScore } from '../../../shared/games/connections';
 import type { GameScoreDirection } from '../../../shared/types';
 import { formatNumber } from '../lib/format';
+import { formatCrosswordTime } from '../../../shared/games/crossword';
 
 export interface GameDefinition {
   id: string;
@@ -14,6 +15,15 @@ export interface GameDefinition {
   formatScore(score: number): string;
 }
 export const GAMES: GameDefinition[] = [
+  {
+    id: 'crossword',
+    title: 'Mini Crossword',
+    icon: Grid3x3,
+    accent: 'var(--accent-ink)',
+    direction: 'lower',
+    component: lazy(() => import('./crossword')),
+    formatScore: formatCrosswordTime,
+  },
   {
     id: 'dive',
     title: 'Dive',

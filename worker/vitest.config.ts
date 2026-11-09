@@ -1,6 +1,13 @@
 import { defineConfig } from 'vitest/config';
 import { cloudflareTest } from '@cloudflare/vitest-plugin';
 import { generateVapidKeys } from '../scripts/generate-vapid-keys.ts';
+import { copyFileSync, mkdirSync } from 'node:fs';
+
+mkdirSync(new URL('../web/dist/games/', import.meta.url), { recursive: true });
+copyFileSync(
+  new URL('../web/public/games/crossword.dat', import.meta.url),
+  new URL('../web/dist/games/crossword.dat', import.meta.url),
+);
 
 const vapid = generateVapidKeys();
 export default defineConfig({

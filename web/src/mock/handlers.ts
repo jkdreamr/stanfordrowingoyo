@@ -30,6 +30,7 @@ import type {
   Zone,
   RaceWeek,
   GameResult,
+  GameAccess,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
 import {
@@ -42,6 +43,7 @@ import {
 import { GROUP_TARGETS, PLAN_SLOTS, PLAN_TOTALS, PRESETS } from '../../../shared/seed';
 import { TEAM_PLAN_CURRENT_SLOTS, TEAM_PLAN_SEED_WEEK } from '../../../shared/teamPlan';
 import { createFixtures, publicUser } from './fixtures';
+import { mockCrossword } from './crossword';
 import { mentionIds } from '../lib/social';
 import { generatedImage } from './images';
 import { previewRoster } from '../pages/admin/roster';
@@ -99,6 +101,7 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  crossword: null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -198,6 +201,7 @@ export function createMockApi({
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
+  const crossword = mockCrossword();
   const wordProgress = new Map<string, string[]>();
   const connectionProgress = new Map<string, string[][]>();
   const perceptionProgress = new Map<
@@ -1016,7 +1020,11 @@ export function createMockApi({
                     !scheduled.some((row) => row.day === dayIndex && row.kind === 'oyo')
                   ? 'no_oyo'
                   : 'locked';
-        const access = { date, unlocked: reason !== 'locked', reason };
+        const access: GameAccess = {
+          date,
+          unlocked: reason !== 'locked',
+          reason: reason as GameAccess['reason'],
+        };
         if (path === '/api/games/access' && method === 'GET') return json(access);
         if (path === '/api/games' && method === 'GET')
           return json({
@@ -1037,7 +1045,10 @@ export function createMockApi({
               ].sort(),
               date,
             ),
-            games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
+            games: Object.keys(MOCK_GAMES).map((id) => ({
+              id,
+              direction: id === 'crossword' ? 'lower' : 'higher',
+            })),
             results: gameResults.filter(
               (row) =>
                 row.user_id === user.id &&
@@ -1129,6 +1140,29 @@ export function createMockApi({
             updated_at: stamp,
           });
         };
+        if (
+          gameId === 'crossword' &&
+          ['today', 'start', 'progress', 'check', 'reveal', 'finish'].includes(parts[4])
+        ) {
+          if (
+            (parts[4] === 'today' && method !== 'GET') ||
+            (parts[4] !== 'today' && method !== 'POST')
+          )
+            fail(405, 'Method Not Allowed.');
+          return json(
+            crossword({
+              user: user.id,
+              date,
+              access,
+              action: parts[4],
+              body,
+              now: now(),
+              finished: !!mine(date),
+              fail,
+              finish: addResult,
+            }),
+          );
+        }
         if (gameId === 'perception' && ['today', 'start', 'answer'].includes(parts[4])) {
           const v2 = date >= PERCEPTION_V2_FROM;
           const rounds: PerceptionRoundId[] = v2
@@ -1287,13 +1321,16 @@ export function createMockApi({
             fail(403, 'Play today to see the board.', 'PLAY_FIRST');
           const rows = gameResults
             .filter((row) => row.game_id === gameId && row.date === day)
-            .sort((a, b) => b.score - a.score)
+            .sort((a, b) => (gameId === 'crossword' ? a.score - b.score : b.score - a.score))
             .map((row) => ({
               score: row.score,
               rank:
                 1 +
                 gameResults.filter(
-                  (o) => o.game_id === gameId && o.date === day && o.score > row.score,
+                  (o) =>
+                    o.game_id === gameId &&
+                    o.date === day &&
+                    (gameId === 'crossword' ? o.score < row.score : o.score > row.score),
                 ).length,
               user: publicUser(state.users.find((u) => u.id === row.user_id)!),
               me: row.user_id === user.id,

@@ -27,6 +27,8 @@ import { DIVE_ENABLED } from './games/features';
 import * as connections from './routes/connections';
 import * as wordguess from './routes/wordguess';
 import * as perception from './routes/perception';
+import * as crossword from './routes/crossword';
+import { CROSSWORD_ENABLED } from './games/features';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -39,6 +41,12 @@ function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'GET', path: '/api/games/crossword/today', handler: crossword.current },
+  { method: 'POST', path: '/api/games/crossword/start', handler: crossword.start },
+  { method: 'POST', path: '/api/games/crossword/progress', handler: crossword.save },
+  { method: 'POST', path: '/api/games/crossword/check', handler: crossword.check },
+  { method: 'POST', path: '/api/games/crossword/reveal', handler: crossword.reveal },
+  { method: 'POST', path: '/api/games/crossword/finish', handler: crossword.complete },
   { method: 'GET', path: '/api/games/perception/today', handler: perception.current },
   { method: 'POST', path: '/api/games/perception/start', handler: perception.start },
   { method: 'POST', path: '/api/games/perception/answer', handler: perception.answer },
@@ -224,6 +232,8 @@ export async function route(ctx: Context): Promise<Response> {
   let response: Response;
   try {
     const path = new URL(ctx.request.url).pathname;
+    if (!CROSSWORD_ENABLED && /^\/api\/games\/crossword(?:\/|$)/.test(path))
+      throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (!DIVE_ENABLED && /^\/api\/games\/dive(?:\/|$)/.test(path))
       throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (path.startsWith('/internal/') && ctx.request.headers.get('X-OYO-Internal') !== '1')

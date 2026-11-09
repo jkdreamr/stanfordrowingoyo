@@ -30,6 +30,8 @@ export default {
   },
   async fetch(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
+    if (path.replace(/\/+$/, '') === '/games/crossword.dat')
+      return new Response(null, { status: 404 });
     if (path.startsWith('/api/')) {
       if (request.headers.has('X-OYO-Internal')) {
         const headers = new Headers(request.headers);

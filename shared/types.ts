@@ -577,6 +577,43 @@ export interface DiveDay {
   /** Only after this date is complete; admins may review before playing. */
   reveal: DiveReveal[] | null;
 }
+export interface CrosswordDay {
+  available_from?: string;
+  date: string;
+  access: GameAccess;
+  available: boolean;
+  started: boolean;
+  started_at: string | null;
+  server_now: string;
+  elapsed: number;
+  blocks: number[];
+  clues: {
+    number: number;
+    dir: 'across' | 'down';
+    row: number;
+    col: number;
+    length: number;
+    text: string;
+  }[];
+  cells: string[];
+  wrong: number[];
+  revealed: number[];
+  checks: number;
+  reveals: number;
+  penalty: number;
+  finished: boolean;
+  incorrect: boolean;
+  solution: string[] | null;
+}
+export interface CrosswordInput {
+  date?: string;
+  cells: string[];
+}
+export interface CrosswordHelpInput extends CrosswordInput {
+  scope: 'cell' | 'word' | 'puzzle';
+  cell: number;
+  dir: 'across' | 'down';
+}
 export interface ConnectionsDay extends Omit<ConnectionsCheck, 'outcome'> {
   guesses: string[][];
   outcomes: ConnectionsCheck['outcome'][];
@@ -760,6 +797,12 @@ export interface Api {
     { round: number; date?: string; answer: PerceptionRoundAnswer },
     PerceptionDay
   >;
+  'GET /api/games/crossword/today': Endpoint<void, CrosswordDay>;
+  'POST /api/games/crossword/start': Endpoint<{ date?: string }, CrosswordDay>;
+  'POST /api/games/crossword/progress': Endpoint<CrosswordInput, CrosswordDay>;
+  'POST /api/games/crossword/check': Endpoint<CrosswordHelpInput, CrosswordDay>;
+  'POST /api/games/crossword/reveal': Endpoint<CrosswordHelpInput, CrosswordDay>;
+  'POST /api/games/crossword/finish': Endpoint<CrosswordInput, CrosswordDay>;
   'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;
   'GET /api/games/wordguess/today': Endpoint<void, WordGuessDay>;
   'POST /api/games/wordguess/guess': Endpoint<{ guess: string }, WordGuessDay>;
