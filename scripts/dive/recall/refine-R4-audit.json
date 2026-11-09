@@ -1,0 +1,1016 @@
+{
+  "base_commit": "d9f96cf",
+  "as_of": "2026-11-09",
+  "raw_sha256": "bb2c36fc96eff00ae9a5632e96ad4e68a829b8477986b868ae380a3d0e16e973",
+  "selected_sha256": "cd6a779f6b19dc694ea49f9eddac1b14ac19ed358aacc385b9f0ef1a6c9854d3",
+  "constrained_sha256": "cde7ec4080f6e46724dc37deb80daa6a47ec8d55432e69a5ab0da04fc853db05",
+  "recall_method": "Frozen raw text/order preserved. Only genuinely wrong guesses annotated; ambiguous valid Bond surname Lee remains a miss in the denominator. Exact normalized evaluator, not fuzzy matcher.",
+  "corpus": {
+    "prompts": 6,
+    "raw_guesses": 225,
+    "hits": 177,
+    "valid": 178,
+    "invalid": 47
+  },
+  "gzip_kib": {
+    "baseline": 2993.75,
+    "after": 2994.82,
+    "delta": 1.07,
+    "limit": 1.5,
+    "method": "npm run build / Wrangler dry-run Total Upload gzip, same environment, baseline generated output at d9f96cf versus regenerated replacements."
+  },
+  "source_verification": "Read pinned rendered Wikipedia revisions via webfetch and manually compared each member to its relevant table. King theatrical status also checked per film article (revisions below), including all five same-title remake pairs. Direct Python MediaWiki API returned HTTP Error 403: Forbidden; --verify-sources was not run. Existing sources.py members/reviewed recipe convention used without changes.",
+  "overlap": {
+    "active_constrained_prompts": 320,
+    "unique_comparisons": 1899,
+    "new_new_comparisons": 15,
+    "method": "Primary: intersection of normalized canonical title/name sets, denominator min(canonical counts). Secondary conservative screen: maximum one-to-one matching across normalized canonical+alias key sets, denominator unchanged. Shared surnames may overstate cross-prompt identity in secondary screen; even that screen stays below 50%.",
+    "at_least_50_percent": [],
+    "new_pairs": [
+      {
+        "a": "national-film-registry-1989",
+        "b": "stephen-king-theatrical-films",
+        "a_count": 25,
+        "b_count": 46,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "national-film-registry-1989",
+        "b": "live-action-batman-actors",
+        "a_count": 25,
+        "b_count": 9,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "national-film-registry-1989",
+        "b": "worldwide-box-office-record-films",
+        "a_count": 25,
+        "b_count": 11,
+        "canonical_intersection": 2,
+        "canonical_ratio": 0.18181818181818182,
+        "alias_aware_intersection": 2,
+        "alias_aware_ratio": 0.18181818181818182
+      },
+      {
+        "a": "national-film-registry-1989",
+        "b": "annual-worldwide-box-office-1990-2025",
+        "a_count": 25,
+        "b_count": 38,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "national-film-registry-1989",
+        "b": "bond-villain-actors",
+        "a_count": 25,
+        "b_count": 36,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "stephen-king-theatrical-films",
+        "b": "live-action-batman-actors",
+        "a_count": 46,
+        "b_count": 9,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "stephen-king-theatrical-films",
+        "b": "worldwide-box-office-record-films",
+        "a_count": 46,
+        "b_count": 11,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "stephen-king-theatrical-films",
+        "b": "annual-worldwide-box-office-1990-2025",
+        "a_count": 46,
+        "b_count": 38,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "stephen-king-theatrical-films",
+        "b": "bond-villain-actors",
+        "a_count": 46,
+        "b_count": 36,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "live-action-batman-actors",
+        "b": "worldwide-box-office-record-films",
+        "a_count": 9,
+        "b_count": 11,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "live-action-batman-actors",
+        "b": "annual-worldwide-box-office-1990-2025",
+        "a_count": 9,
+        "b_count": 38,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "live-action-batman-actors",
+        "b": "bond-villain-actors",
+        "a_count": 9,
+        "b_count": 36,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "worldwide-box-office-record-films",
+        "b": "annual-worldwide-box-office-1990-2025",
+        "a_count": 11,
+        "b_count": 38,
+        "canonical_intersection": 4,
+        "canonical_ratio": 0.36363636363636365,
+        "alias_aware_intersection": 4,
+        "alias_aware_ratio": 0.36363636363636365
+      },
+      {
+        "a": "worldwide-box-office-record-films",
+        "b": "bond-villain-actors",
+        "a_count": 11,
+        "b_count": 36,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      },
+      {
+        "a": "annual-worldwide-box-office-1990-2025",
+        "b": "bond-villain-actors",
+        "a_count": 38,
+        "b_count": 36,
+        "canonical_intersection": 0,
+        "canonical_ratio": 0,
+        "alias_aware_intersection": 0,
+        "alias_aware_ratio": 0
+      }
+    ]
+  },
+  "checks": {
+    "generate": "passed; 320 constrained prompts in the 64-day schedule",
+    "unittest": "30 run, 28 pass, 2 failures: fixed total spec count 387 versus 393; fixed retired-ID set missing exactly the six newly retired IDs. Tests left unchanged per edit scope.",
+    "recall_test": "15 tests, 15 pass, 0 fail",
+    "recall": "Every new prompt >=95%; 177/178 combined; overall cycle 8736/8766",
+    "short_texts": "All six new prompts pass the existing <=85 length and natural-text regex assertions independently of stale retired-set assertion.",
+    "worker_tests": "Not run; expected retired-count assertion failure was explicitly waived by task."
+  },
+  "exceptions": [
+    "Batman has four Surface anchors, not five: nine answers need at least four non-anchor ordinary rows to populate school/rare/deep, plus one Pearl; five Surface anchors would fail generate.py's required-tier invariant.",
+    "Python unittest has two additional stale catalog-fixture assertions beyond the waived Worker retired-count assertion; no tests edited.",
+    "Generated Worker data and report files are deliberately restored before commit; branch requires local regeneration to use the new catalog."
+  ],
+  "prompts": [
+    {
+      "old_id": "bond-films",
+      "old_text": "Name a James Bond film.",
+      "old_count": 26,
+      "id": "bond-villain-actors",
+      "text": "Name a main-villain actor in an Eon Bond film from Dr No to No Time to Die.",
+      "count": 36,
+      "band": "medium",
+      "raw_guesses": 38,
+      "invalid": 7,
+      "recall": {
+        "hits": 30,
+        "total": 31,
+        "rate": 0.967741935483871,
+        "misses": ["Lee"]
+      },
+      "surface": [
+        "Javier Bardem",
+        "Rami Malek",
+        "Mads Mikkelsen",
+        "Christoph Waltz",
+        "Christopher Walken"
+      ],
+      "too_clever": ["Eric Pohlmann"],
+      "pearl": "Vladek Sheybal",
+      "source_urls": [
+        "https://en.wikipedia.org/w/index.php?title=List_of_James_Bond_villains&oldid=1383256511",
+        "https://en.wikipedia.org/w/index.php?title=Ernst_Stavro_Blofeld&oldid=1384588655"
+      ],
+      "source_membership": [
+        {
+          "page": "List of James Bond villains",
+          "revision": 1383256511,
+          "expect": [34, 34],
+          "members": [
+            "Adolfo Celi",
+            "Andrew Scott",
+            "Anthony Dawson",
+            "Charles Gray",
+            "Christoph Waltz",
+            "Christopher Lee",
+            "Christopher Walken",
+            "Curd Jürgens",
+            "Donald Pleasence",
+            "Eric Pohlmann",
+            "Gert Fröbe",
+            "Javier Bardem",
+            "Jeroen Krabbé",
+            "Jesper Christensen",
+            "Joe Don Baker",
+            "Jonathan Pryce",
+            "Joseph Wiseman",
+            "Julian Glover",
+            "Lotte Lenya",
+            "Louis Jourdan",
+            "Mads Mikkelsen",
+            "Mathieu Amalric",
+            "Michael Lonsdale",
+            "Rami Malek",
+            "Robert Carlyle",
+            "Robert Davi",
+            "Sean Bean",
+            "Sophie Marceau",
+            "Steven Berkoff",
+            "Telly Savalas",
+            "Toby Stephens",
+            "Vladek Sheybal",
+            "Will Yun Lee",
+            "Yaphet Kotto"
+          ],
+          "recipe": "Film villains / Eon Productions main-villain table, Portrayed by column: all 34 unique named performers including shared roles and Blofeld body/voice performers. No henchman expansion needed."
+        },
+        {
+          "page": "Ernst Stavro Blofeld",
+          "revision": 1384588655,
+          "expect": [2, 2],
+          "members": ["John Hollis", "Peter Marinker"],
+          "recipe": "Film appearances / Eon Productions, For Your Eyes Only: uncredited Blofeld body and voice actors supplement the main-villain table."
+        }
+      ],
+      "acceptance_notes": "All main-table performers count, including voice and uncredited Blofeld portrayals. Supplement with For Your Eyes Only's John Hollis (body) and Peter Marinker (voice). Non-Eon Max von Sydow and henchmen-only roles are excluded. Lee alone is ambiguous between Christopher Lee and Will Yun Lee and is not accepted.",
+      "largest_overlap": [
+        {
+          "other": "moonwalkers",
+          "canonical_intersection": 0,
+          "alias_aware_intersection": 2,
+          "denominator": 12,
+          "canonical_ratio": 0,
+          "alias_aware_ratio": 0.16666666666666666
+        },
+        {
+          "other": "best-supporting-actor",
+          "canonical_intersection": 3,
+          "alias_aware_intersection": 3,
+          "denominator": 36,
+          "canonical_ratio": 0.08333333333333333,
+          "alias_aware_ratio": 0.08333333333333333
+        },
+        {
+          "other": "apollo-moon-travellers",
+          "canonical_intersection": 0,
+          "alias_aware_intersection": 2,
+          "denominator": 24,
+          "canonical_ratio": 0,
+          "alias_aware_ratio": 0.08333333333333333
+        }
+      ]
+    },
+    {
+      "old_id": "spielberg-films",
+      "old_text": "Name a feature film directed by Steven Spielberg.",
+      "old_count": 37,
+      "id": "national-film-registry-1989",
+      "text": "Name a film selected for the National Film Registry in its inaugural year, 1989.",
+      "count": 25,
+      "band": "medium",
+      "raw_guesses": 35,
+      "invalid": 11,
+      "recall": {
+        "hits": 24,
+        "total": 24,
+        "rate": 1,
+        "misses": []
+      },
+      "surface": [
+        "Star Wars",
+        "The Wizard of Oz",
+        "Casablanca",
+        "Citizen Kane",
+        "Snow White and the Seven Dwarfs"
+      ],
+      "too_clever": [],
+      "pearl": "The Learning Tree",
+      "source_urls": [
+        "https://en.wikipedia.org/w/index.php?title=National_Film_Registry&oldid=1384519422"
+      ],
+      "source_membership": [
+        {
+          "page": "National Film Registry",
+          "revision": 1384519422,
+          "expect": [25, 25],
+          "members": [
+            "Casablanca",
+            "Citizen Kane",
+            "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+            "Gone with the Wind",
+            "High Noon",
+            "Intolerance",
+            "Modern Times",
+            "Mr. Smith Goes to Washington",
+            "Nanook of the North",
+            "On the Waterfront",
+            "Singin' in the Rain",
+            "Snow White and the Seven Dwarfs",
+            "Some Like It Hot",
+            "Star Wars",
+            "Sunrise",
+            "Sunset Boulevard",
+            "The Best Years of Our Lives",
+            "The Crowd",
+            "The General",
+            "The Grapes of Wrath",
+            "The Learning Tree",
+            "The Maltese Falcon",
+            "The Searchers",
+            "The Wizard of Oz",
+            "Vertigo"
+          ],
+          "recipe": "Films table, induction year 1989: all 25 inaugural selections, with display markers stripped."
+        }
+      ],
+      "acceptance_notes": "The inaugural 25 only. Star Wars is the 1977 film, Episode IV / A New Hope; Snow White is the 1937 animated film. Short and full Dr. Strangelove titles and Sunrise subtitle variants count.",
+      "largest_overlap": [
+        {
+          "other": "worldwide-box-office-record-films",
+          "canonical_intersection": 2,
+          "alias_aware_intersection": 2,
+          "denominator": 11,
+          "canonical_ratio": 0.18181818181818182,
+          "alias_aware_ratio": 0.18181818181818182
+        },
+        {
+          "other": "best-picture",
+          "canonical_intersection": 4,
+          "alias_aware_intersection": 4,
+          "denominator": 25,
+          "canonical_ratio": 0.16,
+          "alias_aware_ratio": 0.16
+        },
+        {
+          "other": "lloyd-webber-musicals",
+          "canonical_intersection": 2,
+          "alias_aware_intersection": 2,
+          "denominator": 21,
+          "canonical_ratio": 0.09523809523809523,
+          "alias_aware_ratio": 0.09523809523809523
+        }
+      ]
+    },
+    {
+      "old_id": "hitchcock-films",
+      "old_text": "Name a feature film directed by Alfred Hitchcock.",
+      "old_count": 53,
+      "id": "stephen-king-theatrical-films",
+      "text": "Name a theatrically released Stephen King feature adaptation by 2025.",
+      "count": 46,
+      "band": "medium",
+      "raw_guesses": 44,
+      "invalid": 3,
+      "recall": {
+        "hits": 41,
+        "total": 41,
+        "rate": 1,
+        "misses": []
+      },
+      "surface": ["The Shining", "The Shawshank Redemption", "The Green Mile", "It", "Carrie"],
+      "too_clever": ["'Salem's Lot"],
+      "pearl": "Julie Ganapathi",
+      "source_urls": [
+        "https://en.wikipedia.org/w/index.php?title=List_of_adaptations_of_works_by_Stephen_King&oldid=1384004791"
+      ],
+      "source_membership": [
+        {
+          "page": "List of adaptations of works by Stephen King",
+          "revision": 1384004791,
+          "expect": [46, 46],
+          "members": [
+            "'Salem's Lot",
+            "1408",
+            "A Good Marriage",
+            "Apt Pupil",
+            "Carrie",
+            "Cat's Eye",
+            "Cell",
+            "Children of the Corn",
+            "Christine",
+            "Creepshow",
+            "Creepshow 2",
+            "Cujo",
+            "Doctor Sleep",
+            "Dolores Claiborne",
+            "Dreamcatcher",
+            "Firestarter",
+            "Graveyard Shift",
+            "Hearts in Atlantis",
+            "It",
+            "It Chapter Two",
+            "Julie Ganapathi",
+            "Maximum Overdrive",
+            "Misery",
+            "Needful Things",
+            "No Smoking",
+            "Pet Sematary",
+            "Riding the Bullet",
+            "Secret Window",
+            "Silver Bullet",
+            "Stand by Me",
+            "Tales from the Darkside: The Movie",
+            "The Boogeyman",
+            "The Dark Half",
+            "The Dark Tower",
+            "The Dead Zone",
+            "The Green Mile",
+            "The Life of Chuck",
+            "The Long Walk",
+            "The Mangler",
+            "The Mist",
+            "The Monkey",
+            "The Night Flier",
+            "The Running Man",
+            "The Shawshank Redemption",
+            "The Shining",
+            "Thinner"
+          ],
+          "recipe": "Both Films adaptation tables, excluding Television and Derivative works. Retain feature adaptations with commercial theatrical distribution in any country by 2025; exclude shorts, festival-only screenings and streaming/DVD-only films. Deduplicate same-title remakes with year aliases."
+        }
+      ],
+      "acceptance_notes": "Includes Richard Bachman works, Indian adaptations and anthology films containing a King-adapted segment. Same-title remakes collapse: Carrie 1976/2013, Pet Sematary 1989/2019, Firestarter 1984/2022, Children of the Corn 1984/2020 (wide release 2023), The Running Man 1987/2025. It 2017 and It Chapter Two 2019 remain distinct. 'Salem's Lot 2024 qualifies via UK/Ireland theaters despite its US Max debut; The Night Flier received a theatrical run after HBO. Exclude TV films/miniseries; Disciples of the Crow (short); Dolan's Cadillac and Mercy (direct-to-video); Gerald's Game, 1922, In the Tall Grass and Mr. Harrigan's Phone (streaming/festival-only). Exclude derivative sequels with no King source material whether theatrical or direct-to-video: Pet Sematary Two, The Rage: Carrie 2, Children of the Corn sequels. Creepshow 2 adapts The Raft and qualifies. The Lawnmower Man is not an adaptation of King's story.",
+      "largest_overlap": [
+        {
+          "other": "kubrick-films",
+          "canonical_intersection": 1,
+          "alias_aware_intersection": 1,
+          "denominator": 13,
+          "canonical_ratio": 0.07692307692307693,
+          "alias_aware_ratio": 0.07692307692307693
+        },
+        {
+          "other": "masterchef-us-winners",
+          "canonical_intersection": 0,
+          "alias_aware_intersection": 1,
+          "denominator": 17,
+          "canonical_ratio": 0,
+          "alias_aware_ratio": 0.058823529411764705
+        },
+        {
+          "other": "birthstones",
+          "canonical_intersection": 1,
+          "alias_aware_intersection": 1,
+          "denominator": 29,
+          "canonical_ratio": 0.034482758620689655,
+          "alias_aware_ratio": 0.034482758620689655
+        }
+      ]
+    },
+    {
+      "old_id": "nolan-films",
+      "old_text": "Name a feature film directed by Christopher Nolan.",
+      "old_count": 13,
+      "id": "live-action-batman-actors",
+      "text": "Name a live-action theatrical Batman actor by 2025, including serials.",
+      "count": 9,
+      "band": "tiny",
+      "raw_guesses": 32,
+      "invalid": 10,
+      "recall": {
+        "hits": 22,
+        "total": 22,
+        "rate": 1,
+        "misses": []
+      },
+      "surface": ["Christian Bale", "Michael Keaton", "Ben Affleck", "Robert Pattinson"],
+      "too_clever": [],
+      "pearl": "Robert Lowery",
+      "source_urls": ["https://en.wikipedia.org/w/index.php?title=Batman_in_film&oldid=1379246665"],
+      "source_membership": [
+        {
+          "page": "Batman in film",
+          "revision": 1379246665,
+          "expect": [9, 9],
+          "members": [
+            "Adam West",
+            "Ben Affleck",
+            "Christian Bale",
+            "George Clooney",
+            "Lewis Wilson",
+            "Michael Keaton",
+            "Robert Lowery",
+            "Robert Pattinson",
+            "Val Kilmer"
+          ],
+          "recipe": "Early films / Serials and recurring cast / live-action theatrical films: all nine Batman actors through 2025 including the 1943/1949 theatrical serials and 1966 feature."
+        }
+      ],
+      "acceptance_notes": "Include Lewis Wilson (1943 serial), Robert Lowery (1949 serial) and Adam West (1966 feature). Exclude TV-only Batman (David Mazouz, Iain Glen), animated voice-only roles (Kevin Conroy, Will Arnett, Jensen Ackles) and stand-ins. Returning actors count once. Four explicit Surface anchors leave enough non-anchor answers for all required ordinary tiers in this nine-member set.",
+      "largest_overlap": [
+        {
+          "other": "best-supporting-actor",
+          "canonical_intersection": 2,
+          "alias_aware_intersection": 2,
+          "denominator": 9,
+          "canonical_ratio": 0.2222222222222222,
+          "alias_aware_ratio": 0.2222222222222222
+        },
+        {
+          "other": "best-actor",
+          "canonical_intersection": 0,
+          "alias_aware_intersection": 1,
+          "denominator": 9,
+          "canonical_ratio": 0,
+          "alias_aware_ratio": 0.1111111111111111
+        },
+        {
+          "other": "best-actress",
+          "canonical_intersection": 0,
+          "alias_aware_intersection": 1,
+          "denominator": 9,
+          "canonical_ratio": 0,
+          "alias_aware_ratio": 0.1111111111111111
+        }
+      ]
+    },
+    {
+      "old_id": "tarantino-films",
+      "old_text": "Name a feature film directed by Quentin Tarantino.",
+      "old_count": 10,
+      "id": "worldwide-box-office-record-films",
+      "text": "Name a film listed as a worldwide box-office record holder by 2025, unadjusted.",
+      "count": 11,
+      "band": "tiny",
+      "raw_guesses": 34,
+      "invalid": 14,
+      "recall": {
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "misses": []
+      },
+      "surface": ["Avatar", "Titanic", "Avengers: Endgame", "Star Wars", "Jurassic Park"],
+      "too_clever": [],
+      "pearl": "The Birth of a Nation",
+      "source_urls": [
+        "https://en.wikipedia.org/w/index.php?title=List_of_highest-grossing_films&oldid=1384541318"
+      ],
+      "source_membership": [
+        {
+          "page": "List of highest-grossing films",
+          "revision": 1384541318,
+          "expect": [11, 11],
+          "members": [
+            "Avatar",
+            "Avengers: Endgame",
+            "E.T. the Extra-Terrestrial",
+            "Gone with the Wind",
+            "Jaws",
+            "Jurassic Park",
+            "Star Wars",
+            "The Birth of a Nation",
+            "The Godfather",
+            "The Sound of Music",
+            "Titanic"
+          ],
+          "recipe": "Timeline of highest-grossing films table, established year <=2025, deduplicating re-release rows: eleven distinct titles including early rental-era entries. Not speculative record holders in prose."
+        }
+      ],
+      "acceptance_notes": "Worldwide unadjusted timeline-table members only, not current highest grossers or inflation-adjusted leaders. Re-releases do not create new answers. Exclude speculative holders discussed only in prose: Ben-Hur, The Ten Commandments, Snow White and Deep Throat. Ignore 2026 entries.",
+      "largest_overlap": [
+        {
+          "other": "best-visual-effects",
+          "canonical_intersection": 5,
+          "alias_aware_intersection": 5,
+          "denominator": 11,
+          "canonical_ratio": 0.45454545454545453,
+          "alias_aware_ratio": 0.45454545454545453
+        },
+        {
+          "other": "best-picture",
+          "canonical_intersection": 4,
+          "alias_aware_intersection": 4,
+          "denominator": 11,
+          "canonical_ratio": 0.36363636363636365,
+          "alias_aware_ratio": 0.36363636363636365
+        },
+        {
+          "other": "annual-worldwide-box-office-1990-2025",
+          "canonical_intersection": 4,
+          "alias_aware_intersection": 4,
+          "denominator": 11,
+          "canonical_ratio": 0.36363636363636365,
+          "alias_aware_ratio": 0.36363636363636365
+        }
+      ]
+    },
+    {
+      "old_id": "pixar-films",
+      "old_text": "Name a Pixar feature film.",
+      "old_count": 31,
+      "id": "annual-worldwide-box-office-1990-2025",
+      "text": "Name a worldwide box-office release-year leader from 1990–2025, counting re-releases.",
+      "count": 38,
+      "band": "medium",
+      "raw_guesses": 42,
+      "invalid": 2,
+      "recall": {
+        "hits": 40,
+        "total": 40,
+        "rate": 1,
+        "misses": []
+      },
+      "surface": ["Titanic", "Avatar", "Avengers: Endgame", "Barbie", "Inside Out 2"],
+      "too_clever": ["Die Hard with a Vengeance"],
+      "pearl": "Demon Slayer: Mugen Train",
+      "source_urls": [
+        "https://en.wikipedia.org/w/index.php?title=List_of_highest-grossing_films&oldid=1384541318"
+      ],
+      "source_membership": [
+        {
+          "page": "List of highest-grossing films",
+          "revision": 1384541318,
+          "expect": [38, 38],
+          "members": [
+            "Aladdin",
+            "Armageddon",
+            "Avatar",
+            "Avatar: The Way of Water",
+            "Avengers: Endgame",
+            "Avengers: Infinity War",
+            "Barbie",
+            "Captain America: Civil War",
+            "Demon Slayer: Kimetsu no Yaiba – The Movie: Mugen Train",
+            "Die Hard with a Vengeance",
+            "Frozen",
+            "Ghost",
+            "Harry Potter and the Deathly Hallows – Part 2",
+            "Harry Potter and the Goblet of Fire",
+            "Harry Potter and the Philosopher's Stone",
+            "Independence Day",
+            "Inside Out 2",
+            "Jurassic Park",
+            "Mission: Impossible 2",
+            "Ne Zha 2",
+            "Pirates of the Caribbean: At World's End",
+            "Pirates of the Caribbean: Dead Man's Chest",
+            "Shrek 2",
+            "Spider-Man: No Way Home",
+            "Star Wars: Episode I – The Phantom Menace",
+            "Star Wars: Episode III – Revenge of the Sith",
+            "Star Wars: The Force Awakens",
+            "Star Wars: The Last Jedi",
+            "Terminator 2: Judgment Day",
+            "The Avengers",
+            "The Dark Knight",
+            "The Lion King",
+            "The Lord of the Rings: The Return of the King",
+            "The Lord of the Rings: The Two Towers",
+            "Titanic",
+            "Toy Story",
+            "Toy Story 3",
+            "Transformers: Age of Extinction"
+          ],
+          "recipe": "Highest-grossing films by year table, release years 1990–2025 inclusive. Keep all titles in multi-entry years 1995 and 2005: 38 distinct films across 36 years."
+        }
+      ],
+      "acceptance_notes": "Lifetime worldwide grosses including re-releases, not calendar-year receipts. Accept every listed leader in a year: both Toy Story and Die Hard with a Vengeance in 1995, and both Harry Potter and the Goblet of Fire and Revenge of the Sith in 2005. These are re-release/first-run alternatives, not numerical ties. No other year in the range has multiple entries; any listed tied leaders would all count. Exclude 2026 and later.",
+      "largest_overlap": [
+        {
+          "other": "worldwide-box-office-record-films",
+          "canonical_intersection": 4,
+          "alias_aware_intersection": 4,
+          "denominator": 11,
+          "canonical_ratio": 0.36363636363636365,
+          "alias_aware_ratio": 0.36363636363636365
+        },
+        {
+          "other": "star-wars-theatrical-films",
+          "canonical_intersection": 2,
+          "alias_aware_intersection": 4,
+          "denominator": 13,
+          "canonical_ratio": 0.15384615384615385,
+          "alias_aware_ratio": 0.3076923076923077
+        },
+        {
+          "other": "wizarding-world-films",
+          "canonical_intersection": 1,
+          "alias_aware_intersection": 3,
+          "denominator": 11,
+          "canonical_ratio": 0.09090909090909091,
+          "alias_aware_ratio": 0.2727272727272727
+        }
+      ]
+    }
+  ],
+  "king_member_review": [
+    {
+      "name": "Creepshow",
+      "theatrical_years": "1982",
+      "king_work": "Weeds; The Crate",
+      "film_article_revisions": 1383815490
+    },
+    {
+      "name": "Cat's Eye",
+      "theatrical_years": "1985",
+      "king_work": "Quitters, Inc.; The Ledge",
+      "film_article_revisions": 1384582081
+    },
+    {
+      "name": "Silver Bullet",
+      "theatrical_years": "1985",
+      "king_work": "Cycle of the Werewolf",
+      "film_article_revisions": 1383816540
+    },
+    {
+      "name": "Maximum Overdrive",
+      "theatrical_years": "1986",
+      "king_work": "Trucks",
+      "film_article_revisions": 1383751968
+    },
+    {
+      "name": "Creepshow 2",
+      "theatrical_years": "1987",
+      "king_work": "The Raft",
+      "film_article_revisions": 1359789437
+    },
+    {
+      "name": "Pet Sematary",
+      "theatrical_years": "1989 / 2019",
+      "king_work": "Pet Sematary",
+      "film_article_revisions": [1384160001, 1384220703]
+    },
+    {
+      "name": "Thinner",
+      "theatrical_years": "1996",
+      "king_work": "Thinner, published as Richard Bachman",
+      "film_article_revisions": 1382938691
+    },
+    {
+      "name": "A Good Marriage",
+      "theatrical_years": "2014",
+      "king_work": "A Good Marriage",
+      "film_article_revisions": 1373988706
+    },
+    {
+      "name": "Cell",
+      "theatrical_years": "2016",
+      "king_work": "Cell",
+      "film_article_revisions": 1384069985
+    },
+    {
+      "name": "It Chapter Two",
+      "theatrical_years": "2019",
+      "king_work": "It, adult portions",
+      "film_article_revisions": 1384475202
+    },
+    {
+      "name": "Carrie",
+      "theatrical_years": "1976 / 2013",
+      "king_work": "Carrie",
+      "film_article_revisions": [1383966918, 1384324497]
+    },
+    {
+      "name": "The Shining",
+      "theatrical_years": "1980",
+      "king_work": "The Shining",
+      "film_article_revisions": 1383904140
+    },
+    {
+      "name": "Cujo",
+      "theatrical_years": "1983",
+      "king_work": "Cujo",
+      "film_article_revisions": 1380049679
+    },
+    {
+      "name": "The Dead Zone",
+      "theatrical_years": "1983",
+      "king_work": "The Dead Zone",
+      "film_article_revisions": 1379473477
+    },
+    {
+      "name": "Christine",
+      "theatrical_years": "1983",
+      "king_work": "Christine",
+      "film_article_revisions": 1383815697
+    },
+    {
+      "name": "Children of the Corn",
+      "theatrical_years": "1984 / 2020; wide 2023",
+      "king_work": "Children of the Corn",
+      "film_article_revisions": [1383751492, 1384478162]
+    },
+    {
+      "name": "Firestarter",
+      "theatrical_years": "1984 / 2022",
+      "king_work": "Firestarter",
+      "film_article_revisions": [1379473518, 1374005025]
+    },
+    {
+      "name": "Stand by Me",
+      "theatrical_years": "1986",
+      "king_work": "The Body",
+      "film_article_revisions": 1384419583
+    },
+    {
+      "name": "The Running Man",
+      "theatrical_years": "1987 / 2025",
+      "king_work": "The Running Man, published as Richard Bachman",
+      "film_article_revisions": [1383817469, 1383344249]
+    },
+    {
+      "name": "Tales from the Darkside: The Movie",
+      "theatrical_years": "1990",
+      "king_work": "The Cat from Hell",
+      "film_article_revisions": 1384583519
+    },
+    {
+      "name": "Graveyard Shift",
+      "theatrical_years": "1990",
+      "king_work": "Graveyard Shift",
+      "film_article_revisions": 1377601992
+    },
+    {
+      "name": "Misery",
+      "theatrical_years": "1990",
+      "king_work": "Misery",
+      "film_article_revisions": 1384509099
+    },
+    {
+      "name": "The Dark Half",
+      "theatrical_years": "1993",
+      "king_work": "The Dark Half",
+      "film_article_revisions": 1383821548
+    },
+    {
+      "name": "Needful Things",
+      "theatrical_years": "1993",
+      "king_work": "Needful Things",
+      "film_article_revisions": 1384388791
+    },
+    {
+      "name": "The Shawshank Redemption",
+      "theatrical_years": "1994",
+      "king_work": "Rita Hayworth and Shawshank Redemption",
+      "film_article_revisions": 1384690640
+    },
+    {
+      "name": "The Mangler",
+      "theatrical_years": "1995",
+      "king_work": "The Mangler",
+      "film_article_revisions": 1375938067
+    },
+    {
+      "name": "Dolores Claiborne",
+      "theatrical_years": "1995",
+      "king_work": "Dolores Claiborne",
+      "film_article_revisions": 1378834299
+    },
+    {
+      "name": "The Night Flier",
+      "theatrical_years": "1997; US theaters 1998",
+      "king_work": "The Night Flier",
+      "film_article_revisions": 1377285054
+    },
+    {
+      "name": "Apt Pupil",
+      "theatrical_years": "1998",
+      "king_work": "Apt Pupil",
+      "film_article_revisions": 1374311160
+    },
+    {
+      "name": "The Green Mile",
+      "theatrical_years": "1999",
+      "king_work": "The Green Mile",
+      "film_article_revisions": 1383987197
+    },
+    {
+      "name": "Hearts in Atlantis",
+      "theatrical_years": "2001",
+      "king_work": "Low Men in Yellow Coats",
+      "film_article_revisions": 1377660508
+    },
+    {
+      "name": "Dreamcatcher",
+      "theatrical_years": "2003",
+      "king_work": "Dreamcatcher",
+      "film_article_revisions": 1376227234
+    },
+    {
+      "name": "Julie Ganapathi",
+      "theatrical_years": "2003",
+      "king_work": "Misery",
+      "film_article_revisions": 1382968031
+    },
+    {
+      "name": "Secret Window",
+      "theatrical_years": "2004",
+      "king_work": "Secret Window, Secret Garden",
+      "film_article_revisions": 1382548972
+    },
+    {
+      "name": "Riding the Bullet",
+      "theatrical_years": "2004",
+      "king_work": "Riding the Bullet",
+      "film_article_revisions": 1379814302
+    },
+    {
+      "name": "1408",
+      "theatrical_years": "2007",
+      "king_work": "1408",
+      "film_article_revisions": 1384481874
+    },
+    {
+      "name": "No Smoking",
+      "theatrical_years": "2007",
+      "king_work": "Quitters, Inc.",
+      "film_article_revisions": 1380359833
+    },
+    {
+      "name": "The Mist",
+      "theatrical_years": "2007",
+      "king_work": "The Mist",
+      "film_article_revisions": 1384535090
+    },
+    {
+      "name": "The Dark Tower",
+      "theatrical_years": "2017",
+      "king_work": "The Dark Tower series",
+      "film_article_revisions": 1383327559
+    },
+    {
+      "name": "It",
+      "theatrical_years": "2017",
+      "king_work": "It, childhood portions",
+      "film_article_revisions": 1383537406
+    },
+    {
+      "name": "Doctor Sleep",
+      "theatrical_years": "2019",
+      "king_work": "Doctor Sleep",
+      "film_article_revisions": 1379065224
+    },
+    {
+      "name": "The Boogeyman",
+      "theatrical_years": "2023",
+      "king_work": "The Boogeyman",
+      "film_article_revisions": 1383261071
+    },
+    {
+      "name": "The Life of Chuck",
+      "theatrical_years": "2025 commercial release; 2024 festival",
+      "king_work": "The Life of Chuck",
+      "film_article_revisions": 1379065347
+    },
+    {
+      "name": "'Salem's Lot",
+      "theatrical_years": "2024 UK/Ireland theaters",
+      "king_work": "'Salem's Lot",
+      "film_article_revisions": 1382308026
+    },
+    {
+      "name": "The Monkey",
+      "theatrical_years": "2025",
+      "king_work": "The Monkey",
+      "film_article_revisions": 1384651715
+    },
+    {
+      "name": "The Long Walk",
+      "theatrical_years": "2025",
+      "king_work": "The Long Walk, published as Richard Bachman",
+      "film_article_revisions": 1383210841
+    }
+  ]
+}
