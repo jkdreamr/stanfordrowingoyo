@@ -340,6 +340,30 @@ self-contained guarded block. Feature migrations run in ascending order 11–18,
 
 ### Daily Games
 
+- Pinpoint `GET /api/games/pinpoint/today` returns `PinpointDay`:
+  `{date,access,clues,guesses,cluesUsed,finished,won,category}`. Only revealed clues
+  are returned (none while locked); category stays null until completion. Each
+  guess is `{text,correct}`. `POST /api/games/pinpoint/guess` takes `{guess,date?}`:
+  a wrong guess or empty-string skip reveals the next clue; the fifth miss loses.
+  A win scores `6 - cluesUsed`, a loss 0 (higher is better), displayed as `N / 5`
+  or `X / 5`. Invalid, over-60-character, punctuation-only and duplicate normalized
+  guesses return 400 without consuming a clue. Access is required (403); stale
+  dates return 409 `DAY_CHANGED`, completed games 409 `ALREADY_PLAYED`. The finishing
+  transaction writes the sole result with guesses, won, cluesUsed, category and
+  all five clues. Generic results submissions return 405 after access checks.
+  Worker-only compact content is append-only, scheduled from 2026-11-16 with positive
+  modulo wrapping, including earlier dates. Stage A contains 40 puzzles; the full
+  year bank is a subsequent content stage. Matching normalizes accents, punctuation,
+  articles and simple plurals, with conservative typo tolerance and rejection lists.
+  `node scripts/pinpoint/generate-safety.ts` precomputes safe typo neighborhoods;
+  regenerate after appending content. Answers whose typo neighborhoods could overlap
+  another puzzle are exact-only, so requests compare only today's accepted answers.
+  Shared scoring/share helpers contain no content; mock mode uses an artificial puzzle.
+  `PINPOINT_ENABLED` in `worker/src/games/features.ts` gates all Pinpoint APIs (404
+  when disabled) and its registry membership, boards, streaks and recap inclusion.
+  Clients use enabled-game membership for route visibility, as with Dive. No schema
+  migration is needed: progress and results use existing tables.
+
 Connections and Perception also use schema v17 `game_progress`. Generic
 `POST /api/games/:game/results` submissions for both return 405 after access checks.
 Results are written by the Worker transaction that finishes the game.

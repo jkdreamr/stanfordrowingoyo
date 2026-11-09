@@ -27,6 +27,8 @@ import { DIVE_ENABLED } from './games/features';
 import * as connections from './routes/connections';
 import * as wordguess from './routes/wordguess';
 import * as perception from './routes/perception';
+import * as pinpoint from './routes/pinpoint';
+import { PINPOINT_ENABLED } from './games/features';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -39,6 +41,8 @@ function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'GET', path: '/api/games/pinpoint/today', handler: pinpoint.current },
+  { method: 'POST', path: '/api/games/pinpoint/guess', handler: pinpoint.guess },
   { method: 'GET', path: '/api/games/perception/today', handler: perception.current },
   { method: 'POST', path: '/api/games/perception/start', handler: perception.start },
   { method: 'POST', path: '/api/games/perception/answer', handler: perception.answer },
@@ -224,6 +228,8 @@ export async function route(ctx: Context): Promise<Response> {
   let response: Response;
   try {
     const path = new URL(ctx.request.url).pathname;
+    if (!PINPOINT_ENABLED && /^\/api\/games\/pinpoint(?:\/|$)/.test(path))
+      throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (!DIVE_ENABLED && /^\/api\/games\/dive(?:\/|$)/.test(path))
       throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (path.startsWith('/internal/') && ctx.request.headers.get('X-OYO-Internal') !== '1')

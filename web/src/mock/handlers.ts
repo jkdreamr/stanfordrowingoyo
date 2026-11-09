@@ -99,6 +99,7 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  pinpoint: null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -200,6 +201,7 @@ export function createMockApi({
   const gameResults: GameResult[] = [];
   const wordProgress = new Map<string, string[]>();
   const connectionProgress = new Map<string, string[][]>();
+  const pinpointProgress = new Map<string, { text: string; correct: boolean }[]>();
   const perceptionProgress = new Map<
     string,
     {
@@ -1053,6 +1055,64 @@ export function createMockApi({
           gameResults.find(
             (row) => row.game_id === gameId && row.date === day && row.user_id === user.id,
           ) ?? null;
+        if (gameId === 'pinpoint' && ['today', 'guess'].includes(parts[4])) {
+          const key = `${user.id}:${date}`;
+          const guesses = pinpointProgress.get(key) ?? [];
+          const clues = ['Demo alpha', 'Demo beta', 'Demo gamma', 'Demo delta', 'Demo epsilon'];
+          const category = 'Mock alphabet';
+          const normalize = (value: string) =>
+            value
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, ' ')
+              .trim();
+          if (parts[4] === 'guess' && method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (body.date !== undefined && body.date !== date)
+              fail(409, 'The day changed. Reload to play today.', 'DAY_CHANGED');
+            if (mine(date)) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+            if (typeof body.guess !== 'string' || body.guess.length > 60)
+              fail(400, 'Invalid guess.');
+            const raw = body.guess as string;
+            const normalized = normalize(raw);
+            if (
+              raw !== '' &&
+              (!normalized || guesses.some((g) => normalize(g.text) === normalized))
+            )
+              fail(400, 'Empty or repeated guess.');
+            guesses.push({
+              text: raw,
+              correct: ['mock alphabet', 'demo alphabet', 'demonstration alphabet'].includes(
+                normalized,
+              ),
+            });
+            pinpointProgress.set(key, guesses);
+            if (guesses.at(-1)?.correct || guesses.length === 5) {
+              const stamp = now().toISOString(),
+                won = guesses.at(-1)!.correct;
+              gameResults.push({
+                game_id: gameId,
+                date,
+                user_id: user.id,
+                score: won ? 6 - guesses.length : 0,
+                payload: { guesses, won, cluesUsed: guesses.length, category, clues },
+                created_at: stamp,
+                updated_at: stamp,
+              });
+            }
+          }
+          const finished = Boolean(mine(date));
+          const cluesUsed = Math.min(5, guesses.length + (finished ? 0 : 1));
+          return json({
+            date,
+            access,
+            clues: access.unlocked ? clues.slice(0, cluesUsed) : [],
+            guesses,
+            cluesUsed,
+            finished,
+            won: guesses.at(-1)?.correct ?? false,
+            category: finished ? category : null,
+          });
+        }
         if (gameId === 'wordguess' && ['today', 'guess'].includes(parts[4])) {
           const key = `${user.id}:${date}`;
           const guesses = wordProgress.get(key) ?? [];

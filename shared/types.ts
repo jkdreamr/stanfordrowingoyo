@@ -577,6 +577,16 @@ export interface DiveDay {
   /** Only after this date is complete; admins may review before playing. */
   reveal: DiveReveal[] | null;
 }
+export interface PinpointDay {
+  date: string;
+  access: GameAccess;
+  clues: string[];
+  guesses: { text: string; correct: boolean }[];
+  cluesUsed: number;
+  finished: boolean;
+  won: boolean;
+  category: string | null;
+}
 export interface ConnectionsDay extends Omit<ConnectionsCheck, 'outcome'> {
   guesses: string[][];
   outcomes: ConnectionsCheck['outcome'][];
@@ -761,6 +771,8 @@ export interface Api {
     PerceptionDay
   >;
   'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;
+  'GET /api/games/pinpoint/today': Endpoint<void, PinpointDay>;
+  'POST /api/games/pinpoint/guess': Endpoint<{ guess: string; date?: string }, PinpointDay>;
   'GET /api/games/wordguess/today': Endpoint<void, WordGuessDay>;
   'POST /api/games/wordguess/guess': Endpoint<{ guess: string }, WordGuessDay>;
   'POST /api/games/connections/guess': Endpoint<{ guess: string[] }, ConnectionsDay>;
