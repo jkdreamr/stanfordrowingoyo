@@ -441,7 +441,7 @@ Dive adds seven dedicated endpoints without changing the generic hub contract:
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
   accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
   This compatibility endpoint still scores immediately without requiring start, but an existing
-  expired start forces an empty-answer miss. Empty answers represent timeouts. Trimmed answers are at most 40 characters; control characters
+  expired start forces an empty-answer miss. Empty answers represent timeouts. Trimmed answers are at most 60 characters; control characters
   are rejected. Canonical match (nullable), tier and points are stored at submit time in
   v16's Dive-owned `dive_answers` columns `canonical TEXT`, `tier TEXT NOT NULL`,
   `points INTEGER NOT NULL`. The first answer creates a generic result; payload is

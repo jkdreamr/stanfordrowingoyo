@@ -234,7 +234,7 @@ export function Prompt({
           <TextField
             label="Your Answer"
             value={answer}
-            maxLength={40}
+            maxLength={60}
             autoComplete="off"
             autoCapitalize="sentences"
             autoFocus

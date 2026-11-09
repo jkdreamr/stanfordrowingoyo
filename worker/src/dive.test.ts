@@ -175,9 +175,22 @@ it('requires sequential indexes, rejects racing duplicates once, and ignores cli
     { n: 1 },
   ]);
 });
+it.each(['/answers', '/guesses'])('accepts 60 characters and rejects 61 on %s', async (path) => {
+  await rest();
+  if (path === '/guesses')
+    expect((await api('/start', 'POST', { prompt_index: 0 })).status).toBe(200);
+  expect((await api(path, 'POST', { prompt_index: 0, answer: 'z'.repeat(61) })).status).toBe(400);
+  const response = await api(path, 'POST', { prompt_index: 0, answer: 'z'.repeat(60) });
+  expect(response.status).toBe(path === '/answers' ? 201 : 200);
+  expect(await response.json()).toMatchObject(
+    path === '/answers'
+      ? { answer: 'z'.repeat(60), tier: 'miss' }
+      : { outcome: 'not_an_answer', attempts_left: 14 },
+  );
+});
 it('accepts unknown, empty and timeout misses while rejecting malformed writes', async () => {
   await rest();
-  for (const answer of [null, 5, 'x'.repeat(41), 'a\nb', '\ta', 'a\u0000b', 'a\u007fb'])
+  for (const answer of [null, 5, 'x'.repeat(61), 'a\nb', '\ta', 'a\u0000b', 'a\u007fb'])
     expect((await api('/answers', 'POST', { prompt_index: 0, answer })).status).toBe(400);
   for (const index of [-1, DIVE_PROMPTS_PER_DAY, 6, 0.5, '0', null])
     expect((await api('/answers', 'POST', { prompt_index: index, answer: 'hi' })).status).toBe(400);
@@ -507,7 +520,7 @@ it('allows latency grace, requires start/order, validates inputs, and gives up o
     ).toBe(400);
   }
   await api('/start', 'POST', { prompt_index: 0 });
-  for (const answer of [null, 3, 'x'.repeat(41), 'a\nb'])
+  for (const answer of [null, 3, 'x'.repeat(61), 'a\nb'])
     expect((await api('/guesses', 'POST', { prompt_index: 0, answer })).status).toBe(400);
   expect((await api('/suggestion', 'POST', { prompt_index: 0, accept: 'yes' })).status).toBe(400);
   const hit = (await set()).gem.answer;

@@ -1135,7 +1135,7 @@ export function createMockApi({
             } else {
               if (
                 typeof body.answer !== 'string' ||
-                body.answer.length > 40 ||
+                body.answer.length > 60 ||
                 /\p{Cc}/u.test(body.answer)
               )
                 fail(400, 'Invalid answer.');

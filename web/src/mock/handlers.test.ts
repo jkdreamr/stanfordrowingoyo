@@ -31,6 +31,21 @@ const input = {
   notes: '',
   visibility: 'team',
 };
+it.each(['answers', 'guesses'])('enforces the 60-character mock Dive %s cap', async (path) => {
+  const { request, state } = setup();
+  await request('/auth/login', 'POST', {
+    email: state.users.find((user) => user.role === 'admin')!.email,
+    password: 'password',
+  });
+  await request('/games/dive/start', 'POST', { prompt_index: 0 });
+  expect(
+    (await request('/games/dive/' + path, 'POST', { prompt_index: 0, answer: 'z'.repeat(61) }))
+      .status,
+  ).toBe(400);
+  expect(
+    (await request('/games/dive/' + path, 'POST', { prompt_index: 0, answer: 'z'.repeat(60) })).ok,
+  ).toBe(true);
+});
 it('supports the mock Dive start, keep-guessing, suggestion and scoring lifecycle', async () => {
   let clock = now();
   const { request, state } = setup({ now: () => clock });

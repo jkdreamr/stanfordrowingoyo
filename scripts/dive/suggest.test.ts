@@ -6,6 +6,19 @@ import { DIVE_SCHEDULE } from '../../worker/src/games/dive/schedule';
 import { loaders } from '../../worker/src/games/dive/loaders';
 import { decodedAnswers, fixtureSet } from './fixtures';
 
+it('matches and suggests 60-character answers without overflowing distance workspaces', () => {
+  const canonical = 'abcdefghij'.repeat(6);
+  const set = fixtureSet(`${canonical}|g|`);
+  expect(matchAnswer(canonical, set).canonical).toBe(canonical);
+  expect(matchAnswer(canonical.slice(0, -2) + 'xy', set).canonical).toBe(canonical);
+  const typed = canonical.slice(0, -3) + 'xyz';
+  expect(typed).toHaveLength(60);
+  expect(matchAnswer(typed, set).tier).toBe('miss');
+  expect(suggestAnswer(typed, set)?.canonical).toBe(canonical);
+  expect(matchAnswer('z'.repeat(60), set).tier).toBe('miss');
+  expect(suggestAnswer('z'.repeat(60), set)).toBeNull();
+});
+
 // Prompt | canonical (or its exact registered alias) | independently written guesses.
 const handwritten = `
 us-national-parks|Dry Tortugas|Tortugas;Dry Tortugaz
@@ -228,6 +241,8 @@ it('reports cold and warm worst-case largest-set suggestion timings', async () =
       'national international museum of art',
       'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklm',
+      'a'.repeat(60),
+      'abcdefghijklmnopqrstuvwxyz'.repeat(3).slice(0, 60),
       ...decodedAnswers(set)
         .slice(0, 20)
         .map(({ answer }) => normalizeAnswer(answer).slice(0, -3) + 'zz'),

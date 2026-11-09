@@ -80,7 +80,7 @@ function checkedIndex(body: Record<string, unknown>) {
 function checkedAnswer(body: Record<string, unknown>) {
   if (typeof body.answer !== 'string') v.invalid('Answer must be a string.');
   if (/\p{Cc}/u.test(body.answer)) v.invalid('Answer cannot contain control characters.');
-  return v.string(body.answer, 'Answer', 0, 40, true);
+  return v.string(body.answer, 'Answer', 0, 60, true);
 }
 async function day(ctx: Context, date: string): Promise<DiveDay> {
   const user = refreshUser(ctx);

@@ -95,6 +95,18 @@ afterEach(() => {
   vi.restoreAllMocks();
   vi.useRealTimers();
 });
+it('allows submitting a 60-character answer', async () => {
+  mount();
+  await settle();
+  expect(input().maxLength).toBe(60);
+  const answer = 'a'.repeat(60);
+  type(answer);
+  submit();
+  await settle();
+  expect(api).toHaveBeenCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer },
+  });
+});
 it('starts on open, submits a trimmed guess once and shows the provisional result', async () => {
   mount();
   await settle();
