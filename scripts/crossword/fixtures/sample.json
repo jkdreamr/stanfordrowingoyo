@@ -2,54 +2,54 @@
   "start": "2026-11-16",
   "puzzles": [
     {
-      "grid": ["HEART", "EMBER", "ABUSE", "RESIN", "TREND"],
+      "grid": ["#ACE#", "HEAVY", "AGREE", "TIARA", "#STY#"],
       "across": {
-        "1": "Organ that beats",
-        "6": "Glowing coal",
-        "7": "Mistreat",
-        "8": "Sticky tree substance",
-        "9": "Fashion direction"
+        "1": "Top playing card",
+        "4": "Hard to lift",
+        "6": "See eye to eye",
+        "7": "Royal headwear",
+        "8": "Pig's home"
       },
       "down": {
-        "1": "Valentine symbol",
-        "2": "Fire remnant",
-        "3": "Misuse",
-        "4": "Amber precursor",
-        "5": "General tendency"
+        "1": "Shield against threats",
+        "2": "Gemstone weight unit",
+        "3": "Each, without exception",
+        "4": "Head covering",
+        "5": "Affirmative vote"
       }
     },
     {
-      "grid": ["SATOR", "AREPO", "TENET", "OPERA", "ROTAS"],
+      "grid": ["#ACT#", "AVAIL", "GORGE", "EIGHT", "#DOT#"],
       "across": {
-        "1": "Latin sower",
-        "6": "Name in an ancient word square",
-        "7": "Core belief",
-        "8": "Sung stage work",
-        "9": "Work schedules, in Britain"
+        "1": "Perform on stage",
+        "4": "Be of use",
+        "6": "Deep narrow valley",
+        "7": "Four doubled",
+        "8": "Tiny spot"
       },
       "down": {
-        "1": "Latin planter",
-        "2": "Ancient square name",
-        "3": "Doctrine",
-        "4": "Verdi work",
-        "5": "Duty schedules"
+        "1": "Steer clear of",
+        "2": "Freight on a ship",
+        "3": "Snug fitting",
+        "4": "Time since birth",
+        "5": "Allow"
       }
     },
     {
-      "grid": ["ROTAS", "OPERA", "TENET", "AREPO", "SATOR"],
+      "grid": ["#ADD#", "ALERT", "POLIO", "ENTER", "#EAR#"],
       "across": {
-        "1": "British duty lists",
-        "6": "Musical drama",
-        "7": "Principle",
-        "8": "Mysterious ancient name",
-        "9": "Sower, in Latin"
+        "1": "Find the sum",
+        "4": "Wide awake",
+        "6": "Disease prevented by a vaccine",
+        "7": "Go inside",
+        "8": "Organ for sound"
       },
       "down": {
-        "1": "Shift schedules",
-        "2": "Puccini production",
-        "3": "Article of faith",
-        "4": "Word-square name",
-        "5": "Latin seed planter"
+        "1": "Without company",
+        "2": "River mouth formation",
+        "3": "Less damp",
+        "4": "Zoo primate",
+        "5": "Rocky hill"
       }
     }
   ]
