@@ -1,0 +1,2262 @@
+{
+  "american-idol-winners": [
+    "Kelly Clarkson",
+    "Clarkson",
+    "Ruben Studdard",
+    "Ruben",
+    "Fantasia Barrino",
+    "Fantasia",
+    "Carrie Underwood",
+    "Underwood",
+    "Taylor Hicks",
+    "Jordin Sparks",
+    "David Cook",
+    "Kris Allen",
+    "Lee DeWyze",
+    "Scotty McCreery",
+    "Phillip Phillips",
+    "Candice Glover",
+    "Caleb Johnson",
+    "Nick Fradiani",
+    "Trent Harmon",
+    "Maddie Poppe",
+    "Laine Hardy",
+    "Just Sam",
+    "Chayce Beckham",
+    "Noah Thompson",
+    "Iam Tongi",
+    "Abi Carter",
+    "Jamal Roberts",
+    {
+      "guess": "Adam Lambert",
+      "invalid": "Finalist or runner-up, not a season winner."
+    },
+    {
+      "guess": "Clay Aiken",
+      "invalid": "Finalist or runner-up, not a season winner."
+    },
+    {
+      "guess": "Jennifer Hudson",
+      "invalid": "Finalist or runner-up, not a season winner."
+    },
+    {
+      "guess": "Chris Daughtry",
+      "invalid": "Finalist or runner-up, not a season winner."
+    },
+    {
+      "guess": "Katharine McPhee",
+      "invalid": "Finalist or runner-up, not a season winner."
+    }
+  ],
+  "bake-off-winners": [
+    "Edd Kimber",
+    "Jo Wheatley",
+    "John Whaite",
+    "Frances Quinn",
+    "Nancy Birtwhistle",
+    "Nadiya Hussain",
+    "Nadiya",
+    "Candice Brown",
+    "Sophie Faldo",
+    "Rahul Mandal",
+    "Rahul",
+    "David Atherton",
+    "Peter Sawkins",
+    "Giuseppe Dell'Anno",
+    "Giuseppe",
+    "Syabira Yusoff",
+    "Syabira",
+    "Matty Edgell",
+    "Georgie Grasso",
+    {
+      "guess": "Paul Hollywood",
+      "invalid": "Judge or presenter, not a contestant winner."
+    },
+    {
+      "guess": "Mary Berry",
+      "invalid": "Judge or presenter, not a contestant winner."
+    },
+    {
+      "guess": "Ruby Tandoh",
+      "invalid": "Contestant or finalist who did not win."
+    },
+    {
+      "guess": "Kimberley Wilson",
+      "invalid": "Contestant or finalist who did not win."
+    },
+    {
+      "guess": "Steph Blackwell",
+      "invalid": "Contestant or finalist who did not win."
+    },
+    {
+      "guess": "Chetna Makan",
+      "invalid": "Contestant or finalist who did not win."
+    },
+    {
+      "guess": "Richard Burr",
+      "invalid": "Contestant or finalist who did not win."
+    },
+    {
+      "guess": "Prue Leith",
+      "invalid": "Judge or presenter, not a contestant winner."
+    },
+    {
+      "guess": "Josh Smalley",
+      "invalid": "Contestant or finalist who did not win."
+    }
+  ],
+  "beatles-albums": [
+    "Please Please Me",
+    "With the Beatles",
+    "A Hard Day's Night",
+    "Hard Days Night",
+    "Beatles for Sale",
+    "Help!",
+    "Help",
+    "Rubber Soul",
+    "Revolver",
+    "Sgt. Pepper's Lonely Hearts Club Band",
+    "Sgt Pepper",
+    "Sergeant Pepper",
+    "Sgt Peppers",
+    "Magical Mystery Tour",
+    "The Beatles",
+    "White Album",
+    "The White Album",
+    "Yellow Submarine",
+    "Abbey Road",
+    "Let It Be",
+    "Meet the Beatles",
+    "Introducing the Beatles",
+    "Yesterday and Today",
+    "Let It Be Naked",
+    {
+      "guess": "1",
+      "invalid": "Compilation, remix, or archival release, not an original studio album."
+    },
+    {
+      "guess": "Love",
+      "invalid": "Compilation, remix, or archival release, not an original studio album."
+    },
+    {
+      "guess": "Anthology",
+      "invalid": "Compilation, remix, or archival release, not an original studio album."
+    },
+    {
+      "guess": "Past Masters",
+      "invalid": "Compilation, remix, or archival release, not an original studio album."
+    }
+  ],
+  "best-actor": [
+    "Daniel Day-Lewis",
+    "Day-Lewis",
+    "Tom Hanks",
+    "Jack Nicholson",
+    "Marlon Brando",
+    "Anthony Hopkins",
+    "Leonardo DiCaprio",
+    "DiCaprio",
+    "Leo",
+    "Joaquin Phoenix",
+    "Rami Malek",
+    "Gary Oldman",
+    "Casey Affleck",
+    "Eddie Redmayne",
+    "Matthew McConaughey",
+    "Jean Dujardin",
+    "Colin Firth",
+    "Jeff Bridges",
+    "Sean Penn",
+    "Forest Whitaker",
+    "Philip Seymour Hoffman",
+    "Jamie Foxx",
+    "Adrien Brody",
+    "Denzel Washington",
+    "Russell Crowe",
+    "Kevin Spacey",
+    "Roberto Benigni",
+    "Nicolas Cage",
+    "Al Pacino",
+    "Dustin Hoffman",
+    "Robert De Niro",
+    "Humphrey Bogart",
+    "Gregory Peck",
+    "Cillian Murphy",
+    "Brendan Fraser",
+    "Will Smith",
+    "Paul Newman",
+    "Clark Gable",
+    "Henry Fonda",
+    "Sidney Poitier",
+    "Michael Douglas",
+    "Charlton Heston",
+    "Gene Hackman",
+    "Jimmy Stewart",
+    "James Stewart",
+    "Spencer Tracy",
+    "Laurence Olivier",
+    "John Wayne",
+    "Gary Cooper",
+    {
+      "guess": "Tom Cruise",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Brad Pitt",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "best-actress": [
+    "Meryl Streep",
+    "Streep",
+    "Katharine Hepburn",
+    "Frances McDormand",
+    "Emma Stone",
+    "Michelle Yeoh",
+    "Jessica Chastain",
+    "Olivia Colman",
+    "Renée Zellweger",
+    "Renee Zellweger",
+    "Brie Larson",
+    "Julianne Moore",
+    "Cate Blanchett",
+    "Jennifer Lawrence",
+    "Natalie Portman",
+    "Sandra Bullock",
+    "Kate Winslet",
+    "Marion Cotillard",
+    "Helen Mirren",
+    "Reese Witherspoon",
+    "Hilary Swank",
+    "Charlize Theron",
+    "Nicole Kidman",
+    "Halle Berry",
+    "Julia Roberts",
+    "Gwyneth Paltrow",
+    "Holly Hunter",
+    "Jodie Foster",
+    "Kathy Bates",
+    "Jessica Lange",
+    "Sally Field",
+    "Diane Keaton",
+    "Faye Dunaway",
+    "Liza Minnelli",
+    "Jane Fonda",
+    "Barbra Streisand",
+    "Audrey Hepburn",
+    "Elizabeth Taylor",
+    "Grace Kelly",
+    "Vivien Leigh",
+    "Bette Davis",
+    "Ingrid Bergman",
+    "Julie Andrews",
+    "Mikey Madison",
+    "Susan Sarandon",
+    {
+      "guess": "Glenn Close",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Amy Adams",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Anne Hathaway",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Marilyn Monroe",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "best-animated-feature": [
+    "Shrek",
+    "Spirited Away",
+    "Finding Nemo",
+    "The Incredibles",
+    "Incredibles",
+    "Wallace & Gromit: The Curse of the Were-Rabbit",
+    "Wallace and Gromit",
+    "Happy Feet",
+    "Ratatouille",
+    "WALL-E",
+    "Wall E",
+    "Up",
+    "Toy Story 3",
+    "Rango",
+    "Brave",
+    "Frozen",
+    "Big Hero 6",
+    "Inside Out",
+    "Zootopia",
+    "Coco",
+    "Spider-Man: Into the Spider-Verse",
+    "Into the Spider-Verse",
+    "Spider-Verse",
+    "Toy Story 4",
+    "Soul",
+    "Encanto",
+    "Guillermo del Toro's Pinocchio",
+    "Pinocchio",
+    "The Boy and the Heron",
+    "Flow",
+    {
+      "guess": "Toy Story",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "Toy Story 2",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "Moana",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "Frozen II",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "Kung Fu Panda",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "The Lion King",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "How to Train Your Dragon",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "Monsters Inc",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    },
+    {
+      "guess": "The Wild Robot",
+      "invalid": "Nominee or other-year/category name; never won this award. (or released before the category began in 2001)."
+    }
+  ],
+  "best-director": [
+    "Steven Spielberg",
+    "Spielberg",
+    "Martin Scorsese",
+    "Scorsese",
+    "Christopher Nolan",
+    "Nolan",
+    "Sean Baker",
+    "Daniel Kwan",
+    "Daniel Scheinert",
+    "Daniels",
+    "Jane Campion",
+    "Chloé Zhao",
+    "Chloe Zhao",
+    "Bong Joon-ho",
+    "Bong Joon Ho",
+    "Sam Mendes",
+    "Alfonso Cuarón",
+    "Cuaron",
+    "Guillermo del Toro",
+    "Damien Chazelle",
+    "Alejandro González Iñárritu",
+    "Inarritu",
+    "Ang Lee",
+    "Michel Hazanavicius",
+    "Tom Hooper",
+    "Kathryn Bigelow",
+    "Danny Boyle",
+    "Coen brothers",
+    "Joel Coen",
+    "Clint Eastwood",
+    "Peter Jackson",
+    "Ron Howard",
+    "Steven Soderbergh",
+    "Francis Ford Coppola",
+    "Coppola",
+    "James Cameron",
+    "Mel Gibson",
+    "Kevin Costner",
+    "Oliver Stone",
+    "Milos Forman",
+    "Roman Polanski",
+    "Billy Wilder",
+    "John Ford",
+    "Woody Allen",
+    "Frank Capra",
+    "Mike Nichols",
+    "William Wyler",
+    "Robert Zemeckis",
+    "Jonathan Demme",
+    "Anthony Minghella",
+    {
+      "guess": "Stanley Kubrick",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Alfred Hitchcock",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Quentin Tarantino",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "David Fincher",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Ridley Scott",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Richard Linklater",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "best-original-song": [
+    "My Heart Will Go On",
+    "Let It Go",
+    "Skyfall",
+    "Shallow",
+    "Lose Yourself",
+    "Writing's on the Wall",
+    "No Time to Die",
+    "What Was I Made For?",
+    "Naatu Naatu",
+    "Glory",
+    "City of Stars",
+    "Take My Breath Away",
+    "Over the Rainbow",
+    "Moon River",
+    "White Christmas",
+    "When You Wish Upon a Star",
+    "Can You Feel the Love Tonight",
+    "A Whole New World",
+    "Beauty and the Beast",
+    "Under the Sea",
+    "Colors of the Wind",
+    "You'll Be in My Heart",
+    "Man or Muppet",
+    "Falling Slowly",
+    "Jai Ho",
+    "The Weary Kind",
+    "El Mal",
+    "Flashdance... What a Feeling",
+    "What a Feeling",
+    "Fame",
+    "Up Where We Belong",
+    "Streets of Philadelphia",
+    "I Just Called to Say I Love You",
+    "Say You, Say Me",
+    "The Way We Were",
+    "Evergreen",
+    "It's Hard Out Here for a Pimp",
+    "Remember Me",
+    "Let the River Run",
+    "(I've Had) The Time of My Life",
+    "Time of My Life",
+    "Into the West",
+    "Chim Chim Cher-ee",
+    "Zip-a-Dee-Doo-Dah",
+    {
+      "guess": "Circle of Life",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Happy",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "This Is Me",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "I Don't Want to Miss a Thing",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "best-picture": [
+    "Anora",
+    "Oppenheimer",
+    "Everything Everywhere All at Once",
+    "CODA",
+    "Nomadland",
+    "Parasite",
+    "Green Book",
+    "The Shape of Water",
+    "Moonlight",
+    "Spotlight",
+    "Birdman",
+    "12 Years a Slave",
+    "Argo",
+    "The Artist",
+    "The King's Speech",
+    "The Hurt Locker",
+    "Slumdog Millionaire",
+    "No Country for Old Men",
+    "The Departed",
+    "Crash",
+    "Million Dollar Baby",
+    "The Lord of the Rings: The Return of the King",
+    "Return of the King",
+    "Chicago",
+    "A Beautiful Mind",
+    "Gladiator",
+    "American Beauty",
+    "Shakespeare in Love",
+    "Titanic",
+    "The English Patient",
+    "Braveheart",
+    "Forrest Gump",
+    "Schindler's List",
+    "Unforgiven",
+    "The Silence of the Lambs",
+    "Dances with Wolves",
+    "Driving Miss Daisy",
+    "Rain Man",
+    "The Last Emperor",
+    "Platoon",
+    "Out of Africa",
+    "Amadeus",
+    "Gandhi",
+    "Chariots of Fire",
+    "Rocky",
+    "The Godfather",
+    "The Godfather Part II",
+    "Godfather 2",
+    "Casablanca",
+    "Gone with the Wind",
+    "Ben-Hur",
+    "The Sound of Music",
+    "West Side Story",
+    "Lawrence of Arabia",
+    "Annie Hall",
+    "The Deer Hunter",
+    "Kramer vs. Kramer",
+    "One Flew Over the Cuckoo's Nest",
+    {
+      "guess": "Citizen Kane",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Pulp Fiction",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Star Wars",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "The Shawshank Redemption",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "La La Land",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Avatar",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "best-supporting-actor": [
+    "Kieran Culkin",
+    "Robert Downey Jr.",
+    "Robert Downey Jr",
+    "Ke Huy Quan",
+    "Troy Kotsur",
+    "Daniel Kaluuya",
+    "Brad Pitt",
+    "Mahershala Ali",
+    "Sam Rockwell",
+    "Mark Rylance",
+    "J. K. Simmons",
+    "JK Simmons",
+    "Jared Leto",
+    "Christoph Waltz",
+    "Christopher Plummer",
+    "Christian Bale",
+    "Heath Ledger",
+    "Javier Bardem",
+    "Alan Arkin",
+    "George Clooney",
+    "Morgan Freeman",
+    "Tim Robbins",
+    "Chris Cooper",
+    "Jim Broadbent",
+    "Benicio del Toro",
+    "Michael Caine",
+    "Robin Williams",
+    "Cuba Gooding Jr.",
+    "Kevin Spacey",
+    "Martin Landau",
+    "Tommy Lee Jones",
+    "Gene Hackman",
+    "Jack Palance",
+    "Joe Pesci",
+    "Denzel Washington",
+    "Sean Connery",
+    "Jack Nicholson",
+    "Joel Grey",
+    {
+      "guess": "Ed Harris",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Tom Hardy",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Willem Dafoe",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Mark Ruffalo",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "best-supporting-actress": [
+    "Zoe Saldaña",
+    "Zoe Saldana",
+    "Da'Vine Joy Randolph",
+    "Jamie Lee Curtis",
+    "Ariana DeBose",
+    "Youn Yuh-jung",
+    "Laura Dern",
+    "Regina King",
+    "Allison Janney",
+    "Viola Davis",
+    "Alicia Vikander",
+    "Patricia Arquette",
+    "Lupita Nyong'o",
+    "Anne Hathaway",
+    "Octavia Spencer",
+    "Melissa Leo",
+    "Mo'Nique",
+    "Penélope Cruz",
+    "Penelope Cruz",
+    "Tilda Swinton",
+    "Jennifer Hudson",
+    "Rachel Weisz",
+    "Cate Blanchett",
+    "Renée Zellweger",
+    "Catherine Zeta-Jones",
+    "Jennifer Connelly",
+    "Marcia Gay Harden",
+    "Angelina Jolie",
+    "Judi Dench",
+    "Kim Basinger",
+    "Juliette Binoche",
+    "Mira Sorvino",
+    "Dianne Wiest",
+    "Marisa Tomei",
+    "Whoopi Goldberg",
+    "Anna Paquin",
+    "Meryl Streep",
+    "Ingrid Bergman",
+    {
+      "guess": "Emma Thompson",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Amy Adams",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Margot Robbie",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Emma Stone",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "best-visual-effects": [
+    "Avatar",
+    "Avatar: The Way of Water",
+    "Dune",
+    "Dune: Part Two",
+    "Godzilla Minus One",
+    "Tenet",
+    "1917",
+    "First Man",
+    "Blade Runner 2049",
+    "The Jungle Book",
+    "Ex Machina",
+    "Interstellar",
+    "Gravity",
+    "Life of Pi",
+    "Hugo",
+    "Inception",
+    "The Curious Case of Benjamin Button",
+    "The Golden Compass",
+    "Pirates of the Caribbean: Dead Man's Chest",
+    "King Kong",
+    "Spider-Man 2",
+    "The Lord of the Rings: The Fellowship of the Ring",
+    "The Two Towers",
+    "Gladiator",
+    "The Matrix",
+    "What Dreams May Come",
+    "Titanic",
+    "Independence Day",
+    "Babe",
+    "Forrest Gump",
+    "Jurassic Park",
+    "Death Becomes Her",
+    "Terminator 2: Judgment Day",
+    "Terminator 2",
+    "Total Recall",
+    "The Abyss",
+    "Who Framed Roger Rabbit",
+    "Innerspace",
+    "Aliens",
+    "Cocoon",
+    "Indiana Jones and the Temple of Doom",
+    "Return of the Jedi",
+    "E.T. the Extra-Terrestrial",
+    "Raiders of the Lost Ark",
+    "Star Wars",
+    "2001: A Space Odyssey",
+    "Mary Poppins",
+    "Ben-Hur",
+    {
+      "guess": "Avengers: Endgame",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Transformers",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Jaws",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "bond-films": [
+    "Dr. No",
+    "Dr No",
+    "From Russia with Love",
+    "Goldfinger",
+    "Thunderball",
+    "You Only Live Twice",
+    "On Her Majesty's Secret Service",
+    "OHMSS",
+    "Diamonds Are Forever",
+    "Live and Let Die",
+    "The Man with the Golden Gun",
+    "The Spy Who Loved Me",
+    "Moonraker",
+    "For Your Eyes Only",
+    "Octopussy",
+    "A View to a Kill",
+    "The Living Daylights",
+    "Licence to Kill",
+    "License to Kill",
+    "GoldenEye",
+    "Golden Eye",
+    "Tomorrow Never Dies",
+    "The World Is Not Enough",
+    "Die Another Day",
+    "Casino Royale",
+    "Quantum of Solace",
+    "Skyfall",
+    "Spectre",
+    "No Time to Die",
+    {
+      "guess": "Never Say Never Again",
+      "invalid": "Unofficial or non-Eon Bond production / not a Bond film title."
+    }
+  ],
+  "bowie-albums": [
+    "David Bowie",
+    "Space Oddity",
+    "The Man Who Sold the World",
+    "Hunky Dory",
+    "The Rise and Fall of Ziggy Stardust and the Spiders from Mars",
+    "Ziggy Stardust",
+    "Aladdin Sane",
+    "Pin Ups",
+    "Diamond Dogs",
+    "Young Americans",
+    "Station to Station",
+    "Low",
+    "Heroes",
+    "\"Heroes\"",
+    "Lodger",
+    "Scary Monsters",
+    "Scary Monsters (and Super Creeps)",
+    "Let's Dance",
+    "Tonight",
+    "Never Let Me Down",
+    "Black Tie White Noise",
+    "The Buddha of Suburbia",
+    "Outside",
+    "1. Outside",
+    "Earthling",
+    "Hours",
+    "'hours...'",
+    "Heathen",
+    "Reality",
+    "The Next Day",
+    "Blackstar",
+    "Toy",
+    {
+      "guess": "Tin Machine",
+      "invalid": "Not a Bowie solo studio album (band project, soundtrack, single, or compilation)."
+    },
+    {
+      "guess": "Labyrinth",
+      "invalid": "Not a Bowie solo studio album (band project, soundtrack, single, or compilation)."
+    }
+  ],
+  "burton-films": [
+    "Pee-wee's Big Adventure",
+    "Beetlejuice",
+    "Batman",
+    "Edward Scissorhands",
+    "Batman Returns",
+    "Ed Wood",
+    "Mars Attacks!",
+    "Mars Attacks",
+    "Sleepy Hollow",
+    "Planet of the Apes",
+    "Big Fish",
+    "Charlie and the Chocolate Factory",
+    "Corpse Bride",
+    "Tim Burton's Corpse Bride",
+    "Sweeney Todd",
+    "Sweeney Todd: The Demon Barber of Fleet Street",
+    "Alice in Wonderland",
+    "Dark Shadows",
+    "Frankenweenie",
+    "Big Eyes",
+    "Miss Peregrine's Home for Peculiar Children",
+    "Miss Peregrine",
+    "Dumbo",
+    "Beetlejuice Beetlejuice",
+    "Beetlejuice 2",
+    {
+      "guess": "The Nightmare Before Christmas",
+      "invalid": "Not directed by Tim Burton (producer/story credit or other director) or not a feature film."
+    },
+    {
+      "guess": "Nightmare Before Christmas",
+      "invalid": "Not directed by Tim Burton (producer/story credit or other director) or not a feature film."
+    },
+    {
+      "guess": "Coraline",
+      "invalid": "Not directed by Tim Burton (producer/story credit or other director) or not a feature film."
+    },
+    {
+      "guess": "Wednesday",
+      "invalid": "Not directed by Tim Burton (producer/story credit or other director) or not a feature film."
+    },
+    {
+      "guess": "James and the Giant Peach",
+      "invalid": "Not directed by Tim Burton (producer/story credit or other director) or not a feature film."
+    }
+  ],
+  "disney-canon": [
+    "Snow White and the Seven Dwarfs",
+    "Snow White",
+    "Pinocchio",
+    "Fantasia",
+    "Dumbo",
+    "Bambi",
+    "Cinderella",
+    "Alice in Wonderland",
+    "Peter Pan",
+    "Lady and the Tramp",
+    "Sleeping Beauty",
+    "101 Dalmatians",
+    "One Hundred and One Dalmatians",
+    "The Sword in the Stone",
+    "The Jungle Book",
+    "The Aristocats",
+    "Robin Hood",
+    "The Rescuers",
+    "The Fox and the Hound",
+    "The Black Cauldron",
+    "The Great Mouse Detective",
+    "Oliver & Company",
+    "The Little Mermaid",
+    "Beauty and the Beast",
+    "Aladdin",
+    "The Lion King",
+    "Pocahontas",
+    "The Hunchback of Notre Dame",
+    "Hercules",
+    "Mulan",
+    "Tarzan",
+    "Fantasia 2000",
+    "Dinosaur",
+    "The Emperor's New Groove",
+    "Atlantis: The Lost Empire",
+    "Atlantis",
+    "Lilo & Stitch",
+    "Treasure Planet",
+    "Brother Bear",
+    "Home on the Range",
+    "Chicken Little",
+    "Meet the Robinsons",
+    "Bolt",
+    "The Princess and the Frog",
+    "Tangled",
+    "Winnie the Pooh",
+    "Wreck-It Ralph",
+    "Frozen",
+    "Big Hero 6",
+    "Zootopia",
+    "Moana",
+    "Ralph Breaks the Internet",
+    "Frozen II",
+    "Frozen 2",
+    "Raya and the Last Dragon",
+    "Encanto",
+    "Strange World",
+    "Wish",
+    "Moana 2",
+    "Zootopia 2",
+    {
+      "guess": "Toy Story",
+      "invalid": "Not a Walt Disney Animation Studios canon feature (Pixar, DreamWorks, other studio, or live action)."
+    },
+    {
+      "guess": "Shrek",
+      "invalid": "Not a Walt Disney Animation Studios canon feature (Pixar, DreamWorks, other studio, or live action)."
+    },
+    {
+      "guess": "The Nightmare Before Christmas",
+      "invalid": "Not a Walt Disney Animation Studios canon feature (Pixar, DreamWorks, other studio, or live action)."
+    },
+    {
+      "guess": "Up",
+      "invalid": "Not a Walt Disney Animation Studios canon feature (Pixar, DreamWorks, other studio, or live action)."
+    }
+  ],
+  "disney-princesses": [
+    "Snow White",
+    "Cinderella",
+    "Aurora",
+    "Sleeping Beauty",
+    "Briar Rose",
+    "Princess Aurora",
+    "Ariel",
+    "Belle",
+    "Jasmine",
+    "Princess Jasmine",
+    "Pocahontas",
+    "Mulan",
+    "Fa Mulan",
+    "Tiana",
+    "Rapunzel",
+    "Merida",
+    "Moana",
+    "Raya",
+    {
+      "guess": "Elsa",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Anna",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Tinker Bell",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Esmeralda",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Megara",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Vanellope",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Asha",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Mirabel",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    },
+    {
+      "guess": "Kida",
+      "invalid": "Not one of the 13 official Disney Princess franchise members."
+    }
+  ],
+  "emmy-animated": [
+    "The Simpsons",
+    "Simpsons",
+    "South Park",
+    "Futurama",
+    "Bob's Burgers",
+    "Rick and Morty",
+    {
+      "guess": "BoJack Horseman",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    "Arcane",
+    "Blue Eye Samurai",
+    {
+      "guess": "X-Men '97",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "Avatar: The Last Airbender",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "Adventure Time",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    "King of the Hill",
+    {
+      "guess": "Family Guy",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "Gravity Falls",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "SpongeBob SquarePants",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    "Batman: The Animated Series",
+    "Pinky and the Brain",
+    {
+      "guess": "Rugrats",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    "Samurai Jack",
+    "Archer",
+    {
+      "guess": "Love, Death & Robots",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "Big Mouth",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "The Ren & Stimpy Show",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "Star Wars: The Clone Wars",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    {
+      "guess": "Garfield and Friends",
+      "invalid": "Not a Primetime Outstanding Animated Program winner (nominee, other category, or Daytime award)."
+    },
+    "The Penguins of Madagascar"
+  ],
+  "emmy-comedy": [
+    "Ted Lasso",
+    "Hacks",
+    "The Studio",
+    {
+      "guess": "Abbott Elementary",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    "The Bear",
+    "Schitt's Creek",
+    "The Marvelous Mrs. Maisel",
+    "Mrs Maisel",
+    "Fleabag",
+    "Veep",
+    "Modern Family",
+    "30 Rock",
+    "The Office",
+    "Arrested Development",
+    "Everybody Loves Raymond",
+    {
+      "guess": "Friends",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    "Sex and the City",
+    "Will & Grace",
+    "Ally McBeal",
+    "Frasier",
+    "Seinfeld",
+    "Murphy Brown",
+    "Cheers",
+    "The Golden Girls",
+    "Taxi",
+    "M*A*S*H",
+    "MASH",
+    "All in the Family",
+    "The Mary Tyler Moore Show",
+    "Barney Miller",
+    {
+      "guess": "Family Ties",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "The Big Bang Theory",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Curb Your Enthusiasm",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Parks and Recreation",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Brooklyn Nine-Nine",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Atlanta",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "emmy-drama": [
+    "Game of Thrones",
+    "Breaking Bad",
+    "Mad Men",
+    "The Sopranos",
+    "The West Wing",
+    "Succession",
+    "The Crown",
+    "Shōgun",
+    "Shogun",
+    "The Pitt",
+    "The Handmaid's Tale",
+    "Homeland",
+    {
+      "guess": "Lost",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    "24",
+    "The Practice",
+    "Law & Order",
+    "NYPD Blue",
+    "ER",
+    "Picket Fences",
+    "Northern Exposure",
+    "L.A. Law",
+    "Hill Street Blues",
+    "Cagney & Lacey",
+    "Lou Grant",
+    "Upstairs, Downstairs",
+    "The Waltons",
+    {
+      "guess": "The Wire",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Better Call Saul",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Stranger Things",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Severance",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "The Good Wife",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Downton Abbey",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "emmy-limited": [
+    "Adolescence",
+    "Baby Reindeer",
+    "Beef",
+    "The White Lotus",
+    "The Queen's Gambit",
+    "Watchmen",
+    "Chernobyl",
+    "The Assassination of Gianni Versace",
+    "Big Little Lies",
+    "The People v. O. J. Simpson",
+    "American Crime Story",
+    "Fargo",
+    "Olive Kitteridge",
+    "Downton Abbey",
+    "John Adams",
+    "Band of Brothers",
+    "Angels in America",
+    {
+      "guess": "Elizabeth R",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    "Roots",
+    {
+      "guess": "Lonesome Dove",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    "War and Remembrance",
+    {
+      "guess": "Mare of Easttown",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Sharp Objects",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Normal People",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Unbelievable",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "True Detective",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Generation Kill",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Dahmer",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Shōgun",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "eurovision-winners": [
+    "ABBA",
+    "Céline Dion",
+    "Celine Dion",
+    "Loreen",
+    "Måneskin",
+    "Maneskin",
+    "Conchita Wurst",
+    "Lordi",
+    "Alexander Rybak",
+    "Netta",
+    "Duncan Laurence",
+    "Salvador Sobral",
+    "Jamala",
+    "Måns Zelmerlöw",
+    "Mans Zelmerlow",
+    "Emmelie de Forest",
+    "Lena",
+    "Ell & Nikki",
+    "Dima Bilan",
+    "Marija Šerifović",
+    "Ruslana",
+    "Helena Paparizou",
+    "Sertab Erener",
+    "Kalush Orchestra",
+    "Nemo",
+    "JJ",
+    "Johnny Logan",
+    "Bucks Fizz",
+    "Brotherhood of Man",
+    "Dana International",
+    "Katrina and the Waves",
+    "Sandie Shaw",
+    "Lulu",
+    "Dana",
+    "Nicole",
+    "Olsen Brothers",
+    "Marie N",
+    "Toto Cutugno",
+    "Gigliola Cinquetti",
+    "Teach-In",
+    "Herreys",
+    "Bobbysocks",
+    "Carola",
+    "Linda Martin",
+    "Niamh Kavanagh",
+    "Eimear Quinn",
+    "Charlotte Nilsson",
+    {
+      "guess": "Olly Alexander",
+      "invalid": "Represented a country but did not win Eurovision."
+    },
+    {
+      "guess": "Jedward",
+      "invalid": "Represented a country but did not win Eurovision."
+    },
+    {
+      "guess": "Sam Ryder",
+      "invalid": "Represented a country but did not win Eurovision."
+    }
+  ],
+  "ghibli-films": [
+    "Nausicaä of the Valley of the Wind",
+    "Nausicaa",
+    "Castle in the Sky",
+    "Laputa",
+    "My Neighbor Totoro",
+    "Totoro",
+    "Grave of the Fireflies",
+    "Kiki's Delivery Service",
+    "Only Yesterday",
+    "Porco Rosso",
+    "Ocean Waves",
+    "Pom Poko",
+    "Whisper of the Heart",
+    "Princess Mononoke",
+    "My Neighbors the Yamadas",
+    "Spirited Away",
+    "The Cat Returns",
+    "Howl's Moving Castle",
+    "Tales from Earthsea",
+    "Ponyo",
+    "Arrietty",
+    "The Secret World of Arrietty",
+    "From Up on Poppy Hill",
+    "The Wind Rises",
+    "The Tale of the Princess Kaguya",
+    "Princess Kaguya",
+    "When Marnie Was There",
+    "The Red Turtle",
+    "Earwig and the Witch",
+    "The Boy and the Heron",
+    {
+      "guess": "Mary and the Witch's Flower",
+      "invalid": "Not a Studio Ghibli feature (other studio or pre-Ghibli work)."
+    },
+    {
+      "guess": "Akira",
+      "invalid": "Not a Studio Ghibli feature (other studio or pre-Ghibli work)."
+    },
+    {
+      "guess": "Your Name",
+      "invalid": "Not a Studio Ghibli feature (other studio or pre-Ghibli work)."
+    },
+    {
+      "guess": "The Castle of Cagliostro",
+      "invalid": "Not a Studio Ghibli feature (other studio or pre-Ghibli work)."
+    }
+  ],
+  "grammy-album": [
+    "Thriller",
+    "21",
+    "1989",
+    "Fearless",
+    "Folklore",
+    "Midnights",
+    "Random Access Memories",
+    "Golden Hour",
+    "24K Magic",
+    "When We All Fall Asleep, Where Do We Go?",
+    "Harry's House",
+    "Cowboy Carter",
+    "Morning Phase",
+    "Supernatural",
+    "Jagged Little Pill",
+    "Rumours",
+    "Songs in the Key of Life",
+    "Bridge over Troubled Water",
+    "The Joshua Tree",
+    "How to Dismantle an Atomic Bomb",
+    "Speakerboxxx/The Love Below",
+    "O Brother, Where Art Thou?",
+    "Raising Sand",
+    "River: The Joni Letters",
+    "Genius Loves Company",
+    "Come Away with Me",
+    "The Miseducation of Lauryn Hill",
+    "Sgt. Pepper's Lonely Hearts Club Band",
+    "Graceland",
+    "Unplugged",
+    "25",
+    "The Suburbs",
+    "We Are",
+    {
+      "guess": "Back to Black",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Lemonade",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Renaissance",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Red",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "grammy-new-artist": [
+    "Billie Eilish",
+    "Olivia Rodrigo",
+    "Megan Thee Stallion",
+    "Dua Lipa",
+    "Samara Joy",
+    "Victoria Monét",
+    "Chappell Roan",
+    "Alessia Cara",
+    "Chance the Rapper",
+    "Sam Smith",
+    "Meghan Trainor",
+    "Bon Iver",
+    "Esperanza Spalding",
+    "Zac Brown Band",
+    "Adele",
+    "Amy Winehouse",
+    "Carrie Underwood",
+    "John Legend",
+    "Maroon 5",
+    "Evanescence",
+    "Norah Jones",
+    "Alicia Keys",
+    "Shelby Lynne",
+    "Christina Aguilera",
+    "Lauryn Hill",
+    "Paula Cole",
+    "LeAnn Rimes",
+    "Hootie & the Blowfish",
+    "Sheryl Crow",
+    "Toni Braxton",
+    "Mariah Carey",
+    "Milli Vanilli",
+    "The Beatles",
+    "Men at Work",
+    "Christopher Cross",
+    "Fun.",
+    "Fun",
+    {
+      "guess": "Lady Gaga",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Justin Bieber",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Taylor Swift",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Ed Sheeran",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Kendrick Lamar",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Bruno Mars",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "grammy-record": [
+    "Hotel California",
+    "Beat It",
+    "Smooth",
+    "Rehab",
+    "Rolling in the Deep",
+    "Somebody That I Used to Know",
+    "Get Lucky",
+    "Stay with Me",
+    "Uptown Funk",
+    {
+      "guess": "Hello",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    "24K Magic",
+    "This Is America",
+    "Bad Guy",
+    "Everything I Wanted",
+    "Leave the Door Open",
+    "Flowers",
+    "Not Like Us",
+    "About Damn Time",
+    "Use Somebody",
+    "Please Read the Letter",
+    "Clocks",
+    "Don't Know Why",
+    "Walk On",
+    "Beautiful Day",
+    "Boulevard of Broken Dreams",
+    "Bridge over Troubled Water",
+    "Mrs. Robinson",
+    "What's Love Got to Do with It",
+    "We Are the World",
+    "Tears in Heaven",
+    "I Will Always Love You",
+    "Change the World",
+    "My Heart Will Go On",
+    "Sunny Came Home",
+    "Unforgettable",
+    "Kiss from a Rose",
+    "Strangers in the Night",
+    "Moon River",
+    "Up, Up and Away",
+    {
+      "guess": "Don't Start Now",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Viva la Vida",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Shake It Off",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Shallow",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Billie Jean",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "grammy-song": [
+    "Not Like Us",
+    "What Was I Made For?",
+    "Just Like That",
+    "Leave the Door Open",
+    "I Can't Breathe",
+    "Bad Guy",
+    "This Is America",
+    "That's What I Like",
+    {
+      "guess": "Hello",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    "Thinking Out Loud",
+    "Stay with Me",
+    "Royals",
+    "Rolling in the Deep",
+    "Need You Now",
+    "Single Ladies",
+    "Single Ladies (Put a Ring on It)",
+    "Viva la Vida",
+    "Rehab",
+    "Not Ready to Make Nice",
+    "Daughters",
+    "Dance with My Father",
+    "Don't Know Why",
+    "Fallin'",
+    "Beautiful Day",
+    "Smooth",
+    "My Heart Will Go On",
+    "Sunny Came Home",
+    "Change the World",
+    "Kiss from a Rose",
+    "Streets of Philadelphia",
+    "A Whole New World",
+    "Tears in Heaven",
+    "Unforgettable",
+    "From a Distance",
+    "Wind Beneath My Wings",
+    "We Are the World",
+    "Every Breath You Take",
+    "Always on My Mind",
+    "Bette Davis Eyes",
+    "We Are Young",
+    "Moon River",
+    "Bridge over Troubled Water",
+    "Killing Me Softly with His Song",
+    {
+      "guess": "Shallow",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Uptown Funk",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Shake It Off",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Anti-Hero",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Flowers",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "hitchcock-films": [
+    "Psycho",
+    "Vertigo",
+    "Rear Window",
+    "North by Northwest",
+    "The Birds",
+    "Rebecca",
+    "Notorious",
+    "Strangers on a Train",
+    "Dial M for Murder",
+    "To Catch a Thief",
+    "The 39 Steps",
+    "The Thirty-Nine Steps",
+    "The Lady Vanishes",
+    "Rope",
+    "Spellbound",
+    "Shadow of a Doubt",
+    "Lifeboat",
+    "Suspicion",
+    "Foreign Correspondent",
+    "Marnie",
+    "Frenzy",
+    "Family Plot",
+    "Torn Curtain",
+    "Topaz",
+    "The Man Who Knew Too Much",
+    "The Trouble with Harry",
+    "I Confess",
+    "Stage Fright",
+    "Saboteur",
+    "Mr. & Mrs. Smith",
+    "Jamaica Inn",
+    "The Lodger",
+    "Blackmail",
+    "Sabotage",
+    "Young and Innocent",
+    "The Wrong Man",
+    "Under Capricorn",
+    "The Paradine Case",
+    "Secret Agent",
+    "The Ring",
+    {
+      "guess": "Psycho II",
+      "invalid": "Not directed by Alfred Hitchcock (sequel, remake, or another director)."
+    },
+    {
+      "guess": "Les Diaboliques",
+      "invalid": "Not directed by Alfred Hitchcock (sequel, remake, or another director)."
+    },
+    {
+      "guess": "Gaslight",
+      "invalid": "Not directed by Alfred Hitchcock (sequel, remake, or another director)."
+    }
+  ],
+  "international-feature-oscar": [
+    "Parasite",
+    "Roma",
+    "Drive My Car",
+    "All Quiet on the Western Front",
+    "The Zone of Interest",
+    "I'm Still Here",
+    "Another Round",
+    "A Fantastic Woman",
+    "The Salesman",
+    "Son of Saul",
+    "Ida",
+    "The Great Beauty",
+    "Amour",
+    "A Separation",
+    "In a Better World",
+    "The Secret in Their Eyes",
+    "Departures",
+    "The Counterfeiters",
+    "The Lives of Others",
+    "Tsotsi",
+    "The Sea Inside",
+    "The Barbarian Invasions",
+    "Nowhere in Africa",
+    "No Man's Land",
+    "Crouching Tiger, Hidden Dragon",
+    "All About My Mother",
+    "Life Is Beautiful",
+    "Character",
+    "Kolya",
+    "Antonia's Line",
+    "Burnt by the Sun",
+    "Belle Époque",
+    "Indochine",
+    "Mediterraneo",
+    "Cinema Paradiso",
+    "Pelle the Conqueror",
+    "Babette's Feast",
+    "Fanny and Alexander",
+    "8½",
+    "La Strada",
+    "Nights of Cabiria",
+    "Amarcord",
+    {
+      "guess": "Rashomon",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Amélie",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Pan's Labyrinth",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    },
+    {
+      "guess": "Spirited Away",
+      "invalid": "Nominee or other-year/category name; never won this award."
+    }
+  ],
+  "kubrick-films": [
+    "Fear and Desire",
+    "Killer's Kiss",
+    "The Killing",
+    "Killing",
+    "Paths of Glory",
+    "Spartacus",
+    "Lolita",
+    "Dr. Strangelove",
+    "Dr Strangelove",
+    "Strangelove",
+    "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+    "2001: A Space Odyssey",
+    "2001",
+    "Space Odyssey",
+    "A Clockwork Orange",
+    "Clockwork Orange",
+    "Barry Lyndon",
+    "The Shining",
+    "Shining",
+    "Full Metal Jacket",
+    "Eyes Wide Shut",
+    {
+      "guess": "A.I. Artificial Intelligence",
+      "invalid": "Not a Stanley Kubrick-directed feature (short, unmade project, or another director)."
+    },
+    {
+      "guess": "AI",
+      "invalid": "Not a Stanley Kubrick-directed feature (short, unmade project, or another director)."
+    },
+    {
+      "guess": "Day of the Fight",
+      "invalid": "Not a Stanley Kubrick-directed feature (short, unmade project, or another director)."
+    },
+    {
+      "guess": "Napoleon",
+      "invalid": "Not a Stanley Kubrick-directed feature (short, unmade project, or another director)."
+    },
+    {
+      "guess": "One-Eyed Jacks",
+      "invalid": "Not a Stanley Kubrick-directed feature (short, unmade project, or another director)."
+    }
+  ],
+  "mcu-films": [
+    "Iron Man",
+    "The Incredible Hulk",
+    "Iron Man 2",
+    "Thor",
+    "Captain America: The First Avenger",
+    "The Avengers",
+    "Avengers",
+    "Iron Man 3",
+    "Thor: The Dark World",
+    "Captain America: The Winter Soldier",
+    "Winter Soldier",
+    "Guardians of the Galaxy",
+    "Avengers: Age of Ultron",
+    "Age of Ultron",
+    "Ant-Man",
+    "Captain America: Civil War",
+    "Civil War",
+    "Doctor Strange",
+    "Guardians of the Galaxy Vol. 2",
+    "Spider-Man: Homecoming",
+    "Thor: Ragnarok",
+    "Black Panther",
+    "Avengers: Infinity War",
+    "Infinity War",
+    "Ant-Man and the Wasp",
+    "Captain Marvel",
+    "Avengers: Endgame",
+    "Endgame",
+    "Spider-Man: Far From Home",
+    "Black Widow",
+    "Shang-Chi and the Legend of the Ten Rings",
+    "Shang-Chi",
+    "Eternals",
+    "Spider-Man: No Way Home",
+    "No Way Home",
+    "Doctor Strange in the Multiverse of Madness",
+    "Thor: Love and Thunder",
+    "Black Panther: Wakanda Forever",
+    "Ant-Man and the Wasp: Quantumania",
+    "Guardians of the Galaxy Vol. 3",
+    "The Marvels",
+    "Deadpool & Wolverine",
+    "Captain America: Brave New World",
+    "Thunderbolts*",
+    "Thunderbolts",
+    "The Fantastic Four: First Steps",
+    "Fantastic Four",
+    {
+      "guess": "Venom",
+      "invalid": "Not an MCU theatrical film (Fox/Sony non-MCU, unreleased, or a series)."
+    },
+    {
+      "guess": "X-Men",
+      "invalid": "Not an MCU theatrical film (Fox/Sony non-MCU, unreleased, or a series)."
+    },
+    {
+      "guess": "Logan",
+      "invalid": "Not an MCU theatrical film (Fox/Sony non-MCU, unreleased, or a series)."
+    },
+    {
+      "guess": "Deadpool",
+      "invalid": "Not an MCU theatrical film (Fox/Sony non-MCU, unreleased, or a series)."
+    },
+    {
+      "guess": "Avengers: Doomsday",
+      "invalid": "Not an MCU theatrical film (Fox/Sony non-MCU, unreleased, or a series)."
+    }
+  ],
+  "nolan-films": [
+    "Following",
+    "Memento",
+    "Insomnia",
+    "Batman Begins",
+    "The Prestige",
+    "Prestige",
+    "The Dark Knight",
+    "Dark Knight",
+    "The Dark Knight Rises",
+    "Dark Knight Rises",
+    "Inception",
+    "Interstellar",
+    "Dunkirk",
+    "Tenet",
+    "Oppenheimer",
+    "The Odyssey",
+    "Odyssey",
+    {
+      "guess": "Doodlebug",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    },
+    {
+      "guess": "Man of Steel",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    },
+    {
+      "guess": "Batman",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    },
+    {
+      "guess": "The Dark Knight Trilogy",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    },
+    {
+      "guess": "Inception 2",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    },
+    {
+      "guess": "Memento Mori",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    },
+    {
+      "guess": "Quay",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    },
+    {
+      "guess": "Interstella 5555",
+      "invalid": "Not a Christopher Nolan-directed feature (short, produced only, other director, or nonexistent)."
+    }
+  ],
+  "pink-floyd-albums": [
+    "The Piper at the Gates of Dawn",
+    "Piper at the Gates of Dawn",
+    "A Saucerful of Secrets",
+    "Saucerful of Secrets",
+    "More",
+    "Ummagumma",
+    "Atom Heart Mother",
+    "Meddle",
+    "Obscured by Clouds",
+    "The Dark Side of the Moon",
+    "Dark Side of the Moon",
+    "Dark Side",
+    "Wish You Were Here",
+    "Animals",
+    "The Wall",
+    "Wall",
+    "The Final Cut",
+    "A Momentary Lapse of Reason",
+    "Momentary Lapse of Reason",
+    "The Division Bell",
+    "Division Bell",
+    "The Endless River",
+    {
+      "guess": "Relics",
+      "invalid": "Compilation or live album, not a studio album."
+    },
+    {
+      "guess": "Echoes",
+      "invalid": "Compilation or live album, not a studio album."
+    },
+    {
+      "guess": "Delicate Sound of Thunder",
+      "invalid": "Compilation or live album, not a studio album."
+    },
+    {
+      "guess": "Pulse",
+      "invalid": "Compilation or live album, not a studio album."
+    }
+  ],
+  "pixar-films": [
+    "Toy Story",
+    "A Bug's Life",
+    "Toy Story 2",
+    "Monsters, Inc.",
+    "Monsters Inc",
+    "Finding Nemo",
+    "The Incredibles",
+    "Cars",
+    "Ratatouille",
+    "WALL-E",
+    "Up",
+    "Toy Story 3",
+    "Cars 2",
+    "Brave",
+    "Monsters University",
+    "Inside Out",
+    "The Good Dinosaur",
+    "Finding Dory",
+    "Cars 3",
+    "Coco",
+    "Incredibles 2",
+    "Toy Story 4",
+    "Onward",
+    "Soul",
+    "Luca",
+    "Turning Red",
+    "Lightyear",
+    "Elemental",
+    "Inside Out 2",
+    "Elio",
+    "Hoppers",
+    {
+      "guess": "Shrek",
+      "invalid": "Not a Pixar feature (other studio)."
+    },
+    {
+      "guess": "Frozen",
+      "invalid": "Not a Pixar feature (other studio)."
+    },
+    {
+      "guess": "Planes",
+      "invalid": "Not a Pixar feature (other studio)."
+    },
+    {
+      "guess": "Zootopia",
+      "invalid": "Not a Pixar feature (other studio)."
+    }
+  ],
+  "queen-albums": [
+    "Queen",
+    "Queen II",
+    "Queen 2",
+    "Sheer Heart Attack",
+    "A Night at the Opera",
+    "Night at the Opera",
+    "A Day at the Races",
+    "News of the World",
+    "Jazz",
+    "The Game",
+    "Flash Gordon",
+    "Hot Space",
+    "The Works",
+    "A Kind of Magic",
+    "Kind of Magic",
+    "The Miracle",
+    "Innuendo",
+    "Made in Heaven",
+    {
+      "guess": "Greatest Hits",
+      "invalid": "Compilation, live album, single, or nonexistent title, not a studio album."
+    },
+    {
+      "guess": "Live Killers",
+      "invalid": "Compilation, live album, single, or nonexistent title, not a studio album."
+    },
+    {
+      "guess": "Live at Wembley",
+      "invalid": "Compilation, live album, single, or nonexistent title, not a studio album."
+    },
+    {
+      "guess": "Bohemian Rhapsody",
+      "invalid": "Compilation, live album, single, or nonexistent title, not a studio album."
+    },
+    {
+      "guess": "Live Aid",
+      "invalid": "Compilation, live album, single, or nonexistent title, not a studio album."
+    },
+    "The Cosmos Rocks",
+    {
+      "guess": "Innuendo II",
+      "invalid": "Compilation, live album, single, or nonexistent title, not a studio album."
+    }
+  ],
+  "spielberg-films": [
+    "Duel",
+    "The Sugarland Express",
+    "Jaws",
+    "Close Encounters of the Third Kind",
+    "Close Encounters",
+    "1941",
+    "Raiders of the Lost Ark",
+    "E.T. the Extra-Terrestrial",
+    "E.T.",
+    "ET",
+    "Indiana Jones and the Temple of Doom",
+    "Temple of Doom",
+    "The Color Purple",
+    "Empire of the Sun",
+    "Indiana Jones and the Last Crusade",
+    "Last Crusade",
+    "Always",
+    "Hook",
+    "Jurassic Park",
+    "Schindler's List",
+    "The Lost World: Jurassic Park",
+    "The Lost World",
+    "Amistad",
+    "Saving Private Ryan",
+    "A.I. Artificial Intelligence",
+    "Minority Report",
+    "Catch Me If You Can",
+    "The Terminal",
+    "War of the Worlds",
+    "Munich",
+    "Indiana Jones and the Kingdom of the Crystal Skull",
+    "The Adventures of Tintin",
+    "War Horse",
+    "Lincoln",
+    "Bridge of Spies",
+    "The BFG",
+    "The Post",
+    "Ready Player One",
+    "West Side Story",
+    "The Fabelmans",
+    "Disclosure Day",
+    "Twilight Zone: The Movie",
+    {
+      "guess": "Poltergeist",
+      "invalid": "Not directed by Steven Spielberg (produced or written only)."
+    },
+    {
+      "guess": "Gremlins",
+      "invalid": "Not directed by Steven Spielberg (produced or written only)."
+    },
+    {
+      "guess": "The Goonies",
+      "invalid": "Not directed by Steven Spielberg (produced or written only)."
+    },
+    {
+      "guess": "Back to the Future",
+      "invalid": "Not directed by Steven Spielberg (produced or written only)."
+    }
+  ],
+  "star-trek-original-episodes": [
+    "The City on the Edge of Forever",
+    "City on the Edge of Forever",
+    "The Trouble with Tribbles",
+    "Trouble with Tribbles",
+    "Space Seed",
+    "Mirror, Mirror",
+    "Amok Time",
+    "The Doomsday Machine",
+    "Balance of Terror",
+    "The Menagerie",
+    "Where No Man Has Gone Before",
+    "The Cage",
+    "Arena",
+    "The Devil in the Dark",
+    "Errand of Mercy",
+    "A Piece of the Action",
+    "Journey to Babel",
+    "The Enterprise Incident",
+    "Spock's Brain",
+    "The Corbomite Maneuver",
+    "The Naked Time",
+    "Charlie X",
+    "The Man Trap",
+    "Shore Leave",
+    "Court Martial",
+    "Tomorrow Is Yesterday",
+    "This Side of Paradise",
+    "The Squire of Gothos",
+    "Who Mourns for Adonais?",
+    "The Changeling",
+    "Plato's Stepchildren",
+    "Let That Be Your Last Battlefield",
+    "The Tholian Web",
+    "Day of the Dove",
+    "All Our Yesterdays",
+    "Turnabout Intruder",
+    "Mudd's Women",
+    "I, Mudd",
+    "The Galileo Seven",
+    "Operation: Annihilate!",
+    "The Ultimate Computer",
+    "Assignment: Earth",
+    "Patterns of Force",
+    "Bread and Circuses",
+    "The Omega Glory",
+    "The Return of the Archons",
+    {
+      "guess": "Trials and Tribble-ations",
+      "invalid": "Episode from another Star Trek series, or not a TOS episode title."
+    },
+    {
+      "guess": "The Best of Both Worlds",
+      "invalid": "Episode from another Star Trek series, or not a TOS episode title."
+    }
+  ],
+  "stranger-things-s1": [
+    "The Vanishing of Will Byers",
+    "Vanishing of Will Byers",
+    "Chapter One: The Vanishing of Will Byers",
+    "The Weirdo on Maple Street",
+    "Weirdo on Maple Street",
+    "Holly, Jolly",
+    "Holly Jolly",
+    "The Body",
+    "Body",
+    "The Flea and the Acrobat",
+    "Flea and the Acrobat",
+    "The Monster",
+    "Monster",
+    "The Bathtub",
+    "Bathtub",
+    "The Upside Down",
+    "Upside Down",
+    "Chapter Eight: The Upside Down",
+    "Chapter One",
+    "Chapter 1",
+    {
+      "guess": "MADMAX",
+      "invalid": "Not a season 1 episode title (later-season episode or non-title)."
+    },
+    {
+      "guess": "Trick or Treat, Freak",
+      "invalid": "Not a season 1 episode title (later-season episode or non-title)."
+    },
+    {
+      "guess": "The Mind Flayer",
+      "invalid": "Not a season 1 episode title (later-season episode or non-title)."
+    },
+    {
+      "guess": "The Gate",
+      "invalid": "Not a season 1 episode title (later-season episode or non-title)."
+    },
+    {
+      "guess": "Dig Dug",
+      "invalid": "Not a season 1 episode title (later-season episode or non-title)."
+    },
+    {
+      "guess": "Pilot",
+      "invalid": "Not a season 1 episode title (later-season episode or non-title)."
+    }
+  ],
+  "swift-albums": [
+    "Taylor Swift",
+    "Debut",
+    "Fearless",
+    "Fearless (Taylor's Version)",
+    "Speak Now",
+    "Red",
+    "Red (Taylor's Version)",
+    "1989",
+    "1989 (Taylor's Version)",
+    "Reputation",
+    "Rep",
+    "Lover",
+    "Folklore",
+    "Evermore",
+    "Midnights",
+    "The Tortured Poets Department",
+    "Tortured Poets Department",
+    "TTPD",
+    "The Life of a Showgirl",
+    "Life of a Showgirl",
+    "Showgirl",
+    "Speak Now (Taylor's Version)",
+    {
+      "guess": "Beautiful Eyes",
+      "invalid": "EP, live album, single, compilation, or tour, not a studio album."
+    },
+    {
+      "guess": "The Taylor Swift Holiday Collection",
+      "invalid": "EP, live album, single, compilation, or tour, not a studio album."
+    },
+    {
+      "guess": "Lavender Haze",
+      "invalid": "EP, live album, single, compilation, or tour, not a studio album."
+    },
+    {
+      "guess": "The Eras Tour",
+      "invalid": "EP, live album, single, compilation, or tour, not a studio album."
+    }
+  ],
+  "tarantino-films": [
+    "Reservoir Dogs",
+    "Pulp Fiction",
+    "Jackie Brown",
+    "Kill Bill: Volume 1",
+    "Kill Bill Vol. 1",
+    "Kill Bill Vol 2",
+    "Kill Bill: Volume 2",
+    "Kill Bill",
+    "Death Proof",
+    "Inglourious Basterds",
+    "Inglorious Basterds",
+    "Django Unchained",
+    "Django",
+    "The Hateful Eight",
+    "Hateful Eight",
+    "Hateful 8",
+    "Once Upon a Time in Hollywood",
+    "Once Upon a Time... in Hollywood",
+    {
+      "guess": "From Dusk till Dawn",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    },
+    {
+      "guess": "True Romance",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    },
+    {
+      "guess": "Natural Born Killers",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    },
+    {
+      "guess": "Four Rooms",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    },
+    "Grindhouse",
+    {
+      "guess": "Sin City",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    },
+    {
+      "guess": "My Best Friend's Birthday",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    },
+    "Kill Bill: The Whole Bloody Affair",
+    {
+      "guess": "The Movie Critic",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    },
+    {
+      "guess": "Planet Terror",
+      "invalid": "Not a Tarantino-directed feature (written/produced only, guest-directed scene, anthology segment, or unmade)."
+    }
+  ]
+}
