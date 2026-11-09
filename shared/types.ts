@@ -747,9 +747,9 @@ export interface Api {
     DiveReveal
   >;
   'GET /api/games/perception/today': Endpoint<void, PerceptionDay>;
-  'POST /api/games/perception/start': Endpoint<{ round: number }, PerceptionStart>;
+  'POST /api/games/perception/start': Endpoint<{ round: number; date?: string }, PerceptionStart>;
   'POST /api/games/perception/answer': Endpoint<
-    { round: number; answer: PerceptionRoundAnswer },
+    { round: number; date?: string; answer: PerceptionRoundAnswer },
     PerceptionDay
   >;
   'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;

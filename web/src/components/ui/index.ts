@@ -5,6 +5,7 @@ export * from './ListGroup';
 export * from './ListRow';
 export * from './Card';
 export * from './Sheet';
+export { DialogPresence } from './DialogPresence';
 export * from './TextField';
 export * from './NumberField';
 export * from './TextArea';

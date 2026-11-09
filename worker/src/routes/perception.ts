@@ -81,13 +81,19 @@ function assertRound(round: unknown, state: State) {
   if (round !== Object.keys(state.scores).length)
     throw new HttpError(409, 'ROUND_ORDER', 'Play rounds in order, once each.');
 }
+function gameDate(ctx: Context, expected: unknown) {
+  const date = today(ctx.now);
+  if (expected !== undefined && v.date(expected) !== date)
+    throw new HttpError(409, 'DAY_CHANGED', 'A New Day Has Started. Reload to Play.');
+  return date;
+}
 export async function start(ctx: Context) {
   refreshUser(ctx);
   const body = await readJson(ctx.request);
   return json(
     ctx.storage.transactionSync(() => {
       const user = refreshUser(ctx),
-        date = today(ctx.now);
+        date = gameDate(ctx, body.date);
       requireGameAccess(ctx, user, date);
       const state = load(ctx, user.id, date);
       if (storedResult(ctx, user.id, 'perception', date))
@@ -137,7 +143,7 @@ export async function answer(ctx: Context) {
   return json(
     ctx.storage.transactionSync(() => {
       const user = refreshUser(ctx),
-        date = today(ctx.now);
+        date = gameDate(ctx, body.date);
       requireGameAccess(ctx, user, date);
       const state = load(ctx, user.id, date);
       if (storedResult(ctx, user.id, 'perception', date))

@@ -85,7 +85,7 @@ export default function Me() {
   return (
     <>
       {header}
-      <div className="me-flat space-y-8 px-5 pb-8">
+      <div className="me-flat space-y-8 px-4 pb-8">
         <section className="profile-hero flex items-start gap-4" aria-label="My Profile">
           <Link
             to="/me/edit"

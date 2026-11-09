@@ -26,6 +26,9 @@ export function authError(error: unknown): string {
   }
   return 'Could not connect. Check your connection and try again';
 }
+// Login explanation kept in the query cache: a late session-expiry redirect replaces history
+// state, so the message cannot ride on the navigation alone.
+export const loginNoticeKey = ['login-notice'] as const;
 export function isUnauthorized(error: unknown) {
   return error instanceof ApiClientError && error.status === 401;
 }

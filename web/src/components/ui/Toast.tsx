@@ -6,6 +6,8 @@ export type ToastOptions = {
   action?: { label: string; onClick: () => void };
   tone?: 'default' | 'error' | 'success';
 };
+// The exit starts this long before the toast is removed, so timings stay exact.
+const TOAST_EXIT_MS = 200;
 const Context = createContext<{ show: (options: ToastOptions) => void } | null>(null);
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState<(ToastOptions & { id: number }) | null>(null);
@@ -13,6 +15,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const [paused, setPaused] = useState(false);
   const remaining = useRef(4000);
   const currentId = useRef<number>();
+  const [leaving, setLeaving] = useState(false);
+  const dismiss = () => {
+    setLeaving(true);
+    setTimeout(() => setToast(null), TOAST_EXIT_MS);
+  };
   useEffect(() => {
     if (!toast) return;
     if (currentId.current !== toast.id) {
@@ -22,8 +29,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     if (paused) return;
     const start = Date.now();
     const timer = setTimeout(() => setToast(null), remaining.current);
+    const exit = setTimeout(() => setLeaving(true), Math.max(0, remaining.current - TOAST_EXIT_MS));
     return () => {
       clearTimeout(timer);
+      clearTimeout(exit);
+      setLeaving(false);
       remaining.current = Math.max(0, remaining.current - (Date.now() - start));
     };
   }, [toast, paused]);
@@ -41,7 +51,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         {toast && (
           <div
             key={toast.id}
-            className="ui-toast"
+            className={`ui-toast ${leaving ? 'is-leaving' : ''}`}
             onPointerEnter={() => setPaused(true)}
             onPointerLeave={(event) => {
               if (!event.currentTarget.contains(document.activeElement)) setPaused(false);
@@ -76,7 +86,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 {toast.action.label}
               </button>
             )}
-            <IconButton aria-label="Dismiss Notification" onClick={() => setToast(null)}>
+            <IconButton aria-label="Dismiss Notification" onClick={dismiss}>
               <X size={20} strokeWidth={1.75} aria-hidden="true" />
             </IconButton>
           </div>

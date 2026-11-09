@@ -4,12 +4,17 @@ import { perceptionPuzzle, scorePerception } from '../../worker/src/games/percep
 import {
   perceptionV2Lineup as perceptionLineup,
   perceptionV2Puzzle,
+  perceptionLineup as runtimeLineup,
+  perceptionPuzzleForDate,
 } from '../../worker/src/games/perceptionV2';
 import { dailyRandom } from './daily';
 import { perceptionShare, perceptionTotal } from './perception';
 import {
   PERCEPTION_FIELDS,
   PERCEPTION_V2_POOL as PERCEPTION_POOL,
+  PERCEPTION_POOL as RUNTIME_POOL,
+  PERCEPTION_V3_FROM,
+  isPerceptionV3Puzzle,
   PERCEPTION_TYPICAL,
   parsePerceptionRound,
   scorePerceptionRound,
@@ -29,6 +34,59 @@ const perfect = (p: PerceptionV2Puzzle): PerceptionRoundAnswer => ({
   ],
   contactMs: p.contact.hiddenMs,
 });
+
+it.each(Array.from({ length: 21 }, (_, day) => dateAt(day)))(
+  '%s generates valid stimuli and five bounded scores with a 500 maximum',
+  (date) => {
+    const rounds = runtimeLineup(date);
+    expect(new Set(rounds).size).toBe(5);
+    const previous = dateAt(Math.round((Date.parse(date) - Date.parse(dateAt(0))) / 86400000) - 1);
+    expect(
+      rounds.filter((round) => runtimeLineup(previous).includes(round)).length,
+    ).toBeLessThanOrEqual(2);
+    const p = perceptionPuzzleForDate(date);
+    expect(perceptionPuzzle(date)).toEqual(p);
+    const v3 = isPerceptionV3Puzzle(p);
+    expect(v3).toBe(date >= PERCEPTION_V3_FROM);
+    const pool = v3 ? RUNTIME_POOL : PERCEPTION_POOL;
+    expect(rounds.every((round) => pool.some((id) => id === round))).toBe(true);
+    const answer = perfect(p);
+    if (v3)
+      answer.beatMs = [p.beatIntervalMs, p.beatIntervalMs, p.beatIntervalMs, p.beatIntervalMs];
+    expect(p.clockMs).toBeGreaterThanOrEqual(3000);
+    expect(p.clockMs).toBeLessThanOrEqual(8000);
+    expect(p.rotation).toBeGreaterThanOrEqual(0);
+    expect(p.rotation).toBeLessThanOrEqual(359);
+    expect(p.reactionDelayMs).toBeGreaterThanOrEqual(1500);
+    expect(p.reactionDelayMs).toBeLessThanOrEqual(5000);
+    expect(p.shadeBackgrounds.slice().sort((a, b) => a - b)).toEqual([10, 90]);
+    expect(p.countDots).toHaveLength(p.count);
+    expect(p.count).toBeGreaterThanOrEqual(30);
+    expect(p.count).toBeLessThanOrEqual(80);
+    for (const [x, y] of [
+      ...p.countDots,
+      ...p.endpoints,
+      p.dot,
+      p.contact.from,
+      p.contact.occlusion,
+      p.contact.finish,
+    ]) {
+      expect(x).toBeGreaterThanOrEqual(0);
+      expect(x).toBeLessThanOrEqual(1000);
+      expect(y).toBeGreaterThanOrEqual(0);
+      expect(y).toBeLessThanOrEqual(1000);
+    }
+    for (const round of pool) {
+      const field = PERCEPTION_FIELDS[round];
+      expect(parsePerceptionRound(round, { [field]: answer[field] }, true)).not.toBeNull();
+      expect(scorePerceptionRound(round, p, answer)).toBe(100);
+    }
+    const scores = scorePerception(date, answer);
+    expect(Object.keys(scores)).toEqual(rounds);
+    expect(perceptionTotal(scores, rounds)).toBe(500);
+    console.log(`${date}: ${rounds.join(', ')}; max=500`);
+  },
+);
 
 it('pins pre-cutover puzzles and scores captured before changing the generator', () => {
   const fixtures = [

@@ -2,12 +2,14 @@ import { expect, type Page } from '@playwright/test';
 import type { PerceptionDay } from '../shared/types';
 import {
   PERCEPTION_FIELDS,
+  PERCEPTION_V2_FROM,
   scorePerceptionRound,
   type PerceptionRoundAnswer,
   type PerceptionRoundId,
   type PerceptionV3Puzzle,
 } from '../shared/games/perceptionV2';
 import { perceptionLineup, perceptionPuzzleForDate } from '../worker/src/games/perceptionV2';
+import { perceptionPuzzle, scorePerception } from '../worker/src/games/perception';
 import { waitForSplash } from './helpers';
 
 export const perceptionTitles: Record<PerceptionRoundId, string> = {
@@ -50,7 +52,10 @@ export async function playPerception(
   capture?: (id: PerceptionRoundId, stage: string) => Promise<void>,
   from = 0,
 ) {
-  const puzzle = perceptionPuzzleForDate(date) as PerceptionV3Puzzle;
+  const puzzle = {
+    ...perceptionPuzzleForDate(date),
+    ...perceptionPuzzle(date),
+  } as PerceptionV3Puzzle;
   const today = await page.request.get('/api/games/perception/today');
   expect(today.ok()).toBe(true);
   const { rounds } = (await today.json()) as PerceptionDay;
@@ -181,7 +186,10 @@ export async function playPerception(
     expect(response.ok()).toBe(true);
     const answer = response.request().postDataJSON().answer as PerceptionRoundAnswer;
     expect(Object.keys(answer)).toEqual([PERCEPTION_FIELDS[id]]);
-    const score = scorePerceptionRound(id, puzzle, answer);
+    const score =
+      date >= PERCEPTION_V2_FROM
+        ? scorePerceptionRound(id, puzzle, answer)
+        : scorePerception(date, { ...puzzle, reactionMs: -1, ...answer })[id]!;
     expectedTotal += score;
     expect(((await response.json()) as PerceptionDay).scores[id]).toBe(score);
     if (['dot', 'bisect', 'path', 'centroid'].includes(id))

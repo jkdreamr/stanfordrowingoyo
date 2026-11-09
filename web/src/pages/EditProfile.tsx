@@ -10,6 +10,7 @@ import { profileDraft, profileValues } from '../lib/profileForm';
 import { usePhotos } from '../lib/usePhotos';
 import { useUnsavedChanges } from '../lib/useUnsavedChanges';
 import {
+  DialogPresence,
   Avatar,
   Button,
   ConfirmSheet,
@@ -210,48 +211,52 @@ function ProfileForm({ user, year }: { user: User; year: number }) {
           event.target.value = '';
         }}
       />
-      {!cropFile && (
-        <Sheet open={photoSheet} onClose={() => setPhotoSheet(false)} title="Profile Photo">
-          <div className="profile-photo-actions">
-            <Button fullWidth variant="secondary" onClick={() => cameraInput.current?.click()}>
-              Take Photo
-            </Button>
-            <Button fullWidth variant="secondary" onClick={() => libraryInput.current?.click()}>
-              Choose from Library
-            </Button>
-            {!!photos.photos.length && (
+      <DialogPresence>
+        {!cropFile && (
+          <Sheet open={photoSheet} onClose={() => setPhotoSheet(false)} title="Profile Photo">
+            <div className="profile-photo-actions">
+              <Button fullWidth variant="secondary" onClick={() => cameraInput.current?.click()}>
+                Take Photo
+              </Button>
+              <Button fullWidth variant="secondary" onClick={() => libraryInput.current?.click()}>
+                Choose from Library
+              </Button>
+              {!!photos.photos.length && (
+                <Button
+                  fullWidth
+                  variant="destructive"
+                  onClick={() => {
+                    photos.remove(photos.photos[0].key);
+                    setPhotoSheet(false);
+                  }}
+                >
+                  Remove Photo
+                </Button>
+              )}
               <Button
                 fullWidth
-                variant="destructive"
-                onClick={() => {
-                  photos.remove(photos.photos[0].key);
-                  setPhotoSheet(false);
-                }}
+                variant="secondary"
+                className="profile-photo-cancel"
+                onClick={() => setPhotoSheet(false)}
               >
-                Remove Photo
+                Cancel
               </Button>
-            )}
-            <Button
-              fullWidth
-              variant="secondary"
-              className="profile-photo-cancel"
-              onClick={() => setPhotoSheet(false)}
-            >
-              Cancel
-            </Button>
-          </div>
-        </Sheet>
-      )}
-      {cropFile && (
-        <ProfilePhotoCrop
-          file={cropFile}
-          onCancel={() => setCropFile(undefined)}
-          onDone={(blob) => {
-            photos.addProcessed(blob);
-            setCropFile(undefined);
-          }}
-        />
-      )}
+            </div>
+          </Sheet>
+        )}
+      </DialogPresence>
+      <DialogPresence>
+        {cropFile && (
+          <ProfilePhotoCrop
+            file={cropFile}
+            onCancel={() => setCropFile(undefined)}
+            onDone={(blob) => {
+              photos.addProcessed(blob);
+              setCropFile(undefined);
+            }}
+          />
+        )}
+      </DialogPresence>
       <ConfirmSheet
         open={blocker.state === 'blocked'}
         onClose={() => blocker.reset?.()}

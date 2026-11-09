@@ -241,7 +241,16 @@ for (const staff of [false, true]) {
     const { entry, router, client, requests } = setup('home', { staff });
     await router.navigate(`/entries/${entry.id}`);
     await screen.findByText('Evening Erg');
-    await waitFor(() => expect(client.isFetching()).toBe(0));
+    // The detail and its comments must have loaded before counting, not just an idle gap.
+    await waitFor(() => {
+      expect(requests.map((r) => `${r.method} ${r.path}`)).toEqual(
+        expect.arrayContaining([
+          `GET /api/entries/${entry.id}`,
+          `GET /api/entries/${entry.id}/comments`,
+        ]),
+      );
+      expect(client.isFetching()).toBe(0);
+    });
     const before = requests.filter(
       (r) => r.method === 'GET' && r.path.startsWith(`/api/entries/${entry.id}`),
     ).length;

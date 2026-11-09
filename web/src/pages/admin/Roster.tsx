@@ -16,6 +16,7 @@ import {
 import { authError } from '../../lib/auth';
 import { formatNumber } from '../../lib/format';
 import {
+  DialogPresence,
   Avatar,
   Button,
   ConfirmSheet,
@@ -212,19 +213,25 @@ export default function Roster() {
           </Select>
         </div>
       </Sheet>
-      {selected && me.data && (
-        <EditPerson
-          key={selected.key}
-          person={selected}
-          viewerRole={me.data.role}
-          viewerId={me.data.id}
-          close={() => setSelected(undefined)}
-        />
-      )}
-      {add && <AddName isAdmin={me.data?.role === 'admin'} close={() => setAdd(false)} />}
-      {importing && (
-        <ImportRoster isAdmin={me.data?.role === 'admin'} close={() => setImporting(false)} />
-      )}
+      <DialogPresence>
+        {selected && me.data && (
+          <EditPerson
+            key={selected.key}
+            person={selected}
+            viewerRole={me.data.role}
+            viewerId={me.data.id}
+            close={() => setSelected(undefined)}
+          />
+        )}
+      </DialogPresence>
+      <DialogPresence>
+        {add && <AddName isAdmin={me.data?.role === 'admin'} close={() => setAdd(false)} />}
+      </DialogPresence>
+      <DialogPresence>
+        {importing && (
+          <ImportRoster isAdmin={me.data?.role === 'admin'} close={() => setImporting(false)} />
+        )}
+      </DialogPresence>
     </>
   );
 }
@@ -522,9 +529,11 @@ function EditPerson({
           )}
         </div>
       </Sheet>
-      {removing && user && (
-        <RemoveAccount user={user} close={() => setRemoving(false)} onRemoved={close} />
-      )}
+      <DialogPresence>
+        {removing && user && (
+          <RemoveAccount user={user} close={() => setRemoving(false)} onRemoved={close} />
+        )}
+      </DialogPresence>
       <ConfirmSheet
         open={!!confirm}
         onClose={() => setConfirm(undefined)}

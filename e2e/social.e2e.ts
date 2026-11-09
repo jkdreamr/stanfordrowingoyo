@@ -23,7 +23,9 @@ test('feed kudos and comments notify the author', async ({ makeRower }) => {
   await expect(kudos).not.toBeVisible();
   await expect(a.page).toHaveURL(new RegExp(`/users/${b.user.id}$`));
   await card.getByRole('button', { name: /comment/i }).click();
-  await b.page.getByLabel(/comment/i).fill(`Great work ${a.user.id}`);
+  await b.page
+    .getByRole('combobox', { name: 'Comment', exact: true })
+    .fill(`Great work ${a.user.id}`);
   await b.page.getByRole('button', { name: /post comment|send comment/i }).click();
   await expect(b.page.getByText(`Great work ${a.user.id}`, { exact: true })).toBeVisible();
   const detailUrl = b.page.url();
@@ -31,7 +33,7 @@ test('feed kudos and comments notify the author', async ({ makeRower }) => {
     .getByRole('article')
     .getByRole('button', { name: /comment/i })
     .click();
-  await expect(b.page.getByLabel('Comment', { exact: true })).toBeFocused();
+  await expect(b.page.getByRole('combobox', { name: 'Comment', exact: true })).toBeFocused();
   expect(b.page.url()).toBe(detailUrl);
   await b.page.getByRole('button', { name: 'Back', exact: true }).click();
   await expect(card).toBeVisible();

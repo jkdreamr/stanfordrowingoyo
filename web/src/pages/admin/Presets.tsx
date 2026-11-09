@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp, ListFilter, Plus } from 'lucide-react';
 import type { Modality, Preset, PresetInput, Settings } from '../../../../shared/types';
 import { ZONES } from '../../../../shared/math';
 import {
+  DialogPresence,
   Button,
   ConfirmSheet,
   EmptyState,
@@ -212,19 +213,21 @@ export default function Presets() {
           </>
         )}
       </div>
-      {editing && settings.data && (
-        <PresetEditor
-          row={editing === 'new' ? undefined : editing}
-          modality={modality}
-          rows={query.data ?? []}
-          settings={settings.data}
-          onClose={() => setEditing(undefined)}
-          onDelete={(row) => {
-            setEditing(undefined);
-            setDeleting(row);
-          }}
-        />
-      )}
+      <DialogPresence>
+        {editing && settings.data && (
+          <PresetEditor
+            row={editing === 'new' ? undefined : editing}
+            modality={modality}
+            rows={query.data ?? []}
+            settings={settings.data}
+            onClose={() => setEditing(undefined)}
+            onDelete={(row) => {
+              setEditing(undefined);
+              setDeleting(row);
+            }}
+          />
+        )}
+      </DialogPresence>
       <ConfirmSheet
         open={!!deleting}
         title="Delete Preset?"

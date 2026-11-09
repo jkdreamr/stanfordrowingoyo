@@ -342,7 +342,7 @@ Results are written by the Worker transaction that finishes the game.
   unanswered round as zero**, advances to the next, and finalizes if it was round 5.
   Repeated reads do not skip unstarted rounds. The client reads on mount, not background
   focus/reconnect, and resumes after uncertain network errors.
-- `POST /api/games/perception/start` takes `{round}` and returns
+- `POST /api/games/perception/start` takes `{round,date?}` and returns
   `PerceptionStart = PerceptionDay & {stimulus}`. Only the current round's stimulus is
   returned: `{clockMs}`, `{hue}`, `{dot}`, `{cells}`, `{reactionDelayMs}`, `{angle,rotation}`,
   `{length}`, `{countDots}`, `{digits}`, `{shade,shadeBackgrounds}`, `{endpoints}`, `{contact}`,
@@ -360,11 +360,14 @@ Results are written by the Worker transaction that finishes the game.
   from the last flash's onset (4×interval−100ms) to the first tap, then between taps.
   The start timestamp is committed before responding; only then does the client show it.
   Repeated starts, out-of-order rounds, answers without a start and replay return 409.
-- `POST /api/games/perception/answer` takes `{round,answer}`, with only that round's
+- `POST /api/games/perception/answer` takes `{round,answer,date?}`, with only that round's
   field (`clockMs/hue/dot/cells/reactionMs/angle/length/count/digits/shade/bisect/contactMs/ratio/beatMs/pathY/order/durationMs/centroid`), and returns PerceptionDay. Invalid or extra fields
   return 400 without changing progress. Both writes require access (403). Scores are
   server-computed. Round 5 atomically writes one result. Existing completed results cannot
   be replayed. Leaving before a round starts has no penalty.
+  The client sends its displayed LA `date` on both writes. A different server date returns
+  409 `DAY_CHANGED` before changing progress or exposing a stimulus; reload loads the new day.
+  The field is optional for compatibility with already-loaded older clients.
 - Perception generation is Worker-only. The web receives
   no future targets. A build guard excludes its private generator marker and checks web
   import boundaries. Current-round stimuli remain inspectable while shown, as in any

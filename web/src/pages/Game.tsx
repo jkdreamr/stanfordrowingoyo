@@ -17,7 +17,7 @@ export default function Game() {
   return (
     <>
       <PageHeader title={game?.title ?? 'Not Found'} back="/games" />
-      <div className="p-4 lg:p-6">
+      <div className="px-[var(--gutter)] py-4 lg:py-6">
         {game ? (
           <Suspense fallback={<LoadState />}>
             <game.component />

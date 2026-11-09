@@ -94,6 +94,9 @@ it.each(Object.keys(MORE_TITLES) as Id[])(
     expect(screen.queryByRole('img')).toBeNull();
     expect(screen.queryByRole('group', { name: 'Tile Sequence' })).toBeNull();
     await click('Start');
+    expect(api).toHaveBeenCalledWith('POST /api/games/perception/start', {
+      body: { round: 0, date: DATE },
+    });
     expect(screen.getByRole(id === 'order' ? 'group' : 'img', { name: labels[id] })).toBeTruthy();
     await advance(exposures[id] - 1);
     expect(submitted).toBeUndefined();
@@ -164,6 +167,9 @@ it.each(Object.keys(MORE_TITLES) as Id[])(
       centroid: { centroid: [410, 600] },
     };
     expect(submitted).toEqual(expected[id]);
+    expect(api).toHaveBeenLastCalledWith('POST /api/games/perception/answer', {
+      body: { round: 0, date: DATE, answer: expected[id] },
+    });
     expect(screen.getByText('61')).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Next' })).toBeTruthy();
     expect(document.querySelector('[autofocus]')).toBeNull();
