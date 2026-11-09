@@ -1,4 +1,11 @@
 import type { DiveTier } from './games/dive';
+import type { PerceptionPuzzle } from './games/perception';
+import type {
+  PerceptionRoundId,
+  PerceptionV2Puzzle,
+  PerceptionRoundAnswer,
+} from './games/perceptionV2';
+import type { Mark } from './games/wordGuess';
 
 export type Modality = 'erg' | 'bike' | 'run';
 export type ErgTestKind = '2k' | '6k';
@@ -31,6 +38,29 @@ export interface WeeklyRecap {
   best_effort: Entry | null;
   team: { total_m: number; entry_count: number; rowers: number; rowers_hit_target: number };
   rank: number | null;
+  /** That week's final Stanford vs Berkeley race; null when the team had no rowers. */
+  race: RaceWeek | null;
+  /** The recap week inside the owner's My Fortnight plan; null without a plan or planned meters. */
+  plan: RecapPlanWeek | null;
+  games: RecapGames;
+}
+export interface RecapPlanWeek {
+  start_date: string;
+  week: 1 | 2;
+  planned_m: number;
+  logged_m: number;
+  complete: boolean;
+}
+export interface RecapGames {
+  /** Daily game results that week, counting each game once per day. */
+  played: number;
+  /** Days with at least one result. */
+  days: number;
+  /** Null when Dive is disabled, including historical recaps. */
+  best_dive: number | null;
+  word_guess_solves: number;
+  /** Consecutive days with a result, ending on that week's Sunday (0 when Sunday was missed). */
+  streak: number;
 }
 export type ChallengeUnit = 'emeters' | 'km';
 export interface TeamChallengeInput {
@@ -62,6 +92,7 @@ export interface User {
   email: string;
   name: string;
   must_change_password: boolean;
+  evening_reminder: boolean;
   role: Role;
   group_key: GroupKey;
   side: Side | null;
@@ -79,7 +110,7 @@ export interface StoredUser extends User {
   password_hash: string;
   password_salt: string;
 }
-export type PublicUser = Omit<User, 'email' | 'must_change_password'>;
+export type PublicUser = Omit<User, 'email' | 'must_change_password' | 'evening_reminder'>;
 export interface Session {
   token_hash: string;
   user_id: string;
@@ -316,6 +347,7 @@ export interface Totals {
 export interface WeekSummary extends Totals {
   week_start: string;
   target_m: number;
+  /** Floored to one decimal; progress labels floor again to whole percentages. */
   percent: number;
   hit_target: boolean;
 }
@@ -443,6 +475,7 @@ export type ProfilePatch = Partial<
     | 'best2k_split_s'
     | 'avatar_image_id'
     | 'group_key'
+    | 'evening_reminder'
   >
 >;
 export type AdminUserPatch = Partial<
@@ -526,9 +559,13 @@ export interface DiveDay {
   score: number;
   verdict: string;
   result: GameResult | null;
+  /** Only after this date is complete; admins may review before playing. */
   reveal: DiveReveal[] | null;
 }
-export interface ConnectionsDay {
+export interface ConnectionsDay extends Omit<ConnectionsCheck, 'outcome'> {
+  guesses: string[][];
+  outcomes: ConnectionsCheck['outcome'][];
+  outcome: ConnectionsCheck['outcome'] | null;
   date: string;
   access: GameAccess;
   /** The day's 16 words in shared starting order; empty while locked. */
@@ -556,6 +593,40 @@ export interface GameAccess {
   unlocked: boolean;
   reason: 'staff' | 'workout' | 'rest_day' | 'locked';
 }
+export interface PerceptionDay {
+  date: string;
+  access: GameAccess;
+  /** Next zero-based round, or 5 when done. Omitted score keys are unplayed. */
+  round: number;
+  rounds: PerceptionRoundId[];
+  scores: Partial<Record<PerceptionRoundId, number>>;
+  done: boolean;
+}
+export type PerceptionStimulus =
+  | Pick<PerceptionPuzzle, 'clockMs'>
+  | Pick<PerceptionPuzzle, 'hue'>
+  | Pick<PerceptionPuzzle, 'dot'>
+  | Pick<PerceptionPuzzle, 'cells'>
+  | Pick<PerceptionPuzzle, 'reactionDelayMs'>
+  | Pick<PerceptionV2Puzzle, 'angle' | 'rotation'>
+  | Pick<PerceptionV2Puzzle, 'length'>
+  | Pick<PerceptionV2Puzzle, 'countDots'>
+  | Pick<PerceptionV2Puzzle, 'digits'>
+  | Pick<PerceptionV2Puzzle, 'shade' | 'shadeBackgrounds'>
+  | Pick<PerceptionV2Puzzle, 'endpoints'>
+  | Pick<PerceptionV2Puzzle, 'contact'>;
+export interface PerceptionStart extends PerceptionDay {
+  stimulus: PerceptionStimulus;
+}
+export interface WordGuessDay {
+  date: string;
+  access: GameAccess;
+  guesses: { word: string; marks: Mark[] }[];
+  done: boolean;
+  won: boolean;
+  /** Hidden until the game is finished. */
+  answer: string | null;
+}
 export interface GameInfo {
   id: GameId;
   direction: GameScoreDirection;
@@ -569,9 +640,15 @@ export interface GameResult {
   created_at: string;
   updated_at: string;
 }
+export interface GamesStreak {
+  current: number;
+  best: number;
+}
 export interface GamesToday {
+  streak: GamesStreak;
   date: string;
   access: GameAccess;
+  /** Server-enabled games only; clients use this list for navigation and boards. */
   games: GameInfo[];
   results: GameResult[];
 }
@@ -662,7 +739,17 @@ export interface Api {
     { date: string; prompt_index: number; normalized: string; hidden: boolean },
     DiveReveal
   >;
+  'GET /api/games/perception/today': Endpoint<void, PerceptionDay>;
+  'POST /api/games/perception/start': Endpoint<{ round: number }, PerceptionStart>;
+  'POST /api/games/perception/answer': Endpoint<
+    { round: number; answer: PerceptionRoundAnswer },
+    PerceptionDay
+  >;
   'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;
+  'GET /api/games/wordguess/today': Endpoint<void, WordGuessDay>;
+  'POST /api/games/wordguess/guess': Endpoint<{ guess: string }, WordGuessDay>;
+  'POST /api/games/connections/guess': Endpoint<{ guess: string[] }, ConnectionsDay>;
+  /** Retired: always responds 405. */
   'POST /api/games/connections/check': Endpoint<{ guesses: string[][] }, ConnectionsCheck>;
   'GET /api/games': Endpoint<void, GamesToday>;
   'GET /api/games/access': Endpoint<void, GameAccess>;

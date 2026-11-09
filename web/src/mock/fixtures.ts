@@ -59,6 +59,7 @@ export function publicUser(user: User): PublicUser {
   const result: Partial<User> = { ...user };
   delete result.email;
   delete result.must_change_password;
+  delete result.evening_reminder;
   return result as PublicUser;
 }
 export function seededRandom(seed = 1847) {
@@ -79,6 +80,7 @@ export function createFixtures(now = new Date()) {
     email:
       i === 38 ? 'joskoo@stanford.edu' : `${name.toLowerCase().replaceAll(' ', '.')}@stanford.edu`,
     must_change_password: false,
+    evening_reminder: true,
     role: i === 38 ? 'admin' : i >= 35 ? 'coxswain' : 'rower',
     group_key: i === 0 || i >= 35 ? 'normal' : (['frosh', 'normal', 'u23'] as const)[i % 3],
     side: i >= 35 && i <= 37 ? 'cox' : i === 38 ? null : i % 2 ? 'port' : 'starboard',

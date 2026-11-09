@@ -1,14 +1,26 @@
 // @vitest-environment jsdom
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { ANSWER_LIST, dailyAnswer, verifyWordGuess, unpack } from '../../../shared/games/wordGuess';
+import {
+  ANSWER_LIST,
+  dailyAnswer,
+  verifyWordGuess,
+  unpack,
+  score,
+  isAllowedWord,
+} from '../../../worker/src/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
-import { parsePerceptionAnswer, perceptionPuzzle } from '../../../shared/games/perception';
+import {
+  PERCEPTION_ROUNDS,
+  type PerceptionAnswer,
+  type PerceptionScores,
+} from '../../../shared/games/perception';
+import { perceptionPuzzle, scorePerception } from '../../../worker/src/games/perception';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { boardWords, replayConnections } from '../../../shared/games/connections';
 import { connectionsPuzzleFor } from '../../../worker/src/games/connectionsPuzzles';
 import { WordGuessPlay } from './wordguess/WordGuessPlay';
+import { api } from '../lib/api';
 import { PerceptionPlay } from './perception/PerceptionPlay';
 import { ConnectionsPlay } from './connections/ConnectionsPlay';
 
@@ -16,24 +28,106 @@ vi.mock('../lib/api', async (original) => {
   const actual = await original<typeof import('../lib/api')>();
   return {
     ...actual,
-    api: vi.fn(async (route: string, init?: { body?: { guesses: unknown } }) => {
-      const puzzle = connectionsPuzzleFor(DATE);
-      if (route === 'GET /api/games/connections/today')
-        return { date: DATE, access: {}, words: boardWords(DATE, puzzle) };
-      const replay = replayConnections(puzzle, init?.body?.guesses)!;
-      return {
-        outcome: replay.outcomes.at(-1),
-        mistakes: replay.mistakes,
-        finished: replay.finished,
-        won: replay.won,
-        solved: replay.solved.map((l) => puzzle.groups[l]),
-        groups: replay.finished ? puzzle.groups : null,
-      };
-    }),
+    api: vi.fn(
+      async (
+        route: string,
+        init?: {
+          body?: {
+            guesses?: unknown;
+            guess?: string | string[];
+            round?: number;
+            answer?: Partial<PerceptionAnswer>;
+          };
+        },
+      ) => {
+        if (route.includes('/wordguess/')) {
+          if (route.startsWith('POST')) {
+            const word = (init?.body?.guess as string) ?? '';
+            if (!isAllowedWord(word, new Set(unpack(GUESSES)))) throw new Error('Not in Word List');
+            wordGuesses.push(word);
+          }
+          const answer = dailyAnswer(DATE);
+          const won = wordGuesses.at(-1) === answer;
+          const done = won || wordGuesses.length === 6;
+          return {
+            date: DATE,
+            access: { unlocked: true },
+            guesses: wordGuesses.map((word) => ({ word, marks: score(word, answer) })),
+            done,
+            won,
+            answer: done ? answer : null,
+          };
+        }
+        if (route.includes('/perception/')) {
+          const p = perceptionPuzzle(DATE);
+          const round = init?.body?.round ?? Object.keys(perScores).length;
+          if (route.endsWith('/today') && perActive !== null) {
+            perScores[PERCEPTION_ROUNDS[perActive]] = 0;
+            perActive = null;
+          }
+          if (route.endsWith('/start')) perActive = round;
+          if (route.endsWith('/answer')) {
+            perScores[PERCEPTION_ROUNDS[round]] = scorePerception(DATE, {
+              clockMs: 0,
+              hue: 0,
+              dot: [0, 0],
+              cells: [0, 1, 2, 3, 4, 5, 6],
+              reactionMs: -1,
+              ...init?.body?.answer,
+            })[PERCEPTION_ROUNDS[round]];
+            perActive = null;
+          }
+          const stimuli = [
+            { clockMs: p.clockMs },
+            { hue: p.hue },
+            { dot: p.dot },
+            { cells: p.cells },
+            { reactionDelayMs: p.reactionDelayMs },
+          ];
+          return {
+            date: DATE,
+            access: { unlocked: true },
+            round: Object.keys(perScores).length,
+            scores: { ...perScores },
+            done: Object.keys(perScores).length === 5,
+            ...(route.endsWith('/start') ? { stimulus: stimuli[round] } : {}),
+          };
+        }
+        const puzzle = connectionsPuzzleFor(DATE);
+        if (route.startsWith('POST')) connectionGuesses.push(init?.body?.guess as string[]);
+        const replay = replayConnections(puzzle, connectionGuesses)!;
+        return {
+          date: DATE,
+          access: { unlocked: true, reason: 'staff', date: DATE },
+          words: boardWords(DATE, puzzle),
+          guesses: [...connectionGuesses],
+          outcomes: replay.outcomes,
+          outcome: replay.outcomes.at(-1) ?? null,
+          mistakes: replay.mistakes,
+          finished: replay.finished,
+          won: replay.won,
+          solved: replay.solved.map((l) => puzzle.groups[l]),
+          groups: replay.finished ? puzzle.groups : null,
+        };
+      },
+    ),
   };
 });
 
 const DATE = '2026-11-07';
+let wordGuesses: string[] = [];
+let connectionGuesses: string[][] = [];
+let perScores: Partial<PerceptionScores> = {};
+let perActive: number | null = null;
+function mountWord(onComplete = () => {}) {
+  return render(
+    <QueryClientProvider
+      client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}
+    >
+      <WordGuessPlay date={DATE} onComplete={onComplete} />
+    </QueryClientProvider>,
+  );
+}
 beforeAll(() => {
   window.matchMedia ??= ((q: string) => ({
     matches: false,
@@ -45,26 +139,32 @@ beforeAll(() => {
 afterEach(() => {
   cleanup();
   localStorage.clear();
+  wordGuesses = [];
+  connectionGuesses = [];
+  perScores = {};
+  perActive = null;
   vi.useRealTimers();
 });
 
 describe('WordGuessPlay', () => {
   it('plays a physical-keyboard game and submits a verifiable board', async () => {
     const onComplete = vi.fn();
-    render(<WordGuessPlay date={DATE} onComplete={onComplete} />);
+    mountWord(onComplete);
+    await screen.findByRole('grid');
     const answer = dailyAnswer(DATE);
     const miss = ANSWER_LIST.find((w) => w !== answer)!;
     const type = (word: string) => {
       for (const k of word) fireEvent.keyDown(window, { key: k });
       fireEvent.keyDown(window, { key: 'Enter' });
     };
-    await waitFor(() => {
-      type('qqqqq');
-      expect(screen.getByRole('status').textContent).toBe('Not in Word List');
-    });
+    type('qqqqq');
+    await waitFor(() => expect(screen.getByRole('status').textContent).toBe('Not in Word List'));
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Enter' }).hasAttribute('disabled')).toBe(false),
+    );
     for (let i = 0; i < 5; i++) fireEvent.keyDown(window, { key: 'Backspace' });
     type(miss);
-    expect(screen.getByRole('row', { name: 'Guess 1' })).toBeTruthy();
+    await screen.findByRole('row', { name: 'Guess 1' });
     for (const k of answer)
       fireEvent.click(screen.getByRole('button', { name: new RegExp(`^${k.toUpperCase()}(,|$)`) }));
     fireEvent.click(screen.getByRole('button', { name: 'Enter' }));
@@ -73,56 +173,102 @@ describe('WordGuessPlay', () => {
     expect(payload.guesses).toEqual([miss, answer]);
     expect(verifyWordGuess(DATE, payload.guesses, new Set(unpack(GUESSES)))?.points).toBe(5);
   });
-  it('resumes an unfinished board for the same day', () => {
+  it('resumes server progress and ignores a forged local draft', async () => {
     const miss = ANSWER_LIST.find((w) => w !== dailyAnswer(DATE))!;
-    localStorage.setItem(`oyo:games:wordguess:${DATE}`, JSON.stringify([miss]));
-    render(<WordGuessPlay date={DATE} onComplete={() => {}} />);
-    expect(screen.getByRole('row', { name: 'Guess 1' }).textContent).toBe(miss.toUpperCase());
+    wordGuesses = [miss];
+    localStorage.setItem(`oyo:games:wordguess:${DATE}`, JSON.stringify([dailyAnswer(DATE)]));
+    mountWord();
+    expect((await screen.findByRole('row', { name: 'Guess 1' })).textContent).toBe(
+      miss.toUpperCase(),
+    );
   });
 });
 
 describe('PerceptionPlay', () => {
-  it('runs every round and returns a well-formed answer', async () => {
+  it('waits for a successful server start before showing the clock target', async () => {
+    render(<PerceptionPlay date={DATE} onComplete={() => {}} />);
+    await screen.findByRole('button', { name: 'Ready' });
+    let resolve!: (value: never) => void;
+    vi.mocked(api).mockImplementationOnce(
+      () =>
+        new Promise((r) => {
+          resolve = r;
+        }),
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Ready' }));
+    expect(screen.queryByRole('button', { name: 'Press and Hold' })).toBeNull();
+    await act(async () => {
+      resolve({
+        date: DATE,
+        access: { unlocked: true },
+        round: 0,
+        scores: {},
+        done: false,
+        stimulus: { clockMs: 4300 },
+      } as never);
+    });
+    expect(screen.getByText('Hold for 4.3 seconds')).toBeTruthy();
+  });
+  it('offers retry when loading server progress fails', async () => {
+    vi.mocked(api).mockRejectedValueOnce(new Error('Offline'));
+    render(<PerceptionPlay date={DATE} onComplete={() => {}} />);
+    const retry = await screen.findByRole('button', { name: /retry|try again/i });
+    fireEvent.click(retry);
+    await screen.findByRole('button', { name: 'Ready' });
+  });
+  it('starts before showing stimuli, locks each round on the server and completes', async () => {
     vi.useFakeTimers();
     const onComplete = vi.fn();
     const p = perceptionPuzzle(DATE);
-    render(
-      <MemoryRouter>
-        <PerceptionPlay date={DATE} onComplete={onComplete} />
-      </MemoryRouter>,
-    );
-    const click = (name: string | RegExp) => fireEvent.click(screen.getByRole('button', { name }));
-    click('Ready');
+    await act(async () => {
+      render(<PerceptionPlay date={DATE} onComplete={onComplete} />);
+    });
+    const click = async (name: string | RegExp) => {
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name }));
+      });
+    };
+    expect(screen.getByText('Get Ready to Hold')).toBeTruthy();
+    await click('Ready');
     const hold = screen.getByRole('button', { name: 'Press and Hold' });
     fireEvent.keyDown(hold, { key: ' ' });
     act(() => vi.advanceTimersByTime(p.clockMs));
-    fireEvent.keyUp(hold, { key: ' ' });
-    click('Next');
-    click('Start');
+    await act(async () => {
+      fireEvent.keyUp(hold, { key: ' ' });
+    });
+    await click('Next');
+    await click('Start');
     act(() => vi.advanceTimersByTime(2000));
-    click('Lock In');
-    click('Next');
-    click('Start');
+    await click('Lock In');
+    await click('Next');
+    await click('Start');
     act(() => vi.advanceTimersByTime(1000));
     const board = screen.getByTestId('spot-board');
     board.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 }) as DOMRect;
     fireEvent.pointerDown(board, { clientX: 50, clientY: 50 });
-    click('Lock In');
-    click('Next');
-    click('Start');
+    await click('Lock In');
+    await click('Next');
+    await click('Start');
     act(() => vi.advanceTimersByTime(2000));
-    for (const c of p.cells) click(`Square ${c + 1}`);
-    click('Lock In');
+    for (const c of p.cells) await click(new RegExp(`^Square ${c + 1}$`));
+    await click('Lock In');
     expect(screen.getByText('100')).toBeTruthy();
-    click('Next');
-    click('Start');
-    act(() => vi.advanceTimersByTime(p.reactionDelayMs + 5));
-    fireEvent.pointerDown(screen.getByRole('button', { name: 'Tap' }));
-    click('See Result');
-    const answer = onComplete.mock.calls[0][0];
-    expect(parsePerceptionAnswer(answer)).toEqual(answer);
-    expect([...answer.cells].sort((a: number, b: number) => a - b)).toEqual(p.cells);
-    expect(answer.dot).toEqual([500, 500]);
+    await click('Next');
+    await click('Start');
+    act(() => vi.advanceTimersByTime(p.reactionDelayMs + 150));
+    await act(async () => {
+      fireEvent.pointerDown(screen.getByRole('button', { name: 'Tap' }));
+    });
+    await click('See Result');
+    expect(onComplete).toHaveBeenCalledTimes(1);
+    expect(Object.keys(perScores)).toHaveLength(5);
+  });
+  it('resumes an abandoned started round as zero without a redo', async () => {
+    perActive = 0;
+    render(<PerceptionPlay date={DATE} onComplete={() => {}} />);
+    await screen.findByText('Color Recall');
+    expect(perScores.clock).toBe(0);
+    expect(screen.queryByRole('button', { name: 'Ready' })).toBeNull();
   });
 });
 

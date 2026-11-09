@@ -6,7 +6,26 @@
  * Every animation is transform, opacity or clip-path, plays once where it carries meaning,
  * and has a reduced-motion path at the end of this file.
  */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('Helvetica'), local('Roboto'), local('Liberation Sans');
+  size-adjust: 107.4%;
+  ascent-override: 90.2%;
+  descent-override: 22.46%;
+  line-gap-override: 0%;
+}
 :root {
+  view-transition-name: none;
   /* White page, white cards defined by a crisp hairline and soft depth; neutral fills for
      recessed controls. Cardinal carries the warmth. */
   --bg: #ffffff;
@@ -33,25 +52,31 @@
   --shadow-cardinal-sm: 0 1px 2px rgb(92 10 10 / 22%), 0 8px 20px -10px rgb(140 21 21 / 45%);
   --shadow-cardinal-float: 0 4px 10px rgb(92 10 10 / 16%), 0 30px 80px -30px rgb(140 21 21 / 55%);
   --glass: rgb(248 248 250 / 78%);
-  /*
-   * Glass material for controls, one definition: a translucent fill, a top-left rim light, a
-   * bottom inner shade, a hairline edge and a soft neutral drop. Blur is applied only where
-   * something passes beneath (switch knobs, the tab bar); elsewhere the static look is used.
-   */
-  --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(244 244 248 / 78%));
-  --glass-rim: inset 0 1px 0 rgb(255 255 255 / 95%), inset 1px 0 0 rgb(255 255 255 / 45%);
-  --glass-shade: inset 0 -1px 0 rgb(20 20 28 / 7%);
-  --glass-edge: inset 0 0 0 0.5px rgb(20 20 28 / 14%);
-  --glass-drop: 0 1px 2px rgb(20 20 28 / 12%), 0 4px 10px -3px rgb(20 20 28 / 14%);
-  --glass-drop-press: 0 1px 1px rgb(20 20 28 / 14%), 0 2px 4px -2px rgb(20 20 28 / 10%);
-  --glass-blur: blur(6px) saturate(140%);
-  --glass-shadow: var(--glass-rim), var(--glass-shade), var(--glass-edge), var(--glass-drop);
-  --glass-shadow-press:
-    var(--glass-rim), var(--glass-shade), var(--glass-edge), var(--glass-drop-press);
-  /* Tinted glass: a solid base keeps 4.5:1 for white labels; the rim and shade make it glass. */
-  --glass-tint-rim: inset 0 1px 0 rgb(255 255 255 / 26%), inset 1px 0 0 rgb(255 255 255 / 10%);
-  --glass-tint-shade: inset 0 -1px 0 rgb(0 0 0 / 22%);
-  --glass-line: rgb(20 20 28 / 8%);
+  --utility-fill: #f2f2f5;
+  --raised-face: linear-gradient(180deg, #fff, #f1f1f4);
+  --raised-edge: 0 0 0 0.75px rgb(20 20 28 / 22%);
+  --raised-rim: inset 0 1px 0 #fff;
+  --raised-lip: inset 0 -1px 0 rgb(20 20 28 / 7%);
+  --raised-contact: 0 1px 1px rgb(20 20 28 / 10%);
+  --raised-ambient: 0 2px 6px -1px rgb(20 20 28 / 8%);
+  --raised-lift: 0 8px 18px -10px rgb(20 20 28 / 16%);
+  --raised-hover-lift: 0 10px 20px -9px rgb(20 20 28 / 20%);
+  --raised-shadow:
+    var(--raised-edge), var(--raised-rim), var(--raised-lip), var(--raised-contact),
+    var(--raised-ambient), var(--raised-lift);
+  --raised-pressed: var(--raised-edge), var(--raised-rim), var(--raised-lip), var(--raised-contact);
+  --recessed-shadow: inset 0 1px 3px rgb(20 20 28 / 15%), inset 0 -1px 0 rgb(255 255 255 / 85%);
+  --control-focus: #8c1515;
+  --control-sheen: rgb(255 255 255 / 60%);
+  --control-shade: rgb(20 20 28 / 9%);
+  --primary-face: linear-gradient(180deg, #9e1b1b, #8c1515 50%, #7c1212);
+  --primary-rim: inset 0 1px 0 rgb(255 255 255 / 20%);
+  --primary-lip: inset 0 -1px 0 rgb(0 0 0 / 20%);
+  --primary-contact: 0 1px 1px rgb(65 8 8 / 24%);
+  --primary-ambient: 0 4px 10px -3px rgb(140 21 21 / 24%);
+  --primary-shadow:
+    var(--primary-rim), var(--primary-lip), var(--primary-contact), var(--primary-ambient);
+  --primary-pressed: var(--primary-rim), var(--primary-lip), var(--primary-contact);
 
   /* Motion tokens */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -118,40 +143,59 @@
   --shadow-cardinal-sm: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 20px -10px rgb(0 0 0 / 70%);
   --shadow-cardinal-float: 0 30px 80px -30px rgb(0 0 0 / 60%);
   --glass: rgb(0 0 0 / 72%);
-  --glass-fill: linear-gradient(180deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 7%));
-  --glass-rim: inset 0 1px 0 rgb(255 255 255 / 22%), inset 1px 0 0 rgb(255 255 255 / 8%);
-  --glass-shade: inset 0 -1px 0 rgb(0 0 0 / 35%);
-  --glass-edge: inset 0 0 0 0.5px rgb(255 255 255 / 14%);
-  --glass-drop: 0 1px 2px rgb(0 0 0 / 55%), 0 4px 10px -3px rgb(0 0 0 / 60%);
-  --glass-drop-press: 0 1px 1px rgb(0 0 0 / 60%), 0 2px 4px -2px rgb(0 0 0 / 50%);
-  --glass-line: rgb(255 255 255 / 7%);
+  --utility-fill: #232326;
+  --raised-face: linear-gradient(180deg, #2a2a2e, #1e1e21);
+  --raised-edge: 0 0 0 0.5px rgb(255 255 255 / 7%);
+  --raised-rim: inset 0 1px 0 rgb(255 255 255 / 10%);
+  --raised-lip: inset 0 -1px 0 rgb(0 0 0 / 24%);
+  --raised-contact: 0 1px 1px rgb(0 0 0 / 45%);
+  --raised-ambient: 0 2px 6px -1px rgb(0 0 0 / 35%);
+  --raised-lift: 0 8px 18px -10px rgb(0 0 0 / 65%);
+  --raised-hover-lift: 0 10px 20px -9px rgb(0 0 0 / 75%);
+  --recessed-shadow: inset 0 1px 3px rgb(0 0 0 / 65%), inset 0 -1px 0 rgb(255 255 255 / 6%);
+  --control-focus: #f08a93;
+  --control-sheen: rgb(255 255 255 / 12%);
+  --control-shade: rgb(0 0 0 / 18%);
+  --primary-contact: 0 1px 1px rgb(0 0 0 / 50%);
+  --primary-ambient: 0 4px 10px -3px rgb(0 0 0 / 50%);
 }
 
-/* Type: system stack, tighter display tracking, numbers as the reward */
+/* Type: Inter, quiet labels and tabular instruments. */
+body {
+  font-family:
+    'Inter Variable',
+    'Inter Fallback',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  font-feature-settings: 'calt' 0;
+}
 .text-large-title,
 .ui-large-title {
   font-weight: 700;
-  letter-spacing: -0.026em;
+  letter-spacing: -0.02em;
 }
 .text-title1 {
   font-weight: 700;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.02em;
 }
 .text-title2,
 .text-title3 {
-  letter-spacing: -0.016em;
+  letter-spacing: normal;
 }
 .text-display {
   font-size: 3.25rem;
   line-height: 1;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
 /* Tickers count inside a cell reserved for their widest value. */
 .ticker-figure {
   display: inline-grid;
+  font-variant-numeric: tabular-nums;
 }
 .ticker-figure > * {
   grid-area: 1 / 1;
@@ -160,10 +204,6 @@
   visibility: hidden;
 }
 
-/* Numbers are instruments: tabular figures everywhere. */
-body {
-  font-variant-numeric: tabular-nums;
-}
 /* The week card's material: a barely-there static grain (one 128 px tile, soft-light). */
 .drive-hero::before {
   content: '';
@@ -217,24 +257,22 @@ body {
  * compress less than controls so the whole screen never seems to lurch.
  */
 .ui-button,
-.ui-action-card,
+.ui-action-card {
+  transition: transform var(--dur-travel) var(--spring);
+}
 .drive-hero,
 .podium-card {
   transition:
     background-color var(--dur-feedback) var(--ease-out),
     color var(--dur-feedback) var(--ease-out),
     opacity var(--dur-feedback) var(--ease-out),
-    box-shadow var(--dur-state) var(--ease-out),
     transform var(--dur-travel) var(--spring);
 }
-.ui-button-primary:active:not(:disabled),
-.ui-button-secondary:active:not(:disabled),
-.ui-button-destructive:active:not(:disabled) {
-  transform: scale(0.97);
+.ui-action-card:active {
+  transform: scale(0.98);
   transition-duration: var(--dur-press);
   transition-timing-function: var(--ease-out);
 }
-.ui-action-card:active,
 .drive-hero:active,
 .podium-card:active {
   transform: scale(0.985);
@@ -243,63 +281,56 @@ body {
 }
 
 /* Controls */
+.ui-row:is(a, button):not(:disabled) {
+  position: relative;
+  isolation: isolate;
+  transition: none;
+}
+.ui-row:is(a, button):not(:disabled)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--control-shade);
+  opacity: 0;
+  transition: opacity var(--dur-travel) var(--spring);
+}
+.ui-row:is(a, button):not(:disabled):active {
+  background: transparent;
+}
+.ui-row:is(a, button):not(:disabled):active::after {
+  opacity: 1;
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-button-plain:active:not(:disabled) {
+  transform: scale(0.98);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
 .ui-button {
   border-radius: var(--radius-control);
 }
-/* Tinted glass: primary (cardinal) and destructive (red) keep a solid base under the rim. */
 .ui-button-primary,
 .ui-button-destructive {
   color: #fff;
-  box-shadow: var(--glass-tint-rim), var(--glass-tint-shade), var(--shadow-cardinal-sm);
+  background: var(--primary-face);
+  box-shadow: var(--primary-shadow);
 }
-.ui-button-destructive {
-  background: var(--danger);
-}
-.dark .ui-button-destructive {
-  /* #FF5C52 cannot hold 4.5:1 under white; the fill steps down to #C62828 (5.6:1). */
-  background: #c62828;
-}
-.ui-button-destructive:active:not(:disabled) {
-  background: var(--danger);
-}
-.dark .ui-button-destructive:active:not(:disabled) {
-  background: #b71c1c;
-}
-.ui-button-primary:active:not(:disabled),
-.ui-button-destructive:active:not(:disabled) {
-  box-shadow:
-    var(--glass-tint-rim),
-    var(--glass-tint-shade),
-    0 1px 1px rgb(20 20 28 / 18%);
-}
-/* Clear glass: secondary buttons, icon buttons and the hero chips. */
 .ui-button-secondary {
-  background: var(--glass-fill);
+  min-height: 44px;
+  border-radius: var(--radius-control);
+  font-weight: 600;
+  background: var(--utility-fill);
   border-color: transparent;
-  box-shadow: var(--glass-shadow);
+  box-shadow: none;
 }
-.ui-button-secondary:active:not(:disabled) {
-  background: var(--glass-fill);
-  box-shadow: var(--glass-shadow-press);
-}
-.ui-page-nav .ui-icon-button,
-.ui-task-header .ui-icon-button,
-.ui-sheet-header .ui-icon-button,
-.ui-card .ui-icon-button {
+.ui-icon-button {
   border-radius: 50%;
-  background: var(--glass-fill);
-  box-shadow: var(--glass-shadow);
-  transition:
-    transform var(--dur-travel) var(--spring),
-    box-shadow var(--dur-state) var(--ease-out);
-}
-:is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card)
-  .ui-icon-button:active:not(:disabled) {
-  background: var(--glass-fill);
-  box-shadow: var(--glass-shadow-press);
-  transform: scale(0.94);
-  transition-duration: var(--dur-press);
-  transition-timing-function: var(--ease-out);
+  background: var(--utility-fill);
+  box-shadow: none;
 }
 .ui-button:disabled,
 .ui-icon-button:disabled {
@@ -310,31 +341,19 @@ body {
 .ui-input-wrap {
   border-radius: 12px;
 }
-/* Segments: a glass thumb sliding over a recessed track. */
+/* Segments: a raised thumb over a recessed track. */
 .ui-segments {
   border-radius: var(--radius-control);
-  box-shadow: inset 0 1px 2px rgb(20 20 28 / 10%);
-}
-.dark .ui-segments {
-  box-shadow: inset 0 1px 2px rgb(0 0 0 / 55%);
+  box-shadow: var(--recessed-shadow);
 }
 .ui-segment-thumb {
   border-radius: 10px;
-  background: var(--glass-fill);
-  box-shadow: var(--glass-shadow);
+  background: var(--raised-face);
+  box-shadow: var(--raised-shadow);
   transition:
     transform var(--dur-travel) var(--spring),
-    scale var(--dur-travel) var(--spring),
-    box-shadow var(--dur-state) var(--ease-out);
-}
-.ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
-  scale: 0.97;
-  box-shadow: var(--glass-shadow-press);
-  transition-duration: var(--dur-travel), var(--dur-press), var(--dur-press);
-}
-.dark .ui-segment-thumb {
-  /* Lifted glass over the dark track. */
-  background: var(--glass-fill), #26262a;
+    translate var(--dur-travel) var(--spring),
+    scale var(--dur-travel) var(--spring);
 }
 .ui-icon-tile {
   border-radius: 10px;
@@ -353,10 +372,16 @@ body {
 /* Tab bar: frosted chrome, one selection pill that travels between tabs */
 .shell-tabbar {
   --tab-pad: max(4px, env(safe-area-inset-left), env(safe-area-inset-right));
-  background: var(--glass);
-  border-top: 0.5px solid var(--glass-line);
+  background: rgb(248 248 250 / 94%);
+  border-top: 0.5px solid rgb(20 20 28 / 16%);
+  box-shadow: 0 -4px 16px -6px rgb(20 20 28 / 14%);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
+}
+.dark .shell-tabbar {
+  background: rgb(18 18 20 / 94%);
+  border-top-color: rgb(255 255 255 / 10%);
+  box-shadow: 0 -4px 16px -6px rgb(0 0 0 / 60%);
 }
 .shell-tab,
 .shell-log-tab {
@@ -373,8 +398,7 @@ body {
   height: 72px;
   pointer-events: none;
   /* Glass pill: the tab bar is already frosted, so the pill is fill, rim and shade only. */
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 55%), rgb(255 255 255 / 0%) 70%), var(--oyo-selected);
+  background: linear-gradient(180deg, #faeeee, #f4e1e1);
   clip-path: inset(12.5px calc(50% - 28px) 29.5px round 15px);
   transform: translate3d(calc(var(--tab, 0) * 100%), 0, 0);
   transition:
@@ -382,8 +406,7 @@ body {
     opacity var(--dur-feedback) var(--ease-out);
 }
 .dark .shell-tabbar::before {
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 12%), rgb(255 255 255 / 0%) 70%), var(--oyo-selected);
+  background: linear-gradient(180deg, #422c2d, #332325);
 }
 .shell-tabbar[data-tab='none']::before {
   opacity: 0;
@@ -400,23 +423,12 @@ body {
   animation: drive-catch var(--dur-travel) var(--spring);
 }
 .shell-log-tab > span:first-child {
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  background: var(--accent);
-  box-shadow: var(--glass-tint-rim), var(--glass-tint-shade), var(--shadow-cardinal-sm);
-  transition:
-    transform var(--dur-travel) var(--spring),
-    box-shadow var(--dur-state) var(--ease-out);
-}
-.shell-log-tab:active > span:first-child {
-  transform: scale(0.9);
-  box-shadow:
-    var(--glass-tint-rim),
-    var(--glass-tint-shade),
-    0 1px 1px rgb(20 20 28 / 18%);
-  transition-duration: var(--dur-press);
-  transition-timing-function: var(--ease-out);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--primary-face);
+  box-shadow: var(--primary-shadow);
+  outline: 3px solid var(--surface);
 }
 @keyframes drive-catch {
   from {
@@ -424,67 +436,6 @@ body {
   }
 }
 
-/*
- * Tab changes: content travels in the direction of the tab you chose. The old screen
- * leaves quickly, the new one arrives with the drive curve; chrome stays put.
- */
-.shell-content {
-  view-transition-name: shell-content;
-}
-::view-transition-old(root),
-::view-transition-new(root),
-::view-transition-group(shell-content) {
-  animation: none;
-}
-/* Fade-through: the old screen is gone before the new one is mostly visible, so the two
-   never read as a double exposure. */
-::view-transition-old(shell-content) {
-  animation: drive-leave 90ms linear both;
-}
-::view-transition-new(shell-content) {
-  animation: drive-arrive 260ms var(--ease-out) 60ms both;
-}
-:root[data-nav-dir='back']::view-transition-old(shell-content) {
-  animation-name: drive-leave-back;
-}
-:root[data-nav-dir='back']::view-transition-new(shell-content) {
-  animation-name: drive-arrive-back;
-}
-:root[data-nav-dir='none']::view-transition-old(shell-content) {
-  animation-name: drive-fade-out;
-}
-:root[data-nav-dir='none']::view-transition-new(shell-content) {
-  animation-name: drive-fade-in;
-}
-@keyframes drive-leave {
-  to {
-    opacity: 0;
-    transform: translate3d(-8px, 0, 0);
-  }
-}
-@keyframes drive-arrive {
-  from {
-    opacity: 0;
-    transform: translate3d(16px, 0, 0);
-  }
-}
-@keyframes drive-leave-back {
-  to {
-    opacity: 0;
-    transform: translate3d(8px, 0, 0);
-  }
-}
-@keyframes drive-arrive-back {
-  from {
-    opacity: 0;
-    transform: translate3d(-16px, 0, 0);
-  }
-}
-@keyframes drive-fade-out {
-  to {
-    opacity: 0;
-  }
-}
 @keyframes drive-fade-in {
   from {
     opacity: 0;
@@ -524,8 +475,11 @@ body {
 .screen-stack > :nth-child(5) {
   animation-delay: calc(var(--stagger) * 4);
 }
-.screen-stack > :nth-child(n + 6) {
+.screen-stack > :nth-child(6) {
   animation-delay: calc(var(--stagger) * 5);
+}
+:root:not([data-entered]) .screen-stack > :nth-child(n + 7) {
+  animation: none;
 }
 :root .screen-stack > .social-refresh-slot {
   animation: none;
@@ -533,7 +487,7 @@ body {
 @keyframes drive-rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 12px, 0);
+    transform: translate3d(0, 6px, 0);
   }
 }
 
@@ -568,6 +522,9 @@ body {
   animation: drive-bar var(--dur-focal) var(--ease-out) 120ms backwards;
 }
 :root[data-entered] .drive-bar-once {
+  animation: none;
+}
+:root[data-entered] :is(.podium-card, .drive-col, .drive-bar, .sc-draw, .sc-fill-in, .sc-end) {
   animation: none;
 }
 @keyframes drive-bar {
@@ -724,6 +681,58 @@ body {
   }
 }
 
+/* Weekly recap: figures reveal one after another, then count up. */
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+@media (min-width: 1024px) {
+  .recap-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.recap-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+}
+.recap-tile dd {
+  margin: 0;
+}
+.recap-tile-value {
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.recap-reveal {
+  animation: recap-rise var(--dur-focal) var(--ease-out) backwards;
+  animation-delay: calc(200ms + var(--i, 0) * 80ms);
+}
+@keyframes recap-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.97);
+    filter: blur(6px);
+  }
+}
+@keyframes recap-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .recap-reveal {
+    animation: recap-fade var(--dur-state) linear backwards;
+    animation-delay: 0ms;
+  }
+}
+
 /* Kudos */
 .social-entry {
   padding: 20px;
@@ -861,15 +870,13 @@ body {
   opacity: 0;
   transform: translate3d(0, 8px, 0);
   transition:
-    opacity 140ms var(--ease-in),
     transform 140ms var(--ease-in),
-    visibility 0s linear 140ms;
+    visibility 0s;
 }
 .leaderboard-pin.is-visible {
   opacity: 1;
   transform: none;
   transition:
-    opacity 200ms var(--ease-out),
     transform 200ms var(--ease-out),
     visibility 0s;
 }
@@ -1060,14 +1067,6 @@ body {
   .save-celebration.is-leaving {
     animation-duration: 120ms;
   }
-  ::view-transition-old(shell-content),
-  :root[data-nav-dir]::view-transition-old(shell-content) {
-    animation: drive-fade-out 120ms linear both;
-  }
-  ::view-transition-new(shell-content),
-  :root[data-nav-dir]::view-transition-new(shell-content) {
-    animation: drive-fade-in 120ms linear both;
-  }
   .save-bar > span,
   .drive-hero .ui-ring-stroke {
     transition: none;
@@ -1113,7 +1112,7 @@ body {
   width: 76px;
   height: 44px;
   padding: 2px 0;
-  border-radius: 13px;
+  border-radius: 999px;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -1130,11 +1129,9 @@ body {
 .glass-switch-track {
   position: absolute;
   inset: 2px 0;
-  border-radius: 13px;
-  background: rgb(0 0 0 / 7%);
-  box-shadow:
-    inset 0 1px 2px rgb(0 0 0 / 18%),
-    inset 0 0 0 1px rgb(0 0 0 / 6%);
+  border-radius: 999px;
+  background: var(--surface-2);
+  box-shadow: var(--recessed-shadow);
 }
 .glass-switch-floor {
   position: absolute;
@@ -1156,64 +1153,35 @@ body {
   height: 32px;
   display: grid;
   place-items: center;
-  border-radius: 9px;
+  border-radius: 50%;
   color: var(--switch-ink);
-  background: linear-gradient(180deg, rgb(255 255 255 / 60%), rgb(255 255 255 / 22%));
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-shadow);
-  translate: calc(var(--p, 0) * var(--travel, 36px)) 0;
-  transition:
-    translate 260ms var(--switch-ease),
-    scale 100ms var(--ease-out),
-    box-shadow 100ms var(--ease-out);
+  background: var(--raised-face);
+  box-shadow: var(--raised-shadow);
+  transform: translateX(calc(var(--p, 0) * var(--travel, 36px))) scaleX(var(--knob-stretch, 1));
+  transition: transform var(--dur-travel) var(--spring);
 }
 .glass-switch[data-dragging] .glass-switch-knob {
-  transition:
-    scale 100ms var(--ease-out),
-    box-shadow 100ms var(--ease-out);
+  transition: none;
 }
 .glass-switch:active:not(:disabled) .glass-switch-knob {
-  scale: 0.96;
-  box-shadow: var(--glass-shadow-press);
+  --knob-stretch: 1.08;
+  box-shadow: var(--raised-pressed);
+  transition-duration: var(--dur-press);
 }
 .glass-switch:disabled .glass-switch-knob {
-  box-shadow: var(--glass-edge);
+  box-shadow: var(--raised-edge), var(--raised-rim), var(--raised-lip);
 }
 /* The compact on/off switch: same knob, track and motion; on fills the track with cardinal. */
 .glass-switch-toggle {
   --travel: 20px;
-  width: 52px;
-  border-radius: 10px;
+  width: 60px;
 }
 .glass-switch-toggle .glass-switch-track {
-  inset: 6px 0;
-  border-radius: 10px;
-  background: #dedee4;
-  box-shadow:
-    inset 0 1px 2px rgb(20 20 28 / 16%),
-    inset 0 0 0 1px var(--oyo-control-border);
-  transition: background-color 200ms var(--ease-out);
+  background: var(--surface-2);
+  box-shadow: var(--recessed-shadow);
 }
 .glass-switch-toggle[aria-checked='true'] .glass-switch-track {
-  background: var(--accent);
-  box-shadow:
-    inset 0 1px 2px rgb(0 0 0 / 25%),
-    inset 0 0 0 1px rgb(0 0 0 / 10%);
-}
-.glass-switch-toggle .glass-switch-knob {
-  top: 9px;
-  left: 3px;
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  background: linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(246 246 250 / 88%));
-}
-.dark .glass-switch-toggle .glass-switch-track {
-  background: var(--surface-2);
-}
-.dark .glass-switch-toggle .glass-switch-knob {
-  background: linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(220 220 226 / 86%));
+  background: var(--primary-face);
 }
 .glass-switch-icon {
   grid-area: 1 / 1;
@@ -1241,9 +1209,7 @@ body {
   height: 2px;
   border-radius: 1px;
   background: var(--switch-mark);
-  transition:
-    transform 260ms var(--switch-ease) 40ms,
-    background-color 160ms var(--ease-out) 40ms;
+  transition: transform 260ms var(--switch-ease) 40ms;
 }
 .glass-switch[data-side='dark'] .glass-switch-indicator {
   /* Top of the knob in light, bottom in dark: 32 − 2 × 3 − 2 = 24 px. */
@@ -1254,13 +1220,229 @@ body {
   --switch-ink: #f5f2ef;
 }
 .dark .glass-switch-track {
-  background: rgb(255 255 255 / 6%);
-  box-shadow:
-    inset 0 1px 2px rgb(0 0 0 / 60%),
-    inset 0 0 0 1px rgb(255 255 255 / 6%);
+  box-shadow: var(--recessed-shadow);
 }
-.dark .glass-switch-knob {
-  background: linear-gradient(180deg, rgb(255 255 255 / 16%), rgb(255 255 255 / 5%));
+
+/* One face and edge treatment; only the face overlays and the object travel animate. */
+:is(.ui-button-primary, .ui-button-secondary, .ui-button-destructive),
+.ui-icon-button,
+.ui-segment-thumb,
+.glass-switch-knob,
+.ui-zone-option .ui-zone,
+.shell-log-tab > span:first-child {
+  position: relative;
+  isolation: isolate;
+  transition: transform var(--dur-travel) var(--spring);
+}
+.ui-segment-thumb,
+.glass-switch-knob {
+  position: absolute;
+}
+.ui-segment-thumb {
+  transition:
+    transform var(--dur-travel) var(--spring),
+    translate var(--dur-travel) var(--spring),
+    scale var(--dur-travel) var(--spring);
+}
+:is(.ui-button-primary, .ui-button-destructive)::before,
+.ui-segment-thumb::before,
+.glass-switch-knob::before,
+.ui-zone-option .ui-zone-selected::before,
+.shell-log-tab > span:first-child::before,
+:is(.ui-button-primary, .ui-button-secondary, .ui-button-destructive)::after,
+.ui-icon-button::after,
+.ui-segment-thumb::after,
+.glass-switch-knob::after,
+.ui-zone-option .ui-zone-selected::after,
+.shell-log-tab > span:first-child::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity var(--dur-feedback) var(--ease-out);
+}
+:is(.ui-button-primary, .ui-button-destructive)::before,
+.ui-segment-thumb::before,
+.glass-switch-knob::before,
+.ui-zone-option .ui-zone-selected::before,
+.shell-log-tab > span:first-child::before {
+  background: linear-gradient(180deg, var(--control-sheen), transparent 52%);
+  opacity: 0.3;
+}
+:is(.ui-button-primary, .ui-button-destructive)::before,
+.shell-log-tab > span:first-child::before {
+  --control-sheen: rgb(255 255 255 / 20%);
+}
+:is(.ui-button-primary, .ui-button-secondary, .ui-button-destructive)::after,
+.ui-icon-button::after,
+.ui-segment-thumb::after,
+.glass-switch-knob::after,
+.ui-zone-option .ui-zone-selected::after,
+.shell-log-tab > span:first-child::after {
+  background: var(--control-shade);
+  opacity: 0;
+}
+:is(.ui-button-primary, .ui-button-destructive):active:not(:disabled),
+.shell-log-tab:active > span:first-child,
+.ui-zone-option:active .ui-zone {
+  transform: translateY(1px) scale(0.98);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-button-primary:active:not(:disabled),
+.ui-button-destructive:active:not(:disabled),
+.shell-log-tab:active > span:first-child {
+  background: var(--primary-face);
+  box-shadow: var(--primary-pressed);
+}
+.ui-button-secondary:active:not(:disabled),
+.ui-icon-button:active:not(:disabled) {
+  background: var(--utility-fill);
+  box-shadow: none;
+  transform: scale(0.98);
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+  translate: 0 1px;
+  scale: 0.98;
+  box-shadow: var(--raised-pressed);
+  transition-duration: var(--dur-travel), var(--dur-press), var(--dur-press);
+}
+:is(.ui-button-primary, .ui-button-secondary, .ui-button-destructive):active:not(:disabled)::after,
+.ui-icon-button:active:not(:disabled)::after,
+.ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb::after,
+.glass-switch:active:not(:disabled) .glass-switch-knob::after,
+.ui-zone-option:active .ui-zone-selected::after,
+.shell-log-tab:active > span:first-child::after {
+  opacity: 1;
+  transition-duration: var(--dur-press);
+}
+.ui-zone-option > span {
+  width: 100%;
+  outline: none;
+}
+.ui-zone-option > .peer:focus-visible + span {
+  outline: none;
+}
+.ui-zone-option .ui-zone {
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 4px;
+  border: 0.5px solid rgb(20 20 28 / 22%);
+  border-radius: 9px;
+  background-image: none;
+  box-shadow: none;
+  transition: transform var(--dur-travel) var(--spring);
+}
+.ui-zone-option .ui-zone-selected {
+  --raised-edge: 0 0 0 0.5px rgb(20 20 28 / 28%);
+  --raised-rim: inset 0 1px 0 rgb(255 255 255 / 65%);
+  --raised-lip: inset 0 -1px 0 rgb(20 20 28 / 12%);
+  --raised-shadow:
+    var(--raised-edge), var(--raised-rim), var(--raised-lip), var(--raised-contact),
+    var(--raised-ambient), var(--raised-lift);
+  --raised-pressed: var(--raised-edge), var(--raised-rim), var(--raised-lip), var(--raised-contact);
+  --control-sheen: rgb(255 255 255 / 45%);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 10%), rgb(20 20 28 / 4%));
+  box-shadow: var(--raised-shadow);
+  outline: 2px solid var(--control-focus);
+  outline-offset: 2px;
+  transform: scale(1.02);
+  animation: zone-select var(--dur-travel) var(--spring);
+}
+@keyframes zone-select {
+  from {
+    scale: 0.96;
+  }
+  to {
+    scale: 1;
+  }
+}
+.ui-zone-option:active .ui-zone-selected {
+  box-shadow: var(--raised-pressed);
+}
+:is(.ui-button, .ui-icon-button, .glass-switch, .shell-tab, .shell-log-tab):focus-visible,
+.ui-segments button:focus-visible,
+.ui-zone-option:has(input:focus-visible) .ui-zone {
+  outline: 2px solid var(--control-focus);
+  outline-offset: 2px;
+}
+.ui-segments button {
+  border-radius: 10px;
+  transition: opacity var(--dur-travel) var(--spring);
+}
+.ui-segments button:active:not(:disabled) {
+  opacity: 0.72;
+  transition-duration: var(--dur-press);
+  transition-timing-function: var(--ease-out);
+}
+.shell-tab,
+.shell-log-tab {
+  border-radius: 14px;
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(.ui-button-primary, .ui-button-destructive):hover:not(:disabled)::before,
+  .ui-segments:has(button:hover:not(:disabled)) .ui-segment-thumb::before,
+  .glass-switch:hover:not(:disabled) .glass-switch-knob::before,
+  .ui-zone-option:hover .ui-zone-selected::before,
+  .shell-log-tab:hover > span:first-child::before {
+    opacity: 0.65;
+  }
+  .ui-button-secondary:hover:not(:active, :disabled)::after,
+  .ui-icon-button:hover:not(:active, :disabled)::after {
+    opacity: 0.35;
+  }
+  .ui-segments:has(button:hover):not(:has(button:active)) .ui-segment-thumb,
+  .glass-switch:hover:not(:active, :disabled) .glass-switch-knob,
+  .ui-zone-option:hover:not(:active) .ui-zone-selected {
+    box-shadow:
+      var(--raised-edge), var(--raised-rim), var(--raised-lip), var(--raised-contact),
+      var(--raised-ambient), var(--raised-hover-lift);
+  }
+  :is(.ui-button-primary, .ui-button-destructive):hover:not(:active, :disabled),
+  .shell-log-tab:hover:not(:active) > span:first-child {
+    box-shadow:
+      var(--primary-shadow),
+      0 8px 18px -10px rgb(92 10 10 / 24%);
+  }
+}
+@media (max-width: 1023px) {
+  .quick-presets {
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-zone-option .ui-zone-selected {
+    animation: none;
+  }
+  .ui-segment-thumb {
+    scale: none !important;
+  }
+  :is(.ui-button-primary, .ui-button-secondary, .ui-button-destructive):active:not(:disabled),
+  .ui-icon-button:active:not(:disabled),
+  .shell-log-tab:active > span:first-child,
+  .ui-zone-option .ui-zone,
+  .ui-zone-option:active .ui-zone {
+    transform: none;
+  }
+  .ui-segments:has(button[aria-checked='true']:active) .ui-segment-thumb {
+    translate: none;
+    scale: none;
+  }
+  .glass-switch:active:not(:disabled) .glass-switch-knob {
+    --knob-stretch: 1;
+  }
+  .ui-segment-thumb,
+  .glass-switch-knob,
+  .ui-button,
+  .ui-icon-button,
+  .shell-log-tab > span:first-child,
+  .ui-zone-option .ui-zone {
+    transition: none;
+  }
 }
 /* The page crossfade while the theme changes: colors only, one beat. */
 .theme-anim,
@@ -1287,22 +1469,52 @@ body {
   .dark .glass-switch-knob,
   .dark .glass-switch-toggle .glass-switch-knob,
   .glass-switch-toggle .glass-switch-knob,
-  .ui-button-secondary,
-  .ui-button-secondary:active:not(:disabled),
   .ui-segment-thumb,
-  .dark .ui-segment-thumb,
-  :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card) .ui-icon-button {
+  .dark .ui-segment-thumb {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: var(--surface);
   }
-  .shell-tabbar {
+  .shell-tabbar,
+  .dark .shell-tabbar {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: var(--bg);
   }
 }
 @media (forced-colors: active) {
+  :root,
+  .dark {
+    --control-focus: Highlight;
+  }
+  :is(.ui-button-primary, .ui-button-destructive)::before,
+  :is(.ui-button-primary, .ui-button-secondary, .ui-button-destructive)::after,
+  .ui-icon-button::after,
+  .ui-segment-thumb::before,
+  .ui-segment-thumb::after,
+  .glass-switch-knob::before,
+  .glass-switch-knob::after,
+  .ui-zone-option .ui-zone-selected::before,
+  .ui-zone-option .ui-zone-selected::after,
+  .shell-log-tab > span:first-child::before,
+  .shell-log-tab > span:first-child::after {
+    display: none;
+  }
+  .ui-zone-option .ui-zone,
+  .ui-icon-button,
+  .ui-icon-button:active:not(:disabled),
+  .ui-zone-option:active .ui-zone {
+    background: ButtonFace;
+    color: ButtonText;
+    border: 1px solid ButtonText;
+    box-shadow: none;
+  }
+  .ui-zone-option .ui-zone-selected {
+    outline-color: Highlight;
+  }
+  .quick-presets {
+    mask-image: none;
+  }
   .ui-button-secondary,
   .ui-segment-thumb,
   :is(.ui-page-nav, .ui-task-header, .ui-sheet-header, .ui-card) .ui-icon-button {

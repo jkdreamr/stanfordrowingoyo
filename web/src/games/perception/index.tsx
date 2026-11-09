@@ -2,26 +2,34 @@ import {
   PERCEPTION_ID,
   PERCEPTION_MAX,
   perceptionShare,
-  type PerceptionAnswer,
-  type PerceptionScores,
+  PERCEPTION_ROUNDS,
 } from '../../../../shared/games/perception';
+import type { PerceptionRoundId } from '../../../../shared/games/perceptionV2';
 import { DailyGameFrame } from '../DailyGameFrame';
 import { PerceptionPlay } from './PerceptionPlay';
 
 export default function PerceptionGame() {
   return (
-    <DailyGameFrame<{ answer: PerceptionAnswer }>
+    <DailyGameFrame<void>
       gameId={PERCEPTION_ID}
       title="Perception"
+      serverComplete
       play={({ date, onComplete }) => (
-        <PerceptionPlay date={date} onComplete={(answer) => onComplete({ answer })} />
+        <PerceptionPlay key={date} date={date} onComplete={onComplete} />
       )}
       summarize={(result) => {
-        const { scores } = result.payload as { scores: PerceptionScores };
-        const share = perceptionShare(result.date, scores);
+        const { scores, rounds = PERCEPTION_ROUNDS } = result.payload as {
+          scores: Partial<Record<PerceptionRoundId, number>>;
+          rounds?: PerceptionRoundId[];
+        };
+        const share = perceptionShare(result.date, scores, rounds);
         return {
           headline: `${result.score} / ${PERCEPTION_MAX}`,
-          detail: share.split('\n')[1],
+          detail: share
+            .split('\n')
+            .slice(1)
+            .map((line) => line.replace(/[🟩⬜]/gu, '').replace(/\s+/g, ' '))
+            .join(' · '),
           share,
         };
       }}

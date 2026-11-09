@@ -144,6 +144,10 @@ test('Olympic podium positions, heights, profile links and fourth place persist 
   await page.goto('/leaderboard');
   for (const metric of ['% of Target', 'Meters', 'Season']) {
     await page.getByRole('radio', { name: metric, exact: true }).click();
+    await expect(page.getByRole('radio', { name: metric, exact: true })).toHaveAttribute(
+      'aria-checked',
+      'true',
+    );
     const podium = page.getByRole('list', { name: 'Top Three' });
     const spots = podium.getByRole('link');
     await expect(spots).toHaveCount(3);

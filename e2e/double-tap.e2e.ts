@@ -8,8 +8,12 @@ async function doubleTap(target: Locator, mobile: boolean, whitespace = false) {
   const bounds = (await target.boundingBox())!;
   const options = whitespace ? { position: { x: bounds.width - 2, y: bounds.height - 2 } } : {};
   if (mobile) {
-    await target.tap(options);
-    await target.tap(options);
+    const point = options.position ?? { x: bounds.width / 2, y: bounds.height / 2 };
+    const x = bounds.x + point.x,
+      y = bounds.y + point.y;
+    // Locator actionability waits between taps can exceed the gesture window in WebKit.
+    await target.page().touchscreen.tap(x, y);
+    await target.page().touchscreen.tap(x, y);
   } else await target.dblclick(options);
 }
 test('double-tap gives once on feed body, photos and detail; single taps and viewer zoom survive', async ({
@@ -59,7 +63,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   }
   await doubleTap(card.locator('dl'), mobile, true);
   await expect(kudos).toHaveAttribute('aria-pressed', 'true');
-  await expect(card.getByRole('button', { name: 'View 1 Kudos', exact: true })).toBeVisible();
+  await expect(card.getByRole('button', { name: 'View 1 Kudo', exact: true })).toBeVisible();
   await expect(page).toHaveURL(/\/feed$/);
   await doubleTap(card.getByRole('button', { name: 'Open Photo 1' }), mobile);
   await expect(kudos).toHaveAttribute('aria-pressed', 'true');
@@ -70,7 +74,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   await expect(kudos).toBeEnabled();
   await doubleTap(card.getByRole('button', { name: 'Open Photo 1' }), mobile);
   await expect(kudos).toHaveAttribute('aria-pressed', 'true');
-  await expect(card.getByRole('button', { name: 'View 1 Kudos', exact: true })).toBeVisible();
+  await expect(card.getByRole('button', { name: 'View 1 Kudo', exact: true })).toBeVisible();
   const burst = card.locator('.social-heart-burst');
   await expect(burst).toBeVisible();
   await burst.evaluate((element) => {
@@ -83,6 +87,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   expect(posts).toBe(2);
   await card.getByText('Distance', { exact: true }).click();
   await expect(page).toHaveURL(new RegExp(`/entries/${entry.id}$`));
+  await expect(page.getByRole('heading', { name: 'Comments', exact: true })).toBeVisible();
   const detail = page.getByRole('article');
   const detailKudos = detail.getByRole('button', { name: 'Kudos', exact: true });
   await detailKudos.click();
@@ -90,7 +95,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   await expect(detailKudos).toBeEnabled();
   await doubleTap(detail.getByRole('button', { name: 'Open Photo 1' }), mobile);
   await expect(detailKudos).toHaveAttribute('aria-pressed', 'true');
-  await expect(detail.getByRole('button', { name: 'View 1 Kudos', exact: true })).toBeVisible();
+  await expect(detail.getByRole('button', { name: 'View 1 Kudo', exact: true })).toBeVisible();
   const photo = detail.getByRole('button', { name: 'Open Photo 1' });
   await photo.click();
   const dialog = page.getByRole('dialog');

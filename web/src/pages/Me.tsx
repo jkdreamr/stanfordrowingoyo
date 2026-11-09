@@ -252,6 +252,7 @@ export default function Me() {
         </section>
         <ListGroup header="Your Training">
           <ListRow title="Plan" to="/plan" />
+          <ListRow title="Weekly Recap" to="/recap" />
           <ListRow title="Edit Profile" to="/me/edit" />
           <ListRow
             title="Weekly Target"

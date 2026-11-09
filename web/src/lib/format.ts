@@ -1,4 +1,4 @@
-import { formatMeters as meters, formatSplit as split } from '../../../shared/math';
+import { floorPercent, formatMeters as meters, formatSplit as split } from '../../../shared/math';
 import { addDays, today, TIME_ZONE } from '../../../shared/dates';
 const valid = (n: number) => Number.isFinite(n) && n >= 0;
 export function formatFactor(value: number) {
@@ -13,7 +13,7 @@ export function formatNumber(value: number, digits = 0) {
     : '—';
 }
 export function formatPercent(value: number) {
-  return `${formatNumber(value)}%`;
+  return `${formatNumber(floorPercent(value))}%`;
 }
 export function formatWeekday(date: string) {
   return new Intl.DateTimeFormat('en-US', { weekday: 'short', timeZone: TIME_ZONE }).format(

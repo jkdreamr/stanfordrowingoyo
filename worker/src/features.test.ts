@@ -151,7 +151,7 @@ describe('entries and images', () => {
       expect(
         storage.sql.exec("SELECT value_json FROM settings WHERE key='schema_version'").one()
           .value_json,
-      ).toBe('16');
+      ).toBe('18');
     });
   });
   it('creates, reads, updates and deletes entries with public authors and factor snapshots', async () => {
@@ -352,7 +352,7 @@ describe('entries and images', () => {
             "SELECT value_json FROM settings WHERE key='schema_version'",
           )
           .one().value_json,
-      ).toBe('16');
+      ).toBe('18');
       migrate(storage);
       expect(storage.sql.exec('SELECT * FROM entries ORDER BY id').toArray()).toEqual(rows);
     });
@@ -949,7 +949,7 @@ describe('statistics, leaderboard and team', () => {
     ).json<WeekStats>();
     expect(stats).toMatchObject({
       total_m: 19000,
-      percent: 23.8,
+      percent: 23.7,
       hit_target: false,
       by_modality: { erg: 10000, bike: 9000, run: 0 },
     });

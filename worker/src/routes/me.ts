@@ -18,6 +18,8 @@ export async function patch(ctx: Context) {
   const body = await readJson(ctx.request);
   const user = refreshUser(ctx);
   const fields: Record<string, string | number | null> = {};
+  if (body.evening_reminder !== undefined)
+    fields.evening_reminder = Number(v.boolean(body.evening_reminder, 'Evening reminder'));
   if (body.name !== undefined) fields.name = v.string(body.name, 'Name', 1, 80, true);
   if (body.bio !== undefined) fields.bio = v.string(body.bio, 'Bio', 0, 500);
   if (body.group_key !== undefined)

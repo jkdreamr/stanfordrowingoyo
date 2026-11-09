@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { DiveDay } from '../../../../shared/types';
 import { api } from '../../lib/api';
 import { Results } from './Results';
+import { ToastProvider } from '../../components/ui';
 
 vi.mock('../GameDayBoard', () => ({ GameDayBoard: () => <p>Day Board</p> }));
 vi.mock('../../lib/api', async (importOriginal) => ({
@@ -58,14 +59,16 @@ function day(): DiveDay {
     ],
   };
 }
-function mount(data = day(), staff = false, reviewOnly = false) {
+function mount(data = day(), canModerate = false, reviewOnly = false) {
   const client = new QueryClient({
     defaultOptions: { mutations: { retry: false }, queries: { retry: false } },
   });
   clients.push(client);
   return render(
     <QueryClientProvider client={client}>
-      <Results day={data} staff={staff} reviewOnly={reviewOnly} />
+      <ToastProvider>
+        <Results day={data} canModerate={canModerate} reviewOnly={reviewOnly} />
+      </ToastProvider>
     </QueryClientProvider>,
   );
 }
@@ -93,22 +96,48 @@ it('shows canonical tiers, verdict, teammate names and Only You; shares a spoile
   expect(screen.getByText('Rower One')).toBeTruthy();
   expect(screen.getByText('Only You')).toBeTruthy();
   expect(screen.queryByRole('button', { name: 'Hide Orchid' })).toBeNull();
-  fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
-  expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
-  expect(writeText).toHaveBeenCalledWith('Dive 2026-11-07 · 310 m\n🦪');
+  fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+  expect(await screen.findByText('Result Copied')).toBeTruthy();
+  expect(writeText).toHaveBeenCalledWith(
+    'OYO Dive 2026-11-07 310 m\n🦪\nhttps://stanford-oyo.joskoo.workers.dev',
+  );
 });
 it('keeps copy retryable when clipboard access fails and renders empty groups', async () => {
   const empty = day();
   empty.reveal![0].groups = [];
   writeText.mockRejectedValueOnce(new Error('Denied'));
   mount(empty);
-  expect(screen.getByText('No Answers')).toBeTruthy();
-  fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
-  expect((await screen.findByRole('alert')).textContent).toBe('Couldn’t copy. Try again.');
-  fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
-  expect(await screen.findByRole('button', { name: 'Copied' })).toBeTruthy();
+  expect(screen.getByText('No teammates have played yet.')).toBeTruthy();
+  expect(screen.getByRole('region', { name: 'Team Answers' }).querySelector('details')).toBeNull();
+  fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+  expect((await screen.findByRole('alert')).textContent).toBe('Could Not Copy Result');
+  fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+  expect(await screen.findByText('Result Copied')).toBeTruthy();
 });
-it('lets staff review groups without playing, requires confirmation and keeps failed moderation retryable', async () => {
+it('shows mixed empty prompts as plain rows beside populated disclosures', () => {
+  const mixed = day();
+  mixed.reveal!.push({ prompt_index: 1, prompt: 'Name a lake.', groups: [] });
+  mount(mixed);
+  const section = screen.getByRole('region', { name: 'Team Answers' });
+  expect(section.querySelectorAll('details')).toHaveLength(1);
+  const empty = screen.getByText('No teammates yet');
+  expect(empty.closest('details')).toBeNull();
+  expect(empty.parentElement?.textContent).toContain('Name a lake.');
+  expect(screen.queryByText('No teammates have played yet.')).toBeNull();
+});
+it.each([{ reveal: null }, { reveal: [] }])(
+  'handles an absent or empty reveal with one intentional empty state (%j)',
+  ({ reveal }) => {
+    const empty = day();
+    empty.reveal = reveal;
+    mount(empty);
+    expect(screen.getAllByText('No teammates have played yet.')).toHaveLength(1);
+    expect(
+      screen.getByRole('region', { name: 'Team Answers' }).querySelector('details'),
+    ).toBeNull();
+  },
+);
+it('lets admins review groups without playing, requires confirmation and keeps failed moderation retryable', async () => {
   mount(day(), true, true);
   expect(screen.queryByRole('heading', { name: 'Your Dive' })).toBeNull();
   vi.mocked(api).mockRejectedValueOnce(new Error('No connection. Try again.'));
@@ -140,6 +169,10 @@ it('logs misses without inventing a canonical and shares the miss square', async
   missed.answers[0] = { ...missed.answers[0], canonical: null, tier: 'miss', points: 0 };
   mount(missed);
   expect(screen.getByText('Not On The List · Miss')).toBeTruthy();
-  fireEvent.click(screen.getByRole('button', { name: 'Copy Result' }));
-  await waitFor(() => expect(writeText).toHaveBeenCalledWith('Dive 2026-11-07 · 310 m\n⬛'));
+  fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+  await waitFor(() =>
+    expect(writeText).toHaveBeenCalledWith(
+      'OYO Dive 2026-11-07 310 m\n⬛\nhttps://stanford-oyo.joskoo.workers.dev',
+    ),
+  );
 });

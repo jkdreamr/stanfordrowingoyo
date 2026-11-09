@@ -1,5 +1,6 @@
 import type {
   AccountDataExport,
+  WeeklyRecap,
   ErgTest,
   TeamChallenge,
   Passkey,
@@ -30,7 +31,13 @@ import type {
   GameResult,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
-import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS, ZONES } from '../../../shared/math';
+import {
+  equivalentMeters,
+  floorPercent,
+  MODE_FACTORS,
+  ZONE_FACTORS,
+  ZONES,
+} from '../../../shared/math';
 import { GROUP_TARGETS, PLAN_SLOTS, PLAN_TOTALS, PRESETS } from '../../../shared/seed';
 import { createFixtures, publicUser } from './fixtures';
 import { mentionIds } from '../lib/social';
@@ -44,13 +51,31 @@ import {
   raceWeekBounds,
 } from '../../../shared/race';
 import { personalPlan, covers } from '../lib/myPlan';
-import { unpack, verifyWordGuess } from '../../../shared/games/wordGuess';
+import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
+import { unpack, score } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
+import { gamesStreak } from '../../../shared/games/streak';
 import {
-  parsePerceptionAnswer,
   perceptionTotal,
-  scorePerception,
+  PERCEPTION_ROUNDS,
+  scoreClock,
+  scoreColor,
+  scoreDot,
+  scorePattern,
+  scoreReaction,
 } from '../../../shared/games/perception';
+import {
+  PERCEPTION_V2_FROM,
+  PERCEPTION_POOL,
+  PERCEPTION_FIELDS,
+  parsePerceptionRound,
+  scorePerceptionRound,
+  perceptionExposure,
+  type PerceptionV2Puzzle,
+  type PerceptionRoundId,
+  type PerceptionRoundAnswer,
+} from '../../../shared/games/perceptionV2';
+import { dayNumber, dailyRandom } from '../../../shared/games/daily';
 import {
   boardWords,
   connectionsScore,
@@ -59,10 +84,7 @@ import {
 } from '../../../shared/games/connections';
 
 type MockGameScore = (payload: unknown, date: string) => { score: number; payload: unknown } | null;
-const field = (payload: unknown, key: string) =>
-  payload && typeof payload === 'object' ? (payload as Record<string, unknown>)[key] : undefined;
 let mockGuesses: Set<string> | null = null;
-// Mock mode stands in one fixed board; real puzzles stay in the Worker.
 const MOCK_CONNECTIONS = parsePuzzle([
   'Boat Classes: Eight, Quad, Pair, Single',
   'Erg Readouts: Rate, Watts, Meters, Time',
@@ -75,33 +97,50 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
-  dive: null,
-  wordguess: (payload, date) => {
-    mockGuesses ??= new Set(unpack(GUESSES));
-    const result = verifyWordGuess(date, field(payload, 'guesses'), mockGuesses);
-    return (
-      result && {
-        score: result.points,
-        payload: { guesses: field(payload, 'guesses'), solved: result.solved, tries: result.tries },
-      }
-    );
-  },
-  perception: (payload, date) => {
-    const answer = parsePerceptionAnswer(field(payload, 'answer'));
-    if (!answer) return null;
-    const scores = scorePerception(date, answer);
-    return { score: perceptionTotal(scores), payload: { answer, scores } };
-  },
-  connections: (payload, date) => {
-    const puzzle = connectionsPuzzleFor(date);
-    const guesses = field(payload, 'guesses');
-    const replay = replayConnections(puzzle, guesses);
-    if (!replay?.finished) return null;
-    const { solved, mistakes, won, grid } = replay;
-    return {
-      score: connectionsScore(replay),
-      payload: { guesses, solved, mistakes, won, grid, groups: puzzle.groups },
-    };
+  wordguess: null,
+  perception: null,
+  connections: null,
+};
+const MOCK_PERCEPTION = {
+  clockMs: 4000,
+  hue: 200,
+  dot: [500, 500] as [number, number],
+  cells: [0, 1, 2, 3, 4, 5, 6],
+  reactionDelayMs: 2000,
+};
+const mockCountRandom = dailyRandom('mock-perception-count', '2000-01-01');
+const MOCK_COUNT_DOTS: [number, number][] = [];
+for (let attempt = 0; MOCK_COUNT_DOTS.length < 48 && attempt < 5000; attempt++) {
+  const point: [number, number] = [
+    35 + Math.floor(mockCountRandom() * 931),
+    35 + Math.floor(mockCountRandom() * 931),
+  ];
+  if (MOCK_COUNT_DOTS.every(([x, y]) => (x - point[0]) ** 2 + (y - point[1]) ** 2 >= 70 ** 2))
+    MOCK_COUNT_DOTS.push(point);
+}
+const MOCK_PERCEPTION_V2: PerceptionV2Puzzle = {
+  ...MOCK_PERCEPTION,
+  clockMs: 5200,
+  cells: [0, 2, 4, 6, 8, 12, 16, 20, 24],
+  reactionDelayMs: 2400,
+  angle: 64,
+  rotation: 28,
+  length: 620,
+  count: 48,
+  countDots: MOCK_COUNT_DOTS,
+  digits: '804267193',
+  shade: 43,
+  shadeBackgrounds: [10, 90],
+  endpoints: [
+    [140, 240],
+    [820, 760],
+  ],
+  contact: {
+    visibleMs: 1200,
+    hiddenMs: 1800,
+    from: [100, 500],
+    occlusion: [420, 500],
+    finish: [900, 500],
   },
 };
 class MockError extends Error {
@@ -157,6 +196,16 @@ export function createMockApi({
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
+  const wordProgress = new Map<string, string[]>();
+  const connectionProgress = new Map<string, string[][]>();
+  const perceptionProgress = new Map<
+    string,
+    {
+      scores: Partial<Record<PerceptionRoundId, number>>;
+      answer: PerceptionRoundAnswer;
+      active: { round: number; at: number } | null;
+    }
+  >();
   const ergTests: ErgTest[] = state.users.flatMap((user) =>
     (['2k', '6k'] as const).flatMap((kind) => {
       const split = user[kind === '2k' ? 'best2k_split_s' : 'best6k_split_s'];
@@ -274,7 +323,7 @@ export function createMockApi({
       status:
         row.ended_at || row.end_date < day ? 'ended' : row.start_date > day ? 'upcoming' : 'active',
       progress_m,
-      percent: Math.round((progress_m / row.goal_m) * 1000) / 10,
+      percent: floorPercent((progress_m * 100) / row.goal_m, 1),
     };
   }
   let currentId = session;
@@ -433,7 +482,7 @@ export function createMockApi({
       ...total,
       week_start: week,
       target_m,
-      percent: target_m ? (total.total_m / target_m) * 100 : 0,
+      percent: target_m ? floorPercent((total.total_m * 100) / target_m, 1) : 0,
       hit_target: target_m > 0 && total.total_m >= target_m,
     };
   }
@@ -444,6 +493,28 @@ export function createMockApi({
     let count = 0;
     for (; w >= first && summary(userId, w).hit_target; w = addDays(w, -7)) count++;
     return count;
+  }
+  function raceWeek(start: string): RaceWeek {
+    const at = now().getTime();
+    const ratio = settings.berkeley_pace_percent / 100;
+    const rowers = state.users.filter((u) => u.active && u.role === 'rower');
+    const ids = new Set(rowers.map((u) => u.id));
+    const bounds = raceWeekBounds(start);
+    const target_m = rowers.reduce((n, u) => n + target(u.id, start).target_m, 0);
+    const berkeley_total_m = berkeleyTotal(target_m, ratio);
+    return {
+      week_start: start,
+      starts_at: new Date(bounds.start).toISOString(),
+      ends_at: new Date(bounds.end).toISOString(),
+      status: at < bounds.start ? 'upcoming' : at < bounds.end ? 'live' : 'final',
+      rowers: rowers.length,
+      stanford_m: state.entries
+        .filter((e) => e.week_start === start && ids.has(e.user_id))
+        .reduce((n, e) => n + e.equiv_m, 0),
+      target_m,
+      berkeley_total_m,
+      berkeley_m: ghostMeters(berkeley_total_m, bounds.start, bounds.end, at),
+    };
   }
   function weekStats(userId: string, week: string): WeekStats {
     const all = state.entries.filter((e) => e.user_id === userId && e.week_start === week);
@@ -507,7 +578,7 @@ export function createMockApi({
           user: publicUser(user),
           target_m,
           total_m,
-          percent: target_m > 0 ? Math.round((total_m / target_m) * 1000) / 10 : 0,
+          percent: target_m > 0 ? floorPercent((total_m * 100) / target_m, 1) : 0,
           rank: 0,
           streak: streak(user.id, week),
           entry_count: state.entries.filter((e) => e.user_id === user.id && e.week_start === week)
@@ -753,7 +824,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 16 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 18 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -915,8 +986,28 @@ export function createMockApi({
           return json({
             date,
             access,
+            streak: gamesStreak(
+              [
+                ...new Set(
+                  gameResults
+                    .filter(
+                      (row) =>
+                        row.user_id === user.id &&
+                        row.date <= date &&
+                        Object.hasOwn(MOCK_GAMES, row.game_id),
+                    )
+                    .map((row) => row.date),
+                ),
+              ].sort(),
+              date,
+            ),
             games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
-            results: gameResults.filter((row) => row.user_id === user.id && row.date === date),
+            results: gameResults.filter(
+              (row) =>
+                row.user_id === user.id &&
+                row.date === date &&
+                Object.hasOwn(MOCK_GAMES, row.game_id),
+            ),
           });
         if (path === '/api/games/leaderboard' && method === 'GET')
           return json({ week_start: weekStart(url.searchParams.get('week') ?? date), rows: [] });
@@ -926,6 +1017,50 @@ export function createMockApi({
           gameResults.find(
             (row) => row.game_id === gameId && row.date === day && row.user_id === user.id,
           ) ?? null;
+        if (gameId === 'wordguess' && ['today', 'guess'].includes(parts[4])) {
+          const key = `${user.id}:${date}`;
+          const guesses = wordProgress.get(key) ?? [];
+          const answer = 'crane';
+          if (parts[4] === 'guess' && method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (mine(date)) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+            mockGuesses ??= new Set(unpack(GUESSES));
+            if (
+              typeof body.guess !== 'string' ||
+              (body.guess !== answer && !mockGuesses.has(body.guess))
+            )
+              fail(400, 'Not in Word List');
+            guesses.push(body.guess);
+            wordProgress.set(key, guesses);
+            if (body.guess === answer || guesses.length === 6) {
+              const stamp = now().toISOString();
+              gameResults.push({
+                game_id: gameId,
+                date,
+                user_id: user.id,
+                score: body.guess === answer ? 7 - guesses.length : 0,
+                payload: {
+                  guesses,
+                  answer,
+                  solved: body.guess === answer,
+                  tries: guesses.length,
+                  marks: guesses.map((word) => score(word, answer)),
+                },
+                created_at: stamp,
+                updated_at: stamp,
+              });
+            }
+          }
+          const done = Boolean(mine(date));
+          return json({
+            date,
+            access,
+            guesses: guesses.map((word) => ({ word, marks: score(word, answer) })),
+            done,
+            won: guesses.at(-1) === answer,
+            answer: done ? answer : null,
+          });
+        }
         if (gameId === 'dive' && parts[4] === 'today' && method === 'GET')
           return json({
             date,
@@ -944,21 +1079,138 @@ export function createMockApi({
             answers: [],
             complete: false,
             score: 0,
-            reveal: user.role === 'rower' ? null : [],
+            reveal: user.role === 'admin' ? [] : null,
           });
-        if (gameId === 'connections' && parts[4] === 'today' && method === 'GET')
+        const addResult = (score: number, payload: unknown) => {
+          const stamp = now().toISOString();
+          gameResults.push({
+            game_id: gameId,
+            date,
+            user_id: user.id,
+            score,
+            payload,
+            created_at: stamp,
+            updated_at: stamp,
+          });
+        };
+        if (gameId === 'perception' && ['today', 'start', 'answer'].includes(parts[4])) {
+          const v2 = date >= PERCEPTION_V2_FROM;
+          const rounds: PerceptionRoundId[] = v2
+            ? Array.from(
+                { length: 5 },
+                (_, i) =>
+                  PERCEPTION_POOL[((dayNumber(date) - dayNumber(PERCEPTION_V2_FROM)) * 5 + i) % 12],
+              )
+            : [...PERCEPTION_ROUNDS];
+          const puzzle = v2 ? MOCK_PERCEPTION_V2 : MOCK_PERCEPTION;
+          const key = `${user.id}:${date}`;
+          const p = perceptionProgress.get(key) ?? { scores: {}, answer: {}, active: null };
+          perceptionProgress.set(key, p);
+          if (method === 'GET' && parts[4] === 'today' && p.active) {
+            p.scores[rounds[p.active.round]] = 0;
+            p.active = null;
+          }
+          const round = Object.keys(p.scores).length;
+          if (method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (mine(date)) fail(409, 'Already played today.');
+            if (body.round !== round) fail(409, 'Play rounds in order.');
+            if (parts[4] === 'start') {
+              if (p.active) fail(409, 'Already started.');
+              p.active = { round, at: now().getTime() };
+            } else {
+              if (!p.active) fail(409, 'Start this round first.');
+              const id = rounds[round],
+                field = PERCEPTION_FIELDS[id];
+              const answer = parsePerceptionRound(id, body.answer, v2);
+              if (!answer) fail(400, 'Invalid round answer.');
+              const elapsed = now().getTime() - p.active.at;
+              if (
+                elapsed < 0 ||
+                (id === 'clock' && answer.clockMs! > elapsed + 1000) ||
+                (id === 'reaction' &&
+                  answer.reactionMs! >= 0 &&
+                  (elapsed < puzzle.reactionDelayMs ||
+                    answer.reactionMs! > elapsed - puzzle.reactionDelayMs + 1000)) ||
+                (v2 &&
+                  (elapsed < perceptionExposure(id, MOCK_PERCEPTION_V2) ||
+                    (id === 'contact' &&
+                      (elapsed < MOCK_PERCEPTION_V2.contact.visibleMs ||
+                        answer.contactMs! >
+                          elapsed - MOCK_PERCEPTION_V2.contact.visibleMs + 1000))))
+              )
+                fail(400, 'Timing is not plausible.');
+              const scores = {
+                clock: scoreClock(puzzle, answer.clockMs!),
+                color: scoreColor(puzzle, answer.hue!),
+                dot: answer.dot ? scoreDot(puzzle, answer.dot) : 0,
+                pattern: answer.cells ? scorePattern(puzzle, answer.cells) : 0,
+                reaction: scoreReaction(answer.reactionMs!),
+              };
+              p.scores[id] = v2
+                ? scorePerceptionRound(id, MOCK_PERCEPTION_V2, answer)
+                : scores[id as keyof typeof scores];
+              Object.assign(p.answer, { [field]: answer[field] });
+              p.active = null;
+            }
+          }
+          const done = Object.keys(p.scores).length === 5;
+          if (done && !mine(date))
+            addResult(perceptionTotal(p.scores, rounds), {
+              answer: p.answer,
+              scores: p.scores,
+              rounds,
+            });
+          const stimuli = {
+            clock: { clockMs: puzzle.clockMs },
+            color: { hue: puzzle.hue },
+            dot: { dot: puzzle.dot },
+            pattern: { cells: puzzle.cells },
+            reaction: { reactionDelayMs: puzzle.reactionDelayMs },
+            angle: { angle: MOCK_PERCEPTION_V2.angle, rotation: MOCK_PERCEPTION_V2.rotation },
+            length: { length: MOCK_PERCEPTION_V2.length },
+            count: { countDots: MOCK_PERCEPTION_V2.countDots },
+            span: { digits: MOCK_PERCEPTION_V2.digits },
+            shade: {
+              shade: MOCK_PERCEPTION_V2.shade,
+              shadeBackgrounds: MOCK_PERCEPTION_V2.shadeBackgrounds,
+            },
+            bisect: { endpoints: MOCK_PERCEPTION_V2.endpoints },
+            contact: { contact: MOCK_PERCEPTION_V2.contact },
+          };
           return json({
             date,
             access,
-            words: access.unlocked ? boardWords(date, connectionsPuzzleFor(date)) : [],
+            round: Object.keys(p.scores).length,
+            rounds,
+            scores: p.scores,
+            done,
+            ...(parts[4] === 'start' ? { stimulus: stimuli[rounds[round]] } : {}),
           });
-        if (gameId === 'connections' && parts[4] === 'check' && method === 'POST') {
-          if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+        }
+        if (gameId === 'connections' && ['today', 'guess', 'check'].includes(parts[4])) {
+          if (parts[4] === 'check') fail(405, 'Use the single-guess endpoint.');
+          const key = `${user.id}:${date}`;
+          const guesses = connectionProgress.get(key) ?? [];
           const puzzle = connectionsPuzzleFor(date);
-          const replay = replayConnections(puzzle, body.guesses);
-          if (!replay?.outcomes.length) fail(400, 'Guesses do not fit today’s board.');
+          if (parts[4] === 'guess' && method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (mine(date)) fail(409, 'Already played today.');
+            if (!replayConnections(puzzle, [...guesses, body.guess]))
+              fail(400, 'Repeated guess or words do not fit today’s board.');
+            guesses.push(body.guess as string[]);
+            connectionProgress.set(key, guesses);
+          }
+          const replay = replayConnections(puzzle, guesses)!;
+          if (replay.finished && !mine(date))
+            addResult(connectionsScore(replay), { ...replay, guesses, groups: puzzle.groups });
           return json({
-            outcome: replay.outcomes.at(-1),
+            date,
+            access,
+            words: access.unlocked ? boardWords(date, puzzle) : [],
+            guesses,
+            outcomes: replay.outcomes,
+            outcome: replay.outcomes.at(-1) ?? null,
             mistakes: replay.mistakes,
             finished: replay.finished,
             won: replay.won,
@@ -990,7 +1242,12 @@ export function createMockApi({
         if (parts[4] === 'leaderboard' && method === 'GET') {
           const day = url.searchParams.get('date') ?? date;
           if (!dateValid(day) || day > date) fail(400, 'Invalid date.');
-          if (day === date && user.role === 'rower' && !mine(day))
+          if (
+            user.role !== 'admin' &&
+            (!mine(day) ||
+              (gameId === 'dive' &&
+                (mine(day)?.payload as { answered?: number })?.answered !== DIVE_PROMPTS_PER_DAY))
+          )
             fail(403, 'Play today to see the board.', 'PLAY_FIRST');
           const rows = gameResults
             .filter((row) => row.game_id === gameId && row.date === day)
@@ -1216,34 +1473,12 @@ export function createMockApi({
         const date = url.searchParams.get('week') ?? today(now());
         if (!dateValid(date) || date < '2000-01-01' || date > addDays(today(now()), 365))
           fail(400, 'Week date must be between 2000-01-01 and one year from today.');
-        const at = now().getTime();
-        const ratio = settings.berkeley_pace_percent / 100;
-        const rowers = state.users.filter((u) => u.active && u.role === 'rower');
-        const ids = new Set(rowers.map((u) => u.id));
-        const build = (start: string): RaceWeek => {
-          const bounds = raceWeekBounds(start);
-          const target_m = rowers.reduce((n, u) => n + target(u.id, start).target_m, 0);
-          const berkeley_total_m = berkeleyTotal(target_m, ratio);
-          return {
-            week_start: start,
-            starts_at: new Date(bounds.start).toISOString(),
-            ends_at: new Date(bounds.end).toISOString(),
-            status: at < bounds.start ? 'upcoming' : at < bounds.end ? 'live' : 'final',
-            rowers: rowers.length,
-            stanford_m: state.entries
-              .filter((e) => e.week_start === start && ids.has(e.user_id))
-              .reduce((n, e) => n + e.equiv_m, 0),
-            target_m,
-            berkeley_total_m,
-            berkeley_m: ghostMeters(berkeley_total_m, bounds.start, bounds.end, at),
-          };
-        };
         const week = weekStart(date);
         return json({
           as_of: now().toISOString(),
-          ratio,
-          week: build(week),
-          previous: build(addDays(week, -7)),
+          ratio: settings.berkeley_pace_percent / 100,
+          week: raceWeek(week),
+          previous: raceWeek(addDays(week, -7)),
         });
       }
       if (path === '/api/stats/recap' && method === 'GET') {
@@ -1256,6 +1491,43 @@ export function createMockApi({
         const entries = state.entries
           .filter((e) => e.user_id === user.id && e.week_start === week)
           .sort((a, b) => b.equiv_m - a.equiv_m || a.created_at.localeCompare(b.created_at));
+        const race = raceWeek(week),
+          sunday = addDays(week, 6);
+        const games = gameResults.filter(
+          (g) =>
+            g.user_id === user.id &&
+            g.date >= week &&
+            g.date <= sunday &&
+            Object.hasOwn(MOCK_GAMES, g.game_id),
+        );
+        const played = new Set(
+          gameResults
+            .filter((g) => g.user_id === user.id && Object.hasOwn(MOCK_GAMES, g.game_id))
+            .map((g) => g.date),
+        );
+        let gameStreak = 0;
+        while (played.has(addDays(sunday, -gameStreak))) gameStreak++;
+        const owned = state.myPlans.find((row) => row.user_id === user.id && covers(row, week));
+        let recapPlan: WeeklyRecap['plan'] = null;
+        if (owned) {
+          const { user_id: _owner, updated_at, ...input } = owned;
+          void _owner;
+          const plan = personalPlan(
+            input,
+            settings,
+            updated_at,
+            state.entries.filter((entry) => entry.user_id === user.id),
+          );
+          const index = week < addDays(plan.start_date, 7) ? 0 : 1;
+          if (plan.planned_m[index] > 0)
+            recapPlan = {
+              start_date: plan.start_date,
+              week: (index + 1) as 1 | 2,
+              planned_m: plan.planned_m[index],
+              logged_m: plan.logged_m[index],
+              complete: plan.logged_m[index] >= plan.planned_m[index],
+            };
+        }
         let streak = 0;
         for (
           let d = week;
@@ -1276,6 +1548,19 @@ export function createMockApi({
               .length,
           },
           rank: board.find((r) => r.user.id === user.id)?.rank ?? null,
+          race: race.rowers > 0 ? race : null,
+          plan: recapPlan,
+          games: {
+            played: games.length,
+            days: new Set(games.map((g) => g.date)).size,
+            best_dive: games.some((g) => g.game_id === 'dive')
+              ? Math.max(...games.filter((g) => g.game_id === 'dive').map((g) => g.score))
+              : null,
+            word_guess_solves: games.filter(
+              (g) => g.game_id === 'wordguess' && (g.payload as { solved?: boolean })?.solved,
+            ).length,
+            streak: gameStreak,
+          },
         });
       }
       if (path === '/api/me') {
@@ -1288,6 +1573,8 @@ export function createMockApi({
           )
             fail(400, 'Choose a valid group');
           if (body.bio !== undefined && typeof body.bio !== 'string') fail(400, 'Bio must be text');
+          if (body.evening_reminder !== undefined && typeof body.evening_reminder !== 'boolean')
+            fail(400, 'Evening reminder must be a boolean');
           if (
             body.side !== undefined &&
             body.side !== null &&
@@ -1307,7 +1594,15 @@ export function createMockApi({
             uploads.get(String(body.avatar_image_id))?.owner !== user.id
           )
             fail(400, 'Upload your avatar first');
-          for (const key of ['name', 'bio', 'side', 'class_year', 'group_key', 'avatar_image_id'])
+          for (const key of [
+            'name',
+            'bio',
+            'side',
+            'class_year',
+            'group_key',
+            'avatar_image_id',
+            'evening_reminder',
+          ])
             if (key in body) Object.assign(user, { [key]: body[key] });
           user.updated_at = stamp();
           for (const kind of ['2k', '6k'] as const) {

@@ -17,6 +17,7 @@ import { migrate } from './db/migrate';
 import { setSetting } from './db/settings';
 import { parseCsv } from './csv';
 import { insertRosterFixture } from './testFixtures';
+import { DIVE_ENABLED } from './games/features';
 const bindings = env as unknown as Env;
 const NOW = '2026-03-09T18:00:00Z';
 type Client = { cookie: string; user: User; rosterId: string };
@@ -96,6 +97,12 @@ const slot = {
 };
 // A mapped object makes additions to the shared contract a compile-time test failure.
 const endpoints: Record<keyof Api, true> = {
+  'GET /api/games/perception/today': true,
+  'POST /api/games/perception/start': true,
+  'POST /api/games/perception/answer': true,
+  'POST /api/games/connections/guess': true,
+  'GET /api/games/wordguess/today': true,
+  'POST /api/games/wordguess/guess': true,
   'GET /api/games/dive/today': true,
   'POST /api/games/dive/answers': true,
   'GET /api/games/dive/days/:date': true,
@@ -312,7 +319,7 @@ describe('complete API and role permissions', () => {
                       : rower.user.id);
       path = path
         .replace(':date', '2026-03-01')
-        .replace(':game', 'dive')
+        .replace(':game', 'wordguess')
         .replace(':id', id)
         .replace(':group', 'normal')
         .replace(':week', '1')
@@ -349,7 +356,12 @@ describe('complete API and role permissions', () => {
                 }
               : {};
       const response = await api(path, staff, method, body);
-      if (endpoint === 'POST /api/games/:game/results') expect(response.status).toBe(405);
+      if (!DIVE_ENABLED && path.startsWith('/games/dive/')) expect(response.status).toBe(404);
+      else if (
+        endpoint === 'POST /api/games/:game/results' ||
+        endpoint === 'POST /api/games/connections/check'
+      )
+        expect(response.status).toBe(405);
       else expect([404, 405, 501, 500], endpoint).not.toContain(response.status);
       if (path === '/auth/logout') {
         const login = await api('/auth/login', undefined, 'POST', {

@@ -23,7 +23,10 @@ import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 import * as games from './routes/games';
 import * as dive from './routes/dive';
+import { DIVE_ENABLED } from './games/features';
 import * as connections from './routes/connections';
+import * as wordguess from './routes/wordguess';
+import * as perception from './routes/perception';
 type Handler = (ctx: Context) => Response | Promise<Response>;
 interface Route {
   method: string;
@@ -36,12 +39,18 @@ function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'GET', path: '/api/games/perception/today', handler: perception.current },
+  { method: 'POST', path: '/api/games/perception/start', handler: perception.start },
+  { method: 'POST', path: '/api/games/perception/answer', handler: perception.answer },
+  { method: 'GET', path: '/api/games/wordguess/today', handler: wordguess.current },
+  { method: 'POST', path: '/api/games/wordguess/guess', handler: wordguess.guess },
   { method: 'GET', path: '/api/games/dive/today', handler: dive.current },
   { method: 'POST', path: '/api/games/dive/answers', handler: dive.answer },
   { method: 'GET', path: '/api/games/dive/days/:date', handler: dive.past },
   { method: 'PATCH', path: '/api/games/dive/answers', handler: dive.moderate },
   { method: 'GET', path: '/api/games/connections/today', handler: connections.current },
   { method: 'POST', path: '/api/games/connections/check', handler: connections.check },
+  { method: 'POST', path: '/api/games/connections/guess', handler: connections.guess },
   { method: 'GET', path: '/api/games', handler: games.list },
   { method: 'GET', path: '/api/games/access', handler: games.access },
   { method: 'GET', path: '/api/games/leaderboard', handler: games.week },
@@ -100,7 +109,7 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 16 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 18 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
@@ -216,6 +225,8 @@ export async function route(ctx: Context): Promise<Response> {
   let response: Response;
   try {
     const path = new URL(ctx.request.url).pathname;
+    if (!DIVE_ENABLED && /^\/api\/games\/dive(?:\/|$)/.test(path))
+      throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (path.startsWith('/internal/') && ctx.request.headers.get('X-OYO-Internal') !== '1')
       throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
     checkCsrf(ctx.request);

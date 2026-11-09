@@ -1,4 +1,5 @@
-import { closeness, dailyRandom, isIntIn } from './daily';
+import { closeness, isIntIn } from './daily';
+import type { PerceptionRoundId } from './perceptionV2';
 
 export const PERCEPTION_ID = 'perception';
 export const PERCEPTION_ROUNDS = ['clock', 'color', 'dot', 'pattern', 'reaction'] as const;
@@ -33,22 +34,6 @@ export interface PerceptionAnswer {
 
 export type PerceptionScores = Record<PerceptionRound, number>;
 
-export function perceptionPuzzle(date: string): PerceptionPuzzle {
-  const rand = dailyRandom(PERCEPTION_ID, date);
-  const pick = (min: number, max: number) => min + Math.floor(rand() * (max - min + 1));
-  const clockMs = pick(25, 60) * 100;
-  const hue = pick(0, 359);
-  const dot: [number, number] = [pick(120, 880), pick(120, 880)];
-  const pool = Array.from({ length: GRID * GRID }, (_, i) => i);
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  const cells = pool.slice(0, PATTERN_CELLS).sort((a, b) => a - b);
-  const reactionDelayMs = pick(15, 45) * 100;
-  return { clockMs, hue, dot, cells, reactionDelayMs };
-}
-
 export function hueDistance(a: number, b: number): number {
   const d = Math.abs(a - b) % 360;
   return d > 180 ? 360 - d : d;
@@ -78,19 +63,11 @@ export function scoreReaction(reactionMs: number): number {
   return closeness(Math.max(0, reactionMs - 150), 200);
 }
 
-export function scorePerception(date: string, answer: PerceptionAnswer): PerceptionScores {
-  const puzzle = perceptionPuzzle(date);
-  return {
-    clock: scoreClock(puzzle, answer.clockMs),
-    color: scoreColor(puzzle, answer.hue),
-    dot: scoreDot(puzzle, answer.dot),
-    pattern: scorePattern(puzzle, answer.cells),
-    reaction: scoreReaction(answer.reactionMs),
-  };
-}
-
-export function perceptionTotal(scores: PerceptionScores): number {
-  return PERCEPTION_ROUNDS.reduce((sum, r) => sum + scores[r], 0);
+export function perceptionTotal(
+  scores: Partial<Record<PerceptionRoundId, number>>,
+  rounds: readonly PerceptionRoundId[] = PERCEPTION_ROUNDS,
+): number {
+  return rounds.reduce((sum, r) => sum + (scores[r] ?? 0), 0);
 }
 
 /** Narrows untrusted input to a well-formed answer, or null. */
@@ -116,18 +93,33 @@ export function parsePerceptionAnswer(value: unknown): PerceptionAnswer | null {
   };
 }
 
-const LABEL: Record<PerceptionRound, string> = {
+const LABEL: Record<PerceptionRoundId, string> = {
   clock: 'Clock',
   color: 'Color',
   dot: 'Spot',
   pattern: 'Pattern',
   reaction: 'React',
+  angle: 'Angle',
+  length: 'Length',
+  count: 'Count',
+  span: 'Span',
+  shade: 'Shade',
+  bisect: 'Bisect',
+  contact: 'Contact',
 };
 
-export function perceptionShare(date: string, scores: PerceptionScores): string {
-  const lines = PERCEPTION_ROUNDS.map((r) => `${LABEL[r]} ${scores[r]}`);
+export function perceptionShare(
+  date: string,
+  scores: Partial<Record<PerceptionRoundId, number>>,
+  rounds: readonly PerceptionRoundId[] = PERCEPTION_ROUNDS,
+): string {
+  const lines = rounds.map((r) => {
+    const score = scores[r] ?? 0;
+    const filled = Math.max(0, Math.min(5, Math.round((score / 100) * 5)));
+    return `${LABEL[r]} ${'🟩'.repeat(filled)}${'⬜'.repeat(5 - filled)} ${score}`;
+  });
   return [
-    `OYO Perception ${date} ${perceptionTotal(scores)}/${PERCEPTION_MAX}`,
-    lines.join(' · '),
+    `OYO Perception ${date} ${perceptionTotal(scores, rounds)}/${PERCEPTION_MAX}`,
+    ...lines,
   ].join('\n');
 }

@@ -48,9 +48,8 @@ export function seasonLabel(today: string, seasonStart: string): string {
   return `${start.slice(0, 4)}–${end.slice(2, 4)} Season`;
 }
 
-/** Floors so a rower at 99.6% never reads as 100% before the target is hit. */
 export function displayPercent(percent: number): string {
-  return formatPercent(Number.isFinite(percent) ? Math.max(0, Math.floor(percent)) : percent);
+  return formatPercent(percent);
 }
 export function hitTarget(row: LeaderboardRow) {
   return row.target_m > 0 && row.total_m >= row.target_m;

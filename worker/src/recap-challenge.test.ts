@@ -58,6 +58,9 @@ beforeEach(async () => {
       'rate_limits',
       'weekly_targets',
       'audit_log',
+      'game_results',
+      'my_plans',
+      'my_plan_sessions',
     ])
       s.sql.exec(`DELETE FROM ${table}`);
     setSetting(s, 'team_code', 'team-code');
@@ -99,7 +102,7 @@ it('backfills v9 best splits on team-local date and is idempotent', async () => 
     setSetting(s, 'schema_version', 9);
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(16);
+    expect(getSetting(s, 'schema_version')).toBe(18);
     const rows = s.sql.exec<Row<ErgTest>>('SELECT * FROM erg_tests ORDER BY kind').toArray();
     expect(rows).toHaveLength(2);
     expect(rows[0]).toMatchObject({ date: '2026-03-09', time_s: 400, split_s: 100 });
@@ -200,6 +203,102 @@ it('recaps own completed week with team rank, ties, streak and defaults', async 
     best_effort: null,
     rank: null,
   });
+});
+it('recaps the final race, My Fortnight week and games highlights in one response', async () => {
+  const a = await user('recap'),
+    b = await user('quiet');
+  await sql((s) => {
+    setSetting(s, 'group_targets', { frosh: 10000, normal: 10000, u23: 10000 });
+    setSetting(s, 'group_target_history', [
+      { week_start: '2000-01-01', targets: { frosh: 10000, normal: 10000, u23: 10000 } },
+    ]);
+    const game = (id: string, date: string, score: number, payload: unknown = {}) =>
+      s.sql.exec(
+        'INSERT INTO game_results VALUES (?,?,?,?,?,?,?)',
+        id,
+        date,
+        a.user.id,
+        score,
+        JSON.stringify(payload),
+        NOW,
+        NOW,
+      );
+    game('perception', '2026-03-08', 300);
+    game('dive', '2026-03-10', 40);
+    game('dive', '2026-03-12', 70);
+    game('wordguess', '2026-03-14', 4, { solved: true, tries: 3 });
+    game('wordguess', '2026-03-15', 0, { solved: false, tries: 6 });
+    game('perception', '2026-03-15', 410);
+    game('connections', '2026-03-16', 8);
+    s.sql.exec(
+      'INSERT INTO game_results VALUES (?,?,?,?,?,?,?)',
+      'dive',
+      '2026-03-15',
+      b.user.id,
+      80,
+      '{}',
+      NOW,
+      NOW,
+    );
+  });
+  await entry(a);
+  await entry(b, { distance_m: 15000 });
+  const put = await api('/me/plan', a, 'PUT', {
+    start_date: '2026-03-02',
+    rest_days: [],
+    sessions: [
+      { week: 1, day: 0, slot: 'AM', modality: 'erg', zone: 'E', distance_m: 20000, note: '' },
+      { week: 2, day: 1, slot: 'AM', modality: 'erg', zone: 'E', distance_m: 8000, note: '' },
+    ],
+  });
+  expect(put.status).toBe(200);
+  const recap = await (await api('/stats/recap', a)).json<WeeklyRecap>();
+  expect(recap.race).toMatchObject({
+    week_start: '2026-03-09',
+    status: 'final',
+    rowers: 2,
+    stanford_m: 15000,
+    target_m: 20000,
+    berkeley_total_m: 18000,
+    berkeley_m: 18000,
+  });
+  expect(recap.plan).toEqual({
+    start_date: '2026-03-02',
+    week: 2,
+    planned_m: 8000,
+    logged_m: 10000,
+    complete: true,
+  });
+  expect(recap.games).toEqual({
+    played: 3,
+    days: 2,
+    best_dive: null,
+    word_guess_solves: 1,
+    streak: 2,
+  });
+  const earlier = await (await api('/stats/recap?week=2026-03-02', a)).json<WeeklyRecap>();
+  expect(earlier.plan).toMatchObject({ week: 1, planned_m: 20000, logged_m: 0, complete: false });
+  expect(earlier.games).toEqual({
+    played: 1,
+    days: 1,
+    best_dive: null,
+    word_guess_solves: 0,
+    streak: 1,
+  });
+  const quiet = await (await api('/stats/recap', b)).json<WeeklyRecap>();
+  expect(
+    await sql((s) => s.sql.exec("SELECT game_id FROM game_results WHERE game_id='dive'").toArray()),
+  ).toHaveLength(3);
+  expect(quiet.plan).toBeNull();
+  expect(quiet.games).toEqual({
+    played: 0,
+    days: 0,
+    best_dive: null,
+    word_guess_solves: 0,
+    streak: 0,
+  });
+  await sql((s) => s.sql.exec("UPDATE users SET role='coach'"));
+  expect((await (await api('/stats/recap', a)).json<WeeklyRecap>()).race).toBeNull();
 });
 it('challenge staff CRUD, progress units/filter/bounds and invalidation', async () => {
   const a = await user('rower'),

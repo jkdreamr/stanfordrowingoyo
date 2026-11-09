@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { perceptionPuzzle, scorePerception } from '../../worker/src/games/perception';
 import { closeness, dailyRandom, dayNumber, hashSeed } from './daily';
 import {
   ANSWER_LIST,
@@ -9,16 +10,14 @@ import {
   unpack,
   verifyWordGuess,
   wordGuessShare,
-} from './wordGuess';
+} from '../../worker/src/games/wordGuess';
 import { GUESSES } from './wordGuessGuesses';
 import {
   PATTERN_CELLS,
   hueDistance,
   parsePerceptionAnswer,
-  perceptionPuzzle,
   perceptionShare,
   perceptionTotal,
-  scorePerception,
   scoreReaction,
 } from './perception';
 import {
@@ -99,6 +98,7 @@ describe('word guess', () => {
     const result = verifyWordGuess(date, [miss, answer], extra)!;
     expect(result).toMatchObject({ solved: true, tries: 2, points: 5 });
     expect(wordGuessShare(date, result).split('\n')[0]).toBe('OYO Word Guess 2026-11-07 2/6');
+    expect(wordGuessShare(date, result).toLowerCase()).not.toContain(answer.toLowerCase());
   });
   it('accepts a full failed board and scores it zero', () => {
     const date = '2026-11-07';
@@ -133,8 +133,8 @@ describe('perception', () => {
       const p = perceptionPuzzle(date);
       expect(p).toEqual(perceptionPuzzle(date));
       expect(p.clockMs).toBeGreaterThanOrEqual(2500);
-      expect(p.clockMs).toBeLessThanOrEqual(6000);
-      expect(new Set(p.cells).size).toBe(PATTERN_CELLS);
+      expect(p.clockMs).toBeLessThanOrEqual(date < '2026-11-10' ? 6000 : 8000);
+      expect(new Set(p.cells).size).toBe(date < '2026-11-10' ? PATTERN_CELLS : 9);
       expect(p.reactionDelayMs).toBeGreaterThanOrEqual(1500);
     }
     expect(perceptionPuzzle('2026-11-07')).not.toEqual(perceptionPuzzle('2026-11-08'));
@@ -151,6 +151,8 @@ describe('perception', () => {
     });
     expect(perceptionTotal(scores)).toBe(500);
     expect(perceptionShare(date, scores)).toContain('500/500');
+    expect(perceptionShare(date, scores).split('\n').slice(1)).toHaveLength(5);
+    expect(perceptionShare(date, { ...scores, clock: 62 })).toContain('Clock 🟩🟩🟩⬜⬜ 62');
   });
   it('falls off with distance and penalises false starts', () => {
     expect(hueDistance(350, 10)).toBe(20);
@@ -297,6 +299,11 @@ describe('connections', () => {
     expect(r).toMatchObject({ solved: [3, 0, 1, 2], mistakes: 2, finished: true, won: true });
     expect(connectionsScore(r)).toBe(6);
     expect(formatConnectionsScore(6)).toBe('4 / 4 · 2 Mistakes');
+    const share = connectionsShare('2026-11-07', 6, r.grid).toLowerCase();
+    for (const group of p.groups) {
+      expect(share).not.toContain(group.name.toLowerCase());
+      for (const word of group.words) expect(share).not.toContain(word.toLowerCase());
+    }
     expect(connectionsShare('2026-11-07', 6, r.grid).split('\n')).toEqual([
       'OYO Connections 2026-11-07 4/4',
       '',

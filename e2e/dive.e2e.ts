@@ -5,9 +5,14 @@ import type { DiveAnswerResult, DiveDay, GameDayLeaderboard } from '../shared/ty
 import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS } from '../shared/games/dive';
 import { diveSelectionFor } from '../worker/src/games/divePrompts';
 import { answerSet } from '../worker/src/games/dive/sets';
+import { DIVE_ENABLED } from '../worker/src/games/features';
+
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
+
+test.skip(!DIVE_ENABLED, 'Dive disabled for launch');
+test.use({ serviceWorkers: 'block' });
 
 test('Dive unlocks, scores the first player immediately and keeps scores through moderation', async ({
   makeRower,
@@ -46,7 +51,7 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
     await context.request.patch('/api/me', { headers: csrfHeaders, data: { name: playerName } }),
   ).toBeOK();
   await page.goto('/games/dive');
-  await expect(page.getByText('Games Locked', { exact: true })).toBeVisible();
+  await expect(page.getByText("Log today's OYO to unlock", { exact: true })).toBeVisible();
   expect(
     (
       await context.request.post('/api/games/dive/answers', {
@@ -81,6 +86,20 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
   await page.reload();
   await expect(page.getByRole('timer')).toBeVisible();
   expect(await page.evaluate((key) => localStorage.getItem(key), timerKey)).toBe(deadline);
+  if (testInfo.project.name === 'iphone-15') {
+    await waitForSplash(page);
+    for (const colorScheme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme });
+      if (colorScheme === 'dark') await expect(page.locator('html')).toHaveClass(/dark/);
+      else await expect(page.locator('html')).not.toHaveClass(/dark/);
+      await expect(page.getByLabel('Your Answer', { exact: true })).toBeVisible();
+      await page.screenshot({
+        path: join(shots, `phase3-iphone-${colorScheme}-play.png`),
+        animations: 'disabled',
+      });
+    }
+    await page.emulateMedia({ colorScheme: 'light' });
+  }
 
   for (const [index, choice] of choices.entries()) {
     await expect(
@@ -119,21 +138,6 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
       await page.emulateMedia({ reducedMotion: 'no-preference' });
       await expect(page.locator('.dive-marker-sinking')).toHaveCSS('animation-name', 'dive-sink');
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      if (testInfo.project.name === 'iphone-15') {
-        await page.screenshot({
-          path: join(shots, 'iphone-light-play.png'),
-          fullPage: true,
-          animations: 'disabled',
-        });
-        await page.emulateMedia({ colorScheme: 'dark' });
-        await expect(page.locator('html')).toHaveClass(/dark/);
-        await page.screenshot({
-          path: join(shots, 'iphone-dark-play.png'),
-          fullPage: true,
-          animations: 'disabled',
-        });
-        await page.emulateMedia({ colorScheme: 'light' });
-      }
       for (const [n, name] of teammateNames.entries()) {
         const teammate = await makeRower();
         await teammate.context.setExtraHTTPHeaders(clockHeaders);
@@ -191,6 +195,42 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
       fullPage: true,
       animations: 'disabled',
     });
+    // Completed players have their own group on every prompt; use the valid empty-group
+    // response shape to verify the mixed Team Answers state without mutating server data.
+    const mixed = {
+      ...result,
+      reveal: result.reveal?.map((prompt, i) => (i === 1 ? { ...prompt, groups: [] } : prompt)),
+    };
+    await page.route('**/api/games/dive/today', (route) => route.fulfill({ json: mixed }));
+    await page.reload();
+    await waitForSplash(page);
+    const teamAnswers = page.getByRole('region', { name: 'Team Answers' });
+    const empty = teamAnswers.getByText('No teammates yet', { exact: true });
+    await expect(empty).toBeVisible();
+    await expect(teamAnswers.locator('.dive-empty-group')).toHaveCount(1);
+    await expect(
+      teamAnswers.locator('.dive-empty-group').getByText(selection[1].text, { exact: true }),
+    ).toBeVisible();
+    await expect(teamAnswers.locator('.dive-empty-group details')).toHaveCount(0);
+    await expect(teamAnswers.locator('.dive-empty-group summary')).toHaveCount(0);
+    await expect(
+      teamAnswers.locator('details').first().getByText(choices[0]!.answer, { exact: false }),
+    ).toBeVisible();
+    await teamAnswers.evaluate((element) => {
+      window.scrollTo(0, window.scrollY + element.getBoundingClientRect().top - 80);
+    });
+    for (const colorScheme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme });
+      if (colorScheme === 'dark') await expect(page.locator('html')).toHaveClass(/dark/);
+      else await expect(page.locator('html')).not.toHaveClass(/dark/);
+      await expect(empty).toBeInViewport();
+      await page.screenshot({
+        path: join(shots, `phase3-iphone-${colorScheme}-team-answers.png`),
+        animations: 'disabled',
+      });
+    }
+    await page.unroute('**/api/games/dive/today');
+    await page.reload();
   }
   if (testInfo.project.name === 'desktop-chrome')
     await page.screenshot({
@@ -228,3 +268,93 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
     page.getByRole('region', { name: 'Dive Log' }).getByText('Hidden From Team', { exact: true }),
   ).toBeVisible();
 });
+
+for (const role of ['coxswain', 'coach'] as const) {
+  test(`${role} plays without OYO and only reviews or moderates after finishing`, async ({
+    makeRower,
+    adminPage,
+  }, testInfo) => {
+    const player = await makeRower();
+    const date = `2026-11-${20 + ['desktop-chrome', 'iphone-15', 'pixel-7'].indexOf(testInfo.project.name) * 2 + (role === 'coach' ? 1 : 0)}`;
+    const headers = {
+      ...testInfo.project.use.extraHTTPHeaders,
+      'X-OYO-Test-Now': date + 'T18:00:00Z',
+    };
+    await player.context.setExtraHTTPHeaders(headers);
+    await adminPage.context().setExtraHTTPHeaders(headers);
+    await expect(
+      await adminPage.request.patch('/api/admin/users/' + player.user.id, {
+        headers: csrfHeaders,
+        data: { role },
+      }),
+    ).toBeOK();
+    await expect(
+      await adminPage.request.post('/api/games/dive/answers', {
+        headers: csrfHeaders,
+        data: { prompt_index: 0, answer: 'spoiler guard' },
+      }),
+    ).toBeOK();
+    const before: DiveDay = await (
+      await player.context.request.get('/api/games/dive/today')
+    ).json();
+    expect(before.access).toMatchObject({ unlocked: true, reason: 'staff' });
+    expect(before.reveal).toBeNull();
+    expect((await player.context.request.get('/api/games/dive/days/' + date)).status()).toBe(403);
+    expect((await player.context.request.get('/api/games/dive/leaderboard')).status()).toBe(403);
+    const body = { date, prompt_index: 0, normalized: 'spoiler guard', hidden: true };
+    expect(
+      (
+        await player.context.request.patch('/api/games/dive/answers', {
+          headers: csrfHeaders,
+          data: body,
+        })
+      ).status(),
+    ).toBe(403);
+    const admin: DiveDay = await (await adminPage.request.get('/api/games/dive/today')).json();
+    expect(admin.complete).toBe(false);
+    expect(admin.reveal![0].groups).toHaveLength(1);
+    await player.page.goto('/games/leaderboard');
+    for (const title of ['Dive', 'Word Guess', 'Perception', 'Connections']) {
+      const board = player.page.getByRole('region', { name: `${title} Day Board` });
+      await expect(board.getByRole('heading', { name: title, exact: true })).toBeVisible();
+      await expect(board.getByText('Play To See Today’s Board', { exact: true })).toBeVisible();
+      await expect(board.getByRole('link')).toHaveCount(0);
+    }
+    if (role === 'coxswain' && testInfo.project.name === 'pixel-7') {
+      await expect(player.page.locator('#launch-splash')).toHaveCount(0);
+      await player.page.screenshot({
+        path: testInfo.outputPath('locked-game-boards.png'),
+        fullPage: true,
+      });
+    }
+    await player.page.goto('/games/dive');
+    await expect(player.page.getByRole('button', { name: 'Begin', exact: true })).toBeVisible();
+    await expect(player.page.getByRole('region', { name: 'Team Answers' })).toHaveCount(0);
+    await expect(
+      player.context.request.post('/api/games/dive/answers', {
+        headers: csrfHeaders,
+        data: { prompt_index: 0, answer: '' },
+      }),
+    ).resolves.toBeOK();
+    expect((await player.context.request.get('/api/games/dive/leaderboard')).status()).toBe(403);
+    for (let i = 1; i < DIVE_PROMPTS_PER_DAY; i++)
+      await expect(
+        await player.context.request.post('/api/games/dive/answers', {
+          headers: csrfHeaders,
+          data: { prompt_index: i, answer: '' },
+        }),
+      ).toBeOK();
+    await player.page.reload();
+    await expect(player.page.getByRole('region', { name: 'Team Answers' })).toBeVisible();
+    await expect(
+      player.page.getByRole('button', { name: 'Hide spoiler guard', exact: true }),
+    ).toBeVisible();
+    expect((await player.context.request.get('/api/games/dive/leaderboard')).status()).toBe(200);
+    await expect(
+      await player.context.request.patch('/api/games/dive/answers', {
+        headers: csrfHeaders,
+        data: body,
+      }),
+    ).toBeOK();
+  });
+}

@@ -119,8 +119,9 @@ static mark with a 120 ms fade (no handoff).
 - **Focal moment.** Launch into Home's Week Hero: the cardinal splash contracts into the hero card, and as
   the card is revealed its E-meter total counts up, the ring sweeps from empty and the day columns rise
   left to right. Elsewhere the splash lifts as a curtain and the first screen rises once.
-- **Continuity.** Tab changes use View Transitions: the old screen fades out in 90 ms and the new one arrives
-  from the direction of the chosen tab (16 px, 260 ms). The selection pill springs between tabs. Large titles
+- **Continuity.** Phone tab taps and swipes share a WAAPI content arrival from the direction of travel
+  (24 px, 220 ms; opacity-only 120 ms for reduced motion), with no View Transition snapshots. Scroll restores
+  before arrival; the live tab bar's selection pill springs between tabs. Large titles
   fold away on scroll (scroll-driven animation) while the compact title fades into the frosted bar.
 - **Feedback.** Every control compresses instantly on press and springs back on release; cards compress less
   than buttons. Kudos, double-tap and saves acknowledge with the puddle ripple.
@@ -161,7 +162,7 @@ static mark with a 120 ms fade (no handoff).
 4. **Glass Tab Bar.** Frosted bar with one selection pill that travels between tabs on the spring; the selected
    icon settles from a small catch; the centered cardinal Log disc compresses on press. Five equal columns keep
    Log pixel-centered.
-5. **Directional Tab Changes.** Fade-through View Transition in the direction of travel; chrome stays put.
+5. **Directional Tab Changes.** WAAPI content arrival in the direction of travel; chrome stays live.
 6. **Kudos Burst.** Thumb pops with an 8-spark ring and the count rolls up; double-tap shows the heart plus two
    water ripples at the touch point.
 7. **Session Saved Moment.** After saving, a cardinal card springs in over Home with a drawn check, ripples, the
@@ -208,3 +209,58 @@ static mark with a 120 ms fade (no handoff).
 - Fold `design.css` tokens into `styles.css` and the Tailwind config; delete overrides superseded by tokens.
 - Apply hero, tile and stagger patterns to the remaining screens (Plan, Entry detail, Settings, games).
 - E2E coverage for splash skip and save celebration on all three Playwright projects.
+
+## Ambient Water
+
+The one sanctioned ambient loop is a low-resolution procedural canvas: 128 pixels wide, with
+height derived from the viewport aspect ratio, independent of devicePixelRatio. Normal CSS
+stretching supplies the softness without blur filters. A procedurally seeded, periodic 4×4
+cell field forms soft sunlight rims, irregular cells, and brighter three-way junctions. The
+256×256 field caches palette values in memory, not downloaded textures. A 4096-entry sine
+lookup drives two evolving wave shears and a slower rolling swell. One reused ImageData pass
+copies packed colors and scales alpha; there are no per-frame image-buffer allocations.
+Cells are twice the previous size, about four across a 393px viewport. Rim falloff is 1.75×
+wider, spanning roughly seven canvas pixels before upscaling. At 393px viewport width, base drift is
+30.7px/s horizontally and 12.3px/s vertically (33.1px/s diagonally). Wave shears morph the
+network on 7.4–9.7 second periods, rather than moving an unchanged pattern. No raster
+downloads, WebGL, SVG filters, blending, or oar layer remain.
+The fixed negative stacking layer paints above the body background but below content. The
+route wrappers are transparent; page navigation, cards, and the Home gradient hero remain
+opaque. The layer fades in after `afterLaunch`, preserving the launch sheet and hero handoff.
+
+Tune or disable `ambientWaterConfig` in `AmbientWater.tsx`: `enabled: false` renders nothing;
+nonfinite intensity becomes zero and finite intensity is clamped to 0–1. Light mode shades
+cells with pale cool aqua (`rgb(115,175,201)`), leaving sunlight rims nearly transparent.
+Light alpha is capped at 49/255 (19.22%), a 30% reduction in shade contrast. Dark cells
+are deep ink/navy-black (approximately `rgb(3,6,11)` over black), not empty black. Dim,
+desaturated blue-grey rims reach approximately `rgb(24,27,33)` with a faint rose tint only
+at junctions; there is no amber or orange. Dark alpha is capped at 64/255 (25.10%). Peak
+dark luminance is about 31% of the previous cardinal/amber palette's bound. A MutationObserver
+follows the root `.dark` class. Swell and configured intensity only decrease alpha.
+
+Contrast is bounded independently of wave position using source-over
+`C = alpha * source + (1 - alpha) * background` and WCAG sRGB linearization.
+Light's minimum channels are `rgb(228.10,239.63,244.62)`; conservatively rounding down to
+`rgb(228,239,244)` gives luminance 0.847586. In dark, source channel maxima occur at different
+rim/junction positions, so evaluate all 65,536 quantized palette entries, not independent maxima.
+Adding one sRGB level per channel for display rounding gives a conservative maximum
+luminance of 0.011629 (at approximately `rgb(25.35,28.11,34.13)`). Bilinear interpolation
+cannot exceed this maximum: the sRGB
+linearization function is convex, so luminance of interpolated colors is no greater than
+their weighted luminances. Swell, intensity, and entrance fade only move dark pixels towards
+black and light pixels towards white. Using `(Llighter + .05)/(Ldarker + .05)`:
+light `--text: #1c1c1f` / `--muted: #66666e` retain **14.53:1 / 4.86:1**;
+dark `--text: #f4f4f6` / `--muted: #a1a1aa` retain **15.51:1 / 6.65:1**.
+Opaque cards are unchanged. Recalculate before changing palettes or alpha caps; text must
+retain at least 7:1 and muted text at least 4.5:1.
+
+requestAnimationFrame is throttled to approximately 30 fps. Each frame exposes `data-frame`
+and `data-render-ms` on the canvas for lifecycle tests and throttled performance sampling;
+the timing wraps the pixel pass, putImageData, and frame counter update. Unlike the former
+compositor-only textures, canvas intentionally updates pixels on the main thread. Measure
+both renderer cost and whole-page paint/layout rather than claiming compositor-only work.
+Hidden documents cancel RAF and stop the simulation clock; visibility restoration resumes it.
+Reduced motion renders a static frame without scheduling RAF or an entrance transition.
+Forced colors, increased contrast, and reduced transparency stop rendering and hide the layer;
+all four media queries are observed for changes. Unmount cancels launch/RAF callbacks and
+removes visibility/resize/media listeners and the theme observer.

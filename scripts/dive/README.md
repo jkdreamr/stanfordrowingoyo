@@ -1,8 +1,9 @@
 # Dive answer data
 
 Build-time only. No fetch, Python, word-frequency lookup or external service runs in
-the Worker or browser. The curated sets are **not exhaustive dictionaries of valid
-answers**. Maintain them when players find omissions; never award points from a crowd.
+the Worker or browser. Broad sets are **not exhaustive dictionaries of valid answers**;
+constrained sets must enumerate the complete stated constraint at their pinned source date.
+Maintain omissions in the reviewed source, never award points from a crowd.
 
 ## Regenerate
 
@@ -14,6 +15,9 @@ python3 -m venv ~/work/dive-venv
 ~/work/dive-venv/bin/pip install -r scripts/dive/requirements.txt
 ~/work/dive-venv/bin/python scripts/dive/generate.py
 ~/work/dive-venv/bin/python scripts/dive/generate.py --check
+# Re-extract pinned lists/datasets (using the ignored raw cache); fail on counts or membership drift:
+~/work/dive-venv/bin/python scripts/dive/generate.py --verify-sources --check
+~/work/dive-venv/bin/python -m unittest discover -s scripts/dive -p 'test_*.py'
 # To intentionally refresh missing 2025 Wikipedia entity signals:
 ~/work/dive-venv/bin/python scripts/dive/generate.py --fetch-pageviews
 ~/work/dive-venv/bin/python scripts/dive/sitelinks.py
@@ -76,22 +80,111 @@ pick, not necessarily the rarest name. Points: 10 / 15 / 30 / 60 / 85 / 100; mis
 
 ## Coverage and review
 
-330 active prompts are in the daily rotation (five a day, so no prompt repeats for
-66 days) and 21 inactive prompts stay in the manifest and data but are excluded from
-rotation. `prompts.ts` exports `DIVE_PROMPTS` (active only; the rotation uses it unchanged)
-and `DIVE_INACTIVE_PROMPTS`; `loaders.ts` covers both so stored days stay loadable.
-Generation fails if fewer than 320 prompts are active or any active set has fewer than 200
-canonical answers. Inactive (inherently small, or not yet enlarged from a reliable source): `agencies`, `capitals`, `cats`, `charities`, `cities-ke`, `cities-kr`, `constellations`, `countries`, `crayons`, `elements`, `fictional-materials`, `greek-gods`, `industries`, `rabbits`, `scents`, `seas`, `spices`, `states`, `stones`, `us-capitals`, `winds`.
-To retire or restore a prompt, edit `INACTIVE` in `overrides.py` and regenerate.
+Before the cutover, the bank uses the exact 330-prompt legacy permutation (66 days at five/day).
+`legacy.json` freezes its original ID order before the seeded shuffle; do not append,
+reorder or remove entries. `DIVE_LEGACY_PROMPTS` resolves those IDs from both catalogs,
+including retired prompts. Adding prompts or changing active flags cannot change old days.
+Answer rows persist date and prompt index, **not prompt IDs**: reads and submissions resolve
+IDs from the selector. A future cutover must therefore keep the legacy branch forever.
 
-Active sets hold 205–430 canonical answers (median 430; 135,809 canonicals and 87,895
-aliases across all prompts). `report.json` records each set's size, active flag, tier counts,
+The bank has 522 active prompts (203 constrained, 319 broad) and 82 inactive
+prompts with loadable data. `DIVE_PROMPTS` is the schedule's candidate bank, not the date selector.
+`DIVE_INACTIVE_PROMPTS` retains small categories and broad overlaps. Phase 1 prospectively
+retires `movies`, `directors`, `pokemon`, `manga`, `anime`, `japanese-films`, `oscar-actors`,
+`monarchs`, `nobel-laureates`, `first-names`, and `objects`; legacy days still use them.
+Every prompt has an editorial theme and optional cluster (`themes.py` for broad prompts).
+Japan-related manga/anime/films/cities share `japan`, including inactive entries.
+Generation requires at least 320 prospective active prompts; broad active sets still need
+200 canonical answers, constrained sets need 8 and are **never trimmed** by broad-set caps.
+
+## Complete constrained sets
+
+`constrained.json` is the reviewed snapshot/spec: prompt, theme/cluster, Surface anchors,
+optional Too Clever picks, one recognizable Pearl, exact canonical-count range, sources,
+and canonical/alias rows. Each Wikipedia source pins a positive revision and extraction
+recipe (semantic table column with rowspan/colspan support, winner marker, row filter,
+selector or explicitly reviewed membership). `sources.py` requests MediaWiki
+`action=parse&oldid=REVISION`, verifies both returned title and revision, removes footnotes,
+and checks the source count. A revision URL is `https://en.wikipedia.org/w/index.php?oldid=REVISION`.
+Reviewed extracted names are committed; HTML/JSON/CSV responses are only in `.cache/constrained/`.
+PokéAPI CSVs pin commit `f38eb24b70f8462976154f534e79bf2bdd7af847` **and** each file's SHA-256.
+Dataset verification supports CSV and JSON, verifies bytes/checksum and expected row count.
+No moving HEAD, latest dataset or unpinned page is used.
+
+Normal regeneration validates reviewed counts offline. `--verify-sources` additionally
+re-extracts every pinned list and checks exact agreement with its reviewed source names;
+dataset checksum/count mismatches, missing pages, changed schemas and network errors fail.
+Intentional source changes require a new pin, rerunning extraction, reviewing membership
+differences and updating both source and final canonical expectations; never widen an
+expect range just to suppress a failure. Do not copy fetched nominees into winner sets.
+The Oscar snapshots use winner rows (Visual Effects also includes historical special awards).
+Repeated awards/terms/film remakes with the same title collapse to one canonical answer.
+Alien/Aliens share a combined canonical in Visual Effects because the existing plural
+normalizer gives both the same input key; both titles are accepted (88 source titles, 87 canonicals).
+The snapshots explicitly merge Lew Alcindor into Kareem Abdul-Jabbar and John Russell into
+Lord John Russell. English monarchs exclude the Cromwell protectors and include disputed
+claimants; Olympians accept both Hades and Hestia. Feature-film constraints exclude shorts
+and unfinished films; Spielberg explicitly accepts Duel and anthology segments. Ghibli
+includes Nausicaä, Ocean Waves and co-productions. No first-wave prompt was dropped, but
+these scopes are explicit rather than silently incomplete broad filmographies.
+
+The complete sovereign-state base includes partially recognised states. `constrained.py`
+derives all nine lexical-country prompts and four lexical-state prompts from reviewed bases.
+Predicate membership uses the canonical **or common English names**, not arbitrary acronyms
+or formal titles; all aliases then resolve to the qualifying canonical. For example Czechia
+qualifies Czech Republic for a Z. Country common variants/former names are explicit.
+Gen I Pokémon membership is cross-checked against its pinned Wikipedia list (151, excluding
+MissingNo.). Pokémon type sets join species through all dataset Pokémon forms and deduplicate
+species; item-driven Arceus/Silvally forms are accepted explicitly. Nidoran genders have
+distinct canonical/alias names because the normalizer removes the gender symbols.
+
+Unambiguous surnames are added within each people set (including reviewed East Asian family
+names); ambiguous surnames are never arbitrary tie-breaks. Team prompts explicitly name
+the 2026 or 2026–27 season: historical defunct teams are outside those constraints. Teams
+accept nicknames, not ambiguous city-only aliases. Film title aliases include common short titles; the existing
+leading-article normalization and typo tolerance remain unchanged. Long titles use recognizable
+short canonicals within Dive's existing 40-character input limit. Constrained ranking reuses
+same-theme entity familiarity/sitelink signals where available, then whole-name Zipf/lexical
+fallback. Surface is explicitly anchored; unforced constrained answers rank into Midwater
+(first 45%), Rare (next 30%), Deep Cut (last 25%) so even small sets keep all tiers. Too Clever
+is optional and never manufactured. Every set has exactly one explicit Pearl.
+
+## Schedule and cutover
+
+`schedule.py` deterministically emits explicit days of five prompt IDs to Worker `schedule.ts`.
+A valid cycle is at least 64 days, has no repeated IDs, uses every active constrained prompt, has
+at least three constrained prompts/day, unique themes and nonempty clusters/day, and never
+has a day entirely tiny (≤24 answers) or huge (>120 answers). Broad prompts fill remaining
+slots in reviewed preference order. Both Python and Worker validators fail invalid schedules.
+Insufficient or unbalanced catalogs return an empty schedule with an explicit diagnostic,
+not a relaxed-rule rotation; generation now fails rather than enable an invalid cutover.
+Tests exercise the real schedule, a full 64-day/320-ID fixture and invalid banks.
+
+**Cutover is 2026-11-10**. The 64-day/320-ID cycle uses all 203 active constrained prompts
+and 117 preferred broad fillers; earlier dates use the frozen legacy permutation exactly.
+The Worker tests verify cutover-day selection, every scheduled day, wraparound, legacy
+dates through November 9, loadable IDs, theme/cluster/difficulty rules, and coverage.
+The 151 Phase 2 additions add no Pokémon or country/state letter predicates. The largest
+constrained cluster is countries (21/203, about 10%). Phase 2 retires no additional broad data.
+Ship **before** the cutover; never backdate it or change a cycle that could resolve an
+already-started day. Review notes and the final prompt table live outside the repository at
+`~/work/phase2-review.md`. Phase 3 retires calendar months, Western and Chinese zodiac lists,
+zodiac constellations, Santa's reindeer, Cluedo rooms and US allergen categories for lack of
+tier depth. Phase 4 additionally retires all 30 award-era splits, three NASA astronaut
+classes, the three arbitrary IBA cocktail-list categories, and seven near-duplicate
+chemical/vitamin subsets. One all-years prompt remains per award; all 102 IBA cocktails
+now share one complete prompt. Forty-two genuinely distinct sets replace the other removals.
+All 50 retired constrained sets remain loadable. The 253 reviewed texts use short player-facing
+questions; acceptance caveats, source scope and retirement reasons stay in the specs, not UI copy.
+
+Broad sets retain their existing canonical data and caps. `report.json` records each set's
+size, active flag, constrained flag, theme/cluster, tier counts,
 top eight Surface answers, pageview/sitelink/Wikidata coverage, alias count, Too Clever picks
-and Pearl. The ceiling is the Worker bundle budget (gzip upload under 2,800 KiB, Cloudflare's
-free limit is 3 MB), not the categories: Wikidata snapshots keep more rows than ship, and
+and Pearl. The ceiling is the Worker bundle budget (Cloudflare's free gzip limit is 3 MB),
+not the categories: Wikidata snapshots keep more rows than ship, and
 per-set `cap` values in `wikidata_prompts.py` (default 450, largest-first when trimming)
 choose how many of the highest-ranked rows are emitted; `MAX_SET` in `generate.py` (430)
-caps every set, largest first, including the original corpora sets. Raise it when the
+caps broad sets, largest first, including the original corpora sets. Raise it when the
 budget allows. GeoNames cities keep at most the 500 largest places per country by population
 and Vega movies at most 1,000 per genre by IMDB votes before that cap.
 

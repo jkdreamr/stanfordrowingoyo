@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '../lib/motion';
 import { PullToRefresh } from '../components/social/PullToRefresh';
 import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Check, ChevronLeft, ChevronRight, Flame, Gamepad2, Trophy } from 'lucide-react';
 import { addDays } from '../../../shared/dates';
+import { floorPercent } from '../../../shared/math';
 import type { Config, LeaderboardRow } from '../../../shared/types';
 import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
@@ -45,7 +46,7 @@ function Progress({ row }: { row: LeaderboardRow }) {
       aria-label={`${row.user.name} progress toward target`}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-valuenow={Math.floor(value)}
+      aria-valuenow={floorPercent(value)}
       className="mt-1.5 block h-1 w-full overflow-hidden rounded-sm bg-surface-2"
     >
       <span
@@ -235,10 +236,10 @@ function SkeletonRows() {
  */
 function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
   const [visible, setVisible] = useState(true);
-  const [blocked, setBlocked] = useState(false);
-  useEffect(() => {
+  const [blocked, setBlocked] = useState(true);
+  useLayoutEffect(() => {
     setVisible(true);
-    setBlocked(false);
+    setBlocked(true);
     if (!node || !pin) return;
     let observers: IntersectionObserver[] = [];
     const observe = () => {
@@ -249,6 +250,8 @@ function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
       observers = [];
       // The podium strip first, so the row's observer is the latest (remeasured) one.
       const podium = pin.parentElement?.querySelector('[aria-label="Top Three"]');
+      setVisible(true);
+      setBlocked(!!podium);
       if (podium) {
         const strip = new IntersectionObserver(([entry]) => setBlocked(entry.isIntersecting), {
           rootMargin: `-${Math.max(0, Math.round(innerHeight - bottom))}px 0px -${Math.round(bottom - pinHeight)}px 0px`,
@@ -256,13 +259,10 @@ function usePinned(node: HTMLElement | null, pin: HTMLElement | null) {
         strip.observe(podium);
         observers.push(strip);
       }
-      const row = new IntersectionObserver(
-        ([entry]) => setVisible(entry.intersectionRatio >= 0.98),
-        {
-          rootMargin: `-${Math.round(top)}px 0px -${Math.round(bottom)}px 0px`,
-          threshold: [0, 0.98, 1],
-        },
-      );
+      const row = new IntersectionObserver(([entry]) => setVisible(entry.intersectionRatio > 0), {
+        rootMargin: `-${Math.round(top)}px 0px -${Math.round(bottom - pinHeight)}px 0px`,
+        threshold: [0],
+      });
       row.observe(node);
       observers.push(row);
     };
@@ -454,7 +454,7 @@ function Board({ config }: { config: Config }) {
           )}
           aria-hidden={!showPinned}
         >
-          <div className="ui-list">
+          <div className="ui-list bg-surface">
             <Row row={mine} metric={metric} meId={me?.id} pinned />
           </div>
         </div>

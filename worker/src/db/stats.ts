@@ -1,5 +1,5 @@
 import { addDays, seasonRange, today, weekStart, type DateRange } from '../../../shared/dates';
-import { ZONES } from '../../../shared/math';
+import { floorPercent, ZONES } from '../../../shared/math';
 import type {
   Entry,
   LeaderboardRow,
@@ -63,7 +63,7 @@ function summarize(week: string, total: Totals, target: number): WeekSummary {
     ...total,
     week_start: week,
     target_m: target,
-    percent: target > 0 ? Math.round((total.total_m / target) * 1000) / 10 : 0,
+    percent: target > 0 ? floorPercent((total.total_m * 100) / target, 1) : 0,
     hit_target: target > 0 && total.total_m >= target,
   };
 }
@@ -205,7 +205,7 @@ export function uncachedLeaderboard(
       user: toPublicUser(user),
       target_m: target,
       total_m: total,
-      percent: target > 0 ? Math.round((total / target) * 1000) / 10 : 0,
+      percent: target > 0 ? floorPercent((total * 100) / target, 1) : 0,
       rank: 0,
       streak: streak(weeks, weekStart(today(now))),
       entry_count: entries
@@ -357,7 +357,7 @@ export function leaderboard(
         user: toPublicUser(user),
         target_m: target,
         total_m: total,
-        percent: target > 0 ? Math.round((total / target) * 1000) / 10 : 0,
+        percent: target > 0 ? floorPercent((total * 100) / target, 1) : 0,
         rank: 0,
         streak: input.streak,
         entry_count: input.entryCount,

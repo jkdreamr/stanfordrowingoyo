@@ -1,0 +1,27 @@
+.ambient-water {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  contain: strict;
+  opacity: 0;
+  transition: opacity 1200ms ease-out;
+}
+.ambient-water[data-ready='true'] {
+  opacity: 1;
+}
+.ambient-water canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-water {
+    transition: none;
+  }
+}
+@media (forced-colors: active), (prefers-contrast: more), (prefers-reduced-transparency: reduce) {
+  .ambient-water {
+    display: none;
+  }
+}

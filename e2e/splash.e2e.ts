@@ -27,6 +27,44 @@ function recordLaunchExit() {
 }
 
 for (const theme of ['light', 'dark'] as const) {
+  test(`cold lazy route paints the splash backdrop without hydration warnings (${theme})`, async ({
+    adminPage: page,
+    browserName,
+  }, testInfo) => {
+    await page.addInitScript((value) => localStorage.setItem('theme', value), theme);
+    const warnings: string[] = [];
+    page.on('console', (message) => {
+      if (/HydrateFallback|initial hydration/.test(message.text())) warnings.push(message.text());
+    });
+    let release!: () => void;
+    const chunk = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    await page.route(
+      /\/(?:assets\/Games-[^/]+\.js|src\/pages\/Games\.tsx)(?:\?.*)?$/,
+      async (route) => {
+        await chunk;
+        await route.continue();
+      },
+    );
+    try {
+      await page.goto('/games', { waitUntil: 'domcontentloaded' });
+      const fallback = page.locator('#root [role="status"][aria-label="Opening OYO"]');
+      await expect(fallback).toBeVisible();
+      await expect(fallback).toHaveCSS('background-color', 'rgb(140, 21, 21)');
+      await expect(page.locator('#launch-splash')).toHaveCount(0);
+      await expect(fallback).toBeInViewport({ ratio: 1 });
+      if (browserName !== 'webkit')
+        await page.screenshot({ path: testInfo.outputPath('lazy-route-fallback.png') });
+      release();
+      await expect(page.getByRole('heading', { name: 'Daily Games', exact: true })).toBeVisible();
+      await expect(fallback).toHaveCount(0);
+      expect(warnings).toEqual([]);
+    } finally {
+      release();
+    }
+  });
+
   test(`cold launch paints inline and dismisses after auth (${theme})`, async ({
     adminPage: page,
   }) => {

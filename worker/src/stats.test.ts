@@ -124,6 +124,24 @@ beforeEach(async () => {
   );
 });
 describe('leaderboard dates, exact ratios and defensive targets', () => {
+  it.each([
+    [6000, 7.5, false],
+    [79999, 99.9, false],
+    [80000, 100, true],
+    [84000, 105, true],
+  ])('keeps %s meters consistent without premature completion', async (meters, percent, hit) => {
+    const athlete = await user('Athlete');
+    expect((await api('/me/target', athlete, 'PUT', { target_m: 80000 })).status).toBe(200);
+    await entry(athlete, Number(meters));
+    const week = await (await api('/stats/week', athlete)).json<WeekStats>();
+    expect(week).toMatchObject({ percent, hit_target: hit });
+    const board = await (await api('/leaderboard', athlete)).json<LeaderboardRow[]>();
+    expect(board.find((row) => row.user.id === athlete.user.id)?.percent).toBe(percent);
+    const recap = await (
+      await api('/stats/recap?week=2026-03-09', athlete, 'GET', undefined, '2026-03-16T18:00:00Z')
+    ).json();
+    expect(recap).toMatchObject({ percent, hit_target: hit });
+  });
   it('chooses the season from September 2 before normalizing its week to August 31', async () => {
     const athlete = await user('Athlete');
     const time = '2026-09-02T18:00:00Z';
@@ -388,7 +406,7 @@ describe('batched statistics and indexed read paths', () => {
       setSetting(storage, 'schema_version', 3);
       migrate(storage);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(16);
+      expect(getSetting(storage, 'schema_version')).toBe(18);
       expect(
         storage.sql.exec('SELECT id FROM entries WHERE id=?', logged.id).toArray(),
       ).toHaveLength(1);

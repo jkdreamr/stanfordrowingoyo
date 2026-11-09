@@ -1,10 +1,13 @@
 import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
-import { DIVE_PROMPTS } from './dive/prompts';
+import { DIVE_PROMPTS, DIVE_LEGACY_PROMPTS } from './dive/prompts';
+import type { DivePrompt } from './dive/prompts';
+import { DIVE_SCHEDULE, DIVE_SCHEDULE_CUTOVER } from './dive/schedule';
+import { validateDiveSchedule } from './dive/rotation';
 
 export { DIVE_PROMPTS } from './dive/prompts';
 
 function permutation() {
-  const result = [...DIVE_PROMPTS];
+  const result = [...DIVE_LEGACY_PROMPTS];
   let state = 0x6f796f;
   function random() {
     state += 0x6d2b79f5;
@@ -20,7 +23,7 @@ function permutation() {
   return result;
 }
 const ordered = permutation();
-export function diveSelectionFor(date: string) {
+function legacySelectionFor(date: string) {
   const day = Math.floor(
     (Date.parse(`${date}T12:00:00Z`) - Date.parse('2026-01-01T12:00:00Z')) / 86400000,
   );
@@ -32,6 +35,22 @@ export function diveSelectionFor(date: string) {
       ],
   );
 }
+export function createDiveSelector(
+  cutover: string | null,
+  schedule: readonly (readonly string[])[],
+  prompts: readonly DivePrompt[] = DIVE_PROMPTS,
+) {
+  const bank = new Map(prompts.map((prompt) => [prompt.id, prompt]));
+  if (cutover !== null) validateDiveSchedule(schedule, prompts);
+  return (date: string): DivePrompt[] => {
+    if (cutover === null || date < cutover) return legacySelectionFor(date);
+    const offset = Math.floor(
+      (Date.parse(`${date}T12:00:00Z`) - Date.parse(`${cutover}T12:00:00Z`)) / 86400000,
+    );
+    return schedule[offset % schedule.length].map((id) => bank.get(id)!);
+  };
+}
+export const diveSelectionFor = createDiveSelector(DIVE_SCHEDULE_CUTOVER, DIVE_SCHEDULE);
 export function divePromptsFor(date: string): string[] {
   return diveSelectionFor(date).map((prompt) => prompt.text);
 }

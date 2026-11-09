@@ -3,11 +3,11 @@ import { resolve } from 'node:path';
 import { expect, it } from 'vitest';
 import { addDays } from '../../shared/dates';
 import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS, normalizeAnswer } from '../../shared/games/dive';
-import { DIVE_PROMPTS, diveSelectionFor } from '../../worker/src/games/divePrompts';
+import { DIVE_PROMPTS, createDiveSelector } from '../../worker/src/games/divePrompts';
 import { boundedDistance, matchAnswer } from '../../worker/src/games/dive/matcher';
 import { fixtureSet as parseAnswerSet, decodedAnswers } from './fixtures';
 import { loaders } from '../../worker/src/games/dive/loaders';
-import { DIVE_INACTIVE_PROMPTS } from '../../worker/src/games/dive/prompts';
+import { DIVE_INACTIVE_PROMPTS, DIVE_LEGACY_PROMPTS } from '../../worker/src/games/dive/prompts';
 import { answerSet } from '../../worker/src/games/dive/sets';
 
 const fixture = parseAnswerSet(
@@ -139,6 +139,7 @@ it('validates all generated sets: tiers, single Pearl, globally unique keys/alia
   const report = JSON.parse(readFileSync(new URL('./report.json', import.meta.url), 'utf8')) as {
     id: string;
     active: boolean;
+    constrained: boolean;
     size: number;
     gem: string;
     too_clever: string[];
@@ -157,7 +158,8 @@ it('validates all generated sets: tiers, single Pearl, globally unique keys/alia
     const answers = decodedAnswers(set);
     const stats = report.find((row) => row.id === prompt.id)!;
     expect(answers.length, prompt.id).toBe(stats.size);
-    if (stats.active) expect(stats.size, prompt.id).toBeGreaterThanOrEqual(200);
+    if (stats.active)
+      expect(stats.size, prompt.id).toBeGreaterThanOrEqual(stats.constrained ? 8 : 200);
     expect(answers.filter((row) => row.tier === 'gem')).toHaveLength(1);
     expect(set.gem.answer).toBe(stats.gem);
     expect(
@@ -204,23 +206,65 @@ it('anchors obvious answers at Surface, and accepts real aliases and typos on th
   expect(matchAnswer('fish', await answerSet('dinosaurs')).canonical).toBeNull();
   expect((await answerSet('constellations')).size).toBe(88);
 });
-it('selects deterministic team days from active prompts with no repeats in any floor(N/day)-day window', () => {
-  const window = Math.floor(DIVE_PROMPTS.length / DIVE_PROMPTS_PER_DAY);
+it('selects deterministic legacy days with no repeats in any floor(N/day)-day window', () => {
+  const legacySelection = createDiveSelector(null, []);
+  const window = Math.floor(DIVE_LEGACY_PROMPTS.length / DIVE_PROMPTS_PER_DAY);
   // Product promise: no prompt returns within 60 team days.
   expect(window).toBeGreaterThanOrEqual(60);
   expect(window).toBeGreaterThanOrEqual(64);
-  const active = new Set(DIVE_PROMPTS.map(({ id }) => id));
+  const active = new Set(DIVE_LEGACY_PROMPTS.map(({ id }) => id));
   for (const start of ['2026-01-01', '2025-10-12', '2026-07-03']) {
-    for (let offset = 0; offset < DIVE_PROMPTS.length; offset++) {
+    for (let offset = 0; offset < DIVE_LEGACY_PROMPTS.length; offset++) {
       const date = addDays(start, offset);
-      expect(diveSelectionFor(date)).toEqual(diveSelectionFor(date));
-      expect(diveSelectionFor(date).every(({ id }) => active.has(id))).toBe(true);
+      expect(legacySelection(date)).toEqual(legacySelection(date));
+      expect(legacySelection(date).every(({ id }) => active.has(id))).toBe(true);
       const selected = Array.from({ length: window }, (_, i) =>
-        diveSelectionFor(addDays(date, i)).map(({ id }) => id),
+        legacySelection(addDays(date, i)).map(({ id }) => id),
       ).flat();
       expect(new Set(selected).size).toBe(window * DIVE_PROMPTS_PER_DAY);
     }
   }
+});
+it('ships every reviewed constrained canonical and alias, without broad-set caps', async () => {
+  const document = JSON.parse(
+    readFileSync(new URL('./constrained.json', import.meta.url), 'utf8'),
+  ) as {
+    bases: Record<string, { answers: { name: string; aliases?: string[] }[] }>;
+    prompts: {
+      id: string;
+      derive?: string;
+      answers?: { name: string; aliases?: string[] }[];
+      expect: number[];
+      pearl: string;
+    }[];
+  };
+  for (const prompt of document.prompts) {
+    const set = await answerSet(prompt.id);
+    expect(set.size, prompt.id).toBeGreaterThanOrEqual(prompt.expect[0]);
+    expect(set.size, prompt.id).toBeLessThanOrEqual(prompt.expect[1]);
+    expect(set.gem.answer).toBe(prompt.pearl);
+    if (prompt.answers)
+      for (const row of prompt.answers)
+        for (const value of [row.name, ...(row.aliases ?? [])])
+          expect(matchAnswer(value, set).canonical, `${prompt.id}/${value}`).toBe(row.name);
+  }
+  for (const [id, value, canonical] of [
+    ['best-actor', 'Hanks', 'Tom Hanks'],
+    ['best-director', 'Bong', 'Bong Joon-ho'],
+    ['nba-teams', 'Raptors', 'Toronto Raptors'],
+    ['best-picture', 'Return of the King', 'The Return of the King'],
+    ['countries-with-z', 'Czechia', 'Czech Republic'],
+    ['countries-no-a', 'Great Britain', 'United Kingdom'],
+    ['pokemon-gen1', 'Nidoran F', 'Nidoran female'],
+    ['pokemon-fire', 'Arceus', 'Arceus'],
+    ['olympian-gods', 'Hades', 'Hades'],
+    ['nba-mvp', 'Lew Alcindor', 'Kareem Abdul-Jabbar'],
+    ['best-visual-effects', 'Aliens', 'Alien / Aliens'],
+  ])
+    expect(matchAnswer(value, await answerSet(id)).canonical, `${id}/${value}`).toBe(canonical);
+  expect(matchAnswer('Davis', await answerSet('best-supporting-actress')).canonical).toBeNull();
+  expect(matchAnswer('Nidoran', await answerSet('pokemon-gen1')).canonical).toBeNull();
+  expect(matchAnswer('Pulp Fiction', await answerSet('best-picture')).canonical).toBeNull();
 });
 it('uses immutable module data without a parsed cache or eviction penalty, and rejects unknown prompt IDs', async () => {
   const first = await answerSet('animals');

@@ -273,7 +273,11 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 16; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 18; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 17 adds game progress before version 18. Version 18 adds `users.evening_reminder`
+(integer boolean, default 1), nullable `push_outbox.reminder_date`, and `reminder_sends(user_id,date)`
+with a composite primary key for daily idempotency. The guarded migrations run in order,
+including 17 then 18, on fresh databases and upgrades from 16.
 Version 16 adds `game_results(game_id,date,user_id,score,payload_json,created_at,updated_at)`
 with primary key `(game_id,date,user_id)` and indexes `(user_id,date)` and `(date,game_id)`;
 and `dive_answers(date,user_id,prompt_index,answer,normalized,hidden_at,hidden_by,created_at)`
@@ -311,19 +315,158 @@ Version 14 adds web push: `push_subscriptions(endpoint PK, user_id, p256dh, auth
 `(user_id,updated_at)`, and `push_outbox(id INTEGER PK AUTOINCREMENT, notification_id, endpoint, attempts, next_at
 epoch-ms)` indexed by `(next_at,id)`. Idempotent `CREATE TABLE IF NOT EXISTS`, guarded by `version < 14`.
 Version 15 adds `passkeys` and `webauthn_challenges` with idempotent CREATE TABLE/INDEX IF NOT EXISTS in one
-self-contained guarded block. Feature migrations run in ascending order 11–16, each advancing its own version.
+self-contained guarded block. Feature migrations run in ascending order 11–18, each advancing its own version.
 
 ## 6. API (JSON, same origin, under `/api`). Errors: `{ error: { code, message } }` with proper HTTP status.
 
 ### Daily Games
+
+Connections and Perception also use schema v17 `game_progress`. Generic
+`POST /api/games/:game/results` submissions for both return 405 after access checks.
+Results are written by the Worker transaction that finishes the game.
+
+- Connections `GET /api/games/connections/today` returns `ConnectionsDay`:
+  `{date,access,words,guesses,outcomes,outcome,mistakes,solved,finished,won,groups}`.
+  Words are empty while locked; only solved groups are revealed before completion;
+  `groups` is null until finished. `POST /api/games/connections/guess` takes
+  `{guess:string[4]}` and returns the same shape. It atomically appends one guess,
+  validates against the board and previous guesses (400, not counted), requires
+  access (403), and rejects completion replay (409). Completion uses existing scoring.
+  The old whole-log `POST /api/games/connections/check` contract remains solely
+  as an explicit 405 retirement response, never a stateless replay oracle.
+  Shuffle changes presentation only; localStorage never owns progress.
+- Perception `GET /api/games/perception/today` returns `PerceptionDay`:
+  `{date,access,round,rounds,scores,done}`. `rounds` is today's five stable string ids in play order.
+  Round is the next zero-based index (0..4, 5 done);
+  score keys are only completed rounds. **A resume read consumes any started,
+  unanswered round as zero**, advances to the next, and finalizes if it was round 5.
+  Repeated reads do not skip unstarted rounds. The client reads on mount, not background
+  focus/reconnect, and resumes after uncertain network errors.
+- `POST /api/games/perception/start` takes `{round}` and returns
+  `PerceptionStart = PerceptionDay & {stimulus}`. Only the current round's stimulus is
+  returned: `{clockMs}`, `{hue}`, `{dot}`, `{cells}`, `{reactionDelayMs}`, `{angle,rotation}`,
+  `{length}`, `{countDots}`, `{digits}`, `{shade,shadeBackgrounds}`, `{endpoints}`, or `{contact}`.
+  Coordinates and lengths are thousandths of the board. `countDots` is an array of dot centres;
+  `endpoints` contains two points. `contact` contains `{visibleMs,hiddenMs,from,occlusion,finish}`;
+  motion from `from` to `occlusion` is visible, then continues at the same speed behind an occluder to `finish`.
+  The start timestamp is committed before responding; only then does the client show it.
+  Repeated starts, out-of-order rounds, answers without a start and replay return 409.
+- `POST /api/games/perception/answer` takes `{round,answer}`, with only that round's
+  field (`clockMs/hue/dot/cells/reactionMs/angle/length/count/digits/shade/bisect/contactMs`), and returns PerceptionDay. Invalid or extra fields
+  return 400 without changing progress. Both writes require access (403). Scores are
+  server-computed. Round 5 atomically writes one result. Existing completed results cannot
+  be replayed. Leaving before a round starts has no penalty.
+- Perception generation is Worker-only. The web receives
+  no future targets. A build guard excludes its private generator marker and checks web
+  import boundaries. Current-round stimuli remain inspectable while shown, as in any
+  browser memory game; this is not tamper-proof proctoring.
+- Timing uses client measurements bounded by server elapsed time since start. Clock
+  hold cannot exceed elapsed +1000ms. A non-false-start reaction cannot arrive before
+  its signal delay, nor claim more than elapsed minus delay +1000ms. A false start (-1)
+  scores zero. The upper slack tolerates scheduling and precision; network latency
+  expands the server window rather than penalizing honest play. These are plausibility
+  checks, not proof of honest timing. Mock mode uses artificial, non-production targets.
+  V2 also rejects answers before the entire memory exposure finishes (span: digits × 450ms),
+  and contact answers before `visibleMs` or claiming `contactMs > elapsed - visibleMs + 1000`.
+  All timing rejections are 400, `Timing is not plausible for this round.` No progress is consumed.
+
+#### Enabled games for launch
+
+`DIVE_ENABLED = false` in `worker/src/games/features.ts` is the single production
+switch for Dive. Launch includes Word Guess, Connections and Perception only.
+Set it to `true` and rebuild to restore Dive; no data migration or browser flag is needed.
+`GET /api/games` returns only enabled games, results and enabled-game streaks.
+Clients use this list for the hub, game navigation and day boards; disabled game
+routes (including `/games/dive/*`) redirect to `/games`. Dive API paths return 404
+for everyone, including admins. Existing Dive answers and results remain untouched,
+including in account exports; they do not contribute to weekly boards, played counts
+or recap highlights while disabled. A game streak requires playing any enabled game
+on consecutive team dates, not all games. Recap `best_dive` remains nullable and is
+null while Dive is disabled. Generic unlock/reminder copy refers to the enabled games.
+
+#### Perception rotation and scoring
+
+`PERCEPTION_V2_FROM = '2026-11-10'` uses the America/Los_Angeles team date, not UTC.
+Before cutover, generation and scoring remain exactly the original clock/color/dot/pattern/reaction
+sequence (7 pattern cells; exposure 1500/900/1600ms; typical misses 600ms/25°/8%/2 cells;
+reaction `closeness(max(0,ms−150),200)`). Captured puzzle/score fixtures pin three legacy dates.
+From cutover, five distinct types are selected deterministically from the twelve below and their
+play order is date-seeded. Consecutive days share at most two types (so never the same set),
+including the last legacy day and cutover day; the scaffold starts after the five legacy types.
+Every type appears in every five-day v2 window. Two-year tests also reject periods 1–29, including
+set-only periods. Generation uses independent 60-day epochs, a valid 12-type cyclic scaffold,
+and exactly 320 seeded candidate slot swaps, rejecting any swap violating distinctness, overlap
+or coverage. Four boundary days at each end stay fixed so cross-epoch windows remain valid.
+This is bounded work even far after cutover, with a two-epoch cache; no replay from launch date.
+Round order is independently shuffled per date, including the boundary days.
+
+Each score is `round(100 × exp(−0.494 × (miss / typical)²))`, clamped by the objective
+metric to 0–100: 100 perfect, **61 at the typical miss**. Five rounds total at most 500.
+Exposure constants are public; seeded targets and lineup generation remain Worker-only.
+
+| Type / answer field   | Exposure / final parameters                                                                                 | Miss metric                                | Typical miss        | Score at typical |
+| --------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------- | ---------------- |
+| clock / clockMs       | Hold 3.0–8.0s, no visual; answer 0–30000ms                                                                  | Absolute timing error                      | 250ms               | 61               |
+| color / hue           | 700ms; hue 0–359°, recall dial                                                                              | Circular hue distance                      | 12°                 | 61               |
+| dot / dot             | 400ms; centre 100–900 per axis; answer 0–1000                                                               | Euclidean board distance                   | 40 thousandths (4%) | 61               |
+| pattern / cells       | 1000ms; 5×5, exactly 9 distinct cells                                                                       | 9 minus correct cells                      | 2 cells             | 61               |
+| reaction / reactionMs | Signal after 1.5–5.0s; −1 false start; 0–3000ms                                                             | max(0, ms−160); under 100ms scores 0       | 110ms               | 61               |
+| angle / angle         | 800ms; 15–165° with rotation 0–359°; integer answer 0–180°                                                  | Absolute angle error                       | 5°                  | 61               |
+| length / length       | 800ms; horizontal reference 250–800; reproduce vertically, integer 1–1000                                   | Absolute error / reference × 100           | 5%                  | 61               |
+| count / count         | 600ms; 30–80 irregular dots, ≥70 thousandths apart (bounded rejection sampling); integer answer 1–200       | abs(log2(answer / count)) × 100            | 18                  | 61               |
+| span / digits         | 8–9 digits × 450ms, leading zeroes retained; answer 1–12 digits                                             | Levenshtein distance                       | 2 edits             | 61               |
+| shade / shade         | 800ms; gray 20–80%; backgrounds 10%/90% reversed for recall; integer answer 0–100                           | Absolute lightness error                   | 4 points            | 61               |
+| bisect / bisect       | Line stays visible; 50–90% board length, random angle; midpoint answer per axis 0–1000                      | Distance from midpoint / line length × 100 | 2%                  | 61               |
+| contact / contactMs   | Visible 1000–1800ms; hidden 700–1800ms; constant-speed geometry fits board; answer 0–6000ms after occlusion | Absolute hidden-time error                 | 110ms               | 61               |
+
+Result payload is `{answer,scores,rounds}`; scores are partial and keyed by the stable type id,
+not the round index. Readers of legacy payloads without `rounds` default to the original five ids.
+Difficulty regression uses a fixed-seed 3000-day good-player simulation: normal errors with
+standard deviation equal to typical miss (independent axes for spatial types), rounded discrete
+answers; reaction N(260,40)ms. It requires median 250–350/500, fewer than 3% at 450+,
+and separately proves perfect answers score 500. This is calibration, not an observed player study.
+
+Schema v17 adds generic `game_progress(user_id,game,date,state_json,updated_at)` with
+primary key `(user_id,game,date)` for server-owned in-progress games. Account removal
+deletes the user's progress. Word Guess stores its ordered guesses here, never in a
+client-authoritative draft. The Worker-only answer list and seeded daily selection
+are unchanged; neither is imported by the web app (including mock mode).
+
+- `GET /api/games/wordguess/today` returns `WordGuessDay`:
+  `{date,access,guesses:[{word,marks}],done,won,answer:string|null}`. Date is team-local
+  server today. The caller's marks resume on reload; the answer stays null until done.
+  Locked callers can read their own state but cannot submit guesses.
+- `POST /api/games/wordguess/guess` takes `{guess}` (lowercase five-letter dictionary
+  word) and returns the same shape. The transaction rechecks access (403), rejects
+  invalid guesses with 400 without counting them, and rejects completed games or an
+  existing result with 409 `ALREADY_PLAYED`. It appends one server guess, computes marks,
+  and, on a win or sixth guess, inserts the sole `game_results` row atomically using
+  existing scoring (6..1 for a win, zero for a loss). Completed result payloads include
+  guesses, solved, tries, answer and marks; legacy completed results are enriched on read.
+  Generic `POST /api/games/wordguess/results` is disabled (405), even with a forged
+  payload; use the guess endpoint. DailyGameFrame's server-complete mode fetches that
+  existing result after the tile reveal instead of submitting client scores.
+  Mock mode uses a fixed artificial word, not the production answer bank.
+  The build runs Word Guess's web-bundle answer-bank exclusion guard alongside Dive's.
+
+`GET /api/games` includes `streak: GamesStreak` (`current`, `best`). A played date
+has at least one result for a registered game, counted once in the team timezone
+using shared `today()`. Current is the consecutive run ending today, or yesterday
+if not played today, otherwise zero. Best is the longest run across all played dates.
+The server folds one ordered distinct-date query; no new stored state is needed.
+Streaks and weekly recap highlights read the same server-written `game_results` rows.
+Share summaries use completed server result payloads, not local drafts or future targets.
+Workout mutations invalidate the games query root, including cached Word Guess and
+Connections day queries. Perception resumes on mount after access unlocks, never from
+background invalidation that would abandon an active round.
 
 Dive adds four dedicated endpoints without changing the generic hub contract:
 
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
   (text only, empty when locked), ordered caller answers with their own prompt reveals,
   completion, immutable running score, verdict, caller's generic result and nullable team reveal.
-  Today never exposes team groups before the caller completes all five, including staff;
-  staff can explicitly review them through the day endpoint.
+  Only admins may see team groups before completing all five prompts;
+  coxswains/coaches retain the same spoiler gate as rowers.
 - `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
   accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
@@ -336,24 +479,47 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   prompt's `gem` and at most five `notable` answers (three familiar Surface answers and two
   Deep Cuts), never a whole set or reveals for unanswered prompts.
 - `GET /api/games/dive/days/:date` returns `DiveDay` with revealed prompt groups for past
-  dates. Today requires five answers or staff (403 `PLAY_FIRST`); future dates are invalid.
-- `PATCH /api/games/dive/answers` is staff-only, takes
+  dates only if the caller finished that date’s Dive, unless admin (403 `PLAY_FIRST`).
+  Future dates are invalid.
+- `PATCH /api/games/dive/answers` requires staff plus completion of that date’s Dive
+  and today’s Dive (admins bypass both completion checks), takes
   `{date,prompt_index,normalized,hidden:boolean}` and returns that prompt's `DiveReveal`.
   It hides/unhides a whole group, sets/clears `hidden_at` and `hidden_by`, and audits
   `dive.hide`/`dive.unhide`. Moderation is display-only: neither stored answer points/tiers
   nor `game_results` scores/timestamps change. Later matching submissions inherit hidden
   display state but still earn their curated points. Non-staff see no hidden groups except
   their own answer marked `hidden` (without other hidden members/names/counts). Staff can
-  inspect all groups. Groups use normalized canonical keys for matches (aliases and fuzzy
+  inspect all groups after completion; admins can inspect them at any time. Groups use normalized canonical keys for matches (aliases and fuzzy
   matches converge), normalized free text for misses, and include `canonical`, `teammates`
   (`user_id`, `name`), count and `only_you` (caller is in a group with no teammate).
   `count`, `total`, `mine` and group `points`/`tier` are retained for the existing client;
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
-The general-knowledge bank has 120 prompts with curated canonical answer sets.
-A fixed seeded permutation takes five consecutive entries per day (`DIVE_PROMPTS_PER_DAY`), measured
-from 2026-01-01 with positive modulo. Any `floor(N/5)` consecutive days contain no repeated
-prompt, including wraparound and dates before the epoch. There are no rowing/team prompts.
+The general-knowledge bank includes 203 active complete constrained prompts, alongside the broad
+curated bank. The catalog has 522 active and 82 inactive/loadable prompts, each
+with a theme and optional cluster; related Japanese content shares `japan`. Constrained sets
+have ≥8 canonical answers and no size cap; broad active sets retain ≥200 and their bundle cap.
+There are no rowing/team prompts. **Before the cutover, selection uses the frozen 330-prompt legacy
+permutation**, not the prospective active catalog. `scripts/dive/legacy.json` preserves the
+original order; the same seeded permutation takes five consecutive entries/day
+(`DIVE_PROMPTS_PER_DAY`), measured from 2026-01-01 with positive modulo. Any 66 consecutive
+days contain no repeated prompt, including wraparound and dates before the epoch.
+
+`dive_answers` persists date/user/prompt index, not prompt IDs. Routes and reveal reads
+resolve IDs/text through `diveSelectionFor(date)`/`divePromptsFor(date)` at read/submit time.
+Therefore retired legacy prompts remain loadable and all pre-cutover dates must keep this
+selector forever. A generated explicit cyclic schedule replaces it from team-local
+**2026-11-10** (`DIVE_SCHEDULE_CUTOVER`). The reviewed bank has 253 constrained prompts;
+the 64-day cycle uses all 203 active sets plus 117 broad fillers, without repeats. Fifty
+constrained sets are inactive but remain loadable: low-depth sets, award-era splits,
+NASA selection classes, arbitrary cocktail categories and near-duplicate chemical/vitamin
+subsets. Each award has one all-years prompt; the IBA cocktail categories share one complete
+prompt. Generation
+fails rather than enabling an insufficient or unbalanced bank. The schedule builder
+uses all constrained prompts plus preferred broad fillers; each five-prompt day has unique
+themes/clusters and a size mix (not all ≤24 or all >120 answers). Python/Worker validators
+and the real cycle plus a 64-day fixture cover determinism, loadability, day rules, wraparound and historical
+IDs. Do not enable/backdate cutover or edit a live cycle to reinterpret an already-started day.
 `shared/games/dive.ts` owns normalization (NFKD, diacritics, lowercase, ampersand expansion,
 punctuation removal, hyphen/underscore/slash separation, whitespace, leading article removal,
 last-word-only simple plurals), tier constants, emoji and 0–500 verdict bands. Tiers are
@@ -372,8 +538,18 @@ committed hand overrides. When both entity signals exist, familiarity combines
 other is missing. QIDs resolve in article batches; sitelinks query in <=300-QID SPARQL
 VALUES batches. Disambiguation items and wrong-country city matches are rejected. Within
 each prompt, familiarity rank percentiles are Surface <20%, Midwater <55%, Rare <80%,
-Deep Cut otherwise. Surface anchors, explicit Too Clever picks and exactly one fun Pearl
+Deep Cut otherwise for broad sets. Constrained sets reuse same-theme entity signals when
+available; explicit Surface anchors leave remaining ranked answers in Midwater/Rare/Deep Cut
+(45%/30%/25%) to preserve tier diversity in small sets. Surface anchors, optional Too Clever picks and exactly one fun Pearl
 override those ranks. See its README/report for provenance, exclusions and regeneration.
+`constrained.json` commits reviewed complete canonical/alias snapshots, exact expected
+counts, pinned Wikipedia revisions/extraction recipes and dataset commit/checksums.
+`sources.py` verifies MediaWiki oldid/title and dataset SHA-256, with raw responses ignored
+under `.cache/`; `generate.py --verify-sources --check` re-extracts and rejects count or
+membership drift. Derived country/state predicates apply to canonicals or common English
+names in complete reviewed bases. No constrained membership is inferred from word frequency
+or silently trimmed. People surnames must be unique within a set; teams accept nicknames;
+common short film titles and existing article/typo normalization are preserved.
 The pageview candidate pool covers twice the prospective Surface population (at least
 100 names), plus all anchors/picks. Unresolved/unqueried names use the conservative
 secondary signal below resolved entities. Homographs use explicit contextual article
@@ -404,6 +580,9 @@ An original SVG water column shows the rowing shell, depth ticks and sinking mar
 motion disables sinking. Completed play reveals the log, grouped answers, Copy Result
 (`Dive YYYY-MM-DD · N m`, no spoilers) and generic live day board. Staff moderation uses
 the shared confirmation sheet. Scores/boards refresh while visible every 30 seconds.
+Team Answers with no groups shows its heading and one muted “No teammates have played yet.”
+line, without rows. In a mixed reveal, prompts with no groups are plain non-expandable rows
+with right-aligned “No teammates yet”; populated groups retain their disclosures/dividers.
 
 Games are separate from training statistics, with no bottom tab. Dates use team-local
 America/Los_Angeles `today(ctx.now)` and weeks run Monday–Sunday via `weekStart`.
@@ -422,8 +601,8 @@ refreshes the user and requires this rule server-side (403 `GAME_LOCKED`,
   `ALREADY_PLAYED` on repeats. Unknown games return 404; no generic scorer returns 405.
 - `GET /api/games/:game/results/me?date=` returns own `GameResult | null`.
 - `GET /api/games/:game/leaderboard?date=` defaults to today and rejects future dates.
-  Today's board requires a result today or staff status, else 403 `PLAY_FIRST`.
-  Past dates are readable by any authenticated user. `final` is date < today;
+  Every date's board requires completion of that date's game, unless admin (403 `PLAY_FIRST`).
+  A partial Dive result does not count: all prompts must be answered. `final` is date < today;
   active players only, competition `RANK()` by the registry's higher/lower direction,
   ties share rank, ordered by rank then name. Results may remain live until day end.
 - `GET /api/games/leaderboard?week=` returns `GamesWeekLeaderboard`; a date selects
@@ -434,6 +613,17 @@ refreshes the user and requires this rule server-side (403 `GAME_LOCKED`,
   calculates placements and totals; registered/lower-direction id lists use `json_each(?)`,
   never an expanding bound-parameter list. Weekly standings are independent of PLAY_FIRST.
 
+Coxswains and coaches bypass only the OYO unlock gate (`reason: staff`).
+They play without early spoilers, like rowers: no other players' Dive answers or daily
+boards until finishing the requested day's game, including past-day views.
+Only `role: admin` (including Joshua Koo, joskoo@stanford.edu) bypasses that completion
+rule. The Dive UI uses the early review endpoint and moderation before play only for
+admins. Coxswains/coaches may moderate from a completed day's reveal, only after
+finishing today's Dive too; the Worker enforces this on PATCH. Locked-in per-prompt feedback remains available to
+every player. Word Guess answers/Connections groups stay hidden until completion,
+and Perception serves only each started round's stimulus; staff status adds no shortcuts.
+Weekly aggregate standings remain independent of daily spoiler gating.
+
 All handlers refresh the authenticated user and validate game ids against the registry.
 Extension contract: add a `ServerGame` in `worker/src/games/registry.ts` (id matching
 `/^[a-z][a-z0-9-]{1,31}$/`, direction, optional synchronous score callback), optional
@@ -443,20 +633,21 @@ aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 `GameDayBoard`; invalidate games queries after writes. Dive is registered as higher
 with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
-Registered daily games (all `higher`, generic scorers in `worker/src/games/more.ts`, rules in
-`shared/games/`, no migration). Daily puzzles derive from the team date via a seeded
+Registered daily games (all `higher`, scoring in `worker/src/games/more.ts`, public rules in
+`shared/games/` and private answer banks in `worker/src/games/`). Daily puzzles derive from the team date via a seeded
 `mulberry32(fnv1a(id:date))` or a day-number answer index, so every teammate gets the same
 puzzle. The server recomputes every score from raw input; client scores are ignored, and
 malformed or implausible payloads return 400.
 
-- `wordguess` takes `{guesses}`: 1–6 lowercase five-letter words, each in the answer or
-  accepted-guess lists, ending on today's answer or six misses, with no earlier solve.
-  Score is `7 − tries` when solved, else 0. Stored payload `{guesses,solved,tries}`.
-- `perception` takes `{answer:{clockMs,hue,dot,cells,reactionMs}}` (hold 0–30000 ms, hue
-  0–359, dot 0–1000 per axis, seven distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
+- `wordguess` accepts one `{guess}` at a time via its dedicated endpoint above, never a
+  client-supplied board. The server validates against the answer and accepted-guess lists,
+  persists each guess, and finishes on today's answer or six misses. Score is `7 − tries`
+  when solved, else 0. Stored result payload `{guesses,solved,tries,answer,marks}`.
+- `perception` takes each round's answer through the dedicated endpoints above (hold 0–30000 ms, hue
+  0–359, dot 0–1000 per axis, seven legacy or nine v2 distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
   for early). Five rounds score 0–100 each against the daily puzzle; reactions under
-  100 ms score 0. Score 0–500; stored `{answer,scores}`.
-- `connections` takes `{guesses}`: the full ordered log of 1–8 four-word guesses. Puzzles
+  100 ms score 0. V2 adds seven types as detailed above. Score 0–500; stored `{answer,scores,rounds}`.
+- `connections` takes one `{guess}` at a time; the Worker owns the ordered log of up to eight four-word guesses. Puzzles
   (≥90 original, hard-day difficulty: four groups of four, easiest to hardest, the hardest
   group always wordplay, at least three red herrings each across two or more groups, unique
   category names, and exactly one valid partition even with every herring allowed in its
@@ -464,15 +655,23 @@ malformed or implausible payloads return 400.
   `worker/src/games/connectionsPuzzles.ts`; a fixed shuffle is cycled by day number, so a
   puzzle returns only after every other one (no repeat within 60 days). The client gets
   words from `GET /api/games/connections/today` (`ConnectionsDay`, empty while locked) and
-  checks each guess with `POST /api/games/connections/check` `{guesses}` (gated, stateless
-  replay of the on-device log), which returns `ConnectionsCheck`: last outcome
+  appends each guess with `POST /api/games/connections/guess` `{guess}` (gated,
+  persisted server-side), which returns `ConnectionsDay`: last outcome
   (`correct`/`one_away`/`wrong`), mistakes, solved groups only, and all groups once finished.
   Logs with unknown, repeated or solved words, repeated guesses, or guesses after the board
-  ended return 400. Final submit replays the log and needs a finished board (four solves or
-  four mistakes). Score: solved boards `8 − mistakes` (8–5), unsolved boards the solved group
+  ended return 400 (finished boards reject further guesses with 409). The finishing guess
+  writes the result server-side (four solves or four mistakes).
+  Score: solved boards `8 − mistakes` (8–5), unsolved boards the solved group
   count (0–3), so every win outranks every loss. Stored `{guesses,solved,mistakes,won,grid,groups}`.
 
 ### Tests, recaps, and challenges
+
+Progress percentage labels use shared `floorPercent` through `formatPercent` on all
+surfaces, including Home, boards, recaps and share cards. API percentage fields retain
+one decimal, floored with the same helper instead of rounded; clients floor to whole
+percentages. Thus 6,000 / 80,000 displays 7%, and a sub-target total never displays
+100%. Completion and leaderboard ordering still compare actual meters/ratios, not
+display percentages. My Fortnight and Me meter-based progress remains exact.
 
 - GET /api/users/:id/tests: authenticated team-visible history, newest date/created_at first.
   PR means strictly faster than all earlier tests of that kind; first is a PR.
@@ -487,6 +686,17 @@ malformed or implausible payloads return 400.
   target, percent, hit_target, modalities, entry_count, consecutive hit weeks ending
   at that week, highest-equivalent entry (earliest creation breaks ties), and cached
   leaderboard team totals/counts and percent rank (null off leaderboard).
+  Also `race`: that week's final `RaceWeek` (same rules as /api/stats/race; null with zero rowers);
+  `plan` (`RecapPlanWeek`): the recap week inside the owner's My Fortnight plan covering its Monday,
+  with week 1|2, planned/logged E-meters and complete (`logged_m >= planned_m`), null without a plan
+  or with no planned meters; `games` (`RecapGames`): own `game_results` rows that week (`played`,
+  distinct `days`, `best_dive` score or null, `word_guess_solves` where payload `solved` is true) and
+  `streak`, consecutive days with any result ending on that Sunday (0 when Sunday has none). The
+  games week is one indexed read; the streak read runs only when Sunday was played. No schema change.
+  The client shows it on Home Monday–Wednesday of the next team-local week until dismissed
+  (per user and week in localStorage) for users who joined before that week ended, always at
+  `/recap` (linked from Me, with earlier weeks), and shares it as a 1080×1920 PNG rendered on a
+  canvas (`navigator.share` with files, download otherwise).
 - GET /api/stats/race?week=YYYY-MM-DD: authenticated `TeamRace` (Stanford vs Berkeley) for the selected
   week (default this week; same week-date bounds as stats) and the week before. Population = active users with
   role `rower` (same as compliance; staff never count). `stanford_m` = their summed stored `equiv_m` for the week;
@@ -675,6 +885,23 @@ TTL 1 day), then reschedules for the remainder. Payload `{ title: actor name, bo
 badge (unread count, max 99) }`; kudos on one entry share a tag. Already-read notifications are skipped. 404/410
 deletes the subscription; 429/5xx/network errors retry with 30 s × 2ⁿ backoff (or Retry-After, max 1 h) up to 5
 attempts; other errors drop the row. Without VAPID config the outbox is discarded.
+Evening reminders: `User.evening_reminder: boolean`, writable via `ProfilePatch` on `PATCH /api/me`,
+defaults ON because delivery already requires explicit per-device push permission in Settings.
+It is omitted from PublicUser. Rowers with push enabled see an independent Evening Reminder toggle;
+staff never receive reminders. Cron triggers at 02:30 and 03:30 UTC dispatch only during the 19:00
+America/Los_Angeles hour, covering 7:30 pm in both daylight and standard time. Active opted-in rowers
+with a subscription are selected; the canonical `oyoGameAccess` excludes today's logs and My Fortnight
+rest days. A transactional daily claim prevents duplicate enqueueing. Reminders are not inbox items:
+outbox rows use a reserved `reminder:<user_id>` notification id and `reminder_date`, with payload title `OYO`, body
+`Log today's OYO to unlock the Daily Games.`, url `/log`, tag `oyo-reminder`. The existing alarm sends
+at most 10 pushes per invocation; it rechecks eligibility and date before sending and discards stale
+reminders. Normal push retries apply. Free plan limits are 10 ms CPU per Worker request/Cron and
+5 Cron triggers per account (Cloudflare Workers platform limits); Cron makes one DO call and performs
+no cryptography. Sixty users are selected cheaply in the DO and device delivery is batched, not one
+60-user network/crypto request. Production CPU and real-device push require operational verification.
+Locked Home Daily Games and Games hub states say `Log today's OYO to unlock` with a primary
+`Log Workout` link to `/log`. Entry writes invalidate game queries immediately. Returning to the Home
+card after unlocking gives a brief scale/fade on its icon; reduced-motion users get an instant swap.
 Secrets (never committed; generate with `npm run vapid:keys`): `VAPID_PUBLIC_KEY` (base64url uncompressed P-256
 point), `VAPID_PRIVATE_KEY` (base64url 32-byte private scalar), `VAPID_SUBJECT` (`mailto:` or `https:` contact). Set
 with `wrangler secret put <NAME>`; locally put them in `.dev.vars`. Rotating keys invalidates existing subscriptions;
@@ -805,7 +1032,8 @@ content, staff access, owner-only My Fortnight plans, authenticated photo storag
   colors do not replace cardinal controls or orange achievement highlights.
   Dark mode: background `#121214`, surface `#1C1C1F`, dividers `#2C2C31`, text `#F2F2F5`. Zone colors as in the sheet:
   E light green `#CFE6C4`, D green `#8DBE84`, C yellow `#FBE08F` (others interpolate) — used as small tags/chips only.
-  Light + dark mode (system default, user toggle). System font stack (-apple-system, "SF Pro", Inter fallback). Native
+  Light + dark mode (system default, user toggle). Self-hosted Inter Variable (Latin subset,
+  precached), with a metric-adjusted local fallback and system sans-serif fallbacks. Native
   feel: 44px+ touch targets, segmented controls, sheets, no tiny tracked uppercase labels, no monospace micro labels,
   text ≥ 12px, Title Case buttons. Skeleton loaders, empty states, optimistic kudos, toast feedback, press states.
 - Passkeys UI: Login shows "Log In with Face ID/Touch ID/Fingerprint/Windows Hello/Passkey" (label from the

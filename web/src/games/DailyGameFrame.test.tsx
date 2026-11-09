@@ -6,7 +6,6 @@ import { MemoryRouter } from 'react-router-dom';
 import { createQueryClient } from '../lib/queryClient';
 import { createMockApi } from '../mock/handlers';
 import { ToastProvider } from '../components/ui';
-import { dailyAnswer } from '../../../shared/games/wordGuess';
 import { DailyGameFrame } from './DailyGameFrame';
 
 const client = createQueryClient();
@@ -34,15 +33,16 @@ function mount(role: 'rower' | 'coach') {
   vi.stubGlobal('fetch', (url: URL, init: RequestInit) =>
     mock.handle(new Request(String(url), init)),
   );
-  render(
+  return render(
     <MemoryRouter>
       <QueryClientProvider client={client}>
         <ToastProvider>
-          <DailyGameFrame<{ guesses: string[] }>
-            gameId="wordguess"
-            title="Word Guess"
-            play={({ date, onComplete }) => (
-              <button type="button" onClick={() => onComplete({ guesses: [dailyAnswer(date)] })}>
+          <DailyGameFrame<{ answer: unknown }>
+            gameId="perception"
+            title="Perception"
+            serverComplete
+            play={({ onComplete }) => (
+              <button type="button" onClick={() => onComplete({ answer: {} })}>
                 Finish
               </button>
             )}
@@ -52,24 +52,52 @@ function mount(role: 'rower' | 'coach') {
       </QueryClientProvider>
     </MemoryRouter>,
   );
-  return mock;
+}
+async function finishPerception() {
+  for (let round = 0; round < 5; round++) {
+    await fetch('https://oyo.test/api/games/perception/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ round }),
+    });
+    await fetch('https://oyo.test/api/games/perception/today');
+  }
+  fireEvent.click(screen.getByRole('button', { name: 'Finish' }));
+  await screen.findByText('Score 0');
 }
 it('gates locked rowers before play', async () => {
   mount('rower');
-  expect(await screen.findByText('Games Locked')).toBeTruthy();
+  expect(await screen.findByText("Log today's OYO to unlock")).toBeTruthy();
   expect(screen.queryByRole('button', { name: 'Finish' })).toBeNull();
 });
-it('submits once, then shows the server result, share and day board', async () => {
+it('loads the server-completed result once, then shows the server result, share and day board', async () => {
   const share = vi.fn(() => Promise.resolve());
   vi.stubGlobal('navigator', { ...navigator, share });
   mount('coach');
-  fireEvent.click(await screen.findByRole('button', { name: 'Finish' }));
-  expect(await screen.findByText('Score 6')).toBeTruthy();
+  await screen.findByRole('button', { name: 'Finish' });
+  await finishPerception();
+  expect(await screen.findByText('Score 0')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Share' }));
-  expect(share).toHaveBeenCalledWith({ title: 'Word Guess', text: 'shared text' });
+  expect(share).toHaveBeenCalledWith({
+    title: 'Perception',
+    text: 'shared text\nhttps://stanford-oyo.joskoo.workers.dev',
+  });
   await waitFor(() =>
-    expect(screen.getByRole('region', { name: 'Word Guess Day Board' }).textContent).toContain(
-      '1 Players',
+    expect(screen.getByRole('region', { name: 'Perception Day Board' }).textContent).toContain(
+      '1 Player',
     ),
   );
+});
+
+it.each([
+  { name: 'undefined', value: undefined },
+  { name: 'a scroll-completion promise', value: Promise.resolve() },
+])('unmounts completed results when scrollTo returns $name', async ({ value }) => {
+  const scrollTo = vi.fn(() => value);
+  vi.stubGlobal('scrollTo', scrollTo);
+  const view = mount('coach');
+  await screen.findByRole('button', { name: 'Finish' });
+  await finishPerception();
+  expect(scrollTo).toHaveBeenCalledWith(0, 0);
+  expect(() => view.unmount()).not.toThrow();
 });

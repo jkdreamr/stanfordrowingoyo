@@ -21,6 +21,13 @@ export interface Env {
   VAPID_SUBJECT?: string;
 }
 export default {
+  async scheduled(_event: ScheduledController, env: Env): Promise<void> {
+    const stub = env.TEAM.get(env.TEAM.idFromName('stanford'));
+    await stub.fetch('https://oyo.internal/internal/reminders', {
+      method: 'POST',
+      headers: { 'X-OYO-Internal': '1', 'X-OYO-CSRF': '1' },
+    });
+  },
   async fetch(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
     if (path.startsWith('/api/')) {

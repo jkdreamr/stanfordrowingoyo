@@ -22,7 +22,10 @@ test('fresh rower empty states point to logging, feed and plan setup', async ({
   const { page } = await makeRower();
   for (const path of ['/', '/me']) {
     await page.goto(path);
-    const action = page.getByRole('link', { name: 'Log Workout', exact: true });
+    const action = page
+      .getByRole('heading', { name: 'No Sessions Yet', exact: true })
+      .locator('..')
+      .getByRole('link', { name: 'Log Workout', exact: true });
     await expect(action).toBeVisible();
     if (path === '/') {
       await action.scrollIntoViewIfNeeded();

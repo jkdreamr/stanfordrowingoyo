@@ -1,8 +1,7 @@
 import {
   TRIES,
   WORD_GUESS_ID,
-  dailyAnswer,
-  score,
+  type Mark,
   wordGuessShare,
 } from '../../../../shared/games/wordGuess';
 import { DailyGameFrame } from '../DailyGameFrame';
@@ -12,6 +11,8 @@ interface Stored {
   guesses: string[];
   solved: boolean;
   tries: number;
+  answer: string;
+  marks: Mark[][];
 }
 
 export default function WordGuessGame() {
@@ -19,11 +20,10 @@ export default function WordGuessGame() {
     <DailyGameFrame<WordGuessPayload>
       gameId={WORD_GUESS_ID}
       title="Word Guess"
-      play={(props) => <WordGuessPlay {...props} />}
+      serverComplete
+      play={(props) => <WordGuessPlay key={props.date} {...props} />}
       summarize={(result) => {
-        const { guesses, solved, tries } = result.payload as Stored;
-        const answer = dailyAnswer(result.date);
-        const marks = guesses.map((g) => score(g, answer));
+        const { solved, tries, answer, marks } = result.payload as Stored;
         return {
           headline: `${solved ? tries : 'X'} / ${TRIES}`,
           detail: `Answer · ${answer[0].toUpperCase()}${answer.slice(1)}`,

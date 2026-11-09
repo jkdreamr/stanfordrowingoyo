@@ -21,7 +21,10 @@ export function ProgressRing({
 }) {
   const key = id && `ring:${id}`;
   const [arcValue, setArcValue] = useState(
-    () => previousValue ?? lastShown(key) ?? (key ? 0 : value),
+    () =>
+      previousValue ??
+      lastShown(key) ??
+      (key && !document.documentElement.hasAttribute('data-entered') ? 0 : value),
   );
   useEffect(() => {
     remember(key, value);

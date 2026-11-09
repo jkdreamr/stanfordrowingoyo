@@ -129,6 +129,74 @@ async function rest() {
       .toArray(),
   );
 }
+it.each([
+  [[], 0, 0],
+  [['2026-03-18'], 1, 1],
+  [['2026-03-16', '2026-03-17'], 2, 2],
+  [['2026-03-14', '2026-03-15'], 0, 2],
+  [['2026-03-10', '2026-03-11', '2026-03-12', '2026-03-18'], 1, 3],
+] as [string[], number, number][])('computes streak for %j', async (dates, current, best) => {
+  await sql((s) => {
+    for (const date of dates) {
+      result(s, 'u0', 'wordguess', date, 1);
+      result(s, 'u0', 'perception', date, 50);
+    }
+    result(s, 'u1', 'wordguess', DATE, 1);
+    result(s, 'u0', 'unregistered', '2026-03-13', 1);
+  });
+  expect(await (await api('/games')).json()).toMatchObject({ streak: { current, best } });
+});
+it.each(['rower', 'coxswain', 'coach', 'admin'])(
+  'returns 404 for all disabled Dive endpoints for %s without changing data',
+  async (role) => {
+    await sql((s) => {
+      s.sql.exec('UPDATE users SET role=? WHERE id=?', role, 'u0');
+      result(s, 'u0', 'dive', DATE, 100);
+    });
+    for (const [path, method] of [
+      ['/today', 'GET'],
+      ['/days/2026-03-17', 'GET'],
+      ['/answers', 'POST'],
+      ['/answers', 'PATCH'],
+      ['/results', 'POST'],
+      ['/results/me', 'GET'],
+      ['/leaderboard', 'GET'],
+    ]) {
+      expect(
+        (
+          await api(
+            '/games/dive' + path,
+            method,
+            method === 'POST' || method === 'PATCH' ? { prompt_index: 0, answer: '' } : undefined,
+          )
+        ).status,
+      ).toBe(404);
+    }
+    expect(
+      await sql((s) => s.sql.exec("SELECT score FROM game_results WHERE game_id='dive'").toArray()),
+    ).toEqual([{ score: 100 }]);
+  },
+);
+it('excludes existing Dive results from played today, weekly points and game streaks', async () => {
+  await sql((s) => {
+    result(s, 'u0', 'wordguess', '2026-03-16', 4);
+    result(s, 'u0', 'dive', '2026-03-17', 100);
+    result(s, 'u1', 'dive', DATE, 100);
+    result(s, 'u0', 'perception', DATE, 300);
+  });
+  const list = await (
+    await api('/games')
+  ).json<{
+    games: { id: string }[];
+    results: { game_id: string }[];
+    streak: { current: number; best: number };
+  }>();
+  expect(list.games.map((game) => game.id)).toEqual(['wordguess', 'perception', 'connections']);
+  expect(list.results.map((row) => row.game_id)).toEqual(['perception']);
+  expect(list.streak).toEqual({ current: 1, best: 1 });
+  const week = (await call('week')).body as GamesWeekLeaderboard;
+  expect(week.rows.map((row) => [row.user.id, row.points, row.days])).toEqual([['u0', 2, 2]]);
+});
 it('uses the same latest covering Fortnight rest day as My Plan, including overlap and expiry', async () => {
   await sql((s) => {
     s.sql.exec("INSERT INTO my_plans VALUES ('u0','2026-03-09','[{\"week\":2,\"day\":2}]',?)", NOW);
@@ -203,7 +271,7 @@ it('submits once, validates payload, reads own results and leaves Dive without a
   });
   expect((await call('list')).body).toMatchObject({ results: [{ game_id: 'distance' }] });
   expect((await api('/games')).status).toBe(200);
-  expect((await api('/games/dive/results', 'POST', { payload: 12 })).status).toBe(405);
+  expect((await api('/games/dive/results', 'POST', { payload: 12 })).status).toBe(404);
   expect((await api('/games/nope/results', 'POST', { payload: 12 })).status).toBe(404);
   expect((await call('day', 'constructor')).status).toBe(404);
   expect((await call('me', 'distance', '?date=2026-02-30')).status).toBe(400);
@@ -233,13 +301,24 @@ it('enforces PLAY_FIRST, ranks ties in both directions, excludes inactive player
     ['u2', 1],
     ['u0', 3],
   ]);
+  expect((await call('day', 'distance', '?date=2026-03-17')).status).toBe(403);
+  await sql((s) => result(s, 'u0', 'distance', '2026-03-17', 20));
   expect((await call('day', 'distance', '?date=2026-03-17')).body).toMatchObject({
-    players: 0,
+    players: 1,
     final: true,
   });
   await sql((s) => {
     s.sql.exec('DELETE FROM game_results');
     s.sql.exec("UPDATE users SET role='coach' WHERE id='u0'");
+  });
+  expect((await call('day')).status).toBe(403);
+  await sql((s) => s.sql.exec("UPDATE users SET role='coxswain' WHERE id='u0'"));
+  expect((await call('day')).status).toBe(403);
+  await sql((s) => result(s, 'u0', 'distance', DATE, 10));
+  expect((await call('day')).status).toBe(200);
+  await sql((s) => {
+    s.sql.exec('DELETE FROM game_results');
+    s.sql.exec("UPDATE users SET role='admin' WHERE id='u0'");
   });
   expect((await call('day')).status).toBe(200);
 });
@@ -293,11 +372,24 @@ it('handles over 100 players and registry ids with JSON lists, not expanding SQL
     expect(gameRoutes(registry).week(ctx).status).toBe(200);
   });
 });
-it('migrates v16 idempotently and exports/deletes personal game data', async () => {
+it('migrates v18 idempotently and exports/deletes personal game data', async () => {
   await sql((s) => {
     s.sql.exec("UPDATE settings SET value_json='15' WHERE key='schema_version'");
     migrate(s, 'team-code');
     migrate(s, 'team-code');
+    expect(
+      s.sql
+        .exec<{ value_json: string }>("SELECT value_json FROM settings WHERE key='schema_version'")
+        .one().value_json,
+    ).toBe('18');
+    s.sql.exec(
+      'INSERT INTO game_progress VALUES (?,?,?,?,?)',
+      'u0',
+      'wordguess',
+      DATE,
+      '["crane"]',
+      NOW,
+    );
     result(s, 'u0', 'dive', DATE, 5);
     s.sql.exec(
       "INSERT INTO dive_answers VALUES (?,?,0,?,?,NULL,'miss',0,NULL,NULL,?)",
@@ -313,5 +405,19 @@ it('migrates v16 idempotently and exports/deletes personal game data', async () 
     s.transactionSync(() => removeAccount(s, byId(s, 'u0')!));
     expect(s.sql.exec('SELECT * FROM game_results').toArray()).toHaveLength(0);
     expect(s.sql.exec('SELECT * FROM dive_answers').toArray()).toHaveLength(0);
+    expect(s.sql.exec('SELECT * FROM game_progress').toArray()).toHaveLength(0);
+  });
+});
+
+it('upgrades v16 to generic v17 progress without changing existing results', async () => {
+  await sql((s) => {
+    result(s, 'u0', 'wordguess', DATE, 6);
+    s.sql.exec('DROP TABLE game_progress');
+    s.sql.exec("UPDATE settings SET value_json='16' WHERE key='schema_version'");
+    migrate(s, 'team-code');
+    s.sql.exec('INSERT INTO game_progress VALUES (?,?,?,?,?)', 'u0', 'wordguess', DATE, '[]', NOW);
+    migrate(s, 'team-code');
+    expect(s.sql.exec('SELECT * FROM game_progress').toArray()).toHaveLength(1);
+    expect(s.sql.exec('SELECT * FROM game_results').toArray()).toHaveLength(1);
   });
 });

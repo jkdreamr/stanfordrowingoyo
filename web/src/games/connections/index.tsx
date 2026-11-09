@@ -19,7 +19,8 @@ export default function ConnectionsGame() {
     <DailyGameFrame<ConnectionsPayload>
       gameId={CONNECTIONS_ID}
       title="Connections"
-      play={(props) => <ConnectionsPlay {...props} />}
+      serverComplete
+      play={(props) => <ConnectionsPlay key={props.date} {...props} />}
       summarize={(result) => {
         const { grid, groups } = result.payload as Stored;
         const { groups: solved, mistakes } = connectionsSummary(result.score);

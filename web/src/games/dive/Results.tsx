@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Share } from 'lucide-react';
+import { useShareResult } from '../share';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { DiveDay, DiveReveal, DiveRevealGroup } from '../../../../shared/types';
 import { DIVE_TIERS } from '../../../../shared/games/dive';
@@ -9,16 +11,15 @@ import { GameDayBoard } from '../GameDayBoard';
 
 export function Results({
   day,
-  staff,
+  canModerate,
   reviewOnly = false,
 }: {
   day: DiveDay;
-  staff: boolean;
+  canModerate: boolean;
   reviewOnly?: boolean;
 }) {
   const client = useQueryClient();
-  const [copied, setCopied] = useState(false);
-  const [copyError, setCopyError] = useState(false);
+  const shareResult = useShareResult();
   const [target, setTarget] = useState<{ prompt: DiveReveal; group: DiveRevealGroup } | null>(null);
   const moderation = useMutation({
     mutationFn: () =>
@@ -46,29 +47,18 @@ export function Results({
             </div>
             <Button
               variant="secondary"
-              size="sm"
+              leading={<Share size={20} strokeWidth={1.75} />}
               onClick={async () => {
-                setCopyError(false);
-                try {
-                  const grid = [...day.answers]
-                    .sort((a, b) => a.prompt_index - b.prompt_index)
-                    .map((answer) => DIVE_TIERS[answer.tier].emoji)
-                    .join('');
-                  await navigator.clipboard.writeText(`Dive ${day.date} · ${day.score} m\n${grid}`);
-                  setCopied(true);
-                } catch {
-                  setCopyError(true);
-                }
+                const grid = [...day.answers]
+                  .sort((a, b) => a.prompt_index - b.prompt_index)
+                  .map((answer) => DIVE_TIERS[answer.tier].emoji)
+                  .join('');
+                await shareResult('Dive', `OYO Dive ${day.date} ${day.score} m\n${grid}`);
               }}
             >
-              {copied ? 'Copied' : 'Copy Result'}
+              Share
             </Button>
           </div>
-          {copyError && (
-            <p role="alert" className="mb-4 text-subhead text-muted">
-              Couldn’t copy. Try again.
-            </p>
-          )}
           <ol className="dive-log">
             {day.answers.map((answer) => (
               <li key={answer.prompt_index}>
@@ -89,52 +79,59 @@ export function Results({
       )}
       <section className="dive-answer-groups" aria-label="Team Answers">
         <h2 className="mb-3 text-title2">Team Answers</h2>
-        {day.reveal?.map((prompt) => (
-          <details key={prompt.prompt_index} open={prompt.prompt_index === 0}>
-            <summary className="text-subhead">{prompt.prompt}</summary>
-            <div className="space-y-1 pb-4">
-              {prompt.groups.length ? (
-                prompt.groups.map((group) => (
-                  <div
-                    key={group.normalized}
-                    className={`dive-group ${group.mine ? 'dive-group-mine' : ''}`}
-                  >
-                    <div className="dive-group-text">
-                      <p className="text-callout">
-                        {group.answer}
-                        {group.mine && <span className="text-subhead text-muted"> · You</span>}
-                      </p>
-                      <p className="mt-1 text-footnote text-muted">
-                        {DIVE_TIERS[group.tier].label}
-                        {group.hidden && ' · Hidden From Team'}
-                      </p>
-                      <p className="mt-1 text-subhead text-muted">
-                        {group.teammates.map((teammate) => teammate.name).join(', ')}
-                      </p>
-                      {group.only_you && <span className="dive-only-you">Only You</span>}
+        {!day.reveal?.some((prompt) => prompt.groups.length > 0) ? (
+          <p className="text-subhead text-muted">No teammates have played yet.</p>
+        ) : (
+          day.reveal.map((prompt) =>
+            prompt.groups.length === 0 ? (
+              <div className="dive-empty-group text-subhead" key={prompt.prompt_index}>
+                <span>{prompt.prompt}</span>
+                <span className="text-muted">No teammates yet</span>
+              </div>
+            ) : (
+              <details key={prompt.prompt_index} open={prompt.prompt_index === 0}>
+                <summary className="text-subhead">{prompt.prompt}</summary>
+                <div className="space-y-1 pb-4">
+                  {prompt.groups.map((group) => (
+                    <div
+                      key={group.normalized}
+                      className={`dive-group ${group.mine ? 'dive-group-mine' : ''}`}
+                    >
+                      <div className="dive-group-text">
+                        <p className="text-callout">
+                          {group.answer}
+                          {group.mine && <span className="text-subhead text-muted"> · You</span>}
+                        </p>
+                        <p className="mt-1 text-footnote text-muted">
+                          {DIVE_TIERS[group.tier].label}
+                          {group.hidden && ' · Hidden From Team'}
+                        </p>
+                        <p className="mt-1 text-subhead text-muted">
+                          {group.teammates.map((teammate) => teammate.name).join(', ')}
+                        </p>
+                        {group.only_you && <span className="dive-only-you">Only You</span>}
+                      </div>
+                      <span className="shrink-0 text-subhead tabular-nums">{group.points} m</span>
+                      {canModerate && (
+                        <Button
+                          variant="plain"
+                          size="sm"
+                          aria-label={`${group.hidden ? 'Unhide' : 'Hide'} ${group.answer}`}
+                          onClick={() => {
+                            moderation.reset();
+                            setTarget({ prompt, group });
+                          }}
+                        >
+                          {group.hidden ? 'Unhide' : 'Hide'}
+                        </Button>
+                      )}
                     </div>
-                    <span className="shrink-0 text-subhead tabular-nums">{group.points} m</span>
-                    {staff && (
-                      <Button
-                        variant="plain"
-                        size="sm"
-                        aria-label={`${group.hidden ? 'Unhide' : 'Hide'} ${group.answer}`}
-                        onClick={() => {
-                          moderation.reset();
-                          setTarget({ prompt, group });
-                        }}
-                      >
-                        {group.hidden ? 'Unhide' : 'Hide'}
-                      </Button>
-                    )}
-                  </div>
-                ))
-              ) : (
-                <p className="px-4 pb-2 text-subhead text-muted">No Answers</p>
-              )}
-            </div>
-          </details>
-        ))}
+                  ))}
+                </div>
+              </details>
+            ),
+          )
+        )}
       </section>
       <GameDayBoard gameId="dive" date={day.date} />
       <ConfirmSheet

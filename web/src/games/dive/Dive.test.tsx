@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { DiveDay } from '../../../../shared/types';
 import { api } from '../../lib/api';
 import Dive from './Dive';
+import { ToastProvider } from '../../components/ui';
 const { identity } = vi.hoisted(() => ({ identity: { id: 'staff', role: 'coach' } }));
 vi.mock('../../lib/api', () => ({ api: vi.fn() }));
 vi.mock('../../lib/queries', () => ({
@@ -52,18 +53,20 @@ const day: DiveDay = {
     },
   ],
 };
-function mount() {
+function mount(data = day) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   clients.push(client);
-  vi.mocked(api).mockResolvedValue(day);
+  vi.mocked(api).mockResolvedValue(data);
   render(
     <QueryClientProvider client={client}>
-      <Dive />
+      <ToastProvider>
+        <Dive />
+      </ToastProvider>
     </QueryClientProvider>,
   );
 }
-it('uses the staff day endpoint to show moderation without requiring staff to play', async () => {
-  identity.role = 'coach';
+it('uses the admin day endpoint to show moderation without requiring admin to play', async () => {
+  identity.role = 'admin';
   mount();
   expect(await screen.findByRole('button', { name: 'Hide Apple' })).toBeTruthy();
   expect(api).toHaveBeenCalledWith('GET /api/games/dive/days/:date', {
@@ -71,13 +74,25 @@ it('uses the staff day endpoint to show moderation without requiring staff to pl
     signal: expect.any(AbortSignal),
   });
 });
-it('keeps rowers on the completion-gated today endpoint', async () => {
-  identity.role = 'rower';
-  mount();
-  await waitFor(() =>
-    expect(api).toHaveBeenCalledWith('GET /api/games/dive/today', {
-      signal: expect.any(AbortSignal),
-    }),
-  );
-  expect(screen.queryByRole('button', { name: 'Hide Apple' })).toBeNull();
-});
+it.each(['rower', 'coxswain', 'coach'])(
+  'keeps %s on the completion-gated today endpoint',
+  async (role) => {
+    identity.role = role;
+    mount();
+    await waitFor(() =>
+      expect(api).toHaveBeenCalledWith('GET /api/games/dive/today', {
+        signal: expect.any(AbortSignal),
+      }),
+    );
+    expect(screen.queryByRole('button', { name: 'Hide Apple' })).toBeNull();
+  },
+);
+
+it.each(['coxswain', 'coach'])(
+  'allows %s moderation only in the completed reveal',
+  async (role) => {
+    identity.role = role;
+    mount({ ...day, complete: true });
+    expect(await screen.findByRole('button', { name: 'Hide Apple' })).toBeTruthy();
+  },
+);

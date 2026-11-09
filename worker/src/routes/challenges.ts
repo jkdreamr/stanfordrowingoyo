@@ -1,5 +1,6 @@
 import type { TeamChallenge, TeamChallengeInput } from '../../../shared/types';
 import { addDays, today } from '../../../shared/dates';
+import { floorPercent } from '../../../shared/math';
 import type { Context } from '../context';
 import { refreshUser, requireStaff, requireUser } from '../auth/guards';
 import { audit } from '../db/audit';
@@ -42,7 +43,7 @@ function present(ctx: Context, row: Row): TeamChallenge {
     ...row,
     status: status(row, day),
     progress_m,
-    percent: Math.round((progress_m / row.goal_m) * 1000) / 10,
+    percent: floorPercent((progress_m * 100) / row.goal_m, 1),
   };
   memo.set(row.id, { key, value });
   return value;
