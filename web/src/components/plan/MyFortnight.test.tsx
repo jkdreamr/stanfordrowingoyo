@@ -53,6 +53,7 @@ async function setup(
     failWrite?: boolean;
     seed?: 'current' | 'next' | 'previous';
     planned?: number;
+    teamFail?: boolean;
   } = {},
 ) {
   const mock = createMockApi({ now: () => new Date('2026-11-02T18:00:00Z') });
@@ -91,6 +92,7 @@ async function setup(
   vi.stubGlobal(
     'fetch',
     vi.fn(async (url: URL, init: RequestInit) => {
+      if (options.teamFail && url.pathname === '/api/plan') throw new TypeError('fetch');
       if (options.failWrite && init?.method === 'PUT') {
         await new Promise<void>((resolve) => {
           release = resolve;
@@ -403,7 +405,9 @@ it('links to both fortnights from Home without a current plan', async () => {
   const { client } = await setup({ home: true });
   await waitFor(() => expect(client.getQueryData(qk.myPlan())).toBeNull());
   expect(screen.getByRole('heading', { name: "Today's Plan" })).toBeTruthy();
-  expect(screen.getByRole('link', { name: 'Sample Fortnight' }).getAttribute('href')).toBe('/plan');
+  expect(screen.getByRole('link', { name: 'Example Fortnight' }).getAttribute('href')).toBe(
+    '/plan?tab=example',
+  );
   fireEvent.click(screen.getByRole('link', { name: 'My Fortnight' }));
   expect(await screen.findByRole('button', { name: 'Start Plan' })).toBeTruthy();
 });
@@ -479,4 +483,41 @@ it('shows Nothing Planned or Rest Day with the My Fortnight link', async () => {
   });
   await client.invalidateQueries({ queryKey: qk.myPlans() });
   await screen.findByText('Rest Day');
+});
+
+it('shows the actual two dated team weeks as read-only rows without counting them toward personal meters', async () => {
+  const { call } = await setup({ seed: 'next' });
+  const team = await screen.findByLabelText('Team schedule Monday AM Week 1');
+  expect(team.textContent).toContain("15' Mobility/Activation");
+  expect(within(team).queryByRole('button')).toBeNull();
+  expect(screen.getByLabelText('Team schedule Wednesday AM Week 1').textContent).toContain(
+    'Athlete Driven OYO or OFF',
+  );
+  expect(screen.getByLabelText('Team schedule Sunday PM1 Week 1').textContent).toContain('OFF');
+  const week1 = screen.getByRole('region', { name: 'Week 1' });
+  const week2 = screen.getByRole('region', { name: 'Week 2' });
+  await within(week2).findByText('Team schedule coming soon');
+  expect(within(week1).queryByText('Team schedule coming soon')).toBeNull();
+  expect(within(week2).getAllByText('Team schedule coming soon')).toHaveLength(1);
+  expect(within(week1).getByText('0 / 12,000 m')).toBeTruthy();
+  const plan = await (await call('/api/me/plan?date=2026-11-09')).json();
+  expect(plan.sessions).toHaveLength(1);
+  expect(plan.planned_m).toEqual([12000, 0]);
+  expect(plan.sessions[0].note).toBe('Steady Row');
+});
+it('maps team rows to the second week when the personal window starts Nov 2', async () => {
+  await setup({ seed: 'current' });
+  await screen.findByLabelText('Team schedule Monday AM Week 2');
+  expect(screen.queryByLabelText('Team schedule Monday AM Week 1')).toBeNull();
+  await within(screen.getByRole('region', { name: 'Week 1' })).findByText(
+    'Team schedule coming soon',
+  );
+});
+it('does not block personal editing when dated team schedules fail', async () => {
+  await setup({ seed: 'next', teamFail: true });
+  await screen.findByRole('button', { name: 'Edit AM Monday Week 1' });
+  await screen.findAllByText('Could not load team schedule.', { exact: false });
+  expect(screen.getAllByRole('button', { name: 'Try Again' })).toHaveLength(2);
+  fireEvent.click(screen.getByRole('button', { name: 'Edit AM Monday Week 1' }));
+  await screen.findByRole('dialog', { name: 'Edit Session' });
 });

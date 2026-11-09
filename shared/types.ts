@@ -259,8 +259,6 @@ export interface Preset {
 }
 export type PresetInput = Omit<Preset, 'id'>;
 export interface PlanSlot {
-  group_key: GroupKey;
-  week: 1 | 2;
   day: number;
   slot: 'AM' | 'PM1' | 'PM2';
   kind: 'team' | 'oyo' | 'off';
@@ -268,13 +266,29 @@ export interface PlanSlot {
   text: string;
 }
 export interface PlanTotal {
-  group_key: GroupKey;
-  week: 1 | 2;
   label: string;
 }
 export interface Plan {
+  week_start: string;
   slots: PlanSlot[];
   totals: PlanTotal[];
+}
+export interface TeamPlan {
+  week_start: string;
+  slots: PlanSlot[];
+  total: string | null;
+}
+export interface ExamplePlanSlot extends PlanSlot {
+  group_key: GroupKey;
+  week: 1 | 2;
+}
+export interface ExamplePlanTotal extends PlanTotal {
+  group_key: GroupKey;
+  week: 1 | 2;
+}
+export interface ExamplePlan {
+  slots: ExamplePlanSlot[];
+  totals: ExamplePlanTotal[];
 }
 export interface MyPlanSessionInput {
   week: 1 | 2;
@@ -591,7 +605,7 @@ export type GameScoreDirection = 'higher' | 'lower';
 export interface GameAccess {
   date: string;
   unlocked: boolean;
-  reason: 'staff' | 'workout' | 'rest_day' | 'locked';
+  reason: 'staff' | 'workout' | 'rest_day' | 'no_oyo' | 'locked';
 }
 export interface PerceptionDay {
   date: string;
@@ -841,7 +855,8 @@ export interface Api {
   'DELETE /api/announcements/:id': Endpoint<void, void>;
   'GET /api/notifications': Endpoint<void, Notification[]>;
   'POST /api/notifications/read': Endpoint<{ ids: string[] }, void>;
-  'GET /api/plan': Endpoint<void, Plan, { group?: GroupKey }>;
+  'GET /api/plan': Endpoint<void, TeamPlan, { week?: string }>;
+  'GET /api/plan/example': Endpoint<void, ExamplePlan, { group?: GroupKey }>;
   'GET /api/me/plan': Endpoint<void, MyPlan | null, { date?: string }>;
   'PUT /api/me/plan': Endpoint<MyPlanInput, MyPlan>;
   'DELETE /api/me/plan/:start': Endpoint<void, void>;
@@ -869,10 +884,8 @@ export interface Api {
   'POST /api/admin/presets': Endpoint<PresetInput, Preset>;
   'PATCH /api/admin/presets/:id': Endpoint<Partial<PresetInput>, Preset>;
   'DELETE /api/admin/presets/:id': Endpoint<void, void>;
-  'GET /api/admin/plan': Endpoint<void, Plan>;
-  'PUT /api/admin/plan': Endpoint<Plan, Plan>;
-  'POST /api/admin/plan': Endpoint<PlanSlot, PlanSlot>;
-  'DELETE /api/admin/plan/:group/:week/:day/:slot': Endpoint<void, void>;
+  'GET /api/admin/plan': Endpoint<void, Plan, { week?: string }>;
+  'PUT /api/admin/plan': Endpoint<Plan, Plan, { week?: string }>;
   'POST /api/admin/recalculate': Endpoint<void, { updated: number }>;
   'GET /api/admin/compliance': Endpoint<void, ComplianceRow[], { week?: string }>;
   'GET /api/admin/export': Endpoint<void, string, { start: string; end: string }>;

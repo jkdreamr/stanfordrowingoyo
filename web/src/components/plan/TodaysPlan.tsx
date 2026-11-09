@@ -23,7 +23,7 @@ export function TodaysPlan({ today }: { today: string }) {
           </div>
         )}
         <ListGroup>
-          <ListRow title="Sample Fortnight" to="/plan" />
+          <ListRow title="Example Fortnight" to="/plan?tab=example" />
           <ListRow title="My Fortnight" to="/plan?tab=mine" />
         </ListGroup>
       </Card>

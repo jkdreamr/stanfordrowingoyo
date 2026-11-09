@@ -372,7 +372,7 @@ it('handles over 100 players and registry ids with JSON lists, not expanding SQL
     expect(gameRoutes(registry).week(ctx).status).toBe(200);
   });
 });
-it('migrates v18 idempotently and exports/deletes personal game data', async () => {
+it('migrates v19 idempotently and exports/deletes personal game data', async () => {
   await sql((s) => {
     s.sql.exec("UPDATE settings SET value_json='15' WHERE key='schema_version'");
     migrate(s, 'team-code');
@@ -381,7 +381,7 @@ it('migrates v18 idempotently and exports/deletes personal game data', async () 
       s.sql
         .exec<{ value_json: string }>("SELECT value_json FROM settings WHERE key='schema_version'")
         .one().value_json,
-    ).toBe('18');
+    ).toBe('19');
     s.sql.exec(
       'INSERT INTO game_progress VALUES (?,?,?,?,?)',
       'u0',

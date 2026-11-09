@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CalendarDays } from 'lucide-react';
+import { weekStart } from '../../../shared/dates';
 import { equivalentMeters, ZONES } from '../../../shared/math';
 import type { Config, GroupKey, Modality, User } from '../../../shared/types';
-import { useConfig, useMe, usePlan } from '../lib/queries';
+import { useConfig, useMe, usePlan, useExamplePlan } from '../lib/queries';
 import { formatEMeters, formatMeters, formatSplit, parseSplit } from '../lib/format';
 import {
   Button,
@@ -19,7 +20,8 @@ import {
 import { LoadState } from '../components/shell/LoadState';
 import { PlanWeek } from '../components/plan/PlanWeek';
 import { MyFortnight } from '../components/plan/MyFortnight';
-import { scheduleWeeks } from '../components/plan/schedule';
+import { scheduleWeek, scheduleWeeks } from '../components/plan/schedule';
+import { WeekStepper } from '../components/plan/WeekStepper';
 import { formulaFactor, targetDistance, zonePace } from './plan/calculator';
 const GROUPS = [
   { value: 'frosh', label: 'Frosh' },
@@ -37,6 +39,7 @@ const NAMES = {
   guidance: 'Guide',
   menu: 'Workouts',
   calculator: 'Calculator',
+  example: 'Example Fortnight',
 };
 type TabKey = keyof typeof NAMES;
 export default function Plan() {
@@ -86,13 +89,15 @@ export default function Plan() {
                 }}
               />
             ) : value === 'schedule' ? (
-              <Schedule initialGroup={me.data.group_key} />
+              <Schedule today={config.data.today} />
             ) : value === 'mine' ? (
               <MyFortnight config={config.data} group={me.data.group_key} />
             ) : value === 'guidance' ? (
               <Guidance config={config.data} group={me.data.group_key} />
             ) : value === 'menu' ? (
               <WorkoutMenu config={config.data} />
+            ) : value === 'example' ? (
+              <ExampleFortnight initialGroup={me.data.group_key} />
             ) : (
               <Calculator config={config.data} user={me.data} />
             ),
@@ -110,12 +115,32 @@ function NoItems({ title }: { title: string }) {
     />
   );
 }
-function Schedule({ initialGroup }: { initialGroup: GroupKey }) {
-  const [group, setGroup] = useState(initialGroup);
-  const plan = usePlan({ group });
+function Schedule({ today }: { today: string }) {
+  const [week, setWeek] = useState(() => weekStart(today));
+  const plan = usePlan({ week });
   return (
     <div className="screen-stack">
-      <h2 className="text-title3">Sample Fortnight</h2>
+      <WeekStepper week={week} today={today} onChange={setWeek} />
+      {!plan.data ? (
+        <LoadState error={plan.isError} retry={() => void plan.refetch()} />
+      ) : !plan.data.slots.length ? (
+        <EmptyState
+          icon={<CalendarDays size={20} strokeWidth={1.75} />}
+          title="Coming Soon"
+          body="This week's schedule hasn't been posted yet."
+        />
+      ) : (
+        <PlanWeek week={scheduleWeek(plan.data)} today={today} showHeading={false} />
+      )}
+    </div>
+  );
+}
+function ExampleFortnight({ initialGroup }: { initialGroup: GroupKey }) {
+  const [group, setGroup] = useState(initialGroup);
+  const plan = useExamplePlan({ group });
+  return (
+    <div className="screen-stack">
+      <h2 className="text-title3">Example Fortnight</h2>
       <SegmentedControl label="Group" value={group} onChange={setGroup} options={GROUPS} />
       {!plan.data ? (
         <LoadState error={plan.isError} retry={() => void plan.refetch()} />

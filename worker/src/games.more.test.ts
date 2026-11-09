@@ -369,7 +369,7 @@ it.each(PERCEPTION_POOL)('enforces v2 timing and abandonment for %s', async (id)
 });
 
 it('gates v2 Perception writes without leaking any stimulus', async () => {
-  const date = v2Date(0);
+  const date = v2Date(7);
   await sql((s) => s.sql.exec("UPDATE sessions SET expires_at='2030-01-01T00:00:00Z'"));
   for (const action of ['start', 'answer'])
     expect(

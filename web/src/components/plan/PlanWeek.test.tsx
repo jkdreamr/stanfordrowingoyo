@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 import { afterEach, expect, it } from 'vitest';
 import { cleanup, render, screen, within } from '@testing-library/react';
-import type { Plan } from '../../../../shared/types';
+import type { ExamplePlan } from '../../../../shared/types';
 import { PlanWeek } from './PlanWeek';
-import { scheduleWeeks } from './schedule';
+import { scheduleWeek, scheduleWeeks } from './schedule';
 
 afterEach(cleanup);
-const plan: Plan = {
+const plan: ExamplePlan = {
   slots: [
     {
       group_key: 'normal',
@@ -51,4 +51,22 @@ it('renders missing and explicitly off days without session cards or a missing t
   expect(screen.getAllByText('Off')).toHaveLength(14);
   expect(screen.queryByText('12 km Steady State')).toBeNull();
   expect(screen.queryByText('80 km + Strength')).toBeNull();
+});
+
+it('renders dated null-zone OYO and multiline seed text, with today highlighted and AM/PM labels', () => {
+  const week = scheduleWeek({
+    week_start: '2026-11-09',
+    slots: [{ day: 0, slot: 'PM1', kind: 'oyo', zone: null, text: 'First line\nSecond line' }],
+    total: null,
+  });
+  const { container } = render(<PlanWeek week={week} today="2026-11-09" />);
+  expect(screen.getByRole('heading', { name: 'Week of Nov 9' })).toBeTruthy();
+  expect(screen.getByRole('heading', { name: 'Monday' }).getAttribute('aria-current')).toBe('date');
+  const paragraphs = Array.from(container.querySelectorAll('p')).filter(
+    (node) => node.textContent === 'First line\nSecond line',
+  );
+  expect(paragraphs).toHaveLength(2);
+  expect(paragraphs.every((node) => node.classList.contains('whitespace-pre-line'))).toBe(true);
+  expect(screen.queryByText('PM1')).toBeNull();
+  expect(screen.getAllByText('PM').length).toBeGreaterThan(0);
 });

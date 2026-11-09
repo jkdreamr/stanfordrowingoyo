@@ -9,7 +9,14 @@ import type {
   MyPlanInput,
   MyPlanSessionInput,
 } from '../../../../shared/types';
-import { useMyPlan, usePlan, usePutMyPlan, useDeleteMyPlan, useTarget } from '../../lib/queries';
+import {
+  useMyPlan,
+  usePlan,
+  useExamplePlan,
+  usePutMyPlan,
+  useDeleteMyPlan,
+  useTarget,
+} from '../../lib/queries';
 import { planDate, plannedTotals, repeatStart, sampleFortnight } from '../../lib/myPlan';
 import { formatMeters, formatNumber } from '../../lib/format';
 import {
@@ -29,7 +36,8 @@ import {
 } from '../ui';
 import { LoadState } from '../shell/LoadState';
 import { ModalityIcon } from '../shell/ModalityIcon';
-import { DAYS, SLOTS, slotDisplayText } from './schedule';
+import { DAYS, SLOTS, slotLabel } from './schedule';
+import { SlotItem } from './PlanWeek';
 
 type Day = { week: 1 | 2; day: number };
 type Editor = Day & { session?: MyPlanSessionInput };
@@ -43,7 +51,7 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
     addDays(config.today, -14),
     current.data === null && upcoming.data === null,
   );
-  const sample = usePlan({ group });
+  const sample = useExamplePlan({ group });
   const target = useTarget();
   const put = usePutMyPlan();
   const remove = useDeleteMyPlan();
@@ -56,6 +64,9 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
   const [setup, setSetup] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const plan = current.data ?? upcoming.data;
+  const firstTeamWeek = usePlan({ week: plan?.start_date }, !!plan);
+  const secondTeamWeek = usePlan({ week: plan ? addDays(plan.start_date, 7) : undefined }, !!plan);
+  const teamWeeks = [firstTeamWeek, secondTeamWeek];
   const busy = put.isPending || remove.isPending;
   const failed =
     current.isError ||
@@ -157,15 +168,31 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
                   value={totals[week - 1] > 0 ? plan.logged_m[week - 1] : 0}
                   max={Math.max(1, totals[week - 1])}
                 />
+                {teamWeeks[week - 1].isError ? (
+                  <p className="mt-3 text-footnote text-muted">
+                    Could not load team schedule.{' '}
+                    <Button variant="plain" onClick={() => void teamWeeks[week - 1].refetch()}>
+                      Try Again
+                    </Button>
+                  </p>
+                ) : !teamWeeks[week - 1].data ? (
+                  <p className="mt-3 text-footnote text-muted">Loading team schedule…</p>
+                ) : (
+                  !teamWeeks[week - 1].data!.slots.length && (
+                    <p className="mt-3 text-footnote text-muted">Team schedule coming soon</p>
+                  )
+                )}
                 <div className="mt-4 grid gap-4 lg:grid-cols-7">
                   {DAYS.map((name, day) => {
                     const sessions = plan.sessions.filter(
                       (row) => row.week === week && row.day === day,
                     );
                     const rest = plan.rest_days.some((row) => row.week === week && row.day === day);
-                    const team = sample.data!.slots.filter(
-                      (row) => row.week === week && row.day === day && row.kind === 'team',
-                    );
+                    const dated = teamWeeks[week - 1].data;
+                    const team = (dated?.slots ?? [])
+                      .filter((row) => row.day === day)
+                      .sort((a, b) => SLOTS.indexOf(a.slot) - SLOTS.indexOf(b.slot));
+                    const hasPM2 = dated?.slots.some((row) => row.slot === 'PM2') ?? false;
                     return (
                       <section key={day} aria-label={`${name} Week ${week}`} className="min-w-0">
                         <div className="flex min-h-11 items-center justify-between gap-2">
@@ -182,13 +209,9 @@ export function MyFortnight({ config, group }: { config: Config; group: GroupKey
                           {team.map((row) => (
                             <div
                               key={row.slot}
-                              className="rounded-control border border-divider bg-surface p-3"
+                              aria-label={`Team schedule ${name} ${row.slot} Week ${week}`}
                             >
-                              <div className="mb-2 flex gap-2 text-caption text-muted">
-                                <span>Team</span>
-                                <span>{row.slot}</span>
-                              </div>
-                              <p className="break-words text-footnote">{slotDisplayText(row)}</p>
+                              <SlotItem item={row} label={slotLabel(row.slot, hasPM2)} secondary />
                             </div>
                           ))}
                           {rest ? (

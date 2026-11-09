@@ -1,4 +1,11 @@
-import type { Modality, PlanSlot, PlanTotal, Preset, Zone, RosterInput } from './types';
+import type {
+  Modality,
+  ExamplePlanSlot,
+  ExamplePlanTotal,
+  Preset,
+  Zone,
+  RosterInput,
+} from './types';
 const rowerNames = [
   'Marcus Albrecht',
   'Matteo Amodio',
@@ -207,8 +214,8 @@ export const PRESETS: Preset[] = rows
     })),
   )
   .map((p, i) => ({ ...p, id: 'preset-' + (i + 1), sort: i }));
-export const PLAN_SLOTS: PlanSlot[] = [];
-export const PLAN_TOTALS: PlanTotal[] = [];
+export const PLAN_SLOTS: ExamplePlanSlot[] = [];
+export const PLAN_TOTALS: ExamplePlanTotal[] = [];
 export const FORTNIGHT_GUIDANCE = [
   { session: 'D Erg Session', splits: 'D 6k +10 ± 2.5', frequency: '1x', load: '20k+' },
   { session: 'Running', splits: 'D', frequency: '2x', load: '7.5k+' },

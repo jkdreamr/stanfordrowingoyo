@@ -42,7 +42,9 @@ export function GamesCard() {
         }
         subtitle={
           access?.unlocked
-            ? `Play Today's Games${streak > 0 ? ` · ${streak} Day Streak` : ''}`
+            ? access.reason === 'no_oyo'
+              ? "No OYO on today's team schedule."
+              : `Play Today's Games${streak > 0 ? ` · ${streak} Day Streak` : ''}`
             : streak > 0
               ? `${streak} Day Streak`
               : undefined

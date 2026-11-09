@@ -33,6 +33,9 @@ export default function Games() {
               </p>
             )}
             {!games.data.access.unlocked && <GameLocked />}
+            {games.data.access.reason === 'no_oyo' && (
+              <p className="text-subhead text-muted">No OYO on today's team schedule.</p>
+            )}
             <ListGroup>
               {GAMES.filter((game) => games.data.games.some((info) => info.id === game.id)).map(
                 (game) => {

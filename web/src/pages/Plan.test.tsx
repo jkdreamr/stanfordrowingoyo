@@ -21,7 +21,7 @@ function setup(path: string, fail = false) {
       disconnect() {}
     },
   );
-  const mock = createMockApi();
+  const mock = createMockApi({ now: () => new Date('2026-11-09T18:00:00Z') });
   vi.stubGlobal(
     'fetch',
     vi.fn((url: URL, init: RequestInit) =>
@@ -49,7 +49,7 @@ it('opens a deep-linked calculator and replaces the tab query on selection', asy
   ).toBeTruthy();
   expect(screen.getByRole('heading', { level: 3, name: 'Pace' })).toBeTruthy();
   expect(screen.getByRole('heading', { level: 3, name: 'Distance' })).toBeTruthy();
-  expect(screen.getAllByRole('tab')).toHaveLength(5);
+  expect(screen.getAllByRole('tab')).toHaveLength(6);
   fireEvent.change(screen.getByLabelText('Best 6k Split'), { target: { value: 'invalid' } });
   expect(screen.getByText('Enter a split like 1:45.0')).toBeTruthy();
   fireEvent.click(screen.getByRole('tab', { name: 'Guide' }));
@@ -58,16 +58,18 @@ it('opens a deep-linked calculator and replaces the tab query on selection', asy
   expect(router.state.location.search).toBe('?tab=guidance');
   expect(router.state.historyAction).toBe('REPLACE');
 });
-it('normalizes unknown tabs and loads the group schedule', async () => {
+it('normalizes unknown tabs and navigates the dated team schedule without a group selector', async () => {
   const router = setup('/plan?tab=unknown');
-  await screen.findByRole('radiogroup', { name: 'Group' });
-  await screen.findByRole('heading', { level: 3, name: 'Week 1' });
-  expect(screen.getByRole('heading', { level: 2, name: 'Sample Fortnight' })).toBeTruthy();
-  expect(screen.getByRole('heading', { level: 3, name: 'Week 2' })).toBeTruthy();
+  await screen.findByRole('heading', { level: 2, name: 'Week of Nov 9' });
+  await screen.findAllByText(/6:55 @ BH/);
+  expect(screen.queryByRole('radiogroup', { name: 'Group' })).toBeNull();
   expect(router.state.location.search).toBe('?tab=schedule');
-  expect(screen.getByRole('radio', { name: 'Normal' }).getAttribute('aria-checked')).toBe('true');
-  fireEvent.click(screen.getByRole('radio', { name: 'Frosh' }));
-  await screen.findByText('40k Equivalent + Monday PM');
+  fireEvent.click(screen.getByRole('button', { name: 'Next Week' }));
+  await screen.findByRole('heading', { name: 'Week of Nov 16' });
+  await screen.findByRole('heading', { name: 'Coming Soon' });
+  expect(screen.getByText("This week's schedule hasn't been posted yet.")).toBeTruthy();
+  fireEvent.click(screen.getByRole('button', { name: 'This Week' }));
+  await screen.findByRole('heading', { name: 'Week of Nov 9' });
 });
 it('shows a retry action when initial data fails', async () => {
   setup('/plan', true);
@@ -76,11 +78,20 @@ it('shows a retry action when initial data fails', async () => {
 });
 it('keeps a missing tab parameter absent', async () => {
   const router = setup('/plan');
-  await screen.findByRole('heading', { name: 'Week 1' });
+  await screen.findByRole('heading', { name: 'Week of Nov 9' });
   expect(router.state.location.search).toBe('');
 });
 it('uses the full workout panel name with the short tab label', async () => {
   setup('/plan?tab=menu');
   await screen.findByRole('heading', { level: 2, name: 'Workout Menu' });
   expect(screen.getByRole('tab', { name: 'Workouts' })).toBeTruthy();
+});
+
+it('keeps the read-only group example as the last deep-linked tab', async () => {
+  setup('/plan?tab=example');
+  await screen.findByRole('heading', { name: 'Week 1' });
+  expect(screen.getAllByRole('tab').at(-1)?.textContent).toBe('Example Fortnight');
+  expect(screen.getByRole('heading', { name: 'Week 2' })).toBeTruthy();
+  fireEvent.click(screen.getByRole('radio', { name: 'Frosh' }));
+  await screen.findByText('40k Equivalent + Monday PM');
 });

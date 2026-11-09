@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures';
 
-test('Plan shows the fortnight schedule and equivalent distance calculator', async ({
+test('Plan shows the dated team schedule and equivalent distance calculator', async ({
   adminPage,
 }) => {
   await adminPage.goto('/plan');
@@ -10,10 +10,9 @@ test('Plan shows the fortnight schedule and equivalent distance calculator', asy
   );
   for (const tab of await tabs.getByRole('tab').all())
     expect(await tab.evaluate((el) => getComputedStyle(el).whiteSpace)).toBe('nowrap');
-  await expect(
-    adminPage.getByRole('heading', { level: 2, name: 'Sample Fortnight' }),
-  ).toBeVisible();
-  await expect(adminPage.getByRole('heading', { name: 'Week 1', exact: true })).toBeVisible();
+  await expect(adminPage.getByRole('heading', { level: 2, name: /^Week of / })).toBeVisible();
+  await expect(adminPage.getByRole('tab')).toHaveCount(6);
+  await expect(adminPage.getByRole('radiogroup', { name: 'Group' })).toHaveCount(0);
   await adminPage.getByRole('tab', { name: 'Calculator', exact: true }).click();
   await expect(
     adminPage.getByRole('heading', { level: 2, name: 'Pace & Distance Calculator' }),

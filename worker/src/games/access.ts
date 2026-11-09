@@ -1,6 +1,6 @@
 import type { GameAccess } from '../../../shared/types';
 import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
-import { addDays } from '../../../shared/dates';
+import { addDays, weekStart } from '../../../shared/dates';
 import type { UserRow } from '../db/users';
 import type { Context } from '../context';
 import { HttpError } from '../http';
@@ -35,6 +35,18 @@ export function oyoGameAccess(
       )
     )
       reason = 'rest_day';
+    else {
+      const start = weekStart(date);
+      const day = (new Date(date + 'T12:00:00Z').getUTCDay() + 6) % 7;
+      const rows = storage.sql
+        .exec<{ day: number; kind: string }>(
+          'SELECT day,kind FROM team_plan_slots WHERE week_start=?',
+          start,
+        )
+        .toArray();
+      if (rows.length && !rows.some((row) => row.day === day && row.kind === 'oyo'))
+        reason = 'no_oyo';
+    }
   }
   return { date, unlocked: reason !== 'locked', reason };
 }

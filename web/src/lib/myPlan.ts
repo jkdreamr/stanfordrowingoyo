@@ -7,7 +7,7 @@ import type {
   MyPlan,
   MyPlanInput,
   MyPlanSessionInput,
-  Plan,
+  ExamplePlan,
   Zone,
 } from '../../../shared/types';
 import { slotDisplayText } from '../components/plan/schedule';
@@ -23,7 +23,7 @@ export function planDate(date: string) {
 export function inferModality(text: string): Modality {
   return /bike|cycl/i.test(text) ? 'bike' : /\brun|jog/i.test(text) ? 'run' : 'erg';
 }
-export function sampleFortnight(sample: Plan, start_date: string): MyPlanInput {
+export function sampleFortnight(sample: ExamplePlan, start_date: string): MyPlanInput {
   return {
     start_date,
     sessions: sample.slots
