@@ -6197,11 +6197,11 @@
         },
         {
           "name": "Brooklyn Nets",
-          "aliases": ["Nets"]
+          "aliases": ["BK Nets", "Nets"]
         },
         {
           "name": "Charlotte Hornets",
-          "aliases": ["Hornets"]
+          "aliases": ["Bobcats", "Charlotte Bobcats", "Hornets"]
         },
         {
           "name": "Chicago Bulls",
@@ -6209,11 +6209,11 @@
         },
         {
           "name": "Cleveland Cavaliers",
-          "aliases": ["Cavaliers"]
+          "aliases": ["Cavaliers", "Cavs"]
         },
         {
           "name": "Dallas Mavericks",
-          "aliases": ["Mavericks"]
+          "aliases": ["Mavericks", "Mavs"]
         },
         {
           "name": "Denver Nuggets",
@@ -6225,7 +6225,7 @@
         },
         {
           "name": "Golden State Warriors",
-          "aliases": ["Warriors"]
+          "aliases": ["Dubs", "Warriors"]
         },
         {
           "name": "Houston Rockets",
@@ -6237,11 +6237,11 @@
         },
         {
           "name": "Los Angeles Clippers",
-          "aliases": ["Clippers"]
+          "aliases": ["Clippers", "LA Clippers"]
         },
         {
           "name": "Los Angeles Lakers",
-          "aliases": ["Lakers"]
+          "aliases": ["LA Lakers", "Lakers"]
         },
         {
           "name": "Memphis Grizzlies",
@@ -6257,7 +6257,7 @@
         },
         {
           "name": "Minnesota Timberwolves",
-          "aliases": ["Timberwolves"]
+          "aliases": ["T-Wolves", "Timberwolves", "Wolves"]
         },
         {
           "name": "New Orleans Pelicans",
@@ -6265,11 +6265,11 @@
         },
         {
           "name": "New York Knicks",
-          "aliases": ["Knicks"]
+          "aliases": ["Knicks", "NY Knicks"]
         },
         {
           "name": "Oklahoma City Thunder",
-          "aliases": ["Thunder"]
+          "aliases": ["OKC", "OKC Thunder", "Thunder"]
         },
         {
           "name": "Orlando Magic",
@@ -6277,7 +6277,7 @@
         },
         {
           "name": "Philadelphia 76ers",
-          "aliases": ["76ers"]
+          "aliases": ["76ers", "Sixers"]
         },
         {
           "name": "Phoenix Suns",
@@ -6285,7 +6285,7 @@
         },
         {
           "name": "Portland Trail Blazers",
-          "aliases": ["Trail Blazers"]
+          "aliases": ["Blazers", "Trail Blazers"]
         },
         {
           "name": "Sacramento Kings",
@@ -6422,7 +6422,7 @@
         },
         {
           "name": "Jacksonville Jaguars",
-          "aliases": ["Jaguars"]
+          "aliases": ["Jags", "Jaguars"]
         },
         {
           "name": "Kansas City Chiefs",
@@ -6430,15 +6430,15 @@
         },
         {
           "name": "Las Vegas Raiders",
-          "aliases": ["Raiders"]
+          "aliases": ["Oakland Raiders", "Raiders"]
         },
         {
           "name": "Los Angeles Chargers",
-          "aliases": ["Chargers"]
+          "aliases": ["Chargers", "LA Chargers", "San Diego Chargers"]
         },
         {
           "name": "Los Angeles Rams",
-          "aliases": ["Rams"]
+          "aliases": ["LA Rams", "Rams", "St. Louis Rams"]
         },
         {
           "name": "Miami Dolphins",
@@ -6450,7 +6450,7 @@
         },
         {
           "name": "New England Patriots",
-          "aliases": ["Patriots"]
+          "aliases": ["Patriots", "Pats"]
         },
         {
           "name": "New Orleans Saints",
@@ -6458,15 +6458,15 @@
         },
         {
           "name": "New York Giants",
-          "aliases": ["Giants"]
+          "aliases": ["Giants", "NY Giants"]
         },
         {
           "name": "New York Jets",
-          "aliases": ["Jets"]
+          "aliases": ["Jets", "NY Jets"]
         },
         {
           "name": "Philadelphia Eagles",
-          "aliases": ["Eagles"]
+          "aliases": ["Eagles", "Philly Eagles"]
         },
         {
           "name": "Pittsburgh Steelers",
@@ -6474,7 +6474,7 @@
         },
         {
           "name": "San Francisco 49ers",
-          "aliases": ["49ers"]
+          "aliases": ["49ers", "Niners"]
         },
         {
           "name": "Seattle Seahawks",
@@ -6482,7 +6482,7 @@
         },
         {
           "name": "Tampa Bay Buccaneers",
-          "aliases": ["Buccaneers"]
+          "aliases": ["Buccaneers", "Bucs"]
         },
         {
           "name": "Tennessee Titans",
@@ -6490,7 +6490,7 @@
         },
         {
           "name": "Washington Commanders",
-          "aliases": ["Commanders"]
+          "aliases": ["Commanders", "Redskins", "Washington Football Team", "Washington Redskins"]
         }
       ],
       "surface": ["Dallas Cowboys", "New England Patriots", "Kansas City Chiefs"],
@@ -6549,10 +6549,11 @@
       "answers": [
         {
           "name": "Arizona Diamondbacks",
-          "aliases": ["Diamondbacks"]
+          "aliases": ["D-backs", "Dbacks", "Diamondbacks"]
         },
         {
-          "name": "Athletics"
+          "name": "Athletics",
+          "aliases": ["A's", "Oakland A's", "Oakland Athletics", "Sacramento Athletics"]
         },
         {
           "name": "Atlanta Braves",
@@ -6560,7 +6561,7 @@
         },
         {
           "name": "Baltimore Orioles",
-          "aliases": ["Orioles"]
+          "aliases": ["O's", "Orioles"]
         },
         {
           "name": "Boston Red Sox",
@@ -6572,7 +6573,7 @@
         },
         {
           "name": "Chicago White Sox",
-          "aliases": ["White Sox"]
+          "aliases": ["Chi Sox", "White Sox"]
         },
         {
           "name": "Cincinnati Reds",
@@ -6580,7 +6581,7 @@
         },
         {
           "name": "Cleveland Guardians",
-          "aliases": ["Guardians"]
+          "aliases": ["Cleveland Indians", "Guardians", "Indians"]
         },
         {
           "name": "Colorado Rockies",
@@ -6600,11 +6601,11 @@
         },
         {
           "name": "Los Angeles Angels",
-          "aliases": ["Angels"]
+          "aliases": ["Anaheim Angels", "Angels", "LA Angels"]
         },
         {
           "name": "Los Angeles Dodgers",
-          "aliases": ["Dodgers"]
+          "aliases": ["Dodgers", "LA Dodgers"]
         },
         {
           "name": "Miami Marlins",
@@ -6620,11 +6621,11 @@
         },
         {
           "name": "New York Mets",
-          "aliases": ["Mets"]
+          "aliases": ["Mets", "NY Mets"]
         },
         {
           "name": "New York Yankees",
-          "aliases": ["Yankees"]
+          "aliases": ["NY Yankees", "Yankees"]
         },
         {
           "name": "Philadelphia Phillies",
@@ -6648,11 +6649,11 @@
         },
         {
           "name": "St. Louis Cardinals",
-          "aliases": ["Cardinals"]
+          "aliases": ["Cardinals", "Cards"]
         },
         {
           "name": "Tampa Bay Rays",
-          "aliases": ["Rays"]
+          "aliases": ["Devil Rays", "Rays", "Tampa Bay Devil Rays"]
         },
         {
           "name": "Texas Rangers",
@@ -6660,11 +6661,11 @@
         },
         {
           "name": "Toronto Blue Jays",
-          "aliases": ["Blue Jays"]
+          "aliases": ["Blue Jays", "Jays"]
         },
         {
           "name": "Washington Nationals",
-          "aliases": ["Nationals"]
+          "aliases": ["Nationals", "Nats"]
         }
       ],
       "surface": ["New York Yankees", "Boston Red Sox", "Los Angeles Dodgers"],
@@ -6741,19 +6742,19 @@
         },
         {
           "name": "Carolina Hurricanes",
-          "aliases": ["Hurricanes"]
+          "aliases": ["Canes", "Hurricanes"]
         },
         {
           "name": "Chicago Blackhawks",
-          "aliases": ["Blackhawks"]
+          "aliases": ["Blackhawks", "Hawks"]
         },
         {
           "name": "Colorado Avalanche",
-          "aliases": ["Avalanche"]
+          "aliases": ["Avalanche", "Avs"]
         },
         {
           "name": "Columbus Blue Jackets",
-          "aliases": ["Blue Jackets"]
+          "aliases": ["Blue Jackets", "CBJ"]
         },
         {
           "name": "Dallas Stars",
@@ -6773,7 +6774,7 @@
         },
         {
           "name": "Los Angeles Kings",
-          "aliases": ["Kings"]
+          "aliases": ["Kings", "LA Kings"]
         },
         {
           "name": "Minnesota Wild",
@@ -6781,11 +6782,11 @@
         },
         {
           "name": "Montreal Canadiens",
-          "aliases": ["Canadiens"]
+          "aliases": ["Canadiens", "Habs"]
         },
         {
           "name": "Nashville Predators",
-          "aliases": ["Predators"]
+          "aliases": ["Predators", "Preds"]
         },
         {
           "name": "New Jersey Devils",
@@ -6801,7 +6802,7 @@
         },
         {
           "name": "Ottawa Senators",
-          "aliases": ["Senators"]
+          "aliases": ["Senators", "Sens"]
         },
         {
           "name": "Philadelphia Flyers",
@@ -6809,7 +6810,7 @@
         },
         {
           "name": "Pittsburgh Penguins",
-          "aliases": ["Penguins"]
+          "aliases": ["Penguins", "Pens"]
         },
         {
           "name": "San Jose Sharks",
@@ -6825,15 +6826,15 @@
         },
         {
           "name": "Tampa Bay Lightning",
-          "aliases": ["Lightning"]
+          "aliases": ["Bolts", "Lightning"]
         },
         {
           "name": "Toronto Maple Leafs",
-          "aliases": ["Maple Leafs"]
+          "aliases": ["Leafs", "Maple Leafs"]
         },
         {
           "name": "Utah Mammoth",
-          "aliases": ["Mammoth"]
+          "aliases": ["Mammoth", "Utah HC", "Utah Hockey Club"]
         },
         {
           "name": "Vancouver Canucks",
@@ -6841,11 +6842,11 @@
         },
         {
           "name": "Vegas Golden Knights",
-          "aliases": ["Golden Knights"]
+          "aliases": ["Golden Knights", "Knights"]
         },
         {
           "name": "Washington Capitals",
-          "aliases": ["Capitals"]
+          "aliases": ["Capitals", "Caps"]
         },
         {
           "name": "Winnipeg Jets",
@@ -6948,7 +6949,8 @@
           "name": "Dirk Nowitzki"
         },
         {
-          "name": "Giannis Antetokounmpo"
+          "name": "Giannis Antetokounmpo",
+          "aliases": ["Giannis"]
         },
         {
           "name": "Hakeem Olajuwon"
@@ -6960,17 +6962,19 @@
           "name": "Joel Embiid"
         },
         {
-          "name": "Julius Erving"
+          "name": "Julius Erving",
+          "aliases": ["Doctor J", "Dr. J"]
         },
         {
           "name": "Kareem Abdul-Jabbar",
-          "aliases": ["Lew Alcindor", "Kareem"]
+          "aliases": ["Kareem", "Lew Alcindor"]
         },
         {
           "name": "Karl Malone"
         },
         {
-          "name": "Kevin Durant"
+          "name": "Kevin Durant",
+          "aliases": ["KD"]
         },
         {
           "name": "Kevin Garnett"
@@ -6982,19 +6986,23 @@
           "name": "Larry Bird"
         },
         {
-          "name": "LeBron James"
+          "name": "LeBron James",
+          "aliases": ["LeBron"]
         },
         {
-          "name": "Magic Johnson"
+          "name": "Magic Johnson",
+          "aliases": ["Magic"]
         },
         {
-          "name": "Michael Jordan"
+          "name": "Michael Jordan",
+          "aliases": ["MJ"]
         },
         {
           "name": "Moses Malone"
         },
         {
-          "name": "Nikola Jokić"
+          "name": "Nikola Jokić",
+          "aliases": ["Joker"]
         },
         {
           "name": "Oscar Robertson"
@@ -7003,13 +7011,16 @@
           "name": "Russell Westbrook"
         },
         {
-          "name": "Shai Gilgeous-Alexander"
+          "name": "Shai Gilgeous-Alexander",
+          "aliases": ["SGA", "Shai"]
         },
         {
-          "name": "Shaquille O'Neal"
+          "name": "Shaquille O'Neal",
+          "aliases": ["Shaq", "Shaquille O Neal"]
         },
         {
-          "name": "Stephen Curry"
+          "name": "Stephen Curry",
+          "aliases": ["Steph", "Steph Curry"]
         },
         {
           "name": "Steve Nash"
@@ -7111,7 +7122,8 @@
           "name": "Fernando Alonso"
         },
         {
-          "name": "Giuseppe Farina"
+          "name": "Giuseppe Farina",
+          "aliases": ["Nino Farina"]
         },
         {
           "name": "Graham Hill"
@@ -7235,7 +7247,8 @@
           "name": "Affirmed"
         },
         {
-          "name": "American Pharoah"
+          "name": "American Pharoah",
+          "aliases": ["American Pharaoh", "Pharoah"]
         },
         {
           "name": "Assault"
@@ -7256,7 +7269,8 @@
           "name": "Omaha"
         },
         {
-          "name": "Seattle Slew"
+          "name": "Seattle Slew",
+          "aliases": ["Slew"]
         },
         {
           "name": "Secretariat"
@@ -7319,27 +7333,31 @@
       "expect": [24, 24],
       "answers": [
         {
-          "name": "Ajax"
+          "name": "Ajax",
+          "aliases": ["Ajax Amsterdam"]
         },
         {
           "name": "Aston Villa"
         },
         {
-          "name": "Barcelona"
+          "name": "Barcelona",
+          "aliases": ["Barca", "FC Barcelona"]
         },
         {
           "name": "Bayern Munich",
-          "aliases": ["Bayern"]
+          "aliases": ["Bayern", "Bayern München", "FC Bayern"]
         },
         {
-          "name": "Benfica"
+          "name": "Benfica",
+          "aliases": ["SL Benfica"]
         },
         {
           "name": "Borussia Dortmund",
           "aliases": ["Dortmund"]
         },
         {
-          "name": "Celtic"
+          "name": "Celtic",
+          "aliases": ["Celtic FC"]
         },
         {
           "name": "Chelsea"
@@ -7348,16 +7366,20 @@
           "name": "Feyenoord"
         },
         {
-          "name": "Hamburger SV"
+          "name": "Hamburger SV",
+          "aliases": ["Hamburg", "HSV"]
         },
         {
-          "name": "Inter Milan"
+          "name": "Inter Milan",
+          "aliases": ["Inter", "Internazionale"]
         },
         {
-          "name": "Juventus"
+          "name": "Juventus",
+          "aliases": ["Juve"]
         },
         {
-          "name": "Liverpool"
+          "name": "Liverpool",
+          "aliases": ["Liverpool FC"]
         },
         {
           "name": "Manchester City",
@@ -7365,30 +7387,35 @@
         },
         {
           "name": "Manchester United",
-          "aliases": ["Man U", "Man United"]
+          "aliases": ["Man U", "Man United", "Man Utd"]
         },
         {
-          "name": "Marseille"
+          "name": "Marseille",
+          "aliases": ["Olympique de Marseille", "OM"]
         },
         {
           "name": "Milan",
           "aliases": ["AC Milan"]
         },
         {
-          "name": "Nottingham Forest"
+          "name": "Nottingham Forest",
+          "aliases": ["Forest"]
         },
         {
-          "name": "PSV Eindhoven"
+          "name": "PSV Eindhoven",
+          "aliases": ["PSV"]
         },
         {
           "name": "Paris Saint-Germain",
-          "aliases": ["PSG"]
+          "aliases": ["Paris SG", "PSG"]
         },
         {
-          "name": "Porto"
+          "name": "Porto",
+          "aliases": ["FC Porto"]
         },
         {
-          "name": "Real Madrid"
+          "name": "Real Madrid",
+          "aliases": ["Madrid", "Real"]
         },
         {
           "name": "Red Star Belgrade",
@@ -7468,7 +7495,8 @@
       "expect": [45, 45],
       "answers": [
         {
-          "name": "Abraham Lincoln"
+          "name": "Abraham Lincoln",
+          "aliases": ["Abe Lincoln", "Honest Abe"]
         },
         {
           "name": "Andrew Jackson"
@@ -7477,61 +7505,73 @@
           "name": "Andrew Johnson"
         },
         {
-          "name": "Barack Obama"
+          "name": "Barack Obama",
+          "aliases": ["Barack Hussein Obama"]
         },
         {
           "name": "Benjamin Harrison"
         },
         {
-          "name": "Bill Clinton"
+          "name": "Bill Clinton",
+          "aliases": ["William Clinton"]
         },
         {
           "name": "Calvin Coolidge"
         },
         {
-          "name": "Chester A. Arthur"
+          "name": "Chester A. Arthur",
+          "aliases": ["Chester Arthur"]
         },
         {
-          "name": "Donald Trump"
+          "name": "Donald Trump",
+          "aliases": ["Donald J. Trump"]
         },
         {
-          "name": "Dwight D. Eisenhower"
+          "name": "Dwight D. Eisenhower",
+          "aliases": ["Dwight Eisenhower", "Ike"]
         },
         {
-          "name": "Franklin D. Roosevelt"
+          "name": "Franklin D. Roosevelt",
+          "aliases": ["FDR", "Franklin Delano Roosevelt", "Franklin Roosevelt"]
         },
         {
           "name": "Franklin Pierce"
         },
         {
-          "name": "George H. W. Bush"
+          "name": "George H. W. Bush",
+          "aliases": ["Bush 41", "George Bush Sr.", "George HW Bush"]
         },
         {
-          "name": "George W. Bush"
+          "name": "George W. Bush",
+          "aliases": ["Bush 43", "Dubya", "George Bush Jr."]
         },
         {
           "name": "George Washington"
         },
         {
-          "name": "Gerald Ford"
+          "name": "Gerald Ford",
+          "aliases": ["Gerald R. Ford"]
         },
         {
           "name": "Grover Cleveland"
         },
         {
-          "name": "Harry S. Truman"
+          "name": "Harry S. Truman",
+          "aliases": ["Harry Truman"]
         },
         {
           "name": "Herbert Hoover"
         },
         {
-          "name": "James A. Garfield"
+          "name": "James A. Garfield",
+          "aliases": ["James Garfield"]
         },
         {
           "name": "James Buchanan"
         },
         {
-          "name": "James K. Polk"
+          "name": "James K. Polk",
+          "aliases": ["James Polk"]
         },
         {
           "name": "James Madison"
@@ -7540,25 +7580,30 @@
           "name": "James Monroe"
         },
         {
-          "name": "Jimmy Carter"
+          "name": "Jimmy Carter",
+          "aliases": ["James Carter"]
         },
         {
-          "name": "Joe Biden"
+          "name": "Joe Biden",
+          "aliases": ["Joseph Biden"]
         },
         {
           "name": "John Adams"
         },
         {
-          "name": "John F. Kennedy"
+          "name": "John F. Kennedy",
+          "aliases": ["Jack Kennedy", "JFK", "John Kennedy"]
         },
         {
-          "name": "John Quincy Adams"
+          "name": "John Quincy Adams",
+          "aliases": ["John Q. Adams", "JQA"]
         },
         {
           "name": "John Tyler"
         },
         {
-          "name": "Lyndon B. Johnson"
+          "name": "Lyndon B. Johnson",
+          "aliases": ["LBJ", "Lyndon Johnson"]
         },
         {
           "name": "Martin Van Buren"
@@ -7567,25 +7612,31 @@
           "name": "Millard Fillmore"
         },
         {
-          "name": "Richard Nixon"
+          "name": "Richard Nixon",
+          "aliases": ["Dick Nixon"]
         },
         {
-          "name": "Ronald Reagan"
+          "name": "Ronald Reagan",
+          "aliases": ["Ron Reagan"]
         },
         {
-          "name": "Rutherford B. Hayes"
+          "name": "Rutherford B. Hayes",
+          "aliases": ["Rutherford Hayes"]
         },
         {
-          "name": "Theodore Roosevelt"
+          "name": "Theodore Roosevelt",
+          "aliases": ["Teddy", "Teddy Roosevelt", "TR"]
         },
         {
           "name": "Thomas Jefferson"
         },
         {
-          "name": "Ulysses S. Grant"
+          "name": "Ulysses S. Grant",
+          "aliases": ["Ulysses Grant"]
         },
         {
-          "name": "Warren G. Harding"
+          "name": "Warren G. Harding",
+          "aliases": ["Warren Harding"]
         },
         {
           "name": "William Henry Harrison"
@@ -7680,13 +7731,15 @@
           "name": "Aaron Burr"
         },
         {
-          "name": "Adlai Stevenson I"
+          "name": "Adlai Stevenson I",
+          "aliases": ["Adlai Stevenson"]
         },
         {
           "name": "Al Gore"
         },
         {
-          "name": "Alben W. Barkley"
+          "name": "Alben W. Barkley",
+          "aliases": ["Alben Barkley"]
         },
         {
           "name": "Andrew Johnson"
@@ -7698,19 +7751,23 @@
           "name": "Charles Curtis"
         },
         {
-          "name": "Charles G. Dawes"
+          "name": "Charles G. Dawes",
+          "aliases": ["Charles Dawes"]
         },
         {
-          "name": "Charles W. Fairbanks"
+          "name": "Charles W. Fairbanks",
+          "aliases": ["Charles Fairbanks"]
         },
         {
-          "name": "Chester A. Arthur"
+          "name": "Chester A. Arthur",
+          "aliases": ["Chester Arthur"]
         },
         {
           "name": "Dan Quayle"
         },
         {
-          "name": "Daniel D. Tompkins"
+          "name": "Daniel D. Tompkins",
+          "aliases": ["Daniel Tompkins"]
         },
         {
           "name": "Dick Cheney"
@@ -7719,16 +7776,19 @@
           "name": "Elbridge Gerry"
         },
         {
-          "name": "Garret Hobart"
+          "name": "Garret Hobart",
+          "aliases": ["Garret A. Hobart"]
         },
         {
           "name": "George Clinton"
         },
         {
-          "name": "George H. W. Bush"
+          "name": "George H. W. Bush",
+          "aliases": ["George HW Bush"]
         },
         {
-          "name": "George M. Dallas"
+          "name": "George M. Dallas",
+          "aliases": ["George Dallas"]
         },
         {
           "name": "Gerald Ford"
@@ -7737,22 +7797,27 @@
           "name": "Hannibal Hamlin"
         },
         {
-          "name": "Harry S. Truman"
+          "name": "Harry S. Truman",
+          "aliases": ["Harry Truman"]
         },
         {
-          "name": "Henry A. Wallace"
+          "name": "Henry A. Wallace",
+          "aliases": ["Henry Wallace"]
         },
         {
           "name": "Henry Wilson"
         },
         {
-          "name": "Hubert Humphrey"
+          "name": "Hubert Humphrey",
+          "aliases": ["Hubert H. Humphrey"]
         },
         {
-          "name": "JD Vance"
+          "name": "JD Vance",
+          "aliases": ["J. D. Vance", "James David Vance"]
         },
         {
-          "name": "James S. Sherman"
+          "name": "James S. Sherman",
+          "aliases": ["James Sherman"]
         },
         {
           "name": "Joe Biden"
@@ -7761,10 +7826,12 @@
           "name": "John Adams"
         },
         {
-          "name": "John C. Breckinridge"
+          "name": "John C. Breckinridge",
+          "aliases": ["John Breckinridge"]
         },
         {
-          "name": "John C. Calhoun"
+          "name": "John C. Calhoun",
+          "aliases": ["John Calhoun"]
         },
         {
           "name": "John Nance Garner"
@@ -7773,16 +7840,20 @@
           "name": "John Tyler"
         },
         {
-          "name": "Kamala Harris"
+          "name": "Kamala Harris",
+          "aliases": ["Kamala"]
         },
         {
-          "name": "Levi P. Morton"
+          "name": "Levi P. Morton",
+          "aliases": ["Levi Morton"]
         },
         {
-          "name": "Lyndon B. Johnson"
+          "name": "Lyndon B. Johnson",
+          "aliases": ["LBJ", "Lyndon Johnson"]
         },
         {
-          "name": "Martin Van Buren"
+          "name": "Martin Van Buren",
+          "aliases": ["Van Buren"]
         },
         {
           "name": "Mike Pence"
@@ -7791,10 +7862,12 @@
           "name": "Millard Fillmore"
         },
         {
-          "name": "Nelson Rockefeller"
+          "name": "Nelson Rockefeller",
+          "aliases": ["Nelson A. Rockefeller"]
         },
         {
-          "name": "Richard Mentor Johnson"
+          "name": "Richard Mentor Johnson",
+          "aliases": ["Richard Johnson", "Richard M. Johnson"]
         },
         {
           "name": "Richard Nixon"
@@ -7809,22 +7882,26 @@
           "name": "Theodore Roosevelt"
         },
         {
-          "name": "Thomas A. Hendricks"
+          "name": "Thomas A. Hendricks",
+          "aliases": ["Thomas Hendricks"]
         },
         {
           "name": "Thomas Jefferson"
         },
         {
-          "name": "Thomas R. Marshall"
+          "name": "Thomas R. Marshall",
+          "aliases": ["Thomas Marshall"]
         },
         {
           "name": "Walter Mondale"
         },
         {
-          "name": "William A. Wheeler"
+          "name": "William A. Wheeler",
+          "aliases": ["William Wheeler"]
         },
         {
-          "name": "William R. King"
+          "name": "William R. King",
+          "aliases": ["William King"]
         }
       ],
       "surface": ["Joe Biden", "Kamala Harris", "Al Gore"],
@@ -7911,7 +7988,8 @@
       "expect": [59, 59],
       "answers": [
         {
-          "name": "Alec Douglas-Home"
+          "name": "Alec Douglas-Home",
+          "aliases": ["Alec Home", "Lord Home"]
         },
         {
           "name": "Andy Burnham"
@@ -7920,31 +7998,38 @@
           "name": "Anthony Eden"
         },
         {
-          "name": "Archibald Primrose"
+          "name": "Archibald Primrose",
+          "aliases": ["Lord Rosebery", "Rosebery"]
         },
         {
           "name": "Arthur Balfour"
         },
         {
-          "name": "Arthur Wellesley"
+          "name": "Arthur Wellesley",
+          "aliases": ["Duke of Wellington", "Wellington"]
         },
         {
-          "name": "Augustus FitzRoy"
+          "name": "Augustus FitzRoy",
+          "aliases": ["Duke of Grafton", "Grafton"]
         },
         {
           "name": "Benjamin Disraeli"
         },
         {
-          "name": "Bonar Law"
+          "name": "Bonar Law",
+          "aliases": ["Andrew Bonar Law"]
         },
         {
-          "name": "Boris Johnson"
+          "name": "Boris Johnson",
+          "aliases": ["Boris"]
         },
         {
-          "name": "Charles Grey"
+          "name": "Charles Grey",
+          "aliases": ["Earl Grey", "Lord Grey"]
         },
         {
-          "name": "Charles Watson-Wentworth"
+          "name": "Charles Watson-Wentworth",
+          "aliases": ["Lord Rockingham", "Rockingham"]
         },
         {
           "name": "Clement Attlee"
@@ -7953,19 +8038,24 @@
           "name": "David Cameron"
         },
         {
-          "name": "David Lloyd George"
+          "name": "David Lloyd George",
+          "aliases": ["Lloyd George"]
         },
         {
-          "name": "Edward Heath"
+          "name": "Edward Heath",
+          "aliases": ["Ted Heath"]
         },
         {
-          "name": "Edward Smith-Stanley"
+          "name": "Edward Smith-Stanley",
+          "aliases": ["Derby", "Earl of Derby", "Lord Derby"]
         },
         {
-          "name": "Frederick John Robinson"
+          "name": "Frederick John Robinson",
+          "aliases": ["Goderich", "Lord Goderich"]
         },
         {
-          "name": "Frederick North"
+          "name": "Frederick North",
+          "aliases": ["Lord North"]
         },
         {
           "name": "George Canning"
@@ -7974,13 +8064,15 @@
           "name": "George Grenville"
         },
         {
-          "name": "George Hamilton-Gordon"
+          "name": "George Hamilton-Gordon",
+          "aliases": ["Aberdeen", "Lord Aberdeen"]
         },
         {
           "name": "Gordon Brown"
         },
         {
-          "name": "H. H. Asquith"
+          "name": "H. H. Asquith",
+          "aliases": ["Herbert Asquith", "Herbert Henry Asquith"]
         },
         {
           "name": "Harold Macmillan"
@@ -7989,25 +8081,29 @@
           "name": "Harold Wilson"
         },
         {
-          "name": "Henry Addington"
+          "name": "Henry Addington",
+          "aliases": ["Lord Sidmouth", "Sidmouth"]
         },
         {
           "name": "Henry Campbell-Bannerman"
         },
         {
-          "name": "Henry John Temple"
+          "name": "Henry John Temple",
+          "aliases": ["Lord Palmerston", "Palmerston", "Viscount Palmerston"]
         },
         {
           "name": "Henry Pelham"
         },
         {
-          "name": "James Callaghan"
+          "name": "James Callaghan",
+          "aliases": ["Jim Callaghan"]
         },
         {
           "name": "John Major"
         },
         {
-          "name": "John Stuart"
+          "name": "John Stuart",
+          "aliases": ["Bute", "Earl of Bute", "Lord Bute"]
         },
         {
           "name": "Keir Starmer"
@@ -8032,19 +8128,24 @@
           "name": "Rishi Sunak"
         },
         {
-          "name": "Robert Gascoyne-Cecil"
+          "name": "Robert Gascoyne-Cecil",
+          "aliases": ["Lord Salisbury", "Marquess of Salisbury", "Salisbury"]
         },
         {
-          "name": "Robert Jenkinson"
+          "name": "Robert Jenkinson",
+          "aliases": ["Liverpool", "Lord Liverpool"]
         },
         {
-          "name": "Robert Peel"
+          "name": "Robert Peel",
+          "aliases": ["Sir Robert Peel"]
         },
         {
-          "name": "Robert Walpole"
+          "name": "Robert Walpole",
+          "aliases": ["Sir Robert Walpole"]
         },
         {
-          "name": "Spencer Compton"
+          "name": "Spencer Compton",
+          "aliases": ["Lord Wilmington", "Wilmington"]
         },
         {
           "name": "Spencer Perceval"
@@ -8056,37 +8157,47 @@
           "name": "Theresa May"
         },
         {
-          "name": "Thomas Pelham-Holles"
+          "name": "Thomas Pelham-Holles",
+          "aliases": ["Duke of Newcastle", "Newcastle"]
         },
         {
           "name": "Tony Blair"
         },
         {
-          "name": "William Cavendish"
+          "name": "William Cavendish",
+          "aliases": ["Devonshire", "Duke of Devonshire"]
         },
         {
-          "name": "William Cavendish-Bentinck"
+          "name": "William Cavendish-Bentinck",
+          "aliases": ["Duke of Portland", "Portland"]
         },
         {
-          "name": "William Ewart Gladstone"
+          "name": "William Ewart Gladstone",
+          "aliases": ["William Gladstone"]
         },
         {
-          "name": "William Grenville"
+          "name": "William Grenville",
+          "aliases": ["Lord Grenville"]
         },
         {
-          "name": "William Lamb"
+          "name": "William Lamb",
+          "aliases": ["Lord Melbourne", "Melbourne"]
         },
         {
-          "name": "William Petty"
+          "name": "William Petty",
+          "aliases": ["Lord Shelburne", "Shelburne"]
         },
         {
-          "name": "William Pitt the Elder"
+          "name": "William Pitt the Elder",
+          "aliases": ["Earl of Chatham", "Lord Chatham", "Pitt the Elder"]
         },
         {
-          "name": "William Pitt the Younger"
+          "name": "William Pitt the Younger",
+          "aliases": ["Pitt the Younger"]
         },
         {
-          "name": "Winston Churchill"
+          "name": "Winston Churchill",
+          "aliases": ["Sir Winston Churchill"]
         }
       ],
       "surface": ["Winston Churchill", "Margaret Thatcher", "Tony Blair"],
@@ -8132,25 +8243,32 @@
           "name": "Alan Shepard"
         },
         {
-          "name": "Buzz Aldrin"
+          "name": "Buzz Aldrin",
+          "aliases": ["Edwin \"Buzz\" Aldrin", "Edwin Aldrin"]
         },
         {
-          "name": "Charles Duke"
+          "name": "Charles Duke",
+          "aliases": ["Charlie Duke"]
         },
         {
-          "name": "David Scott"
+          "name": "David Scott",
+          "aliases": ["Dave Scott"]
         },
         {
-          "name": "Edgar Mitchell"
+          "name": "Edgar Mitchell",
+          "aliases": ["Ed Mitchell"]
         },
         {
-          "name": "Eugene Cernan"
+          "name": "Eugene Cernan",
+          "aliases": ["Gene Cernan"]
         },
         {
-          "name": "Harrison Schmitt"
+          "name": "Harrison Schmitt",
+          "aliases": ["Jack Schmitt"]
         },
         {
-          "name": "James Irwin"
+          "name": "James Irwin",
+          "aliases": ["Jim Irwin"]
         },
         {
           "name": "John Young"
@@ -8159,7 +8277,8 @@
           "name": "Neil Armstrong"
         },
         {
-          "name": "Pete Conrad"
+          "name": "Pete Conrad",
+          "aliases": ["Charles Conrad"]
         }
       ],
       "surface": ["Neil Armstrong", "Buzz Aldrin", "Alan Shepard"],
@@ -8226,16 +8345,19 @@
           "name": "Artemis"
         },
         {
-          "name": "Athena"
+          "name": "Athena",
+          "aliases": ["Athene", "Pallas Athena", "Pallas Athene"]
         },
         {
           "name": "Demeter"
         },
         {
-          "name": "Dionysus"
+          "name": "Dionysus",
+          "aliases": ["Dionysos"]
         },
         {
-          "name": "Hephaestus"
+          "name": "Hephaestus",
+          "aliases": ["Hephaistos"]
         },
         {
           "name": "Hera"
@@ -13413,61 +13535,80 @@
       "cluster": "pokemon",
       "answers": [
         {
-          "name": "Normal"
+          "name": "Normal",
+          "aliases": ["Normal type"]
         },
         {
-          "name": "Fighting"
+          "name": "Fighting",
+          "aliases": ["Fighting type"]
         },
         {
-          "name": "Flying"
+          "name": "Flying",
+          "aliases": ["Flying type"]
         },
         {
-          "name": "Poison"
+          "name": "Poison",
+          "aliases": ["Poison type"]
         },
         {
-          "name": "Ground"
+          "name": "Ground",
+          "aliases": ["Ground type"]
         },
         {
-          "name": "Rock"
+          "name": "Rock",
+          "aliases": ["Rock type"]
         },
         {
-          "name": "Bug"
+          "name": "Bug",
+          "aliases": ["Bug type"]
         },
         {
-          "name": "Ghost"
+          "name": "Ghost",
+          "aliases": ["Ghost type"]
         },
         {
-          "name": "Steel"
+          "name": "Steel",
+          "aliases": ["Steel type"]
         },
         {
-          "name": "Fire"
+          "name": "Fire",
+          "aliases": ["Fire type"]
         },
         {
-          "name": "Water"
+          "name": "Water",
+          "aliases": ["Water type"]
         },
         {
-          "name": "Grass"
+          "name": "Grass",
+          "aliases": ["Grass type"]
         },
         {
-          "name": "Electric"
+          "name": "Electric",
+          "aliases": ["Electric type"]
         },
         {
-          "name": "Psychic"
+          "name": "Psychic",
+          "aliases": ["Psychic type"]
         },
         {
-          "name": "Ice"
+          "name": "Ice",
+          "aliases": ["Ice type"]
         },
         {
-          "name": "Dragon"
+          "name": "Dragon",
+          "aliases": ["Dragon type"]
         },
         {
-          "name": "Dark"
+          "name": "Dark",
+          "aliases": ["Dark type"]
         },
         {
-          "name": "Fairy"
+          "name": "Fairy",
+          "aliases": ["Fairy type"]
         },
         {
-          "name": "Stellar"
+          "name": "Stellar",
+          "aliases": ["Stellar type"]
         }
       ],
       "sources": [
@@ -13544,7 +13685,8 @@
           "name": "Matthew Thornton"
         },
         {
-          "name": "Samuel Adams"
+          "name": "Samuel Adams",
+          "aliases": ["Sam Adams"]
         },
         {
           "name": "John Adams"
@@ -13607,7 +13749,8 @@
           "name": "Benjamin Rush"
         },
         {
-          "name": "Benjamin Franklin"
+          "name": "Benjamin Franklin",
+          "aliases": ["Ben Franklin"]
         },
         {
           "name": "John Morton"
@@ -13646,7 +13789,8 @@
           "name": "Thomas Stone"
         },
         {
-          "name": "Charles Carroll of Carrollton"
+          "name": "Charles Carroll of Carrollton",
+          "aliases": ["Carroll", "Charles Carroll"]
         },
         {
           "name": "George Wythe"
@@ -13658,10 +13802,12 @@
           "name": "Thomas Jefferson"
         },
         {
-          "name": "Benjamin Harrison"
+          "name": "Benjamin Harrison",
+          "aliases": ["Benjamin Harrison V"]
         },
         {
-          "name": "Thomas Nelson, Jr."
+          "name": "Thomas Nelson, Jr.",
+          "aliases": ["Thomas Nelson"]
         },
         {
           "name": "Francis Lightfoot Lee"
@@ -13779,152 +13925,199 @@
       "cluster": "uk",
       "answers": [
         {
-          "name": "Anne"
+          "name": "Anne",
+          "aliases": ["Queen Anne"]
         },
         {
-          "name": "Charles I"
+          "name": "Charles I",
+          "aliases": ["Charles 1"]
         },
         {
-          "name": "Charles II"
+          "name": "Charles II",
+          "aliases": ["Charles 2"]
         },
         {
-          "name": "Charles III"
+          "name": "Charles III",
+          "aliases": ["Charles 3", "King Charles", "King Charles III"]
         },
         {
-          "name": "Edgar Ætheling"
+          "name": "Edgar Ætheling",
+          "aliases": ["Edgar Atheling", "Edgar II", "Edgar the Atheling"]
         },
         {
-          "name": "Edward I"
+          "name": "Edward I",
+          "aliases": ["Edward 1", "Edward Longshanks"]
         },
         {
-          "name": "Edward II"
+          "name": "Edward II",
+          "aliases": ["Edward 2"]
         },
         {
-          "name": "Edward III"
+          "name": "Edward III",
+          "aliases": ["Edward 3"]
         },
         {
-          "name": "Edward IV"
+          "name": "Edward IV",
+          "aliases": ["Edward 4"]
         },
         {
-          "name": "Edward V"
+          "name": "Edward V",
+          "aliases": ["Edward 5"]
         },
         {
-          "name": "Edward VI"
+          "name": "Edward VI",
+          "aliases": ["Edward 6"]
         },
         {
-          "name": "Edward VII"
+          "name": "Edward VII",
+          "aliases": ["Edward 7"]
         },
         {
-          "name": "Edward VIII"
+          "name": "Edward VIII",
+          "aliases": ["Edward 8"]
         },
         {
-          "name": "Elizabeth I"
+          "name": "Elizabeth I",
+          "aliases": ["Elizabeth 1", "Queen Elizabeth I"]
         },
         {
-          "name": "Elizabeth II"
+          "name": "Elizabeth II",
+          "aliases": ["Elizabeth 2", "Queen Elizabeth", "Queen Elizabeth II"]
         },
         {
-          "name": "George I"
+          "name": "George I",
+          "aliases": ["George 1"]
         },
         {
-          "name": "George II"
+          "name": "George II",
+          "aliases": ["George 2"]
         },
         {
-          "name": "George III"
+          "name": "George III",
+          "aliases": ["George 3"]
         },
         {
-          "name": "George IV"
+          "name": "George IV",
+          "aliases": ["George 4"]
         },
         {
-          "name": "George V"
+          "name": "George V",
+          "aliases": ["George 5"]
         },
         {
-          "name": "George VI"
+          "name": "George VI",
+          "aliases": ["George 6"]
         },
         {
-          "name": "Harold II"
+          "name": "Harold II",
+          "aliases": ["Harold 2", "Harold Godwinson", "King Harold"]
         },
         {
-          "name": "Henry I"
+          "name": "Henry I",
+          "aliases": ["Henry 1"]
         },
         {
-          "name": "Henry II"
+          "name": "Henry II",
+          "aliases": ["Henry 2"]
         },
         {
-          "name": "Henry III"
+          "name": "Henry III",
+          "aliases": ["Henry 3"]
         },
         {
-          "name": "Henry IV"
+          "name": "Henry IV",
+          "aliases": ["Henry 4"]
         },
         {
-          "name": "Henry V"
+          "name": "Henry V",
+          "aliases": ["Henry 5", "King Henry V"]
         },
         {
-          "name": "Henry VI"
+          "name": "Henry VI",
+          "aliases": ["Henry 6"]
         },
         {
-          "name": "Henry VII"
+          "name": "Henry VII",
+          "aliases": ["Henry 7"]
         },
         {
-          "name": "Henry VIII"
+          "name": "Henry VIII",
+          "aliases": ["Henry 8", "King Henry VIII"]
         },
         {
           "name": "Henry the Young King"
         },
         {
-          "name": "James I"
+          "name": "James I",
+          "aliases": ["James 1"]
         },
         {
-          "name": "James II"
+          "name": "James II",
+          "aliases": ["James 2"]
         },
         {
-          "name": "Jane"
+          "name": "Jane",
+          "aliases": ["Jane Grey", "Lady Jane Grey", "Queen Jane"]
         },
         {
-          "name": "John"
+          "name": "John",
+          "aliases": ["King John"]
         },
         {
-          "name": "Louis"
+          "name": "Louis",
+          "aliases": ["Louis VIII", "Prince Louis"]
         },
         {
-          "name": "Mary I"
+          "name": "Mary I",
+          "aliases": ["Bloody Mary", "Mary 1", "Mary Tudor"]
         },
         {
-          "name": "Mary II"
+          "name": "Mary II",
+          "aliases": ["Mary 2"]
         },
         {
-          "name": "Matilda"
+          "name": "Matilda",
+          "aliases": ["Empress Matilda"]
         },
         {
           "name": "Philip",
           "aliases": ["Philip II of Spain", "Philip of Spain"]
         },
         {
-          "name": "Richard I"
+          "name": "Richard I",
+          "aliases": ["Richard 1", "Richard Lionheart", "Richard the Lionheart"]
         },
         {
-          "name": "Richard II"
+          "name": "Richard II",
+          "aliases": ["Richard 2"]
         },
         {
-          "name": "Richard III"
+          "name": "Richard III",
+          "aliases": ["Richard 3"]
         },
         {
-          "name": "Stephen"
+          "name": "Stephen",
+          "aliases": ["King Stephen", "Stephen of Blois"]
         },
         {
-          "name": "Victoria"
+          "name": "Victoria",
+          "aliases": ["Queen Victoria"]
         },
         {
-          "name": "William I"
+          "name": "William I",
+          "aliases": ["William 1", "William the Conqueror"]
         },
         {
-          "name": "William II"
+          "name": "William II",
+          "aliases": ["William 2", "William Rufus"]
         },
         {
-          "name": "William III"
+          "name": "William III",
+          "aliases": ["William 3", "William of Orange"]
         },
         {
-          "name": "William IV"
+          "name": "William IV",
+          "aliases": ["William 4"]
         },
         {
           "name": "Edward the Confessor"
@@ -14019,40 +14212,84 @@
       "cluster": "religion",
       "answers": [
         {
-          "name": "Leo XIII"
+          "name": "Leo XIII",
+          "aliases": ["Gioacchino Pecci", "Leo 13", "Pope Leo 13", "Pope Leo XIII"]
         },
         {
-          "name": "Pius X"
+          "name": "Pius X",
+          "aliases": ["Giuseppe Sarto", "Pius 10", "Pope Pius 10", "Pope Pius X", "Saint Pius X"]
         },
         {
-          "name": "Benedict XV"
+          "name": "Benedict XV",
+          "aliases": ["Benedict 15", "Giacomo della Chiesa", "Pope Benedict 15", "Pope Benedict XV"]
         },
         {
-          "name": "Pius XI"
+          "name": "Pius XI",
+          "aliases": ["Achille Ratti", "Pius 11", "Pope Pius 11", "Pope Pius XI"]
         },
         {
-          "name": "Pius XII"
+          "name": "Pius XII",
+          "aliases": ["Eugenio Pacelli", "Pius 12", "Pope Pius 12", "Pope Pius XII"]
         },
         {
-          "name": "John XXIII"
+          "name": "John XXIII",
+          "aliases": [
+            "Angelo Roncalli",
+            "John 23",
+            "Pope John 23",
+            "Pope John XXIII",
+            "Saint John XXIII"
+          ]
         },
         {
-          "name": "Paul VI"
+          "name": "Paul VI",
+          "aliases": [
+            "Giovanni Battista Montini",
+            "Paul 6",
+            "Pope Paul 6",
+            "Pope Paul VI",
+            "Saint Paul VI"
+          ]
         },
         {
-          "name": "John Paul I"
+          "name": "John Paul I",
+          "aliases": ["Albino Luciani", "John Paul 1", "Pope John Paul 1", "Pope John Paul I"]
         },
         {
-          "name": "John Paul II"
+          "name": "John Paul II",
+          "aliases": [
+            "John Paul 2",
+            "John Paul the Great",
+            "Karol Wojtyla",
+            "Karol Wojtyła",
+            "Pope John Paul 2",
+            "Pope John Paul II",
+            "Saint John Paul II"
+          ]
         },
         {
-          "name": "Benedict XVI"
+          "name": "Benedict XVI",
+          "aliases": ["Benedict 16", "Joseph Ratzinger", "Pope Benedict 16", "Pope Benedict XVI"]
         },
         {
-          "name": "Francis"
+          "name": "Francis",
+          "aliases": [
+            "Francis I",
+            "Jorge Bergoglio",
+            "Jorge Mario Bergoglio",
+            "Pope Francis",
+            "Pope Francis I"
+          ]
         },
         {
-          "name": "Leo XIV"
+          "name": "Leo XIV",
+          "aliases": [
+            "Leo 14",
+            "Pope Leo 14",
+            "Pope Leo XIV",
+            "Robert Francis Prevost",
+            "Robert Prevost"
+          ]
         }
       ],
       "sources": [
@@ -29281,7 +29518,8 @@
           "name": "Johnny Lujack"
         },
         {
-          "name": "Johnny Manziel"
+          "name": "Johnny Manziel",
+          "aliases": ["Johnny Football"]
         },
         {
           "name": "Johnny Rodgers"
@@ -29308,7 +29546,8 @@
           "name": "Marcus Mariota"
         },
         {
-          "name": "Mark Ingram II"
+          "name": "Mark Ingram II",
+          "aliases": ["Mark Ingram"]
         },
         {
           "name": "Matt Leinart"
@@ -29323,7 +29562,8 @@
           "name": "Nile Kinnick"
         },
         {
-          "name": "O. J. Simpson"
+          "name": "O. J. Simpson",
+          "aliases": ["OJ Simpson"]
         },
         {
           "name": "Pat Sullivan"
@@ -29344,7 +29584,8 @@
           "name": "Ricky Williams"
         },
         {
-          "name": "Robert Griffin III"
+          "name": "Robert Griffin III",
+          "aliases": ["RG3", "RGIII"]
         },
         {
           "name": "Roger Staubach"
@@ -30708,7 +30949,8 @@
           "name": "Seve Ballesteros"
         },
         {
-          "name": "Tiger Woods"
+          "name": "Tiger Woods",
+          "aliases": ["Tiger", "Woods"]
         },
         {
           "name": "Tom Watson"
@@ -30820,7 +31062,8 @@
           "name": "Michael Stich"
         },
         {
-          "name": "Novak Djokovic"
+          "name": "Novak Djokovic",
+          "aliases": ["Nole"]
         },
         {
           "name": "Pat Cash"
@@ -30829,7 +31072,8 @@
           "name": "Pete Sampras"
         },
         {
-          "name": "Rafael Nadal"
+          "name": "Rafael Nadal",
+          "aliases": ["Rafa", "Rafa Nadal"]
         },
         {
           "name": "Richard Krajicek"
@@ -30909,16 +31153,19 @@
           "name": "Ann Jones"
         },
         {
-          "name": "Ashleigh Barty"
+          "name": "Ashleigh Barty",
+          "aliases": ["Ash Barty"]
         },
         {
           "name": "Barbora Krejčíková"
         },
         {
-          "name": "Billie Jean King"
+          "name": "Billie Jean King",
+          "aliases": ["BJK"]
         },
         {
-          "name": "Chris Evert"
+          "name": "Chris Evert",
+          "aliases": ["Chrissie Evert"]
         },
         {
           "name": "Conchita Martínez"
@@ -30927,7 +31174,8 @@
           "name": "Elena Rybakina"
         },
         {
-          "name": "Evonne Goolagong"
+          "name": "Evonne Goolagong",
+          "aliases": ["Evonne Goolagong Cawley", "Goolagong Cawley"]
         },
         {
           "name": "Garbiñe Muguruza"
@@ -30966,7 +31214,8 @@
           "name": "Petra Kvitová"
         },
         {
-          "name": "Serena Williams"
+          "name": "Serena Williams",
+          "aliases": ["Serena"]
         },
         {
           "name": "Simona Halep"
@@ -30975,7 +31224,8 @@
           "name": "Steffi Graf"
         },
         {
-          "name": "Venus Williams"
+          "name": "Venus Williams",
+          "aliases": ["Venus"]
         },
         {
           "name": "Virginia Wade"
@@ -31279,10 +31529,12 @@
           "name": "Antoninus Pius"
         },
         {
-          "name": "Augustus"
+          "name": "Augustus",
+          "aliases": ["Augustus Caesar", "Caesar Augustus", "Octavian", "Octavius"]
         },
         {
-          "name": "Caligula"
+          "name": "Caligula",
+          "aliases": ["Gaius", "Gaius Caligula"]
         },
         {
           "name": "Caracalla"
@@ -31303,7 +31555,8 @@
           "name": "Domitian"
         },
         {
-          "name": "Elagabalus"
+          "name": "Elagabalus",
+          "aliases": ["Heliogabalus"]
         },
         {
           "name": "Galba"
@@ -31321,7 +31574,8 @@
           "name": "Macrinus"
         },
         {
-          "name": "Marcus Aurelius"
+          "name": "Marcus Aurelius",
+          "aliases": ["Aurelius"]
         },
         {
           "name": "Nero"
@@ -31336,10 +31590,12 @@
           "name": "Pertinax"
         },
         {
-          "name": "Septimius Severus"
+          "name": "Septimius Severus",
+          "aliases": ["Severus"]
         },
         {
-          "name": "Severus Alexander"
+          "name": "Severus Alexander",
+          "aliases": ["Alexander Severus"]
         },
         {
           "name": "Tiberius"
@@ -31574,7 +31830,8 @@
       "expect": [70, 70],
       "answers": [
         {
-          "name": "Abel P. Upshur"
+          "name": "Abel P. Upshur",
+          "aliases": ["Abel Upshur"]
         },
         {
           "name": "Alexander Haig"
@@ -31595,7 +31852,8 @@
           "name": "Colin Powell"
         },
         {
-          "name": "Condoleezza Rice"
+          "name": "Condoleezza Rice",
+          "aliases": ["Condi Rice"]
         },
         {
           "name": "Cordell Hull"
@@ -31625,22 +31883,27 @@
           "name": "Edward Livingston"
         },
         {
-          "name": "Edward Stettinius Jr."
+          "name": "Edward Stettinius Jr.",
+          "aliases": ["Edward Stettinius"]
         },
         {
-          "name": "Elihu B. Washburne"
+          "name": "Elihu B. Washburne",
+          "aliases": ["Elihu Washburne"]
         },
         {
           "name": "Elihu Root"
         },
         {
-          "name": "Frank B. Kellogg"
+          "name": "Frank B. Kellogg",
+          "aliases": ["Frank Kellogg"]
         },
         {
-          "name": "Frederick T. Frelinghuysen"
+          "name": "Frederick T. Frelinghuysen",
+          "aliases": ["Frederick Frelinghuysen"]
         },
         {
-          "name": "George C. Marshall"
+          "name": "George C. Marshall",
+          "aliases": ["George Marshall"]
         },
         {
           "name": "George Shultz"
@@ -31655,10 +31918,12 @@
           "name": "Henry Kissinger"
         },
         {
-          "name": "Henry L. Stimson"
+          "name": "Henry L. Stimson",
+          "aliases": ["Henry Stimson"]
         },
         {
-          "name": "Hillary Clinton"
+          "name": "Hillary Clinton",
+          "aliases": ["Hillary Rodham Clinton"]
         },
         {
           "name": "James Baker"
@@ -31667,10 +31932,12 @@
           "name": "James Buchanan"
         },
         {
-          "name": "James F. Byrnes"
+          "name": "James F. Byrnes",
+          "aliases": ["James Byrnes"]
         },
         {
-          "name": "James G. Blaine"
+          "name": "James G. Blaine",
+          "aliases": ["James Blaine"]
         },
         {
           "name": "James Madison"
@@ -31679,10 +31946,12 @@
           "name": "James Monroe"
         },
         {
-          "name": "Jeremiah S. Black"
+          "name": "Jeremiah S. Black",
+          "aliases": ["Jeremiah Black"]
         },
         {
-          "name": "John C. Calhoun"
+          "name": "John C. Calhoun",
+          "aliases": ["John Calhoun"]
         },
         {
           "name": "John Forsyth"
@@ -31697,7 +31966,8 @@
           "name": "John Kerry"
         },
         {
-          "name": "John M. Clayton"
+          "name": "John M. Clayton",
+          "aliases": ["John Clayton"]
         },
         {
           "name": "John Marshall"
@@ -31709,7 +31979,8 @@
           "name": "John Sherman"
         },
         {
-          "name": "John W. Foster"
+          "name": "John W. Foster",
+          "aliases": ["John Foster"]
         },
         {
           "name": "Lawrence Eagleburger"
@@ -31733,7 +32004,8 @@
           "name": "Mike Pompeo"
         },
         {
-          "name": "Philander C. Knox"
+          "name": "Philander C. Knox",
+          "aliases": ["Philander Knox"]
         },
         {
           "name": "Rex Tillerson"
@@ -31751,7 +32023,8 @@
           "name": "Robert Smith"
         },
         {
-          "name": "Thomas F. Bayard"
+          "name": "Thomas F. Bayard",
+          "aliases": ["Thomas Bayard"]
         },
         {
           "name": "Thomas Jefferson"
@@ -31760,28 +32033,34 @@
           "name": "Timothy Pickering"
         },
         {
-          "name": "Walter Q. Gresham"
+          "name": "Walter Q. Gresham",
+          "aliases": ["Walter Gresham"]
         },
         {
           "name": "Warren Christopher"
         },
         {
-          "name": "William H. Seward"
+          "name": "William H. Seward",
+          "aliases": ["William Seward"]
         },
         {
           "name": "William Jennings Bryan"
         },
         {
-          "name": "William L. Marcy"
+          "name": "William L. Marcy",
+          "aliases": ["William Marcy"]
         },
         {
-          "name": "William M. Evarts"
+          "name": "William M. Evarts",
+          "aliases": ["William Evarts"]
         },
         {
-          "name": "William P. Rogers"
+          "name": "William P. Rogers",
+          "aliases": ["William Rogers"]
         },
         {
-          "name": "William R. Day"
+          "name": "William R. Day",
+          "aliases": ["William Day"]
         }
       ],
       "surface": ["Hillary Clinton", "Henry Kissinger", "Thomas Jefferson"],
@@ -31826,13 +32105,15 @@
       "expect": [15, 15],
       "answers": [
         {
-          "name": "Amy Coney Barrett"
+          "name": "Amy Coney Barrett",
+          "aliases": ["ACB", "Amy Barrett"]
         },
         {
           "name": "Anthony Kennedy"
         },
         {
-          "name": "Antonin Scalia"
+          "name": "Antonin Scalia",
+          "aliases": ["Nino Scalia"]
         },
         {
           "name": "Brett Kavanaugh"
@@ -31847,22 +32128,27 @@
           "name": "Elena Kagan"
         },
         {
-          "name": "John Roberts"
+          "name": "John Roberts",
+          "aliases": ["John G. Roberts"]
         },
         {
-          "name": "Ketanji Brown Jackson"
+          "name": "Ketanji Brown Jackson",
+          "aliases": ["KBJ", "Ketanji Jackson"]
         },
         {
           "name": "Neil Gorsuch"
         },
         {
-          "name": "Ruth Bader Ginsburg"
+          "name": "Ruth Bader Ginsburg",
+          "aliases": ["RBG"]
         },
         {
-          "name": "Samuel Alito"
+          "name": "Samuel Alito",
+          "aliases": ["Sam Alito"]
         },
         {
-          "name": "Sandra Day O'Connor"
+          "name": "Sandra Day O'Connor",
+          "aliases": ["O Connor", "Sandra Day O Connor", "Sandra O'Connor"]
         },
         {
           "name": "Sonia Sotomayor"
@@ -32288,43 +32574,61 @@
       "expect": [13, 13],
       "answers": [
         {
-          "name": "Connecticut"
+          "name": "Connecticut",
+          "aliases": ["Connecticut Colony"]
         },
         {
-          "name": "Delaware"
+          "name": "Delaware",
+          "aliases": ["Delaware Colony"]
         },
         {
-          "name": "Georgia"
+          "name": "Georgia",
+          "aliases": ["Province of Georgia"]
         },
         {
-          "name": "Maryland"
+          "name": "Maryland",
+          "aliases": ["Province of Maryland"]
         },
         {
-          "name": "Massachusetts"
+          "name": "Massachusetts",
+          "aliases": [
+            "Mass",
+            "Massachusetts Bay",
+            "Massachusetts Bay Colony",
+            "Province of Massachusetts Bay"
+          ]
         },
         {
-          "name": "New Hampshire"
+          "name": "New Hampshire",
+          "aliases": ["NH", "Province of New Hampshire"]
         },
         {
-          "name": "New Jersey"
+          "name": "New Jersey",
+          "aliases": ["NJ", "Province of New Jersey"]
         },
         {
-          "name": "New York"
+          "name": "New York",
+          "aliases": ["NY", "Province of New York"]
         },
         {
-          "name": "North Carolina"
+          "name": "North Carolina",
+          "aliases": ["NC", "Province of North Carolina"]
         },
         {
-          "name": "Pennsylvania"
+          "name": "Pennsylvania",
+          "aliases": ["Penn", "Province of Pennsylvania"]
         },
         {
-          "name": "Rhode Island"
+          "name": "Rhode Island",
+          "aliases": ["Providence Plantations", "Rhode Island and Providence Plantations"]
         },
         {
-          "name": "South Carolina"
+          "name": "South Carolina",
+          "aliases": ["Province of South Carolina", "SC"]
         },
         {
-          "name": "Virginia"
+          "name": "Virginia",
+          "aliases": ["Colony of Virginia", "Virginia Colony"]
         }
       ],
       "surface": ["Virginia", "Massachusetts", "Pennsylvania"],
@@ -32388,7 +32692,8 @@
           "name": "Azerbaijan"
         },
         {
-          "name": "Belarus"
+          "name": "Belarus",
+          "aliases": ["Belorussia", "Byelorussia", "Byelorussian SSR"]
         },
         {
           "name": "Estonia"
@@ -32397,10 +32702,12 @@
           "name": "Georgia"
         },
         {
-          "name": "Kazakhstan"
+          "name": "Kazakhstan",
+          "aliases": ["Kazakstan"]
         },
         {
-          "name": "Kyrgyzstan"
+          "name": "Kyrgyzstan",
+          "aliases": ["Kirghizia", "Kirgizia", "Kyrgyz Republic"]
         },
         {
           "name": "Latvia"
@@ -32409,20 +32716,24 @@
           "name": "Lithuania"
         },
         {
-          "name": "Moldova"
+          "name": "Moldova",
+          "aliases": ["Moldavia"]
         },
         {
           "name": "Russia",
-          "aliases": ["Russian Federation"]
+          "aliases": ["Russian Federation", "Russian SFSR"]
         },
         {
-          "name": "Tajikistan"
+          "name": "Tajikistan",
+          "aliases": ["Tadjikistan", "Tadzhikistan"]
         },
         {
-          "name": "Turkmenistan"
+          "name": "Turkmenistan",
+          "aliases": ["Turkmenia"]
         },
         {
-          "name": "Ukraine"
+          "name": "Ukraine",
+          "aliases": ["Ukrainian SSR"]
         },
         {
           "name": "Uzbekistan"
@@ -33537,22 +33848,24 @@
       "expect": [21, 21],
       "answers": [
         {
-          "name": "A Link Between Worlds"
+          "name": "A Link Between Worlds",
+          "aliases": ["ALBW", "The Legend of Zelda: A Link Between Worlds"]
         },
         {
           "name": "A Link to the Past",
-          "aliases": ["The Legend of Zelda: A Link to the Past"]
+          "aliases": ["ALttP", "LTTP", "The Legend of Zelda: A Link to the Past"]
         },
         {
-          "name": "A Link to the Past and Four Swords"
+          "name": "A Link to the Past and Four Swords",
+          "aliases": ["Four Swords", "LTTP and Four Swords"]
         },
         {
           "name": "Breath of the Wild",
-          "aliases": ["The Legend of Zelda: Breath of the Wild"]
+          "aliases": ["BOTW", "The Legend of Zelda: Breath of the Wild"]
         },
         {
           "name": "Echoes of Wisdom",
-          "aliases": ["The Legend of Zelda: Echoes of Wisdom"]
+          "aliases": ["EoW", "The Legend of Zelda: Echoes of Wisdom"]
         },
         {
           "name": "Four Swords Adventures"
@@ -33563,11 +33876,11 @@
         },
         {
           "name": "Majora's Mask",
-          "aliases": ["The Legend of Zelda: Majora's Mask"]
+          "aliases": ["MM", "The Legend of Zelda: Majora's Mask"]
         },
         {
           "name": "Ocarina of Time",
-          "aliases": ["The Legend of Zelda: Ocarina of Time"]
+          "aliases": ["OOT", "The Legend of Zelda: Ocarina of Time"]
         },
         {
           "name": "Oracle of Ages",
@@ -33583,18 +33896,19 @@
         },
         {
           "name": "Skyward Sword",
-          "aliases": ["The Legend of Zelda: Skyward Sword"]
+          "aliases": ["SS", "The Legend of Zelda: Skyward Sword"]
         },
         {
           "name": "Spirit Tracks",
           "aliases": ["The Legend of Zelda: Spirit Tracks"]
         },
         {
-          "name": "Tears of the Kingdom"
+          "name": "Tears of the Kingdom",
+          "aliases": ["The Legend of Zelda: Tears of the Kingdom", "TOTK"]
         },
         {
           "name": "The Adventure of Link",
-          "aliases": ["Zelda II", "Zelda II: The Adventure of Link"]
+          "aliases": ["Zelda 2", "Zelda II", "Zelda II: The Adventure of Link"]
         },
         {
           "name": "The Legend of Zelda",
@@ -33606,15 +33920,15 @@
         },
         {
           "name": "The Wind Waker",
-          "aliases": ["The Legend of Zelda: The Wind Waker"]
+          "aliases": ["The Legend of Zelda: The Wind Waker", "TWW"]
         },
         {
           "name": "Tri Force Heroes",
-          "aliases": ["The Legend of Zelda: Tri Force Heroes"]
+          "aliases": ["The Legend of Zelda: Tri Force Heroes", "Triforce Heroes"]
         },
         {
           "name": "Twilight Princess",
-          "aliases": ["The Legend of Zelda: Twilight Princess"]
+          "aliases": ["The Legend of Zelda: Twilight Princess", "TP"]
         }
       ],
       "surface": ["Ocarina of Time", "Breath of the Wild", "Tears of the Kingdom"],
@@ -35724,18 +36038,19 @@
       "expect": [16, 16],
       "answers": [
         {
-          "name": "Alpine skiing"
+          "name": "Alpine skiing",
+          "aliases": ["Downhill skiing"]
         },
         {
           "name": "Biathlon"
         },
         {
           "name": "Bobsleigh",
-          "aliases": ["Bobsled"]
+          "aliases": ["Bobsled", "Bobsledding"]
         },
         {
           "name": "Cross-country skiing",
-          "aliases": ["Cross country"]
+          "aliases": ["Cross country", "XC skiing"]
         },
         {
           "name": "Curling"
@@ -35744,7 +36059,8 @@
           "name": "Figure skating"
         },
         {
-          "name": "Freestyle skiing"
+          "name": "Freestyle skiing",
+          "aliases": ["Freestyle"]
         },
         {
           "name": "Ice hockey",
@@ -35771,7 +36087,8 @@
           "aliases": ["Skimo"]
         },
         {
-          "name": "Snowboarding"
+          "name": "Snowboarding",
+          "aliases": ["Snowboard"]
         },
         {
           "name": "Speed skating"
@@ -35820,10 +36137,12 @@
       "expect": [9, 9],
       "answers": [
         {
-          "name": "Calliope"
+          "name": "Calliope",
+          "aliases": ["Kalliope", "Kalliopi"]
         },
         {
-          "name": "Clio"
+          "name": "Clio",
+          "aliases": ["Kleio", "Klio"]
         },
         {
           "name": "Erato"
@@ -35836,16 +36155,19 @@
         },
         {
           "name": "Polyhymnia",
-          "aliases": ["Polymnia"]
+          "aliases": ["Polhymnia", "Polymnia"]
         },
         {
-          "name": "Terpsichore"
+          "name": "Terpsichore",
+          "aliases": ["Terpsichora"]
         },
         {
-          "name": "Thalia"
+          "name": "Thalia",
+          "aliases": ["Talia", "Thaleia"]
         },
         {
-          "name": "Urania"
+          "name": "Urania",
+          "aliases": ["Ourania"]
         }
       ],
       "surface": ["Calliope", "Clio", "Thalia"],
@@ -35890,35 +36212,35 @@
       "answers": [
         {
           "name": "Cao Guojiu",
-          "aliases": ["Cao", "Royal Uncle Cao"]
+          "aliases": ["Cao", "Cao Guo Jiu", "Royal Uncle Cao", "Ts'ao Kuo-chiu"]
         },
         {
           "name": "Han Xiangzi",
-          "aliases": ["Han"]
+          "aliases": ["Han", "Han Hsiang-tzu", "Han Xiang Zi"]
         },
         {
           "name": "He Xiangu",
-          "aliases": ["He", "Immortal Woman He"]
+          "aliases": ["He", "He Xian Gu", "Ho Hsien-ku", "Immortal Woman He"]
         },
         {
           "name": "Lan Caihe",
-          "aliases": ["Lan"]
+          "aliases": ["Lan", "Lan Cai He", "Lan Ts'ai-ho"]
         },
         {
           "name": "Li Tieguai",
-          "aliases": ["Iron Crutch Li", "Li"]
+          "aliases": ["Iron Crutch Li", "Li", "Li T'ieh-kuai", "Li Tie Guai", "Tieguai Li"]
         },
         {
           "name": "Lü Dongbin",
-          "aliases": ["Lü"]
+          "aliases": ["Lu Dong Bin", "Lu Tung-pin", "Lü"]
         },
         {
           "name": "Zhang Guolao",
-          "aliases": ["Elder Zhang Guo", "Zhang"]
+          "aliases": ["Chang Kuo-lao", "Elder Zhang Guo", "Zhang", "Zhang Guo Lao"]
         },
         {
           "name": "Zhongli Quan",
-          "aliases": ["Han Zhongli", "Zhongli"]
+          "aliases": ["Chung-li Ch'uan", "Han Zhongli", "Zhong Li Quan", "Zhongli"]
         }
       ],
       "surface": ["Lü Dongbin", "Li Tieguai", "He Xiangu"],
@@ -35943,13 +36265,16 @@
       "expect": [9, 9],
       "answers": [
         {
-          "name": "Atum"
+          "name": "Atum",
+          "aliases": ["Atum-Ra", "Ra", "Ra-Atum", "Re", "Tem"]
         },
         {
-          "name": "Geb"
+          "name": "Geb",
+          "aliases": ["Keb"]
         },
         {
-          "name": "Isis"
+          "name": "Isis",
+          "aliases": ["Aset"]
         },
         {
           "name": "Nephthys",
@@ -35959,11 +36284,12 @@
           "name": "Nut"
         },
         {
-          "name": "Osiris"
+          "name": "Osiris",
+          "aliases": ["Ausar", "Usir"]
         },
         {
           "name": "Set",
-          "aliases": ["Seth"]
+          "aliases": ["Seth", "Sutekh"]
         },
         {
           "name": "Shu"
@@ -36018,39 +36344,65 @@
       "answers": [
         {
           "name": "Blood",
-          "aliases": ["River of blood", "Water into blood"]
+          "aliases": [
+            "Dam",
+            "River of blood",
+            "River turning to blood",
+            "Water into blood",
+            "Water to blood",
+            "Water turned to blood"
+          ]
         },
         {
-          "name": "Boils"
+          "name": "Boils",
+          "aliases": ["Shechin", "Sores"]
         },
         {
-          "name": "Darkness"
+          "name": "Darkness",
+          "aliases": ["Choshech", "Three days of darkness"]
         },
         {
           "name": "Death of the firstborn",
-          "aliases": ["Death of firstborn", "Firstborn", "Firstborn death"]
+          "aliases": [
+            "Death of first born",
+            "Death of firstborn",
+            "Death of the first born",
+            "Firstborn",
+            "Firstborn death",
+            "Killing of the firstborn",
+            "Makat Bechorot"
+          ]
         },
         {
           "name": "Flies",
-          "aliases": ["Wild animals", "Wild beasts"]
+          "aliases": ["Arov", "Swarm of flies", "Swarms of flies", "Wild animals", "Wild beasts"]
         },
         {
-          "name": "Frogs"
+          "name": "Frogs",
+          "aliases": ["Plague of frogs", "Tzfardeia"]
         },
         {
           "name": "Hail",
-          "aliases": ["Hail and fire"]
+          "aliases": ["Barad", "Hail and fire", "Thunder and hail"]
         },
         {
           "name": "Lice",
-          "aliases": ["Gnats", "Lice or gnats"]
+          "aliases": ["Gnats", "Kinim", "Lice or gnats", "Mosquitoes"]
         },
         {
-          "name": "Locusts"
+          "name": "Locusts",
+          "aliases": ["Arbeh", "Plague of locusts"]
         },
         {
           "name": "Pestilence",
-          "aliases": ["Cattle disease", "Death of livestock", "Livestock disease", "Murrain"]
+          "aliases": [
+            "Cattle disease",
+            "Death of livestock",
+            "Dever",
+            "Diseased livestock",
+            "Livestock disease",
+            "Murrain"
+          ]
         }
       ],
       "surface": ["Frogs", "Locusts", "Blood"],
@@ -36807,7 +37159,8 @@
       "expect": [8, 8],
       "answers": [
         {
-          "name": "Argentina"
+          "name": "Argentina",
+          "aliases": ["La Albiceleste"]
         },
         {
           "name": "Brazil",
@@ -36818,17 +37171,20 @@
           "aliases": ["English"]
         },
         {
-          "name": "France"
+          "name": "France",
+          "aliases": ["Les Bleus"]
         },
         {
           "name": "Germany",
-          "aliases": ["West Germany", "Federal Republic of Germany"]
+          "aliases": ["Deutschland", "Federal Republic of Germany", "West Germany"]
         },
         {
-          "name": "Italy"
+          "name": "Italy",
+          "aliases": ["Italia"]
         },
         {
-          "name": "Spain"
+          "name": "Spain",
+          "aliases": ["España"]
         },
         {
           "name": "Uruguay"
@@ -36883,27 +37239,31 @@
       "expect": [24, 24],
       "answers": [
         {
-          "name": "Arsenal"
+          "name": "Arsenal",
+          "aliases": ["Arsenal FC"]
         },
         {
-          "name": "Aston Villa"
+          "name": "Aston Villa",
+          "aliases": ["Aston Villa FC"]
         },
         {
           "name": "Blackburn Rovers",
-          "aliases": ["Blackburn"]
+          "aliases": ["Blackburn", "Blackburn Rovers FC"]
         },
         {
           "name": "Burnley"
         },
         {
-          "name": "Chelsea"
+          "name": "Chelsea",
+          "aliases": ["Chelsea FC"]
         },
         {
           "name": "Derby County",
           "aliases": ["Derby"]
         },
         {
-          "name": "Everton"
+          "name": "Everton",
+          "aliases": ["Everton FC"]
         },
         {
           "name": "Huddersfield Town",
@@ -36915,26 +37275,27 @@
         },
         {
           "name": "Leeds United",
-          "aliases": ["Leeds"]
+          "aliases": ["Leeds", "Leeds United FC"]
         },
         {
           "name": "Leicester City",
-          "aliases": ["Leicester"]
+          "aliases": ["Leicester", "Leicester City FC"]
         },
         {
-          "name": "Liverpool"
+          "name": "Liverpool",
+          "aliases": ["Liverpool FC"]
         },
         {
           "name": "Manchester City",
-          "aliases": ["Man City"]
+          "aliases": ["Man City", "Manchester City FC"]
         },
         {
           "name": "Manchester United",
-          "aliases": ["Man United", "Man Utd", "Manchester Utd"]
+          "aliases": ["Man U", "Man United", "Man Utd", "Manchester United FC", "Manchester Utd"]
         },
         {
           "name": "Newcastle United",
-          "aliases": ["Newcastle"]
+          "aliases": ["Newcastle", "Newcastle United FC"]
         },
         {
           "name": "Nottingham Forest",
@@ -36960,7 +37321,7 @@
         },
         {
           "name": "Tottenham Hotspur",
-          "aliases": ["Tottenham", "Spurs"]
+          "aliases": ["Spurs", "Tottenham", "Tottenham Hotspur FC"]
         },
         {
           "name": "West Bromwich Albion",
@@ -39182,7 +39543,7 @@
         },
         {
           "name": "South Korea",
-          "aliases": ["Korea", "Republic of Korea"]
+          "aliases": ["Korea", "Korea Republic", "Republic of Korea"]
         },
         {
           "name": "Spain"
@@ -39195,7 +39556,7 @@
         },
         {
           "name": "United States",
-          "aliases": ["USA", "US", "United States of America"]
+          "aliases": ["America", "United States of America", "US", "USA"]
         },
         {
           "name": "Uruguay"
@@ -39535,7 +39896,7 @@
         },
         {
           "name": "Dolley Madison",
-          "aliases": ["Dolly Madison"]
+          "aliases": ["Dolley", "Dolly Madison"]
         },
         {
           "name": "Edith Roosevelt"
@@ -39544,7 +39905,8 @@
           "name": "Edith Wilson"
         },
         {
-          "name": "Eleanor Roosevelt"
+          "name": "Eleanor Roosevelt",
+          "aliases": ["Eleanor"]
         },
         {
           "name": "Eliza Johnson"
@@ -39575,7 +39937,8 @@
           "aliases": ["Helen \"Nellie\" Taft"]
         },
         {
-          "name": "Hillary Clinton"
+          "name": "Hillary Clinton",
+          "aliases": ["Hillary", "Hillary Rodham Clinton"]
         },
         {
           "name": "Ida McKinley"
@@ -39583,9 +39946,10 @@
         {
           "name": "Jacqueline Kennedy",
           "aliases": [
-            "Jacqueline \"Jackie\" Kennedy",
             "Jackie Kennedy",
+            "Jackie O",
             "Jackie Onassis",
+            "Jacqueline \"Jackie\" Kennedy",
             "Jacqueline Kennedy Onassis"
           ]
         },
@@ -39606,7 +39970,7 @@
         },
         {
           "name": "Lady Bird Johnson",
-          "aliases": ["Claudia \"Lady Bird\" Johnson", "Claudia Johnson"]
+          "aliases": ["Claudia \"Lady Bird\" Johnson", "Claudia Johnson", "Lady Bird"]
         },
         {
           "name": "Laura Bush"
@@ -39642,7 +40006,8 @@
           "aliases": ["Martha Jefferson Randolph"]
         },
         {
-          "name": "Martha Washington"
+          "name": "Martha Washington",
+          "aliases": ["Lady Washington"]
         },
         {
           "name": "Mary Harrison McKee"
@@ -39659,7 +40024,8 @@
           "aliases": ["Melania"]
         },
         {
-          "name": "Michelle Obama"
+          "name": "Michelle Obama",
+          "aliases": ["Michelle"]
         },
         {
           "name": "Nancy Reagan"
@@ -39678,7 +40044,8 @@
           "name": "Rose Cleveland"
         },
         {
-          "name": "Sarah Jackson"
+          "name": "Sarah Jackson",
+          "aliases": ["Sarah Yorke Jackson"]
         },
         {
           "name": "Sarah Polk"
@@ -40416,7 +40783,8 @@
           "name": "Cal Hubbard"
         },
         {
-          "name": "Cal Ripken Jr."
+          "name": "Cal Ripken Jr.",
+          "aliases": ["Cal Ripken"]
         },
         {
           "name": "Candy Cummings"
@@ -42321,7 +42689,8 @@
           "name": "Antwerp"
         },
         {
-          "name": "Athens"
+          "name": "Athens",
+          "aliases": ["Athína"]
         },
         {
           "name": "Atlanta"
@@ -42330,7 +42699,8 @@
           "name": "Barcelona"
         },
         {
-          "name": "Beijing"
+          "name": "Beijing",
+          "aliases": ["Peking"]
         },
         {
           "name": "Berlin"
@@ -42342,22 +42712,26 @@
           "name": "London"
         },
         {
-          "name": "Los Angeles"
+          "name": "Los Angeles",
+          "aliases": ["LA"]
         },
         {
           "name": "Melbourne"
         },
         {
-          "name": "Mexico City"
+          "name": "Mexico City",
+          "aliases": ["Ciudad de México"]
         },
         {
           "name": "Montreal"
         },
         {
-          "name": "Moscow"
+          "name": "Moscow",
+          "aliases": ["Moskva"]
         },
         {
-          "name": "Munich"
+          "name": "Munich",
+          "aliases": ["Muenchen", "München"]
         },
         {
           "name": "Paris"
@@ -42367,7 +42741,8 @@
           "aliases": ["Rio"]
         },
         {
-          "name": "Rome"
+          "name": "Rome",
+          "aliases": ["Roma"]
         },
         {
           "name": "Seoul"
@@ -42467,10 +42842,12 @@
           "name": "Chamonix"
         },
         {
-          "name": "Cortina d'Ampezzo"
+          "name": "Cortina d'Ampezzo",
+          "aliases": ["Cortina", "Cortina d Ampezzo"]
         },
         {
-          "name": "Garmisch-Partenkirchen"
+          "name": "Garmisch-Partenkirchen",
+          "aliases": ["Garmisch"]
         },
         {
           "name": "Grenoble"
@@ -42485,7 +42862,8 @@
           "name": "Lillehammer"
         },
         {
-          "name": "Milan"
+          "name": "Milan",
+          "aliases": ["Milan Cortina", "Milano", "Milano Cortina"]
         },
         {
           "name": "Nagano"
@@ -42494,10 +42872,12 @@
           "name": "Oslo"
         },
         {
-          "name": "Pyeongchang"
+          "name": "Pyeongchang",
+          "aliases": ["Pyeong Chang"]
         },
         {
-          "name": "Salt Lake City"
+          "name": "Salt Lake City",
+          "aliases": ["Salt Lake", "SLC"]
         },
         {
           "name": "Sapporo"
@@ -42513,7 +42893,8 @@
           "aliases": ["Olympic Valley", "Palisades Tahoe"]
         },
         {
-          "name": "St. Moritz"
+          "name": "St. Moritz",
+          "aliases": ["Saint Moritz"]
         },
         {
           "name": "Turin",
@@ -42592,23 +42973,26 @@
           "name": "Anatoly Karpov"
         },
         {
-          "name": "Bobby Fischer"
+          "name": "Bobby Fischer",
+          "aliases": ["Robert Fischer", "Robert James Fischer"]
         },
         {
           "name": "Boris Spassky"
         },
         {
-          "name": "Ding Liren"
+          "name": "Ding Liren",
+          "aliases": ["Ding"]
         },
         {
           "name": "Emanuel Lasker"
         },
         {
-          "name": "Garry Kasparov"
+          "name": "Garry Kasparov",
+          "aliases": ["Gary Kasparov"]
         },
         {
           "name": "Gukesh Dommaraju",
-          "aliases": ["Gukesh", "D Gukesh"]
+          "aliases": ["D Gukesh", "Gukesh", "Gukesh D"]
         },
         {
           "name": "José Raúl Capablanca",
@@ -42643,7 +43027,7 @@
         },
         {
           "name": "Viswanathan Anand",
-          "aliases": ["Vishy Anand", "Anand"]
+          "aliases": ["Anand", "Vishy", "Vishy Anand"]
         },
         {
           "name": "Vladimir Kramnik"
@@ -42832,7 +43216,8 @@
           "name": "Adolfo Pérez Esquivel"
         },
         {
-          "name": "Al Gore"
+          "name": "Al Gore",
+          "aliases": ["Gore"]
         },
         {
           "name": "Albert Luthuli",
@@ -42892,7 +43277,8 @@
           "aliases": ["Chamberlain"]
         },
         {
-          "name": "Barack Obama"
+          "name": "Barack Obama",
+          "aliases": ["Obama"]
         },
         {
           "name": "Bertha von Suttner",
@@ -42956,7 +43342,8 @@
           "aliases": ["Tutu"]
         },
         {
-          "name": "Dmitry Muratov"
+          "name": "Dmitry Muratov",
+          "aliases": ["Muratov"]
         },
         {
           "name": "Dominique Pire",
@@ -42986,7 +43373,8 @@
           "aliases": ["Moneta"]
         },
         {
-          "name": "European Union"
+          "name": "European Union",
+          "aliases": ["EU"]
         },
         {
           "name": "F. W. de Klerk",
@@ -43118,7 +43506,8 @@
           "aliases": ["IFRC", "International Red Cross Federation"]
         },
         {
-          "name": "Lech Wałęsa"
+          "name": "Lech Wałęsa",
+          "aliases": ["Lech Walesa", "Walesa"]
         },
         {
           "name": "Lester B. Pearson",
@@ -43159,14 +43548,16 @@
           "name": "Mairead Maguire"
         },
         {
-          "name": "Malala Yousafzai"
+          "name": "Malala Yousafzai",
+          "aliases": ["Malala", "Yousafzai"]
         },
         {
-          "name": "Maria Ressa"
+          "name": "Maria Ressa",
+          "aliases": ["Ressa"]
         },
         {
           "name": "Martin Luther King Jr.",
-          "aliases": ["Martin Luther King", "MLK", "King"]
+          "aliases": ["King", "Martin Luther King", "MLK"]
         },
         {
           "name": "Martti Ahtisaari",
@@ -43191,7 +43582,7 @@
         },
         {
           "name": "Mother Teresa",
-          "aliases": ["Teresa"]
+          "aliases": ["Saint Teresa", "Teresa"]
         },
         {
           "name": "Muhammad Yunus"
@@ -43208,7 +43599,8 @@
           "aliases": ["Nansen International Office for Refugees", "Refugees"]
         },
         {
-          "name": "Narges Mohammadi"
+          "name": "Narges Mohammadi",
+          "aliases": ["Mohammadi"]
         },
         {
           "name": "Nathan Söderblom",
@@ -43288,7 +43680,7 @@
         },
         {
           "name": "Theodore Roosevelt",
-          "aliases": ["Roosevelt"]
+          "aliases": ["Roosevelt", "Teddy Roosevelt"]
         },
         {
           "name": "Tobias Asser",
@@ -44024,7 +44416,7 @@
         },
         {
           "name": "Washington Commanders",
-          "aliases": ["Washington Redskins", "Redskins"]
+          "aliases": ["Commanders", "Redskins", "Washington Redskins"]
         }
       ],
       "surface": ["New England Patriots", "Pittsburgh Steelers", "Dallas Cowboys"],
@@ -44089,10 +44481,12 @@
           "name": "Gladwyn Jebb"
         },
         {
-          "name": "Javier Pérez de Cuéllar"
+          "name": "Javier Pérez de Cuéllar",
+          "aliases": ["Perez de Cuellar"]
         },
         {
-          "name": "Kofi Annan"
+          "name": "Kofi Annan",
+          "aliases": ["Kofi"]
         },
         {
           "name": "Kurt Waldheim"
