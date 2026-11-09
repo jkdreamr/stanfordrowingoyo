@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { ImageMetadata } from '../../../../shared/types';
 import { ApiImage, IconButton } from '../ui';
+import { useDialog } from '../ui/useDialog';
 
 export function PhotoViewer({
   images,
@@ -14,9 +15,16 @@ export function PhotoViewer({
   alt: string;
   onClose: () => void;
 }) {
-  const dialog = useRef<HTMLDialogElement>(null);
   const counter = useRef<HTMLSpanElement>(null);
   const track = useRef<HTMLDivElement>(null);
+  const {
+    ref: dialog,
+    visible,
+    requestClose,
+    blockClosing,
+  } = useDialog(true, onClose, 'viewer', () => {
+    counter.current?.focus({ preventScroll: true });
+  });
   const [current, setCurrent] = useState(index);
   const move = (next: number) => {
     const slide = Math.max(0, Math.min(images.length - 1, next));
@@ -24,18 +32,7 @@ export function PhotoViewer({
     if (track.current) track.current.scrollLeft = slide * track.current.clientWidth;
   };
   useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
-    const overflow = document.body.style.overflow;
-    const modal = dialog.current;
-    document.body.style.overflow = 'hidden';
-    modal?.showModal();
-    counter.current?.focus({ preventScroll: true });
     if (track.current) track.current.scrollLeft = index * track.current.clientWidth;
-    return () => {
-      document.body.style.overflow = overflow;
-      if (modal?.open) modal.close();
-      previous?.focus({ preventScroll: true });
-    };
   }, [index]);
   return (
     <dialog
@@ -43,12 +40,15 @@ export function PhotoViewer({
       className="social-viewer"
       aria-label="Workout Photos"
       aria-modal="true"
+      data-closing={!visible || undefined}
+      onClickCapture={blockClosing}
+      onKeyDownCapture={blockClosing}
+      onClose={(event) => {
+        if (!event.currentTarget.open) requestClose();
+      }}
       onCancel={(event) => {
         event.preventDefault();
-        onClose();
-      }}
-      onClose={(event) => {
-        if (!event.currentTarget.open) onClose();
+        requestClose();
       }}
       onKeyDown={(e) => {
         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
@@ -76,7 +76,7 @@ export function PhotoViewer({
           >
             <ChevronRight size={20} strokeWidth={1.75} aria-hidden="true" />
           </IconButton>
-          <IconButton aria-label="Close" onClick={onClose}>
+          <IconButton aria-label="Close" onClick={requestClose}>
             <X size={20} strokeWidth={1.75} aria-hidden="true" />
           </IconButton>
         </div>

@@ -220,9 +220,9 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
 }, testInfo) => {
   test.setTimeout(180000);
   const dates: Record<string, string> = {
-    'desktop-chrome': '2026-11-10',
-    'iphone-15': '2026-11-11',
-    'pixel-7': '2026-11-12',
+    'desktop-chrome': '2026-11-17',
+    'iphone-15': '2026-11-18',
+    'pixel-7': '2026-11-19',
   };
   const date = dates[testInfo.project.name];
   const clockHeaders = {

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Megaphone, Plus } from 'lucide-react';
 import type { Announcement } from '../../../../shared/types';
 import {
+  DialogPresence,
   Button,
   ConfirmSheet,
   EmptyState,
@@ -103,12 +104,14 @@ export default function Announcements() {
           />
         )}
       </div>
-      {editing && (
-        <AnnouncementEditor
-          row={editing === 'new' ? undefined : editing}
-          onClose={() => setEditing(undefined)}
-        />
-      )}
+      <DialogPresence>
+        {editing && (
+          <AnnouncementEditor
+            row={editing === 'new' ? undefined : editing}
+            onClose={() => setEditing(undefined)}
+          />
+        )}
+      </DialogPresence>
       <ConfirmSheet
         open={!!deleting}
         title="Delete Announcement?"

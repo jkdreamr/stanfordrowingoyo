@@ -2,7 +2,7 @@
 import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Env } from './index';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { effectiveTarget } from './db/targets';
 import { getSetting, setGroupTargets, setSetting } from './db/settings';
 import { byEmail, toPublicUser } from './db/users';
@@ -84,12 +84,12 @@ beforeEach(async () => {
 });
 describe('core worker integration', () => {
   it('migrates through v18 and preserves an existing v1 group default', async () => {
-    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 19 });
+    expect(await (await request('/health')).json()).toEqual({ ok: true, schema_version: 21 });
     await sql((storage) => {
       setSetting(storage, 'schema_version', 1);
       setSetting(storage, 'group_targets', { frosh: 70000, normal: 90000, u23: 110000 });
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(19);
+      expect(getSetting(storage, 'schema_version')).toBe(21);
       expect(getSetting(storage, 'group_target_history')).toEqual([
         { week_start: '2000-01-01', targets: { frosh: 70000, normal: 90000, u23: 110000 } },
       ]);

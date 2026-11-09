@@ -93,7 +93,9 @@ it.each(Object.keys(stimuli) as (keyof typeof titles)[])(
     expect(screen.getByRole('heading', { name: titles[id] })).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Lock In' })).toBeNull();
     await click('Start');
-    expect(api).toHaveBeenCalledWith('POST /api/games/perception/start', { body: { round: 0 } });
+    expect(api).toHaveBeenCalledWith('POST /api/games/perception/start', {
+      body: { round: 0, date: DATE },
+    });
     const exposure =
       id === 'span'
         ? 9 * PERCEPTION_EXPOSURE.span
@@ -227,4 +229,40 @@ it('keeps the brief retryable after a failed start without showing its stimulus'
   expect(screen.queryByRole('img', { name: 'Target Shade' })).toBeNull();
   await click('Start');
   expect(screen.getByRole('img', { name: 'Target Shade' })).toBeTruthy();
+});
+
+it('does not show a new-day stimulus under the old date', async () => {
+  active = 'shade';
+  await act(async () => {
+    render(<PerceptionPlay date={DATE} onComplete={() => {}} />);
+  });
+  vi.mocked(api).mockResolvedValueOnce({
+    ...view(),
+    date: '2026-11-12',
+    stimulus: stimuli.shade,
+  } as never);
+  await click('Start');
+  expect(screen.getByRole('alert').textContent).toBe('A New Day Has Started. Reload to Play.');
+  expect(screen.queryByRole('img', { name: 'Target Shade' })).toBeNull();
+});
+
+it('does not apply new-day scores to an old-day answer', async () => {
+  active = 'shade';
+  await act(async () => {
+    render(<PerceptionPlay date={DATE} onComplete={() => {}} />);
+  });
+  await click('Start');
+  await advance(800);
+  vi.mocked(api).mockResolvedValueOnce({
+    ...view(),
+    date: '2026-11-12',
+    scores: { shade: 100 },
+  } as never);
+  await click('Lock In');
+  expect(api).toHaveBeenLastCalledWith(
+    'POST /api/games/perception/answer',
+    expect.objectContaining({ body: expect.objectContaining({ date: DATE }) }),
+  );
+  expect(screen.getByRole('alert').textContent).toBe('A New Day Has Started. Reload to Play.');
+  expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
 });

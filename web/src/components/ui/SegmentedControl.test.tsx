@@ -24,19 +24,27 @@ function Example() {
   );
 }
 describe('SegmentedControl', () => {
-  it('stretches only when selection changes, then cancels on unmount', () => {
+  it.each([
+    ['', 520],
+    ['.52s', 520],
+    ['280ms', 280],
+  ])('stretches with CSS duration %j only on selection changes', (duration, expected) => {
     const cancel = vi.fn();
     const animate = vi.fn(() => ({ cancel }) as unknown as Animation);
     vi.stubGlobal('matchMedia', () => ({ matches: false }));
     const original = HTMLElement.prototype.animate;
     HTMLElement.prototype.animate = animate;
     try {
-      const { unmount } = render(<Example />);
+      const { unmount, container } = render(<Example />);
+      (container.querySelector('.ui-segment-thumb') as HTMLElement).style.setProperty(
+        '--dur-travel',
+        duration,
+      );
       expect(animate).not.toHaveBeenCalled();
       fireEvent.click(screen.getByRole('radio', { name: 'Run' }));
       expect(animate).toHaveBeenCalledWith(
         [{ scale: '1 1' }, { scale: '1.04 0.98', offset: 0.35 }, { scale: '1 1' }],
-        expect.objectContaining({ duration: 520 }),
+        expect.objectContaining({ duration: expected }),
       );
       fireEvent.click(screen.getByRole('radio', { name: 'Run' }));
       expect(animate).toHaveBeenCalledTimes(1);

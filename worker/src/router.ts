@@ -23,7 +23,7 @@ import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 import * as games from './routes/games';
 import * as dive from './routes/dive';
-import { DIVE_ENABLED } from './games/features';
+import { DIVE_AVAILABLE } from './games/features';
 import * as connections from './routes/connections';
 import * as wordguess from './routes/wordguess';
 import * as perception from './routes/perception';
@@ -112,7 +112,7 @@ const routes: Route[] = [
     path: '/internal/admin/users/:id/reset-password/commit',
     handler: admin.resetPassword,
   },
-  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 19 }) },
+  { method: 'GET', path: '/api/health', handler: () => json({ ok: true, schema_version: 21 }) },
   { method: 'POST', path: '/api/auth/roster', handler: auth.roster },
   { method: 'POST', path: '/api/auth/signup', handler: unavailable },
   { method: 'POST', path: '/api/auth/login', handler: unavailable },
@@ -168,6 +168,7 @@ const routes: Route[] = [
   { method: 'PATCH', path: '/api/announcements/:id', handler: announcements.patch },
   { method: 'DELETE', path: '/api/announcements/:id', handler: announcements.remove },
   { method: 'GET', path: '/api/plan', handler: plan.get },
+  { method: 'GET', path: '/api/plan/example', handler: plan.example },
   { method: 'GET', path: '/api/admin/users', handler: admin.users },
   { method: 'PATCH', path: '/api/admin/users/:id', handler: admin.patchUser },
   { method: 'POST', path: '/api/admin/users/:id/reset-password', handler: unavailable },
@@ -185,8 +186,6 @@ const routes: Route[] = [
   { method: 'DELETE', path: '/api/admin/presets/:id', handler: admin.deletePreset },
   { method: 'GET', path: '/api/admin/plan', handler: plan.adminGet },
   { method: 'PUT', path: '/api/admin/plan', handler: plan.put },
-  { method: 'POST', path: '/api/admin/plan', handler: plan.post },
-  { method: 'DELETE', path: '/api/admin/plan/:group/:week/:day/:slot', handler: plan.remove },
   { method: 'POST', path: '/api/admin/recalculate', handler: admin.recalc },
   { method: 'GET', path: '/api/admin/compliance', handler: admin.compliance },
   { method: 'GET', path: '/api/admin/export', handler: admin.exportCsv },
@@ -228,7 +227,7 @@ export async function route(ctx: Context): Promise<Response> {
   let response: Response;
   try {
     const path = new URL(ctx.request.url).pathname;
-    if (!DIVE_ENABLED && /^\/api\/games\/dive(?:\/|$)/.test(path))
+    if (!DIVE_AVAILABLE && /^\/api\/games\/dive(?:\/|$)/.test(path))
       throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (path.startsWith('/internal/') && ctx.request.headers.get('X-OYO-Internal') !== '1')
       throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');

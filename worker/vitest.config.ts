@@ -4,6 +4,7 @@ import { generateVapidKeys } from '../scripts/generate-vapid-keys.ts';
 
 const vapid = generateVapidKeys();
 export default defineConfig({
+  define: { __OYO_DIVE_TEST__: 'true' },
   test: { fileParallelism: false },
   plugins: [
     cloudflareTest({

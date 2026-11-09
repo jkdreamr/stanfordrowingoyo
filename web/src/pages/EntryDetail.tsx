@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Activity, MessageCircle, MoreHorizontal, Share2 } from 'lucide-react';
 import {
@@ -17,6 +17,7 @@ import { CommentEditor } from '../components/social/CommentEditor';
 import { ReportSheet } from '../components/social/ReportSheet';
 import { MentionComposer } from '../components/social/MentionComposer';
 import {
+  DialogPresence,
   Avatar,
   Button,
   ConfirmSheet,
@@ -38,6 +39,9 @@ export default function EntryDetail() {
   const remove = useDeleteEntry();
   const query = useEntry(id, !remove.isPending && !remove.isSuccess);
   const comments = useComments(id, !remove.isPending && !remove.isSuccess);
+  const seenComments = useRef<Set<string> | null>(null);
+  if (!seenComments.current && comments.data)
+    seenComments.current = new Set(comments.data.map((comment) => comment.id));
   const { data: me } = useMe();
   const { data: config } = useConfig();
   const create = useCreateComment();
@@ -125,34 +129,36 @@ export default function EntryDetail() {
         ) : (
           <>
             <EntryCard entry={entry} config={config} full onComment={focusComment} />
-            {more && (
-              <Sheet open onClose={() => setMore(false)} title="Workout Actions">
-                <ListGroup>
-                  {canEdit && (
-                    <>
-                      <ListRow title="Edit Workout" to={`/log?edit=${encodeURIComponent(id)}`} />
+            <DialogPresence>
+              {more && (
+                <Sheet open onClose={() => setMore(false)} title="Workout Actions">
+                  <ListGroup>
+                    {canEdit && (
+                      <>
+                        <ListRow title="Edit Workout" to={`/log?edit=${encodeURIComponent(id)}`} />
+                        <ListRow
+                          title="Delete Workout"
+                          tone="destructive"
+                          onClick={() => {
+                            setMore(false);
+                            setDeleting('entry');
+                          }}
+                        />
+                      </>
+                    )}
+                    {me && me.id !== entry.user_id && (
                       <ListRow
-                        title="Delete Workout"
-                        tone="destructive"
+                        title="Report Workout"
                         onClick={() => {
                           setMore(false);
-                          setDeleting('entry');
+                          setReporting({ target_type: 'entry', target_id: id });
                         }}
                       />
-                    </>
-                  )}
-                  {me && me.id !== entry.user_id && (
-                    <ListRow
-                      title="Report Workout"
-                      onClick={() => {
-                        setMore(false);
-                        setReporting({ target_type: 'entry', target_id: id });
-                      }}
-                    />
-                  )}
-                </ListGroup>
-              </Sheet>
-            )}
+                    )}
+                  </ListGroup>
+                </Sheet>
+              )}
+            </DialogPresence>
             <section id="comments" className="scroll-mt-20">
               <h2 className="mb-4 text-title3">Comments</h2>
               {comments.isError ? (
@@ -166,7 +172,10 @@ export default function EntryDetail() {
               ) : (
                 <ul className="mb-6 divide-y divide-divider">
                   {comments.data.map((comment) => (
-                    <li key={comment.id} className="flex gap-3 py-4">
+                    <li
+                      key={comment.id}
+                      className={`flex gap-3 py-4 ${seenComments.current && !seenComments.current.has(comment.id) ? 'comment-arrive' : ''}`}
+                    >
                       <Avatar name={comment.author.name} imageId={comment.author.avatar_image_id} />
                       <div className="min-w-0 flex-1">
                         <Link
@@ -256,47 +265,51 @@ export default function EntryDetail() {
                 </Button>
               </form>
             </section>
-            {deleting !== null && (
-              <ConfirmSheet
-                open={deleting !== null}
-                onClose={() => setDeleting(null)}
-                title={deleting === 'entry' ? 'Delete Workout' : 'Delete Comment'}
-                body="This cannot be undone"
-                confirmLabel="Delete"
-                cancelLabel="Cancel"
-                loading={remove.isPending || removeComment.isPending}
-                onConfirm={() => {
-                  const onError = () =>
-                    toast.show({ title: 'Could not delete. Try again', tone: 'error' });
-                  if (deleting === 'entry')
-                    remove.mutate(
-                      { params: { id } },
-                      {
-                        onSuccess: () => {
-                          toast.show({ title: 'Workout deleted' });
-                          navigate('/feed', { replace: true });
+            <DialogPresence>
+              {deleting !== null && (
+                <ConfirmSheet
+                  open={deleting !== null}
+                  onClose={() => setDeleting(null)}
+                  title={deleting === 'entry' ? 'Delete Workout' : 'Delete Comment'}
+                  body="This cannot be undone"
+                  confirmLabel="Delete"
+                  cancelLabel="Cancel"
+                  loading={remove.isPending || removeComment.isPending}
+                  onConfirm={() => {
+                    const onError = () =>
+                      toast.show({ title: 'Could not delete. Try again', tone: 'error' });
+                    if (deleting === 'entry')
+                      remove.mutate(
+                        { params: { id } },
+                        {
+                          onSuccess: () => {
+                            toast.show({ title: 'Workout deleted' });
+                            navigate('/feed', { replace: true });
+                          },
+                          onError,
                         },
-                        onError,
-                      },
-                    );
-                  else if (deleting)
-                    removeComment.mutate(
-                      { params: { id: deleting } },
-                      {
-                        onSuccess: () => {
-                          setDeleting(null);
-                          toast.show({ title: 'Comment deleted' });
+                      );
+                    else if (deleting)
+                      removeComment.mutate(
+                        { params: { id: deleting } },
+                        {
+                          onSuccess: () => {
+                            setDeleting(null);
+                            toast.show({ title: 'Comment deleted' });
+                          },
+                          onError,
                         },
-                        onError,
-                      },
-                    );
-                }}
-              />
-            )}
+                      );
+                  }}
+                />
+              )}
+            </DialogPresence>
           </>
         )}
       </div>
-      {reporting && <ReportSheet target={reporting} onClose={() => setReporting(null)} />}
+      <DialogPresence>
+        {reporting && <ReportSheet target={reporting} onClose={() => setReporting(null)} />}
+      </DialogPresence>
     </>
   );
 }

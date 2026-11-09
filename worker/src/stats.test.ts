@@ -5,7 +5,7 @@ import type { User, LeaderboardRow, SeasonStats, WeekStats } from '../../shared/
 import { GROUP_TARGETS } from '../../shared/seed';
 import type { Env } from './index';
 import type { Context } from './context';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { getSetting, setSetting } from './db/settings';
 import { sha256 } from './auth/crypto';
 import { insertRosterFixture } from './testFixtures';
@@ -406,7 +406,7 @@ describe('batched statistics and indexed read paths', () => {
       setSetting(storage, 'schema_version', 3);
       migrate(storage);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(19);
+      expect(getSetting(storage, 'schema_version')).toBe(21);
       expect(
         storage.sql.exec('SELECT id FROM entries WHERE id=?', logged.id).toArray(),
       ).toHaveLength(1);

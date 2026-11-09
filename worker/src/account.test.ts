@@ -12,7 +12,7 @@ import type {
   User,
 } from '../../shared/types';
 import type { Env } from './index';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
 import { REDACTED_AUDIT_DETAIL } from './db/account';

@@ -4,7 +4,7 @@ import { beforeEach, expect, it } from 'vitest';
 import type { Env } from './index';
 import type { ErgTest, TeamChallenge, User, Entry, WeeklyRecap } from '../../shared/types';
 import type { Row } from './db/row';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { setSetting, getSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
 import { list as challengeList } from './routes/challenges';
@@ -102,7 +102,7 @@ it('backfills v9 best splits on team-local date and is idempotent', async () => 
     setSetting(s, 'schema_version', 9);
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(19);
+    expect(getSetting(s, 'schema_version')).toBe(21);
     const rows = s.sql.exec<Row<ErgTest>>('SELECT * FROM erg_tests ORDER BY kind').toArray();
     expect(rows).toHaveLength(2);
     expect(rows[0]).toMatchObject({ date: '2026-03-09', time_s: 400, split_s: 100 });

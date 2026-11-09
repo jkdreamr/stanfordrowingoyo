@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { ImageMetadata } from '../../../../shared/types';
-import { ApiImage, IconButton } from '../ui';
+import { DialogPresence, ApiImage, IconButton } from '../ui';
 import { PhotoViewer } from './PhotoViewer';
 const positions = new Map<string, number>();
 
@@ -96,9 +96,11 @@ export function PhotoCarousel({
       <span className="sr-only" role="status">
         Photo {index + 1} of {images.length}
       </span>
-      {viewing !== null && (
-        <PhotoViewer images={images} index={viewing} alt={alt} onClose={() => setViewing(null)} />
-      )}
+      <DialogPresence>
+        {viewing !== null && (
+          <PhotoViewer images={images} index={viewing} alt={alt} onClose={() => setViewing(null)} />
+        )}
+      </DialogPresence>
     </div>
   );
 }

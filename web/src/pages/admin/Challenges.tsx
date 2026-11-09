@@ -15,6 +15,7 @@ import {
   useConfig,
 } from '../../lib/queries';
 import {
+  DialogPresence,
   Button,
   IconButton,
   Card,
@@ -108,13 +109,15 @@ export default function Challenges() {
           ))
         )}
       </div>
-      {editing && config.data && (
-        <ChallengeEditor
-          row={editing === 'new' ? undefined : editing}
-          today={config.data.today}
-          onClose={() => setEditing(undefined)}
-        />
-      )}
+      <DialogPresence>
+        {editing && config.data && (
+          <ChallengeEditor
+            row={editing === 'new' ? undefined : editing}
+            today={config.data.today}
+            onClose={() => setEditing(undefined)}
+          />
+        )}
+      </DialogPresence>
       <ConfirmSheet
         open={!!confirm}
         title={confirm?.action === 'end' ? 'End Challenge?' : 'Delete Challenge?'}

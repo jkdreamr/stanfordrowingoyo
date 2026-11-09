@@ -6,7 +6,8 @@ import type { ImageMetadata } from '../../../../shared/types';
 import { PhotoViewer } from './PhotoViewer';
 import { PhotoCarousel } from './PhotoCarousel';
 import { PullToRefresh } from './PullToRefresh';
-vi.mock('../ui', () => ({
+vi.mock('../ui', async (original) => ({
+  ...(await original<typeof import('../ui')>()),
   ApiImage: ({ alt }: { alt: string }) => <img alt={alt} />,
   IconButton: (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => <button {...props} />,
 }));

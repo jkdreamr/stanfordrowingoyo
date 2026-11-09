@@ -13,7 +13,7 @@ test('phone Home and Me expose both fortnights before and after planning', async
   const card = page
     .locator('.ui-card')
     .filter({ has: page.getByRole('heading', { name: "Today's Plan", exact: true }) });
-  const sample = card.getByRole('link', { name: 'Sample Fortnight', exact: true });
+  const sample = card.getByRole('link', { name: 'Example Fortnight', exact: true });
   await expect(sample).toBeVisible();
   const box = (await sample.boundingBox())!;
   expect(box.height).toBeGreaterThanOrEqual(44);
@@ -23,7 +23,7 @@ test('phone Home and Me expose both fortnights before and after planning', async
     await page.screenshot({ path: `${process.env.QA_SCREENSHOT_DIR}/home-no-plan-light.png` });
   }
   await sample.click();
-  await expect(page.getByRole('heading', { name: 'Sample Fortnight', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Example Fortnight', exact: true })).toBeVisible();
   await page.goto('/');
   await card.getByRole('link', { name: 'My Fortnight', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Start Plan', exact: true })).toBeVisible();
@@ -71,7 +71,7 @@ test('phone Home and Me expose both fortnights before and after planning', async
     .getByRole('link', { name: 'Plan', exact: true });
   await plan.scrollIntoViewIfNeeded();
   await plan.click();
-  await expect(page.getByRole('heading', { name: 'Sample Fortnight', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /^Week of / })).toBeVisible();
 });
 
 test('phone rower can browse announcements published before signup', async ({

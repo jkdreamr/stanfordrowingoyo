@@ -14,7 +14,10 @@ starts Wrangler on https://localhost:8799 with `--local-protocol https` and its
 self-signed dev certificate. It enables `OYO_TEST_CLOCK=1` through Wrangler's E2E-only `--var` flag so
 `X-OYO-Test-Now` works without local secret-file changes. Production config is
 unchanged. An externally managed `E2E_BASE_URL` server must enable the clock
-itself for clock-dependent scenarios.
+itself for clock-dependent scenarios. Managed Wrangler also passes
+`--define __OYO_DIVE_TEST__:true` so every Dive test runs despite the production
+switch being off. External test servers must use that define too; production
+Wrangler config never defines it.
 Browser/API contexts and the health check ignore
 certificate errors locally. Existing servers are reused outside
 CI, without resetting their state. `E2E_BASE_URL=https://localhost:8799` skips

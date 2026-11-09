@@ -223,6 +223,10 @@ body {
   }
 }
 /* On the Leaderboard, the race sits flat on the page instead of in a card. */
+/* The metric, week and race read as one control group above the rankings. */
+.screen-stack.leaderboard {
+  gap: 16px;
+}
 .leaderboard > .race-module {
   border: 0;
   padding: 0;
@@ -747,6 +751,54 @@ body {
   width: 160px;
   height: 160px;
   margin: -80px 0 0 -80px;
+}
+/* Feed actions: each icon sits with its own count, like Strava and Instagram. */
+.entry-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 -8px -12px;
+  padding-top: 4px;
+  border-top: 1px solid var(--divider);
+}
+.entry-actions > :first-child {
+  /* The divider still runs to the card's text edge while the first icon aligns with it. */
+  margin-left: 0;
+}
+.entry-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.entry-action .entry-action-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-control);
+}
+.entry-action .entry-action-icon[aria-pressed='true'] {
+  color: var(--accent-ink);
+}
+.entry-action .entry-action-count {
+  display: inline-flex;
+  align-items: center;
+  min-width: 28px;
+  min-height: 44px;
+  margin-left: -8px;
+  padding: 0 8px 0 0;
+  justify-content: flex-start;
+  color: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: transparent;
+  box-shadow: none;
 }
 .kudos-icon {
   position: relative;
@@ -1474,6 +1526,12 @@ body {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: var(--surface);
+  }
+  .ui-page-nav-inline,
+  .ui-page-nav-collapsed {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--bg);
   }
   .shell-tabbar,
   .dark .shell-tabbar {

@@ -178,17 +178,25 @@ export function EntryCard({
         </div>
       )}
       <WithTeammates users={entry.tagged} />
-      <footer className="mt-4 flex gap-2 border-t border-divider pt-2">
+      <footer className="entry-actions">
         <KudosButton entry={entry} />
-        <Button
-          variant="plain"
-          leading={<MessageCircle size={20} strokeWidth={1.75} />}
+        <button
+          type="button"
+          className="entry-action"
+          aria-label={
+            entry.comment_count
+              ? `${entry.comment_count} ${entry.comment_count === 1 ? 'Comment' : 'Comments'}`
+              : 'Comment'
+          }
           onClick={onComment ?? (() => navigate(`/entries/${entry.id}#comments`))}
         >
-          {entry.comment_count
-            ? `${entry.comment_count} ${entry.comment_count === 1 ? 'Comment' : 'Comments'}`
-            : 'Comment'}
-        </Button>
+          <span className="entry-action-icon" aria-hidden="true">
+            <MessageCircle size={20} strokeWidth={1.75} />
+          </span>
+          <span className="entry-action-count" aria-hidden="true">
+            {entry.comment_count || ''}
+          </span>
+        </button>
       </footer>
     </article>
   );

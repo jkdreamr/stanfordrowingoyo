@@ -28,7 +28,7 @@ export default function GamesLeaderboard() {
   return (
     <>
       <PageHeader title="Games Leaderboard" back="/games" />
-      <div className="space-y-8 p-4 lg:p-6">
+      <div className="space-y-6 px-[var(--gutter)] py-4 lg:py-6">
         {!date || !games.data ? (
           <LoadState
             error={config.isError || games.isError}

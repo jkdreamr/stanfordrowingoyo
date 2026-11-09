@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { User, EntryDetail, Announcement, Preset } from '../../shared/types';
 import type { Env } from './index';
 import type { Context } from './context';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { byId } from './db/users';
 import { setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
@@ -299,12 +299,7 @@ describe('fresh state after awaited request bodies', () => {
     ['preset PATCH', admin.patchPreset, { name: 'Changed' }],
     ['announcement POST', announcements.create, { title: 'Title', body: 'Body', pinned: false }],
     ['announcement PATCH', announcements.patch, { title: 'Changed' }],
-    ['plan PUT', plan.put, { slots: [], totals: [] }],
-    [
-      'plan POST',
-      plan.post,
-      { group_key: 'normal', week: 1, day: 0, slot: 'AM', kind: 'off', zone: null, text: '' },
-    ],
+    ['plan PUT', plan.put, { week_start: '2026-03-09', slots: [], totals: [] }],
   ];
   it.each(staffHandlers)(
     '%s rejects an actor demoted while parsing',
