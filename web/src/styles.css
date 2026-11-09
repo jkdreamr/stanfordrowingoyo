@@ -918,8 +918,23 @@ textarea::placeholder {
 .ui-page-nav > :last-child {
   justify-self: end;
 }
-.ui-page-nav-collapsed {
+.ui-page-nav:not(.ui-page-nav-inline) {
+  background: transparent;
+  transition:
+    background-color var(--oyo-motion-fast) var(--oyo-ease-out),
+    border-color var(--oyo-motion-fast) var(--oyo-ease-out);
+}
+.ui-page-nav:not(.ui-page-nav-inline).ui-page-nav-collapsed {
   border-color: var(--divider);
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.ui-page-nav-root {
+  pointer-events: none;
+}
+.ui-page-nav-root > * {
+  pointer-events: auto;
 }
 .ui-page-nav-inline {
   display: flex;
@@ -928,6 +943,17 @@ textarea::placeholder {
 }
 .ui-large-title {
   padding: 8px 16px 16px;
+}
+/* Top-level screens: the large title shares the header row with the actions. */
+.ui-large-title-root {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  margin-top: -60px;
+  padding-block: 8px;
+}
+.ui-large-title-root + .ui-header-sentinel {
+  margin: 43px 0 -44px;
 }
 .today-plan-empty {
   padding-block: 24px;
