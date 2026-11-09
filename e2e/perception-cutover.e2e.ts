@@ -49,7 +49,7 @@ test('an old brief cannot consume a new-day round after a workout on another tab
     const day = await (await context.request.get('/api/games/perception/today')).json();
     expect(day).toMatchObject({
       date: '2026-11-10',
-      access: { unlocked: true, reason: 'no_oyo' },
+      access: { unlocked: true, reason: 'workout' },
       round: 0,
       scores: {},
       done: false,
@@ -255,7 +255,13 @@ test('LA midnight preserves legacy results and safely rejects an old active roun
       path: `/home/ubuntu/perception-runtime-midnight-${info.project.name}.png`,
     });
     const day = await (await active.context.request.get('/api/games/perception/today')).json();
-    expect(day).toMatchObject({ date: '2026-11-10', round: 0, scores: {}, done: false });
+    expect(day).toMatchObject({
+      date: '2026-11-10',
+      access: { unlocked: true, reason: 'no_oyo' },
+      round: 0,
+      scores: {},
+      done: false,
+    });
     await active.page.reload();
     await waitForSplash(active.page);
     await expect(
