@@ -29,7 +29,7 @@ test('shell, manifest, and health load without backend auth', async ({ page, req
   else {
     const health = await request.get('/api/health');
     await expect(health).toBeOK();
-    expect(await health.json()).toMatchObject({ ok: true, schema_version: 18 });
+    expect(await health.json()).toMatchObject({ ok: true, schema_version: 19 });
   }
 });
 

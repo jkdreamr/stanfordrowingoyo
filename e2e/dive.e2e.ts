@@ -1,15 +1,197 @@
 import { mkdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import type { DiveAnswerResult, DiveDay, GameDayLeaderboard } from '../shared/types';
-import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS } from '../shared/games/dive';
+import type { DiveDay, DiveGuessResponse, GameDayLeaderboard } from '../shared/types';
+import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS, normalizeAnswer } from '../shared/games/dive';
 import { diveSelectionFor } from '../worker/src/games/divePrompts';
 import { answerSet } from '../worker/src/games/dive/sets';
+import { matchAnswer, suggestAnswer, type AnswerSet } from '../worker/src/games/dive/matcher';
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
 
 test.use({ serviceWorkers: 'block' });
+
+function nearMiss(set: AnswerSet) {
+  const canonicals = [
+    set.gem.answer,
+    ...set.answers
+      .trim()
+      .split('\n')
+      .map((line) => line.split('\t')[1]),
+  ];
+  for (const canonical of canonicals) {
+    const key = normalizeAnswer(canonical);
+    if (key.length < 5 || key.length > 40) continue;
+    const edits = key.length < 8 ? 2 : 3;
+    const guesses: string[] = [];
+    for (let i = 0; i <= key.length - edits; i++) {
+      guesses.push(key.slice(0, i) + key.slice(i + edits));
+    }
+    for (let i = 0; i < key.length; i++) {
+      const chars = [...key];
+      for (let edit = 0; edit < edits; edit++) {
+        const position = (i + Math.floor((edit * key.length) / edits)) % key.length;
+        chars[position] = chars[position] === 'e' ? 'a' : 'e';
+      }
+      guesses.push(chars.join(''));
+    }
+    for (const typed of guesses) {
+      if (typed.length < 4 || matchAnswer(typed, set).tier !== 'miss') continue;
+      const suggestion = suggestAnswer(typed, set);
+      if (suggestion?.canonical === canonical) return { typed, ...suggestion, canonical };
+    }
+  }
+  throw new Error('No unambiguous near-miss outside the auto-accept band for this set');
+}
+
+test('Dive keeps guessing, accepts and rejects near misses, and times out a pending suggestion', async ({
+  makeRower,
+}, testInfo) => {
+  test.skip(process.env.E2E_MOCK === '1', 'Requires the real Worker answer sets and test clock');
+  test.setTimeout(180000);
+  const date = {
+    'desktop-chrome': '2026-11-13',
+    'iphone-15': '2026-11-14',
+    'pixel-7': '2026-11-15',
+  }[testInfo.project.name]!;
+  const rower = await makeRower();
+  const { page, context } = rower;
+  const clock = async (seconds: number) =>
+    context.setExtraHTTPHeaders({
+      ...testInfo.project.use.extraHTTPHeaders,
+      'X-OYO-Test-Now': new Date(Date.parse(date + 'T18:00:00Z') + seconds * 1000).toISOString(),
+    });
+  await clock(0);
+  await seedEntry(rower, 'Dive near-miss workout');
+  const selection = diveSelectionFor(date);
+  const sets = await Promise.all(selection.slice(0, 3).map((prompt) => answerSet(prompt.id)));
+  const misses = sets.map(nearMiss);
+  const shots = join(homedir(), 'dive-pr-shots');
+  if (testInfo.project.name === 'iphone-15') await mkdir(shots, { recursive: true });
+  async function capture(state: string) {
+    if (testInfo.project.name !== 'iphone-15') return;
+    await waitForSplash(page);
+    for (const colorScheme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
+      if (colorScheme === 'dark') await expect(page.locator('html')).toHaveClass(/dark/);
+      else await expect(page.locator('html')).not.toHaveClass(/dark/);
+      await page.screenshot({
+        path: join(shots, `${state}-${colorScheme}.png`),
+        animations: 'disabled',
+      });
+    }
+    await page.emulateMedia({ colorScheme: 'light' });
+  }
+  async function guess(answer: string) {
+    await page.getByLabel('Your Answer', { exact: true }).fill(answer);
+    const response = page.waitForResponse(
+      (response) =>
+        response.url().endsWith('/api/games/dive/guesses') &&
+        response.request().method() === 'POST',
+    );
+    await page.getByRole('button', { name: 'Dive', exact: true }).click();
+    const saved = await response;
+    expect(saved.status()).toBe(200);
+    return (await saved.json()) as DiveGuessResponse;
+  }
+  const day = async () => {
+    const response = await context.request.get('/api/games/dive/today');
+    await expect(response).toBeOK();
+    return (await response.json()) as DiveDay;
+  };
+  await page.goto('/games/dive');
+  await waitForSplash(page);
+  await page.getByRole('button', { name: 'Begin', exact: true }).click();
+  await expect(page.getByRole('heading', { name: selection[0].text, exact: true })).toBeVisible();
+  const wrong = 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz';
+  expect(matchAnswer(wrong, sets[0]).tier).toBe('miss');
+  expect(suggestAnswer(wrong, sets[0])).toBeNull();
+  expect(await guess(wrong)).toEqual({ outcome: 'not_an_answer', attempts_left: 14 });
+  const input = page.getByLabel('Your Answer', { exact: true });
+  await expect(page.getByText('Not an answer', { exact: true })).toBeVisible();
+  await expect(input).toHaveValue('');
+  await expect(input).toBeFocused();
+  expect((await day()).answers).toHaveLength(0);
+  await capture('not-an-answer');
+  await clock(1);
+  expect(await guess(misses[0].typed)).toMatchObject({
+    outcome: 'suggestion',
+    suggestion: misses[0].canonical,
+  });
+  await expect(page.locator('.dive-prompt').getByRole('status')).toContainText(
+    `Did you mean ${misses[0].canonical}?`,
+  );
+  await expect(input).toBeFocused();
+  await capture('suggestion');
+  // Reload uses the stored suggestion, not a candidate supplied by the browser.
+  await page.reload();
+  await waitForSplash(page);
+  await expect(page.locator('.dive-prompt').getByRole('status')).toContainText(
+    `Did you mean ${misses[0].canonical}?`,
+  );
+  const accepting = page.waitForResponse((response) =>
+    response.url().endsWith('/api/games/dive/suggestion'),
+  );
+  await page.getByRole('button', { name: 'Yes', exact: true }).click();
+  const accepted = await accepting;
+  expect(accepted.request().postDataJSON()).toEqual({ prompt_index: 0, accept: true });
+  expect(await accepted.json()).toMatchObject({
+    outcome: 'scored',
+    answer: { canonical: misses[0].canonical, points: misses[0].points, tier: misses[0].tier },
+  });
+  await expect(
+    page
+      .getByRole('region', { name: 'Answer Result' })
+      .getByText(misses[0].canonical, { exact: true })
+      .first(),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await clock(2);
+  expect(await guess(misses[1].typed)).toMatchObject({
+    outcome: 'suggestion',
+    suggestion: misses[1].canonical,
+  });
+  const rejecting = page.waitForResponse((response) =>
+    response.url().endsWith('/api/games/dive/suggestion'),
+  );
+  await page.getByRole('button', { name: 'No', exact: true }).click();
+  const rejected = await rejecting;
+  expect(rejected.request().postDataJSON()).toEqual({ prompt_index: 1, accept: false });
+  expect(await rejected.json()).toMatchObject({ outcome: 'not_an_answer' });
+  await expect(input).toHaveValue('');
+  await expect(input).toBeFocused();
+  await expect(page.getByText('Not an answer', { exact: true })).toBeVisible();
+  expect((await day()).answers).toHaveLength(1);
+  await clock(3);
+  expect(await guess(misses[1].canonical)).toMatchObject({
+    outcome: 'scored',
+    answer: { canonical: misses[1].canonical },
+  });
+  await expect(page.getByRole('region', { name: 'Answer Result' })).toBeVisible();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await clock(4);
+  expect(await guess(misses[2].typed)).toMatchObject({ outcome: 'suggestion' });
+  await expect(page.getByRole('button', { name: 'Yes', exact: true })).toBeVisible();
+  await clock(34);
+  const timeout = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/games/dive/guesses') && response.request().method() === 'POST',
+  );
+  await page.reload();
+  const timedOut = await timeout;
+  expect(timedOut.request().postDataJSON()).toEqual({ prompt_index: 2, answer: '' });
+  expect(await timedOut.json()).toMatchObject({
+    outcome: 'scored',
+    answer: { canonical: null, tier: 'miss', points: 0 },
+  });
+  await expect(
+    page
+      .getByRole('region', { name: 'Answer Result' })
+      .getByRole('heading', { name: DIVE_TIERS.miss.label, exact: true }),
+  ).toBeVisible();
+  expect((await day()).answers[2]).toMatchObject({ canonical: null, tier: 'miss', points: 0 });
+});
 
 test('Dive unlocks, scores the first player immediately and keeps scores through moderation', async ({
   makeRower,
@@ -80,9 +262,11 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
   const timerKey = `oyo:dive:${rower.user.id}:${date}:0`;
   const deadline = await page.evaluate((key) => localStorage.getItem(key), timerKey);
   expect(deadline).toBeTruthy();
+  await context.setExtraHTTPHeaders({ ...clockHeaders, 'X-OYO-Test-Now': `${date}T18:00:01Z` });
   await page.reload();
   await expect(page.getByRole('timer')).toBeVisible();
-  expect(await page.evaluate((key) => localStorage.getItem(key), timerKey)).toBe(deadline);
+  const resumed = await context.request.get('/api/games/dive/today');
+  expect((await resumed.json()).pending.deadline_ms_remaining).toBe(24000);
   if (testInfo.project.name === 'iphone-15') {
     await waitForSplash(page);
     for (const colorScheme of ['light', 'dark'] as const) {
@@ -102,14 +286,22 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
     await expect(
       page.getByText(`${index + 1} of ${DIVE_PROMPTS_PER_DAY}`, { exact: true }),
     ).toBeVisible();
-    await page.getByLabel('Your Answer', { exact: true }).fill(choice?.answer ?? 'zzzzzzzzzz');
     const saving = page.waitForResponse(
       (response) =>
-        response.url().endsWith('/api/games/dive/answers') &&
+        response.url().endsWith('/api/games/dive/guesses') &&
         response.request().method() === 'POST',
     );
-    await page.getByRole('button', { name: 'Dive', exact: true }).click();
-    const scored = (await (await saving).json()) as DiveAnswerResult;
+    if (choice) {
+      await page.getByLabel('Your Answer', { exact: true }).fill(choice.answer);
+      await page.getByRole('button', { name: 'Dive', exact: true }).click();
+    } else {
+      await context.setExtraHTTPHeaders({ ...clockHeaders, 'X-OYO-Test-Now': `${date}T18:00:29Z` });
+      await page.reload();
+    }
+    const response = (await (await saving).json()) as DiveGuessResponse;
+    expect(response.outcome).toBe('scored');
+    if (response.outcome !== 'scored') throw new Error('Expected scored answer');
+    const scored = response.answer;
     expect(scored).toMatchObject({
       canonical: choice?.answer ?? null,
       points: choice?.points ?? 0,
@@ -153,7 +345,15 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
         }
       }
     }
-    await page.getByRole('button', { name: 'Continue', exact: true }).click();
+    if (index < DIVE_PROMPTS_PER_DAY - 1) {
+      const starting = page.waitForResponse(
+        (response) =>
+          response.url().endsWith('/api/games/dive/start') &&
+          response.request().method() === 'POST',
+      );
+      await page.getByRole('button', { name: 'Continue', exact: true }).click();
+      expect((await starting).status()).toBe(200);
+    } else await page.getByRole('button', { name: 'Continue', exact: true }).click();
   }
   await expect(page.getByRole('heading', { name: 'Your Dive', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Team Answers', exact: true })).toBeVisible();
