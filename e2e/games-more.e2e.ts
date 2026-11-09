@@ -4,9 +4,12 @@ import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { waitForSplash } from './helpers';
 import { ANSWER_LIST, dailyAnswer } from '../worker/src/games/wordGuess';
-import { perceptionPuzzle } from '../worker/src/games/perception';
+import { perceptionLineup } from '../worker/src/games/perceptionV2';
+import { PERCEPTION_POOL } from '../shared/games/perceptionV2';
+import { perceptionClock, perceptionTitles, playPerception } from './perception';
 import { connectionsPuzzleFor } from '../worker/src/games/connectionsPuzzles';
 import { DIVE_PROMPTS_PER_DAY } from '../shared/games/dive';
+import { DIVE_ENABLED } from '../worker/src/games/features';
 
 test.describe.configure({ timeout: 180_000 });
 test.use({ serviceWorkers: 'block' });
@@ -49,6 +52,7 @@ for (const { id, title, outcome } of [
     test(`${title} ${outcome} shares and leaves for ${destination} without a render error`, async ({
       makeRower,
     }, testInfo) => {
+      test.skip(id === 'dive' && !DIVE_ENABLED, 'Dive disabled for launch');
       const { page, context } = await makeRower();
       if (testInfo.project.name === 'pixel-7')
         await page.setViewportSize({ width: 412, height: 915 });
@@ -306,58 +310,8 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
   await waitForSplash(page);
   await expectResult(page, 'Word Guess');
 
-  // Perception: five rounds aimed at the daily puzzle.
-  const puzzle = perceptionPuzzle(date);
-  const wallStart = Date.now();
-  const clockStart = Date.parse(`${date}T18:00:00Z`);
-  // Server timing checks need the test clock to advance with real elapsed time.
-  await page.route('**/api/games/perception/**', (route) =>
-    route.continue({
-      headers: {
-        ...route.request().headers(),
-        'x-oyo-test-now': new Date(clockStart + Date.now() - wallStart).toISOString(),
-      },
-    }),
-  );
-  await page.goto('/games/perception');
-  await waitForSplash(page);
-  await page.getByRole('button', { name: 'Ready' }).click();
-  const hold = page.getByRole('button', { name: 'Press and Hold' });
-  await hold.focus();
-  await page.keyboard.down(' ');
-  await page.waitForTimeout(puzzle.clockMs);
-  await page.keyboard.up(' ');
-  await page.getByRole('button', { name: 'Next' }).waitFor();
-  await page.reload();
-  await waitForSplash(page);
-  await expect(page.getByRole('heading', { name: 'Color Recall' })).toBeVisible();
-  await page.getByRole('button', { name: 'Start' }).click();
-  await page.getByRole('button', { name: 'Lock In' }).click();
-  await page.getByRole('button', { name: 'Next' }).click();
-  await page.getByRole('button', { name: 'Start' }).click();
-  const spot = page.getByTestId('spot-board');
-  await expect(spot).toBeVisible();
-  const box = (await spot.boundingBox())!;
-  await page.waitForTimeout(1000);
-  await spot.click({
-    position: { x: (box.width * puzzle.dot[0]) / 1000, y: (box.height * puzzle.dot[1]) / 1000 },
-  });
-  await page.getByRole('button', { name: 'Lock In' }).click();
-  await page.getByRole('button', { name: 'Next' }).click();
-  await page.getByRole('button', { name: 'Start' }).click();
-  await expect(
-    page.getByRole('button', { name: `Square ${puzzle.cells[0] + 1}`, exact: true }),
-  ).toBeEnabled({
-    timeout: 5000,
-  });
-  for (const cell of puzzle.cells)
-    await page.getByRole('button', { name: `Square ${cell + 1}`, exact: true }).click();
-  await shots(page, project, 'perception-play');
-  await page.getByRole('button', { name: 'Lock In' }).click();
-  await page.getByRole('button', { name: 'Next' }).click();
-  await page.getByRole('button', { name: 'Start' }).click();
-  await page.getByRole('button', { name: 'Tap' }).click({ timeout: 10_000 });
-  await page.getByRole('button', { name: 'See Result' }).click();
+  await perceptionClock(page, date);
+  await playPerception(page, date);
   await expectResult(page, 'Perception');
   await expect(page.getByRole('region', { name: 'Your Result' })).toContainText('/ 500');
   await shots(page, project, 'perception-result');
@@ -427,12 +381,24 @@ test('plays Word Guess, Perception and Connections once each after the OYO', asy
   ).toBe(405);
 });
 
-test('Perception abandons a started round on reload without allowing a redo', async ({
+test('Perception abandons a started v2 round on reload and finishes without a redo', async ({
   makeRower,
-}) => {
+}, testInfo) => {
   const { page, context } = await makeRower();
+  const dates: Record<string, string> = {
+    'desktop-chrome': '2026-12-04',
+    'iphone-15': '2026-12-05',
+    'pixel-7': '2026-12-06',
+  };
+  const date = dates[testInfo.project.name],
+    rounds = perceptionLineup(date);
+  await context.setExtraHTTPHeaders({
+    ...testInfo.project.use.extraHTTPHeaders,
+    'X-OYO-Test-Now': `${date}T18:00:00Z`,
+  });
+  await perceptionClock(page, date);
   const config = await (await context.request.get('/api/config')).json();
-  await context.request.post('/api/entries', {
+  const saved = await context.request.post('/api/entries', {
     headers: csrfHeaders,
     data: {
       date: config.today,
@@ -443,21 +409,85 @@ test('Perception abandons a started round on reload without allowing a redo', as
       notes: '',
     },
   });
-  await page.goto('/games/perception');
-  await waitForSplash(page);
-  await page.getByRole('button', { name: 'Ready' }).click();
-  await expect(page.getByRole('button', { name: 'Press and Hold' })).toBeVisible();
-  await page.reload();
-  await waitForSplash(page);
-  await expect(page.getByRole('heading', { name: 'Color Recall' })).toBeVisible();
-  const resumed = await (await context.request.get('/api/games/perception/today')).json();
-  expect(resumed.scores).toEqual({ clock: 0 });
-  expect(
-    (
-      await context.request.post('/api/games/perception/start', {
-        headers: csrfHeaders,
-        data: { round: 0 },
-      })
-    ).status(),
-  ).toBe(409);
+  await expect(saved).toBeOK();
+  const { id: entryId } = await saved.json();
+  try {
+    await page.goto('/games/perception');
+    await waitForSplash(page);
+    const started = page.waitForResponse(
+      (r) => r.url().endsWith('/perception/start') && r.request().method() === 'POST',
+    );
+    await page
+      .getByRole('button', { name: rounds[0] === 'clock' ? 'Ready' : 'Start', exact: true })
+      .click();
+    expect((await started).ok()).toBe(true);
+    await page.reload();
+    await waitForSplash(page);
+    await expect(page.getByRole('heading', { name: perceptionTitles[rounds[1]] })).toBeVisible();
+    const resumed = await (await context.request.get('/api/games/perception/today')).json();
+    expect(resumed.scores).toEqual({ [rounds[0]]: 0 });
+    expect(
+      (
+        await context.request.post('/api/games/perception/start', {
+          headers: csrfHeaders,
+          data: { round: 0 },
+        })
+      ).status(),
+    ).toBe(409);
+    await playPerception(page, date, undefined, 1);
+  } finally {
+    await expect(
+      await context.request.delete(`/api/entries/${entryId}`, { headers: csrfHeaders }),
+    ).toBeOK();
+  }
+});
+
+test('Perception v2 pool covers all twelve types through real controls', async ({
+  makeRower,
+}, testInfo) => {
+  const dates: Record<string, string[]> = {
+    'desktop-chrome': ['2026-12-10', '2026-12-14', '2026-12-26'],
+    'iphone-15': ['2026-12-30', '2027-01-01', '2027-01-02'],
+    'pixel-7': ['2026-12-07', '2026-12-08', '2026-12-28'],
+  };
+  const project = testInfo.project.name;
+  expect([...new Set(dates[project].flatMap(perceptionLineup))].sort()).toEqual(
+    [...PERCEPTION_POOL].sort(),
+  );
+  for (const date of dates[project]) {
+    const { page, context } = await makeRower();
+    await context.setExtraHTTPHeaders({
+      ...testInfo.project.use.extraHTTPHeaders,
+      'X-OYO-Test-Now': `${date}T18:00:00Z`,
+    });
+    const saved = await context.request.post('/api/entries', {
+      headers: csrfHeaders,
+      data: {
+        date,
+        modality: 'erg',
+        zone: 'E',
+        distance_m: 1000,
+        title: 'Perception pool',
+        notes: '',
+      },
+    });
+    await expect(saved).toBeOK();
+    const { id: entryId } = await saved.json();
+    try {
+      if (project === 'iphone-15') await page.setViewportSize({ width: 393, height: 852 });
+      await perceptionClock(page, date);
+      await playPerception(page, date, async (id, stage) => {
+        if (!['clock', 'color', 'dot', 'pattern', 'reaction'].includes(id)) {
+          const heading = page.getByRole('heading', { name: perceptionTitles[id], exact: true });
+          if (project === 'iphone-15') await heading.tap();
+          else await heading.click();
+          await shots(page, project, `perception-${id}-${stage}`);
+        }
+      });
+    } finally {
+      await expect(
+        await context.request.delete(`/api/entries/${entryId}`, { headers: csrfHeaders }),
+      ).toBeOK();
+    }
+  }
 });

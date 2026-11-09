@@ -59,7 +59,6 @@ import { unpack, score } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import { gamesStreak } from '../../../shared/games/streak';
 import {
-  parsePerceptionAnswer,
   perceptionTotal,
   PERCEPTION_ROUNDS,
   scoreClock,
@@ -67,9 +66,19 @@ import {
   scoreDot,
   scorePattern,
   scoreReaction,
-  type PerceptionScores,
-  type PerceptionAnswer,
 } from '../../../shared/games/perception';
+import {
+  PERCEPTION_V2_FROM,
+  PERCEPTION_POOL,
+  PERCEPTION_FIELDS,
+  parsePerceptionRound,
+  scorePerceptionRound,
+  perceptionExposure,
+  type PerceptionV2Puzzle,
+  type PerceptionRoundId,
+  type PerceptionRoundAnswer,
+} from '../../../shared/games/perceptionV2';
+import { dayNumber, dailyRandom } from '../../../shared/games/daily';
 import {
   boardWords,
   connectionsScore,
@@ -91,7 +100,6 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
-  dive: null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -102,6 +110,41 @@ const MOCK_PERCEPTION = {
   dot: [500, 500] as [number, number],
   cells: [0, 1, 2, 3, 4, 5, 6],
   reactionDelayMs: 2000,
+};
+const mockCountRandom = dailyRandom('mock-perception-count', '2000-01-01');
+const MOCK_COUNT_DOTS: [number, number][] = [];
+for (let attempt = 0; MOCK_COUNT_DOTS.length < 48 && attempt < 5000; attempt++) {
+  const point: [number, number] = [
+    35 + Math.floor(mockCountRandom() * 931),
+    35 + Math.floor(mockCountRandom() * 931),
+  ];
+  if (MOCK_COUNT_DOTS.every(([x, y]) => (x - point[0]) ** 2 + (y - point[1]) ** 2 >= 70 ** 2))
+    MOCK_COUNT_DOTS.push(point);
+}
+const MOCK_PERCEPTION_V2: PerceptionV2Puzzle = {
+  ...MOCK_PERCEPTION,
+  clockMs: 5200,
+  cells: [0, 2, 4, 6, 8, 12, 16, 20, 24],
+  reactionDelayMs: 2400,
+  angle: 64,
+  rotation: 28,
+  length: 620,
+  count: 48,
+  countDots: MOCK_COUNT_DOTS,
+  digits: '804267193',
+  shade: 43,
+  shadeBackgrounds: [10, 90],
+  endpoints: [
+    [140, 240],
+    [820, 760],
+  ],
+  contact: {
+    visibleMs: 1200,
+    hiddenMs: 1800,
+    from: [100, 500],
+    occlusion: [420, 500],
+    finish: [900, 500],
+  },
 };
 class MockError extends Error {
   constructor(
@@ -175,8 +218,8 @@ export function createMockApi({
   const perceptionProgress = new Map<
     string,
     {
-      scores: Partial<PerceptionScores>;
-      answer: Partial<PerceptionAnswer>;
+      scores: Partial<Record<PerceptionRoundId, number>>;
+      answer: PerceptionRoundAnswer;
       active: { round: number; at: number } | null;
     }
   >();
@@ -976,7 +1019,12 @@ export function createMockApi({
               date,
             ),
             games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
-            results: gameResults.filter((row) => row.user_id === user.id && row.date === date),
+            results: gameResults.filter(
+              (row) =>
+                row.user_id === user.id &&
+                row.date === date &&
+                Object.hasOwn(MOCK_GAMES, row.game_id),
+            ),
           });
         if (path === '/api/games/leaderboard' && method === 'GET')
           return json({ week_start: weekStart(url.searchParams.get('week') ?? date), rows: [] });
@@ -1193,11 +1241,20 @@ export function createMockApi({
           });
         };
         if (gameId === 'perception' && ['today', 'start', 'answer'].includes(parts[4])) {
+          const v2 = date >= PERCEPTION_V2_FROM;
+          const rounds: PerceptionRoundId[] = v2
+            ? Array.from(
+                { length: 5 },
+                (_, i) =>
+                  PERCEPTION_POOL[((dayNumber(date) - dayNumber(PERCEPTION_V2_FROM)) * 5 + i) % 12],
+              )
+            : [...PERCEPTION_ROUNDS];
+          const puzzle = v2 ? MOCK_PERCEPTION_V2 : MOCK_PERCEPTION;
           const key = `${user.id}:${date}`;
           const p = perceptionProgress.get(key) ?? { scores: {}, answer: {}, active: null };
           perceptionProgress.set(key, p);
           if (method === 'GET' && parts[4] === 'today' && p.active) {
-            p.scores[PERCEPTION_ROUNDS[p.active.round]] = 0;
+            p.scores[rounds[p.active.round]] = 0;
             p.active = null;
           }
           const round = Object.keys(p.scores).length;
@@ -1210,57 +1267,72 @@ export function createMockApi({
               p.active = { round, at: now().getTime() };
             } else {
               if (!p.active) fail(409, 'Start this round first.');
-              const field = ['clockMs', 'hue', 'dot', 'cells', 'reactionMs'][round];
-              const answer = parsePerceptionAnswer({
-                clockMs: 0,
-                hue: 0,
-                dot: [0, 0],
-                cells: [0, 1, 2, 3, 4, 5, 6],
-                reactionMs: -1,
-                [field]: (body.answer as Record<string, unknown>)?.[field],
-              });
+              const id = rounds[round],
+                field = PERCEPTION_FIELDS[id];
+              const answer = parsePerceptionRound(id, body.answer, v2);
               if (!answer) fail(400, 'Invalid round answer.');
               const elapsed = now().getTime() - p.active.at;
               if (
-                (round === 0 && answer.clockMs > elapsed + 1000) ||
-                (round === 4 &&
-                  answer.reactionMs >= 0 &&
-                  (elapsed < MOCK_PERCEPTION.reactionDelayMs ||
-                    answer.reactionMs > elapsed - MOCK_PERCEPTION.reactionDelayMs + 1000))
+                elapsed < 0 ||
+                (id === 'clock' && answer.clockMs! > elapsed + 1000) ||
+                (id === 'reaction' &&
+                  answer.reactionMs! >= 0 &&
+                  (elapsed < puzzle.reactionDelayMs ||
+                    answer.reactionMs! > elapsed - puzzle.reactionDelayMs + 1000)) ||
+                (v2 &&
+                  (elapsed < perceptionExposure(id, MOCK_PERCEPTION_V2) ||
+                    (id === 'contact' &&
+                      (elapsed < MOCK_PERCEPTION_V2.contact.visibleMs ||
+                        answer.contactMs! >
+                          elapsed - MOCK_PERCEPTION_V2.contact.visibleMs + 1000))))
               )
                 fail(400, 'Timing is not plausible.');
               const scores = {
-                clock: scoreClock(MOCK_PERCEPTION, answer.clockMs),
-                color: scoreColor(MOCK_PERCEPTION, answer.hue),
-                dot: scoreDot(MOCK_PERCEPTION, answer.dot),
-                pattern: scorePattern(MOCK_PERCEPTION, answer.cells),
-                reaction: scoreReaction(answer.reactionMs),
+                clock: scoreClock(puzzle, answer.clockMs!),
+                color: scoreColor(puzzle, answer.hue!),
+                dot: answer.dot ? scoreDot(puzzle, answer.dot) : 0,
+                pattern: answer.cells ? scorePattern(puzzle, answer.cells) : 0,
+                reaction: scoreReaction(answer.reactionMs!),
               };
-              p.scores[PERCEPTION_ROUNDS[round]] = scores[PERCEPTION_ROUNDS[round]];
-              Object.assign(p.answer, { [field]: answer[field as keyof PerceptionAnswer] });
+              p.scores[id] = v2
+                ? scorePerceptionRound(id, MOCK_PERCEPTION_V2, answer)
+                : scores[id as keyof typeof scores];
+              Object.assign(p.answer, { [field]: answer[field] });
               p.active = null;
             }
           }
           const done = Object.keys(p.scores).length === 5;
           if (done && !mine(date))
-            addResult(perceptionTotal(p.scores as PerceptionScores), {
+            addResult(perceptionTotal(p.scores, rounds), {
               answer: p.answer,
               scores: p.scores,
+              rounds,
             });
-          const stimuli = [
-            { clockMs: MOCK_PERCEPTION.clockMs },
-            { hue: MOCK_PERCEPTION.hue },
-            { dot: MOCK_PERCEPTION.dot },
-            { cells: MOCK_PERCEPTION.cells },
-            { reactionDelayMs: MOCK_PERCEPTION.reactionDelayMs },
-          ];
+          const stimuli = {
+            clock: { clockMs: puzzle.clockMs },
+            color: { hue: puzzle.hue },
+            dot: { dot: puzzle.dot },
+            pattern: { cells: puzzle.cells },
+            reaction: { reactionDelayMs: puzzle.reactionDelayMs },
+            angle: { angle: MOCK_PERCEPTION_V2.angle, rotation: MOCK_PERCEPTION_V2.rotation },
+            length: { length: MOCK_PERCEPTION_V2.length },
+            count: { countDots: MOCK_PERCEPTION_V2.countDots },
+            span: { digits: MOCK_PERCEPTION_V2.digits },
+            shade: {
+              shade: MOCK_PERCEPTION_V2.shade,
+              shadeBackgrounds: MOCK_PERCEPTION_V2.shadeBackgrounds,
+            },
+            bisect: { endpoints: MOCK_PERCEPTION_V2.endpoints },
+            contact: { contact: MOCK_PERCEPTION_V2.contact },
+          };
           return json({
             date,
             access,
             round: Object.keys(p.scores).length,
+            rounds,
             scores: p.scores,
             done,
-            ...(parts[4] === 'start' ? { stimulus: stimuli[round] } : {}),
+            ...(parts[4] === 'start' ? { stimulus: stimuli[rounds[round]] } : {}),
           });
         }
         if (gameId === 'connections' && ['today', 'guess', 'check'].includes(parts[4])) {
@@ -1570,9 +1642,17 @@ export function createMockApi({
         const race = raceWeek(week),
           sunday = addDays(week, 6);
         const games = gameResults.filter(
-          (g) => g.user_id === user.id && g.date >= week && g.date <= sunday,
+          (g) =>
+            g.user_id === user.id &&
+            g.date >= week &&
+            g.date <= sunday &&
+            Object.hasOwn(MOCK_GAMES, g.game_id),
         );
-        const played = new Set(gameResults.filter((g) => g.user_id === user.id).map((g) => g.date));
+        const played = new Set(
+          gameResults
+            .filter((g) => g.user_id === user.id && Object.hasOwn(MOCK_GAMES, g.game_id))
+            .map((g) => g.date),
+        );
         let gameStreak = 0;
         while (played.has(addDays(sunday, -gameStreak))) gameStreak++;
         const owned = state.myPlans.find((row) => row.user_id === user.id && covers(row, week));

@@ -230,6 +230,16 @@ it('recaps the final race, My Fortnight week and games highlights in one respons
     game('wordguess', '2026-03-15', 0, { solved: false, tries: 6 });
     game('perception', '2026-03-15', 410);
     game('connections', '2026-03-16', 8);
+    s.sql.exec(
+      'INSERT INTO game_results VALUES (?,?,?,?,?,?,?)',
+      'dive',
+      '2026-03-15',
+      b.user.id,
+      80,
+      '{}',
+      NOW,
+      NOW,
+    );
   });
   await entry(a);
   await entry(b, { distance_m: 15000 });
@@ -260,9 +270,9 @@ it('recaps the final race, My Fortnight week and games highlights in one respons
     complete: true,
   });
   expect(recap.games).toEqual({
-    played: 5,
-    days: 4,
-    best_dive: 70,
+    played: 3,
+    days: 2,
+    best_dive: null,
     word_guess_solves: 1,
     streak: 2,
   });
@@ -276,6 +286,9 @@ it('recaps the final race, My Fortnight week and games highlights in one respons
     streak: 1,
   });
   const quiet = await (await api('/stats/recap', b)).json<WeeklyRecap>();
+  expect(
+    await sql((s) => s.sql.exec("SELECT game_id FROM game_results WHERE game_id='dive'").toArray()),
+  ).toHaveLength(3);
   expect(quiet.plan).toBeNull();
   expect(quiet.games).toEqual({
     played: 0,

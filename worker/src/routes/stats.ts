@@ -18,6 +18,7 @@ import { seasonRange } from '../../../shared/dates';
 import { HttpError, json } from '../http';
 import { getMyPlan } from '../db/myPlan';
 import { WORD_GUESS_ID } from '../../../shared/games/wordGuess';
+import { GAMES } from '../games/registry';
 import * as v from '../validate';
 function subject(ctx: Context) {
   const viewer = requireUser(ctx);
@@ -109,10 +110,11 @@ function recapGames(storage: DurableObjectStorage, userId: string, week: string)
   const sunday = addDays(week, 6);
   const rows = storage.sql
     .exec<{ game_id: string; date: string; score: number; payload_json: string }>(
-      'SELECT game_id,date,score,payload_json FROM game_results WHERE user_id=? AND date BETWEEN ? AND ?',
+      'SELECT game_id,date,score,payload_json FROM game_results WHERE user_id=? AND date BETWEEN ? AND ? AND game_id IN (SELECT value FROM json_each(?))',
       userId,
       week,
       sunday,
+      JSON.stringify(Object.keys(GAMES)),
     )
     .toArray();
   let best_dive: number | null = null,
@@ -126,9 +128,10 @@ function recapGames(storage: DurableObjectStorage, userId: string, week: string)
   if (rows.some((row) => row.date === sunday)) {
     const dates = storage.sql
       .exec<{ date: string }>(
-        'SELECT DISTINCT date FROM game_results WHERE user_id=? AND date<=? ORDER BY date DESC LIMIT 400',
+        'SELECT DISTINCT date FROM game_results WHERE user_id=? AND date<=? AND game_id IN (SELECT value FROM json_each(?)) ORDER BY date DESC LIMIT 400',
         userId,
         sunday,
+        JSON.stringify(Object.keys(GAMES)),
       )
       .toArray();
     for (
