@@ -21,7 +21,7 @@ import {
   suggestedTitle,
   type LogDraft,
 } from '../lib/logForm';
-import { formatEMeters, formatFactor, formatKm, formatSplit } from '../lib/format';
+import { formatEMeters, formatFactor, formatKm, formatSplit, parseTimeInput } from '../lib/format';
 import { usePhotos, type DraftPhoto } from '../lib/usePhotos';
 import { useUnsavedChanges } from '../lib/useUnsavedChanges';
 import { authError } from '../lib/auth';
@@ -491,23 +491,35 @@ function LogForm({
               id="duration"
               label="Time"
               placeholder="h:mm:ss"
+              inputMode="decimal"
+              hint="Seconds, or use dots: 25.00 = 25:00; 1.02.03 = 1:02:03"
               value={draft.duration}
               onChange={(e) => field('duration', e.target.value)}
-              onBlur={() => setTouched((current) => ({ ...current, duration: true }))}
+              onBlur={() => {
+                field(
+                  'duration',
+                  parseTimeInput(draft.duration, 'duration')?.text ?? draft.duration,
+                );
+                setTouched((current) => ({ ...current, duration: true }));
+              }}
               error={error('duration')}
             />
             {draft.modality === 'erg' && (
               <TextField
                 id="split"
                 label="Split /500m"
+                inputMode="decimal"
                 placeholder={values.derivedSplit ? formatSplit(values.derivedSplit) : 'm:ss.t'}
                 value={draft.split}
                 onChange={(e) => field('split', e.target.value)}
-                onBlur={() => setTouched((current) => ({ ...current, split: true }))}
+                onBlur={() => {
+                  field('split', parseTimeInput(draft.split, 'split')?.text ?? draft.split);
+                  setTouched((current) => ({ ...current, split: true }));
+                }}
                 hint={
                   values.derivedSplit
                     ? 'Calculated from time and distance unless you enter a split'
-                    : 'Optional average split'
+                    : 'Optional · 145 or 145.0 = 1:45 or 1:45.0'
                 }
                 error={error('split')}
               />
