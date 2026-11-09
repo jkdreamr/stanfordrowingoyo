@@ -7776,6 +7776,168 @@
       ],
       "surface": ["George Washington", "Abraham Lincoln", "Barack Obama"],
       "pearl": "Theodore Roosevelt",
+      "people": true,
+      "active": false
+    },
+    {
+      "id": "presidents-ex-congress",
+      "text": "a US president who served in the US Congress before becoming president",
+      "theme": "history",
+      "cluster": "us-politics",
+      "active": true,
+      "answers": [
+        {
+          "name": "Abraham Lincoln",
+          "aliases": ["Abe Lincoln", "Honest Abe", "Lincoln"]
+        },
+        {
+          "name": "Andrew Jackson",
+          "aliases": ["Jackson"]
+        },
+        {
+          "name": "Andrew Johnson"
+        },
+        {
+          "name": "Barack Obama",
+          "aliases": ["Barack Hussein Obama", "Obama"]
+        },
+        {
+          "name": "Benjamin Harrison"
+        },
+        {
+          "name": "Franklin Pierce",
+          "aliases": ["Pierce"]
+        },
+        {
+          "name": "George H. W. Bush",
+          "aliases": [
+            "Bush 41",
+            "George Bush Sr.",
+            "George HW Bush",
+            "George Herbert Walker Bush",
+            "Bush Sr"
+          ]
+        },
+        {
+          "name": "Gerald Ford",
+          "aliases": ["Gerald R. Ford", "Ford"]
+        },
+        {
+          "name": "Harry S. Truman",
+          "aliases": ["Harry Truman", "Truman"]
+        },
+        {
+          "name": "James A. Garfield",
+          "aliases": ["James Garfield", "Garfield"]
+        },
+        {
+          "name": "James Buchanan",
+          "aliases": ["Buchanan"]
+        },
+        {
+          "name": "James K. Polk",
+          "aliases": ["James Polk", "Polk"]
+        },
+        {
+          "name": "James Madison",
+          "aliases": ["Madison"]
+        },
+        {
+          "name": "James Monroe",
+          "aliases": ["Monroe"]
+        },
+        {
+          "name": "Joe Biden",
+          "aliases": ["Joseph Biden", "Joseph R Biden", "Joseph Robinette Biden", "Biden"]
+        },
+        {
+          "name": "John F. Kennedy",
+          "aliases": ["Jack Kennedy", "JFK", "John Kennedy", "Kennedy"]
+        },
+        {
+          "name": "John Quincy Adams",
+          "aliases": ["John Q. Adams", "JQA"]
+        },
+        {
+          "name": "John Tyler",
+          "aliases": ["Tyler"]
+        },
+        {
+          "name": "Lyndon B. Johnson",
+          "aliases": ["LBJ", "Lyndon Johnson"]
+        },
+        {
+          "name": "Martin Van Buren",
+          "aliases": ["Van Buren"]
+        },
+        {
+          "name": "Millard Fillmore",
+          "aliases": ["Fillmore"]
+        },
+        {
+          "name": "Richard Nixon",
+          "aliases": ["Dick Nixon", "Nixon"]
+        },
+        {
+          "name": "Rutherford B. Hayes",
+          "aliases": ["Rutherford Hayes", "Hayes"]
+        },
+        {
+          "name": "Warren G. Harding",
+          "aliases": ["Warren Harding", "Harding"]
+        },
+        {
+          "name": "William Henry Harrison",
+          "aliases": ["WHH", "William H Harrison"]
+        },
+        {
+          "name": "William McKinley",
+          "aliases": ["McKinley"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of presidents of the United States by other offices held",
+          "revision": 1374388644,
+          "tables": [6, 7],
+          "column": 1,
+          "expect": [26, 26],
+          "reviewed": [
+            "Abraham Lincoln",
+            "Andrew Jackson",
+            "Andrew Johnson",
+            "Barack Obama",
+            "Benjamin Harrison",
+            "Franklin Pierce",
+            "George H. W. Bush",
+            "Gerald Ford",
+            "Harry S. Truman",
+            "James A. Garfield",
+            "James Buchanan",
+            "James K. Polk",
+            "James Madison",
+            "James Monroe",
+            "Joe Biden",
+            "John F. Kennedy",
+            "John Quincy Adams",
+            "John Tyler",
+            "Lyndon B. Johnson",
+            "Martin Van Buren",
+            "Millard Fillmore",
+            "Richard Nixon",
+            "Rutherford B. Hayes",
+            "Warren G. Harding",
+            "William Henry Harrison",
+            "William McKinley"
+          ],
+          "review": "Union of Senate and House tables; every member has pre-presidency service. John Quincy Adams also served in the House after his presidency; his earlier Senate service independently qualifies. Andrew Johnson has both pre- and post-presidency Senate service."
+        }
+      ],
+      "expect": [26, 26],
+      "surface": ["Abraham Lincoln", "Barack Obama", "Joe Biden"],
+      "too_clever": ["John Quincy Adams"],
+      "pearl": "William Henry Harrison",
+      "scope": "As of 9 November 2026. US House (including territorial delegates) or Senate service before the presidency; Continental Congress and Confederation Congress do not count. Excludes Washington, John Adams and Jefferson.",
       "people": true
     },
     {
@@ -8026,6 +8188,206 @@
       ],
       "surface": ["Joe Biden", "Kamala Harris", "Al Gore"],
       "pearl": "Charles Curtis",
+      "people": true,
+      "active": false
+    },
+    {
+      "id": "vps-never-president",
+      "text": "a former US vice president who never became president",
+      "theme": "history",
+      "cluster": "us-politics",
+      "active": true,
+      "answers": [
+        {
+          "name": "Aaron Burr",
+          "aliases": ["Burr"]
+        },
+        {
+          "name": "Adlai Stevenson I",
+          "aliases": ["Adlai Stevenson"]
+        },
+        {
+          "name": "Al Gore",
+          "aliases": ["Gore"]
+        },
+        {
+          "name": "Alben W. Barkley",
+          "aliases": ["Alben Barkley", "Barkley"]
+        },
+        {
+          "name": "Charles Curtis",
+          "aliases": ["Curtis"]
+        },
+        {
+          "name": "Charles G. Dawes",
+          "aliases": ["Charles Dawes", "Dawes"]
+        },
+        {
+          "name": "Charles W. Fairbanks",
+          "aliases": ["Charles Fairbanks", "Fairbanks"]
+        },
+        {
+          "name": "Dan Quayle",
+          "aliases": ["Quayle"]
+        },
+        {
+          "name": "Daniel D. Tompkins",
+          "aliases": ["Daniel Tompkins", "Tompkins"]
+        },
+        {
+          "name": "Dick Cheney",
+          "aliases": ["Cheney"]
+        },
+        {
+          "name": "Elbridge Gerry",
+          "aliases": ["Gerry"]
+        },
+        {
+          "name": "Garret Hobart",
+          "aliases": ["Garret A. Hobart", "Hobart"]
+        },
+        {
+          "name": "George Clinton"
+        },
+        {
+          "name": "George M. Dallas",
+          "aliases": ["George Dallas", "Dallas"]
+        },
+        {
+          "name": "Hannibal Hamlin",
+          "aliases": ["Hamlin"]
+        },
+        {
+          "name": "Henry A. Wallace",
+          "aliases": ["Henry Wallace", "Wallace"]
+        },
+        {
+          "name": "Henry Wilson"
+        },
+        {
+          "name": "Hubert Humphrey",
+          "aliases": ["Hubert H. Humphrey", "Humphrey"]
+        },
+        {
+          "name": "James S. Sherman",
+          "aliases": ["James Sherman", "Sherman"]
+        },
+        {
+          "name": "John C. Breckinridge",
+          "aliases": ["John Breckinridge", "Breckinridge"]
+        },
+        {
+          "name": "John C. Calhoun",
+          "aliases": ["John Calhoun", "Calhoun"]
+        },
+        {
+          "name": "John Nance Garner",
+          "aliases": ["Garner"]
+        },
+        {
+          "name": "Kamala Harris",
+          "aliases": ["Kamala", "Harris"]
+        },
+        {
+          "name": "Levi P. Morton",
+          "aliases": ["Levi Morton", "Morton"]
+        },
+        {
+          "name": "Mike Pence",
+          "aliases": ["Pence"]
+        },
+        {
+          "name": "Nelson Rockefeller",
+          "aliases": ["Nelson A. Rockefeller", "Rockefeller"]
+        },
+        {
+          "name": "Richard Mentor Johnson",
+          "aliases": ["Richard Johnson", "Richard M. Johnson"]
+        },
+        {
+          "name": "Schuyler Colfax",
+          "aliases": ["Colfax"]
+        },
+        {
+          "name": "Spiro Agnew",
+          "aliases": ["Agnew"]
+        },
+        {
+          "name": "Thomas A. Hendricks",
+          "aliases": ["Thomas Hendricks", "Hendricks"]
+        },
+        {
+          "name": "Thomas R. Marshall",
+          "aliases": ["Thomas Marshall"]
+        },
+        {
+          "name": "Walter Mondale",
+          "aliases": ["Mondale"]
+        },
+        {
+          "name": "William A. Wheeler",
+          "aliases": ["William Wheeler", "Wheeler"]
+        },
+        {
+          "name": "William R. King",
+          "aliases": ["William King"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of vice presidents of the United States",
+          "revision": 1368745602,
+          "tables": [0],
+          "column": 2,
+          "expect": [34, 34],
+          "reviewed": [
+            "Aaron Burr",
+            "Adlai Stevenson I",
+            "Al Gore",
+            "Alben W. Barkley",
+            "Charles Curtis",
+            "Charles G. Dawes",
+            "Charles W. Fairbanks",
+            "Dan Quayle",
+            "Daniel D. Tompkins",
+            "Dick Cheney",
+            "Elbridge Gerry",
+            "Garret Hobart",
+            "George Clinton",
+            "George M. Dallas",
+            "Hannibal Hamlin",
+            "Henry A. Wallace",
+            "Henry Wilson",
+            "Hubert Humphrey",
+            "James S. Sherman",
+            "John C. Breckinridge",
+            "John C. Calhoun",
+            "John Nance Garner",
+            "Kamala Harris",
+            "Levi P. Morton",
+            "Mike Pence",
+            "Nelson Rockefeller",
+            "Richard Mentor Johnson",
+            "Schuyler Colfax",
+            "Spiro Agnew",
+            "Thomas A. Hendricks",
+            "Thomas R. Marshall",
+            "Walter Mondale",
+            "William A. Wheeler",
+            "William R. King"
+          ],
+          "review": "All 50 vice presidents minus the 15 presidents listed in the other-offices-held source and incumbent JD Vance. Each retained row is a completed vice presidency, not a presidential accession.",
+          "where_not": [
+            2,
+            "^(?:Andrew\\ Johnson|Calvin\\ Coolidge|Chester\\ A\\.\\ Arthur|George\\ H\\.\\ W\\.\\ Bush|Gerald\\ Ford|Harry\\ S\\.\\ Truman|JD\\ Vance|Joe\\ Biden|John\\ Adams|John\\ Tyler|Lyndon\\ B\\.\\ Johnson|Martin\\ Van\\ Buren|Millard\\ Fillmore|Richard\\ Nixon|Theodore\\ Roosevelt|Thomas\\ Jefferson)"
+          ]
+        }
+      ],
+      "expect": [34, 34],
+      "surface": ["Kamala Harris", "Mike Pence", "Al Gore", "Dick Cheney"],
+      "too_clever": ["Aaron Burr"],
+      "pearl": "William A. Wheeler",
+      "scope": "As of 9 November 2026. Excludes incumbent JD Vance and all 15 vice presidents who became president. Acting President is not becoming president: Dick Cheney (2002/2007) and Kamala Harris (2021) qualify.",
       "people": true
     },
     {
@@ -8323,7 +8685,184 @@
       "surface": ["Winston Churchill", "Margaret Thatcher", "Tony Blair"],
       "pearl": "Clement Attlee",
       "people": true,
-      "acceptance_notes": "a British prime minister through November 2026"
+      "acceptance_notes": "a British prime minister through November 2026",
+      "active": false
+    },
+    {
+      "id": "pms-two-queens",
+      "text": "a British prime minister who served under Queen Victoria or Queen Elizabeth II",
+      "theme": "history",
+      "cluster": "uk",
+      "active": true,
+      "answers": [
+        {
+          "name": "Alec Douglas-Home",
+          "aliases": ["Alec Home", "Lord Home", "Douglas Home"]
+        },
+        {
+          "name": "Anthony Eden",
+          "aliases": ["Eden"]
+        },
+        {
+          "name": "Archibald Primrose",
+          "aliases": ["Lord Rosebery", "Rosebery", "Primrose"]
+        },
+        {
+          "name": "Benjamin Disraeli",
+          "aliases": ["Dizzy", "Earl of Beaconsfield", "Lord Beaconsfield", "Disraeli"]
+        },
+        {
+          "name": "Boris Johnson",
+          "aliases": ["Boris", "Johnson"]
+        },
+        {
+          "name": "David Cameron",
+          "aliases": ["Cameron"]
+        },
+        {
+          "name": "Edward Heath",
+          "aliases": ["Ted Heath", "Heath"]
+        },
+        {
+          "name": "Edward Smith-Stanley",
+          "aliases": ["Derby", "Earl of Derby", "Lord Derby", "Smith-Stanley"]
+        },
+        {
+          "name": "George Hamilton-Gordon",
+          "aliases": ["Aberdeen", "Lord Aberdeen", "Hamilton-Gordon"]
+        },
+        {
+          "name": "Gordon Brown",
+          "aliases": ["Brown"]
+        },
+        {
+          "name": "Harold Macmillan",
+          "aliases": ["Macmillan"]
+        },
+        {
+          "name": "Harold Wilson"
+        },
+        {
+          "name": "Henry John Temple",
+          "aliases": ["Lord Palmerston", "Palmerston", "Viscount Palmerston", "Temple"]
+        },
+        {
+          "name": "James Callaghan",
+          "aliases": ["Jim Callaghan", "Callaghan"]
+        },
+        {
+          "name": "John Major",
+          "aliases": ["Major"]
+        },
+        {
+          "name": "Liz Truss",
+          "aliases": ["Truss"]
+        },
+        {
+          "name": "Lord John Russell",
+          "aliases": ["John Russell", "Earl Russell", "Russell"]
+        },
+        {
+          "name": "Margaret Thatcher",
+          "aliases": ["Thatcher"]
+        },
+        {
+          "name": "Robert Gascoyne-Cecil",
+          "aliases": ["Lord Salisbury", "Marquess of Salisbury", "Salisbury", "Gascoyne-Cecil"]
+        },
+        {
+          "name": "Robert Peel",
+          "aliases": ["Sir Robert Peel", "Peel"]
+        },
+        {
+          "name": "Theresa May",
+          "aliases": ["May"]
+        },
+        {
+          "name": "Tony Blair",
+          "aliases": ["Blair"]
+        },
+        {
+          "name": "William Ewart Gladstone",
+          "aliases": ["William Gladstone", "Gladstone"]
+        },
+        {
+          "name": "William Lamb",
+          "aliases": ["Lord Melbourne", "Melbourne", "Lamb"]
+        },
+        {
+          "name": "Winston Churchill",
+          "aliases": ["Sir Winston Churchill", "Churchill"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of prime ministers of the United Kingdom",
+          "revision": 1378424861,
+          "members": [
+            "William Lamb",
+            "Robert Peel",
+            "Lord John Russell",
+            "Edward Smith-Stanley",
+            "George Hamilton-Gordon",
+            "Henry John Temple",
+            "Benjamin Disraeli",
+            "William Ewart Gladstone",
+            "Robert Gascoyne-Cecil",
+            "Archibald Primrose",
+            "Winston Churchill",
+            "Anthony Eden",
+            "Harold Macmillan",
+            "Alec Douglas-Home",
+            "Harold Wilson",
+            "Edward Heath",
+            "James Callaghan",
+            "Margaret Thatcher",
+            "John Major",
+            "Tony Blair",
+            "Gordon Brown",
+            "David Cameron",
+            "Theresa May",
+            "Boris Johnson",
+            "Liz Truss"
+          ],
+          "reviewed": [
+            "William Lamb",
+            "Robert Peel",
+            "Lord John Russell",
+            "Edward Smith-Stanley",
+            "George Hamilton-Gordon",
+            "Henry John Temple",
+            "Benjamin Disraeli",
+            "William Ewart Gladstone",
+            "Robert Gascoyne-Cecil",
+            "Archibald Primrose",
+            "Winston Churchill",
+            "Anthony Eden",
+            "Harold Macmillan",
+            "Alec Douglas-Home",
+            "Harold Wilson",
+            "Edward Heath",
+            "James Callaghan",
+            "Margaret Thatcher",
+            "John Major",
+            "Tony Blair",
+            "Gordon Brown",
+            "David Cameron",
+            "Theresa May",
+            "Boris Johnson",
+            "Liz Truss"
+          ],
+          "expect": [25, 25],
+          "review": "Reviewed monarch column across every premiership: ten distinct Victoria premiers and fifteen Elizabeth II premiers. Includes terms spanning an accession or death (Melbourne, Salisbury, Churchill and Truss); repeated terms deduplicated. Uses existing canonical identities and aliases."
+        }
+      ],
+      "expect": [25, 25],
+      "surface": ["Winston Churchill", "Margaret Thatcher", "Tony Blair", "Boris Johnson"],
+      "too_clever": ["Liz Truss"],
+      "pearl": "George Hamilton-Gordon",
+      "scope": "Service under either queen, even for only part of a term. Victoria 1837–1901; Elizabeth II 1952–2022. Excludes premiers serving only other monarchs, including Sunak, Starmer and Burnham.",
+      "people": true
     },
     {
       "id": "moonwalkers",
@@ -24585,6 +25124,175 @@
       ],
       "surface": ["Plutonium", "Neptunium", "Americium"],
       "pearl": "Einsteinium",
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "element-symbol-words",
+      "text": "an element whose chemical symbol is also a two-letter English word",
+      "theme": "science",
+      "cluster": "elements",
+      "active": true,
+      "answers": [
+        {
+          "name": "Helium",
+          "aliases": ["He"]
+        },
+        {
+          "name": "Lithium",
+          "aliases": ["Li"]
+        },
+        {
+          "name": "Beryllium",
+          "aliases": ["Be"]
+        },
+        {
+          "name": "Neon",
+          "aliases": ["Ne"]
+        },
+        {
+          "name": "Sodium",
+          "aliases": ["Na"]
+        },
+        {
+          "name": "Aluminium",
+          "aliases": ["Al", "Aluminum"]
+        },
+        {
+          "name": "Silicon",
+          "aliases": ["Si"]
+        },
+        {
+          "name": "Argon",
+          "aliases": ["Ar"]
+        },
+        {
+          "name": "Titanium",
+          "aliases": ["Ti"]
+        },
+        {
+          "name": "Arsenic",
+          "aliases": ["As"]
+        },
+        {
+          "name": "Molybdenum",
+          "aliases": ["Mo"]
+        },
+        {
+          "name": "Silver",
+          "aliases": ["Ag"]
+        },
+        {
+          "name": "Indium",
+          "aliases": ["In"]
+        },
+        {
+          "name": "Barium",
+          "aliases": ["Ba"]
+        },
+        {
+          "name": "Lanthanum",
+          "aliases": ["La"]
+        },
+        {
+          "name": "Holmium",
+          "aliases": ["Ho"]
+        },
+        {
+          "name": "Erbium",
+          "aliases": ["Er"]
+        },
+        {
+          "name": "Tantalum",
+          "aliases": ["Ta"]
+        },
+        {
+          "name": "Rhenium",
+          "aliases": ["Re"]
+        },
+        {
+          "name": "Osmium",
+          "aliases": ["Os"]
+        },
+        {
+          "name": "Bismuth",
+          "aliases": ["Bi"]
+        },
+        {
+          "name": "Astatine",
+          "aliases": ["At"]
+        },
+        {
+          "name": "Protactinium",
+          "aliases": ["Pa"]
+        },
+        {
+          "name": "Americium",
+          "aliases": ["Am"]
+        },
+        {
+          "name": "Einsteinium",
+          "aliases": ["Es"]
+        },
+        {
+          "name": "Nobelium",
+          "aliases": ["No"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of chemical elements",
+          "revision": 1377683963,
+          "tables": [0],
+          "column": 2,
+          "where": [
+            1,
+            "^(He|Li|Be|Ne|Na|Al|Si|Ar|Ti|As|Mo|Ag|In|Ba|La|Ho|Er|Ta|Re|Os|Bi|At|Pa|Am|Es|No)$"
+          ],
+          "expect": [26, 26],
+          "reviewed": [
+            "Aluminium",
+            "Americium",
+            "Argon",
+            "Arsenic",
+            "Astatine",
+            "Barium",
+            "Beryllium",
+            "Bismuth",
+            "Einsteinium",
+            "Erbium",
+            "Helium",
+            "Holmium",
+            "Indium",
+            "Lanthanum",
+            "Lithium",
+            "Molybdenum",
+            "Neon",
+            "Nobelium",
+            "Osmium",
+            "Protactinium",
+            "Rhenium",
+            "Silicon",
+            "Silver",
+            "Sodium",
+            "Tantalum",
+            "Titanium"
+          ],
+          "review": "Computed exact intersection of all 118 symbols, lowercased, with the SHA-256-pinned ENABLE dataset also listed here; require exactly two letters. No familiarity filter. All 26 qualifying rows verified against the element table."
+        },
+        {
+          "dataset": "https://raw.githubusercontent.com/dolph/dictionary/233d25a56b9ac8bef906916ccf091a976995cce0/enable1.txt",
+          "sha256": "3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89",
+          "format": "lines",
+          "revision": "233d25a56b9ac8bef906916ccf091a976995cce0",
+          "expect": [172823, 172823]
+        }
+      ],
+      "expect": [26, 26],
+      "surface": ["Helium", "Neon", "Lithium", "Sodium"],
+      "too_clever": ["Nobelium"],
+      "pearl": "Protactinium",
+      "scope": "English word means membership in the pinned ENABLE word list, not an arbitrary dictionary or abbreviation. Case ignored; element names and their symbols accepted. Exact 26-element intersection, with no frequency threshold.",
       "people": false
     },
     {
@@ -33078,6 +33786,128 @@
       ],
       "surface": ["Ruth Bader Ginsburg", "Clarence Thomas", "John Roberts"],
       "pearl": "Sonia Sotomayor",
+      "people": true,
+      "active": false
+    },
+    {
+      "id": "justices-thirty-years",
+      "text": "a US Supreme Court justice who served at least 30 years on the Court",
+      "theme": "history",
+      "cluster": "us-politics",
+      "active": true,
+      "answers": [
+        {
+          "name": "Anthony Kennedy",
+          "aliases": ["Kennedy"]
+        },
+        {
+          "name": "Bushrod Washington"
+        },
+        {
+          "name": "Byron White",
+          "aliases": ["White"]
+        },
+        {
+          "name": "Clarence Thomas",
+          "aliases": ["Thomas"]
+        },
+        {
+          "name": "Hugo Black",
+          "aliases": ["Black"]
+        },
+        {
+          "name": "James M. Wayne",
+          "aliases": ["James Moore Wayne", "James Wayne", "Wayne"]
+        },
+        {
+          "name": "John Marshall",
+          "aliases": ["Chief Justice Marshall"]
+        },
+        {
+          "name": "John Marshall Harlan",
+          "aliases": ["John Marshall Harlan I", "John Harlan", "Harlan I"]
+        },
+        {
+          "name": "John McLean",
+          "aliases": ["McLean"]
+        },
+        {
+          "name": "John Paul Stevens",
+          "aliases": ["John Stevens", "Stevens"]
+        },
+        {
+          "name": "Joseph Story",
+          "aliases": ["Story"]
+        },
+        {
+          "name": "Stephen Johnson Field",
+          "aliases": ["Stephen Field", "Stephen J Field", "Field"]
+        },
+        {
+          "name": "William J. Brennan Jr.",
+          "aliases": ["William Brennan", "William J Brennan", "William Brennan Jr", "Bill Brennan"]
+        },
+        {
+          "name": "William Johnson"
+        },
+        {
+          "name": "William O. Douglas",
+          "aliases": ["William Douglas", "William Orville Douglas", "Douglas"]
+        },
+        {
+          "name": "William Rehnquist",
+          "aliases": ["William H Rehnquist", "Bill Rehnquist", "Rehnquist"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of justices of the Supreme Court of the United States",
+          "revision": 1382428803,
+          "members": [
+            "Anthony Kennedy",
+            "Bushrod Washington",
+            "Byron White",
+            "Clarence Thomas",
+            "Hugo Black",
+            "James M. Wayne",
+            "John Marshall",
+            "John Marshall Harlan",
+            "John McLean",
+            "John Paul Stevens",
+            "Joseph Story",
+            "Stephen Johnson Field",
+            "William J. Brennan Jr.",
+            "William Johnson",
+            "William O. Douglas",
+            "William Rehnquist"
+          ],
+          "reviewed": [
+            "Anthony Kennedy",
+            "Bushrod Washington",
+            "Byron White",
+            "Clarence Thomas",
+            "Hugo Black",
+            "James M. Wayne",
+            "John Marshall",
+            "John Marshall Harlan",
+            "John McLean",
+            "John Paul Stevens",
+            "Joseph Story",
+            "Stephen Johnson Field",
+            "William J. Brennan Jr.",
+            "William Johnson",
+            "William O. Douglas",
+            "William Rehnquist"
+          ],
+          "expect": [16, 16],
+          "review": "Reviewed Duration column: fifteen people at least 30 years in a single seat plus William Rehnquist, whose 14 years 262 days as associate and 18 years 342 days as chief total over 33 years. Exactly sixteen distinct people. Thomas has 35 years as of 9 November 2026. Scalia served under 30 years and is excluded."
+        }
+      ],
+      "expect": [16, 16],
+      "surface": ["Clarence Thomas", "John Marshall", "William Rehnquist"],
+      "too_clever": ["Anthony Kennedy"],
+      "pearl": "Bushrod Washington",
+      "scope": "Total Supreme Court service across associate and chief seats, as of 9 November 2026. Does not count service on lower courts. Unique-in-set surnames follow the existing people convention, including Marshall and Harlan despite non-member namesakes.",
       "people": true
     },
     {
@@ -68312,7 +69142,7 @@
       "text": "a person who flew to the Moon on an Apollo mission",
       "theme": "science",
       "cluster": "space",
-      "active": true,
+      "active": false,
       "answers": [
         {
           "name": "Neil Armstrong"
@@ -68467,6 +69297,87 @@
       "scope": "The 24 unique Apollo lunar travelers: 12 walkers and 12 lunar-orbit/flyby-only astronauts, including Apollo 13. Excludes Earth-orbit-only Apollo crews, people who died before launch and non-Apollo missions.",
       "people": true,
       "too_clever": ["Jim Lovell"]
+    },
+    {
+      "id": "jupiter-spacecraft",
+      "text": "a spacecraft that has flown past or orbited Jupiter",
+      "theme": "science",
+      "cluster": "space",
+      "active": true,
+      "answers": [
+        {
+          "name": "Pioneer 10",
+          "aliases": ["Pioneer ten", "Pioneer X"]
+        },
+        {
+          "name": "Pioneer 11",
+          "aliases": ["Pioneer eleven", "Pioneer XI"]
+        },
+        {
+          "name": "Voyager 1",
+          "aliases": ["Voyager one", "Voyager I"]
+        },
+        {
+          "name": "Voyager 2",
+          "aliases": ["Voyager two", "Voyager II"]
+        },
+        {
+          "name": "Ulysses",
+          "aliases": ["Ulysses probe"]
+        },
+        {
+          "name": "Galileo",
+          "aliases": ["Galileo probe", "Galileo orbiter"]
+        },
+        {
+          "name": "Cassini",
+          "aliases": ["Cassini-Huygens"]
+        },
+        {
+          "name": "New Horizons",
+          "aliases": ["New Horizons probe"]
+        },
+        {
+          "name": "Juno",
+          "aliases": ["Juno orbiter", "Juno probe"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Exploration of Jupiter",
+          "revision": 1376446589,
+          "members": [
+            "Pioneer 10",
+            "Pioneer 11",
+            "Voyager 1",
+            "Voyager 2",
+            "Ulysses",
+            "Galileo",
+            "Cassini",
+            "New Horizons",
+            "Juno"
+          ],
+          "reviewed": [
+            "Pioneer 10",
+            "Pioneer 11",
+            "Voyager 1",
+            "Voyager 2",
+            "Ulysses",
+            "Galileo",
+            "Cassini",
+            "New Horizons",
+            "Juno"
+          ],
+          "expect": [9, 9],
+          "review": "Reviewed introduction and mission-by-mission sections: Pioneer 10 (1973), Pioneer 11 (1974), Voyagers 1 and 2 (1979), Ulysses (1992; again 2004), Galileo (1995–2003), Cassini (2000), New Horizons (2007), Juno (2016 onward). Nine independent missions, repeated encounters counted once."
+        }
+      ],
+      "expect": [9, 9],
+      "surface": ["Voyager 1", "Voyager 2", "Juno"],
+      "too_clever": ["New Horizons"],
+      "pearl": "Ulysses",
+      "scope": "As of 9 November 2026; nine independent spacecraft missions reaching Jupiter. Cassini–Huygens is one mission. Galileo atmospheric probe counts with Galileo, not as an extra mission. Excludes Europa Clipper and JUICE, still en route with arrival in 2030 and 2031 respectively; excludes Earth-based/space telescopes and planned missions.",
+      "people": false
     },
     {
       "id": "nobel-economics",
