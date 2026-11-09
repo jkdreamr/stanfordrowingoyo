@@ -32,7 +32,7 @@ const input = {
   notes: '',
   visibility: 'team',
 };
-it('keeps artificial mock Perception stimuli, scoring and timing consistent on a v2 calendar date', async () => {
+it('keeps artificial mock Perception v2 stimuli, scoring and timing consistent', async () => {
   const base = Date.parse('2026-11-10T18:00:00Z');
   let elapsed = 0;
   const { request, state } = setup({ now: () => new Date(base + elapsed) });
@@ -47,7 +47,7 @@ it('keeps artificial mock Perception stimuli, scoring and timing consistent on a
     const { stimulus, rounds } = (await start.json()) as PerceptionStart;
     expect(rounds).toEqual(['clock', 'color', 'dot', 'pattern', 'reaction']);
     const answer = 'reactionDelayMs' in stimulus ? { reactionMs: 150 } : stimulus;
-    if ('cells' in stimulus) expect(stimulus.cells).toHaveLength(7);
+    if ('cells' in stimulus) expect(stimulus.cells).toHaveLength(9);
     if ('reactionDelayMs' in stimulus) {
       elapsed += stimulus.reactionDelayMs - 1;
       expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
@@ -67,6 +67,53 @@ it('keeps artificial mock Perception stimuli, scoring and timing consistent on a
     score: 500,
   });
 });
+it.each(['2026-11-11', '2026-11-12'])(
+  'plays the rotated artificial Perception lineup on %s',
+  async (date) => {
+    let time = Date.parse(`${date}T18:00:00Z`);
+    const { request, state } = setup({ now: () => new Date(time) });
+    await request('/auth/login', 'POST', {
+      email: state.users.find((u) => u.role === 'admin')!.email,
+      password: 'password',
+    });
+    for (let round = 0; round < 5; round++) {
+      const start = await request('/games/perception/start', 'POST', { round });
+      expect(start.status).toBe(200);
+      const { stimulus, rounds } = (await start.json()) as PerceptionStart;
+      const answer =
+        'angle' in stimulus
+          ? { angle: stimulus.angle }
+          : 'countDots' in stimulus
+            ? { count: stimulus.countDots.length }
+            : 'shade' in stimulus
+              ? { shade: stimulus.shade }
+              : 'endpoints' in stimulus
+                ? {
+                    bisect: [
+                      (stimulus.endpoints[0][0] + stimulus.endpoints[1][0]) / 2,
+                      (stimulus.endpoints[0][1] + stimulus.endpoints[1][1]) / 2,
+                    ],
+                  }
+                : 'contact' in stimulus
+                  ? { contactMs: stimulus.contact.hiddenMs }
+                  : stimulus;
+      if (['angle', 'length', 'count', 'span', 'shade', 'contact'].includes(rounds[round]))
+        expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
+          400,
+        );
+      time += 20000;
+      const response = await request('/games/perception/answer', 'POST', { round, answer });
+      expect(response.status).toBe(200);
+      expect(await response.json()).toMatchObject({
+        scores: { [rounds[round]]: 100 },
+        done: round === 4,
+      });
+    }
+    expect(await (await request('/games/perception/results/me')).json()).toMatchObject({
+      score: 500,
+    });
+  },
+);
 it('exports mock account JSON and CSV without teammate private data', async () => {
   const { request, state } = setup();
   const response = await request('/me/export');
