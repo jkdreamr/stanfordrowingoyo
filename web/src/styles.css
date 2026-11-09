@@ -881,7 +881,7 @@ textarea::placeholder {
   z-index: 100;
   left: 16px;
   right: 16px;
-  bottom: calc(80px + env(safe-area-inset-bottom));
+  bottom: calc(var(--tabbar-height) + 8px + env(safe-area-inset-bottom));
   pointer-events: none;
 }
 .ui-toast {
@@ -937,6 +937,9 @@ textarea::placeholder {
   pointer-events: auto;
 }
 .ui-page-nav-inline {
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -1253,11 +1256,17 @@ main h1[tabindex='-1']:focus {
     overflow-x: clip;
   }
 }
+:root {
+  /* Layout rhythm on a 4pt grid: one screen gutter, and a page end that clears the tab bar. */
+  --gutter: 16px;
+  --tabbar-height: 72px;
+  --page-end: calc(var(--tabbar-height) + 24px + env(safe-area-inset-bottom));
+}
 .shell-content {
   min-width: 0;
   max-width: 720px;
   margin: 0 auto;
-  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  padding-bottom: var(--page-end);
 }
 .app-shell-task .shell-content {
   padding-bottom: 24px;
@@ -1274,7 +1283,7 @@ main h1[tabindex='-1']:focus {
   z-index: 30;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  height: calc(72px + env(safe-area-inset-bottom));
+  height: calc(var(--tabbar-height) + env(safe-area-inset-bottom));
   padding: 0 max(4px, env(safe-area-inset-left), env(safe-area-inset-right))
     env(safe-area-inset-bottom);
   background: var(--surface);

@@ -13,9 +13,10 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
   const givers = useKudosGivers(entry.id, open);
   return (
     <>
-      <div className="flex items-center">
-        <Button
-          variant="plain"
+      <div className="entry-action">
+        <button
+          type="button"
+          className="entry-action-icon"
           aria-label="Kudos"
           aria-pressed={entry.has_kudos}
           disabled={mutation.isPending}
@@ -31,34 +32,34 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
               },
             );
           }}
-          leading={
-            <span className={`kudos-icon ${give > 0 && entry.has_kudos ? 'is-giving' : ''}`}>
-              <ThumbsUp
-                key={give}
-                className={give > 0 && entry.has_kudos ? 'social-kudos-give' : ''}
-                onAnimationEnd={() => setGive(0)}
-                size={20}
-                strokeWidth={1.75}
-                fill={entry.has_kudos ? 'currentColor' : 'none'}
-              />
-              {give > 0 &&
-                entry.has_kudos &&
-                [0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
-                  <i
-                    key={angle}
-                    className="kudos-spark"
-                    style={{ '--a': `${angle}deg` } as CSSProperties}
-                  />
-                ))}
-            </span>
-          }
         >
-          Kudos
-        </Button>
+          <span
+            aria-hidden="true"
+            className={`kudos-icon ${give > 0 && entry.has_kudos ? 'is-giving' : ''}`}
+          >
+            <ThumbsUp
+              key={give}
+              className={give > 0 && entry.has_kudos ? 'social-kudos-give' : ''}
+              onAnimationEnd={() => setGive(0)}
+              size={20}
+              strokeWidth={1.75}
+              fill={entry.has_kudos ? 'currentColor' : 'none'}
+            />
+            {give > 0 &&
+              entry.has_kudos &&
+              [0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+                <i
+                  key={angle}
+                  className="kudos-spark"
+                  style={{ '--a': `${angle}deg` } as CSSProperties}
+                />
+              ))}
+          </span>
+        </button>
         {entry.kudos_count > 0 ? (
           <Button
             variant="plain"
-            className="min-w-11 tabular-nums"
+            className="entry-action-count"
             aria-label={`View ${entry.kudos_count} ${entry.kudos_count === 1 ? 'Kudo' : 'Kudos'}`}
             onClick={(event) => {
               event.currentTarget.focus({ preventScroll: true });
@@ -70,9 +71,7 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
             </span>
           </Button>
         ) : (
-          <span className="inline-flex min-h-11 min-w-11 items-center justify-center text-muted tabular-nums">
-            0
-          </span>
+          <span className="entry-action-count text-muted">0</span>
         )}
       </div>
       {open && (

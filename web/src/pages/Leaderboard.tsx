@@ -312,20 +312,23 @@ function useRankFlip(list: HTMLElement | null, rows: LeaderboardRow[] | undefine
 export default function Leaderboard() {
   const refresh = useRefreshVisible();
   const configQuery = useConfig();
-  const header = <PageHeader title="Leaderboard" trailing={<HeaderActions />} />;
+  const header = (
+    <PageHeader
+      title="Leaderboard"
+      trailing={
+        <div className="flex items-center gap-1">
+          <Link className="ui-icon-button" to="/games/leaderboard" aria-label="Games">
+            <Gamepad2 size={20} strokeWidth={1.75} aria-hidden="true" />
+          </Link>
+          <HeaderActions />
+        </div>
+      }
+    />
+  );
   return (
     <>
       {header}
       <PullToRefresh label="Leaderboard" onRefresh={refresh}>
-        <div className="flex justify-end px-4">
-          <Button
-            to="/games/leaderboard"
-            variant="plain"
-            leading={<Gamepad2 size={20} strokeWidth={1.75} />}
-          >
-            Games
-          </Button>
-        </div>
         {configQuery.data ? (
           <Board config={configQuery.data} />
         ) : (
