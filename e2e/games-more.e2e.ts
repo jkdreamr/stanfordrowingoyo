@@ -396,42 +396,48 @@ test('Perception abandons a started v2 round on reload and finishes without a re
   });
   await perceptionClock(page, date);
   const config = await (await context.request.get('/api/config')).json();
-  await expect(
-    await context.request.post('/api/entries', {
-      headers: csrfHeaders,
-      data: {
-        date: config.today,
-        modality: 'erg',
-        zone: 'E',
-        distance_m: 1000,
-        title: 'Round resume',
-        notes: '',
-      },
-    }),
-  ).toBeOK();
-  await page.goto('/games/perception');
-  await waitForSplash(page);
-  const started = page.waitForResponse(
-    (r) => r.url().endsWith('/perception/start') && r.request().method() === 'POST',
-  );
-  await page
-    .getByRole('button', { name: rounds[0] === 'clock' ? 'Ready' : 'Start', exact: true })
-    .click();
-  expect((await started).ok()).toBe(true);
-  await page.reload();
-  await waitForSplash(page);
-  await expect(page.getByRole('heading', { name: perceptionTitles[rounds[1]] })).toBeVisible();
-  const resumed = await (await context.request.get('/api/games/perception/today')).json();
-  expect(resumed.scores).toEqual({ [rounds[0]]: 0 });
-  expect(
-    (
-      await context.request.post('/api/games/perception/start', {
-        headers: csrfHeaders,
-        data: { round: 0 },
-      })
-    ).status(),
-  ).toBe(409);
-  await playPerception(page, date, undefined, 1);
+  const saved = await context.request.post('/api/entries', {
+    headers: csrfHeaders,
+    data: {
+      date: config.today,
+      modality: 'erg',
+      zone: 'E',
+      distance_m: 1000,
+      title: 'Round resume',
+      notes: '',
+    },
+  });
+  await expect(saved).toBeOK();
+  const { id: entryId } = await saved.json();
+  try {
+    await page.goto('/games/perception');
+    await waitForSplash(page);
+    const started = page.waitForResponse(
+      (r) => r.url().endsWith('/perception/start') && r.request().method() === 'POST',
+    );
+    await page
+      .getByRole('button', { name: rounds[0] === 'clock' ? 'Ready' : 'Start', exact: true })
+      .click();
+    expect((await started).ok()).toBe(true);
+    await page.reload();
+    await waitForSplash(page);
+    await expect(page.getByRole('heading', { name: perceptionTitles[rounds[1]] })).toBeVisible();
+    const resumed = await (await context.request.get('/api/games/perception/today')).json();
+    expect(resumed.scores).toEqual({ [rounds[0]]: 0 });
+    expect(
+      (
+        await context.request.post('/api/games/perception/start', {
+          headers: csrfHeaders,
+          data: { round: 0 },
+        })
+      ).status(),
+    ).toBe(409);
+    await playPerception(page, date, undefined, 1);
+  } finally {
+    await expect(
+      await context.request.delete(`/api/entries/${entryId}`, { headers: csrfHeaders }),
+    ).toBeOK();
+  }
 });
 
 test('Perception v2 pool covers all twelve types through real controls', async ({
@@ -452,28 +458,34 @@ test('Perception v2 pool covers all twelve types through real controls', async (
       ...testInfo.project.use.extraHTTPHeaders,
       'X-OYO-Test-Now': `${date}T18:00:00Z`,
     });
-    await expect(
-      await context.request.post('/api/entries', {
-        headers: csrfHeaders,
-        data: {
-          date,
-          modality: 'erg',
-          zone: 'E',
-          distance_m: 1000,
-          title: 'Perception pool',
-          notes: '',
-        },
-      }),
-    ).toBeOK();
-    if (project === 'iphone-15') await page.setViewportSize({ width: 393, height: 852 });
-    await perceptionClock(page, date);
-    await playPerception(page, date, async (id, stage) => {
-      if (!['clock', 'color', 'dot', 'pattern', 'reaction'].includes(id)) {
-        const heading = page.getByRole('heading', { name: perceptionTitles[id], exact: true });
-        if (project === 'iphone-15') await heading.tap();
-        else await heading.click();
-        await shots(page, project, `perception-${id}-${stage}`);
-      }
+    const saved = await context.request.post('/api/entries', {
+      headers: csrfHeaders,
+      data: {
+        date,
+        modality: 'erg',
+        zone: 'E',
+        distance_m: 1000,
+        title: 'Perception pool',
+        notes: '',
+      },
     });
+    await expect(saved).toBeOK();
+    const { id: entryId } = await saved.json();
+    try {
+      if (project === 'iphone-15') await page.setViewportSize({ width: 393, height: 852 });
+      await perceptionClock(page, date);
+      await playPerception(page, date, async (id, stage) => {
+        if (!['clock', 'color', 'dot', 'pattern', 'reaction'].includes(id)) {
+          const heading = page.getByRole('heading', { name: perceptionTitles[id], exact: true });
+          if (project === 'iphone-15') await heading.tap();
+          else await heading.click();
+          await shots(page, project, `perception-${id}-${stage}`);
+        }
+      });
+    } finally {
+      await expect(
+        await context.request.delete(`/api/entries/${entryId}`, { headers: csrfHeaders }),
+      ).toBeOK();
+    }
   }
 });
