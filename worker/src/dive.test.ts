@@ -505,16 +505,16 @@ describe('Dive', () => {
   it.each(['/guesses', '/answers'])(
     'scores the same canonical independently on two prompts via %s',
     async (path) => {
-      const now = '2026-11-17T18:00:00Z';
+      const now = '2026-12-01T18:00:00Z';
       await sql((storage) =>
         storage.sql.exec("UPDATE sessions SET expires_at='2027-01-01T00:00:00Z'"),
       );
-      for (let index = 0; index < 3; index++) {
+      for (let index = 0; index < 4; index++) {
         expect((await api('/start', 'POST', { prompt_index: index }, 59, now)).status).toBe(200);
         const response = await api(
           path,
           'POST',
-          { prompt_index: index, answer: index === 1 ? '' : 'United Kingdom' },
+          { prompt_index: index, answer: index === 0 || index === 3 ? 'Greece' : '' },
           59,
           now,
         );
@@ -523,14 +523,14 @@ describe('Dive', () => {
           DiveAnswerResult | { outcome: 'scored'; answer: DiveAnswerResult }
         >();
         const answer = 'outcome' in body ? body.answer : body;
-        if (index !== 1) {
-          expect(answer.canonical).toBe('United Kingdom');
+        if (index === 0 || index === 3) {
+          expect(answer.canonical).toBe('Greece');
           expect(answer.points).toBeGreaterThan(0);
         }
       }
       const day = await (await api('/today', 'GET', undefined, 59, now)).json<DiveDay>();
-      expect(day.answers).toHaveLength(3);
-      expect(day.score).toBe(day.answers[0].points + day.answers[2].points);
+      expect(day.answers).toHaveLength(4);
+      expect(day.score).toBe(day.answers[0].points + day.answers[3].points);
     },
   );
   it('cannot bypass a final pending rejection using the legacy endpoint', async () => {

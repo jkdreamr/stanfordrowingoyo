@@ -279,7 +279,9 @@ export function suggestAnswer(input: string, set: AnswerSet): DiveMatch | null {
       if ((tokens.length > 1 || other.length > 1) && !alignedTokens(tokens, other, workspace))
         continue;
       let score = 0;
-      const limit = Math.min(5, Math.floor(longest * 0.28));
+      const shortWord =
+        tokens.length === 1 && other.length === 1 && Math.min(length, key.length) < 8;
+      const limit = Math.min(5, Math.floor(longest * (shortWord ? 0.24 : 0.28)));
       if (Math.abs(length - key.length) <= limit && longest - shared <= limit) {
         const distance = transpositionDistance(key, candidate, limit, workspace);
         if (distance <= limit) score = 1 - distance / longest;

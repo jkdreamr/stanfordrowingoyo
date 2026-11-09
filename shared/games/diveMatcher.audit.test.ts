@@ -28,6 +28,7 @@ it.each(historical)('does not suggest a different entity for %s (%s)', (input, t
 });
 
 it('keeps phonetic misspellings without replacing a different word ending', () => {
+  expect(suggestAnswer('Persian', fixtureSet('Peruvian pelican|g|peruvian'))).toBeNull();
   expect(suggestAnswer('Georgia', fixtureSet('David Lloyd George|g|george'))).toBeNull();
   expect(suggestAnswer('Nefthys', fixtureSet('Nephthys|g|'))?.canonical).toBe('Nephthys');
 });
