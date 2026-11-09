@@ -340,6 +340,36 @@ self-contained guarded block. Feature migrations run in ascending order 11–18,
 
 ### Daily Games
 
+- Higher or Lower (`higherlower`, higher score wins) uses existing `game_progress`
+  without a migration. Presentation metadata includes a sentence-case question and `asOfLabel` caption once
+  per day. Items carry optional `asOf` only when it differs from the category year;
+  locked responses expose neither caption nor item metadata. Values use fixed
+  per-unit precision, including two decimals for million/billion/trillion scales.
+  `GET /api/games/higherlower/today` returns `HigherLowerDay`:
+  date/access, question/labels/unit/asOf, correct-guess step, rounds=20, revealed
+  items, a next item with null value/display, boolean results, finished/score/perfect.
+  Locked reads have null metadata, empty items/results and null next. A daily chain
+  has 21 distinct items from one category. Each guess compares next to current;
+  adjacent values differ by at least 10%, at least 70% of ratios are at most 1.40,
+  and none exceeds 3.0. Direction mix is 7–13 higher answers with runs at most four.
+  The first miss ends the sole attempt, or 20 correct guesses is perfect.
+  `POST /api/games/higherlower/guess` takes `{step,choice:'higher'|'lower',date?}`.
+  Invalid bodies are 400, locked writes 403, stale dates 409 DAY_CHANGED,
+  finished attempts 409 ALREADY_PLAYED and other step mismatches 409 OUT_OF_ORDER.
+  Choices and completion are atomic; result payload includes choices, outcomes,
+  score, rounds, category/question and revealed items (never the unplayed tail).
+  Generic result submission returns 405 after access checks. Staff use normal access.
+  `HIGHERLOWER_ENABLED` gates APIs, registry, boards, streaks and recap.
+  Sources and frozen name-keyed schedule live in `scripts/higherlower`; generated
+  packed data stays Worker-only, with cached category decoding and a web leak guard.
+  Each emitted day stores category, frozen pool size and a 24-bit seed; a shared
+  pure constructor rebuilds the chain. Frozen name-keyed tests prevent changes
+  from reordering/removing facts or altering the constructor. New facts append only.
+  Previews start November 2, 2026; launch day zero is November 16 (LA team dates).
+  The 380-record seed schedule covers launch plus 366 days; dates outside the
+  emitted range wrap by day offset modulo record count. See its README for extension
+  and explicit pre-launch reset rules. The web UI is a later implementation step.
+
 Connections and Perception also use schema v17 `game_progress`. Generic
 `POST /api/games/:game/results` submissions for both return 405 after access checks.
 Results are written by the Worker transaction that finishes the game.

@@ -30,6 +30,7 @@ import type {
   Zone,
   RaceWeek,
   GameResult,
+  GameAccess,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
 import {
@@ -78,6 +79,8 @@ import {
   type PerceptionRoundAnswer,
 } from '../../../shared/games/perceptionV2';
 import { dayNumber, dailyRandom } from '../../../shared/games/daily';
+import type { HigherLowerChoice } from '../../../shared/games/higherlower';
+import { mockHigherLowerDay } from './higherlower';
 import {
   boardWords,
   connectionsScore,
@@ -99,6 +102,7 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  higherlower: null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -200,6 +204,7 @@ export function createMockApi({
   const gameResults: GameResult[] = [];
   const wordProgress = new Map<string, string[]>();
   const connectionProgress = new Map<string, string[][]>();
+  const higherLowerProgress = new Map<string, HigherLowerChoice[]>();
   const perceptionProgress = new Map<
     string,
     {
@@ -1016,7 +1021,7 @@ export function createMockApi({
                     !scheduled.some((row) => row.day === dayIndex && row.kind === 'oyo')
                   ? 'no_oyo'
                   : 'locked';
-        const access = { date, unlocked: reason !== 'locked', reason };
+        const access: GameAccess = { date, unlocked: reason !== 'locked', reason };
         if (path === '/api/games/access' && method === 'GET') return json(access);
         if (path === '/api/games' && method === 'GET')
           return json({
@@ -1129,6 +1134,51 @@ export function createMockApi({
             updated_at: stamp,
           });
         };
+        if (gameId === 'higherlower' && ['today', 'guess'].includes(parts[4])) {
+          if (
+            (parts[4] === 'today' && method !== 'GET') ||
+            (parts[4] === 'guess' && method !== 'POST')
+          )
+            fail(405, 'Method not allowed.');
+          const key = `${user.id}:${date}`;
+          const choices = higherLowerProgress.get(key) ?? [];
+          let day = mockHigherLowerDay(date, access, choices);
+          if (method === 'POST') {
+            if (
+              !Number.isInteger(body.step) ||
+              Number(body.step) < 0 ||
+              Number(body.step) >= 20 ||
+              !['higher', 'lower'].includes(String(body.choice)) ||
+              (body.date !== undefined &&
+                (typeof body.date !== 'string' ||
+                  !/^\d{4}-\d{2}-\d{2}$/.test(body.date) ||
+                  !Number.isFinite(Date.parse(body.date)) ||
+                  new Date(body.date).toISOString().slice(0, 10) !== body.date)) ||
+              Object.keys(body).some((key) => !['step', 'choice', 'date'].includes(key))
+            )
+              fail(400, 'Invalid guess.');
+            if (body.date !== undefined && body.date !== date)
+              fail(409, 'The day has changed.', 'DAY_CHANGED');
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            if (day.finished || mine(date)) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+            if (body.step !== day.step) fail(409, 'Play steps in order.', 'OUT_OF_ORDER');
+            const next = [...choices, body.choice as HigherLowerChoice];
+            higherLowerProgress.set(key, next);
+            day = mockHigherLowerDay(date, access, next);
+            if (day.finished)
+              addResult(day.score, {
+                choices: next,
+                results: day.results,
+                score: day.score,
+                rounds: day.rounds,
+                category: 'practice-towns',
+                question: day.question,
+                items: day.items,
+                perfect: day.perfect,
+              });
+          }
+          return json(day);
+        }
         if (gameId === 'perception' && ['today', 'start', 'answer'].includes(parts[4])) {
           const v2 = date >= PERCEPTION_V2_FROM;
           const rounds: PerceptionRoundId[] = v2

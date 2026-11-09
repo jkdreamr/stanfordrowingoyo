@@ -6,6 +6,33 @@ import type {
   PerceptionRoundAnswer,
 } from './games/perceptionV2';
 import type { Mark } from './games/wordGuess';
+import type { HigherLowerUnit } from './games/higherlower';
+
+export interface HigherLowerItem {
+  asOf?: number | null;
+  name: string;
+  detail: string | null;
+  value: number | null;
+  display: string | null;
+}
+export interface HigherLowerDay {
+  asOfLabel: string | null;
+  date: string;
+  access: GameAccess;
+  question: string | null;
+  higherLabel: string | null;
+  lowerLabel: string | null;
+  unit: HigherLowerUnit | null;
+  asOf: number | null;
+  step: number;
+  rounds: 20;
+  items: HigherLowerItem[];
+  next: HigherLowerItem | null;
+  results: boolean[];
+  finished: boolean;
+  score: number;
+  perfect: boolean;
+}
 
 export type Modality = 'erg' | 'bike' | 'run';
 export type ErgTestKind = '2k' | '6k';
@@ -744,6 +771,11 @@ export interface Endpoint<Req, Res, Query = never> {
 }
 /** Canonical endpoint paths for the backend and typed browser client. Void responses use HTTP 204. */
 export interface Api {
+  'GET /api/games/higherlower/today': Endpoint<void, HigherLowerDay>;
+  'POST /api/games/higherlower/guess': Endpoint<
+    { step: number; choice: 'higher' | 'lower'; date?: string },
+    HigherLowerDay
+  >;
   'GET /api/games/dive/today': Endpoint<void, DiveDay>;
   'POST /api/games/dive/answers': Endpoint<
     { prompt_index: number; answer: string },
