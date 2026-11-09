@@ -8,6 +8,7 @@ export default {
     '16': '\nclockwork orange\t3v\n',
     '18': '\ndoctor strangelove\t5h\n',
     '14': '\ndr strangelove\t5h\neyes wide shut\te\npaths of glory\t2b\n',
+    '66': '\ndr strangelove or how i learned to stop worrying and love the bomb\t5h\n',
     '15': '\nfear and desire\t19\n',
     '17': '\nfull metal jacket\t1r\n',
     '7': '\nkilling\tv\nshining\t0\n',

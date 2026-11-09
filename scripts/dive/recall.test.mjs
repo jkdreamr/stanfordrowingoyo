@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { URL } from 'node:url';
 import { normalizeAnswer } from '../../shared/games/dive.ts';
-import { evaluateCorpus, exactHit } from './recall.mjs';
+import { combineCorpora, evaluateCorpus, exactHit } from './recall.mjs';
 
 const set = { buckets: { 4: '\ncafe\t0\n', 5: '\nsmith\t0\n', 7: '\nsea cat\t0\n' } };
 const batch = JSON.parse(readFileSync(new URL('./recall/batch-1-selected.json', import.meta.url)));
@@ -13,6 +13,37 @@ const batchTwo = JSON.parse(
 const batchThree = JSON.parse(
   readFileSync(new URL('./recall/batch-3-selected.json', import.meta.url)),
 );
+
+test('composite corpora merge disjoint inputs, allow empty inputs and reject duplicate prompts', () => {
+  assert.deepEqual(combineCorpora([{ a: ['A'] }, { b: ['B'] }]), { a: ['A'], b: ['B'] });
+  assert.deepEqual(combineCorpora([{}, {}]), {});
+  assert.throws(() => combineCorpora([{ a: [] }, { a: [] }]), /Duplicate corpus prompt: a/);
+});
+
+test('duplicate-retirement replacement retains frozen guesses and rejects out-of-scope titles', async () => {
+  const corpus = JSON.parse(
+    readFileSync(new URL('./recall/supplemental-selected.json', import.meta.url)),
+  );
+  const raw = JSON.parse(readFileSync(new URL('./recall/batch-4-raw.json', import.meta.url)));
+  const ids = Object.keys(corpus);
+  for (const id of ids)
+    assert.deepEqual(
+      corpus[id].map((g) => (typeof g === 'string' ? g : g.guess)),
+      raw[id],
+    );
+  const result = await evaluateCorpus({
+    corpus,
+    schedule: [ids],
+    prompts: ids.map((id) => ({ id, constrained: true })),
+    normalize: normalizeAnswer,
+    loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
+  });
+  for (const p of result.prompts) {
+    assert.ok(p.rate >= 0.95);
+    const set = (await import(`../../worker/src/games/dive/data/${p.id}.ts`)).default;
+    for (const g of p.invalid) assert.equal(exactHit(g.guess, set, normalizeAnswer), false);
+  }
+});
 
 test('fourth constrained batch preserves frozen guesses and accepts reviewed members', async () => {
   const raw = JSON.parse(readFileSync(new URL('./recall/batch-4-raw.json', import.meta.url)));

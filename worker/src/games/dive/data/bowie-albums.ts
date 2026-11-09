@@ -18,6 +18,7 @@ export default {
     '17': '\nnever let me down\t17\nspace oddity 1969\t0\n',
     '8': '\nnext day\te\n',
     '31': '\nrise and fall of ziggy stardust\t93\n',
+    '56': '\nrise and fall of ziggy stardust and the spiders from mar\t93\n',
     '13': '\nscary monster\t6p\n',
     '30': '\nscary monsters and super creep\t6p\n',
     '14': '\nyoung american\t3s\nziggy stardust\t93\n',

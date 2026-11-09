@@ -79,7 +79,7 @@ class SpecsTest(unittest.TestCase):
     def test_short_natural_texts_and_retired_sets_remain_complete(self):
         prompts = constrained.read_specs()
         retired = {p['id'] for p in prompts if not p['active']}
-        self.assertEqual(retired, {'calendar-months', 'zodiac-signs', 'chinese-zodiac',
+        self.assertEqual(retired, {'disney-princesses', 'calendar-months', 'zodiac-signs', 'chinese-zodiac',
                                   'zodiac-constellations', 'santas-reindeer', 'cluedo-rooms',
                                   'us-food-allergens', 'lanthanides', 'synthetic-elements',
                                   'b-vitamins', 'period-4-elements', 'period-5-elements',

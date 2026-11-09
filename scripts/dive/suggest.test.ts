@@ -74,7 +74,7 @@ cloud-genera|Altostratus|Altostratous;Altostrattus
 penguins|Emperor penguin|Emperer pengwin;Emperor penguen
 true-seal-species|Leopard seal|Leoperd seel;Leopard seall
 essential-amino-acids|Methionine|Methyonene;Methioninne
-disney-princesses|Cinderella|Sinderela;Cinderrella
+disney-princess-lineup|Cinderella|Sinderela;Cinderrella
 nato-alphabet|Whiskey|Wiskey;Whiskee
 si-prefixes|Quecto|Quekto;Quectoo
 eightfold-path|Right mindfulness|Right mindfullnes;Mindfulness
@@ -87,7 +87,7 @@ egyptian-ennead|Nephthys|Nefthys;Nephthyss
     return inputs.split(';').map((input) => ({ id, expected, input }));
   });
 
-const ids = [...new Set(DIVE_SCHEDULE.flat())];
+const ids = [...new Set([...DIVE_SCHEDULE.flat(), ...handwritten.map(({ id }) => id)])];
 
 it('keeps short, stopword, ambiguous and fishing guesses out; is deterministic', () => {
   const set = fixtureSet(
@@ -109,7 +109,7 @@ it('keeps short, stopword, ambiguous and fishing guesses out; is deterministic',
   }
 });
 
-it('tunes scheduled-prompt positives and independent negatives with regression floors', async () => {
+it('tunes scheduled and legacy positives and independent negatives with regression floors', async () => {
   const sets = new Map(
     await Promise.all(ids.map(async (id) => [id, await answerSet(id)] as const)),
   );

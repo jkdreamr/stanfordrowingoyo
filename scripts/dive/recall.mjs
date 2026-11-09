@@ -92,6 +92,16 @@ const sortedJSON = (value) =>
     2,
   ) + '\n';
 
+export function combineCorpora(corpora) {
+  const merged = {};
+  for (const corpus of corpora)
+    for (const [id, guesses] of Object.entries(corpus)) {
+      if (Object.hasOwn(merged, id)) throw new Error(`Duplicate corpus prompt: ${id}`);
+      merged[id] = guesses;
+    }
+  return merged;
+}
+
 export async function main(args = process.argv.slice(2)) {
   let ref;
   let customCorpus = false;
@@ -140,7 +150,7 @@ export async function main(args = process.argv.slice(2)) {
       moduleAt('shared/games/dive.ts'),
     ]);
     let corpusText = await readFile(corpusPath, 'utf8');
-    const corpus = JSON.parse(corpusText);
+    let corpus = JSON.parse(corpusText);
     if (!customCorpus) {
       for (const file of [
         'batch-1-selected.json',
@@ -152,10 +162,7 @@ export async function main(args = process.argv.slice(2)) {
         const additions = JSON.parse(
           await readFile(join(repo, 'scripts/dive/recall', file), 'utf8'),
         );
-        for (const [id, guesses] of Object.entries(additions)) {
-          if (Object.hasOwn(corpus, id)) throw new Error(`Duplicate corpus prompt: ${id}`);
-          corpus[id] = guesses;
-        }
+        corpus = combineCorpora([corpus, additions]);
       }
       corpusText = JSON.stringify(corpus);
     }

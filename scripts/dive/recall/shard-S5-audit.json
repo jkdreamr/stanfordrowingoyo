@@ -1,7 +1,7 @@
 {
   "baseBranch": "devin/1794186388-dive-content-pass",
   "baseCommit": "6b96adde72f6b65904eab39ad3ba61b2c2fa4a9c",
-  "rawSha256": "1d2f30c61f7dcb6c44c9151c928d30ef810f7fd0822cc434d3524995976f4721",
+  "rawSha256": "8502e92480325c4a70ae5a9229e846d5283181a2b17001841d02feb85fb8e0f6",
   "rawGuesses": 678,
   "reviewedInvalid": 21,
   "workerGzip": {
@@ -40,12 +40,8 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Topaz": [
-          "Blue topaz"
-        ],
-        "tourmaline": [
-          "Pink tourmaline"
-        ]
+        "Topaz": ["Blue topaz"],
+        "tourmaline": ["Pink tourmaline"]
       }
     },
     {
@@ -76,12 +72,8 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Schindler's Ark": [
-          "Schindler's List"
-        ],
-        "The Seven Moons of Maali Almeida": [
-          "Seven Moons"
-        ]
+        "Schindler's Ark": ["Schindler's List"],
+        "The Seven Moons of Maali Almeida": ["Seven Moons"]
       }
     },
     {
@@ -141,15 +133,9 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Charlie and the Great Glass Elevator": [
-          "Great Glass Elevator"
-        ],
-        "Danny the Champion of the World": [
-          "Danny Champion of the World"
-        ],
-        "George's Marvellous Medicine": [
-          "George's Marvelous Medicine"
-        ]
+        "Charlie and the Great Glass Elevator": ["Great Glass Elevator"],
+        "Danny the Champion of the World": ["Danny Champion of the World"],
+        "George's Marvellous Medicine": ["George's Marvelous Medicine"]
       }
     },
     {
@@ -180,15 +166,9 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "A Tale of Two Cities": [
-          "Tale of 2 Cities"
-        ],
-        "The Haunted Man and the Ghost's Bargain": [
-          "The Haunted Man"
-        ],
-        "The Mystery of Edwin Drood": [
-          "Edwin Drood"
-        ]
+        "A Tale of Two Cities": ["Tale of 2 Cities"],
+        "The Haunted Man and the Ghost's Bargain": ["The Haunted Man"],
+        "The Mystery of Edwin Drood": ["Edwin Drood"]
       }
     },
     {
@@ -219,9 +199,7 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "The Fifth Elephant": [
-          "5th Elephant"
-        ]
+        "The Fifth Elephant": ["5th Elephant"]
       }
     },
     {
@@ -252,23 +230,10 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Right conduct": [
-          "Wise action",
-          "Wise conduct",
-          "Samma kammanta"
-        ],
-        "Right effort": [
-          "Wise effort",
-          "Samma vayama"
-        ],
-        "Right livelihood": [
-          "Wise livelihood",
-          "Samma ajiva"
-        ],
-        "Right mindfulness": [
-          "Wise mindfulness",
-          "Samma sati"
-        ],
+        "Right conduct": ["Wise action", "Wise conduct", "Samma kammanta"],
+        "Right effort": ["Wise effort", "Samma vayama"],
+        "Right livelihood": ["Wise livelihood", "Samma ajiva"],
+        "Right mindfulness": ["Wise mindfulness", "Samma sati"],
         "Right resolve": [
           "Right thinking",
           "Wise intention",
@@ -276,19 +241,9 @@
           "Wise thought",
           "Samma sankappa"
         ],
-        "Right samadhi": [
-          "Wise concentration",
-          "Wise meditation",
-          "Samma samadhi"
-        ],
-        "Right speech": [
-          "Wise speech",
-          "Samma vaca"
-        ],
-        "Right view": [
-          "Wise view",
-          "Samma ditthi"
-        ]
+        "Right samadhi": ["Wise concentration", "Wise meditation", "Samma samadhi"],
+        "Right speech": ["Wise speech", "Samma vaca"],
+        "Right view": ["Wise view", "Samma ditthi"]
       }
     },
     {
@@ -319,23 +274,10 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Crustaceans": [
-          "Shellfish"
-        ],
-        "Gluten": [
-          "Wheat",
-          "Rye",
-          "Barley",
-          "Oats",
-          "Spelt",
-          "Kamut"
-        ],
-        "Milk": [
-          "Dairy"
-        ],
-        "Soy": [
-          "Soya beans"
-        ]
+        "Crustaceans": ["Shellfish"],
+        "Gluten": ["Wheat", "Rye", "Barley", "Oats", "Spelt", "Kamut"],
+        "Milk": ["Dairy"],
+        "Soy": ["Soya beans"]
       }
     },
     {
@@ -366,16 +308,9 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Blackout/All Clear": [
-          "Blackout",
-          "All Clear"
-        ],
-        "Harry Potter and the Goblet of Fire": [
-          "Goblet of Fire"
-        ],
-        "The Fifth Season": [
-          "5th Season"
-        ]
+        "Blackout/All Clear": ["Blackout", "All Clear"],
+        "Harry Potter and the Goblet of Fire": ["Goblet of Fire"],
+        "The Fifth Season": ["5th Season"]
       }
     },
     {
@@ -406,24 +341,11 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Corpse reviver #2": [
-          "Corpse Reviver No 2",
-          "Corpse Reviver No. Two",
-          "Corpse Reviver II"
-        ],
-        "Cosmopolitan": [
-          "Cosmo"
-        ],
-        "French 75": [
-          "French Seventy Five"
-        ],
-        "John Collins": [
-          "Tom Collins"
-        ],
-        "Long Island iced tea": [
-          "Long Island",
-          "LIIT"
-        ]
+        "Corpse reviver #2": ["Corpse Reviver No 2", "Corpse Reviver No. Two", "Corpse Reviver II"],
+        "Cosmopolitan": ["Cosmo"],
+        "French 75": ["French Seventy Five"],
+        "John Collins": ["Tom Collins"],
+        "Long Island iced tea": ["Long Island", "LIIT"]
       }
     },
     {
@@ -483,18 +405,10 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Fenchurch Street Station": [
-          "Fenchurch Street"
-        ],
-        "Kings Cross Station": [
-          "King's Cross"
-        ],
-        "Liverpool Street Station": [
-          "Liverpool Street"
-        ],
-        "Marylebone Station": [
-          "Marylebone"
-        ]
+        "Fenchurch Street Station": ["Fenchurch Street"],
+        "Kings Cross Station": ["King's Cross"],
+        "Liverpool Street Station": ["Liverpool Street"],
+        "Marylebone Station": ["Marylebone"]
       }
     },
     {
@@ -525,22 +439,11 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "B&O Railroad": [
-          "Baltimore and Ohio Railroad",
-          "B&O"
-        ],
-        "Boardwalk": [
-          "Board Walk"
-        ],
-        "Short Line": [
-          "Short Line Railroad"
-        ],
-        "St. Charles Place": [
-          "Saint Charles Place"
-        ],
-        "St. James Place": [
-          "Saint James Place"
-        ]
+        "B&O Railroad": ["Baltimore and Ohio Railroad", "B&O"],
+        "Boardwalk": ["Board Walk"],
+        "Short Line": ["Short Line Railroad"],
+        "St. Charles Place": ["Saint Charles Place"],
+        "St. James Place": ["Saint James Place"]
       }
     },
     {
@@ -600,12 +503,8 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Gabriel García Márquez": [
-          "Garcia Marquez"
-        ],
-        "Han Kang": [
-          "Kang"
-        ]
+        "Gabriel García Márquez": ["Garcia Marquez"],
+        "Han Kang": ["Kang"]
       }
     },
     {
@@ -636,56 +535,20 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Alaska Airlines": [
-          "Alaska",
-          "AS"
-        ],
-        "American Airlines": [
-          "AA"
-        ],
-        "Cathay Pacific": [
-          "Cathay",
-          "CX"
-        ],
-        "Fiji Airways": [
-          "Fiji",
-          "FJ"
-        ],
-        "Finnair": [
-          "AY"
-        ],
-        "Iberia": [
-          "IB"
-        ],
-        "Japan Airlines": [
-          "JAL",
-          "JL"
-        ],
-        "Malaysia Airlines": [
-          "Malaysia",
-          "MH"
-        ],
-        "Oman Air": [
-          "WY"
-        ],
-        "Qantas": [
-          "QF"
-        ],
-        "Qatar Airways": [
-          "Qatar",
-          "QR"
-        ],
-        "Royal Air Maroc": [
-          "RAM",
-          "AT"
-        ],
-        "Royal Jordanian": [
-          "RJ"
-        ],
-        "SriLankan Airlines": [
-          "SriLankan",
-          "UL"
-        ]
+        "Alaska Airlines": ["Alaska", "AS"],
+        "American Airlines": ["AA"],
+        "Cathay Pacific": ["Cathay", "CX"],
+        "Fiji Airways": ["Fiji", "FJ"],
+        "Finnair": ["AY"],
+        "Iberia": ["IB"],
+        "Japan Airlines": ["JAL", "JL"],
+        "Malaysia Airlines": ["Malaysia", "MH"],
+        "Oman Air": ["WY"],
+        "Qantas": ["QF"],
+        "Qatar Airways": ["Qatar", "QR"],
+        "Royal Air Maroc": ["RAM", "AT"],
+        "Royal Jordanian": ["RJ"],
+        "SriLankan Airlines": ["SriLankan", "UL"]
       }
     },
     {
@@ -716,9 +579,7 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Cerulean": [
-          "Cerulean Blue"
-        ]
+        "Cerulean": ["Cerulean Blue"]
       }
     },
     {
@@ -749,12 +610,8 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Kavalier & Clay": [
-          "The Amazing Adventures of Kavalier and Clay"
-        ],
-        "The Color Purple": [
-          "The Colour Purple"
-        ]
+        "Kavalier & Clay": ["The Amazing Adventures of Kavalier and Clay"],
+        "The Color Purple": ["The Colour Purple"]
       }
     },
     {
@@ -785,29 +642,12 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Henry IV, Part 1": [
-          "Henry 4 Part 1",
-          "Henry 4 Part One"
-        ],
-        "Henry IV, Part 2": [
-          "Henry 4 Part 2",
-          "Henry 4 Part Two"
-        ],
-        "Henry VI, Part 1": [
-          "Henry 6 Part 1",
-          "Henry 6 Part One"
-        ],
-        "Henry VI, Part 2": [
-          "Henry 6 Part 2",
-          "Henry 6 Part Two"
-        ],
-        "Henry VI, Part 3": [
-          "Henry 6 Part 3",
-          "Henry 6 Part Three"
-        ],
-        "Twelfth Night": [
-          "12th Night"
-        ]
+        "Henry IV, Part 1": ["Henry 4 Part 1", "Henry 4 Part One"],
+        "Henry IV, Part 2": ["Henry 4 Part 2", "Henry 4 Part Two"],
+        "Henry VI, Part 1": ["Henry 6 Part 1", "Henry 6 Part One"],
+        "Henry VI, Part 2": ["Henry 6 Part 2", "Henry 6 Part Two"],
+        "Henry VI, Part 3": ["Henry 6 Part 3", "Henry 6 Part Three"],
+        "Twelfth Night": ["12th Night"]
       }
     },
     {
@@ -838,22 +678,11 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "His Last Bow": [
-          "Last Bow"
-        ],
-        "The Case-Book of Sherlock Holmes": [
-          "Casebook"
-        ],
-        "The Hound of the Baskervilles": [
-          "Hound of Baskervilles"
-        ],
-        "The Return of Sherlock Holmes": [
-          "Return"
-        ],
-        "The Sign of the Four": [
-          "Sign of the 4",
-          "Sign of 4"
-        ]
+        "His Last Bow": ["Last Bow"],
+        "The Case-Book of Sherlock Holmes": ["Casebook"],
+        "The Hound of the Baskervilles": ["Hound of Baskervilles"],
+        "The Return of Sherlock Holmes": ["Return"],
+        "The Sign of the Four": ["Sign of the 4", "Sign of 4"]
       }
     },
     {
@@ -884,69 +713,24 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Aerolíneas Argentinas": [
-          "AR"
-        ],
-        "Aeroméxico": [
-          "AM"
-        ],
-        "Air Europa": [
-          "UX"
-        ],
-        "Air France": [
-          "AF"
-        ],
-        "China Airlines": [
-          "CI"
-        ],
-        "China Eastern Airlines": [
-          "China Eastern",
-          "MU"
-        ],
-        "Delta Air Lines": [
-          "DL"
-        ],
-        "Garuda Indonesia": [
-          "Garuda",
-          "GA"
-        ],
-        "KLM": [
-          "Royal Dutch Airlines",
-          "KL"
-        ],
-        "Kenya Airways": [
-          "KQ"
-        ],
-        "Korean Air": [
-          "Korean",
-          "KE"
-        ],
-        "Middle East Airlines": [
-          "MEA",
-          "ME"
-        ],
-        "Saudia": [
-          "Saudi Arabian Airlines",
-          "SV"
-        ],
-        "Scandinavian Airlines": [
-          "SAS",
-          "SK"
-        ],
-        "TAROM": [
-          "RO"
-        ],
-        "Vietnam Airlines": [
-          "Vietnam",
-          "VN"
-        ],
-        "Virgin Atlantic": [
-          "VS"
-        ],
-        "XiamenAir": [
-          "Xiamen Airlines",
-          "MF"
-        ]
+        "Aerolíneas Argentinas": ["AR"],
+        "Aeroméxico": ["AM"],
+        "Air Europa": ["UX"],
+        "Air France": ["AF"],
+        "China Airlines": ["CI"],
+        "China Eastern Airlines": ["China Eastern", "MU"],
+        "Delta Air Lines": ["DL"],
+        "Garuda Indonesia": ["Garuda", "GA"],
+        "KLM": ["Royal Dutch Airlines", "KL"],
+        "Kenya Airways": ["KQ"],
+        "Korean Air": ["Korean", "KE"],
+        "Middle East Airlines": ["MEA", "ME"],
+        "Saudia": ["Saudi Arabian Airlines", "SV"],
+        "Scandinavian Airlines": ["SAS", "SK"],
+        "TAROM": ["RO"],
+        "Vietnam Airlines": ["Vietnam", "VN"],
+        "Virgin Atlantic": ["VS"],
+        "XiamenAir": ["Xiamen Airlines", "MF"]
       }
     },
     {
@@ -977,103 +761,32 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Aegean Airlines": [
-          "Aegean",
-          "A3"
-        ],
-        "Air Canada": [
-          "AC"
-        ],
-        "Air China": [
-          "CA"
-        ],
-        "Air India": [
-          "AI"
-        ],
-        "Air New Zealand": [
-          "NZ"
-        ],
-        "All Nippon Airways": [
-          "NH"
-        ],
-        "Asiana Airlines": [
-          "Asiana",
-          "OZ"
-        ],
-        "Austrian Airlines": [
-          "Austrian",
-          "OS"
-        ],
-        "Avianca": [
-          "AV"
-        ],
-        "Brussels Airlines": [
-          "Brussels",
-          "SN"
-        ],
-        "Copa Airlines": [
-          "Copa",
-          "CM"
-        ],
-        "Croatia Airlines": [
-          "Croatia",
-          "OU"
-        ],
-        "EVA Air": [
-          "EVA",
-          "BR"
-        ],
-        "Egyptair": [
-          "Egypt Air",
-          "MS"
-        ],
-        "Ethiopian Airlines": [
-          "Ethiopian",
-          "ET"
-        ],
-        "ITA Airways": [
-          "ITA",
-          "AZ"
-        ],
-        "LOT Polish Airlines": [
-          "LOT",
-          "LO"
-        ],
-        "Lufthansa": [
-          "LH"
-        ],
-        "Shenzhen Airlines": [
-          "Shenzhen",
-          "ZH"
-        ],
-        "Singapore Airlines": [
-          "Singapore",
-          "SQ"
-        ],
-        "South African Airways": [
-          "South African",
-          "SAA",
-          "SA"
-        ],
-        "Swiss International Air Lines": [
-          "Swiss",
-          "LX"
-        ],
-        "TAP Air Portugal": [
-          "TP"
-        ],
-        "Thai Airways International": [
-          "Thai Airways",
-          "Thai",
-          "TG"
-        ],
-        "Turkish Airlines": [
-          "Turkish",
-          "TK"
-        ],
-        "United Airlines": [
-          "UA"
-        ]
+        "Aegean Airlines": ["Aegean", "A3"],
+        "Air Canada": ["AC"],
+        "Air China": ["CA"],
+        "Air India": ["AI"],
+        "Air New Zealand": ["NZ"],
+        "All Nippon Airways": ["NH"],
+        "Asiana Airlines": ["Asiana", "OZ"],
+        "Austrian Airlines": ["Austrian", "OS"],
+        "Avianca": ["AV"],
+        "Brussels Airlines": ["Brussels", "SN"],
+        "Copa Airlines": ["Copa", "CM"],
+        "Croatia Airlines": ["Croatia", "OU"],
+        "EVA Air": ["EVA", "BR"],
+        "Egyptair": ["Egypt Air", "MS"],
+        "Ethiopian Airlines": ["Ethiopian", "ET"],
+        "ITA Airways": ["ITA", "AZ"],
+        "LOT Polish Airlines": ["LOT", "LO"],
+        "Lufthansa": ["LH"],
+        "Shenzhen Airlines": ["Shenzhen", "ZH"],
+        "Singapore Airlines": ["Singapore", "SQ"],
+        "South African Airways": ["South African", "SAA", "SA"],
+        "Swiss International Air Lines": ["Swiss", "LX"],
+        "TAP Air Portugal": ["TP"],
+        "Thai Airways International": ["Thai Airways", "Thai", "TG"],
+        "Turkish Airlines": ["Turkish", "TK"],
+        "United Airlines": ["UA"]
       }
     },
     {
@@ -1104,23 +817,13 @@
       },
       "answersAdded": [],
       "aliasesAdded": {
-        "Chrysler": [
-          "Chrysler Motors"
-        ],
-        "Citroën": [
-          "Citroen Automobiles"
-        ],
-        "Fiat": [
-          "Fiat Automobiles",
-          "Fiat Professional"
-        ],
-        "Ram": [
-          "Ram Trucks"
-        ],
-        "Vauxhall": [
-          "Vauxhall Motors"
-        ]
+        "Chrysler": ["Chrysler Motors"],
+        "Citroën": ["Citroen Automobiles"],
+        "Fiat": ["Fiat Automobiles", "Fiat Professional"],
+        "Ram": ["Ram Trucks"],
+        "Vauxhall": ["Vauxhall Motors"]
       }
     }
-  ]
+  ],
+  "originalRawSha256": "1d2f30c61f7dcb6c44c9151c928d30ef810f7fd0822cc434d3524995976f4721"
 }

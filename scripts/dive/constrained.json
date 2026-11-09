@@ -5254,7 +5254,11 @@
         },
         {
           "name": "Dr. Strangelove",
-          "aliases": ["Doctor Strangelove", "Strangelove"]
+          "aliases": [
+            "Doctor Strangelove",
+            "Strangelove",
+            "Dr Strangelove or How I Learned to Stop Worrying and Love the Bomb"
+          ]
         },
         {
           "name": "Eyes Wide Shut"
@@ -40839,7 +40843,8 @@
           "name": "Ziggy Stardust",
           "aliases": [
             "Ziggy Stardust and the Spiders from Mars",
-            "The Rise and Fall of Ziggy Stardust"
+            "The Rise and Fall of Ziggy Stardust",
+            "The Rise and Fall of Ziggy Stardust and the Spiders from Mars"
           ]
         }
       ],
