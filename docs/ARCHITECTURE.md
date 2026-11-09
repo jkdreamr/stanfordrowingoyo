@@ -365,6 +365,9 @@ self-contained guarded block. Feature migrations run in ascending order 11–18,
   Every category is nameable in five words or fewer. Compact before/after and
   attribute rows generate natural accepted phrasings; attribute guesses accept
   bare nouns, participles and verb roots, ignoring things/objects/stuff fillers.
+  Clues use at most two words, without descriptive qualifiers. Content validation
+  checks verb-root clue leaks as well as category tokens, caps rhyme puzzles at
+  three, and keeps animal and color idiom clues disjoint.
   Shared scoring/share helpers contain no content; mock mode uses an artificial puzzle.
   `PINPOINT_ENABLED` in `worker/src/games/features.ts` gates all Pinpoint APIs (404
   when disabled) and its registry membership, boards, streaks and recap inclusion.

@@ -19,6 +19,15 @@ const stop = new Set(
     .split(' ')
     .map(normalizePinpoint),
 );
+function categoryTokens(category: string, accepted: string[]): string[] {
+  const verb = accepted.find((answer) => answer.startsWith('things you can '))?.slice(15);
+  return [
+    ...new Set([
+      ...normalizePinpoint(category).split(' '),
+      ...(verb ? [verb, verb.replace(/e$/, '')] : []),
+    ]),
+  ].filter((token) => !stop.has(token) && token.length >= 3);
+}
 it('validates the staged bank and all clues and accepted phrasings', () => {
   expect(puzzles).toHaveLength(372);
   for (const puzzle of puzzles) {
@@ -27,12 +36,11 @@ it('validates the staged bank and all clues and accepted phrasings', () => {
     expect(new Set(puzzle.accepted).size, puzzle.category).toBeGreaterThanOrEqual(3);
     expect(puzzle.category.split(/\s+/).length, puzzle.category).toBeLessThanOrEqual(5);
     expect(puzzle.accepted.length, puzzle.category).toBeLessThanOrEqual(32);
-    const tokens = normalizePinpoint(puzzle.category)
-      .split(' ')
-      .filter((t) => !stop.has(t) && t.length >= 3);
+    const tokens = categoryTokens(puzzle.category, puzzle.accepted);
     for (const clue of puzzle.clues) {
       expect(clue.length).toBeGreaterThan(0);
       expect(clue.length).toBeLessThanOrEqual(20);
+      expect(clue.trim().split(/\s+/).length, `${puzzle.category}: ${clue}`).toBeLessThanOrEqual(2);
       for (const token of tokens)
         expect(clue.toLowerCase(), `${puzzle.category}: ${clue}`).not.toContain(token);
     }
@@ -43,6 +51,32 @@ it('validates the staged bank and all clues and accepted phrasings', () => {
         puzzle.accepted.some((answer) => normalizePinpoint(answer) === normalizePinpoint(miss)),
       );
   }
+});
+it.each([
+  ['tied', 'tie', 'Necktie'],
+  ['cracked', 'crack', 'Cracker'],
+  ['struck', 'strike', 'Strikebreaker'],
+  ['struck', 'strike', 'Striking'],
+  ['filed', 'file', 'Filing'],
+])('checks the stem of %s for clue leaks', (participle, verb, clue) => {
+  const tokens = categoryTokens(`Things that can be ${participle}`, [`things you can ${verb}`]);
+  expect(tokens.some((token) => clue.toLowerCase().includes(token))).toBe(true);
+  expect(tokens.some((token) => 'Gong'.toLowerCase().includes(token))).toBe(false);
+});
+
+it('caps rhyme puzzles and keeps color and animal idioms disjoint', () => {
+  expect(puzzles.filter((puzzle) => /rhym/i.test(puzzle.category)).length).toBeLessThanOrEqual(3);
+  const color = puzzles.find((puzzle) => puzzle.category === 'Color idioms')!;
+  const animal = puzzles.find((puzzle) => puzzle.category === 'Animal idioms')!;
+  const colors = new Set(color.clues.map(normalizePinpoint));
+  for (const clue of animal.clues) {
+    expect(colors.has(normalizePinpoint(clue)), clue).toBe(false);
+    expect(clue, clue).not.toMatch(
+      /\b(?:red|white|blue|black|green|pink|brown|gray|grey|yellow|orange|purple)\b/i,
+    );
+  }
+  for (const clue of color.clues)
+    expect(clue, clue).not.toMatch(/\b(?:sheep|herring|wolf|beaver|tiger|cow|dog)\b/i);
 });
 it('has a full year of unique daily puzzles plus spares', () => {
   expect(puzzles.length).toBeGreaterThanOrEqual(365);
@@ -183,7 +217,7 @@ it('pins the first-year date-to-category schedule and wraps negative days', () =
     return `${date}|${pinpointPuzzleFor(date).category}`;
   }).join('\n');
   expect(createHash('sha256').update(schedule).digest('hex')).toBe(
-    'ada00bd2b91fd03857889126ca6dc8b84eed6113dec53a212b818b20befc4a34',
+    '58059fd3638bdcd755d1b4913387155f4e4e66beef90fb15c5b8a70313bdbfa8',
   );
   expect(pinpointPuzzleFor('2026-11-15')).toBe(puzzles.at(-1));
   expect(pinpointPuzzleFor(addDays('2026-11-16', puzzles.length))).toBe(puzzles[0]);
