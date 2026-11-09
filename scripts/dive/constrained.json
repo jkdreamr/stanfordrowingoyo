@@ -4421,7 +4421,10 @@
           "name": "Frédéric Mistral"
         },
         {
-          "name": "Gabriel García Márquez"
+          "name": "Gabriel García Márquez",
+          "aliases": [
+            "Garcia Marquez"
+          ]
         },
         {
           "name": "Gabriela Mistral"
@@ -4451,7 +4454,10 @@
           "name": "Halldór Laxness"
         },
         {
-          "name": "Han Kang"
+          "name": "Han Kang",
+          "aliases": [
+            "Kang"
+          ]
         },
         {
           "name": "Harold Pinter"
@@ -18077,7 +18083,10 @@
           "name": "Saville"
         },
         {
-          "name": "Schindler's Ark"
+          "name": "Schindler's Ark",
+          "aliases": [
+            "Schindler's List"
+          ]
         },
         {
           "name": "Shuggie Bain"
@@ -18152,7 +18161,10 @@
           "name": "The Sense of an Ending"
         },
         {
-          "name": "The Seven Moons of Maali Almeida"
+          "name": "The Seven Moons of Maali Almeida",
+          "aliases": [
+            "Seven Moons"
+          ]
         },
         {
           "name": "The Siege of Krishnapur"
@@ -18632,7 +18644,11 @@
           "name": "Barrayar"
         },
         {
-          "name": "Blackout/All Clear"
+          "name": "Blackout/All Clear",
+          "aliases": [
+            "Blackout",
+            "All Clear"
+          ]
         },
         {
           "name": "Blue Mars"
@@ -18671,7 +18687,10 @@
           "name": "Green Mars"
         },
         {
-          "name": "Harry Potter and the Goblet of Fire"
+          "name": "Harry Potter and the Goblet of Fire",
+          "aliases": [
+            "Goblet of Fire"
+          ]
         },
         {
           "name": "Hominids"
@@ -18755,7 +18774,10 @@
           "name": "The Everlasting"
         },
         {
-          "name": "The Fifth Season"
+          "name": "The Fifth Season",
+          "aliases": [
+            "5th Season"
+          ]
         },
         {
           "name": "The Forever War"
@@ -20517,7 +20539,10 @@
           "name": "Journey in the Dark"
         },
         {
-          "name": "Kavalier & Clay"
+          "name": "Kavalier & Clay",
+          "aliases": [
+            "The Amazing Adventures of Kavalier and Clay"
+          ]
         },
         {
           "name": "Lamb in His Bosom"
@@ -20583,7 +20608,10 @@
           "name": "The Caine Mutiny"
         },
         {
-          "name": "The Color Purple"
+          "name": "The Color Purple",
+          "aliases": [
+            "The Colour Purple"
+          ]
         },
         {
           "name": "The Confessions of Nat Turner"
@@ -27965,10 +27993,16 @@
           "aliases": ["Alfa"]
         },
         {
-          "name": "Chrysler"
+          "name": "Chrysler",
+          "aliases": [
+            "Chrysler Motors"
+          ]
         },
         {
-          "name": "Citroën"
+          "name": "Citroën",
+          "aliases": [
+            "Citroen Automobiles"
+          ]
         },
         {
           "name": "DS Automobiles",
@@ -27978,7 +28012,11 @@
           "name": "Dodge"
         },
         {
-          "name": "Fiat"
+          "name": "Fiat",
+          "aliases": [
+            "Fiat Automobiles",
+            "Fiat Professional"
+          ]
         },
         {
           "name": "Jeep"
@@ -27996,10 +28034,16 @@
           "name": "Peugeot"
         },
         {
-          "name": "Ram"
+          "name": "Ram",
+          "aliases": [
+            "Ram Trucks"
+          ]
         },
         {
-          "name": "Vauxhall"
+          "name": "Vauxhall",
+          "aliases": [
+            "Vauxhall Motors"
+          ]
         }
       ],
       "surface": ["Jeep", "Fiat", "Peugeot"],
@@ -28052,85 +28096,182 @@
       "expect": [26, 26],
       "answers": [
         {
-          "name": "Aegean Airlines"
+          "name": "Aegean Airlines",
+          "aliases": [
+            "Aegean",
+            "A3"
+          ]
         },
         {
-          "name": "Air Canada"
+          "name": "Air Canada",
+          "aliases": [
+            "AC"
+          ]
         },
         {
-          "name": "Air China"
+          "name": "Air China",
+          "aliases": [
+            "CA"
+          ]
         },
         {
-          "name": "Air India"
+          "name": "Air India",
+          "aliases": [
+            "AI"
+          ]
         },
         {
-          "name": "Air New Zealand"
+          "name": "Air New Zealand",
+          "aliases": [
+            "NZ"
+          ]
         },
         {
           "name": "All Nippon Airways",
-          "aliases": ["ANA"]
+          "aliases": [
+            "ANA",
+            "NH"
+          ]
         },
         {
-          "name": "Asiana Airlines"
+          "name": "Asiana Airlines",
+          "aliases": [
+            "Asiana",
+            "OZ"
+          ]
         },
         {
-          "name": "Austrian Airlines"
+          "name": "Austrian Airlines",
+          "aliases": [
+            "Austrian",
+            "OS"
+          ]
         },
         {
-          "name": "Avianca"
+          "name": "Avianca",
+          "aliases": [
+            "AV"
+          ]
         },
         {
-          "name": "Brussels Airlines"
+          "name": "Brussels Airlines",
+          "aliases": [
+            "Brussels",
+            "SN"
+          ]
         },
         {
-          "name": "Copa Airlines"
+          "name": "Copa Airlines",
+          "aliases": [
+            "Copa",
+            "CM"
+          ]
         },
         {
-          "name": "Croatia Airlines"
+          "name": "Croatia Airlines",
+          "aliases": [
+            "Croatia",
+            "OU"
+          ]
         },
         {
-          "name": "EVA Air"
+          "name": "EVA Air",
+          "aliases": [
+            "EVA",
+            "BR"
+          ]
         },
         {
-          "name": "Egyptair"
+          "name": "Egyptair",
+          "aliases": [
+            "Egypt Air",
+            "MS"
+          ]
         },
         {
-          "name": "Ethiopian Airlines"
+          "name": "Ethiopian Airlines",
+          "aliases": [
+            "Ethiopian",
+            "ET"
+          ]
         },
         {
-          "name": "ITA Airways"
+          "name": "ITA Airways",
+          "aliases": [
+            "ITA",
+            "AZ"
+          ]
         },
         {
-          "name": "LOT Polish Airlines"
+          "name": "LOT Polish Airlines",
+          "aliases": [
+            "LOT",
+            "LO"
+          ]
         },
         {
-          "name": "Lufthansa"
+          "name": "Lufthansa",
+          "aliases": [
+            "LH"
+          ]
         },
         {
-          "name": "Shenzhen Airlines"
+          "name": "Shenzhen Airlines",
+          "aliases": [
+            "Shenzhen",
+            "ZH"
+          ]
         },
         {
-          "name": "Singapore Airlines"
+          "name": "Singapore Airlines",
+          "aliases": [
+            "Singapore",
+            "SQ"
+          ]
         },
         {
-          "name": "South African Airways"
+          "name": "South African Airways",
+          "aliases": [
+            "South African",
+            "SAA",
+            "SA"
+          ]
         },
         {
-          "name": "Swiss International Air Lines"
+          "name": "Swiss International Air Lines",
+          "aliases": [
+            "Swiss",
+            "LX"
+          ]
         },
         {
           "name": "TAP Air Portugal",
-          "aliases": ["TAP"]
+          "aliases": [
+            "TAP",
+            "TP"
+          ]
         },
         {
-          "name": "Thai Airways International"
+          "name": "Thai Airways International",
+          "aliases": [
+            "Thai Airways",
+            "Thai",
+            "TG"
+          ]
         },
         {
-          "name": "Turkish Airlines"
+          "name": "Turkish Airlines",
+          "aliases": [
+            "Turkish",
+            "TK"
+          ]
         },
         {
           "name": "United Airlines",
-          "aliases": ["United"]
+          "aliases": [
+            "United",
+            "UA"
+          ]
         }
       ],
       "surface": ["United Airlines", "Lufthansa", "Air Canada"],
@@ -28173,51 +28314,103 @@
       "expect": [15, 15],
       "answers": [
         {
-          "name": "Alaska Airlines"
+          "name": "Alaska Airlines",
+          "aliases": [
+            "Alaska",
+            "AS"
+          ]
         },
         {
           "name": "American Airlines",
-          "aliases": ["American"]
+          "aliases": [
+            "American",
+            "AA"
+          ]
         },
         {
           "name": "British Airways",
-          "aliases": ["BA"]
+          "aliases": [
+            "BA"
+          ]
         },
         {
-          "name": "Cathay Pacific"
+          "name": "Cathay Pacific",
+          "aliases": [
+            "Cathay",
+            "CX"
+          ]
         },
         {
-          "name": "Fiji Airways"
+          "name": "Fiji Airways",
+          "aliases": [
+            "Fiji",
+            "FJ"
+          ]
         },
         {
-          "name": "Finnair"
+          "name": "Finnair",
+          "aliases": [
+            "AY"
+          ]
         },
         {
-          "name": "Iberia"
+          "name": "Iberia",
+          "aliases": [
+            "IB"
+          ]
         },
         {
-          "name": "Japan Airlines"
+          "name": "Japan Airlines",
+          "aliases": [
+            "JAL",
+            "JL"
+          ]
         },
         {
-          "name": "Malaysia Airlines"
+          "name": "Malaysia Airlines",
+          "aliases": [
+            "Malaysia",
+            "MH"
+          ]
         },
         {
-          "name": "Oman Air"
+          "name": "Oman Air",
+          "aliases": [
+            "WY"
+          ]
         },
         {
-          "name": "Qantas"
+          "name": "Qantas",
+          "aliases": [
+            "QF"
+          ]
         },
         {
-          "name": "Qatar Airways"
+          "name": "Qatar Airways",
+          "aliases": [
+            "Qatar",
+            "QR"
+          ]
         },
         {
-          "name": "Royal Air Maroc"
+          "name": "Royal Air Maroc",
+          "aliases": [
+            "RAM",
+            "AT"
+          ]
         },
         {
-          "name": "Royal Jordanian"
+          "name": "Royal Jordanian",
+          "aliases": [
+            "RJ"
+          ]
         },
         {
-          "name": "SriLankan Airlines"
+          "name": "SriLankan Airlines",
+          "aliases": [
+            "SriLankan",
+            "UL"
+          ]
         }
       ],
       "surface": ["American Airlines", "British Airways", "Qantas"],
@@ -28263,59 +28456,122 @@
       "expect": [18, 18],
       "answers": [
         {
-          "name": "Aerolíneas Argentinas"
+          "name": "Aerolíneas Argentinas",
+          "aliases": [
+            "AR"
+          ]
         },
         {
-          "name": "Aeroméxico"
+          "name": "Aeroméxico",
+          "aliases": [
+            "AM"
+          ]
         },
         {
-          "name": "Air Europa"
+          "name": "Air Europa",
+          "aliases": [
+            "UX"
+          ]
         },
         {
-          "name": "Air France"
+          "name": "Air France",
+          "aliases": [
+            "AF"
+          ]
         },
         {
-          "name": "China Airlines"
+          "name": "China Airlines",
+          "aliases": [
+            "CI"
+          ]
         },
         {
-          "name": "China Eastern Airlines"
+          "name": "China Eastern Airlines",
+          "aliases": [
+            "China Eastern",
+            "MU"
+          ]
         },
         {
           "name": "Delta Air Lines",
-          "aliases": ["Delta"]
+          "aliases": [
+            "Delta",
+            "DL"
+          ]
         },
         {
-          "name": "Garuda Indonesia"
+          "name": "Garuda Indonesia",
+          "aliases": [
+            "Garuda",
+            "GA"
+          ]
         },
         {
-          "name": "KLM"
+          "name": "KLM",
+          "aliases": [
+            "Royal Dutch Airlines",
+            "KL"
+          ]
         },
         {
-          "name": "Kenya Airways"
+          "name": "Kenya Airways",
+          "aliases": [
+            "KQ"
+          ]
         },
         {
-          "name": "Korean Air"
+          "name": "Korean Air",
+          "aliases": [
+            "Korean",
+            "KE"
+          ]
         },
         {
-          "name": "Middle East Airlines"
+          "name": "Middle East Airlines",
+          "aliases": [
+            "MEA",
+            "ME"
+          ]
         },
         {
-          "name": "Saudia"
+          "name": "Saudia",
+          "aliases": [
+            "Saudi Arabian Airlines",
+            "SV"
+          ]
         },
         {
-          "name": "Scandinavian Airlines"
+          "name": "Scandinavian Airlines",
+          "aliases": [
+            "SAS",
+            "SK"
+          ]
         },
         {
-          "name": "TAROM"
+          "name": "TAROM",
+          "aliases": [
+            "RO"
+          ]
         },
         {
-          "name": "Vietnam Airlines"
+          "name": "Vietnam Airlines",
+          "aliases": [
+            "Vietnam",
+            "VN"
+          ]
         },
         {
-          "name": "Virgin Atlantic"
+          "name": "Virgin Atlantic",
+          "aliases": [
+            "VS"
+          ]
         },
         {
-          "name": "XiamenAir"
+          "name": "XiamenAir",
+          "aliases": [
+            "Xiamen Airlines",
+            "MF"
+          ]
         }
       ],
       "surface": ["Delta Air Lines", "Air France", "KLM"],
@@ -33445,7 +33701,10 @@
         },
         {
           "name": "Crustaceans",
-          "aliases": ["Crustacean shellfish"]
+          "aliases": [
+            "Crustacean shellfish",
+            "Shellfish"
+          ]
         },
         {
           "name": "Eggs"
@@ -33455,13 +33714,25 @@
         },
         {
           "name": "Gluten",
-          "aliases": ["Cereals containing gluten", "Gluten-containing cereals"]
+          "aliases": [
+            "Cereals containing gluten",
+            "Gluten-containing cereals",
+            "Wheat",
+            "Rye",
+            "Barley",
+            "Oats",
+            "Spelt",
+            "Kamut"
+          ]
         },
         {
           "name": "Lupin"
         },
         {
-          "name": "Milk"
+          "name": "Milk",
+          "aliases": [
+            "Dairy"
+          ]
         },
         {
           "name": "Molluscs",
@@ -33479,7 +33750,11 @@
         },
         {
           "name": "Soy",
-          "aliases": ["Soya", "Soybeans"]
+          "aliases": [
+            "Soya",
+            "Soybeans",
+            "Soya beans"
+          ]
         },
         {
           "name": "Sulphites",
@@ -33702,13 +33977,21 @@
         },
         {
           "name": "B&O Railroad",
-          "aliases": ["B and O Railroad", "BO Railroad"]
+          "aliases": [
+            "B and O Railroad",
+            "BO Railroad",
+            "Baltimore and Ohio Railroad",
+            "B&O"
+          ]
         },
         {
           "name": "Baltic Avenue"
         },
         {
-          "name": "Boardwalk"
+          "name": "Boardwalk",
+          "aliases": [
+            "Board Walk"
+          ]
         },
         {
           "name": "Connecticut Avenue"
@@ -33756,13 +34039,22 @@
           "name": "Reading Railroad"
         },
         {
-          "name": "Short Line"
+          "name": "Short Line",
+          "aliases": [
+            "Short Line Railroad"
+          ]
         },
         {
-          "name": "St. Charles Place"
+          "name": "St. Charles Place",
+          "aliases": [
+            "Saint Charles Place"
+          ]
         },
         {
-          "name": "St. James Place"
+          "name": "St. James Place",
+          "aliases": [
+            "Saint James Place"
+          ]
         },
         {
           "name": "States Avenue"
@@ -33879,25 +34171,37 @@
           "name": "Euston Road"
         },
         {
-          "name": "Fenchurch Street Station"
+          "name": "Fenchurch Street Station",
+          "aliases": [
+            "Fenchurch Street"
+          ]
         },
         {
           "name": "Fleet Street"
         },
         {
-          "name": "Kings Cross Station"
+          "name": "Kings Cross Station",
+          "aliases": [
+            "King's Cross"
+          ]
         },
         {
           "name": "Leicester Square"
         },
         {
-          "name": "Liverpool Street Station"
+          "name": "Liverpool Street Station",
+          "aliases": [
+            "Liverpool Street"
+          ]
         },
         {
           "name": "Marlborough Street"
         },
         {
-          "name": "Marylebone Station"
+          "name": "Marylebone Station",
+          "aliases": [
+            "Marylebone"
+          ]
         },
         {
           "name": "Mayfair"
@@ -35436,7 +35740,10 @@
           "name": "Tanzanite"
         },
         {
-          "name": "Topaz"
+          "name": "Topaz",
+          "aliases": [
+            "Blue topaz"
+          ]
         },
         {
           "name": "Turquoise"
@@ -35491,7 +35798,10 @@
           "name": "spinel"
         },
         {
-          "name": "tourmaline"
+          "name": "tourmaline",
+          "aliases": [
+            "Pink tourmaline"
+          ]
         }
       ],
       "surface": ["Diamond", "ruby", "Emerald"],
@@ -35587,7 +35897,10 @@
           "name": "Blue Turquoise"
         },
         {
-          "name": "Cerulean"
+          "name": "Cerulean",
+          "aliases": [
+            "Cerulean Blue"
+          ]
         },
         {
           "name": "Chili Pepper"
@@ -36095,23 +36408,53 @@
       "answers": [
         {
           "name": "Right conduct",
-          "aliases": ["Right action", "action", "conduct"]
+          "aliases": [
+            "Right action",
+            "action",
+            "conduct",
+            "Wise action",
+            "Wise conduct",
+            "Samma kammanta"
+          ]
         },
         {
           "name": "Right effort",
-          "aliases": ["effort"]
+          "aliases": [
+            "effort",
+            "Wise effort",
+            "Samma vayama"
+          ]
         },
         {
           "name": "Right livelihood",
-          "aliases": ["livelihood"]
+          "aliases": [
+            "livelihood",
+            "Wise livelihood",
+            "Samma ajiva"
+          ]
         },
         {
           "name": "Right mindfulness",
-          "aliases": ["mindfulness"]
+          "aliases": [
+            "mindfulness",
+            "Wise mindfulness",
+            "Samma sati"
+          ]
         },
         {
           "name": "Right resolve",
-          "aliases": ["Right intention", "Right thought", "intention", "resolve", "thought"]
+          "aliases": [
+            "Right intention",
+            "Right thought",
+            "intention",
+            "resolve",
+            "thought",
+            "Right thinking",
+            "Wise intention",
+            "Wise resolve",
+            "Wise thought",
+            "Samma sankappa"
+          ]
         },
         {
           "name": "Right samadhi",
@@ -36120,16 +36463,29 @@
             "Right meditation",
             "concentration",
             "meditation",
-            "samadhi"
+            "samadhi",
+            "Wise concentration",
+            "Wise meditation",
+            "Samma samadhi"
           ]
         },
         {
           "name": "Right speech",
-          "aliases": ["speech"]
+          "aliases": [
+            "speech",
+            "Wise speech",
+            "Samma vaca"
+          ]
         },
         {
           "name": "Right view",
-          "aliases": ["Right understanding", "understanding", "view"]
+          "aliases": [
+            "Right understanding",
+            "understanding",
+            "view",
+            "Wise view",
+            "Samma ditthi"
+          ]
         }
       ],
       "surface": ["Right speech", "Right mindfulness", "Right livelihood"],
@@ -36327,7 +36683,10 @@
           "name": "A Christmas Carol"
         },
         {
-          "name": "A Tale of Two Cities"
+          "name": "A Tale of Two Cities",
+          "aliases": [
+            "Tale of 2 Cities"
+          ]
         },
         {
           "name": "Barnaby Rudge"
@@ -36375,10 +36734,16 @@
           "name": "The Cricket on the Hearth"
         },
         {
-          "name": "The Haunted Man and the Ghost's Bargain"
+          "name": "The Haunted Man and the Ghost's Bargain",
+          "aliases": [
+            "The Haunted Man"
+          ]
         },
         {
-          "name": "The Mystery of Edwin Drood"
+          "name": "The Mystery of Edwin Drood",
+          "aliases": [
+            "Edwin Drood"
+          ]
         },
         {
           "name": "The Old Curiosity Shop"
@@ -36539,7 +36904,10 @@
           "aliases": ["The Color of Magic"]
         },
         {
-          "name": "The Fifth Elephant"
+          "name": "The Fifth Elephant",
+          "aliases": [
+            "5th Elephant"
+          ]
         },
         {
           "name": "The Last Continent"
@@ -36625,10 +36993,16 @@
           "name": "Charlie and the Chocolate Factory"
         },
         {
-          "name": "Charlie and the Great Glass Elevator"
+          "name": "Charlie and the Great Glass Elevator",
+          "aliases": [
+            "Great Glass Elevator"
+          ]
         },
         {
-          "name": "Danny the Champion of the World"
+          "name": "Danny the Champion of the World",
+          "aliases": [
+            "Danny Champion of the World"
+          ]
         },
         {
           "name": "Esio Trot"
@@ -36637,7 +37011,10 @@
           "name": "Fantastic Mr Fox"
         },
         {
-          "name": "George's Marvellous Medicine"
+          "name": "George's Marvellous Medicine",
+          "aliases": [
+            "George's Marvelous Medicine"
+          ]
         },
         {
           "name": "James and the Giant Peach"
@@ -38414,7 +38791,10 @@
           "name": "A Study in Scarlet"
         },
         {
-          "name": "His Last Bow"
+          "name": "His Last Bow",
+          "aliases": [
+            "Last Bow"
+          ]
         },
         {
           "name": "The Adventures of Sherlock Holmes",
@@ -38422,21 +38802,34 @@
         },
         {
           "name": "The Case-Book of Sherlock Holmes",
-          "aliases": ["Casebook of Sherlock Holmes"]
+          "aliases": [
+            "Casebook of Sherlock Holmes",
+            "Casebook"
+          ]
         },
         {
-          "name": "The Hound of the Baskervilles"
+          "name": "The Hound of the Baskervilles",
+          "aliases": [
+            "Hound of Baskervilles"
+          ]
         },
         {
           "name": "The Memoirs of Sherlock Holmes",
           "aliases": ["Memoirs"]
         },
         {
-          "name": "The Return of Sherlock Holmes"
+          "name": "The Return of Sherlock Holmes",
+          "aliases": [
+            "Return"
+          ]
         },
         {
           "name": "The Sign of the Four",
-          "aliases": ["The Sign of Four"]
+          "aliases": [
+            "The Sign of Four",
+            "Sign of the 4",
+            "Sign of 4"
+          ]
         },
         {
           "name": "The Valley of Fear"
@@ -44293,11 +44686,21 @@
         },
         {
           "name": "Henry IV, Part 1",
-          "aliases": ["Henry IV", "Henry 4", "Henry IV Part One"]
+          "aliases": [
+            "Henry IV",
+            "Henry 4",
+            "Henry IV Part One",
+            "Henry 4 Part 1",
+            "Henry 4 Part One"
+          ]
         },
         {
           "name": "Henry IV, Part 2",
-          "aliases": ["Henry IV Part Two"]
+          "aliases": [
+            "Henry IV Part Two",
+            "Henry 4 Part 2",
+            "Henry 4 Part Two"
+          ]
         },
         {
           "name": "Henry V",
@@ -44305,15 +44708,29 @@
         },
         {
           "name": "Henry VI, Part 1",
-          "aliases": ["Henry VI", "Henry 6", "Henry VI Part One"]
+          "aliases": [
+            "Henry VI",
+            "Henry 6",
+            "Henry VI Part One",
+            "Henry 6 Part 1",
+            "Henry 6 Part One"
+          ]
         },
         {
           "name": "Henry VI, Part 2",
-          "aliases": ["Henry VI Part Two"]
+          "aliases": [
+            "Henry VI Part Two",
+            "Henry 6 Part 2",
+            "Henry 6 Part Two"
+          ]
         },
         {
           "name": "Henry VI, Part 3",
-          "aliases": ["Henry VI Part Three"]
+          "aliases": [
+            "Henry VI Part Three",
+            "Henry 6 Part 3",
+            "Henry 6 Part Three"
+          ]
         },
         {
           "name": "Henry VIII",
@@ -44399,7 +44816,10 @@
           "name": "Troilus and Cressida"
         },
         {
-          "name": "Twelfth Night"
+          "name": "Twelfth Night",
+          "aliases": [
+            "12th Night"
+          ]
         }
       ],
       "surface": ["Hamlet", "Macbeth", "Romeo and Juliet"],
@@ -45991,10 +46411,18 @@
         },
         {
           "name": "Corpse reviver #2",
-          "aliases": ["Corpse Reviver Number 2"]
+          "aliases": [
+            "Corpse Reviver Number 2",
+            "Corpse Reviver No 2",
+            "Corpse Reviver No. Two",
+            "Corpse Reviver II"
+          ]
         },
         {
-          "name": "Cosmopolitan"
+          "name": "Cosmopolitan",
+          "aliases": [
+            "Cosmo"
+          ]
         },
         {
           "name": "Cuba libre"
@@ -46020,7 +46448,10 @@
           "name": "Fernandito"
         },
         {
-          "name": "French 75"
+          "name": "French 75",
+          "aliases": [
+            "French Seventy Five"
+          ]
         },
         {
           "name": "French Connection"
@@ -46062,7 +46493,10 @@
           "name": "Irish coffee"
         },
         {
-          "name": "John Collins"
+          "name": "John Collins",
+          "aliases": [
+            "Tom Collins"
+          ]
         },
         {
           "name": "Jungle Bird"
@@ -46077,7 +46511,11 @@
           "name": "Lemon drop"
         },
         {
-          "name": "Long Island iced tea"
+          "name": "Long Island iced tea",
+          "aliases": [
+            "Long Island",
+            "LIIT"
+          ]
         },
         {
           "name": "Mai Tai"
