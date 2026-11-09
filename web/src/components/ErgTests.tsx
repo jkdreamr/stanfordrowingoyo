@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import type { ErgTest, ErgTestKind, PublicUser } from '../../../shared/types';
 import { useErgTests, useCreateErgTest, useUpdateErgTest, useDeleteErgTest } from '../lib/queries';
 import { testKinds, testTime, testValues } from '../lib/ergTests';
-import { formatEntryDate } from '../lib/format';
+import { formatEntryDate, parseTimeInput } from '../lib/format';
 import { authError } from '../lib/auth';
 import {
   DialogPresence,
@@ -334,8 +334,19 @@ function TestSheet({
               label={mode === 'time' ? 'Time' : 'Split'}
               value={value}
               placeholder="m:ss.t"
+              inputMode="decimal"
               suffix={mode === 'split' ? '/500m' : undefined}
               onChange={(e) => setValue(e.target.value)}
+              onBlur={() =>
+                setValue(
+                  parseTimeInput(value, mode === 'time' ? 'elapsed' : 'split')?.text ?? value,
+                )
+              }
+              hint={
+                mode === 'time'
+                  ? 'Seconds or dots: 6.42.3 = 6:42.3'
+                  : '145 or 145.0 = 1:45 or 1:45.0'
+              }
               error={value && !derived ? 'Use m:ss.t · Split 1:00–5:00' : undefined}
               required
             />

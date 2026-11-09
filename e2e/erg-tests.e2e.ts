@@ -16,14 +16,17 @@ test('erg tests record PRs, update bests, edit, delete and stay team-visible rea
     const sheet = page.getByRole('dialog', { name: 'Add Test' });
     await sheet.getByLabel('Date', { exact: true }).fill(date);
     await sheet.getByLabel('Time', { exact: true }).fill(time);
+    await expect(sheet.getByLabel('Time', { exact: true })).toHaveAttribute('inputmode', 'decimal');
+    await sheet.getByLabel('Time', { exact: true }).press('Tab');
+    await expect(sheet.getByLabel('Time', { exact: true })).toHaveValue(time.replace('.', ':'));
     await sheet.getByRole('button', { name: 'Save Test' }).click();
     await expect(sheet).not.toBeVisible();
   }
   const previous = new Date(config.today + 'T12:00:00Z');
   previous.setUTCDate(previous.getUTCDate() - 7);
   const date = previous.toISOString().slice(0, 10);
-  await add('6:40.0', date);
-  await add('6:20.0', config.today);
+  await add('6.40.0', date);
+  await add('6.20.0', config.today);
   await expect(history.getByText('PR', { exact: true })).toHaveCount(2);
   const best = history.locator('dl > div').filter({ hasText: 'Best 2k' });
   await expect(best).toContainText('1:35.0');
@@ -57,8 +60,12 @@ test('erg tests record PRs, update bests, edit, delete and stay team-visible rea
   await history.getByRole('button', { name: `Edit 2k Test ${config.today}` }).click();
   const edit = page.getByRole('dialog', { name: 'Edit Test' });
   await edit.getByRole('radio', { name: 'Split', exact: true }).click();
-  await edit.getByLabel('Split', { exact: true }).fill('1:30.0');
+  await expect(edit.getByLabel('Split', { exact: true })).toHaveAttribute('inputmode', 'decimal');
+  await edit.getByLabel('Split', { exact: true }).fill('1300');
+  await edit.getByLabel('Split', { exact: true }).press('Tab');
+  await expect(edit.getByLabel('Split', { exact: true })).toHaveValue('1:30.0');
   await expect(edit.locator('output')).toHaveText('6:00.0');
+  await page.screenshot({ path: testInfo.outputPath('split-erg.png') });
   await edit.getByRole('button', { name: 'Save Test' }).click();
   await expect(edit).not.toBeVisible();
   await expect(best).toContainText('1:30.0');

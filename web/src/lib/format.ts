@@ -53,18 +53,45 @@ export function formatDuration(seconds: number) {
   return m >= 60 ? `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}:${s}` : `${m}:${s}`;
 }
 export function parseDuration(input: string): number | null {
-  const text = input.trim();
-  if (!/^\d+(?::\d{2}){0,2}$/.test(text)) return null;
-  const parts = text.split(':').map(Number);
-  if (parts.slice(1).some((n) => n >= 60)) return null;
-  const result = parts.reduce((total, n) => total * 60 + n, 0);
-  return Number.isSafeInteger(result) ? result : null;
+  return parseTimeInput(input, 'duration')?.seconds ?? null;
 }
 export function parseSplit(input: string): number | null {
-  const match = /^(\d+):([0-5]\d(?:\.\d)?)$/.exec(input.trim());
-  if (!match) return null;
-  const n = Number(match[1]) * 60 + Number(match[2]);
-  return Number.isFinite(n) ? n : null;
+  return parseTimeInput(input, 'split')?.seconds ?? null;
+}
+export function parseTimeInput(input: string, kind: 'split' | 'duration' | 'elapsed') {
+  const value = input.trim();
+  let seconds: number;
+  let fraction: string | undefined;
+  if (kind === 'split') {
+    const parts =
+      /^(\d+):([0-5]\d)(?:\.(\d))?$/.exec(value) ??
+      /^(\d{1,2})\.([0-5]\d)(?:\.(\d))?$/.exec(value) ??
+      /^(\d)([0-5]\d)(?:\.(\d)|(\d))?$/.exec(value);
+    if (!parts) return null;
+    fraction = parts[3] ?? parts[4];
+    seconds = Number(parts[1]) * 60 + Number(parts[2]);
+  } else if (/^\d+$/.test(value)) {
+    seconds = Number(value);
+  } else {
+    const parts =
+      /^(\d+):([0-5]\d)(?::([0-5]\d))?(?:\.(\d))?$/.exec(value) ??
+      /^(\d+)\.([0-5]\d)(?:\.([0-5]\d))?(?:\.(\d))?$/.exec(value);
+    if (!parts || (kind === 'duration' && parts[4] !== undefined)) return null;
+    fraction = parts[4];
+    seconds =
+      parts[3] === undefined
+        ? Number(parts[1]) * 60 + Number(parts[2])
+        : Number(parts[1]) * 3600 + Number(parts[2]) * 60 + Number(parts[3]);
+  }
+  if (!Number.isSafeInteger(seconds) || !Number.isSafeInteger(seconds * 10)) return null;
+  const text =
+    kind === 'split'
+      ? `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
+      : formatDuration(seconds);
+  return {
+    seconds: seconds + Number(fraction ?? 0) / 10,
+    text: fraction === undefined ? text : `${text}.${fraction}`,
+  };
 }
 export function splitFromTime(duration_s: number, distance_m: number): number | null {
   return valid(duration_s) && valid(distance_m) && distance_m > 0

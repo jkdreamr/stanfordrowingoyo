@@ -5,7 +5,13 @@ import { weekStart } from '../../../shared/dates';
 import { equivalentMeters, ZONES } from '../../../shared/math';
 import type { Config, GroupKey, Modality, User } from '../../../shared/types';
 import { useConfig, useMe, usePlan, useExamplePlan } from '../lib/queries';
-import { formatEMeters, formatMeters, formatSplit, parseSplit } from '../lib/format';
+import {
+  formatEMeters,
+  formatMeters,
+  formatSplit,
+  parseSplit,
+  parseTimeInput,
+} from '../lib/format';
 import {
   Button,
   Card,
@@ -292,6 +298,8 @@ function Calculator({ config, user }: { config: Config; user: User }) {
               inputMode="decimal"
               value={value}
               onChange={(e) => set(e.target.value)}
+              onBlur={() => set(parseTimeInput(value, 'split')?.text ?? value)}
+              hint="Type 145 or 145.0 for 1:45 or 1:45.0"
               error={
                 value.trim() && parseSplit(value) === null ? 'Enter a split like 1:45.0' : undefined
               }

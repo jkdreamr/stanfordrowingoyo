@@ -8,11 +8,87 @@ import {
   formatDuration,
   parseDuration,
   parseSplit,
+  parseTimeInput,
   splitFromTime,
   formatEntryDate,
   formatShortDate,
 } from './format';
 describe('training formats', () => {
+  it.each([
+    ['1450', '1:45.0', 105],
+    ['145', '1:45', 105],
+    ['145.0', '1:45.0', 105],
+    ['1.45.0', '1:45.0', 105],
+    ['1:45.0', '1:45.0', 105],
+    ['1:45', '1:45', 105],
+    ['105', '1:05', 65],
+    ['1.45', '1:45', 105],
+    [' 1599 ', '1:59.9', 119.9],
+    ['10:00.0', '10:00.0', 600],
+    ['10.00.0', '10:00.0', 600],
+    ['0:00', '0:00', 0],
+  ])('parses and normalizes keypad split %s', (value, text, seconds) => {
+    expect(parseTimeInput(value, 'split')).toEqual({ text, seconds });
+    expect(parseSplit(value)).toBe(seconds);
+    expect(parseTimeInput(text, 'split')).toEqual({ text, seconds });
+  });
+  it.each([
+    '',
+    ' ',
+    '38',
+    '90',
+    '14',
+    '160',
+    '1600',
+    '14500',
+    '1:60',
+    '1.60.0',
+    '1:5',
+    '1:45.00',
+    '145.00',
+    '1:02:03',
+    '-145',
+    '1e2',
+    'Infinity',
+    '1,45',
+    '99999999999999999:00',
+    '1:45junk',
+  ])('rejects invalid or ambiguous split %s', (value) => {
+    expect(parseTimeInput(value, 'split')).toBeNull();
+  });
+  it.each([
+    ['25.00', '25:00', 1500],
+    ['1.02.03', '1:02:03', 3723],
+    ['1:02:03', '1:02:03', 3723],
+    ['90', '1:30', 90],
+    ['0', '0:00', 0],
+    ['60.00', '1:00:00', 3600],
+    ['24:00:00', '24:00:00', 86400],
+  ])(
+    'normalizes integer duration %s without changing raw-second semantics',
+    (value, text, seconds) => {
+      expect(parseTimeInput(value, 'duration')).toEqual({ text, seconds });
+      expect(parseDuration(value)).toBe(seconds);
+      expect(parseDuration(text)).toBe(seconds);
+    },
+  );
+  it.each(['', '1.5', '1.60', '1.60.00', '1.02.60', '1:02:03.4', '1.02.03.4', '-1', '1e3'])(
+    'rejects invalid integer duration %s',
+    (value) => expect(parseDuration(value)).toBeNull(),
+  );
+  it.each([
+    ['6.42.3', '6:42.3', 402.3],
+    ['6:42.3', '6:42.3', 402.3],
+    ['1.00.00.0', '1:00:00.0', 3600],
+    ['1:00:00.0', '1:00:00.0', 3600],
+  ])('allows tenths in elapsed erg-test time %s', (value, text, seconds) => {
+    expect(parseTimeInput(value, 'elapsed')).toEqual({ text, seconds });
+    expect(parseTimeInput(text, 'elapsed')).toEqual({ text, seconds });
+  });
+  it.each(['', ' ', '6.60.0', '1.60.00.0', '6:42.33', '-402', '1e3'])(
+    'rejects invalid elapsed erg-test time %s',
+    (value) => expect(parseTimeInput(value, 'elapsed')).toBeNull(),
+  );
   it('uses the same floored percentage on every progress label', () => {
     expect(formatPercent((6000 / 80000) * 100)).toBe('7%');
     expect(formatPercent(99.99875)).toBe('99%');

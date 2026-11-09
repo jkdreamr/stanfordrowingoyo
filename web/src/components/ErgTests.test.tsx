@@ -99,7 +99,11 @@ it('adds, edits and deletes tests on Me and refreshes best times', async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Add Test' }));
   let sheet = await screen.findByRole('dialog', { name: 'Add Test' });
   expect((within(sheet).getByLabelText('Date') as HTMLInputElement).value).toBe('2026-03-16');
-  fireEvent.change(within(sheet).getByLabelText('Time'), { target: { value: '6:40.0' } });
+  const time = within(sheet).getByLabelText('Time') as HTMLInputElement;
+  expect(time.inputMode).toBe('decimal');
+  fireEvent.change(time, { target: { value: '6.40.0' } });
+  fireEvent.blur(time);
+  expect(time.value).toBe('6:40.0');
   expect(within(sheet).getByRole('status').textContent).toBe('1:40.0');
   fireEvent.click(within(sheet).getByRole('button', { name: 'Save Test' }));
   await screen.findByText('Test Added');
@@ -109,7 +113,11 @@ it('adds, edits and deletes tests on Me and refreshes best times', async () => {
   fireEvent.click(within(region).getByRole('button', { name: 'Edit 2k Test 2026-03-16' }));
   sheet = await screen.findByRole('dialog', { name: 'Edit Test' });
   fireEvent.click(within(sheet).getByRole('radio', { name: 'Split' }));
-  fireEvent.change(within(sheet).getByLabelText('Split'), { target: { value: '1:35.0' } });
+  const split = within(sheet).getByLabelText('Split') as HTMLInputElement;
+  expect(split.inputMode).toBe('decimal');
+  fireEvent.change(split, { target: { value: '1350' } });
+  fireEvent.blur(split);
+  expect(split.value).toBe('1:35.0');
   expect(within(sheet).getByRole('status').textContent).toBe('6:20.0');
   fireEvent.click(within(sheet).getByRole('button', { name: 'Save Test' }));
   await screen.findByText('Test Updated');

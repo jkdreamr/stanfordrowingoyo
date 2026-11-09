@@ -58,6 +58,24 @@ it('opens a deep-linked calculator and replaces the tab query on selection', asy
   expect(router.state.location.search).toBe('?tab=guidance');
   expect(router.state.historyAction).toBe('REPLACE');
 });
+it('normalizes calculator splits on blur without rewriting invalid or empty input', async () => {
+  setup('/plan?tab=calculator');
+  const six = (await screen.findByLabelText('Best 6k Split')) as HTMLInputElement;
+  const two = screen.getByLabelText('Best 2k Split') as HTMLInputElement;
+  for (const input of [six, two]) {
+    expect(input.inputMode).toBe('decimal');
+    fireEvent.change(input, { target: { value: '1450' } });
+    fireEvent.blur(input);
+    expect(input.value).toBe('1:45.0');
+  }
+  fireEvent.change(six, { target: { value: '160' } });
+  fireEvent.blur(six);
+  expect(six.value).toBe('160');
+  expect(screen.getByText('Enter a split like 1:45.0')).toBeTruthy();
+  fireEvent.change(six, { target: { value: '' } });
+  fireEvent.blur(six);
+  expect(six.value).toBe('');
+});
 it('normalizes unknown tabs and navigates the dated team schedule without a group selector', async () => {
   const router = setup('/plan?tab=unknown');
   await screen.findByRole('heading', { level: 2, name: 'Week of Nov 9' });
