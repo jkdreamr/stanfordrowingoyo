@@ -949,7 +949,7 @@ describe('statistics, leaderboard and team', () => {
     ).json<WeekStats>();
     expect(stats).toMatchObject({
       total_m: 19000,
-      percent: 23.8,
+      percent: 23.7,
       hit_target: false,
       by_modality: { erg: 10000, bike: 9000, run: 0 },
     });

@@ -25,6 +25,10 @@ export const PACE_OFFSETS: Record<Zone, number> = {
   A: 0,
 };
 export const ZONES = Object.keys(ZONE_FACTORS) as Zone[];
+export function floorPercent(value: number, digits: 0 | 1 = 0): number {
+  const scale = 10 ** digits;
+  return Number.isFinite(value) ? Math.floor(Math.max(0, value) * scale) / scale : NaN;
+}
 export function equivalentMeters(
   distance: number,
   modality: Modality,

@@ -347,6 +347,7 @@ export interface Totals {
 export interface WeekSummary extends Totals {
   week_start: string;
   target_m: number;
+  /** Floored to one decimal; progress labels floor again to whole percentages. */
   percent: number;
   hit_target: boolean;
 }

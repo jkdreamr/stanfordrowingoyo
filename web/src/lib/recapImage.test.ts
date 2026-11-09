@@ -85,6 +85,22 @@ it('draws every figure onto the story canvas', () => {
       '2,400,000 Team E-meters',
     ]),
   );
+  text.length = 0;
+  drawRecap(
+    ctx,
+    {
+      ...recap,
+      total_m: 6000,
+      target_m: 80000,
+      percent: 7.5,
+      hit_target: false,
+      plan: { ...recap.plan!, planned_m: 80000, logged_m: 6000, complete: false },
+    },
+    'Rower',
+  );
+  expect(text.filter((value) => value === '7%')).toHaveLength(2);
+  expect(text).not.toContain('8%');
+  expect(text).not.toContain('Target Hit');
 });
 it('shares the PNG where files are supported, otherwise downloads it', async () => {
   const file = new File(['png'], 'oyo-week-2026-03-30.png', { type: 'image/png' });

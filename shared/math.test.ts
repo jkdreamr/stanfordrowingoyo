@@ -2,12 +2,31 @@ import { describe, expect, it } from 'vitest';
 import {
   distanceForTarget,
   equivalentMeters,
+  floorPercent,
   formatMeters,
   formatSplit,
   targetPace,
   ZONES,
 } from './math';
 describe('training math', () => {
+  it.each([
+    [0, 0],
+    [7.5, 7],
+    [99.6, 99],
+    [99.99875, 99],
+    [100, 100],
+    [100.1, 100],
+    [137.5, 137],
+    [-1, 0],
+  ])('floors progress %s without overstating it', (value, expected) => {
+    expect(floorPercent(value)).toBe(expected);
+  });
+  it('preserves floored API decimals and rejects nonfinite progress', () => {
+    expect(floorPercent(7.5, 1)).toBe(7.5);
+    expect(floorPercent(99.99875, 1)).toBe(99.9);
+    expect(floorPercent(100, 1)).toBe(100);
+    for (const value of [NaN, Infinity, -Infinity]) expect(floorPercent(value)).toBeNaN();
+  });
   it.each([
     [60000, 'bike', 'E', 20000],
     [20000, 'erg', 'D', 27000],

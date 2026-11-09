@@ -666,6 +666,13 @@ malformed or implausible payloads return 400.
 
 ### Tests, recaps, and challenges
 
+Progress percentage labels use shared `floorPercent` through `formatPercent` on all
+surfaces, including Home, boards, recaps and share cards. API percentage fields retain
+one decimal, floored with the same helper instead of rounded; clients floor to whole
+percentages. Thus 6,000 / 80,000 displays 7%, and a sub-target total never displays
+100%. Completion and leaderboard ordering still compare actual meters/ratios, not
+display percentages. My Fortnight and Me meter-based progress remains exact.
+
 - GET /api/users/:id/tests: authenticated team-visible history, newest date/created_at first.
   PR means strictly faster than all earlier tests of that kind; first is a PR.
 - POST /api/me/tests, PATCH /api/me/tests/:id, DELETE /api/me/tests/:id:

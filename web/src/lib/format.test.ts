@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   formatMeters,
+  formatPercent,
   formatSplit,
   formatKm,
   formatEMeters,
@@ -12,6 +13,13 @@ import {
   formatShortDate,
 } from './format';
 describe('training formats', () => {
+  it('uses the same floored percentage on every progress label', () => {
+    expect(formatPercent((6000 / 80000) * 100)).toBe('7%');
+    expect(formatPercent(99.99875)).toBe('99%');
+    expect(formatPercent(100)).toBe('100%');
+    expect(formatPercent(137.5)).toBe('137%');
+    expect(formatPercent(NaN)).toBe('—%');
+  });
   it('rounds meters and splits without raw floats', () => {
     expect(formatMeters(20000.4)).toBe('20,000 m');
     expect(formatMeters(20000, true)).toBe('20.0k');
