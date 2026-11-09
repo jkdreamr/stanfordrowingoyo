@@ -67,66 +67,112 @@ it('keeps artificial mock Perception v2 stimuli, scoring and timing consistent',
     score: 500,
   });
 });
-it.each(['2026-11-11', '2026-11-12'])(
-  'plays the rotated artificial Perception lineup on %s',
-  async (date) => {
-    let time = Date.parse(`${date}T18:00:00Z`);
-    const { request, state } = setup({ now: () => new Date(time) });
-    await request('/auth/login', 'POST', {
-      email: state.users.find((u) => u.role === 'admin')!.email,
-      password: 'password',
-    });
-    for (let round = 0; round < 5; round++) {
-      const start = await request('/games/perception/start', 'POST', { round });
-      expect(start.status).toBe(200);
-      const { stimulus, rounds } = (await start.json()) as PerceptionStart;
-      if ('countDots' in stimulus) {
-        expect(stimulus.countDots).toHaveLength(48);
-        expect(
-          stimulus.countDots.every((point, i) =>
-            stimulus.countDots
-              .slice(i + 1)
-              .every((other) => (point[0] - other[0]) ** 2 + (point[1] - other[1]) ** 2 >= 70 ** 2),
-          ),
-        ).toBe(true);
-        expect(
-          stimulus.countDots.filter(([x]) => x % 100 >= 35 && x % 100 <= 65).length,
-        ).toBeLessThan(48 * 0.8);
-      }
-      const answer =
-        'angle' in stimulus
-          ? { angle: stimulus.angle }
-          : 'countDots' in stimulus
-            ? { count: stimulus.countDots.length }
-            : 'shade' in stimulus
-              ? { shade: stimulus.shade }
-              : 'endpoints' in stimulus
+it.each([
+  '2026-11-11',
+  '2026-11-12',
+  '2026-11-13',
+  '2026-11-14',
+  '2026-11-15',
+  '2026-11-16',
+  '2026-11-17',
+  '2026-11-18',
+])('plays the rotated artificial Perception lineup on %s', async (date) => {
+  let time = Date.parse(`${date}T18:00:00Z`);
+  const { request, state } = setup({ now: () => new Date(time) });
+  await request('/auth/login', 'POST', {
+    email: state.users.find((u) => u.role === 'admin')!.email,
+    password: 'password',
+  });
+  for (let round = 0; round < 5; round++) {
+    const start = await request('/games/perception/start', 'POST', { round });
+    expect(start.status).toBe(200);
+    const { stimulus, rounds } = (await start.json()) as PerceptionStart;
+    if ('countDots' in stimulus) {
+      expect(stimulus.countDots).toHaveLength(48);
+      expect(
+        stimulus.countDots.every((point, i) =>
+          stimulus.countDots
+            .slice(i + 1)
+            .every((other) => (point[0] - other[0]) ** 2 + (point[1] - other[1]) ** 2 >= 70 ** 2),
+        ),
+      ).toBe(true);
+      expect(
+        stimulus.countDots.filter(([x]) => x % 100 >= 35 && x % 100 <= 65).length,
+      ).toBeLessThan(48 * 0.8);
+    }
+    const answer =
+      'reactionDelayMs' in stimulus
+        ? { reactionMs: 160 }
+        : 'ratioDiameters' in stimulus
+          ? {
+              ratio: Math.round(
+                100 *
+                  (Math.min(...stimulus.ratioDiameters) / Math.max(...stimulus.ratioDiameters)) **
+                    2,
+              ),
+            }
+          : 'beatIntervalMs' in stimulus
+            ? { beatMs: Array.from({ length: 4 }, () => stimulus.beatIntervalMs) }
+            : 'path' in stimulus
+              ? {
+                  pathY: Math.round(
+                    stimulus.path.from[1] +
+                      ((1000 - stimulus.path.from[0]) *
+                        (stimulus.path.to[1] - stimulus.path.from[1])) /
+                        (stimulus.path.to[0] - stimulus.path.from[0]),
+                  ),
+                }
+              : 'centroidDots' in stimulus
                 ? {
-                    bisect: [
-                      (stimulus.endpoints[0][0] + stimulus.endpoints[1][0]) / 2,
-                      (stimulus.endpoints[0][1] + stimulus.endpoints[1][1]) / 2,
+                    centroid: [
+                      Math.round(
+                        stimulus.centroidDots.reduce((sum, p) => sum + p[0], 0) /
+                          stimulus.centroidDots.length,
+                      ),
+                      Math.round(
+                        stimulus.centroidDots.reduce((sum, p) => sum + p[1], 0) /
+                          stimulus.centroidDots.length,
+                      ),
                     ],
                   }
-                : 'contact' in stimulus
-                  ? { contactMs: stimulus.contact.hiddenMs }
-                  : stimulus;
-      if (['angle', 'length', 'count', 'span', 'shade', 'contact'].includes(rounds[round]))
-        expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
-          400,
-        );
-      time += 20000;
-      const response = await request('/games/perception/answer', 'POST', { round, answer });
-      expect(response.status).toBe(200);
-      expect(await response.json()).toMatchObject({
-        scores: { [rounds[round]]: 100 },
-        done: round === 4,
-      });
+                : 'angle' in stimulus
+                  ? { angle: stimulus.angle }
+                  : 'countDots' in stimulus
+                    ? { count: stimulus.countDots.length }
+                    : 'shade' in stimulus
+                      ? { shade: stimulus.shade }
+                      : 'endpoints' in stimulus
+                        ? {
+                            bisect: [
+                              (stimulus.endpoints[0][0] + stimulus.endpoints[1][0]) / 2,
+                              (stimulus.endpoints[0][1] + stimulus.endpoints[1][1]) / 2,
+                            ],
+                          }
+                        : 'contact' in stimulus
+                          ? { contactMs: stimulus.contact.hiddenMs }
+                          : stimulus;
+    if (!['clock', 'bisect'].includes(rounds[round]))
+      expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
+        400,
+      );
+    if ('beatIntervalMs' in stimulus || 'durationMs' in stimulus) {
+      time += 'beatIntervalMs' in stimulus ? 4 * stimulus.beatIntervalMs : stimulus.durationMs;
+      expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
+        400,
+      );
     }
-    expect(await (await request('/games/perception/results/me')).json()).toMatchObject({
-      score: 500,
+    time += 20000;
+    const response = await request('/games/perception/answer', 'POST', { round, answer });
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      scores: { [rounds[round]]: 100 },
+      done: round === 4,
     });
-  },
-);
+  }
+  expect(await (await request('/games/perception/results/me')).json()).toMatchObject({
+    score: 500,
+  });
+});
 it('exports mock account JSON and CSV without teammate private data', async () => {
   const { request, state } = setup();
   const response = await request('/me/export');

@@ -20,7 +20,7 @@ async function checkSources(dir) {
     else if (/\.tsx?$/.test(entry.name) && !entry.name.includes('.test.')) {
       const source = await readFile(file, 'utf8');
       assert(
-        !/worker\/src\/games\/perception(?:V2)?|\b(?:perceptionPuzzle|scorePerception|perceptionV2Puzzle|perceptionLineup|perceptionEpoch)\b/.test(
+        !/worker\/src\/games\/perception(?:V[23])?|\b(?:perceptionPuzzle|scorePerception|perceptionV2Puzzle|perceptionPuzzleForDate|perceptionLineup|perceptionV2Lineup|perceptionEpoch|perceptionV3Targets|perceptionV3Lineup|perceptionV3Epoch)\b/.test(
           source,
         ),
         'Private Perception generation referenced by ' + file.pathname,

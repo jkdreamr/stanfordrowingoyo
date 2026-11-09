@@ -9,7 +9,7 @@ import {
 import { perceptionLineup, perceptionV2Puzzle } from '../worker/src/games/perceptionV2';
 import { waitForSplash } from './helpers';
 
-export const perceptionTitles: Record<PerceptionRoundId, string> = {
+export const perceptionTitles: Partial<Record<PerceptionRoundId, string>> = {
   clock: 'Inner Clock',
   color: 'Color Recall',
   dot: 'Spot Recall',

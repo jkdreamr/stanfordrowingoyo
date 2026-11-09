@@ -2,7 +2,8 @@ import { closeness, isIntIn } from './daily';
 import { PERCEPTION_ROUNDS, type PerceptionAnswer, type PerceptionPuzzle } from './perception';
 
 export const PERCEPTION_V2_FROM = '2026-11-10';
-export const PERCEPTION_POOL = [
+export const PERCEPTION_V3_FROM = '2026-11-12';
+export const PERCEPTION_V2_POOL = [
   ...PERCEPTION_ROUNDS,
   'angle',
   'length',
@@ -12,6 +13,16 @@ export const PERCEPTION_POOL = [
   'bisect',
   'contact',
 ] as const;
+export type PerceptionV2RoundId = (typeof PERCEPTION_V2_POOL)[number];
+export const PERCEPTION_V3_ROUNDS = [
+  'ratio',
+  'beat',
+  'path',
+  'order',
+  'duration',
+  'centroid',
+] as const;
+export const PERCEPTION_POOL = [...PERCEPTION_V2_POOL, ...PERCEPTION_V3_ROUNDS] as const;
 export type PerceptionRoundId = (typeof PERCEPTION_POOL)[number];
 export const PERCEPTION_FIELDS = {
   clock: 'clockMs',
@@ -26,6 +37,12 @@ export const PERCEPTION_FIELDS = {
   shade: 'shade',
   bisect: 'bisect',
   contact: 'contactMs',
+  ratio: 'ratio',
+  beat: 'beatMs',
+  path: 'pathY',
+  order: 'order',
+  duration: 'durationMs',
+  centroid: 'centroid',
 } as const;
 export const PERCEPTION_EXPOSURE = {
   color: 700,
@@ -36,7 +53,13 @@ export const PERCEPTION_EXPOSURE = {
   count: 600,
   shade: 800,
   span: 450,
+  ratio: 1000,
+  path: 900,
+  order: 500,
+  centroid: 1000,
 } as const;
+export const PERCEPTION_BEAT_FLASHES = 4;
+export const PERCEPTION_BEAT_FLASH_MS = 100;
 export const PERCEPTION_TYPICAL = {
   clock: 250,
   color: 12,
@@ -50,6 +73,12 @@ export const PERCEPTION_TYPICAL = {
   shade: 4,
   bisect: 2,
   contact: 110,
+  ratio: 15,
+  beat: 6,
+  path: 40,
+  order: 1.5,
+  duration: 8,
+  centroid: 35,
 } as const;
 export interface PerceptionV2Puzzle extends PerceptionPuzzle {
   angle: number;
@@ -78,7 +107,32 @@ export interface PerceptionV2Answer {
   bisect: [number, number];
   contactMs: number;
 }
-export type PerceptionRoundAnswer = Partial<PerceptionAnswer & PerceptionV2Answer>;
+export interface PerceptionV3Targets {
+  ratio: number;
+  ratioDiameters: [number, number];
+  beatIntervalMs: number;
+  pathY: number;
+  path: { from: [number, number]; to: [number, number] };
+  order: number[];
+  durationMs: number;
+  centroidDots: [number, number][];
+  centroid: [number, number];
+}
+export interface PerceptionV3Puzzle extends PerceptionV2Puzzle, PerceptionV3Targets {}
+export function isPerceptionV3Puzzle(puzzle: PerceptionV2Puzzle): puzzle is PerceptionV3Puzzle {
+  return 'ratioDiameters' in puzzle;
+}
+export interface PerceptionV3Answer {
+  ratio: number;
+  beatMs: [number, number, number, number];
+  pathY: number;
+  order: number[];
+  durationMs: number;
+  centroid: [number, number];
+}
+export type PerceptionRoundAnswer = Partial<
+  PerceptionAnswer & PerceptionV2Answer & PerceptionV3Answer
+>;
 
 export function parsePerceptionRound(
   round: PerceptionRoundId,
@@ -96,6 +150,7 @@ export function parsePerceptionRound(
   switch (round) {
     case 'dot':
     case 'bisect':
+    case 'centroid':
       valid = pair(x);
       break;
     case 'pattern': {
@@ -134,11 +189,31 @@ export function parsePerceptionRound(
     case 'contact':
       valid = isIntIn(x, 0, 6000);
       break;
+    case 'ratio':
+      valid = isIntIn(x, 1, 100);
+      break;
+    case 'beat':
+      valid = Array.isArray(x) && x.length === 4 && x.every((n) => isIntIn(n, 100, 3000));
+      break;
+    case 'path':
+      valid = isIntIn(x, 0, 1000);
+      break;
+    case 'order':
+      valid =
+        Array.isArray(x) && x.length >= 1 && x.length <= 10 && x.every((n) => isIntIn(n, 0, 15));
+      break;
+    case 'duration':
+      valid = isIntIn(x, 0, 10000);
+      break;
   }
   return valid ? { [field]: x } : null;
 }
 
 export function digitDistance(a: string, b: string): number {
+  return sequenceDistance([...a], [...b]);
+}
+
+export function sequenceDistance(a: readonly unknown[], b: readonly unknown[]): number {
   let row = Array.from({ length: b.length + 1 }, (_, i) => i);
   for (let i = 1; i <= a.length; i++) {
     const next = [i];
@@ -151,10 +226,11 @@ export function digitDistance(a: string, b: string): number {
 
 export function scorePerceptionRound(
   round: PerceptionRoundId,
-  p: PerceptionV2Puzzle,
+  p: PerceptionV2Puzzle | PerceptionV3Puzzle,
   a: PerceptionRoundAnswer,
 ): number {
   let miss: number;
+  const v3 = p as PerceptionV3Puzzle;
   switch (round) {
     case 'clock':
       miss = a.clockMs! - p.clockMs;
@@ -200,13 +276,56 @@ export function scorePerceptionRound(
     case 'contact':
       miss = a.contactMs! - p.contact.hiddenMs;
       break;
+    case 'ratio':
+      miss = Math.log2(a.ratio! / v3.ratio) * 100;
+      break;
+    case 'beat':
+      miss =
+        (a.beatMs!.reduce((sum, ms) => sum + Math.abs(ms - v3.beatIntervalMs), 0) /
+          4 /
+          v3.beatIntervalMs) *
+        100;
+      break;
+    case 'path':
+      miss = a.pathY! - v3.pathY;
+      break;
+    case 'order':
+      miss = sequenceDistance(a.order!, v3.order);
+      break;
+    case 'duration':
+      miss = ((a.durationMs! - v3.durationMs) / v3.durationMs) * 100;
+      break;
+    case 'centroid':
+      miss = Math.hypot(a.centroid![0] - v3.centroid[0], a.centroid![1] - v3.centroid[1]);
+      break;
   }
   return closeness(miss, PERCEPTION_TYPICAL[round]);
 }
 
-export function perceptionExposure(round: PerceptionRoundId, p: PerceptionV2Puzzle): number {
+export function perceptionExposure(
+  round: PerceptionRoundId,
+  p: PerceptionV2Puzzle | PerceptionV3Puzzle,
+): number {
   if (round === 'span') return p.digits.length * PERCEPTION_EXPOSURE.span;
+  const v3 = p as PerceptionV3Puzzle;
+  if (round === 'beat') return PERCEPTION_BEAT_FLASHES * v3.beatIntervalMs;
+  if (round === 'duration') return v3.durationMs;
+  if (round === 'order') return v3.order.length * PERCEPTION_EXPOSURE.order;
   return round in PERCEPTION_EXPOSURE
     ? PERCEPTION_EXPOSURE[round as keyof typeof PERCEPTION_EXPOSURE]
     : 0;
+}
+
+export function perceptionContinuationPlausible(
+  round: PerceptionRoundId,
+  p: PerceptionV2Puzzle | PerceptionV3Puzzle,
+  a: PerceptionRoundAnswer,
+  elapsed: number,
+): boolean {
+  if (round === 'beat')
+    return (
+      a.beatMs!.reduce((sum, ms) => sum + ms, 0) <= elapsed - perceptionExposure(round, p) + 1000
+    );
+  if (round === 'duration') return a.durationMs! <= elapsed - perceptionExposure(round, p) + 1000;
+  return true;
 }

@@ -1,19 +1,22 @@
 import { expect, it } from 'vitest';
 import { performance } from 'node:perf_hooks';
 import { perceptionPuzzle, scorePerception } from '../../worker/src/games/perception';
-import { perceptionLineup, perceptionV2Puzzle } from '../../worker/src/games/perceptionV2';
+import {
+  perceptionV2Lineup as perceptionLineup,
+  perceptionV2Puzzle,
+} from '../../worker/src/games/perceptionV2';
 import { dailyRandom } from './daily';
 import { perceptionShare, perceptionTotal } from './perception';
 import {
   PERCEPTION_FIELDS,
-  PERCEPTION_POOL,
+  PERCEPTION_V2_POOL as PERCEPTION_POOL,
   PERCEPTION_TYPICAL,
   parsePerceptionRound,
   scorePerceptionRound,
   digitDistance,
   type PerceptionV2Puzzle,
   type PerceptionRoundAnswer,
-  type PerceptionRoundId,
+  type PerceptionV2RoundId as PerceptionRoundId,
 } from './perceptionV2';
 
 const dateAt = (day: number) => new Date(Date.UTC(2026, 10, 10 + day)).toISOString().slice(0, 10);
