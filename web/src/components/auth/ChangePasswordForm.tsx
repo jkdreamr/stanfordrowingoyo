@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { qk, useChangePassword, useVerifyPassword } from '../../lib/queries';
 import { ApiClientError } from '../../lib/api';
-import { authError } from '../../lib/auth';
+import { authError, loginNoticeKey } from '../../lib/auth';
 import { Button } from '../ui';
 import { PasswordField } from './PasswordField';
 import { FormErrors } from './FormErrors';
@@ -79,6 +79,7 @@ export function ChangePasswordForm({
               ? `${error.detail.message} Log in again to continue.`
               : 'Please log in to change your password.';
           client.clear();
+          client.setQueryData(loginNoticeKey, passwordError);
           client.setQueryData(qk.me(), null);
           navigate('/login', { replace: true, state: { passwordError } });
           return;
