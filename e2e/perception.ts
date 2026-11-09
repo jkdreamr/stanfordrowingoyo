@@ -5,11 +5,12 @@ import {
   scorePerceptionRound,
   type PerceptionRoundAnswer,
   type PerceptionRoundId,
+  type PerceptionV3Puzzle,
 } from '../shared/games/perceptionV2';
-import { perceptionLineup, perceptionV2Puzzle } from '../worker/src/games/perceptionV2';
+import { perceptionLineup, perceptionPuzzleForDate } from '../worker/src/games/perceptionV2';
 import { waitForSplash } from './helpers';
 
-export const perceptionTitles: Partial<Record<PerceptionRoundId, string>> = {
+export const perceptionTitles: Record<PerceptionRoundId, string> = {
   clock: 'Inner Clock',
   color: 'Color Recall',
   dot: 'Spot Recall',
@@ -22,6 +23,12 @@ export const perceptionTitles: Partial<Record<PerceptionRoundId, string>> = {
   shade: 'Shade Match',
   bisect: 'Line Midpoint',
   contact: 'Hidden Motion',
+  ratio: 'Size Ratio',
+  beat: 'Keep the Beat',
+  path: 'Path Predict',
+  order: 'Flash Order',
+  duration: 'Duration Recall',
+  centroid: 'Center Point',
 };
 
 export async function perceptionClock(page: Page, date: string) {
@@ -43,7 +50,7 @@ export async function playPerception(
   capture?: (id: PerceptionRoundId, stage: string) => Promise<void>,
   from = 0,
 ) {
-  const puzzle = perceptionV2Puzzle(date);
+  const puzzle = perceptionPuzzleForDate(date) as PerceptionV3Puzzle;
   const today = await page.request.get('/api/games/perception/today');
   expect(today.ok()).toBe(true);
   const { rounds } = (await today.json()) as PerceptionDay;
@@ -66,6 +73,7 @@ export async function playPerception(
     expect(start.ok()).toBe(true);
     expect((await start.json()).rounds).toEqual(rounds);
     const contactDue = Date.now() + puzzle.contact.visibleMs + puzzle.contact.hiddenMs;
+    const beatDue = Date.now() + 5 * puzzle.beatIntervalMs - 100;
     if (id === 'span') {
       const digit = page.locator('.pc-digit-stage > span').first(),
         counter = page.locator('.pc-digit-stage .pc-sub');
@@ -79,7 +87,24 @@ export async function playPerception(
     const answerResponse = page.waitForResponse(
       (r) => r.url().endsWith('/perception/answer') && r.request().method() === 'POST',
     );
-    if (id === 'clock') {
+    if (id === 'beat') {
+      const pad = page.getByRole('button', { name: 'Continue the Beat', exact: true });
+      await pad.waitFor();
+      if (capture) await capture(id, 'answer');
+      await page.waitForTimeout(Math.max(0, beatDue - Date.now()));
+      for (let i = 0; i < 4; i++) {
+        await pad.click();
+        if (i < 3) await page.waitForTimeout(puzzle.beatIntervalMs);
+      }
+    } else if (id === 'duration') {
+      const pad = page.getByRole('button', { name: 'Press and Hold', exact: true });
+      await pad.waitFor();
+      if (capture) await capture(id, 'answer');
+      await pad.focus();
+      await page.keyboard.down('Space');
+      await page.waitForTimeout(puzzle.durationMs);
+      await page.keyboard.up('Space');
+    } else if (id === 'clock') {
       const hold = page.getByRole('button', { name: 'Press and Hold', exact: true });
       await hold.waitFor();
       if (capture) await capture(id, 'answer');
@@ -102,14 +127,29 @@ export async function playPerception(
     } else {
       const lock = page.getByRole('button', { name: 'Lock In', exact: true });
       await lock.waitFor({ timeout: 10000 });
-      if (['angle', 'length', 'shade', 'color'].includes(id)) {
+      if (['angle', 'length', 'shade', 'color', 'ratio'].includes(id)) {
         const slider = page.getByRole('slider'),
-          target = id === 'color' ? puzzle.hue : puzzle[id as 'angle' | 'length' | 'shade'];
+          target =
+            id === 'color' ? puzzle.hue : puzzle[id as 'angle' | 'length' | 'shade' | 'ratio'];
         await slider.focus();
         await slider.press('Home');
         const min = Number(await slider.getAttribute('min'));
         for (let i = min; i < target; i++) await slider.press('ArrowRight');
         await expect(slider).toHaveValue(String(target));
+      } else if (id === 'path' || id === 'centroid') {
+        const board = page.getByRole(id === 'path' ? 'slider' : 'button', {
+          name: id === 'path' ? 'Crossing Position' : 'Center Position',
+        });
+        const box = (await board.locator('.pc-v3-canvas').boundingBox())!;
+        const target = id === 'path' ? [1000, puzzle.pathY] : puzzle.centroid;
+        const x = box.x + (box.width * target[0]) / 1000 - (id === 'path' ? 1 : 0),
+          y = box.y + (box.height * target[1]) / 1000;
+        if (await page.evaluate(() => navigator.maxTouchPoints > 0))
+          await page.touchscreen.tap(x, y);
+        else await page.mouse.click(x, y);
+      } else if (id === 'order') {
+        for (const cell of puzzle.order)
+          await page.getByRole('button', { name: `Tile ${cell + 1}`, exact: true }).click();
       } else if (id === 'dot' || id === 'bisect') {
         const target =
           id === 'dot'
@@ -144,8 +184,10 @@ export async function playPerception(
     const score = scorePerceptionRound(id, puzzle, answer);
     expectedTotal += score;
     expect(((await response.json()) as PerceptionDay).scores[id]).toBe(score);
-    if (id === 'dot' || id === 'bisect') expect(score).toBeGreaterThanOrEqual(95);
-    else if (!['clock', 'reaction', 'contact'].includes(id)) expect(score).toBe(100);
+    if (['dot', 'bisect', 'path', 'centroid'].includes(id))
+      expect(score).toBeGreaterThanOrEqual(95);
+    else if (!['clock', 'reaction', 'contact', 'beat', 'duration'].includes(id))
+      expect(score).toBe(100);
     await page
       .getByRole('button', { name: round === 4 ? 'See Result' : 'Next', exact: true })
       .click();

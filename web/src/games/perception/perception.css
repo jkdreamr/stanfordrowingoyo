@@ -382,6 +382,72 @@
   font-weight: 500;
   color: var(--text);
 }
+.pc-v3-board,
+.pc-v3-pad {
+  width: min(100%, 300px, max(220px, calc(100dvh - 510px)));
+  margin: 0 auto;
+}
+.pc-v3-canvas {
+  position: absolute;
+  inset: 16px;
+}
+.pc-v3-canvas svg {
+  overflow: visible;
+}
+.pc svg .pc-ratio-circle,
+.pc svg .pc-path-dot {
+  stroke: none;
+}
+.pc svg .pc-path-trace {
+  stroke: var(--muted);
+  stroke-width: 4;
+  stroke-dasharray: 20 16;
+}
+.pc-v3-target {
+  width: 10px;
+  height: 10px;
+}
+.pc-ratio-answer {
+  display: grid;
+  gap: 20px;
+  padding: 32px 0;
+}
+.pc-ratio-answer .pc-value {
+  font-size: 42px;
+  line-height: 1.2;
+}
+.pc-beat-light {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--divider);
+}
+.pc-beat-lit {
+  background: var(--accent);
+}
+.pc-order-grid {
+  grid-template-columns: repeat(4, 1fr);
+  width: min(100%, 280px, max(220px, calc(100dvh - 530px)));
+  touch-action: none;
+}
+.pc-order-grid .pc-cell {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+}
+.pc-order-grid .pc-cell-on {
+  color: #fff;
+}
+.pc-order-tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.pc-order-tools output {
+  flex: 1;
+  font-size: 15px;
+  color: var(--muted);
+}
 @media (prefers-reduced-motion: reduce) {
   .pc * {
     transition: none;
