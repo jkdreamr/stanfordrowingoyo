@@ -16057,7 +16057,7 @@
     },
     {
       "id": "rivers-3000-km",
-      "text": "a river system listed as more than 3,000 kilometres long (2026 lengths)",
+      "text": "a river or river system more than 3,000 kilometres long",
       "theme": "geography",
       "cluster": "rivers",
       "active": true,
@@ -16856,7 +16856,7 @@
     },
     {
       "id": "islands-50000-km2",
-      "text": "an island with an area of more than 50,000 square kilometres (2026 areas; continents excluded)",
+      "text": "an island with an area of more than 50,000 square kilometres",
       "theme": "geography",
       "cluster": "islands",
       "active": true,
@@ -40898,7 +40898,7 @@
     },
     {
       "id": "lakes-10000-km2",
-      "text": "a lake with a surface area of more than 10,000 square kilometres (2026 areas)",
+      "text": "a lake with a surface area of more than 10,000 square kilometres",
       "theme": "geography",
       "cluster": "lakes",
       "active": true,
@@ -40922,8 +40922,7 @@
             "Ontario",
             "Ladoga",
             "Balkhash",
-            "Vostok",
-            "Michigan–Huron"
+            "Vostok"
           ],
           "reviewed": [
             "Caspian Sea",
@@ -40941,14 +40940,13 @@
             "Ontario",
             "Ladoga",
             "Balkhash",
-            "Vostok",
-            "Michigan–Huron"
+            "Vostok"
           ],
-          "expect": [17, 17],
-          "review": "Pinned November 2026 areas strictly >10,000 km²: all 16 main-table lakes plus the alternative combined Michigan–Huron lake (117,620 km²) in table 3. Accept both hydrological conventions as separate canonical answers; never map the combined name arbitrarily to one component. Includes saline Caspian and subglacial Vostok. Historical Aral/Chad areas do not qualify."
+          "expect": [16, 16],
+          "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
         }
       ],
-      "expect": [17, 17],
+      "expect": [16, 16],
       "answers": [
         {
           "name": "Caspian Sea",
@@ -41013,17 +41011,13 @@
         {
           "name": "Lake Vostok",
           "aliases": ["Vostok"]
-        },
-        {
-          "name": "Lake Michigan-Huron",
-          "aliases": ["Michigan-Huron", "Michigan–Huron", "Lake Michigan–Huron"]
         }
       ],
       "surface": ["Caspian Sea", "Lake Superior", "Lake Victoria", "Lake Michigan", "Lake Baikal"],
       "too_clever": [],
       "pearl": "Lake Vostok",
-      "acceptance_notes": "Pinned November 2026 areas strictly >10,000 km²: all 16 main-table lakes plus the alternative combined Michigan–Huron lake (117,620 km²) in table 3. Accept both hydrological conventions as separate canonical answers; never map the combined name arbitrarily to one component. Includes saline Caspian and subglacial Vostok. Historical Aral/Chad areas do not qualify.",
-      "review": "Pinned November 2026 areas strictly >10,000 km²: all 16 main-table lakes plus the alternative combined Michigan–Huron lake (117,620 km²) in table 3. Accept both hydrological conventions as separate canonical answers; never map the combined name arbitrarily to one component. Includes saline Caspian and subglacial Vostok. Historical Aral/Chad areas do not qualify."
+      "acceptance_notes": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify.",
+      "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
     },
     {
       "id": "english-counties",

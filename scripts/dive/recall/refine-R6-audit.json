@@ -10,7 +10,7 @@
     "indian-states": "islands-50000-km2"
   },
   "raw_sha256": {
-    "refine-R6-raw.json": "fd7e4fa26f4914f5747e25fa4f4c8019184daa8539a88a75922610363c28cb1f"
+    "refine-R6-raw.json": "3211473b3118b9d1e7f256869270711839cab851ee390efa420f0dd98e053926"
   },
   "sources": {
     "china-compass-names": [
@@ -451,10 +451,6 @@
           "5,400 ± 1,600 km 1,300 ± 380 cu mi",
           "Largest lake in Antarctica, but subglacial ."
         ]
-      },
-      {
-        "source_member": "Michigan–Huron",
-        "evidence": "1 Michigan–Huron Canada United States Fresh 117,620 km 2 45,410 sq mi [ 14 ] 710 km 440 mi 282 m 925 ft [ 14 ] 8,450 km 3 2,030 cu mi [ 14 ] Contains Manitoulin Island , the world's largest lake island. [ 17 ]"
       }
     ],
     "japan-same-name-capitals": [
@@ -1545,8 +1541,8 @@
   "before_definition": "Same reviewed valid guesses; canonical keys only, before alias expansion. Not recall against retired prompts.",
   "build": {
     "baseline_gzip_kib": 2993.75,
-    "standalone_gzip_kib": 2995.21,
-    "delta_kib": 1.46,
+    "standalone_gzip_kib": 2995.16,
+    "delta_kib": 1.41,
     "budget_kib": 1.5
   },
   "prompts": [
@@ -1665,8 +1661,8 @@
       "id": "lakes-10000-km2",
       "old_id": "new-zealand-regions",
       "old_count": 16,
-      "text": "Name a lake with a surface area of more than 10,000 square kilometres (2026 areas).",
-      "count": 17,
+      "text": "Name a lake with a surface area of more than 10,000 square kilometres.",
+      "count": 16,
       "size_band": "tiny",
       "surface": ["Caspian Sea", "Lake Superior", "Lake Victoria", "Lake Michigan", "Lake Baikal"],
       "too_clever": [],
@@ -1691,8 +1687,7 @@
             "Ontario",
             "Ladoga",
             "Balkhash",
-            "Vostok",
-            "Michigan–Huron"
+            "Vostok"
           ],
           "reviewed": [
             "Caspian Sea",
@@ -1710,21 +1705,20 @@
             "Ontario",
             "Ladoga",
             "Balkhash",
-            "Vostok",
-            "Michigan–Huron"
+            "Vostok"
           ],
-          "expect": [17, 17],
-          "review": "Pinned November 2026 areas strictly >10,000 km²: all 16 main-table lakes plus the alternative combined Michigan–Huron lake (117,620 km²) in table 3. Accept both hydrological conventions as separate canonical answers; never map the combined name arbitrarily to one component. Includes saline Caspian and subglacial Vostok. Historical Aral/Chad areas do not qualify."
+          "expect": [16, 16],
+          "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
         }
       ],
       "before": {
-        "hits": 17,
+        "hits": 16,
         "total": 28,
-        "rate": 0.6071428571428571
+        "rate": 0.5714285714285714
       },
       "after": {
         "constrained": true,
-        "hits": 28,
+        "hits": 27,
         "id": "lakes-10000-km2",
         "invalid": [
           {
@@ -1764,14 +1758,14 @@
             "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
           }
         ],
-        "misses": [],
+        "misses": ["Lake Michigan-Huron"],
         "missingCorpus": false,
         "missingData": false,
-        "rate": 1,
-        "text": "Name a lake with a surface area of more than 10,000 square kilometres (2026 areas).",
+        "rate": 0.9642857142857143,
+        "text": "Name a lake with a surface area of more than 10,000 square kilometres.",
         "total": 28
       },
-      "module_gzip_bytes": 639,
+      "module_gzip_bytes": 609,
       "old_module_gzip_bytes": 712
     },
     {
@@ -2158,7 +2152,7 @@
       "id": "rivers-3000-km",
       "old_id": "brazil-states",
       "old_count": 27,
-      "text": "Name a river system listed as more than 3,000 kilometres long (2026 lengths).",
+      "text": "Name a river or river system more than 3,000 kilometres long.",
       "count": 28,
       "size_band": "medium",
       "surface": ["Nile", "Amazon", "Yangtze", "Mississippi–Missouri", "Yellow River"],
@@ -2291,7 +2285,7 @@
         "missingCorpus": false,
         "missingData": false,
         "rate": 1,
-        "text": "Name a river system listed as more than 3,000 kilometres long (2026 lengths).",
+        "text": "Name a river or river system more than 3,000 kilometres long.",
         "total": 39
       },
       "module_gzip_bytes": 1274,
@@ -2482,7 +2476,7 @@
       "id": "islands-50000-km2",
       "old_id": "indian-states",
       "old_count": 36,
-      "text": "Name an island with an area of more than 50,000 square kilometres (2026 areas; continents excluded).",
+      "text": "Name an island with an area of more than 50,000 square kilometres.",
       "count": 28,
       "size_band": "medium",
       "surface": ["Greenland", "New Guinea", "Borneo", "Madagascar", "Great Britain"],
@@ -2659,7 +2653,7 @@
         "missingCorpus": false,
         "missingData": false,
         "rate": 1,
-        "text": "Name an island with an area of more than 50,000 square kilometres (2026 areas; continents excluded).",
+        "text": "Name an island with an area of more than 50,000 square kilometres.",
         "total": 30
       },
       "module_gzip_bytes": 825,
