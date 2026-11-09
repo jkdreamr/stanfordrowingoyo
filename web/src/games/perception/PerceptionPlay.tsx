@@ -47,6 +47,21 @@ const swatch = (hue: number) => `hsl(${hue} 72% 50%)`;
 const now = () => performance.now();
 
 export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
+  const surface = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const keyboard = () => {
+      if (surface.current) surface.current.dataset.input = 'keyboard';
+    };
+    const pointer = () => {
+      if (surface.current) surface.current.dataset.input = 'pointer';
+    };
+    document.addEventListener('keydown', keyboard, true);
+    document.addEventListener('pointerdown', pointer, true);
+    return () => {
+      document.removeEventListener('keydown', keyboard, true);
+      document.removeEventListener('pointerdown', pointer, true);
+    };
+  }, []);
   const [rounds, setRounds] = useState<PerceptionRoundId[]>([...PERCEPTION_ROUNDS]);
   const [extra, setExtra] = useState<Partial<PerceptionV2Puzzle>>({});
   const v2 = date >= PERCEPTION_V2_FROM;
@@ -144,7 +159,7 @@ export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
   if (!loaded) return <LoadState error={Boolean(error)} retry={() => void resume()} />;
 
   return (
-    <div className="pc" aria-busy={busy}>
+    <div className="pc" ref={surface} data-input="pointer" aria-busy={busy}>
       <fieldset disabled={busy} style={{ display: 'contents' }}>
         {error && <p role="alert">{error}</p>}
         <ol className="pc-progress" aria-label={`Round ${index + 1} of ${rounds.length}`}>
@@ -232,7 +247,7 @@ export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
               <span className="text-title1">{scores[index]}</span>
               <span className="text-subhead text-muted"> / 100</span>
             </p>
-            <Button fullWidth size="lg" onClick={next} autoFocus>
+            <Button fullWidth size="lg" onClick={next}>
               {last ? 'See Result' : 'Next'}
             </Button>
           </div>
@@ -303,7 +318,6 @@ function ClockRound({ target, stage, setStage, lockIn }: RoundProps & { target: 
           type="button"
           className={'pc-hold' + (holding ? ' pc-hold-on' : '')}
           data-no-tab-swipe
-          autoFocus
           disabled={stage === 'reveal'}
           onPointerDown={(e) => {
             e.currentTarget.setPointerCapture(e.pointerId);
@@ -559,7 +573,6 @@ function ReactionRound({ delay, stage, setStage, lockIn }: RoundProps & { delay:
           type="button"
           className={'pc-react' + (go ? ' pc-react-go' : '')}
           data-no-tab-swipe
-          autoFocus
           disabled={stage === 'reveal'}
           onPointerDown={tap}
           onKeyDown={(e) => {

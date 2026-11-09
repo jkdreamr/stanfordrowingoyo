@@ -119,23 +119,41 @@ it.each(Object.keys(stimuli) as (keyof typeof titles)[])(
     if (id === 'angle' || id === 'length' || id === 'shade') {
       const slider = screen.getByRole('slider');
       fireEvent.pointerDown(slider, { pointerId: 1, clientX: 140, clientY: 10 });
+      expect(slider.closest('.pc')?.getAttribute('data-input')).toBe('pointer');
       fireEvent.change(slider, {
         target: { value: id === 'angle' ? '64' : id === 'length' ? '620' : '43' },
       });
       fireEvent.keyDown(slider, { key: 'ArrowRight' });
+      expect(slider.closest('.pc')?.getAttribute('data-input')).toBe('keyboard');
       expect(slider.getAttribute('aria-valuenow')).toBe(
         id === 'angle' ? '65' : id === 'length' ? '621' : '44',
       );
+      fireEvent.pointerDown(slider, { pointerId: 1 });
+      expect(slider.closest('.pc')?.getAttribute('data-input')).toBe('pointer');
+      if (id !== 'shade') expect(document.querySelector('.pc-value')).toBeNull();
     } else if (id === 'count' || id === 'span') {
       for (const digit of id === 'count' ? '48' : '804267193') await click(digit);
       await click('Delete');
       await click(id === 'count' ? '8' : '3');
     } else if (id === 'bisect') {
       const board = screen.getByRole('button', { name: 'Midpoint Position' });
+      expect(board.getAttribute('aria-description')).toContain('arrow keys');
+      expect(screen.getByText('Tap or Drag the Marker')).toBeTruthy();
       board.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 }) as DOMRect;
       fireEvent.pointerDown(board, { clientX: 48, clientY: 50, pointerId: 1 });
       fireEvent.keyDown(board, { key: 'ArrowRight' });
     } else await advance(1800);
+    const prompts = {
+      angle: 'Set the Angle You Saw',
+      length: 'Set the Bar to the Length You Saw',
+      count: 'How Many Dots Were There?',
+      span: 'Enter the Digits in Order',
+      shade: 'Match the Gray You Saw',
+      bisect: 'Place the Midpoint',
+      contact: 'Tap When It Reaches the Finish',
+    };
+    expect(screen.getByText(prompts[id])).toBeTruthy();
+    expect(document.querySelector('[autofocus]')).toBeNull();
     await click(id === 'contact' ? 'Tap at Finish' : 'Lock In');
     const expected = {
       angle: { angle: 65 },

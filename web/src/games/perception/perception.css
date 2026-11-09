@@ -346,7 +346,10 @@
 .pc-keypad button:active:not(:disabled) {
   background: var(--oyo-selected);
 }
-.pc :is(button, input, [tabindex]):focus-visible {
+.pc :is(button, input, [tabindex]):focus {
+  outline: none;
+}
+.pc[data-input='keyboard'] :is(button, input, [tabindex]):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -357,6 +360,7 @@
   top: 30%;
   height: 40%;
   background: var(--divider);
+  border: 1px solid var(--muted);
   border-radius: 4px;
 }
 .pc svg .pc-track {
@@ -368,8 +372,9 @@
   left: calc(100% - var(--pc-finish));
   transform: translateX(-50%);
   top: 20%;
-  font-size: 12px;
-  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
 }
 @media (prefers-reduced-motion: reduce) {
   .pc * {

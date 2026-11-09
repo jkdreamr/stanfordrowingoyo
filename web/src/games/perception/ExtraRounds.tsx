@@ -24,6 +24,15 @@ const INSTRUCTIONS = {
   bisect: 'Place a marker halfway between the two ends of the line.',
   contact: 'Follow the moving dot, then tap when it would reach the finish line.',
 };
+const ANSWER_PROMPTS = {
+  angle: 'Set the Angle You Saw',
+  length: 'Set the Bar to the Length You Saw',
+  count: 'How Many Dots Were There?',
+  span: 'Enter the Digits in Order',
+  shade: 'Match the Gray You Saw',
+  bisect: 'Place the Midpoint',
+  contact: 'Tap When It Reaches the Finish',
+};
 type ExtraId = keyof typeof EXTRA_TITLES;
 const clamp = (n: number, lo = 0, hi = 1000) => Math.max(lo, Math.min(hi, Math.round(n)));
 const pos = (p: [number, number]) => ({ left: `${p[0] / 10}%`, top: `${p[1] / 10}%` });
@@ -217,11 +226,7 @@ export function ExtraRound({
                 ? 'Follow the Dot'
                 : 'Look Carefully'
             : answering
-              ? round === 'contact'
-                ? 'Tap When It Reaches the Finish'
-                : round === 'bisect'
-                  ? 'Place the Midpoint'
-                  : 'Make Your Match'
+              ? ANSWER_PROMPTS[round]
               : 'Your Answer'}
       </p>
       {stage !== 'brief' && (
@@ -297,6 +302,7 @@ export function ExtraRound({
               role="button"
               tabIndex={answering ? 0 : -1}
               aria-label="Midpoint Position"
+              aria-description="Tap or drag the marker. Use arrow keys to adjust its position."
               data-no-tab-swipe
               onPointerDown={place}
               onPointerMove={place}
@@ -327,9 +333,7 @@ export function ExtraRound({
               {reveal && <span className="pc-dot" style={pos(midpoint)} />}
             </div>
           )}
-          {round === 'bisect' && answering && (
-            <p className="pc-detail">Tap or Drag · Arrow Keys Adjust Position</p>
-          )}
+          {round === 'bisect' && answering && <p className="pc-detail">Tap or Drag the Marker</p>}
           {round === 'contact' && contact && (
             <div
               className="pc-board pc-motion"
@@ -367,10 +371,7 @@ export function ExtraRound({
           )}
           {answering && (round === 'angle' || round === 'length' || round === 'shade') && (
             <>
-              <output className="pc-value">
-                {value}
-                {round === 'angle' ? '°' : round === 'shade' ? '%' : ' / 1000'}
-              </output>
+              {round === 'shade' && <output className="pc-value">{value}%</output>}
               <Slider
                 label={round === 'angle' ? 'Angle' : round === 'length' ? 'Length' : 'Lightness'}
                 min={round === 'length' ? 1 : 0}
