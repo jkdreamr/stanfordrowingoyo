@@ -49,6 +49,8 @@ def dataset(url, sha256, format):
     if not re.fullmatch(r'[a-f0-9]{64}', sha256):
         raise ValueError('Dataset requires a SHA-256 pin')
     data = fetch(url)
+    if format == 'ala-annual-2010s':
+        data = (CACHE / (hashlib.sha256(url.encode()).hexdigest() + '.raw')).read_bytes().decode()
     if hashlib.sha256(data.encode()).hexdigest() != sha256:
         raise ValueError('Dataset checksum mismatch')
     if format == 'csv':
@@ -57,6 +59,29 @@ def dataset(url, sha256, format):
         return json.loads(data)
     if format == 'lines':
         return [line.strip() for line in data.splitlines() if line.strip()]
+    if format == 'ala-annual-2010s':
+        soup = BeautifulSoup(data, 'html.parser')
+        years, titles = set(), set()
+        for heading in soup.find_all(['h2', 'h3', 'h4']):
+            match = re.search(r'\b201[0-9]\b', heading.get_text())
+            if not match:
+                continue
+            year = int(match.group())
+            if year in years:
+                raise ValueError('Duplicate ALA annual list')
+            years.add(year)
+            listing = heading.find_next('ol')
+            entries = listing.find_all('li', recursive=False) if listing else []
+            expect_count(entries, [11, 11] if year == 2018 else [10, 10], f'ALA {year}')
+            for entry in entries:
+                title = entry.find(['em', 'i'])
+                if title is None:
+                    raise ValueError(f'ALA {year}: missing book title')
+                name = re.sub(r'\s+', ' ', title.get_text(' ', strip=True)).strip(' ,')
+                titles.add(re.sub(r' series$', '', name))
+        if years != set(range(2010, 2020)):
+            raise ValueError('Missing ALA annual list')
+        return sorted(titles)
     raise ValueError(f'Unsupported dataset format: {format}')
 
 

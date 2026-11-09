@@ -37718,6 +37718,7 @@
       "id": "dickens-books",
       "text": "a Charles Dickens novel or novella",
       "theme": "books",
+      "active": false,
       "cluster": "authors",
       "sources": [
         {
@@ -37827,9 +37828,83 @@
       "review": "Complete novels-and-novellas table, including the Christmas books and unfinished Edwin Drood. Nonfiction, short-story collections and plays are separate tables and excluded."
     },
     {
+      "id": "books-sold-100m",
+      "text": "a book estimated to have sold at least 100 million copies, not counting religious or political texts",
+      "theme": "books",
+      "sources": [
+        {
+          "page": "List of best-selling books",
+          "revision": 1384375148,
+          "expect": [8, 8],
+          "members": [
+            "A Tale of Two Cities",
+            "The Little Prince",
+            "The Alchemist",
+            "Harry Potter and the Philosopher's Stone",
+            "And Then There Were None",
+            "Dream of the Red Chamber",
+            "The Hobbit",
+            "Alice's Adventures in Wonderland"
+          ],
+          "reviewed": [
+            "A Tale of Two Cities",
+            "The Little Prince",
+            "The Alchemist",
+            "Harry Potter and the Philosopher's Stone",
+            "And Then There Were None",
+            "Dream of the Red Chamber",
+            "The Hobbit",
+            "Alice's Adventures in Wonderland"
+          ],
+          "review": "Eight single-volume entries in the More than 100 million copies table, including four at exactly 100 million; no series or religious/political texts. Membership is bounded to this pinned revision, not a moving sales estimate."
+        }
+      ],
+      "expect": [8, 8],
+      "answers": [
+        {
+          "name": "A Tale of Two Cities"
+        },
+        {
+          "name": "The Little Prince",
+          "aliases": ["Le Petit Prince"]
+        },
+        {
+          "name": "The Alchemist"
+        },
+        {
+          "name": "Harry Potter and the Philosopher's Stone",
+          "aliases": [
+            "Harry Potter and the Sorcerer's Stone",
+            "Philosopher's Stone",
+            "Sorcerer's Stone"
+          ]
+        },
+        {
+          "name": "And Then There Were None"
+        },
+        {
+          "name": "Dream of the Red Chamber",
+          "aliases": ["Dream of Red Mansions", "The Story of the Stone", "Hong Lou Meng"]
+        },
+        {
+          "name": "The Hobbit"
+        },
+        {
+          "name": "Alice's Adventures in Wonderland",
+          "aliases": ["Alice in Wonderland"]
+        }
+      ],
+      "surface": ["Harry Potter and the Philosopher's Stone", "The Hobbit"],
+      "too_clever": ["And Then There Were None"],
+      "pearl": "Dream of the Red Chamber",
+      "people": false,
+      "review": "Pinned-revision eight-book set; at least, not strictly over, 100 million. Religious/political exclusions are explicit. Sales are source estimates, not audited totals."
+    },
+    {
       "id": "discworld-novels",
       "text": "a Discworld novel",
       "theme": "books",
+      "active": false,
       "cluster": "discworld",
       "sources": [
         {
@@ -38019,9 +38094,288 @@
       "review": "All 41 main Discworld novels, including the illustrated novel The Last Hero and young-reader novels; companion books and Science of Discworld are not novels."
     },
     {
+      "id": "ala-challenged-2010s",
+      "text": "a book that made the ALA's annual top 10 most challenged list in any year from 2010 to 2019",
+      "theme": "books",
+      "sources": [
+        {
+          "dataset": "https://www.ala.org/bbooks/frequentlychallengedbooks/top10/archive",
+          "page": "ALA annual Top 10 archive, 2010–2019",
+          "revision": "sha256:ea41dd8679cad76912451f65104866c4353ee675c09b1ca599a4b37bc20f90be",
+          "sha256": "ea41dd8679cad76912451f65104866c4353ee675c09b1ca599a4b37bc20f90be",
+          "format": "ala-annual-2010s",
+          "expect": [56, 56],
+          "reviewed": [
+            "A Bad Boy Can Be Good for A Girl",
+            "A Day in the Life of Marlon Bundo",
+            "A Stolen Life",
+            "Alice",
+            "And Tango Makes Three",
+            "Beloved",
+            "Beyond Magenta: Transgender Teens Speak Out",
+            "Big Hard Sex Criminals",
+            "Bless Me Ultima",
+            "Bone",
+            "Brave New World",
+            "Captain Underpants",
+            "Crank",
+            "Drama",
+            "Eleanor & Park",
+            "Fifty Shades of Grey",
+            "Fun Home",
+            "Gossip Girl",
+            "Habibi",
+            "Harry Potter",
+            "I Am Jazz",
+            "It’s Perfectly Normal",
+            "Little Bill",
+            "Looking for Alaska",
+            "Lush",
+            "Make Something Up: Stories You Can’t Unread",
+            "Melissa",
+            "My Mom's Having A Baby! A Kid's Month-by-Month Guide to Pregnancy",
+            "Nasreen’s Secret School: A True Story from Afghanistan",
+            "Nickel and Dimed",
+            "Persepolis",
+            "Prince & Knight",
+            "Revolutionary Voices",
+            "Saga",
+            "Scary Stories",
+            "Sex is a Funny Word",
+            "Skippyjon Jones",
+            "The Absolutely True Diary of a Part-Time Indian",
+            "The Bluest Eye",
+            "The Color of Earth",
+            "The Curious Incident of the Dog in the Night-Time",
+            "The Glass Castle",
+            "The Handmaid’s Tale",
+            "The Hate U Give",
+            "The Holy Bible",
+            "The Hunger Games",
+            "The Kite Runner",
+            "The Perks of Being a Wallflower",
+            "Thirteen Reasons Why",
+            "This Day in June",
+            "This One Summer",
+            "To Kill a Mockingbird",
+            "Twilight",
+            "Two Boys Kissing",
+            "What My Mother Doesn't Know",
+            "ttyl; ttfn; l8r, g8r"
+          ],
+          "review": "Union of 101 entries in ten annual lists; ALA lists eleven in 2018. Remove only the series suffix when deduplicating; do not expand series. Checksum pin; Wayback returned HTTP 429."
+        }
+      ],
+      "expect": [56, 56],
+      "answers": [
+        {
+          "name": "A Bad Boy Can Be Good for A Girl"
+        },
+        {
+          "name": "A Day in the Life of Marlon Bundo"
+        },
+        {
+          "name": "A Stolen Life"
+        },
+        {
+          "name": "Alice",
+          "aliases": ["Alice series"]
+        },
+        {
+          "name": "And Tango Makes Three"
+        },
+        {
+          "name": "Beloved"
+        },
+        {
+          "name": "Beyond Magenta",
+          "aliases": ["Beyond Magenta: Transgender Teens Speak Out"]
+        },
+        {
+          "name": "Big Hard Sex Criminals"
+        },
+        {
+          "name": "Bless Me Ultima"
+        },
+        {
+          "name": "Bone",
+          "aliases": ["Bone series"]
+        },
+        {
+          "name": "Brave New World"
+        },
+        {
+          "name": "Captain Underpants",
+          "aliases": ["Captain Underpants series"]
+        },
+        {
+          "name": "Crank"
+        },
+        {
+          "name": "Drama"
+        },
+        {
+          "name": "Eleanor & Park"
+        },
+        {
+          "name": "Fifty Shades of Grey"
+        },
+        {
+          "name": "Fun Home"
+        },
+        {
+          "name": "Gossip Girl",
+          "aliases": ["Gossip Girl series"]
+        },
+        {
+          "name": "Habibi"
+        },
+        {
+          "name": "Harry Potter",
+          "aliases": ["Harry Potter series"]
+        },
+        {
+          "name": "I Am Jazz"
+        },
+        {
+          "name": "It’s Perfectly Normal"
+        },
+        {
+          "name": "Little Bill",
+          "aliases": ["Little Bill series"]
+        },
+        {
+          "name": "Looking for Alaska"
+        },
+        {
+          "name": "Lush"
+        },
+        {
+          "name": "Make Something Up",
+          "aliases": ["Make Something Up: Stories You Can’t Unread"]
+        },
+        {
+          "name": "Melissa",
+          "aliases": ["George"]
+        },
+        {
+          "name": "My Mom's Having a Baby!",
+          "aliases": ["My Mom's Having A Baby! A Kid's Month-by-Month Guide to Pregnancy"]
+        },
+        {
+          "name": "Nasreen's Secret School",
+          "aliases": ["Nasreen’s Secret School: A True Story from Afghanistan"]
+        },
+        {
+          "name": "Nickel and Dimed"
+        },
+        {
+          "name": "Persepolis"
+        },
+        {
+          "name": "Prince & Knight"
+        },
+        {
+          "name": "Revolutionary Voices"
+        },
+        {
+          "name": "Saga"
+        },
+        {
+          "name": "Scary Stories",
+          "aliases": ["Scary Stories to Tell in the Dark"]
+        },
+        {
+          "name": "Sex is a Funny Word"
+        },
+        {
+          "name": "Skippyjon Jones",
+          "aliases": ["Skippyjon Jones series"]
+        },
+        {
+          "name": "The Absolutely True Diary",
+          "aliases": [
+            "Part-Time Indian",
+            "True Diary of a Part-Time Indian",
+            "The Absolutely True Diary of a Part-Time Indian"
+          ]
+        },
+        {
+          "name": "The Bluest Eye"
+        },
+        {
+          "name": "The Color of Earth"
+        },
+        {
+          "name": "The Curious Incident",
+          "aliases": ["The Curious Incident of the Dog in the Night-Time"]
+        },
+        {
+          "name": "The Glass Castle"
+        },
+        {
+          "name": "The Handmaid’s Tale"
+        },
+        {
+          "name": "The Hate U Give"
+        },
+        {
+          "name": "The Holy Bible"
+        },
+        {
+          "name": "The Hunger Games",
+          "aliases": ["Hunger Games series"]
+        },
+        {
+          "name": "The Kite Runner"
+        },
+        {
+          "name": "The Perks of Being a Wallflower"
+        },
+        {
+          "name": "Thirteen Reasons Why"
+        },
+        {
+          "name": "This Day in June"
+        },
+        {
+          "name": "This One Summer"
+        },
+        {
+          "name": "To Kill a Mockingbird"
+        },
+        {
+          "name": "Twilight",
+          "aliases": ["Twilight series"]
+        },
+        {
+          "name": "Two Boys Kissing"
+        },
+        {
+          "name": "What My Mother Doesn't Know"
+        },
+        {
+          "name": "ttyl",
+          "aliases": ["ttfn", "l8r, g8r", "Internet Girls"]
+        }
+      ],
+      "surface": [
+        "Captain Underpants",
+        "The Absolutely True Diary",
+        "Harry Potter",
+        "The Hunger Games",
+        "Looking for Alaska"
+      ],
+      "too_clever": ["The Holy Bible", "Big Hard Sex Criminals"],
+      "pearl": "A Bad Boy Can Be Good for A Girl",
+      "people": false,
+      "review": "Complete 56-entry annual union, not the different decade top-100 ranking. Series count as listed. Full long titles are aliases of display titles under the existing 40-code-unit canonical limit."
+    },
+    {
       "id": "dahl-novels",
       "text": "a Roald Dahl novel or novella",
       "theme": "books",
+      "active": false,
       "cluster": "authors",
       "sources": [
         {
@@ -38123,6 +38477,149 @@
       "pearl": "Fantastic Mr Fox",
       "people": false,
       "review": "Complete novels-and-novellas table for both children and adults; short-story collections, poetry and nonfiction are separate categories."
+    },
+    {
+      "id": "big-read-top-21",
+      "text": "a book in the final top 21 of the BBC's 2003 Big Read poll",
+      "theme": "books",
+      "sources": [
+        {
+          "page": "The Big Read",
+          "revision": 1364480637,
+          "expect": [21, 21],
+          "members": [
+            "The Lord of the Rings",
+            "Pride and Prejudice",
+            "His Dark Materials",
+            "The Hitchhiker's Guide to the Galaxy",
+            "Harry Potter and the Goblet of Fire",
+            "To Kill a Mockingbird",
+            "Winnie-the-Pooh",
+            "Nineteen Eighty-Four",
+            "The Lion, the Witch and the Wardrobe",
+            "Jane Eyre",
+            "Catch-22",
+            "Wuthering Heights",
+            "Birdsong",
+            "Rebecca",
+            "The Catcher in the Rye",
+            "The Wind in the Willows",
+            "Great Expectations",
+            "Little Women",
+            "Captain Corelli's Mandolin",
+            "War and Peace",
+            "Gone with the Wind"
+          ],
+          "reviewed": [
+            "The Lord of the Rings",
+            "Pride and Prejudice",
+            "His Dark Materials",
+            "The Hitchhiker's Guide to the Galaxy",
+            "Harry Potter and the Goblet of Fire",
+            "To Kill a Mockingbird",
+            "Winnie-the-Pooh",
+            "Nineteen Eighty-Four",
+            "The Lion, the Witch and the Wardrobe",
+            "Jane Eyre",
+            "Catch-22",
+            "Wuthering Heights",
+            "Birdsong",
+            "Rebecca",
+            "The Catcher in the Rye",
+            "The Wind in the Willows",
+            "Great Expectations",
+            "Little Women",
+            "Captain Corelli's Mandolin",
+            "War and Peace",
+            "Gone with the Wind"
+          ],
+          "review": "The first 21 ranked entries, the final-round shortlist; series remain as listed."
+        }
+      ],
+      "expect": [21, 21],
+      "answers": [
+        {
+          "name": "The Lord of the Rings",
+          "aliases": ["LOTR", "Lord of the Rings series"]
+        },
+        {
+          "name": "Pride and Prejudice"
+        },
+        {
+          "name": "His Dark Materials",
+          "aliases": ["His Dark Materials trilogy"]
+        },
+        {
+          "name": "The Hitchhiker's Guide to the Galaxy",
+          "aliases": ["Hitchhikers Guide", "HHGTTG"]
+        },
+        {
+          "name": "Harry Potter and the Goblet of Fire"
+        },
+        {
+          "name": "To Kill a Mockingbird"
+        },
+        {
+          "name": "Winnie-the-Pooh",
+          "aliases": ["Pooh"]
+        },
+        {
+          "name": "Nineteen Eighty-Four",
+          "aliases": ["1984"]
+        },
+        {
+          "name": "The Lion, the Witch and the Wardrobe",
+          "aliases": ["Narnia", "Chronicles of Narnia"]
+        },
+        {
+          "name": "Jane Eyre"
+        },
+        {
+          "name": "Catch-22"
+        },
+        {
+          "name": "Wuthering Heights"
+        },
+        {
+          "name": "Birdsong"
+        },
+        {
+          "name": "Rebecca"
+        },
+        {
+          "name": "The Catcher in the Rye"
+        },
+        {
+          "name": "The Wind in the Willows"
+        },
+        {
+          "name": "Great Expectations"
+        },
+        {
+          "name": "Little Women"
+        },
+        {
+          "name": "Captain Corelli's Mandolin",
+          "aliases": ["Captain Corelli"]
+        },
+        {
+          "name": "War and Peace"
+        },
+        {
+          "name": "Gone with the Wind"
+        }
+      ],
+      "surface": [
+        "The Lord of the Rings",
+        "Pride and Prejudice",
+        "Harry Potter and the Goblet of Fire",
+        "Nineteen Eighty-Four",
+        "To Kill a Mockingbird"
+      ],
+      "too_clever": ["Captain Corelli's Mandolin", "War and Peace"],
+      "pearl": "Birdsong",
+      "people": false,
+      "review": "Stable BBC 2003 final top-21 list. Series stay whole; Narnia is accepted as the natural series shorthand for its listed first-published novel."
     },
     {
       "id": "swift-albums",
@@ -45925,6 +46422,7 @@
       "id": "shakespeare-plays",
       "text": "a Shakespeare play",
       "theme": "books",
+      "active": false,
       "cluster": "classics",
       "sources": [
         {
@@ -46143,6 +46641,286 @@
       "pearl": "A Midsummer Night's Dream",
       "people": false,
       "review": "All 39 canonical plays in the primary list plus the documented lost Cardenio and Love’s Labour’s Won and collaborative Sir Thomas More, accepted generously. Double Falsehood is accepted as the surviving Cardenio adaptation. Common short titles and unqualified multipart histories are accepted."
+    },
+    {
+      "id": "macbeth-phrase-novels",
+      "text": "a novel whose title comes from a phrase in Macbeth",
+      "theme": "books",
+      "sources": [
+        {
+          "page": "List of works titled after Shakespeare",
+          "revision": 1378451720,
+          "expect": [26, 26],
+          "members": [
+            "The Battle Lost and Won",
+            "Wyrd Sisters",
+            "The Moon Is Down",
+            "Dagger of the Mind",
+            "To Fear a Painted Devil",
+            "A Painted Devil",
+            "Wash This Blood Clean from My Hand",
+            "A Heart So White",
+            "Look to the Lady",
+            "Light Thickens",
+            "Let It Come Down",
+            "Exit Ghost",
+            "Fire, Burn!",
+            "Fire Burn and Cauldron Bubble",
+            "A Charm of Powerful Trouble",
+            "By the Pricking of My Thumbs",
+            "Birnam Wood",
+            "Come Like Shadows",
+            "In Spite of Thunder",
+            "The Brightest Fell",
+            "A Rooted Sorrow",
+            "Taste of Fears",
+            "The Way to Dusty Death",
+            "Dusty Death",
+            "Walking Shadow",
+            "Told by an Idiot"
+          ],
+          "reviewed": [
+            "The Battle Lost and Won",
+            "Wyrd Sisters",
+            "The Moon Is Down",
+            "Dagger of the Mind",
+            "To Fear a Painted Devil",
+            "A Painted Devil",
+            "Wash This Blood Clean from My Hand",
+            "A Heart So White",
+            "Look to the Lady",
+            "Light Thickens",
+            "Let It Come Down",
+            "Exit Ghost",
+            "Fire, Burn!",
+            "Fire Burn and Cauldron Bubble",
+            "A Charm of Powerful Trouble",
+            "By the Pricking of My Thumbs",
+            "Birnam Wood",
+            "Come Like Shadows",
+            "In Spite of Thunder",
+            "The Brightest Fell",
+            "A Rooted Sorrow",
+            "Taste of Fears",
+            "The Way to Dusty Death",
+            "Dusty Death",
+            "Walking Shadow",
+            "Told by an Idiot"
+          ],
+          "review": "Macbeth group: novels only. Exclude memoirs, true crime, story collections, poems, comics, films, songs and television. Follow its disambiguation links using the additional pins below."
+        },
+        {
+          "page": "Sleep No More (novel)",
+          "revision": 1384259395,
+          "expect": [1, 1],
+          "members": ["Sleep No More"],
+          "reviewed": ["Sleep No More"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Double, Double (Brunner novel)",
+          "revision": 1384266092,
+          "expect": [1, 1],
+          "members": ["Double, Double"],
+          "reviewed": ["Double, Double"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Double, Double (Ellery Queen novel)",
+          "revision": 1384295332,
+          "expect": [1, 1],
+          "members": ["Double, Double"],
+          "reviewed": ["Double, Double"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Double, Double (Friedman novel)",
+          "revision": 1384314261,
+          "expect": [1, 1],
+          "members": ["Double, Double"],
+          "reviewed": ["Double, Double"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Something Wicked This Way Comes (novel)",
+          "revision": 1384237998,
+          "expect": [1, 1],
+          "members": ["Something Wicked This Way Comes"],
+          "reviewed": ["Something Wicked This Way Comes"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Something Wicked (book)",
+          "revision": 1362396172,
+          "expect": [1, 1],
+          "members": ["Something Wicked"],
+          "reviewed": ["Something Wicked"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Tomorrow, and Tomorrow, and Tomorrow (novel)",
+          "revision": 1384485805,
+          "expect": [1, 1],
+          "members": ["Tomorrow, and Tomorrow, and Tomorrow"],
+          "reviewed": ["Tomorrow, and Tomorrow, and Tomorrow"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Tomorrow and Tomorrow (novel)",
+          "revision": 1384294745,
+          "expect": [1, 1],
+          "members": ["Tomorrow and Tomorrow"],
+          "reviewed": ["Tomorrow and Tomorrow"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "The Sound and the Fury",
+          "revision": 1384224528,
+          "expect": [1, 1],
+          "members": ["The Sound and the Fury"],
+          "reviewed": ["The Sound and the Fury"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "All Our Yesterdays",
+          "revision": 1371229730,
+          "expect": [1, 1],
+          "members": ["All Our Yesterdays"],
+          "reviewed": ["All Our Yesterdays"],
+          "review": "Disambiguation page explicitly lists the Parker novel and the Ginzburg novel under its original Italian title; deduplicate the English title."
+        },
+        {
+          "page": "Eleanor Brown",
+          "revision": 1371547181,
+          "expect": [1, 1],
+          "members": ["The Weird Sisters"],
+          "reviewed": ["The Weird Sisters"],
+          "review": "Approved frozen-guess supplement: explicitly identifies her novel and its title as an allusion to the witches in Macbeth. This is not an alias for Pratchett’s Wyrd Sisters."
+        }
+      ],
+      "expect": [35, 35],
+      "answers": [
+        {
+          "name": "The Battle Lost and Won"
+        },
+        {
+          "name": "Wyrd Sisters"
+        },
+        {
+          "name": "The Moon Is Down"
+        },
+        {
+          "name": "Dagger of the Mind"
+        },
+        {
+          "name": "To Fear a Painted Devil"
+        },
+        {
+          "name": "A Painted Devil"
+        },
+        {
+          "name": "Wash This Blood Clean from My Hand"
+        },
+        {
+          "name": "A Heart So White"
+        },
+        {
+          "name": "Look to the Lady"
+        },
+        {
+          "name": "Light Thickens"
+        },
+        {
+          "name": "Let It Come Down"
+        },
+        {
+          "name": "Exit Ghost"
+        },
+        {
+          "name": "Fire, Burn!"
+        },
+        {
+          "name": "Fire Burn and Cauldron Bubble"
+        },
+        {
+          "name": "A Charm of Powerful Trouble"
+        },
+        {
+          "name": "By the Pricking of My Thumbs"
+        },
+        {
+          "name": "Birnam Wood"
+        },
+        {
+          "name": "Come Like Shadows"
+        },
+        {
+          "name": "In Spite of Thunder"
+        },
+        {
+          "name": "The Brightest Fell"
+        },
+        {
+          "name": "A Rooted Sorrow"
+        },
+        {
+          "name": "Taste of Fears",
+          "aliases": ["The Iron Gates"]
+        },
+        {
+          "name": "The Way to Dusty Death"
+        },
+        {
+          "name": "Dusty Death"
+        },
+        {
+          "name": "Walking Shadow"
+        },
+        {
+          "name": "Told by an Idiot",
+          "aliases": ["A Tale Told by an Idiot"]
+        },
+        {
+          "name": "Sleep No More"
+        },
+        {
+          "name": "Double, Double",
+          "aliases": ["The Case of the Seven Murders"]
+        },
+        {
+          "name": "Something Wicked This Way Comes"
+        },
+        {
+          "name": "Something Wicked"
+        },
+        {
+          "name": "Tomorrow, and Tomorrow, and Tomorrow"
+        },
+        {
+          "name": "Tomorrow and Tomorrow"
+        },
+        {
+          "name": "The Sound and the Fury"
+        },
+        {
+          "name": "All Our Yesterdays",
+          "aliases": ["A Light for Fools"]
+        },
+        {
+          "name": "The Weird Sisters"
+        }
+      ],
+      "surface": [
+        "Something Wicked This Way Comes",
+        "The Sound and the Fury",
+        "Tomorrow, and Tomorrow, and Tomorrow",
+        "Wyrd Sisters",
+        "By the Pricking of My Thumbs"
+      ],
+      "too_clever": ["The Moon Is Down", "Exit Ghost"],
+      "pearl": "A Rooted Sorrow",
+      "people": false,
+      "review": "35 normalized titles: 34 from the pinned Macbeth group and its disambiguation links, plus the approved Eleanor Brown supplement. Same titles by multiple authors collapse; punctuation-only differences collapse. Frozen Instruments of Darkness remains a recall miss because no qualifying Wikipedia Macbeth-title statement was found. See refine-R7-audit.json."
     },
     {
       "id": "international-feature-oscar",
