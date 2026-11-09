@@ -10,6 +10,8 @@ import { answerSet } from './games/dive/sets';
 import { accountExport, removeAccount } from './db/account';
 import { byId } from './db/users';
 import { matchAnswer, suggestAnswer } from './games/dive/matcher';
+import * as dive from './routes/dive';
+import type { Context } from './context';
 
 describe('Dive', () => {
   const bindings = env as unknown as Env;
@@ -33,6 +35,7 @@ describe('Dive', () => {
     });
   }
   async function submit(index: number, answer = '', user = 0) {
+    await api('/start', 'POST', { prompt_index: index }, user);
     return api('/answers', 'POST', { prompt_index: index, answer }, user);
   }
   async function rest(user = 0) {
@@ -154,6 +157,7 @@ describe('Dive', () => {
     await rest();
     expect(await (await submit(1)).json()).toMatchObject({ error: { code: 'OUT_OF_ORDER' } });
     const gem = (await set()).gem.answer;
+    await api('/start', 'POST', { prompt_index: 0 });
     const responses = await Promise.all(
       [0, 1].map(() =>
         api('/answers', 'POST', {
@@ -178,8 +182,7 @@ describe('Dive', () => {
   });
   it.each(['/answers', '/guesses'])('accepts 60 characters and rejects 61 on %s', async (path) => {
     await rest();
-    if (path === '/guesses')
-      expect((await api('/start', 'POST', { prompt_index: 0 })).status).toBe(200);
+    expect((await api('/start', 'POST', { prompt_index: 0 })).status).toBe(200);
     expect((await api(path, 'POST', { prompt_index: 0, answer: 'z'.repeat(61) })).status).toBe(400);
     const response = await api(path, 'POST', { prompt_index: 0, answer: 'z'.repeat(60) });
     expect(response.status).toBe(path === '/answers' ? 201 : 200);
@@ -417,6 +420,124 @@ describe('Dive', () => {
       error: { code: 'ALREADY_ANSWERED' },
     });
   });
+  it('requires a server start and shares throttling with the legacy scorer', async () => {
+    await rest();
+    const hit = (await set()).gem.answer;
+    expect(
+      await (await api('/answers', 'POST', { prompt_index: 0, answer: hit })).json(),
+    ).toMatchObject({ error: { code: 'NOT_STARTED' } });
+    await api('/start', 'POST', { prompt_index: 0 });
+    await api('/guesses', 'POST', { prompt_index: 0, answer: 'zzzzzzzzzzzz' });
+    expect(
+      (await api('/answers', 'POST', { prompt_index: 0, answer: hit }, 0, at(399))).status,
+    ).toBe(429);
+    expect((await current()).pending?.attempts_left).toBe(14);
+    expect(
+      (await api('/answers', 'POST', { prompt_index: 0, answer: hit }, 0, at(400))).status,
+    ).toBe(201);
+  });
+  it('serializes simultaneous wrong guesses without bypassing the interval or attempt count', async () => {
+    await rest();
+    await api('/start', 'POST', { prompt_index: 0 });
+    const responses = await Promise.all(
+      Array.from({ length: 8 }, () =>
+        api('/guesses', 'POST', { prompt_index: 0, answer: 'zzzzzzzzzzzz' }),
+      ),
+    );
+    expect(responses.map((response) => response.status).sort()).toEqual([
+      200, 429, 429, 429, 429, 429, 429, 429,
+    ]);
+    expect((await current()).pending?.attempts_left).toBe(14);
+  });
+  it.each(['answer', 'guess'] as const)(
+    'refreshes the clock after asynchronous reads in %s',
+    async (handler) => {
+      await rest();
+      await api('/start', 'POST', { prompt_index: 0 });
+      const hit = (await set()).gem.answer;
+      const tokenHash = await sha256('dive-0');
+      await sql(async (storage) => {
+        const ctx: Context = {
+          storage,
+          env: bindings,
+          now: new Date(NOW),
+          tokenHash,
+          params: {},
+          request: new Request('https://oyo.test/api/games/dive/guesses', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-OYO-Test-Now': at(27001) },
+            body: JSON.stringify({ prompt_index: 0, answer: hit }),
+          }),
+        };
+        const response = await dive[handler](ctx);
+        const body = await response.json();
+        expect(handler === 'answer' ? body : (body as { answer: unknown }).answer).toMatchObject({
+          canonical: null,
+          points: 0,
+        });
+      });
+    },
+  );
+  it('rejects a day rollover rather than scoring an old prompt against the new day', async () => {
+    await rest();
+    const tokenHash = await sha256('dive-0');
+    await sql(async (storage) => {
+      await expect(
+        dive.start({
+          storage,
+          env: bindings,
+          now: new Date(NOW),
+          tokenHash,
+          params: {},
+          request: new Request('https://oyo.test/api/games/dive/start', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-OYO-Test-Now': '2026-03-19T18:00:00Z',
+            },
+            body: '{"prompt_index":0}',
+          }),
+        }),
+      ).rejects.toMatchObject({ code: 'DAY_CHANGED' });
+      expect(storage.sql.exec('SELECT * FROM dive_attempts').toArray()).toEqual([]);
+    });
+  });
+  it.each(['/guesses', '/answers'])(
+    'does not score a canonical already used on another prompt via %s',
+    async (path) => {
+      await rest();
+      const hit = (await set(1)).gem.answer;
+      await submit(0, '');
+      await sql((storage) =>
+        storage.sql.exec(
+          "UPDATE dive_answers SET canonical=?,normalized=?,points=100,tier='gem' WHERE user_id='u0'",
+          hit,
+          normalizeAnswer(hit),
+        ),
+      );
+      await api('/start', 'POST', { prompt_index: 1 });
+      const body = await (await api(path, 'POST', { prompt_index: 1, answer: hit })).json();
+      expect(body).toMatchObject({ outcome: 'already_used', attempts_left: 15 });
+      expect((await current()).answers).toHaveLength(1);
+      expect((await current()).pending?.attempts_left).toBe(15);
+      expect((await current()).score).toBe(0);
+    },
+  );
+  it('cannot bypass a final pending rejection using the legacy endpoint', async () => {
+    await rest();
+    const c = await candidate();
+    await api('/start', 'POST', { prompt_index: 0 });
+    await api('/guesses', 'POST', { prompt_index: 0, answer: c.typed });
+    await sql((storage) =>
+      storage.sql.exec("UPDATE dive_attempts SET wrong_count=14 WHERE user_id='u0'"),
+    );
+    expect(
+      await (
+        await api('/answers', 'POST', { prompt_index: 0, answer: 'zzzzzzzzzzzz' }, 0, at(400))
+      ).json(),
+    ).toMatchObject({ canonical: null, points: 0 });
+    expect((await current()).pending).toBeNull();
+  });
   it('offers one stored suggestion, accepts its true score and original text, and rejects replays', async () => {
     await rest();
     const c = await candidate();
@@ -476,20 +597,44 @@ describe('Dive', () => {
     ).toEqual({ outcome: 'not_an_answer', attempts_left: 13 });
     expect((await current()).pending?.suggestion).toBeNull();
   });
-  it('implicitly rejects pending suggestions on the next guess and cannot reuse them', async () => {
+  it('implicitly rejects pending suggestions on a different guess and cannot reuse them', async () => {
     await rest();
     const c = await candidate();
     await api('/start', 'POST', { prompt_index: 0 });
     await api('/guesses', 'POST', { prompt_index: 0, answer: c.typed });
     expect(
       await (
-        await api('/guesses', 'POST', { prompt_index: 0, answer: c.typed }, 0, at(400))
+        await api('/guesses', 'POST', { prompt_index: 0, answer: 'zzzzzzzzzzzz' }, 0, at(400))
       ).json(),
     ).toEqual({ outcome: 'not_an_answer', attempts_left: 13 });
     expect(
       await (await api('/suggestion', 'POST', { prompt_index: 0, accept: true })).json(),
     ).toMatchObject({ error: { code: 'NO_SUGGESTION' } });
   });
+  it.each(['/guesses', '/answers'])(
+    'replays the same pending text or canonical without a rejection on %s',
+    async (path) => {
+      await rest();
+      const c = await candidate();
+      await api('/start', 'POST', { prompt_index: 0 });
+      await api('/guesses', 'POST', { prompt_index: 0, answer: c.typed });
+      for (const [i, answer] of [c.typed, c.canonical].entries()) {
+        const response = await api(path, 'POST', { prompt_index: 0, answer }, 0, at((i + 1) * 400));
+        expect(response.status).toBe(200);
+        expect(await response.json()).toMatchObject({
+          outcome: 'suggestion',
+          suggestion: c.canonical,
+          attempts_left: 15,
+        });
+        expect((await current()).answers).toHaveLength(0);
+      }
+      expect(
+        await sql((s) =>
+          s.sql.exec('SELECT wrong_count,suggestion_status FROM dive_attempts').toArray(),
+        ),
+      ).toEqual([{ wrong_count: 0, suggestion_status: 'pending' }]);
+    },
+  );
   it.each(['/guesses', '/suggestion', '/answers'])(
     'locks a timed-out pending suggestion into a miss via %s',
     async (path) => {
@@ -630,10 +775,12 @@ describe('Dive', () => {
       ).toBe(200);
       const tomorrow = '2026-03-19T18:00:00Z';
       expect((await api('/answers', 'PATCH', body, 59, tomorrow)).status).toBe(403);
-      for (let i = 0; i < DIVE_PROMPTS_PER_DAY; i++)
+      for (let i = 0; i < DIVE_PROMPTS_PER_DAY; i++) {
+        await api('/start', 'POST', { prompt_index: i }, 59, tomorrow);
         expect(
           (await api('/answers', 'POST', { prompt_index: i, answer: '' }, 59, tomorrow)).status,
         ).toBe(201);
+      }
       expect((await api('/answers', 'PATCH', body, 59, tomorrow)).status).toBe(200);
     },
   );

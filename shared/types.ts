@@ -576,7 +576,7 @@ export interface DivePending extends DiveStart {
 export type DiveGuessResponse =
   | { outcome: 'scored'; answer: DiveAnswerResult }
   | ({ outcome: 'suggestion'; suggestion: string } & DiveStart & { attempts_left: number })
-  | { outcome: 'not_an_answer'; attempts_left: number };
+  | { outcome: 'not_an_answer' | 'already_used'; attempts_left: number };
 export interface DiveAttemptExport {
   date: string;
   user_id: string;
@@ -780,9 +780,10 @@ export interface Api {
     { prompt_index: number; accept: boolean },
     DiveGuessResponse
   >;
+  /** Requires /start; 201 when scored, 200 for an already-used answer or pending-suggestion replay. */
   'POST /api/games/dive/answers': Endpoint<
     { prompt_index: number; answer: string },
-    DiveAnswerResult
+    DiveAnswerResult | Exclude<DiveGuessResponse, { outcome: 'scored' }>
   >;
   'GET /api/games/dive/days/:date': Endpoint<void, DiveDay>;
   'PATCH /api/games/dive/answers': Endpoint<

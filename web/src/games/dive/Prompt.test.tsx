@@ -137,7 +137,7 @@ it('clears a wrong guess, keeps focus and the timer, announces feedback, then ac
   expect(input().readOnly).toBe(false);
   expect(document.activeElement).toBe(input());
   expect(screen.getByRole('status').textContent).toBe('Not an answer');
-  expect(screen.queryByText(/guesses left/)).toBeNull();
+  expect(screen.queryByText(/Guesses Left/)).toBeNull();
   expect(onSaved).not.toHaveBeenCalled();
   expect(savedDeadline(key)).toBe(deadline);
   expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('24 Seconds Left');
@@ -154,7 +154,7 @@ it('shows the remaining guesses only at five or fewer and shakes the field', asy
   type('Banana');
   submit();
   await settle();
-  expect(screen.getByRole('status').textContent).toBe('Not an answer5 guesses left');
+  expect(screen.getByRole('status').textContent).toBe('Not an answer5 Guesses Left');
   expect(document.querySelector('.dive-input-shake')).not.toBeNull();
   type('Oar');
   expect(document.querySelector('.dive-input-shake')).toBeNull();
@@ -211,7 +211,9 @@ it('resumes pending suggestion and attempts, then sends an empty guess at timeou
     attempts_left: 4,
   });
   await settle();
-  expect(screen.getByRole('status').textContent).toBe('Did you mean Dry Tortugas?4 guesses left');
+  expect(screen.getByRole('status').textContent).toContain(
+    'Did you mean Dry Tortugas?4 Guesses Left',
+  );
   await settle(2000);
   expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
     body: { prompt_index: 0, answer: '' },
@@ -365,4 +367,113 @@ it('offers Retry when the empty timeout guess fails with a pending suggestion', 
     body: { prompt_index: 0, answer: '' },
   });
   expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+});
+
+it('keeps the same focused input through wrong-answer and suggestion responses without blur', async () => {
+  mount();
+  await settle();
+  const field = input();
+  const blur = vi.fn();
+  field.addEventListener('blur', blur);
+  vi.mocked(api).mockResolvedValueOnce({ outcome: 'not_an_answer', attempts_left: 14 });
+  type('Wrong');
+  submit();
+  await settle();
+  vi.mocked(api).mockResolvedValueOnce(suggested);
+  type('Dry Tortugus');
+  submit();
+  await settle();
+  expect(input()).toBe(field);
+  expect(document.activeElement).toBe(field);
+  expect(blur).not.toHaveBeenCalled();
+  expect(screen.getAllByRole('status')).toHaveLength(1);
+  expect(screen.getByRole('status').hasAttribute('aria-live')).toBe(false);
+});
+
+it('does not shake or announce a stale wrong answer over newer typing', async () => {
+  mount();
+  await settle();
+  let resolve!: (response: DiveGuessResponse) => void;
+  vi.mocked(api).mockImplementationOnce(
+    () =>
+      new Promise((done) => {
+        resolve = done;
+      }),
+  );
+  type('Wrong');
+  submit();
+  await settle();
+  type('Oar');
+  await act(async () => resolve({ outcome: 'not_an_answer', attempts_left: 5 }));
+  await settle();
+  expect(input().value).toBe('Oar');
+  expect(screen.queryByText('Not an answer')).toBeNull();
+  expect(document.querySelector('.dive-input-shake')).toBeNull();
+  expect(screen.getByText('5 Guesses Left')).toBeTruthy();
+});
+
+it('explains the final suggestion rejection before it consumes the last guess', async () => {
+  mount({
+    prompt_index: 0,
+    deadline_ms_remaining: 20000,
+    suggestion: 'Dry Tortugas',
+    attempts_left: 1,
+  });
+  await settle();
+  expect(screen.getByRole('status').textContent).toContain('1 Guess Left');
+  expect(screen.getByRole('status').textContent).toContain(
+    'Rejecting this suggestion or submitting another answer ends this prompt.',
+  );
+});
+it('announces an already-used answer distinctly, keeps focus and attempts, and permits a new answer', async () => {
+  mount();
+  await settle();
+  vi.mocked(api).mockResolvedValueOnce({ outcome: 'already_used', attempts_left: 15 });
+  type('Oar');
+  submit();
+  await settle();
+  expect(screen.getByRole('status').textContent).toBe('Already Used Today');
+  expect(screen.queryByText('Not an answer')).toBeNull();
+  expect(document.querySelector('.dive-input-shake')).toBeNull();
+  expect(input().value).toBe('');
+  expect(document.activeElement).toBe(input());
+  type('Other answer');
+  submit();
+  await settle();
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+});
+
+it('uses elapsed time rather than wall-clock changes, including after backgrounding', async () => {
+  mount();
+  await settle();
+  vi.setSystemTime(new Date(Date.now() - 3600000));
+  await settle(5000);
+  fireEvent(document, new Event('visibilitychange'));
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('20 Seconds Left');
+  await settle(20000);
+  await settle();
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer: '' },
+  });
+});
+
+it('deducts start transport time and never extends a running deadline from a suggestion', async () => {
+  let resolve!: (response: { prompt_index: number; deadline_ms_remaining: number }) => void;
+  vi.mocked(api).mockImplementationOnce(
+    () =>
+      new Promise((done) => {
+        resolve = done;
+      }),
+  );
+  mount();
+  await settle(2000);
+  await act(async () => resolve({ prompt_index: 0, deadline_ms_remaining: 25000 }));
+  await settle();
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('23 Seconds Left');
+  await settle(4000);
+  vi.mocked(api).mockResolvedValueOnce({ ...suggested, deadline_ms_remaining: 25000 });
+  type('Dry Tortugus');
+  submit();
+  await settle();
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('19 Seconds Left');
 });

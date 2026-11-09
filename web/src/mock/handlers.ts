@@ -1232,9 +1232,8 @@ export function createMockApi({
                 fail(400, 'Invalid answer.');
               const typed = body.answer.trim(),
                 normalized = normalizeAnswer(typed);
-              if (parts[4] === 'guesses' && !p.active) fail(409, 'Start first.', 'NOT_STARTED');
+              if (!p.active) fail(409, 'Start first.', 'NOT_STARTED');
               if (expired() || !typed) return finish('', false);
-              if (parts[4] === 'answers') return finish(typed, normalized === 'mock answer');
               if (
                 p.active!.last !== null &&
                 now().getTime() - p.active!.last! < DIVE_GUESS_INTERVAL_MS
@@ -1244,11 +1243,31 @@ export function createMockApi({
                   { status: 429, headers: { 'Retry-After': '1' } },
                 );
               p.active!.last = now().getTime();
+              if (
+                p.active!.suggestion &&
+                [normalizeAnswer(p.active!.typed), 'mock answer'].includes(normalized)
+              )
+                return json({
+                  outcome: 'suggestion',
+                  suggestion: p.active!.suggestion,
+                  prompt_index: index,
+                  deadline_ms_remaining: remaining(),
+                  attempts_left: DIVE_MAX_WRONG_GUESSES - p.active!.wrong,
+                });
               if (p.active!.suggestion) {
                 p.active!.suggestion = null;
                 p.active!.wrong++;
               }
               if (p.active!.wrong >= DIVE_MAX_WRONG_GUESSES) return finish('', false);
+              if (
+                ['mock answer', 'mock anser'].includes(normalized) &&
+                p.answers.some((answer) => answer.canonical === 'Mock answer')
+              )
+                return json({
+                  outcome: 'already_used',
+                  attempts_left: DIVE_MAX_WRONG_GUESSES - p.active!.wrong,
+                });
+              if (parts[4] === 'answers') return finish(typed, normalized === 'mock answer');
               if (normalized === 'mock answer') return finish(typed, true);
               if (!p.active!.issued && normalized === 'mock anser') {
                 p.active!.issued = true;

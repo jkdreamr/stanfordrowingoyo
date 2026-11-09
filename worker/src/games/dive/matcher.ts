@@ -217,10 +217,31 @@ function tokenSimilarity(a: string[], b: string[], workspace: Uint16Array[]): nu
   return shared / Math.max(a.join('').length, b.join('').length);
 }
 
+function alignedTokens(a: string[], b: string[], workspace: Uint16Array[]): boolean {
+  let start = 0;
+  const used = new Set<number>();
+  for (const token of a) {
+    let best = Infinity,
+      index = -1;
+    for (let i = start; i < b.length; i++) {
+      const limit = Math.max(2, Math.floor(Math.max(token.length, b[i].length) * 0.4));
+      const distance = transpositionDistance(token, b[i], limit, workspace);
+      if (distance <= limit && distance < best) {
+        best = distance;
+        index = i;
+      }
+    }
+    if (index === -1) return false;
+    used.add(index);
+    start = index + 1;
+  }
+  return a.length !== 1 || b.every((token, index) => used.has(index) || token.length <= 3);
+}
+
 /** Advisory only; callers consult this after a miss, never award its points automatically. */
 export function suggestAnswer(input: string, set: AnswerSet): DiveMatch | null {
   const key = normalizeAnswer(input);
-  if (key.length < 4 || key.length > 80 || stopwords.has(key)) return null;
+  if (key.length < 5 || key.length > 80 || stopwords.has(key)) return null;
   const counts = new Uint8Array(128);
   const remaining = new Uint8Array(128);
   const workspace = [new Uint16Array(136), new Uint16Array(136), new Uint16Array(136)];
@@ -238,6 +259,13 @@ export function suggestAnswer(input: string, set: AnswerSet): DiveMatch | null {
       const end = bucket.indexOf('\n', separator);
       const candidate = bucket.slice(position, separator);
       position = end + 1;
+      const other = candidate.split(' ');
+      if (
+        tokens.length === 1 &&
+        other.length === 1 &&
+        Math.min(length, key.length) < longest * (key.length < 8 ? 0.85 : 0.75)
+      )
+        continue;
       remaining.set(counts);
       let shared = 0;
       for (const character of candidate) {
@@ -248,6 +276,8 @@ export function suggestAnswer(input: string, set: AnswerSet): DiveMatch | null {
         }
       }
       if (shared / longest < 0.6) continue;
+      if ((tokens.length > 1 || other.length > 1) && !alignedTokens(tokens, other, workspace))
+        continue;
       let score = 0;
       const limit = Math.min(5, Math.floor(longest * 0.28));
       if (Math.abs(length - key.length) <= limit && longest - shared <= limit) {
@@ -255,6 +285,10 @@ export function suggestAnswer(input: string, set: AnswerSet): DiveMatch | null {
         if (distance <= limit) score = 1 - distance / longest;
       }
       if (
+        Math.max(key.length, length) >= 7 &&
+        key.length >= 6 &&
+        length >= 6 &&
+        key.at(-1) === candidate.at(-1) &&
         sound.length >= 4 &&
         sound === phonetic(candidate) &&
         transpositionDistance(key, candidate, Math.floor(longest * 0.4), workspace) <=
@@ -262,7 +296,6 @@ export function suggestAnswer(input: string, set: AnswerSet): DiveMatch | null {
       )
         score = Math.max(score, 0.8);
       if (key.includes(' ') || candidate.includes(' ')) {
-        const other = candidate.split(' ');
         if ((tokens.length > 1 && other.length > 1) || Math.min(key.length, length) >= 6)
           score = Math.max(score, tokenSimilarity(tokens, other, workspace) - 0.04);
       }

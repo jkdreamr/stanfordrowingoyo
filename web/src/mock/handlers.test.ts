@@ -57,6 +57,7 @@ describe('Dive', () => {
       password: 'password',
     });
     const post = (path: string, body: unknown) => request('/games/dive/' + path, 'POST', body);
+    expect((await post('answers', { prompt_index: 0, answer: 'Mock answer' })).status).toBe(409);
     expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(409);
     expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
       deadline_ms_remaining: 25000,
@@ -70,6 +71,7 @@ describe('Dive', () => {
       attempts_left: 14,
     });
     expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(429);
+    expect((await post('answers', { prompt_index: 0, answer: 'Mock answer' })).status).toBe(429);
     clock = new Date(clock.getTime() + 400);
     expect(
       await (await post('guesses', { prompt_index: 0, answer: 'mock anser' })).json(),

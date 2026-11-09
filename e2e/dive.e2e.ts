@@ -357,6 +357,12 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
         for (const [prompt_index, set] of sets.entries()) {
           const answer = prompt_index === 0 && n < 2 ? set.gem.answer : set.notable[n % 3].answer;
           await expect(
+            await teammate.context.request.post('/api/games/dive/start', {
+              headers: csrfHeaders,
+              data: { prompt_index },
+            }),
+          ).toBeOK();
+          await expect(
             await teammate.context.request.post('/api/games/dive/answers', {
               headers: csrfHeaders,
               data: { prompt_index, answer },
@@ -506,6 +512,12 @@ for (const role of ['coxswain', 'coach'] as const) {
       }),
     ).toBeOK();
     await expect(
+      await adminPage.request.post('/api/games/dive/start', {
+        headers: csrfHeaders,
+        data: { prompt_index: 0 },
+      }),
+    ).toBeOK();
+    await expect(
       await adminPage.request.post('/api/games/dive/answers', {
         headers: csrfHeaders,
         data: { prompt_index: 0, answer: 'spoiler guard' },
@@ -548,19 +560,32 @@ for (const role of ['coxswain', 'coach'] as const) {
     await expect(player.page.getByRole('button', { name: 'Begin', exact: true })).toBeVisible();
     await expect(player.page.getByRole('region', { name: 'Team Answers' })).toHaveCount(0);
     await expect(
+      await player.context.request.post('/api/games/dive/start', {
+        headers: csrfHeaders,
+        data: { prompt_index: 0 },
+      }),
+    ).toBeOK();
+    await expect(
       player.context.request.post('/api/games/dive/answers', {
         headers: csrfHeaders,
         data: { prompt_index: 0, answer: '' },
       }),
     ).resolves.toBeOK();
     expect((await player.context.request.get('/api/games/dive/leaderboard')).status()).toBe(403);
-    for (let i = 1; i < DIVE_PROMPTS_PER_DAY; i++)
+    for (let i = 1; i < DIVE_PROMPTS_PER_DAY; i++) {
+      await expect(
+        await player.context.request.post('/api/games/dive/start', {
+          headers: csrfHeaders,
+          data: { prompt_index: i },
+        }),
+      ).toBeOK();
       await expect(
         await player.context.request.post('/api/games/dive/answers', {
           headers: csrfHeaders,
           data: { prompt_index: i, answer: '' },
         }),
       ).toBeOK();
+    }
     await player.page.reload();
     await expect(player.page.getByRole('region', { name: 'Team Answers' })).toBeVisible();
     await expect(

@@ -43,10 +43,17 @@ export function Prompt({
   onSaved: (answer: DiveAnswerResult) => void;
   onConflict: () => Promise<unknown>;
 }) {
-  const [deadline, setDeadline] = useState(() =>
-    pending
-      ? Date.now() + pending.deadline_ms_remaining
-      : (savedDeadline(storageKey) ?? Date.now() + DIVE_PROMPT_MS),
+  const [deadline, setDeadline] = useState(
+    () =>
+      performance.now() +
+      Math.max(
+        0,
+        Math.min(
+          DIVE_PROMPT_MS,
+          pending?.deadline_ms_remaining ??
+            (savedDeadline(storageKey) ?? Date.now() + DIVE_PROMPT_MS) - Date.now(),
+        ),
+      ),
   );
   const deadlineRef = useRef(deadline);
   const form = useRef<HTMLFormElement>(null);
@@ -55,7 +62,7 @@ export function Prompt({
   const finished = useRef(false);
   const timeoutSent = useRef(false);
   const [started, setStarted] = useState(false);
-  const [remaining, setRemaining] = useState(() => Math.max(0, deadline - Date.now()));
+  const [remaining, setRemaining] = useState(() => Math.max(0, deadline - performance.now()));
   const [answer, setAnswer] = useState('');
   const [suggestion, setSuggestion] = useState(() =>
     pending?.suggestion ? { canonical: pending.suggestion, typed: '' } : null,
@@ -63,27 +70,38 @@ export function Prompt({
   const [attemptsLeft, setAttemptsLeft] = useState(
     pending?.attempts_left ?? DIVE_MAX_WRONG_GUESSES,
   );
-  const [feedback, setFeedback] = useState(false);
+  const [feedback, setFeedback] = useState<string | null>(null);
   const [shake, setShake] = useState(false);
   const focusInput = () => form.current?.querySelector('input')?.focus({ preventScroll: true });
-  const wrongAnswer = (left: number) => {
+  const wrongAnswer = (left: number, message = 'Not an answer') => {
     setAttemptsLeft(left);
-    if (form.current?.querySelector('input')?.value === submittedText.current) setAnswer('');
+    const unchanged = form.current?.querySelector('input')?.value === submittedText.current;
+    if (unchanged) setAnswer('');
     setSuggestion(null);
-    setFeedback(true);
-    setShake(true);
+    setFeedback(unchanged ? message : null);
+    setShake(unchanged && message === 'Not an answer');
     focusInput();
   };
   const startMutation = useMutation({
-    mutationFn: () => api('POST /api/games/dive/start', { body: { prompt_index: index } }),
+    mutationFn: async () => {
+      const sent = performance.now();
+      const response = await api('POST /api/games/dive/start', { body: { prompt_index: index } });
+      return {
+        ...response,
+        deadline_ms_remaining: Math.max(
+          0,
+          response.deadline_ms_remaining - (performance.now() - sent),
+        ),
+      };
+    },
     onSuccess: (response) => {
-      const value = Date.now() + response.deadline_ms_remaining;
+      const value = performance.now() + response.deadline_ms_remaining;
       deadlineRef.current = value;
       setDeadline(value);
       setRemaining(response.deadline_ms_remaining);
       setStarted(true);
       try {
-        localStorage.setItem(storageKey, String(value));
+        localStorage.setItem(storageKey, String(Date.now() + response.deadline_ms_remaining));
       } catch {
         /* The in-memory deadline still applies. */
       }
@@ -97,14 +115,25 @@ export function Prompt({
     begin();
   }, [begin]);
   const mutation = useMutation({
-    mutationFn: (submission: Submission) =>
-      submission.kind === 'suggestion'
+    mutationFn: async (submission: Submission) => {
+      const sent = performance.now();
+      const response = await (submission.kind === 'suggestion'
         ? api('POST /api/games/dive/suggestion', {
             body: { prompt_index: index, accept: submission.accept },
           })
         : api('POST /api/games/dive/guesses', {
             body: { prompt_index: index, answer: submission.value },
-          }),
+          }));
+      return response.outcome === 'suggestion'
+        ? {
+            ...response,
+            deadline_ms_remaining: Math.max(
+              0,
+              response.deadline_ms_remaining - (performance.now() - sent),
+            ),
+          }
+        : response;
+    },
     onSuccess: (response, submission) => {
       if (response.outcome === 'scored') {
         finished.current = true;
@@ -116,18 +145,25 @@ export function Prompt({
         onSaved(response.answer);
       } else if (response.outcome === 'suggestion') {
         setAttemptsLeft(response.attempts_left);
-        setFeedback(false);
+        setFeedback(null);
         if (
           submission.kind === 'guess' &&
           form.current?.querySelector('input')?.value.trim() === submission.value
         )
           setSuggestion({ canonical: response.suggestion, typed: submission.value });
-        const value = Date.now() + response.deadline_ms_remaining;
+        const value = Math.min(
+          deadlineRef.current,
+          performance.now() + response.deadline_ms_remaining,
+        );
         deadlineRef.current = value;
         setDeadline(value);
-        setRemaining(response.deadline_ms_remaining);
+        setRemaining(Math.max(0, value - performance.now()));
         focusInput();
-      } else wrongAnswer(response.attempts_left);
+      } else
+        wrongAnswer(
+          response.attempts_left,
+          response.outcome === 'already_used' ? 'Already Used Today' : 'Not an answer',
+        );
     },
     onError: async (error) => {
       if (isConflict(error)) await onConflict();
@@ -142,7 +178,7 @@ export function Prompt({
       if (locked.current || finished.current) return;
       locked.current = true;
       submittedText.current = form.current?.querySelector('input')?.value ?? '';
-      if (Date.now() >= deadlineRef.current) {
+      if (performance.now() >= deadlineRef.current) {
         timeoutSent.current = true;
         mutate({ kind: 'guess', value: '' });
       } else mutate(submission);
@@ -152,7 +188,7 @@ export function Prompt({
   useEffect(() => {
     if (!started) return;
     function tick() {
-      const time = Math.max(0, deadline - Date.now());
+      const time = Math.max(0, deadline - performance.now());
       setRemaining(time);
       if (time === 0 && !timeoutSent.current && !locked.current && !finished.current)
         send({ kind: 'guess', value: '' });
@@ -241,7 +277,7 @@ export function Prompt({
             readOnly={started && remaining === 0}
             onChange={(event) => {
               setAnswer(event.target.value);
-              setFeedback(false);
+              setFeedback(null);
               setShake(false);
               setSuggestion(null);
               if (!locked.current) mutation.reset();
@@ -265,16 +301,23 @@ export function Prompt({
           />
         </div>
         <div className={suggestion ? 'dive-suggestion' : 'dive-feedback'}>
-          <div role="status" aria-live="polite" aria-atomic="true">
+          <div role="status" aria-atomic="true">
             {suggestion && (
               <p>
                 Did you mean <strong>{suggestion.canonical}</strong>?
               </p>
             )}
-            {feedback && <p className="dive-wrong-feedback">Not an answer</p>}
+            {feedback && <p className="dive-wrong-feedback">{feedback}</p>}
             {attemptsLeft <= 5 && (
               <p className="text-footnote text-muted">
-                {attemptsLeft} {attemptsLeft === 1 ? 'guess' : 'guesses'} left
+                {attemptsLeft} {attemptsLeft === 1 ? 'Guess' : 'Guesses'} Left
+              </p>
+            )}
+            {suggestion && attemptsLeft <= 5 && (
+              <p className="text-footnote text-muted">
+                {attemptsLeft === 1
+                  ? 'Rejecting this suggestion or submitting another answer ends this prompt.'
+                  : 'Rejecting this suggestion or submitting another answer uses a guess.'}
               </p>
             )}
           </div>

@@ -24,6 +24,7 @@ import { divePromptsFor, diveSelectionFor } from '../games/divePrompts';
 import { answerSet } from '../games/dive/sets';
 import { matchAnswer, suggestAnswer, type AnswerSet, type DiveMatch } from '../games/dive/matcher';
 import { HttpError, json, readJson } from '../http';
+import { now } from '../clock';
 import * as v from '../validate';
 
 function checkedDate(ctx: Context, value: unknown) {
@@ -32,6 +33,46 @@ function checkedDate(ctx: Context, value: unknown) {
   return date;
 }
 const miss: DiveMatch = { canonical: null, tier: 'miss', points: 0 };
+function refreshClock(ctx: Context, date = today(ctx.now)) {
+  ctx.now = now(ctx.request, ctx.env);
+  if (today(ctx.now) !== date)
+    throw new HttpError(409, 'DAY_CHANGED', 'The team day changed. Refresh to keep playing.');
+}
+function alreadyUsed(ctx: Context, date: string, userId: string, matched: DiveMatch): boolean {
+  return Boolean(
+    matched.canonical &&
+    ctx.storage.sql
+      .exec(
+        'SELECT 1 FROM dive_answers WHERE date=? AND user_id=? AND canonical IS NOT NULL AND normalized=? LIMIT 1',
+        date,
+        userId,
+        normalizeAnswer(matched.canonical),
+      )
+      .toArray().length,
+  );
+}
+function sameSuggestion(row: DiveAttemptExport, value: string) {
+  return (
+    row.suggestion_status === 'pending' &&
+    [row.suggestion_answer, row.suggestion_canonical].some(
+      (text) => text && normalizeAnswer(text) === normalizeAnswer(value),
+    )
+  );
+}
+function throttle(ctx: Context, row: DiveAttemptExport) {
+  if (
+    row.last_guess_at &&
+    ctx.now.getTime() - Date.parse(row.last_guess_at) < DIVE_GUESS_INTERVAL_MS
+  )
+    throw new HttpError(429, 'TOO_FAST', 'Wait 400 ms between guesses.', { 'Retry-After': '1' });
+  ctx.storage.sql.exec(
+    'UPDATE dive_attempts SET last_guess_at=? WHERE date=? AND user_id=? AND prompt_index=?',
+    ctx.now.toISOString(),
+    row.date,
+    row.user_id,
+    row.prompt_index,
+  );
+}
 function attempt(ctx: Context, date: string, userId: string, index: number) {
   return ctx.storage.sql
     .exec<Row<DiveAttemptExport>>(
@@ -179,6 +220,7 @@ function storeAnswer(
 export async function start(ctx: Context) {
   refreshUser(ctx);
   const index = checkedIndex(await readJson(ctx.request));
+  refreshClock(ctx);
   return json(
     ctx.storage.transactionSync(() => {
       const { user, date } = active(ctx, index);
@@ -199,23 +241,43 @@ export async function answer(ctx: Context) {
   const body = await readJson(ctx.request),
     index = checkedIndex(body),
     value = checkedAnswer(body);
+  refreshClock(ctx);
   const { date } = active(ctx, index);
   const set = await answerSet(diveSelectionFor(date)[index].id);
+  refreshClock(ctx, date);
   const result = ctx.storage.transactionSync(() => {
     const { user, date } = active(ctx, index);
     const row = attempt(ctx, date, user.id, index);
-    const timeout = row && expired(ctx, row);
-    return storeAnswer(
-      ctx,
-      index,
-      timeout ? '' : value,
-      timeout ? miss : matchAnswer(value, set),
-      set,
-      user.id,
-      date,
-    );
+    if (!row) throw new HttpError(409, 'NOT_STARTED', 'Start this prompt first.');
+    const timeout = expired(ctx, row);
+    if (!timeout && value) {
+      throttle(ctx, row);
+      if (sameSuggestion(row, value))
+        return {
+          outcome: 'suggestion' as const,
+          ...pending(ctx, row),
+          suggestion: row.suggestion_canonical!,
+        };
+      if (row.suggestion_status === 'pending') {
+        ctx.storage.sql.exec(
+          "UPDATE dive_attempts SET suggestion_status='rejected' WHERE date=? AND user_id=? AND prompt_index=?",
+          date,
+          user.id,
+          index,
+        );
+        const rejected = wrong(ctx, index, row, set);
+        if (rejected.outcome === 'scored') return rejected.answer;
+      }
+    }
+    const matched = timeout ? miss : matchAnswer(value, set);
+    if (alreadyUsed(ctx, date, user.id, matched))
+      return {
+        outcome: 'already_used' as const,
+        attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count,
+      };
+    return storeAnswer(ctx, index, timeout ? '' : value, matched, set, user.id, date);
   });
-  return json(result, 201);
+  return json(result, 'outcome' in result ? 200 : 201);
 }
 function wrong(
   ctx: Context,
@@ -243,26 +305,19 @@ export async function guess(ctx: Context) {
   const body = await readJson(ctx.request),
     index = checkedIndex(body),
     value = checkedAnswer(body);
+  refreshClock(ctx);
   const { date } = active(ctx, index);
   const set = await answerSet(diveSelectionFor(date)[index].id);
+  refreshClock(ctx, date);
   const result = ctx.storage.transactionSync((): DiveGuessResponse => {
     const { user, date } = active(ctx, index);
     const row = attempt(ctx, date, user.id, index);
     if (!row) throw new HttpError(409, 'NOT_STARTED', 'Start this prompt first.');
     if (expired(ctx, row) || !value)
       return { outcome: 'scored', answer: storeAnswer(ctx, index, '', miss, set, user.id, date) };
-    if (
-      row.last_guess_at &&
-      ctx.now.getTime() - Date.parse(row.last_guess_at) < DIVE_GUESS_INTERVAL_MS
-    )
-      throw new HttpError(429, 'TOO_FAST', 'Wait 400 ms between guesses.', { 'Retry-After': '1' });
-    ctx.storage.sql.exec(
-      'UPDATE dive_attempts SET last_guess_at=? WHERE date=? AND user_id=? AND prompt_index=?',
-      ctx.now.toISOString(),
-      date,
-      user.id,
-      index,
-    );
+    throttle(ctx, row);
+    if (sameSuggestion(row, value))
+      return { outcome: 'suggestion', ...pending(ctx, row), suggestion: row.suggestion_canonical! };
     if (row.suggestion_status === 'pending') {
       ctx.storage.sql.exec(
         "UPDATE dive_attempts SET suggestion_status='rejected' WHERE date=? AND user_id=? AND prompt_index=?",
@@ -275,6 +330,8 @@ export async function guess(ctx: Context) {
       if (rejected.outcome === 'scored') return rejected;
     }
     const matched = matchAnswer(value, set);
+    if (alreadyUsed(ctx, date, user.id, matched))
+      return { outcome: 'already_used', attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count };
     if (matched.canonical)
       return {
         outcome: 'scored',
@@ -282,6 +339,8 @@ export async function guess(ctx: Context) {
       };
     if (!row.suggestion_status) {
       const candidate = suggestAnswer(value, set);
+      if (candidate && alreadyUsed(ctx, date, user.id, candidate))
+        return { outcome: 'already_used', attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count };
       if (candidate?.canonical) {
         ctx.storage.sql.exec(
           "UPDATE dive_attempts SET suggestion_canonical=?,suggestion_answer=?,suggestion_status='pending',suggested_at=? WHERE date=? AND user_id=? AND prompt_index=?",
@@ -304,8 +363,10 @@ export async function suggestion(ctx: Context) {
   const body = await readJson(ctx.request),
     index = checkedIndex(body),
     accept = v.boolean(body.accept, 'Accept');
+  refreshClock(ctx);
   const { date } = active(ctx, index);
   const set = await answerSet(diveSelectionFor(date)[index].id);
+  refreshClock(ctx, date);
   return json(
     ctx.storage.transactionSync((): DiveGuessResponse => {
       const { user, date } = active(ctx, index);
@@ -314,6 +375,9 @@ export async function suggestion(ctx: Context) {
         return { outcome: 'scored', answer: storeAnswer(ctx, index, '', miss, set, user.id, date) };
       if (!row || row.suggestion_status !== 'pending' || !row.suggestion_canonical)
         throw new HttpError(409, 'NO_SUGGESTION', 'No pending suggestion.');
+      const matched = matchAnswer(row.suggestion_canonical, set);
+      if (accept && alreadyUsed(ctx, date, user.id, matched))
+        return { outcome: 'already_used', attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count };
       ctx.storage.sql.exec(
         'UPDATE dive_attempts SET suggestion_status=? WHERE date=? AND user_id=? AND prompt_index=?',
         accept ? 'accepted' : 'rejected',
@@ -322,7 +386,6 @@ export async function suggestion(ctx: Context) {
         index,
       );
       if (!accept) return wrong(ctx, index, row, set);
-      const matched = matchAnswer(row.suggestion_canonical, set);
       return {
         outcome: 'scored',
         answer: storeAnswer(ctx, index, row.suggestion_answer!, matched, set, user.id, date),
