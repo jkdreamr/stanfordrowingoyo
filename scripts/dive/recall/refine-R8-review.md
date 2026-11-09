@@ -93,7 +93,7 @@ Global maximum: **17.65%**, Le Mans makes versus Volkswagen group brands, 3/17 (
 
 - Generator passed: 650 runtime modules, 95 unreachable candidates omitted; 64 days, 320 constrained scheduled prompts.
 - Source verification/check passed against every pinned source, not just the seven additions.
-- Exact recall: all seven meet 100%. Overall recall command exits 1 because other historical prompts remain below its 95% threshold (e.g. declaration-signers 31/34); overall 8840/8869, 99.67%. No unrelated alias edits made.
+- Exact recall: all seven meet 100%; overall 8840/8869, 99.67%. Correction from follow-up: the recall command exits 0, including at d9f96cf. The earlier exit-1 claim confused the subsequent chained Node test failure with the evaluator. See refine-R8-alias-review.md for reproduced exit statuses and further test diagnosis.
 - Python: 30 tests, two failures. Fixed-count expectation 387 now sees 394; fixed retired-ID expectation lacks these seven retirements. Tests were not edited outside permitted scope.
 - Node recall tests: 15 tests, 14 pass, one fails because the original replacement-batch test imports the now-retired css-named-colors runtime module removed by generation. Historical specs remain intact; requested generated-output restore restores that file after measuring.
 - Build passed. Measured clean base Worker gzip **2993.75 KiB**, prospective Worker gzip **2996.53 KiB**, delta **+2.78 KiB**. This **exceeds +1.5 KiB by 1.28 KiB**; no members were cut to hide the overage. Both build logs live in `~/work/R8-build-{before,after}.log`.

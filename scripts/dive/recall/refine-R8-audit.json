@@ -561,7 +561,7 @@
       "pageviews": 0,
       "sitelinks": 1,
       "wikidata": 0,
-      "aliases": 21,
+      "aliases": 20,
       "too_clever": [],
       "gem": "Penguin",
       "theme": "everyday",
@@ -612,9 +612,108 @@
   "checks": {
     "generate": "passed",
     "verify_sources_check": "passed, all pinned sources",
-    "recall": "all seven 100%; command exits 1 due to existing other prompts below 95%",
+    "recall": "exit 0 on regenerated tree and --ref d9f96cf; all seven 100%; previous exit-1 claim confused chained Node test failure with recall",
     "python_unittest": "28/30; fixed total-count and retired-ID assertions fail due to seven requested replacements",
     "node_recall_tests": "14/15; historical batch test imports retired css-named-colors runtime module removed by generator",
     "build": "passed; gzip over requested delta budget by 1.28 KiB"
+  },
+  "alias_trim": {
+    "removed": [
+      {
+        "prompt": "monopoly-tokens",
+        "canonical": "Scottie dog",
+        "alias": "Scotty dog",
+        "reason": "Two-edit spelling variant, not in frozen corpus; runtime matcher still returns Scottie dog."
+      }
+    ],
+    "normalizer_redundant_aliases": 0,
+    "standalone_gzip_method": "Node gzipSync of generated formatted TypeScript module bytes, default level; retired modules read with git show d9f96cf:path; not additive Worker bundle gzip.",
+    "measurements": [
+      {
+        "old": "star-alliance",
+        "new": "le-mans-winning-makes",
+        "old_gzip_bytes": 948,
+        "new_gzip_bytes": 725,
+        "aliases": 8,
+        "redundant": [],
+        "after_gzip_bytes": 725,
+        "after_aliases": 8
+      },
+      {
+        "old": "oneworld-airlines",
+        "new": "a380-airlines",
+        "old_gzip_bytes": 649,
+        "new_gzip_bytes": 657,
+        "aliases": 14,
+        "redundant": [],
+        "after_gzip_bytes": 657,
+        "after_aliases": 14
+      },
+      {
+        "old": "monopoly-uk",
+        "new": "spiel-des-jahres-winners",
+        "old_gzip_bytes": 827,
+        "new_gzip_bytes": 1276,
+        "aliases": 13,
+        "redundant": [],
+        "after_gzip_bytes": 1276,
+        "after_aliases": 13
+      },
+      {
+        "old": "monopoly-us",
+        "new": "video-game-hall-of-fame",
+        "old_gzip_bytes": 817,
+        "new_gzip_bytes": 1452,
+        "aliases": 11,
+        "redundant": [],
+        "after_gzip_bytes": 1452,
+        "after_aliases": 11
+      },
+      {
+        "old": "css-named-colors",
+        "new": "generic-trademarks",
+        "old_gzip_bytes": 2415,
+        "new_gzip_bytes": 3145,
+        "aliases": 9,
+        "redundant": [],
+        "after_gzip_bytes": 3145,
+        "after_aliases": 9
+      },
+      {
+        "old": "magic-eight-ball-responses",
+        "new": "toy-hall-of-fame",
+        "old_gzip_bytes": 700,
+        "new_gzip_bytes": 1936,
+        "aliases": 19,
+        "redundant": [],
+        "after_gzip_bytes": 1936,
+        "after_aliases": 19
+      },
+      {
+        "old": "london-tube-lines",
+        "new": "monopoly-tokens",
+        "old_gzip_bytes": 517,
+        "new_gzip_bytes": 607,
+        "aliases": 21,
+        "redundant": [],
+        "after_gzip_bytes": 603,
+        "after_aliases": 20
+      }
+    ],
+    "worker_gzip_kib": 2996.53,
+    "delta_from_base_kib": 2.78,
+    "default_recall_exit": {
+      "base": 0,
+      "regenerated": 0
+    },
+    "base_recall": {
+      "hits": 8719,
+      "total": 8748
+    },
+    "regenerated_recall": {
+      "hits": 8840,
+      "total": 8869
+    },
+    "test_followup": "Both affected Python tests and affected Node test pass at base. Current observed failures are count/list/import, but Spiel text also violates existing parentheses prohibition after retired-list assertion is fixed."
   }
 }
