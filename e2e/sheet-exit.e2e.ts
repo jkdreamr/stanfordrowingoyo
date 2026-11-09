@@ -13,7 +13,7 @@ async function verifyExit(page: Page, dialog: Locator, opener: Locator, label: s
     )
     .toBe(false);
   await page.screenshot({ path: `/home/ubuntu/sheet-exit-${label}-open.png` });
-  const target = await dialog.evaluate(async (element) => {
+  const timing = await dialog.evaluate(async (element) => {
     const original = element.animate;
     const started = new Promise<Animation>((resolve) => {
       element.animate = (...args) => {
@@ -28,13 +28,18 @@ async function verifyExit(page: Page, dialog: Locator, opener: Locator, label: s
     element.querySelector<HTMLButtonElement>('[aria-label="Close"]')!.click();
     try {
       const animation = await started;
-      return (animation.effect as KeyframeEffect).getKeyframes().at(-1)?.transform;
+      return {
+        target: (animation.effect as KeyframeEffect).getKeyframes().at(-1)?.transform,
+        duration: Number(animation.effect!.getTiming().duration),
+      };
     } finally {
       element.animate = original;
     }
   });
   const wide = await page.evaluate(() => matchMedia('(min-width: 1024px)').matches);
-  expect(target).toBe(wide ? 'scale(0.96)' : 'translateY(100%)');
+  expect(timing.target).toBe(wide ? 'scale(0.96)' : 'translateY(100%)');
+  expect(timing.duration).toBeGreaterThanOrEqual(150);
+  console.log(`EXIT_DURATION ${label}=${timing.duration}ms`);
   await expect(dialog).toHaveAttribute('open', '');
   await expect(dialog).toHaveAttribute('data-closing', 'true');
   expect(await page.evaluate(() => document.body.style.overflow)).toBe('hidden');

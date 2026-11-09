@@ -9,7 +9,12 @@ const originalAnimate = Object.getOwnPropertyDescriptor(HTMLElement.prototype, '
 let reduced = false;
 let desktop = false;
 let mediaChange: (() => void) | undefined;
-let exits: { frames: Keyframe[]; finish: () => void; cancel: ReturnType<typeof vi.fn> }[];
+let exits: {
+  frames: Keyframe[];
+  duration: number;
+  finish: () => void;
+  cancel: ReturnType<typeof vi.fn>;
+}[];
 
 beforeEach(() => {
   reduced = false;
@@ -33,7 +38,7 @@ beforeEach(() => {
   }));
   Object.defineProperty(HTMLElement.prototype, 'animate', {
     configurable: true,
-    value: (frames: Keyframe[]) => {
+    value: (frames: Keyframe[], options: KeyframeAnimationOptions) => {
       let resolve!: () => void;
       let reject!: (reason: Error) => void;
       const finished = new Promise<void>((yes, no) => {
@@ -45,7 +50,12 @@ beforeEach(() => {
         finish: () => resolve(),
         cancel: vi.fn(() => reject(new Error('Cancelled'))),
       };
-      exits.push({ frames, finish: animation.finish, cancel: animation.cancel });
+      exits.push({
+        frames,
+        duration: Number(options.duration),
+        finish: animation.finish,
+        cancel: animation.cancel,
+      });
       return animation;
     },
   });
@@ -89,12 +99,14 @@ it.each([false, true])('retains a conditional sheet through its exit, desktop=%s
   opener.focus();
   fireEvent.click(opener);
   const dialog = screen.getByRole('dialog', { name: 'Editor' });
+  dialog.style.setProperty('--oyo-motion-exit', '.2s');
   fireEvent.click(screen.getByRole('button', { name: 'Close' }));
   expect(dialog.isConnected).toBe(true);
   expect(dialog.hasAttribute('open')).toBe(true);
   expect(dialog.textContent).toContain('Saved editor content');
   expect(document.body.style.overflow).toBe('hidden');
   expect(exits[0].frames[1].transform).toBe(wide ? 'scale(0.96)' : 'translateY(100%)');
+  expect(exits[0].duration).toBe(200);
   fireEvent.click(screen.getByRole('button', { name: 'Close' }));
   fireEvent(dialog, new Event('cancel', { cancelable: true }));
   expect(close).toHaveBeenCalledOnce();

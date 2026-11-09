@@ -160,7 +160,9 @@ test('weekly progress reaches Complete and keeps logged totals fresh', async ({
   await page.getByLabel('Meters', { exact: true }).fill('1800');
   await page.getByLabel('Title', { exact: true }).fill('Finish the Week');
   await page.getByRole('button', { name: 'Save', exact: true }).click();
-  await page.getByRole('button', { name: 'Dismiss Notification', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Dismiss Notification', exact: true })).toHaveCount(
+    0,
+  );
   await page.getByRole('link', { name: "Today's Plan", exact: true }).click();
   await expect(week.getByText('9,000 / 9,000 m', { exact: true })).toBeVisible();
   await expect(week.getByText('Complete', { exact: true })).toBeVisible();

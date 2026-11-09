@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState, type SyntheticEvent } from 'react';
 import { DialogPresenceContext } from './DialogPresence';
+import { parseCssTime } from '../../lib/cssTime';
 
 const dialogs = new Set<HTMLDialogElement>();
 const openers = new WeakMap<HTMLDialogElement, HTMLElement>();
@@ -116,7 +117,7 @@ export function useDialog(
             : { opacity: 1, transform: 'translateY(100%)' },
       ],
       {
-        duration: parseFloat(style.getPropertyValue('--oyo-motion-exit')) || 200,
+        duration: parseCssTime(style.getPropertyValue('--oyo-motion-exit'), 200),
         easing: style.getPropertyValue('--oyo-ease-in').trim() || 'ease-in',
         fill: 'forwards',
       },
