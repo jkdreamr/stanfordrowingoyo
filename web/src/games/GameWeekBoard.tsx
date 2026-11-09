@@ -24,7 +24,7 @@ export function GameWeekBoard({ week }: { week?: string }) {
               title={`${row.rank}. ${row.user.name}${row.me ? ' · You' : ''}`}
               to={`/users/${row.user.id}`}
               subtitle={`${row.days} ${row.days === 1 ? 'Day' : 'Days'}`}
-              trailing={`${formatNumber(row.points)} pts`}
+              trailing={`${formatNumber(row.points)} ${row.points === 1 ? 'pt' : 'pts'}`}
             />
           ))}
         </ListGroup>

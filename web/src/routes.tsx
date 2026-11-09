@@ -41,6 +41,9 @@ import Challenges from './pages/admin/Challenges';
 export const router = createBrowserRouter([
   {
     errorElement: <AppErrorScreen />,
+    hydrateFallbackElement: (
+      <div role="status" aria-label="Opening OYO" className="fixed inset-0 bg-[#8C1515]" />
+    ),
     element: (
       <>
         <RouteEffects />

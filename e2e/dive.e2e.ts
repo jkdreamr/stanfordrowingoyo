@@ -310,6 +310,20 @@ for (const role of ['coxswain', 'coach'] as const) {
     const admin: DiveDay = await (await adminPage.request.get('/api/games/dive/today')).json();
     expect(admin.complete).toBe(false);
     expect(admin.reveal![0].groups).toHaveLength(1);
+    await player.page.goto('/games/leaderboard');
+    for (const title of ['Dive', 'Word Guess', 'Perception', 'Connections']) {
+      const board = player.page.getByRole('region', { name: `${title} Day Board` });
+      await expect(board.getByRole('heading', { name: title, exact: true })).toBeVisible();
+      await expect(board.getByText('Play To See Today’s Board', { exact: true })).toBeVisible();
+      await expect(board.getByRole('link')).toHaveCount(0);
+    }
+    if (role === 'coxswain' && testInfo.project.name === 'pixel-7') {
+      await expect(player.page.locator('#launch-splash')).toHaveCount(0);
+      await player.page.screenshot({
+        path: testInfo.outputPath('locked-game-boards.png'),
+        fullPage: true,
+      });
+    }
     await player.page.goto('/games/dive');
     await expect(player.page.getByRole('button', { name: 'Begin', exact: true })).toBeVisible();
     await expect(player.page.getByRole('region', { name: 'Team Answers' })).toHaveCount(0);

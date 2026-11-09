@@ -65,6 +65,14 @@ function surface(count = 2) {
     </MemoryRouter>,
   );
 }
+it.each([1, 2])('pluralizes the accessible count for %i kudos', (count) => {
+  surface(count);
+  expect(
+    screen.getByRole('button', {
+      name: `View ${count} ${count === 1 ? 'Kudo' : 'Kudos'}`,
+    }).textContent,
+  ).toBe(String(count));
+});
 it('keeps zero non-interactive and fetching disabled until the count is opened', () => {
   surface(0);
   expect(screen.queryByRole('button', { name: /View .* Kudos/ })).toBeNull();

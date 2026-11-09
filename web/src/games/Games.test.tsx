@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import type { ReactNode } from 'react';
@@ -12,6 +12,7 @@ import GamesLeaderboard from '../pages/GamesLeaderboard';
 import DiveStart from './DiveStart';
 import { GAMES } from './registry';
 import { GamesCard } from './GamesCard';
+import { GameWeekBoard } from './GameWeekBoard';
 
 const clients: ReturnType<typeof createQueryClient>[] = [];
 beforeEach(() => {
@@ -29,7 +30,7 @@ afterEach(() => {
   clients.length = 0;
   vi.unstubAllGlobals();
 });
-function mount(node: ReactNode, fail = false) {
+function mount(node: ReactNode, fail = false, responses: Record<string, unknown> = {}) {
   const mock = createMockApi({ now: () => new Date('2026-03-18T18:00:00Z'), session: 'user-1' });
   mock.state.entries = [];
   mock.state.myPlans = [];
@@ -37,9 +38,11 @@ function mount(node: ReactNode, fail = false) {
   client.setDefaultOptions({ queries: { retry: false } });
   clients.push(client);
   vi.stubGlobal('fetch', (url: URL, init: RequestInit) =>
-    fail
-      ? Promise.resolve(new Response(null, { status: 500 }))
-      : mock.handle(new Request(String(url), init)),
+    responses[new URL(url).pathname]
+      ? Promise.resolve(Response.json(responses[new URL(url).pathname]))
+      : fail
+        ? Promise.resolve(new Response(null, { status: 500 }))
+        : mock.handle(new Request(String(url), init)),
   );
   return {
     mock,
@@ -97,6 +100,39 @@ it.each(['coxswain', 'coach'] as const)('keeps %s boards gated in mock mode too'
   const { mock } = mount(<GameDayBoard gameId="wordguess" date="2026-03-18" />);
   mock.state.users.find((u) => u.id === 'user-1')!.role = role;
   expect(await screen.findByText('Play To See Today’s Board')).toBeTruthy();
+});
+it.each(['coxswain', 'coach'] as const)(
+  'labels every locked %s daily board with its game',
+  async (role) => {
+    const { mock } = mount(<GamesLeaderboard />);
+    mock.state.users.find((user) => user.id === 'user-1')!.role = role;
+    await screen.findAllByText('Play To See Today’s Board');
+    for (const game of GAMES) {
+      const board = within(screen.getByRole('region', { name: `${game.title} Day Board` }));
+      expect(board.getByRole('heading', { name: game.title })).toBeTruthy();
+      expect(board.getByText('Play To See Today’s Board')).toBeTruthy();
+      expect(board.queryByRole('link')).toBeNull();
+    }
+  },
+);
+
+it.each([0, 1, 2])('pluralizes a daily board with %i players', async (players) => {
+  mount(<GameDayBoard gameId="wordguess" date="2026-03-18" />, false, {
+    '/api/games/wordguess/leaderboard': { date: '2026-03-18', final: false, players, rows: [] },
+  });
+  expect(
+    await screen.findByText(`Live · ${players} ${players === 1 ? 'Player' : 'Players'}`),
+  ).toBeTruthy();
+});
+it.each([0, 1, 2])('pluralizes a weekly board with %i points and days', async (points) => {
+  mount(<GameWeekBoard />, false, {
+    '/api/games/leaderboard': {
+      week_start: '2026-03-16',
+      rows: [{ rank: 1, user: { id: 'player', name: 'A Player' }, points, days: points, me: true }],
+    },
+  });
+  expect(await screen.findByText(`${points} ${points === 1 ? 'pt' : 'pts'}`)).toBeTruthy();
+  expect(screen.getByText(`${points} ${points === 1 ? 'Day' : 'Days'}`)).toBeTruthy();
 });
 it('lets admins view past boards without playing', async () => {
   const { mock } = mount(<GamesLeaderboard />);

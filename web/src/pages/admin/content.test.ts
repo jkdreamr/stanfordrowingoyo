@@ -220,6 +220,18 @@ describe('human audit records', () => {
     });
     expect(humanizeAction('user.remove')).toBe('Removed Account');
   });
+  it.each([0, 1, 2])('pluralizes audit counts for %i records', (count) => {
+    const removal = summarize('user.remove', null, { removed: { kudos: count } });
+    expect(removal.changes).toEqual(
+      count === 0 ? [] : [`${count} ${count === 1 ? 'kudo' : 'kudos'}`],
+    );
+    expect(summarize('roster.import', null, { imported: count }).changes).toContain(
+      `Imported ${count} ${count === 1 ? 'name' : 'names'}`,
+    );
+    expect(summarize('roster.update', null, { updated: count }).changes).toContain(
+      `Updated ${count} ${count === 1 ? 'entry' : 'entries'}`,
+    );
+  });
   it('uses resolved names and real before/after changes, not metadata or secrets', () => {
     const result = summarize(
       'user.update',
