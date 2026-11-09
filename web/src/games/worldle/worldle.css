@@ -1,0 +1,255 @@
+.worldle {
+  --worldle-success: #237a40;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding-bottom: var(--worldle-keyboard, 0px);
+}
+.dark .worldle {
+  --worldle-success: #89d79f;
+}
+.worldle-instructions {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.worldle-shape-card {
+  position: relative;
+  width: min(240px, 100%);
+  aspect-ratio: 1;
+  margin: 0 auto 12px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+}
+.worldle-shape {
+  position: absolute;
+  inset: 20px;
+  background: var(--text);
+  mask: center / contain no-repeat;
+  -webkit-mask: center / contain no-repeat;
+}
+.worldle-board-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+}
+.worldle-units {
+  display: flex;
+}
+.worldle-units button {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 8px;
+}
+.worldle-units button[aria-pressed='true'] {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.worldle-board {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.worldle-row {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px;
+  overflow: hidden;
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  background: var(--surface);
+  font-size: 13px;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.worldle-proximity-bar {
+  position: absolute;
+  inset: auto auto 0 0;
+  height: 3px;
+  background: var(--muted);
+  opacity: 0.25;
+  z-index: -1;
+}
+.worldle-country {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.worldle-distance {
+  white-space: nowrap;
+}
+.worldle-direction {
+  display: flex;
+  flex: 0 0 20px;
+}
+.worldle-percent {
+  flex: 0 0 36px;
+  text-align: right;
+}
+.worldle-correct {
+  color: var(--worldle-success);
+  border-color: var(--worldle-success);
+}
+.worldle-correct .worldle-proximity-bar {
+  background: var(--worldle-success);
+}
+.worldle-empty-number {
+  color: var(--muted);
+  width: 16px;
+}
+.worldle-empty-line {
+  width: 28px;
+  height: 1px;
+  background: var(--divider);
+}
+.worldle-message,
+.worldle-input-message {
+  color: var(--muted);
+  font-size: 13px;
+}
+.worldle-message:empty,
+.worldle-input-message:empty {
+  display: none;
+}
+.worldle-message {
+  margin-top: 12px;
+}
+.worldle-form {
+  margin-top: 16px;
+  scroll-margin-block: 120px;
+}
+.worldle-form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.worldle-entry {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+.worldle-entry input {
+  min-width: 0;
+  flex: 1;
+  min-height: 48px;
+  font-size: 16px;
+  padding: 12px;
+  border: 1px solid var(--oyo-control-border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  caret-color: var(--accent-ink);
+}
+.worldle-entry .ui-button {
+  min-height: 48px;
+}
+.worldle-entry input:focus-visible,
+.worldle-units button:focus-visible {
+  outline: 2px solid var(--oyo-focus);
+  outline-offset: 2px;
+}
+.worldle-suggestions {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  max-height: min(176px, 30dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border: 1px solid var(--oyo-control-border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.worldle-suggestions li {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.worldle-option-active,
+.worldle-suggestions li:hover {
+  background: var(--oyo-hover);
+}
+.worldle-reveal {
+  text-align: center;
+  margin: 16px 0;
+}
+.worldle-reveal h2 {
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+.worldle-map {
+  position: relative;
+  aspect-ratio: 2;
+  display: block;
+  width: 100%;
+  background: var(--surface-2);
+  border-radius: 8px;
+}
+.worldle-map svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.worldle-map-land {
+  position: absolute;
+  inset: 0;
+  background: var(--muted);
+  mask: url('/worldle/world.svg') center / contain no-repeat;
+  -webkit-mask: url('/worldle/world.svg') center / contain no-repeat;
+  opacity: 0.55;
+}
+.worldle-map-marker {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+.worldle-result {
+  margin-top: 20px;
+}
+@media (max-width: 600px) and (max-height: 900px) {
+  .worldle-shape-card {
+    width: min(208px, 100%);
+  }
+  .worldle-row {
+    min-height: 36px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .worldle-row:has(.worldle-country) {
+    animation: worldle-reveal 160ms var(--oyo-ease-out);
+  }
+  @keyframes worldle-reveal {
+    from {
+      transform: translateY(3px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}

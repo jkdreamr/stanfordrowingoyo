@@ -19,6 +19,7 @@ test('launch games omit Dive from Home, hub and boards and redirect disabled lin
     'connections',
     'perception',
     'wordguess',
+    'worldle',
   ]);
   for (const request of [context.request, adminPage.request]) {
     expect((await request.get('/api/games/dive/today')).status()).toBe(404);
@@ -54,14 +55,14 @@ test('launch games omit Dive from Home, hub and boards and redirect disabled lin
           await expect(card).toBeVisible();
           await card.scrollIntoViewIfNeeded();
         } else if (name === 'hub') {
-          for (const title of ['Word Guess', 'Connections', 'Perception'])
+          for (const title of ['Word Guess', 'Connections', 'Perception', 'Worldle'])
             await expect(page.getByRole('link', { name: new RegExp(title) })).toBeVisible();
           await expect(
             page.locator('a[href^="/games/"]').filter({ hasText: /Locked|Play/ }),
-          ).toHaveCount(3);
+          ).toHaveCount(4);
         } else {
-          await expect(page.getByRole('region', { name: / Day Board$/ })).toHaveCount(3);
-          for (const title of ['Word Guess', 'Connections', 'Perception'])
+          await expect(page.getByRole('region', { name: / Day Board$/ })).toHaveCount(4);
+          for (const title of ['Word Guess', 'Connections', 'Perception', 'Worldle'])
             await expect(page.getByRole('region', { name: `${title} Day Board` })).toBeVisible();
         }
         await expect(page.getByRole('link', { name: /\bDive\b/ })).toHaveCount(0);

@@ -1,6 +1,7 @@
 import type { GameScoreDirection } from '../../../shared/types';
 import type { Context } from '../context';
 import { DIVE_ENABLED } from './features';
+import { WORLDLE_ENABLED } from './features';
 
 export interface ServerGame {
   id: string;
@@ -12,4 +13,5 @@ export const GAMES: Record<string, ServerGame> = {
   wordguess: { id: 'wordguess', direction: 'higher' },
   perception: { id: 'perception', direction: 'higher' },
   connections: { id: 'connections', direction: 'higher' },
+  ...(WORLDLE_ENABLED ? { worldle: { id: 'worldle', direction: 'higher' as const } } : {}),
 };
