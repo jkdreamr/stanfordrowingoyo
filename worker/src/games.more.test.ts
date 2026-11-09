@@ -7,12 +7,76 @@ import { sha256 } from './auth/crypto';
 import { dailyAnswer } from './games/wordGuess';
 import { perceptionPuzzle } from './games/perception';
 import { connectionsPuzzleFor } from './games/connectionsPuzzles';
-import type { ConnectionsDay, PerceptionDay } from '../../shared/types';
+import type {
+  ConnectionsDay,
+  PerceptionDay,
+  PerceptionStart,
+  PerceptionStimulus,
+} from '../../shared/types';
+import { PERCEPTION_ROUNDS } from '../../shared/games/perception';
+import { perceptionLineup, perceptionV2Puzzle } from './games/perceptionV2';
+import {
+  PERCEPTION_POOL,
+  PERCEPTION_FIELDS,
+  perceptionExposure,
+  type PerceptionRoundId,
+  type PerceptionRoundAnswer,
+} from '../../shared/games/perceptionV2';
 
 const bindings = env as unknown as Env;
 const NOW = '2026-03-18T18:00:00Z';
 const DATE = '2026-03-18';
 const TOKEN = 'games-more-session';
+
+const v2Date = (d: number) => new Date(Date.UTC(2026, 10, 10 + d)).toISOString().slice(0, 10);
+const v2At = (date: string, ms = 0) => new Date(Date.parse(`${date}T18:00:00Z`) + ms).toISOString();
+function stimulusAnswer(stimulus: PerceptionStimulus): PerceptionRoundAnswer {
+  if ('reactionDelayMs' in stimulus) return { reactionMs: 160 };
+  if ('countDots' in stimulus) return { count: stimulus.countDots.length };
+  if ('endpoints' in stimulus) {
+    const [a, b] = stimulus.endpoints;
+    return { bisect: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2] };
+  }
+  if ('contact' in stimulus) return { contactMs: stimulus.contact.hiddenMs };
+  if ('angle' in stimulus) return { angle: stimulus.angle };
+  if ('shade' in stimulus) return { shade: stimulus.shade };
+  return stimulus;
+}
+function v2Answer(date: string, round: PerceptionRoundId): PerceptionRoundAnswer {
+  const p = perceptionV2Puzzle(date);
+  const all = {
+    ...p,
+    reactionMs: 160,
+    bisect: [
+      (p.endpoints[0][0] + p.endpoints[1][0]) / 2,
+      (p.endpoints[0][1] + p.endpoints[1][1]) / 2,
+    ],
+    contactMs: p.contact.hiddenMs,
+  };
+  const field = PERCEPTION_FIELDS[round];
+  return { [field]: all[field] };
+}
+async function v2Unlock(date: string) {
+  await sql((s) => s.sql.exec("UPDATE sessions SET expires_at='2030-01-01T00:00:00Z'"));
+  expect(
+    (
+      await api(
+        '/entries',
+        'POST',
+        {
+          date,
+          modality: 'erg',
+          zone: 'E',
+          distance_m: 1000,
+          title: '',
+          notes: '',
+          visibility: 'team',
+        },
+        v2At(date),
+      )
+    ).status,
+  ).toBe(201);
+}
 
 function sql<T>(callback: (s: DurableObjectStorage) => T | Promise<T>) {
   return runInDurableObject(bindings.TEAM.get(bindings.TEAM.idFromName('stanford')), (_, state) =>
@@ -60,6 +124,225 @@ async function unlock() {
   });
   expect(workout.status).toBe(201);
 }
+
+it.each(Array.from({ length: 7 }, (_, i) => v2Date(i)))(
+  'plays a complete v2 lineup on %s with an atomic immutable 500 result',
+  async (date) => {
+    await v2Unlock(date);
+    const rounds = perceptionLineup(date);
+    expect(
+      await (await api('/games/perception/today', 'GET', undefined, v2At(date))).json(),
+    ).toMatchObject({ rounds, round: 0, scores: {}, done: false });
+    expect((await api('/games/perception/start', 'POST', { round: 1 }, v2At(date))).status).toBe(
+      409,
+    );
+    for (let round = 0; round < 5; round++) {
+      const at = v2At(date, round * 60000);
+      expect(
+        (
+          await api(
+            '/games/perception/answer',
+            'POST',
+            { round, answer: v2Answer(date, rounds[round]) },
+            at,
+          )
+        ).status,
+      ).toBe(409);
+      const started = await api('/games/perception/start', 'POST', { round }, at);
+      expect(started.status).toBe(200);
+      const body = await started.json<PerceptionStart>();
+      const answerFromStimulus = stimulusAnswer(body.stimulus);
+      const p = perceptionV2Puzzle(date),
+        id = rounds[round];
+      const expected =
+        id === 'angle'
+          ? { angle: p.angle, rotation: p.rotation }
+          : id === 'count'
+            ? { countDots: p.countDots }
+            : id === 'shade'
+              ? { shade: p.shade, shadeBackgrounds: p.shadeBackgrounds }
+              : id === 'bisect'
+                ? { endpoints: p.endpoints }
+                : id === 'contact'
+                  ? { contact: p.contact }
+                  : id === 'reaction'
+                    ? { reactionDelayMs: p.reactionDelayMs }
+                    : v2Answer(date, id);
+      expect(body.stimulus).toEqual(expected);
+      expect((await api('/games/perception/start', 'POST', { round }, at)).status).toBe(409);
+      for (const answer of [{}, { wrong: 1 }, { ...answerFromStimulus, extra: 1 }])
+        expect((await api('/games/perception/answer', 'POST', { round, answer }, at)).status).toBe(
+          400,
+        );
+      const answered = await api(
+        '/games/perception/answer',
+        'POST',
+        { round, answer: answerFromStimulus },
+        v2At(date, round * 60000 + 20000),
+      );
+      expect(answered.status).toBe(200);
+      expect(await answered.json()).toMatchObject({
+        round: round + 1,
+        scores: { [id]: 100 },
+        done: round === 4,
+      });
+      expect(
+        (
+          await api(
+            '/games/perception/answer',
+            'POST',
+            { round, answer: answerFromStimulus },
+            v2At(date, round * 60000 + 21000),
+          )
+        ).status,
+      ).toBe(409);
+    }
+    const result = await (
+      await api('/games/perception/results/me', 'GET', undefined, v2At(date))
+    ).json<GameResult>();
+    expect(result).toMatchObject({ score: 500, payload: { rounds } });
+    await api('/games/perception/today', 'GET', undefined, v2At(date));
+    expect(
+      await sql((s) =>
+        s.sql.exec("SELECT * FROM game_results WHERE game_id='perception'").toArray(),
+      ),
+    ).toHaveLength(1);
+  },
+);
+
+it.each(PERCEPTION_ROUNDS)(
+  'scores the returned v2 %s stimulus without generator-derived answers',
+  async (id) => {
+    const date = Array.from({ length: 5 }, (_, i) => v2Date(i)).find((date) =>
+      perceptionLineup(date).includes(id),
+    )!;
+    await v2Unlock(date);
+    const day = await (
+      await api('/games/perception/today', 'GET', undefined, v2At(date))
+    ).json<PerceptionDay>();
+    const round = day.rounds.indexOf(id);
+    expect(round).toBeGreaterThanOrEqual(0);
+    for (let i = 0; i < round; i++) {
+      expect((await api('/games/perception/start', 'POST', { round: i }, v2At(date))).status).toBe(
+        200,
+      );
+      await api('/games/perception/today', 'GET', undefined, v2At(date));
+    }
+    const response = await api('/games/perception/start', 'POST', { round }, v2At(date));
+    expect(response.status).toBe(200);
+    const { stimulus } = await response.json<PerceptionStart>();
+    const answer = stimulusAnswer(stimulus);
+    if ('cells' in stimulus) expect(stimulus.cells).toHaveLength(9);
+    let elapsed = 20000;
+    if ('reactionDelayMs' in stimulus) {
+      const rejected = await api(
+        '/games/perception/answer',
+        'POST',
+        { round, answer },
+        v2At(date, stimulus.reactionDelayMs - 1),
+      );
+      expect(rejected.status).toBe(400);
+      expect(await rejected.text()).toContain('Timing is not plausible');
+      const upperBound = await api(
+        '/games/perception/answer',
+        'POST',
+        { round, answer: { reactionMs: 1161 } },
+        v2At(date, stimulus.reactionDelayMs + 160),
+      );
+      expect(upperBound.status).toBe(400);
+      elapsed = stimulus.reactionDelayMs + 160;
+    }
+    if ('clockMs' in stimulus) {
+      expect(
+        (
+          await api(
+            '/games/perception/answer',
+            'POST',
+            { round, answer },
+            v2At(date, stimulus.clockMs - 1001),
+          )
+        ).status,
+      ).toBe(400);
+      elapsed = stimulus.clockMs;
+    }
+    const answered = await api(
+      '/games/perception/answer',
+      'POST',
+      { round, answer },
+      v2At(date, elapsed),
+    );
+    expect(answered.status).toBe(200);
+    expect(await answered.json()).toMatchObject({ scores: { [id]: 100 }, round: round + 1 });
+  },
+);
+
+it.each(PERCEPTION_POOL)('enforces v2 timing and abandonment for %s', async (id) => {
+  const date = Array.from({ length: 30 }, (_, i) => v2Date(i)).find((d) =>
+    perceptionLineup(d).includes(id),
+  )!;
+  await v2Unlock(date);
+  const rounds = perceptionLineup(date),
+    round = rounds.indexOf(id),
+    p = perceptionV2Puzzle(date);
+  for (let i = 0; i < round; i++) {
+    expect((await api('/games/perception/start', 'POST', { round: i }, v2At(date))).status).toBe(
+      200,
+    );
+    const day = await (
+      await api('/games/perception/today', 'GET', undefined, v2At(date))
+    ).json<PerceptionDay>();
+    expect(day.scores[rounds[i]]).toBe(0);
+  }
+  expect((await api('/games/perception/start', 'POST', { round }, v2At(date))).status).toBe(200);
+  const exposure = perceptionExposure(id, p);
+  const min =
+    id === 'contact' ? p.contact.visibleMs : id === 'reaction' ? p.reactionDelayMs : exposure;
+  if (min > 0) {
+    const tooEarly = await api(
+      '/games/perception/answer',
+      'POST',
+      { round, answer: v2Answer(date, id) },
+      v2At(date, min - 1),
+    );
+    expect(tooEarly.status).toBe(400);
+    expect(await tooEarly.text()).toContain('Timing is not plausible');
+  }
+  if (id === 'clock' || id === 'contact' || id === 'reaction') {
+    const field = PERCEPTION_FIELDS[id];
+    const response = await api(
+      '/games/perception/answer',
+      'POST',
+      { round, answer: { [field]: id === 'clock' ? 30000 : id === 'contact' ? 6000 : 3000 } },
+      v2At(date, min),
+    );
+    expect(response.status).toBe(400);
+    expect(await response.text()).toContain('Timing is not plausible');
+  }
+  // A resume consumes only the started round, and another read cannot skip again.
+  for (let n = 0; n < 2; n++)
+    expect(
+      await (await api('/games/perception/today', 'GET', undefined, v2At(date, 20000))).json(),
+    ).toMatchObject({ round: round + 1, scores: { [id]: 0 } });
+});
+
+it('gates v2 Perception writes without leaking any stimulus', async () => {
+  const date = v2Date(0);
+  await sql((s) => s.sql.exec("UPDATE sessions SET expires_at='2030-01-01T00:00:00Z'"));
+  for (const action of ['start', 'answer'])
+    expect(
+      (await api(`/games/perception/${action}`, 'POST', { round: 0, answer: {} }, v2At(date)))
+        .status,
+    ).toBe(403);
+  const day = await (
+    await api('/games/perception/today', 'GET', undefined, v2At(date))
+  ).json<PerceptionDay>();
+  expect(day).toMatchObject({
+    access: { unlocked: false },
+    rounds: perceptionLineup(date),
+    scores: {},
+  });
+  expect(day).not.toHaveProperty('stimulus');
+});
 
 it('registers Word Guess, Perception and Connections behind the OYO gate', async () => {
   const list = (await (await api('/games')).json()) as GamesToday;

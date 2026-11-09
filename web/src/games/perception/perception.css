@@ -47,6 +47,7 @@
 }
 .pc-hold,
 .pc-react {
+  touch-action: none;
   width: 100%;
   aspect-ratio: 1;
   max-height: 340px;
@@ -182,12 +183,13 @@
 .pc-grid {
   display: grid;
   gap: 6px;
-  width: min(100%, 340px, max(220px, calc(100dvh - 400px)));
+  width: min(100%, 340px, max(244px, calc(100dvh - 400px)));
   margin: 0 auto;
 }
 .pc-cell {
   aspect-ratio: 1;
   min-width: 44px;
+  min-height: 44px;
   border: 1px solid var(--divider);
   border-radius: 8px;
   background: var(--surface);
@@ -218,10 +220,173 @@
   margin: 0;
   color: var(--text);
 }
+.pc-instruction {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.pc svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--accent);
+  stroke: var(--text);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+.pc-slider-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  color: var(--muted);
+  gap: 4px;
+}
+.pc-geometry,
+.pc-length {
+  width: min(100%, 300px, max(220px, calc(100dvh - 530px)));
+}
+.pc-geometry path {
+  fill: none;
+}
+.pc-slider,
+.pc-hue {
+  touch-action: none;
+  accent-color: var(--accent);
+}
+.pc-slider {
+  width: 100%;
+  height: 44px;
+  margin: 0;
+}
+.pc-value {
+  text-align: center;
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.pc-length {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-bar-horizontal,
+.pc-bar-vertical {
+  display: block;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.pc-bar-horizontal {
+  height: 12px;
+}
+.pc-bar-vertical {
+  width: 12px;
+}
+.pc-shade-field {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 240px;
+  border-radius: 12px;
+}
+.pc-shade-field span {
+  width: 120px;
+  height: 120px;
+}
+.pc-count-dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text);
+  transform: translate(-50%, -50%);
+}
+.pc-digit-stage {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 72px;
+  line-height: 1;
+  gap: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.pc-digit-stage .pc-sub {
+  line-height: 20px;
+  margin: 0;
+}
+.pc-number-entry {
+  display: grid;
+  gap: 16px;
+}
+.pc-number {
+  min-height: 56px;
+  display: grid;
+  place-items: center;
+  overflow-wrap: anywhere;
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+}
+.pc-number .text-muted {
+  font-size: 17px;
+}
+.pc-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.pc-keypad button {
+  min-height: 48px;
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface);
+  font-size: 20px;
+}
+.pc-keypad button:nth-last-child(3),
+.pc-keypad button:last-child {
+  font-size: 15px;
+}
+.pc-keypad button:disabled {
+  opacity: 0.45;
+}
+.pc-keypad button:active:not(:disabled) {
+  background: var(--oyo-selected);
+}
+.pc :is(button, input, [tabindex]):focus {
+  outline: none;
+}
+.pc[data-input='keyboard'] :is(button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.pc-occluder {
+  position: absolute;
+  left: var(--pc-occlusion);
+  right: var(--pc-finish);
+  top: 30%;
+  height: 40%;
+  background: var(--divider);
+  border: 1px solid var(--muted);
+  border-radius: 4px;
+}
+.pc svg .pc-track {
+  stroke: var(--divider);
+  stroke-width: 4;
+}
+.pc-finish-label {
+  position: absolute;
+  left: calc(100% - var(--pc-finish));
+  transform: translateX(-50%);
+  top: 20%;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
 @media (prefers-reduced-motion: reduce) {
-  .pc-hold,
+  .pc * {
+    transition: none;
+  }
   .pc-hold-on {
     transform: none;
-    transition: none;
   }
 }

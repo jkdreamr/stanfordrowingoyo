@@ -1,4 +1,5 @@
 import { closeness, isIntIn } from './daily';
+import type { PerceptionRoundId } from './perceptionV2';
 
 export const PERCEPTION_ID = 'perception';
 export const PERCEPTION_ROUNDS = ['clock', 'color', 'dot', 'pattern', 'reaction'] as const;
@@ -62,8 +63,11 @@ export function scoreReaction(reactionMs: number): number {
   return closeness(Math.max(0, reactionMs - 150), 200);
 }
 
-export function perceptionTotal(scores: PerceptionScores): number {
-  return PERCEPTION_ROUNDS.reduce((sum, r) => sum + scores[r], 0);
+export function perceptionTotal(
+  scores: Partial<Record<PerceptionRoundId, number>>,
+  rounds: readonly PerceptionRoundId[] = PERCEPTION_ROUNDS,
+): number {
+  return rounds.reduce((sum, r) => sum + (scores[r] ?? 0), 0);
 }
 
 /** Narrows untrusted input to a well-formed answer, or null. */
@@ -89,20 +93,33 @@ export function parsePerceptionAnswer(value: unknown): PerceptionAnswer | null {
   };
 }
 
-const LABEL: Record<PerceptionRound, string> = {
+const LABEL: Record<PerceptionRoundId, string> = {
   clock: 'Clock',
   color: 'Color',
   dot: 'Spot',
   pattern: 'Pattern',
   reaction: 'React',
+  angle: 'Angle',
+  length: 'Length',
+  count: 'Count',
+  span: 'Span',
+  shade: 'Shade',
+  bisect: 'Bisect',
+  contact: 'Contact',
 };
 
-export function perceptionShare(date: string, scores: PerceptionScores): string {
-  const lines = PERCEPTION_ROUNDS.map((r) => {
-    const filled = Math.max(0, Math.min(5, Math.round((scores[r] / 100) * 5)));
-    return `${LABEL[r]} ${'🟩'.repeat(filled)}${'⬜'.repeat(5 - filled)} ${scores[r]}`;
+export function perceptionShare(
+  date: string,
+  scores: Partial<Record<PerceptionRoundId, number>>,
+  rounds: readonly PerceptionRoundId[] = PERCEPTION_ROUNDS,
+): string {
+  const lines = rounds.map((r) => {
+    const score = scores[r] ?? 0;
+    const filled = Math.max(0, Math.min(5, Math.round((score / 100) * 5)));
+    return `${LABEL[r]} ${'🟩'.repeat(filled)}${'⬜'.repeat(5 - filled)} ${score}`;
   });
-  return [`OYO Perception ${date} ${perceptionTotal(scores)}/${PERCEPTION_MAX}`, ...lines].join(
-    '\n',
-  );
+  return [
+    `OYO Perception ${date} ${perceptionTotal(scores, rounds)}/${PERCEPTION_MAX}`,
+    ...lines,
+  ].join('\n');
 }
