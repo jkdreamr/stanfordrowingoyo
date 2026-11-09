@@ -98,7 +98,15 @@ export const test = base.extend<Fixtures>({
   ) => {
     const contexts: BrowserContext[] = [];
     await use(async () => {
-      const options = { ...testInfo.project.use, baseURL, serviceWorkers };
+      const options = {
+        ...testInfo.project.use,
+        baseURL,
+        serviceWorkers,
+        extraHTTPHeaders: {
+          ...testInfo.project.use.extraHTTPHeaders,
+          'CF-Connecting-IP': `2001:db8:${randomUUID().replaceAll('-', '').match(/.{4}/g)!.slice(0, 6).join(':')}`,
+        },
+      };
       const context =
         persistentRower && browserName === 'webkit'
           ? await playwright.webkit.launchPersistentContext(

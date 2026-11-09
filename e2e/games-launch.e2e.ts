@@ -80,6 +80,6 @@ test('enabled games include Dive in the hub, boards and direct links', async ({
   for (const path of ['/games/dive', '/games/dive/archive']) {
     await page.goto(path);
     await expect(page).toHaveURL(path);
-    await expect(page.getByRole('heading', { name: 'Dive', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Dive', level: 1, exact: true })).toBeVisible();
   }
 });
