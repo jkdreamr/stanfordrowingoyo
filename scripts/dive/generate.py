@@ -29,7 +29,7 @@ import wikidata
 ROOT = Path(__file__).resolve().parents[2]
 CACHE = Path(__file__).parent / '.cache'
 OUTPUT = ROOT / 'worker/src/games/dive'
-DIVE_SCHEDULE_CUTOVER = '2026-11-10'
+DIVE_SCHEDULE_CUTOVER = '2026-11-23'
 CORPORA = 'https://raw.githubusercontent.com/dariusk/corpora/1109305242d08d851a50f929792a0e7caa7a655b/data/'
 MOVIES = 'https://raw.githubusercontent.com/vega/vega-datasets/v2.9.0/data/movies.json'
 CONSTELLATIONS = 'https://raw.githubusercontent.com/astropy/astropy/v7.1.0/astropy/coordinates/data/constellation_names.dat'

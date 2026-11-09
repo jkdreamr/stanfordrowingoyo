@@ -166,6 +166,13 @@ export async function main(args = process.argv.slice(2)) {
         );
         corpus = combineCorpora([corpus, additions]);
       }
+      const refinements = JSON.parse(
+        await readFile(join(repo, 'scripts/dive/recall/refine-base-selected.json'), 'utf8'),
+      );
+      for (const [id, guesses] of Object.entries(refinements)) {
+        if (!Object.hasOwn(corpus, id)) throw new Error(`Unknown refinement prompt: ${id}`);
+        corpus[id] = [...corpus[id], ...guesses];
+      }
       corpusText = JSON.stringify(corpus);
     }
     const result = await evaluateCorpus({

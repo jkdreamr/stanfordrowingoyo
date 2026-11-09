@@ -25,14 +25,14 @@ export default {
     '3': '\nlee\t8p\npta\t1m\n',
   },
   answers:
-    'm\tJohn Ford\nm\tPeter Jackson\nm\tRobert Wise\nm\tJames Cameron\nm\tPaul Thomas Anderson\nm\tOliver Stone\nm\tDavid Lean\nm\tGeorge Roy Hill\nm\tRon Howard\nm\tJames L. Brooks\nm\tSean Baker\nm\tFrank Lloyd\nm\tGeorge Stevens\nm\tTony Richardson\nm\tCarol Reed\nm\tWoody Allen\nm\tLewis Milestone\nm\tMike Nichols\nm\tMel Gibson\ns\tChristopher Nolan\nm\tAng Lee\nm\tVictor Fleming\nm\tDanny Boyle\nm\tBilly Wilder\nm\tRobert Benton\nm\tTom Hooper\nm\tJerome Robbins\nm\tSam Mendes\nm\tWarren Beatty\nm\tClint Eastwood\ns\tSteven Spielberg\ng\tBong Joon-ho\nm\tJohn Huston\nm\tRobert Redford\ns\tMartin Scorsese\nm\tRichard Attenborough\nr\tBarry Levinson\nr\tSydney Pollack\nr\tGuillermo del Toro\nr\tKathryn Bigelow\nr\tJohn Schlesinger\nr\tFrancis Ford Coppola\nr\tJane Campion\nr\tRoman Polanski\nr\tFrank Capra\nr\tKevin Costner\nr\tElia Kazan\nr\tBob Fosse\nr\tDelbert Mann\nr\tJoel Coen and Ethan Coen\nr\tWilliam Wyler\nr\tChloé Zhao\nr\tFranklin J. Schaffner\nr\tSteven Soderbergh\nr\tWilliam Friedkin\nr\tRobert Zemeckis\nr\tDamien Chazelle\nr\tJoseph L. Mankiewicz\nd\tVincente Minnelli\nd\tGeorge Cukor\nd\tAlfonso Cuarón\nd\tJonathan Demme\nd\tBernardo Bertolucci\nd\tMichael Cimino\nd\tAnthony Minghella\nd\tAlejandro G. Iñárritu\nd\tMichael Curtiz\nd\tMiloš Forman\nd\tLeo McCarey\nd\tFred Zinnemann\nd\tMichel Hazanavicius\nd\tJohn G. Avildsen\nd\tFrank Borzage\nd\tDaniel Kwan and Daniel Scheinert\nd\tNorman Taurog\n',
-  gem: { answer: 'Bong Joon-ho', tier: 'gem', points: 100 },
+    'm\tJohn Ford\nm\tPeter Jackson\nm\tRobert Wise\nm\tJames Cameron\nm\tPaul Thomas Anderson\nm\tOliver Stone\nm\tDavid Lean\nm\tGeorge Roy Hill\nm\tRon Howard\nm\tJames L. Brooks\nm\tSean Baker\nm\tFrank Lloyd\nm\tGeorge Stevens\nm\tTony Richardson\nm\tCarol Reed\nm\tWoody Allen\nm\tLewis Milestone\nm\tMike Nichols\nm\tMel Gibson\ns\tChristopher Nolan\nm\tAng Lee\nm\tVictor Fleming\nm\tDanny Boyle\nm\tBilly Wilder\nm\tRobert Benton\nm\tTom Hooper\nm\tJerome Robbins\nm\tSam Mendes\nm\tWarren Beatty\nm\tClint Eastwood\ns\tSteven Spielberg\nm\tBong Joon-ho\nm\tJohn Huston\nm\tRobert Redford\ns\tMartin Scorsese\nr\tRichard Attenborough\nr\tBarry Levinson\nr\tSydney Pollack\nr\tGuillermo del Toro\nr\tKathryn Bigelow\nr\tJohn Schlesinger\nr\tFrancis Ford Coppola\nr\tJane Campion\nr\tRoman Polanski\nr\tFrank Capra\nr\tKevin Costner\nr\tElia Kazan\nr\tBob Fosse\nr\tDelbert Mann\nr\tJoel Coen and Ethan Coen\nr\tWilliam Wyler\nr\tChloé Zhao\nr\tFranklin J. Schaffner\nr\tSteven Soderbergh\nr\tWilliam Friedkin\nr\tRobert Zemeckis\nr\tDamien Chazelle\nd\tJoseph L. Mankiewicz\nd\tVincente Minnelli\nd\tGeorge Cukor\nd\tAlfonso Cuarón\nd\tJonathan Demme\nd\tBernardo Bertolucci\nd\tMichael Cimino\nd\tAnthony Minghella\nd\tAlejandro G. Iñárritu\nd\tMichael Curtiz\nd\tMiloš Forman\nd\tLeo McCarey\nd\tFred Zinnemann\nd\tMichel Hazanavicius\nd\tJohn G. Avildsen\ng\tFrank Borzage\nd\tDaniel Kwan and Daniel Scheinert\nd\tNorman Taurog\n',
+  gem: { answer: 'Frank Borzage', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Christopher Nolan', tier: 'surface', points: 10 },
     { answer: 'Steven Spielberg', tier: 'surface', points: 10 },
     { answer: 'Martin Scorsese', tier: 'surface', points: 10 },
+    { answer: 'Joseph L. Mankiewicz', tier: 'deep', points: 85 },
     { answer: 'Vincente Minnelli', tier: 'deep', points: 85 },
-    { answer: 'George Cukor', tier: 'deep', points: 85 },
   ],
   size: 75,
 } satisfies AnswerSet;

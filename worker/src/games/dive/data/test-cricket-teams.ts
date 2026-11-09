@@ -22,12 +22,13 @@ export default {
     '26': '\nsouth african cricket team\tu\n',
   },
   answers:
-    's\tEngland\ns\tAustralia\ns\tIndia\nm\tSouth Africa\nm\tIreland\nm\tPakistan\nt\tNew Zealand\ng\tAfghanistan\nm\tBangladesh\nr\tZimbabwe\nr\tWest Indies\nd\tSri Lanka\n',
+    's\tEngland\ns\tAustralia\ns\tIndia\nm\tSouth Africa\nm\tIreland\nm\tPakistan\nm\tNew Zealand\ng\tAfghanistan\nr\tBangladesh\nr\tZimbabwe\nd\tWest Indies\nd\tSri Lanka\n',
   gem: { answer: 'Afghanistan', tier: 'gem', points: 100 },
   notable: [
     { answer: 'England', tier: 'surface', points: 10 },
     { answer: 'Australia', tier: 'surface', points: 10 },
     { answer: 'India', tier: 'surface', points: 10 },
+    { answer: 'West Indies', tier: 'deep', points: 85 },
     { answer: 'Sri Lanka', tier: 'deep', points: 85 },
   ],
   size: 12,

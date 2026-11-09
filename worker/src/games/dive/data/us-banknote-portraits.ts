@@ -18,7 +18,7 @@ export default {
     '19': '\ngeorge gordon meade\ter\n',
     '12': '\ngeorge meade\ter\ngeorge thoma\tk\njames monroe\t5x\njohn sherman\t6c\nsalmon chase\t8r\nsamuel morse\tql\nsilas wright\tfd\n',
     '16': '\ngrover cleveland\td6\njohn jay knox jr\t9f\njohn quincy adam\tbk\nmeriwether lewis\to5\nrunning antelope\th4\nthomas jefferson\t4u\nwilliam mckinley\tdp\n',
-    '10': '\nhenry clay\t2g\nwashington\t0\n',
+    '10': '\nhenry clay\t2g\n',
     '20': '\njames abram garfield\tkv\nwilliam henry seward\ti5\n',
     '24': '\njames birdseye mcpherson\tpu\nwilliam tecumseh sherman\tmp\n',
     '27': '\njoseph king fenno mansfield\ts4\n',

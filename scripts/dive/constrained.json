@@ -2439,7 +2439,7 @@
         }
       ],
       "surface": ["Tom Hanks", "Leonardo DiCaprio", "Daniel Day-Lewis"],
-      "pearl": "Nicolas Cage",
+      "pearl": "Emil Jannings",
       "people": true,
       "acceptance_notes": "a Best Actor Oscar winner (through the 2026 ceremony)"
     },
@@ -2790,7 +2790,7 @@
         }
       ],
       "surface": ["Meryl Streep", "Katharine Hepburn", "Emma Stone"],
-      "pearl": "Michelle Yeoh",
+      "pearl": "Luise Rainer",
       "people": true,
       "acceptance_notes": "a Best Actress Oscar winner (through the 2026 ceremony)"
     },
@@ -3122,7 +3122,7 @@
         }
       ],
       "surface": ["Steven Spielberg", "Christopher Nolan", "Martin Scorsese"],
-      "pearl": "Bong Joon-ho",
+      "pearl": "Frank Borzage",
       "people": true,
       "acceptance_notes": "a Best Director Oscar winner (through the 2026 ceremony)"
     },
@@ -4258,7 +4258,7 @@
         }
       ],
       "surface": ["Let It Go", "My Heart Will Go On", "Skyfall"],
-      "pearl": "Lose Yourself",
+      "pearl": "The Continental",
       "people": false,
       "acceptance_notes": "an Oscar-winning original song (through the 2026 ceremony)"
     },
@@ -16157,7 +16157,7 @@
         }
       ],
       "surface": ["Thriller", "1989", "21"],
-      "pearl": "Rumours",
+      "pearl": "The Button-Down Mind of Bob Newhart",
       "people": false,
       "review": "Complete award-year winners, not nominees. Periods refer to ceremony years, not release years. Best New Artist includes the later-revoked Milli Vanilli award.",
       "acceptance_notes": "a Grammy Album of the Year winner (through 2026)"
@@ -27479,7 +27479,7 @@
         }
       ],
       "surface": ["Calm", "Gale", "Storm"],
-      "pearl": "Hurricane",
+      "pearl": "Light air",
       "people": false,
       "acceptance_notes": "one of the named wind-force descriptions on the Beaufort scale (0–12)"
     },
@@ -28008,7 +28008,7 @@
         }
       ],
       "surface": ["Cirrus", "Cumulus", "Stratus"],
-      "pearl": "Cumulonimbus",
+      "pearl": "Cirrocumulus",
       "people": false,
       "acceptance_notes": "one of the ten main cloud genera"
     },
@@ -31866,7 +31866,7 @@
         },
         {
           "name": "Tiger Woods",
-          "aliases": ["Tiger", "Woods"]
+          "aliases": ["Tiger"]
         },
         {
           "name": "Tom Watson"
@@ -37637,7 +37637,7 @@
         }
       ],
       "surface": ["Sichuan", "Hunan", "Shandong"],
-      "pearl": "Cantonese",
+      "pearl": "Anhui",
       "people": false,
       "acceptance_notes": "one of the Eight Great Traditions of Chinese cuisine"
     },
@@ -43582,11 +43582,11 @@
         },
         {
           "name": "Avengers: Endgame",
-          "aliases": ["Endgame"]
+          "aliases": ["Endgame", "Avengers 4"]
         },
         {
           "name": "Avengers: Infinity War",
-          "aliases": ["Infinity War"]
+          "aliases": ["Infinity War", "Avengers 3"]
         },
         {
           "name": "Black Panther"
@@ -43600,7 +43600,7 @@
         },
         {
           "name": "Captain America: Brave New World",
-          "aliases": ["Brave New World"]
+          "aliases": ["Brave New World", "Captain America 4"]
         },
         {
           "name": "Captain America: Civil War",
@@ -43670,7 +43670,7 @@
         },
         {
           "name": "Spider-Man: Homecoming",
-          "aliases": ["Homecoming"]
+          "aliases": ["Homecoming", "Spiderman Homecoming"]
         },
         {
           "name": "Spider-Man: No Way Home",
@@ -56900,7 +56900,7 @@
         },
         {
           "name": "George Washington",
-          "aliases": ["Washington"]
+          "aliases": []
         },
         {
           "name": "Martha Washington",
@@ -64906,7 +64906,7 @@
       "surface": ["Philosopher's Stone", "Chamber of Secrets", "Fantastic Beasts"],
       "pearl": "The Secrets of Dumbledore",
       "scope": "The eight Harry Potter and three Fantastic Beasts theatrical films; not stage plays, books, games or television adaptations. US Sorcerer’s Stone title is an alias.",
-      "too_clever": ["Prisoner of Azkaban"]
+      "too_clever": []
     },
     {
       "id": "mission-impossible-films",
@@ -64992,7 +64992,7 @@
       "surface": ["Mission: Impossible", "Ghost Protocol"],
       "pearl": "Mission: Impossible 2",
       "scope": "All eight released feature films through The Final Reckoning; TV episodes and other Tom Cruise franchises do not qualify.",
-      "too_clever": ["Mission: Impossible III"]
+      "too_clever": []
     },
     {
       "id": "wes-anderson-features",
@@ -65502,7 +65502,7 @@
       "surface": ["India", "China", "United States"],
       "pearl": "Vietnam",
       "scope": "Every sovereign country over 100 million in the pinned current national/UN population table; no territories reach the threshold. Uses the displayed national/UN estimates, not an outdated 2023 UN-only table.",
-      "too_clever": ["Indonesia"]
+      "too_clever": []
     },
     {
       "id": "current-monarchies",
@@ -68305,7 +68305,7 @@
       "pearl": "Alan Perlis",
       "scope": "All named recipients, splitting shared awards into people; not the award’s namesake or famous computing figures who never received it.",
       "people": true,
-      "too_clever": ["Geoffrey Hinton"]
+      "too_clever": []
     },
     {
       "id": "apollo-moon-travellers",
@@ -69416,7 +69416,7 @@
       "surface": ["India", "Australia", "England"],
       "pearl": "Afghanistan",
       "scope": "The twelve current full-member men’s Test teams, including West Indies as a multinational team. Not every ICC associate, women’s Test team or the historical one-off ICC World XI.",
-      "too_clever": ["New Zealand"]
+      "too_clever": []
     },
     {
       "id": "nba-75-team",
@@ -69849,7 +69849,7 @@
       "pearl": "Dolph Schayes",
       "scope": "All 76 players on the 2021 75th Anniversary Team: the vote produced a tie. Not the separate 15-coach selection or every Hall of Famer/current MVP.",
       "people": true,
-      "too_clever": ["Stephen Curry"]
+      "too_clever": []
     },
     {
       "id": "paris-2024-sports",

@@ -38,6 +38,15 @@ Network/schema errors fail regeneration rather than silently yielding empty sets
 The generator uses the installed repository Prettier to make output byte-reproducible.
 Pinned Python versions fix GeoNames, ISO lists and word-frequency behavior.
 
+`legacy-manifest.json` freezes SHA-256 hashes of `legacy.json` and all 330 legacy
+modules, a complete 66-day order, prompt metadata, and loaded answer-set hashes from
+`d9f96cf`. It is an independent reference, not generator output: never regenerate it
+as part of content updates. `legacy-identity.test.ts` runs with `npm test`, checks every
+date from the selector's 2026-01-01 epoch through 2026-11-22, an earlier full residue
+cycle, and the November 23 cutover boundary. Bump cutover only in `generate.py` and
+regenerate; intentionally update the date assertion when a later launch is approved,
+not the frozen legacy hashes/order/answers.
+
 `overrides.py` is the reviewed manifest: prompt text/source, explicit aliases, forced
 Surface anchors, Too Clever picks and one Pearl per prompt. Explicit corrections/exclusions
 are also here. Alias targets are canonicalized and synonymous source rows are removed.

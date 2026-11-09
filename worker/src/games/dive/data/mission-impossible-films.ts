@@ -20,7 +20,7 @@ export default {
     '12': '\nrogue nation\t2h\n',
   },
   answers:
-    's\tMission: Impossible\ng\tMission: Impossible 2\nt\tMission: Impossible III\ns\tGhost Protocol\nm\tRogue Nation\nm\tFallout\nr\tThe Final Reckoning\nd\tDead Reckoning Part One\n',
+    's\tMission: Impossible\ng\tMission: Impossible 2\nm\tMission: Impossible III\ns\tGhost Protocol\nm\tRogue Nation\nm\tFallout\nr\tThe Final Reckoning\nd\tDead Reckoning Part One\n',
   gem: { answer: 'Mission: Impossible 2', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Mission: Impossible', tier: 'surface', points: 10 },

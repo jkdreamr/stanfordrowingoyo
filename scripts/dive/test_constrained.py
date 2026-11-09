@@ -76,6 +76,21 @@ class SourcesTest(unittest.TestCase):
 
 
 class SpecsTest(unittest.TestCase):
+    def test_ambiguous_surnames_are_removed_even_when_explicit(self):
+        for names, aliases, forbidden in [
+            (['Craig Wood', 'Tiger Woods'], {'Tiger Woods': ['Tiger', 'Wood', 'Woods']}, {'wood'}),
+            (['George Washington', 'Martha Washington'], {'George Washington': ['Washington']}, {'washington'}),
+            (['Ronaldo', 'Cristiano Ronaldo'], {'Cristiano Ronaldo': ['CR7', 'Ronaldo']}, {'ronaldo'}),
+        ]:
+            constrained.add_surnames([{'name': name} for name in names], aliases)
+            for values in aliases.values():
+                self.assertFalse(forbidden & {constrained.normalize(v) for v in values})
+        aliases = {}
+        constrained.add_surnames([], aliases)
+        self.assertEqual(aliases, {})
+        constrained.add_surnames([{'name': 'Ronaldo'}, {'name': 'Lionel Messi'}], aliases)
+        self.assertEqual(aliases, {'Lionel Messi': ['messi']})
+
     def test_short_natural_texts_and_retired_sets_remain_complete(self):
         prompts = constrained.read_specs()
         retired = {p['id'] for p in prompts if not p['active']}

@@ -22,14 +22,14 @@ export default {
     '19': '\nkareem abdul jabbar\tma\n',
   },
   answers:
-    "m\tChris Paul\nm\tMagic Johnson\ns\tMichael Jordan\nm\tSam Jones\nm\tBill Russell\nm\tJames Worthy\nm\tJerry West\nm\tRay Allen\nm\tDavid Robinson\nm\tAnthony Davis\nm\tLarry Bird\nm\tRobert Parish\nm\tRick Barry\nm\tPaul Pierce\nm\tTim Duncan\ns\tLeBron James\nm\tJerry Lucas\nt\tStephen Curry\nm\tSteve Nash\nm\tOscar Robertson\nm\tEarl Monroe\nm\tDave Bing\nm\tWillis Reed\nm\tBill Walton\nm\tJames Harden\nm\tReggie Miller\nm\tBilly Cunningham\nm\tKevin Durant\ns\tKobe Bryant\nm\tKarl Malone\nm\tMoses Malone\nm\tRussell Westbrook\nm\tJohn Stockton\nm\tCharles Barkley\nm\tJason Kidd\nm\tPatrick Ewing\nr\tNate Archibald\nr\tWalt Frazier\nr\tHal Greer\nr\tGary Payton\nr\tWilt Chamberlain\nr\tElgin Baylor\nr\tKevin Garnett\nr\tCarmelo Anthony\nr\tDominique Wilkins\nr\tKawhi Leonard\nr\tDennis Rodman\nr\tAllen Iverson\nr\tDamian Lillard\nr\tDwyane Wade\nr\tKevin McHale\nr\tBob McAdoo\nr\tBob Pettit\nr\tKareem Abdul-Jabbar\nr\tNate Thurmond\nr\tBill Sharman\nr\tElvin Hayes\nr\tShaquille O'Neal\nd\tDirk Nowitzki\nd\tIsiah Thomas\nd\tClyde Drexler\nd\tScottie Pippen\nd\tJulius Erving\nd\tGeorge Mikan\nd\tGiannis Antetokounmpo\nd\tHakeem Olajuwon\nd\tLenny Wilkens\nd\tPete Maravich\nd\tBob Cousy\nd\tJohn Havlicek\nd\tGeorge Gervin\nd\tDave Cowens\nd\tDave DeBusschere\nd\tWes Unseld\ng\tDolph Schayes\nd\tPaul Arizin\n",
+    "m\tChris Paul\nm\tMagic Johnson\ns\tMichael Jordan\nm\tSam Jones\nm\tBill Russell\nm\tJames Worthy\nm\tJerry West\nm\tRay Allen\nm\tDavid Robinson\nm\tAnthony Davis\nm\tLarry Bird\nm\tRobert Parish\nm\tRick Barry\nm\tPaul Pierce\nm\tTim Duncan\ns\tLeBron James\nm\tJerry Lucas\nm\tStephen Curry\nm\tSteve Nash\nm\tOscar Robertson\nm\tEarl Monroe\nm\tDave Bing\nm\tWillis Reed\nm\tBill Walton\nm\tJames Harden\nm\tReggie Miller\nm\tBilly Cunningham\nm\tKevin Durant\ns\tKobe Bryant\nm\tKarl Malone\nm\tMoses Malone\nm\tRussell Westbrook\nm\tJohn Stockton\nm\tCharles Barkley\nm\tJason Kidd\nm\tPatrick Ewing\nr\tNate Archibald\nr\tWalt Frazier\nr\tHal Greer\nr\tGary Payton\nr\tWilt Chamberlain\nr\tElgin Baylor\nr\tKevin Garnett\nr\tCarmelo Anthony\nr\tDominique Wilkins\nr\tKawhi Leonard\nr\tDennis Rodman\nr\tAllen Iverson\nr\tDamian Lillard\nr\tDwyane Wade\nr\tKevin McHale\nr\tBob McAdoo\nr\tBob Pettit\nr\tKareem Abdul-Jabbar\nr\tNate Thurmond\nr\tBill Sharman\nr\tElvin Hayes\nd\tShaquille O'Neal\nd\tDirk Nowitzki\nd\tIsiah Thomas\nd\tClyde Drexler\nd\tScottie Pippen\nd\tJulius Erving\nd\tGeorge Mikan\nd\tGiannis Antetokounmpo\nd\tHakeem Olajuwon\nd\tLenny Wilkens\nd\tPete Maravich\nd\tBob Cousy\nd\tJohn Havlicek\nd\tGeorge Gervin\nd\tDave Cowens\nd\tDave DeBusschere\nd\tWes Unseld\ng\tDolph Schayes\nd\tPaul Arizin\n",
   gem: { answer: 'Dolph Schayes', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Michael Jordan', tier: 'surface', points: 10 },
     { answer: 'LeBron James', tier: 'surface', points: 10 },
     { answer: 'Kobe Bryant', tier: 'surface', points: 10 },
+    { answer: "Shaquille O'Neal", tier: 'deep', points: 85 },
     { answer: 'Dirk Nowitzki', tier: 'deep', points: 85 },
-    { answer: 'Isiah Thomas', tier: 'deep', points: 85 },
   ],
   size: 76,
 } satisfies AnswerSet;

@@ -21,7 +21,7 @@ export default {
     '19': '\nprisoner of azkaban\t5k\n',
   },
   answers:
-    "m\tHalf-Blood Prince\nm\tOrder of the Phoenix\ns\tChamber of Secrets\ns\tFantastic Beasts\ng\tThe Secrets of Dumbledore\nm\tGoblet of Fire\ns\tPhilosopher's Stone\nr\tDeathly Hallows Part 1\nr\tDeathly Hallows Part 2\nt\tPrisoner of Azkaban\nd\tThe Crimes of Grindelwald\n",
+    "m\tHalf-Blood Prince\nm\tOrder of the Phoenix\ns\tChamber of Secrets\ns\tFantastic Beasts\ng\tThe Secrets of Dumbledore\nm\tGoblet of Fire\ns\tPhilosopher's Stone\nm\tDeathly Hallows Part 1\nr\tDeathly Hallows Part 2\nr\tPrisoner of Azkaban\nd\tThe Crimes of Grindelwald\n",
   gem: { answer: 'The Secrets of Dumbledore', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Chamber of Secrets', tier: 'surface', points: 10 },

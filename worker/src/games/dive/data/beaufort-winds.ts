@@ -17,8 +17,8 @@ export default {
     '18': '\nstrong severe gale\t4a\n',
   },
   answers:
-    's\tStorm\nm\tLight air\ns\tCalm\nm\tViolent storm\ng\tHurricane\nm\tLight breeze\nm\tStrong breeze\nm\tFresh breeze\nr\tModerate breeze\nr\tGentle breeze\ns\tGale\nd\tNear gale\nd\tStrong gale\n',
-  gem: { answer: 'Hurricane', tier: 'gem', points: 100 },
+    's\tStorm\ng\tLight air\ns\tCalm\nm\tViolent storm\nm\tHurricane\nm\tLight breeze\nm\tStrong breeze\nm\tFresh breeze\nr\tModerate breeze\nr\tGentle breeze\ns\tGale\nd\tNear gale\nd\tStrong gale\n',
+  gem: { answer: 'Light air', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Storm', tier: 'surface', points: 10 },
     { answer: 'Calm', tier: 'surface', points: 10 },

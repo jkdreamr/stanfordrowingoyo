@@ -13,13 +13,13 @@ export default {
     '19': '\nstratocumulus cloud\t18\n',
   },
   answers:
-    's\tCirrus\ns\tCumulus\ns\tStratus\ng\tCumulonimbus\nm\tStratocumulus\nm\tAltocumulus\nm\tNimbostratus\nr\tAltostratus\nr\tCirrostratus\nd\tCirrocumulus\n',
-  gem: { answer: 'Cumulonimbus', tier: 'gem', points: 100 },
+    's\tCirrus\ns\tCumulus\ns\tStratus\nm\tCumulonimbus\nm\tStratocumulus\nm\tAltocumulus\nr\tNimbostratus\nr\tAltostratus\nd\tCirrostratus\ng\tCirrocumulus\n',
+  gem: { answer: 'Cirrocumulus', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Cirrus', tier: 'surface', points: 10 },
     { answer: 'Cumulus', tier: 'surface', points: 10 },
     { answer: 'Stratus', tier: 'surface', points: 10 },
-    { answer: 'Cirrocumulus', tier: 'deep', points: 85 },
+    { answer: 'Cirrostratus', tier: 'deep', points: 85 },
   ],
   size: 10,
 } satisfies AnswerSet;

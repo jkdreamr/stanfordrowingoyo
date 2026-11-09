@@ -18,13 +18,13 @@ export default {
     '16': '\nshandong cuisine\tx\nszechuan cuisine\tc\nszechwan cuisine\tc\nzhejiang cuisine\tm\n',
   },
   answers:
-    'g\tCantonese\ns\tSichuan\nm\tZhejiang\ns\tShandong\ns\tHunan\nm\tJiangsu\nr\tFujian\nd\tAnhui\n',
-  gem: { answer: 'Cantonese', tier: 'gem', points: 100 },
+    'm\tCantonese\ns\tSichuan\nm\tZhejiang\ns\tShandong\ns\tHunan\nr\tJiangsu\nd\tFujian\ng\tAnhui\n',
+  gem: { answer: 'Anhui', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Sichuan', tier: 'surface', points: 10 },
     { answer: 'Shandong', tier: 'surface', points: 10 },
     { answer: 'Hunan', tier: 'surface', points: 10 },
-    { answer: 'Anhui', tier: 'deep', points: 85 },
+    { answer: 'Fujian', tier: 'deep', points: 85 },
   ],
   size: 8,
 } satisfies AnswerSet;

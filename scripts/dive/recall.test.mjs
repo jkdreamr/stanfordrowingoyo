@@ -15,6 +15,17 @@ const batchThree = JSON.parse(
   readFileSync(new URL('./recall/batch-3-selected.json', import.meta.url)),
 );
 
+test('refinement preserves four frozen common-form guesses and accepts each exactly', async () => {
+  const corpus = JSON.parse(
+    readFileSync(new URL('./recall/refine-base-selected.json', import.meta.url)),
+  );
+  assert.deepEqual(corpus, {
+    'mcu-films': ['Avengers 3', 'Avengers 4', 'Spiderman Homecoming', 'Captain America 4'],
+  });
+  const set = (await import('../../worker/src/games/dive/data/mcu-films.ts')).default;
+  for (const guess of corpus['mcu-films']) assert.ok(exactHit(guess, set, normalizeAnswer), guess);
+});
+
 test('active plain-list swaps preserve frozen brainstorms and meet per-prompt exact recall', async () => {
   const audit = JSON.parse(readFileSync(new URL('./recall/batch-5-audit.json', import.meta.url)));
   const corpus = JSON.parse(

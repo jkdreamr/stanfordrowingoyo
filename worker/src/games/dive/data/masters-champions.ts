@@ -14,7 +14,7 @@ export default {
     '16': '\ncharl schwartzel\tke\nhideki matsuyama\ti2\n',
     '8': '\ncrenshaw\tbq\nimmelman\tkx\njon rahm\tc5\nnicklaus\tcv\nolazabal\tmb\n',
     '14': '\ndustin johnson\t7i\nphil mickelson\tdb\n',
-    '4': '\nford\t2p\nlyle\t97\nmize\tgt\nrahm\tc5\nreed\t31\nwall\t0\nweir\t76\nwood\t1w\n',
+    '4': '\nford\t2p\nlyle\t97\nmize\tgt\nrahm\tc5\nreed\t31\nwall\t0\nweir\t76\n',
     '19': '\njose maria olazabal\tmb\n',
     '17': '\nscottie scheffler\til\n',
   },

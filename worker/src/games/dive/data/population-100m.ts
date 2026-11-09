@@ -17,14 +17,14 @@ export default {
     '2': '\nus\t0\n',
   },
   answers:
-    's\tUnited States\nm\tRussia\nm\tJapan\ns\tIndia\nm\tMexico\ns\tChina\nm\tEgypt\nm\tBrazil\ng\tVietnam\nt\tIndonesia\nr\tPakistan\nr\tNigeria\nr\tBangladesh\nr\tEthiopia\nd\tDemocratic Republic of the Congo\nd\tPhilippines\n',
+    's\tUnited States\nm\tRussia\nm\tJapan\ns\tIndia\nm\tMexico\ns\tChina\nm\tEgypt\nm\tBrazil\ng\tVietnam\nm\tIndonesia\nr\tPakistan\nr\tNigeria\nr\tBangladesh\nd\tEthiopia\nd\tDemocratic Republic of the Congo\nd\tPhilippines\n',
   gem: { answer: 'Vietnam', tier: 'gem', points: 100 },
   notable: [
     { answer: 'United States', tier: 'surface', points: 10 },
     { answer: 'India', tier: 'surface', points: 10 },
     { answer: 'China', tier: 'surface', points: 10 },
+    { answer: 'Ethiopia', tier: 'deep', points: 85 },
     { answer: 'Democratic Republic of the Congo', tier: 'deep', points: 85 },
-    { answer: 'Philippines', tier: 'deep', points: 85 },
   ],
   size: 16,
 } satisfies AnswerSet;
