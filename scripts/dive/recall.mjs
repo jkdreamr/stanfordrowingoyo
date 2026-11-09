@@ -161,6 +161,7 @@ export async function main(args = process.argv.slice(2)) {
         'batch-6-selected.json',
         'refine-R2-selected.json',
         'refine-R6-selected.json',
+        'refine-R8-selected.json',
         'supplemental-selected.json',
         'refine-R1-selected.json',
         'refine-R3-selected.json',

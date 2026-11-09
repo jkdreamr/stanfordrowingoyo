@@ -33741,6 +33741,7 @@
     },
     {
       "id": "star-alliance",
+      "active": false,
       "text": "a Star Alliance member airline",
       "theme": "everyday",
       "cluster": "travel",
@@ -33895,7 +33896,159 @@
       "acceptance_notes": "a full member airline of Star Alliance (November 2026)"
     },
     {
+      "id": "le-mans-winning-makes",
+      "text": "a car make that has won the 24 Hours of Le Mans outright",
+      "theme": "everyday",
+      "cluster": "cars",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of 24 Hours of Le Mans winners",
+          "revision": 1381313577,
+          "tables": [7],
+          "column": 0,
+          "expect": [25, 25],
+          "text": true,
+          "review": "All distinct manufacturer rows, including separate Mercedes-Benz and Sauber-Mercedes. Table 4 overall winning cars cross-checked; Toyota includes 2026. Mazda won with a rotary in 1991.",
+          "reviewed": [
+            "Alfa Romeo",
+            "Aston Martin",
+            "Audi",
+            "BMW",
+            "Bentley",
+            "Bugatti",
+            "Chenard & Walcker",
+            "Delahaye",
+            "Ferrari",
+            "Ford",
+            "Jaguar",
+            "Lagonda",
+            "Lorraine-Dietrich",
+            "Matra - Simca",
+            "Mazda",
+            "McLaren",
+            "Mercedes-Benz",
+            "Mirage",
+            "Peugeot",
+            "Porsche",
+            "Renault - Alpine",
+            "Rondeau",
+            "Sauber-Mercedes",
+            "Talbot-Lago",
+            "Toyota"
+          ]
+        }
+      ],
+      "expect": [25, 25],
+      "surface": ["Porsche", "Ferrari", "Audi", "Toyota", "Ford"],
+      "pearl": "Mazda",
+      "people": false,
+      "answers": [
+        {
+          "name": "Alfa Romeo",
+          "aliases": []
+        },
+        {
+          "name": "Aston Martin",
+          "aliases": []
+        },
+        {
+          "name": "Audi",
+          "aliases": []
+        },
+        {
+          "name": "BMW",
+          "aliases": []
+        },
+        {
+          "name": "Bentley",
+          "aliases": []
+        },
+        {
+          "name": "Bugatti",
+          "aliases": ["Bugatti Type 57"]
+        },
+        {
+          "name": "Chenard & Walcker",
+          "aliases": ["Chenard-Walcker"]
+        },
+        {
+          "name": "Delahaye",
+          "aliases": []
+        },
+        {
+          "name": "Ferrari",
+          "aliases": []
+        },
+        {
+          "name": "Ford",
+          "aliases": []
+        },
+        {
+          "name": "Jaguar",
+          "aliases": []
+        },
+        {
+          "name": "Lagonda",
+          "aliases": []
+        },
+        {
+          "name": "Lorraine-Dietrich",
+          "aliases": []
+        },
+        {
+          "name": "Matra-Simca",
+          "aliases": ["Matra"]
+        },
+        {
+          "name": "Mazda",
+          "aliases": []
+        },
+        {
+          "name": "McLaren",
+          "aliases": []
+        },
+        {
+          "name": "Mercedes-Benz",
+          "aliases": ["Mercedes"]
+        },
+        {
+          "name": "Mirage",
+          "aliases": []
+        },
+        {
+          "name": "Peugeot",
+          "aliases": []
+        },
+        {
+          "name": "Porsche",
+          "aliases": []
+        },
+        {
+          "name": "Renault-Alpine",
+          "aliases": ["Alpine", "Renault"]
+        },
+        {
+          "name": "Rondeau",
+          "aliases": []
+        },
+        {
+          "name": "Sauber-Mercedes",
+          "aliases": ["Sauber"]
+        },
+        {
+          "name": "Talbot-Lago",
+          "aliases": ["Talbot"]
+        },
+        {
+          "name": "Toyota",
+          "aliases": []
+        }
+      ]
+    },
+    {
       "id": "oneworld-airlines",
+      "active": false,
       "text": "a oneworld member airline",
       "theme": "everyday",
       "cluster": "travel",
@@ -33993,6 +34146,111 @@
       "pearl": "Finnair",
       "people": false,
       "acceptance_notes": "a full member airline of oneworld (November 2026)"
+    },
+    {
+      "id": "a380-airlines",
+      "text": "an airline that has flown the Airbus A380",
+      "theme": "everyday",
+      "cluster": "travel",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of Airbus A380 operators",
+          "revision": 1375046227,
+          "tables": [0, 1],
+          "column": 0,
+          "expect": [16, 16],
+          "review": "Union of 11 current and five former operators; no unfulfilled orders. Member list was seen in the review attachment before the frozen brainstorm was written.",
+          "reviewed": [
+            "Air France",
+            "All Nippon Airways",
+            "Asiana Airlines",
+            "British Airways",
+            "China Southern Airlines",
+            "Emirates",
+            "Etihad Airways",
+            "Global Airlines",
+            "Hi Fly Malta",
+            "Korean Air",
+            "Lufthansa",
+            "Malaysia Airlines",
+            "Qantas",
+            "Qatar Airways",
+            "Singapore Airlines",
+            "Thai Airways International"
+          ]
+        }
+      ],
+      "expect": [16, 16],
+      "surface": ["Emirates", "Singapore Airlines", "Qantas", "British Airways", "Lufthansa"],
+      "pearl": "Global Airlines",
+      "people": false,
+      "answers": [
+        {
+          "name": "Air France",
+          "aliases": []
+        },
+        {
+          "name": "All Nippon Airways",
+          "aliases": ["ANA"]
+        },
+        {
+          "name": "Asiana Airlines",
+          "aliases": ["Asiana"]
+        },
+        {
+          "name": "British Airways",
+          "aliases": ["BA"]
+        },
+        {
+          "name": "China Southern Airlines",
+          "aliases": ["China Southern"]
+        },
+        {
+          "name": "Emirates",
+          "aliases": ["Emirates Airline"]
+        },
+        {
+          "name": "Etihad Airways",
+          "aliases": ["Etihad"]
+        },
+        {
+          "name": "Global Airlines",
+          "aliases": []
+        },
+        {
+          "name": "Hi Fly Malta",
+          "aliases": ["Hi Fly"]
+        },
+        {
+          "name": "Korean Air",
+          "aliases": ["Korean"]
+        },
+        {
+          "name": "Lufthansa",
+          "aliases": ["Lufthansa Airlines"]
+        },
+        {
+          "name": "Malaysia Airlines",
+          "aliases": ["Malaysia"]
+        },
+        {
+          "name": "Qantas",
+          "aliases": []
+        },
+        {
+          "name": "Qatar Airways",
+          "aliases": ["Qatar"]
+        },
+        {
+          "name": "Singapore Airlines",
+          "aliases": ["Singapore"]
+        },
+        {
+          "name": "Thai Airways International",
+          "aliases": ["Thai Airways", "Thai"]
+        }
+      ]
     },
     {
       "id": "skyteam-airlines",
@@ -39652,6 +39910,7 @@
     },
     {
       "id": "monopoly-us",
+      "active": false,
       "text": "a property on the US Monopoly board",
       "theme": "everyday",
       "cluster": "board-games",
@@ -39821,7 +40080,299 @@
       "acceptance_notes": "a purchasable property on the standard US Monopoly board (stations and utilities count)"
     },
     {
+      "id": "video-game-hall-of-fame",
+      "text": "a game inducted into the World Video Game Hall of Fame",
+      "theme": "everyday",
+      "cluster": "video-games",
+      "active": true,
+      "sources": [
+        {
+          "page": "World Video Game Hall of Fame",
+          "revision": 1384356911,
+          "tables": [1],
+          "column": 1,
+          "expect": [53, 53],
+          "where": [1, "(?<!\\*)\\*(?!\\*)$"],
+          "review": "Exactly one trailing asterisk marks an inducted game; double asterisk marks a finalist inducted in a later year and is excluded here. Union through class 2026; next class May 2027.",
+          "reviewed": [
+            "Angry Birds",
+            "Animal Crossing",
+            "Asteroids",
+            "Barbie Fashion Designer",
+            "Bejeweled",
+            "Centipede",
+            "Colossal Cave Adventure",
+            "Computer Space",
+            "Dance Dance Revolution",
+            "Defender",
+            "Donkey Kong",
+            "Doom",
+            "Dragon Quest",
+            "FIFA International Soccer",
+            "Final Fantasy VII",
+            "GoldenEye 007",
+            "Grand Theft Auto III",
+            "Halo: Combat Evolved",
+            "John Madden Football",
+            "King's Quest",
+            "Microsoft Flight Simulator",
+            "Minecraft",
+            "Mortal Kombat",
+            "Ms. Pac-Man",
+            "Myst",
+            "Pac-Man",
+            "Pokémon Red and Green",
+            "Pong",
+            "Quake",
+            "Resident Evil",
+            "Sid Meier's Civilization",
+            "Silent Hill",
+            "SimCity",
+            "Solitaire",
+            "Sonic the Hedgehog",
+            "Space Invaders",
+            "Spacewar!",
+            "StarCraft",
+            "Street Fighter II",
+            "Super Mario Bros.",
+            "Super Mario Kart",
+            "Tamagotchi",
+            "Tetris",
+            "The Last of Us",
+            "The Legend of Zelda",
+            "The Legend of Zelda: Ocarina of Time",
+            "The Oregon Trail",
+            "The Sims",
+            "Tomb Raider",
+            "Ultima",
+            "Where in the World Is Carmen Sandiego?",
+            "Wii Sports",
+            "World of Warcraft"
+          ]
+        }
+      ],
+      "expect": [53, 53],
+      "surface": ["Pac-Man", "Tetris", "Super Mario Bros.", "Pong", "The Legend of Zelda"],
+      "pearl": "Barbie Fashion Designer",
+      "people": false,
+      "answers": [
+        {
+          "name": "Angry Birds",
+          "aliases": []
+        },
+        {
+          "name": "Animal Crossing",
+          "aliases": []
+        },
+        {
+          "name": "Asteroids",
+          "aliases": []
+        },
+        {
+          "name": "Barbie Fashion Designer",
+          "aliases": []
+        },
+        {
+          "name": "Bejeweled",
+          "aliases": []
+        },
+        {
+          "name": "Centipede",
+          "aliases": []
+        },
+        {
+          "name": "Colossal Cave Adventure",
+          "aliases": []
+        },
+        {
+          "name": "Computer Space",
+          "aliases": []
+        },
+        {
+          "name": "Dance Dance Revolution",
+          "aliases": []
+        },
+        {
+          "name": "Defender",
+          "aliases": []
+        },
+        {
+          "name": "Donkey Kong",
+          "aliases": []
+        },
+        {
+          "name": "Doom",
+          "aliases": []
+        },
+        {
+          "name": "Dragon Quest",
+          "aliases": []
+        },
+        {
+          "name": "FIFA International Soccer",
+          "aliases": ["FIFA"]
+        },
+        {
+          "name": "Final Fantasy VII",
+          "aliases": []
+        },
+        {
+          "name": "GoldenEye 007",
+          "aliases": []
+        },
+        {
+          "name": "Grand Theft Auto III",
+          "aliases": []
+        },
+        {
+          "name": "Halo: Combat Evolved",
+          "aliases": ["Halo"]
+        },
+        {
+          "name": "John Madden Football",
+          "aliases": ["Madden", "Madden NFL"]
+        },
+        {
+          "name": "King's Quest",
+          "aliases": []
+        },
+        {
+          "name": "Microsoft Flight Simulator",
+          "aliases": []
+        },
+        {
+          "name": "Minecraft",
+          "aliases": []
+        },
+        {
+          "name": "Mortal Kombat",
+          "aliases": []
+        },
+        {
+          "name": "Ms. Pac-Man",
+          "aliases": []
+        },
+        {
+          "name": "Myst",
+          "aliases": []
+        },
+        {
+          "name": "Pac-Man",
+          "aliases": []
+        },
+        {
+          "name": "Pokémon Red and Green",
+          "aliases": ["Pokémon Red and Blue", "Pokemon"]
+        },
+        {
+          "name": "Pong",
+          "aliases": []
+        },
+        {
+          "name": "Quake",
+          "aliases": []
+        },
+        {
+          "name": "Resident Evil",
+          "aliases": []
+        },
+        {
+          "name": "Sid Meier's Civilization",
+          "aliases": ["Civilization"]
+        },
+        {
+          "name": "Silent Hill",
+          "aliases": []
+        },
+        {
+          "name": "SimCity",
+          "aliases": []
+        },
+        {
+          "name": "Solitaire",
+          "aliases": ["Microsoft Solitaire"]
+        },
+        {
+          "name": "Sonic the Hedgehog",
+          "aliases": []
+        },
+        {
+          "name": "Space Invaders",
+          "aliases": []
+        },
+        {
+          "name": "Spacewar!",
+          "aliases": []
+        },
+        {
+          "name": "StarCraft",
+          "aliases": []
+        },
+        {
+          "name": "Street Fighter II",
+          "aliases": ["Street Fighter"]
+        },
+        {
+          "name": "Super Mario Bros.",
+          "aliases": []
+        },
+        {
+          "name": "Super Mario Kart",
+          "aliases": ["Mario Kart"]
+        },
+        {
+          "name": "Tamagotchi",
+          "aliases": []
+        },
+        {
+          "name": "Tetris",
+          "aliases": []
+        },
+        {
+          "name": "The Last of Us",
+          "aliases": []
+        },
+        {
+          "name": "The Legend of Zelda",
+          "aliases": ["Zelda"]
+        },
+        {
+          "name": "The Legend of Zelda: Ocarina of Time",
+          "aliases": []
+        },
+        {
+          "name": "The Oregon Trail",
+          "aliases": []
+        },
+        {
+          "name": "The Sims",
+          "aliases": []
+        },
+        {
+          "name": "Tomb Raider",
+          "aliases": []
+        },
+        {
+          "name": "Ultima",
+          "aliases": []
+        },
+        {
+          "name": "Where in the World Is Carmen Sandiego?",
+          "aliases": []
+        },
+        {
+          "name": "Wii Sports",
+          "aliases": []
+        },
+        {
+          "name": "World of Warcraft",
+          "aliases": []
+        }
+      ]
+    },
+    {
       "id": "monopoly-uk",
+      "active": false,
       "text": "a property on the UK Monopoly board",
       "theme": "everyday",
       "cluster": "board-games",
@@ -39988,6 +40539,272 @@
       "pearl": "The Angel, Islington",
       "people": false,
       "acceptance_notes": "a purchasable property on the standard UK Monopoly board (stations and utilities count)"
+    },
+    {
+      "id": "spiel-des-jahres-winners",
+      "text": "a winner of Germany's Spiel des Jahres board-game award",
+      "theme": "everyday",
+      "cluster": "board-games",
+      "active": true,
+      "sources": [
+        {
+          "page": "Spiel des Jahres",
+          "revision": 1383909119,
+          "tables": [95],
+          "column": 1,
+          "expect": [48, 48],
+          "text": true,
+          "review": "Main Game of the Year winners only, 1979–2026 inclusive; excludes nominees, Kennerspiel, Kinderspiel and special awards. Full cell text includes unlinked winners. JinxO is also Dito!.",
+          "reviewed": [
+            "Adel Verpflichtet",
+            "Alhambra",
+            "Auf Achse",
+            "Azul",
+            "Barbarossa",
+            "Bomb Busters",
+            "Café International",
+            "Call my Bluff",
+            "Camel Up",
+            "Carcassonne",
+            "Cascadia",
+            "Codenames",
+            "Colt Express",
+            "Dixit",
+            "Dominion",
+            "Dorfromantik",
+            "Drunter und Drüber",
+            "El Grande",
+            "Elfenland",
+            "Enchanted Forest",
+            "Focus",
+            "Hanabi",
+            "Hare and Tortoise",
+            "JinxO",
+            "Just One",
+            "Keltis",
+            "Kingdom Builder",
+            "Kingdomino",
+            "Manhattan",
+            "MicroMacro: Crime City",
+            "Mississippi Queen",
+            "Niagara",
+            "Pictures",
+            "Qwirkle",
+            "Railway Rivals",
+            "Rummikub",
+            "Scotland Yard",
+            "Sherlock Holmes: Consulting Detective",
+            "Sky Team",
+            "The Settlers of Catan",
+            "Thurn and Taxis",
+            "Ticket to Ride",
+            "Tikal",
+            "Top Secret Spies",
+            "Torres",
+            "Um Reifenbreite",
+            "Villa Paletti",
+            "Zooloretto"
+          ]
+        }
+      ],
+      "expect": [48, 48],
+      "surface": ["The Settlers of Catan", "Ticket to Ride", "Carcassonne", "Azul", "Codenames"],
+      "pearl": "Hanabi",
+      "people": false,
+      "answers": [
+        {
+          "name": "Adel Verpflichtet",
+          "aliases": ["Hoity Toity"]
+        },
+        {
+          "name": "Alhambra",
+          "aliases": ["Der Palast von Alhambra"]
+        },
+        {
+          "name": "Auf Achse",
+          "aliases": []
+        },
+        {
+          "name": "Azul",
+          "aliases": []
+        },
+        {
+          "name": "Barbarossa",
+          "aliases": []
+        },
+        {
+          "name": "Bomb Busters",
+          "aliases": []
+        },
+        {
+          "name": "Café International",
+          "aliases": []
+        },
+        {
+          "name": "Call my Bluff",
+          "aliases": ["Bluff", "Liar’s Dice"]
+        },
+        {
+          "name": "Camel Up",
+          "aliases": []
+        },
+        {
+          "name": "Carcassonne",
+          "aliases": []
+        },
+        {
+          "name": "Cascadia",
+          "aliases": []
+        },
+        {
+          "name": "Codenames",
+          "aliases": []
+        },
+        {
+          "name": "Colt Express",
+          "aliases": []
+        },
+        {
+          "name": "Dixit",
+          "aliases": []
+        },
+        {
+          "name": "Dominion",
+          "aliases": []
+        },
+        {
+          "name": "Dorfromantik",
+          "aliases": ["Dorfromantik: The Board Game"]
+        },
+        {
+          "name": "Drunter und Drüber",
+          "aliases": []
+        },
+        {
+          "name": "El Grande",
+          "aliases": []
+        },
+        {
+          "name": "Elfenland",
+          "aliases": []
+        },
+        {
+          "name": "Enchanted Forest",
+          "aliases": ["Sagaland"]
+        },
+        {
+          "name": "Focus",
+          "aliases": []
+        },
+        {
+          "name": "Hanabi",
+          "aliases": []
+        },
+        {
+          "name": "Hare and Tortoise",
+          "aliases": ["Hase und Igel"]
+        },
+        {
+          "name": "JinxO",
+          "aliases": ["Dito!"]
+        },
+        {
+          "name": "Just One",
+          "aliases": []
+        },
+        {
+          "name": "Keltis",
+          "aliases": []
+        },
+        {
+          "name": "Kingdom Builder",
+          "aliases": []
+        },
+        {
+          "name": "Kingdomino",
+          "aliases": []
+        },
+        {
+          "name": "Manhattan",
+          "aliases": []
+        },
+        {
+          "name": "MicroMacro: Crime City",
+          "aliases": ["MicroMacro"]
+        },
+        {
+          "name": "Mississippi Queen",
+          "aliases": []
+        },
+        {
+          "name": "Niagara",
+          "aliases": []
+        },
+        {
+          "name": "Pictures",
+          "aliases": []
+        },
+        {
+          "name": "Qwirkle",
+          "aliases": []
+        },
+        {
+          "name": "Railway Rivals",
+          "aliases": []
+        },
+        {
+          "name": "Rummikub",
+          "aliases": []
+        },
+        {
+          "name": "Scotland Yard",
+          "aliases": []
+        },
+        {
+          "name": "Sherlock Holmes: Consulting Detective",
+          "aliases": []
+        },
+        {
+          "name": "Sky Team",
+          "aliases": []
+        },
+        {
+          "name": "The Settlers of Catan",
+          "aliases": ["Catan"]
+        },
+        {
+          "name": "Thurn and Taxis",
+          "aliases": ["Thurn und Taxis"]
+        },
+        {
+          "name": "Ticket to Ride",
+          "aliases": ["Zug um Zug"]
+        },
+        {
+          "name": "Tikal",
+          "aliases": []
+        },
+        {
+          "name": "Top Secret Spies",
+          "aliases": ["Heimlich & Co."]
+        },
+        {
+          "name": "Torres",
+          "aliases": []
+        },
+        {
+          "name": "Um Reifenbreite",
+          "aliases": []
+        },
+        {
+          "name": "Villa Paletti",
+          "aliases": []
+        },
+        {
+          "name": "Zooloretto",
+          "aliases": []
+        }
+      ]
     },
     {
       "id": "asia-capitals",
@@ -44795,6 +45612,7 @@
     },
     {
       "id": "london-tube-lines",
+      "active": false,
       "text": "a London Underground line",
       "theme": "everyday",
       "cluster": "transport",
@@ -44872,6 +45690,121 @@
       "pearl": "Bakerloo",
       "people": false,
       "review": "All 11 Underground lines in the current operational-lines table. Elizabeth line, DLR and Overground are not Underground lines; both short names and source forms ending in line are accepted."
+    },
+    {
+      "id": "monopoly-tokens",
+      "text": "a token that has been in the standard Monopoly set since 1943",
+      "theme": "everyday",
+      "cluster": "board-games",
+      "active": true,
+      "sources": [
+        {
+          "page": "Monopoly (game)",
+          "revision": 1383315669,
+          "members": [
+            "Battleship",
+            "Boot",
+            "Cannon",
+            "Cat",
+            "Horse and rider",
+            "Iron",
+            "Money bag",
+            "Penguin",
+            "Racecar",
+            "Rubber duck",
+            "Scottie dog",
+            "Thimble",
+            "Top hat",
+            "Tyrannosaurus rex",
+            "Wheelbarrow"
+          ],
+          "expect": [15, 15],
+          "review": "Classic Tokens prose: ten present by 1943 plus money bag (1999), cat (2013), penguin, Tyrannosaurus rex and rubber duck (2017). Includes later-retired pieces; excludes pre-1943-only, special-edition and voting candidates.",
+          "reviewed": [
+            "Battleship",
+            "Boot",
+            "Cannon",
+            "Cat",
+            "Horse and rider",
+            "Iron",
+            "Money bag",
+            "Penguin",
+            "Racecar",
+            "Rubber duck",
+            "Scottie dog",
+            "Thimble",
+            "Top hat",
+            "Tyrannosaurus rex",
+            "Wheelbarrow"
+          ]
+        }
+      ],
+      "expect": [15, 15],
+      "surface": ["Scottie dog", "Top hat", "Racecar", "Thimble", "Boot"],
+      "pearl": "Penguin",
+      "people": false,
+      "answers": [
+        {
+          "name": "Battleship",
+          "aliases": ["Ship"]
+        },
+        {
+          "name": "Boot",
+          "aliases": ["Shoe"]
+        },
+        {
+          "name": "Cannon",
+          "aliases": []
+        },
+        {
+          "name": "Cat",
+          "aliases": []
+        },
+        {
+          "name": "Horse and rider",
+          "aliases": ["Horse", "Man on horse"]
+        },
+        {
+          "name": "Iron",
+          "aliases": []
+        },
+        {
+          "name": "Money bag",
+          "aliases": ["Sack of money", "Bag of money", "Moneybag"]
+        },
+        {
+          "name": "Penguin",
+          "aliases": []
+        },
+        {
+          "name": "Racecar",
+          "aliases": ["Race car", "Car"]
+        },
+        {
+          "name": "Rubber duck",
+          "aliases": ["Duck", "Rubber ducky", "Ducky"]
+        },
+        {
+          "name": "Scottie dog",
+          "aliases": ["Dog", "Scottie", "Dog token"]
+        },
+        {
+          "name": "Thimble",
+          "aliases": ["Thimble token"]
+        },
+        {
+          "name": "Top hat",
+          "aliases": ["Hat"]
+        },
+        {
+          "name": "T. rex",
+          "aliases": ["Tyrannosaurus", "Tyrannosaurus rex", "Dinosaur"]
+        },
+        {
+          "name": "Wheelbarrow",
+          "aliases": []
+        }
+      ]
     },
     {
       "id": "sherlock-holmes-books",
@@ -55921,9 +56854,1111 @@
       "expect": [148, 148],
       "surface": ["Red", "Blue", "Green", "White", "Black"],
       "pearl": "RebeccaPurple",
-      "active": true,
+      "active": false,
       "scope": "All 148 standardized named sRGB colors; transparent and currentColor are special keywords, not named colors.",
       "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "generic-trademarks",
+      "text": "a brand name that's often used as a generic word",
+      "theme": "everyday",
+      "cluster": "brands",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of generic and genericized trademarks",
+          "revision": 1383147456,
+          "members": [
+            "Airfryer",
+            "Ani-Manga",
+            "App Store",
+            "Aspirin",
+            "Cellophane",
+            "Circline",
+            "Dry ice",
+            "Dumpster",
+            "Escalator",
+            "Flip phone",
+            "Flit gun",
+            "Heroin",
+            "Hovercraft",
+            "Kerosene",
+            "LP record",
+            "Lanolin",
+            "Launderette",
+            "Laundromat",
+            "Linoleum",
+            "Linotype",
+            "Lyocell",
+            "Mimeograph",
+            "Multiball",
+            "Quonset",
+            "Sellotape",
+            "Spidola",
+            "Super Hero",
+            "Super glue",
+            "Taco Tuesday",
+            "Teleprompter",
+            "Teletype",
+            "Thermos",
+            "Touch-tone",
+            "Trampoline",
+            "Videotape",
+            "Webster's Dictionary",
+            "Yo-Yo",
+            "ZIP Code",
+            "Zipper"
+          ],
+          "expect": [39, 39],
+          "review": "All dt names in both definition-list sections: 26 former genericized and 13 lost for other reasons. Sellotape overlaps the protected-mark table; deduplicate the union.",
+          "reviewed": [
+            "Airfryer",
+            "Ani-Manga",
+            "App Store",
+            "Aspirin",
+            "Cellophane",
+            "Circline",
+            "Dry ice",
+            "Dumpster",
+            "Escalator",
+            "Flip phone",
+            "Flit gun",
+            "Heroin",
+            "Hovercraft",
+            "Kerosene",
+            "LP record",
+            "Lanolin",
+            "Launderette",
+            "Laundromat",
+            "Linoleum",
+            "Linotype",
+            "Lyocell",
+            "Mimeograph",
+            "Multiball",
+            "Quonset",
+            "Sellotape",
+            "Spidola",
+            "Super Hero",
+            "Super glue",
+            "Taco Tuesday",
+            "Teleprompter",
+            "Teletype",
+            "Thermos",
+            "Touch-tone",
+            "Trampoline",
+            "Videotape",
+            "Webster's Dictionary",
+            "Yo-Yo",
+            "ZIP Code",
+            "Zipper"
+          ]
+        },
+        {
+          "page": "List of generic and genericized trademarks",
+          "revision": 1383147456,
+          "tables": [0],
+          "column": 0,
+          "expect": [167, 167],
+          "text": true,
+          "review": "All 167 protected marks used generically. Strip interwiki language labels from display names; comma-separated spelling variants become aliases, not extra members.",
+          "reviewed": [
+            "AdBlue",
+            "Adrenaline",
+            "Airfix",
+            "Allen wrench",
+            "Aqua [ id ]",
+            "Aqua-lung",
+            "Armco",
+            "AstroTurf",
+            "Band-Aid",
+            "Biro",
+            "Bobcat",
+            "Bubble Wrap",
+            "Burqini",
+            "Bush Hog",
+            "Canon",
+            "Cashpoint",
+            "Chain gun",
+            "ChapStick",
+            "ChatGPT",
+            "Christmas Seals",
+            "Chyron",
+            "Cigarette boat",
+            "Clorox",
+            "Coke",
+            "Colt",
+            "Comic-Con",
+            "Confort",
+            "Connollising",
+            "Craisin",
+            "Crock-Pot",
+            "Cuisinart",
+            "Cutex",
+            "Cyberpunk",
+            "Decora",
+            "Dictaphone",
+            "Dobro",
+            "Doll Instant Noodle [ zh ]",
+            "Dormobile",
+            "Doshirak",
+            "Dremel",
+            "Durex",
+            "Edding",
+            "Elastoplast",
+            "EpiPen",
+            "Esky",
+            "Filofax",
+            "Fix-A-Flat",
+            "Formica",
+            "Freon",
+            "Frisbee",
+            "Gib board",
+            "Gillette",
+            "Glad Wrap",
+            "Glock",
+            "Google",
+            "Hacky Sack",
+            "Hardie Board, HardiePlank",
+            "Hills Hoist",
+            "Hoover",
+            "Hula hoop",
+            "InFocus",
+            "Indomie",
+            "JCB",
+            "Jacuzzi",
+            "Jandals",
+            "Javex",
+            "Jeep",
+            "Jell-O",
+            "Jet Ski",
+            "Jetway",
+            "Jiffy bag",
+            "JumboTron",
+            "Kleenex",
+            "Kool-Aid",
+            "Koozie",
+            "Kraft Dinner",
+            "Kärcher",
+            "LISTSERV",
+            "Labello",
+            "Lava lamp",
+            "Learjet",
+            "Lego",
+            "Lexan",
+            "Liquid Paper",
+            "Lysol",
+            "Mace",
+            "Maclean",
+            "Maggi",
+            "Matchbox",
+            "Memory Stick",
+            "Miojo",
+            "Muzak",
+            "NOS (Nitrous Oxide Systems)",
+            "Nestlé",
+            "Odol",
+            "Onesies",
+            "Ozempic",
+            "Pampers",
+            "Photoshop",
+            "Ping Pong",
+            "Plasticine",
+            "Play-Doh",
+            "Plexiglas, Plexiglass",
+            "Pogo",
+            "Polaroid",
+            "Popsicle",
+            "Portakabin",
+            "Positraction",
+            "Post-it",
+            "PostShop",
+            "Pot Noodle",
+            "PowerPoint",
+            "Pritt Stick",
+            "Pull-Ups",
+            "Putt-Putt golf",
+            "Pyrex",
+            "Q-tips",
+            "Razor scooter",
+            "Realtor",
+            "Rizla",
+            "Rollerblade",
+            "Romex",
+            "Roomba",
+            "Rugby",
+            "Saran wrap",
+            "Sawzall",
+            "Scalextric",
+            "Scotch tape",
+            "Sea-Doo",
+            "Sellotape",
+            "Sharpie",
+            "Ski-Doo",
+            "Skilsaw",
+            "Softail",
+            "Speedo",
+            "Stanley knife",
+            "Stelvin closure",
+            "Stetson",
+            "Styrofoam",
+            "Tannoy",
+            "Targa top",
+            "Tarmac",
+            "Taser",
+            "Tayto",
+            "Tempo",
+            "Tesafilm",
+            "Three-peat",
+            "Tipp-Ex",
+            "Tivoli",
+            "Transformer",
+            "Tupperware",
+            "UHU",
+            "Uber",
+            "Vaseline",
+            "Velcro",
+            "Vetsin",
+            "Walkman",
+            "WaveRunner",
+            "Winnebago",
+            "Wite-Out",
+            "Xerox",
+            "Zamboni",
+            "Zeppelin",
+            "Zimmer frame",
+            "Ziploc",
+            "Zodiac",
+            "Zoom"
+          ]
+        }
+      ],
+      "expect": [205, 205],
+      "surface": ["Kleenex", "Band-Aid", "Xerox", "Velcro", "Google"],
+      "pearl": "Escalator",
+      "people": false,
+      "answers": [
+        {
+          "name": "AdBlue",
+          "aliases": []
+        },
+        {
+          "name": "Adrenaline",
+          "aliases": []
+        },
+        {
+          "name": "Airfix",
+          "aliases": []
+        },
+        {
+          "name": "Airfryer",
+          "aliases": []
+        },
+        {
+          "name": "Allen wrench",
+          "aliases": []
+        },
+        {
+          "name": "Ani-Manga",
+          "aliases": []
+        },
+        {
+          "name": "App Store",
+          "aliases": []
+        },
+        {
+          "name": "Aqua",
+          "aliases": []
+        },
+        {
+          "name": "Aqua-lung",
+          "aliases": []
+        },
+        {
+          "name": "Armco",
+          "aliases": []
+        },
+        {
+          "name": "Aspirin",
+          "aliases": []
+        },
+        {
+          "name": "AstroTurf",
+          "aliases": []
+        },
+        {
+          "name": "Band-Aid",
+          "aliases": []
+        },
+        {
+          "name": "Biro",
+          "aliases": []
+        },
+        {
+          "name": "Bobcat",
+          "aliases": []
+        },
+        {
+          "name": "Bubble Wrap",
+          "aliases": ["Bubblewrap"]
+        },
+        {
+          "name": "Burqini",
+          "aliases": []
+        },
+        {
+          "name": "Bush Hog",
+          "aliases": []
+        },
+        {
+          "name": "Canon",
+          "aliases": []
+        },
+        {
+          "name": "Cashpoint",
+          "aliases": []
+        },
+        {
+          "name": "Cellophane",
+          "aliases": []
+        },
+        {
+          "name": "Chain gun",
+          "aliases": []
+        },
+        {
+          "name": "ChapStick",
+          "aliases": []
+        },
+        {
+          "name": "ChatGPT",
+          "aliases": []
+        },
+        {
+          "name": "Christmas Seals",
+          "aliases": []
+        },
+        {
+          "name": "Chyron",
+          "aliases": []
+        },
+        {
+          "name": "Cigarette boat",
+          "aliases": []
+        },
+        {
+          "name": "Circline",
+          "aliases": []
+        },
+        {
+          "name": "Clorox",
+          "aliases": []
+        },
+        {
+          "name": "Coke",
+          "aliases": []
+        },
+        {
+          "name": "Colt",
+          "aliases": []
+        },
+        {
+          "name": "Comic-Con",
+          "aliases": []
+        },
+        {
+          "name": "Confort",
+          "aliases": []
+        },
+        {
+          "name": "Connollising",
+          "aliases": []
+        },
+        {
+          "name": "Craisin",
+          "aliases": []
+        },
+        {
+          "name": "Crock-Pot",
+          "aliases": []
+        },
+        {
+          "name": "Cuisinart",
+          "aliases": []
+        },
+        {
+          "name": "Cutex",
+          "aliases": []
+        },
+        {
+          "name": "Cyberpunk",
+          "aliases": []
+        },
+        {
+          "name": "Decora",
+          "aliases": []
+        },
+        {
+          "name": "Dictaphone",
+          "aliases": []
+        },
+        {
+          "name": "Dobro",
+          "aliases": []
+        },
+        {
+          "name": "Doll Instant Noodle",
+          "aliases": []
+        },
+        {
+          "name": "Dormobile",
+          "aliases": []
+        },
+        {
+          "name": "Doshirak",
+          "aliases": []
+        },
+        {
+          "name": "Dremel",
+          "aliases": []
+        },
+        {
+          "name": "Dry ice",
+          "aliases": []
+        },
+        {
+          "name": "Dumpster",
+          "aliases": []
+        },
+        {
+          "name": "Durex",
+          "aliases": []
+        },
+        {
+          "name": "Edding",
+          "aliases": []
+        },
+        {
+          "name": "Elastoplast",
+          "aliases": []
+        },
+        {
+          "name": "EpiPen",
+          "aliases": []
+        },
+        {
+          "name": "Escalator",
+          "aliases": []
+        },
+        {
+          "name": "Esky",
+          "aliases": []
+        },
+        {
+          "name": "Filofax",
+          "aliases": []
+        },
+        {
+          "name": "Fix-A-Flat",
+          "aliases": []
+        },
+        {
+          "name": "Flip phone",
+          "aliases": []
+        },
+        {
+          "name": "Flit gun",
+          "aliases": []
+        },
+        {
+          "name": "Formica",
+          "aliases": []
+        },
+        {
+          "name": "Freon",
+          "aliases": []
+        },
+        {
+          "name": "Frisbee",
+          "aliases": []
+        },
+        {
+          "name": "Gib board",
+          "aliases": []
+        },
+        {
+          "name": "Gillette",
+          "aliases": []
+        },
+        {
+          "name": "Glad Wrap",
+          "aliases": []
+        },
+        {
+          "name": "Glock",
+          "aliases": []
+        },
+        {
+          "name": "Google",
+          "aliases": []
+        },
+        {
+          "name": "Hacky Sack",
+          "aliases": []
+        },
+        {
+          "name": "Hardie Board",
+          "aliases": ["HardiePlank"]
+        },
+        {
+          "name": "Heroin",
+          "aliases": []
+        },
+        {
+          "name": "Hills Hoist",
+          "aliases": []
+        },
+        {
+          "name": "Hoover",
+          "aliases": []
+        },
+        {
+          "name": "Hovercraft",
+          "aliases": []
+        },
+        {
+          "name": "Hula hoop",
+          "aliases": []
+        },
+        {
+          "name": "InFocus",
+          "aliases": []
+        },
+        {
+          "name": "Indomie",
+          "aliases": []
+        },
+        {
+          "name": "JCB",
+          "aliases": []
+        },
+        {
+          "name": "Jacuzzi",
+          "aliases": ["Jacuzzi tub"]
+        },
+        {
+          "name": "Jandals",
+          "aliases": []
+        },
+        {
+          "name": "Javex",
+          "aliases": []
+        },
+        {
+          "name": "Jeep",
+          "aliases": []
+        },
+        {
+          "name": "Jell-O",
+          "aliases": ["Jello"]
+        },
+        {
+          "name": "Jet Ski",
+          "aliases": []
+        },
+        {
+          "name": "Jetway",
+          "aliases": []
+        },
+        {
+          "name": "Jiffy bag",
+          "aliases": []
+        },
+        {
+          "name": "JumboTron",
+          "aliases": []
+        },
+        {
+          "name": "Kerosene",
+          "aliases": []
+        },
+        {
+          "name": "Kleenex",
+          "aliases": []
+        },
+        {
+          "name": "Kool-Aid",
+          "aliases": []
+        },
+        {
+          "name": "Koozie",
+          "aliases": []
+        },
+        {
+          "name": "Kraft Dinner",
+          "aliases": []
+        },
+        {
+          "name": "Kärcher",
+          "aliases": []
+        },
+        {
+          "name": "LISTSERV",
+          "aliases": []
+        },
+        {
+          "name": "LP record",
+          "aliases": ["LP"]
+        },
+        {
+          "name": "Labello",
+          "aliases": []
+        },
+        {
+          "name": "Lanolin",
+          "aliases": []
+        },
+        {
+          "name": "Launderette",
+          "aliases": []
+        },
+        {
+          "name": "Laundromat",
+          "aliases": []
+        },
+        {
+          "name": "Lava lamp",
+          "aliases": []
+        },
+        {
+          "name": "Learjet",
+          "aliases": []
+        },
+        {
+          "name": "Lego",
+          "aliases": []
+        },
+        {
+          "name": "Lexan",
+          "aliases": []
+        },
+        {
+          "name": "Linoleum",
+          "aliases": []
+        },
+        {
+          "name": "Linotype",
+          "aliases": []
+        },
+        {
+          "name": "Liquid Paper",
+          "aliases": []
+        },
+        {
+          "name": "Lyocell",
+          "aliases": []
+        },
+        {
+          "name": "Lysol",
+          "aliases": []
+        },
+        {
+          "name": "Mace",
+          "aliases": []
+        },
+        {
+          "name": "Maclean",
+          "aliases": []
+        },
+        {
+          "name": "Maggi",
+          "aliases": []
+        },
+        {
+          "name": "Matchbox",
+          "aliases": []
+        },
+        {
+          "name": "Memory Stick",
+          "aliases": []
+        },
+        {
+          "name": "Mimeograph",
+          "aliases": []
+        },
+        {
+          "name": "Miojo",
+          "aliases": []
+        },
+        {
+          "name": "Multiball",
+          "aliases": []
+        },
+        {
+          "name": "Muzak",
+          "aliases": []
+        },
+        {
+          "name": "NOS (Nitrous Oxide Systems)",
+          "aliases": []
+        },
+        {
+          "name": "Nestlé",
+          "aliases": []
+        },
+        {
+          "name": "Odol",
+          "aliases": []
+        },
+        {
+          "name": "Onesies",
+          "aliases": ["Onesie"]
+        },
+        {
+          "name": "Ozempic",
+          "aliases": []
+        },
+        {
+          "name": "Pampers",
+          "aliases": []
+        },
+        {
+          "name": "Photoshop",
+          "aliases": []
+        },
+        {
+          "name": "Ping Pong",
+          "aliases": []
+        },
+        {
+          "name": "Plasticine",
+          "aliases": []
+        },
+        {
+          "name": "Play-Doh",
+          "aliases": []
+        },
+        {
+          "name": "Plexiglas",
+          "aliases": ["Plexiglass"]
+        },
+        {
+          "name": "Pogo",
+          "aliases": []
+        },
+        {
+          "name": "Polaroid",
+          "aliases": []
+        },
+        {
+          "name": "Popsicle",
+          "aliases": []
+        },
+        {
+          "name": "Portakabin",
+          "aliases": []
+        },
+        {
+          "name": "Positraction",
+          "aliases": []
+        },
+        {
+          "name": "Post-it",
+          "aliases": ["Post-it note"]
+        },
+        {
+          "name": "PostShop",
+          "aliases": []
+        },
+        {
+          "name": "Pot Noodle",
+          "aliases": []
+        },
+        {
+          "name": "PowerPoint",
+          "aliases": []
+        },
+        {
+          "name": "Pritt Stick",
+          "aliases": []
+        },
+        {
+          "name": "Pull-Ups",
+          "aliases": []
+        },
+        {
+          "name": "Putt-Putt golf",
+          "aliases": []
+        },
+        {
+          "name": "Pyrex",
+          "aliases": []
+        },
+        {
+          "name": "Q-tips",
+          "aliases": []
+        },
+        {
+          "name": "Quonset",
+          "aliases": []
+        },
+        {
+          "name": "Razor scooter",
+          "aliases": []
+        },
+        {
+          "name": "Realtor",
+          "aliases": []
+        },
+        {
+          "name": "Rizla",
+          "aliases": []
+        },
+        {
+          "name": "Rollerblade",
+          "aliases": []
+        },
+        {
+          "name": "Romex",
+          "aliases": []
+        },
+        {
+          "name": "Roomba",
+          "aliases": []
+        },
+        {
+          "name": "Rugby",
+          "aliases": []
+        },
+        {
+          "name": "Saran wrap",
+          "aliases": []
+        },
+        {
+          "name": "Sawzall",
+          "aliases": []
+        },
+        {
+          "name": "Scalextric",
+          "aliases": []
+        },
+        {
+          "name": "Scotch tape",
+          "aliases": []
+        },
+        {
+          "name": "Sea-Doo",
+          "aliases": []
+        },
+        {
+          "name": "Sellotape",
+          "aliases": []
+        },
+        {
+          "name": "Sharpie",
+          "aliases": []
+        },
+        {
+          "name": "Ski-Doo",
+          "aliases": []
+        },
+        {
+          "name": "Skilsaw",
+          "aliases": []
+        },
+        {
+          "name": "Softail",
+          "aliases": []
+        },
+        {
+          "name": "Speedo",
+          "aliases": []
+        },
+        {
+          "name": "Spidola",
+          "aliases": []
+        },
+        {
+          "name": "Stanley knife",
+          "aliases": []
+        },
+        {
+          "name": "Stelvin closure",
+          "aliases": []
+        },
+        {
+          "name": "Stetson",
+          "aliases": []
+        },
+        {
+          "name": "Styrofoam",
+          "aliases": []
+        },
+        {
+          "name": "Super Hero",
+          "aliases": []
+        },
+        {
+          "name": "Super glue",
+          "aliases": ["Superglue"]
+        },
+        {
+          "name": "Taco Tuesday",
+          "aliases": []
+        },
+        {
+          "name": "Tannoy",
+          "aliases": []
+        },
+        {
+          "name": "Targa top",
+          "aliases": []
+        },
+        {
+          "name": "Tarmac",
+          "aliases": []
+        },
+        {
+          "name": "Taser",
+          "aliases": []
+        },
+        {
+          "name": "Tayto",
+          "aliases": []
+        },
+        {
+          "name": "Teleprompter",
+          "aliases": []
+        },
+        {
+          "name": "Teletype",
+          "aliases": []
+        },
+        {
+          "name": "Tempo",
+          "aliases": []
+        },
+        {
+          "name": "Tesafilm",
+          "aliases": []
+        },
+        {
+          "name": "Thermos",
+          "aliases": []
+        },
+        {
+          "name": "Three-peat",
+          "aliases": []
+        },
+        {
+          "name": "Tipp-Ex",
+          "aliases": []
+        },
+        {
+          "name": "Tivoli",
+          "aliases": []
+        },
+        {
+          "name": "Touch-tone",
+          "aliases": []
+        },
+        {
+          "name": "Trampoline",
+          "aliases": []
+        },
+        {
+          "name": "Transformer",
+          "aliases": []
+        },
+        {
+          "name": "Tupperware",
+          "aliases": []
+        },
+        {
+          "name": "UHU",
+          "aliases": []
+        },
+        {
+          "name": "Uber",
+          "aliases": []
+        },
+        {
+          "name": "Vaseline",
+          "aliases": []
+        },
+        {
+          "name": "Velcro",
+          "aliases": []
+        },
+        {
+          "name": "Vetsin",
+          "aliases": []
+        },
+        {
+          "name": "Videotape",
+          "aliases": []
+        },
+        {
+          "name": "Walkman",
+          "aliases": []
+        },
+        {
+          "name": "WaveRunner",
+          "aliases": []
+        },
+        {
+          "name": "Webster's Dictionary",
+          "aliases": []
+        },
+        {
+          "name": "Winnebago",
+          "aliases": []
+        },
+        {
+          "name": "Wite-Out",
+          "aliases": []
+        },
+        {
+          "name": "Xerox",
+          "aliases": []
+        },
+        {
+          "name": "Yo-Yo",
+          "aliases": []
+        },
+        {
+          "name": "ZIP Code",
+          "aliases": []
+        },
+        {
+          "name": "Zamboni",
+          "aliases": []
+        },
+        {
+          "name": "Zeppelin",
+          "aliases": []
+        },
+        {
+          "name": "Zimmer frame",
+          "aliases": []
+        },
+        {
+          "name": "Ziploc",
+          "aliases": []
+        },
+        {
+          "name": "Zipper",
+          "aliases": []
+        },
+        {
+          "name": "Zodiac",
+          "aliases": []
+        },
+        {
+          "name": "Zoom",
+          "aliases": []
+        }
+      ],
+      "too_clever": ["Heroin"]
     },
     {
       "id": "disney-theme-parks",
@@ -56150,8 +58185,135 @@
       "expect": [20, 20],
       "surface": ["It is certain", "Yes", "Ask again later"],
       "pearl": "Better not tell you now",
-      "active": true,
+      "active": false,
       "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "toy-hall-of-fame-originals",
+      "text": "a toy among the National Toy Hall of Fame's original inductees",
+      "theme": "everyday",
+      "cluster": "toys",
+      "active": true,
+      "sources": [
+        {
+          "page": "National Toy Hall of Fame",
+          "revision": 1384122714,
+          "members": [
+            "Barbie",
+            "Crayola crayon",
+            "Duncan Yo-Yo",
+            "Erector Set",
+            "Etch A Sketch",
+            "Frisbee",
+            "Hula hoop",
+            "Lego",
+            "Lincoln Logs",
+            "Marbles",
+            "Monopoly",
+            "Play-Doh",
+            "Radio Flyer wagon",
+            "Roller skates",
+            "Teddy bear",
+            "Tinkertoy",
+            "View-Master"
+          ],
+          "expect": [17, 17],
+          "review": "Complete 17-item Original inductees (1998-99) list, announced November 1999 according to the pinned page; no unsupported 1998-only claim. Every member checked in that list. Later class lists and finalists excluded.",
+          "reviewed": [
+            "Barbie",
+            "Crayola crayon",
+            "Duncan Yo-Yo",
+            "Erector Set",
+            "Etch A Sketch",
+            "Frisbee",
+            "Hula hoop",
+            "Lego",
+            "Lincoln Logs",
+            "Marbles",
+            "Monopoly",
+            "Play-Doh",
+            "Radio Flyer wagon",
+            "Roller skates",
+            "Teddy bear",
+            "Tinkertoy",
+            "View-Master"
+          ]
+        }
+      ],
+      "expect": [17, 17],
+      "surface": ["Barbie", "Lego", "Teddy bear", "Monopoly", "Play-Doh"],
+      "pearl": "View-Master",
+      "people": false,
+      "answers": [
+        {
+          "name": "Barbie",
+          "aliases": []
+        },
+        {
+          "name": "Crayola crayons",
+          "aliases": ["Crayons"]
+        },
+        {
+          "name": "Yo-yo",
+          "aliases": ["Duncan yo-yo"]
+        },
+        {
+          "name": "Erector Set",
+          "aliases": []
+        },
+        {
+          "name": "Etch A Sketch",
+          "aliases": []
+        },
+        {
+          "name": "Frisbee",
+          "aliases": []
+        },
+        {
+          "name": "Hula hoop",
+          "aliases": []
+        },
+        {
+          "name": "Lego",
+          "aliases": []
+        },
+        {
+          "name": "Lincoln Logs",
+          "aliases": []
+        },
+        {
+          "name": "Marbles",
+          "aliases": []
+        },
+        {
+          "name": "Monopoly",
+          "aliases": []
+        },
+        {
+          "name": "Play-Doh",
+          "aliases": []
+        },
+        {
+          "name": "Radio Flyer wagon",
+          "aliases": ["Wagon", "Radio Flyer"]
+        },
+        {
+          "name": "Roller skates",
+          "aliases": []
+        },
+        {
+          "name": "Teddy bear",
+          "aliases": []
+        },
+        {
+          "name": "Tinkertoy",
+          "aliases": []
+        },
+        {
+          "name": "View-Master",
+          "aliases": []
+        }
+      ]
     },
     {
       "id": "egot-winners",
