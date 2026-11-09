@@ -19,7 +19,7 @@ export default function Games() {
           </Button>
         }
       />
-      <div className="space-y-6 p-4 lg:p-6">
+      <div className="space-y-6 px-[var(--gutter)] py-4 lg:py-6">
         {!games.data ? (
           <LoadState error={games.isError} retry={() => void games.refetch()} />
         ) : (
