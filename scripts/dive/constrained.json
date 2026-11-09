@@ -35783,7 +35783,7 @@
     },
     {
       "id": "spiel-des-jahres-winners",
-      "text": "a winner of the Spiel des Jahres (German Game of the Year)",
+      "text": "a winner of Germany's Spiel des Jahres board-game award",
       "theme": "everyday",
       "cluster": "board-games",
       "active": true,
@@ -52293,8 +52293,8 @@
       "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
     },
     {
-      "id": "toy-hall-of-fame",
-      "text": "a toy in the National Toy Hall of Fame",
+      "id": "toy-hall-of-fame-originals",
+      "text": "a toy among the National Toy Hall of Fame's original inductees",
       "theme": "everyday",
       "cluster": "toys",
       "active": true,
@@ -52303,294 +52303,54 @@
           "page": "National Toy Hall of Fame",
           "revision": 1384122714,
           "members": [
-            "Alphabet blocks",
-            "American Girl dolls",
-            "Atari 2600",
-            "Baby Nancy",
-            "Ball",
             "Barbie",
-            "Baseball cards",
-            "Battleship board game",
-            "Bicycle",
-            "Big Wheel tricycle",
-            "Bingo",
-            "Blanket",
-            "Bubbles",
-            "Cabbage Patch Kids",
-            "Candy Land",
-            "Cardboard box",
-            "Care Bears",
-            "Checkers",
-            "Chess",
-            "Clue",
-            "Coloring book",
-            "Corn Popper",
             "Crayola crayon",
-            "Dollhouse",
-            "Dominoes",
             "Duncan Yo-Yo",
-            "Dungeons & Dragons",
-            "Easy-Bake Oven",
             "Erector Set",
             "Etch A Sketch",
             "Frisbee",
-            "G.I. Joe",
-            "Game Boy",
-            "Hot Wheels",
             "Hula hoop",
-            "Jack-in-the-box",
-            "Jenga",
-            "Jigsaw puzzle",
-            "Jump rope",
-            "Kite",
-            "Knucklebones",
             "Lego",
             "Lincoln Logs",
-            "Lionel Trains",
-            "Lite-Brite",
-            "Little People",
-            "Little green army men",
-            "Magic 8 Ball",
-            "Magic: The Gathering",
             "Marbles",
-            "Masters of the Universe",
-            "Matchbox model cars",
             "Monopoly",
-            "Mr. Potato Head",
-            "My Little Pony dolls",
-            "Nerf",
-            "Paper airplane",
-            "Phase 10 card game",
-            "Pinball",
             "Play-Doh",
-            "Playing cards",
-            "Pokémon Trading Card Game",
-            "Puppet",
             "Radio Flyer wagon",
-            "Raggedy Andy",
-            "Raggedy Ann",
-            "Risk",
-            "Rocking horse",
             "Roller skates",
-            "Rubber duck",
-            "Rubik's Cube",
-            "Sand",
-            "Scrabble",
-            "Sidewalk chalk",
-            "Silly Putty",
-            "Slide",
-            "Slime (both manufactured and homemade )",
-            "Slinky",
-            "Star Wars action figures",
-            "Super Soaker",
-            "Swing",
             "Teddy bear",
-            "The Game of Life",
-            "The baby doll",
-            "The skateboard",
-            "The stick",
             "Tinkertoy",
-            "Tonka trucks",
-            "Top",
-            "Transformers action figures",
-            "Trivial Pursuit board game",
-            "Twister",
-            "Uno",
-            "View-Master",
-            "Wiffle ball"
+            "View-Master"
           ],
-          "expect": [95, 95],
-          "review": "First inducted-toys list under each class heading, not subsequent finalists; original inductees plus classes 2000–2026. All 95 rows checked; final four are Bingo, Care Bears, Pokémon Trading Card Game and Slide. Clean display labels preserve each identity.",
+          "expect": [17, 17],
+          "review": "Complete 17-item Original inductees (1998-99) list, announced November 1999 according to the pinned page; no unsupported 1998-only claim. Every member checked in that list. Later class lists and finalists excluded.",
           "reviewed": [
-            "Alphabet blocks",
-            "American Girl dolls",
-            "Atari 2600",
-            "Baby Nancy",
-            "Ball",
             "Barbie",
-            "Baseball cards",
-            "Battleship board game",
-            "Bicycle",
-            "Big Wheel tricycle",
-            "Bingo",
-            "Blanket",
-            "Bubbles",
-            "Cabbage Patch Kids",
-            "Candy Land",
-            "Cardboard box",
-            "Care Bears",
-            "Checkers",
-            "Chess",
-            "Clue",
-            "Coloring book",
-            "Corn Popper",
             "Crayola crayon",
-            "Dollhouse",
-            "Dominoes",
             "Duncan Yo-Yo",
-            "Dungeons & Dragons",
-            "Easy-Bake Oven",
             "Erector Set",
             "Etch A Sketch",
             "Frisbee",
-            "G.I. Joe",
-            "Game Boy",
-            "Hot Wheels",
             "Hula hoop",
-            "Jack-in-the-box",
-            "Jenga",
-            "Jigsaw puzzle",
-            "Jump rope",
-            "Kite",
-            "Knucklebones",
             "Lego",
             "Lincoln Logs",
-            "Lionel Trains",
-            "Lite-Brite",
-            "Little People",
-            "Little green army men",
-            "Magic 8 Ball",
-            "Magic: The Gathering",
             "Marbles",
-            "Masters of the Universe",
-            "Matchbox model cars",
             "Monopoly",
-            "Mr. Potato Head",
-            "My Little Pony dolls",
-            "Nerf",
-            "Paper airplane",
-            "Phase 10 card game",
-            "Pinball",
             "Play-Doh",
-            "Playing cards",
-            "Pokémon Trading Card Game",
-            "Puppet",
             "Radio Flyer wagon",
-            "Raggedy Andy",
-            "Raggedy Ann",
-            "Risk",
-            "Rocking horse",
             "Roller skates",
-            "Rubber duck",
-            "Rubik's Cube",
-            "Sand",
-            "Scrabble",
-            "Sidewalk chalk",
-            "Silly Putty",
-            "Slide",
-            "Slime (both manufactured and homemade )",
-            "Slinky",
-            "Star Wars action figures",
-            "Super Soaker",
-            "Swing",
             "Teddy bear",
-            "The Game of Life",
-            "The baby doll",
-            "The skateboard",
-            "The stick",
             "Tinkertoy",
-            "Tonka trucks",
-            "Top",
-            "Transformers action figures",
-            "Trivial Pursuit board game",
-            "Twister",
-            "Uno",
-            "View-Master",
-            "Wiffle ball"
+            "View-Master"
           ]
         }
       ],
-      "expect": [95, 95],
-      "surface": ["Barbie", "Lego", "Slinky", "Teddy bear", "Monopoly"],
-      "pearl": "Sand",
+      "expect": [17, 17],
+      "surface": ["Barbie", "Lego", "Teddy bear", "Monopoly", "Play-Doh"],
+      "pearl": "View-Master",
       "people": false,
       "answers": [
         {
-          "name": "Alphabet blocks",
-          "aliases": []
-        },
-        {
-          "name": "American Girl dolls",
-          "aliases": []
-        },
-        {
-          "name": "Atari 2600",
-          "aliases": []
-        },
-        {
-          "name": "Baby Nancy",
-          "aliases": []
-        },
-        {
-          "name": "Ball",
-          "aliases": []
-        },
-        {
           "name": "Barbie",
-          "aliases": []
-        },
-        {
-          "name": "Baseball cards",
-          "aliases": []
-        },
-        {
-          "name": "Battleship",
-          "aliases": []
-        },
-        {
-          "name": "Bicycle",
-          "aliases": []
-        },
-        {
-          "name": "Big Wheel tricycle",
-          "aliases": []
-        },
-        {
-          "name": "Bingo",
-          "aliases": []
-        },
-        {
-          "name": "Blanket",
-          "aliases": []
-        },
-        {
-          "name": "Bubbles",
-          "aliases": []
-        },
-        {
-          "name": "Cabbage Patch Kids",
-          "aliases": []
-        },
-        {
-          "name": "Candy Land",
-          "aliases": []
-        },
-        {
-          "name": "Cardboard box",
-          "aliases": []
-        },
-        {
-          "name": "Care Bears",
-          "aliases": []
-        },
-        {
-          "name": "Checkers",
-          "aliases": []
-        },
-        {
-          "name": "Chess",
-          "aliases": []
-        },
-        {
-          "name": "Clue",
-          "aliases": ["Cluedo"]
-        },
-        {
-          "name": "Coloring book",
-          "aliases": []
-        },
-        {
-          "name": "Corn Popper",
           "aliases": []
         },
         {
@@ -52598,24 +52358,8 @@
           "aliases": ["Crayons"]
         },
         {
-          "name": "Dollhouse",
-          "aliases": []
-        },
-        {
-          "name": "Dominoes",
-          "aliases": []
-        },
-        {
           "name": "Yo-yo",
           "aliases": ["Duncan yo-yo"]
-        },
-        {
-          "name": "Dungeons & Dragons",
-          "aliases": []
-        },
-        {
-          "name": "Easy-Bake Oven",
-          "aliases": []
         },
         {
           "name": "Erector Set",
@@ -52630,44 +52374,8 @@
           "aliases": []
         },
         {
-          "name": "G.I. Joe",
-          "aliases": []
-        },
-        {
-          "name": "Game Boy",
-          "aliases": []
-        },
-        {
-          "name": "Hot Wheels",
-          "aliases": []
-        },
-        {
           "name": "Hula hoop",
           "aliases": []
-        },
-        {
-          "name": "Jack-in-the-box",
-          "aliases": []
-        },
-        {
-          "name": "Jenga",
-          "aliases": []
-        },
-        {
-          "name": "Jigsaw puzzle",
-          "aliases": []
-        },
-        {
-          "name": "Jump rope",
-          "aliases": []
-        },
-        {
-          "name": "Kite",
-          "aliases": []
-        },
-        {
-          "name": "Knucklebones",
-          "aliases": ["Jacks"]
         },
         {
           "name": "Lego",
@@ -52678,67 +52386,11 @@
           "aliases": []
         },
         {
-          "name": "Lionel Trains",
-          "aliases": []
-        },
-        {
-          "name": "Lite-Brite",
-          "aliases": []
-        },
-        {
-          "name": "Little People",
-          "aliases": ["Fisher-Price Little People"]
-        },
-        {
-          "name": "Little green army men",
-          "aliases": ["Army men"]
-        },
-        {
-          "name": "Magic 8 Ball",
-          "aliases": ["Magic eight ball"]
-        },
-        {
-          "name": "Magic: The Gathering",
-          "aliases": []
-        },
-        {
           "name": "Marbles",
           "aliases": []
         },
         {
-          "name": "Masters of the Universe",
-          "aliases": []
-        },
-        {
-          "name": "Matchbox model cars",
-          "aliases": ["Matchbox cars", "Matchbox"]
-        },
-        {
           "name": "Monopoly",
-          "aliases": []
-        },
-        {
-          "name": "Mr. Potato Head",
-          "aliases": []
-        },
-        {
-          "name": "My Little Pony",
-          "aliases": ["My Little Pony dolls"]
-        },
-        {
-          "name": "Nerf",
-          "aliases": ["Nerf ball"]
-        },
-        {
-          "name": "Paper airplane",
-          "aliases": []
-        },
-        {
-          "name": "Phase 10",
-          "aliases": []
-        },
-        {
-          "name": "Pinball",
           "aliases": []
         },
         {
@@ -52746,87 +52398,11 @@
           "aliases": []
         },
         {
-          "name": "Playing cards",
-          "aliases": []
-        },
-        {
-          "name": "Pokémon Trading Card Game",
-          "aliases": ["Pokemon cards", "Pokemon TCG"]
-        },
-        {
-          "name": "Puppet",
-          "aliases": []
-        },
-        {
           "name": "Radio Flyer wagon",
           "aliases": ["Wagon", "Radio Flyer"]
         },
         {
-          "name": "Raggedy Andy",
-          "aliases": []
-        },
-        {
-          "name": "Raggedy Ann",
-          "aliases": []
-        },
-        {
-          "name": "Risk",
-          "aliases": []
-        },
-        {
-          "name": "Rocking horse",
-          "aliases": []
-        },
-        {
           "name": "Roller skates",
-          "aliases": []
-        },
-        {
-          "name": "Rubber duck",
-          "aliases": []
-        },
-        {
-          "name": "Rubik's Cube",
-          "aliases": []
-        },
-        {
-          "name": "Sand",
-          "aliases": []
-        },
-        {
-          "name": "Scrabble",
-          "aliases": []
-        },
-        {
-          "name": "Sidewalk chalk",
-          "aliases": []
-        },
-        {
-          "name": "Silly Putty",
-          "aliases": []
-        },
-        {
-          "name": "Slide",
-          "aliases": []
-        },
-        {
-          "name": "Slime",
-          "aliases": []
-        },
-        {
-          "name": "Slinky",
-          "aliases": []
-        },
-        {
-          "name": "Star Wars action figures",
-          "aliases": ["Star Wars figures"]
-        },
-        {
-          "name": "Super Soaker",
-          "aliases": []
-        },
-        {
-          "name": "Swing",
           "aliases": []
         },
         {
@@ -52834,59 +52410,14 @@
           "aliases": []
         },
         {
-          "name": "The Game of Life",
-          "aliases": ["Life"]
-        },
-        {
-          "name": "Baby doll",
-          "aliases": []
-        },
-        {
-          "name": "Skateboard",
-          "aliases": []
-        },
-        {
-          "name": "Stick",
-          "aliases": []
-        },
-        {
           "name": "Tinkertoy",
-          "aliases": []
-        },
-        {
-          "name": "Tonka trucks",
-          "aliases": ["Tonka"]
-        },
-        {
-          "name": "Top",
-          "aliases": []
-        },
-        {
-          "name": "Transformers",
-          "aliases": ["Transformers action figures"]
-        },
-        {
-          "name": "Trivial Pursuit",
-          "aliases": []
-        },
-        {
-          "name": "Twister",
-          "aliases": []
-        },
-        {
-          "name": "Uno",
           "aliases": []
         },
         {
           "name": "View-Master",
           "aliases": []
-        },
-        {
-          "name": "Wiffle ball",
-          "aliases": []
         }
-      ],
-      "too_clever": ["Stick", "Cardboard box"]
+      ]
     },
     {
       "id": "egot-winners",

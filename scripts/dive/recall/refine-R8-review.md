@@ -1,5 +1,19 @@
 # R8 everyday prompt refinement
 
+## Current revision: original toy inductees and Spiel wording
+
+This section supersedes the broader toy prompt and previous budget figures below. The magic-eight-ball replacement is now **toy-hall-of-fame-originals**, text “a toy among the National Toy Hall of Fame's original inductees”. Spiel now reads “a winner of Germany's Spiel des Jahres board-game award”, removing the parentheses prohibited by the existing text test.
+
+The pinned National Toy Hall of Fame page (oldid 1384122714) groups its **17 original inductees as 1998–99**, with announcement in November 1999. It does not distinguish a 1998-only class. Per explicit scope approval, all 17 original-list members are included: Barbie, Crayola crayons, Erector Set, Etch A Sketch, Frisbee, Hula hoop, Lego, Lincoln Logs, Marbles, Monopoly, Play-Doh, Radio Flyer wagon, Roller skates, Teddy bear, Tinkertoy, View-Master and Yo-yo. Every member was checked against that original list; source members retain literal Crayola crayon and Duncan Yo-Yo spellings. Exact source and answer counts are both 17. Relevant natural aliases are retained; Surface is Barbie, Lego, Teddy bear, Monopoly and Play-Doh; Pearl is View-Master, with no Too Clever picks.
+
+**Frozen-corpus disclosure:** the toy brainstorm was frozen for the broader “a toy in the National Toy Hall of Fame” prompt before source data was seen. The same 80 guesses are reused unchanged and in original order under the narrowed ID specifically to meet the gzip budget. This is not an independently brainstormed test of the narrower question. Of these, 21 are valid original-class guesses, 53 are later-class inductees annotated “inducted after 1998 (year)” using the page's class headings, and the six previous non-inductee annotations are unchanged. No raw brainstorm bytes changed.
+
+Originals recall is 18/21 on canonical normalized keys, **21/21 after aliases**. All seven current prompts retain 100% exact valid-guess recall. Every reviewed-invalid guess was separately checked not to exact-match any current answer key. Largest canonical overlap is now **29.41%** (five original toys shared with generic trademarks, 5/17 of the smaller set); none reaches 50%.
+
+Worker gzip before narrowing was **2996.53 KiB**; after narrowing and the Spiel text fix it is **2995.15 KiB**, saving **1.38 KiB**. Delta versus the measured base 2993.75 KiB is **+1.40 KiB**, within the +1.5 KiB budget by 0.10 KiB. Standalone toy-module gzip drops from 1936 to **597 bytes**.
+
+Requested checks: generator and full `--verify-sources --check` passed; recall exits 0; build passed. Python remains 28/30 with only the stale 387-count and retired-set assertions; Node remains 14/15 with only the css-named-colors retired-module import. A focused diagnostic executed all downstream assertions in both affected Python methods while allowing only the requested count/retired-ID deltas, and both passed: the Spiel text-policy conflict is resolved. No tests or shared configuration were edited. Logs: `~/work/R8-originals-*.log`. Generated Worker files and reports are restored before commit.
+
 Base: `d9f96cfed310ad709dd8cb89084c1eedfacf3118`. Only the seven requested old specs are retired; all their other fields are unchanged. Each new spec immediately follows its predecessor. Historical generated artifacts are restored before commit as requested; regeneration is needed to materialize the prospective cycle.
 
 ## Recall and set sizes
