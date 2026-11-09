@@ -67,3 +67,20 @@ export function formatDealTime(ms: number): string {
   const tenths = Math.floor(Math.max(0, Number.isFinite(ms) ? ms : 0) / 100);
   return `${Math.floor(tenths / 600)}:${String(Math.floor(tenths / 10) % 60).padStart(2, '0')}.${tenths % 10}`;
 }
+export function dealShare(
+  date: string,
+  rounds: readonly { timeMs: number; skipped: boolean; parMs: number }[],
+): string {
+  const label = new Date(`${date}T12:00:00Z`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+  return [
+    `Deal ${label}`,
+    formatDealTime(rounds.reduce((sum, r) => sum + r.timeMs, 0)),
+    ...rounds.map((r) =>
+      r.skipped ? '⬛ Skipped' : `${r.timeMs <= r.parMs ? '🟩' : '🟨'} ${formatDealTime(r.timeMs)}`,
+    ),
+  ].join('\n');
+}

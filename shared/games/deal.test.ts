@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { applyDealOp, dealOpReason, formatDealTime, replayDeal } from './deal';
+import { applyDealOp, dealOpReason, dealShare, formatDealTime, replayDeal } from './deal';
 
 describe('Deal rules', () => {
   it('allows only positive safe integer results', () => {
@@ -50,5 +50,14 @@ describe('Deal rules', () => {
     expect(formatDealTime(83456)).toBe('1:23.4');
     expect(formatDealTime(59999)).toBe('0:59.9');
     expect(formatDealTime(0)).toBe('0:00.0');
+  });
+  it('shares UTC dates and outcomes, including empty and exactly-at-par rounds', () => {
+    expect(dealShare('2026-11-16', [])).toBe('Deal Nov 16\n0:00.0');
+    expect(
+      dealShare('2026-11-16', [
+        { timeMs: 30000, parMs: 30000, skipped: false },
+        { timeMs: 60000, parMs: 30000, skipped: true },
+      ]),
+    ).toBe('Deal Nov 16\n1:30.0\n🟩 0:30.0\n⬛ Skipped');
   });
 });

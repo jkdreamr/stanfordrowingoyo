@@ -1,4 +1,5 @@
 import type { DiveTier } from './games/dive';
+import type { DealCard, DealStep } from './games/deal';
 import type { PerceptionPuzzle } from './games/perception';
 import type {
   PerceptionRoundId,
@@ -610,19 +611,19 @@ export interface GameAccess {
 }
 export interface DealActive {
   round: number;
-  cards: import('./games/deal').DealCard[];
+  cards: DealCard[];
   goal: number;
   parMs: number;
   elapsedMs: number;
 }
 export interface DealRoundResult {
   round: number;
-  cards: import('./games/deal').DealCard[];
+  cards: DealCard[];
   goal: number;
   timeMs: number;
   skipped: boolean;
   parMs: number;
-  solution: import('./games/deal').DealStep[];
+  solution: DealStep[];
   teamBest: { timeMs: number; name: string; me: boolean } | null;
 }
 export interface DealDay {
@@ -786,7 +787,7 @@ export interface Api {
   'POST /api/games/deal/start': Endpoint<{ round: number; date?: string }, DealDay>;
   'POST /api/games/deal/skip': Endpoint<{ round: number; date?: string }, DealDay>;
   'POST /api/games/deal/answer': Endpoint<
-    { round: number; date?: string; steps: import('./games/deal').DealStep[]; elapsedMs: number },
+    { round: number; date?: string; steps: DealStep[]; elapsedMs: number },
     DealDay
   >;
   'POST /api/games/perception/start': Endpoint<{ round: number; date?: string }, PerceptionStart>;
