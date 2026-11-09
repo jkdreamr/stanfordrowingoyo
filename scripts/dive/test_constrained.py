@@ -106,7 +106,7 @@ class SpecsTest(unittest.TestCase):
         self.assertEqual(constrained.derive([], constrained.PREDICATES['countries-ia']), [])
         self.assertEqual(constrained.letters('São Tomé and Príncipe'), 'saotomeandprincipe')
 
-    def test_third_batch_closed_scopes_and_future_exclusions(self):
+    def test_third_batch_closed_scopes_and_named_upcoming_album(self):
         prompts = {p['id']: p for p in constrained.read_specs()}
         names = lambda id: {r['name'] for r in prompts[id]['rows']}
         self.assertEqual(len(names('original-care-bears')), 10)
@@ -120,7 +120,8 @@ class SpecsTest(unittest.TestCase):
         self.assertIn('Salvator Mundi', names('leonardo-paintings'))
         self.assertIn('Ice', names('iba-singapore-sling-ingredients'))
         self.assertIn('Original Soundtracks 1', names('u2-studio-albums'))
-        self.assertNotIn('Carnaval de Luz', names('u2-studio-albums'))
+        self.assertIn('Carnaval de Luz', names('u2-studio-albums'))
+        self.assertNotIn('TBA', names('u2-studio-albums'))
         self.assertEqual(len(names('super-bowl-halftime-leads')), 124)
         self.assertIn('will.i.am', names('super-bowl-halftime-leads'))
         aliases = prompts['super-bowl-halftime-leads']['aliases']

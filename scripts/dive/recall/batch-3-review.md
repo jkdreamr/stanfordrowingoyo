@@ -50,15 +50,15 @@ per-prompt before/after observations, tiers, aliases and standalone gzip sizes.
 | `rock-hall-multiple-inductees`    | Name an artist inducted into the Rock and Roll Hall of Fame more than once. |   29 |     0.94 | 26/27 → 27/27         |
 | `smash-64-fighters`               | Name a playable fighter in the original Nintendo 64 Super Smash Bros.       |   12 |     0.49 | 12/17 → 17/17         |
 | `super-bowl-halftime-leads`       | Name a headliner or special guest in a Super Bowl halftime show since 1993. |  124 |     3.27 | 48/51 → 51/51         |
-| `u2-studio-albums`                | Name a U2 studio album.                                                     |   16 |     0.66 | 17/21 → 21/21         |
+| `u2-studio-albums`                | Name a U2 studio album.                                                     |   17 |     0.68 | 17/21 → 21/21         |
 | `uk-childrens-laureates`          | Name a UK Children's Laureate.                                              |   14 |     0.62 | 26/27 → 27/27         |
 | `uk-three-michelin-stars`         | Name a restaurant currently holding three Michelin stars in the UK.         |   15 |     0.75 | 15/24 → 24/24         |
 | `world-cheese-champions`          | Name a cheese variety named World Cheese Awards champion.                   |   26 |     1.17 | 12/21 → 21/21         |
 | `worlds-best-restaurants`         | Name a restaurant ranked first in The World's 50 Best Restaurants.          |   13 |     0.53 | 15/18 → 18/18         |
 
-New content: **632 canonicals, 565 aliases**; **21 tiny, seven medium, one
+New content: **633 canonicals, 565 aliases**; **21 tiny, seven medium, one
 large** set. Standalone module gzip (Node v24.22.2, zlib 1.3.2.1, level 6) totals
-**23.71 KiB**; it is not additive whole-Worker marginal size.
+**23.74 KiB**; it is not additive whole-Worker marginal size.
 
 ## Source completeness and editorial decisions
 
@@ -97,9 +97,11 @@ members were checked against their pinned source bodies during authoring.
   promotional extras are outside the scope. Common display-title variants
   (WALL-E, Big Bang Theory, Beatles, Snoopy, Steamboat Willie, etc.) are aliases.
 - **Music:** nine Radiohead and eight Beyoncé studio albums; compilations,
-  remixes, live albums and EPs are excluded. U2 has 16 released studio albums,
-  including the U2/Eno Passengers project `Original Soundtracks 1`; the announced
-  `Carnaval de Luz` (13 November 2026) is not yet released at the source snapshot.
+  remixes, live albums and EPs are excluded. U2 has 17 named studio albums: 16 released albums,
+  including the U2/Eno Passengers project `Original Soundtracks 1`, plus the
+  confirmed upcoming `Carnaval de Luz` (13 November 2026). The named imminent
+  release is accepted proactively so it cannot become a post-cutover valid-answer
+  gap; it is not an unnamed/TBA placeholder.
   Radiohead reissue names, album numerals and self-titled forms are accepted
   aliases where they identify an eligible original album.
 - **Andrew Lloyd Webber:** all 21 enumerated stage musicals, including early,
@@ -167,15 +169,15 @@ preserves all 124 canonicals. No matcher or shared normalizer was changed.
 ## Budget and runtime limits
 
 ```text
-Total Upload: 7837.31 KiB / gzip: 2946.21 KiB
+Total Upload: 7837.36 KiB / gzip: 2946.24 KiB
 --dry-run: exiting now.
 ```
 
 - Post-pruning baseline: 2878.28 KiB; batch 2: 2926.87 KiB.
-- Batch-3 actual marginal gzip: **19.34 KiB**; cumulative: **67.93 KiB**.
-- Headroom: **53.79 KiB** to 3000; **125.79 KiB** to 3072.
+- Batch-3 actual marginal gzip: **19.37 KiB**; cumulative: **67.96 KiB**.
+- Headroom: **53.76 KiB** to 3000; **125.76 KiB** to 3072.
 - Reserve **3 KiB** for the gameplay branch plus **10 KiB** extra safety margin.
-  Available authoring budget below the internal target after both: **40.79 KiB**.
+  Available authoring budget below the internal target after both: **40.76 KiB**.
 - The gameplay branch is not merged/measured here; its 3 KiB is an estimate.
 - Protected matcher, route, UI and shared-type files are unchanged. The existing
   40-character input cap still prevents submitting the valid full guess

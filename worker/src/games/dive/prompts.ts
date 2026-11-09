@@ -4736,7 +4736,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'music',
     cluster: 'artist-albums',
     constrained: true,
-    size: 16,
+    size: 17,
   },
   {
     id: 'radiohead-studio-albums',

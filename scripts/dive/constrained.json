@@ -59855,6 +59855,9 @@
         {
           "name": "Original Soundtracks 1",
           "aliases": ["Passengers", "Original Soundtracks One"]
+        },
+        {
+          "name": "Carnaval de Luz"
         }
       ],
       "sources": [
@@ -59877,7 +59880,8 @@
             "Songs of Innocence",
             "Songs of Experience",
             "Songs of Surrender",
-            "Original Soundtracks 1"
+            "Original Soundtracks 1",
+            "Carnaval de Luz"
           ],
           "reviewed": [
             "Boy",
@@ -59895,15 +59899,16 @@
             "Songs of Innocence",
             "Songs of Experience",
             "Songs of Surrender",
-            "Original Soundtracks 1"
+            "Original Soundtracks 1",
+            "Carnaval de Luz"
           ],
-          "expect": [16, 16]
+          "expect": [17, 17]
         }
       ],
-      "expect": [16, 16],
+      "expect": [17, 17],
       "surface": ["The Joshua Tree", "War", "Achtung Baby"],
       "pearl": "Zooropa",
-      "scope": "Released U2 studio albums including re-recording Songs of Surrender and the Passengers collaboration Original Soundtracks 1. Carnaval de Luz is announced for 13 November 2026, after this audit, so excluded; no live albums, EPs or compilations."
+      "scope": "Released U2 studio albums plus the confirmed next studio album at the pinned revision. Includes the U2/Eno Passengers project Original Soundtracks 1 and the named upcoming Carnaval de Luz (13 November 2026), preventing a known post-cutover valid-answer gap. Live albums, standalone EPs, compilations, unfinished/undated projects and unnamed/TBA placeholders are excluded."
     },
     {
       "id": "radiohead-studio-albums",

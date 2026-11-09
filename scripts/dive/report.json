@@ -18967,12 +18967,12 @@
     "id": "u2-studio-albums",
     "text": "Name a U2 studio album.",
     "active": true,
-    "size": 16,
+    "size": 17,
     "tiers": {
       "surface": 3,
       "tooclever": 0,
       "school": 6,
-      "rare": 3,
+      "rare": 4,
       "deep": 3,
       "gem": 1
     },
