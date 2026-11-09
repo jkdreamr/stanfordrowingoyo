@@ -1,0 +1,20 @@
+{
+  "buckets": {
+    "2": "\nak\t2a\nal\t1t\nar\t2j\naz\ti\nia\ts\nid\t2u\nil\t7\nin\tz\noh\t0\nok\t1i\nor\t19\nut\t23\n",
+    "7": "\nalabama\t1t\narizona\ti\narkansa\t2j\nindiana\tz\n",
+    "6": "\nalaska\t2a\noregon\t19\n",
+    "5": "\nidaho\t2u\n",
+    "8": "\nillinois\t7\noklahoma\t1i\n",
+    "4": "\niowa\ts\nohio\t0\nutah\t23\n"
+  },
+  "answers": "s\tOhio\nm\tIllinois\ns\tArizona\nm\tIowa\nm\tIndiana\ng\tOregon\nm\tOklahoma\nr\tAlabama\nr\tUtah\ns\tAlaska\nd\tArkansas\nd\tIdaho\n",
+  "gem": { "answer": "Oregon", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Ohio", "tier": "surface", "points": 10 },
+    { "answer": "Arizona", "tier": "surface", "points": 10 },
+    { "answer": "Alaska", "tier": "surface", "points": 10 },
+    { "answer": "Arkansas", "tier": "deep", "points": 85 },
+    { "answer": "Idaho", "tier": "deep", "points": 85 }
+  ],
+  "size": 12
+}

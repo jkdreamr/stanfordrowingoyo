@@ -1,0 +1,31 @@
+{
+  "buckets": {
+    "4": "\nanne\tag\njane\t83\njohn\t0\n",
+    "11": "\nbloody mary\t1o\ncharles iii\t9b\nedward viii\tey\nelizabeth 1\t70\nelizabeth 2\ta1\nelizabeth i\t70\nking charle\t9b\nking harold\td8\nrichard iii\t8x\nwilliam iii\t7p\n",
+    "9": "\ncharles 1\t1x\ncharles 2\t47\ncharles 3\t9b\ncharles i\t1x\nedward ii\t8l\nedward iv\tc9\nedward vi\tdk\ngeorge ii\t35\ngeorge iv\tan\ngeorge vi\tcl\nharold ii\td8\nhenry iii\t9p\nhenry vii\tdw\njane grey\t83\nking john\t0\nrichard 1\t1c\nrichard 2\t3u\nrichard 3\t8x\nrichard i\t1c\nwilliam 1\ts\nwilliam 2\t3h\nwilliam 3\t7p\nwilliam 4\tbl\nwilliam i\ts\n",
+    "10": "\ncharles ii\t47\nedward iii\tb8\nedward vii\te8\ngeorge iii\t6n\nhenry viii\tel\nlouis viii\t14\nmary tudor\t1o\nqueen anne\tag\nqueen jane\t83\nrichard ii\t3u\nwilliam ii\t3h\nwilliam iv\tbl\n",
+    "14": "\nedgar atheling\tg9\nlady jane grey\t83\nqueen victoria\t7e\n",
+    "8": "\nedgar ii\tg9\nedward 1\t62\nedward 2\t8l\nedward 3\tb8\nedward 4\tc9\nedward 5\t8a\nedward 6\tdk\nedward 7\te8\nedward 8\tey\nedward i\t62\nedward v\t8a\ngeorge 1\th\ngeorge 2\t35\ngeorge 3\t6n\ngeorge 4\tan\ngeorge 5\t2k\ngeorge 6\tcl\ngeorge i\th\ngeorge v\t2k\nharold 2\td8\nhenry ii\t54\nhenry iv\tby\nhenry vi\tcx\njames ii\t29\nvictoria\t7e\n",
+    "18": "\nedgar the atheling\tg9\nphilip ii of spain\taz\nqueen elizabeth ii\ta1\n",
+    "13": "\nedgar theling\tg9\nwilliam rufus\t3h\n",
+    "16": "\nedward longshank\t62\nharold godwinson\td8\nking charles iii\t9b\nstephen of blois\t6d\n",
+    "20": "\nedward the confessor\tfm\nhenry the young king\t5f\n",
+    "12": "\nelizabeth ii\ta1\nking henry v\t4u\nking stephen\t6d\nprince louis\t14\n",
+    "15": "\nempress matilda\tfc\nking henry viii\tel\nphilip of spain\taz\nqueen elizabeth\ta1\n",
+    "7": "\nhenry 1\t2v\nhenry 2\t54\nhenry 3\t9p\nhenry 4\tby\nhenry 5\t4u\nhenry 6\tcx\nhenry 7\tdw\nhenry 8\tel\nhenry i\t2v\nhenry v\t4u\njames 1\t7\njames 2\t29\njames i\t7\nmary ii\t4k\nmatilda\tfc\nstephen\t6d\n",
+    "5": "\nlouis\t14\n",
+    "6": "\nmary 1\t1o\nmary 2\t4k\nmary i\t1o\nphilip\taz\n",
+    "17": "\nqueen elizabeth i\t70\nrichard lionheart\t1c\nwilliam of orange\t7p\n",
+    "21": "\nrichard the lionheart\t1c\nwilliam the conqueror\ts\n"
+  },
+  "answers": "m\tJohn\nm\tJames I\nm\tGeorge I\nm\tWilliam I\nm\tLouis\nm\tRichard I\nm\tMary I\nm\tCharles I\nm\tJames II\nm\tGeorge V\nm\tHenry I\nm\tGeorge II\nm\tWilliam II\nm\tRichard II\nm\tCharles II\nm\tMary II\nm\tHenry V\nm\tHenry II\nm\tHenry the Young King\nm\tEdward I\nm\tStephen\nr\tGeorge III\ns\tElizabeth I\nr\tVictoria\nr\tWilliam III\nr\tJane\nr\tEdward V\nr\tEdward II\ng\tRichard III\nr\tCharles III\nr\tHenry III\ns\tElizabeth II\nr\tAnne\nr\tGeorge IV\nr\tPhilip\nr\tEdward III\nr\tWilliam IV\nr\tHenry IV\nd\tEdward IV\nd\tGeorge VI\nd\tHenry VI\nd\tHarold II\nd\tEdward VI\nd\tHenry VII\nd\tEdward VII\ns\tHenry VIII\nd\tEdward VIII\nd\tMatilda\nd\tEdward the Confessor\nd\tEdgar Ætheling\n",
+  "gem": { "answer": "Richard III", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Elizabeth I", "tier": "surface", "points": 10 },
+    { "answer": "Elizabeth II", "tier": "surface", "points": 10 },
+    { "answer": "Henry VIII", "tier": "surface", "points": 10 },
+    { "answer": "Edward IV", "tier": "deep", "points": 85 },
+    { "answer": "George VI", "tier": "deep", "points": 85 }
+  ],
+  "size": 50
+}

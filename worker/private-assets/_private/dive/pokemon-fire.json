@@ -1,0 +1,22 @@
+{
+  "buckets": {
+    "8": "\narcanine\tp\nblaziken\t78\ncamerupt\td4\ncastform\tdo\nchimchar\t60\ncrocalor\tge\ndarumaka\th2\nfennekin\ta9\nhoundoom\t3u\nhoundour\t45\nlarvesta\tiu\nmagcargo\tbh\nmonferno\tk8\nninetale\t6b\noricorio\tl1\nrapidash\t2r\nreshiram\t6x\nsalandit\tme\nsalazzle\tmp\nsilvally\tnp\nsimisear\to0\ntorracat\tpw\n",
+    "6": "\narceus\t4p\ncarkol\tdf\nchi yu\t86\nemboar\thd\nlitleo\tj5\nlitten\t96\nmagmar\t9o\nmoltre\t2h\nponyta\t28\npyroar\tlw\nraboot\tm5\nslugma\t4g\nvulpix\t10\n",
+    "9": "\narmarouge\tce\nceruledge\ted\ncharcadet\tf2\ncharizard\td\ncinderace\tfe\ncoalossal\tfq\ncombusken\tg2\ncyndaquil\t3i\ngrowlithe\t1w\ninfernape\tc2\niron moth\t8f\nmagmortar\tjw\nscorbunny\tn0\nvolcanion\t9x\nvolcarona\tqk\n",
+    "11": "\nblacephalon\tcq\ncentiskorch\tdz\nfletchinder\thm\n",
+    "7": "\nbraixen\tbs\ndelphox\tak\nflareon\t19\nfuecoco\ti0\ngroudon\t4y\nheatmor\tia\nheatran\t5q\nlampent\tik\nlitwick\tje\nmarowak\t6n\nogerpon\tkr\npansear\tlc\npignite\tlm\nquilava\tau\ntorchic\t5g\ntorkoal\tpm\nvictini\t7w\n",
+    "10": "\nchandelure\tep\ncharmander\t0\ncharmeleon\t1j\ndarmanitan\tgp\nincineroar\tb4\nscovillain\tnc\nsizzlipede\tob\nskeledirge\too\ntalonflame\tp1\nturtonator\tq7\ntyphlosion\t7j\n",
+    "5": "\nentei\t3a\nho oh\t32\nmagby\tjo\nnumel\tkj\nrotom\t58\ntauro\t9f\ntepig\tpe\n",
+    "12": "\ngouging fire\t8r\n"
+  },
+  "answers": "s\tCharmander\ns\tCharizard\nm\tArcanine\ns\tVulpix\nm\tFlareon\nm\tCharmeleon\nm\tGrowlithe\nm\tPonyta\nm\tMoltres\nm\tRapidash\nm\tHo-Oh\nm\tEntei\ng\tCyndaquil\nm\tHoundoom\nm\tHoundour\nm\tSlugma\nm\tArceus\nm\tGroudon\nm\tRotom\nm\tTorchic\nm\tHeatran\nm\tChimchar\nm\tNinetales\nm\tMarowak\nm\tReshiram\nm\tBlaziken\nm\tTyphlosion\nm\tVictini\nm\tChi-Yu\nm\tIron Moth\nm\tGouging Fire\nm\tLitten\nm\tTauros\nm\tMagmar\nm\tVolcanion\nm\tFennekin\nm\tDelphox\nm\tQuilava\nm\tIncineroar\nm\tMagcargo\nm\tBraixen\nm\tInfernape\nm\tArmarouge\nr\tBlacephalon\nr\tCamerupt\nr\tCarkol\nr\tCastform\nr\tCentiskorch\nr\tCeruledge\nr\tChandelure\nr\tCharcadet\nr\tCinderace\nr\tCoalossal\nr\tCombusken\nr\tCrocalor\nr\tDarmanitan\nr\tDarumaka\nr\tEmboar\nr\tFletchinder\nr\tFuecoco\nr\tHeatmor\nr\tLampent\nr\tLarvesta\nr\tLitleo\nr\tLitwick\nr\tMagby\nr\tMagmortar\nr\tMonferno\nd\tNumel\nd\tOgerpon\nd\tOricorio\nd\tPansear\nd\tPignite\nd\tPyroar\nd\tRaboot\nd\tSalandit\nd\tSalazzle\nd\tScorbunny\nd\tScovillain\nd\tSilvally\nd\tSimisear\nd\tSizzlipede\nd\tSkeledirge\nd\tTalonflame\nd\tTepig\nd\tTorkoal\nd\tTorracat\nd\tTurtonator\nd\tVolcarona\n",
+  "gem": { "answer": "Cyndaquil", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Charmander", "tier": "surface", "points": 10 },
+    { "answer": "Charizard", "tier": "surface", "points": 10 },
+    { "answer": "Vulpix", "tier": "surface", "points": 10 },
+    { "answer": "Numel", "tier": "deep", "points": 85 },
+    { "answer": "Ogerpon", "tier": "deep", "points": 85 }
+  ],
+  "size": 89
+}

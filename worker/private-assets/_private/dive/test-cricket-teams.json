@@ -1,0 +1,32 @@
+{
+  "buckets": {
+    "19": "\nafghan cricket team\t28\nindian cricket team\tm\n",
+    "11": "\nafghanistan\t28\nnew zealand\t1u\n",
+    "24": "\nafghanistan cricket team\t28\nbangladeshi cricket team\t2m\nnew zealand cricket team\t1u\nrepublic of south africa\tu\nwest indian cricket team\t3a\nwest indies cricket team\t3a\n",
+    "9": "\naustralia\ta\nsri lanka\t3o\nwest indy\t3a\n",
+    "22": "\naustralia cricket team\ta\nsri lanka cricket team\t3o\n",
+    "23": "\naustralian cricket team\ta\nbangladesh cricket team\t2m\nsri lankan cricket team\t3o\nzimbabwean cricket team\t2z\n",
+    "10": "\nbangladesh\t2m\n",
+    "7": "\nengland\t0\nireland\t19\n",
+    "16": "\nengland and wale\t0\n",
+    "20": "\nengland cricket team\t0\nireland cricket team\t19\n",
+    "5": "\nindia\tm\nwindy\t3a\n",
+    "18": "\nindia cricket team\tm\nirish cricket team\t19\n",
+    "2": "\nnz\t1u\nwi\t3a\n",
+    "8": "\npakistan\t1j\nzimbabwe\t2z\n",
+    "21": "\npakistan cricket team\t1j\nzimbabwe cricket team\t2z\n",
+    "12": "\nsouth africa\tu\n",
+    "25": "\nsouth africa cricket team\tu\n",
+    "26": "\nsouth african cricket team\tu\n"
+  },
+  "answers": "s\tEngland\ns\tAustralia\ns\tIndia\nm\tSouth Africa\nm\tIreland\nm\tPakistan\nm\tNew Zealand\ng\tAfghanistan\nr\tBangladesh\nr\tZimbabwe\nd\tWest Indies\nd\tSri Lanka\n",
+  "gem": { "answer": "Afghanistan", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "England", "tier": "surface", "points": 10 },
+    { "answer": "Australia", "tier": "surface", "points": 10 },
+    { "answer": "India", "tier": "surface", "points": 10 },
+    { "answer": "West Indies", "tier": "deep", "points": 85 },
+    { "answer": "Sri Lanka", "tier": "deep", "points": 85 }
+  ],
+  "size": 12
+}

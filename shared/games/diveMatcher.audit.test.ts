@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { normalizeAnswer } from './dive';
 import { matchAnswer, suggestAnswer } from '../../worker/src/games/dive/matcher';
-import { answerSet } from '../../worker/src/games/dive/sets';
+import { answerSet } from '../../scripts/dive/assets';
 import { DIVE_SCHEDULE } from '../../worker/src/games/dive/schedule';
 import { DIVE_PROMPTS } from '../../worker/src/games/dive/prompts';
 import { loaders } from '../../worker/src/games/dive/loaders';

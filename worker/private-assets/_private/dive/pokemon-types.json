@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "3": "\nbug\t39\nice\t1b\n",
+    "8": "\nbug type\t39\nelectric\t1s\nfighting\t1h\nice type\t1b\n",
+    "4": "\ndark\to\nfire\t8\nrock\tv\n",
+    "9": "\ndark type\to\nfire type\t8\nrock type\tv\n",
+    "6": "\ndragon\t2s\nflying\t23\nground\tf\nnormal\t12\npoison\t3n\n",
+    "11": "\ndragon type\t2s\nflying type\t23\nground type\tf\nnormal type\t12\npoison type\t3n\n",
+    "13": "\nelectric type\t1s\nfighting type\t1h\n",
+    "5": "\nfairy\t3f\nghost\t2k\ngrass\t31\nsteel\t2c\nwater\t0\n",
+    "10": "\nfairy type\t3f\nghost type\t2k\ngrass type\t31\nsteel type\t2c\nwater type\t0\n",
+    "7": "\npsychic\t3w\nstellar\t46\n",
+    "12": "\npsychic type\t3w\nstellar type\t46\n"
+  },
+  "answers": "s\tWater\ns\tFire\nm\tGround\nm\tDark\nm\tRock\nm\tNormal\nm\tIce\nm\tFighting\nm\tElectric\nr\tFlying\nr\tSteel\nr\tGhost\nr\tDragon\ns\tGrass\nr\tBug\ng\tFairy\nd\tPoison\nd\tPsychic\nd\tStellar\n",
+  "gem": { "answer": "Fairy", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Water", "tier": "surface", "points": 10 },
+    { "answer": "Fire", "tier": "surface", "points": 10 },
+    { "answer": "Grass", "tier": "surface", "points": 10 },
+    { "answer": "Poison", "tier": "deep", "points": 85 },
+    { "answer": "Psychic", "tier": "deep", "points": 85 }
+  ],
+  "size": 19
+}

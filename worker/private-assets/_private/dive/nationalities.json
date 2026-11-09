@@ -1,0 +1,38 @@
+{
+  "buckets": {
+    "6": "\nafghan\tiq\ncymrae\t21u\ndanish\thf\nfijian\t13x\nfrench\t7j\ngerman\t8c\nindian\t8y\nkazakh\tzb\nkenyan\t4i\nkyrgyz\t172\nlibyan\t3y\nmalian\t1bz\nniuean\t201\npolish\tdd\nqatari\t130\nsamoan\t14g\nslovak\tuh\nsomali\toh\nsyrian\t13\ntongan\t1g7\nyemeni\t32\n",
+    "8": "\nalbanian\tsu\nalgerian\ts7\namerican\t6o\nandorran\t1wk\narmenian\tly\naustrian\tjl\nbahamian\t1eo\nbahraini\t1b6\nbelizean\t1q8\nbeninese\t1x8\nbolivian\tws\nbruneian\t1u4\nburkinan\t21j\ncanadian\ts\ncroatian\tr3\negyptian\te8\neritrean\t19w\nestonian\tvc\nfilipino\tl1\ngabonese\t1su\ngeorgian\toq\nghanaian\t5w\nguyanese\t1if\nhonduran\t14p\njamaican\tmw\njapanese\t97\nlebanese\tk8\nliberian\ty3\nmacanese\t1ze\nmalagasy\t1dn\nmalawian\t1jz\nmoldovan\t1jo\nmoroccan\tp1\nnamibian\t1j0\nnepalese\t11g\nnigerian\t3b\nnigerien\t1w9\nperuvian\t2d\nromanian\tm9\nscottish\tb0\nsudanese\t47\ntogolese\t1px\ntunisian\ttu\ntuvaluan\t20m\n",
+    "7": "\nangolan\t1cz\nbelgian\tiz\nbritish\t79\nburmese\tre\nchadian\t1ka\nchilean\tps\nchinese\t7s\ncomoran\t20x\ncypriot\t146\nemirati\t1iq\nenglish\t6z\nfaroese\t1r5\nfinnish\tlc\ngambian\t1nk\nguinean\t1dy\nhaitian\tq2\niranian\tfk\nisraeli\td3\nitalian\ta8\nivorian\t1fx\nkosovan\t1tu\nkuwaiti\t12q\nlatvian\tv2\nmaltese\txt\nmexican\tct\nmosotho\t23j\nnauruan\t1tk\npalauan\t1yr\nrussian\t82\nrwandan\t11r\nserbian\to7\nspanish\t9i\nswedish\tej\nturkish\tdm\nturkmen\t1aw\nugandan\t58\nzambian\t150\n",
+    "9": "\nanguillan\t217\nargentine\t1c\nbarbadian\t1n8\nbermudian\t1rf\nbhutanese\t1l8\nbotswanan\t20a\nbrazilian\tdw\nbulgarian\tj9\nburundian\t1rr\ncambodian\tt5\ncolombian\tmk\ndominican\tlm\nethiopian\t3m\ngrenadian\t1uf\nguamanian\t1zp\nhungarian\tjw\nicelandic\tsi\njordanian\tu5\nkittitian\t22c\nmalaysian\tie\nmaldivian\t1oe\nmauritian\t1p4\nmongolian\tvn\nnorwegian\tgv\npakistani\t1o\nprydeinig\t23t\nslovenian\t12e\nst lucian\tuq\nstateless\t15n\ntaiwanese\tqc\ntanzanian\t1ak\nukrainian\tf1\nuruguayan\tzk\nwallisian\t25n\n",
+    "10": "\naustralian\t8l\nbelarusian\t17b\ndjiboutian\t1z1\necuadorean\t1s3\nguatemalan\t121\nindonesian\tho\nlithuanian\tth\nmacedonian\tvz\nmonegasque\t1wv\nmozambican\t1lk\nnicaraguan\t16p\npanamanian\t19b\nparaguayan\t1jb\nportuguese\tg2\nsao tomean\t24j\nsenegalese\t1a7\nsri lankan\tru\nsurinamese\t1ur\ntristanian\t25a\nvenezuelan\t20\nvietnamese\ti1\nvincentian\t1v4\nzimbabwean\t15a\n",
+    "11": "\nazerbaijani\t18x\nbangladeshi\t2o\ncameroonian\t1d9\ncosta rican\t0\ngreenlandic\t1sg\nhong konger\t1xj\nmarshallese\t1vv\nmauritanian\t1mu\nmicronesian\t1qr\nmontenegrin\t1oq\npalestinian\te\nsalvadorean\t1vh\nsammarinese\t245\nseychellois\t5i\nsingaporean\tyx\nst helenian\t24w\ntrinidadian\t1fj\n",
+    "23": "\nbritish virgin islander\tx3\n",
+    "12": "\ncape verdean\t1t5\ngibraltarian\t1yc\nluxembourger\t1xx\nmartiniquais\t22o\nnorth korean\tc6\npuerto rican\tqo\nsouth korean\tbr\n",
+    "15": "\ncayman islander\t167\ncentral african\tai\ncongolese congo\tzw\nvatican citizen\tkj\n",
+    "30": "\ncitizen of antigua and barbuda\t1lx\n",
+    "33": "\ncitizen of bosnia and herzegovina\t10g\ncitizen of the dominican republic\tn7\n",
+    "24": "\ncitizen of guinea bissau\t1c8\n",
+    "19": "\ncitizen of kiribati\t1ht\n",
+    "20": "\ncitizen of seychelle\t139\n",
+    "18": "\ncitizen of vanuatu\t17o\nequatorial guinean\t1gg\n",
+    "13": "\ncongolese drc\t1bh\ncook islander\twc\neast timorese\t1ks\nmontserratian\t233\nnew zealander\t1e8\nsaudi arabian\tpc\nsouth african\t9s\n",
+    "5": "\ncuban\th7\ncymro\t224\nczech\tgf\ndutch\tcl\ngreek\tbj\niraqi\tgn\nirish\tbb\nomani\t1kk\nswazi\t1qj\nswiss\tet\ntajik\t19o\nuzbek\t15z\nwelsh\tfu\n",
+    "3": "\nlao\tro\n",
+    "21": "\nliechtenstein citizen\t189\n",
+    "14": "\nnorthern irish\t67\nsierra leonean\t1pg\nsouth sudanese\t4r\n",
+    "17": "\npapua new guinean\t1ez\npitcairn islander\t1nu\n",
+    "16": "\nsolomon islander\tye\n",
+    "4": "\nthai\tfd\n",
+    "25": "\nturks and caicos islander\t1h1\n"
+  },
+  "answers": "s\tCosta Rican\ns\tPalestinian\ns\tCanadian\ns\tSyrian\ns\tArgentine\ns\tPakistani\ns\tVenezuelan\ns\tPeruvian\ns\tBangladeshi\ns\tYemeni\ns\tNigerian\ns\tEthiopian\ns\tLibyan\ns\tSudanese\ns\tKenyan\ns\tSouth Sudanese\ns\tUgandan\ng\tSeychellois\ns\tGhanaian\ns\tNorthern Irish\ns\tAmerican\ns\tEnglish\ns\tBritish\ns\tFrench\ns\tChinese\ns\tRussian\ns\tGerman\ns\tAustralian\ns\tIndian\ns\tJapanese\ns\tSpanish\ns\tSouth African\ns\tItalian\ns\tCentral African\ns\tScottish\ns\tIrish\ns\tGreek\ns\tSouth Korean\ns\tNorth Korean\ns\tDutch\ns\tMexican\ns\tIsraeli\ns\tPolish\ns\tTurkish\ns\tBrazilian\ns\tEgyptian\nm\tSwedish\nm\tSwiss\nm\tUkrainian\nm\tThai\nm\tIranian\nm\tWelsh\nm\tPortuguese\nm\tCzech\nm\tIraqi\nm\tNorwegian\nm\tCuban\nm\tDanish\nm\tIndonesian\nm\tVietnamese\nm\tMalaysian\nm\tAfghan\nm\tBelgian\nm\tBulgarian\nm\tAustrian\nm\tHungarian\nm\tLebanese\nm\tVatican citizen\nm\tFilipino\nm\tFinnish\nm\tDominican\nm\tArmenian\nm\tRomanian\nm\tColombian\nm\tJamaican\nm\tCitizen of the Dominican Republic\nm\tSerbian\nm\tSomali\nm\tGeorgian\nm\tMoroccan\nm\tSaudi Arabian\nm\tChilean\nm\tHaitian\nm\tTaiwanese\nm\tPuerto Rican\nm\tCroatian\nm\tBurmese\nm\tLao\nm\tSri Lankan\nm\tAlgerian\nm\tIcelandic\nm\tAlbanian\nm\tCambodian\nm\tLithuanian\nm\tTunisian\nm\tJordanian\nm\tSlovak\nm\tSt Lucian\nm\tLatvian\nm\tEstonian\nm\tMongolian\nm\tMacedonian\nm\tCook Islander\nm\tBolivian\nm\tBritish Virgin Islander\nm\tMaltese\nm\tLiberian\nm\tSolomon Islander\nm\tSingaporean\nm\tKazakh\nm\tUruguayan\nm\tCongolese (Congo)\nm\tCitizen of Bosnia and Herzegovina\nm\tNepalese\nm\tRwandan\nm\tGuatemalan\nm\tSlovenian\nm\tKuwaiti\nm\tQatari\nm\tCitizen of Seychelles\nm\tFijian\nm\tCypriot\nm\tSamoan\nm\tHonduran\nm\tZambian\nr\tZimbabwean\nr\tStateless\nr\tUzbek\nr\tCayman Islander\nr\tNicaraguan\nr\tKyrgyz\nr\tBelarusian\nr\tCitizen of Vanuatu\nr\tLiechtenstein citizen\nr\tAzerbaijani\nr\tPanamanian\nr\tTajik\nr\tEritrean\nr\tSenegalese\nr\tTanzanian\nr\tTurkmen\nr\tBahraini\nr\tCongolese (DRC)\nr\tMalian\nr\tCitizen of Guinea-Bissau\nr\tAngolan\nr\tCameroonian\nr\tMalagasy\nr\tGuinean\nr\tNew Zealander\nr\tBahamian\nr\tPapua New Guinean\nr\tTrinidadian\nr\tIvorian\nr\tTongan\nr\tEquatorial Guinean\nr\tTurks and Caicos Islander\nr\tCitizen of Kiribati\nr\tGuyanese\nr\tEmirati\nr\tNamibian\nr\tParaguayan\nr\tMoldovan\nr\tMalawian\nr\tChadian\nr\tOmani\nr\tEast Timorese\nr\tBhutanese\nr\tMozambican\nr\tCitizen of Antigua and Barbuda\nr\tMauritanian\nr\tBarbadian\nr\tGambian\nr\tPitcairn Islander\nr\tMaldivian\nr\tMontenegrin\nr\tMauritian\nr\tSierra Leonean\nr\tTogolese\nr\tBelizean\nr\tSwazi\nd\tMicronesian\nd\tFaroese\nd\tBermudian\nd\tBurundian\nd\tEcuadorean\nd\tGreenlandic\nd\tGabonese\nd\tCape Verdean\nd\tNauruan\nd\tKosovan\nd\tBruneian\nd\tGrenadian\nd\tSurinamese\nd\tVincentian\nd\tSalvadorean\nd\tMarshallese\nd\tNigerien\nd\tAndorran\nt\tMonegasque\nd\tBeninese\nd\tHong Konger\nd\tLuxembourger\nd\tGibraltarian\nd\tPalauan\nd\tDjiboutian\nd\tMacanese\nd\tGuamanian\nd\tNiuean\nd\tBotswanan\nd\tTuvaluan\nd\tComoran\nd\tAnguillan\nd\tBurkinan\nd\tCymraes\nd\tCymro\nd\tKittitian\nd\tMartiniquais\nd\tMontserratian\nd\tMosotho\nd\tPrydeinig\nd\tSammarinese\nd\tSao Tomean\nd\tSt Helenian\nd\tTristanian\nd\tWallisian\n",
+  "gem": { "answer": "Seychellois", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Costa Rican", "tier": "surface", "points": 10 },
+    { "answer": "Palestinian", "tier": "surface", "points": 10 },
+    { "answer": "Canadian", "tier": "surface", "points": 10 },
+    { "answer": "Micronesian", "tier": "deep", "points": 85 },
+    { "answer": "Faroese", "tier": "deep", "points": 85 }
+  ],
+  "size": 226
+}

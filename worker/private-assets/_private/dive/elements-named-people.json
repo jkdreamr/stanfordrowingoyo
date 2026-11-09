@@ -1,0 +1,22 @@
+{
+  "buckets": {
+    "2": "\nam\t12\nbh\t3d\nbk\t1n\ncm\t1e\ncn\t3n\nes\tb\nfl\t41\nfm\t2p\ngd\tp\nlr\t1z\nlv\t4d\nmd\t2z\nmt\t4r\nno\t54\nog\t5f\nrf\t65\nrg\t5r\nsg\t2c\nsm\t0\n",
+    "9": "\namericium\t12\nberkelium\t1n\nflerovium\t41\noganesson\t5f\n",
+    "7": "\nbohrium\t3d\nfermium\t2p\n",
+    "11": "\ncopernicium\t3n\neinsteinium\tb\nlivermorium\t4d\nmendelevium\t2z\nroentgenium\t5r\n",
+    "6": "\ncurium\t1e\n",
+    "10": "\ngadolinium\tp\nlawrencium\t1z\nmeitnerium\t4r\nseaborgium\t2c\n",
+    "8": "\nnobelium\t54\nsamarium\t0\n",
+    "13": "\nrutherfordium\t65\n"
+  },
+  "answers": "m\tSamarium\ns\tEinsteinium\nm\tGadolinium\nm\tAmericium\ns\tCurium\nm\tBerkelium\nm\tLawrencium\nm\tSeaborgium\nm\tFermium\ng\tMendelevium\nr\tBohrium\nr\tCopernicium\nr\tFlerovium\nr\tLivermorium\nr\tMeitnerium\ns\tNobelium\nd\tOganesson\nd\tRoentgenium\nd\tRutherfordium\n",
+  "gem": { "answer": "Mendelevium", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Einsteinium", "tier": "surface", "points": 10 },
+    { "answer": "Curium", "tier": "surface", "points": 10 },
+    { "answer": "Nobelium", "tier": "surface", "points": 10 },
+    { "answer": "Oganesson", "tier": "deep", "points": 85 },
+    { "answer": "Roentgenium", "tier": "deep", "points": 85 }
+  ],
+  "size": 19
+}

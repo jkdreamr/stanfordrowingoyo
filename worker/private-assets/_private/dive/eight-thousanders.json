@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "9": "\nannapurna\ts\n",
+    "11": "\nannapurna i\ts\nchomolungma\td\nhidden peak\t3i\n",
+    "10": "\nbroad peak\t0\ndhaulagiri\t1v\ngosainthan\t4d\nsagarmatha\td\n",
+    "7": "\ncho oyu\t16\neverest\td\nmanaslu\t2j\n",
+    "12": "\ndhaulagiri i\t1v\ngasherbrum i\t3i\nkanchanjunga\t32\nkanchenjunga\t32\nnanga parbat\t1g\nshishapangma\t4d\n",
+    "13": "\ngasherbrum ii\t3x\ngodwin austen\tn\nkangchenjunga\t32\nmount everest\td\nshisha pangma\t4d\n",
+    "3": "\nk 2\tn\n",
+    "2": "\nk2\tn\n",
+    "6": "\nlhotse\t2a\nmakalu\t2t\n",
+    "19": "\nmount godwin austen\tn\n",
+    "5": "\nqogir\tn\n"
+  },
+  "answers": "m\tBroad Peak\ns\tEverest\ns\tK2\nm\tAnnapurna I\nm\tCho Oyu\nm\tNanga Parbat\nm\tDhaulagiri I\nr\tLhotse\nr\tManaslu\nr\tMakalu\ns\tKangchenjunga\nd\tGasherbrum I\nd\tGasherbrum II\ng\tShishapangma\n",
+  "gem": { "answer": "Shishapangma", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Everest", "tier": "surface", "points": 10 },
+    { "answer": "K2", "tier": "surface", "points": 10 },
+    { "answer": "Kangchenjunga", "tier": "surface", "points": 10 },
+    { "answer": "Gasherbrum I", "tier": "deep", "points": 85 },
+    { "answer": "Gasherbrum II", "tier": "deep", "points": 85 }
+  ],
+  "size": 14
+}

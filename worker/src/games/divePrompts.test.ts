@@ -1,11 +1,15 @@
 import { expect, it } from 'vitest';
+import { env } from 'cloudflare:test';
+import type { Env } from '../index';
 import { addDays } from '../../../shared/dates';
 import { createDiveSelector, diveSelectionFor } from './divePrompts';
 import { DIVE_LEGACY_PROMPTS, DIVE_PROMPTS, DIVE_INACTIVE_PROMPTS } from './dive/prompts';
 import type { DivePrompt } from './dive/prompts';
 import { DIVE_SCHEDULE, DIVE_SCHEDULE_CUTOVER, DIVE_SCHEDULE_STATUS } from './dive/schedule';
 import { validateDiveSchedule } from './dive/rotation';
-import { answerSet } from './dive/sets';
+import { answerSet as loadAnswerSet } from './dive/sets';
+
+const answerSet = (id: string) => loadAnswerSet(env as unknown as Env, id);
 
 const bank = DIVE_LEGACY_PROMPTS.slice(0, 320).map((prompt, i): DivePrompt => ({
   ...prompt,

@@ -1,0 +1,34 @@
+{
+  "buckets": {
+    "5": "\narbeh\t2a\nbarad\tr\nblood\t0\ndever\t2k\nkinim\t1e\n",
+    "4": "\narov\tj\nboil\t16\nfrog\ty\ngnat\t1e\nhail\tr\nlice\t1e\nsore\t16\n",
+    "14": "\ncattle disease\t2k\nmakat bechorot\t1l\nplague of frog\ty\nriver of blood\t0\nwater to blood\t0\n",
+    "8": "\nchoshech\t8\ndarkness\t8\n",
+    "3": "\ndam\t0\nfly\tj\n",
+    "19": "\ndeath of first born\t1l\n",
+    "18": "\ndeath of firstborn\t1l\ndeath of livestock\t2k\ndiseased livestock\t2k\n",
+    "23": "\ndeath of the first born\t1l\n",
+    "22": "\ndeath of the firstborn\t1l\nriver turning to blood\t0\nthree days of darkness\t8\n",
+    "9": "\nfirstborn\t1l\nmosquitoe\t1e\ntzfardeia\ty\n",
+    "15": "\nfirstborn death\t1l\n",
+    "13": "\nhail and fire\tr\nswarms of fly\tj\n",
+    "24": "\nkilling of the firstborn\t1l\n",
+    "12": "\nlice or gnat\t1e\nswarm of fly\tj\n",
+    "17": "\nlivestock disease\t2k\n",
+    "6": "\nlocust\t2a\n",
+    "7": "\nmurrain\t2k\nshechin\t16\n",
+    "10": "\npestilence\t2k\nwild beast\tj\n",
+    "16": "\nplague of locust\t2a\nthunder and hail\tr\nwater into blood\t0\n",
+    "21": "\nwater turned to blood\t0\n",
+    "11": "\nwild animal\tj\n"
+  },
+  "answers": "s\tBlood\ng\tDarkness\nm\tFlies\nm\tHail\ns\tFrogs\nm\tBoils\nr\tLice\nr\tDeath of the firstborn\ns\tLocusts\nd\tPestilence\n",
+  "gem": { "answer": "Darkness", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Blood", "tier": "surface", "points": 10 },
+    { "answer": "Frogs", "tier": "surface", "points": 10 },
+    { "answer": "Locusts", "tier": "surface", "points": 10 },
+    { "answer": "Pestilence", "tier": "deep", "points": 85 }
+  ],
+  "size": 10
+}

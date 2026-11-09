@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "7": "\narmenia\t16\nbelarus\t2f\nestonia\t25\ngeorgia\t9\nmoldova\t3b\nukraine\tj\n",
+    "10": "\nazerbaijan\t1s\nbelorussia\t2f\nkazakhstan\tt\nkyrgyzstan\t3l\ntajikistan\t3y\nuzbekistan\t2y\n",
+    "11": "\nbyelorussia\t2f\ntadjikistan\t3y\n",
+    "16": "\nbyelorussian ssr\t2f\n",
+    "9": "\nkazakstan\tt\nkirghizia\t3l\nlithuania\t1g\nturkmenia\t4b\n",
+    "8": "\nkirgizia\t3l\nmoldavia\t3b\n",
+    "15": "\nkyrgyz republic\t3l\n",
+    "6": "\nlatvia\t2p\nrussia\t0\n",
+    "18": "\nrussian federation\t0\n",
+    "12": "\nrussian sfsr\t0\ntadzhikistan\t3y\nturkmenistan\t4b\n",
+    "13": "\nukrainian ssr\tj\n"
+  },
+  "answers": "s\tRussia\nm\tGeorgia\ns\tUkraine\ns\tKazakhstan\nm\tArmenia\nm\tLithuania\nm\tAzerbaijan\ng\tEstonia\nm\tBelarus\nr\tLatvia\nr\tUzbekistan\nr\tMoldova\nr\tKyrgyzstan\nd\tTajikistan\nd\tTurkmenistan\n",
+  "gem": { "answer": "Estonia", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Russia", "tier": "surface", "points": 10 },
+    { "answer": "Ukraine", "tier": "surface", "points": 10 },
+    { "answer": "Kazakhstan", "tier": "surface", "points": 10 },
+    { "answer": "Tajikistan", "tier": "deep", "points": 85 },
+    { "answer": "Turkmenistan", "tier": "deep", "points": 85 }
+  ],
+  "size": 15
+}

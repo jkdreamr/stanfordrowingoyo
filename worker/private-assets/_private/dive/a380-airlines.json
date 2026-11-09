@@ -1,0 +1,31 @@
+{
+  "buckets": {
+    "10": "\nair france\t0\nkorean air\td\n",
+    "17": "\nall nippon airway\t5k\nlufthansa airline\t6e\nsingapore airline\t1y\n",
+    "3": "\nana\t5k\n",
+    "6": "\nasiana\t77\netihad\t6q\nhi fly\t4p\nkorean\td\n",
+    "14": "\nasiana airline\t77\nbritish airway\t3e\nchina southern\t18\nglobal airline\tq\n",
+    "2": "\nba\t3e\n",
+    "22": "\nchina southern airline\t18\n",
+    "7": "\nemirate\t33\n",
+    "16": "\nemirates airline\t33\nmalaysia airline\t2j\n",
+    "13": "\netihad airway\t6q\n",
+    "12": "\nhi fly malta\t4p\nqatar airway\t54\n",
+    "9": "\nlufthansa\t6e\nsingapore\t1y\n",
+    "8": "\nmalaysia\t2j\n",
+    "5": "\nqanta\t65\nqatar\t54\n",
+    "4": "\nthai\t3w\n",
+    "11": "\nthai airway\t3w\n",
+    "26": "\nthai airways international\t3w\n"
+  },
+  "answers": "m\tAir France\nm\tKorean Air\ng\tGlobal Airlines\nm\tChina Southern Airlines\ns\tSingapore Airlines\nm\tMalaysia Airlines\ns\tEmirates\ns\tBritish Airways\nm\tThai Airways International\nr\tHi Fly Malta\nr\tQatar Airways\nr\tAll Nippon Airways\ns\tQantas\ns\tLufthansa\nd\tEtihad Airways\nd\tAsiana Airlines\n",
+  "gem": { "answer": "Global Airlines", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Singapore Airlines", "tier": "surface", "points": 10 },
+    { "answer": "Emirates", "tier": "surface", "points": 10 },
+    { "answer": "British Airways", "tier": "surface", "points": 10 },
+    { "answer": "Etihad Airways", "tier": "deep", "points": 85 },
+    { "answer": "Asiana Airlines", "tier": "deep", "points": 85 }
+  ],
+  "size": 16
+}

@@ -1,0 +1,31 @@
+{
+  "buckets": {
+    "20": "\namerican swallowtail\t33\nkamehameha butterfly\t2g\npapilio multicaudata\t50\n",
+    "21": "\nbaltimore checkerspot\tb3\ncallophrys sheridanii\ta9\nkarner blue butterfly\t7k\nspicebush swallowtail\tc1\n",
+    "31": "\nbaltimore checkerspot butterfly\tb3\n",
+    "17": "\nblack swallowtail\t33\ndogface butterfly\t88\nmonarch butterfly\t0\nnymphalis antiopa\tk\npapilio oregonius\t4f\nsandia hairstreak\t9p\ntiger swallowtail\t3n\nviceroy butterfly\t1b\nzebra swallowtail\t5p\n",
+    "18": "\ncalifornia dogface\t88\neuphydryas phaeton\tb3\noregon swallowtail\t4f\npink edged sulphur\t1v\n",
+    "28": "\ncalifornia dogface butterfly\t88\n",
+    "9": "\ncallophry\t9p\n",
+    "15": "\ncolias interior\t1v\ngulf fritillary\t72\npapilio glaucus\t3n\npapilio troilus\tc1\nzerene eurydice\t88\n",
+    "19": "\ncolorado hairstreak\t93\neurytides marcellus\t5p\nhypaurotis crysalus\t93\nlimenitis archippus\t1b\n",
+    "16": "\ndanaus plexippus\t0\npapilio polyxene\t33\nvanessa tameamea\t2g\n",
+    "26": "\ndiana fritillary butterfly\t69\nsheridans green hairstreak\ta9\n",
+    "14": "\ndione vanillae\t72\nmourning cloak\tk\nspeyeria diana\t69\nzebra longwing\tcp\n",
+    "25": "\neastern black swallowtail\t33\neastern tiger swallowtail\t3n\nplebejus melissa samuelis\t7k\n",
+    "22": "\nheliconius charitonius\tcp\ntwo tailed swallowtail\t50\n",
+    "11": "\nkarner blue\t7k\n",
+    "7": "\nmonarch\t0\nviceroy\t1b\n",
+    "24": "\nmourning cloak butterfly\tk\n"
+  },
+  "answers": "s\tMonarch butterfly\nm\tMourning cloak butterfly\nm\tViceroy butterfly\nm\tPink-edged Sulphur\nm\tKamehameha butterfly\ns\tBlack swallowtail\ns\tEastern tiger swallowtail\nm\tOregon swallowtail\nm\tTwo-tailed swallowtail\nm\tZebra swallowtail\nm\tDiana fritillary butterfly\nr\tGulf fritillary\nr\tKarner blue butterfly\nr\tCalifornia dogface butterfly\nr\tColorado hairstreak\ng\tSandia hairstreak\nd\tSheridan's green hairstreak\nd\tBaltimore checkerspot butterfly\nd\tSpicebush swallowtail\nd\tZebra longwing\n",
+  "gem": { "answer": "Sandia hairstreak", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Monarch butterfly", "tier": "surface", "points": 10 },
+    { "answer": "Black swallowtail", "tier": "surface", "points": 10 },
+    { "answer": "Eastern tiger swallowtail", "tier": "surface", "points": 10 },
+    { "answer": "Sheridan's green hairstreak", "tier": "deep", "points": 85 },
+    { "answer": "Baltimore checkerspot butterfly", "tier": "deep", "points": 85 }
+  ],
+  "size": 20
+}

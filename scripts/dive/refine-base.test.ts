@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import { normalizeAnswer } from '../../shared/games/dive';
-import { answerSet } from '../../worker/src/games/dive/sets';
+import { answerSet } from './assets';
 import { decodedAnswers } from './fixtures';
 
 it('does not reintroduce ambiguous surname keys or displace the canonical Ronaldo', async () => {

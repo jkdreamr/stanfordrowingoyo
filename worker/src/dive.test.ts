@@ -52,7 +52,7 @@ describe('Dive', () => {
     );
   }
   async function set(index = 0) {
-    return answerSet(diveSelectionFor(DATE)[index].id);
+    return answerSet(bindings, diveSelectionFor(DATE)[index].id);
   }
   async function complete(user = 0, miss = false) {
     for (let i = 0; i < DIVE_PROMPTS_PER_DAY; i++)

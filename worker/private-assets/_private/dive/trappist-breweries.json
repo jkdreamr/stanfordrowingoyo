@@ -1,0 +1,34 @@
+{
+  "buckets": {
+    "31": "\nabbaye notre dame de saint remy\tz\nbrouwerij abdij maria toevlucht\t49\n",
+    "5": "\nachel\t30\norval\t1b\n",
+    "11": "\nachel abbey\t30\nsint sixtus\t29\ntre fontane\t1v\ntynt meadow\t3v\n",
+    "13": "\nachelse kluis\t30\nkoningshoeven\t1j\n",
+    "16": "\nbieres de chimay\t0\nmount st bernard\t3v\nst josephs abbey\tp\nstift engelszell\t3i\n",
+    "26": "\nbrouwerij de koningshoeven\t1j\n",
+    "38": "\nbrouwerij der trappisten van westmalle\t2o\n",
+    "22": "\nbrouwerij westvleteren\t29\nmount st bernard abbey\t3v\n",
+    "7": "\ncardena\t38\nspencer\tp\nzundert\t49\n",
+    "24": "\ncerveza cardena trappist\t38\nnotre dame de saint remy\tz\n",
+    "6": "\nchimay\t0\n",
+    "10": "\nengelszell\t3i\n",
+    "9": "\nla trappe\t1j\nrochefort\tz\nscourmont\t0\nst sixtus\t29\nwestmalle\t2o\n",
+    "15": "\nmaria toevlucht\t49\nscourmont abbey\t0\nspencer brewery\tp\n",
+    "12": "\nmont des cat\t9\nsaint sixtus\t29\nwestvleteren\t29\n",
+    "18": "\nmont saint bernard\t3v\n",
+    "19": "\nmount saint bernard\t3v\nsaint josephs abbey\tp\n",
+    "20": "\nsan pedro de cardena\t38\n",
+    "14": "\nthree fountain\t1v\n",
+    "17": "\ntre fontane abbey\t1v\n"
+  },
+  "answers": "s\tChimay\nt\tMont des Cats\nm\tSpencer\nm\tRochefort\ns\tOrval\nm\tLa Trappe\nm\tTre Fontane\nm\tWestvleteren\ns\tWestmalle\nr\tAchel\ng\tCardeña\nr\tEngelszell\nd\tTynt Meadow\nd\tZundert\n",
+  "gem": { "answer": "Cardeña", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Chimay", "tier": "surface", "points": 10 },
+    { "answer": "Orval", "tier": "surface", "points": 10 },
+    { "answer": "Westmalle", "tier": "surface", "points": 10 },
+    { "answer": "Tynt Meadow", "tier": "deep", "points": 85 },
+    { "answer": "Zundert", "tier": "deep", "points": 85 }
+  ],
+  "size": 14
+}

@@ -1,0 +1,29 @@
+{
+  "buckets": {
+    "4": "\nbehm\t54\ndara\t29\ndino\t3l\nhurt\t6f\njake\tz\nluca\t7c\n",
+    "8": "\nbosworth\t32\ncourtney\t6t\njennifer\t54\nsandoval\t2j\n",
+    "9": "\nchristine\t5k\nrosenwald\t4m\n",
+    "12": "\nchristine ha\t5k\ngrant gillon\t47\nshaun oneale\t5z\n",
+    "7": "\nclaudia\t2j\ndara yu\t29\njessica\t32\nlapresi\t6t\nleonard\t0\nluciano\t3l\nmichael\t0\nwhitney\ti\n",
+    "16": "\nclaudia sandoval\t2j\ncourtney lapresi\t6t\njessica bosworth\t32\n",
+    "19": "\ndino angelo luciano\t3l\n",
+    "6": "\ndorian\t1t\ngerron\t6f\ngillon\t47\nhunter\t1t\nkelley\tz\nkelsey\t1d\nmiller\ti\nmurphy\t1d\noneale\t5z\n",
+    "13": "\ndorian hunter\t1t\njennifer behm\t54\nkelsey murphy\t1d\nshaun o neale\t5z\n",
+    "11": "\ngerron hurt\t6f\njake kelley\tz\n",
+    "5": "\ngrant\t47\njesse\t4m\nmanfe\t7c\nshaun\t5z\n",
+    "2": "\nha\t5k\nyu\t29\n",
+    "15": "\njesse rosenwald\t4m\nmichael leonard\t0\n",
+    "10": "\nluca manfe\t7c\n",
+    "14": "\nwhitney miller\ti\n"
+  },
+  "answers": "m\tMichael Leonard\ns\tWhitney Miller\nm\tJake Kelley\nm\tKelsey Murphy\nm\tDorian Hunter\ng\tDara Yu\nm\tClaudia Sandoval\nm\tJessica Bosworth\nr\tDino Angelo Luciano\nr\tGrant Gillon\nr\tJesse Rosenwald\nr\tJennifer Behm\ns\tChristine Hà\nd\tShaun O'Neale\nd\tGerron Hurt\nd\tCourtney Lapresi\ns\tLuca Manfè\n",
+  "gem": { "answer": "Dara Yu", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Whitney Miller", "tier": "surface", "points": 10 },
+    { "answer": "Christine Hà", "tier": "surface", "points": 10 },
+    { "answer": "Luca Manfè", "tier": "surface", "points": 10 },
+    { "answer": "Shaun O'Neale", "tier": "deep", "points": 85 },
+    { "answer": "Gerron Hurt", "tier": "deep", "points": 85 }
+  ],
+  "size": 17
+}

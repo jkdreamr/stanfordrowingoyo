@@ -1,0 +1,33 @@
+{
+  "buckets": {
+    "10": "\nabyssinian\t2z\nbengal cat\tx\nbirman cat\t7z\nbombay cat\t3j\nkhao manee\tb5\nlaperm cat\tdp\nmaine coon\t0\nocicat cat\taw\nragamuffin\tab\nsomali cat\td1\nsphynx cat\t1g\ntoybob cat\tgd\n",
+    "14": "\nabyssinian cat\t2z\nkhao manee cat\tb5\nmaine coon cat\t0\nragamuffin cat\tab\nturkish angora\t3s\n",
+    "16": "\namerican bobtail\tbi\negyptian mau cat\t53\neuropean burmese\tfu\nexotic shorthair\t88\nhavana brown cat\tda\njapanese bobtail\t8r\nrussian blue cat\t29\n",
+    "20": "\namerican bobtail cat\tbi\ncolorpoint shorthair\te9\neuropean burmese cat\tfu\nexotic shorthair cat\t88\njapanese bobtail cat\t8r\nnorwegian forest cat\tew\n",
+    "13": "\namerican curl\tc1\nchartreux cat\t73\ndevon rex cat\t6r\nscottish fold\t49\nsingapura cat\tcp\ntonkinese cat\t9z\n",
+    "17": "\namerican curl cat\tc1\namerican wirehair\t7f\nbritish shorthair\t1p\noriental longhair\tfj\nscottish fold cat\t49\n",
+    "18": "\namerican shorthair\t5i\noriental shorthair\tfj\nturkish angora cat\t3s\n",
+    "22": "\namerican shorthair cat\t5i\n",
+    "21": "\namerican wirehair cat\t7f\nbritish shorthair cat\t1p\n",
+    "8": "\nbalinese\t9a\nburmilla\tdy\njavanese\t9a\nmanx cat\t3c\noriental\tfj\nsiberian\t2o\n",
+    "12": "\nbalinese cat\t9a\nburmilla cat\tdy\negyptian mau\t53\nhavana brown\tda\noriental cat\tfj\nrussian blue\t29\nscottishfold\t49\nsiberian cat\t2o\n",
+    "6": "\nbengal\tx\nbirman\t7z\nbombay\t3j\nexotic\t88\nlaperm\tdp\nocicat\taw\nsomali\td1\nsphinx\t1g\nsphynx\t1g\ntoybob\tgd\n",
+    "7": "\nburmese\t63\npersian\t16\nragdoll\td\nsiamese\tn\n",
+    "11": "\nburmese cat\t63\ncornish rex\t9l\npersian cat\t16\nragdoll cat\td\nselkirk rex\t4p\nsiamese cat\tn\nturkish van\t6d\n",
+    "9": "\nchartreux\t73\ndevon rex\t6r\nhimalayan\t16\nkorat cat\tao\nlykoi cat\tch\nmainecoon\t0\nsingapura\tcp\ntonkinese\t9z\n",
+    "24": "\ncolorpoint shorthair cat\te9\nnorwegian forest cat cat\tew\n",
+    "15": "\ncornish rex cat\t9l\nselkirk rex cat\t4p\nturkish van cat\t6d\n",
+    "5": "\nkorat\tao\nlykoi\tch\n",
+    "4": "\nmanx\t3c\n"
+  },
+  "answers": "s\tMaine Coon\nm\tRagdoll\ns\tSiamese\nm\tBengal\ns\tPersian\nt\tSphynx\nm\tBritish Shorthair\nm\tRussian Blue\nm\tSiberian\nm\tAbyssinian\nm\tManx\nm\tBombay\nm\tTurkish Angora\nm\tScottish Fold\nm\tSelkirk Rex\nm\tEgyptian Mau\nm\tAmerican Shorthair\nm\tBurmese\nm\tTurkish Van\nm\tDevon Rex\nm\tChartreux\nm\tAmerican Wirehair\nr\tBirman\nr\tExotic Shorthair\nr\tJapanese Bobtail\nr\tBalinese\nr\tCornish Rex\nr\tTonkinese\nr\tRagamuffin\nr\tKorat\nr\tOcicat\nr\tKhao Manee\nr\tAmerican Bobtail\nr\tAmerican Curl\nd\tLykoi\nd\tSingapura\nd\tSomali\nd\tHavana Brown\nd\tLaPerm\nd\tBurmilla\nd\tColorpoint Shorthair\nd\tNorwegian Forest Cat\nd\tOriental\nd\tEuropean Burmese\ng\tToybob\n",
+  "gem": { "answer": "Toybob", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Maine Coon", "tier": "surface", "points": 10 },
+    { "answer": "Siamese", "tier": "surface", "points": 10 },
+    { "answer": "Persian", "tier": "surface", "points": 10 },
+    { "answer": "Lykoi", "tier": "deep", "points": 85 },
+    { "answer": "Singapura", "tier": "deep", "points": 85 }
+  ],
+  "size": 45
+}

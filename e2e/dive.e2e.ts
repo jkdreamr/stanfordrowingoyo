@@ -1,15 +1,25 @@
 import { mkdir } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import type { Api, DiveDay, DiveGuessResponse, GameDayLeaderboard } from '../shared/types';
 import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS, normalizeAnswer } from '../shared/games/dive';
 import { diveSelectionFor } from '../worker/src/games/divePrompts';
-import { answerSet } from '../worker/src/games/dive/sets';
+import { answerSet } from '../scripts/dive/assets';
 import { matchAnswer, suggestAnswer, type AnswerSet } from '../worker/src/games/dive/matcher';
 
 import { test as base, expect, type Rower } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
+
+base('public Dive asset variants never expose answer bytes', async ({ baseURL }) => {
+  base.skip(process.env.E2E_MOCK === '1', 'Requires the real Worker assets');
+  execFileSync(
+    process.execPath,
+    ['scripts/dive/check-private-assets.mjs', '--base-url', baseURL!],
+    { stdio: 'inherit' },
+  );
+});
 
 const test = base.extend({
   makeRower: async ({ makeRower }, use) => {

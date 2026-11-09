@@ -1,0 +1,28 @@
+{
+  "buckets": {
+    "11": "\naaron judge\t18\nandrew jone\tdr\nandruw jone\tdr\ncal raleigh\t43\nchris davis\t0\ndavid ortiz\t5r\ngreg vaughn\t6i\nhack wilson\t20\njimmie foxx\t9v\njohnny mize\tc2\nken griffey\tat\npete alonso\t4x\nralph kiner\tcx\nroger maris\t8o\nryan howard\tu\nsay hey kid\t8a\n",
+    "12": "\nalbert belle\t37\nmark mcgwire\tbn\nmike stanton\ta9\nshohei otani\tdb\n",
+    "14": "\nalex rodriguez\t3m\nbrady anderson\t2e\nhank greenberg\t7d\njunior griffey\tat\nken griffey jr\tat\nkyle schwarber\tcg\nprince fielder\t6w\n",
+    "6": "\nalonso\t4x\nfoster\te\nhoward\tu\nmantle\t4h\nohtani\tdb\nvaughn\t6i\nwilson\t20\n",
+    "8": "\nanderson\t2e\nbautista\t92\nbig papi\t5r\ndouble x\t9v\ngonzalez\t5b\njoey bat\t92\n",
+    "4": "\nbabe\t2v\nbond\t1m\nfoxx\t9v\njone\tdr\nmick\t4h\nmize\tc2\nruth\t2v\nsosa\t9i\n",
+    "9": "\nbabe ruth\t2v\ngreenberg\t7d\njim thome\tbb\nrodriguez\t3m\nschwarber\tcg\n",
+    "7": "\nbambino\t2v\nbig mac\tbn\ngriffey\tat\nmcgwire\tbn\nraleigh\t43\nstanton\ta9\n",
+    "10": "\nbarry bond\t1m\nbig dumper\t43\ngriffey jr\tat\njimmy foxx\t9v\nmatt olson\t65\npolar bear\t4x\nsammy sosa\t9i\nwillie may\t8a\n",
+    "5": "\nbelle\t37\ndavis\t0\njudge\t18\nkiner\tcx\nmaris\t8o\nolson\t65\nortiz\t5r\nthome\tbb\n",
+    "13": "\ncecil fielder\t7u\ngeorge foster\te\njose bautista\t92\nluis gonzalez\t5b\nmickey mantle\t4h\nshohei ohtani\tdb\n",
+    "18": "\ngeorge herman ruth\t2v\n",
+    "17": "\ngiancarlo stanton\ta9\n",
+    "3": "\nmay\t8a\nrod\t3m\n"
+  },
+  "answers": "m\tChris Davis\nm\tGeorge Foster\nm\tRyan Howard\ns\tAaron Judge\ns\tBarry Bonds\nm\tHack Wilson\ng\tBrady Anderson\ns\tBabe Ruth\nm\tAlbert Belle\nm\tAlex Rodriguez\nm\tCal Raleigh\nm\tMickey Mantle\nm\tPete Alonso\nm\tLuis Gonzalez\nm\tDavid Ortiz\nm\tMatt Olson\nt\tGreg Vaughn\nr\tPrince Fielder\nr\tHank Greenberg\nr\tCecil Fielder\nr\tWillie Mays\ns\tRoger Maris\nr\tJosé Bautista\ns\tSammy Sosa\nr\tJimmie Foxx\nr\tGiancarlo Stanton\nr\tKen Griffey Jr.\nd\tJim Thome\ns\tMark McGwire\nd\tJohnny Mize\nd\tKyle Schwarber\nd\tRalph Kiner\nd\tShohei Ohtani\nd\tAndruw Jones\n",
+  "gem": { "answer": "Brady Anderson", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Aaron Judge", "tier": "surface", "points": 10 },
+    { "answer": "Barry Bonds", "tier": "surface", "points": 10 },
+    { "answer": "Babe Ruth", "tier": "surface", "points": 10 },
+    { "answer": "Jim Thome", "tier": "deep", "points": 85 },
+    { "answer": "Johnny Mize", "tier": "deep", "points": 85 }
+  ],
+  "size": 34
+}

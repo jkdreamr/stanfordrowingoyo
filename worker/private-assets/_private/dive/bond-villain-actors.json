@@ -1,0 +1,28 @@
+{
+  "buckets": {
+    "11": "\nadolfo celi\taz\nchristensen\t84\ncurd jurgen\tdn\ncurt jurgen\tdn\njohn hollis\t4d\nlotte lenya\tca\nrobert davi\ta3\n",
+    "7": "\namalric\tah\nberkoff\tbt\ncarlyle\t3w\njourdan\t7o\nmarceau\t96\nsheybal\tfr\nstephen\t30\nwiseman\t4r\n",
+    "12": "\nandrew scott\tu\ncharles gray\t19\ntelly savala\tbd\ntoby stephen\t30\nwill yun lee\t2l\nyaphet kotto\te2\n",
+    "14": "\nanthony dawson\t24\njonathan pryce\t58\njoseph wiseman\t4r\nmads mikkelsen\t8p\npeter marinker\tfa\nrobert carlyle\t3w\nsophie marceau\t96\nsteven berkoff\tbt\nvladek sheybal\tfr\n",
+    "5": "\nbaker\t1o\nfrobe\teh\nkotto\te2\nlenya\tca\nmalek\t6q\npryce\t58\nscott\tu\nwaltz\t5p\n",
+    "6": "\nbardem\t9n\ndawson\t24\nglover\t3g\nhollis\t4d\njurgen\tdn\nkrabbe\teu\nsavala\tbd\nwalken\t73\n",
+    "4": "\nbean\ti\nceli\taz\ndavi\ta3\ngray\t19\n",
+    "15": "\nchristoph waltz\t5p\nchristopher lee\t0\nmathieu amalric\tah\n",
+    "18": "\nchristopher walken\t73\njesper christensen\t84\n",
+    "16": "\ndonald pleasence\td4\nmichael lonsdale\t67\n",
+    "13": "\neric pohlmann\tco\njavier bardem\t9n\njeroen krabbe\teu\njoe don baker\t1o\njulian glover\t3g\nlouis jourdan\t7o\n",
+    "10": "\ngert frobe\teh\nrami malek\t6q\n",
+    "8": "\nlonsdale\t67\nmarinker\tfa\npohlmann\tco\nwill lee\t2l\n",
+    "9": "\nmikkelsen\t8p\npleasence\td4\nsean bean\ti\n"
+  },
+  "answers": "m\tChristopher Lee\nm\tSean Bean\nm\tAndrew Scott\nm\tCharles Gray\nm\tJoe Don Baker\nm\tAnthony Dawson\nm\tWill Yun Lee\nm\tToby Stephens\nm\tJulian Glover\nm\tRobert Carlyle\nm\tJohn Hollis\nm\tJoseph Wiseman\nm\tJonathan Pryce\ns\tChristoph Waltz\nm\tMichael Lonsdale\ns\tRami Malek\ns\tChristopher Walken\nr\tLouis Jourdan\nr\tJesper Christensen\ns\tMads Mikkelsen\nr\tSophie Marceau\ns\tJavier Bardem\nr\tRobert Davi\nr\tMathieu Amalric\nr\tAdolfo Celi\nr\tTelly Savalas\nr\tSteven Berkoff\nd\tLotte Lenya\nt\tEric Pohlmann\nd\tDonald Pleasence\nd\tCurd Jürgens\nd\tYaphet Kotto\nd\tGert Fröbe\nd\tJeroen Krabbé\nd\tPeter Marinker\ng\tVladek Sheybal\n",
+  "gem": { "answer": "Vladek Sheybal", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Christoph Waltz", "tier": "surface", "points": 10 },
+    { "answer": "Rami Malek", "tier": "surface", "points": 10 },
+    { "answer": "Christopher Walken", "tier": "surface", "points": 10 },
+    { "answer": "Lotte Lenya", "tier": "deep", "points": 85 },
+    { "answer": "Donald Pleasence", "tier": "deep", "points": 85 }
+  ],
+  "size": 36
+}

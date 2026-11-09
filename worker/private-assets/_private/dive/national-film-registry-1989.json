@@ -1,0 +1,34 @@
+{
+  "buckets": {
+    "22": "\nbest years of our live\t1o\n",
+    "10": "\ncasablanca\t9p\nepisode iv\tl\nsnow white\t8r\n",
+    "12": "\ncitizen kane\t56\nwizard of oz\t5v\n",
+    "5": "\ncrowd\t3f\n",
+    "18": "\ndoctor strangelove\tbp\ngone with the wind\t0\nsingin in the rain\tb3\n",
+    "14": "\ndr strangelove\tbp\nmaltese falcon\ta2\n",
+    "66": "\ndr strangelove or how i learned to stop worrying and love the bomb\tbp\n",
+    "9": "\nepisode 4\tl\nhigh noon\t1c\n",
+    "7": "\ngeneral\t2i\nsunrise\t5l\nvertigo\t8h\n",
+    "15": "\ngrapes of wrath\t7v\nsnow white 1937\t8r\n",
+    "11": "\nintolerance\t7h\nmodern time\tx\nsunset blvd\t6y\n",
+    "13": "\nlearning tree\t3r\n",
+    "27": "\nmr smith goes to washington\t4b\nsunrise a song of two human\t5l\n",
+    "19": "\nnanook of the north\tc7\nsinging in the rain\tb3\nstar wars episode 4\tl\n",
+    "8": "\nnew hope\tl\nsearcher\tan\nstar war\tl\n",
+    "17": "\non the waterfront\t6e\nwizard of oz 1939\t5v\n",
+    "30": "\nsnow white and the seven dwarf\t8r\nstar wars episode 4 a new hope\tl\n",
+    "31": "\nsnow white and the seven dwarve\t8r\nstar wars episode iv a new hope\tl\n",
+    "16": "\nsome like it hot\t2w\nsunset boulevard\t6y\n",
+    "20": "\nstar wars a new hope\tl\nstar wars episode iv\tl\n"
+  },
+  "answers": "m\tGone with the Wind\ns\tStar Wars\nm\tModern Times\nm\tHigh Noon\nm\tThe Best Years of Our Lives\nm\tThe General\nm\tSome Like It Hot\nm\tThe Crowd\ng\tThe Learning Tree\nm\tMr. Smith Goes to Washington\ns\tCitizen Kane\nm\tSunrise\ns\tThe Wizard of Oz\nr\tOn the Waterfront\nr\tSunset Boulevard\nr\tIntolerance\nr\tThe Grapes of Wrath\nr\tVertigo\ns\tSnow White and the Seven Dwarfs\ns\tCasablanca\nr\tThe Maltese Falcon\nd\tThe Searchers\nd\tSingin' in the Rain\nd\tDr. Strangelove\nd\tNanook of the North\n",
+  "gem": { "answer": "The Learning Tree", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Star Wars", "tier": "surface", "points": 10 },
+    { "answer": "Citizen Kane", "tier": "surface", "points": 10 },
+    { "answer": "The Wizard of Oz", "tier": "surface", "points": 10 },
+    { "answer": "The Searchers", "tier": "deep", "points": 85 },
+    { "answer": "Singin' in the Rain", "tier": "deep", "points": 85 }
+  ],
+  "size": 25
+}

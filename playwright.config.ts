@@ -54,7 +54,7 @@ export default defineConfig({
     : {
         command: mock
           ? 'VITE_MOCK=1 npm run dev -w web -- --port 8798'
-          : 'node e2e/reset-state.ts && npm run build -w web && npx wrangler dev --local-protocol https --port 8799 --persist-to .wrangler/e2e-state --var OYO_TEST_CLOCK:1 --define __OYO_DIVE_TEST__:true $(node scripts/generate-vapid-keys.ts --wrangler-args)',
+          : 'node e2e/reset-state.ts && npm run build -w web && node scripts/assemble-assets.mjs && npx wrangler dev --local-protocol https --port 8799 --persist-to .wrangler/e2e-state --var OYO_TEST_CLOCK:1 --define __OYO_DIVE_TEST__:true $(node scripts/generate-vapid-keys.ts --wrangler-args)',
         url: mock ? baseURL : `${baseURL}/api/health`,
         ignoreHTTPSErrors: true,
         reuseExistingServer: !process.env.CI,

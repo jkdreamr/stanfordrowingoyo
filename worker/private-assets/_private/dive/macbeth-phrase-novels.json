@@ -1,0 +1,33 @@
+{
+  "buckets": {
+    "17": "\nall our yesterday\tnr\nvaulting ambition\tn7\n",
+    "19": "\nbattle lost and won\t4s\nin spite of thunder\thk\n",
+    "18": "\nbe all and end all\t0\ndagger of the mind\tju\nscrew your courage\tca\nsound and the fury\tfw\nway to dusty death\tik\n",
+    "11": "\nbirnam wood\tqo\ndusty death\ti6\neye of newt\tkx\npoor player\t2q\nwyrd sister\tq9\n",
+    "12": "\nbrief candle\th5\nmoon is down\t49\nweird sister\t7z\n",
+    "14": "\nbrightest fell\tj9\nheart so white\t18\nlay on macduff\tov\nlight for fool\tnr\nstrut and fret\toc\nwalking shadow\t7i\n",
+    "27": "\nby the pricking of my thumb\tpe\n",
+    "24": "\ncase of the seven murder\t3s\n",
+    "25": "\ncharm of powerful trouble\tde\n",
+    "16": "\ncome like shadow\tae\nlet it come down\tp\nlook to the lady\t27\nsomething wicked\tcv\ntoil and trouble\tlb\ntold by an idiot\t6z\n",
+    "13": "\ndouble double\t3s\nlight thicken\tmq\npainted devil\tay\nrooted sorrow\tkf\nsleep no more\t1r\ntaste of fear\t9x\n",
+    "10": "\nexit ghost\t9k\n",
+    "9": "\nfire burn\t6l\niron gate\t9x\n",
+    "29": "\nfire burn and cauldron bubble\tlu\n",
+    "23": "\ninstruments of darkness\tbg\nto fear a painted devil\te8\n",
+    "15": "\nlay on mac duff\tov\nout damned spot\tgl\nstruts and fret\toc\n",
+    "30": "\nsomething wicked this way come\tey\n",
+    "21": "\ntale told by an idiot\t6z\ntomorrow and tomorrow\t34\n",
+    "34": "\ntomorrow and tomorrow and tomorrow\t5i\nwash this blood clean from my hand\t8j\n"
+  },
+  "answers": "m\tThe Be All and End All\nm\tLet It Come Down\nm\tA Heart So White\nm\tSleep No More\nm\tLook to the Lady\nm\tPoor Player\nm\tTomorrow and Tomorrow\nm\tDouble, Double\nt\tThe Moon Is Down\nm\tThe Battle Lost and Won\ns\tTomorrow, and Tomorrow, and Tomorrow\nm\tFire, Burn!\nm\tTold by an Idiot\nm\tWalking Shadow\nm\tThe Weird Sisters\nm\tWash This Blood Clean from My Hand\nt\tExit Ghost\nm\tTaste of Fears\nm\tCome Like Shadows\nm\tA Painted Devil\nm\tThe Instruments of Darkness\nr\tScrew Your Courage\nr\tSomething Wicked\nr\tA Charm of Powerful Trouble\nr\tTo Fear a Painted Devil\ns\tSomething Wicked This Way Comes\ns\tThe Sound and the Fury\nr\tOut, Damned Spot!\nr\tBrief Candle\nr\tIn Spite of Thunder\nr\tDusty Death\nr\tThe Way to Dusty Death\nr\tThe Brightest Fell\nr\tDagger of the Mind\ng\tA Rooted Sorrow\nd\tEye of Newt\nd\tToil and Trouble\nd\tFire Burn and Cauldron Bubble\nd\tLight Thickens\nd\tVaulting Ambition\nd\tAll Our Yesterdays\nd\tStruts and Frets\nd\tLay On, Macduff!\ns\tBy the Pricking of My Thumbs\ns\tWyrd Sisters\nd\tBirnam Wood\n",
+  "gem": { "answer": "A Rooted Sorrow", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Tomorrow, and Tomorrow, and Tomorrow", "tier": "surface", "points": 10 },
+    { "answer": "Something Wicked This Way Comes", "tier": "surface", "points": 10 },
+    { "answer": "The Sound and the Fury", "tier": "surface", "points": 10 },
+    { "answer": "Eye of Newt", "tier": "deep", "points": 85 },
+    { "answer": "Toil and Trouble", "tier": "deep", "points": 85 }
+  ],
+  "size": 46
+}

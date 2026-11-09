@@ -1,0 +1,26 @@
+{
+  "buckets": {
+    "7": "\nandorra\t34\nvatican\t9\n",
+    "8": "\ndjibouti\t2t\nholy see\t9\n",
+    "25": "\ngrand duchy of luxembourg\t24\n",
+    "9": "\nguatemala\t2h\nsingapore\to\n",
+    "6": "\nkuwait\t1m\nmexico\t0\nmonaco\t10\npanama\t1v\n",
+    "10": "\nluxembourg\t24\nsan marino\t19\n",
+    "23": "\nprincipality of andorra\t34\n",
+    "22": "\nprincipality of monaco\t10\nrepublic of san marino\t19\n",
+    "20": "\nrepublic of djibouti\t2t\n",
+    "21": "\nrepublic of guatemala\t2h\nrepublic of singapore\to\n",
+    "18": "\nrepublic of panama\t1v\n",
+    "15": "\nstate of kuwait\t1m\n",
+    "12": "\nvatican city\t9\n"
+  },
+  "answers": "s\tMexico\nm\tVatican City\ns\tSingapore\nm\tMonaco\nm\tSan Marino\nm\tKuwait\nr\tPanama\ns\tLuxembourg\nr\tGuatemala\nd\tDjibouti\ng\tAndorra\n",
+  "gem": { "answer": "Andorra", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Mexico", "tier": "surface", "points": 10 },
+    { "answer": "Singapore", "tier": "surface", "points": 10 },
+    { "answer": "Luxembourg", "tier": "surface", "points": 10 },
+    { "answer": "Djibouti", "tier": "deep", "points": 85 }
+  ],
+  "size": 11
+}

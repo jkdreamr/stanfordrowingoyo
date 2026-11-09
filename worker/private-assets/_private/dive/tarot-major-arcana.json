@@ -1,0 +1,24 @@
+{
+  "buckets": {
+    "10": "\nadjustment\t15\nhanged man\t4m\nhierophant\t7l\ntemperance\t6n\n",
+    "4": "\naeon\t4a\nfool\t2p\nlust\t1f\nmoon\t1q\npope\t7l\nstar\tu\n",
+    "3": "\nart\t6n\nsun\t0\n",
+    "7": "\nchariot\t5w\nemperor\t30\nempress\t5i\njustice\t15\n",
+    "5": "\ndeath\tm\ndevil\t2d\nlover\t3e\nmagus\t53\ntower\t21\nworld\ta\n",
+    "9": "\nfortitude\t1f\njudgement\t4a\npriestess\t70\n",
+    "6": "\nhermit\t6a\npapess\t70\n",
+    "14": "\nhigh priestess\t70\n",
+    "8": "\njudgment\t4a\nmagician\t53\nstrength\t1f\nuniverse\ta\n",
+    "16": "\nwheel of fortune\t3r\n"
+  },
+  "answers": "m\tThe Sun\nm\tThe World\ns\tDeath\nm\tThe Star\nm\tJustice\nm\tStrength\nm\tThe Moon\nm\tThe Tower\nm\tThe Devil\ns\tThe Fool\nm\tThe Emperor\ns\tThe Lovers\nr\tWheel of Fortune\nr\tJudgement\nr\tThe Hanged Man\nr\tThe Magician\nr\tThe Empress\nd\tThe Chariot\nd\tThe Hermit\nd\tTemperance\nd\tThe High Priestess\ng\tThe Hierophant\n",
+  "gem": { "answer": "The Hierophant", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Death", "tier": "surface", "points": 10 },
+    { "answer": "The Fool", "tier": "surface", "points": 10 },
+    { "answer": "The Lovers", "tier": "surface", "points": 10 },
+    { "answer": "The Chariot", "tier": "deep", "points": 85 },
+    { "answer": "The Hermit", "tier": "deep", "points": 85 }
+  ],
+  "size": 22
+}

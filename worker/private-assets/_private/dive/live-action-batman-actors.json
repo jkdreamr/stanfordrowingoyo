@@ -1,0 +1,23 @@
+{
+  "buckets": {
+    "9": "\nadam west\th\npattinson\t2k\n",
+    "7": "\naffleck\t18\nclooney\t23\n",
+    "4": "\nbale\t0\nwest\th\n",
+    "11": "\nben affleck\t18\n",
+    "10": "\nben afleck\t18\nval kilmer\t3j\n",
+    "14": "\nchristian bale\t0\ngeorge clooney\t23\nmichael keaton\t1m\nmicheal keaton\t1m\n",
+    "13": "\ncristian bale\t0\nrob pattinson\t2k\nrobert lowery\t33\n",
+    "6": "\nkeaton\t1m\nkilmer\t3j\nlowery\t33\nwilson\tt\n",
+    "12": "\nlewis wilson\tt\n",
+    "16": "\nrobert pattinson\t2k\n"
+  },
+  "answers": "s\tChristian Bale\nm\tAdam West\nm\tLewis Wilson\ns\tBen Affleck\ns\tMichael Keaton\nr\tGeorge Clooney\ns\tRobert Pattinson\ng\tRobert Lowery\nd\tVal Kilmer\n",
+  "gem": { "answer": "Robert Lowery", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Christian Bale", "tier": "surface", "points": 10 },
+    { "answer": "Ben Affleck", "tier": "surface", "points": 10 },
+    { "answer": "Michael Keaton", "tier": "surface", "points": 10 },
+    { "answer": "Val Kilmer", "tier": "deep", "points": 85 }
+  ],
+  "size": 9
+}

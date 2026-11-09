@@ -1,0 +1,29 @@
+{
+  "buckets": {
+    "5": "\naaron\t3g\nburke\t4a\ncoody\tlv\nfaldo\th6\nfloyd\t5m\nhogan\t62\nscott\tf\nsingh\t8e\nsmith\t7z\nsnead\tfl\ntiger\t1w\n",
+    "10": "\nadam scott\tf\nballestero\thj\nbob goalby\tmx\ncraig wood\t1j\ngay brewer\t6t\nlarry mize\tgt\nmiddlecoff\tna\nnick faldo\th6\nsandy lyle\t97\nschwartzel\tke\ntiger wood\t1w\ntom watson\t16\n",
+    "13": "\nangel cabrera\teq\narnold palmer\t56\ncharles coody\tlv\nclaude harmon\tae\ncraig stadler\tfx\ndanny willett\tds\nfuzzy zoeller\tjj\ngeorge archer\t3u\nherman keiser\tgd\njack burke jr\t4a\njack nicklaus\tcv\njimmy demaret\tlf\njordan spieth\tba\nralph guldahl\tns\nraymond floyd\t5m\nsergio garcia\tau\n",
+    "6": "\narcher\t3u\nbrewer\t6t\ncasper\t9k\ncouple\t2a\ngarcia\tau\ngoalby\tmx\nharmon\tae\nkeiser\tgd\nlanger\te8\nnelson\t6e\nomeara\tf6\npalmer\t56\npicard\t9z\nplayer\ts\nspieth\tba\n",
+    "11": "\nart wall jr\t0\nfred couple\t2a\ngary player\ts\nian woosnam\tj5\nmark omeara\tf6\ntommy aaron\t3g\nvijay singh\t8e\n",
+    "12": "\nben crenshaw\tbq\nbilly casper\t9k\nbubba watson\t8s\nbyron nelson\t6e\ngene sarazen\tjz\nhenry picard\t9z\nhorton smith\t7z\npatrick reed\t31\nrory mcilroy\tcg\nzach johnson\t4r\n",
+    "9": "\nben hogan\t62\ndoug ford\t2p\nmatsuyama\ti2\nmickelson\tdb\nmike weir\t76\nsam snead\tfl\nscheffler\til\n",
+    "15": "\nbernhard langer\te8\ncary middlecoff\tna\nseve ballestero\thj\ntrevor immelman\tkx\n",
+    "7": "\ncabrera\teq\ndemaret\tlf\nguldahl\tns\nmcilroy\tcg\nsarazen\tjz\nstadler\tfx\nwillett\tds\nwoosnam\tj5\nzoeller\tjj\n",
+    "16": "\ncharl schwartzel\tke\nhideki matsuyama\ti2\n",
+    "8": "\ncrenshaw\tbq\nimmelman\tkx\njon rahm\tc5\nnicklaus\tcv\nolazabal\tmb\n",
+    "14": "\ndustin johnson\t7i\nphil mickelson\tdb\n",
+    "4": "\nford\t2p\nlyle\t97\nmize\tgt\nrahm\tc5\nreed\t31\nwall\t0\nweir\t76\n",
+    "19": "\njose maria olazabal\tmb\n",
+    "17": "\nscottie scheffler\til\n"
+  },
+  "answers": "m\tArt Wall Jr.\nm\tAdam Scott\nm\tGary Player\nm\tTom Watson\nm\tCraig Wood\ns\tTiger Woods\nm\tFred Couples\nm\tDoug Ford\nm\tPatrick Reed\nm\tTommy Aaron\nm\tGeorge Archer\nm\tJack Burke Jr.\nm\tZach Johnson\ns\tArnold Palmer\nm\tRaymond Floyd\nm\tBen Hogan\nm\tByron Nelson\nm\tGay Brewer\nm\tMike Weir\nm\tDustin Johnson\nm\tHorton Smith\nm\tVijay Singh\ng\tBubba Watson\nm\tSandy Lyle\nm\tBilly Casper\nm\tHenry Picard\nm\tClaude Harmon\nr\tSergio García\nr\tJordan Spieth\nr\tBen Crenshaw\nr\tJon Rahm\nr\tRory McIlroy\ns\tJack Nicklaus\nr\tPhil Mickelson\nr\tDanny Willett\nr\tBernhard Langer\nr\tÁngel Cabrera\nr\tMark O'Meara\nr\tSam Snead\nr\tCraig Stadler\nr\tHerman Keiser\nr\tLarry Mize\nr\tNick Faldo\nr\tSeve Ballesteros\nd\tHideki Matsuyama\nd\tScottie Scheffler\nd\tIan Woosnam\nd\tFuzzy Zoeller\nd\tGene Sarazen\nd\tCharl Schwartzel\nd\tTrevor Immelman\nd\tJimmy Demaret\nd\tCharles Coody\nd\tJosé María Olazábal\nd\tBob Goalby\nd\tCary Middlecoff\nd\tRalph Guldahl\n",
+  "gem": { "answer": "Bubba Watson", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Tiger Woods", "tier": "surface", "points": 10 },
+    { "answer": "Arnold Palmer", "tier": "surface", "points": 10 },
+    { "answer": "Jack Nicklaus", "tier": "surface", "points": 10 },
+    { "answer": "Hideki Matsuyama", "tier": "deep", "points": 85 },
+    { "answer": "Scottie Scheffler", "tier": "deep", "points": 85 }
+  ],
+  "size": 57
+}

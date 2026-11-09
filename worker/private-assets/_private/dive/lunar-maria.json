@@ -1,0 +1,30 @@
+{
+  "buckets": {
+    "6": "\nanguis\t1c\nnubium\t7i\nspuman\t8u\n",
+    "8": "\naustrale\tw\ncognitum\t2r\nfrigoris\t3r\nmarginis\t63\nnectaris\t72\n",
+    "7": "\ncrisium\t2c\nhumorum\t4s\nimbrium\th\ningenii\t57\nsmythii\t8f\nundarum\t9w\nvaporum\tab\n",
+    "11": "\neastern sea\t0\nfoaming sea\t8u\nmare anguis\t1c\nmare nubium\t7i\nmare spuman\t8u\nmoscoviense\t6j\nprocellarum\t1q\nsea of cold\t3r\nsea of cris\t2c\nsea of rain\th\nsea of wave\t9w\nserenitatis\t7w\nserpent sea\t1c\n",
+    "12": "\nfecunditatis\t37\nmare crisium\t2c\nmare humorum\t4s\nmare imbrium\th\nmare ingenii\t57\nmare smythii\t8f\nmare undarum\t9w\nmare vaporum\tab\nsea of cloud\t7i\nsea of smyth\t8f\nsea of vapor\tab\nsouthern sea\tw\n",
+    "13": "\nhumboldtianum\t47\nmare australe\tw\nmare cognitum\t2r\nmare frigoris\t3r\nmare marginis\t63\nmare nectaris\t72\nsea of island\t5m\nsea of moscow\t6j\nsea of nectar\t72\nsea of shower\th\n",
+    "9": "\ninsularum\t5m\norientale\t0\nsmyth sea\t8f\n",
+    "17": "\nmare fecunditatis\t37\nsea of cleverness\t57\n",
+    "18": "\nmare humboldtianum\t47\nsea of tranquility\t99\n",
+    "14": "\nmare insularum\t5m\nmare orientale\t0\nocean of storm\t1q\nsea of muscovy\t6j\n",
+    "16": "\nmare moscoviense\t6j\nmare serenitatis\t7w\nsea of fecundity\t37\nsea of fertility\t37\n",
+    "20": "\nmare tranquillitatis\t99\n",
+    "19": "\noceanus procellarum\t1q\n",
+    "15": "\nsea of humboldt\t47\nsea of moisture\t4s\nsea of serenity\t7w\nsea of the edge\t63\ntranquillitatis\t99\n",
+    "25": "\nsea that has become known\t2r\n",
+    "10": "\nsmyths sea\t8f\n"
+  },
+  "answers": "m\tMare Orientale\ns\tMare Imbrium\nm\tMare Australe\nm\tMare Anguis\ns\tOceanus Procellarum\nm\tMare Crisium\nm\tMare Cognitum\nm\tMare Fecunditatis\nm\tMare Frigoris\nm\tMare Humboldtianum\nm\tMare Humorum\ng\tMare Ingenii\nr\tMare Insularum\nr\tMare Marginis\nr\tMare Moscoviense\nr\tMare Nectaris\nr\tMare Nubium\nr\tMare Serenitatis\nd\tMare Smythii\nd\tMare Spumans\ns\tMare Tranquillitatis\nd\tMare Undarum\nd\tMare Vaporum\n",
+  "gem": { "answer": "Mare Ingenii", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Mare Imbrium", "tier": "surface", "points": 10 },
+    { "answer": "Oceanus Procellarum", "tier": "surface", "points": 10 },
+    { "answer": "Mare Tranquillitatis", "tier": "surface", "points": 10 },
+    { "answer": "Mare Smythii", "tier": "deep", "points": 85 },
+    { "answer": "Mare Spumans", "tier": "deep", "points": 85 }
+  ],
+  "size": 23
+}

@@ -117,7 +117,7 @@ async function day(ctx: Context, date: string): Promise<DiveDay> {
   const selection = diveSelectionFor(date);
   const answers = await Promise.all(
     stored.map(async (answer) => {
-      const set = await answerSet(selection[answer.prompt_index].id);
+      const set = await answerSet(ctx.env, selection[answer.prompt_index].id);
       return { ...answer, gem: set.gem, notable: set.notable };
     }),
   );
@@ -230,7 +230,7 @@ export async function answer(ctx: Context) {
     value = checkedAnswer(body);
   refreshClock(ctx);
   const { date } = active(ctx, index);
-  const set = await answerSet(diveSelectionFor(date)[index].id);
+  const set = await answerSet(ctx.env, diveSelectionFor(date)[index].id);
   refreshClock(ctx, date);
   const result = ctx.storage.transactionSync(() => {
     const { user, date } = active(ctx, index);
@@ -289,7 +289,7 @@ export async function guess(ctx: Context) {
     value = checkedAnswer(body);
   refreshClock(ctx);
   const { date } = active(ctx, index);
-  const set = await answerSet(diveSelectionFor(date)[index].id);
+  const set = await answerSet(ctx.env, diveSelectionFor(date)[index].id);
   refreshClock(ctx, date);
   const result = ctx.storage.transactionSync((): DiveGuessResponse => {
     const { user, date } = active(ctx, index);
@@ -343,7 +343,7 @@ export async function suggestion(ctx: Context) {
     accept = v.boolean(body.accept, 'Accept');
   refreshClock(ctx);
   const { date } = active(ctx, index);
-  const set = await answerSet(diveSelectionFor(date)[index].id);
+  const set = await answerSet(ctx.env, diveSelectionFor(date)[index].id);
   refreshClock(ctx, date);
   return json(
     ctx.storage.transactionSync((): DiveGuessResponse => {

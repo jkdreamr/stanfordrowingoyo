@@ -1,0 +1,26 @@
+{
+  "buckets": {
+    "12": "\nblack pepper\t6\ncelery stalk\t20\ntomato juice\t17\n",
+    "6": "\ncelery\t20\npepper\t6\ntomato\t17\n",
+    "11": "\ncelery salt\t29\nlemon juice\tl\nlemon wedge\t1m\n",
+    "19": "\nground black pepper\t6\n",
+    "9": "\nhot sauce\t3a\n",
+    "3": "\nice\t0\n",
+    "14": "\nlea and perrin\t2n\n",
+    "5": "\nlemon\tl\nvodka\tz\n",
+    "4": "\nsalt\t29\n",
+    "7": "\ntabasco\t3a\n",
+    "13": "\ntabasco sauce\t3a\n",
+    "15": "\nworcester sauce\t2n\n",
+    "20": "\nworcestershire sauce\t2n\n"
+  },
+  "answers": "m\tIce\nm\tBlack pepper\nm\tLemon juice\ns\tVodka\ns\tTomato juice\nr\tLemon wedge\ns\tCelery\nr\tCelery salt\ng\tWorcestershire sauce\nd\tTabasco sauce\n",
+  "gem": { "answer": "Worcestershire sauce", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Vodka", "tier": "surface", "points": 10 },
+    { "answer": "Tomato juice", "tier": "surface", "points": 10 },
+    { "answer": "Celery", "tier": "surface", "points": 10 },
+    { "answer": "Tabasco sauce", "tier": "deep", "points": 85 }
+  ],
+  "size": 10
+}

@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "dev:web": "npm run dev -w web",
-    "dev": "npm run build -w web && concurrently -k \"wrangler dev\" \"npm run dev -w web\"",
-    "build": "npm run build -w web && node scripts/dive/check-web.mjs && node scripts/wordguess/check-web.mjs && node scripts/perception/check-web.mjs && wrangler deploy --dry-run",
+    "dev": "npm run build -w web && node scripts/assemble-assets.mjs && concurrently -k \"wrangler dev\" \"npm run dev -w web\"",
+    "build": "npm run build -w web && node scripts/assemble-assets.mjs && node scripts/dive/check-web.mjs && node scripts/wordguess/check-web.mjs && node scripts/perception/check-web.mjs && wrangler deploy --dry-run --outdir dist/worker && node scripts/dive/check-worker.mjs",
     "typecheck": "npm run typecheck --workspaces && tsc -p scripts/tsconfig.json && tsc -p e2e/tsconfig.json",
     "e2e": "playwright test",
     "e2e:install": "playwright install --with-deps chromium webkit",
@@ -20,7 +20,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run && npm test -w worker",
-    "deploy": "npm run build -w web && wrangler deploy"
+    "deploy": "npm run build -w web && node scripts/assemble-assets.mjs && wrangler deploy"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261104.1",

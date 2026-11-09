@@ -1,0 +1,24 @@
+{
+  "buckets": {
+    "1": "\na\t2f\nc\tv\nd\t5e\ne\t4p\nf\t3l\ng\t1f\nh\t4d\ni\t67\nk\tm\nl\t3b\nm\t22\nn\t5u\no\t71\np\t31\nq\t2p\nr\tb\ns\t16\nt\t41\nu\t6k\nv\t55\nw\t1p\ny\t0\n",
+    "3": "\nala\t2f\narg\tb\nasn\t5u\nasp\t5e\ncys\tv\ngln\t2p\nglu\t4p\ngly\t1f\nhis\t4d\nile\t67\nleu\t3b\nlys\tm\nmet\t22\nphe\t3l\npro\t31\npyl\t71\nsec\t6k\nser\t16\nthr\t41\ntrp\t1p\ntyr\t0\nval\t55\n",
+    "7": "\nalanine\t2f\nglycine\t1f\nleucine\t3b\nproline\t31\n",
+    "8": "\narginine\tb\ncysteine\tv\ntyrosine\t0\n",
+    "10": "\nasparagine\t5u\nisoleucine\t67\nmethionine\t22\ntryptophan\t1p\n",
+    "9": "\naspartate\t5e\nglutamate\t4p\nglutamine\t2p\nhistidine\t4d\nthreonine\t41\n",
+    "13": "\naspartic acid\t5e\nglutamic acid\t4p\nphenylalanine\t3l\n",
+    "6": "\nlysine\tm\nserine\t16\nvaline\t55\n",
+    "11": "\npyrrolysine\t71\n",
+    "14": "\nselenocysteine\t6k\n"
+  },
+  "answers": "m\tTyrosine\nm\tArginine\nm\tLysine\nm\tCysteine\nm\tSerine\ns\tGlycine\ng\tTryptophan\nm\tMethionine\ns\tAlanine\nm\tGlutamine\nm\tProline\nm\tLeucine\nr\tPhenylalanine\nr\tThreonine\nr\tHistidine\ns\tGlutamic acid\nr\tValine\nr\tAspartic acid\nd\tAsparagine\nd\tIsoleucine\nd\tSelenocysteine\nd\tPyrrolysine\n",
+  "gem": { "answer": "Tryptophan", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Glycine", "tier": "surface", "points": 10 },
+    { "answer": "Alanine", "tier": "surface", "points": 10 },
+    { "answer": "Glutamic acid", "tier": "surface", "points": 10 },
+    { "answer": "Asparagine", "tier": "deep", "points": 85 },
+    { "answer": "Isoleucine", "tier": "deep", "points": 85 }
+  ],
+  "size": 22
+}

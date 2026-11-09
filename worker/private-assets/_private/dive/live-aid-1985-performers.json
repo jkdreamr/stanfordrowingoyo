@@ -1,0 +1,36 @@
+{
+  "buckets": {
+    "4": "\nadam\t9a\nbaez\tki\nbono\tep\ncsny\thy\njohn\tec\nozzy\tmv\nsade\tlo\nwham\tmn\nwood\tbq\n",
+    "8": "\nadam ant\t9o\nband aid\t4l\ncostello\tgd\nfour top\t6g\nkendrick\to5\nkiki dee\tit\nmarsalis\tum\nultravox\tw8\nzeppelin\tf9\n",
+    "13": "\nalbert collin\t84\nblack sabbath\tdh\ndavid gilmour\tku\nhall and oate\tj4\nkeith richard\taq\nmark knopfler\tfy\nozzy osbourne\tmv\npatti labelle\tqi\npower station\t2n\nroger daltrey\t18\nstyle council\t3k\nthompson twin\t7n\n",
+    "12": "\nalison moyet\tww\nboomtown rat\ton\nbrian wilson\t1i\ndavid ruffin\tqy\neric clapton\tk3\nheartbreaker\tp7\njudas priest\teu\nkenny loggin\tse\nled zeppelin\tf9\nrobert plant\tf9\nsimon le bon\tlv\nsteve steven\t77\n",
+    "15": "\nandrew ridgeley\tmn\nfreddie mercury\tci\n",
+    "19": "\nashford and simpson\tjj\n",
+    "9": "\nbeach boy\t1i\nbob dylan\ti\nbrian may\t4w\njoan baez\tki\nmccartney\td0\nmidge ure\tw8\npretender\tnb\ntom petty\tp7\ntownshend\tno\n",
+    "14": "\nbernard watson\t8t\ncarlos santana\tfo\nchrissie hynde\tnb\neddie kendrick\to5\nelvis costello\tgd\ngeorge michael\tmn\npaul mccartney\td0\npete townshend\tno\nreo speedwagon\tsu\nspandau ballet\trx\nusa for africa\t44\n",
+    "11": "\nbilly ocean\t62\nbryan ferry\tac\ndavid bowie\tu\ndire strait\tfy\nduran duran\tlv\nhoward jone\t5n\nmick jagger\tgu\nnik kershaw\tm9\nnile rodger\tdx\npat metheny\tu8\npaul weller\t3k\npendergrass\tto\nphil collin\t6s\nronnie wood\tbq\nsimple mind\t58\nspringfield\tb7\ntina turner\tc4\n",
+    "10": "\nbo diddley\ttb\nbob geldof\tq5\nbryan adam\t9a\nelton john\tec\njimmy page\tf9\nneil young\t1z\npaul young\t37\nstatus quo\t9z\n",
+    "5": "\nbowie\tu\ndylan\ti\nferry\tac\nmoyet\tww\nocean\t62\nqueen\ta\nsting\t8l\n",
+    "17": "\nbranford marsalis\tum\nteddy pendergrass\tto\n",
+    "3": "\ncar\t2c\ncsn\th8\nquo\t9z\nwho\t18\n",
+    "7": "\nclapton\tk3\ndiddley\ttb\ngilmour\tku\nkershaw\tm9\nlabelle\tqi\nmadonna\t0\nmercury\tci\nmetheny\tu8\nrichard\taq\nrun dmc\twj\nsabbath\tdh\nsantana\tfo\n",
+    "16": "\ncoldstream guard\trd\ngeorge thorogood\tv6\nrick springfield\tb7\n",
+    "22": "\ncrosby stills and nash\th8\n",
+    "28": "\ncrosby stills nash and young\thy\n",
+    "24": "\ndaryl hall and john oate\tj4\n",
+    "6": "\ngeldof\tq5\nhooter\tla\njagger\tgu\nloggin\tse\nrodger\tdx\nruffin\tqy\nrundmc\twj\nsteven\t77\nturner\tc4\n",
+    "34": "\ngeorge thorogood and the destroyer\tv6\n",
+    "30": "\ntom petty and the heartbreaker\tp7\n",
+    "2": "\nu2\tep\n"
+  },
+  "answers": "s\tMadonna\ns\tQueen\nm\tBob Dylan\ns\tDavid Bowie\nm\tThe Who\nm\tThe Beach Boys\nm\tNeil Young\nm\tThe Cars\nm\tThe Power Station\nm\tPaul Young\nm\tThe Style Council\nt\tUSA for Africa\nt\tBand Aid\nm\tBrian May\nm\tSimple Minds\nm\tHoward Jones\nm\tBilly Ocean\nm\tFour Tops\nm\tPhil Collins\nm\tSteve Stevens\nm\tThompson Twins\nm\tAlbert Collins\nm\tSting\ng\tBernard Watson\nm\tBryan Adams\nm\tAdam Ant\nm\tStatus Quo\nm\tBryan Ferry\nm\tKeith Richards\nm\tRick Springfield\nm\tRonnie Wood\nm\tTina Turner\nm\tFreddie Mercury\ns\tPaul McCartney\nm\tBlack Sabbath\nm\tNile Rodgers\nm\tElton John\ns\tU2\nm\tJudas Priest\ns\tLed Zeppelin\nr\tSantana\nr\tDire Straits\nr\tElvis Costello\nr\tMick Jagger\nr\tCrosby, Stills and Nash\nr\tCrosby, Stills, Nash & Young\nr\tKiki Dee\nr\tHall & Oates\nr\tAshford & Simpson\nr\tEric Clapton\nr\tJoan Baez\nr\tDavid Gilmour\nr\tThe Hooters\nr\tSade\nr\tDuran Duran\nr\tNik Kershaw\nr\tWham!\nr\tOzzy Osbourne\nr\tPretenders\nr\tPete Townshend\nd\tEddie Kendricks\nd\tThe Boomtown Rats\nd\tTom Petty and the Heartbreakers\nd\tBob Geldof\nd\tPatti LaBelle\nd\tDavid Ruffin\nt\tColdstream Guards\nd\tSpandau Ballet\nd\tKenny Loggins\nd\tREO Speedwagon\nd\tBo Diddley\nd\tTeddy Pendergrass\nd\tPat Metheny\nd\tBranford Marsalis\nd\tGeorge Thorogood and the Destroyers\nd\tUltravox\nd\tRun–D.M.C.\nd\tAlison Moyet\n",
+  "gem": { "answer": "Bernard Watson", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Madonna", "tier": "surface", "points": 10 },
+    { "answer": "Queen", "tier": "surface", "points": 10 },
+    { "answer": "David Bowie", "tier": "surface", "points": 10 },
+    { "answer": "Eddie Kendricks", "tier": "deep", "points": 85 },
+    { "answer": "The Boomtown Rats", "tier": "deep", "points": 85 }
+  ],
+  "size": 78
+}

@@ -1,0 +1,26 @@
+{
+  "buckets": {
+    "9": "\nadventure\t43\nsign of 4\t0\n",
+    "28": "\nadventures of sherlock holme\t43\n",
+    "27": "\ncase book of sherlock holme\t28\n",
+    "8": "\ncasebook\t28\nlast bow\t18\n",
+    "26": "\ncasebook of sherlock holme\t28\n",
+    "12": "\nhis last bow\t18\nsign of four\t0\n",
+    "20": "\nhound of baskerville\t60\n",
+    "24": "\nhound of the baskerville\t60\nreturn of sherlock holme\t37\n",
+    "6": "\nmemoir\t53\nreturn\t37\n",
+    "25": "\nmemoirs of sherlock holme\t53\n",
+    "13": "\nsign of the 4\t0\n",
+    "16": "\nsign of the four\t0\nstudy in scarlet\t1n\n",
+    "14": "\nvalley of fear\tn\n"
+  },
+  "answers": "g\tThe Sign of the Four\nm\tThe Valley of Fear\nm\tHis Last Bow\ns\tA Study in Scarlet\nm\tThe Case-Book of Sherlock Holmes\nr\tThe Return of Sherlock Holmes\ns\tThe Adventures of Sherlock Holmes\nd\tThe Memoirs of Sherlock Holmes\ns\tThe Hound of the Baskervilles\n",
+  "gem": { "answer": "The Sign of the Four", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "A Study in Scarlet", "tier": "surface", "points": 10 },
+    { "answer": "The Adventures of Sherlock Holmes", "tier": "surface", "points": 10 },
+    { "answer": "The Hound of the Baskervilles", "tier": "surface", "points": 10 },
+    { "answer": "The Memoirs of Sherlock Holmes", "tier": "deep", "points": 85 }
+  ],
+  "size": 9
+}

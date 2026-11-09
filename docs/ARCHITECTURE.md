@@ -629,14 +629,27 @@ secondary signal below resolved entities. Homographs use explicit contextual art
 titles and multiword corrections. ISO 639-1 languages replace the noisy ISO 639-3 tail;
 cities are capped at the 500 largest per country, movies at 1,000 per genre by source votes,
 plus reviewed additions. See the committed full-prompt review and familiarity snapshot.
-Generated Worker-only per-prompt modules contain sorted normalized-key length-bucket
+Generated private JSON assets in `worker/private-assets/_private/dive/` contain sorted normalized-key length-bucket
 strings, a shared canonical table referenced by base-36 UTF-16
-offsets, and constant Pearl/notable metadata. `sets.ts` returns
-lazy module data directly: no request parses a set, builds key maps, or incurs parsed-LRU
-eviction. Exact canonical/alias lookup searches the key's length bucket for a
+offsets, and constant Pearl/notable metadata. The generated `loaders.ts` contains only IDs and filenames.
+`answerSet(env, id)` reads one set through `env.ASSETS.fetch`, including inside TeamDO,
+and caches its parsed Promise per isolate; failed fetches/parses are evicted for retry.
+Exact canonical/alias lookup searches the key's length bucket for a
 newline/key/tab delimiter (no duplicate global index); fuzzy
 matching scans only eligible bucket strings, decoding only accepted candidate rows.
 The browser imports tier helpers/types only, never answer data.
+
+`scripts/assemble-assets.mjs` combines public `web/dist` and private Worker assets into
+ignored `dist/site`, which Wrangler serves. Private data never enters Vercel's `web/dist`.
+Build, deploy, dev and managed E2E assemble this directory. Worker tests bind assets
+directly from `worker/private-assets`, without requiring a web build.
+Asset routing remains `run_worker_first: ["/api/*", "/_private/*"]`; the Worker decodes,
+normalizes and case-folds private paths and returns 404 before invoking ASSETS.
+The privacy contract forbids public answer bytes: normalization redirects are followed,
+and case-mismatched paths may return the public SPA HTML rather than 404. The asset
+store is case-sensitive. `scripts/dive/check-private-assets.mjs --base-url <url>` checks
+real sets, encoded/slash/case/query variants and HEAD, recording redirect locations.
+The web and Worker bundle leak guards also enforce that answer data is absent there.
 
 The pure Worker matcher first checks normalized canonical/alias keys. Otherwise banded,
 early-exit Levenshtein uses no fuzzy matching below length 4, distance ≤1 for length 4–7,
@@ -718,7 +731,7 @@ aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
 Registered daily games (all `higher`, scoring in `worker/src/games/more.ts`, public rules in
-`shared/games/` and private answer banks in `worker/src/games/`). Daily puzzles derive from the team date via a seeded
+`shared/games/` and private answer banks in `worker/src/games/` or `worker/private-assets/`). Daily puzzles derive from the team date via a seeded
 `mulberry32(fnv1a(id:date))` or a day-number answer index, so every teammate gets the same
 puzzle. The server recomputes every score from raw input; client scores are ignored, and
 malformed or implausible payloads return 400.

@@ -30,6 +30,20 @@ export default {
   },
   async fetch(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
+    let decoded = path;
+    try {
+      for (let i = 0; i < 5; i++) {
+        const next = decodeURIComponent(decoded);
+        if (next === decoded) break;
+        decoded = next;
+      }
+      decoded = new URL('https://assets.invalid' + decoded.replace(/\\/g, '/').replace(/\/+/g, '/'))
+        .pathname;
+    } catch {
+      return new Response('Not Found', { status: 404 });
+    }
+    if (decoded.replace(/^\/+/, '/').toLowerCase().startsWith('/_private'))
+      return new Response('Not Found', { status: 404 });
     if (path.startsWith('/api/')) {
       if (request.headers.has('X-OYO-Internal')) {
         const headers = new Headers(request.headers);

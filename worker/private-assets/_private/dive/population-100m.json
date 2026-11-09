@@ -1,0 +1,27 @@
+{
+  "buckets": {
+    "7": "\namerica\t0\nnigeria\t30\nvietnam\t23\n",
+    "10": "\nbangladesh\t3a\nphilippine\t4x\n",
+    "6": "\nbrazil\t1u\nmexico\t15\nrussia\tg\n",
+    "5": "\nchina\t1e\ncongo\t3y\negypt\t1m\nindia\tx\njapan\tp\nzaire\t3y\n",
+    "14": "\ncongo kinshasa\t3y\n",
+    "32": "\ndemocratic republic of the congo\t3y\n",
+    "8": "\ndr congo\t3y\nethiopia\t3n\npakistan\t2p\nviet nam\t23\n",
+    "3": "\ndrc\t3y\nusa\t0\n",
+    "9": "\nindonesia\t2d\n",
+    "18": "\nrussian federation\tg\n",
+    "12": "\nunited state\t0\n",
+    "24": "\nunited states of america\t0\n",
+    "2": "\nus\t0\n"
+  },
+  "answers": "s\tUnited States\nm\tRussia\nm\tJapan\ns\tIndia\nm\tMexico\ns\tChina\nm\tEgypt\nm\tBrazil\ng\tVietnam\nm\tIndonesia\nr\tPakistan\nr\tNigeria\nr\tBangladesh\nd\tEthiopia\nd\tDemocratic Republic of the Congo\nd\tPhilippines\n",
+  "gem": { "answer": "Vietnam", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "United States", "tier": "surface", "points": 10 },
+    { "answer": "India", "tier": "surface", "points": 10 },
+    { "answer": "China", "tier": "surface", "points": 10 },
+    { "answer": "Ethiopia", "tier": "deep", "points": 85 },
+    { "answer": "Democratic Republic of the Congo", "tier": "deep", "points": 85 }
+  ],
+  "size": 16
+}

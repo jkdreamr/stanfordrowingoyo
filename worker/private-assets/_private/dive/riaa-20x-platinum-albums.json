@@ -1,0 +1,33 @@
+{
+  "buckets": {
+    "13": "\nback in black\tt\n",
+    "6": "\nbeatle\t0\ndookie\t6h\nrumour\t5d\n",
+    "23": "\nbilly joel greatest hit\t2h\n",
+    "24": "\nbilly joels greatest hit\t2h\ngarth brooks double live\t1k\n",
+    "11": "\nblack album\t65\ndouble live\t1k\nfour symbol\t5n\nwhite album\t0\nzeppelin iv\t5n\n",
+    "12": "\ncome on over\te\n",
+    "17": "\ncracked rear view\t4t\n",
+    "19": "\neagles greatest hit\t3v\ngreatest hits eagle\t3v\n",
+    "29": "\ngreatest hits volume i and ii\t2h\ntheir greatest hits 1971 1975\t3v\n",
+    "36": "\ngreatest hits volume i and volume ii\t2h\n",
+    "16": "\nhotel california\t1y\n",
+    "14": "\nled zeppelin 4\t5n\n",
+    "15": "\nled zeppelin iv\t5n\n",
+    "9": "\nmetallica\t65\n",
+    "18": "\ntheir greatest hit\t3v\n",
+    "28": "\ntheir greatest hits 19711975\t3v\n",
+    "8": "\nthriller\t3k\n",
+    "21": "\nuntitled led zeppelin\t5n\n",
+    "4": "\nwall\t19\nzoso\t5n\n"
+  },
+  "answers": "m\tThe Beatles\nm\tCome On Over\ns\tBack in Black\nm\tThe Wall\ng\tDouble Live\ns\tHotel California\nm\tGreatest Hits – Volume I & Volume II\ns\tThriller\nr\tTheir Greatest Hits (1971–1975)\nr\tCracked Rear View\ns\tRumours\ns\tLed Zeppelin IV\nd\tMetallica\nd\tDookie\n",
+  "gem": { "answer": "Double Live", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Back in Black", "tier": "surface", "points": 10 },
+    { "answer": "Hotel California", "tier": "surface", "points": 10 },
+    { "answer": "Thriller", "tier": "surface", "points": 10 },
+    { "answer": "Metallica", "tier": "deep", "points": 85 },
+    { "answer": "Dookie", "tier": "deep", "points": 85 }
+  ],
+  "size": 14
+}

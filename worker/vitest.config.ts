@@ -10,6 +10,7 @@ export default defineConfig({
     cloudflareTest({
       wrangler: { configPath: '../wrangler.jsonc' },
       miniflare: {
+        assets: { directory: './private-assets' },
         bindings: {
           OYO_TEST_CLOCK: '1',
           TEAM_CODE: 'koo26',

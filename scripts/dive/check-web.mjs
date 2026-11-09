@@ -1,10 +1,21 @@
 import assert from 'node:assert/strict';
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, stat } from 'node:fs/promises';
 import { URL } from 'node:url';
 import console from 'node:console';
 
-const dir = new URL('../../web/dist/assets/', import.meta.url);
-const names = (await readdir(dir)).filter((name) => /\.(js|css|map)$/.test(name));
+const dir = new URL('../../web/dist/', import.meta.url);
+const publicFiles = await readdir(dir, { recursive: true });
+assert(
+  !publicFiles.some((name) =>
+    name
+      .toLowerCase()
+      .split(/[\\/]/)
+      .some((part) => part.startsWith('_private')),
+  ),
+  'Private assets leaked into web/dist',
+);
+const names = [];
+for (const name of publicFiles) if ((await stat(new URL(name, dir))).isFile()) names.push(name);
 assert(names.length, 'Build the web assets first');
 const gems = ['Nyckelharpa', 'Casu marzu', 'Rotokas', 'Gamboge', 'Parasaurolophus'];
 for (const name of names) {

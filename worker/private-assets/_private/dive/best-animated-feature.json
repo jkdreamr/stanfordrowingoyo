@@ -1,0 +1,33 @@
+{
+  "buckets": {
+    "10": "\nbig hero 6\t1w\nhappy feet\tn\nincredible\t7i\ninside out\t15\n",
+    "17": "\nboy and the heron\t69\nkpop demon hunter\t6x\n",
+    "5": "\nbrave\t29\nrango\t8p\nshrek\t5m\n",
+    "4": "\ncoco\t5f\nflow\t1p\nsoul\t1i\n",
+    "24": "\ncurse of the were rabbit\t34\n",
+    "7": "\nencanto\t9u\n",
+    "12": "\nfinding nemo\t5u\nspider verse\t3z\n",
+    "6": "\nfrozen\t2h\nwall e\t0\n",
+    "29": "\nguillermo del toros pinocchio\t8x\n",
+    "21": "\ninto the spider verse\t3z\n",
+    "18": "\nk pop demon hunter\t6x\nwallace and gromit\t34\n",
+    "9": "\npinocchio\t8x\n",
+    "11": "\nratatouille\t80\nspiderverse\t3z\ntoy story 3\t9\ntoy story 4\t2q\nzootropolis\t8e\n",
+    "32": "\nspider man into the spider verse\t3z\n",
+    "13": "\nspirited away\t4z\n",
+    "2": "\nup\t10\n",
+    "43": "\nwallace and gromit curse of the were rabbit\t34\n",
+    "47": "\nwallace and gromit the curse of the were rabbit\t34\n",
+    "8": "\nzootopia\t8e\n"
+  },
+  "answers": "m\tWALL-E\nm\tToy Story 3\nm\tHappy Feet\nm\tUp\nm\tInside Out\nm\tSoul\nm\tFlow\nm\tBig Hero 6\nm\tBrave\ns\tFrozen\nm\tToy Story 4\nr\tThe Curse of the Were-Rabbit\nr\tSpider-Man: Into the Spider-Verse\nr\tSpirited Away\nr\tCoco\ns\tShrek\ns\tFinding Nemo\nr\tThe Boy and the Heron\nr\tKPop Demon Hunters\nd\tThe Incredibles\ng\tRatatouille\nd\tZootopia\nd\tRango\nd\tGuillermo del Toro's Pinocchio\nd\tEncanto\n",
+  "gem": { "answer": "Ratatouille", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Frozen", "tier": "surface", "points": 10 },
+    { "answer": "Shrek", "tier": "surface", "points": 10 },
+    { "answer": "Finding Nemo", "tier": "surface", "points": 10 },
+    { "answer": "The Incredibles", "tier": "deep", "points": 85 },
+    { "answer": "Zootopia", "tier": "deep", "points": 85 }
+  ],
+  "size": 25
+}

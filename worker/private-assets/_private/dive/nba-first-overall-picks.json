@@ -1,0 +1,31 @@
+{
+  "buckets": {
+    "12": "\nabdul jabbar\to6\nandrew bogut\tls\nchris webber\tda\ncooper flagg\tnf\nderrick rose\tch\ndick rickett\tm7\nelgin baylor\tih\njames worthy\t1k\njimmy walker\t3t\nkyrie irving\tgf\nlarue martin\tmn\nlew alcindor\to6\nmark aguirre\tkz\nmark workman\tiw\nsihugo green\txm\nwalt bellamy\tg0\n",
+    "7": "\naguirre\tkz\nbellamy\tg0\nbennett\t5g\ncarroll\tar\ncoleman\tdp\nellison\ttv\ngriffin\t9f\nhundley\tp9\niverson\tkj\nmanning\t9v\nmcneely\tri\nrickett\tm7\nrussell\tvp\nsampson\tgu\nshannon\tha\nworkman\tiw\n",
+    "11": "\naj dybantsa\tuu\naustin carr\tbb\nbill mcgill\teo\nbill walton\tbp\ndoug collin\t6q\nelton brand\tcw\nfrank selvy\tw6\nfred hetzel\tth\nkent benson\tc3\nkwame brown\tle\nlebron jame\t5y\nrod hundley\tp9\n",
+    "14": "\nakeem olajuwon\tr0\nandy tonkovich\tv8\nanthony edward\t4y\nbrad daugherty\tos\ncazzie russell\tvp\ndavid robinson\t2g\ndavid thompson\t1z\nearvin johnson\to\nglenn robinson\t7h\nmarkelle fultz\tt0\npaolo banchero\tx5\npervis ellison\ttv\n",
+    "13": "\nallen iverson\tkj\nandrew wiggin\te7\nanthony davis\t2x\nblake griffin\t9f\ncharlie share\t14\ndanny manning\t9v\ndeandre ayton\tqk\ndwight howard\tab\nhowie shannon\tha\nkenyon martin\ti1\nlarry johnson\t3d\nmagic johnson\to\npatrick ewing\tf2\nralph sampson\tgu\n",
+    "15": "\nandrea bargnani\tsi\nanthony bennett\t5g\ncade cunningham\tjo\nclifton mcneely\tri\nderrick coleman\tdp\ngene melchiorre\tuc\nhakeem olajuwon\tr0\nhot rod hundley\tp9\nmychal thompson\ts0\noscar robertson\t8j\nshaquille oneal\tq1\nzion williamson\tfi\n",
+    "10": "\nart heyman\tjb\nben simmon\t91\nbob boozer\tn2\nbob lanier\tk6\ncunningham\tjo\nelvin haye\tpn\nmelchiorre\tuc\nolowokandi\twk\ntim duncan\t4l\nwembanyama\ty1\nwilliamson\tfi\n",
+    "5": "\nayton\tqk\nbarne\t6d\nbogut\tls\nbrand\tcw\nbrown\tle\ndavis\t2x\newing\tf2\nfelix\t75\nflagg\tnf\nfultz\tt0\ngreen\txm\noneal\tq1\nselvy\tw6\nshare\t14\nsmith\tc\nwemby\ty1\n",
+    "8": "\nbanchero\tx5\nbargnani\tsi\ndybantsa\tuu\nolajuwon\tr0\nrisacher\tyl\nyao ming\thq\n",
+    "6": "\nbaylor\tih\nbenson\tc3\nboozer\tn2\ncazzie\tvp\ncollin\t6q\nduncan\t4l\nedward\t4y\nhakeem\tr0\nhetzel\tth\nheyman\tjb\nhoward\tab\nirving\tgf\nkareem\to6\nlanier\tk6\nlebron\t5y\nmcgill\teo\nsimmon\t91\nwalker\t3t\nwalton\tbp\nwebber\tda\nwiggin\te7\nworthy\t1k\n",
+    "4": "\ncarr\tbb\nhaye\tpn\njame\t5y\nluca\t48\nming\thq\noden\tnu\nrose\tch\nshaq\tq1\ntown\t7y\nwall\t0\nzion\tfi\n",
+    "9": "\ndaugherty\tos\ngreg oden\tnu\njim barne\t6d\njoe smith\tc\njohn luca\t48\njohn wall\t0\nray felix\t75\nrobertson\t8j\ntonkovich\tv8\n",
+    "20": "\nearvin magic johnson\to\n",
+    "17": "\njoe barry carroll\tar\nkarl anthony town\t7y\nvictor wembanyama\ty1\n",
+    "19": "\nkareem abdul jabbar\to6\n",
+    "3": "\nkat\t7y\nyao\thq\n",
+    "18": "\nmichael olowokandi\twk\nzaccharie risacher\tyl\n"
+  },
+  "answers": "m\tJohn Wall\nm\tJoe Smith\ns\tMagic Johnson\nm\tCharlie Share\nm\tJames Worthy\nm\tDavid Thompson\nm\tDavid Robinson\nm\tAnthony Davis\nm\tLarry Johnson\nm\tJimmy Walker\nm\tJohn Lucas\ns\tTim Duncan\nm\tAnthony Edwards\nm\tAnthony Bennett\ns\tLeBron James\nm\tJim Barnes\nm\tDoug Collins\nm\tRay Felix\nm\tGlenn Robinson\nm\tKarl-Anthony Towns\nm\tOscar Robertson\nm\tBen Simmons\nm\tBlake Griffin\nm\tDanny Manning\nm\tDwight Howard\nm\tJoe Barry Carroll\nm\tAustin Carr\nm\tBill Walton\nm\tKent Benson\nm\tDerrick Rose\nm\tElton Brand\nm\tChris Webber\nm\tDerrick Coleman\nm\tAndrew Wiggins\nm\tBill McGill\nm\tPatrick Ewing\nr\tZion Williamson\nr\tWalt Bellamy\nr\tKyrie Irving\nr\tRalph Sampson\nr\tHowie Shannon\nr\tYao Ming\nr\tKenyon Martin\nr\tElgin Baylor\nr\tMark Workman\nr\tArt Heyman\nr\tCade Cunningham\nr\tBob Lanier\nr\tAllen Iverson\nr\tMark Aguirre\nr\tKwame Brown\nr\tAndrew Bogut\nr\tDick Ricketts\nt\tLaRue Martin\nr\tBob Boozer\nr\tCooper Flagg\nr\tGreg Oden\ns\tKareem Abdul-Jabbar\nr\tBrad Daugherty\nd\tRod Hundley\nd\tElvin Hayes\ns\tShaquille O'Neal\nd\tDeandre Ayton\nd\tHakeem Olajuwon\nd\tClifton McNeely\ng\tMychal Thompson\nd\tAndrea Bargnani\nd\tMarkelle Fultz\nd\tFred Hetzel\nd\tPervis Ellison\nd\tGene Melchiorre\nd\tAJ Dybantsa\nd\tAndy Tonkovich\nd\tCazzie Russell\nd\tFrank Selvy\nd\tMichael Olowokandi\nd\tPaolo Banchero\nd\tSihugo Green\ns\tVictor Wembanyama\nd\tZaccharie Risacher\n",
+  "gem": { "answer": "Mychal Thompson", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Magic Johnson", "tier": "surface", "points": 10 },
+    { "answer": "Tim Duncan", "tier": "surface", "points": 10 },
+    { "answer": "LeBron James", "tier": "surface", "points": 10 },
+    { "answer": "Rod Hundley", "tier": "deep", "points": 85 },
+    { "answer": "Elvin Hayes", "tier": "deep", "points": 85 }
+  ],
+  "size": 80
+}

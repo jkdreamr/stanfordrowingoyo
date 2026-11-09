@@ -1,0 +1,33 @@
+{
+  "buckets": {
+    "17": "\nanti bottom quark\t1q\nelectron neutrino\t2z\nmuon antineutrino\t53\n",
+    "16": "\nanti charm quark\t2l\ntau antineutrino\t43\n",
+    "15": "\nanti down quark\tq\n",
+    "18": "\nanti strange quark\t25\n",
+    "14": "\nanti top quark\t13\n",
+    "13": "\nanti up quark\t1f\nmuon neutrino\t53\nstrange quark\t25\n",
+    "12": "\nantielectron\t0\nbeauty quark\t1q\nbottom quark\t1q\ngod particle\t4i\ntau neutrino\t43\n",
+    "8": "\nantimuon\t4w\nelectron\t0\npositron\t0\nup quark\t1f\n",
+    "7": "\nantitau\tk\nstrange\t25\nw boson\t3j\nw minus\t3j\nz boson\t3t\n",
+    "6": "\nantiup\t1f\nbottom\t1q\nphoton\tb\nw plus\t3j\nz zero\t3t\n",
+    "5": "\ncharm\t2l\ngluon\t5j\ntauon\tk\n",
+    "11": "\ncharm quark\t2l\nhiggs boson\t4i\n",
+    "4": "\ndown\tq\nhigg\t4i\nmuon\t4w\n",
+    "10": "\ndown quark\tq\nw negative\t3j\nw positive\t3j\n",
+    "21": "\nelectron antineutrino\t2z\n",
+    "3": "\ntau\tk\ntop\t13\n",
+    "9": "\ntop quark\t13\n",
+    "2": "\nup\t1f\n",
+    "1": "\nw\t3j\nz\t3t\n"
+  },
+  "answers": "s\tElectron\ns\tPhoton\nm\tTau\nm\tDown quark\nm\tTop quark\nm\tUp quark\nm\tBottom quark\nm\tStrange quark\nr\tCharm quark\nr\tElectron neutrino\nr\tW boson\nr\tZ boson\ng\tTau neutrino\ns\tHiggs boson\nd\tMuon\nd\tMuon neutrino\nd\tGluon\n",
+  "gem": { "answer": "Tau neutrino", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Electron", "tier": "surface", "points": 10 },
+    { "answer": "Photon", "tier": "surface", "points": 10 },
+    { "answer": "Higgs boson", "tier": "surface", "points": 10 },
+    { "answer": "Muon", "tier": "deep", "points": 85 },
+    { "answer": "Muon neutrino", "tier": "deep", "points": 85 }
+  ],
+  "size": 17
+}

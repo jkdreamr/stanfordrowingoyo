@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "8": "\nbenetton\t30\nbrawn gp\t28\nred bull\tb\n",
+    "7": "\nbrabham\t2q\nferrari\t16\nmclaren\t1o\nmercede\tv\nrenault\t1y\ntyrrell\t2g\nvanwall\t3p\nwilliam\t0\n",
+    "5": "\nbrawn\t28\nlotus\t1g\nmatra\t3h\n",
+    "20": "\nbritish racing motor\t3b\n",
+    "3": "\nbrm\t3b\nrbr\tb\n",
+    "6": "\ncooper\tm\ntyrell\t2g\n",
+    "15": "\nmclaren mercede\t1o\nred bull racing\tb\nwilliams racing\t0\n",
+    "12": "\nmercedes amg\tv\n",
+    "13": "\nmercedes benz\tv\n",
+    "16": "\nscuderia ferrari\t16\n",
+    "10": "\nteam lotus\t1g\n"
+  },
+  "answers": "m\tWilliams\nm\tRed Bull\nm\tCooper\ns\tMercedes\ns\tFerrari\nm\tLotus\ns\tMcLaren\nm\tRenault\nt\tBrawn\nr\tTyrrell\nr\tBrabham\nr\tBenetton\nd\tBRM\nd\tMatra\ng\tVanwall\n",
+  "gem": { "answer": "Vanwall", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Mercedes", "tier": "surface", "points": 10 },
+    { "answer": "Ferrari", "tier": "surface", "points": 10 },
+    { "answer": "McLaren", "tier": "surface", "points": 10 },
+    { "answer": "BRM", "tier": "deep", "points": 85 },
+    { "answer": "Matra", "tier": "deep", "points": 85 }
+  ],
+  "size": 15
+}

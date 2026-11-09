@@ -1,0 +1,16 @@
+{
+  "buckets": {
+    "6": "\nespeon\t15\n",
+    "7": "\nflareon\tl\nglaceon\t1e\njolteon\tb\nleafeon\t1o\nsylveon\t1y\numbreon\tv\n",
+    "8": "\nvaporeon\t0\n"
+  },
+  "answers": "s\tVaporeon\ns\tJolteon\ns\tFlareon\nm\tUmbreon\nm\tEspeon\nr\tGlaceon\ng\tLeafeon\nd\tSylveon\n",
+  "gem": { "answer": "Leafeon", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Vaporeon", "tier": "surface", "points": 10 },
+    { "answer": "Jolteon", "tier": "surface", "points": 10 },
+    { "answer": "Flareon", "tier": "surface", "points": 10 },
+    { "answer": "Sylveon", "tier": "deep", "points": 85 }
+  ],
+  "size": 8
+}

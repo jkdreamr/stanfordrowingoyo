@@ -1,0 +1,37 @@
+{
+  "buckets": {
+    "22": "\narab republic of egypt\tz\n",
+    "6": "\nbelgie\t23\nbelize\t7z\nbrunei\t88\ncomoro\tbb\ncyprus\t4k\nellada\t1u\ngreece\t1u\nkosovo\t7q\nmexico\t0\nsweden\t17\nturkey\t9\n",
+    "7": "\nbelgien\t23\nbelgium\t23\nbritain\ti\nburundi\t99\nczechia\t30\nlesotho\t9w\nmorocco\t3v\nsverige\t17\nturkiye\t9\nvatican\t45\n",
+    "8": "\nbelgique\t23\ndjibouti\ta6\ndr congo\t5z\nholy see\t45\n",
+    "5": "\nbenin\t8u\ncesko\t30\nchile\t2d\ncongo\t4t\negypt\tz\nhella\t1u\nmaroc\t3v\nniger\t7i\nyemen\t2s\nzaire\t5z\n",
+    "17": "\nbrunei darussalam\t88\ncongo brazzaville\t4t\nhellenic republic\t1u\nrepublic of congo\t4t\nrepublic of niger\t7i\n",
+    "14": "\ncongo kinshasa\t5z\nczech republic\t30\nniger republic\t7i\nunited kingdom\ti\n",
+    "12": "\ncote divoire\t3h\nvatican city\t45\n",
+    "28": "\ndemocratic republic of congo\t5z\n",
+    "32": "\ndemocratic republic of the congo\t5z\n",
+    "3": "\ndrc\t5z\n",
+    "10": "\neast timor\tax\nletzebuerg\t75\nluxembourg\t75\nmontenegro\t8h\nphilippine\t1g\n",
+    "4": "\nfiji\t6y\nniue\tbl\nperu\t2l\ntogo\t92\n",
+    "25": "\ngrand duchy of luxembourg\t75\n",
+    "13": "\ngreat britain\ti\nliechtenstein\tah\n",
+    "11": "\nivory coast\t3h\ntimor leste\tax\n",
+    "18": "\nkingdom of belgium\t23\nkingdom of lesotho\t9w\nkingdom of morocco\t3v\nrepublic of turkey\t9\n",
+    "9": "\nluxemburg\t75\nseychelle\t9j\n",
+    "16": "\nmexican republic\t0\nrepublic of peru\t2l\n",
+    "15": "\nnorthern cyprus\t5h\n",
+    "21": "\nrepublic of the congo\t4t\n",
+    "2": "\nuk\ti\n",
+    "20": "\nunited mexican state\t0\n"
+  },
+  "answers": "s\tMexico\nm\tTurkey\nm\tUnited Kingdom\ns\tEgypt\nm\tSweden\nm\tPhilippines\nm\tGreece\nm\tBelgium\nm\tChile\ns\tPeru\nm\tYemen\nm\tCzech Republic\nm\tIvory Coast\nm\tMorocco\nm\tVatican City\nm\tCyprus\nm\tRepublic of the Congo\nm\tNorthern Cyprus\nr\tDemocratic Republic of the Congo\nr\tFiji\nr\tLuxembourg\nr\tNiger\nr\tKosovo\nr\tBelize\nr\tBrunei\nr\tMontenegro\nr\tBenin\nd\tTogo\nd\tBurundi\ng\tSeychelles\nd\tLesotho\nd\tDjibouti\nd\tLiechtenstein\nd\tTimor-Leste\nd\tComoros\nd\tNiue\n",
+  "gem": { "answer": "Seychelles", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Mexico", "tier": "surface", "points": 10 },
+    { "answer": "Egypt", "tier": "surface", "points": 10 },
+    { "answer": "Peru", "tier": "surface", "points": 10 },
+    { "answer": "Togo", "tier": "deep", "points": 85 },
+    { "answer": "Burundi", "tier": "deep", "points": 85 }
+  ],
+  "size": 36
+}

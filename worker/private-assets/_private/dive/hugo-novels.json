@@ -1,0 +1,39 @@
+{
+  "buckets": {
+    "10": "\n5th season\t4m\ndreamsnake\t13q\nsnow queen\t76\nuplift war\tn6\n",
+    "9": "\nall clear\tjk\ngreen mar\tdr\nringworld\t112\nstone sky\t6q\n",
+    "12": "\namerican god\t9a\ndispossessed\tv8\nfifth season\t4m\nmirror dance\ta8\nobelisk gate\tvr\nrainbows end\tof\n",
+    "11": "\namong other\t11\ndiamond age\t9q\ndouble star\t3r\nenders game\tx5\neverlasting\tlz\nforever war\t5s\nneuromancer\t10o\ntainted cup\tmh\nway station\t25\nwindup girl\txv\n",
+    "17": "\nancillary justice\tpu\ncity and the city\tf\ndownbelow station\t12m\nstand on zanzibar\ttb\n",
+    "8": "\nbarrayar\t136\nbig time\t0\nblackout\tjk\nblue mar\tdf\nhyperion\tux\nredshirt\t11e\nvor game\twa\nwanderer\tr6\n",
+    "18": "\nblackout all clear\tjk\ncase of conscience\tfk\nfire upon the deep\t55\nthree body problem\t1g\n",
+    "16": "\ncalculating star\tk5\nfoundations edge\tpa\nstarship trooper\trl\n",
+    "22": "\ncanticle for leibowitz\tz9\nman in the high castle\t7n\n",
+    "6": "\ncyteen\t13h\n",
+    "19": "\ndeepness in the sky\t100\n",
+    "14": "\ndemolished man\tle\ngoblet of fire\ttv\ngods themselve\tan\ngraveyard book\tkt\nnetwork effect\t45\n",
+    "23": "\ndesolation called peace\tqe\n",
+    "13": "\ndoomsday book\tou\nforever peace\t6a\nlord of light\t3b\nthis immortal\ti9\n",
+    "4": "\ndune\tmz\nspin\t93\n",
+    "21": "\nfountains of paradise\tnn\nleft hand of darkness\tcn\ntheyd rather be right\tby\n",
+    "7": "\ngateway\thz\nhominid\txk\n",
+    "35": "\nharry potter and the goblet of fire\ttv\n",
+    "31": "\njonathan strange and mr norrell\tyd\nwhere late the sweet birds sang\tg7\n",
+    "20": "\nmemory called empire\tb9\nrendezvous with rama\ts5\nsome desperate glory\tex\nspeaker for the dead\t8g\n",
+    "24": "\nmoon is a harsh mistress\tip\nyiddish policemens union\t11q\n",
+    "15": "\nnettle and bone\twp\npaladin of soul\tss\nstartide rising\t143\n",
+    "26": "\nstranger in a strange land\te4\n",
+    "25": "\nto say nothing of the dog\t2j\n",
+    "27": "\nto your scattered bodies go\th5\n"
+  },
+  "answers": "m\tThe Big Time\nm\tThe City & the City\nm\tAmong Others\ng\tThe Three-Body Problem\nm\tWay Station\nm\tTo Say Nothing of the Dog\nm\tLord of Light\nm\tDouble Star\nm\tNetwork Effect\nm\tThe Fifth Season\nm\tA Fire Upon the Deep\nm\tThe Forever War\nm\tForever Peace\nm\tThe Stone Sky\nm\tThe Snow Queen\nm\tThe Man in the High Castle\nm\tSpeaker for the Dead\nm\tSpin\ns\tAmerican Gods\nm\tThe Diamond Age\nm\tMirror Dance\nm\tThe Gods Themselves\nm\tA Memory Called Empire\nm\tThey'd Rather Be Right\ns\tThe Left Hand of Darkness\nm\tBlue Mars\nm\tGreen Mars\nm\tStranger in a Strange Land\nm\tSome Desperate Glory\nm\tA Case of Conscience\nm\tWhere Late the Sweet Birds Sang\nm\tTo Your Scattered Bodies Go\nm\tGateway\nm\tThis Immortal\nm\tThe Moon Is a Harsh Mistress\nr\tBlackout/All Clear\nr\tThe Calculating Stars\nr\tThe Graveyard Book\nr\tThe Demolished Man\nr\tThe Everlasting\nr\tThe Tainted Cup\ns\tDune\nr\tThe Uplift War\nr\tThe Fountains of Paradise\nr\tRainbows End\nr\tDoomsday Book\nr\tFoundation's Edge\nr\tAncillary Justice\nr\tA Desolation Called Peace\nr\tThe Wanderer\nr\tStarship Troopers\nr\tRendezvous with Rama\nr\tPaladin of Souls\nr\tStand on Zanzibar\nr\tHarry Potter and the Goblet of Fire\nr\tHyperion\nr\tThe Dispossessed\nr\tThe Obelisk Gate\nd\tThe Vor Game\nd\tNettle & Bone\nd\tEnder's Game\nd\tHominids\nd\tThe Windup Girl\nd\tJonathan Strange & Mr Norrell\nd\tA Canticle for Leibowitz\nd\tA Deepness in the Sky\nd\tNeuromancer\nd\tRingworld\nd\tRedshirts\nd\tThe Yiddish Policemen's Union\nd\tDownbelow Station\nd\tBarrayar\nd\tCyteen\nd\tDreamsnake\nd\tStartide Rising\n",
+  "gem": { "answer": "The Three-Body Problem", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "American Gods", "tier": "surface", "points": 10 },
+    { "answer": "The Left Hand of Darkness", "tier": "surface", "points": 10 },
+    { "answer": "Dune", "tier": "surface", "points": 10 },
+    { "answer": "The Vor Game", "tier": "deep", "points": 85 },
+    { "answer": "Nettle & Bone", "tier": "deep", "points": 85 }
+  ],
+  "size": 75
+}

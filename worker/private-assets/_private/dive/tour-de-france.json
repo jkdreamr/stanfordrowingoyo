@@ -1,0 +1,31 @@
+{
+  "buckets": {
+    "5": "\naimar\tgn\nbobet\tk9\ncoppi\tdf\nfaber\t1g\ngarin\t8j\nmagne\tbl\nocana\th2\nrobic\thf\nroche\ti\nthoma\t4l\nwaele\ths\n",
+    "16": "\nalberto contador\t6c\nbernard thevenet\tj8\nferdinand kubler\tdu\ngeorges speicher\t9v\ngustave garrigou\tm6\njacques anquetil\tf9\njonas vingegaard\tnl\nmaurice de waele\ths\n",
+    "12": "\nandre leducq\tkp\nandy schleck\tb6\nchris froome\t52\nfausto coppi\tdf\nfloyd landis\t2d\ngino bartali\teu\nhenri cornet\t36\nlucien aimar\tgn\npetit breton\t3l\nphilippe thy\tc1\nrene pottier\tg8\n",
+    "8": "\nanquetil\tf9\ncontador\t6c\ngarrigou\tm6\nindurain\tpj\nspeicher\t9v\nthevenet\tj8\n",
+    "13": "\nantonin magne\tbl\ncarlos sastre\tfs\nfirmin lambot\tlq\ngeraint thoma\t4l\nlouison bobet\tk9\nlucien buysse\tis\nmarco pantani\tch\nmaurice garin\t8j\noctave lapize\tq1\nodile defraye\tqh\noscar pereiro\tqx\npedro delgado\t1x\nroger lapebie\try\nroger pingeon\tse\nstephen roche\ti\ntadej pogacar\ttr\n",
+    "9": "\narmstrong\t0\nbahamonte\tl4\npelissier\tmp\nwalkowiak\tsu\nzoetemelk\to4\n",
+    "7": "\nbartali\teu\ndefraye\tqh\ndelgado\t1x\ngimondi\tib\nhinault\t8z\njanssen\t2s\nlapebie\try\nnencini\tjr\npantani\tch\npereiro\tqx\npingeon\tse\npogacar\ttr\npottier\tg8\nschleck\tb6\nullrich\t85\n",
+    "6": "\nbernal\t47\nbuysse\tis\ncornet\t36\nfignon\ted\nfrantz\t5v\nfroome\t52\nkoblet\tn7\nkubler\tdu\nlambot\tlq\nlandis\t2d\nlapize\tq1\nleducq\tkp\nlemond\t79\nmerckx\tae\nnibali\t7n\nsastre\tfs\nscieur\tol\nwiggin\ty\n",
+    "15": "\nbernard hinault\t8z\ngastone nencini\tjr\nhenri pelissier\tmp\nlance armstrong\t0\nlucien van impe\tcx\nmiguel indurain\tpj\nroger walkowiak\tsu\nvincenzo nibali\t7n\n",
+    "11": "\nbjarne riis\tas\ncharly gaul\t5h\neddy merckx\tae\negan bernal\t47\ngreg lemond\t79\nhugo koblet\tn7\njan janssen\t2s\njan ullrich\t85\nleon scieur\tol\nsylvere mae\ttc\ntrousselier\toz\n",
+    "10": "\nbottecchia\trd\ncadel evan\t9h\njean robic\thf\nluis ocana\th2\nromain mae\t6v\nvingegaard\tnl\n",
+    "14": "\nbradley wiggin\ty\nfelice gimondi\tib\nfrancois faber\t1g\njoop zoetemelk\to4\nlaurent fignon\ted\nnicolas frantz\t5v\n",
+    "4": "\nevan\t9h\ngaul\t5h\nimpe\tcx\nriis\tas\n",
+    "18": "\nfederico bahamonte\tl4\nottavio bottecchia\trd\n",
+    "17": "\nlouis trousselier\toz\n",
+    "19": "\nlucien petit breton\t3l\n",
+    "3": "\nthy\tc1\n"
+  },
+  "answers": "s\tLance Armstrong\nm\tStephen Roche\nm\tBradley Wiggins\nm\tFrançois Faber\nm\tPedro Delgado\nm\tFloyd Landis\nm\tJan Janssen\nm\tHenri Cornet\nm\tLucien Petit-Breton\nm\tEgan Bernal\nm\tGeraint Thomas\nm\tChris Froome\nm\tCharly Gaul\nm\tNicolas Frantz\nm\tAlberto Contador\nm\tRomain Maes\ng\tGreg LeMond\nm\tVincenzo Nibali\nm\tJan Ullrich\nm\tMaurice Garin\nm\tBernard Hinault\nm\tCadel Evans\nm\tGeorges Speicher\ns\tEddy Merckx\nm\tBjarne Riis\nm\tAndy Schleck\nm\tAntonin Magne\nm\tPhilippe Thys\nm\tMarco Pantani\nm\tLucien Van Impe\nm\tFausto Coppi\nr\tFerdinand Kübler\nr\tLaurent Fignon\nr\tGino Bartali\nr\tJacques Anquetil\nr\tCarlos Sastre\nr\tRené Pottier\nr\tLucien Aimar\nr\tLuis Ocaña\nr\tJean Robic\nr\tMaurice De Waele\nr\tFelice Gimondi\nr\tLucien Buysse\nr\tBernard Thévenet\nr\tGastone Nencini\nr\tLouison Bobet\nr\tAndré Leducq\nr\tFederico Bahamontes\nr\tFirmin Lambot\nr\tGustave Garrigou\nd\tHenri Pélissier\nd\tHugo Koblet\nd\tJonas Vingegaard\nd\tJoop Zoetemelk\nd\tLéon Scieur\nd\tLouis Trousselier\nd\tMiguel Induráin\nd\tOctave Lapize\nd\tOdile Defraye\nd\tÓscar Pereiro\nd\tOttavio Bottecchia\nd\tRoger Lapébie\nd\tRoger Pingeon\nd\tRoger Walkowiak\nd\tSylvère Maes\ns\tTadej Pogačar\n",
+  "gem": { "answer": "Greg LeMond", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Lance Armstrong", "tier": "surface", "points": 10 },
+    { "answer": "Eddy Merckx", "tier": "surface", "points": 10 },
+    { "answer": "Tadej Pogačar", "tier": "surface", "points": 10 },
+    { "answer": "Henri Pélissier", "tier": "deep", "points": 85 },
+    { "answer": "Hugo Koblet", "tier": "deep", "points": 85 }
+  ],
+  "size": 66
+}

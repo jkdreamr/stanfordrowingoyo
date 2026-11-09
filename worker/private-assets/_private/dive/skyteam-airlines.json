@@ -1,0 +1,29 @@
+{
+  "buckets": {
+    "20": "\naerolineas argentina\t6h\nscandinavian airline\t4v\n",
+    "10": "\naeromexico\t75\nair europa\t42\nair france\t0\nkorean air\td\n",
+    "2": "\naf\t0\nam\t75\nar\t6h\nci\tq\ndl\t31\nga\t5p\nke\td\nkl\t5j\nkq\t4f\nme\t17\nmf\t7q\nmu\t2c\nro\t7i\nsk\t4v\nsv\t68\nux\t42\nvn\t3j\nvs\t1u\n",
+    "13": "\nchina airline\tq\nchina eastern\t2c\n",
+    "21": "\nchina eastern airline\t2c\nsaudi arabian airline\t68\n",
+    "5": "\ndelta\t31\ntarom\t7i\n",
+    "14": "\ndelta air line\t31\nxiamen airline\t7q\n",
+    "6": "\ngaruda\t5p\nkorean\td\nsaudia\t68\n",
+    "16": "\ngaruda indonesia\t5p\n",
+    "12": "\nkenya airway\t4f\n",
+    "3": "\nklm\t5j\nmea\t17\nsas\t4v\n",
+    "19": "\nmiddle east airline\t17\nroyal dutch airline\t5j\n",
+    "7": "\nvietnam\t3j\n",
+    "15": "\nvietnam airline\t3j\nvirgin atlantic\t1u\n",
+    "9": "\nxiamenair\t7q\n"
+  },
+  "answers": "s\tAir France\nm\tKorean Air\nm\tChina Airlines\nm\tMiddle East Airlines\nm\tVirgin Atlantic\nm\tChina Eastern Airlines\ns\tDelta Air Lines\ng\tVietnam Airlines\nm\tAir Europa\nm\tKenya Airways\nr\tScandinavian Airlines\ns\tKLM\nr\tGaruda Indonesia\nr\tSaudia\nr\tAerolíneas Argentinas\nd\tAeroméxico\nd\tTAROM\nd\tXiamenAir\n",
+  "gem": { "answer": "Vietnam Airlines", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Air France", "tier": "surface", "points": 10 },
+    { "answer": "Delta Air Lines", "tier": "surface", "points": 10 },
+    { "answer": "KLM", "tier": "surface", "points": 10 },
+    { "answer": "Aeroméxico", "tier": "deep", "points": 85 },
+    { "answer": "TAROM", "tier": "deep", "points": 85 }
+  ],
+  "size": 18
+}

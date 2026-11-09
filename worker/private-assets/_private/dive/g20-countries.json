@@ -1,0 +1,27 @@
+{
+  "buckets": {
+    "7": "\namerica\ti\nbritain\t37\ngermany\t1n\nturkiye\t9\n",
+    "9": "\nargentina\t3x\naustralia\t2m\nindonesia\t4o\n",
+    "6": "\nbrazil\t3o\ncanada\t2y\nfrance\t0\nmexico\t25\nrussia\ty\nturkey\t9\n",
+    "5": "\nchina\t2e\nindia\t1x\nitaly\t1f\njapan\t17\nkorea\t50\n",
+    "13": "\ngreat britain\t37\n",
+    "17": "\nrepublic of korea\t50\n",
+    "24": "\nrepublic of south africa\t49\nunited states of america\ti\n",
+    "18": "\nrussian federation\ty\n",
+    "12": "\nsaudi arabia\t5e\nsouth africa\t49\nunited state\ti\n",
+    "11": "\nsouth korea\t50\n",
+    "2": "\nuk\t37\nus\ti\n",
+    "14": "\nunited kingdom\t37\n",
+    "3": "\nusa\ti\n"
+  },
+  "answers": "m\tFrance\nt\tTurkey\ns\tUnited States\nm\tRussia\nm\tJapan\nm\tItaly\nm\tGermany\ns\tIndia\nm\tMexico\ns\tChina\nm\tAustralia\nr\tCanada\nr\tUnited Kingdom\nr\tBrazil\ng\tArgentina\nr\tSouth Africa\nd\tIndonesia\nd\tSouth Korea\nd\tSaudi Arabia\n",
+  "gem": { "answer": "Argentina", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "United States", "tier": "surface", "points": 10 },
+    { "answer": "India", "tier": "surface", "points": 10 },
+    { "answer": "China", "tier": "surface", "points": 10 },
+    { "answer": "Indonesia", "tier": "deep", "points": 85 },
+    { "answer": "South Korea", "tier": "deep", "points": 85 }
+  ],
+  "size": 19
+}

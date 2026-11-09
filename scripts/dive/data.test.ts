@@ -8,7 +8,7 @@ import { boundedDistance, matchAnswer } from '../../worker/src/games/dive/matche
 import { fixtureSet as parseAnswerSet, decodedAnswers } from './fixtures';
 import { loaders } from '../../worker/src/games/dive/loaders';
 import { DIVE_INACTIVE_PROMPTS, DIVE_LEGACY_PROMPTS } from '../../worker/src/games/dive/prompts';
-import { answerSet } from '../../worker/src/games/dive/sets';
+import { answerSet } from './assets';
 import { DIVE_SCHEDULE } from '../../worker/src/games/dive/schedule';
 
 const runtimeIds = new Set([...DIVE_LEGACY_PROMPTS.map((p) => p.id), ...DIVE_SCHEDULE.flat()]);
@@ -280,8 +280,8 @@ it('uses immutable module data without a parsed cache or eviction penalty, and r
   expect(() => answerSet('__proto__')).toThrow('Unknown Dive prompt');
   expect(Object.keys(loaders).sort()).toEqual([...runtimeIds].sort());
   expect(
-    readdirSync(new URL('../../worker/src/games/dive/data/', import.meta.url))
-      .map((name) => name.replace(/\.ts$/, ''))
+    readdirSync(new URL('../../worker/private-assets/_private/dive/', import.meta.url))
+      .map((name) => name.replace(/\.json$/, ''))
       .sort(),
   ).toEqual([...runtimeIds].sort());
 });

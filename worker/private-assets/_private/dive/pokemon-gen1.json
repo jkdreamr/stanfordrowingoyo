@@ -1,0 +1,24 @@
+{
+  "buckets": {
+    "4": "\nabra\tzk\nekan\tr4\njynx\tu4\nonix\t10n\npara\tzr\nseel\t105\n",
+    "10": "\naerodactyl\t12e\nbellsprout\tlv\nbutterfree\t44\ncharmander\t16\ncharmeleon\tc2\nelectabuzz\tgc\nhitmonchan\ti4\njigglypuff\t2i\nkangaskhan\tns\ntentacruel\tow\nvictreebel\t16s\nweepinbell\t175\nwigglytuff\trm\n",
+    "8": "\nalakazam\t10c\narcanine\t8b\narticuno\tbg\nbeedrill\tjk\ncaterpie\tbr\nclefable\tgz\nclefairy\tav\ncloyster\tmj\ngraveler\t152\nmagikarp\txq\nmagneton\t11m\nnidoking\tfg\nnidorina\t15w\nnidorino\t167\nninetale\tvi\nparasect\tx7\nprimeape\tth\nrapidash\tm8\nraticate\tfr\nshellder\tqj\nslowpoke\tuy\nsquirtle\t1v\nvaporeon\t6o\nvenomoth\t149\nvenusaur\t6d\n",
+    "5": "\narbok\tkt\nditto\tz6\ndoduo\tof\neevee\t34\ngloom\txi\ngolem\tm\nhypno\t5c\nlapra\t82\ntauro\t113\nzapdo\tdi\nzubat\t126\n",
+    "9": "\nblastoise\t50\nbulbasaur\tu\ncharizard\t1j\ndragonair\t26\ndragonite\tum\nelectrode\ta\nexeggcute\tmu\nexeggutor\t8v\nfarfetchd\t13w\ngrowlithe\tcf\nhitmonlee\te9\nlickitung\tn6\nmagnemite\tel\nnidoqueen\tjv\nnidoran f\t12r\nnidoran m\t138\npidgeotto\tkh\npoliwhirl\tts\npoliwrath\tp9\nsandshrew\t9r\nsandslash\tpl\ntentacool\tt5\nvileplume\tsi\nwartortle\tpx\n",
+    "7": "\nchansey\t6z\ndewgong\tni\ndiglett\tyc\ndratini\t5k\ndrowzee\thk\ndugtrio\tym\nflareon\tb6\ngeodude\tac\ngoldeen\tl1\ngolduck\tlb\ngyarado\ty1\nhaunter\t11c\nivysaur\tha\njolteon\t9h\nkabutop\tsu\nkadabra\t97\nkingler\tq9\nkoffing\thu\nmachamp\tf6\nmachoke\to5\nmarowak\tvu\nmetapod\t15d\nmr mime\tub\nomanyte\tk7\nomastar\t16i\npersian\tyw\npidgeot\tgp\npikachu\t0\npoliwag\tqu\nporygon\t7i\npsyduck\t3u\nrattata\t63\nrhyhorn\tir\nscyther\t7s\nseaking\tj1\nslowbro\tg2\nsnorlax\t4h\nspearow\ts8\nstarmie\twx\ntangela\tih\nvenonat\trc\nvoltorb\twd\nweezing\twn\n",
+    "6": "\ncubone\tv9\ndodrio\trz\nfearow\t14t\ngastly\tam\ngengar\t79\ngolbat\ton\ngrimer\tcr\nhorsea\t13n\nkabuto\t4r\nkakuna\t14k\nkrabby\t5u\nmachop\tex\nmagmar\t11x\nmankey\ta3\nmeowth\t3c\nmewtwo\t2v\nmoltre\tll\noddish\td9\npidgey\t10u\npinsir\tw4\nponyta\td0\nraichu\t3l\nrhydon\tdr\nseadra\t15n\nstaryu\tjb\nvulpix\t8m\nweedle\te0\n",
+    "3": "\nmew\tze\nmuk\tzz\n",
+    "14": "\nnidoran female\t12r\n",
+    "12": "\nnidoran male\t138\n"
+  },
+  "answers": "s\tPikachu\nm\tElectrode\nm\tGolem\ns\tBulbasaur\nm\tCharmander\ns\tCharizard\nm\tSquirtle\nm\tDragonair\nm\tJigglypuff\nm\tMewtwo\nm\tEevee\nm\tMeowth\nm\tRaichu\nm\tPsyduck\nm\tButterfree\ng\tSnorlax\nm\tKabuto\nm\tBlastoise\nm\tHypno\nm\tDratini\nm\tKrabby\nm\tRattata\nm\tVenusaur\nm\tVaporeon\nm\tChansey\nm\tGengar\nm\tPorygon\nm\tScyther\nm\tLapras\nm\tArcanine\nm\tVulpix\nm\tExeggutor\nm\tKadabra\nm\tJolteon\nm\tSandshrew\nm\tMankey\nm\tGeodude\nm\tGastly\nm\tClefairy\nm\tFlareon\nm\tArticuno\nm\tCaterpie\nm\tCharmeleon\nm\tGrowlithe\nm\tGrimer\nm\tPonyta\nm\tOddish\nm\tZapdos\nm\tRhydon\nm\tWeedle\nm\tHitmonlee\nm\tMagnemite\nm\tMachop\nm\tMachamp\nm\tNidoking\nm\tRaticate\nm\tSlowbro\nm\tElectabuzz\nm\tPidgeot\nm\tClefable\nm\tIvysaur\nm\tDrowzee\nm\tKoffing\nm\tHitmonchan\nm\tTangela\nm\tRhyhorn\nm\tSeaking\nm\tStaryu\nm\tBeedrill\nm\tNidoqueen\nm\tOmanyte\nr\tPidgeotto\nr\tArbok\nr\tGoldeen\nr\tGolduck\nr\tMoltres\nr\tBellsprout\nr\tRapidash\nr\tCloyster\nr\tExeggcute\nr\tLickitung\nr\tDewgong\nr\tKangaskhan\nr\tMachoke\nr\tDoduo\nr\tGolbat\nr\tTentacruel\nr\tPoliwrath\nr\tSandslash\nr\tWartortle\nr\tKingler\nr\tShellder\nr\tPoliwag\nr\tEkans\nr\tVenonat\nr\tWigglytuff\nr\tDodrio\nr\tSpearow\nr\tVileplume\nr\tKabutops\nr\tTentacool\nr\tPrimeape\nr\tPoliwhirl\nr\tJynx\nr\tMr. Mime\nr\tDragonite\nr\tSlowpoke\nr\tCubone\nr\tNinetales\nr\tMarowak\nr\tPinsir\nr\tVoltorb\nr\tWeezing\nr\tStarmie\nr\tParasect\nd\tGloom\nd\tMagikarp\nd\tGyarados\nd\tDiglett\nd\tDugtrio\nd\tPersian\nd\tDitto\nd\tMew\nd\tAbra\nd\tParas\nd\tMuk\nd\tSeel\nd\tAlakazam\nd\tOnix\nd\tPidgey\nd\tTauros\nd\tHaunter\nd\tMagneton\nd\tMagmar\nd\tZubat\nd\tAerodactyl\nd\tNidoran female\nd\tNidoran male\nd\tHorsea\nd\tFarfetch’d\nd\tVenomoth\nd\tKakuna\nd\tFearow\nd\tGraveler\nd\tMetapod\nd\tSeadra\nd\tNidorina\nd\tNidorino\nd\tOmastar\nd\tVictreebel\nd\tWeepinbell\n",
+  "gem": { "answer": "Snorlax", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Pikachu", "tier": "surface", "points": 10 },
+    { "answer": "Bulbasaur", "tier": "surface", "points": 10 },
+    { "answer": "Charizard", "tier": "surface", "points": 10 },
+    { "answer": "Gloom", "tier": "deep", "points": 85 },
+    { "answer": "Magikarp", "tier": "deep", "points": 85 }
+  ],
+  "size": 151
+}

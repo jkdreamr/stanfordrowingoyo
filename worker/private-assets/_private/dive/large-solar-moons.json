@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "5": "\nariel\to\ndione\t2v\ntethy\t33\ntitan\t7\n",
+    "8": "\ncallisto\t2k\nganymede\t20\n",
+    "6": "\ncharon\t2b\neuropa\tf\noberon\t1h\ntriton\t18\n",
+    "10": "\nearth moon\t0\n",
+    "11": "\nearths moon\t0\n",
+    "7": "\niapetus\t3c\ntitania\t1q\numbriel\t3m\n",
+    "2": "\nio\tw\n",
+    "17": "\njupiters ganymede\t20\n",
+    "4": "\nluna\t0\nmoon\t0\nrhea\t11\n",
+    "15": "\nneptunes triton\t18\n",
+    "13": "\nplutos charon\t2b\nsaturns titan\t7\n"
+  },
+  "answers": "s\tMoon\ns\tTitan\ns\tEuropa\nm\tAriel\nm\tIo\nm\tRhea\nm\tTriton\nm\tOberon\nr\tTitania\ns\tGanymede\nr\tCharon\nr\tCallisto\nr\tDione\nd\tTethys\nd\tIapetus\ng\tUmbriel\n",
+  "gem": { "answer": "Umbriel", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Moon", "tier": "surface", "points": 10 },
+    { "answer": "Titan", "tier": "surface", "points": 10 },
+    { "answer": "Europa", "tier": "surface", "points": 10 },
+    { "answer": "Tethys", "tier": "deep", "points": 85 },
+    { "answer": "Iapetus", "tier": "deep", "points": 85 }
+  ],
+  "size": 16
+}

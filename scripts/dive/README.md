@@ -277,7 +277,7 @@ tiers. Keep source/license attribution with redistributions of the generated dat
 ## Outputs and runtime
 
 - `worker/src/games/dive/prompts.ts`: small ID/text catalog, no accepted answers.
-- `worker/src/games/dive/data/<id>.ts`: sorted `normalized-key\tbase36-offset\n`
+- `worker/private-assets/_private/dive/<id>.json`: sorted `normalized-key\tbase36-offset\n`
   normalized-length bucket strings, a shared `code\tcanonical\n` table, and
   constant Pearl/notable/size metadata. Offsets are UTF-16 code units, not UTF-8 bytes.
   Each canonical/alias key is stored exactly once, in its length bucket. Exact lookup
@@ -285,11 +285,30 @@ tiers. Keep source/license attribution with redistributions of the generated dat
   same canonical name/code.
   Codes `s,t,m,r,d,g` mean Surface, Too Clever, Midwater, Rare, Deep Cut, Pearl.
   Never import these from web code.
-- `loaders.ts`: lazy per-prompt imports; `sets.ts`: direct module data, no parsed LRU.
-  No request splits/parses a set or builds Maps. Exact lookup is native delimiter search;
+- `loaders.ts`: ID-to-filename manifest only; `sets.ts`: internal `env.ASSETS.fetch`
+  with a per-isolate Promise cache, evicting failed reads/parses. A cold request parses
+  only its own set; warm requests reuse it. Exact lookup is native delimiter search;
   fuzzy lookup only scans the relevant bucket strings, uses a reusable submit-local DP
   workspace, trims common prefixes/suffixes and exits outside the allowed edit band.
 - `report.json`: review summary, no raw caches.
+
+`scripts/assemble-assets.mjs` copies `web/dist` and `worker/private-assets` into ignored
+`dist/site` for Wrangler. Never copy private data into `web/dist` (Vercel serves it).
+The Worker rejects normalized `/_private` paths, while static routing remains asset-first
+outside `/api/*` and `/_private/*`. Case mismatches may serve only public SPA HTML;
+normalization redirects must end in 404 or that same HTML, never answer bytes.
+Worker Vitest binds `worker/private-assets` directly, so tests run before a web build.
+
+`private-assets-migration.json` records SHA-256 hashes of all 650 original imported
+AnswerSets at `71711cd`. A one-time comparison verified every JSON asset was identical
+under `JSON.stringify`; the existing frozen legacy manifest continues to prove all 330
+legacy sets' content identity in tests. Its original TypeScript source hashes are retained
+as historical provenance, not recomputed from the new serialization.
+
+After starting Wrangler locally (or targeting staging without deploying):
+`node scripts/dive/check-private-assets.mjs --base-url https://localhost:8799`.
+The checker follows and records redirects for encoded, case, slash, query and HEAD
+variants of three real sets, rejects answer bytes, and accepts only 404 or public SPA HTML.
 
 ## Checks and measurements
 
