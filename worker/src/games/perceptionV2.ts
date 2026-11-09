@@ -1,20 +1,24 @@
 import { dailyRandom, dayNumber } from '../../../shared/games/daily';
 import { PERCEPTION_ROUNDS } from '../../../shared/games/perception';
 import {
-  PERCEPTION_POOL,
+  PERCEPTION_V2_POOL,
   PERCEPTION_V2_FROM,
+  PERCEPTION_V3_FROM,
   type PerceptionRoundId,
   type PerceptionV2Puzzle,
+  type PerceptionV2RoundId,
+  type PerceptionV3Puzzle,
 } from '../../../shared/games/perceptionV2';
+import { perceptionV3Lineup, perceptionV3Targets } from './perceptionV3';
 
-const epochCache = new Map<number, PerceptionRoundId[][]>();
-function perceptionEpoch(epoch: number): PerceptionRoundId[][] {
+const epochCache = new Map<number, PerceptionV2RoundId[][]>();
+function perceptionEpoch(epoch: number): PerceptionV2RoundId[][] {
   const cached = epochCache.get(epoch);
   if (cached) return cached;
   const days = Array.from({ length: 60 }, (_, d) =>
     Array.from(
       { length: 5 },
-      (_, i) => PERCEPTION_POOL[(d * 5 + i + PERCEPTION_ROUNDS.length) % 12],
+      (_, i) => PERCEPTION_V2_POOL[(d * 5 + i + PERCEPTION_ROUNDS.length) % 12],
     ),
   );
   const rand = dailyRandom('perception-lineup-v2', String(epoch));
@@ -41,7 +45,7 @@ function perceptionEpoch(epoch: number): PerceptionRoundId[][] {
   return days;
 }
 
-export function perceptionLineup(date: string): PerceptionRoundId[] {
+export function perceptionV2Lineup(date: string): PerceptionV2RoundId[] {
   if (date < PERCEPTION_V2_FROM) return [...PERCEPTION_ROUNDS];
   const day = dayNumber(date) - dayNumber(PERCEPTION_V2_FROM);
   const rounds = [...perceptionEpoch(Math.floor(day / 60))[day % 60]];
@@ -51,6 +55,15 @@ export function perceptionLineup(date: string): PerceptionRoundId[] {
     [rounds[i], rounds[j]] = [rounds[j], rounds[i]];
   }
   return rounds;
+}
+
+export function perceptionLineup(date: string): PerceptionRoundId[] {
+  return date >= PERCEPTION_V3_FROM ? perceptionV3Lineup(date) : perceptionV2Lineup(date);
+}
+
+export function perceptionPuzzleForDate(date: string): PerceptionV2Puzzle | PerceptionV3Puzzle {
+  const puzzle = perceptionV2Puzzle(date);
+  return date >= PERCEPTION_V3_FROM ? { ...puzzle, ...perceptionV3Targets(date) } : puzzle;
 }
 
 export function perceptionV2Puzzle(date: string): PerceptionV2Puzzle {

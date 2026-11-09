@@ -70,7 +70,7 @@ test('an old brief cannot consume a new-day round after a workout on another tab
   }
 });
 
-for (const date of ['2026-11-10', '2026-11-11']) {
+for (const date of ['2026-11-10', '2026-11-11', '2026-11-12', '2026-11-13']) {
   test(`cutover ${date} plays all rounds, persists result, board and share`, async ({
     makeRower,
   }, info) => {

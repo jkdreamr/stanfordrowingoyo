@@ -345,14 +345,23 @@ Results are written by the Worker transaction that finishes the game.
 - `POST /api/games/perception/start` takes `{round,date?}` and returns
   `PerceptionStart = PerceptionDay & {stimulus}`. Only the current round's stimulus is
   returned: `{clockMs}`, `{hue}`, `{dot}`, `{cells}`, `{reactionDelayMs}`, `{angle,rotation}`,
-  `{length}`, `{countDots}`, `{digits}`, `{shade,shadeBackgrounds}`, `{endpoints}`, or `{contact}`.
+  `{length}`, `{countDots}`, `{digits}`, `{shade,shadeBackgrounds}`, `{endpoints}`, `{contact}`,
+  `{ratioDiameters}`, `{beatIntervalMs}`, `{path}`, `{order}`, `{durationMs}`, or `{centroidDots}`.
   Coordinates and lengths are thousandths of the board. `countDots` is an array of dot centres;
   `endpoints` contains two points. `contact` contains `{visibleMs,hiddenMs,from,occlusion,finish}`;
   motion from `from` to `occlusion` is visible, then continues at the same speed behind an occluder to `finish`.
+  `ratioDiameters` is a pair of circle diameters (centres at x=250/750, y=500).
+  `path` contains `{from,to}`: start and disappearance points of a 900ms straight trajectory;
+  extrapolate to x=1000. `order` is the flashed sequence of 4×4 tile indices 0–15.
+  `centroidDots` contains equally weighted dot centres; average each axis, rounded to a thousandth.
+  Beat uses four 100ms flashes (`PERCEPTION_BEAT_FLASH_MS`) ending at interval,
+  2×interval, 3×interval and 4×interval after start. Full flash duration is
+  4×`beatIntervalMs`, including the last flash. Four answer intervals are measured
+  from the last flash's onset (4×interval−100ms) to the first tap, then between taps.
   The start timestamp is committed before responding; only then does the client show it.
   Repeated starts, out-of-order rounds, answers without a start and replay return 409.
 - `POST /api/games/perception/answer` takes `{round,answer,date?}`, with only that round's
-  field (`clockMs/hue/dot/cells/reactionMs/angle/length/count/digits/shade/bisect/contactMs`), and returns PerceptionDay. Invalid or extra fields
+  field (`clockMs/hue/dot/cells/reactionMs/angle/length/count/digits/shade/bisect/contactMs/ratio/beatMs/pathY/order/durationMs/centroid`), and returns PerceptionDay. Invalid or extra fields
   return 400 without changing progress. Both writes require access (403). Scores are
   server-computed. Round 5 atomically writes one result. Existing completed results cannot
   be replayed. Leaving before a round starts has no penalty.
@@ -371,6 +380,9 @@ Results are written by the Worker transaction that finishes the game.
   checks, not proof of honest timing. Mock mode uses artificial, non-production targets.
   V2 also rejects answers before the entire memory exposure finishes (span: digits × 450ms),
   and contact answers before `visibleMs` or claiming `contactMs > elapsed - visibleMs + 1000`.
+  V3 applies the same exposure floor to ratio/beat/path/order/duration/centroid.
+  Beat additionally requires `sum(beatMs) <= elapsed - 4*beatIntervalMs + 1000`;
+  duration requires `durationMs <= elapsed - shownMs + 1000` (`shownMs` is the stimulus's duration).
   All timing rejections are 400, `Timing is not plausible for this round.` No progress is consumed.
 
 #### Enabled games for launch
@@ -393,7 +405,7 @@ null while Dive is disabled. Generic unlock/reminder copy refers to the enabled 
 Before cutover, generation and scoring remain exactly the original clock/color/dot/pattern/reaction
 sequence (7 pattern cells; exposure 1500/900/1600ms; typical misses 600ms/25°/8%/2 cells;
 reaction `closeness(max(0,ms−150),200)`). Captured puzzle/score fixtures pin three legacy dates.
-From cutover, five distinct types are selected deterministically from the twelve below and their
+For 2026-11-10 and 2026-11-11, five distinct types are selected deterministically from the original twelve below and their
 play order is date-seeded. Consecutive days share at most two types (so never the same set),
 including the last legacy day and cutover day; the scaffold starts after the five legacy types.
 Every type appears in every five-day v2 window. Two-year tests also reject periods 1–29, including
@@ -403,31 +415,52 @@ or coverage. Four boundary days at each end stay fixed so cross-epoch windows re
 This is bounded work even far after cutover, with a two-epoch cache; no replay from launch date.
 Round order is independently shuffled per date, including the boundary days.
 
+`PERCEPTION_V3_FROM = '2026-11-12'` expands the pool to eighteen types, adding Size Ratio,
+Keep the Beat, Path Predict, Flash Order, Duration Recall and Center Point. The two v2 dates'
+lineups, full puzzles, returned-stimulus shapes and non-perfect scores are snapshot-pinned before
+the expansion. V3 reuses every original v2 target unchanged and draws new fields only from the
+independent `dailyRandom('perception-v3', date)` stream. Legacy generation/scoring remains unchanged.
+V3 uses bounded 72-day epochs, an 18-type cyclic scaffold beginning with the new types,
+and 320 candidate slot swaps. Five distinct types play per day; consecutive days share at most two,
+including 2026-11-11 → 2026-11-12; every type appears in every seven-day window. Six boundary days
+at each end remain fixed to preserve cross-epoch coverage. Daily order is independently shuffled;
+two-year tests reject set-only periods below 30 days. A two-epoch cache avoids repeated work.
+
 Each score is `round(100 × exp(−0.494 × (miss / typical)²))`, clamped by the objective
 metric to 0–100: 100 perfect, **61 at the typical miss**. Five rounds total at most 500.
 Exposure constants are public; seeded targets and lineup generation remain Worker-only.
 
-| Type / answer field   | Exposure / final parameters                                                                                 | Miss metric                                | Typical miss        | Score at typical |
-| --------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------- | ---------------- |
-| clock / clockMs       | Hold 3.0–8.0s, no visual; answer 0–30000ms                                                                  | Absolute timing error                      | 250ms               | 61               |
-| color / hue           | 700ms; hue 0–359°, recall dial                                                                              | Circular hue distance                      | 12°                 | 61               |
-| dot / dot             | 400ms; centre 100–900 per axis; answer 0–1000                                                               | Euclidean board distance                   | 40 thousandths (4%) | 61               |
-| pattern / cells       | 1000ms; 5×5, exactly 9 distinct cells                                                                       | 9 minus correct cells                      | 2 cells             | 61               |
-| reaction / reactionMs | Signal after 1.5–5.0s; −1 false start; 0–3000ms                                                             | max(0, ms−160); under 100ms scores 0       | 110ms               | 61               |
-| angle / angle         | 800ms; 15–165° with rotation 0–359°; integer answer 0–180°                                                  | Absolute angle error                       | 5°                  | 61               |
-| length / length       | 800ms; horizontal reference 250–800; reproduce vertically, integer 1–1000                                   | Absolute error / reference × 100           | 5%                  | 61               |
-| count / count         | 600ms; 30–80 irregular dots, ≥70 thousandths apart (bounded rejection sampling); integer answer 1–200       | abs(log2(answer / count)) × 100            | 18                  | 61               |
-| span / digits         | 8–9 digits × 450ms, leading zeroes retained; answer 1–12 digits                                             | Levenshtein distance                       | 2 edits             | 61               |
-| shade / shade         | 800ms; gray 20–80%; backgrounds 10%/90% reversed for recall; integer answer 0–100                           | Absolute lightness error                   | 4 points            | 61               |
-| bisect / bisect       | Line stays visible; 50–90% board length, random angle; midpoint answer per axis 0–1000                      | Distance from midpoint / line length × 100 | 2%                  | 61               |
-| contact / contactMs   | Visible 1000–1800ms; hidden 700–1800ms; constant-speed geometry fits board; answer 0–6000ms after occlusion | Absolute hidden-time error                 | 110ms               | 61               |
+| Type / answer field   | Exposure / final parameters                                                                                                                     | Miss metric                                | Typical miss        | Score at typical      |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------- | --------------------- |
+| clock / clockMs       | Hold 3.0–8.0s, no visual; answer 0–30000ms                                                                                                      | Absolute timing error                      | 250ms               | 61                    |
+| color / hue           | 700ms; hue 0–359°, recall dial                                                                                                                  | Circular hue distance                      | 12°                 | 61                    |
+| dot / dot             | 400ms; centre 100–900 per axis; answer 0–1000                                                                                                   | Euclidean board distance                   | 40 thousandths (4%) | 61                    |
+| pattern / cells       | 1000ms; 5×5, exactly 9 distinct cells                                                                                                           | 9 minus correct cells                      | 2 cells             | 61                    |
+| reaction / reactionMs | Signal after 1.5–5.0s; −1 false start; 0–3000ms                                                                                                 | max(0, ms−160); under 100ms scores 0       | 110ms               | 61                    |
+| angle / angle         | 800ms; 15–165° with rotation 0–359°; integer answer 0–180°                                                                                      | Absolute angle error                       | 5°                  | 61                    |
+| length / length       | 800ms; horizontal reference 250–800; reproduce vertically, integer 1–1000                                                                       | Absolute error / reference × 100           | 5%                  | 61                    |
+| count / count         | 600ms; 30–80 irregular dots, ≥70 thousandths apart (bounded rejection sampling); integer answer 1–200                                           | abs(log2(answer / count)) × 100            | 18                  | 61                    |
+| span / digits         | 8–9 digits × 450ms, leading zeroes retained; answer 1–12 digits                                                                                 | Levenshtein distance                       | 2 edits             | 61                    |
+| shade / shade         | 800ms; gray 20–80%; backgrounds 10%/90% reversed for recall; integer answer 0–100                                                               | Absolute lightness error                   | 4 points            | 61                    |
+| bisect / bisect       | Line stays visible; 50–90% board length, random angle; midpoint answer per axis 0–1000                                                          | Distance from midpoint / line length × 100 | 2%                  | 61                    |
+| contact / contactMs   | Visible 1000–1800ms; hidden 700–1800ms; constant-speed geometry fits board; answer 0–6000ms after occlusion                                     | Absolute hidden-time error                 | 110ms               | 61                    |
+| ratio / ratio         | 1000ms; true area ratio 15–85%; larger diameter 300–400, smaller scaled by sqrt(ratio/100); integer answer 1–100%                               | abs(log2(answer / ratio)) × 100            | 15                  | 61                    |
+| beat / beatMs         | Four flashes at 450–900ms intervals (50ms increments); exactly four integer answer intervals, each 100–3000ms                                   | Mean abs(interval−target) / target × 100   | 6%                  | 61                    |
+| path / pathY          | 900ms motion; from x=80–180 to x=450–600, y=100–900; straight extrapolation crosses x=1000 at y=100–900; integer answer 0–1000                  | Absolute crossing-height error             | 40 thousandths      | 61                    |
+| order / order         | 4×4; 6–7 distinct tiles, 500ms each; answer 1–10 integer cells 0–15 (repeated guesses allowed)                                                  | Levenshtein distance                       | 1.5 edits           | 61 (continuous curve) |
+| duration / durationMs | Bar shown 800–2500ms in 50ms increments, no numeric duration; integer reproduced hold 0–10000ms                                                 | Absolute error / shown duration × 100      | 8%                  | 61                    |
+| centroid / centroid   | 1000ms; 6–9 equally weighted irregular dots, ≥100 thousandths apart within 50–950; cloud centre varies over 250–750; integer answer pair 0–1000 | Euclidean distance from rounded mean       | 35 thousandths      | 61                    |
 
 Result payload is `{answer,scores,rounds}`; scores are partial and keyed by the stable type id,
 not the round index. Readers of legacy payloads without `rounds` default to the original five ids.
-Difficulty regression uses a fixed-seed 3000-day good-player simulation: normal errors with
+Difficulty regression uses fixed-seed 3000-day v2 and 10000-day v3 good-player simulations: normal errors with
 standard deviation equal to typical miss (independent axes for spatial types), rounded discrete
 answers; reaction N(260,40)ms. It requires median 250–350/500, fewer than 3% at 450+,
 and separately proves perfect answers score 500. This is calibration, not an observed player study.
+V3 beat errors are independent across four intervals; order uses rounded absolute-normal edit counts
+(prefix deletions, leaving at least one tile). Circle diameters and separated centroid dots fit a
+360px phone's board; none of these parameters depends on screen pixels. New round UI/E2E is a
+separate implementation phase; mock mode exposes all eighteen types with artificial targets only.
 
 Schema v17 adds generic `game_progress(user_id,game,date,state_json,updated_at)` with
 primary key `(user_id,game,date)` for server-owned in-progress games. Account removal

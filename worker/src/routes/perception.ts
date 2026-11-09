@@ -10,10 +10,12 @@ import {
   parsePerceptionRound,
   scorePerceptionRound,
   perceptionExposure,
+  perceptionContinuationPlausible,
+  isPerceptionV3Puzzle,
   type PerceptionRoundId,
   type PerceptionRoundAnswer,
 } from '../../../shared/games/perceptionV2';
-import { perceptionLineup, perceptionV2Puzzle } from '../games/perceptionV2';
+import { perceptionLineup, perceptionPuzzleForDate } from '../games/perceptionV2';
 import type { PerceptionDay, PerceptionStimulus } from '../../../shared/types';
 import { perceptionPuzzle, scorePerception } from '../games/perception';
 import { refreshUser } from '../auth/guards';
@@ -98,7 +100,7 @@ export async function start(ctx: Context) {
         throw new HttpError(409, 'ALREADY_PLAYED', 'Already played today.');
       assertRound(body.round, state);
       if (state.active) throw new HttpError(409, 'ROUND_STARTED', 'Round already started.');
-      const extra = date >= PERCEPTION_V2_FROM ? perceptionV2Puzzle(date) : null;
+      const extra = date >= PERCEPTION_V2_FROM ? perceptionPuzzleForDate(date) : null;
       const puzzle = extra ?? perceptionPuzzle(date);
       const round = perceptionLineup(date)[body.round as number];
       const stimuli: Partial<Record<PerceptionRoundId, PerceptionStimulus>> = {
@@ -116,6 +118,16 @@ export async function start(ctx: Context) {
               shade: { shade: extra.shade, shadeBackgrounds: extra.shadeBackgrounds },
               bisect: { endpoints: extra.endpoints },
               contact: { contact: extra.contact },
+            }
+          : {}),
+        ...(extra && isPerceptionV3Puzzle(extra)
+          ? {
+              ratio: { ratioDiameters: extra.ratioDiameters },
+              beat: { beatIntervalMs: extra.beatIntervalMs },
+              path: { path: extra.path },
+              order: { order: extra.order },
+              duration: { durationMs: extra.durationMs },
+              centroid: { centroidDots: extra.centroidDots },
             }
           : {}),
       };
@@ -144,7 +156,7 @@ export async function answer(ctx: Context) {
       const parsed = parsePerceptionRound(round, body.answer, v2);
       if (!parsed) v.invalid('Invalid round answer.');
       const elapsed = ctx.now.getTime() - Date.parse(state.active.started_at);
-      const extra = v2 ? perceptionV2Puzzle(date) : null;
+      const extra = v2 ? perceptionPuzzleForDate(date) : null;
       const puzzle = extra ?? perceptionPuzzle(date);
       if (
         elapsed < 0 ||
@@ -158,6 +170,7 @@ export async function answer(ctx: Context) {
       if (extra) {
         if (
           elapsed < perceptionExposure(round, extra) ||
+          !perceptionContinuationPlausible(round, extra, parsed, elapsed) ||
           (round === 'contact' &&
             (elapsed < extra.contact.visibleMs ||
               parsed.contactMs! > elapsed - extra.contact.visibleMs + 1000))

@@ -3,6 +3,7 @@ import type { PerceptionPuzzle } from './games/perception';
 import type {
   PerceptionRoundId,
   PerceptionV2Puzzle,
+  PerceptionV3Puzzle,
   PerceptionRoundAnswer,
 } from './games/perceptionV2';
 import type { Mark } from './games/wordGuess';
@@ -614,7 +615,13 @@ export type PerceptionStimulus =
   | Pick<PerceptionV2Puzzle, 'digits'>
   | Pick<PerceptionV2Puzzle, 'shade' | 'shadeBackgrounds'>
   | Pick<PerceptionV2Puzzle, 'endpoints'>
-  | Pick<PerceptionV2Puzzle, 'contact'>;
+  | Pick<PerceptionV2Puzzle, 'contact'>
+  | Pick<PerceptionV3Puzzle, 'ratioDiameters'>
+  | Pick<PerceptionV3Puzzle, 'beatIntervalMs'>
+  | Pick<PerceptionV3Puzzle, 'path'>
+  | Pick<PerceptionV3Puzzle, 'order'>
+  | Pick<PerceptionV3Puzzle, 'durationMs'>
+  | Pick<PerceptionV3Puzzle, 'centroidDots'>;
 export interface PerceptionStart extends PerceptionDay {
   stimulus: PerceptionStimulus;
 }

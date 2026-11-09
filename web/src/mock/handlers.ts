@@ -66,12 +66,16 @@ import {
 } from '../../../shared/games/perception';
 import {
   PERCEPTION_V2_FROM,
+  PERCEPTION_V3_FROM,
+  PERCEPTION_V2_POOL,
   PERCEPTION_POOL,
   PERCEPTION_FIELDS,
   parsePerceptionRound,
   scorePerceptionRound,
   perceptionExposure,
+  perceptionContinuationPlausible,
   type PerceptionV2Puzzle,
+  type PerceptionV3Puzzle,
   type PerceptionRoundId,
   type PerceptionRoundAnswer,
 } from '../../../shared/games/perceptionV2';
@@ -142,6 +146,25 @@ const MOCK_PERCEPTION_V2: PerceptionV2Puzzle = {
     occlusion: [420, 500],
     finish: [900, 500],
   },
+};
+const MOCK_PERCEPTION_V3: PerceptionV3Puzzle = {
+  ...MOCK_PERCEPTION_V2,
+  ratio: 36,
+  ratioDiameters: [360, 216],
+  beatIntervalMs: 650,
+  pathY: 700,
+  path: { from: [100, 300], to: [550, 500] },
+  order: [2, 13, 5, 8, 15, 0],
+  durationMs: 1350,
+  centroidDots: [
+    [200, 300],
+    [400, 300],
+    [600, 300],
+    [200, 500],
+    [400, 500],
+    [600, 500],
+  ],
+  centroid: [400, 400],
 };
 class MockError extends Error {
   constructor(
@@ -1095,14 +1118,22 @@ export function createMockApi({
         };
         if (gameId === 'perception' && ['today', 'start', 'answer'].includes(parts[4])) {
           const v2 = date >= PERCEPTION_V2_FROM;
+          const v3 = date >= PERCEPTION_V3_FROM;
+          const pool = v3 ? PERCEPTION_POOL : PERCEPTION_V2_POOL;
+          const extra = v3 ? MOCK_PERCEPTION_V3 : MOCK_PERCEPTION_V2;
           const rounds: PerceptionRoundId[] = v2
             ? Array.from(
                 { length: 5 },
                 (_, i) =>
-                  PERCEPTION_POOL[((dayNumber(date) - dayNumber(PERCEPTION_V2_FROM)) * 5 + i) % 12],
+                  pool[
+                    ((dayNumber(date) - dayNumber(v3 ? PERCEPTION_V3_FROM : PERCEPTION_V2_FROM)) *
+                      5 +
+                      i) %
+                      pool.length
+                  ],
               )
             : [...PERCEPTION_ROUNDS];
-          const puzzle = v2 ? MOCK_PERCEPTION_V2 : MOCK_PERCEPTION;
+          const puzzle = v2 ? extra : MOCK_PERCEPTION;
           const key = `${user.id}:${date}`;
           const p = perceptionProgress.get(key) ?? { scores: {}, answer: {}, active: null };
           perceptionProgress.set(key, p);
@@ -1133,7 +1164,8 @@ export function createMockApi({
                   (elapsed < puzzle.reactionDelayMs ||
                     answer.reactionMs! > elapsed - puzzle.reactionDelayMs + 1000)) ||
                 (v2 &&
-                  (elapsed < perceptionExposure(id, MOCK_PERCEPTION_V2) ||
+                  (elapsed < perceptionExposure(id, extra) ||
+                    !perceptionContinuationPlausible(id, extra, answer, elapsed) ||
                     (id === 'contact' &&
                       (elapsed < MOCK_PERCEPTION_V2.contact.visibleMs ||
                         answer.contactMs! >
@@ -1148,7 +1180,7 @@ export function createMockApi({
                 reaction: scoreReaction(answer.reactionMs!),
               };
               p.scores[id] = v2
-                ? scorePerceptionRound(id, MOCK_PERCEPTION_V2, answer)
+                ? scorePerceptionRound(id, extra, answer)
                 : scores[id as keyof typeof scores];
               Object.assign(p.answer, { [field]: answer[field] });
               p.active = null;
@@ -1177,6 +1209,12 @@ export function createMockApi({
             },
             bisect: { endpoints: MOCK_PERCEPTION_V2.endpoints },
             contact: { contact: MOCK_PERCEPTION_V2.contact },
+            ratio: { ratioDiameters: MOCK_PERCEPTION_V3.ratioDiameters },
+            beat: { beatIntervalMs: MOCK_PERCEPTION_V3.beatIntervalMs },
+            path: { path: MOCK_PERCEPTION_V3.path },
+            order: { order: MOCK_PERCEPTION_V3.order },
+            duration: { durationMs: MOCK_PERCEPTION_V3.durationMs },
+            centroid: { centroidDots: MOCK_PERCEPTION_V3.centroidDots },
           };
           return json({
             date,

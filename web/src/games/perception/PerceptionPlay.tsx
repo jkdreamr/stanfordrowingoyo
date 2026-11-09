@@ -22,9 +22,10 @@ import {
   PERCEPTION_EXPOSURE,
   type PerceptionRoundId,
   type PerceptionRoundAnswer,
-  type PerceptionV2Puzzle,
+  type PerceptionV3Puzzle,
 } from '../../../../shared/games/perceptionV2';
 import { ExtraRound, EXTRA_TITLES } from './ExtraRounds';
+import { MoreRound, MORE_TITLES } from './MoreRounds';
 import { Button } from '../../components/ui';
 import { api } from '../../lib/api';
 import { LoadState } from '../../components/shell/LoadState';
@@ -41,6 +42,7 @@ const TITLE: Record<PerceptionRoundId, string> = {
   pattern: 'Pattern',
   reaction: 'Reaction',
   ...EXTRA_TITLES,
+  ...MORE_TITLES,
 };
 
 const swatch = (hue: number) => `hsl(${hue} 72% 50%)`;
@@ -63,7 +65,7 @@ export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
     };
   }, []);
   const [rounds, setRounds] = useState<PerceptionRoundId[]>([...PERCEPTION_ROUNDS]);
-  const [extra, setExtra] = useState<Partial<PerceptionV2Puzzle>>({});
+  const [extra, setExtra] = useState<Partial<PerceptionV3Puzzle>>({});
   const v2 = date >= PERCEPTION_V2_FROM;
   const [puzzle, setPuzzle] = useState<PerceptionPuzzle>({
     clockMs: 0,
@@ -243,6 +245,16 @@ export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
           <ExtraRound
             key={round}
             round={round as keyof typeof EXTRA_TITLES}
+            puzzle={extra}
+            stage={stage}
+            setStage={changeStage}
+            lockIn={lockIn}
+          />
+        )}
+        {round in MORE_TITLES && (
+          <MoreRound
+            key={round}
+            round={round as keyof typeof MORE_TITLES}
             puzzle={extra}
             stage={stage}
             setStage={changeStage}

@@ -7,7 +7,7 @@ import {
   type PerceptionRoundAnswer,
   type PerceptionRoundId,
 } from '../../../shared/games/perceptionV2';
-import { perceptionV2Puzzle, perceptionLineup } from './perceptionV2';
+import { perceptionPuzzleForDate, perceptionLineup } from './perceptionV2';
 import {
   PERCEPTION_ID,
   GRID,
@@ -21,7 +21,7 @@ import {
 } from '../../../shared/games/perception';
 export function perceptionPuzzle(date: string): PerceptionPuzzle {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('Invalid Perception puzzle date');
-  if (date >= PERCEPTION_V2_FROM) return perceptionV2Puzzle(date);
+  if (date >= PERCEPTION_V2_FROM) return perceptionPuzzleForDate(date);
   const rand = dailyRandom(PERCEPTION_ID, date);
   const pick = (min: number, max: number) => min + Math.floor(rand() * (max - min + 1));
   const clockMs = pick(25, 60) * 100;
@@ -42,7 +42,7 @@ export function scorePerception(
   answer: PerceptionRoundAnswer,
 ): Partial<Record<PerceptionRoundId, number>> {
   if (date >= PERCEPTION_V2_FROM) {
-    const p = perceptionV2Puzzle(date);
+    const p = perceptionPuzzleForDate(date);
     return Object.fromEntries(
       perceptionLineup(date).map((round) => {
         const field = PERCEPTION_FIELDS[round];

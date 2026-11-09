@@ -5,7 +5,7 @@ import { csrfHeaders } from './api';
 import { waitForSplash } from './helpers';
 import { ANSWER_LIST, dailyAnswer } from '../worker/src/games/wordGuess';
 import { perceptionLineup } from '../worker/src/games/perceptionV2';
-import { PERCEPTION_POOL } from '../shared/games/perceptionV2';
+import { PERCEPTION_POOL, PERCEPTION_V3_ROUNDS } from '../shared/games/perceptionV2';
 import { perceptionClock, perceptionTitles, playPerception } from './perception';
 import { connectionsPuzzleFor } from '../worker/src/games/connectionsPuzzles';
 import { DIVE_PROMPTS_PER_DAY } from '../shared/games/dive';
@@ -442,14 +442,19 @@ test('Perception abandons a started v2 round on reload and finishes without a re
   }
 });
 
-test('Perception v2 pool covers all twelve types through real controls', async ({
+test('Perception v3 pool covers all eighteen types through real controls', async ({
   makeRower,
 }, testInfo) => {
-  const dates: Record<string, string[]> = {
-    'desktop-chrome': ['2026-12-10', '2026-12-14', '2026-12-26'],
-    'iphone-15': ['2026-12-30', '2027-01-01', '2027-01-02'],
-    'pixel-7': ['2026-12-07', '2026-12-08', '2026-12-28'],
-  };
+  test.setTimeout(300_000);
+  const dates = Object.fromEntries(
+    ['desktop-chrome', 'iphone-15', 'pixel-7'].map((project, i) => [
+      project,
+      Array.from({ length: 7 }, (_, day) =>
+        new Date(Date.UTC(2026, 10, 12 + i * 7 + day)).toISOString().slice(0, 10),
+      ),
+    ]),
+  );
+  const captured = new Set<string>();
   const project = testInfo.project.name;
   expect([...new Set(dates[project].flatMap(perceptionLineup))].sort()).toEqual(
     [...PERCEPTION_POOL].sort(),
@@ -477,7 +482,12 @@ test('Perception v2 pool covers all twelve types through real controls', async (
       if (project === 'iphone-15') await page.setViewportSize({ width: 393, height: 852 });
       await perceptionClock(page, date);
       await playPerception(page, date, async (id, stage) => {
-        if (!['clock', 'color', 'dot', 'pattern', 'reaction'].includes(id)) {
+        if (
+          stage === 'answer' &&
+          PERCEPTION_V3_ROUNDS.some((round) => round === id) &&
+          !captured.has(id)
+        ) {
+          captured.add(id);
           const heading = page.getByRole('heading', { name: perceptionTitles[id], exact: true });
           if (project === 'iphone-15') await heading.tap();
           else await heading.click();

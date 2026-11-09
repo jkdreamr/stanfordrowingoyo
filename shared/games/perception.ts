@@ -106,6 +106,12 @@ const LABEL: Record<PerceptionRoundId, string> = {
   shade: 'Shade',
   bisect: 'Bisect',
   contact: 'Contact',
+  ratio: 'Size Ratio',
+  beat: 'Keep the Beat',
+  path: 'Path Predict',
+  order: 'Flash Order',
+  duration: 'Duration Recall',
+  centroid: 'Center Point',
 };
 
 export function perceptionShare(

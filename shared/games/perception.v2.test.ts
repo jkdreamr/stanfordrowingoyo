@@ -1,19 +1,27 @@
 import { expect, it } from 'vitest';
 import { performance } from 'node:perf_hooks';
 import { perceptionPuzzle, scorePerception } from '../../worker/src/games/perception';
-import { perceptionLineup, perceptionV2Puzzle } from '../../worker/src/games/perceptionV2';
+import {
+  perceptionV2Lineup as perceptionLineup,
+  perceptionV2Puzzle,
+  perceptionLineup as runtimeLineup,
+  perceptionPuzzleForDate,
+} from '../../worker/src/games/perceptionV2';
 import { dailyRandom } from './daily';
 import { perceptionShare, perceptionTotal } from './perception';
 import {
   PERCEPTION_FIELDS,
-  PERCEPTION_POOL,
+  PERCEPTION_V2_POOL as PERCEPTION_POOL,
+  PERCEPTION_POOL as RUNTIME_POOL,
+  PERCEPTION_V3_FROM,
+  isPerceptionV3Puzzle,
   PERCEPTION_TYPICAL,
   parsePerceptionRound,
   scorePerceptionRound,
   digitDistance,
   type PerceptionV2Puzzle,
   type PerceptionRoundAnswer,
-  type PerceptionRoundId,
+  type PerceptionV2RoundId as PerceptionRoundId,
 } from './perceptionV2';
 
 const dateAt = (day: number) => new Date(Date.UTC(2026, 10, 10 + day)).toISOString().slice(0, 10);
@@ -30,14 +38,21 @@ const perfect = (p: PerceptionV2Puzzle): PerceptionRoundAnswer => ({
 it.each(Array.from({ length: 21 }, (_, day) => dateAt(day)))(
   '%s generates valid stimuli and five bounded scores with a 500 maximum',
   (date) => {
-    const rounds = perceptionLineup(date);
+    const rounds = runtimeLineup(date);
     expect(new Set(rounds).size).toBe(5);
     const previous = dateAt(Math.round((Date.parse(date) - Date.parse(dateAt(0))) / 86400000) - 1);
     expect(
-      rounds.filter((round) => perceptionLineup(previous).includes(round)).length,
+      rounds.filter((round) => runtimeLineup(previous).includes(round)).length,
     ).toBeLessThanOrEqual(2);
-    const p = perceptionV2Puzzle(date);
+    const p = perceptionPuzzleForDate(date);
     expect(perceptionPuzzle(date)).toEqual(p);
+    const v3 = isPerceptionV3Puzzle(p);
+    expect(v3).toBe(date >= PERCEPTION_V3_FROM);
+    const pool = v3 ? RUNTIME_POOL : PERCEPTION_POOL;
+    expect(rounds.every((round) => pool.some((id) => id === round))).toBe(true);
+    const answer = perfect(p);
+    if (v3)
+      answer.beatMs = [p.beatIntervalMs, p.beatIntervalMs, p.beatIntervalMs, p.beatIntervalMs];
     expect(p.clockMs).toBeGreaterThanOrEqual(3000);
     expect(p.clockMs).toBeLessThanOrEqual(8000);
     expect(p.rotation).toBeGreaterThanOrEqual(0);
@@ -61,12 +76,12 @@ it.each(Array.from({ length: 21 }, (_, day) => dateAt(day)))(
       expect(y).toBeGreaterThanOrEqual(0);
       expect(y).toBeLessThanOrEqual(1000);
     }
-    for (const round of PERCEPTION_POOL) {
+    for (const round of pool) {
       const field = PERCEPTION_FIELDS[round];
-      expect(parsePerceptionRound(round, { [field]: perfect(p)[field] }, true)).not.toBeNull();
-      expect(scorePerceptionRound(round, p, perfect(p))).toBe(100);
+      expect(parsePerceptionRound(round, { [field]: answer[field] }, true)).not.toBeNull();
+      expect(scorePerceptionRound(round, p, answer)).toBe(100);
     }
-    const scores = scorePerception(date, perfect(p));
+    const scores = scorePerception(date, answer);
     expect(Object.keys(scores)).toEqual(rounds);
     expect(perceptionTotal(scores, rounds)).toBe(500);
     console.log(`${date}: ${rounds.join(', ')}; max=500`);
