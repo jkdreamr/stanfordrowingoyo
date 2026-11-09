@@ -352,16 +352,19 @@ self-contained guarded block. Feature migrations run in ascending order 11–18,
   transaction writes the sole result with guesses, won, cluesUsed, category and
   all five clues. Generic results submissions return 405 after access checks.
   Worker-only compact content is append-only, scheduled from 2026-11-16 with positive
-  modulo wrapping, including earlier dates. Content batch B1 contains 205 puzzles; the full
-  year bank is a subsequent content stage. Matching normalizes accents, punctuation,
+  modulo wrapping, including earlier dates. Content batch B2 contains 372 puzzles,
+  including a full unique year plus spares. Matching normalizes accents, punctuation,
   articles and simple plurals, with conservative typo tolerance and rejection lists.
   `node scripts/pinpoint/generate-safety.ts` precomputes safe typo neighborhoods;
   regenerate after appending content. Answers whose typo neighborhoods could overlap
   another puzzle are exact-only, so requests compare only today's accepted answers.
   Worker-only content kind tags support schedule validation: no adjacent kind repeats,
   at most two before/after compounds in any five days (including wrap), and no clue
-  reused by more than two puzzles. The bank targets 35% compounds, 20% attributes,
-  25% sets and 20% wordplay; early clues use misleading everyday meanings.
+  reused by more than two puzzles. The bank has 144 compounds, 74 attributes,
+  94 sets and 60 wordplay puzzles; early clues use misleading everyday meanings.
+  Every category is nameable in five words or fewer. Compact before/after and
+  attribute rows generate natural accepted phrasings; attribute guesses accept
+  bare nouns, participles and verb roots, ignoring things/objects/stuff fillers.
   Shared scoring/share helpers contain no content; mock mode uses an artificial puzzle.
   `PINPOINT_ENABLED` in `worker/src/games/features.ts` gates all Pinpoint APIs (404
   when disabled) and its registry membership, boards, streaks and recap inclusion.

@@ -9,6 +9,8 @@ export function normalizePinpoint(value: string): string {
     .trim()
     .replace(/\s+/g, ' ')
     .replace(/^(?:(?:types|kinds|sorts) of |things that are |(?:a|an|the) )+/, '')
+    .replace(/^(?:things|objects|stuff) /, '')
+    .replace(/^(?:(?:that|which) (?:have|has)|with|that can be|you can) /, '')
     .split(' ')
     .filter((word) => !['a', 'an', 'the'].includes(word))
     .map((word) => {

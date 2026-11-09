@@ -175,7 +175,7 @@ it('accepts a transposition typo but not a real different category', async () =>
     won: false,
     finished: false,
   });
-  expect(await (await guess('words that coem before ball')).json()).toMatchObject({
+  expect(await (await guess('ball ending compoudns')).json()).toMatchObject({
     won: true,
     finished: true,
     cluesUsed: 3,

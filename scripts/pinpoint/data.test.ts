@@ -20,14 +20,13 @@ const stop = new Set(
     .map(normalizePinpoint),
 );
 it('validates the staged bank and all clues and accepted phrasings', () => {
-  expect(puzzles).toHaveLength(205);
+  expect(puzzles).toHaveLength(372);
   for (const puzzle of puzzles) {
     expect(puzzle.clues, puzzle.category).toHaveLength(5);
     expect(new Set(puzzle.clues.map(normalizePinpoint)).size, puzzle.category).toBe(5);
-    expect(
-      new Set(puzzle.accepted.map(normalizePinpoint)).size,
-      puzzle.category,
-    ).toBeGreaterThanOrEqual(3);
+    expect(new Set(puzzle.accepted).size, puzzle.category).toBeGreaterThanOrEqual(3);
+    expect(puzzle.category.split(/\s+/).length, puzzle.category).toBeLessThanOrEqual(5);
+    expect(puzzle.accepted.length, puzzle.category).toBeLessThanOrEqual(32);
     const tokens = normalizePinpoint(puzzle.category)
       .split(' ')
       .filter((t) => !stop.has(t) && t.length >= 3);
@@ -45,7 +44,56 @@ it('validates the staged bank and all clues and accepted phrasings', () => {
       );
   }
 });
-it.todo('expands the staged bank to at least 365 puzzles before full-year launch');
+it('has a full year of unique daily puzzles plus spares', () => {
+  expect(puzzles.length).toBeGreaterThanOrEqual(365);
+  expect(
+    new Set(
+      Array.from({ length: 365 }, (_, i) => pinpointPuzzleFor(addDays('2026-11-16', i)).category),
+    ).size,
+  ).toBe(365);
+});
+
+it('accepts natural attribute names and verb forms without filler aliases', () => {
+  for (const puzzle of puzzles.filter((p) => p.kind === 'T')) {
+    const noun = /^Things with (.+)$/.exec(puzzle.category)?.[1];
+    if (noun) {
+      for (const input of [
+        noun,
+        `things that have ${noun}`,
+        `objects with ${noun}`,
+        `stuff with ${noun}`,
+        `with ${noun}`,
+      ])
+        expect(matchesPinpoint(input, puzzle), `${puzzle.category}: ${input}`).toBe(true);
+    } else {
+      const participle = puzzle.category.split(' ').at(-1)!;
+      const verb = puzzle.accepted
+        .find((answer) => answer.startsWith('things you can '))!
+        .replace('things you can ', '');
+      for (const input of [participle, verb, `things you can ${verb}`])
+        expect(matchesPinpoint(input, puzzle), `${puzzle.category}: ${input}`).toBe(true);
+    }
+    expect(puzzle.accepted.join(' ')).not.toMatch(/bearers|drawable|servable/);
+  }
+  for (const [input, category] of [
+    ['chambers', 'Things with chambers'],
+    ['keys', 'Things with keys'],
+    ['cracked', 'Things that can be cracked'],
+    ['crack', 'Things that can be cracked'],
+  ])
+    expect(
+      matchesPinpoint(
+        input,
+        puzzles.find((p) => p.category === category)!,
+      ),
+    ).toBe(true);
+  expect(
+    matchesPinpoint(
+      'kings',
+      puzzles.find((p) => p.category === 'Things with keys')!,
+    ),
+  ).toBe(false);
+});
 
 it('has no duplicate, near-duplicate or cross-bank matching answers', () => {
   for (let i = 0; i < puzzles.length; i++)
@@ -65,7 +113,10 @@ it('has no duplicate, near-duplicate or cross-bank matching answers', () => {
           .filter((t) => !stop.has(t)),
       );
       const union = new Set([...at, ...bt]);
-      expect([...at].filter((t) => bt.has(t)).length / union.size, label).toBeLessThan(0.8);
+      expect(
+        union.size ? [...at].filter((t) => bt.has(t)).length / union.size : 0,
+        label,
+      ).toBeLessThan(0.8);
       for (const aa of a.accepted) {
         expect(matchesPinpoint(aa, b), `${label}: ${aa}`).toBe(false);
       }
@@ -93,7 +144,7 @@ it('interleaves kinds, limits compound density, and caps clue reuse', () => {
       clues.set(key, [...(clues.get(key) ?? []), puzzle.category]);
     }
   }
-  expect(counts).toEqual({ C: 72, T: 41, S: 51, W: 41 });
+  expect(counts).toEqual({ C: 144, T: 74, S: 94, W: 60 });
   expect(counts.C / puzzles.length).toBeLessThanOrEqual(0.4);
   expect(counts.T / puzzles.length).toBeGreaterThanOrEqual(0.15);
   expect(counts.T / puzzles.length).toBeLessThanOrEqual(0.2);
@@ -132,7 +183,7 @@ it('pins the first-year date-to-category schedule and wraps negative days', () =
     return `${date}|${pinpointPuzzleFor(date).category}`;
   }).join('\n');
   expect(createHash('sha256').update(schedule).digest('hex')).toBe(
-    '323110a867c6f3c8f77a938a2f21acf50c0d2ba6725467712776429e7eb93d9c',
+    'ada00bd2b91fd03857889126ca6dc8b84eed6113dec53a212b818b20befc4a34',
   );
   expect(pinpointPuzzleFor('2026-11-15')).toBe(puzzles.at(-1));
   expect(pinpointPuzzleFor(addDays('2026-11-16', puzzles.length))).toBe(puzzles[0]);
@@ -147,6 +198,10 @@ it.each([
   ['A shoe & the boots', 'shoe and boot'],
   ['things that are red', 'red'],
   ['"___ ball"', 'ball'],
+  ['objects with keys', 'key'],
+  ['stuff with chambers', 'chamber'],
+  ['things that have chambers', 'chamber'],
+  ['things that can be cracked', 'cracked'],
   ['!!!', ''],
 ])('normalizes %s', (input, expected) => expect(normalizePinpoint(input)).toBe(expected));
 it('accepts bounded typos but rejects short errors, substitutions and per-puzzle rejects', () => {
