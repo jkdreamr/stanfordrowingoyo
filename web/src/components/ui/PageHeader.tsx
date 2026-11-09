@@ -14,7 +14,10 @@ export function PageHeader({
   inline?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const actions = useRef<HTMLSpanElement>(null);
   const [collapsed, setCollapsed] = useState(false);
+  const [actionsWidth, setActionsWidth] = useState(0);
+  const root = !back && !inline;
   const navigate = useNavigate();
   useEffect(() => {
     if (inline) return;
@@ -27,6 +30,15 @@ export function PageHeader({
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, [inline]);
+  // Top-level screens share one row between the large title and the header actions, so the
+  // title keeps clear of however many actions the screen shows.
+  useEffect(() => {
+    const node = actions.current;
+    if (!root || !node || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => setActionsWidth(node.offsetWidth));
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [root]);
   if (inline)
     return (
       <div className="ui-page-nav ui-page-nav-inline">
@@ -36,7 +48,9 @@ export function PageHeader({
     );
   return (
     <>
-      <div className={`ui-page-nav ${collapsed ? 'ui-page-nav-collapsed' : ''}`}>
+      <div
+        className={`ui-page-nav ${root ? 'ui-page-nav-root' : ''} ${collapsed ? 'ui-page-nav-collapsed' : ''}`}
+      >
         <span>
           {back === true ? (
             <IconButton aria-label="Back" onClick={() => navigate(-1)}>
@@ -55,9 +69,14 @@ export function PageHeader({
         >
           {title}
         </span>
-        <span>{trailing}</span>
+        <span ref={actions}>{trailing}</span>
       </div>
-      <h1 className="ui-large-title text-large-title">{title}</h1>
+      <h1
+        className={`ui-large-title text-large-title ${root ? 'ui-large-title-root' : ''}`}
+        style={root && actionsWidth ? { paddingRight: actionsWidth + 28 } : undefined}
+      >
+        {title}
+      </h1>
       <div ref={ref} className="ui-header-sentinel" aria-hidden="true" />
     </>
   );
