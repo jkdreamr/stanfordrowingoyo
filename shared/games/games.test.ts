@@ -133,8 +133,8 @@ describe('perception', () => {
       const p = perceptionPuzzle(date);
       expect(p).toEqual(perceptionPuzzle(date));
       expect(p.clockMs).toBeGreaterThanOrEqual(2500);
-      expect(p.clockMs).toBeLessThanOrEqual(6000);
-      expect(new Set(p.cells).size).toBe(PATTERN_CELLS);
+      expect(p.clockMs).toBeLessThanOrEqual(date < '2026-11-10' ? 6000 : 8000);
+      expect(new Set(p.cells).size).toBe(date < '2026-11-10' ? PATTERN_CELLS : 9);
       expect(p.reactionDelayMs).toBeGreaterThanOrEqual(1500);
     }
     expect(perceptionPuzzle('2026-11-07')).not.toEqual(perceptionPuzzle('2026-11-08'));

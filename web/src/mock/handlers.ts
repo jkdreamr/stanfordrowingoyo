@@ -1093,6 +1093,7 @@ export function createMockApi({
             addResult(perceptionTotal(p.scores as PerceptionScores), {
               answer: p.answer,
               scores: p.scores,
+              rounds: [...PERCEPTION_ROUNDS],
             });
           const stimuli = [
             { clockMs: MOCK_PERCEPTION.clockMs },
@@ -1105,6 +1106,7 @@ export function createMockApi({
             date,
             access,
             round: Object.keys(p.scores).length,
+            rounds: [...PERCEPTION_ROUNDS],
             scores: p.scores,
             done,
             ...(parts[4] === 'start' ? { stimulus: stimuli[round] } : {}),

@@ -6,6 +6,7 @@ import type {
   Page,
   SeasonStats,
   WeekStats,
+  PerceptionStart,
 } from '../../../shared/types';
 import { createMockApi } from './handlers';
 const now = () => new Date('2026-11-06T18:00:00Z');
@@ -31,6 +32,41 @@ const input = {
   notes: '',
   visibility: 'team',
 };
+it('keeps artificial mock Perception stimuli, scoring and timing consistent on a v2 calendar date', async () => {
+  const base = Date.parse('2026-11-10T18:00:00Z');
+  let elapsed = 0;
+  const { request, state } = setup({ now: () => new Date(base + elapsed) });
+  await request('/auth/login', 'POST', {
+    email: state.users.find((user) => user.role === 'admin')!.email,
+    password: 'password',
+  });
+  for (let round = 0; round < 5; round++) {
+    elapsed = round * 60000;
+    const start = await request('/games/perception/start', 'POST', { round });
+    expect(start.status).toBe(200);
+    const { stimulus, rounds } = (await start.json()) as PerceptionStart;
+    expect(rounds).toEqual(['clock', 'color', 'dot', 'pattern', 'reaction']);
+    const answer = 'reactionDelayMs' in stimulus ? { reactionMs: 150 } : stimulus;
+    if ('cells' in stimulus) expect(stimulus.cells).toHaveLength(7);
+    if ('reactionDelayMs' in stimulus) {
+      elapsed += stimulus.reactionDelayMs - 1;
+      expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
+        400,
+      );
+      elapsed += 151;
+    } else elapsed += 20000;
+    const result = await request('/games/perception/answer', 'POST', { round, answer });
+    expect(result.status).toBe(200);
+    expect(await result.json()).toMatchObject({
+      round: round + 1,
+      scores: { [rounds[round]]: 100 },
+      done: round === 4,
+    });
+  }
+  expect(await (await request('/games/perception/results/me')).json()).toMatchObject({
+    score: 500,
+  });
+});
 it('exports mock account JSON and CSV without teammate private data', async () => {
   const { request, state } = setup();
   const response = await request('/me/export');
