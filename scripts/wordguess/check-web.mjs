@@ -10,7 +10,13 @@ const bank = await readFile(
 const packed = bank.match(/['"]([a-z]{50,})['"]/)?.[1];
 assert(packed, 'Could not identify the Worker answer bank');
 const signature = packed.slice(0, 75);
-const words = ['jazzy', 'cello', 'zebra', 'vivid', 'bacon'];
+const expansion = await readFile(
+  new URL('../../worker/src/games/wordGuessExpansion.ts', import.meta.url),
+  'utf8',
+);
+const expandedPacked = expansion.match(/['"]([a-z]{50,})['"]/)?.[1];
+assert(expandedPacked, 'Could not identify the Worker expansion answer bank');
+const words = ['jazzy', 'cello', 'zebra', 'vivid', 'bacon', 'patio'];
 const extra = await readFile(
   new URL('../../shared/games/wordGuessGuesses.ts', import.meta.url),
   'utf8',
@@ -25,10 +31,12 @@ assert(names.length, 'Build the web assets first');
 for (const name of names) {
   const source = await readFile(new URL(name, dir), 'utf8');
   assert(!source.includes(signature), `Word Guess answer bank leaked into ${name}`);
+  assert(!source.includes(expandedPacked.slice(0, 75)), `Word Guess expansion leaked into ${name}`);
   assert(!source.includes('wordGuessAnswers'), `Word Guess answer module leaked into ${name}`);
+  assert(!source.includes('wordGuessExpansion'), `Word Guess expansion module leaked into ${name}`);
   for (const word of words)
     assert(!source.toLowerCase().includes(word), `Worker answer ${word} leaked into ${name}`);
 }
 console.log(
-  `PASS: ${names.length} built web assets exclude ${words.length} Worker-only Word Guess words and the answer-bank signature.`,
+  `PASS: ${names.length} built web assets exclude ${words.length} Worker-only Word Guess words and both answer-bank signatures.`,
 );

@@ -1,4 +1,4 @@
-import { dayNumber, mulberry32 } from '../../../shared/games/daily';
+import { mulberry32 } from '../../../shared/games/daily';
 import {
   TRIES,
   unpack,
@@ -7,9 +7,13 @@ import {
   type WordGuessResult,
 } from '../../../shared/games/wordGuess';
 import { ANSWERS } from './wordGuessAnswers';
+import { NEW_ANSWERS } from './wordGuessExpansion';
+import { contentRotation } from './contentSchedule';
 export * from '../../../shared/games/wordGuess';
 
 export const ANSWER_LIST = unpack(ANSWERS);
+export const NEW_ANSWER_LIST = unpack(NEW_ANSWERS);
+export const ALL_ANSWERS = [...ANSWER_LIST, ...NEW_ANSWER_LIST];
 
 const orders = new Map<number, number[]>();
 
@@ -28,15 +32,23 @@ export function dailyIndex(day: number, count: number): number {
   return order[((day % count) + count) % count];
 }
 
+const answerIndex = contentRotation(
+  'wordguess',
+  ANSWER_LIST.length,
+  ALL_ANSWERS.length,
+  (day) => dailyIndex(day, ANSWER_LIST.length),
+  (index) => ALL_ANSWERS[index],
+);
+
 export function dailyAnswer(date: string): string {
-  return ANSWER_LIST[dailyIndex(dayNumber(date), ANSWER_LIST.length)];
+  return ALL_ANSWERS[answerIndex(date)];
 }
 
 let answerSet: Set<string> | null = null;
 
 /** True when `word` can be guessed; `extra` holds the lazily loaded guess list. */
 export function isAllowedWord(word: string, extra: ReadonlySet<string>): boolean {
-  answerSet ??= new Set(ANSWER_LIST);
+  answerSet ??= new Set(ALL_ANSWERS);
   return answerSet.has(word) || extra.has(word);
 }
 

@@ -53,13 +53,19 @@ export function parsePuzzle(raw: readonly string[]): ConnectionsPuzzle {
   return { groups, herrings };
 }
 
-/** Cycles a fixed shuffle of every puzzle, so a puzzle returns only after `count` days. */
+const orders = new Map<number, number[]>();
+
+/** Legacy fixed shuffle. Production content changes must use a Worker-only cutover. */
 export function puzzleIndex(date: string, count: number): number {
-  const order = Array.from({ length: count }, (_, i) => i);
-  const rand = mulberry32(hashSeed(`${CONNECTIONS_ID}:order:${count}`));
-  for (let i = count - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [order[i], order[j]] = [order[j], order[i]];
+  let order = orders.get(count);
+  if (!order) {
+    order = Array.from({ length: count }, (_, i) => i);
+    const rand = mulberry32(hashSeed(`${CONNECTIONS_ID}:order:${count}`));
+    for (let i = count - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    orders.set(count, order);
   }
   const day = dayNumber(date);
   return order[((day % count) + count) % count];

@@ -4,9 +4,13 @@ import { beforeEach, expect, it } from 'vitest';
 import type { Env } from './index';
 import type { GameDayLeaderboard, GameResult, GamesToday } from '../../shared/types';
 import { sha256 } from './auth/crypto';
+import { weekStart } from '../../shared/dates';
 import { dailyAnswer } from './games/wordGuess';
 import { perceptionPuzzle } from './games/perception';
 import { connectionsPuzzleFor } from './games/connectionsPuzzles';
+import { CONTENT_CUTOVER, REPLAY_DATE, REPLAY_SOURCE } from './games/contentSchedule';
+import { connectionsShare } from '../../shared/games/connections';
+import { wordGuessShare } from '../../shared/games/wordGuess';
 import type {
   ConnectionsDay,
   PerceptionDay,
@@ -124,6 +128,173 @@ async function unlock() {
   });
   expect(workout.status).toBe(201);
 }
+
+it.each([REPLAY_DATE, CONTENT_CUTOVER])(
+  'keeps authoritative content, results, boards and streaks on the actual play date %s',
+  async (date) => {
+    await sql((s) => s.sql.exec("UPDATE sessions SET expires_at='2030-01-01T00:00:00Z'"));
+    expect(
+      await (await api('/games/wordguess/today', 'GET', undefined, v2At(date))).json(),
+    ).toMatchObject({ date, access: { unlocked: false }, answer: null, guesses: [] });
+    expect(
+      await (await api('/games/connections/today', 'GET', undefined, v2At(date))).json(),
+    ).toMatchObject({ date, access: { unlocked: false }, words: [], groups: null });
+    const historical: GameResult[] = [];
+    if (date === REPLAY_DATE) {
+      await v2Unlock(REPLAY_SOURCE);
+      expect(
+        (
+          await api(
+            '/games/wordguess/guess',
+            'POST',
+            { guess: dailyAnswer(REPLAY_SOURCE) },
+            v2At(REPLAY_SOURCE),
+          )
+        ).status,
+      ).toBe(200);
+      for (const group of connectionsPuzzleFor(REPLAY_SOURCE).groups)
+        expect(
+          (
+            await api(
+              '/games/connections/guess',
+              'POST',
+              { guess: group.words },
+              v2At(REPLAY_SOURCE),
+            )
+          ).status,
+        ).toBe(200);
+      for (const game of ['wordguess', 'connections'])
+        historical.push(
+          await (
+            await api(`/games/${game}/results/me`, 'GET', undefined, v2At(REPLAY_SOURCE))
+          ).json<GameResult>(),
+        );
+    }
+    const previous = new Date(Date.parse(`${date}T18:00:00Z`) - 86400000)
+      .toISOString()
+      .slice(0, 10);
+    await v2Unlock(previous);
+    expect(
+      (
+        await api(
+          '/games/wordguess/guess',
+          'POST',
+          { guess: dailyAnswer(previous) },
+          v2At(previous),
+        )
+      ).status,
+    ).toBe(200);
+    await v2Unlock(date);
+    const word = dailyAnswer(date);
+    const puzzle = connectionsPuzzleFor(date);
+    if (date === REPLAY_DATE) {
+      expect(word).toBe(dailyAnswer(REPLAY_SOURCE));
+      expect(puzzle).toEqual(connectionsPuzzleFor(REPLAY_SOURCE));
+    }
+    const atDate = (path: string, method = 'GET', body?: unknown) =>
+      api(path, method, body, v2At(date));
+    expect(await (await atDate('/games/wordguess/today')).json()).toMatchObject({
+      date,
+      answer: null,
+      done: false,
+    });
+    const initial = await (await atDate('/games/connections/today')).json<ConnectionsDay>();
+    expect(initial).toMatchObject({ date, groups: null, solved: [], finished: false });
+    expect(initial.words.slice().sort()).toEqual(puzzle.groups.flatMap((g) => g.words).sort());
+    for (const secret of ['Office Supplies', 'contentSchedule', REPLAY_SOURCE])
+      expect(JSON.stringify(initial)).not.toContain(secret);
+    expect(
+      (
+        await atDate('/games/wordguess/results', 'POST', {
+          payload: { guesses: [word] },
+          score: 9999,
+        })
+      ).status,
+    ).toBe(405);
+    const won = await (
+      await atDate('/games/wordguess/guess', 'POST', { guess: word, score: 9999 })
+    ).json();
+    expect(won).toMatchObject({
+      date,
+      answer: word,
+      done: true,
+      won: true,
+      guesses: [{ word, marks: Array(5).fill('correct') }],
+    });
+    expect(await (await atDate('/games/wordguess/today')).json()).toEqual(won);
+    for (const group of puzzle.groups) {
+      const response = await atDate('/games/connections/guess', 'POST', { guess: group.words });
+      expect(response.status).toBe(200);
+    }
+    expect(await (await atDate('/games/connections/today')).json()).toMatchObject({
+      date,
+      finished: true,
+      won: true,
+      mistakes: 0,
+      groups: puzzle.groups,
+    });
+    for (const [game, score] of [
+      ['wordguess', 6],
+      ['connections', 8],
+    ] as const) {
+      const result = await (await atDate(`/games/${game}/results/me`)).json<GameResult>();
+      expect(result).toMatchObject({ date, score, user_id: 'u0', game_id: game });
+      const board = await (await atDate(`/games/${game}/leaderboard`)).json<GameDayLeaderboard>();
+      expect(board.rows).toMatchObject([{ rank: 1, score, me: true }]);
+      expect(
+        (
+          await atDate(
+            `/games/${game}/guess`,
+            'POST',
+            game === 'wordguess' ? { guess: word } : { guess: puzzle.groups[0].words },
+          )
+        ).status,
+      ).toBe(409);
+      if (game === 'wordguess') {
+        const payload = result.payload as { marks: 'correct'[][]; solved: boolean; tries: number };
+        expect(wordGuessShare(date, { ...payload, points: score })).toContain(date);
+      } else {
+        const payload = result.payload as { grid: number[][] };
+        expect(connectionsShare(date, score, payload.grid)).toContain(date);
+      }
+    }
+    const games = await (await atDate('/games')).json<GamesToday>();
+    expect(games).toMatchObject({ streak: { current: 2, best: 2 } });
+    expect(games.games.map((game) => game.id).sort()).toEqual([
+      'connections',
+      'perception',
+      'wordguess',
+    ]);
+    const week = await (await atDate('/games/leaderboard')).json();
+    const sameWeek = previous >= weekStart(date);
+    expect(week).toMatchObject({
+      rows: [{ points: sameWeek ? 3 : 2, days: sameWeek ? 2 : 1, rank: 1, me: true }],
+    });
+    expect(await (await atDate('/games/perception/today')).json()).toMatchObject({
+      date,
+      round: 0,
+      done: false,
+    });
+    expect((await atDate('/games/dive/today')).status).toBe(404);
+    for (const result of historical)
+      expect(
+        await (await atDate(`/games/${result.game_id}/results/me?date=${REPLAY_SOURCE}`)).json(),
+      ).toEqual(result);
+    const rows = await sql((s) => [
+      ...s.sql.exec<{ date: string; game: string }>(
+        'SELECT date,game_id AS game FROM game_results ORDER BY date,game_id',
+      ),
+    ]);
+    expect(rows).toEqual([
+      ...historical
+        .map((result) => ({ date: result.date, game: result.game_id }))
+        .sort((a, b) => a.game.localeCompare(b.game)),
+      { date: previous, game: 'wordguess' },
+      { date, game: 'connections' },
+      { date, game: 'wordguess' },
+    ]);
+  },
+);
 
 it.each(['/games/perception/start', '/games/perception/answer'])(
   'rejects a stale date on %s before consuming a new-day round',

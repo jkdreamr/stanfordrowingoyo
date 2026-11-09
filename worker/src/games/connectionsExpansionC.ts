@@ -47,15 +47,6 @@ export const CONNECTIONS_EXPANSION_C: readonly (readonly string[])[] = [
     'School>0',
   ],
   [
-    'Weather Adjectives: Sunny, Stormy, Foggy, Windy',
-    'Irritable: Grumpy, Cranky, Testy, Crabby',
-    'Seven Dwarfs: Sleepy, Dopey, Bashful, Sneezy',
-    '___ Hour: Rush, Zero, Lunch, Happy',
-    'Grumpy>2',
-    'Happy>2',
-    'Stormy>1',
-  ],
-  [
     'Secure Storage: Safe, Vault, Locker, Strongbox',
     'Things You Can Crack: Smile, Joke, Code, Window',
     'Jokes: Gag, Quip, Pun, Wisecrack',
@@ -75,15 +66,6 @@ export const CONNECTIONS_EXPANSION_C: readonly (readonly string[])[] = [
     'Fire>1',
   ],
   [
-    'Wear Out: Tire, Drain, Exhaust, Sap',
-    'Spare ___: Room, Change, Time, Parts',
-    'Alter: Adjust, Modify, Convert, Amend',
-    'Sound Like Time Words: Our, Weak, Knight, Mourning',
-    'Tire>1',
-    'Change>2',
-    'Weak>0',
-  ],
-  [
     'Measuring Tools: Ruler, Tape, Gauge, Scale',
     'Monarchs: Emperor, Tsar, Sultan, Pharaoh',
     'Go Up: Mount, Ascend, Clamber, Rise',
@@ -101,15 +83,6 @@ export const CONNECTIONS_EXPANSION_C: readonly (readonly string[])[] = [
     'Robin>1',
     'Owl>1',
     'Shift>0',
-  ],
-  [
-    'Insects: Wasp, Beetle, Moth, Hornet',
-    'Move Through The Air: Fly, Soar, Glide, Hover',
-    'Spelling ___: Bee, Test, Error, List',
-    'Insect Plus A Letter: Beet, Pant, Slice, Stick',
-    'Fly>0',
-    'Bee>0',
-    'Beetle>3',
   ],
   [
     'Quick: Rapid, Swift, Brisk, Speedy',
@@ -138,15 +111,6 @@ export const CONNECTIONS_EXPANSION_C: readonly (readonly string[])[] = [
     'Ring>0',
     'Ring>1',
     'Buzz>1',
-  ],
-  [
-    'Rowing Stroke Phases: Catch, Drive, Finish, Recovery',
-    'Fishing Gear: Rod, Reel, Hook, Net',
-    'Golf Shots: Putt, Chip, Slice, Pitch',
-    'Hidden Oar: Board, Hoard, Soared, Coarse',
-    'Drive>2',
-    'Hook>2',
-    'Catch>1',
   ],
   [
     'Make Pictures: Draw, Paint, Sketch, Doodle',

@@ -26,8 +26,8 @@ function solutions(p: ConnectionsPuzzle) {
   return count;
 }
 
-it('has 20 well-formed puzzles with one solution and fair herrings', () => {
-  expect(puzzles).toHaveLength(20);
+it('has 16 well-formed puzzles with one solution and fair herrings', () => {
+  expect(puzzles).toHaveLength(16);
   for (const p of puzzles) {
     expect(p.groups.map((g) => g.words.length)).toEqual([4, 4, 4, 4]);
     const words = p.groups.flatMap((g) => g.words);

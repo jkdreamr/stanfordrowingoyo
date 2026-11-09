@@ -3,6 +3,10 @@ import {
   puzzleIndex,
   type ConnectionsPuzzle,
 } from '../../../shared/games/connections';
+import { CONNECTIONS_EXPANSION_A } from './connectionsExpansionA';
+import { CONNECTIONS_EXPANSION_B } from './connectionsExpansionB';
+import { CONNECTIONS_EXPANSION_C } from './connectionsExpansionC';
+import { contentRotation } from './contentSchedule';
 
 // Server-only: groups must never reach the client before a player solves or finishes.
 // Each entry lists four groups from easiest to hardest (the last is always wordplay), then
@@ -907,11 +911,28 @@ export const CONNECTIONS_PUZZLES: string[][] = [
   ],
 ];
 
+export const ALL_CONNECTIONS_PUZZLES = [
+  ...CONNECTIONS_PUZZLES,
+  ...CONNECTIONS_EXPANSION_A,
+  ...CONNECTIONS_EXPANSION_B,
+  ...CONNECTIONS_EXPANSION_C,
+];
+
+const indexFor = contentRotation(
+  'connections',
+  CONNECTIONS_PUZZLES.length,
+  ALL_CONNECTIONS_PUZZLES.length,
+  (day) =>
+    puzzleIndex(
+      new Date(Date.UTC(2026, 0, 1 + day)).toISOString().slice(0, 10),
+      CONNECTIONS_PUZZLES.length,
+    ),
+);
 const parsed = new Map<number, ConnectionsPuzzle>();
 
 export function connectionsPuzzleFor(date: string): ConnectionsPuzzle {
-  const index = puzzleIndex(date, CONNECTIONS_PUZZLES.length);
+  const index = indexFor(date);
   let puzzle = parsed.get(index);
-  if (!puzzle) parsed.set(index, (puzzle = parsePuzzle(CONNECTIONS_PUZZLES[index])));
+  if (!puzzle) parsed.set(index, (puzzle = parsePuzzle(ALL_CONNECTIONS_PUZZLES[index])));
   return puzzle;
 }

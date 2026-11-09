@@ -451,8 +451,8 @@ and separately proves perfect answers score 500. This is calibration, not an obs
 Schema v17 adds generic `game_progress(user_id,game,date,state_json,updated_at)` with
 primary key `(user_id,game,date)` for server-owned in-progress games. Account removal
 deletes the user's progress. Word Guess stores its ordered guesses here, never in a
-client-authoritative draft. The Worker-only answer list and seeded daily selection
-are unchanged; neither is imported by the web app (including mock mode).
+client-authoritative draft. The answer banks and production schedule are Worker-only;
+neither is imported by the web app (including mock mode).
 
 - `GET /api/games/wordguess/today` returns `WordGuessDay`:
   `{date,access,guesses:[{word,marks}],done,won,answer:string|null}`. Date is team-local
@@ -470,6 +470,34 @@ are unchanged; neither is imported by the web app (including mock mode).
   existing result after the tile reveal instead of submitting client scores.
   Mock mode uses a fixed artificial word, not the production answer bank.
   The build runs Word Guess's web-bundle answer-bank exclusion guard alongside Dive's.
+
+#### Word Guess and Connections content versions
+
+`worker/src/games/contentSchedule.ts` owns the private replay override and
+`CONTENT_CUTOVER = '2026-12-14'` (LA team dates). The replay maps only the two games'
+content selection to its source day; progress, results, boards, streaks and shares
+still belong to the actual play date. No replay announcement, future calendar or
+schedule metadata is sent to clients. Perception and the Dive feature flag are unchanged.
+
+Before cutover the frozen 2,000-answer Word Guess bank and 96-puzzle Connections
+bank use their original shuffles and lengths, except for the explicit replay day.
+The expansion banks are separate, append-free versioned inputs: never extend a live
+bank or change its shuffle without another future cutover. Every pre-cutover date,
+including negative day numbers before the seed epoch, keeps its original content.
+This version adds 259 Word Guess answers and 103 Connections puzzles; full-bank
+digests pin both the legacy banks and these versioned inputs.
+
+From cutover, a deterministic fixed order serves all new content first, then unused
+legacy content, then previously served legacy content; only after the entire combined
+bank does that order cycle. Each section is independently seeded. To classify legacy
+content conservatively, reserve all days from the 2026-01-01 seed epoch through the day
+before cutover, including the replay override and dates before the app launched.
+Thus no previously served content returns until every never-served entry is exhausted.
+All legacy Connections puzzles are reserved; Word Guess also has unused legacy answers.
+The order is lazily cached per Worker isolate, never reconstructed from user history or
+stored in SQLite. No API/type or database contract changes are required.
+The frozen Word Guess bank contains `mango` twice; historical slots stay intact, but
+the post-cutover rotation deduplicates by answer text so this cannot create an early repeat.
 
 `GET /api/games` includes `streak: GamesStreak` (`current`, `best`). A played date
 has at least one result for a registered game, counted once in the team timezone
@@ -679,8 +707,8 @@ malformed or implausible payloads return 400.
   group always wordplay, at least three red herrings each across two or more groups, unique
   category names, and exactly one valid partition even with every herring allowed in its
   decoy group) live only in
-  `worker/src/games/connectionsPuzzles.ts`; a fixed shuffle is cycled by day number, so a
-  puzzle returns only after every other one (no repeat within 60 days). The client gets
+  `worker/src/games/connectionsPuzzles.ts`; the private versioned schedule above freezes
+  historical selections and exhausts fresh content before repeats. The client gets
   words from `GET /api/games/connections/today` (`ConnectionsDay`, empty while locked) and
   appends each guess with `POST /api/games/connections/guess` `{guess}` (gated,
   persisted server-side), which returns `ConnectionsDay`: last outcome
