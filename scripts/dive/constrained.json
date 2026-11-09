@@ -6431,7 +6431,373 @@
       "surface": ["Los Angeles Lakers", "Boston Celtics", "Chicago Bulls"],
       "pearl": "Toronto Raptors",
       "people": false,
-      "acceptance_notes": "a 2026–27 NBA team"
+      "acceptance_notes": "a 2026–27 NBA team",
+      "active": false
+    },
+    {
+      "id": "nba-first-overall-picks",
+      "text": "a No. 1 overall NBA draft pick through 2026",
+      "theme": "sports",
+      "cluster": "leagues",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of first overall NBA draft picks",
+          "revision": 1384376407,
+          "tables": [1],
+          "column": 2,
+          "expect": [80, 80],
+          "reviewed": [
+            "AJ Dybantsa",
+            "Allen Iverson",
+            "Andrea Bargnani",
+            "Andrew Bogut",
+            "Andrew Wiggins",
+            "Andy Tonkovich",
+            "Anthony Bennett",
+            "Anthony Davis",
+            "Anthony Edwards",
+            "Art Heyman",
+            "Austin Carr",
+            "Ben Simmons",
+            "Bill McGill",
+            "Bill Walton",
+            "Blake Griffin",
+            "Bob Boozer",
+            "Bob Lanier",
+            "Brad Daugherty",
+            "Cade Cunningham",
+            "Cazzie Russell",
+            "Charlie Share",
+            "Chris Webber",
+            "Clifton McNeely",
+            "Cooper Flagg",
+            "Danny Manning",
+            "David Robinson",
+            "David Thompson",
+            "Deandre Ayton",
+            "Derrick Coleman",
+            "Derrick Rose",
+            "Dick Ricketts",
+            "Doug Collins",
+            "Dwight Howard",
+            "Elgin Baylor",
+            "Elton Brand",
+            "Elvin Hayes",
+            "Frank Selvy",
+            "Fred Hetzel",
+            "Gene Melchiorre",
+            "Glenn Robinson",
+            "Greg Oden",
+            "Hakeem Olajuwon",
+            "Howie Shannon",
+            "James Worthy",
+            "Jim Barnes",
+            "Jimmy Walker",
+            "Joe Barry Carroll",
+            "Joe Smith",
+            "John Lucas",
+            "John Wall",
+            "Karl-Anthony Towns",
+            "Kent Benson",
+            "Kenyon Martin",
+            "Kwame Brown",
+            "Kyrie Irving",
+            "LaRue Martin",
+            "Larry Johnson",
+            "LeBron James",
+            "Lew Alcindor",
+            "Magic Johnson",
+            "Mark Aguirre",
+            "Mark Workman",
+            "Markelle Fultz",
+            "Michael Olowokandi",
+            "Mychal Thompson",
+            "Oscar Robertson",
+            "Paolo Banchero",
+            "Patrick Ewing",
+            "Pervis Ellison",
+            "Ralph Sampson",
+            "Ray Felix",
+            "Rod Hundley",
+            "Shaquille O'Neal",
+            "Sihugo Green",
+            "Tim Duncan",
+            "Victor Wembanyama",
+            "Walt Bellamy",
+            "Yao Ming",
+            "Zaccharie Risacher",
+            "Zion Williamson"
+          ],
+          "review": "Reviewed every No. 1 pick row from the 1947 BAA draft through the 2026 NBA draft against the pinned table; one player per draft, no duplicates."
+        }
+      ],
+      "expect": [80, 80],
+      "answers": [
+        {
+          "name": "AJ Dybantsa"
+        },
+        {
+          "name": "Allen Iverson"
+        },
+        {
+          "name": "Andrea Bargnani"
+        },
+        {
+          "name": "Andrew Bogut"
+        },
+        {
+          "name": "Andrew Wiggins"
+        },
+        {
+          "name": "Andy Tonkovich"
+        },
+        {
+          "name": "Anthony Bennett"
+        },
+        {
+          "name": "Anthony Davis"
+        },
+        {
+          "name": "Anthony Edwards"
+        },
+        {
+          "name": "Art Heyman"
+        },
+        {
+          "name": "Austin Carr"
+        },
+        {
+          "name": "Ben Simmons"
+        },
+        {
+          "name": "Bill McGill"
+        },
+        {
+          "name": "Bill Walton"
+        },
+        {
+          "name": "Blake Griffin"
+        },
+        {
+          "name": "Bob Boozer"
+        },
+        {
+          "name": "Bob Lanier"
+        },
+        {
+          "name": "Brad Daugherty"
+        },
+        {
+          "name": "Cade Cunningham"
+        },
+        {
+          "name": "Cazzie Russell",
+          "aliases": ["Cazzie"]
+        },
+        {
+          "name": "Charlie Share"
+        },
+        {
+          "name": "Chris Webber"
+        },
+        {
+          "name": "Clifton McNeely"
+        },
+        {
+          "name": "Cooper Flagg"
+        },
+        {
+          "name": "Danny Manning"
+        },
+        {
+          "name": "David Robinson"
+        },
+        {
+          "name": "David Thompson"
+        },
+        {
+          "name": "Deandre Ayton"
+        },
+        {
+          "name": "Derrick Coleman"
+        },
+        {
+          "name": "Derrick Rose"
+        },
+        {
+          "name": "Dick Ricketts"
+        },
+        {
+          "name": "Doug Collins"
+        },
+        {
+          "name": "Dwight Howard"
+        },
+        {
+          "name": "Elgin Baylor"
+        },
+        {
+          "name": "Elton Brand"
+        },
+        {
+          "name": "Elvin Hayes"
+        },
+        {
+          "name": "Frank Selvy"
+        },
+        {
+          "name": "Fred Hetzel"
+        },
+        {
+          "name": "Gene Melchiorre"
+        },
+        {
+          "name": "Glenn Robinson"
+        },
+        {
+          "name": "Greg Oden"
+        },
+        {
+          "name": "Hakeem Olajuwon",
+          "aliases": ["Akeem Olajuwon", "Hakeem"]
+        },
+        {
+          "name": "Howie Shannon"
+        },
+        {
+          "name": "James Worthy"
+        },
+        {
+          "name": "Jim Barnes"
+        },
+        {
+          "name": "Jimmy Walker"
+        },
+        {
+          "name": "Joe Barry Carroll"
+        },
+        {
+          "name": "Joe Smith"
+        },
+        {
+          "name": "John Lucas"
+        },
+        {
+          "name": "John Wall"
+        },
+        {
+          "name": "Kareem Abdul-Jabbar",
+          "aliases": ["Kareem", "Lew Alcindor"]
+        },
+        {
+          "name": "Karl-Anthony Towns",
+          "aliases": ["KAT"]
+        },
+        {
+          "name": "Kent Benson"
+        },
+        {
+          "name": "Kenyon Martin"
+        },
+        {
+          "name": "Kwame Brown"
+        },
+        {
+          "name": "Kyrie Irving"
+        },
+        {
+          "name": "LaRue Martin"
+        },
+        {
+          "name": "Larry Johnson"
+        },
+        {
+          "name": "LeBron James",
+          "aliases": ["LeBron"]
+        },
+        {
+          "name": "Magic Johnson",
+          "aliases": ["Earvin Johnson", "Earvin Magic Johnson"]
+        },
+        {
+          "name": "Mark Aguirre"
+        },
+        {
+          "name": "Mark Workman"
+        },
+        {
+          "name": "Markelle Fultz"
+        },
+        {
+          "name": "Michael Olowokandi"
+        },
+        {
+          "name": "Mychal Thompson"
+        },
+        {
+          "name": "Oscar Robertson"
+        },
+        {
+          "name": "Paolo Banchero"
+        },
+        {
+          "name": "Patrick Ewing"
+        },
+        {
+          "name": "Pervis Ellison"
+        },
+        {
+          "name": "Ralph Sampson"
+        },
+        {
+          "name": "Ray Felix"
+        },
+        {
+          "name": "Rod Hundley",
+          "aliases": ["Hot Rod Hundley"]
+        },
+        {
+          "name": "Shaquille O'Neal",
+          "aliases": ["Shaq"]
+        },
+        {
+          "name": "Sihugo Green"
+        },
+        {
+          "name": "Tim Duncan"
+        },
+        {
+          "name": "Victor Wembanyama",
+          "aliases": ["Wemby"]
+        },
+        {
+          "name": "Walt Bellamy"
+        },
+        {
+          "name": "Yao Ming",
+          "aliases": ["Yao"]
+        },
+        {
+          "name": "Zaccharie Risacher"
+        },
+        {
+          "name": "Zion Williamson",
+          "aliases": ["Zion"]
+        }
+      ],
+      "surface": [
+        "LeBron James",
+        "Shaquille O'Neal",
+        "Kareem Abdul-Jabbar",
+        "Magic Johnson",
+        "Tim Duncan",
+        "Victor Wembanyama"
+      ],
+      "too_clever": ["LaRue Martin"],
+      "pearl": "Mychal Thompson",
+      "scope": "Every first overall pick in the pinned list, 1947 BAA draft through the 2026 NBA draft (the 1947-1949 BAA drafts are counted as NBA drafts by the league and the source). Not territorial picks or No. 2 picks such as Kevin Durant or Darko Milicic.",
+      "people": true
     },
     {
       "id": "nfl-teams",
@@ -6616,7 +6982,282 @@
       "surface": ["Dallas Cowboys", "New England Patriots", "Kansas City Chiefs"],
       "pearl": "Buffalo Bills",
       "people": false,
-      "acceptance_notes": "a 2026 NFL team"
+      "acceptance_notes": "a 2026 NFL team",
+      "active": false
+    },
+    {
+      "id": "nfl-former-names",
+      "text": "a former team name of a current NFL franchise",
+      "theme": "sports",
+      "cluster": "leagues",
+      "active": true,
+      "sources": [
+        {
+          "page": "Arizona Cardinals",
+          "revision": 1384178060,
+          "members": [
+            "Morgan Athletic Club",
+            "Racine Normals",
+            "Racine (Street) Cardinals",
+            "Chicago Cardinals",
+            "Card-Pitt",
+            "St. Louis Cardinals",
+            "Phoenix Cardinals"
+          ],
+          "reviewed": [
+            "Morgan Athletic Club",
+            "Racine Normals",
+            "Racine (Street) Cardinals",
+            "Chicago Cardinals",
+            "Card-Pitt",
+            "St. Louis Cardinals",
+            "Phoenix Cardinals"
+          ],
+          "expect": [7, 7],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Chicago Bears",
+          "revision": 1383769652,
+          "members": ["Decatur Staleys", "Chicago Staleys"],
+          "reviewed": ["Decatur Staleys", "Chicago Staleys"],
+          "expect": [2, 2],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Detroit Lions",
+          "revision": 1383380475,
+          "members": ["Portsmouth Spartans"],
+          "reviewed": ["Portsmouth Spartans"],
+          "expect": [1, 1],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Green Bay Packers",
+          "revision": 1384143405,
+          "members": ["Indian Packers", "Acme Packers"],
+          "reviewed": ["Indian Packers", "Acme Packers"],
+          "expect": [2, 2],
+          "review": "Read the pinned infobox team-history list and its historical-name nicknames (Indian Packers 1919-1920, Acme Packers 1921); every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Indianapolis Colts",
+          "revision": 1381372418,
+          "members": ["Baltimore Colts"],
+          "reviewed": ["Baltimore Colts"],
+          "expect": [1, 1],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Kansas City Chiefs",
+          "revision": 1380170602,
+          "members": ["Dallas Texans"],
+          "reviewed": ["Dallas Texans"],
+          "expect": [1, 1],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Las Vegas Raiders",
+          "revision": 1384418819,
+          "members": ["Oakland Raiders", "Los Angeles Raiders"],
+          "reviewed": ["Oakland Raiders", "Los Angeles Raiders"],
+          "expect": [2, 2],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Los Angeles Chargers",
+          "revision": 1381660833,
+          "members": ["San Diego Chargers"],
+          "reviewed": ["San Diego Chargers"],
+          "expect": [1, 1],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Los Angeles Rams",
+          "revision": 1383645280,
+          "members": ["Cleveland Rams", "St. Louis Rams"],
+          "reviewed": ["Cleveland Rams", "St. Louis Rams"],
+          "expect": [2, 2],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "New England Patriots",
+          "revision": 1381308705,
+          "members": ["Boston Patriots"],
+          "reviewed": ["Boston Patriots"],
+          "expect": [1, 1],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "New York Jets",
+          "revision": 1384394690,
+          "members": ["Titans of New York"],
+          "reviewed": ["Titans of New York"],
+          "expect": [1, 1],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Philadelphia Eagles",
+          "revision": 1382182043,
+          "members": ["Phil-Pitt", "Steagles"],
+          "reviewed": ["Phil-Pitt", "Steagles"],
+          "expect": [2, 2],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Pittsburgh Steelers",
+          "revision": 1382403068,
+          "members": ["Pittsburgh Pirates", "Phil-Pitt", "Steagles", "Card-Pitt"],
+          "reviewed": ["Pittsburgh Pirates", "Phil-Pitt", "Steagles", "Card-Pitt"],
+          "expect": [4, 4],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Tennessee Titans",
+          "revision": 1384501002,
+          "members": ["Houston Oilers", "Tennessee Oilers"],
+          "reviewed": ["Houston Oilers", "Tennessee Oilers"],
+          "expect": [2, 2],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        },
+        {
+          "page": "Washington Commanders",
+          "revision": 1384533181,
+          "members": [
+            "Boston Braves",
+            "Boston Redskins",
+            "Washington Redskins",
+            "Washington Football Team"
+          ],
+          "reviewed": [
+            "Boston Braves",
+            "Boston Redskins",
+            "Washington Redskins",
+            "Washington Football Team"
+          ],
+          "expect": [4, 4],
+          "review": "Read the pinned infobox team-history list; every former name of this current franchise is listed, current names excluded."
+        }
+      ],
+      "expect": [29, 29],
+      "answers": [
+        {
+          "name": "Acme Packers"
+        },
+        {
+          "name": "Baltimore Colts"
+        },
+        {
+          "name": "Boston Braves"
+        },
+        {
+          "name": "Boston Patriots"
+        },
+        {
+          "name": "Boston Redskins"
+        },
+        {
+          "name": "Card-Pitt",
+          "aliases": ["Card-Pitt Combine", "Chicago-Pittsburgh Cardinals-Steelers"]
+        },
+        {
+          "name": "Chicago Cardinals"
+        },
+        {
+          "name": "Chicago Staleys"
+        },
+        {
+          "name": "Cleveland Rams"
+        },
+        {
+          "name": "Dallas Texans"
+        },
+        {
+          "name": "Decatur Staleys"
+        },
+        {
+          "name": "Houston Oilers",
+          "aliases": ["Oilers"]
+        },
+        {
+          "name": "Indian Packers"
+        },
+        {
+          "name": "Los Angeles Raiders",
+          "aliases": ["LA Raiders"]
+        },
+        {
+          "name": "Morgan Athletic Club"
+        },
+        {
+          "name": "Oakland Raiders"
+        },
+        {
+          "name": "Phoenix Cardinals"
+        },
+        {
+          "name": "Pittsburgh Pirates"
+        },
+        {
+          "name": "Portsmouth Spartans"
+        },
+        {
+          "name": "Racine Cardinals",
+          "aliases": ["Racine Street Cardinals"]
+        },
+        {
+          "name": "Racine Normals"
+        },
+        {
+          "name": "San Diego Chargers",
+          "aliases": ["SD Chargers"]
+        },
+        {
+          "name": "St. Louis Cardinals",
+          "aliases": ["Saint Louis Cardinals", "St. Louis Football Cardinals"]
+        },
+        {
+          "name": "St. Louis Rams",
+          "aliases": ["Saint Louis Rams"]
+        },
+        {
+          "name": "Steagles",
+          "aliases": [
+            "Phil-Pitt Steagles",
+            "Phil-Pitt Combine",
+            "Phil-Pitt Eagles",
+            "Phil-Pitt",
+            "Phil-Pitt Eagles-Steelers"
+          ]
+        },
+        {
+          "name": "Tennessee Oilers"
+        },
+        {
+          "name": "Titans of New York",
+          "aliases": ["New York Titans"]
+        },
+        {
+          "name": "Washington Football Team",
+          "aliases": ["WFT"]
+        },
+        {
+          "name": "Washington Redskins",
+          "aliases": ["Redskins"]
+        }
+      ],
+      "surface": [
+        "Houston Oilers",
+        "Oakland Raiders",
+        "Washington Redskins",
+        "San Diego Chargers",
+        "St. Louis Rams",
+        "Baltimore Colts"
+      ],
+      "too_clever": ["Steagles", "Card-Pitt"],
+      "pearl": "Decatur Staleys",
+      "scope": "Former names in each current franchise's pinned infobox team history, including pre-NFL names (Morgan Athletic Club, Racine Normals), the Packers' Indian/Acme Packers names and the WWII Steagles/Card-Pitt mergers. Excludes names the franchise uses now even if used earlier (Los Angeles Rams, Los Angeles Chargers), defunct franchises (Boston Yanks) and current names. Bare Oilers/Redskins credit the long-running Houston/Washington names; bare Staleys stays ambiguous.",
+      "people": false
     },
     {
       "id": "mlb-teams",
@@ -6791,7 +7432,192 @@
       "surface": ["New York Yankees", "Boston Red Sox", "Los Angeles Dodgers"],
       "pearl": "Seattle Mariners",
       "people": false,
-      "acceptance_notes": "a 2026 MLB team"
+      "acceptance_notes": "a 2026 MLB team",
+      "active": false
+    },
+    {
+      "id": "mlb-50-homer-seasons",
+      "text": "a player with a 50-home-run MLB season through 2025",
+      "theme": "sports",
+      "cluster": "leagues",
+      "active": true,
+      "sources": [
+        {
+          "page": "50 home run club",
+          "revision": 1382671764,
+          "tables": [1],
+          "column": 1,
+          "expect": [34, 34],
+          "reviewed": [
+            "Aaron Judge",
+            "Albert Belle",
+            "Alex Rodriguez",
+            "Andruw Jones",
+            "Babe Ruth",
+            "Barry Bonds",
+            "Brady Anderson",
+            "Cal Raleigh",
+            "Cecil Fielder",
+            "Chris Davis",
+            "David Ortiz",
+            "George Foster",
+            "Giancarlo Stanton",
+            "Greg Vaughn",
+            "Hack Wilson",
+            "Hank Greenberg",
+            "Jim Thome",
+            "Jimmie Foxx",
+            "Johnny Mize",
+            "José Bautista",
+            "Ken Griffey Jr.",
+            "Kyle Schwarber",
+            "Luis Gonzalez",
+            "Mark McGwire",
+            "Matt Olson",
+            "Mickey Mantle",
+            "Pete Alonso",
+            "Prince Fielder",
+            "Ralph Kiner",
+            "Roger Maris",
+            "Ryan Howard",
+            "Sammy Sosa",
+            "Shohei Ohtani",
+            "Willie Mays"
+          ],
+          "review": "Reviewed all 54 season rows through 2025 in the pinned table and deduplicated to 34 players; the table has no 2026 rows, so the prompt is bounded through 2025."
+        }
+      ],
+      "expect": [34, 34],
+      "answers": [
+        {
+          "name": "Aaron Judge"
+        },
+        {
+          "name": "Albert Belle"
+        },
+        {
+          "name": "Alex Rodriguez",
+          "aliases": ["A-Rod"]
+        },
+        {
+          "name": "Andruw Jones",
+          "aliases": ["Andrew Jones"]
+        },
+        {
+          "name": "Babe Ruth",
+          "aliases": ["The Babe", "The Bambino", "George Herman Ruth"]
+        },
+        {
+          "name": "Barry Bonds"
+        },
+        {
+          "name": "Brady Anderson"
+        },
+        {
+          "name": "Cal Raleigh",
+          "aliases": ["Big Dumper"]
+        },
+        {
+          "name": "Cecil Fielder"
+        },
+        {
+          "name": "Chris Davis"
+        },
+        {
+          "name": "David Ortiz",
+          "aliases": ["Big Papi"]
+        },
+        {
+          "name": "George Foster"
+        },
+        {
+          "name": "Giancarlo Stanton",
+          "aliases": ["Mike Stanton"]
+        },
+        {
+          "name": "Greg Vaughn"
+        },
+        {
+          "name": "Hack Wilson"
+        },
+        {
+          "name": "Hank Greenberg"
+        },
+        {
+          "name": "Jim Thome"
+        },
+        {
+          "name": "Jimmie Foxx",
+          "aliases": ["Jimmy Foxx", "Double X"]
+        },
+        {
+          "name": "Johnny Mize"
+        },
+        {
+          "name": "José Bautista",
+          "aliases": ["Joey Bats"]
+        },
+        {
+          "name": "Ken Griffey Jr.",
+          "aliases": ["Ken Griffey", "Griffey Jr.", "Junior Griffey"]
+        },
+        {
+          "name": "Kyle Schwarber"
+        },
+        {
+          "name": "Luis Gonzalez"
+        },
+        {
+          "name": "Mark McGwire",
+          "aliases": ["Big Mac"]
+        },
+        {
+          "name": "Matt Olson"
+        },
+        {
+          "name": "Mickey Mantle",
+          "aliases": ["The Mick"]
+        },
+        {
+          "name": "Pete Alonso",
+          "aliases": ["Polar Bear"]
+        },
+        {
+          "name": "Prince Fielder"
+        },
+        {
+          "name": "Ralph Kiner"
+        },
+        {
+          "name": "Roger Maris"
+        },
+        {
+          "name": "Ryan Howard"
+        },
+        {
+          "name": "Sammy Sosa"
+        },
+        {
+          "name": "Shohei Ohtani",
+          "aliases": ["Shohei Otani"]
+        },
+        {
+          "name": "Willie Mays",
+          "aliases": ["Say Hey Kid"]
+        }
+      ],
+      "surface": [
+        "Babe Ruth",
+        "Barry Bonds",
+        "Mark McGwire",
+        "Sammy Sosa",
+        "Aaron Judge",
+        "Roger Maris"
+      ],
+      "too_clever": ["Greg Vaughn"],
+      "pearl": "Brady Anderson",
+      "scope": "Every player with at least one 50-home-run MLB regular season through 2025 in the pinned table. Not players whose career high fell short (Hank Aaron 47, Albert Pujols 49) or postseason totals.",
+      "people": true
     },
     {
       "id": "nhl-teams",
@@ -6976,7 +7802,257 @@
       "surface": ["Toronto Maple Leafs", "Montreal Canadiens", "Boston Bruins"],
       "pearl": "Seattle Kraken",
       "people": false,
-      "acceptance_notes": "a 2026–27 NHL team"
+      "acceptance_notes": "a 2026–27 NHL team",
+      "active": false
+    },
+    {
+      "id": "nhl-500-goal-club",
+      "text": "a player with 500 career NHL goals through 2025–26",
+      "theme": "sports",
+      "cluster": "leagues",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of NHL players with 500 goals",
+          "revision": 1366079374,
+          "tables": [0],
+          "column": 2,
+          "expect": [50, 50],
+          "reviewed": [
+            "Alexander Ovechkin",
+            "Bobby Hull",
+            "Brendan Shanahan",
+            "Brett Hull",
+            "Bryan Trottier",
+            "Dale Hawerchuk",
+            "Dave Andreychuk",
+            "Dino Ciccarelli",
+            "Evgeni Malkin",
+            "Frank Mahovlich",
+            "Gilbert Perreault",
+            "Gordie Howe",
+            "Guy Lafleur",
+            "Jari Kurri",
+            "Jarome Iginla",
+            "Jaromir Jagr",
+            "Jean Beliveau",
+            "Jeremy Roenick",
+            "Joe Mullen",
+            "Joe Nieuwendyk",
+            "Joe Sakic",
+            "John Tavares",
+            "Johnny Bucyk",
+            "Keith Tkachuk",
+            "Lanny McDonald",
+            "Luc Robitaille",
+            "Marcel Dionne",
+            "Marian Hossa",
+            "Mario Lemieux",
+            "Mark Messier",
+            "Mark Recchi",
+            "Mats Sundin",
+            "Maurice Richard",
+            "Michel Goulet",
+            "Mike Bossy",
+            "Mike Gartner",
+            "Mike Modano",
+            "Pat Verbeek",
+            "Patrick Kane",
+            "Patrick Marleau",
+            "Peter Bondra",
+            "Phil Esposito",
+            "Pierre Turgeon",
+            "Ron Francis",
+            "Sidney Crosby",
+            "Stan Mikita",
+            "Steve Yzerman",
+            "Steven Stamkos",
+            "Teemu Selänne",
+            "Wayne Gretzky"
+          ],
+          "review": "Reviewed all 50 rows (including the tied Mats Sundin row) in the pinned post-2025-26 list; regular-season NHL goals only."
+        }
+      ],
+      "expect": [50, 50],
+      "answers": [
+        {
+          "name": "Alexander Ovechkin",
+          "aliases": ["Alex Ovechkin", "Ovi"]
+        },
+        {
+          "name": "Bobby Hull",
+          "aliases": ["Golden Jet"]
+        },
+        {
+          "name": "Brendan Shanahan"
+        },
+        {
+          "name": "Brett Hull"
+        },
+        {
+          "name": "Bryan Trottier"
+        },
+        {
+          "name": "Dale Hawerchuk"
+        },
+        {
+          "name": "Dave Andreychuk"
+        },
+        {
+          "name": "Dino Ciccarelli"
+        },
+        {
+          "name": "Evgeni Malkin",
+          "aliases": ["Geno Malkin", "Evgeny Malkin"]
+        },
+        {
+          "name": "Frank Mahovlich",
+          "aliases": ["The Big M"]
+        },
+        {
+          "name": "Gilbert Perreault"
+        },
+        {
+          "name": "Gordie Howe",
+          "aliases": ["Mr. Hockey"]
+        },
+        {
+          "name": "Guy Lafleur"
+        },
+        {
+          "name": "Jari Kurri"
+        },
+        {
+          "name": "Jarome Iginla"
+        },
+        {
+          "name": "Jaromir Jagr"
+        },
+        {
+          "name": "Jean Beliveau"
+        },
+        {
+          "name": "Jeremy Roenick"
+        },
+        {
+          "name": "Joe Mullen",
+          "aliases": ["Joey Mullen"]
+        },
+        {
+          "name": "Joe Nieuwendyk"
+        },
+        {
+          "name": "Joe Sakic"
+        },
+        {
+          "name": "John Tavares"
+        },
+        {
+          "name": "Johnny Bucyk",
+          "aliases": ["John Bucyk"]
+        },
+        {
+          "name": "Keith Tkachuk"
+        },
+        {
+          "name": "Lanny McDonald"
+        },
+        {
+          "name": "Luc Robitaille"
+        },
+        {
+          "name": "Marcel Dionne"
+        },
+        {
+          "name": "Marian Hossa"
+        },
+        {
+          "name": "Mario Lemieux",
+          "aliases": ["Super Mario"]
+        },
+        {
+          "name": "Mark Messier"
+        },
+        {
+          "name": "Mark Recchi"
+        },
+        {
+          "name": "Mats Sundin"
+        },
+        {
+          "name": "Maurice Richard",
+          "aliases": ["Rocket Richard", "The Rocket", "Maurice Rocket Richard"]
+        },
+        {
+          "name": "Michel Goulet"
+        },
+        {
+          "name": "Mike Bossy",
+          "aliases": ["Michael Bossy"]
+        },
+        {
+          "name": "Mike Gartner"
+        },
+        {
+          "name": "Mike Modano"
+        },
+        {
+          "name": "Pat Verbeek"
+        },
+        {
+          "name": "Patrick Kane"
+        },
+        {
+          "name": "Patrick Marleau"
+        },
+        {
+          "name": "Peter Bondra"
+        },
+        {
+          "name": "Phil Esposito",
+          "aliases": ["Espo"]
+        },
+        {
+          "name": "Pierre Turgeon"
+        },
+        {
+          "name": "Ron Francis"
+        },
+        {
+          "name": "Sidney Crosby",
+          "aliases": ["Sid the Kid"]
+        },
+        {
+          "name": "Stan Mikita"
+        },
+        {
+          "name": "Steve Yzerman",
+          "aliases": ["Stevie Y"]
+        },
+        {
+          "name": "Steven Stamkos"
+        },
+        {
+          "name": "Teemu Selänne",
+          "aliases": ["Finnish Flash"]
+        },
+        {
+          "name": "Wayne Gretzky",
+          "aliases": ["The Great One"]
+        }
+      ],
+      "surface": [
+        "Wayne Gretzky",
+        "Alexander Ovechkin",
+        "Gordie Howe",
+        "Mario Lemieux",
+        "Sidney Crosby",
+        "Jaromir Jagr"
+      ],
+      "too_clever": ["Pat Verbeek"],
+      "pearl": "Lanny McDonald",
+      "scope": "All 50 players with at least 500 regular-season NHL goals through the 2025-26 season per the pinned list. Not WHA or playoff goals; not players such as Joe Thornton or Pavel Bure who finished short.",
+      "people": true
     },
     {
       "id": "nba-mvp",
@@ -44053,7 +45129,126 @@
       "surface": ["Athens", "London", "Paris"],
       "pearl": "Barcelona",
       "people": false,
-      "review": "Complete reviewed list of already hosted Summer/Winter Olympic cities through 2026. Cancelled 1916/1940/1944 editions and future editions excluded. Both Melbourne and Stockholm count for the split 1956 Summer Games; both Milan and Cortina count for Winter 2026."
+      "review": "Complete reviewed list of already hosted Summer/Winter Olympic cities through 2026. Cancelled 1916/1940/1944 editions and future editions excluded. Both Melbourne and Stockholm count for the split 1956 Summer Games; both Milan and Cortina count for Winter 2026.",
+      "active": false
+    },
+    {
+      "id": "olympic-eight-golds",
+      "text": "an Olympian with at least eight gold medals through 2026",
+      "theme": "sports",
+      "cluster": "olympics",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of multiple Olympic gold medalists",
+          "revision": 1371311121,
+          "tables": [0],
+          "column": 1,
+          "where": [7, "^(?:[89]|[1-9]\\d)$"],
+          "expect": [19, 19],
+          "reviewed": [
+            "Birgit Fischer",
+            "Bjørn Dæhlie",
+            "Caeleb Dressel",
+            "Carl Lewis",
+            "Isabell Werth",
+            "Jenny Thompson",
+            "Johannes Høsflot Klæbo",
+            "Katie Ledecky",
+            "Larisa Latynina",
+            "Lisa Carrington",
+            "Marit Bjørgen",
+            "Mark Spitz",
+            "Matt Biondi",
+            "Michael Phelps",
+            "Ole Einar Bjørndalen",
+            "Paavo Nurmi",
+            "Ray Ewry",
+            "Sawao Katō",
+            "Usain Bolt"
+          ],
+          "review": "Filtered the pinned all-time table to rows with 8+ golds and reviewed each row (Summer and Winter, through Milano Cortina 2026)."
+        }
+      ],
+      "expect": [19, 19],
+      "answers": [
+        {
+          "name": "Birgit Fischer"
+        },
+        {
+          "name": "Bjørn Dæhlie",
+          "aliases": ["Bjorn Daehlie", "Bjorn Dahlie", "Daehlie"]
+        },
+        {
+          "name": "Caeleb Dressel"
+        },
+        {
+          "name": "Carl Lewis"
+        },
+        {
+          "name": "Isabell Werth"
+        },
+        {
+          "name": "Jenny Thompson"
+        },
+        {
+          "name": "Johannes Høsflot Klæbo",
+          "aliases": [
+            "Johannes Hosflot Klaebo",
+            "Johannes Klaebo",
+            "Johannes Klæbo",
+            "Klaebo",
+            "Johannes Hoesflot Klaebo"
+          ]
+        },
+        {
+          "name": "Katie Ledecky"
+        },
+        {
+          "name": "Larisa Latynina",
+          "aliases": ["Larissa Latynina"]
+        },
+        {
+          "name": "Lisa Carrington"
+        },
+        {
+          "name": "Marit Bjørgen",
+          "aliases": ["Marit Bjorgen", "Bjorgen"]
+        },
+        {
+          "name": "Mark Spitz"
+        },
+        {
+          "name": "Matt Biondi"
+        },
+        {
+          "name": "Michael Phelps",
+          "aliases": ["Baltimore Bullet"]
+        },
+        {
+          "name": "Ole Einar Bjørndalen",
+          "aliases": ["Ole Einar Bjorndalen", "Bjorndalen"]
+        },
+        {
+          "name": "Paavo Nurmi",
+          "aliases": ["Flying Finn"]
+        },
+        {
+          "name": "Ray Ewry"
+        },
+        {
+          "name": "Sawao Katō"
+        },
+        {
+          "name": "Usain Bolt",
+          "aliases": ["Lightning Bolt"]
+        }
+      ],
+      "surface": ["Michael Phelps", "Usain Bolt", "Carl Lewis", "Mark Spitz", "Katie Ledecky"],
+      "too_clever": ["Isabell Werth"],
+      "pearl": "Ray Ewry",
+      "scope": "Athletes with eight or more Olympic gold medals (Summer or Winter) in the pinned table through the 2026 Winter Games; IOC-recognised Games only, so Ray Ewry counts 8 (not the 1906 Intercalated Games). Not seven-gold athletes such as Simone Biles or Allyson Felix.",
+      "people": true
     },
     {
       "id": "winter-olympic-hosts",
