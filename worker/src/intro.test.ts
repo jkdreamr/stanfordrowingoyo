@@ -3,7 +3,7 @@ import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { expect, it } from 'vitest';
 import type { Env } from './index';
 import { insertRosterFixture } from './testFixtures';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { getSetting, setSetting } from './db/settings';
 
 const bindings = env as unknown as Env;
@@ -77,7 +77,7 @@ it.each([9, 10, 11])(
       storage.sql.exec('DROP TABLE user_intro');
       setSetting(storage, 'schema_version', version);
       migrate(storage);
-      expect(getSetting(storage, 'schema_version')).toBe(19);
+      expect(getSetting(storage, 'schema_version')).toBe(20);
       const before = storage.sql
         .exec<{ completed_at: string }>(
           'SELECT completed_at FROM user_intro WHERE user_id = ?',

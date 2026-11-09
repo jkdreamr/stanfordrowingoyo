@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { User, EntryDetail, Announcement, Preset } from '../../shared/types';
 import type { Env } from './index';
 import type { Context } from './context';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { byId } from './db/users';
 import { setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';

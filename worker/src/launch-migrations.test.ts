@@ -32,7 +32,7 @@ function reset(storage: DurableObjectStorage) {
 }
 
 function expectLatest(storage: DurableObjectStorage) {
-  expect(getSetting(storage, 'schema_version')).toBe(19);
+  expect(getSetting(storage, 'schema_version')).toBe(20);
   expect(
     storage.sql
       .exec<{ name: string }>('PRAGMA table_info(users)')
@@ -93,8 +93,14 @@ it('upgrades v18 transactionally with exactly 14 team-wide slots and never overw
     const legacy = ['plan_slots', 'plan_totals'].map((table) =>
       storage.sql.exec(`SELECT * FROM ${table}`).toArray(),
     );
-    migrate(storage);
-    expectLatest(storage);
+    migrate({
+      sql: storage.sql,
+      transactionSync: (callback: () => unknown) => {
+        if (getSetting<number>(storage, 'schema_version') < 19)
+          return storage.transactionSync(callback);
+      },
+    } as DurableObjectStorage);
+    expect(getSetting(storage, 'schema_version')).toBe(19);
     const rows = storage.sql
       .exec<{ week_start: string; day: number; slot: string; zone: string | null; text: string }>(
         'SELECT * FROM team_plan_slots ORDER BY day,slot',
@@ -120,7 +126,13 @@ it('upgrades v18 transactionally with exactly 14 team-wide slots and never overw
     ).toBe(false);
     storage.sql.exec("UPDATE team_plan_slots SET text='Staff edit' WHERE day=0 AND slot='AM'");
     storage.sql.exec("UPDATE settings SET value_json='18' WHERE key='schema_version'");
-    migrate(storage);
+    migrate({
+      sql: storage.sql,
+      transactionSync: (callback: () => unknown) => {
+        if (getSetting<number>(storage, 'schema_version') < 19)
+          return storage.transactionSync(callback);
+      },
+    } as DurableObjectStorage);
     expect(
       storage.sql
         .exec<{ text: string }>("SELECT text FROM team_plan_slots WHERE day=0 AND slot='AM'")
@@ -283,7 +295,7 @@ it('upgrades a v16 database through v17, v18 and v19 without losing results', as
         return result;
       },
     } as DurableObjectStorage);
-    expect(versions).toEqual([17, 18, 19]);
+    expect(versions).toEqual([17, 18, 19, 20]);
     expectLatest(storage);
     storage.sql.exec("INSERT INTO game_progress VALUES ('u','wordguess','2026-03-10','{}',?)", now);
     storage.sql.exec("INSERT INTO reminder_sends VALUES ('u','2026-03-10')");

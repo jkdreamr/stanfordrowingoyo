@@ -14,6 +14,7 @@ import {
   Sheet,
   TextArea,
   TextField,
+  Toggle,
   ZoneChip,
   ZoneOption,
   useToast,
@@ -277,9 +278,18 @@ function SlotEditor({
         <SegmentedControl
           label="Session Kind"
           value={slot.kind}
-          onChange={(kind) => setSlot({ ...slot, kind })}
+          onChange={(kind) =>
+            setSlot({ ...slot, kind, counts_oyo: kind === 'team' && !!slot.counts_oyo })
+          }
           options={KINDS}
         />
+        {slot.kind === 'team' && (
+          <Toggle
+            label="Counts toward OYO meters"
+            checked={slot.counts_oyo ?? false}
+            onChange={(counts_oyo) => setSlot({ ...slot, counts_oyo })}
+          />
+        )}
         {slot.kind !== 'off' ? (
           <>
             <fieldset>

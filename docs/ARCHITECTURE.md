@@ -255,7 +255,7 @@ presets(id PK, modality, zone, name, distance_m INT NULL, sort INT, active INT) 
 plan_slots(group_key, week INT (1|2), day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
            PK(group_key, week, day, slot))
 plan_totals(group_key, week, label)     -- read-only Example Fortnight; unchanged legacy data
-team_plan_slots(week_start TEXT, day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text,
+team_plan_slots(week_start TEXT, day INT (0=Mon..6), slot ('AM'|'PM1'|'PM2'), kind ('team'|'oyo'|'off'), zone NULL, text, counts_oyo INTEGER NOT NULL DEFAULT 0,
                 PK(week_start,day,slot)) -- one team-wide dated schedule, not per group
 team_plan_totals(week_start TEXT PK, label)
 my_plans(user_id, start_date, rest_days_json, updated_at, PK(user_id, start_date))
@@ -276,12 +276,23 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 19; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 20; migrations run in the DO constructor via `blockConcurrencyWhile`.
 Version 19 transactionally creates the dated team-plan tables with IF NOT EXISTS and seeds only
 2026-11-09 with the supplied 14 slots (all zones NULL, no total), using INSERT OR IGNORE inside
 the guarded v19 step. It never copies the old example fortnight, modifies legacy tables, or
 overwrites staff edits; later migrations/requests never reseed a cleared or edited week.
-Version 18 is unchanged.
+Version 20 transactionally adds `counts_oyo` (guarded by column existence, default 0).
+Only the 2026-11-09 Monday PM1 row whose text still exactly matches the v19 seed is
+given zone B; edited text and other rows are untouched. No seeded slot is flagged;
+all seeded `counts_oyo` values remain false.
+Dated slot JSON always returns a boolean `counts_oyo`; writes may omit it (defaults false),
+and reject non-booleans. This informational team-session tag does not change kind, game access,
+personal planned meters or logged-meter calculation. Schedule and My Fortnight show
+“Counts toward OYO” with the zone chip; the team-slot editor toggle and week copy preserve it.
+Versions 18 and 19 are unchanged.
+Version 20 also inserts Thomas Kelley as an unclaimed rower with null email, group,
+side and class year, using the seeded UUID scheme, only when no case-insensitive name
+match exists. The shared fresh roster includes him once; existing manual rows are preserved.
 Version 17 adds game progress before version 18. Version 18 adds `users.evening_reminder`
 (integer boolean, default 1), nullable `push_outbox.reminder_date`, and `reminder_sends(user_id,date)`
 with a composite primary key for daily idempotency. The guarded migrations run in order,

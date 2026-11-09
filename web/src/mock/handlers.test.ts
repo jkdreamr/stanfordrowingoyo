@@ -446,6 +446,7 @@ describe('mock stats and visibility', () => {
     const seeded = await (await request('/plan?week=2026-11-09')).json();
     for (const invalid of [
       { ...plan, slots: [slot, slot] },
+      { ...plan, slots: [{ ...slot, counts_oyo: 'true' }] },
       { ...plan, slots: [{ ...slot, text: 'x'.repeat(2001) }] },
       { ...plan, totals: [{ label: 'x'.repeat(201) }] },
       { ...plan, week_start: '2026-11-03' },
@@ -458,7 +459,7 @@ describe('mock stats and visibility', () => {
     expect((await request('/admin/plan', 'PUT', plan)).status).toBe(200);
     expect(await (await request('/plan')).json()).toEqual({
       week_start,
-      slots: [slot],
+      slots: [{ ...slot, counts_oyo: false }],
       total: '80 km',
     });
     expect(await (await request('/plan?week=2026-11-09')).json()).toEqual(seeded);
@@ -466,7 +467,10 @@ describe('mock stats and visibility', () => {
     expect(audit).toHaveLength(1);
     expect(audit[0].action).toBe('plan.replace');
     expect(audit[0].target).toBe('plan/2026-11-02');
-    expect(JSON.parse(audit[0].detail_json)).toEqual({ before, after: plan });
+    expect(JSON.parse(audit[0].detail_json)).toEqual({
+      before,
+      after: { ...plan, slots: [{ ...slot, counts_oyo: false }] },
+    });
     expect(
       (await request('/admin/plan', 'PUT', { week_start, slots: [], totals: [] })).status,
     ).toBe(200);

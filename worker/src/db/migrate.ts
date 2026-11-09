@@ -641,6 +641,36 @@ CREATE INDEX IF NOT EXISTS dive_answers_group ON dive_answers(date, prompt_index
         '19',
       );
     });
+  if (version < 20)
+    storage.transactionSync(() => {
+      const columns = sql.exec<{ name: string }>('PRAGMA table_info(team_plan_slots)').toArray();
+      if (!columns.some((column) => column.name === 'counts_oyo'))
+        sql.exec('ALTER TABLE team_plan_slots ADD COLUMN counts_oyo INTEGER NOT NULL DEFAULT 0');
+      const mondayErg = TEAM_PLAN_SEED_SLOTS.find((row) => row.day === 0 && row.slot === 'PM1')!;
+      sql.exec(
+        "UPDATE team_plan_slots SET zone='B' WHERE week_start=? AND day=0 AND slot='PM1' AND text=?",
+        TEAM_PLAN_SEED_WEEK,
+        mondayErg.text,
+      );
+      const row = ROSTER.find((row) => row.name === 'Thomas Kelley')!;
+      sql.exec(
+        'INSERT INTO roster (id,name,email,role,group_key,side,class_year,claimed_by_user_id,added_by,created_at) SELECT ?,?,?,?,?,?,?,NULL,NULL,? WHERE NOT EXISTS (SELECT 1 FROM roster WHERE lower(name)=lower(?))',
+        crypto.randomUUID(),
+        row.name,
+        row.email,
+        row.role,
+        row.group_key,
+        row.side,
+        row.class_year,
+        new Date().toISOString(),
+        row.name,
+      );
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '20',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

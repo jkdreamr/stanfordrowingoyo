@@ -48,3 +48,8 @@ const sessions: Omit<PlanSlot, 'zone'>[] = [
   { day: 6, slot: 'PM1', kind: 'off', text: 'OFF' },
 ];
 export const TEAM_PLAN_SEED_SLOTS: PlanSlot[] = sessions.map((row) => ({ ...row, zone: null }));
+export const TEAM_PLAN_CURRENT_SLOTS: PlanSlot[] = TEAM_PLAN_SEED_SLOTS.map((row) => ({
+  ...row,
+  counts_oyo: false,
+  zone: row.day === 0 && row.slot === 'PM1' ? 'B' : row.zone,
+}));

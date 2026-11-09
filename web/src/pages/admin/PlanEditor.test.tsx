@@ -60,6 +60,17 @@ function setup({ week = '2026-11-16', failCopy = false, failSave = false } = {})
 }
 it('copies the previous week into an empty draft, previews multiline null-zone OYO, and publishes only on save', async () => {
   const { fetch, mock } = setup();
+  const previous = await (
+    await mock.handle(new Request('http://localhost/api/admin/plan?week=2026-11-09'))
+  ).json();
+  previous.slots[1].counts_oyo = true;
+  await mock.handle(
+    new Request('http://localhost/api/admin/plan', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-OYO-CSRF': '1' },
+      body: JSON.stringify(previous),
+    }),
+  );
   await screen.findByRole('heading', { name: 'Week of Nov 16' });
   expect(screen.queryByRole('radiogroup', { name: 'Plan Group' })).toBeNull();
   fireEvent.click(screen.getByRole('button', { name: 'Copy Previous Week' }));
@@ -82,7 +93,9 @@ it('copies the previous week into an empty draft, previews multiline null-zone O
     await mock.handle(new Request('http://localhost/api/plan?week=2026-11-16'))
   ).json();
   expect(saved.slots).toHaveLength(14);
-  expect(saved.slots.every((row: { zone: unknown }) => row.zone === null)).toBe(true);
+  expect(
+    saved.slots.find((row: { day: number; slot: string }) => row.day === 0 && row.slot === 'PM1'),
+  ).toMatchObject({ counts_oyo: true, zone: 'B' });
 });
 it('guards dirty week navigation and confirms before overwriting a nonempty draft', async () => {
   const { router } = setup({ week: '2026-11-09' });
@@ -139,4 +152,34 @@ it('keeps unsaved edits after save failure and allows null-zone multiline OYO ed
     'Line 1\nLine 2',
   );
   expect(screen.getByRole('status').textContent).toBe('Unsaved changes');
+});
+
+it('edits the team OYO-meter toggle and clears it when switching to a non-team kind', async () => {
+  const { mock } = setup({ week: '2026-11-09' });
+  fireEvent.click(await screen.findByRole('button', { name: 'Edit Monday PM' }));
+  let sheet = await screen.findByRole('dialog', { name: 'Monday PM' });
+  const toggle = within(sheet).getByRole('switch', { name: 'Counts toward OYO meters' });
+  expect(toggle.getAttribute('aria-checked')).toBe('false');
+  fireEvent.click(toggle);
+  fireEvent.click(within(sheet).getByRole('button', { name: 'Apply To Draft' }));
+  await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Monday PM' })).toBeNull());
+  fireEvent.click(screen.getByRole('button', { name: 'Save Plan' }));
+  await screen.findByText('Plan saved');
+  const saved = await (
+    await mock.handle(new Request('http://localhost/api/plan?week=2026-11-09'))
+  ).json();
+  expect(
+    saved.slots.find((row: { day: number; slot: string }) => row.day === 0 && row.slot === 'PM1')
+      .counts_oyo,
+  ).toBe(true);
+  fireEvent.click(screen.getByRole('button', { name: 'Edit Monday PM' }));
+  sheet = await screen.findByRole('dialog', { name: 'Monday PM' });
+  fireEvent.click(within(sheet).getByRole('radio', { name: 'OYO' }));
+  expect(within(sheet).queryByRole('switch', { name: 'Counts toward OYO meters' })).toBeNull();
+  fireEvent.click(within(sheet).getByRole('radio', { name: 'Team' }));
+  expect(
+    within(sheet)
+      .getByRole('switch', { name: 'Counts toward OYO meters' })
+      .getAttribute('aria-checked'),
+  ).toBe('false');
 });

@@ -13,7 +13,7 @@ import type {
   User,
 } from '../../shared/types';
 import type { Env } from './index';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { setSetting } from './db/settings';
 import { parseCsv } from './csv';
 import { insertRosterFixture } from './testFixtures';
@@ -921,7 +921,9 @@ describe('announcements and plan', () => {
     const rower = await user('Rower');
     const plan = {
       week_start: '2026-03-09',
-      slots: [{ day: 0, slot: 'AM', kind: 'oyo', zone: null, text: 'Training\nOYO' }],
+      slots: [
+        { day: 0, slot: 'AM', kind: 'oyo', zone: null, text: 'Training\nOYO', counts_oyo: false },
+      ],
       totals: [{ label: '20k' }],
     };
     expect((await api('/admin/plan', cox, 'PUT', plan)).status).toBe(200);

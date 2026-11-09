@@ -3,7 +3,7 @@ import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { beforeEach, expect, it } from 'vitest';
 import type { Env } from './index';
 import type { Plan, TeamPlan } from '../../shared/types';
-import { TEAM_PLAN_SEED_SLOTS } from '../../shared/teamPlan';
+import { TEAM_PLAN_CURRENT_SLOTS } from '../../shared/teamPlan';
 import { addDays, weekStart } from '../../shared/dates';
 import { sha256 } from './auth/crypto';
 import { byId, type UserRow } from './db/users';
@@ -35,6 +35,7 @@ const slot = {
   slot: 'AM',
   kind: 'oyo',
   zone: null,
+  counts_oyo: false,
   text: 'First line\nSecond line',
 } as const;
 const draft: Plan = { week_start: WEEK, slots: [slot], totals: [{ label: 'Training' }] };
@@ -75,14 +76,14 @@ beforeEach(async () => {
         NOW,
       );
     }
-    replacePlan(storage, { week_start: WEEK, slots: TEAM_PLAN_SEED_SLOTS, totals: [] });
+    replacePlan(storage, { week_start: WEEK, slots: TEAM_PLAN_CURRENT_SLOTS, totals: [] });
   });
 });
 
 it('serves one team-wide seeded week, empty next week, and the untouched read-only examples', async () => {
   const seeded = await (await api('/plan')).json<TeamPlan>();
   expect(seeded.week_start).toBe(WEEK);
-  expect(seeded.slots).toEqual(TEAM_PLAN_SEED_SLOTS);
+  expect(seeded.slots).toEqual(TEAM_PLAN_CURRENT_SLOTS);
   expect(seeded.total).toBeNull();
   expect(await (await api('/plan?week=2026-11-16')).json()).toEqual({
     week_start: '2026-11-16',
@@ -134,6 +135,7 @@ it('rejects invalid dates, non-Mondays, bounds, keys, enums and text without mut
     { slots: [{ ...slot, day: 0.5 }] },
     { slots: [{ ...slot, slot: 'NOON' }] },
     { slots: [{ ...slot, kind: 'bad' }] },
+    ...['true', 1, null, {}].map((counts_oyo) => ({ slots: [{ ...slot, counts_oyo }] })),
     { slots: [{ ...slot, zone: 'bad' }] },
     { slots: [{ ...slot, text: 'x'.repeat(2001) }] },
     { totals: [{ label: 'x'.repeat(201) }] },
@@ -159,6 +161,46 @@ it('rejects invalid dates, non-Mondays, bounds, keys, enums and text without mut
       )
     ).status,
   ).toBe(200);
+});
+
+it('defaults omitted counts_oyo to false, round-trips booleans and keeps marked team days no_oyo', async () => {
+  const withoutFlag = { ...slot, counts_oyo: undefined };
+  const result = await api('/admin/plan', 'PUT', { ...draft, slots: [withoutFlag] }, 'admin');
+  expect((await result.json<Plan>()).slots[0].counts_oyo).toBe(false);
+  expect(
+    (
+      await api(
+        '/admin/plan',
+        'PUT',
+        { ...draft, slots: [{ ...slot, kind: 'team', zone: 'B', counts_oyo: true }] },
+        'admin',
+      )
+    ).status,
+  ).toBe(200);
+  expect((await (await api('/plan')).json<TeamPlan>()).slots[0]).toMatchObject({
+    counts_oyo: true,
+    kind: 'team',
+    zone: 'B',
+  });
+  expect(await (await api('/games/access')).json()).toEqual({
+    date: WEEK,
+    unlocked: true,
+    reason: 'no_oyo',
+  });
+  expect(
+    (
+      await api(
+        '/admin/plan',
+        'PUT',
+        { ...draft, slots: [{ ...slot, kind: 'oyo', counts_oyo: true }] },
+        'admin',
+      )
+    ).status,
+  ).toBe(200);
+  expect(await (await api('/games/access')).json()).toMatchObject({
+    unlocked: false,
+    reason: 'locked',
+  });
 });
 it('replaces and clears only the requested week, preserves null zones/newlines, and audits the dated target', async () => {
   const other = { ...draft, week_start: '2026-11-16', slots: [{ ...slot, text: 'Keep' }] };

@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import type { TeamRace, User } from '../../shared/types';
 import { GROUP_TARGETS } from '../../shared/seed';
 import type { Env } from './index';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { setSetting } from './db/settings';
 import { teamRace } from './db/stats';
 import { insertRosterFixture } from './testFixtures';

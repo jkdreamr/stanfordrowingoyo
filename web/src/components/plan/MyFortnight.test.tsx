@@ -489,6 +489,9 @@ it('shows the actual two dated team weeks as read-only rows without counting the
   const { call } = await setup({ seed: 'next' });
   const team = await screen.findByLabelText('Team schedule Monday AM Week 1');
   expect(team.textContent).toContain("15' Mobility/Activation");
+  const pm = screen.getByLabelText('Team schedule Monday PM1 Week 1');
+  expect(within(pm).queryByText('Counts toward OYO')).toBeNull();
+  expect(within(pm).getByText('B')).toBeTruthy();
   expect(within(team).queryByRole('button')).toBeNull();
   expect(screen.getByLabelText('Team schedule Wednesday AM Week 1').textContent).toContain(
     'Athlete Driven OYO or OFF',

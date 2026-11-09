@@ -68,6 +68,14 @@ export const ROSTER: RosterInput[] = [
     side: null,
     class_year: null,
   },
+  {
+    name: 'Thomas Kelley',
+    role: 'rower',
+    email: null,
+    group_key: null,
+    side: null,
+    class_year: null,
+  },
 ];
 export const GROUP_TARGETS = { frosh: 60000, normal: 80000, u23: 100000 };
 const rows: [Modality, Zone, [string, number | null][]][] = [

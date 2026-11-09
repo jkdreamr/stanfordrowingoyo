@@ -40,7 +40,7 @@ import {
   ZONES,
 } from '../../../shared/math';
 import { GROUP_TARGETS, PLAN_SLOTS, PLAN_TOTALS, PRESETS } from '../../../shared/seed';
-import { TEAM_PLAN_SEED_SLOTS, TEAM_PLAN_SEED_WEEK } from '../../../shared/teamPlan';
+import { TEAM_PLAN_CURRENT_SLOTS, TEAM_PLAN_SEED_WEEK } from '../../../shared/teamPlan';
 import { createFixtures, publicUser } from './fixtures';
 import { mentionIds } from '../lib/social';
 import { generatedImage } from './images';
@@ -348,7 +348,7 @@ export function createMockApi({
       TEAM_PLAN_SEED_WEEK,
       {
         week_start: TEAM_PLAN_SEED_WEEK,
-        slots: structuredClone(TEAM_PLAN_SEED_SLOTS),
+        slots: structuredClone(TEAM_PLAN_CURRENT_SLOTS),
         totals: [],
       },
     ],
@@ -788,6 +788,7 @@ export function createMockApi({
       !['AM', 'PM1', 'PM2'].includes(s.slot) ||
       !['team', 'oyo', 'off'].includes(s.kind) ||
       (s.zone !== null && !ZONES.includes(s.zone)) ||
+      (s.counts_oyo !== undefined && typeof s.counts_oyo !== 'boolean') ||
       typeof s.text !== 'string' ||
       s.text.length > 2000
     )
@@ -854,7 +855,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 19 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 20 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -2612,7 +2613,14 @@ export function createMockApi({
           const plan: Plan = {
             week_start: week,
             slots: input.slots
-              .map(({ day, slot, kind, zone, text }) => ({ day, slot, kind, zone, text }))
+              .map(({ day, slot, kind, zone, text, counts_oyo = false }) => ({
+                day,
+                slot,
+                kind,
+                zone,
+                text,
+                counts_oyo,
+              }))
               .sort((a, b) => a.day - b.day || a.slot.localeCompare(b.slot)),
             totals: input.totals.map(({ label }) => ({ label })),
           };

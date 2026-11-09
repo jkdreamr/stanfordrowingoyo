@@ -12,7 +12,7 @@ import type {
 } from '../../shared/types';
 import type { Env } from './index';
 import { sha256 } from './auth/crypto';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { getSetting, setSetting } from './db/settings';
 import { reportDetails, type ReportRow } from './db/reports';
 
@@ -590,7 +590,7 @@ describe('schema v15', () => {
   it('migrates a fresh database and remains idempotent', async () => {
     const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
     await runInDurableObject(stub, (_, state) => {
-      expect(getSetting(state.storage, 'schema_version')).toBe(19);
+      expect(getSetting(state.storage, 'schema_version')).toBe(20);
       for (const table of ['erg_tests', 'challenges', 'content_reports', 'comment_mention_history'])
         expect(
           state.storage.sql
@@ -621,7 +621,7 @@ describe('schema v15', () => {
       s.sql.exec('ALTER TABLE comments DROP COLUMN edited_at');
       setSetting(s, 'schema_version', 9);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(19);
+      expect(getSetting(s, 'schema_version')).toBe(20);
       expect(
         s.sql.exec('SELECT body,created_at,edited_at FROM comments WHERE id=?', posted.id).one(),
       ).toEqual({ body: '@Mate', created_at: NOW, edited_at: null });
@@ -645,13 +645,13 @@ describe('schema v15', () => {
       for (const version of [9, 10, 11, 12]) {
         setSetting(s, 'schema_version', version);
         migrate(s);
-        expect(getSetting(s, 'schema_version')).toBe(19);
+        expect(getSetting(s, 'schema_version')).toBe(20);
         expect(s.sql.exec('SELECT id FROM content_reports').one().id).toBe(id);
         expect(
           s.sql.exec('SELECT edited_at FROM comments WHERE id=?', posted.id).one().edited_at,
         ).toBe(LATER);
       }
     });
-    expect(await (await api('/health')).json()).toEqual({ ok: true, schema_version: 19 });
+    expect(await (await api('/health')).json()).toEqual({ ok: true, schema_version: 20 });
   });
 });

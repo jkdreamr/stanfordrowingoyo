@@ -3,7 +3,7 @@ import { SELF, env, runInDurableObject } from 'cloudflare:test';
 import { beforeEach, expect, it, vi } from 'vitest';
 import type { Env } from './index';
 import worker from './index';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { getSetting, setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
 import { hashPassword, verifyPassword } from './auth/crypto';

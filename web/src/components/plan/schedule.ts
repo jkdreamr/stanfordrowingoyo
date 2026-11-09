@@ -97,7 +97,8 @@ export function planError(plan: Plan, date = today()) {
         !SLOTS.includes(row.slot) ||
         !['team', 'oyo', 'off'].includes(row.kind) ||
         (row.zone !== null && !ZONES.includes(row.zone)) ||
-        row.text.length > 2000,
+        row.text.length > 2000 ||
+        (row.counts_oyo !== undefined && typeof row.counts_oyo !== 'boolean'),
     )
   )
     return 'Each session must have a valid key and no more than 2,000 characters.';

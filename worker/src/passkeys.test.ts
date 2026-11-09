@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import type { Env } from './index';
 import type { PasskeyLoginOptions, PasskeyRegistrationOptions, User } from '../../shared/types';
 import { setSetting, getSetting } from './db/settings';
-import { migrate } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { insertRosterFixture } from './testFixtures';
 import {
   decodeCbor,
@@ -621,7 +621,7 @@ it('migrates v9 databases and reruns idempotently', async () => {
     setSetting(s, 'schema_version', 9);
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(19);
+    expect(getSetting(s, 'schema_version')).toBe(20);
     expect(
       s.sql
         .exec(
@@ -631,6 +631,6 @@ it('migrates v9 databases and reruns idempotently', async () => {
     ).toEqual([{ name: 'passkeys' }, { name: 'webauthn_challenges' }]);
     setSetting(s, 'schema_version', 12);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(19);
+    expect(getSetting(s, 'schema_version')).toBe(20);
   });
 });

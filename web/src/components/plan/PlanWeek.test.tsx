@@ -70,3 +70,18 @@ it('renders dated null-zone OYO and multiline seed text, with today highlighted 
   expect(screen.queryByText('PM1')).toBeNull();
   expect(screen.getAllByText('PM').length).toBeGreaterThan(0);
 });
+
+it('shows the informational tag and zone only on marked team slots, not unmarked sessions', () => {
+  const week = scheduleWeek({
+    week_start: '2026-11-09',
+    total: null,
+    slots: [
+      { day: 0, slot: 'PM1', kind: 'team', zone: 'B', text: 'Team erg', counts_oyo: true },
+      { day: 1, slot: 'AM', kind: 'team', zone: null, text: 'Water', counts_oyo: false },
+      { day: 2, slot: 'AM', kind: 'oyo', zone: null, text: 'OYO', counts_oyo: true },
+    ],
+  });
+  render(<PlanWeek week={week} />);
+  expect(screen.getAllByText('Counts toward OYO')).toHaveLength(2);
+  expect(screen.getAllByText('B')).toHaveLength(2);
+});

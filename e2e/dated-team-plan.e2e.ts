@@ -34,6 +34,9 @@ test('dated Schedule shows the Nov9 seed, Nov16 Coming Soon, and read-only Examp
   const seed = await (await context.request.get('/api/plan?week=2026-11-09')).json();
   expect(seed.slots).toHaveLength(14);
   expect(seed.total).toBeNull();
+  expect(
+    seed.slots.find((row: { day: number; slot: string }) => row.day === 0 && row.slot === 'PM1'),
+  ).toMatchObject({ kind: 'team', zone: 'B', counts_oyo: false });
   await page.goto('/plan');
   await waitForSplash(page);
   await expect(page.getByRole('heading', { name: 'Week of Nov 9' })).toBeVisible();
@@ -51,6 +54,9 @@ test('dated Schedule shows the Nov9 seed, Nov16 Coming Soon, and read-only Examp
     expect(box.width).toBeGreaterThanOrEqual(44);
     expect(box.height).toBeGreaterThanOrEqual(44);
   }
+  await expect(
+    page.getByText('Counts toward OYO', { exact: true }).filter({ visible: true }),
+  ).toHaveCount(0);
   await screenshot(page, 'schedule-2026-11-09', testInfo.project.name);
   await page.getByRole('button', { name: 'Next Week', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Week of Nov 16' })).toBeVisible();
@@ -146,6 +152,8 @@ test('My Fortnight displays Nov9 team rows above personal sessions without chang
   const team = monday.getByLabel('Team schedule Monday AM Week 1', { exact: true });
   const personal = monday.getByRole('button', { name: 'Edit AM Monday Week 1', exact: true });
   await expect(team).toContainText("15' Mobility/Activation");
+  await expect(monday.getByText('Counts toward OYO', { exact: true })).toHaveCount(0);
+  await expect(monday.getByLabel('Team schedule Monday PM1 Week 1')).toContainText('B');
   await expect(team.getByRole('button')).toHaveCount(0);
   await expect(personal).toContainText('Personal steady erg');
   expect((await team.boundingBox())!.y).toBeLessThan((await personal.boundingBox())!.y);

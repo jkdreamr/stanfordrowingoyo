@@ -11,7 +11,8 @@ import type {
 } from '../../shared/types';
 import { ROSTER } from '../../shared/seed';
 import type { Env } from './index';
-import { migrate, seedRoster } from './db/migrate';
+import { seedRoster } from './db/migrate';
+import { migrateLegacyFixture as migrate } from './migrationFixture';
 import { setSetting } from './db/settings';
 import { insertRosterFixture } from './testFixtures';
 import type { Row } from './db/row';
@@ -117,9 +118,9 @@ describe('id-based roster signup', () => {
       setSetting(storage, 'schema_version', 2);
       migrate(storage);
       const rows = storage.sql.exec<Row<RosterRow>>('SELECT * FROM roster ORDER BY name').toArray();
-      expect(rows).toHaveLength(39);
+      expect(rows).toHaveLength(40);
       expect(rows.map((row) => row.name).sort()).toEqual(ROSTER.map((row) => row.name).sort());
-      expect(rows.filter((row) => row.role === 'rower')).toHaveLength(35);
+      expect(rows.filter((row) => row.role === 'rower')).toHaveLength(36);
       expect(rows.filter((row) => row.role === 'coxswain')).toHaveLength(3);
       expect(rows.every((row) => row.group_key === null && row.claimed_by_user_id === null)).toBe(
         true,
@@ -129,7 +130,7 @@ describe('id-based roster signup', () => {
       seedRoster(storage);
       seedRoster(storage);
       migrate(storage);
-      expect(storage.sql.exec('SELECT * FROM roster').toArray()).toHaveLength(39);
+      expect(storage.sql.exec('SELECT * FROM roster').toArray()).toHaveLength(40);
       expect(() =>
         storage.sql.exec(
           "INSERT INTO roster (id,name,email,role,created_at) VALUES ('duplicate','Other','JOSKOO@stanford.edu','admin','2026-01-01')",
@@ -152,7 +153,7 @@ describe('id-based roster signup', () => {
     expect((await api('/admin/roster')).status).toBe(401);
     expect((await api('/users')).status).toBe(401);
     const list = await choices();
-    expect(list).toHaveLength(38);
+    expect(list).toHaveLength(39);
     expect(list.map((row) => row.name)).toEqual(list.map((row) => row.name).sort());
     expect(Object.keys(list[0]).sort()).toEqual(['id', 'name', 'role']);
     const row = list.find((row) => row.name === 'Marcus Albrecht')!;

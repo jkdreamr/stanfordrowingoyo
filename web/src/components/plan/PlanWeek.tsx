@@ -22,7 +22,12 @@ export function SlotItem({
       <div className="mb-2 flex flex-wrap items-center gap-2 text-caption font-semibold">
         <span>{item.kind === 'oyo' ? 'OYO' : item.kind === 'off' ? 'Off' : 'Team'}</span>
         {label && <span>{label}</span>}
-        {item.kind === 'oyo' && item.zone && <ZoneChip zone={item.zone} />}
+        {item.kind !== 'off' && item.zone && <ZoneChip zone={item.zone} />}
+        {item.kind === 'team' && item.counts_oyo && (
+          <span className="rounded-control bg-surface-2 px-2 py-1 text-caption font-normal text-muted">
+            Counts toward OYO
+          </span>
+        )}
       </div>
       <p className="whitespace-pre-line break-words text-footnote">{slotDisplayText(item)}</p>
     </div>

@@ -264,6 +264,7 @@ export interface PlanSlot {
   kind: 'team' | 'oyo' | 'off';
   zone: Zone | null;
   text: string;
+  counts_oyo?: boolean;
 }
 export interface PlanTotal {
   label: string;
@@ -278,7 +279,7 @@ export interface TeamPlan {
   slots: PlanSlot[];
   total: string | null;
 }
-export interface ExamplePlanSlot extends PlanSlot {
+export interface ExamplePlanSlot extends Omit<PlanSlot, 'counts_oyo'> {
   group_key: GroupKey;
   week: 1 | 2;
 }

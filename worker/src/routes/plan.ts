@@ -24,6 +24,8 @@ function slot(value: unknown): PlanSlot {
     kind: v.enumeration(row.kind, ['team', 'oyo', 'off'], 'Kind'),
     zone: v.nullable(row.zone, (x) => v.enumeration(x, ZONES, 'Zone')),
     text: v.string(row.text, 'Text', 0, 2000),
+    counts_oyo:
+      row.counts_oyo === undefined ? false : v.boolean(row.counts_oyo, 'Counts toward OYO'),
   };
 }
 function total(value: unknown): PlanTotal {
