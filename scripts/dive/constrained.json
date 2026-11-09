@@ -1822,7 +1822,8 @@
           "name": "The Godfather"
         },
         {
-          "name": "The Godfather Part II"
+          "name": "The Godfather Part II",
+          "aliases": ["Godfather 2", "Godfather Part 2", "Godfather II"]
         },
         {
           "name": "The Great Ziegfeld"
@@ -1844,7 +1845,11 @@
         },
         {
           "name": "The Return of the King",
-          "aliases": ["LOTR Return of the King"]
+          "aliases": [
+            "LOTR Return of the King",
+            "The Lord of the Rings: The Return of the King",
+            "Lord of the Rings"
+          ]
         },
         {
           "name": "The Lost Weekend"
@@ -1953,7 +1958,8 @@
           "name": "Frozen"
         },
         {
-          "name": "Guillermo del Toro's Pinocchio"
+          "name": "Guillermo del Toro's Pinocchio",
+          "aliases": ["Pinocchio"]
         },
         {
           "name": "Happy Feet"
@@ -1962,7 +1968,8 @@
           "name": "Inside Out"
         },
         {
-          "name": "KPop Demon Hunters"
+          "name": "KPop Demon Hunters",
+          "aliases": ["K-Pop Demon Hunters"]
         },
         {
           "name": "Rango"
@@ -1977,7 +1984,8 @@
           "name": "Soul"
         },
         {
-          "name": "Spider-Man: Into the Spider-Verse"
+          "name": "Spider-Man: Into the Spider-Verse",
+          "aliases": ["Into the Spider-Verse", "Spider-Verse", "Spiderverse"]
         },
         {
           "name": "Spirited Away"
@@ -2002,10 +2010,16 @@
         },
         {
           "name": "The Curse of the Were-Rabbit",
-          "aliases": ["Wallace and Gromit"]
+          "aliases": [
+            "Wallace and Gromit",
+            "Wallace & Gromit: The Curse of the Were-Rabbit",
+            "Wallace and Gromit: Curse of the Were-Rabbit",
+            "Curse of the Were-Rabbit"
+          ]
         },
         {
-          "name": "Zootopia"
+          "name": "Zootopia",
+          "aliases": ["Zootropolis"]
         }
       ],
       "surface": ["Shrek", "Frozen", "Finding Nemo"],
@@ -2239,7 +2253,8 @@
           "name": "James Cagney"
         },
         {
-          "name": "James Stewart"
+          "name": "James Stewart",
+          "aliases": ["Jimmy Stewart"]
         },
         {
           "name": "Jamie Foxx"
@@ -2275,7 +2290,8 @@
           "name": "Lee Marvin"
         },
         {
-          "name": "Leonardo DiCaprio"
+          "name": "Leonardo DiCaprio",
+          "aliases": ["Leo", "Leo DiCaprio"]
         },
         {
           "name": "Lionel Barrymore"
@@ -2329,7 +2345,8 @@
           "name": "Richard Dreyfuss"
         },
         {
-          "name": "Robert De Niro"
+          "name": "Robert De Niro",
+          "aliases": ["De Niro", "Robert DeNiro", "DeNiro"]
         },
         {
           "name": "Robert Donat"
@@ -2836,7 +2853,8 @@
       "expect": [75, 75],
       "answers": [
         {
-          "name": "Alejandro G. Iñárritu"
+          "name": "Alejandro G. Iñárritu",
+          "aliases": ["Alejandro González Iñárritu", "Alejandro Inarritu"]
         },
         {
           "name": "Alfonso Cuarón"
@@ -2878,7 +2896,8 @@
           "name": "Damien Chazelle"
         },
         {
-          "name": "Daniel Kwan and Daniel Scheinert"
+          "name": "Daniel Kwan and Daniel Scheinert",
+          "aliases": ["Daniel Kwan", "Daniel Scheinert", "Daniels", "Kwan", "Scheinert"]
         },
         {
           "name": "Danny Boyle"
@@ -2920,7 +2939,8 @@
           "name": "George Stevens"
         },
         {
-          "name": "Guillermo del Toro"
+          "name": "Guillermo del Toro",
+          "aliases": ["del Toro"]
         },
         {
           "name": "James Cameron"
@@ -2935,7 +2955,8 @@
           "name": "Jerome Robbins"
         },
         {
-          "name": "Joel Coen and Ethan Coen"
+          "name": "Joel Coen and Ethan Coen",
+          "aliases": ["Coen brothers", "Coens", "Joel Coen", "Ethan Coen"]
         },
         {
           "name": "John Ford"
@@ -2995,7 +3016,8 @@
           "name": "Oliver Stone"
         },
         {
-          "name": "Paul Thomas Anderson"
+          "name": "Paul Thomas Anderson",
+          "aliases": ["PTA"]
         },
         {
           "name": "Peter Jackson"
@@ -3271,7 +3293,8 @@
           "name": "Hugh Griffith"
         },
         {
-          "name": "J. K. Simmons"
+          "name": "J. K. Simmons",
+          "aliases": ["JK Simmons"]
         },
         {
           "name": "Jack Albertson"
@@ -3370,7 +3393,8 @@
           "name": "Robert De Niro"
         },
         {
-          "name": "Robert Downey Jr."
+          "name": "Robert Downey Jr.",
+          "aliases": ["RDJ", "Robert Downey"]
         },
         {
           "name": "Robin Williams"
@@ -3719,7 +3743,8 @@
           "name": "Miyoshi Umeki"
         },
         {
-          "name": "Mo'Nique"
+          "name": "Mo'Nique",
+          "aliases": ["Mo Nique", "Monique"]
         },
         {
           "name": "Octavia Spencer"
@@ -3785,10 +3810,12 @@
           "name": "Whoopi Goldberg"
         },
         {
-          "name": "Yuh-jung Youn"
+          "name": "Yuh-jung Youn",
+          "aliases": ["Youn Yuh-jung"]
         },
         {
-          "name": "Zoe Saldaña"
+          "name": "Zoe Saldaña",
+          "aliases": ["Zoe Saldana"]
         }
       ],
       "surface": ["Viola Davis", "Anne Hathaway", "Maggie Smith"],
@@ -3910,10 +3937,12 @@
       "expect": [92, 92],
       "answers": [
         {
-          "name": "(I'm Gonna) Love Me Again"
+          "name": "(I'm Gonna) Love Me Again",
+          "aliases": ["Love Me Again"]
         },
         {
-          "name": "(I've Had) The Time of My Life"
+          "name": "(I've Had) The Time of My Life",
+          "aliases": ["Time of My Life", "I've Had the Time of My Life"]
         },
         {
           "name": "A Whole New World"
@@ -3973,7 +4002,8 @@
           "name": "Fight for You"
         },
         {
-          "name": "Flashdance... What a Feeling"
+          "name": "Flashdance... What a Feeling",
+          "aliases": ["What a Feeling", "Flashdance"]
         },
         {
           "name": "For All We Know"
@@ -4066,7 +4096,8 @@
           "name": "Over the Rainbow"
         },
         {
-          "name": "Que Sera, Sera"
+          "name": "Que Sera, Sera",
+          "aliases": ["Whatever Will Be, Will Be"]
         },
         {
           "name": "Raindrops Keep Fallin' on My Head"
@@ -4135,7 +4166,8 @@
           "name": "The Windmills of Your Mind"
         },
         {
-          "name": "Theme from Shaft"
+          "name": "Theme from Shaft",
+          "aliases": ["Shaft"]
         },
         {
           "name": "Things Have Changed"
@@ -4168,7 +4200,8 @@
           "name": "White Christmas"
         },
         {
-          "name": "Writing's on the Wall"
+          "name": "Writing's on the Wall",
+          "aliases": ["Writing on the Wall"]
         },
         {
           "name": "You Light Up My Life"
@@ -4771,7 +4804,7 @@
         },
         {
           "name": "A.I. Artificial Intelligence",
-          "aliases": ["AI", "Artificial Intelligence"]
+          "aliases": ["AI", "Artificial Intelligence", "A I Artificial Intelligence"]
         },
         {
           "name": "Always"
@@ -4786,7 +4819,8 @@
           "name": "Catch Me If You Can"
         },
         {
-          "name": "Close Encounters of the Third Kind"
+          "name": "Close Encounters of the Third Kind",
+          "aliases": ["Close Encounters"]
         },
         {
           "name": "Disclosure Day"
@@ -4796,7 +4830,7 @@
         },
         {
           "name": "E.T. the Extra-Terrestrial",
-          "aliases": ["ET"]
+          "aliases": ["ET", "E T"]
         },
         {
           "name": "Empire of the Sun"
@@ -4809,13 +4843,19 @@
         },
         {
           "name": "Kingdom of the Crystal Skull",
-          "aliases": ["Indiana Jones 4"]
+          "aliases": [
+            "Indiana Jones 4",
+            "Indiana Jones and the Kingdom of the Crystal Skull",
+            "Crystal Skull"
+          ]
         },
         {
-          "name": "Indiana Jones and the Last Crusade"
+          "name": "Indiana Jones and the Last Crusade",
+          "aliases": ["Last Crusade"]
         },
         {
-          "name": "Indiana Jones and the Temple of Doom"
+          "name": "Indiana Jones and the Temple of Doom",
+          "aliases": ["Temple of Doom"]
         },
         {
           "name": "Jaws"
@@ -4833,7 +4873,8 @@
           "name": "Munich"
         },
         {
-          "name": "Raiders of the Lost Ark"
+          "name": "Raiders of the Lost Ark",
+          "aliases": ["Raiders"]
         },
         {
           "name": "Ready Player One"
@@ -4845,7 +4886,8 @@
           "name": "Schindler's List"
         },
         {
-          "name": "The Adventures of Tintin"
+          "name": "The Adventures of Tintin",
+          "aliases": ["Tintin"]
         },
         {
           "name": "The BFG"
@@ -5058,7 +5100,8 @@
           "name": "Suspicion"
         },
         {
-          "name": "The 39 Steps"
+          "name": "The 39 Steps",
+          "aliases": ["The Thirty-Nine Steps"]
         },
         {
           "name": "The Birds"
@@ -5160,7 +5203,8 @@
       "expect": [13, 13],
       "answers": [
         {
-          "name": "2001: A Space Odyssey"
+          "name": "2001: A Space Odyssey",
+          "aliases": ["2001", "Space Odyssey"]
         },
         {
           "name": "A Clockwork Orange"
@@ -5169,7 +5213,8 @@
           "name": "Barry Lyndon"
         },
         {
-          "name": "Dr. Strangelove"
+          "name": "Dr. Strangelove",
+          "aliases": ["Doctor Strangelove", "Strangelove"]
         },
         {
           "name": "Eyes Wide Shut"
@@ -5311,27 +5356,37 @@
       "expect": [10, 10],
       "answers": [
         {
-          "name": "Death Proof"
+          "name": "Death Proof",
+          "aliases": ["Grindhouse"]
         },
         {
-          "name": "Django Unchained"
+          "name": "Django Unchained",
+          "aliases": ["Django"]
         },
         {
-          "name": "Inglourious Basterds"
+          "name": "Inglourious Basterds",
+          "aliases": ["Inglorious Basterds", "Inglorious Bastards"]
         },
         {
           "name": "Jackie Brown"
         },
         {
           "name": "Kill Bill: Volume 1",
-          "aliases": ["Kill Bill 1", "Kill Bill Vol 1"]
+          "aliases": [
+            "Kill Bill 1",
+            "Kill Bill Vol 1",
+            "Kill Bill",
+            "Kill Bill: The Whole Bloody Affair",
+            "Kill Bill Volume One"
+          ]
         },
         {
           "name": "Kill Bill: Volume 2",
-          "aliases": ["Kill Bill 2", "Kill Bill Vol 2"]
+          "aliases": ["Kill Bill 2", "Kill Bill Vol 2", "Kill Bill Volume Two"]
         },
         {
-          "name": "Once Upon a Time in Hollywood"
+          "name": "Once Upon a Time in Hollywood",
+          "aliases": ["OUATIH"]
         },
         {
           "name": "Pulp Fiction"
@@ -5340,7 +5395,8 @@
           "name": "Reservoir Dogs"
         },
         {
-          "name": "The Hateful Eight"
+          "name": "The Hateful Eight",
+          "aliases": ["Hateful 8"]
         }
       ],
       "surface": ["Pulp Fiction", "Kill Bill: Volume 1", "Django Unchained"],
@@ -5401,7 +5457,8 @@
           "name": "Beetlejuice"
         },
         {
-          "name": "Beetlejuice Beetlejuice"
+          "name": "Beetlejuice Beetlejuice",
+          "aliases": ["Beetlejuice 2"]
         },
         {
           "name": "Big Eyes"
@@ -5413,7 +5470,8 @@
           "name": "Charlie and the Chocolate Factory"
         },
         {
-          "name": "Corpse Bride"
+          "name": "Corpse Bride",
+          "aliases": ["Tim Burton's Corpse Bride"]
         },
         {
           "name": "Dark Shadows"
@@ -5434,10 +5492,12 @@
           "name": "Mars Attacks!"
         },
         {
-          "name": "Miss Peregrine's Home"
+          "name": "Miss Peregrine's Home",
+          "aliases": ["Miss Peregrine's Home for Peculiar Children", "Miss Peregrine"]
         },
         {
-          "name": "Pee-wee's Big Adventure"
+          "name": "Pee-wee's Big Adventure",
+          "aliases": ["Pee Wee"]
         },
         {
           "name": "Planet of the Apes"
@@ -5446,7 +5506,8 @@
           "name": "Sleepy Hollow"
         },
         {
-          "name": "Sweeney Todd"
+          "name": "Sweeney Todd",
+          "aliases": ["Sweeney Todd: The Demon Barber of Fleet Street"]
         }
       ],
       "surface": ["Beetlejuice", "Edward Scissorhands", "Batman"],
@@ -5660,7 +5721,8 @@
           "name": "Die Another Day"
         },
         {
-          "name": "Dr. No"
+          "name": "Dr. No",
+          "aliases": ["Doctor No"]
         },
         {
           "name": "For Your Eyes Only"
@@ -5669,13 +5731,15 @@
           "name": "From Russia with Love"
         },
         {
-          "name": "GoldenEye"
+          "name": "GoldenEye",
+          "aliases": ["Golden Eye"]
         },
         {
           "name": "Goldfinger"
         },
         {
-          "name": "Licence to Kill"
+          "name": "Licence to Kill",
+          "aliases": ["License to Kill"]
         },
         {
           "name": "Live and Let Die"
@@ -5693,7 +5757,8 @@
           "name": "Octopussy"
         },
         {
-          "name": "On Her Majesty's Secret Service"
+          "name": "On Her Majesty's Secret Service",
+          "aliases": ["OHMSS"]
         },
         {
           "name": "Quantum of Solace"
@@ -5779,7 +5844,8 @@
           "aliases": ["The Secret World of Arrietty"]
         },
         {
-          "name": "Castle in the Sky"
+          "name": "Castle in the Sky",
+          "aliases": ["Laputa", "Laputa: Castle in the Sky"]
         },
         {
           "name": "Earwig and the Witch"
@@ -5791,16 +5857,19 @@
           "name": "Grave of the Fireflies"
         },
         {
-          "name": "Howl's Moving Castle"
+          "name": "Howl's Moving Castle",
+          "aliases": ["Howl's Castle"]
         },
         {
           "name": "Kiki's Delivery Service"
         },
         {
-          "name": "My Neighbor Totoro"
+          "name": "My Neighbor Totoro",
+          "aliases": ["Totoro", "My Neighbour Totoro"]
         },
         {
-          "name": "My Neighbors the Yamadas"
+          "name": "My Neighbors the Yamadas",
+          "aliases": ["My Neighbours the Yamadas"]
         },
         {
           "name": "Nausicaä of the Valley of the Wind",
@@ -5840,7 +5909,8 @@
           "name": "The Red Turtle"
         },
         {
-          "name": "The Tale of the Princess Kaguya"
+          "name": "The Tale of the Princess Kaguya",
+          "aliases": ["Princess Kaguya", "Kaguya"]
         },
         {
           "name": "The Wind Rises"
@@ -5947,7 +6017,8 @@
           "name": "Alice in Wonderland"
         },
         {
-          "name": "Atlantis: The Lost Empire"
+          "name": "Atlantis: The Lost Empire",
+          "aliases": ["Atlantis"]
         },
         {
           "name": "Bambi"
@@ -5989,7 +6060,8 @@
           "name": "Frozen"
         },
         {
-          "name": "Frozen 2"
+          "name": "Frozen 2",
+          "aliases": ["Frozen II"]
         },
         {
           "name": "Fun and Fancy Free"
@@ -6056,7 +6128,8 @@
           "name": "Sleeping Beauty"
         },
         {
-          "name": "Snow White and the Seven Dwarfs"
+          "name": "Snow White and the Seven Dwarfs",
+          "aliases": ["Snow White"]
         },
         {
           "name": "Strange World"
@@ -6068,7 +6141,8 @@
           "name": "Tarzan"
         },
         {
-          "name": "The Adventures of Ichabod and Mr. Toad"
+          "name": "The Adventures of Ichabod and Mr. Toad",
+          "aliases": ["Ichabod and Mr. Toad"]
         },
         {
           "name": "The Aristocats"
@@ -6098,7 +6172,8 @@
           "name": "The Little Mermaid"
         },
         {
-          "name": "The Many Adventures of Winnie the Pooh"
+          "name": "The Many Adventures of Winnie the Pooh",
+          "aliases": ["Many Adventures of Winnie the Pooh"]
         },
         {
           "name": "The Princess and the Frog"
@@ -6128,7 +6203,8 @@
           "name": "Wreck-It Ralph"
         },
         {
-          "name": "Zootopia"
+          "name": "Zootopia",
+          "aliases": ["Zootropolis"]
         },
         {
           "name": "Zootopia 2"
@@ -8432,7 +8508,7 @@
         },
         {
           "name": "E.T. the Extra-Terrestrial",
-          "aliases": ["ET"]
+          "aliases": ["ET", "E T the Extra Terrestrial", "E T"]
         },
         {
           "name": "Earthquake"
@@ -8505,7 +8581,7 @@
         },
         {
           "name": "Dead Man's Chest",
-          "aliases": ["Pirates of the Caribbean 2"]
+          "aliases": ["Pirates of the Caribbean 2", "Pirates of the Caribbean: Dead Man's Chest"]
         },
         {
           "name": "Plymouth Adventure"
@@ -8529,7 +8605,8 @@
           "name": "Spider-Man 2"
         },
         {
-          "name": "Star Wars"
+          "name": "Star Wars",
+          "aliases": ["A New Hope", "Star Wars: A New Hope", "Star Wars: Episode IV – A New Hope"]
         },
         {
           "name": "Superman"
@@ -8538,7 +8615,8 @@
           "name": "Tenet"
         },
         {
-          "name": "Terminator 2: Judgment Day"
+          "name": "Terminator 2: Judgment Day",
+          "aliases": ["Terminator 2", "T2"]
         },
         {
           "name": "The Abyss"
@@ -8550,7 +8628,8 @@
           "name": "The Curious Case of Benjamin Button"
         },
         {
-          "name": "The Empire Strikes Back"
+          "name": "The Empire Strikes Back",
+          "aliases": ["Empire Strikes Back"]
         },
         {
           "name": "The Enemy Below"
@@ -8572,11 +8651,15 @@
         },
         {
           "name": "The Fellowship of the Ring",
-          "aliases": ["LOTR Fellowship of the Ring"]
+          "aliases": [
+            "LOTR Fellowship of the Ring",
+            "The Lord of the Rings: The Fellowship of the Ring",
+            "Fellowship of the Ring"
+          ]
         },
         {
           "name": "The Return of the King",
-          "aliases": ["LOTR Return of the King"]
+          "aliases": ["LOTR Return of the King", "The Lord of the Rings: The Return of the King"]
         },
         {
           "name": "The Lord of the Rings: The Two Towers",
@@ -16124,7 +16207,8 @@
           "name": "Just the Way You Are"
         },
         {
-          "name": "Killing Me Softly with His Song"
+          "name": "Killing Me Softly with His Song",
+          "aliases": ["Killing Me Softly"]
         },
         {
           "name": "Kiss from a Rose"
@@ -16154,7 +16238,8 @@
           "name": "Need You Now"
         },
         {
-          "name": "Nel Blu Dipinto Di Blu (Volare)"
+          "name": "Nel Blu Dipinto Di Blu (Volare)",
+          "aliases": ["Volare"]
         },
         {
           "name": "Not Like Us"
@@ -16763,7 +16848,8 @@
           "name": "Just the Way You Are"
         },
         {
-          "name": "Killing Me Softly with His Song"
+          "name": "Killing Me Softly with His Song",
+          "aliases": ["Killing Me Softly"]
         },
         {
           "name": "Kiss from a Rose"
@@ -16812,7 +16898,8 @@
           "name": "Send in the Clowns"
         },
         {
-          "name": "Single Ladies (Put a Ring on It)"
+          "name": "Single Ladies (Put a Ring on It)",
+          "aliases": ["Single Ladies"]
         },
         {
           "name": "Smooth"
@@ -17397,7 +17484,8 @@
           "name": "Bon Iver"
         },
         {
-          "name": "Bruce Hornsby"
+          "name": "Bruce Hornsby",
+          "aliases": ["Bruce Hornsby and the Range"]
         },
         {
           "name": "Carly Simon"
@@ -17418,7 +17506,8 @@
           "name": "Christopher Cross"
         },
         {
-          "name": "Crosby, Stills & Nash"
+          "name": "Crosby, Stills & Nash",
+          "aliases": ["CSN", "Crosby Stills and Nash"]
         },
         {
           "name": "Culture Club"
@@ -17439,7 +17528,8 @@
           "name": "Evanescence"
         },
         {
-          "name": "Fun"
+          "name": "Fun",
+          "aliases": ["Fun."]
         },
         {
           "name": "Hootie & the Blowfish"
@@ -17460,7 +17550,8 @@
           "name": "LeAnn Rimes"
         },
         {
-          "name": "Macklemore & Ryan Lewis"
+          "name": "Macklemore & Ryan Lewis",
+          "aliases": ["Macklemore"]
         },
         {
           "name": "Marc Cohn"
@@ -28664,7 +28755,8 @@
           "name": "Homeland"
         },
         {
-          "name": "L.A. Law"
+          "name": "L.A. Law",
+          "aliases": ["L A Law", "LA Law"]
         },
         {
           "name": "Law & Order"
@@ -28718,7 +28810,8 @@
           "name": "Robert Montgomery Presents"
         },
         {
-          "name": "Shōgun"
+          "name": "Shōgun",
+          "aliases": ["Shogun"]
         },
         {
           "name": "Stories of the Century"
@@ -29815,7 +29908,8 @@
           "name": "I Love Lucy"
         },
         {
-          "name": "M*A*S*H"
+          "name": "M*A*S*H",
+          "aliases": ["M A S H", "MASH"]
         },
         {
           "name": "Make Room for Daddy"
@@ -29869,7 +29963,8 @@
           "name": "The Jack Benny Show"
         },
         {
-          "name": "The Marvelous Mrs. Maisel"
+          "name": "The Marvelous Mrs. Maisel",
+          "aliases": ["Mrs Maisel", "Marvelous Mrs Maisel"]
         },
         {
           "name": "The Mary Tyler Moore Show"
@@ -31203,7 +31298,8 @@
           "name": "The Pacific"
         },
         {
-          "name": "The People v. O. J. Simpson"
+          "name": "The People v. O. J. Simpson",
+          "aliases": ["The People v OJ Simpson", "People vs OJ Simpson", "American Crime Story"]
         },
         {
           "name": "The Queen's Gambit"
@@ -31424,7 +31520,8 @@
           "name": "David Cook"
         },
         {
-          "name": "Fantasia Barrino"
+          "name": "Fantasia Barrino",
+          "aliases": ["Fantasia"]
         },
         {
           "name": "Hannah Harper"
@@ -31466,7 +31563,8 @@
           "name": "Phillip Phillips"
         },
         {
-          "name": "Ruben Studdard"
+          "name": "Ruben Studdard",
+          "aliases": ["Ruben"]
         },
         {
           "name": "Scotty McCreery"
@@ -31913,52 +32011,68 @@
       "expect": [16, 16],
       "answers": [
         {
-          "name": "Candice Brown"
+          "name": "Candice Brown",
+          "aliases": ["Candice"]
         },
         {
-          "name": "David Atherton"
+          "name": "David Atherton",
+          "aliases": ["David"]
         },
         {
-          "name": "Edd Kimber"
+          "name": "Edd Kimber",
+          "aliases": ["Edd"]
         },
         {
-          "name": "Frances Quinn"
+          "name": "Frances Quinn",
+          "aliases": ["Frances"]
         },
         {
-          "name": "Georgie Grasso"
+          "name": "Georgie Grasso",
+          "aliases": ["Georgie"]
         },
         {
-          "name": "Giuseppe Dell'Anno"
+          "name": "Giuseppe Dell'Anno",
+          "aliases": ["Giuseppe", "Giuseppe Dell Anno", "Giuseppe DellAnno"]
         },
         {
-          "name": "Jasmine Mitchell"
+          "name": "Jasmine Mitchell",
+          "aliases": ["Jasmine"]
         },
         {
-          "name": "Joanne Wheatley"
+          "name": "Joanne Wheatley",
+          "aliases": ["Jo", "Jo Wheatley"]
         },
         {
-          "name": "John Whaite"
+          "name": "John Whaite",
+          "aliases": ["John"]
         },
         {
-          "name": "Matty Edgell"
+          "name": "Matty Edgell",
+          "aliases": ["Matty"]
         },
         {
-          "name": "Nadiya Hussain"
+          "name": "Nadiya Hussain",
+          "aliases": ["Nadiya"]
         },
         {
-          "name": "Nancy Birtwhistle"
+          "name": "Nancy Birtwhistle",
+          "aliases": ["Nancy"]
         },
         {
-          "name": "Peter Sawkins"
+          "name": "Peter Sawkins",
+          "aliases": ["Peter"]
         },
         {
-          "name": "Rahul Mandal"
+          "name": "Rahul Mandal",
+          "aliases": ["Rahul"]
         },
         {
-          "name": "Sophie Faldo"
+          "name": "Sophie Faldo",
+          "aliases": ["Sophie"]
         },
         {
-          "name": "Syabira Yusoff"
+          "name": "Syabira Yusoff",
+          "aliases": ["Syabira"]
         }
       ],
       "surface": ["Nadiya Hussain", "Candice Brown", "John Whaite"],
@@ -36254,28 +36368,36 @@
       "expect": [8, 8],
       "answers": [
         {
-          "name": "Holly, Jolly"
+          "name": "Holly, Jolly",
+          "aliases": ["Chapter Three: Holly, Jolly", "Chapter Three", "Chapter 3", "Holly Jolly"]
         },
         {
-          "name": "The Bathtub"
+          "name": "The Bathtub",
+          "aliases": ["Chapter Seven: The Bathtub", "Chapter Seven", "Chapter 7"]
         },
         {
-          "name": "The Body"
+          "name": "The Body",
+          "aliases": ["Chapter Four: The Body", "Chapter Four", "Chapter 4"]
         },
         {
-          "name": "The Flea and the Acrobat"
+          "name": "The Flea and the Acrobat",
+          "aliases": ["Chapter Five: The Flea and the Acrobat", "Chapter Five", "Chapter 5"]
         },
         {
-          "name": "The Monster"
+          "name": "The Monster",
+          "aliases": ["Chapter Six: The Monster", "Chapter Six", "Chapter 6"]
         },
         {
-          "name": "The Upside Down"
+          "name": "The Upside Down",
+          "aliases": ["Chapter Eight: The Upside Down", "Chapter Eight", "Chapter 8"]
         },
         {
-          "name": "The Vanishing of Will Byers"
+          "name": "The Vanishing of Will Byers",
+          "aliases": ["Chapter One: The Vanishing of Will Byers", "Chapter One", "Chapter 1"]
         },
         {
-          "name": "The Weirdo on Maple Street"
+          "name": "The Weirdo on Maple Street",
+          "aliases": ["Chapter Two: The Weirdo on Maple Street", "Chapter Two", "Chapter 2"]
         }
       ],
       "surface": ["The Vanishing of Will Byers", "The Body", "The Monster"],
@@ -36756,21 +36878,24 @@
           "aliases": ["Red (Taylor's Version)"]
         },
         {
-          "name": "Reputation"
+          "name": "Reputation",
+          "aliases": ["Rep"]
         },
         {
           "name": "Speak Now",
           "aliases": ["Speak Now (Taylor's Version)"]
         },
         {
-          "name": "Taylor Swift"
+          "name": "Taylor Swift",
+          "aliases": ["Debut", "Self-titled"]
         },
         {
-          "name": "The Life of a Showgirl"
+          "name": "The Life of a Showgirl",
+          "aliases": ["Showgirl"]
         },
         {
           "name": "The Tortured Poets Department",
-          "aliases": ["TTPD"]
+          "aliases": ["TTPD", "Tortured Poets"]
         }
       ],
       "surface": ["Fearless", "Red", "1989"],
@@ -38246,46 +38371,53 @@
       "expect": [13, 13],
       "answers": [
         {
-          "name": "Ariel"
+          "name": "Ariel",
+          "aliases": ["Princess Ariel"]
         },
         {
           "name": "Aurora",
-          "aliases": ["Sleeping Beauty"]
+          "aliases": ["Sleeping Beauty", "Briar Rose", "Princess Aurora"]
         },
         {
           "name": "Belle",
-          "aliases": ["Beauty"]
+          "aliases": ["Beauty", "Princess Belle"]
         },
         {
           "name": "Cinderella"
         },
         {
-          "name": "Jasmine"
+          "name": "Jasmine",
+          "aliases": ["Princess Jasmine"]
         },
         {
-          "name": "Merida"
+          "name": "Merida",
+          "aliases": ["Princess Merida"]
         },
         {
-          "name": "Moana"
+          "name": "Moana",
+          "aliases": ["Princess Moana"]
         },
         {
-          "name": "Mulan"
+          "name": "Mulan",
+          "aliases": ["Fa Mulan", "Hua Mulan"]
         },
         {
           "name": "Pocahontas"
         },
         {
           "name": "Rapunzel",
-          "aliases": ["Tangled"]
+          "aliases": ["Tangled", "Princess Rapunzel"]
         },
         {
-          "name": "Raya"
+          "name": "Raya",
+          "aliases": ["Princess Raya"]
         },
         {
           "name": "Snow White"
         },
         {
-          "name": "Tiana"
+          "name": "Tiana",
+          "aliases": ["Princess Tiana"]
         }
       ],
       "surface": ["Snow White", "Cinderella", "Ariel"],
@@ -38531,7 +38663,8 @@
           "name": "Introducing... The Beatles"
         },
         {
-          "name": "Let It Be"
+          "name": "Let It Be",
+          "aliases": ["Let It Be... Naked"]
         },
         {
           "name": "Magical Mystery Tour"
@@ -39252,7 +39385,8 @@
       "expect": [26, 26],
       "answers": [
         {
-          "name": "\"Heroes\""
+          "name": "\"Heroes\"",
+          "aliases": ["Heroes"]
         },
         {
           "name": "Aladdin Sane"
@@ -39277,7 +39411,8 @@
           "name": "Heathen"
         },
         {
-          "name": "Hours"
+          "name": "Hours",
+          "aliases": ["'hours...'", "Hours..."]
         },
         {
           "name": "Hunky Dory"
@@ -39296,7 +39431,8 @@
           "aliases": ["Never Let Me Down 2018"]
         },
         {
-          "name": "Outside"
+          "name": "Outside",
+          "aliases": ["1. Outside"]
         },
         {
           "name": "Pin Ups"
@@ -39305,7 +39441,8 @@
           "name": "Reality"
         },
         {
-          "name": "Scary Monsters (and Super Creeps)"
+          "name": "Scary Monsters (and Super Creeps)",
+          "aliases": ["Scary Monsters", "Scary Monsters and Super Creeps"]
         },
         {
           "name": "Station to Station"
@@ -39330,7 +39467,10 @@
         },
         {
           "name": "Ziggy Stardust",
-          "aliases": ["Ziggy Stardust and the Spiders from Mars"]
+          "aliases": [
+            "Ziggy Stardust and the Spiders from Mars",
+            "The Rise and Fall of Ziggy Stardust"
+          ]
         }
       ],
       "surface": ["Hunky Dory", "Aladdin Sane", "Blackstar"],
@@ -39411,7 +39551,8 @@
           "name": "Queen"
         },
         {
-          "name": "Queen II"
+          "name": "Queen II",
+          "aliases": ["Queen 2"]
         },
         {
           "name": "Sheer Heart Attack"
@@ -41968,35 +42109,42 @@
           "name": "Ant-Man and the Wasp"
         },
         {
-          "name": "Ant-Man and the Wasp: Quantumania"
+          "name": "Ant-Man and the Wasp: Quantumania",
+          "aliases": ["Quantumania"]
         },
         {
-          "name": "Avengers: Age of Ultron"
+          "name": "Avengers: Age of Ultron",
+          "aliases": ["Age of Ultron"]
         },
         {
-          "name": "Avengers: Endgame"
+          "name": "Avengers: Endgame",
+          "aliases": ["Endgame"]
         },
         {
-          "name": "Avengers: Infinity War"
+          "name": "Avengers: Infinity War",
+          "aliases": ["Infinity War"]
         },
         {
           "name": "Black Panther"
         },
         {
-          "name": "Black Panther: Wakanda Forever"
+          "name": "Black Panther: Wakanda Forever",
+          "aliases": ["Wakanda Forever"]
         },
         {
           "name": "Black Widow"
         },
         {
-          "name": "Captain America: Brave New World"
+          "name": "Captain America: Brave New World",
+          "aliases": ["Brave New World"]
         },
         {
-          "name": "Captain America: Civil War"
+          "name": "Captain America: Civil War",
+          "aliases": ["Civil War"]
         },
         {
           "name": "Captain America: The First Avenger",
-          "aliases": ["Captain America"]
+          "aliases": ["Captain America", "The First Avenger"]
         },
         {
           "name": "Captain America: The Winter Soldier",
@@ -42006,14 +42154,19 @@
           "name": "Captain Marvel"
         },
         {
-          "name": "Deadpool & Wolverine"
+          "name": "Deadpool & Wolverine",
+          "aliases": ["Deadpool and Wolverine"]
         },
         {
           "name": "Doctor Strange"
         },
         {
           "name": "Doctor Strange: Multiverse of Madness",
-          "aliases": ["Doctor Strange 2", "Multiverse of Madness"]
+          "aliases": [
+            "Doctor Strange 2",
+            "Multiverse of Madness",
+            "Doctor Strange in the Multiverse of Madness"
+          ]
         },
         {
           "name": "Eternals"
@@ -42040,19 +42193,24 @@
           "name": "Iron Man 3"
         },
         {
-          "name": "Shang-Chi"
+          "name": "Shang-Chi",
+          "aliases": ["Shang-Chi and the Legend of the Ten Rings"]
         },
         {
-          "name": "Spider-Man: Brand New Day"
+          "name": "Spider-Man: Brand New Day",
+          "aliases": ["Brand New Day"]
         },
         {
-          "name": "Spider-Man: Far From Home"
+          "name": "Spider-Man: Far From Home",
+          "aliases": ["Far From Home"]
         },
         {
-          "name": "Spider-Man: Homecoming"
+          "name": "Spider-Man: Homecoming",
+          "aliases": ["Homecoming"]
         },
         {
-          "name": "Spider-Man: No Way Home"
+          "name": "Spider-Man: No Way Home",
+          "aliases": ["No Way Home"]
         },
         {
           "name": "The Avengers",
@@ -42072,17 +42230,20 @@
           "name": "Thor"
         },
         {
-          "name": "Thor: Love and Thunder"
+          "name": "Thor: Love and Thunder",
+          "aliases": ["Love and Thunder"]
         },
         {
-          "name": "Thor: Ragnarok"
+          "name": "Thor: Ragnarok",
+          "aliases": ["Ragnarok"]
         },
         {
-          "name": "Thor: The Dark World"
+          "name": "Thor: The Dark World",
+          "aliases": ["The Dark World"]
         },
         {
           "name": "Thunderbolts*",
-          "aliases": ["The New Avengers"]
+          "aliases": ["The New Avengers", "Thunderbolts"]
         }
       ],
       "surface": ["Iron Man", "The Avengers", "Black Panther"],
@@ -42139,9 +42300,27 @@
             "Ziggy's Gift"
           ],
           "review": "All winner-highlighted programs in every decade, covering both program-length predecessor categories. Year-only header rows are not winners. Specials count, including A Charlie Brown Thanksgiving and the Peanuts and Garfield winners."
+        },
+        {
+          "page": "Primetime Emmy Award for Outstanding Animated Program",
+          "revision": 1375256355,
+          "expect": [4, 4],
+          "members": [
+            "Camp Lazlo",
+            "Foster's Home for Imaginary Friends",
+            "King of the Hill",
+            "Samurai Jack"
+          ],
+          "reviewed": [
+            "Camp Lazlo",
+            "Foster's Home for Imaginary Friends",
+            "King of the Hill",
+            "Samurai Jack"
+          ],
+          "review": "Bold winner-highlighted rows whose program cell is unlinked plain text are winners missed by the link-based table extraction."
         }
       ],
-      "expect": [33, 33],
+      "expect": [37, 37],
       "answers": [
         {
           "name": "A Claymation Christmas Celebration"
@@ -42169,6 +42348,9 @@
           "name": "Bob's Burgers"
         },
         {
+          "name": "Camp Lazlo"
+        },
+        {
           "name": "Carlton Your Doorman"
         },
         {
@@ -42179,6 +42361,9 @@
         },
         {
           "name": "Claymation Easter"
+        },
+        {
+          "name": "Foster's Home for Imaginary Friends"
         },
         {
           "name": "Futurama"
@@ -42196,7 +42381,11 @@
           "name": "Garfield's Halloween Adventure"
         },
         {
-          "name": "Genndy Tartakovsky's Primal"
+          "name": "Genndy Tartakovsky's Primal",
+          "aliases": ["Primal"]
+        },
+        {
+          "name": "King of the Hill"
         },
         {
           "name": "Life Is a Circus, Charlie Brown"
@@ -42214,10 +42403,14 @@
           "name": "Rick and Morty"
         },
         {
+          "name": "Samurai Jack"
+        },
+        {
           "name": "South Park"
         },
         {
-          "name": "Star Wars: Clone Wars"
+          "name": "Star Wars: Clone Wars",
+          "aliases": ["Clone Wars"]
         },
         {
           "name": "The Grinch Grinches the Cat in the Hat"
@@ -43452,7 +43645,8 @@
           "name": "ABBA"
         },
         {
-          "name": "Alexander Rybak"
+          "name": "Alexander Rybak",
+          "aliases": ["Rybak"]
         },
         {
           "name": "André Claveau"
@@ -43461,13 +43655,15 @@
           "name": "Anne-Marie David"
         },
         {
-          "name": "Bobbysocks!"
+          "name": "Bobbysocks!",
+          "aliases": ["Bobbysocks"]
         },
         {
           "name": "Brotherhood of Man"
         },
         {
-          "name": "Bucks Fizz"
+          "name": "Bucks Fizz",
+          "aliases": ["Cheryl Baker"]
         },
         {
           "name": "Carola"
@@ -43479,7 +43675,8 @@
           "name": "Charlotte Nilsson"
         },
         {
-          "name": "Conchita Wurst"
+          "name": "Conchita Wurst",
+          "aliases": ["Conchita", "Wurst"]
         },
         {
           "name": "Corinne Hermès"
@@ -43488,7 +43685,8 @@
           "name": "Corry Brokken"
         },
         {
-          "name": "Céline Dion"
+          "name": "Céline Dion",
+          "aliases": ["Dion", "Celine Dion"]
         },
         {
           "name": "Dana"
@@ -43503,17 +43701,20 @@
           "name": "Dave Benton"
         },
         {
-          "name": "Dima Bilan"
+          "name": "Dima Bilan",
+          "aliases": ["Bilan"]
         },
         {
-          "name": "Duncan Laurence"
+          "name": "Duncan Laurence",
+          "aliases": ["Laurence"]
         },
         {
           "name": "Eimear Quinn",
           "aliases": ["Quinn"]
         },
         {
-          "name": "Ell"
+          "name": "Ell",
+          "aliases": ["Ell & Nikki", "Eldar Gasimov"]
         },
         {
           "name": "Emmelie de Forest",
@@ -43532,7 +43733,8 @@
           "name": "Grethe and Jørgen Ingmann"
         },
         {
-          "name": "Helena Paparizou"
+          "name": "Helena Paparizou",
+          "aliases": ["Paparizou"]
         },
         {
           "name": "Herreys"
@@ -43550,7 +43752,8 @@
           "name": "Jacqueline Boyer"
         },
         {
-          "name": "Jamala"
+          "name": "Jamala",
+          "aliases": ["Susana Jamaladinova"]
         },
         {
           "name": "Jean-Claude Pascal"
@@ -43567,7 +43770,7 @@
         },
         {
           "name": "Lena",
-          "aliases": ["Lena Meyer Landrut"]
+          "aliases": ["Lena Meyer Landrut", "Meyer Landrut"]
         },
         {
           "name": "Lenny Kuhr"
@@ -43580,7 +43783,8 @@
           "aliases": ["Lordi band"]
         },
         {
-          "name": "Loreen"
+          "name": "Loreen",
+          "aliases": ["Lorine Talhaoui"]
         },
         {
           "name": "Lulu",
@@ -43596,7 +43800,8 @@
           "name": "Marie N"
         },
         {
-          "name": "Marija Šerifović"
+          "name": "Marija Šerifović",
+          "aliases": ["Marija Serifovic", "Serifovic"]
         },
         {
           "name": "Massiel"
@@ -43605,17 +43810,20 @@
           "name": "Milk and Honey"
         },
         {
-          "name": "Måneskin"
+          "name": "Måneskin",
+          "aliases": ["Maneskin"]
         },
         {
-          "name": "Måns Zelmerlöw"
+          "name": "Måns Zelmerlöw",
+          "aliases": ["Zelmerlow", "Mans Zelmerlow"]
         },
         {
           "name": "Nemo",
           "aliases": ["Nemo Mettler"]
         },
         {
-          "name": "Netta"
+          "name": "Netta",
+          "aliases": ["Netta Barzilai", "Barzilai"]
         },
         {
           "name": "Niamh Kavanagh"
@@ -43624,7 +43832,8 @@
           "name": "Nicole"
         },
         {
-          "name": "Nikki"
+          "name": "Nikki",
+          "aliases": ["Nigar Jamal"]
         },
         {
           "name": "Olsen Brothers"
@@ -43637,16 +43846,19 @@
           "aliases": ["Riva band"]
         },
         {
-          "name": "Ruslana"
+          "name": "Ruslana",
+          "aliases": ["Ruslana Lyzhychko"]
         },
         {
           "name": "Salomé"
         },
         {
-          "name": "Salvador Sobral"
+          "name": "Salvador Sobral",
+          "aliases": ["Sobral"]
         },
         {
-          "name": "Sandie Shaw"
+          "name": "Sandie Shaw",
+          "aliases": ["Shaw"]
         },
         {
           "name": "Sandra Kim"
@@ -43655,7 +43867,8 @@
           "name": "Secret Garden"
         },
         {
-          "name": "Sertab Erener"
+          "name": "Sertab Erener",
+          "aliases": ["Sertab"]
         },
         {
           "name": "Séverine"
@@ -44168,7 +44381,7 @@
         },
         {
           "name": "The Dark Side of the Moon",
-          "aliases": ["Dark Side"]
+          "aliases": ["Dark Side", "DSOTM", "Dark Side of the Moon"]
         },
         {
           "name": "The Division Bell"
@@ -44189,7 +44402,8 @@
           "name": "Ummagumma"
         },
         {
-          "name": "Wish You Were Here"
+          "name": "Wish You Were Here",
+          "aliases": ["WYWH"]
         }
       ],
       "surface": ["The Dark Side of the Moon", "The Wall", "Wish You Were Here"],
