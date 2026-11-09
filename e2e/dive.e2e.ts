@@ -1,15 +1,35 @@
 import { mkdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import type { DiveDay, DiveGuessResponse, GameDayLeaderboard } from '../shared/types';
+import type { Api, DiveDay, DiveGuessResponse, GameDayLeaderboard } from '../shared/types';
 import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS, normalizeAnswer } from '../shared/games/dive';
 import { diveSelectionFor } from '../worker/src/games/divePrompts';
 import { answerSet } from '../worker/src/games/dive/sets';
 import { matchAnswer, suggestAnswer, type AnswerSet } from '../worker/src/games/dive/matcher';
 
-import { test, expect } from './fixtures';
+import { test as base, expect, type Rower } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
+
+const test = base.extend({
+  makeRower: async ({ makeRower }, use) => {
+    const rowers: Rower[] = [];
+    await use(async () => {
+      const rower = await makeRower();
+      rowers.push(rower);
+      return rower;
+    });
+    for (const { context } of rowers) {
+      const response = await context.request.get('/api/entries?scope=mine');
+      await expect(response).toBeOK();
+      const { items }: Api['GET /api/entries']['response'] = await response.json();
+      for (const entry of items)
+        await expect(
+          await context.request.delete(`/api/entries/${entry.id}`, { headers: csrfHeaders }),
+        ).toBeOK();
+    }
+  },
+});
 
 test.use({ serviceWorkers: 'block' });
 
@@ -261,8 +281,7 @@ test('Dive unlocks, scores the first player immediately and keeps scores through
   await expect(page.getByRole('timer')).toBeVisible();
   await expect(page.getByRole('heading', { name: selection[0].text, exact: true })).toBeVisible();
   const timerKey = `oyo:dive:${rower.user.id}:${date}:0`;
-  const deadline = await page.evaluate((key) => localStorage.getItem(key), timerKey);
-  expect(deadline).toBeTruthy();
+  await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), timerKey)).toBeTruthy();
   await context.setExtraHTTPHeaders({ ...clockHeaders, 'X-OYO-Test-Now': `${date}T18:00:01Z` });
   await page.reload();
   await expect(page.getByRole('timer')).toBeVisible();
