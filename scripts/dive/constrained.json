@@ -5846,7 +5846,7 @@
         }
       ],
       "surface": ["Cabaret", "Star Wars", "Mad Max: Fury Road", "Gravity"],
-      "pearl": "Mary Poppins",
+      "pearl": "Wilson",
       "people": false,
       "scope": "Through the 98th Academy Awards (2026). At least five competitive wins for the same film; exclude Best Picture winners and honorary, special achievement, juvenile and technical awards. Star Wars has six competitive wins plus an excluded special achievement award. Best Picture exclusion cross-checked against revision 1384180534."
     },
@@ -6455,7 +6455,7 @@
         }
       ],
       "surface": ["Titanic", "The Lion King", "Aladdin", "La La Land"],
-      "pearl": "Butch Cassidy and the Sundance Kid",
+      "pearl": "Born Free",
       "people": false,
       "scope": "Through the 98th Academy Awards (2026). Best Original Song and any competitive scoring category must both be won by the same film at the same ceremony. Includes historical dramatic/comedy/musical, adaptation and original song score categories."
     },
@@ -7860,7 +7860,7 @@
     },
     {
       "id": "nba-first-overall-picks",
-      "text": "a No. 1 overall NBA draft pick through 2026",
+      "text": "a No. 1 overall NBA draft pick before 2027",
       "theme": "sports",
       "cluster": "leagues",
       "active": true,
@@ -8861,7 +8861,7 @@
     },
     {
       "id": "mlb-50-homer-seasons",
-      "text": "a player with a 50-home-run MLB season through 2025",
+      "text": "a player with a 50-home-run MLB season before 2026",
       "theme": "sports",
       "cluster": "leagues",
       "active": true,
@@ -9231,7 +9231,7 @@
     },
     {
       "id": "nhl-500-goal-club",
-      "text": "a player with 500 career NHL goals through 2025–26",
+      "text": "a player with 500 career NHL goals by the end of the 2025–26 season",
       "theme": "sports",
       "cluster": "leagues",
       "active": true,
@@ -19485,7 +19485,7 @@
     },
     {
       "id": "us-capitals-not-largest",
-      "text": "a US state capital that wasn't its state's most populous city in the 2020 census",
+      "text": "a US state capital that wasn't its state's largest city in the 2020 census",
       "theme": "geography",
       "cluster": "us-states",
       "active": true,
@@ -20218,7 +20218,7 @@
     },
     {
       "id": "china-compass-names",
-      "text": "a Chinese province-level division whose Chinese name contains north, south, east or west",
+      "text": "a Chinese province-level division with a compass direction in its Chinese name",
       "theme": "geography",
       "cluster": "regions",
       "active": true,
@@ -27757,7 +27757,7 @@
       "pearl": "Kiribati",
       "people": false,
       "review": "Reviewed sovereign-state sections, accepting partially recognised states and transcontinental membership generously; dependent territories are excluded. Landlocked list includes currently extant disputed states, not historic states.",
-      "acceptance_notes": "an island country (Australia and partially recognised states count)"
+      "acceptance_notes": "an island country, including associated and partially recognised states but not continental Australia or dependent territories"
     },
     {
       "id": "south-america-countries",
@@ -28072,7 +28072,7 @@
     },
     {
       "id": "borders-france",
-      "text": "a country with a land border with France",
+      "text": "a country sharing a French land border, including overseas territories",
       "theme": "geography",
       "cluster": "countries",
       "sources": [
@@ -28159,7 +28159,8 @@
       "surface": ["Germany", "Spain", "Italy"],
       "pearl": "Brazil",
       "people": false,
-      "acceptance_notes": "a country sharing a land border with France (overseas and disputed borders count)"
+      "acceptance_notes": "a country sharing a land border with France (overseas and disputed borders count)",
+      "scope": "Explicit overseas-territory exception: includes French Guiana borders with Brazil and Suriname and the Saint-Martin/Sint Maarten border with the Kingdom of the Netherlands. The Netherlands entry refers to the Kingdom, not a border with its European mainland."
     },
     {
       "id": "period-4-elements",
@@ -33897,7 +33898,7 @@
     },
     {
       "id": "le-mans-winning-makes",
-      "text": "a car make that has won the 24 Hours of Le Mans outright",
+      "text": "a car make that won the 24 Hours of Le Mans outright before 2027",
       "theme": "everyday",
       "cluster": "cars",
       "active": true,
@@ -33941,7 +33942,7 @@
       ],
       "expect": [25, 25],
       "surface": ["Porsche", "Ferrari", "Audi", "Toyota", "Ford"],
-      "pearl": "Mazda",
+      "pearl": "Chenard & Walcker",
       "people": false,
       "answers": [
         {
@@ -34149,7 +34150,7 @@
     },
     {
       "id": "a380-airlines",
-      "text": "an airline that has flown the Airbus A380",
+      "text": "an airline that had flown the Airbus A380 before November 2026",
       "theme": "everyday",
       "cluster": "travel",
       "active": true,
@@ -40081,7 +40082,7 @@
     },
     {
       "id": "video-game-hall-of-fame",
-      "text": "a game inducted into the World Video Game Hall of Fame",
+      "text": "a game inducted into the World Video Game Hall of Fame before 2027",
       "theme": "everyday",
       "cluster": "video-games",
       "active": true,
@@ -40542,7 +40543,7 @@
     },
     {
       "id": "spiel-des-jahres-winners",
-      "text": "a winner of Germany's Spiel des Jahres board-game award",
+      "text": "a winner of Germany's Spiel des Jahres board-game award before 2027",
       "theme": "everyday",
       "cluster": "board-games",
       "active": true,
@@ -40609,7 +40610,7 @@
       ],
       "expect": [48, 48],
       "surface": ["The Settlers of Catan", "Ticket to Ride", "Carcassonne", "Azul", "Codenames"],
-      "pearl": "Hanabi",
+      "pearl": "Drunter und Drüber",
       "people": false,
       "answers": [
         {
@@ -45693,7 +45694,7 @@
     },
     {
       "id": "monopoly-tokens",
-      "text": "a token that has been in the standard Monopoly set since 1943",
+      "text": "a token used in the standard Monopoly set between 1943 and October 2026",
       "theme": "everyday",
       "cluster": "board-games",
       "active": true,
@@ -45741,7 +45742,7 @@
       ],
       "expect": [15, 15],
       "surface": ["Scottie dog", "Top hat", "Racecar", "Thimble", "Boot"],
-      "pearl": "Penguin",
+      "pearl": "Horse and rider",
       "people": false,
       "answers": [
         {
@@ -47004,7 +47005,7 @@
     },
     {
       "id": "live-aid-1985-performers",
-      "text": "an act that performed at Live Aid's Wembley or Philadelphia concert in 1985",
+      "text": "an act in Live Aid's 1985 Wembley or Philadelphia running order",
       "theme": "music",
       "cluster": "concert-lineups",
       "sources": [
@@ -47397,7 +47398,8 @@
       "too_clever": ["Coldstream Guards", "Band Aid", "USA for Africa"],
       "pearl": "Bernard Watson",
       "people": false,
-      "review": "Every performer named in the complete Wembley and JFK Stadium running-order tables, including co-billed artists and credited guests (w/), plus Kiki Dee and Wham! from the Elton John setlist. Band Aid and USA for Africa finales count. Narrative overlap rows are excluded. Satellite/studio segments (Sydney, Japan, The Hague, Cliff Richard, Kool & the Gang) are outside the two stadium shows; Springsteen, Michael Jackson and Prince did not appear. Natural frontman/member names map to their band where the page names them performing (Bono, Plant/Page, Brian Wilson, George Michael)."
+      "review": "Every performer named in the complete Wembley and JFK Stadium running-order tables, including co-billed artists and credited guests (w/), plus Kiki Dee and Wham! from the Elton John setlist. Band Aid and USA for Africa finales count. Narrative overlap rows are excluded. Satellite/studio segments (Sydney, Japan, The Hague, Cliff Richard, Kool & the Gang) are outside the two stadium shows; Springsteen, Michael Jackson and Prince did not appear. Natural frontman/member names map to their band where the page names them performing (Bono, Plant/Page, Brian Wilson, George Michael).",
+      "scope": "Named acts in the two stadium running-order tables and credited guests in their setlists, not every unbilled individual in the finales. Satellite performances are excluded. The named Band Aid and USA for Africa finale acts count; this is not a complete list of individual finale participants."
     },
     {
       "id": "queen-albums",
@@ -47499,7 +47501,7 @@
     },
     {
       "id": "hot100-number-one-two-versions",
-      "text": "a song that topped the Billboard Hot 100 in recordings by two different artists",
+      "text": "a song with Hot 100 No. 1 versions by two artists before November 2026",
       "theme": "music",
       "cluster": "hot100-records",
       "sources": [
@@ -47529,7 +47531,7 @@
             "I'll Be There",
             "Lady Marmalade"
           ],
-          "review": "Complete 'Songs hitting number one for different artists' list on the pinned Hot 100 milestones page: nine songs whose recordings by two different acts each reached No. 1. Same-artist re-entries (The Twist) and covers that peaked below No. 1 do not count. Membership cannot change without a new cover reaching No. 1, which is implausible within the cycle."
+          "review": "Complete 'Songs hitting number one for different artists' list on the pinned Hot 100 milestones page: nine songs whose recordings by two different acts each reached No. 1. Same-artist re-entries (The Twist) and covers that peaked below No. 1 do not count. Membership is bounded before November 2026; a later cover reaching No. 1 is outside scope."
         }
       ],
       "expect": [9, 9],
@@ -47569,7 +47571,8 @@
       "surface": ["Lady Marmalade", "The Loco-Motion", "Lean on Me", "Venus"],
       "pearl": "Go Away Little Girl",
       "people": false,
-      "review": "Complete 'Songs hitting number one for different artists' list on the pinned Hot 100 milestones page: nine songs whose recordings by two different acts each reached No. 1. Same-artist re-entries (The Twist) and covers that peaked below No. 1 do not count. Membership cannot change without a new cover reaching No. 1, which is implausible within the cycle."
+      "review": "Complete 'Songs hitting number one for different artists' list on the pinned Hot 100 milestones page: nine songs whose recordings by two different acts each reached No. 1. Same-artist re-entries (The Twist) and covers that peaked below No. 1 do not count. Membership cannot change without a new cover reaching No. 1, which is implausible within the cycle.",
+      "scope": "Qualifying chart history before November 2026, not an unbounded live record. Later chart runs or new covers do not change membership."
     },
     {
       "id": "us-first-ladies",
@@ -50665,7 +50668,7 @@
     },
     {
       "id": "olympic-eight-golds",
-      "text": "an Olympian with at least eight gold medals through 2026",
+      "text": "an Olympian with at least eight gold medals before 2027",
       "theme": "sports",
       "cluster": "olympics",
       "active": true,
@@ -52650,7 +52653,7 @@
     },
     {
       "id": "hot100-14-week-number-ones",
-      "text": "a song that spent at least 14 weeks at No. 1 on the Billboard Hot 100",
+      "text": "a song with 14 or more weeks at No. 1 on the Hot 100 before November 2026",
       "theme": "music",
       "cluster": "hot100-records",
       "sources": [
@@ -52677,7 +52680,7 @@
             "Uptown Funk",
             "We Belong Together"
           ],
-          "review": "Complete Most weeks at number one table (14 weeks or more) at the pin, through Choosin' Texas (26 weeks, 2026). Stable for the cycle: no song outside the table can accumulate 14 weeks at No. 1 between the pin and late January 2027, and growth of an existing entry keeps it qualified. Double A-side Candle in the Wind 1997 / Something About the Way You Look Tonight is one entry."
+          "review": "Complete Most weeks at number one table (14 weeks or more) at the pin, through Choosin' Texas (26 weeks, 2026). Double A-side Candle in the Wind 1997 / Something About the Way You Look Tonight is one entry."
         }
       ],
       "expect": [15, 15],
@@ -52748,7 +52751,8 @@
       ],
       "pearl": "I'll Make Love to You",
       "people": false,
-      "review": "Complete Most weeks at number one table (14 weeks or more) at the pin, through Choosin' Texas (26 weeks, 2026). Stable for the cycle: no song outside the table can accumulate 14 weeks at No. 1 between the pin and late January 2027, and growth of an existing entry keeps it qualified. Double A-side Candle in the Wind 1997 / Something About the Way You Look Tonight is one entry."
+      "review": "Complete Most weeks at number one table (14 weeks or more) at the pin, through Choosin' Texas (26 weeks, 2026). Stable for the cycle: no song outside the table can accumulate 14 weeks at No. 1 between the pin and late January 2027, and growth of an existing entry keeps it qualified. Double A-side Candle in the Wind 1997 / Something About the Way You Look Tonight is one entry.",
+      "scope": "Qualifying chart history before November 2026, not an unbounded live record. Later chart runs or new covers do not change membership."
     },
     {
       "id": "shakespeare-plays",
@@ -56860,7 +56864,7 @@
     },
     {
       "id": "generic-trademarks",
-      "text": "a brand name that's often used as a generic word",
+      "text": "a brand in Wikipedia's generic-trademarks list as of 9 November 2026",
       "theme": "everyday",
       "cluster": "brands",
       "active": true,
@@ -57134,7 +57138,7 @@
       ],
       "expect": [205, 205],
       "surface": ["Kleenex", "Band-Aid", "Xerox", "Velcro", "Google"],
-      "pearl": "Escalator",
+      "pearl": "Connollising",
       "people": false,
       "answers": [
         {
@@ -61338,10 +61342,6 @@
         {
           "name": "Bosnia and Herzegovina",
           "aliases": ["Bosnia"]
-        },
-        {
-          "name": "United Kingdom",
-          "aliases": ["UK", "Britain", "Great Britain"]
         }
       ],
       "sources": [
@@ -61371,8 +61371,7 @@
             "Palestine",
             "Monaco",
             "Slovenia",
-            "Bosnia and Herzegovina",
-            "United Kingdom"
+            "Bosnia and Herzegovina"
           ],
           "reviewed": [
             "Italy",
@@ -61397,16 +61396,16 @@
             "Palestine",
             "Monaco",
             "Slovenia",
-            "Bosnia and Herzegovina",
-            "United Kingdom"
+            "Bosnia and Herzegovina"
           ],
-          "expect": [24, 24]
+          "expect": [23, 23],
+          "review": "Coastal countries with their own metropolitan or integral Mediterranean territory. Excludes the United Kingdom: Gibraltar and Akrotiri/Dhekelia are separate overseas territories, not part of the UK. France qualifies via mainland France and Corsica. Partially recognised Northern Cyprus is retained."
         }
       ],
-      "expect": [24, 24],
+      "expect": [23, 23],
       "surface": ["Italy", "Greece", "Spain", "France"],
       "pearl": "Bosnia and Herzegovina",
-      "scope": "Includes partially recognized Northern Cyprus and the UK through Gibraltar and sovereign bases."
+      "scope": "Only metropolitan or integral territory counts. Includes partially recognised Northern Cyprus; excludes the UK via its overseas territories. France qualifies through its mainland and Corsica."
     },
     {
       "id": "large-solar-moons",
@@ -65562,7 +65561,7 @@
         }
       ],
       "surface": ["Titanic", "Moulin Rouge", "Black Panther", "Wicked"],
-      "pearl": "The Grand Budapest Hotel",
+      "pearl": "Nicholas and Alexandra",
       "people": false,
       "scope": "Through the 98th Academy Awards (2026). Costume Design and Production Design (formerly Art Direction), including black-and-white/color divisions, must both be won by the same film at the same ceremony. Join film and award year, never bare title. Moulin Rouge (1952) and Moulin Rouge! (2001) collapse to one canonical accepting both titles; 47 qualifying films, 46 answers."
     },
@@ -70073,7 +70072,7 @@
     },
     {
       "id": "vma-grammy-video-double",
-      "text": "a music video that won both MTV's Video of the Year and the Grammy for Best Music Video",
+      "text": "a video that won both MTV Video of the Year and the Best Music Video Grammy",
       "theme": "music",
       "cluster": "video-awards",
       "sources": [
@@ -73693,7 +73692,7 @@
         }
       ],
       "surface": ["Everything Everywhere All at Once", "West Side Story", "The Fighter"],
-      "pearl": "A Streetcar Named Desire",
+      "pearl": "Sayonara",
       "people": false,
       "scope": "Through the 98th Academy Awards (2026). The same film must win Supporting Actor and Supporting Actress at the same ceremony. West Side Story is the 1961 film, not the 2021 remake."
     },

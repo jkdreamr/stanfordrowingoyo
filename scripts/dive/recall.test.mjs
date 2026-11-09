@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { test } from 'node:test';
 import { URL } from 'node:url';
 import { normalizeAnswer } from '../../shared/games/dive.ts';
@@ -14,12 +14,83 @@ const batchTwo = JSON.parse(
 const batchThree = JSON.parse(
   readFileSync(new URL('./recall/batch-3-selected.json', import.meta.url)),
 );
-const retiredR5 = new Set([
-  'kubrick-films',
-  'burton-films',
+const historicalRetirements = new Set([
+  'css-named-colors',
+  'magic-eight-ball-responses',
   'miyazaki-films',
+  'u2-studio-albums',
+  'apollo-moon-travellers',
   'wes-anderson-features',
 ]);
+
+test('every merged refinement preserves frozen guess order, rejects invalids and meets its recall floor', async () => {
+  const directory = new URL('./recall/', import.meta.url);
+  const files = readdirSync(directory);
+  const selectedFiles = files.filter((name) => /^refine-R\d-selected\.json$/.test(name));
+  assert.ok(selectedFiles.length >= 8);
+  for (const file of selectedFiles) {
+    const prefix = file.replace('-selected.json', '');
+    const raw = Object.assign(
+      {},
+      ...files
+        .filter((name) => name.startsWith(prefix + '-') && name.endsWith('-raw.json'))
+        .map((name) => JSON.parse(readFileSync(new URL(name, directory)))),
+    );
+    Object.assign(raw, JSON.parse(readFileSync(new URL(prefix + '-raw.json', directory))));
+    const corpus = JSON.parse(readFileSync(new URL(file, directory)));
+    const ids = Object.keys(corpus);
+    assert.ok(ids.length > 0);
+    for (const [id, guesses] of Object.entries(corpus)) {
+      const rawId = id === 'toy-hall-of-fame-originals' ? 'toy-hall-of-fame' : id;
+      assert.ok(raw[rawId].length >= 25, id);
+      assert.deepEqual(
+        guesses.map((g) => (typeof g === 'string' ? g : g.guess)),
+        raw[rawId],
+        id,
+      );
+      const set = (await import(`../../worker/src/games/dive/data/${id}.ts`)).default;
+      for (const guess of guesses)
+        if (typeof guess !== 'string' && guess.invalid)
+          assert.equal(exactHit(guess.guess, set, normalizeAnswer), false, `${id}: ${guess.guess}`);
+    }
+    const result = await evaluateCorpus({
+      corpus,
+      schedule: [ids],
+      prompts: ids.map((id) => ({ id, constrained: true })),
+      loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
+      normalize: normalizeAnswer,
+    });
+    assert.deepEqual(result.missingCorpus, []);
+    assert.deepEqual(result.missingData, []);
+    assert.deepEqual(result.missingMetadata, []);
+    for (const row of result.prompts)
+      assert.ok(row.total > 0 && row.rate >= 0.95, `${row.id}: ${row.misses.join(', ')}`);
+  }
+});
+
+test('Mediterranean territory exclusions reject all UK forms without excluding mainland France', async () => {
+  const set = (await import('../../worker/src/games/dive/data/mediterranean-countries.ts')).default;
+  const corpus = JSON.parse(
+    readFileSync(new URL('./recall/refine-territories-selected.json', import.meta.url)),
+  );
+  for (const { guess, invalid } of corpus['mediterranean-countries']) {
+    assert.ok(invalid.length > 0);
+    assert.equal(exactHit(guess, set, normalizeAnswer), false, guess);
+  }
+  for (const name of ['France', 'Italy', 'Northern Cyprus', 'Bosnia and Herzegovina'])
+    assert.equal(exactHit(name, set, normalizeAnswer), true, name);
+});
+
+test('historical corpus exclusions are precisely the intentionally retired unreachable sets', async () => {
+  const specs = JSON.parse(readFileSync(new URL('./constrained.json', import.meta.url))).prompts;
+  for (const id of historicalRetirements) {
+    assert.equal(specs.find((p) => p.id === id).active, false, id);
+    await assert.rejects(
+      import(`../../worker/src/games/dive/data/${id}.ts`),
+      /ERR_MODULE_NOT_FOUND|Cannot find module/,
+    );
+  }
+});
 
 test('Oscar intersections retain frozen guesses and meet exact recall without out-of-scope hits', async () => {
   const bytes = readFileSync(new URL('./recall/refine-R5-raw.json', import.meta.url));
@@ -216,7 +287,7 @@ test('fourth constrained batch preserves frozen guesses and accepts reviewed mem
       raw[id],
     );
   }
-  const activeIds = ids.filter((id) => !retiredR5.has(id));
+  const activeIds = ids.filter((id) => !historicalRetirements.has(id));
   const result = await evaluateCorpus({
     corpus,
     schedule: [activeIds],
@@ -252,10 +323,11 @@ test('third constrained batch preserves raw guesses and accepts valid variants, 
       raw[id],
     );
   }
+  const activeIds = ids.filter((id) => !historicalRetirements.has(id));
   const result = await evaluateCorpus({
     corpus: batchThree,
-    schedule: [ids],
-    prompts: ids.map((id) => ({ id, constrained: true })),
+    schedule: [activeIds],
+    prompts: activeIds.map((id) => ({ id, constrained: true })),
     loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
     normalize: normalizeAnswer,
   });
@@ -279,7 +351,7 @@ test('second constrained batch retains every brainstorm and meets exact recall p
   const ids = Object.keys(batchTwo);
   assert.equal(ids.length, 30);
   for (const guesses of Object.values(batchTwo)) assert.ok(guesses.length >= 25);
-  const activeIds = ids.filter((id) => !retiredR5.has(id));
+  const activeIds = ids.filter((id) => !historicalRetirements.has(id));
   const result = await evaluateCorpus({
     corpus: batchTwo,
     schedule: [activeIds],
@@ -296,10 +368,11 @@ test('new constrained batch retains its brainstorm and meets exact recall for ev
   const ids = Object.keys(batch);
   assert.equal(ids.length, 25);
   for (const guesses of Object.values(batch)) assert.ok(guesses.length >= 25);
+  const activeIds = ids.filter((id) => !historicalRetirements.has(id));
   const result = await evaluateCorpus({
     corpus: batch,
-    schedule: [ids],
-    prompts: ids.map((id) => ({ id, constrained: true })),
+    schedule: [activeIds],
+    prompts: activeIds.map((id) => ({ id, constrained: true })),
     loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
     normalize: normalizeAnswer,
   });

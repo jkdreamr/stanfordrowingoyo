@@ -106,8 +106,19 @@ class SpecsTest(unittest.TestCase):
                                   'asia-capitals', 'europe-capitals', 'americas-capitals',
                                   'canada-provinces', 'australia-states-territories',
                                   'landlocked-countries', 'greek-letters', 'nato-alphabet',
-                                  'borders-austria', 'borders-zambia', 'kubrick-films', 'burton-films',
-                                  'miyazaki-films', 'wes-anderson-features'} |
+                                  'borders-austria', 'borders-zambia',
+                                  'apollo-moon-travellers', 'beatles-albums', 'bond-films', 'bowie-albums',
+                                  'brazil-states', 'burton-films', 'china-provinces', 'css-named-colors',
+                                  'hitchcock-films', 'indian-states', 'japan-prefectures', 'kubrick-films',
+                                  'london-tube-lines', 'magic-eight-ball-responses', 'mexico-states',
+                                  'miyazaki-films', 'mlb-teams', 'monopoly-uk', 'monopoly-us', 'nba-teams',
+                                  'new-zealand-regions', 'nfl-teams', 'nhl-teams', 'nolan-films',
+                                  'oneworld-airlines', 'pink-floyd-albums', 'pixar-films', 'queen-albums',
+                                  'spielberg-films', 'star-alliance', 'summer-olympic-hosts',
+                                  'supreme-court-since-1981', 'swift-albums', 'swiss-cantons',
+                                  'tarantino-films', 'transuranium-elements', 'u2-studio-albums',
+                                  'uk-prime-ministers', 'us-presidents', 'us-vice-presidents',
+                                  'wes-anderson-features'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
         self.assertEqual(sum(p['active'] for p in prompts), 320)
@@ -119,7 +130,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 391)
+        self.assertEqual(len(prompts), 428)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])

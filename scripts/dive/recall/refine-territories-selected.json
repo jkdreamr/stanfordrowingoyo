@@ -1,0 +1,20 @@
+{
+  "mediterranean-countries": [
+    {
+      "guess": "United Kingdom",
+      "invalid": "The UK itself has no Mediterranean coast; Gibraltar and Akrotiri/Dhekelia are separate overseas territories, which this question does not include."
+    },
+    {
+      "guess": "UK",
+      "invalid": "The UK itself has no Mediterranean coast; overseas territories are excluded."
+    },
+    {
+      "guess": "Britain",
+      "invalid": "The UK itself has no Mediterranean coast; overseas territories are excluded."
+    },
+    {
+      "guess": "Great Britain",
+      "invalid": "Great Britain has no Mediterranean coast; overseas territories are excluded."
+    }
+  ]
+}
