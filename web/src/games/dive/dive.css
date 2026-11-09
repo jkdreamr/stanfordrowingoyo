@@ -159,6 +159,50 @@
 .dive-prompt-title {
   text-wrap: balance;
 }
+.dive-answer-area {
+  display: grid;
+  gap: 8px;
+}
+.dive-feedback {
+  min-height: 20px;
+  font-size: 14px;
+}
+.dive-wrong-feedback {
+  color: var(--oyo-accent-ink);
+}
+.dive-suggestion {
+  padding: 12px;
+  border: 1px solid var(--divider);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+.dive-suggestion-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.dive-suggestion-actions button {
+  flex: 1;
+  min-height: 44px;
+}
+.dive-input-shake {
+  animation: dive-input-shake 240ms ease-out;
+}
+@keyframes dive-input-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25%,
+  75% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
 .dive-timer {
   position: relative;
   width: 48px;
@@ -260,6 +304,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .dive-input-shake {
+    animation: none;
+  }
   .dive-marker {
     transition: none;
     animation: none;
