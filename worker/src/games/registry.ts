@@ -1,6 +1,6 @@
 import type { GameScoreDirection } from '../../../shared/types';
 import type { Context } from '../context';
-import { DIVE_ENABLED } from './features';
+import { DIVE_ENABLED, DEAL_ENABLED } from './features';
 
 export interface ServerGame {
   id: string;
@@ -12,4 +12,5 @@ export const GAMES: Record<string, ServerGame> = {
   wordguess: { id: 'wordguess', direction: 'higher' },
   perception: { id: 'perception', direction: 'higher' },
   connections: { id: 'connections', direction: 'higher' },
+  ...(DEAL_ENABLED ? { deal: { id: 'deal', direction: 'lower' as const } } : {}),
 };
