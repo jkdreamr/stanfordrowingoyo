@@ -76,6 +76,7 @@ async function showSuggestion() {
   expect(document.activeElement).toBe(input());
 }
 beforeEach(() => {
+  HTMLElement.prototype.scrollIntoView = vi.fn();
   vi.useFakeTimers();
   vi.setSystemTime(new Date('2026-11-07T18:00:00Z'));
   localStorage.clear();
@@ -106,6 +107,20 @@ it('allows submitting a 60-character answer', async () => {
   expect(api).toHaveBeenCalledWith('POST /api/games/dive/guesses', {
     body: { prompt_index: 0, answer },
   });
+});
+it('keeps suggestion controls above the navigation on viewport changes without moving focus', async () => {
+  await showSuggestion();
+  const scroll = vi.mocked(HTMLElement.prototype.scrollIntoView);
+  expect(scroll).toHaveBeenCalledWith({ block: 'nearest', behavior: 'instant' });
+  expect(scroll.mock.contexts.at(-1)).toBe(input().form!.lastElementChild);
+  scroll.mockClear();
+  fireEvent(window, new Event('resize'));
+  expect(scroll).toHaveBeenCalledOnce();
+  expect(document.activeElement).toBe(input());
+  input().blur();
+  scroll.mockClear();
+  fireEvent(window, new Event('resize'));
+  expect(scroll).not.toHaveBeenCalled();
 });
 it('starts on open, submits a trimmed guess once and shows the provisional result', async () => {
   mount();

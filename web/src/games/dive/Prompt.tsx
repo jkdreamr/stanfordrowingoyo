@@ -208,6 +208,19 @@ export function Prompt({
     const timer = setTimeout(() => setShake(false), 280);
     return () => clearTimeout(timer);
   }, [shake]);
+  useEffect(() => {
+    const keepVisible = () => {
+      if (form.current?.contains(document.activeElement))
+        form.current.lastElementChild?.scrollIntoView?.({ block: 'nearest', behavior: 'instant' });
+    };
+    keepVisible();
+    window.addEventListener('resize', keepVisible);
+    window.visualViewport?.addEventListener('resize', keepVisible);
+    return () => {
+      window.removeEventListener('resize', keepVisible);
+      window.visualViewport?.removeEventListener('resize', keepVisible);
+    };
+  }, [answer, started, suggestion, feedback, attemptsLeft]);
   const error =
     startMutation.error ??
     (isTooFast(mutation.error) || isConflict(mutation.error) ? null : mutation.error);
