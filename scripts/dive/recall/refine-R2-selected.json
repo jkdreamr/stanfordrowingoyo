@@ -1,0 +1,558 @@
+{
+  "presidents-ex-congress": [
+    "Madison",
+    "Monroe",
+    "John Quincy Adams",
+    "Andrew Jackson",
+    "Van Buren",
+    "William Henry Harrison",
+    "Tyler",
+    "Polk",
+    "Fillmore",
+    "Pierce",
+    "Buchanan",
+    "Lincoln",
+    "Andrew Johnson",
+    "Hayes",
+    "Garfield",
+    "Benjamin Harrison",
+    "McKinley",
+    "Harding",
+    "Truman",
+    "JFK",
+    "LBJ",
+    "Nixon",
+    "Ford",
+    "George HW Bush",
+    "Obama",
+    "Biden",
+    {
+      "guess": "Washington",
+      "invalid": "No service in the US House or Senate; Continental Congress does not qualify."
+    },
+    {
+      "guess": "Jefferson",
+      "invalid": "No service in the US House or Senate; Continental Congress does not qualify."
+    },
+    {
+      "guess": "John Adams",
+      "invalid": "No service in the US House or Senate; Continental Congress does not qualify."
+    },
+    {
+      "guess": "Grant",
+      "invalid": "Never served in the US Congress."
+    },
+    {
+      "guess": "Eisenhower",
+      "invalid": "Never served in the US Congress."
+    },
+    {
+      "guess": "Reagan",
+      "invalid": "Never served in the US Congress."
+    }
+  ],
+  "vps-never-president": [
+    "Aaron Burr",
+    "George Clinton",
+    "Elbridge Gerry",
+    "Daniel Tompkins",
+    "John Calhoun",
+    "Richard Mentor Johnson",
+    "George Dallas",
+    "William King",
+    "John Breckinridge",
+    "Hannibal Hamlin",
+    "Schuyler Colfax",
+    "Henry Wilson",
+    "William Wheeler",
+    "Thomas Hendricks",
+    "Levi Morton",
+    "Adlai Stevenson",
+    "Garret Hobart",
+    "Charles Fairbanks",
+    "James Sherman",
+    "Thomas Marshall",
+    "Charles Dawes",
+    "Charles Curtis",
+    "John Nance Garner",
+    "Henry Wallace",
+    "Alben Barkley",
+    "Spiro Agnew",
+    "Nelson Rockefeller",
+    "Walter Mondale",
+    "Dan Quayle",
+    "Al Gore",
+    "Dick Cheney",
+    "Mike Pence",
+    "Kamala Harris",
+    {
+      "guess": "Jefferson",
+      "invalid": "Became president in 1801."
+    },
+    {
+      "guess": "JD Vance",
+      "invalid": "Incumbent vice president, not former, as of 9 November 2026."
+    },
+    {
+      "guess": "Biden",
+      "invalid": "Became president in 2021."
+    }
+  ],
+  "pms-two-queens": [
+    "Lord Melbourne",
+    "Robert Peel",
+    "Lord John Russell",
+    "Lord Derby",
+    "Lord Aberdeen",
+    "Lord Palmerston",
+    "Disraeli",
+    "Gladstone",
+    "Lord Salisbury",
+    "Lord Rosebery",
+    "Churchill",
+    "Anthony Eden",
+    "Harold Macmillan",
+    "Alec Douglas Home",
+    "Harold Wilson",
+    "Edward Heath",
+    "James Callaghan",
+    "Margaret Thatcher",
+    "John Major",
+    "Tony Blair",
+    "Gordon Brown",
+    "David Cameron",
+    "Theresa May",
+    "Boris Johnson",
+    "Liz Truss",
+    {
+      "guess": "Rishi Sunak",
+      "invalid": "Served only under Charles III."
+    },
+    {
+      "guess": "Keir Starmer",
+      "invalid": "Served only under Charles III."
+    },
+    {
+      "guess": "Attlee",
+      "invalid": "Served under George VI only."
+    },
+    {
+      "guess": "Walpole",
+      "invalid": "Served under George I and George II."
+    },
+    {
+      "guess": "Pitt",
+      "invalid": "Neither Pitt served under either queen."
+    },
+    "Dizzy"
+  ],
+  "justices-thirty-years": [
+    "John Marshall",
+    "Joseph Story",
+    "William Johnson",
+    "James Moore Wayne",
+    "John McLean",
+    "Stephen Field",
+    "John Marshall Harlan",
+    "Hugo Black",
+    "William O Douglas",
+    "William Brennan",
+    "William Rehnquist",
+    "John Paul Stevens",
+    "Clarence Thomas",
+    {
+      "guess": "Antonin Scalia",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    "Anthony Kennedy",
+    {
+      "guess": "Ruth Bader Ginsburg",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Oliver Wendell Holmes",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Roger Taney",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Samuel Miller",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Louis Brandeis",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Felix Frankfurter",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Earl Warren",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Warren Burger",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Thurgood Marshall",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Sandra Day O Connor",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Samuel Alito",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "John Roberts",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Sonia Sotomayor",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Elena Kagan",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "David Souter",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "Potter Stewart",
+      "invalid": "Total Supreme Court tenure is below 30 years as of 9 November 2026."
+    },
+    {
+      "guess": "JFK",
+      "invalid": "Never a Supreme Court justice."
+    }
+  ],
+  "element-symbol-words": [
+    "Helium",
+    "He",
+    "Lithium",
+    "Li",
+    "Beryllium",
+    "Be",
+    {
+      "guess": "Boron",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Carbon",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Nitrogen",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Oxygen",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Neon",
+    "Ne",
+    "Sodium",
+    "Na",
+    "Aluminium",
+    "Al",
+    "Silicon",
+    "Si",
+    {
+      "guess": "Sulfur",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Argon",
+    "Ar",
+    {
+      "guess": "Calcium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Ca",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Cobalt",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Co",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Copper",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Cu",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Gallium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Ga",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Germanium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Ge",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Arsenic",
+    "As",
+    {
+      "guess": "Selenium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Se",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Indium",
+    "In",
+    {
+      "guess": "Tin",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Sn",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Tellurium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Te",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Iodine",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Xenon",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Xe",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Barium",
+    "Ba",
+    "Lanthanum",
+    "La",
+    {
+      "guess": "Praseodymium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Pr",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Neodymium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Nd",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Samarium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Sm",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Holmium",
+    "Ho",
+    "Erbium",
+    "Er",
+    {
+      "guess": "Thulium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Tm",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Tungsten",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Rhenium",
+    "Re",
+    "Osmium",
+    "Os",
+    {
+      "guess": "Gold",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Au",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Mercury",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Hg",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Lead",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Pb",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Polonium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Po",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Radon",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Rn",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Radium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Ra",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Actinium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Ac",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Thorium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Th",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    {
+      "guess": "Uranium",
+      "invalid": "Its chemical symbol is not a two-letter word in the pinned ENABLE list."
+    },
+    "Americium",
+    "Am",
+    "Nobelium",
+    "No"
+  ],
+  "jupiter-spacecraft": [
+    "Pioneer 10",
+    "Pioneer 11",
+    "Voyager 1",
+    "Voyager 2",
+    "Ulysses",
+    "Galileo",
+    "Cassini",
+    "New Horizons",
+    "Juno",
+    "Pioneer ten",
+    "Pioneer eleven",
+    "Voyager one",
+    "Voyager two",
+    "Cassini Huygens",
+    "Galileo probe",
+    "Juno orbiter",
+    "New Horizons probe",
+    "Ulysses probe",
+    {
+      "guess": "Pioneer 12",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Voyager 3",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Europa Clipper",
+      "invalid": "Still en route to Jupiter as of 9 November 2026; not yet arrived."
+    },
+    {
+      "guess": "JUICE",
+      "invalid": "Still en route to Jupiter as of 9 November 2026; not yet arrived."
+    },
+    {
+      "guess": "Hubble",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "James Webb",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Rosetta",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Dawn",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Kepler",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "TESS",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    "Cassini-Huygens",
+    {
+      "guess": "Sputnik",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Apollo 11",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Mariner 10",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Viking",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    {
+      "guess": "Venera",
+      "invalid": "Not a spacecraft mission that reached Jupiter."
+    },
+    "Voyager I",
+    "Voyager II"
+  ]
+}
