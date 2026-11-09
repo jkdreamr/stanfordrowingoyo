@@ -12,7 +12,10 @@ function perceptionEpoch(epoch: number): PerceptionRoundId[][] {
   const cached = epochCache.get(epoch);
   if (cached) return cached;
   const days = Array.from({ length: 60 }, (_, d) =>
-    Array.from({ length: 5 }, (_, i) => PERCEPTION_POOL[(d * 5 + i) % 12]),
+    Array.from(
+      { length: 5 },
+      (_, i) => PERCEPTION_POOL[(d * 5 + i + PERCEPTION_ROUNDS.length) % 12],
+    ),
   );
   const rand = dailyRandom('perception-lineup-v2', String(epoch));
   const valid = (d: number) => {

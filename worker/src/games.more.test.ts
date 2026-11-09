@@ -213,7 +213,9 @@ it.each(Array.from({ length: 7 }, (_, i) => v2Date(i)))(
 it.each(PERCEPTION_ROUNDS)(
   'scores the returned v2 %s stimulus without generator-derived answers',
   async (id) => {
-    const date = v2Date(0);
+    const date = Array.from({ length: 5 }, (_, i) => v2Date(i)).find((date) =>
+      perceptionLineup(date).includes(id),
+    )!;
     await v2Unlock(date);
     const day = await (
       await api('/games/perception/today', 'GET', undefined, v2At(date))

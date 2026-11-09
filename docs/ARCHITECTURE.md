@@ -377,8 +377,9 @@ Before cutover, generation and scoring remain exactly the original clock/color/d
 sequence (7 pattern cells; exposure 1500/900/1600ms; typical misses 600ms/25°/8%/2 cells;
 reaction `closeness(max(0,ms−150),200)`). Captured puzzle/score fixtures pin three legacy dates.
 From cutover, five distinct types are selected deterministically from the twelve below and their
-play order is date-seeded. Consecutive days share at most two types (so never the same set);
-every type appears in every five-day window. Two-year tests also reject periods 1–29, including
+play order is date-seeded. Consecutive days share at most two types (so never the same set),
+including the last legacy day and cutover day; the scaffold starts after the five legacy types.
+Every type appears in every five-day v2 window. Two-year tests also reject periods 1–29, including
 set-only periods. Generation uses independent 60-day epochs, a valid 12-type cyclic scaffold,
 and exactly 320 seeded candidate slot swaps, rejecting any swap violating distinctness, overlap
 or coverage. Four boundary days at each end stay fixed so cross-epoch windows remain valid.

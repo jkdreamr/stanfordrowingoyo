@@ -78,6 +78,12 @@ it('pins pre-cutover puzzles and scores captured before changing the generator',
   }
 });
 
+it('keeps cutover overlap with the last legacy day at most two types', () => {
+  const legacy = perceptionLineup('2026-11-09');
+  const cutover = perceptionLineup('2026-11-10');
+  expect(cutover.filter((round) => legacy.includes(round)).length).toBeLessThanOrEqual(2);
+});
+
 it('provides deterministic, diverse lineups with bounded epoch work over two years', () => {
   const started = performance.now();
   const lineups = Array.from({ length: 731 }, (_, day) => perceptionLineup(dateAt(day)));
