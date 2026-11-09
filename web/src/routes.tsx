@@ -87,7 +87,7 @@ export const router = createBrowserRouter([
                 }),
               },
               {
-                path: '/games/:id',
+                path: '/games/:id/*',
                 lazy: async () => ({ Component: (await import('./pages/Game')).default }),
               },
               { path: '/recap', element: <Recap /> },

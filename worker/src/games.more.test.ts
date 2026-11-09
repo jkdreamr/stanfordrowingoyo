@@ -346,7 +346,7 @@ it('gates v2 Perception writes without leaking any stimulus', async () => {
 
 it('registers Word Guess, Perception and Connections behind the OYO gate', async () => {
   const list = (await (await api('/games')).json()) as GamesToday;
-  expect(list.games.map((g) => g.id)).toEqual(['dive', 'wordguess', 'perception', 'connections']);
+  expect(list.games.map((g) => g.id)).toEqual(['wordguess', 'perception', 'connections']);
   expect(list.games.every((g) => g.direction === 'higher')).toBe(true);
   expect((await submit('wordguess', { guesses: [dailyAnswer(DATE)] })).status).toBe(403);
   const day = (await (await api('/games/connections/today')).json()) as ConnectionsDay;

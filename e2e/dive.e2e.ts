@@ -5,10 +5,13 @@ import type { DiveAnswerResult, DiveDay, GameDayLeaderboard } from '../shared/ty
 import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS } from '../shared/games/dive';
 import { diveSelectionFor } from '../worker/src/games/divePrompts';
 import { answerSet } from '../worker/src/games/dive/sets';
+import { DIVE_ENABLED } from '../worker/src/games/features';
+
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
 
+test.skip(!DIVE_ENABLED, 'Dive disabled for launch');
 test.use({ serviceWorkers: 'block' });
 
 test('Dive unlocks, scores the first player immediately and keeps scores through moderation', async ({

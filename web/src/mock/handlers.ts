@@ -91,7 +91,6 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
-  dive: null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -997,7 +996,12 @@ export function createMockApi({
               date,
             ),
             games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
-            results: gameResults.filter((row) => row.user_id === user.id && row.date === date),
+            results: gameResults.filter(
+              (row) =>
+                row.user_id === user.id &&
+                row.date === date &&
+                Object.hasOwn(MOCK_GAMES, row.game_id),
+            ),
           });
         if (path === '/api/games/leaderboard' && method === 'GET')
           return json({ week_start: weekStart(url.searchParams.get('week') ?? date), rows: [] });
@@ -1484,9 +1488,17 @@ export function createMockApi({
         const race = raceWeek(week),
           sunday = addDays(week, 6);
         const games = gameResults.filter(
-          (g) => g.user_id === user.id && g.date >= week && g.date <= sunday,
+          (g) =>
+            g.user_id === user.id &&
+            g.date >= week &&
+            g.date <= sunday &&
+            Object.hasOwn(MOCK_GAMES, g.game_id),
         );
-        const played = new Set(gameResults.filter((g) => g.user_id === user.id).map((g) => g.date));
+        const played = new Set(
+          gameResults
+            .filter((g) => g.user_id === user.id && Object.hasOwn(MOCK_GAMES, g.game_id))
+            .map((g) => g.date),
+        );
         let gameStreak = 0;
         while (played.has(addDays(sunday, -gameStreak))) gameStreak++;
         const owned = state.myPlans.find((row) => row.user_id === user.id && covers(row, week));

@@ -56,6 +56,7 @@ export interface RecapGames {
   played: number;
   /** Days with at least one result. */
   days: number;
+  /** Null when Dive is disabled, including historical recaps. */
   best_dive: number | null;
   word_guess_solves: number;
   /** Consecutive days with a result, ending on that week's Sunday (0 when Sunday was missed). */
@@ -646,6 +647,7 @@ export interface GamesToday {
   streak: GamesStreak;
   date: string;
   access: GameAccess;
+  /** Server-enabled games only; clients use this list for navigation and boards. */
   games: GameInfo[];
   results: GameResult[];
 }

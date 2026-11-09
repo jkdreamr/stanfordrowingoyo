@@ -10,11 +10,12 @@ import { GameDayBoard } from './GameDayBoard';
 import Games from '../pages/Games';
 import GamesLeaderboard from '../pages/GamesLeaderboard';
 import DiveStart from './DiveStart';
-import { GAMES } from './registry';
+import { GAMES as ALL_GAMES } from './registry';
 import { GamesCard } from './GamesCard';
 import { GameWeekBoard } from './GameWeekBoard';
 
 const clients: ReturnType<typeof createQueryClient>[] = [];
+const GAMES = ALL_GAMES.filter((game) => game.id !== 'dive');
 beforeEach(() => {
   vi.stubGlobal(
     'IntersectionObserver',
@@ -58,8 +59,11 @@ it('shows a locked hub with a workout CTA, registered game and empty weekly boar
   expect((await screen.findByRole('link', { name: 'Log Workout' })).getAttribute('href')).toBe(
     '/log',
   );
-  expect(screen.getByRole('link', { name: /Dive/ }).getAttribute('href')).toBe('/games/dive');
-  expect(screen.getByRole('link', { name: /Dive/ }).querySelector('.lucide-anchor')).toBeTruthy();
+  expect(screen.queryByRole('link', { name: /Dive/ })).toBeNull();
+  for (const game of GAMES)
+    expect(screen.getByRole('link', { name: new RegExp(game.title) }).getAttribute('href')).toBe(
+      `/games/${game.id}`,
+    );
   expect(await screen.findByText('No Games Played Yet')).toBeTruthy();
 });
 it('distinguishes the Home games card from training with a gamepad icon', async () => {
@@ -67,15 +71,16 @@ it('distinguishes the Home games card from training with a gamepad icon', async 
   const card = await screen.findByRole('link', { name: /Daily Games/ });
   expect(card.querySelector('.lucide-gamepad2')).toBeTruthy();
   expect(card.querySelector('.lucide-waves')).toBeNull();
+  expect(screen.queryByText(/Dive/)).toBeNull();
 });
-it('renders the unlocked Dive start surface for staff', async () => {
+it.skip('Dive disabled for launch: renders the unlocked Dive start surface for staff', async () => {
   const { mock } = mount(<DiveStart />);
   mock.state.users.find((user) => user.id === 'user-1')!.role = 'coach';
   expect(await screen.findByRole('heading', { name: 'Dive' })).toBeTruthy();
   expect(screen.queryByText("Log today's OYO to unlock")).toBeNull();
 });
 it('shows the PLAY_FIRST state without leaking board rows', async () => {
-  mount(<GameDayBoard gameId="dive" date="2026-03-18" />);
+  mount(<GameDayBoard gameId="wordguess" date="2026-03-18" />);
   expect(await screen.findByText('Play To See Today’s Board')).toBeTruthy();
 });
 it('provides a retry action when hub loading fails', async () => {
@@ -107,6 +112,8 @@ it.each(['coxswain', 'coach'] as const)(
     const { mock } = mount(<GamesLeaderboard />);
     mock.state.users.find((user) => user.id === 'user-1')!.role = role;
     await screen.findAllByText('Play To See Today’s Board');
+    expect(screen.queryByRole('region', { name: 'Dive Day Board' })).toBeNull();
+    expect(screen.getAllByRole('region', { name: / Day Board$/ })).toHaveLength(3);
     for (const game of GAMES) {
       const board = within(screen.getByRole('region', { name: `${game.title} Day Board` }));
       expect(board.getByRole('heading', { name: game.title })).toBeTruthy();

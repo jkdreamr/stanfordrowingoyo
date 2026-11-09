@@ -1,5 +1,6 @@
 import type { GameScoreDirection } from '../../../shared/types';
 import type { Context } from '../context';
+import { DIVE_ENABLED } from './features';
 
 export interface ServerGame {
   id: string;
@@ -7,7 +8,7 @@ export interface ServerGame {
   score?: (payload: unknown, ctx: Context, date: string) => { score: number; payload: unknown };
 }
 export const GAMES: Record<string, ServerGame> = {
-  dive: { id: 'dive', direction: 'higher' },
+  ...(DIVE_ENABLED ? { dive: { id: 'dive', direction: 'higher' as const } } : {}),
   wordguess: { id: 'wordguess', direction: 'higher' },
   perception: { id: 'perception', direction: 'higher' },
   connections: { id: 'connections', direction: 'higher' },

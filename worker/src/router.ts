@@ -23,6 +23,7 @@ import * as tests from './routes/tests';
 import * as challenges from './routes/challenges';
 import * as games from './routes/games';
 import * as dive from './routes/dive';
+import { DIVE_ENABLED } from './games/features';
 import * as connections from './routes/connections';
 import * as wordguess from './routes/wordguess';
 import * as perception from './routes/perception';
@@ -224,6 +225,8 @@ export async function route(ctx: Context): Promise<Response> {
   let response: Response;
   try {
     const path = new URL(ctx.request.url).pathname;
+    if (!DIVE_ENABLED && /^\/api\/games\/dive(?:\/|$)/.test(path))
+      throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (path.startsWith('/internal/') && ctx.request.headers.get('X-OYO-Internal') !== '1')
       throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
     checkCsrf(ctx.request);
