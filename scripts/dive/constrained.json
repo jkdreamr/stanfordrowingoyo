@@ -6260,7 +6260,7 @@
     },
     {
       "id": "disney-canon",
-      "text": "a Walt Disney Animation Studios feature film",
+      "text": "a Walt Disney Animation Studios feature film released through October 2026",
       "theme": "film",
       "cluster": "animation",
       "sources": [
@@ -21838,7 +21838,7 @@
     },
     {
       "id": "booker-winners",
-      "text": "a Booker Prize-winning novel",
+      "text": "a novel that won the Booker Prize before 2026",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -23153,7 +23153,7 @@
     },
     {
       "id": "newbery-winners",
-      "text": "a Newbery Medal-winning book",
+      "text": "a Newbery Medal winner from 2026 or earlier",
       "theme": "books",
       "cluster": "book-awards",
       "sources": [
@@ -33665,7 +33665,7 @@
     },
     {
       "id": "heisman",
-      "text": "a Heisman Trophy winner",
+      "text": "a Heisman Trophy winner before 2026",
       "theme": "sports",
       "cluster": "sports-awards",
       "sources": [
@@ -36704,7 +36704,7 @@
     },
     {
       "id": "bake-off-winners",
-      "text": "a Great British Bake Off winner",
+      "text": "a Great British Bake Off winner before 2026",
       "theme": "tv",
       "cluster": "reality",
       "sources": [
@@ -40487,7 +40487,7 @@
     },
     {
       "id": "pantone-coty",
-      "text": "a Pantone Color of the Year",
+      "text": "a Pantone Color of the Year for 2026 or earlier",
       "theme": "everyday",
       "cluster": "colors",
       "sources": [
@@ -45963,7 +45963,7 @@
     },
     {
       "id": "baseball-hall-of-fame",
-      "text": "a member of the National Baseball Hall of Fame",
+      "text": "a National Baseball Hall of Fame member inducted before 2027",
       "theme": "sports",
       "cluster": "baseball",
       "sources": [
@@ -48040,7 +48040,7 @@
     },
     {
       "id": "mcu-films",
-      "text": "a released Marvel Cinematic Universe film",
+      "text": "a Marvel Cinematic Universe film released through November 2026",
       "theme": "film",
       "cluster": "marvel",
       "sources": [
@@ -48856,7 +48856,7 @@
     },
     {
       "id": "world-chess-champions",
-      "text": "a World Chess Champion in the open category",
+      "text": "a World Chess Champion in the open category before 2026",
       "theme": "sports",
       "cluster": "chess",
       "sources": [
@@ -50411,7 +50411,7 @@
     },
     {
       "id": "un-secretaries-general",
-      "text": "a UN secretary-general",
+      "text": "a UN secretary-general who took office before 2027",
       "theme": "history",
       "cluster": "international-organizations",
       "sources": [
@@ -56500,7 +56500,7 @@
     },
     {
       "id": "survivor-us-winners",
-      "text": "a winner of the US version of Survivor",
+      "text": "a winner of the US version of Survivor through season 50",
       "theme": "tv",
       "cluster": "reality",
       "answers": [
@@ -60070,7 +60070,7 @@
     },
     {
       "id": "davis-cup-countries",
-      "text": "a country that has won the Davis Cup",
+      "text": "a country that won the Davis Cup before 2026",
       "theme": "sports",
       "cluster": "tennis-teams",
       "active": true,
@@ -65134,26 +65134,17 @@
     },
     {
       "id": "uk-three-michelin-stars",
-      "text": "a restaurant currently holding three Michelin stars in the UK",
+      "text": "a UK restaurant with three stars in the 2026 Michelin Guide",
       "theme": "food",
       "cluster": "restaurants",
       "active": true,
       "answers": [
         {
           "name": "Alain Ducasse at the Dorchester",
-          "aliases": ["Alain Ducasse", "Ducasse at the Dorchester"]
-        },
-        {
-          "name": "Le Gavroche"
-        },
-        {
-          "name": "Chez Nico"
+          "aliases": ["Alain Ducasse", "Ducasse at the Dorchester", "The Dorchester"]
         },
         {
           "name": "The Fat Duck"
-        },
-        {
-          "name": "La Tante Claire"
         },
         {
           "name": "Restaurant Gordon Ramsay",
@@ -65164,18 +65155,16 @@
           ]
         },
         {
-          "name": "The Restaurant Marco Pierre White",
-          "aliases": ["Marco Pierre White", "Oak Room"]
-        },
-        {
           "name": "The Waterside Inn"
         },
         {
-          "name": "The Araki"
-        },
-        {
           "name": "Sketch (The Lecture Room & Library)",
-          "aliases": ["Sketch", "Sketch Lecture Room and Library", "Lecture Room and Library"]
+          "aliases": [
+            "Sketch",
+            "Sketch Lecture Room and Library",
+            "Lecture Room and Library",
+            "Sketch Lecture Room"
+          ]
         },
         {
           "name": "Hélène Darroze at The Connaught",
@@ -65183,7 +65172,7 @@
         },
         {
           "name": "Core by Clare Smyth",
-          "aliases": ["Core"]
+          "aliases": ["Core", "Clare Smyth"]
         },
         {
           "name": "L'Enclume",
@@ -65202,14 +65191,9 @@
           "revision": 1381054681,
           "members": [
             "Alain Ducasse at the Dorchester",
-            "Le Gavroche",
-            "Chez Nico",
             "The Fat Duck",
-            "La Tante Claire",
             "Restaurant Gordon Ramsay",
-            "The Restaurant Marco Pierre White",
             "The Waterside Inn",
-            "The Araki",
             "Sketch (The Lecture Room & Library)",
             "Hélène Darroze at The Connaught",
             "Core by Clare Smyth",
@@ -65219,14 +65203,9 @@
           ],
           "reviewed": [
             "Alain Ducasse at the Dorchester",
-            "Le Gavroche",
-            "Chez Nico",
             "The Fat Duck",
-            "La Tante Claire",
             "Restaurant Gordon Ramsay",
-            "The Restaurant Marco Pierre White",
             "The Waterside Inn",
-            "The Araki",
             "Sketch (The Lecture Room & Library)",
             "Hélène Darroze at The Connaught",
             "Core by Clare Smyth",
@@ -65234,13 +65213,13 @@
             "The Ledbury",
             "Moor Hall"
           ],
-          "expect": [15, 15]
+          "expect": [10, 10]
         }
       ],
-      "expect": [15, 15],
+      "expect": [10, 10],
       "surface": ["The Fat Duck", "Restaurant Gordon Ramsay", "The Waterside Inn"],
-      "pearl": "Chez Nico",
-      "scope": "Every historical three-star holder in the UK table, not just current holders; names of the same restaurant after relocation are aliases."
+      "pearl": "Moor Hall",
+      "scope": "The ten UK restaurants with three stars in the official Michelin Guide Great Britain & Ireland 2026 selection; closed or demoted former holders (Le Gavroche, Chez Nico, La Tante Claire, The Restaurant Marco Pierre White, The Araki) are excluded."
     },
     {
       "id": "worlds-best-restaurants",
@@ -65461,7 +65440,7 @@
     },
     {
       "id": "world-cheese-champions",
-      "text": "a cheese variety named World Cheese Awards champion",
+      "text": "a cheese variety named World Cheese Awards champion before 2026",
       "theme": "food",
       "cluster": "cheese-awards",
       "active": true,
@@ -66214,7 +66193,7 @@
     },
     {
       "id": "lego-ideas-sets",
-      "text": "a numbered LEGO Ideas set released for sale",
+      "text": "a numbered LEGO Ideas set released through October 2026",
       "theme": "everyday",
       "cluster": "lego-ideas",
       "active": true,
@@ -66365,7 +66344,8 @@
           "name": "Jazz Quartet"
         },
         {
-          "name": "Motorised Lighthouse"
+          "name": "Motorised Lighthouse",
+          "aliases": ["Lighthouse", "Motorized Lighthouse"]
         },
         {
           "name": "The Office"
@@ -66393,10 +66373,12 @@
           "name": "Viking Village"
         },
         {
-          "name": "The Orient Express Train"
+          "name": "The Orient Express Train",
+          "aliases": ["Orient Express"]
         },
         {
-          "name": "Polaroid Onestep SX-70 Camera"
+          "name": "Polaroid Onestep SX-70 Camera",
+          "aliases": ["Polaroid Camera", "Polaroid"]
         },
         {
           "name": "Family Tree"
@@ -66431,7 +66413,8 @@
           "name": "The Botanical Garden"
         },
         {
-          "name": "Twilight The Cullen House"
+          "name": "Twilight The Cullen House",
+          "aliases": ["Twilight", "The Cullen House"]
         },
         {
           "name": "The Evolution of STEM"
@@ -66440,7 +66423,8 @@
           "name": "River Steamboat"
         },
         {
-          "name": "Disney Pixar Luxo Jr."
+          "name": "Disney Pixar Luxo Jr.",
+          "aliases": ["Luxo Jr."]
         },
         {
           "name": "Minifigure Vending Machine"
@@ -66449,7 +66433,8 @@
           "name": "Italian Riviera"
         },
         {
-          "name": "Willy Wonka & the Chocolate Factory"
+          "name": "Willy Wonka & the Chocolate Factory",
+          "aliases": ["Willy Wonka"]
         },
         {
           "name": "Gremlins : Gizmo",
@@ -66468,10 +66453,12 @@
           "name": "Orange Cat"
         },
         {
-          "name": "Floating Sea Otters"
+          "name": "Floating Sea Otters",
+          "aliases": ["Sea Otters"]
         },
         {
-          "name": "The Adventures of Tintin"
+          "name": "The Adventures of Tintin",
+          "aliases": ["Tintin"]
         },
         {
           "name": "Peanuts : Snoopy's Doghouse",
@@ -66481,7 +66468,8 @@
           "name": "The X-Files"
         },
         {
-          "name": "E.T. The Extra-Terrestrial"
+          "name": "E.T. The Extra-Terrestrial",
+          "aliases": ["E.T."]
         },
         {
           "name": "La Catrina"
@@ -66490,7 +66478,8 @@
           "name": "Wallace & Gromit"
         },
         {
-          "name": "Downton Abbey"
+          "name": "Downton Abbey",
+          "aliases": ["Highclere Castle"]
         }
       ],
       "sources": [
@@ -66669,7 +66658,7 @@
       "expect": [81, 81],
       "surface": ["The Big Bang Theory", "The DeLorean Time Machine", "Doctor Who"],
       "pearl": "Exo Suit",
-      "scope": "Released numbered Cuusoo/Ideas main-series sets as of the source date; not announced future sets, rejected projects, promotional gifts, Target collaborations or similarly themed non-Ideas products."
+      "scope": "Numbered Cuusoo/Ideas main-series sets #001–#081 released through October 2026 (ending with Downton Abbey, 1 October 2026); Godzilla (#082, 27 November 2026) and later or announced sets are excluded, as are rejected projects, promotional gifts, Target collaborations and similarly themed non-Ideas products."
     },
     {
       "id": "u2-studio-albums",
@@ -72564,7 +72553,7 @@
     },
     {
       "id": "atlantic-category-five",
-      "text": "an officially named Atlantic hurricane that reached Category 5",
+      "text": "an officially named Atlantic hurricane that reached Category 5 before 2026",
       "theme": "nature",
       "cluster": "weather",
       "active": true,

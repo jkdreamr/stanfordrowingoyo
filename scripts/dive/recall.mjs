@@ -178,6 +178,12 @@ export async function main(args = process.argv.slice(2)) {
         if (!Object.hasOwn(corpus, id)) throw new Error(`Unknown refinement prompt: ${id}`);
         corpus[id] = [...corpus[id], ...guesses];
       }
+      corpus = {
+        ...corpus,
+        ...JSON.parse(
+          await readFile(join(repo, 'scripts/dive/recall', 'refine-R9-selected.json'), 'utf8'),
+        ),
+      };
       corpusText = JSON.stringify(corpus);
     }
     const result = await evaluateCorpus({
