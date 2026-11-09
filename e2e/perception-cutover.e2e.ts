@@ -1,7 +1,8 @@
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, waitForSplash } from './helpers';
-import { perceptionClock, playPerception } from './perception';
+import { perceptionClock, perceptionTitles, playPerception } from './perception';
+import { perceptionLineup } from '../worker/src/games/perceptionV2';
 
 test.use({ serviceWorkers: 'block' });
 test.describe.configure({ timeout: 180_000 });
@@ -46,7 +47,13 @@ test('an old brief cannot consume a new-day round after a workout on another tab
     expect(await rejected.json()).toMatchObject({ error: { code: 'DAY_CHANGED' } });
     await expect(page.getByRole('alert')).toHaveText('A New Day Has Started. Reload to Play.');
     const day = await (await context.request.get('/api/games/perception/today')).json();
-    expect(day).toMatchObject({ date: '2026-11-10', round: 0, scores: {}, done: false });
+    expect(day).toMatchObject({
+      date: '2026-11-10',
+      access: { unlocked: true, reason: 'workout' },
+      round: 0,
+      scores: {},
+      done: false,
+    });
     await page.screenshot({
       path: `/home/ubuntu/perception-runtime-stale-brief-${info.project.name}.png`,
     });
@@ -248,11 +255,20 @@ test('LA midnight preserves legacy results and safely rejects an old active roun
       path: `/home/ubuntu/perception-runtime-midnight-${info.project.name}.png`,
     });
     const day = await (await active.context.request.get('/api/games/perception/today')).json();
-    expect(day).toMatchObject({ date: '2026-11-10', round: 0, scores: {}, done: false });
+    expect(day).toMatchObject({
+      date: '2026-11-10',
+      access: { unlocked: true, reason: 'no_oyo' },
+      round: 0,
+      scores: {},
+      done: false,
+    });
     await active.page.reload();
     await waitForSplash(active.page);
     await expect(
-      active.page.getByRole('heading', { name: "Log today's OYO to unlock", exact: true }),
+      active.page.getByRole('heading', {
+        name: perceptionTitles[perceptionLineup('2026-11-10')[0]],
+        exact: true,
+      }),
     ).toBeVisible();
     expect(errors).toEqual([]);
     console.log(

@@ -1,0 +1,16 @@
+// 259 more curated common words that can be the answer; none are in ANSWERS.
+// Five-letter words packed end to end; split with unpack(). Every word is also in GUESSES.
+export const NEW_ANSWERS =
+  'devilanimebreeddemonindieremixmangaintroturboretrogreedbleedcondopsalmpagandeityinboxloginabbotpapal' +
+  'vicarsynthramenshredcutietweedscrumkiddogivernerdyhowdymorphtrovefriarexpatapneageekylayupbogeypesto' +
+  'debugtweencorgibebopmantamambounmetbiomevroomdorkypacerchardbentocoderserifmambakrilltulleoomphmirth' +
+  'gloatclinkwincepithyguavagizmocrimpclackbevelamplysheafrebutlousejaunthalveexaltdownydecrybylawbloat' +
+  'snidegustydousevocabstaidleerykookyfeigndrolldittysmockretryrebarpeonylikenlemurkneadfleckwordytwang' +
+  'slurpseguemiserfutoncattyunzipmoxieflailcubbycowertestytaupepeppymuggychompzippyskimpfurorfeintexude' +
+  'creakantsyuntiesootyscowldroopcampyvapidmangegetupelopeneighguppyflybyannulyuckystrumlitheleggydrawl' +
+  'doozyblurtbeadybalsaashenzilchrattypennejoustslylyemotescuffgonerunlitgruelbroilsprigsingemuskymooch' +
+  'wispytrikeshylyimbueficusboggyzestywrylysitarfoamydowdywoozycroakchafebotchnoblycageyblareaphidtinny' +
+  'slinkpoutynippyingotdoweldirgeweedystilthankycleatacridspurnkazooscramyodelweepyardorsulkysinewmacaw' +
+  'swillscampegretdumpycluckhovelfrillcaulkambleabuzzwakentapirscullpayeemuckygrumpsoupybelchjoistflout' +
+  'octetritzypulpyfrondclunkdivvysoftychivehuffyaglowcroonbrinypleatflunkscaldpilafpreenkaputdivotbleat' +
+  'torteplunksloshsplaycoylydoilybefitgeodedauntgnashunboxgawkyqualmskulkexultgushyprimpicilysudsy';

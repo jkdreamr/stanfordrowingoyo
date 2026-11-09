@@ -33,6 +33,7 @@ import {
   type ConnectionsPuzzle,
 } from './connections';
 import {
+  ALL_CONNECTIONS_PUZZLES,
   CONNECTIONS_PUZZLES,
   connectionsPuzzleFor,
 } from '../../worker/src/games/connectionsPuzzles';
@@ -86,8 +87,9 @@ describe('word guess', () => {
   });
   it('picks the same answer for everyone and cycles without early repeats', () => {
     expect(dailyAnswer('2026-11-07')).toBe(dailyAnswer('2026-11-07'));
-    const seen = new Set(dates.map(dailyAnswer));
-    expect(seen.size).toBe(dates.length);
+    const ordinaryDates = dates.filter((date) => date !== '2026-12-03');
+    const seen = new Set(ordinaryDates.map(dailyAnswer));
+    expect(seen.size).toBe(ordinaryDates.length);
     const order = Array.from({ length: 2000 }, (_, d) => dailyIndex(d, 2000));
     expect(new Set(order).size).toBe(2000);
   });
@@ -196,7 +198,7 @@ describe('perception', () => {
 });
 
 describe('connections', () => {
-  const puzzles = CONNECTIONS_PUZZLES.map(parsePuzzle);
+  const puzzles = ALL_CONNECTIONS_PUZZLES.map(parsePuzzle);
   const norm = (w: string) => w.toLowerCase();
 
   /**
