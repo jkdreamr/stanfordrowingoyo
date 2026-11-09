@@ -394,8 +394,64 @@ Results are written by the Worker transaction that finishes the game.
 
 #### Enabled games for launch
 
+`DEAL_ENABLED = true` in `worker/src/games/features.ts` enables Deal. Setting it
+to false makes every Deal API path return 404 for everyone, and excludes its
+results from the games list, weekly boards and game streaks. Its registry entry
+has no generic scorer: generic result submission returns 405 after access checks.
+
+#### Deal
+
+Deal is a five-round daily timed numbers game. A=1 through K=13; repeatedly
+combine two live cards using +, −, × or ÷ until every card has been used and the
+last card equals the goal. Every intermediate result must be a positive safe
+integer: no zero/negative subtraction and only exact division. Initial card ids
+are 0..n−1; each combination creates the next sequential id.
+
+The date-seeded profile uses 4, 4–5, 5–6, 6–7 and 7–8 cards. Worker-only
+generation reconstructs a shuffled real-deck hand and witness. The schedule
+covers **2026-11-09 through 2028-11-15** and must be extended before its end.
+`scripts/deal/generate.ts` curates it offline using an exhaustive subset solver;
+each stored byte packs candidate k and difficulty tier. Past days must never
+change; full-deal fixtures protect them. The Worker accepts the first seeded
+hand whose bounded k=0 construction reaches the round's goal range, without
+running the solver. Outside the schedule, k=0/tier 1 is an uncurated fallback.
+
+- `GET /api/games/deal/today` returns `DealDay`:
+  `{date,access,round,counts,results,active,done,totalMs}`. Round is the next
+  zero-based index (0..4, 5 done); counts are public, but future cards/goals and
+  witnesses are never returned. Completed results include cards, goal, counted
+  time, skipped flag, par, witness solution and teamBest. Active contains only
+  the started round's cards, goal, par and server elapsed time. Reading resumes
+  the same round; it does not consume it unless elapsed time reaches 300,000ms,
+  when it finalizes as skipped at the cap. Total time is null until done.
+- `POST /api/games/deal/start` takes `{round,date?}` and returns `DealDay`.
+  Server start time is stored before responding. `answer` takes
+  `{round,date?,steps,elapsedMs}`; `skip` takes `{round,date?}`. Both return
+  `DealDay`. Bodies reject extra fields; invalid witnesses return 400 without
+  consuming progress or stopping the clock. Writes enforce existing OYO access
+  inside the transaction, round order, single start and single completion.
+  A mismatched date returns 409 `DAY_CHANGED` before exposing cards. Completed
+  games return 409 `ALREADY_PLAYED`; existing staff access/board rules apply.
+- Answers require server elapsed ≥ (n−1) × 400ms. Client elapsed is clamped to
+  [serverElapsed−2500ms, serverElapsed], then capped at 300,000ms. Skip time is
+  min(serverElapsed + 60,000ms, 300,000ms). These are plausibility checks, not
+  proof of honest timing. Counted times sum across rounds; the stored score is
+  floor(totalMs/100), **integer tenths of a second, lower is better**. The fifth
+  answer, skip or capped read atomically inserts one result; no schema change.
+  Its payload is `{rounds:[{cards,goal,timeMs,skipped,parMs}]}`.
+- For completed caller rounds only, teamBest is the fastest solved (not skipped)
+  counted round time among active users' Deal progress rows for that date,
+  including the caller. It returns `{timeMs,name,me}` or null. Inactive users and
+  skipped rounds are excluded; future-round bests are never exposed.
+- `scripts/deal/check-web.mjs` runs in the root build chain. It rejects the
+  private generator marker in built assets, private generator/schedule references
+  and offline-solver imports in non-test web sources, and offline-solver imports
+  in non-test Worker sources. Public rules contain no future deals.
+
+#### Other launch games
+
 `DIVE_ENABLED = false` in `worker/src/games/features.ts` is the single production
-switch for Dive. Launch includes Word Guess, Connections and Perception only.
+switch for Dive. Launch includes Word Guess, Connections, Perception and Deal.
 Set it to `true` and rebuild to restore Dive; no data migration or browser flag is needed.
 `GET /api/games` returns only enabled games, results and enabled-game streaks.
 Clients use this list for the hub, game navigation and day boards; disabled game

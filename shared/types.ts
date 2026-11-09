@@ -1,4 +1,5 @@
 import type { DiveTier } from './games/dive';
+import type { DealCard, DealStep } from './games/deal';
 import type { PerceptionPuzzle } from './games/perception';
 import type {
   PerceptionRoundId,
@@ -608,6 +609,33 @@ export interface GameAccess {
   unlocked: boolean;
   reason: 'staff' | 'workout' | 'rest_day' | 'no_oyo' | 'locked';
 }
+export interface DealActive {
+  round: number;
+  cards: DealCard[];
+  goal: number;
+  parMs: number;
+  elapsedMs: number;
+}
+export interface DealRoundResult {
+  round: number;
+  cards: DealCard[];
+  goal: number;
+  timeMs: number;
+  skipped: boolean;
+  parMs: number;
+  solution: DealStep[];
+  teamBest: { timeMs: number; name: string; me: boolean } | null;
+}
+export interface DealDay {
+  date: string;
+  access: GameAccess;
+  round: number;
+  counts: number[];
+  results: DealRoundResult[];
+  active: DealActive | null;
+  done: boolean;
+  totalMs: number | null;
+}
 export interface PerceptionDay {
   date: string;
   access: GameAccess;
@@ -755,6 +783,13 @@ export interface Api {
     DiveReveal
   >;
   'GET /api/games/perception/today': Endpoint<void, PerceptionDay>;
+  'GET /api/games/deal/today': Endpoint<void, DealDay>;
+  'POST /api/games/deal/start': Endpoint<{ round: number; date?: string }, DealDay>;
+  'POST /api/games/deal/skip': Endpoint<{ round: number; date?: string }, DealDay>;
+  'POST /api/games/deal/answer': Endpoint<
+    { round: number; date?: string; steps: DealStep[]; elapsedMs: number },
+    DealDay
+  >;
   'POST /api/games/perception/start': Endpoint<{ round: number; date?: string }, PerceptionStart>;
   'POST /api/games/perception/answer': Endpoint<
     { round: number; date?: string; answer: PerceptionRoundAnswer },

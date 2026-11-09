@@ -18,6 +18,11 @@
 
 Dive uses dedicated answer/reveal routes; non-admin staff may moderate only after completion.
 
+Deal uses dedicated today/start/answer/skip routes and server-owned resumable
+timing. Its score is integer tenths of a second, lower is better. Public rules
+live in `shared/games/deal.ts`; never import its Worker generator, schedule or
+offline solver into the browser. `DEAL_ENABLED` gates server availability.
+
 `DailyGameFrame` wraps the access gate, own result, result card with spoiler-free Share,
 and day board. Pass `play({date,onComplete})` and `summarize(result)`.
 Word Guess, Perception and Connections use `serverComplete`: their dedicated endpoints

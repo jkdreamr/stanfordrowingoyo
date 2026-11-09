@@ -1,5 +1,6 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
-import { Anchor, Eye, Grid3x3, LayoutGrid, type LucideIcon } from 'lucide-react';
+import { Anchor, Eye, Grid3x3, LayoutGrid, Spade, type LucideIcon } from 'lucide-react';
+import { formatDealTime } from '../../../shared/games/deal';
 import { formatConnectionsScore } from '../../../shared/games/connections';
 import type { GameScoreDirection } from '../../../shared/types';
 import { formatNumber } from '../lib/format';
@@ -14,6 +15,15 @@ export interface GameDefinition {
   formatScore(score: number): string;
 }
 export const GAMES: GameDefinition[] = [
+  {
+    id: 'deal',
+    title: 'Deal',
+    icon: Spade,
+    accent: 'var(--accent-ink)',
+    direction: 'lower',
+    component: lazy(() => import('./deal')),
+    formatScore: (score) => formatDealTime(score * 100),
+  },
   {
     id: 'dive',
     title: 'Dive',

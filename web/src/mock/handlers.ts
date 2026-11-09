@@ -79,6 +79,14 @@ import {
 } from '../../../shared/games/perceptionV2';
 import { dayNumber, dailyRandom } from '../../../shared/games/daily';
 import {
+  DEAL_MIN_STEP_MS,
+  DEAL_ROUND_CAP_MS,
+  DEAL_SKIP_PENALTY_MS,
+  replayDeal,
+} from '../../../shared/games/deal';
+import { mockDeal } from './deal';
+import type { DealRoundResult } from '../../../shared/types';
+import {
   boardWords,
   connectionsScore,
   parsePuzzle,
@@ -99,6 +107,7 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  deal: null,
   wordguess: null,
   perception: null,
   connections: null,
@@ -199,6 +208,10 @@ export function createMockApi({
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
   const wordProgress = new Map<string, string[]>();
+  const dealProgress = new Map<
+    string,
+    { results: DealRoundResult[]; active: { round: number; at: number } | null }
+  >();
   const connectionProgress = new Map<string, string[][]>();
   const perceptionProgress = new Map<
     string,
@@ -1037,7 +1050,10 @@ export function createMockApi({
               ].sort(),
               date,
             ),
-            games: Object.keys(MOCK_GAMES).map((id) => ({ id, direction: 'higher' })),
+            games: Object.keys(MOCK_GAMES).map((id) => ({
+              id,
+              direction: id === 'deal' ? 'lower' : 'higher',
+            })),
             results: gameResults.filter(
               (row) =>
                 row.user_id === user.id &&
@@ -1129,6 +1145,102 @@ export function createMockApi({
             updated_at: stamp,
           });
         };
+        if (gameId === 'deal' && ['today', 'start', 'answer', 'skip'].includes(parts[4])) {
+          const action = parts[4],
+            write = action !== 'today';
+          if (method !== (write ? 'POST' : 'GET')) fail(405, 'Method not allowed.');
+          const counts = [4, 5, 6, 7, 8];
+          const puzzle = mockDeal;
+          const key = `${user.id}:${date}`;
+          const p = dealProgress.get(key) ?? { results: [], active: null };
+          dealProgress.set(key, p);
+          const elapsed = () => (p.active ? Math.max(0, now().getTime() - p.active.at) : 0);
+          const finishRound = (skipped: boolean, timeMs: number) => {
+            const round = p.results.length;
+            p.results.push({ round, ...puzzle(round), timeMs, skipped, teamBest: null });
+            p.active = null;
+            if (p.results.length === 5 && !mine(date))
+              addResult(Math.floor(p.results.reduce((sum, r) => sum + r.timeMs, 0) / 100), {
+                rounds: p.results.map(({ cards, goal, timeMs, skipped, parMs }) => ({
+                  cards,
+                  goal,
+                  timeMs,
+                  skipped,
+                  parMs,
+                })),
+              });
+          };
+          if (write) {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            const keys =
+              action === 'answer' ? ['round', 'date', 'steps', 'elapsedMs'] : ['round', 'date'];
+            if (
+              Object.keys(body).some((k) => !keys.includes(k)) ||
+              !Number.isInteger(body.round) ||
+              (body.round as number) < 0 ||
+              (body.round as number) > 4 ||
+              (body.date !== undefined && !dateValid(body.date)) ||
+              (action === 'answer' &&
+                (!Array.isArray(body.steps) ||
+                  typeof body.elapsedMs !== 'number' ||
+                  !Number.isFinite(body.elapsedMs) ||
+                  body.elapsedMs < 0))
+            )
+              fail(400, 'Invalid round.');
+            if (body.date !== undefined && body.date !== date)
+              fail(409, 'A new day has started. Reload to play.', 'DAY_CHANGED');
+            if (p.results.length === 5) fail(409, 'Already played today.', 'ALREADY_PLAYED');
+            if (body.round !== p.results.length) fail(409, 'Round out of order.', 'ROUND_ORDER');
+            if (action === 'start') {
+              if (p.active) fail(409, 'Round already started.', 'ROUND_STARTED');
+              p.active = { round: p.results.length, at: now().getTime() };
+            } else {
+              if (!p.active) fail(409, 'Round not started.', 'ROUND_NOT_STARTED');
+              const ms = elapsed(),
+                deal = puzzle(p.results.length);
+              if (action === 'answer') {
+                if (
+                  !replayDeal(
+                    deal.cards.map((c) => c.value),
+                    body.steps,
+                    deal.goal,
+                  ).ok
+                )
+                  fail(400, 'Steps do not reach the goal.');
+                if (ms < (deal.cards.length - 1) * DEAL_MIN_STEP_MS)
+                  fail(400, 'Timing is not plausible for this round.');
+                finishRound(
+                  false,
+                  Math.min(
+                    DEAL_ROUND_CAP_MS,
+                    Math.max(Math.max(0, ms - 2500), Math.min(body.elapsedMs as number, ms)),
+                  ),
+                );
+              } else finishRound(true, Math.min(DEAL_ROUND_CAP_MS, ms + DEAL_SKIP_PENALTY_MS));
+            }
+          } else if (access.unlocked && p.active && elapsed() >= DEAL_ROUND_CAP_MS)
+            finishRound(true, DEAL_ROUND_CAP_MS);
+          const done = p.results.length === 5;
+          return json({
+            date,
+            access,
+            round: p.results.length,
+            counts,
+            results: access.unlocked ? p.results : [],
+            active:
+              access.unlocked && p.active
+                ? {
+                    round: p.active.round,
+                    ...(({ cards, goal, parMs }) => ({ cards, goal, parMs }))(
+                      puzzle(p.active.round),
+                    ),
+                    elapsedMs: elapsed(),
+                  }
+                : null,
+            done,
+            totalMs: done ? p.results.reduce((sum, r) => sum + r.timeMs, 0) : null,
+          });
+        }
         if (gameId === 'perception' && ['today', 'start', 'answer'].includes(parts[4])) {
           const v2 = date >= PERCEPTION_V2_FROM;
           const rounds: PerceptionRoundId[] = v2
