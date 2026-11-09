@@ -62283,6 +62283,6351 @@
       "surface": ["Vaporeon", "Jolteon", "Flareon"],
       "pearl": "Leafeon",
       "scope": "Eight species Eevee can evolve into, not Eevee itself, cosmetic/Gigantamax/partner forms or other evolutionary families."
+    },
+    {
+      "id": "asterix-albums",
+      "text": "an album in the main Asterix comic series",
+      "theme": "books",
+      "cluster": "asterix",
+      "active": true,
+      "answers": [
+        {
+          "name": "Asterix the Gaul"
+        },
+        {
+          "name": "Asterix and the Golden Sickle",
+          "aliases": ["The Golden Sickle"]
+        },
+        {
+          "name": "Asterix and the Goths",
+          "aliases": ["the Goths"]
+        },
+        {
+          "name": "Asterix the Gladiator"
+        },
+        {
+          "name": "Asterix and the Banquet",
+          "aliases": ["the Banquet"]
+        },
+        {
+          "name": "Asterix and Cleopatra",
+          "aliases": ["Cleopatra"]
+        },
+        {
+          "name": "Asterix and the Big Fight",
+          "aliases": ["the Big Fight"]
+        },
+        {
+          "name": "Asterix in Britain"
+        },
+        {
+          "name": "Asterix and the Normans",
+          "aliases": ["the Normans"]
+        },
+        {
+          "name": "Asterix the Legionary"
+        },
+        {
+          "name": "Asterix and the Chieftain's Shield",
+          "aliases": ["the Chieftain's Shield"]
+        },
+        {
+          "name": "Asterix at the Olympic Games"
+        },
+        {
+          "name": "Asterix and the Cauldron",
+          "aliases": ["the Cauldron"]
+        },
+        {
+          "name": "Asterix in Spain"
+        },
+        {
+          "name": "Asterix and the Roman Agent",
+          "aliases": ["the Roman Agent"]
+        },
+        {
+          "name": "Asterix in Switzerland"
+        },
+        {
+          "name": "The Mansions of the Gods"
+        },
+        {
+          "name": "Asterix and the Laurel Wreath",
+          "aliases": ["the Laurel Wreath"]
+        },
+        {
+          "name": "Asterix and the Soothsayer",
+          "aliases": ["the Soothsayer"]
+        },
+        {
+          "name": "Asterix in Corsica"
+        },
+        {
+          "name": "Asterix and Caesar's Gift",
+          "aliases": ["Caesar's Gift"]
+        },
+        {
+          "name": "Asterix and the Great Crossing",
+          "aliases": ["the Great Crossing"]
+        },
+        {
+          "name": "Obelix and Co."
+        },
+        {
+          "name": "Asterix in Belgium"
+        },
+        {
+          "name": "Asterix and the Great Divide",
+          "aliases": ["the Great Divide"]
+        },
+        {
+          "name": "Asterix and the Black Gold",
+          "aliases": ["the Black Gold"]
+        },
+        {
+          "name": "Asterix and Son",
+          "aliases": ["Son"]
+        },
+        {
+          "name": "Asterix and the Magic Carpet",
+          "aliases": ["the Magic Carpet"]
+        },
+        {
+          "name": "Asterix and the Secret Weapon",
+          "aliases": ["the Secret Weapon"]
+        },
+        {
+          "name": "Asterix and Obelix All at Sea",
+          "aliases": ["Obelix All at Sea"]
+        },
+        {
+          "name": "Asterix and the Actress",
+          "aliases": ["the Actress"]
+        },
+        {
+          "name": "Asterix and the Class Act",
+          "aliases": ["the Class Act"]
+        },
+        {
+          "name": "Asterix and the Falling Sky",
+          "aliases": ["the Falling Sky"]
+        },
+        {
+          "name": "Asterix and Obelix's Birthday",
+          "aliases": ["Asterix and Obelix's Birthday: The Golden Book", "Obelix's Birthday"]
+        },
+        {
+          "name": "Asterix and the Picts",
+          "aliases": ["the Picts"]
+        },
+        {
+          "name": "Asterix and the Missing Scroll",
+          "aliases": ["the Missing Scroll"]
+        },
+        {
+          "name": "Asterix and the Chariot Race",
+          "aliases": ["the Chariot Race"]
+        },
+        {
+          "name": "Asterix and the Chieftain's Daughter",
+          "aliases": ["the Chieftain's Daughter"]
+        },
+        {
+          "name": "Asterix and the Griffin",
+          "aliases": ["the Griffin"]
+        },
+        {
+          "name": "Asterix and the White Iris",
+          "aliases": ["the White Iris"]
+        },
+        {
+          "name": "Asterix in Lusitania"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Asterix",
+          "revision": 1381597166,
+          "members": [
+            "Asterix the Gaul",
+            "Asterix and the Golden Sickle",
+            "Asterix and the Goths",
+            "Asterix the Gladiator",
+            "Asterix and the Banquet",
+            "Asterix and Cleopatra",
+            "Asterix and the Big Fight",
+            "Asterix in Britain",
+            "Asterix and the Normans",
+            "Asterix the Legionary",
+            "Asterix and the Chieftain's Shield",
+            "Asterix at the Olympic Games",
+            "Asterix and the Cauldron",
+            "Asterix in Spain",
+            "Asterix and the Roman Agent",
+            "Asterix in Switzerland",
+            "The Mansions of the Gods",
+            "Asterix and the Laurel Wreath",
+            "Asterix and the Soothsayer",
+            "Asterix in Corsica",
+            "Asterix and Caesar's Gift",
+            "Asterix and the Great Crossing",
+            "Obelix and Co.",
+            "Asterix in Belgium",
+            "Asterix and the Great Divide",
+            "Asterix and the Black Gold",
+            "Asterix and Son",
+            "Asterix and the Magic Carpet",
+            "Asterix and the Secret Weapon",
+            "Asterix and Obelix All at Sea",
+            "Asterix and the Actress",
+            "Asterix and the Class Act",
+            "Asterix and the Falling Sky",
+            "Asterix and Obelix's Birthday: The Golden Book",
+            "Asterix and the Picts",
+            "Asterix and the Missing Scroll",
+            "Asterix and the Chariot Race",
+            "Asterix and the Chieftain's Daughter",
+            "Asterix and the Griffin",
+            "Asterix and the White Iris",
+            "Asterix in Lusitania"
+          ],
+          "reviewed": [
+            "Asterix the Gaul",
+            "Asterix and the Golden Sickle",
+            "Asterix and the Goths",
+            "Asterix the Gladiator",
+            "Asterix and the Banquet",
+            "Asterix and Cleopatra",
+            "Asterix and the Big Fight",
+            "Asterix in Britain",
+            "Asterix and the Normans",
+            "Asterix the Legionary",
+            "Asterix and the Chieftain's Shield",
+            "Asterix at the Olympic Games",
+            "Asterix and the Cauldron",
+            "Asterix in Spain",
+            "Asterix and the Roman Agent",
+            "Asterix in Switzerland",
+            "The Mansions of the Gods",
+            "Asterix and the Laurel Wreath",
+            "Asterix and the Soothsayer",
+            "Asterix in Corsica",
+            "Asterix and Caesar's Gift",
+            "Asterix and the Great Crossing",
+            "Obelix and Co.",
+            "Asterix in Belgium",
+            "Asterix and the Great Divide",
+            "Asterix and the Black Gold",
+            "Asterix and Son",
+            "Asterix and the Magic Carpet",
+            "Asterix and the Secret Weapon",
+            "Asterix and Obelix All at Sea",
+            "Asterix and the Actress",
+            "Asterix and the Class Act",
+            "Asterix and the Falling Sky",
+            "Asterix and Obelix's Birthday: The Golden Book",
+            "Asterix and the Picts",
+            "Asterix and the Missing Scroll",
+            "Asterix and the Chariot Race",
+            "Asterix and the Chieftain's Daughter",
+            "Asterix and the Griffin",
+            "Asterix and the White Iris",
+            "Asterix in Lusitania"
+          ],
+          "expect": [41, 41]
+        }
+      ],
+      "expect": [41, 41],
+      "surface": ["Asterix the Gaul", "Asterix and Cleopatra", "Asterix in Britain"],
+      "pearl": "Asterix and the Black Gold",
+      "scope": "All 41 numbered main-series albums, including the officially numbered short-story/special albums; not film novelizations, separate illustrated books or other comic series.",
+      "too_clever": ["Asterix and the Golden Sickle"]
+    },
+    {
+      "id": "android-dessert-codenames",
+      "text": "a public or internal dessert codename of a released Android version",
+      "theme": "everyday",
+      "cluster": "android",
+      "active": true,
+      "answers": [
+        {
+          "name": "Petit Four",
+          "aliases": ["Android Petit Four"]
+        },
+        {
+          "name": "Cupcake",
+          "aliases": ["Android Cupcake"]
+        },
+        {
+          "name": "Donut",
+          "aliases": ["Doughnut", "Android Donut"]
+        },
+        {
+          "name": "Eclair",
+          "aliases": ["Android Eclair"]
+        },
+        {
+          "name": "Froyo",
+          "aliases": ["Frozen Yogurt", "Frozen Yoghurt", "Frozen Yoghourt", "Android Froyo"]
+        },
+        {
+          "name": "Gingerbread",
+          "aliases": ["Android Gingerbread"]
+        },
+        {
+          "name": "Honeycomb",
+          "aliases": ["Android Honeycomb"]
+        },
+        {
+          "name": "Ice Cream Sandwich",
+          "aliases": ["Android Ice Cream Sandwich"]
+        },
+        {
+          "name": "Jelly Bean",
+          "aliases": ["Android Jelly Bean"]
+        },
+        {
+          "name": "Key Lime Pie",
+          "aliases": ["Android Key Lime Pie"]
+        },
+        {
+          "name": "Lemon Meringue Pie",
+          "aliases": ["Android Lemon Meringue Pie"]
+        },
+        {
+          "name": "Macadamia Nut Cookie",
+          "aliases": ["Android Macadamia Nut Cookie"]
+        },
+        {
+          "name": "New York Cheesecake",
+          "aliases": ["Android New York Cheesecake"]
+        },
+        {
+          "name": "Oatmeal Cookie",
+          "aliases": ["Android Oatmeal Cookie"]
+        },
+        {
+          "name": "Pistachio Ice Cream",
+          "aliases": ["Android Pistachio Ice Cream"]
+        },
+        {
+          "name": "Quince Tart",
+          "aliases": ["Android Quince Tart"]
+        },
+        {
+          "name": "Red Velvet Cake",
+          "aliases": ["Red Velvet", "Android Red Velvet Cake"]
+        },
+        {
+          "name": "Snow Cone",
+          "aliases": ["Snow Cone v2", "Snowcone", "Android Snow Cone"]
+        },
+        {
+          "name": "Tiramisu",
+          "aliases": ["Android Tiramisu"]
+        },
+        {
+          "name": "Upside Down Cake",
+          "aliases": ["Upside-Down Cake", "Android Upside Down Cake"]
+        },
+        {
+          "name": "Vanilla Ice Cream",
+          "aliases": ["Android Vanilla Ice Cream"]
+        },
+        {
+          "name": "Baklava",
+          "aliases": ["Android Baklava"]
+        },
+        {
+          "name": "Cinnamon Bun",
+          "aliases": ["Cinnamon Roll", "Android Cinnamon Bun"]
+        },
+        {
+          "name": "KitKat",
+          "aliases": ["Kit Kat", "Android KitKat"]
+        },
+        {
+          "name": "Lollipop",
+          "aliases": ["Android Lollipop"]
+        },
+        {
+          "name": "Marshmallow",
+          "aliases": ["Android Marshmallow"]
+        },
+        {
+          "name": "Nougat",
+          "aliases": ["Android Nougat"]
+        },
+        {
+          "name": "Oreo",
+          "aliases": ["Android Oreo"]
+        },
+        {
+          "name": "Pie",
+          "aliases": ["Android Pie"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Android version history",
+          "revision": 1384555765,
+          "members": [
+            "Petit Four",
+            "Cupcake",
+            "Donut",
+            "Eclair",
+            "Froyo",
+            "Gingerbread",
+            "Honeycomb",
+            "Ice Cream Sandwich",
+            "Jelly Bean",
+            "Key Lime Pie",
+            "Lemon Meringue Pie",
+            "Macadamia Nut Cookie",
+            "New York Cheesecake",
+            "Oatmeal Cookie",
+            "Pistachio Ice Cream",
+            "Quince Tart",
+            "Red Velvet Cake",
+            "Snow Cone",
+            "Snow Cone v2",
+            "Tiramisu",
+            "Upside Down Cake",
+            "Vanilla Ice Cream",
+            "Baklava",
+            "Cinnamon Bun",
+            "KitKat",
+            "Lollipop",
+            "Marshmallow",
+            "Nougat",
+            "Oreo",
+            "Pie"
+          ],
+          "reviewed": [
+            "Petit Four",
+            "Cupcake",
+            "Donut",
+            "Eclair",
+            "Froyo",
+            "Gingerbread",
+            "Honeycomb",
+            "Ice Cream Sandwich",
+            "Jelly Bean",
+            "Key Lime Pie",
+            "Lemon Meringue Pie",
+            "Macadamia Nut Cookie",
+            "New York Cheesecake",
+            "Oatmeal Cookie",
+            "Pistachio Ice Cream",
+            "Quince Tart",
+            "Red Velvet Cake",
+            "Snow Cone",
+            "Snow Cone v2",
+            "Tiramisu",
+            "Upside Down Cake",
+            "Vanilla Ice Cream",
+            "Baklava",
+            "Cinnamon Bun",
+            "KitKat",
+            "Lollipop",
+            "Marshmallow",
+            "Nougat",
+            "Oreo",
+            "Pie"
+          ],
+          "expect": [30, 30]
+        }
+      ],
+      "expect": [29, 29],
+      "surface": ["Oreo", "KitKat", "Pie"],
+      "too_clever": ["Baklava"],
+      "pearl": "Petit Four",
+      "scope": "All 29 distinct dessert names for released Android versions through Android 17, including internal Petit Four and post-public-dessert internal codenames. Android 12L Snow Cone v2 aliases Snow Cone, rather than inventing a different dessert. Unreleased/rumored names, pre-release robot names, and the unofficial Apple Pie label do not qualify. Replaces NATO codewords because the existing nato-alphabet already covers exactly that set."
+    },
+    {
+      "id": "macos-cat-releases",
+      "text": "a cat-themed Mac OS X release",
+      "theme": "everyday",
+      "cluster": "macos",
+      "active": true,
+      "answers": [
+        {
+          "name": "Cheetah",
+          "aliases": [
+            "10.0",
+            "Mac OS X 10.0",
+            "OS X 10.0",
+            "Mac OS X Cheetah",
+            "OS X Cheetah",
+            "MacOS Cheetah"
+          ]
+        },
+        {
+          "name": "Puma",
+          "aliases": [
+            "10.1",
+            "Mac OS X 10.1",
+            "OS X 10.1",
+            "Mac OS X Puma",
+            "OS X Puma",
+            "MacOS Puma"
+          ]
+        },
+        {
+          "name": "Jaguar",
+          "aliases": [
+            "10.2",
+            "Mac OS X 10.2",
+            "OS X 10.2",
+            "Mac OS X Jaguar",
+            "OS X Jaguar",
+            "MacOS Jaguar"
+          ]
+        },
+        {
+          "name": "Panther",
+          "aliases": [
+            "10.3",
+            "Mac OS X 10.3",
+            "OS X 10.3",
+            "Mac OS X Panther",
+            "OS X Panther",
+            "MacOS Panther"
+          ]
+        },
+        {
+          "name": "Tiger",
+          "aliases": [
+            "10.4",
+            "Mac OS X 10.4",
+            "OS X 10.4",
+            "Mac OS X Tiger",
+            "OS X Tiger",
+            "MacOS Tiger"
+          ]
+        },
+        {
+          "name": "Leopard",
+          "aliases": [
+            "10.5",
+            "Mac OS X 10.5",
+            "OS X 10.5",
+            "Mac OS X Leopard",
+            "OS X Leopard",
+            "MacOS Leopard"
+          ]
+        },
+        {
+          "name": "Snow Leopard",
+          "aliases": [
+            "10.6",
+            "Mac OS X 10.6",
+            "OS X 10.6",
+            "Mac OS X Snow Leopard",
+            "OS X Snow Leopard",
+            "MacOS Snow Leopard"
+          ]
+        },
+        {
+          "name": "Lion",
+          "aliases": [
+            "10.7",
+            "Mac OS X 10.7",
+            "OS X 10.7",
+            "Mac OS X Lion",
+            "OS X Lion",
+            "MacOS Lion"
+          ]
+        },
+        {
+          "name": "Mountain Lion",
+          "aliases": [
+            "10.8",
+            "Mac OS X 10.8",
+            "OS X 10.8",
+            "Mac OS X Mountain Lion",
+            "OS X Mountain Lion",
+            "MacOS Mountain Lion"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "page": "MacOS version history",
+          "revision": 1384561402,
+          "members": [
+            "Cheetah",
+            "Puma",
+            "Jaguar",
+            "Panther",
+            "Tiger",
+            "Leopard",
+            "Snow Leopard",
+            "Lion",
+            "Mountain Lion"
+          ],
+          "reviewed": [
+            "Cheetah",
+            "Puma",
+            "Jaguar",
+            "Panther",
+            "Tiger",
+            "Leopard",
+            "Snow Leopard",
+            "Lion",
+            "Mountain Lion"
+          ],
+          "expect": [9, 9]
+        }
+      ],
+      "expect": [9, 9],
+      "surface": ["Tiger", "Leopard", "Snow Leopard"],
+      "pearl": "Puma",
+      "scope": "The nine cat codenames for OS X 10.0–10.8, including early internal names; not later California-place codenames, hardware names or unreleased rumored cat names.",
+      "too_clever": ["Mountain Lion"]
+    },
+    {
+      "id": "star-wars-theatrical-films",
+      "text": "a Star Wars feature film first released theatrically",
+      "theme": "film",
+      "cluster": "star-wars",
+      "active": true,
+      "answers": [
+        {
+          "name": "A New Hope",
+          "aliases": [
+            "Episode IV A New Hope",
+            "Star Wars A New Hope",
+            "Episode IV",
+            "Episode 4",
+            "Star Wars Episode IV",
+            "Star Wars Episode 4",
+            "Star Wars",
+            "Star Wars 1977"
+          ]
+        },
+        {
+          "name": "The Empire Strikes Back",
+          "aliases": [
+            "Episode V The Empire Strikes Back",
+            "Star Wars The Empire Strikes Back",
+            "Episode V",
+            "Episode 5",
+            "Star Wars Episode V",
+            "Star Wars Episode 5"
+          ]
+        },
+        {
+          "name": "Return of the Jedi",
+          "aliases": [
+            "Episode VI Return of the Jedi",
+            "Star Wars Return of the Jedi",
+            "Episode VI",
+            "Episode 6",
+            "Star Wars Episode VI",
+            "Star Wars Episode 6"
+          ]
+        },
+        {
+          "name": "The Phantom Menace",
+          "aliases": [
+            "Episode I The Phantom Menace",
+            "Star Wars The Phantom Menace",
+            "Episode I",
+            "Episode 1",
+            "Star Wars Episode I",
+            "Star Wars Episode 1"
+          ]
+        },
+        {
+          "name": "Attack of the Clones",
+          "aliases": [
+            "Episode II Attack of the Clones",
+            "Star Wars Attack of the Clones",
+            "Episode II",
+            "Episode 2",
+            "Star Wars Episode II",
+            "Star Wars Episode 2"
+          ]
+        },
+        {
+          "name": "Revenge of the Sith",
+          "aliases": [
+            "Episode III Revenge of the Sith",
+            "Star Wars Revenge of the Sith",
+            "Episode III",
+            "Episode 3",
+            "Star Wars Episode III",
+            "Star Wars Episode 3"
+          ]
+        },
+        {
+          "name": "The Force Awakens",
+          "aliases": [
+            "Episode VII The Force Awakens",
+            "Star Wars The Force Awakens",
+            "Episode VII",
+            "Episode 7",
+            "Star Wars Episode VII",
+            "Star Wars Episode 7"
+          ]
+        },
+        {
+          "name": "The Last Jedi",
+          "aliases": [
+            "Episode VIII The Last Jedi",
+            "Star Wars The Last Jedi",
+            "Episode VIII",
+            "Episode 8",
+            "Star Wars Episode VIII",
+            "Star Wars Episode 8"
+          ]
+        },
+        {
+          "name": "The Rise of Skywalker",
+          "aliases": [
+            "Episode IX The Rise of Skywalker",
+            "Star Wars The Rise of Skywalker",
+            "Episode IX",
+            "Episode 9",
+            "Star Wars Episode IX",
+            "Star Wars Episode 9"
+          ]
+        },
+        {
+          "name": "The Clone Wars",
+          "aliases": ["Star Wars The Clone Wars"]
+        },
+        {
+          "name": "Rogue One",
+          "aliases": ["Rogue One A Star Wars Story"]
+        },
+        {
+          "name": "Solo",
+          "aliases": ["Solo A Star Wars Story"]
+        },
+        {
+          "name": "The Mandalorian and Grogu"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Star Wars films",
+          "revision": 1383464105,
+          "members": [
+            "Episode IV – A New Hope",
+            "Episode V – The Empire Strikes Back",
+            "Episode VI – Return of the Jedi",
+            "Episode I – The Phantom Menace",
+            "Episode II – Attack of the Clones",
+            "Episode III – Revenge of the Sith",
+            "Episode VII – The Force Awakens",
+            "Episode VIII – The Last Jedi",
+            "Episode IX – The Rise of Skywalker",
+            "The Clone Wars",
+            "Rogue One: A Star Wars Story",
+            "Solo: A Star Wars Story",
+            "The Mandalorian and Grogu"
+          ],
+          "reviewed": [
+            "Episode IV – A New Hope",
+            "Episode V – The Empire Strikes Back",
+            "Episode VI – Return of the Jedi",
+            "Episode I – The Phantom Menace",
+            "Episode II – Attack of the Clones",
+            "Episode III – Revenge of the Sith",
+            "Episode VII – The Force Awakens",
+            "Episode VIII – The Last Jedi",
+            "Episode IX – The Rise of Skywalker",
+            "The Clone Wars",
+            "Rogue One: A Star Wars Story",
+            "Solo: A Star Wars Story",
+            "The Mandalorian and Grogu"
+          ],
+          "expect": [13, 13]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["A New Hope", "The Empire Strikes Back", "Return of the Jedi"],
+      "pearl": "The Clone Wars",
+      "scope": "The nine Skywalker films, The Clone Wars, Rogue One, Solo, and the released The Mandalorian and Grogu; not television films/series, shorts or announced future theatrical releases.",
+      "too_clever": ["Rogue One"]
+    },
+    {
+      "id": "wizarding-world-films",
+      "text": "a theatrically released Wizarding World film",
+      "theme": "film",
+      "cluster": "wizarding-world",
+      "active": true,
+      "answers": [
+        {
+          "name": "Philosopher's Stone",
+          "aliases": [
+            "Harry Potter and the Philosopher's Stone",
+            "Harry Potter 1",
+            "HP1",
+            "Sorcerer's Stone",
+            "Harry Potter and the Sorcerer's Stone"
+          ]
+        },
+        {
+          "name": "Chamber of Secrets",
+          "aliases": ["Harry Potter and the Chamber of Secrets", "Harry Potter 2", "HP2"]
+        },
+        {
+          "name": "Prisoner of Azkaban",
+          "aliases": ["Harry Potter and the Prisoner of Azkaban", "Harry Potter 3", "HP3"]
+        },
+        {
+          "name": "Goblet of Fire",
+          "aliases": ["Harry Potter and the Goblet of Fire", "Harry Potter 4", "HP4"]
+        },
+        {
+          "name": "Order of the Phoenix",
+          "aliases": ["Harry Potter and the Order of the Phoenix", "Harry Potter 5", "HP5"]
+        },
+        {
+          "name": "Half-Blood Prince",
+          "aliases": ["Harry Potter and the Half-Blood Prince", "Harry Potter 6", "HP6"]
+        },
+        {
+          "name": "Deathly Hallows Part 1",
+          "aliases": [
+            "Harry Potter and the Deathly Hallows Part 1",
+            "Harry Potter 7",
+            "HP7",
+            "Harry Potter 7 Part 1",
+            "Deathly Hallows 1"
+          ]
+        },
+        {
+          "name": "Deathly Hallows Part 2",
+          "aliases": [
+            "Harry Potter and the Deathly Hallows Part 2",
+            "Harry Potter 8",
+            "HP8",
+            "Harry Potter 7 Part 2",
+            "Deathly Hallows 2"
+          ]
+        },
+        {
+          "name": "Fantastic Beasts",
+          "aliases": ["Fantastic Beasts and Where to Find Them", "Fantastic Beasts 1"]
+        },
+        {
+          "name": "The Crimes of Grindelwald",
+          "aliases": ["Fantastic Beasts The Crimes of Grindelwald", "Fantastic Beasts 2"]
+        },
+        {
+          "name": "The Secrets of Dumbledore",
+          "aliases": ["Fantastic Beasts The Secrets of Dumbledore", "Fantastic Beasts 3"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Wizarding World",
+          "revision": 1384356616,
+          "members": [
+            "Harry Potter and the Philosopher's Stone",
+            "Harry Potter and the Chamber of Secrets",
+            "Harry Potter and the Prisoner of Azkaban",
+            "Harry Potter and the Goblet of Fire",
+            "Harry Potter and the Order of the Phoenix",
+            "Harry Potter and the Half-Blood Prince",
+            "Harry Potter and the Deathly Hallows – Part 1",
+            "Harry Potter and the Deathly Hallows – Part 2",
+            "Fantastic Beasts and Where to Find Them",
+            "Fantastic Beasts: The Crimes of Grindelwald",
+            "Fantastic Beasts: The Secrets of Dumbledore"
+          ],
+          "reviewed": [
+            "Harry Potter and the Philosopher's Stone",
+            "Harry Potter and the Chamber of Secrets",
+            "Harry Potter and the Prisoner of Azkaban",
+            "Harry Potter and the Goblet of Fire",
+            "Harry Potter and the Order of the Phoenix",
+            "Harry Potter and the Half-Blood Prince",
+            "Harry Potter and the Deathly Hallows – Part 1",
+            "Harry Potter and the Deathly Hallows – Part 2",
+            "Fantastic Beasts and Where to Find Them",
+            "Fantastic Beasts: The Crimes of Grindelwald",
+            "Fantastic Beasts: The Secrets of Dumbledore"
+          ],
+          "expect": [11, 11]
+        }
+      ],
+      "expect": [11, 11],
+      "surface": ["Philosopher's Stone", "Chamber of Secrets", "Fantastic Beasts"],
+      "pearl": "The Secrets of Dumbledore",
+      "scope": "The eight Harry Potter and three Fantastic Beasts theatrical films; not stage plays, books, games or television adaptations. US Sorcerer’s Stone title is an alias.",
+      "too_clever": ["Prisoner of Azkaban"]
+    },
+    {
+      "id": "mission-impossible-films",
+      "text": "a Mission: Impossible feature film",
+      "theme": "film",
+      "cluster": "mission-impossible",
+      "active": true,
+      "answers": [
+        {
+          "name": "Mission: Impossible",
+          "aliases": ["MI1", "M I 1", "Mission Impossible 1", "M I"]
+        },
+        {
+          "name": "Mission: Impossible 2",
+          "aliases": ["MI2", "M I 2", "Mission Impossible II"]
+        },
+        {
+          "name": "Mission: Impossible III",
+          "aliases": ["MI3", "M I 3", "Mission Impossible 3"]
+        },
+        {
+          "name": "Ghost Protocol",
+          "aliases": ["Mission Impossible Ghost Protocol", "MI4", "M I 4", "Mission Impossible 4"]
+        },
+        {
+          "name": "Rogue Nation",
+          "aliases": ["Mission Impossible Rogue Nation", "MI5", "M I 5", "Mission Impossible 5"]
+        },
+        {
+          "name": "Fallout",
+          "aliases": ["Mission Impossible Fallout", "MI6", "M I 6", "Mission Impossible 6"]
+        },
+        {
+          "name": "Dead Reckoning Part One",
+          "aliases": [
+            "Mission Impossible Dead Reckoning Part One",
+            "MI7",
+            "M I 7",
+            "Mission Impossible 7",
+            "Dead Reckoning",
+            "Dead Reckoning Part 1",
+            "Mission Impossible Dead Reckoning"
+          ]
+        },
+        {
+          "name": "The Final Reckoning",
+          "aliases": [
+            "Mission Impossible The Final Reckoning",
+            "MI8",
+            "M I 8",
+            "Mission Impossible 8"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Mission: Impossible (film series)",
+          "revision": 1382053150,
+          "members": [
+            "Mission: Impossible",
+            "Mission: Impossible 2",
+            "Mission: Impossible III",
+            "Mission: Impossible – Ghost Protocol",
+            "Mission: Impossible – Rogue Nation",
+            "Mission: Impossible – Fallout",
+            "Mission: Impossible – Dead Reckoning Part One",
+            "Mission: Impossible – The Final Reckoning"
+          ],
+          "reviewed": [
+            "Mission: Impossible",
+            "Mission: Impossible 2",
+            "Mission: Impossible III",
+            "Mission: Impossible – Ghost Protocol",
+            "Mission: Impossible – Rogue Nation",
+            "Mission: Impossible – Fallout",
+            "Mission: Impossible – Dead Reckoning Part One",
+            "Mission: Impossible – The Final Reckoning"
+          ],
+          "expect": [8, 8]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Mission: Impossible", "Ghost Protocol"],
+      "pearl": "Mission: Impossible 2",
+      "scope": "All eight released feature films through The Final Reckoning; TV episodes and other Tom Cruise franchises do not qualify.",
+      "too_clever": ["Mission: Impossible III"]
+    },
+    {
+      "id": "wes-anderson-features",
+      "text": "a feature film directed by Wes Anderson",
+      "theme": "film",
+      "cluster": "directors",
+      "active": true,
+      "answers": [
+        {
+          "name": "Bottle Rocket"
+        },
+        {
+          "name": "Rushmore"
+        },
+        {
+          "name": "The Royal Tenenbaums"
+        },
+        {
+          "name": "The Life Aquatic with Steve Zissou",
+          "aliases": ["The Life Aquatic"]
+        },
+        {
+          "name": "The Darjeeling Limited"
+        },
+        {
+          "name": "Fantastic Mr. Fox",
+          "aliases": ["Fantastic Mister Fox"]
+        },
+        {
+          "name": "Moonrise Kingdom"
+        },
+        {
+          "name": "The Grand Budapest Hotel",
+          "aliases": ["The Grand Budapest"]
+        },
+        {
+          "name": "Isle of Dogs"
+        },
+        {
+          "name": "The French Dispatch"
+        },
+        {
+          "name": "Asteroid City"
+        },
+        {
+          "name": "Henry Sugar and Three More",
+          "aliases": [
+            "The Wonderful Story of Henry Sugar and Three More",
+            "Henry Sugar",
+            "The Wonderful Story of Henry Sugar"
+          ]
+        },
+        {
+          "name": "The Phoenician Scheme"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Wes Anderson filmography",
+          "revision": 1384577779,
+          "members": [
+            "Bottle Rocket",
+            "Rushmore",
+            "The Royal Tenenbaums",
+            "The Life Aquatic with Steve Zissou",
+            "The Darjeeling Limited",
+            "Fantastic Mr. Fox",
+            "Moonrise Kingdom",
+            "The Grand Budapest Hotel",
+            "Isle of Dogs",
+            "The French Dispatch",
+            "Asteroid City",
+            "The Wonderful Story of Henry Sugar and Three More",
+            "The Phoenician Scheme"
+          ],
+          "reviewed": [
+            "Bottle Rocket",
+            "Rushmore",
+            "The Royal Tenenbaums",
+            "The Life Aquatic with Steve Zissou",
+            "The Darjeeling Limited",
+            "Fantastic Mr. Fox",
+            "Moonrise Kingdom",
+            "The Grand Budapest Hotel",
+            "Isle of Dogs",
+            "The French Dispatch",
+            "Asteroid City",
+            "The Wonderful Story of Henry Sugar and Three More",
+            "The Phoenician Scheme"
+          ],
+          "expect": [13, 13]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["The Grand Budapest Hotel", "Fantastic Mr. Fox", "The Royal Tenenbaums"],
+      "pearl": "Bottle Rocket",
+      "scope": "All 13 directed features, including the 2024 feature-length Henry Sugar anthology. Standalone shorts are not features; producer-only films do not qualify.",
+      "too_clever": ["Isle of Dogs"]
+    },
+    {
+      "id": "dreamworks-theatrical-films",
+      "text": "a theatrically released DreamWorks Animation feature film",
+      "theme": "film",
+      "cluster": "animation",
+      "active": true,
+      "answers": [
+        {
+          "name": "Antz"
+        },
+        {
+          "name": "The Prince of Egypt"
+        },
+        {
+          "name": "The Road to El Dorado"
+        },
+        {
+          "name": "Chicken Run"
+        },
+        {
+          "name": "Shrek"
+        },
+        {
+          "name": "Spirit: Stallion of the Cimarron",
+          "aliases": ["Spirit"]
+        },
+        {
+          "name": "Sinbad: Legend of the Seven Seas"
+        },
+        {
+          "name": "Shrek 2"
+        },
+        {
+          "name": "Shark Tale"
+        },
+        {
+          "name": "Madagascar"
+        },
+        {
+          "name": "Curse of the Were-Rabbit",
+          "aliases": ["Wallace and Gromit The Curse of the Were Rabbit", "Wallace and Gromit"]
+        },
+        {
+          "name": "Over the Hedge"
+        },
+        {
+          "name": "Flushed Away"
+        },
+        {
+          "name": "Shrek the Third",
+          "aliases": ["Shrek 3"]
+        },
+        {
+          "name": "Bee Movie"
+        },
+        {
+          "name": "Kung Fu Panda"
+        },
+        {
+          "name": "Madagascar: Escape 2 Africa",
+          "aliases": ["Madagascar 2"]
+        },
+        {
+          "name": "Monsters vs. Aliens"
+        },
+        {
+          "name": "How to Train Your Dragon",
+          "aliases": ["HTTYD", "HTTYD1", "How to Train Your Dragon 2010"]
+        },
+        {
+          "name": "Shrek Forever After",
+          "aliases": ["Shrek 4"]
+        },
+        {
+          "name": "Megamind"
+        },
+        {
+          "name": "Kung Fu Panda 2"
+        },
+        {
+          "name": "Puss in Boots"
+        },
+        {
+          "name": "Madagascar 3: Europe's Most Wanted",
+          "aliases": ["Madagascar 3"]
+        },
+        {
+          "name": "Rise of the Guardians"
+        },
+        {
+          "name": "The Croods"
+        },
+        {
+          "name": "Turbo"
+        },
+        {
+          "name": "Mr. Peabody & Sherman"
+        },
+        {
+          "name": "How to Train Your Dragon 2",
+          "aliases": ["HTTYD2"]
+        },
+        {
+          "name": "Penguins of Madagascar"
+        },
+        {
+          "name": "Home"
+        },
+        {
+          "name": "Kung Fu Panda 3"
+        },
+        {
+          "name": "Trolls"
+        },
+        {
+          "name": "The Boss Baby"
+        },
+        {
+          "name": "Captain Underpants",
+          "aliases": ["Captain Underpants The First Epic Movie"]
+        },
+        {
+          "name": "The Hidden World",
+          "aliases": [
+            "How to Train Your Dragon: The Hidden World",
+            "How to Train Your Dragon 3",
+            "HTTYD3"
+          ]
+        },
+        {
+          "name": "Abominable"
+        },
+        {
+          "name": "Trolls World Tour",
+          "aliases": ["Trolls 2"]
+        },
+        {
+          "name": "The Croods: A New Age",
+          "aliases": ["The Croods 2"]
+        },
+        {
+          "name": "Spirit Untamed"
+        },
+        {
+          "name": "The Boss Baby: Family Business",
+          "aliases": ["The Boss Baby 2"]
+        },
+        {
+          "name": "The Bad Guys"
+        },
+        {
+          "name": "Puss in Boots: The Last Wish",
+          "aliases": ["Puss in Boots 2", "The Last Wish"]
+        },
+        {
+          "name": "Ruby Gillman, Teenage Kraken"
+        },
+        {
+          "name": "Trolls Band Together",
+          "aliases": ["Trolls 3"]
+        },
+        {
+          "name": "Kung Fu Panda 4"
+        },
+        {
+          "name": "The Wild Robot"
+        },
+        {
+          "name": "Dog Man"
+        },
+        {
+          "name": "How to Train Your Dragon (2025)",
+          "aliases": ["HTTYD 2025", "How to Train Your Dragon Live Action"]
+        },
+        {
+          "name": "The Bad Guys 2"
+        },
+        {
+          "name": "Gabby's Dollhouse: The Movie"
+        },
+        {
+          "name": "Forgotten Island"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of DreamWorks Animation productions",
+          "revision": 1383742448,
+          "members": [
+            "Antz",
+            "The Prince of Egypt",
+            "The Road to El Dorado",
+            "Chicken Run",
+            "Shrek",
+            "Spirit: Stallion of the Cimarron",
+            "Sinbad: Legend of the Seven Seas",
+            "Shrek 2",
+            "Shark Tale",
+            "Madagascar",
+            "Wallace & Gromit: The Curse of the Were-Rabbit",
+            "Over the Hedge",
+            "Flushed Away",
+            "Shrek the Third",
+            "Bee Movie",
+            "Kung Fu Panda",
+            "Madagascar: Escape 2 Africa",
+            "Monsters vs. Aliens",
+            "How to Train Your Dragon",
+            "Shrek Forever After",
+            "Megamind",
+            "Kung Fu Panda 2",
+            "Puss in Boots",
+            "Madagascar 3: Europe's Most Wanted",
+            "Rise of the Guardians",
+            "The Croods",
+            "Turbo",
+            "Mr. Peabody & Sherman",
+            "How to Train Your Dragon 2",
+            "Penguins of Madagascar",
+            "Home",
+            "Kung Fu Panda 3",
+            "Trolls",
+            "The Boss Baby",
+            "Captain Underpants: The First Epic Movie",
+            "How to Train Your Dragon: The Hidden World",
+            "Abominable",
+            "Trolls World Tour",
+            "The Croods: A New Age",
+            "Spirit Untamed",
+            "The Boss Baby: Family Business",
+            "The Bad Guys",
+            "Puss in Boots: The Last Wish",
+            "Ruby Gillman, Teenage Kraken",
+            "Trolls Band Together",
+            "Kung Fu Panda 4",
+            "The Wild Robot",
+            "Dog Man",
+            "The Bad Guys 2",
+            "Gabby's Dollhouse: The Movie",
+            "Forgotten Island"
+          ],
+          "reviewed": [
+            "Antz",
+            "The Prince of Egypt",
+            "The Road to El Dorado",
+            "Chicken Run",
+            "Shrek",
+            "Spirit: Stallion of the Cimarron",
+            "Sinbad: Legend of the Seven Seas",
+            "Shrek 2",
+            "Shark Tale",
+            "Madagascar",
+            "Wallace & Gromit: The Curse of the Were-Rabbit",
+            "Over the Hedge",
+            "Flushed Away",
+            "Shrek the Third",
+            "Bee Movie",
+            "Kung Fu Panda",
+            "Madagascar: Escape 2 Africa",
+            "Monsters vs. Aliens",
+            "How to Train Your Dragon",
+            "Shrek Forever After",
+            "Megamind",
+            "Kung Fu Panda 2",
+            "Puss in Boots",
+            "Madagascar 3: Europe's Most Wanted",
+            "Rise of the Guardians",
+            "The Croods",
+            "Turbo",
+            "Mr. Peabody & Sherman",
+            "How to Train Your Dragon 2",
+            "Penguins of Madagascar",
+            "Home",
+            "Kung Fu Panda 3",
+            "Trolls",
+            "The Boss Baby",
+            "Captain Underpants: The First Epic Movie",
+            "How to Train Your Dragon: The Hidden World",
+            "Abominable",
+            "Trolls World Tour",
+            "The Croods: A New Age",
+            "Spirit Untamed",
+            "The Boss Baby: Family Business",
+            "The Bad Guys",
+            "Puss in Boots: The Last Wish",
+            "Ruby Gillman, Teenage Kraken",
+            "Trolls Band Together",
+            "Kung Fu Panda 4",
+            "The Wild Robot",
+            "Dog Man",
+            "The Bad Guys 2",
+            "Gabby's Dollhouse: The Movie",
+            "Forgotten Island"
+          ],
+          "expect": [51, 51]
+        }
+      ],
+      "expect": [52, 52],
+      "surface": ["Shrek", "Madagascar", "Kung Fu Panda"],
+      "pearl": "Antz",
+      "scope": "All released theatrical DWA features, including Aardman co-productions, simultaneous theatrical/streaming releases and the 2025 live-action Dragon remake. Joseph: King of Dreams is direct-to-video; Orion and the Dark is streaming-only. The two Dragon films have distinct year-qualified aliases.",
+      "too_clever": ["The Wild Robot"]
+    },
+    {
+      "id": "population-100m",
+      "text": "a country with over 100 million people in current national or UN estimates",
+      "theme": "geography",
+      "cluster": "population",
+      "active": true,
+      "answers": [
+        {
+          "name": "India"
+        },
+        {
+          "name": "China"
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"]
+        },
+        {
+          "name": "Indonesia"
+        },
+        {
+          "name": "Pakistan"
+        },
+        {
+          "name": "Nigeria"
+        },
+        {
+          "name": "Brazil"
+        },
+        {
+          "name": "Bangladesh"
+        },
+        {
+          "name": "Russia",
+          "aliases": ["Russian Federation"]
+        },
+        {
+          "name": "Mexico"
+        },
+        {
+          "name": "Japan"
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire", "Congo"]
+        },
+        {
+          "name": "Philippines"
+        },
+        {
+          "name": "Ethiopia"
+        },
+        {
+          "name": "Egypt"
+        },
+        {
+          "name": "Vietnam",
+          "aliases": ["Viet Nam"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of countries and dependencies by population",
+          "revision": 1383170889,
+          "members": [
+            "India",
+            "China",
+            "United States",
+            "Indonesia",
+            "Pakistan",
+            "Nigeria",
+            "Brazil",
+            "Bangladesh",
+            "Russia",
+            "Mexico",
+            "Japan",
+            "Democratic Republic of the Congo",
+            "Philippines",
+            "Ethiopia",
+            "Egypt",
+            "Vietnam"
+          ],
+          "reviewed": [
+            "India",
+            "China",
+            "United States",
+            "Indonesia",
+            "Pakistan",
+            "Nigeria",
+            "Brazil",
+            "Bangladesh",
+            "Russia",
+            "Mexico",
+            "Japan",
+            "Democratic Republic of the Congo",
+            "Philippines",
+            "Ethiopia",
+            "Egypt",
+            "Vietnam"
+          ],
+          "expect": [16, 16]
+        }
+      ],
+      "expect": [16, 16],
+      "surface": ["India", "China", "United States"],
+      "pearl": "Vietnam",
+      "scope": "Every sovereign country over 100 million in the pinned current national/UN population table; no territories reach the threshold. Uses the displayed national/UN estimates, not an outdated 2023 UN-only table.",
+      "too_clever": ["Indonesia"]
+    },
+    {
+      "id": "current-monarchies",
+      "text": "a current monarchy among UN member and observer states",
+      "theme": "geography",
+      "cluster": "monarchies",
+      "active": true,
+      "answers": [
+        {
+          "name": "Andorra"
+        },
+        {
+          "name": "Antigua and Barbuda"
+        },
+        {
+          "name": "Australia"
+        },
+        {
+          "name": "The Bahamas"
+        },
+        {
+          "name": "Bahrain"
+        },
+        {
+          "name": "Belgium"
+        },
+        {
+          "name": "Belize"
+        },
+        {
+          "name": "Bhutan"
+        },
+        {
+          "name": "Brunei",
+          "aliases": ["Brunei Darussalam"]
+        },
+        {
+          "name": "Cambodia"
+        },
+        {
+          "name": "Canada"
+        },
+        {
+          "name": "Kingdom of Denmark",
+          "aliases": ["Denmark"]
+        },
+        {
+          "name": "Eswatini",
+          "aliases": ["Swaziland"]
+        },
+        {
+          "name": "Grenada"
+        },
+        {
+          "name": "Jamaica"
+        },
+        {
+          "name": "Japan"
+        },
+        {
+          "name": "Jordan"
+        },
+        {
+          "name": "Kuwait"
+        },
+        {
+          "name": "Lesotho"
+        },
+        {
+          "name": "Liechtenstein"
+        },
+        {
+          "name": "Luxembourg"
+        },
+        {
+          "name": "Malaysia"
+        },
+        {
+          "name": "Monaco"
+        },
+        {
+          "name": "Morocco"
+        },
+        {
+          "name": "Kingdom of the Netherlands",
+          "aliases": ["Netherlands"]
+        },
+        {
+          "name": "New Zealand",
+          "aliases": ["NZ"]
+        },
+        {
+          "name": "Norway"
+        },
+        {
+          "name": "Oman"
+        },
+        {
+          "name": "Papua New Guinea"
+        },
+        {
+          "name": "Qatar"
+        },
+        {
+          "name": "Saint Kitts and Nevis",
+          "aliases": ["St Kitts and Nevis"]
+        },
+        {
+          "name": "Saint Lucia",
+          "aliases": ["St Lucia"]
+        },
+        {
+          "name": "Saint Vincent and the Grenadines",
+          "aliases": ["St Vincent and the Grenadines"]
+        },
+        {
+          "name": "Saudi Arabia"
+        },
+        {
+          "name": "Solomon Islands"
+        },
+        {
+          "name": "Spain"
+        },
+        {
+          "name": "Sweden"
+        },
+        {
+          "name": "Thailand"
+        },
+        {
+          "name": "Tonga"
+        },
+        {
+          "name": "Tuvalu"
+        },
+        {
+          "name": "United Arab Emirates",
+          "aliases": ["UAE"]
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"]
+        },
+        {
+          "name": "Vatican City",
+          "aliases": ["Vatican", "Holy See"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of current monarchies",
+          "revision": 1379815868,
+          "members": [
+            "Andorra",
+            "Antigua and Barbuda",
+            "Australia",
+            "The Bahamas",
+            "Bahrain",
+            "Belgium",
+            "Belize",
+            "Bhutan",
+            "Brunei",
+            "Cambodia",
+            "Canada",
+            "Kingdom of Denmark",
+            "Eswatini",
+            "Grenada",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kuwait",
+            "Lesotho",
+            "Liechtenstein",
+            "Luxembourg",
+            "Malaysia",
+            "Monaco",
+            "Morocco",
+            "Kingdom of the Netherlands",
+            "New Zealand",
+            "Norway",
+            "Oman",
+            "Papua New Guinea",
+            "Qatar",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Saudi Arabia",
+            "Solomon Islands",
+            "Spain",
+            "Sweden",
+            "Thailand",
+            "Tonga",
+            "Tuvalu",
+            "United Arab Emirates",
+            "United Kingdom",
+            "Vatican City"
+          ],
+          "reviewed": [
+            "Andorra",
+            "Antigua and Barbuda",
+            "Australia",
+            "The Bahamas",
+            "Bahrain",
+            "Belgium",
+            "Belize",
+            "Bhutan",
+            "Brunei",
+            "Cambodia",
+            "Canada",
+            "Kingdom of Denmark",
+            "Eswatini",
+            "Grenada",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kuwait",
+            "Lesotho",
+            "Liechtenstein",
+            "Luxembourg",
+            "Malaysia",
+            "Monaco",
+            "Morocco",
+            "Kingdom of the Netherlands",
+            "New Zealand",
+            "Norway",
+            "Oman",
+            "Papua New Guinea",
+            "Qatar",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Saudi Arabia",
+            "Solomon Islands",
+            "Spain",
+            "Sweden",
+            "Thailand",
+            "Tonga",
+            "Tuvalu",
+            "United Arab Emirates",
+            "United Kingdom",
+            "Vatican City"
+          ],
+          "expect": [43, 43]
+        }
+      ],
+      "expect": [43, 43],
+      "surface": ["United Kingdom", "Japan", "Saudi Arabia"],
+      "pearl": "Andorra",
+      "scope": "All 43 sovereign monarchies, including elective monarchies, co-principalities, Vatican City and Commonwealth realms; not former monarchies, subnational traditional kingdoms or dependencies. The 42 UN members plus the Vatican/Holy See observer; not nonmember freely associated states or dependent territories.",
+      "too_clever": ["Vatican City"]
+    },
+    {
+      "id": "tropic-capricorn-countries",
+      "text": "a country the Tropic of Capricorn passes through",
+      "theme": "geography",
+      "cluster": "tropics",
+      "active": true,
+      "answers": [
+        {
+          "name": "Namibia",
+          "aliases": ["Republic of Namibia"]
+        },
+        {
+          "name": "Botswana",
+          "aliases": ["Republic of Botswana"]
+        },
+        {
+          "name": "South Africa",
+          "aliases": ["Republic of South Africa"]
+        },
+        {
+          "name": "Mozambique",
+          "aliases": ["Republic of Mozambique"]
+        },
+        {
+          "name": "Madagascar",
+          "aliases": ["Republic of Madagascar"]
+        },
+        {
+          "name": "Australia",
+          "aliases": ["Commonwealth of Australia"]
+        },
+        {
+          "name": "Chile",
+          "aliases": ["Republic of Chile"]
+        },
+        {
+          "name": "Argentina",
+          "aliases": ["Argentine Republic"]
+        },
+        {
+          "name": "Paraguay",
+          "aliases": ["Republic of Paraguay"]
+        },
+        {
+          "name": "Brazil",
+          "aliases": ["Federative Republic of Brazil"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Tropic of Capricorn",
+          "revision": 1380222695,
+          "members": [
+            "Namibia",
+            "Botswana",
+            "South Africa",
+            "Mozambique",
+            "Madagascar",
+            "Australia",
+            "Chile",
+            "Argentina",
+            "Paraguay",
+            "Brazil"
+          ],
+          "reviewed": [
+            "Namibia",
+            "Botswana",
+            "South Africa",
+            "Mozambique",
+            "Madagascar",
+            "Australia",
+            "Chile",
+            "Argentina",
+            "Paraguay",
+            "Brazil"
+          ],
+          "expect": [10, 10]
+        }
+      ],
+      "expect": [10, 10],
+      "surface": ["Australia", "Brazil", "South Africa"],
+      "pearl": "Botswana",
+      "scope": "The ten sovereign countries in the complete west-to-east route table; island and mainland land crossings are included.",
+      "too_clever": ["Chile"]
+    },
+    {
+      "id": "france-overseas-territories",
+      "text": "one of France's thirteen overseas territories",
+      "theme": "geography",
+      "cluster": "overseas-france",
+      "active": true,
+      "answers": [
+        {
+          "name": "French Guiana",
+          "aliases": ["Guyane", "French Guyana"]
+        },
+        {
+          "name": "Guadeloupe"
+        },
+        {
+          "name": "Martinique"
+        },
+        {
+          "name": "Réunion",
+          "aliases": ["La Reunion"]
+        },
+        {
+          "name": "Mayotte"
+        },
+        {
+          "name": "French Polynesia",
+          "aliases": ["Polynesie Francaise", "Tahiti", "Islands of Tahiti"]
+        },
+        {
+          "name": "New Caledonia",
+          "aliases": ["Nouvelle Caledonie"]
+        },
+        {
+          "name": "Saint Pierre and Miquelon",
+          "aliases": ["St Pierre and Miquelon"]
+        },
+        {
+          "name": "Saint Barthélemy",
+          "aliases": ["St Barts", "Saint Barts", "St Barthelemy", "St Barths"]
+        },
+        {
+          "name": "Saint Martin",
+          "aliases": ["St Martin"]
+        },
+        {
+          "name": "Wallis and Futuna",
+          "aliases": ["Wallis et Futuna"]
+        },
+        {
+          "name": "French Southern and Antarctic Lands",
+          "aliases": ["TAAF", "French Southern Territories"]
+        },
+        {
+          "name": "Clipperton Island",
+          "aliases": ["Clipperton"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Overseas France",
+          "revision": 1382473288,
+          "members": [
+            "French Guiana",
+            "Guadeloupe",
+            "Martinique",
+            "Réunion",
+            "Mayotte",
+            "French Polynesia",
+            "New Caledonia",
+            "Saint Pierre and Miquelon",
+            "Saint Barthélemy",
+            "Saint Martin",
+            "Wallis and Futuna",
+            "French Southern and Antarctic Lands",
+            "Clipperton Island"
+          ],
+          "reviewed": [
+            "French Guiana",
+            "Guadeloupe",
+            "Martinique",
+            "Réunion",
+            "Mayotte",
+            "French Polynesia",
+            "New Caledonia",
+            "Saint Pierre and Miquelon",
+            "Saint Barthélemy",
+            "Saint Martin",
+            "Wallis and Futuna",
+            "French Southern and Antarctic Lands",
+            "Clipperton Island"
+          ],
+          "expect": [13, 13]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["French Guiana", "French Polynesia", "Réunion"],
+      "pearl": "Clipperton Island",
+      "scope": "The 13 top-level overseas departments/collectivities/territories/property listed in the infobox: five departments and eight other units. TAAF is one unit, not its districts; other islands inside these units and metropolitan Corsica are not additional members. Tahiti is accepted as a common metonym for French Polynesia, not as an additional territory.",
+      "too_clever": ["Saint Martin"]
+    },
+    {
+      "id": "seven-summits-peaks",
+      "text": "a mountain on the Bass or Messner Seven Summits list",
+      "theme": "geography",
+      "cluster": "mountains",
+      "active": true,
+      "answers": [
+        {
+          "name": "Mount Everest",
+          "aliases": ["Everest", "Sagarmatha", "Chomolungma"]
+        },
+        {
+          "name": "Aconcagua"
+        },
+        {
+          "name": "Denali",
+          "aliases": ["Mount McKinley", "Mt McKinley"]
+        },
+        {
+          "name": "Kilimanjaro",
+          "aliases": ["Mount Kilimanjaro"]
+        },
+        {
+          "name": "Mount Elbrus",
+          "aliases": ["Elbrus"]
+        },
+        {
+          "name": "Mount Vinson",
+          "aliases": ["Vinson", "Vinson Massif"]
+        },
+        {
+          "name": "Puncak Jaya",
+          "aliases": ["Carstensz Pyramid", "Carstensz"]
+        },
+        {
+          "name": "Mount Kosciuszko",
+          "aliases": ["Kosciuszko"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Seven Summits",
+          "revision": 1378358113,
+          "members": [
+            "Mount Everest",
+            "Aconcagua",
+            "Denali",
+            "Kilimanjaro",
+            "Mount Elbrus",
+            "Mount Vinson",
+            "Puncak Jaya",
+            "Mount Kosciuszko"
+          ],
+          "reviewed": [
+            "Mount Everest",
+            "Aconcagua",
+            "Denali",
+            "Kilimanjaro",
+            "Mount Elbrus",
+            "Mount Vinson",
+            "Puncak Jaya",
+            "Mount Kosciuszko"
+          ],
+          "expect": [8, 8]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Mount Everest", "Kilimanjaro"],
+      "pearl": "Puncak Jaya",
+      "scope": "Union of the Bass and Messner lists: eight peaks because Kosciuszko and Puncak Jaya differ. Hackett’s Mont Blanc alternative is outside these two named lists.",
+      "too_clever": ["Aconcagua"]
+    },
+    {
+      "id": "g20-countries",
+      "text": "a country with its own G20 membership",
+      "theme": "geography",
+      "cluster": "international-groups",
+      "active": true,
+      "answers": [
+        {
+          "name": "Argentina"
+        },
+        {
+          "name": "Australia"
+        },
+        {
+          "name": "Brazil"
+        },
+        {
+          "name": "Canada"
+        },
+        {
+          "name": "China"
+        },
+        {
+          "name": "France"
+        },
+        {
+          "name": "Germany"
+        },
+        {
+          "name": "India"
+        },
+        {
+          "name": "Indonesia"
+        },
+        {
+          "name": "Italy"
+        },
+        {
+          "name": "Japan"
+        },
+        {
+          "name": "Mexico"
+        },
+        {
+          "name": "South Korea",
+          "aliases": ["Republic of Korea", "Korea"]
+        },
+        {
+          "name": "Russia",
+          "aliases": ["Russian Federation"]
+        },
+        {
+          "name": "Saudi Arabia"
+        },
+        {
+          "name": "South Africa",
+          "aliases": ["Republic of South Africa"]
+        },
+        {
+          "name": "Turkey",
+          "aliases": ["Türkiye"]
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"]
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "G20",
+          "revision": 1384343690,
+          "members": [
+            "Argentina",
+            "Australia",
+            "Brazil",
+            "Canada",
+            "China",
+            "France",
+            "Germany",
+            "India",
+            "Indonesia",
+            "Italy",
+            "Japan",
+            "Mexico",
+            "South Korea",
+            "Russia",
+            "Saudi Arabia",
+            "South Africa",
+            "Turkey",
+            "United Kingdom",
+            "United States"
+          ],
+          "reviewed": [
+            "Argentina",
+            "Australia",
+            "Brazil",
+            "Canada",
+            "China",
+            "France",
+            "Germany",
+            "India",
+            "Indonesia",
+            "Italy",
+            "Japan",
+            "Mexico",
+            "South Korea",
+            "Russia",
+            "Saudi Arabia",
+            "South Africa",
+            "Turkey",
+            "United Kingdom",
+            "United States"
+          ],
+          "expect": [19, 19]
+        }
+      ],
+      "expect": [19, 19],
+      "surface": ["United States", "China", "India"],
+      "pearl": "Argentina",
+      "scope": "The 19 directly represented sovereign states, not the EU/African Union as organizations, their indirectly represented states, permanent guest Spain or occasional invitees.",
+      "too_clever": ["Turkey"]
+    },
+    {
+      "id": "antarctic-treaty-originals",
+      "text": "an original 1959 signatory of the Antarctic Treaty",
+      "theme": "history",
+      "cluster": "antarctic-treaty",
+      "active": true,
+      "answers": [
+        {
+          "name": "Argentina"
+        },
+        {
+          "name": "Australia"
+        },
+        {
+          "name": "Belgium"
+        },
+        {
+          "name": "Chile"
+        },
+        {
+          "name": "France"
+        },
+        {
+          "name": "Japan"
+        },
+        {
+          "name": "New Zealand",
+          "aliases": ["NZ"]
+        },
+        {
+          "name": "Norway"
+        },
+        {
+          "name": "Russia",
+          "aliases": [
+            "Russian Federation",
+            "Soviet Union",
+            "USSR",
+            "Union of Soviet Socialist Republics"
+          ]
+        },
+        {
+          "name": "South Africa",
+          "aliases": ["Republic of South Africa", "Union of South Africa"]
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"]
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Antarctic Treaty System",
+          "revision": 1383986257,
+          "members": [
+            "Argentina",
+            "Australia",
+            "Belgium",
+            "Chile",
+            "France",
+            "Japan",
+            "New Zealand",
+            "Norway",
+            "Russia",
+            "South Africa",
+            "United Kingdom",
+            "United States"
+          ],
+          "reviewed": [
+            "Argentina",
+            "Australia",
+            "Belgium",
+            "Chile",
+            "France",
+            "Japan",
+            "New Zealand",
+            "Norway",
+            "Russia",
+            "South Africa",
+            "United Kingdom",
+            "United States"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["United States", "United Kingdom", "Australia"],
+      "pearl": "Belgium",
+      "scope": "All twelve original signing states; the USSR is represented by continuing party Russia, with Soviet Union/USSR aliases. Later accession states are not original signatories.",
+      "too_clever": ["Russia"]
+    },
+    {
+      "id": "original-greek-titans",
+      "text": "one of the twelve original Greek Titans",
+      "theme": "history",
+      "cluster": "myth",
+      "active": true,
+      "answers": [
+        {
+          "name": "Oceanus",
+          "aliases": ["Okeanos"]
+        },
+        {
+          "name": "Coeus",
+          "aliases": ["Koios"]
+        },
+        {
+          "name": "Crius",
+          "aliases": ["Krios"]
+        },
+        {
+          "name": "Hyperion"
+        },
+        {
+          "name": "Iapetus",
+          "aliases": ["Japetus"]
+        },
+        {
+          "name": "Cronus",
+          "aliases": ["Kronos"]
+        },
+        {
+          "name": "Theia",
+          "aliases": ["Thea"]
+        },
+        {
+          "name": "Rhea",
+          "aliases": ["Rheia"]
+        },
+        {
+          "name": "Themis"
+        },
+        {
+          "name": "Mnemosyne"
+        },
+        {
+          "name": "Phoebe",
+          "aliases": ["Phoibe"]
+        },
+        {
+          "name": "Tethys"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Titans",
+          "revision": 1381765298,
+          "members": [
+            "Oceanus",
+            "Coeus",
+            "Crius",
+            "Hyperion",
+            "Iapetus",
+            "Cronus",
+            "Theia",
+            "Rhea",
+            "Themis",
+            "Mnemosyne",
+            "Phoebe",
+            "Tethys"
+          ],
+          "reviewed": [
+            "Oceanus",
+            "Coeus",
+            "Crius",
+            "Hyperion",
+            "Iapetus",
+            "Cronus",
+            "Theia",
+            "Rhea",
+            "Themis",
+            "Mnemosyne",
+            "Phoebe",
+            "Tethys"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["Cronus", "Rhea", "Oceanus"],
+      "pearl": "Crius",
+      "scope": "Hesiod’s twelve children of Gaia and Uranus, not their Titan descendants, primordial parents or Olympians.",
+      "too_clever": ["Hyperion"]
+    },
+    {
+      "id": "heracles-labours",
+      "text": "one of the Twelve Labours of Heracles or Hercules",
+      "theme": "history",
+      "cluster": "myth",
+      "active": true,
+      "answers": [
+        {
+          "name": "Nemean lion",
+          "aliases": ["Slay the Nemean Lion", "Kill the Nemean Lion", "Lion"]
+        },
+        {
+          "name": "Lernaean Hydra",
+          "aliases": ["Hydra", "Slay the Hydra", "Lernean Hydra"]
+        },
+        {
+          "name": "Ceryneian Hind",
+          "aliases": ["Golden Hind", "Hind of Artemis", "Capture the Ceryneian Hind"]
+        },
+        {
+          "name": "Erymanthian boar",
+          "aliases": ["Capture the Erymanthian Boar"]
+        },
+        {
+          "name": "Augean stables",
+          "aliases": ["Clean the Augean Stables"]
+        },
+        {
+          "name": "Stymphalian birds"
+        },
+        {
+          "name": "Cretan Bull"
+        },
+        {
+          "name": "Mares of Diomedes",
+          "aliases": ["Horses of Diomedes"]
+        },
+        {
+          "name": "Girdle of Hippolyta",
+          "aliases": [
+            "Belt of Hippolyta",
+            "Hippolytas Belt",
+            "Hippolytes Belt",
+            "Belt of the Amazon Queen"
+          ]
+        },
+        {
+          "name": "Cattle of Geryon",
+          "aliases": ["Geryons Cattle"]
+        },
+        {
+          "name": "Apples of the Hesperides",
+          "aliases": ["Golden Apples", "Hesperides Apples"]
+        },
+        {
+          "name": "Cerberus",
+          "aliases": ["Capture Cerberus", "Capture of Cerberus"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Labours of Hercules",
+          "revision": 1382025963,
+          "members": [
+            "Nemean lion",
+            "Lernaean Hydra",
+            "Ceryneian Hind",
+            "Erymanthian boar",
+            "Augean stables",
+            "Stymphalian birds",
+            "Cretan Bull",
+            "Mares of Diomedes",
+            "Girdle of Hippolyta",
+            "Cattle of Geryon",
+            "Apples of the Hesperides",
+            "Cerberus"
+          ],
+          "reviewed": [
+            "Nemean lion",
+            "Lernaean Hydra",
+            "Ceryneian Hind",
+            "Erymanthian boar",
+            "Augean stables",
+            "Stymphalian birds",
+            "Cretan Bull",
+            "Mares of Diomedes",
+            "Girdle of Hippolyta",
+            "Cattle of Geryon",
+            "Apples of the Hesperides",
+            "Cerberus"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["Nemean lion", "Lernaean Hydra", "Cerberus"],
+      "pearl": "Ceryneian Hind",
+      "scope": "The standard twelve principal tasks; accepts task/action wording and familiar beast/object labels. Other Greek heroes’ feats and subsidiary adventures are not additional labours.",
+      "too_clever": ["Augean stables"]
+    },
+    {
+      "id": "cfa-cat-breeds",
+      "text": "a cat breed recognized by the Cat Fanciers' Association",
+      "theme": "nature",
+      "cluster": "cat-breeds",
+      "active": true,
+      "answers": [
+        {
+          "name": "Abyssinian",
+          "aliases": ["Abyssinian cat"]
+        },
+        {
+          "name": "American Bobtail",
+          "aliases": ["American Bobtail cat"]
+        },
+        {
+          "name": "American Curl",
+          "aliases": ["American Curl cat"]
+        },
+        {
+          "name": "American Shorthair",
+          "aliases": ["American Shorthair cat"]
+        },
+        {
+          "name": "American Wirehair",
+          "aliases": ["American Wirehair cat"]
+        },
+        {
+          "name": "Balinese",
+          "aliases": ["Balinese cat", "Javanese"]
+        },
+        {
+          "name": "Bengal",
+          "aliases": ["Bengal cat"]
+        },
+        {
+          "name": "Birman",
+          "aliases": ["Birman cat"]
+        },
+        {
+          "name": "Bombay",
+          "aliases": ["Bombay cat"]
+        },
+        {
+          "name": "British Shorthair",
+          "aliases": ["British Shorthair cat"]
+        },
+        {
+          "name": "Burmese",
+          "aliases": ["Burmese cat"]
+        },
+        {
+          "name": "Burmilla",
+          "aliases": ["Burmilla cat"]
+        },
+        {
+          "name": "Chartreux",
+          "aliases": ["Chartreux cat"]
+        },
+        {
+          "name": "Colorpoint Shorthair",
+          "aliases": ["Colorpoint Shorthair cat"]
+        },
+        {
+          "name": "Cornish Rex",
+          "aliases": ["Cornish Rex cat"]
+        },
+        {
+          "name": "Devon Rex",
+          "aliases": ["Devon Rex cat"]
+        },
+        {
+          "name": "Egyptian Mau",
+          "aliases": ["Egyptian Mau cat"]
+        },
+        {
+          "name": "European Burmese",
+          "aliases": ["European Burmese cat"]
+        },
+        {
+          "name": "Exotic Shorthair",
+          "aliases": ["Exotic", "Exotic Shorthair cat"]
+        },
+        {
+          "name": "Havana Brown",
+          "aliases": ["Havana Brown cat"]
+        },
+        {
+          "name": "Japanese Bobtail",
+          "aliases": ["Japanese Bobtail cat"]
+        },
+        {
+          "name": "Khao Manee",
+          "aliases": ["Khao Manee cat"]
+        },
+        {
+          "name": "Korat",
+          "aliases": ["Korat cat"]
+        },
+        {
+          "name": "LaPerm",
+          "aliases": ["LaPerm cat"]
+        },
+        {
+          "name": "Lykoi",
+          "aliases": ["Lykoi cat"]
+        },
+        {
+          "name": "Maine Coon",
+          "aliases": ["Maine Coon cat", "Mainecoon"]
+        },
+        {
+          "name": "Manx",
+          "aliases": ["Manx cat"]
+        },
+        {
+          "name": "Norwegian Forest Cat",
+          "aliases": ["Norwegian Forest Cat cat"]
+        },
+        {
+          "name": "Ocicat",
+          "aliases": ["Ocicat cat"]
+        },
+        {
+          "name": "Oriental",
+          "aliases": ["Oriental cat", "Oriental Shorthair", "Oriental Longhair"]
+        },
+        {
+          "name": "Persian",
+          "aliases": ["Persian cat", "Himalayan"]
+        },
+        {
+          "name": "Ragamuffin",
+          "aliases": ["Ragamuffin cat"]
+        },
+        {
+          "name": "Ragdoll",
+          "aliases": ["Ragdoll cat"]
+        },
+        {
+          "name": "Russian Blue",
+          "aliases": ["Russian Blue cat"]
+        },
+        {
+          "name": "Scottish Fold",
+          "aliases": ["Scottish Fold cat", "Scottishfold"]
+        },
+        {
+          "name": "Selkirk Rex",
+          "aliases": ["Selkirk Rex cat"]
+        },
+        {
+          "name": "Siamese",
+          "aliases": ["Siamese cat"]
+        },
+        {
+          "name": "Siberian",
+          "aliases": ["Siberian cat"]
+        },
+        {
+          "name": "Singapura",
+          "aliases": ["Singapura cat"]
+        },
+        {
+          "name": "Somali",
+          "aliases": ["Somali cat"]
+        },
+        {
+          "name": "Sphynx",
+          "aliases": ["Sphynx cat", "Sphinx"]
+        },
+        {
+          "name": "Toybob",
+          "aliases": ["Toybob cat"]
+        },
+        {
+          "name": "Tonkinese",
+          "aliases": ["Tonkinese cat"]
+        },
+        {
+          "name": "Turkish Angora",
+          "aliases": ["Turkish Angora cat"]
+        },
+        {
+          "name": "Turkish Van",
+          "aliases": ["Turkish Van cat"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Cat Fanciers' Association",
+          "revision": 1383374022,
+          "members": [
+            "Abyssinian cat",
+            "American Bobtail",
+            "American Curl",
+            "American Shorthair",
+            "American Wirehair",
+            "Balinese",
+            "Bengal",
+            "Birman",
+            "Bombay",
+            "British Shorthair",
+            "Burmese",
+            "Burmilla",
+            "Chartreux",
+            "Colorpoint Shorthair",
+            "Cornish Rex",
+            "Devon Rex",
+            "Egyptian Mau",
+            "European Burmese",
+            "Exotic",
+            "Havana Brown",
+            "Japanese Bobtail",
+            "Khao Manee",
+            "Korat",
+            "LaPerm",
+            "Lykoi",
+            "Maine Coon",
+            "Manx",
+            "Norwegian Forest Cat",
+            "Ocicat",
+            "Oriental",
+            "Persian",
+            "Ragamuffin",
+            "Ragdoll",
+            "Russian Blue",
+            "Scottish Fold",
+            "Selkirk Rex",
+            "Siamese",
+            "Siberian",
+            "Singapura",
+            "Somali",
+            "Sphynx",
+            "Toybob",
+            "Tonkinese",
+            "Turkish Angora",
+            "Turkish Van"
+          ],
+          "reviewed": [
+            "Abyssinian cat",
+            "American Bobtail",
+            "American Curl",
+            "American Shorthair",
+            "American Wirehair",
+            "Balinese",
+            "Bengal",
+            "Birman",
+            "Bombay",
+            "British Shorthair",
+            "Burmese",
+            "Burmilla",
+            "Chartreux",
+            "Colorpoint Shorthair",
+            "Cornish Rex",
+            "Devon Rex",
+            "Egyptian Mau",
+            "European Burmese",
+            "Exotic",
+            "Havana Brown",
+            "Japanese Bobtail",
+            "Khao Manee",
+            "Korat",
+            "LaPerm",
+            "Lykoi",
+            "Maine Coon",
+            "Manx",
+            "Norwegian Forest Cat",
+            "Ocicat",
+            "Oriental",
+            "Persian",
+            "Ragamuffin",
+            "Ragdoll",
+            "Russian Blue",
+            "Scottish Fold",
+            "Selkirk Rex",
+            "Siamese",
+            "Siberian",
+            "Singapura",
+            "Somali",
+            "Sphynx",
+            "Toybob",
+            "Tonkinese",
+            "Turkish Angora",
+            "Turkish Van"
+          ],
+          "expect": [45, 45]
+        }
+      ],
+      "expect": [45, 45],
+      "surface": ["Persian", "Siamese", "Maine Coon"],
+      "pearl": "Toybob",
+      "scope": "All 45 listed pedigreed breeds, including noncompetitive recognized classes. Javanese and Himalayan are divisions of Balinese/Persian, accepted as aliases rather than duplicate breeds; not every TICA breed or random domestic coat description.",
+      "too_clever": ["Sphynx"]
+    },
+    {
+      "id": "vulpes-foxes",
+      "text": "a living true fox species in the genus Vulpes",
+      "theme": "nature",
+      "cluster": "foxes",
+      "active": true,
+      "answers": [
+        {
+          "name": "Bengal fox",
+          "aliases": ["Indian Fox", "Vulpes bengalensis"]
+        },
+        {
+          "name": "Blanford's fox",
+          "aliases": ["Blanford fox", "Vulpes cana"]
+        },
+        {
+          "name": "Cape fox",
+          "aliases": ["Vulpes chama"]
+        },
+        {
+          "name": "Corsac fox",
+          "aliases": ["Vulpes corsac"]
+        },
+        {
+          "name": "Tibetan fox",
+          "aliases": ["Tibetan Sand Fox", "Vulpes ferrilata"]
+        },
+        {
+          "name": "Arctic fox",
+          "aliases": ["White Fox", "Polar Fox", "Snow Fox", "Vulpes lagopus"]
+        },
+        {
+          "name": "Kit fox",
+          "aliases": ["Vulpes macrotis"]
+        },
+        {
+          "name": "Pale fox",
+          "aliases": ["Vulpes pallida"]
+        },
+        {
+          "name": "Rüppell's fox",
+          "aliases": ["Ruppell Fox", "Ruppels Fox", "Vulpes rueppellii"]
+        },
+        {
+          "name": "Swift fox",
+          "aliases": ["Vulpes velox"]
+        },
+        {
+          "name": "Red fox",
+          "aliases": ["Silver Fox", "Cross Fox", "Vulpes vulpes"]
+        },
+        {
+          "name": "Fennec fox",
+          "aliases": ["Fennec", "Desert Fox", "Vulpes zerda"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Vulpes",
+          "revision": 1380848421,
+          "members": [
+            "Bengal fox",
+            "Blanford's fox",
+            "Cape fox",
+            "Corsac fox",
+            "Tibetan fox",
+            "Arctic fox",
+            "Kit fox",
+            "Pale fox",
+            "Rüppell's fox",
+            "Swift fox",
+            "Red fox",
+            "Fennec fox"
+          ],
+          "reviewed": [
+            "Bengal fox",
+            "Blanford's fox",
+            "Cape fox",
+            "Corsac fox",
+            "Tibetan fox",
+            "Arctic fox",
+            "Kit fox",
+            "Pale fox",
+            "Rüppell's fox",
+            "Swift fox",
+            "Red fox",
+            "Fennec fox"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["Red fox", "Arctic fox", "Fennec fox"],
+      "pearl": "Pale fox",
+      "scope": "All twelve living Vulpes species, not extinct species or fox-named canids in other genera. Color morphs/recognized subspecies alias their parent species.",
+      "too_clever": ["Tibetan fox"]
+    },
+    {
+      "id": "oceanic-dolphins",
+      "text": "a living species in the oceanic dolphin family Delphinidae",
+      "theme": "nature",
+      "cluster": "dolphins",
+      "active": true,
+      "answers": [
+        {
+          "name": "Dusky dolphin",
+          "aliases": ["Aethalodelphis obscurus"]
+        },
+        {
+          "name": "Pacific white-sided dolphin",
+          "aliases": ["Aethalodelphis obliquidens"]
+        },
+        {
+          "name": "Peale's dolphin",
+          "aliases": ["Peale dolphin", "Cephalorhynchus australis"]
+        },
+        {
+          "name": "Hourglass dolphin",
+          "aliases": ["Cephalorhynchus cruciger"]
+        },
+        {
+          "name": "Chilean dolphin",
+          "aliases": ["Cephalorhynchus eutropia"]
+        },
+        {
+          "name": "Commerson's dolphin",
+          "aliases": ["Commerson dolphin", "Cephalorhynchus commersonii"]
+        },
+        {
+          "name": "Heaviside's dolphin",
+          "aliases": ["Heaviside dolphin", "Cephalorhynchus heavisidii"]
+        },
+        {
+          "name": "Hector's dolphin",
+          "aliases": ["Hector dolphin", "Maui Dolphin", "Mauis Dolphin", "Cephalorhynchus hectori"]
+        },
+        {
+          "name": "Common dolphin",
+          "aliases": [
+            "Short Beaked Common Dolphin",
+            "Long Beaked Common Dolphin",
+            "Delphinus capensis",
+            "Delphinus bairdii",
+            "Delphinus delphis"
+          ]
+        },
+        {
+          "name": "Pygmy killer whale",
+          "aliases": ["Feresa attenuata"]
+        },
+        {
+          "name": "Long-finned pilot whale",
+          "aliases": ["Globicephala melas"]
+        },
+        {
+          "name": "Short-finned pilot whale",
+          "aliases": ["Globicephala macrorhynchus"]
+        },
+        {
+          "name": "Risso's dolphin",
+          "aliases": ["Risso dolphin", "Grampus griseus"]
+        },
+        {
+          "name": "Fraser's dolphin",
+          "aliases": ["Fraser dolphin", "Lagenodelphis hosei"]
+        },
+        {
+          "name": "White-beaked dolphin",
+          "aliases": ["Lagenorhynchus albirostris"]
+        },
+        {
+          "name": "Atlantic white-sided dolphin",
+          "aliases": ["Leucopleurus acutus"]
+        },
+        {
+          "name": "Northern right whale dolphin",
+          "aliases": ["Lissodelphis borealis"]
+        },
+        {
+          "name": "Southern right whale dolphin",
+          "aliases": ["Lissodelphis peronii"]
+        },
+        {
+          "name": "Australian snubfin dolphin",
+          "aliases": ["Orcaella heinsohni"]
+        },
+        {
+          "name": "Irrawaddy dolphin",
+          "aliases": ["Orcaella brevirostris"]
+        },
+        {
+          "name": "Orca",
+          "aliases": ["Killer Whale", "Biggs Killer Whale", "Orcinus orca"]
+        },
+        {
+          "name": "Melon-headed whale",
+          "aliases": ["Peponocephala electra"]
+        },
+        {
+          "name": "False killer whale",
+          "aliases": ["Pseudorca crassidens"]
+        },
+        {
+          "name": "Atlantic humpback dolphin",
+          "aliases": ["Sousa teuszii"]
+        },
+        {
+          "name": "Australian humpback dolphin",
+          "aliases": ["Sousa sahulensis"]
+        },
+        {
+          "name": "Indian Ocean humpback dolphin",
+          "aliases": ["Sousa plumbea"]
+        },
+        {
+          "name": "Indo-Pacific humpback dolphin",
+          "aliases": ["Sousa chinensis"]
+        },
+        {
+          "name": "Guiana dolphin",
+          "aliases": ["Sotalia guianensis"]
+        },
+        {
+          "name": "Tucuxi",
+          "aliases": ["Sotalia fluviatilis"]
+        },
+        {
+          "name": "Atlantic spotted dolphin",
+          "aliases": ["Stenella frontalis"]
+        },
+        {
+          "name": "Clymene dolphin",
+          "aliases": ["Stenella clymene"]
+        },
+        {
+          "name": "Pantropical spotted dolphin",
+          "aliases": ["Stenella attenuata"]
+        },
+        {
+          "name": "Spinner dolphin",
+          "aliases": ["Stenella longirostris"]
+        },
+        {
+          "name": "Striped dolphin",
+          "aliases": ["Stenella coeruleoalba"]
+        },
+        {
+          "name": "Rough-toothed dolphin",
+          "aliases": ["Steno bredanensis"]
+        },
+        {
+          "name": "Common bottlenose dolphin",
+          "aliases": [
+            "Bottlenose Dolphin",
+            "Bottle Nosed Dolphin",
+            "Bottlenosed Dolphin",
+            "Burrunan Dolphin",
+            "Tursiops australis",
+            "Tursiops truncatus"
+          ]
+        },
+        {
+          "name": "Indo-Pacific bottlenose dolphin",
+          "aliases": ["Tursiops aduncus"]
+        },
+        {
+          "name": "Tamanend's bottlenose dolphin",
+          "aliases": ["Tamanend bottlenose dolphin", "Tursiops erebennus"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of cetaceans",
+          "revision": 1381195263,
+          "members": [
+            "Dusky dolphin",
+            "Pacific white-sided dolphin",
+            "Peale's dolphin",
+            "Hourglass dolphin",
+            "Chilean dolphin",
+            "Commerson's dolphin",
+            "Heaviside's dolphin",
+            "Hector's dolphin",
+            "Common dolphin",
+            "Pygmy killer whale",
+            "Long-finned pilot whale",
+            "Short-finned pilot whale",
+            "Risso's dolphin",
+            "Fraser's dolphin",
+            "White-beaked dolphin",
+            "Atlantic white-sided dolphin",
+            "Northern right whale dolphin",
+            "Southern right whale dolphin",
+            "Australian snubfin dolphin",
+            "Irrawaddy dolphin",
+            "Orca",
+            "Melon-headed whale",
+            "False killer whale",
+            "Atlantic humpback dolphin",
+            "Australian humpback dolphin",
+            "Indian Ocean humpback dolphin",
+            "Indo-Pacific humpback dolphin",
+            "Guiana dolphin",
+            "Tucuxi",
+            "Atlantic spotted dolphin",
+            "Clymene dolphin",
+            "Pantropical spotted dolphin",
+            "Spinner dolphin",
+            "Striped dolphin",
+            "Rough-toothed dolphin",
+            "Common bottlenose dolphin",
+            "Indo-Pacific bottlenose dolphin",
+            "Tamanend's bottlenose dolphin"
+          ],
+          "reviewed": [
+            "Dusky dolphin",
+            "Pacific white-sided dolphin",
+            "Peale's dolphin",
+            "Hourglass dolphin",
+            "Chilean dolphin",
+            "Commerson's dolphin",
+            "Heaviside's dolphin",
+            "Hector's dolphin",
+            "Common dolphin",
+            "Pygmy killer whale",
+            "Long-finned pilot whale",
+            "Short-finned pilot whale",
+            "Risso's dolphin",
+            "Fraser's dolphin",
+            "White-beaked dolphin",
+            "Atlantic white-sided dolphin",
+            "Northern right whale dolphin",
+            "Southern right whale dolphin",
+            "Australian snubfin dolphin",
+            "Irrawaddy dolphin",
+            "Orca",
+            "Melon-headed whale",
+            "False killer whale",
+            "Atlantic humpback dolphin",
+            "Australian humpback dolphin",
+            "Indian Ocean humpback dolphin",
+            "Indo-Pacific humpback dolphin",
+            "Guiana dolphin",
+            "Tucuxi",
+            "Atlantic spotted dolphin",
+            "Clymene dolphin",
+            "Pantropical spotted dolphin",
+            "Spinner dolphin",
+            "Striped dolphin",
+            "Rough-toothed dolphin",
+            "Common bottlenose dolphin",
+            "Indo-Pacific bottlenose dolphin",
+            "Tamanend's bottlenose dolphin"
+          ],
+          "expect": [38, 38]
+        }
+      ],
+      "expect": [38, 38],
+      "surface": ["Common bottlenose dolphin", "Orca", "Spinner dolphin"],
+      "pearl": "Tucuxi",
+      "scope": "All living Delphinidae in the pinned full cetacean taxonomy, including pilot/killer whales and freshwater Tucuxi/Irrawaddy dolphins. Not all animals colloquially called dolphins belong to this family. Subspecies and historical combinations alias the represented species.",
+      "too_clever": ["False killer whale"]
+    },
+    {
+      "id": "armadillo-species",
+      "text": "a living species of armadillo",
+      "theme": "nature",
+      "cluster": "armadillos",
+      "active": true,
+      "answers": [
+        {
+          "name": "East Amazonian long-nosed armadillo",
+          "aliases": ["Dasypus beniensis"]
+        },
+        {
+          "name": "Greater long-nosed armadillo",
+          "aliases": ["Dasypus kappleri"]
+        },
+        {
+          "name": "Hairy long-nosed armadillo",
+          "aliases": ["Dasypus pilosus"]
+        },
+        {
+          "name": "Llanos long-nosed armadillo",
+          "aliases": ["Dasypus sabanicola"]
+        },
+        {
+          "name": "Nine-banded armadillo",
+          "aliases": ["Dasypus novemcinctus"]
+        },
+        {
+          "name": "Seven-banded armadillo",
+          "aliases": ["Dasypus septemcinctus"]
+        },
+        {
+          "name": "Southern long-nosed armadillo",
+          "aliases": ["Lesser Long Nosed Armadillo", "Dasypus hybridus"]
+        },
+        {
+          "name": "West Amazonian long-nosed armadillo",
+          "aliases": ["Dasypus pastasae"]
+        },
+        {
+          "name": "Yepes's mulita",
+          "aliases": ["Yepes Mulita", "Dasypus mazzai"]
+        },
+        {
+          "name": "Greater fairy armadillo",
+          "aliases": ["Calyptophractus retusus"]
+        },
+        {
+          "name": "Pink fairy armadillo",
+          "aliases": ["Chlamyphorus truncatus"]
+        },
+        {
+          "name": "Big hairy armadillo",
+          "aliases": ["Chaetophractus villosus"]
+        },
+        {
+          "name": "Screaming hairy armadillo",
+          "aliases": [
+            "Andean Hairy Armadillo",
+            "Chaetophractus nationi",
+            "Chaetophractus vellerosus"
+          ]
+        },
+        {
+          "name": "Six-banded armadillo",
+          "aliases": ["Euphractus sexcinctus"]
+        },
+        {
+          "name": "Pichi",
+          "aliases": ["Zaedyus pichiy"]
+        },
+        {
+          "name": "Chacoan naked-tailed armadillo",
+          "aliases": ["Cabassous chacoensis"]
+        },
+        {
+          "name": "Greater naked-tailed armadillo",
+          "aliases": ["Cabassous tatouay"]
+        },
+        {
+          "name": "Northern naked-tailed armadillo",
+          "aliases": ["Cabassous centralis"]
+        },
+        {
+          "name": "Southern naked-tailed armadillo",
+          "aliases": ["Cabassous unicinctus"]
+        },
+        {
+          "name": "Giant armadillo",
+          "aliases": ["Priodontes maximus"]
+        },
+        {
+          "name": "Brazilian three-banded armadillo",
+          "aliases": ["Tolypeutes tricinctus"]
+        },
+        {
+          "name": "Southern three-banded armadillo",
+          "aliases": ["Tolypeutes matacus"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of cingulates",
+          "revision": 1383311709,
+          "members": [
+            "East Amazonian long-nosed armadillo",
+            "Greater long-nosed armadillo",
+            "Hairy long-nosed armadillo",
+            "Llanos long-nosed armadillo",
+            "Nine-banded armadillo",
+            "Seven-banded armadillo",
+            "Southern long-nosed armadillo",
+            "West Amazonian long-nosed armadillo",
+            "Yepes's mulita",
+            "Greater fairy armadillo",
+            "Pink fairy armadillo",
+            "Big hairy armadillo",
+            "Screaming hairy armadillo",
+            "Six-banded armadillo",
+            "Pichi",
+            "Chacoan naked-tailed armadillo",
+            "Greater naked-tailed armadillo",
+            "Northern naked-tailed armadillo",
+            "Southern naked-tailed armadillo",
+            "Giant armadillo",
+            "Brazilian three-banded armadillo",
+            "Southern three-banded armadillo"
+          ],
+          "reviewed": [
+            "East Amazonian long-nosed armadillo",
+            "Greater long-nosed armadillo",
+            "Hairy long-nosed armadillo",
+            "Llanos long-nosed armadillo",
+            "Nine-banded armadillo",
+            "Seven-banded armadillo",
+            "Southern long-nosed armadillo",
+            "West Amazonian long-nosed armadillo",
+            "Yepes's mulita",
+            "Greater fairy armadillo",
+            "Pink fairy armadillo",
+            "Big hairy armadillo",
+            "Screaming hairy armadillo",
+            "Six-banded armadillo",
+            "Pichi",
+            "Chacoan naked-tailed armadillo",
+            "Greater naked-tailed armadillo",
+            "Northern naked-tailed armadillo",
+            "Southern naked-tailed armadillo",
+            "Giant armadillo",
+            "Brazilian three-banded armadillo",
+            "Southern three-banded armadillo"
+          ],
+          "expect": [22, 22]
+        }
+      ],
+      "expect": [22, 22],
+      "surface": ["Nine-banded armadillo", "Giant armadillo", "Pink fairy armadillo"],
+      "pearl": "Pichi",
+      "scope": "All 22 living cingulate species in the pinned Mammal Diversity Database-based list, including recent Dasypus splits. Extinct glyptodonts and unrelated armored mammals do not qualify; historical synonyms and subspecies alias current species.",
+      "too_clever": ["Southern three-banded armadillo"]
+    },
+    {
+      "id": "atlantic-category-five",
+      "text": "an officially named Atlantic hurricane that reached Category 5",
+      "theme": "nature",
+      "cluster": "weather",
+      "active": true,
+      "answers": [
+        {
+          "name": "Carol",
+          "aliases": ["Hurricane Carol"]
+        },
+        {
+          "name": "Janet",
+          "aliases": ["Hurricane Janet"]
+        },
+        {
+          "name": "Esther",
+          "aliases": ["Hurricane Esther"]
+        },
+        {
+          "name": "Hattie",
+          "aliases": ["Hurricane Hattie"]
+        },
+        {
+          "name": "Inez",
+          "aliases": ["Hurricane Inez"]
+        },
+        {
+          "name": "Beulah",
+          "aliases": ["Hurricane Beulah"]
+        },
+        {
+          "name": "Camille",
+          "aliases": ["Hurricane Camille"]
+        },
+        {
+          "name": "Anita",
+          "aliases": ["Hurricane Anita"]
+        },
+        {
+          "name": "David",
+          "aliases": ["Hurricane David"]
+        },
+        {
+          "name": "Allen",
+          "aliases": ["Hurricane Allen"]
+        },
+        {
+          "name": "Gilbert",
+          "aliases": ["Hurricane Gilbert"]
+        },
+        {
+          "name": "Hugo",
+          "aliases": ["Hurricane Hugo"]
+        },
+        {
+          "name": "Andrew",
+          "aliases": ["Hurricane Andrew"]
+        },
+        {
+          "name": "Mitch",
+          "aliases": ["Hurricane Mitch"]
+        },
+        {
+          "name": "Isabel",
+          "aliases": ["Hurricane Isabel", "Isabella"]
+        },
+        {
+          "name": "Ivan",
+          "aliases": ["Hurricane Ivan"]
+        },
+        {
+          "name": "Emily",
+          "aliases": ["Hurricane Emily"]
+        },
+        {
+          "name": "Katrina",
+          "aliases": ["Hurricane Katrina"]
+        },
+        {
+          "name": "Rita",
+          "aliases": ["Hurricane Rita"]
+        },
+        {
+          "name": "Wilma",
+          "aliases": ["Hurricane Wilma"]
+        },
+        {
+          "name": "Dean",
+          "aliases": ["Hurricane Dean"]
+        },
+        {
+          "name": "Felix",
+          "aliases": ["Hurricane Felix"]
+        },
+        {
+          "name": "Matthew",
+          "aliases": ["Hurricane Matthew"]
+        },
+        {
+          "name": "Irma",
+          "aliases": ["Hurricane Irma"]
+        },
+        {
+          "name": "Maria",
+          "aliases": ["Hurricane Maria"]
+        },
+        {
+          "name": "Michael",
+          "aliases": ["Hurricane Michael"]
+        },
+        {
+          "name": "Dorian",
+          "aliases": ["Hurricane Dorian"]
+        },
+        {
+          "name": "Lorenzo",
+          "aliases": ["Hurricane Lorenzo"]
+        },
+        {
+          "name": "Ian",
+          "aliases": ["Hurricane Ian"]
+        },
+        {
+          "name": "Lee",
+          "aliases": ["Hurricane Lee"]
+        },
+        {
+          "name": "Beryl",
+          "aliases": ["Hurricane Beryl"]
+        },
+        {
+          "name": "Milton",
+          "aliases": ["Hurricane Milton"]
+        },
+        {
+          "name": "Erin",
+          "aliases": ["Hurricane Erin"]
+        },
+        {
+          "name": "Humberto",
+          "aliases": ["Hurricane Humberto"]
+        },
+        {
+          "name": "Melissa",
+          "aliases": ["Hurricane Melissa"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Category 5 Atlantic hurricanes",
+          "revision": 1384596450,
+          "members": [
+            "Carol",
+            "Janet",
+            "Esther",
+            "Hattie",
+            "Inez",
+            "Beulah",
+            "Camille",
+            "Anita",
+            "David",
+            "Allen",
+            "Gilbert",
+            "Hugo",
+            "Andrew",
+            "Mitch",
+            "Isabel",
+            "Ivan",
+            "Emily",
+            "Katrina",
+            "Rita",
+            "Wilma",
+            "Dean",
+            "Felix",
+            "Matthew",
+            "Irma",
+            "Maria",
+            "Michael",
+            "Dorian",
+            "Lorenzo",
+            "Ian",
+            "Lee",
+            "Beryl",
+            "Milton",
+            "Erin",
+            "Humberto",
+            "Melissa"
+          ],
+          "reviewed": [
+            "Carol",
+            "Janet",
+            "Esther",
+            "Hattie",
+            "Inez",
+            "Beulah",
+            "Camille",
+            "Anita",
+            "David",
+            "Allen",
+            "Gilbert",
+            "Hugo",
+            "Andrew",
+            "Mitch",
+            "Isabel",
+            "Ivan",
+            "Emily",
+            "Katrina",
+            "Rita",
+            "Wilma",
+            "Dean",
+            "Felix",
+            "Matthew",
+            "Irma",
+            "Maria",
+            "Michael",
+            "Dorian",
+            "Lorenzo",
+            "Ian",
+            "Lee",
+            "Beryl",
+            "Milton",
+            "Erin",
+            "Humberto",
+            "Melissa"
+          ],
+          "expect": [35, 35]
+        }
+      ],
+      "expect": [35, 35],
+      "surface": ["Katrina", "Andrew", "Irma"],
+      "pearl": "Carol",
+      "scope": "Every officially named Atlantic Category 5 storm in the full best-track table, not retrospective descriptive labels for pre-naming storms. Uses analyzed peak strength, not necessarily landfall strength; names shared with weaker storms still identify the qualifying storm.",
+      "too_clever": ["Wilma"]
+    },
+    {
+      "id": "fields-medallists",
+      "text": "a mathematician awarded the Fields Medal",
+      "theme": "science",
+      "cluster": "mathematics-awards",
+      "active": true,
+      "answers": [
+        {
+          "name": "Lars Ahlfors"
+        },
+        {
+          "name": "Jesse Douglas"
+        },
+        {
+          "name": "Laurent Schwartz"
+        },
+        {
+          "name": "Atle Selberg"
+        },
+        {
+          "name": "Kunihiko Kodaira"
+        },
+        {
+          "name": "Jean-Pierre Serre"
+        },
+        {
+          "name": "Klaus Roth"
+        },
+        {
+          "name": "René Thom"
+        },
+        {
+          "name": "Lars Hörmander"
+        },
+        {
+          "name": "John Milnor"
+        },
+        {
+          "name": "Michael Atiyah"
+        },
+        {
+          "name": "Paul Cohen"
+        },
+        {
+          "name": "Alexander Grothendieck"
+        },
+        {
+          "name": "Stephen Smale"
+        },
+        {
+          "name": "Alan Baker"
+        },
+        {
+          "name": "Heisuke Hironaka"
+        },
+        {
+          "name": "Sergei Novikov"
+        },
+        {
+          "name": "John G. Thompson",
+          "aliases": ["John Thompson"]
+        },
+        {
+          "name": "Enrico Bombieri"
+        },
+        {
+          "name": "David Mumford"
+        },
+        {
+          "name": "Pierre Deligne"
+        },
+        {
+          "name": "Charles Fefferman"
+        },
+        {
+          "name": "Grigory Margulis"
+        },
+        {
+          "name": "Daniel Quillen"
+        },
+        {
+          "name": "Alain Connes"
+        },
+        {
+          "name": "William Thurston"
+        },
+        {
+          "name": "Shing-Tung Yau"
+        },
+        {
+          "name": "Simon Donaldson"
+        },
+        {
+          "name": "Gerd Faltings"
+        },
+        {
+          "name": "Michael Freedman"
+        },
+        {
+          "name": "Vladimir Drinfeld"
+        },
+        {
+          "name": "Vaughan Jones"
+        },
+        {
+          "name": "Shigefumi Mori"
+        },
+        {
+          "name": "Edward Witten"
+        },
+        {
+          "name": "Jean Bourgain"
+        },
+        {
+          "name": "Pierre-Louis Lions"
+        },
+        {
+          "name": "Jean-Christophe Yoccoz"
+        },
+        {
+          "name": "Efim Zelmanov"
+        },
+        {
+          "name": "Richard Borcherds"
+        },
+        {
+          "name": "Timothy Gowers"
+        },
+        {
+          "name": "Maxim Kontsevich"
+        },
+        {
+          "name": "Curtis T. McMullen",
+          "aliases": ["Curtis McMullen"]
+        },
+        {
+          "name": "Laurent Lafforgue"
+        },
+        {
+          "name": "Vladimir Voevodsky"
+        },
+        {
+          "name": "Andrei Okounkov"
+        },
+        {
+          "name": "Grigori Perelman",
+          "aliases": ["Gregory Perelman"]
+        },
+        {
+          "name": "Terence Tao",
+          "aliases": ["Terry Tao"]
+        },
+        {
+          "name": "Wendelin Werner"
+        },
+        {
+          "name": "Elon Lindenstrauss"
+        },
+        {
+          "name": "Ngô Bảo Châu",
+          "aliases": ["Ngô Châu"]
+        },
+        {
+          "name": "Stanislav Smirnov"
+        },
+        {
+          "name": "Cédric Villani"
+        },
+        {
+          "name": "Artur Avila"
+        },
+        {
+          "name": "Manjul Bhargava"
+        },
+        {
+          "name": "Martin Hairer"
+        },
+        {
+          "name": "Maryam Mirzakhani"
+        },
+        {
+          "name": "Caucher Birkar"
+        },
+        {
+          "name": "Alessio Figalli"
+        },
+        {
+          "name": "Peter Scholze"
+        },
+        {
+          "name": "Akshay Venkatesh"
+        },
+        {
+          "name": "Hugo Duminil-Copin"
+        },
+        {
+          "name": "June Huh"
+        },
+        {
+          "name": "James Maynard"
+        },
+        {
+          "name": "Maryna Viazovska"
+        },
+        {
+          "name": "Yu Deng"
+        },
+        {
+          "name": "John Pardon"
+        },
+        {
+          "name": "Jacob Tsimerman"
+        },
+        {
+          "name": "Hong Wang"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Fields Medal",
+          "revision": 1382205561,
+          "members": [
+            "Lars Ahlfors",
+            "Jesse Douglas",
+            "Laurent Schwartz",
+            "Atle Selberg",
+            "Kunihiko Kodaira",
+            "Jean-Pierre Serre",
+            "Klaus Roth",
+            "René Thom",
+            "Lars Hörmander",
+            "John Milnor",
+            "Michael Atiyah",
+            "Paul Cohen",
+            "Alexander Grothendieck",
+            "Stephen Smale",
+            "Alan Baker",
+            "Heisuke Hironaka",
+            "Sergei Novikov",
+            "John G. Thompson",
+            "Enrico Bombieri",
+            "David Mumford",
+            "Pierre Deligne",
+            "Charles Fefferman",
+            "Grigory Margulis",
+            "Daniel Quillen",
+            "Alain Connes",
+            "William Thurston",
+            "Shing-Tung Yau",
+            "Simon Donaldson",
+            "Gerd Faltings",
+            "Michael Freedman",
+            "Vladimir Drinfeld",
+            "Vaughan Jones",
+            "Shigefumi Mori",
+            "Edward Witten",
+            "Jean Bourgain",
+            "Pierre-Louis Lions",
+            "Jean-Christophe Yoccoz",
+            "Efim Zelmanov",
+            "Richard Borcherds",
+            "Timothy Gowers",
+            "Maxim Kontsevich",
+            "Curtis T. McMullen",
+            "Laurent Lafforgue",
+            "Vladimir Voevodsky",
+            "Andrei Okounkov",
+            "Grigori Perelman",
+            "Terence Tao",
+            "Wendelin Werner",
+            "Elon Lindenstrauss",
+            "Ngô Bảo Châu",
+            "Stanislav Smirnov",
+            "Cédric Villani",
+            "Artur Avila",
+            "Manjul Bhargava",
+            "Martin Hairer",
+            "Maryam Mirzakhani",
+            "Caucher Birkar",
+            "Alessio Figalli",
+            "Peter Scholze",
+            "Akshay Venkatesh",
+            "Hugo Duminil-Copin",
+            "June Huh",
+            "James Maynard",
+            "Maryna Viazovska",
+            "Yu Deng",
+            "John Pardon",
+            "Jacob Tsimerman",
+            "Hong Wang"
+          ],
+          "reviewed": [
+            "Lars Ahlfors",
+            "Jesse Douglas",
+            "Laurent Schwartz",
+            "Atle Selberg",
+            "Kunihiko Kodaira",
+            "Jean-Pierre Serre",
+            "Klaus Roth",
+            "René Thom",
+            "Lars Hörmander",
+            "John Milnor",
+            "Michael Atiyah",
+            "Paul Cohen",
+            "Alexander Grothendieck",
+            "Stephen Smale",
+            "Alan Baker",
+            "Heisuke Hironaka",
+            "Sergei Novikov",
+            "John G. Thompson",
+            "Enrico Bombieri",
+            "David Mumford",
+            "Pierre Deligne",
+            "Charles Fefferman",
+            "Grigory Margulis",
+            "Daniel Quillen",
+            "Alain Connes",
+            "William Thurston",
+            "Shing-Tung Yau",
+            "Simon Donaldson",
+            "Gerd Faltings",
+            "Michael Freedman",
+            "Vladimir Drinfeld",
+            "Vaughan Jones",
+            "Shigefumi Mori",
+            "Edward Witten",
+            "Jean Bourgain",
+            "Pierre-Louis Lions",
+            "Jean-Christophe Yoccoz",
+            "Efim Zelmanov",
+            "Richard Borcherds",
+            "Timothy Gowers",
+            "Maxim Kontsevich",
+            "Curtis T. McMullen",
+            "Laurent Lafforgue",
+            "Vladimir Voevodsky",
+            "Andrei Okounkov",
+            "Grigori Perelman",
+            "Terence Tao",
+            "Wendelin Werner",
+            "Elon Lindenstrauss",
+            "Ngô Bảo Châu",
+            "Stanislav Smirnov",
+            "Cédric Villani",
+            "Artur Avila",
+            "Manjul Bhargava",
+            "Martin Hairer",
+            "Maryam Mirzakhani",
+            "Caucher Birkar",
+            "Alessio Figalli",
+            "Peter Scholze",
+            "Akshay Venkatesh",
+            "Hugo Duminil-Copin",
+            "June Huh",
+            "James Maynard",
+            "Maryna Viazovska",
+            "Yu Deng",
+            "John Pardon",
+            "Jacob Tsimerman",
+            "Hong Wang"
+          ],
+          "expect": [68, 68]
+        }
+      ],
+      "expect": [68, 68],
+      "surface": ["Terence Tao", "Maryam Mirzakhani", "Grigori Perelman"],
+      "pearl": "Lars Ahlfors",
+      "scope": "All 68 medalists through the pinned 2026 award table; includes Perelman, who declined the medal. Other mathematics prizes do not qualify.",
+      "people": true,
+      "too_clever": ["Edward Witten"]
+    },
+    {
+      "id": "turing-award-winners",
+      "text": "a recipient of the ACM Turing Award",
+      "theme": "science",
+      "cluster": "computing-awards",
+      "active": true,
+      "answers": [
+        {
+          "name": "Alan Perlis"
+        },
+        {
+          "name": "Maurice Wilkes"
+        },
+        {
+          "name": "Richard Hamming"
+        },
+        {
+          "name": "Marvin Minsky"
+        },
+        {
+          "name": "James H. Wilkinson",
+          "aliases": ["James Wilkinson"]
+        },
+        {
+          "name": "John McCarthy"
+        },
+        {
+          "name": "Edsger W. Dijkstra",
+          "aliases": ["Edsger Dijkstra"]
+        },
+        {
+          "name": "Charles Bachman",
+          "aliases": ["Charles W. Bachman"]
+        },
+        {
+          "name": "Donald Knuth"
+        },
+        {
+          "name": "Allen Newell"
+        },
+        {
+          "name": "Herbert A. Simon",
+          "aliases": ["Herbert Simon"]
+        },
+        {
+          "name": "Michael O. Rabin",
+          "aliases": ["Michael Rabin"]
+        },
+        {
+          "name": "Dana Scott"
+        },
+        {
+          "name": "John Backus"
+        },
+        {
+          "name": "Robert W. Floyd",
+          "aliases": ["Robert Floyd"]
+        },
+        {
+          "name": "Kenneth E. Iverson",
+          "aliases": ["Kenneth Iverson"]
+        },
+        {
+          "name": "Tony Hoare",
+          "aliases": ["Charles Hoare", "C. A. R. Hoare"]
+        },
+        {
+          "name": "Edgar F. Codd",
+          "aliases": ["Edgar Codd", "Ted Codd"]
+        },
+        {
+          "name": "Stephen Cook"
+        },
+        {
+          "name": "Dennis Ritchie"
+        },
+        {
+          "name": "Ken Thompson"
+        },
+        {
+          "name": "Niklaus Wirth"
+        },
+        {
+          "name": "Richard M. Karp",
+          "aliases": ["Richard Karp"]
+        },
+        {
+          "name": "John Hopcroft"
+        },
+        {
+          "name": "Robert Tarjan"
+        },
+        {
+          "name": "John Cocke"
+        },
+        {
+          "name": "Ivan Sutherland"
+        },
+        {
+          "name": "William Kahan"
+        },
+        {
+          "name": "Fernando J. Corbató",
+          "aliases": ["Fernando Corbató"]
+        },
+        {
+          "name": "Robin Milner"
+        },
+        {
+          "name": "Butler Lampson"
+        },
+        {
+          "name": "Juris Hartmanis"
+        },
+        {
+          "name": "Richard E. Stearns",
+          "aliases": ["Richard Stearns"]
+        },
+        {
+          "name": "Edward Feigenbaum"
+        },
+        {
+          "name": "Raj Reddy",
+          "aliases": ["Dabbala Rajagopal Reddy"]
+        },
+        {
+          "name": "Manuel Blum"
+        },
+        {
+          "name": "Amir Pnueli"
+        },
+        {
+          "name": "Douglas Engelbart",
+          "aliases": ["Doug Engelbart"]
+        },
+        {
+          "name": "Jim Gray"
+        },
+        {
+          "name": "Fred Brooks",
+          "aliases": ["Frederick P. Brooks Jr."]
+        },
+        {
+          "name": "Andrew Yao"
+        },
+        {
+          "name": "Ole-Johan Dahl"
+        },
+        {
+          "name": "Kristen Nygaard"
+        },
+        {
+          "name": "Leonard Adleman",
+          "aliases": ["Len Adleman"]
+        },
+        {
+          "name": "Ron Rivest"
+        },
+        {
+          "name": "Adi Shamir"
+        },
+        {
+          "name": "Alan Kay"
+        },
+        {
+          "name": "Vint Cerf",
+          "aliases": ["Vinton Cerf"]
+        },
+        {
+          "name": "Robert Kahn",
+          "aliases": ["Bob Kahn"]
+        },
+        {
+          "name": "Peter Naur"
+        },
+        {
+          "name": "Frances Allen"
+        },
+        {
+          "name": "Edmund M. Clarke",
+          "aliases": ["Edmund Clarke"]
+        },
+        {
+          "name": "E. Allen Emerson",
+          "aliases": ["Allen Emerson"]
+        },
+        {
+          "name": "Joseph Sifakis"
+        },
+        {
+          "name": "Barbara Liskov"
+        },
+        {
+          "name": "Charles P. Thacker",
+          "aliases": ["Charles Thacker"]
+        },
+        {
+          "name": "Leslie Valiant"
+        },
+        {
+          "name": "Judea Pearl"
+        },
+        {
+          "name": "Shafi Goldwasser"
+        },
+        {
+          "name": "Silvio Micali"
+        },
+        {
+          "name": "Leslie Lamport"
+        },
+        {
+          "name": "Michael Stonebraker"
+        },
+        {
+          "name": "Whitfield Diffie"
+        },
+        {
+          "name": "Martin Hellman"
+        },
+        {
+          "name": "Tim Berners-Lee"
+        },
+        {
+          "name": "John L. Hennessy",
+          "aliases": ["John Hennessy"]
+        },
+        {
+          "name": "David Patterson"
+        },
+        {
+          "name": "Yoshua Bengio"
+        },
+        {
+          "name": "Geoffrey Hinton",
+          "aliases": ["Geoff Hinton"]
+        },
+        {
+          "name": "Yann LeCun"
+        },
+        {
+          "name": "Edwin Catmull"
+        },
+        {
+          "name": "Pat Hanrahan"
+        },
+        {
+          "name": "Alfred Aho"
+        },
+        {
+          "name": "Jeffrey Ullman"
+        },
+        {
+          "name": "Jack Dongarra"
+        },
+        {
+          "name": "Robert Metcalfe"
+        },
+        {
+          "name": "Avi Wigderson"
+        },
+        {
+          "name": "Andrew Barto"
+        },
+        {
+          "name": "Richard S. Sutton",
+          "aliases": ["Richard Sutton"]
+        },
+        {
+          "name": "Charles H. Bennett",
+          "aliases": ["Charles Bennett"]
+        },
+        {
+          "name": "Gilles Brassard"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Turing Award",
+          "revision": 1379249169,
+          "members": [
+            "Alan Perlis",
+            "Maurice Wilkes",
+            "Richard Hamming",
+            "Marvin Minsky",
+            "James H. Wilkinson",
+            "John McCarthy",
+            "Edsger W. Dijkstra",
+            "Charles Bachman",
+            "Donald Knuth",
+            "Allen Newell",
+            "Herbert A. Simon",
+            "Michael O. Rabin",
+            "Dana Scott",
+            "John Backus",
+            "Robert W. Floyd",
+            "Kenneth E. Iverson",
+            "Tony Hoare",
+            "Edgar F. Codd",
+            "Stephen Cook",
+            "Dennis Ritchie",
+            "Ken Thompson",
+            "Niklaus Wirth",
+            "Richard M. Karp",
+            "John Hopcroft",
+            "Robert Tarjan",
+            "John Cocke",
+            "Ivan Sutherland",
+            "William Kahan",
+            "Fernando J. Corbató",
+            "Robin Milner",
+            "Butler Lampson",
+            "Juris Hartmanis",
+            "Richard E. Stearns",
+            "Edward Feigenbaum",
+            "Raj Reddy",
+            "Manuel Blum",
+            "Amir Pnueli",
+            "Douglas Engelbart",
+            "Jim Gray",
+            "Fred Brooks",
+            "Andrew Yao",
+            "Ole-Johan Dahl",
+            "Kristen Nygaard",
+            "Leonard Adleman",
+            "Ron Rivest",
+            "Adi Shamir",
+            "Alan Kay",
+            "Vint Cerf",
+            "Robert Kahn",
+            "Peter Naur",
+            "Frances Allen",
+            "Edmund M. Clarke",
+            "E. Allen Emerson",
+            "Joseph Sifakis",
+            "Barbara Liskov",
+            "Charles P. Thacker",
+            "Leslie Valiant",
+            "Judea Pearl",
+            "Shafi Goldwasser",
+            "Silvio Micali",
+            "Leslie Lamport",
+            "Michael Stonebraker",
+            "Whitfield Diffie",
+            "Martin Hellman",
+            "Tim Berners-Lee",
+            "John L. Hennessy",
+            "David Patterson",
+            "Yoshua Bengio",
+            "Geoffrey Hinton",
+            "Yann LeCun",
+            "Edwin Catmull",
+            "Pat Hanrahan",
+            "Alfred Aho",
+            "Jeffrey Ullman",
+            "Jack Dongarra",
+            "Robert Metcalfe",
+            "Avi Wigderson",
+            "Andrew Barto",
+            "Richard S. Sutton",
+            "Charles H. Bennett",
+            "Gilles Brassard"
+          ],
+          "reviewed": [
+            "Alan Perlis",
+            "Maurice Wilkes",
+            "Richard Hamming",
+            "Marvin Minsky",
+            "James H. Wilkinson",
+            "John McCarthy",
+            "Edsger W. Dijkstra",
+            "Charles Bachman",
+            "Donald Knuth",
+            "Allen Newell",
+            "Herbert A. Simon",
+            "Michael O. Rabin",
+            "Dana Scott",
+            "John Backus",
+            "Robert W. Floyd",
+            "Kenneth E. Iverson",
+            "Tony Hoare",
+            "Edgar F. Codd",
+            "Stephen Cook",
+            "Dennis Ritchie",
+            "Ken Thompson",
+            "Niklaus Wirth",
+            "Richard M. Karp",
+            "John Hopcroft",
+            "Robert Tarjan",
+            "John Cocke",
+            "Ivan Sutherland",
+            "William Kahan",
+            "Fernando J. Corbató",
+            "Robin Milner",
+            "Butler Lampson",
+            "Juris Hartmanis",
+            "Richard E. Stearns",
+            "Edward Feigenbaum",
+            "Raj Reddy",
+            "Manuel Blum",
+            "Amir Pnueli",
+            "Douglas Engelbart",
+            "Jim Gray",
+            "Fred Brooks",
+            "Andrew Yao",
+            "Ole-Johan Dahl",
+            "Kristen Nygaard",
+            "Leonard Adleman",
+            "Ron Rivest",
+            "Adi Shamir",
+            "Alan Kay",
+            "Vint Cerf",
+            "Robert Kahn",
+            "Peter Naur",
+            "Frances Allen",
+            "Edmund M. Clarke",
+            "E. Allen Emerson",
+            "Joseph Sifakis",
+            "Barbara Liskov",
+            "Charles P. Thacker",
+            "Leslie Valiant",
+            "Judea Pearl",
+            "Shafi Goldwasser",
+            "Silvio Micali",
+            "Leslie Lamport",
+            "Michael Stonebraker",
+            "Whitfield Diffie",
+            "Martin Hellman",
+            "Tim Berners-Lee",
+            "John L. Hennessy",
+            "David Patterson",
+            "Yoshua Bengio",
+            "Geoffrey Hinton",
+            "Yann LeCun",
+            "Edwin Catmull",
+            "Pat Hanrahan",
+            "Alfred Aho",
+            "Jeffrey Ullman",
+            "Jack Dongarra",
+            "Robert Metcalfe",
+            "Avi Wigderson",
+            "Andrew Barto",
+            "Richard S. Sutton",
+            "Charles H. Bennett",
+            "Gilles Brassard"
+          ],
+          "expect": [81, 81]
+        }
+      ],
+      "expect": [81, 81],
+      "surface": ["Tim Berners-Lee", "Donald Knuth", "Dennis Ritchie"],
+      "pearl": "Alan Perlis",
+      "scope": "All named recipients, splitting shared awards into people; not the award’s namesake or famous computing figures who never received it.",
+      "people": true,
+      "too_clever": ["Geoffrey Hinton"]
+    },
+    {
+      "id": "apollo-moon-travellers",
+      "text": "a person who flew to the Moon on an Apollo mission",
+      "theme": "science",
+      "cluster": "space",
+      "active": true,
+      "answers": [
+        {
+          "name": "Neil Armstrong"
+        },
+        {
+          "name": "Buzz Aldrin",
+          "aliases": ["Edwin Aldrin", "Edwin E Aldrin", "Edwin Aldrin Jr"]
+        },
+        {
+          "name": "Pete Conrad",
+          "aliases": ["Charles Conrad"]
+        },
+        {
+          "name": "Alan Bean"
+        },
+        {
+          "name": "Alan Shepard"
+        },
+        {
+          "name": "Edgar Mitchell"
+        },
+        {
+          "name": "David Scott",
+          "aliases": ["Dave Scott"]
+        },
+        {
+          "name": "James Irwin",
+          "aliases": ["Jim Irwin"]
+        },
+        {
+          "name": "John Young"
+        },
+        {
+          "name": "Charles Duke",
+          "aliases": ["Charlie Duke"]
+        },
+        {
+          "name": "Eugene Cernan",
+          "aliases": ["Gene Cernan"]
+        },
+        {
+          "name": "Harrison Schmitt",
+          "aliases": ["Jack Schmitt"]
+        },
+        {
+          "name": "Frank Borman"
+        },
+        {
+          "name": "Jim Lovell",
+          "aliases": ["James Lovell"]
+        },
+        {
+          "name": "Bill Anders",
+          "aliases": ["William Anders"]
+        },
+        {
+          "name": "Tom Stafford",
+          "aliases": ["Thomas Stafford", "Thomas P. Stafford"]
+        },
+        {
+          "name": "Michael Collins"
+        },
+        {
+          "name": "Dick Gordon",
+          "aliases": ["Richard Gordon", "Richard F. Gordon Jr."]
+        },
+        {
+          "name": "Jack Swigert",
+          "aliases": ["John Swigert"]
+        },
+        {
+          "name": "Fred Haise"
+        },
+        {
+          "name": "Stuart Roosa"
+        },
+        {
+          "name": "Alfred Worden",
+          "aliases": ["Al Worden"]
+        },
+        {
+          "name": "Ken Mattingly",
+          "aliases": ["Thomas Mattingly"]
+        },
+        {
+          "name": "Ronald Evans",
+          "aliases": ["Ron Evans"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Apollo astronauts",
+          "revision": 1383385991,
+          "members": [
+            "Neil Armstrong",
+            "Buzz Aldrin",
+            "Pete Conrad",
+            "Alan Bean",
+            "Alan Shepard",
+            "Edgar Mitchell",
+            "David Scott",
+            "James Irwin",
+            "John Young",
+            "Charles Duke",
+            "Eugene Cernan",
+            "Harrison Schmitt",
+            "Frank Borman",
+            "Jim Lovell",
+            "Bill Anders",
+            "Tom Stafford",
+            "Michael Collins",
+            "Dick Gordon",
+            "Jack Swigert",
+            "Fred Haise",
+            "Stuart Roosa",
+            "Alfred Worden",
+            "Ken Mattingly",
+            "Ronald Evans"
+          ],
+          "reviewed": [
+            "Neil Armstrong",
+            "Buzz Aldrin",
+            "Pete Conrad",
+            "Alan Bean",
+            "Alan Shepard",
+            "Edgar Mitchell",
+            "David Scott",
+            "James Irwin",
+            "John Young",
+            "Charles Duke",
+            "Eugene Cernan",
+            "Harrison Schmitt",
+            "Frank Borman",
+            "Jim Lovell",
+            "Bill Anders",
+            "Tom Stafford",
+            "Michael Collins",
+            "Dick Gordon",
+            "Jack Swigert",
+            "Fred Haise",
+            "Stuart Roosa",
+            "Alfred Worden",
+            "Ken Mattingly",
+            "Ronald Evans"
+          ],
+          "expect": [24, 24]
+        }
+      ],
+      "expect": [24, 24],
+      "surface": ["Neil Armstrong", "Buzz Aldrin", "Michael Collins"],
+      "pearl": "Alfred Worden",
+      "scope": "The 24 unique Apollo lunar travelers: 12 walkers and 12 lunar-orbit/flyby-only astronauts, including Apollo 13. Excludes Earth-orbit-only Apollo crews, people who died before launch and non-Apollo missions.",
+      "people": true,
+      "too_clever": ["Jim Lovell"]
+    },
+    {
+      "id": "nobel-economics",
+      "text": "a winner of the Nobel Memorial Prize in Economic Sciences",
+      "theme": "science",
+      "cluster": "nobel",
+      "active": true,
+      "answers": [
+        {
+          "name": "Ragnar Frisch"
+        },
+        {
+          "name": "Jan Tinbergen"
+        },
+        {
+          "name": "Paul Samuelson"
+        },
+        {
+          "name": "Simon Kuznets"
+        },
+        {
+          "name": "Kenneth Arrow"
+        },
+        {
+          "name": "John Hicks"
+        },
+        {
+          "name": "Wassily Leontief"
+        },
+        {
+          "name": "Friedrich Hayek",
+          "aliases": ["F A Hayek", "Friedrich von Hayek"]
+        },
+        {
+          "name": "Gunnar Myrdal"
+        },
+        {
+          "name": "Leonid Kantorovich"
+        },
+        {
+          "name": "Tjalling Koopmans"
+        },
+        {
+          "name": "Milton Friedman"
+        },
+        {
+          "name": "James Meade"
+        },
+        {
+          "name": "Bertil Ohlin"
+        },
+        {
+          "name": "Herbert A. Simon",
+          "aliases": ["Herbert Simon"]
+        },
+        {
+          "name": "W. Arthur Lewis",
+          "aliases": ["Arthur Lewis"]
+        },
+        {
+          "name": "Theodore Schultz"
+        },
+        {
+          "name": "Lawrence Klein"
+        },
+        {
+          "name": "James Tobin"
+        },
+        {
+          "name": "George Stigler"
+        },
+        {
+          "name": "Gérard Debreu"
+        },
+        {
+          "name": "Richard Stone"
+        },
+        {
+          "name": "Franco Modigliani"
+        },
+        {
+          "name": "James M. Buchanan",
+          "aliases": ["James Buchanan"]
+        },
+        {
+          "name": "Robert Solow"
+        },
+        {
+          "name": "Maurice Allais"
+        },
+        {
+          "name": "Trygve Haavelmo"
+        },
+        {
+          "name": "Harry Markowitz"
+        },
+        {
+          "name": "Merton Miller"
+        },
+        {
+          "name": "William F. Sharpe",
+          "aliases": ["William Sharpe"]
+        },
+        {
+          "name": "Ronald Coase"
+        },
+        {
+          "name": "Gary Becker"
+        },
+        {
+          "name": "Robert Fogel"
+        },
+        {
+          "name": "Douglass North"
+        },
+        {
+          "name": "John Harsanyi"
+        },
+        {
+          "name": "John Forbes Nash Jr.",
+          "aliases": ["John Forbes Nash", "John Nash"]
+        },
+        {
+          "name": "Reinhard Selten"
+        },
+        {
+          "name": "Robert Lucas Jr.",
+          "aliases": ["Robert Lucas"]
+        },
+        {
+          "name": "James Mirrlees"
+        },
+        {
+          "name": "William Vickrey"
+        },
+        {
+          "name": "Robert C. Merton",
+          "aliases": ["Robert Merton"]
+        },
+        {
+          "name": "Myron Scholes"
+        },
+        {
+          "name": "Amartya Sen"
+        },
+        {
+          "name": "Robert Mundell"
+        },
+        {
+          "name": "James Heckman"
+        },
+        {
+          "name": "Daniel McFadden"
+        },
+        {
+          "name": "George Akerlof"
+        },
+        {
+          "name": "Michael Spence"
+        },
+        {
+          "name": "Joseph Stiglitz"
+        },
+        {
+          "name": "Daniel Kahneman"
+        },
+        {
+          "name": "Vernon L. Smith",
+          "aliases": ["Vernon Smith"]
+        },
+        {
+          "name": "Robert F. Engle",
+          "aliases": ["Robert Engle"]
+        },
+        {
+          "name": "Clive Granger"
+        },
+        {
+          "name": "Finn E. Kydland",
+          "aliases": ["Finn Kydland"]
+        },
+        {
+          "name": "Edward C. Prescott",
+          "aliases": ["Edward Prescott"]
+        },
+        {
+          "name": "Robert Aumann"
+        },
+        {
+          "name": "Thomas Schelling"
+        },
+        {
+          "name": "Edmund Phelps"
+        },
+        {
+          "name": "Leonid Hurwicz"
+        },
+        {
+          "name": "Eric Maskin"
+        },
+        {
+          "name": "Roger Myerson"
+        },
+        {
+          "name": "Paul Krugman"
+        },
+        {
+          "name": "Elinor Ostrom"
+        },
+        {
+          "name": "Oliver E. Williamson",
+          "aliases": ["Oliver Williamson"]
+        },
+        {
+          "name": "Peter Diamond"
+        },
+        {
+          "name": "Dale T. Mortensen",
+          "aliases": ["Dale Mortensen"]
+        },
+        {
+          "name": "Christopher A. Pissarides",
+          "aliases": ["Christopher Pissarides"]
+        },
+        {
+          "name": "Thomas J. Sargent",
+          "aliases": ["Thomas Sargent"]
+        },
+        {
+          "name": "Christopher A. Sims",
+          "aliases": ["Christopher Sims"]
+        },
+        {
+          "name": "Alvin E. Roth",
+          "aliases": ["Alvin Roth"]
+        },
+        {
+          "name": "Lloyd Shapley"
+        },
+        {
+          "name": "Eugene Fama"
+        },
+        {
+          "name": "Lars Peter Hansen",
+          "aliases": ["Lars Hansen"]
+        },
+        {
+          "name": "Robert J. Shiller",
+          "aliases": ["Robert Shiller"]
+        },
+        {
+          "name": "Jean Tirole"
+        },
+        {
+          "name": "Angus Deaton"
+        },
+        {
+          "name": "Oliver Hart"
+        },
+        {
+          "name": "Bengt R. Holmström",
+          "aliases": ["Bengt Holmström"]
+        },
+        {
+          "name": "Richard Thaler"
+        },
+        {
+          "name": "William Nordhaus"
+        },
+        {
+          "name": "Paul Romer"
+        },
+        {
+          "name": "Abhijit Banerjee"
+        },
+        {
+          "name": "Esther Duflo"
+        },
+        {
+          "name": "Michael Kremer"
+        },
+        {
+          "name": "Paul Milgrom"
+        },
+        {
+          "name": "Robert B. Wilson",
+          "aliases": ["Robert Wilson"]
+        },
+        {
+          "name": "David Card"
+        },
+        {
+          "name": "Joshua Angrist"
+        },
+        {
+          "name": "Guido Imbens"
+        },
+        {
+          "name": "Ben Bernanke"
+        },
+        {
+          "name": "Douglas Diamond"
+        },
+        {
+          "name": "Philip H. Dybvig",
+          "aliases": ["Philip Dybvig"]
+        },
+        {
+          "name": "Claudia Goldin"
+        },
+        {
+          "name": "Daron Acemoglu"
+        },
+        {
+          "name": "Simon Johnson"
+        },
+        {
+          "name": "James A. Robinson",
+          "aliases": ["James Robinson"]
+        },
+        {
+          "name": "Joel Mokyr"
+        },
+        {
+          "name": "Philippe Aghion"
+        },
+        {
+          "name": "Peter Howitt"
+        },
+        {
+          "name": "Robert E. Hall",
+          "aliases": ["Robert Hall"]
+        },
+        {
+          "name": "Michael Woodford"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Nobel Memorial Prize laureates in Economic Sciences",
+          "revision": 1383201667,
+          "members": [
+            "Ragnar Frisch",
+            "Jan Tinbergen",
+            "Paul Samuelson",
+            "Simon Kuznets",
+            "Kenneth Arrow",
+            "John Hicks",
+            "Wassily Leontief",
+            "Friedrich Hayek",
+            "Gunnar Myrdal",
+            "Leonid Kantorovich",
+            "Tjalling Koopmans",
+            "Milton Friedman",
+            "James Meade",
+            "Bertil Ohlin",
+            "Herbert A. Simon",
+            "W. Arthur Lewis",
+            "Theodore Schultz",
+            "Lawrence Klein",
+            "James Tobin",
+            "George Stigler",
+            "Gérard Debreu",
+            "Richard Stone",
+            "Franco Modigliani",
+            "James M. Buchanan",
+            "Robert Solow",
+            "Maurice Allais",
+            "Trygve Haavelmo",
+            "Harry Markowitz",
+            "Merton Miller",
+            "William F. Sharpe",
+            "Ronald Coase",
+            "Gary Becker",
+            "Robert Fogel",
+            "Douglass North",
+            "John Harsanyi",
+            "John Forbes Nash Jr.",
+            "Reinhard Selten",
+            "Robert Lucas Jr.",
+            "James Mirrlees",
+            "William Vickrey",
+            "Robert C. Merton",
+            "Myron Scholes",
+            "Amartya Sen",
+            "Robert Mundell",
+            "James Heckman",
+            "Daniel McFadden",
+            "George Akerlof",
+            "Michael Spence",
+            "Joseph Stiglitz",
+            "Daniel Kahneman",
+            "Vernon L. Smith",
+            "Robert F. Engle",
+            "Clive Granger",
+            "Finn E. Kydland",
+            "Edward C. Prescott",
+            "Robert Aumann",
+            "Thomas Schelling",
+            "Edmund Phelps",
+            "Leonid Hurwicz",
+            "Eric Maskin",
+            "Roger Myerson",
+            "Paul Krugman",
+            "Elinor Ostrom",
+            "Oliver E. Williamson",
+            "Peter Diamond",
+            "Dale T. Mortensen",
+            "Christopher A. Pissarides",
+            "Thomas J. Sargent",
+            "Christopher A. Sims",
+            "Alvin E. Roth",
+            "Lloyd Shapley",
+            "Eugene Fama",
+            "Lars Peter Hansen",
+            "Robert J. Shiller",
+            "Jean Tirole",
+            "Angus Deaton",
+            "Oliver Hart",
+            "Bengt R. Holmström",
+            "Richard Thaler",
+            "William Nordhaus",
+            "Paul Romer",
+            "Abhijit Banerjee",
+            "Esther Duflo",
+            "Michael Kremer",
+            "Paul Milgrom",
+            "Robert B. Wilson",
+            "David Card",
+            "Joshua Angrist",
+            "Guido Imbens",
+            "Ben Bernanke",
+            "Douglas Diamond",
+            "Philip H. Dybvig",
+            "Claudia Goldin",
+            "Daron Acemoglu",
+            "Simon Johnson",
+            "James A. Robinson",
+            "Joel Mokyr",
+            "Philippe Aghion",
+            "Peter Howitt",
+            "Robert E. Hall",
+            "Michael Woodford"
+          ],
+          "reviewed": [
+            "Ragnar Frisch",
+            "Jan Tinbergen",
+            "Paul Samuelson",
+            "Simon Kuznets",
+            "Kenneth Arrow",
+            "John Hicks",
+            "Wassily Leontief",
+            "Friedrich Hayek",
+            "Gunnar Myrdal",
+            "Leonid Kantorovich",
+            "Tjalling Koopmans",
+            "Milton Friedman",
+            "James Meade",
+            "Bertil Ohlin",
+            "Herbert A. Simon",
+            "W. Arthur Lewis",
+            "Theodore Schultz",
+            "Lawrence Klein",
+            "James Tobin",
+            "George Stigler",
+            "Gérard Debreu",
+            "Richard Stone",
+            "Franco Modigliani",
+            "James M. Buchanan",
+            "Robert Solow",
+            "Maurice Allais",
+            "Trygve Haavelmo",
+            "Harry Markowitz",
+            "Merton Miller",
+            "William F. Sharpe",
+            "Ronald Coase",
+            "Gary Becker",
+            "Robert Fogel",
+            "Douglass North",
+            "John Harsanyi",
+            "John Forbes Nash Jr.",
+            "Reinhard Selten",
+            "Robert Lucas Jr.",
+            "James Mirrlees",
+            "William Vickrey",
+            "Robert C. Merton",
+            "Myron Scholes",
+            "Amartya Sen",
+            "Robert Mundell",
+            "James Heckman",
+            "Daniel McFadden",
+            "George Akerlof",
+            "Michael Spence",
+            "Joseph Stiglitz",
+            "Daniel Kahneman",
+            "Vernon L. Smith",
+            "Robert F. Engle",
+            "Clive Granger",
+            "Finn E. Kydland",
+            "Edward C. Prescott",
+            "Robert Aumann",
+            "Thomas Schelling",
+            "Edmund Phelps",
+            "Leonid Hurwicz",
+            "Eric Maskin",
+            "Roger Myerson",
+            "Paul Krugman",
+            "Elinor Ostrom",
+            "Oliver E. Williamson",
+            "Peter Diamond",
+            "Dale T. Mortensen",
+            "Christopher A. Pissarides",
+            "Thomas J. Sargent",
+            "Christopher A. Sims",
+            "Alvin E. Roth",
+            "Lloyd Shapley",
+            "Eugene Fama",
+            "Lars Peter Hansen",
+            "Robert J. Shiller",
+            "Jean Tirole",
+            "Angus Deaton",
+            "Oliver Hart",
+            "Bengt R. Holmström",
+            "Richard Thaler",
+            "William Nordhaus",
+            "Paul Romer",
+            "Abhijit Banerjee",
+            "Esther Duflo",
+            "Michael Kremer",
+            "Paul Milgrom",
+            "Robert B. Wilson",
+            "David Card",
+            "Joshua Angrist",
+            "Guido Imbens",
+            "Ben Bernanke",
+            "Douglas Diamond",
+            "Philip H. Dybvig",
+            "Claudia Goldin",
+            "Daron Acemoglu",
+            "Simon Johnson",
+            "James A. Robinson",
+            "Joel Mokyr",
+            "Philippe Aghion",
+            "Peter Howitt",
+            "Robert E. Hall",
+            "Michael Woodford"
+          ],
+          "expect": [101, 101]
+        }
+      ],
+      "expect": [101, 101],
+      "surface": ["Milton Friedman", "Amartya Sen", "Daniel Kahneman"],
+      "pearl": "Ragnar Frisch",
+      "scope": "Every named laureate in the pinned award table, including every co-winner; not influential economists who predated or never received the prize.",
+      "people": true,
+      "too_clever": ["John Forbes Nash Jr."]
+    },
+    {
+      "id": "soviet-venus-landers",
+      "text": "a Soviet probe that returned data from Venus's surface",
+      "theme": "science",
+      "cluster": "space",
+      "active": true,
+      "answers": [
+        {
+          "name": "Venera 7",
+          "aliases": ["Venera7", "Venera VII", "Venera-7", "Venera 7 lander", "Venera 7 probe"]
+        },
+        {
+          "name": "Venera 8",
+          "aliases": ["Venera8", "Venera VIII", "Venera-8", "Venera 8 lander", "Venera 8 probe"]
+        },
+        {
+          "name": "Venera 9",
+          "aliases": ["Venera9", "Venera IX", "Venera-9", "Venera 9 lander", "Venera 9 probe"]
+        },
+        {
+          "name": "Venera 10",
+          "aliases": ["Venera10", "Venera X", "Venera-10", "Venera 10 lander", "Venera 10 probe"]
+        },
+        {
+          "name": "Venera 11",
+          "aliases": ["Venera11", "Venera XI", "Venera-11", "Venera 11 lander", "Venera 11 probe"]
+        },
+        {
+          "name": "Venera 12",
+          "aliases": ["Venera12", "Venera XII", "Venera-12", "Venera 12 lander", "Venera 12 probe"]
+        },
+        {
+          "name": "Venera 13",
+          "aliases": ["Venera13", "Venera XIII", "Venera-13", "Venera 13 lander", "Venera 13 probe"]
+        },
+        {
+          "name": "Venera 14",
+          "aliases": ["Venera14", "Venera XIV", "Venera-14", "Venera 14 lander", "Venera 14 probe"]
+        },
+        {
+          "name": "Vega 1",
+          "aliases": ["Vega1", "Vega I", "Vega-1", "Vega 1 lander", "Vega 1 probe"]
+        },
+        {
+          "name": "Vega 2",
+          "aliases": ["Vega2", "Vega II", "Vega-2", "Vega 2 lander", "Vega 2 probe"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of missions to Venus",
+          "revision": 1381210926,
+          "members": [
+            "Venera 7",
+            "Venera 8",
+            "Venera 9",
+            "Venera 10",
+            "Venera 11",
+            "Venera 12",
+            "Venera 13",
+            "Venera 14",
+            "Vega 1",
+            "Vega 2"
+          ],
+          "reviewed": [
+            "Venera 7",
+            "Venera 8",
+            "Venera 9",
+            "Venera 10",
+            "Venera 11",
+            "Venera 12",
+            "Venera 13",
+            "Venera 14",
+            "Vega 1",
+            "Vega 2"
+          ],
+          "expect": [10, 10]
+        }
+      ],
+      "expect": [10, 10],
+      "surface": ["Venera 7", "Venera 13"],
+      "too_clever": ["Vega 1"],
+      "pearl": "Venera 8",
+      "scope": "The ten successful or partially successful Soviet surface probes: Venera 7–14 and Vega 1–2. Earlier Soviet missions did not return surface data; Pioneer Venus is American. Surface-data return, not merely impact or atmospheric measurements, is required. The frozen backup brainstorm is transferred unchanged to this final ID. Replaces the fully sourced 235-member Medicine candidate solely for the whole-Worker gzip budget."
+    },
+    {
+      "id": "discovery-missions",
+      "text": "a launched NASA Discovery Program mission",
+      "theme": "science",
+      "cluster": "space",
+      "active": true,
+      "answers": [
+        {
+          "name": "NEAR Shoemaker",
+          "aliases": ["NEAR", "Near Earth Asteroid Rendezvous"]
+        },
+        {
+          "name": "Mars Pathfinder",
+          "aliases": ["Pathfinder", "Sojourner"]
+        },
+        {
+          "name": "Lunar Prospector"
+        },
+        {
+          "name": "Stardust"
+        },
+        {
+          "name": "Genesis"
+        },
+        {
+          "name": "CONTOUR"
+        },
+        {
+          "name": "MESSENGER"
+        },
+        {
+          "name": "Deep Impact"
+        },
+        {
+          "name": "Dawn"
+        },
+        {
+          "name": "Kepler space telescope",
+          "aliases": ["Kepler"]
+        },
+        {
+          "name": "GRAIL",
+          "aliases": ["Ebb and Flow", "Ebb", "Flow", "Gravity Recovery and Interior Laboratory"]
+        },
+        {
+          "name": "InSight"
+        },
+        {
+          "name": "Lucy"
+        },
+        {
+          "name": "Psyche"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Discovery Program",
+          "revision": 1383348484,
+          "members": [
+            "NEAR Shoemaker",
+            "Mars Pathfinder",
+            "Lunar Prospector",
+            "Stardust",
+            "Genesis",
+            "CONTOUR",
+            "MESSENGER",
+            "Deep Impact",
+            "Dawn",
+            "Kepler space telescope",
+            "GRAIL",
+            "InSight",
+            "Lucy",
+            "Psyche"
+          ],
+          "reviewed": [
+            "NEAR Shoemaker",
+            "Mars Pathfinder",
+            "Lunar Prospector",
+            "Stardust",
+            "Genesis",
+            "CONTOUR",
+            "MESSENGER",
+            "Deep Impact",
+            "Dawn",
+            "Kepler space telescope",
+            "GRAIL",
+            "InSight",
+            "Lucy",
+            "Psyche"
+          ],
+          "expect": [14, 14]
+        }
+      ],
+      "expect": [14, 14],
+      "surface": ["Mars Pathfinder", "Kepler space telescope", "InSight"],
+      "pearl": "CONTOUR",
+      "scope": "The fourteen numbered missions that have actually launched, including failed CONTOUR. Selected future DAVINCI/VERITAS and unfunded proposals are excluded; extensions retain the original mission identity. Not every NASA planetary mission is a Discovery mission.",
+      "too_clever": ["MESSENGER"]
+    },
+    {
+      "id": "f1-constructor-champions",
+      "text": "a constructor that won Formula One's Constructors' Championship",
+      "theme": "sports",
+      "cluster": "racing",
+      "active": true,
+      "answers": [
+        {
+          "name": "Ferrari",
+          "aliases": ["Scuderia Ferrari"]
+        },
+        {
+          "name": "McLaren",
+          "aliases": ["McLaren Mercedes"]
+        },
+        {
+          "name": "Williams",
+          "aliases": ["Williams Racing"]
+        },
+        {
+          "name": "Mercedes",
+          "aliases": ["Mercedes Benz", "Mercedes AMG"]
+        },
+        {
+          "name": "Lotus",
+          "aliases": ["Team Lotus"]
+        },
+        {
+          "name": "Red Bull",
+          "aliases": ["Red Bull Racing", "RBR"]
+        },
+        {
+          "name": "Cooper"
+        },
+        {
+          "name": "Brabham"
+        },
+        {
+          "name": "Renault"
+        },
+        {
+          "name": "Vanwall"
+        },
+        {
+          "name": "BRM",
+          "aliases": ["British Racing Motors"]
+        },
+        {
+          "name": "Matra"
+        },
+        {
+          "name": "Tyrrell",
+          "aliases": ["Tyrell"]
+        },
+        {
+          "name": "Benetton"
+        },
+        {
+          "name": "Brawn",
+          "aliases": ["Brawn GP"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Formula One World Constructors' Champions",
+          "revision": 1384567485,
+          "members": [
+            "Ferrari",
+            "McLaren",
+            "Williams",
+            "Mercedes",
+            "Lotus",
+            "Red Bull",
+            "Cooper",
+            "Brabham",
+            "Renault",
+            "Vanwall",
+            "BRM",
+            "Matra",
+            "Tyrrell",
+            "Benetton",
+            "Brawn"
+          ],
+          "reviewed": [
+            "Ferrari",
+            "McLaren",
+            "Williams",
+            "Mercedes",
+            "Lotus",
+            "Red Bull",
+            "Cooper",
+            "Brabham",
+            "Renault",
+            "Vanwall",
+            "BRM",
+            "Matra",
+            "Tyrrell",
+            "Benetton",
+            "Brawn"
+          ],
+          "expect": [15, 15]
+        }
+      ],
+      "expect": [15, 15],
+      "surface": ["Ferrari", "McLaren", "Mercedes"],
+      "pearl": "Vanwall",
+      "scope": "The fifteen winning chassis constructors, not engine suppliers alone or successors that never won under their own constructor identity.",
+      "too_clever": ["Brawn"]
+    },
+    {
+      "id": "test-cricket-teams",
+      "text": "one of the twelve current men's Test cricket teams",
+      "theme": "sports",
+      "cluster": "cricket",
+      "active": true,
+      "answers": [
+        {
+          "name": "Australia",
+          "aliases": ["Australia cricket team", "Australian cricket team"]
+        },
+        {
+          "name": "England",
+          "aliases": ["England cricket team", "England and Wales"]
+        },
+        {
+          "name": "South Africa",
+          "aliases": [
+            "Republic of South Africa",
+            "South Africa cricket team",
+            "South African cricket team"
+          ]
+        },
+        {
+          "name": "West Indies",
+          "aliases": ["West Indies cricket team", "West Indian cricket team", "Windies", "WI"]
+        },
+        {
+          "name": "New Zealand",
+          "aliases": ["NZ", "New Zealand cricket team"]
+        },
+        {
+          "name": "India",
+          "aliases": ["India cricket team", "Indian cricket team"]
+        },
+        {
+          "name": "Pakistan",
+          "aliases": ["Pakistan cricket team"]
+        },
+        {
+          "name": "Sri Lanka",
+          "aliases": ["Sri Lanka cricket team", "Sri Lankan cricket team"]
+        },
+        {
+          "name": "Zimbabwe",
+          "aliases": ["Zimbabwe cricket team", "Zimbabwean cricket team"]
+        },
+        {
+          "name": "Bangladesh",
+          "aliases": ["Bangladesh cricket team", "Bangladeshi cricket team"]
+        },
+        {
+          "name": "Ireland",
+          "aliases": ["Ireland cricket team", "Irish cricket team"]
+        },
+        {
+          "name": "Afghanistan",
+          "aliases": ["Afghanistan cricket team", "Afghan cricket team"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Test cricket",
+          "revision": 1382957015,
+          "members": [
+            "Australia",
+            "England",
+            "South Africa",
+            "West Indies",
+            "New Zealand",
+            "India",
+            "Pakistan",
+            "Sri Lanka",
+            "Zimbabwe",
+            "Bangladesh",
+            "Ireland",
+            "Afghanistan"
+          ],
+          "reviewed": [
+            "Australia",
+            "England",
+            "South Africa",
+            "West Indies",
+            "New Zealand",
+            "India",
+            "Pakistan",
+            "Sri Lanka",
+            "Zimbabwe",
+            "Bangladesh",
+            "Ireland",
+            "Afghanistan"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["India", "Australia", "England"],
+      "pearl": "Afghanistan",
+      "scope": "The twelve current full-member men’s Test teams, including West Indies as a multinational team. Not every ICC associate, women’s Test team or the historical one-off ICC World XI.",
+      "too_clever": ["New Zealand"]
+    },
+    {
+      "id": "nba-75-team",
+      "text": "a player selected for the NBA's 75th Anniversary Team",
+      "theme": "sports",
+      "cluster": "basketball",
+      "active": true,
+      "answers": [
+        {
+          "name": "Kareem Abdul-Jabbar",
+          "aliases": ["Lew Alcindor", "Kareem"]
+        },
+        {
+          "name": "Ray Allen"
+        },
+        {
+          "name": "Giannis Antetokounmpo",
+          "aliases": ["Giannis", "Greek Freak"]
+        },
+        {
+          "name": "Carmelo Anthony"
+        },
+        {
+          "name": "Nate Archibald"
+        },
+        {
+          "name": "Paul Arizin"
+        },
+        {
+          "name": "Charles Barkley",
+          "aliases": ["Sir Charles"]
+        },
+        {
+          "name": "Rick Barry"
+        },
+        {
+          "name": "Elgin Baylor"
+        },
+        {
+          "name": "Dave Bing"
+        },
+        {
+          "name": "Larry Bird"
+        },
+        {
+          "name": "Kobe Bryant",
+          "aliases": ["Kobe", "Black Mamba"]
+        },
+        {
+          "name": "Wilt Chamberlain"
+        },
+        {
+          "name": "Bob Cousy"
+        },
+        {
+          "name": "Dave Cowens"
+        },
+        {
+          "name": "Billy Cunningham"
+        },
+        {
+          "name": "Stephen Curry",
+          "aliases": ["Steph Curry", "Steph"]
+        },
+        {
+          "name": "Anthony Davis",
+          "aliases": ["AD"]
+        },
+        {
+          "name": "Dave DeBusschere"
+        },
+        {
+          "name": "Clyde Drexler"
+        },
+        {
+          "name": "Tim Duncan",
+          "aliases": ["The Big Fundamental"]
+        },
+        {
+          "name": "Kevin Durant",
+          "aliases": ["KD"]
+        },
+        {
+          "name": "Julius Erving",
+          "aliases": ["Dr J", "Doctor J"]
+        },
+        {
+          "name": "Patrick Ewing"
+        },
+        {
+          "name": "Walt Frazier"
+        },
+        {
+          "name": "Kevin Garnett",
+          "aliases": ["KG", "The Big Ticket"]
+        },
+        {
+          "name": "George Gervin",
+          "aliases": ["Iceman"]
+        },
+        {
+          "name": "Hal Greer"
+        },
+        {
+          "name": "James Harden"
+        },
+        {
+          "name": "John Havlicek"
+        },
+        {
+          "name": "Elvin Hayes"
+        },
+        {
+          "name": "Allen Iverson",
+          "aliases": ["AI", "The Answer"]
+        },
+        {
+          "name": "LeBron James",
+          "aliases": ["LeBron", "King James"]
+        },
+        {
+          "name": "Magic Johnson",
+          "aliases": ["Magic", "Earvin Johnson Jr."]
+        },
+        {
+          "name": "Sam Jones"
+        },
+        {
+          "name": "Michael Jordan",
+          "aliases": ["MJ", "Air Jordan"]
+        },
+        {
+          "name": "Jason Kidd"
+        },
+        {
+          "name": "Kawhi Leonard",
+          "aliases": ["Kawhi"]
+        },
+        {
+          "name": "Damian Lillard",
+          "aliases": ["Dame"]
+        },
+        {
+          "name": "Jerry Lucas"
+        },
+        {
+          "name": "Karl Malone",
+          "aliases": ["The Mailman"]
+        },
+        {
+          "name": "Moses Malone"
+        },
+        {
+          "name": "Pete Maravich",
+          "aliases": ["Pistol Pete"]
+        },
+        {
+          "name": "Bob McAdoo"
+        },
+        {
+          "name": "Kevin McHale"
+        },
+        {
+          "name": "George Mikan"
+        },
+        {
+          "name": "Reggie Miller"
+        },
+        {
+          "name": "Earl Monroe"
+        },
+        {
+          "name": "Steve Nash"
+        },
+        {
+          "name": "Dirk Nowitzki",
+          "aliases": ["Dirk"]
+        },
+        {
+          "name": "Hakeem Olajuwon",
+          "aliases": ["Akeem Olajuwon", "The Dream", "Hakeem"]
+        },
+        {
+          "name": "Shaquille O'Neal",
+          "aliases": ["Shaquille O Neal", "Shaq"]
+        },
+        {
+          "name": "Robert Parish"
+        },
+        {
+          "name": "Chris Paul",
+          "aliases": ["CP3"]
+        },
+        {
+          "name": "Gary Payton"
+        },
+        {
+          "name": "Bob Pettit"
+        },
+        {
+          "name": "Paul Pierce"
+        },
+        {
+          "name": "Scottie Pippen"
+        },
+        {
+          "name": "Willis Reed"
+        },
+        {
+          "name": "Oscar Robertson",
+          "aliases": ["Big O"]
+        },
+        {
+          "name": "David Robinson",
+          "aliases": ["The Admiral"]
+        },
+        {
+          "name": "Dennis Rodman"
+        },
+        {
+          "name": "Bill Russell"
+        },
+        {
+          "name": "Dolph Schayes"
+        },
+        {
+          "name": "Bill Sharman"
+        },
+        {
+          "name": "John Stockton"
+        },
+        {
+          "name": "Isiah Thomas"
+        },
+        {
+          "name": "Nate Thurmond"
+        },
+        {
+          "name": "Wes Unseld"
+        },
+        {
+          "name": "Dwyane Wade",
+          "aliases": ["Dwayne Wade", "Flash"]
+        },
+        {
+          "name": "Bill Walton"
+        },
+        {
+          "name": "Jerry West",
+          "aliases": ["The Logo"]
+        },
+        {
+          "name": "Russell Westbrook"
+        },
+        {
+          "name": "Lenny Wilkens"
+        },
+        {
+          "name": "Dominique Wilkins"
+        },
+        {
+          "name": "James Worthy"
+        }
+      ],
+      "sources": [
+        {
+          "page": "NBA 75th Anniversary Team",
+          "revision": 1381047062,
+          "members": [
+            "Kareem Abdul-Jabbar",
+            "Ray Allen",
+            "Giannis Antetokounmpo",
+            "Carmelo Anthony",
+            "Nate Archibald",
+            "Paul Arizin",
+            "Charles Barkley",
+            "Rick Barry",
+            "Elgin Baylor",
+            "Dave Bing",
+            "Larry Bird",
+            "Kobe Bryant",
+            "Wilt Chamberlain",
+            "Bob Cousy",
+            "Dave Cowens",
+            "Billy Cunningham",
+            "Stephen Curry",
+            "Anthony Davis",
+            "Dave DeBusschere",
+            "Clyde Drexler",
+            "Tim Duncan",
+            "Kevin Durant",
+            "Julius Erving",
+            "Patrick Ewing",
+            "Walt Frazier",
+            "Kevin Garnett",
+            "George Gervin",
+            "Hal Greer",
+            "James Harden",
+            "John Havlicek",
+            "Elvin Hayes",
+            "Allen Iverson",
+            "LeBron James",
+            "Magic Johnson",
+            "Sam Jones",
+            "Michael Jordan",
+            "Jason Kidd",
+            "Kawhi Leonard",
+            "Damian Lillard",
+            "Jerry Lucas",
+            "Karl Malone",
+            "Moses Malone",
+            "Pete Maravich",
+            "Bob McAdoo",
+            "Kevin McHale",
+            "George Mikan",
+            "Reggie Miller",
+            "Earl Monroe",
+            "Steve Nash",
+            "Dirk Nowitzki",
+            "Hakeem Olajuwon",
+            "Shaquille O'Neal",
+            "Robert Parish",
+            "Chris Paul",
+            "Gary Payton",
+            "Bob Pettit",
+            "Paul Pierce",
+            "Scottie Pippen",
+            "Willis Reed",
+            "Oscar Robertson",
+            "David Robinson",
+            "Dennis Rodman",
+            "Bill Russell",
+            "Dolph Schayes",
+            "Bill Sharman",
+            "John Stockton",
+            "Isiah Thomas",
+            "Nate Thurmond",
+            "Wes Unseld",
+            "Dwyane Wade",
+            "Bill Walton",
+            "Jerry West",
+            "Russell Westbrook",
+            "Lenny Wilkens",
+            "Dominique Wilkins",
+            "James Worthy"
+          ],
+          "reviewed": [
+            "Kareem Abdul-Jabbar",
+            "Ray Allen",
+            "Giannis Antetokounmpo",
+            "Carmelo Anthony",
+            "Nate Archibald",
+            "Paul Arizin",
+            "Charles Barkley",
+            "Rick Barry",
+            "Elgin Baylor",
+            "Dave Bing",
+            "Larry Bird",
+            "Kobe Bryant",
+            "Wilt Chamberlain",
+            "Bob Cousy",
+            "Dave Cowens",
+            "Billy Cunningham",
+            "Stephen Curry",
+            "Anthony Davis",
+            "Dave DeBusschere",
+            "Clyde Drexler",
+            "Tim Duncan",
+            "Kevin Durant",
+            "Julius Erving",
+            "Patrick Ewing",
+            "Walt Frazier",
+            "Kevin Garnett",
+            "George Gervin",
+            "Hal Greer",
+            "James Harden",
+            "John Havlicek",
+            "Elvin Hayes",
+            "Allen Iverson",
+            "LeBron James",
+            "Magic Johnson",
+            "Sam Jones",
+            "Michael Jordan",
+            "Jason Kidd",
+            "Kawhi Leonard",
+            "Damian Lillard",
+            "Jerry Lucas",
+            "Karl Malone",
+            "Moses Malone",
+            "Pete Maravich",
+            "Bob McAdoo",
+            "Kevin McHale",
+            "George Mikan",
+            "Reggie Miller",
+            "Earl Monroe",
+            "Steve Nash",
+            "Dirk Nowitzki",
+            "Hakeem Olajuwon",
+            "Shaquille O'Neal",
+            "Robert Parish",
+            "Chris Paul",
+            "Gary Payton",
+            "Bob Pettit",
+            "Paul Pierce",
+            "Scottie Pippen",
+            "Willis Reed",
+            "Oscar Robertson",
+            "David Robinson",
+            "Dennis Rodman",
+            "Bill Russell",
+            "Dolph Schayes",
+            "Bill Sharman",
+            "John Stockton",
+            "Isiah Thomas",
+            "Nate Thurmond",
+            "Wes Unseld",
+            "Dwyane Wade",
+            "Bill Walton",
+            "Jerry West",
+            "Russell Westbrook",
+            "Lenny Wilkens",
+            "Dominique Wilkins",
+            "James Worthy"
+          ],
+          "expect": [76, 76]
+        }
+      ],
+      "expect": [76, 76],
+      "surface": ["Michael Jordan", "LeBron James", "Kobe Bryant"],
+      "pearl": "Dolph Schayes",
+      "scope": "All 76 players on the 2021 75th Anniversary Team: the vote produced a tie. Not the separate 15-coach selection or every Hall of Famer/current MVP.",
+      "people": true,
+      "too_clever": ["Stephen Curry"]
+    },
+    {
+      "id": "paris-2024-sports",
+      "text": "an official sport or discipline at the Paris 2024 Olympics",
+      "theme": "sports",
+      "cluster": "olympics",
+      "active": true,
+      "answers": [
+        {
+          "name": "Aquatics"
+        },
+        {
+          "name": "Artistic swimming",
+          "aliases": ["Synchronized Swimming", "Synchronised Swimming"]
+        },
+        {
+          "name": "Diving"
+        },
+        {
+          "name": "Marathon swimming",
+          "aliases": ["Open Water Swimming"]
+        },
+        {
+          "name": "Swimming"
+        },
+        {
+          "name": "Water polo"
+        },
+        {
+          "name": "Archery"
+        },
+        {
+          "name": "Athletics",
+          "aliases": ["Track and Field"]
+        },
+        {
+          "name": "Badminton"
+        },
+        {
+          "name": "Basketball"
+        },
+        {
+          "name": "3×3 basketball",
+          "aliases": [
+            "3x3 Basketball",
+            "Three on Three Basketball",
+            "3 on 3 Basketball",
+            "3on3 Basketball",
+            "Basketball 3x3"
+          ]
+        },
+        {
+          "name": "Boxing"
+        },
+        {
+          "name": "Breaking",
+          "aliases": ["Breakdancing", "Break Dancing"]
+        },
+        {
+          "name": "Canoeing",
+          "aliases": ["Kayaking"]
+        },
+        {
+          "name": "Canoe slalom"
+        },
+        {
+          "name": "Canoe sprint"
+        },
+        {
+          "name": "Cycling"
+        },
+        {
+          "name": "BMX freestyle",
+          "aliases": ["Freestyle BMX"]
+        },
+        {
+          "name": "BMX racing",
+          "aliases": ["BMX Race"]
+        },
+        {
+          "name": "Mountain biking",
+          "aliases": ["Mountain Bike"]
+        },
+        {
+          "name": "Road cycling",
+          "aliases": ["Cycling Road"]
+        },
+        {
+          "name": "Track cycling",
+          "aliases": ["Cycling Track"]
+        },
+        {
+          "name": "Equestrian"
+        },
+        {
+          "name": "Dressage"
+        },
+        {
+          "name": "Eventing"
+        },
+        {
+          "name": "Show jumping",
+          "aliases": ["Jumping"]
+        },
+        {
+          "name": "Fencing"
+        },
+        {
+          "name": "Field hockey",
+          "aliases": ["Hockey"]
+        },
+        {
+          "name": "Football",
+          "aliases": ["Soccer"]
+        },
+        {
+          "name": "Golf"
+        },
+        {
+          "name": "Gymnastics"
+        },
+        {
+          "name": "Artistic gymnastics"
+        },
+        {
+          "name": "Rhythmic gymnastics"
+        },
+        {
+          "name": "Trampoline",
+          "aliases": ["Trampolining"]
+        },
+        {
+          "name": "Handball"
+        },
+        {
+          "name": "Judo"
+        },
+        {
+          "name": "Modern pentathlon"
+        },
+        {
+          "name": "Rowing"
+        },
+        {
+          "name": "Rugby sevens",
+          "aliases": ["Rugby 7s", "Rugby"]
+        },
+        {
+          "name": "Sailing"
+        },
+        {
+          "name": "Shooting"
+        },
+        {
+          "name": "Skateboarding"
+        },
+        {
+          "name": "Sport climbing"
+        },
+        {
+          "name": "Surfing"
+        },
+        {
+          "name": "Table tennis"
+        },
+        {
+          "name": "Taekwondo",
+          "aliases": ["Tae Kwon Do"]
+        },
+        {
+          "name": "Tennis"
+        },
+        {
+          "name": "Triathlon"
+        },
+        {
+          "name": "Volleyball"
+        },
+        {
+          "name": "Beach volleyball"
+        },
+        {
+          "name": "Weightlifting"
+        },
+        {
+          "name": "Wrestling"
+        },
+        {
+          "name": "Freestyle wrestling"
+        },
+        {
+          "name": "Greco-Roman wrestling"
+        }
+      ],
+      "sources": [
+        {
+          "page": "2024 Summer Olympics",
+          "revision": 1384083241,
+          "members": [
+            "Aquatics",
+            "Artistic swimming",
+            "Diving",
+            "Marathon swimming",
+            "Swimming",
+            "Water polo",
+            "Archery",
+            "Athletics",
+            "Badminton",
+            "Basketball",
+            "3×3 basketball",
+            "Boxing",
+            "Breaking",
+            "Canoeing",
+            "Slalom",
+            "Sprint",
+            "Cycling",
+            "BMX freestyle",
+            "BMX racing",
+            "Mountain biking",
+            "Road",
+            "Track",
+            "Equestrian",
+            "Dressage",
+            "Eventing",
+            "Jumping",
+            "Fencing",
+            "Field hockey",
+            "Football",
+            "Golf",
+            "Gymnastics",
+            "Artistic",
+            "Rhythmic",
+            "Trampoline",
+            "Handball",
+            "Judo",
+            "Modern pentathlon",
+            "Rowing",
+            "Rugby sevens",
+            "Sailing",
+            "Shooting",
+            "Skateboarding",
+            "Sport climbing",
+            "Surfing",
+            "Table tennis",
+            "Taekwondo",
+            "Tennis",
+            "Triathlon",
+            "Volleyball",
+            "Beach volleyball",
+            "Weightlifting",
+            "Wrestling",
+            "Freestyle",
+            "Greco-Roman"
+          ],
+          "reviewed": [
+            "Aquatics",
+            "Artistic swimming",
+            "Diving",
+            "Marathon swimming",
+            "Swimming",
+            "Water polo",
+            "Archery",
+            "Athletics",
+            "Badminton",
+            "Basketball",
+            "3×3 basketball",
+            "Boxing",
+            "Breaking",
+            "Canoeing",
+            "Slalom",
+            "Sprint",
+            "Cycling",
+            "BMX freestyle",
+            "BMX racing",
+            "Mountain biking",
+            "Road",
+            "Track",
+            "Equestrian",
+            "Dressage",
+            "Eventing",
+            "Jumping",
+            "Fencing",
+            "Field hockey",
+            "Football",
+            "Golf",
+            "Gymnastics",
+            "Artistic",
+            "Rhythmic",
+            "Trampoline",
+            "Handball",
+            "Judo",
+            "Modern pentathlon",
+            "Rowing",
+            "Rugby sevens",
+            "Sailing",
+            "Shooting",
+            "Skateboarding",
+            "Sport climbing",
+            "Surfing",
+            "Table tennis",
+            "Taekwondo",
+            "Tennis",
+            "Triathlon",
+            "Volleyball",
+            "Beach volleyball",
+            "Weightlifting",
+            "Wrestling",
+            "Freestyle",
+            "Greco-Roman"
+          ],
+          "expect": [54, 54]
+        }
+      ],
+      "expect": [54, 54],
+      "surface": ["Athletics", "Swimming", "Football"],
+      "pearl": "Breaking",
+      "scope": "Complete 32-sport/48-discipline programme, accepting both umbrella sports and their disciplines, deduplicating shared labels. Event distances/weight classes are not extra sports. Excludes demonstration/exhibition activities and sports absent from Paris 2024.",
+      "too_clever": ["Skateboarding"]
+    },
+    {
+      "id": "f1-race-host-countries",
+      "text": "a country that hosted a Formula One World Championship race",
+      "theme": "sports",
+      "cluster": "racing",
+      "active": true,
+      "answers": [
+        {
+          "name": "Australia"
+        },
+        {
+          "name": "Morocco"
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"]
+        },
+        {
+          "name": "Portugal"
+        },
+        {
+          "name": "Mexico"
+        },
+        {
+          "name": "Brazil"
+        },
+        {
+          "name": "Italy"
+        },
+        {
+          "name": "Argentina"
+        },
+        {
+          "name": "Germany",
+          "aliases": ["West Germany"]
+        },
+        {
+          "name": "Bahrain"
+        },
+        {
+          "name": "Azerbaijan"
+        },
+        {
+          "name": "India"
+        },
+        {
+          "name": "France"
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"]
+        },
+        {
+          "name": "Switzerland"
+        },
+        {
+          "name": "Spain"
+        },
+        {
+          "name": "Monaco"
+        },
+        {
+          "name": "Belgium"
+        },
+        {
+          "name": "Canada"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": ["Holland"]
+        },
+        {
+          "name": "Japan"
+        },
+        {
+          "name": "Hungary"
+        },
+        {
+          "name": "Turkey",
+          "aliases": ["Türkiye"]
+        },
+        {
+          "name": "Saudi Arabia"
+        },
+        {
+          "name": "South Korea",
+          "aliases": ["Republic of Korea", "Korea"]
+        },
+        {
+          "name": "South Africa",
+          "aliases": ["Republic of South Africa"]
+        },
+        {
+          "name": "Qatar"
+        },
+        {
+          "name": "Singapore"
+        },
+        {
+          "name": "Austria"
+        },
+        {
+          "name": "Sweden"
+        },
+        {
+          "name": "Malaysia"
+        },
+        {
+          "name": "China"
+        },
+        {
+          "name": "Russia",
+          "aliases": ["Russian Federation"]
+        },
+        {
+          "name": "United Arab Emirates",
+          "aliases": ["UAE"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Formula One circuits",
+          "revision": 1383568195,
+          "members": [
+            "Australia",
+            "Morocco",
+            "United Kingdom",
+            "Portugal",
+            "Mexico",
+            "Brazil",
+            "Italy",
+            "Argentina",
+            "West Germany",
+            "Bahrain",
+            "Azerbaijan",
+            "India",
+            "France",
+            "United States",
+            "Switzerland",
+            "Spain",
+            "Monaco",
+            "Belgium",
+            "Canada",
+            "Netherlands",
+            "Japan",
+            "Germany",
+            "Hungary",
+            "Turkey",
+            "Saudi Arabia",
+            "South Korea",
+            "South Africa",
+            "Qatar",
+            "Singapore",
+            "Austria",
+            "Sweden",
+            "Malaysia",
+            "China",
+            "Russia",
+            "United Arab Emirates"
+          ],
+          "reviewed": [
+            "Australia",
+            "Morocco",
+            "United Kingdom",
+            "Portugal",
+            "Mexico",
+            "Brazil",
+            "Italy",
+            "Argentina",
+            "West Germany",
+            "Bahrain",
+            "Azerbaijan",
+            "India",
+            "France",
+            "United States",
+            "Switzerland",
+            "Spain",
+            "Monaco",
+            "Belgium",
+            "Canada",
+            "Netherlands",
+            "Japan",
+            "Germany",
+            "Hungary",
+            "Turkey",
+            "Saudi Arabia",
+            "South Korea",
+            "South Africa",
+            "Qatar",
+            "Singapore",
+            "Austria",
+            "Sweden",
+            "Malaysia",
+            "China",
+            "Russia",
+            "United Arab Emirates"
+          ],
+          "expect": [35, 35]
+        }
+      ],
+      "expect": [34, 34],
+      "surface": ["United Kingdom", "Italy", "Monaco"],
+      "pearl": "Morocco",
+      "scope": "Countries from every circuit with a positive completed World Championship race count; not namesakes such as San Marino, canceled Vietnam or proposed future host countries. West Germany merges with continuing state Germany; historical venues are included.",
+      "too_clever": ["South Korea"]
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

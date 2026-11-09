@@ -1,0 +1,1869 @@
+{
+  "asterix-albums": [
+    "Asterix the Gaul",
+    "The Golden Sickle",
+    "Asterix and the Goths",
+    "Asterix the Gladiator",
+    "Asterix and the Banquet",
+    "Asterix and Cleopatra",
+    "Asterix and the Big Fight",
+    "Asterix in Britain",
+    "Asterix and the Normans",
+    "Asterix the Legionary",
+    "Asterix and the Chieftains Shield",
+    "Asterix at the Olympic Games",
+    "Asterix and the Cauldron",
+    "Asterix in Spain",
+    "Asterix and the Roman Agent",
+    "Asterix in Switzerland",
+    "The Mansions of the Gods",
+    "Asterix and the Laurel Wreath",
+    "Asterix and the Soothsayer",
+    "Asterix in Corsica",
+    "Asterix and Caesars Gift",
+    "Asterix and the Great Crossing",
+    "Obelix and Co",
+    "Asterix in Belgium",
+    "Asterix and the Great Divide",
+    "Asterix and the Black Gold",
+    "Asterix and Son",
+    "Asterix and the Magic Carpet",
+    "Asterix and the Secret Weapon",
+    "Asterix and Obelix All at Sea",
+    "Asterix and the Actress",
+    "Asterix and the Class Act",
+    "Asterix and the Falling Sky",
+    "Asterix and the Picts",
+    "Asterix and the Missing Scroll",
+    "Asterix and the Chariot Race",
+    "Asterix and the Chieftains Daughter",
+    "Asterix and the Griffin",
+    "Asterix and the White Iris",
+    "Asterix in Lusitania",
+    {
+      "guess": "Tintin in Tibet",
+      "invalid": "Other comic franchises, not main-series Asterix albums."
+    },
+    {
+      "guess": "The Blue Lotus",
+      "invalid": "Other comic franchises, not main-series Asterix albums."
+    },
+    {
+      "guess": "Lucky Luke",
+      "invalid": "Other comic franchises, not main-series Asterix albums."
+    }
+  ],
+  "macos-cat-releases": [
+    "Cheetah",
+    "Puma",
+    "Jaguar",
+    "Panther",
+    "Tiger",
+    "Leopard",
+    "Snow Leopard",
+    "Lion",
+    "Mountain Lion",
+    "Mac OS X Cheetah",
+    "Mac OS X Puma",
+    "Mac OS X Jaguar",
+    "Mac OS X Panther",
+    "Mac OS X Tiger",
+    "Mac OS X Leopard",
+    "OS X Snow Leopard",
+    "OS X Lion",
+    "OS X Mountain Lion",
+    "10.0",
+    "10.1",
+    "10.2",
+    "10.3",
+    "10.4",
+    "10.5",
+    "10.6",
+    "10.7",
+    "10.8",
+    {
+      "guess": "Mavericks",
+      "invalid": "California-place releases, not cat-themed releases."
+    },
+    {
+      "guess": "Yosemite",
+      "invalid": "California-place releases, not cat-themed releases."
+    },
+    {
+      "guess": "Big Sur",
+      "invalid": "California-place releases, not cat-themed releases."
+    },
+    {
+      "guess": "Sierra",
+      "invalid": "California-place releases, not cat-themed releases."
+    },
+    {
+      "guess": "Cougar",
+      "invalid": "Not released Mac OS X cat codenames."
+    },
+    {
+      "guess": "Lynx",
+      "invalid": "Not released Mac OS X cat codenames."
+    }
+  ],
+  "star-wars-theatrical-films": [
+    "Star Wars",
+    "A New Hope",
+    "The Empire Strikes Back",
+    "Return of the Jedi",
+    "The Phantom Menace",
+    "Attack of the Clones",
+    "Revenge of the Sith",
+    "The Force Awakens",
+    "The Last Jedi",
+    "The Rise of Skywalker",
+    "Rogue One",
+    "Solo",
+    "The Clone Wars",
+    "The Mandalorian and Grogu",
+    "Episode I",
+    "Episode II",
+    "Episode III",
+    "Episode IV",
+    "Episode V",
+    "Episode VI",
+    "Episode VII",
+    "Episode VIII",
+    "Episode IX",
+    "Rogue One A Star Wars Story",
+    "Solo A Star Wars Story",
+    {
+      "guess": "The Mandalorian",
+      "invalid": "Television series, not feature films."
+    },
+    {
+      "guess": "Andor",
+      "invalid": "Television series, not feature films."
+    },
+    {
+      "guess": "The Bad Batch",
+      "invalid": "Television series, not feature films."
+    },
+    {
+      "guess": "Rebels",
+      "invalid": "Television series, not feature films."
+    },
+    {
+      "guess": "The Ewok Adventure",
+      "invalid": "A television-first film, not originally a theatrical feature; later overseas cinema distribution does not change its original format."
+    }
+  ],
+  "wizarding-world-films": [
+    "Harry Potter and the Philosophers Stone",
+    "Harry Potter and the Sorcerers Stone",
+    "Philosophers Stone",
+    "Sorcerers Stone",
+    "Chamber of Secrets",
+    "Prisoner of Azkaban",
+    "Goblet of Fire",
+    "Order of the Phoenix",
+    "Half Blood Prince",
+    "Deathly Hallows Part 1",
+    "Deathly Hallows Part 2",
+    "Fantastic Beasts and Where to Find Them",
+    "Fantastic Beasts",
+    "The Crimes of Grindelwald",
+    "The Secrets of Dumbledore",
+    "Harry Potter 1",
+    "Harry Potter 2",
+    "Harry Potter 3",
+    "Harry Potter 4",
+    "Harry Potter 5",
+    "Harry Potter 6",
+    "Harry Potter 7 Part 1",
+    "Harry Potter 7 Part 2",
+    "Fantastic Beasts 2",
+    "Fantastic Beasts 3",
+    {
+      "guess": "Cursed Child",
+      "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+    },
+    {
+      "guess": "Tales of Beedle the Bard",
+      "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+    },
+    {
+      "guess": "Hogwarts Legacy",
+      "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+    },
+    {
+      "guess": "Quidditch Through the Ages",
+      "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+    }
+  ],
+  "mission-impossible-films": [
+    "Mission Impossible",
+    "Mission Impossible 2",
+    "Mission Impossible II",
+    "Mission Impossible 3",
+    "Mission Impossible III",
+    "Ghost Protocol",
+    "Rogue Nation",
+    "Fallout",
+    "Dead Reckoning Part One",
+    "Dead Reckoning",
+    "The Final Reckoning",
+    "Final Reckoning",
+    "MI1",
+    "MI2",
+    "MI3",
+    "MI4",
+    "MI5",
+    "MI6",
+    "MI7",
+    "MI8",
+    "M I",
+    "M I 2",
+    "Mission Impossible Ghost Protocol",
+    "Mission Impossible Rogue Nation",
+    "Mission Impossible Fallout",
+    "Mission Impossible Dead Reckoning Part One",
+    "Mission Impossible The Final Reckoning",
+    {
+      "guess": "Top Gun Maverick",
+      "invalid": "Other film franchises, not Mission: Impossible."
+    },
+    {
+      "guess": "Jack Reacher",
+      "invalid": "Other film franchises, not Mission: Impossible."
+    },
+    {
+      "guess": "No Time to Die",
+      "invalid": "Other film franchises, not Mission: Impossible."
+    }
+  ],
+  "wes-anderson-features": [
+    "Bottle Rocket",
+    "Rushmore",
+    "The Royal Tenenbaums",
+    "Royal Tenenbaums",
+    "The Life Aquatic with Steve Zissou",
+    "Life Aquatic",
+    "The Darjeeling Limited",
+    "Darjeeling Limited",
+    "Fantastic Mr Fox",
+    "Fantastic Mister Fox",
+    "Moonrise Kingdom",
+    "The Grand Budapest Hotel",
+    "Grand Budapest Hotel",
+    "Isle of Dogs",
+    "The French Dispatch",
+    "French Dispatch",
+    "Asteroid City",
+    "The Phoenician Scheme",
+    "Phoenician Scheme",
+    "The Wonderful Story of Henry Sugar",
+    "Henry Sugar",
+    {
+      "guess": "The Swan",
+      "invalid": "Standalone shorts, not feature films; the complete Henry Sugar anthology is separately accepted."
+    },
+    {
+      "guess": "The Rat Catcher",
+      "invalid": "Standalone shorts, not feature films; the complete Henry Sugar anthology is separately accepted."
+    },
+    "The Grand Budapest",
+    "Fantastic Mr. Fox",
+    "The Life Aquatic",
+    {
+      "guess": "The Squid and the Whale",
+      "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+    },
+    {
+      "guess": "Jojo Rabbit",
+      "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+    },
+    {
+      "guess": "Napoleon Dynamite",
+      "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+    }
+  ],
+  "dreamworks-theatrical-films": [
+    "Antz",
+    "The Prince of Egypt",
+    "The Road to El Dorado",
+    "Chicken Run",
+    "Shrek",
+    "Spirit Stallion of the Cimarron",
+    "Sinbad Legend of the Seven Seas",
+    "Shark Tale",
+    "Madagascar",
+    "Wallace and Gromit The Curse of the Were Rabbit",
+    "Over the Hedge",
+    "Flushed Away",
+    "Bee Movie",
+    "Kung Fu Panda",
+    "Monsters vs Aliens",
+    "How to Train Your Dragon",
+    "Megamind",
+    "Puss in Boots",
+    "Rise of the Guardians",
+    "The Croods",
+    "Turbo",
+    "Mr Peabody and Sherman",
+    "Home",
+    "Trolls",
+    "The Boss Baby",
+    "Captain Underpants",
+    "Abominable",
+    "The Bad Guys",
+    "The Wild Robot",
+    "Dog Man",
+    "Shrek 2",
+    "Shrek the Third",
+    "Shrek Forever After",
+    "Madagascar Escape 2 Africa",
+    "Madagascar 3",
+    "Kung Fu Panda 2",
+    "Kung Fu Panda 3",
+    "Kung Fu Panda 4",
+    "Puss in Boots The Last Wish",
+    {
+      "guess": "Orion and the Dark",
+      "invalid": "Streaming-only, not a theatrical release."
+    },
+    {
+      "guess": "Toy Story",
+      "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+    },
+    {
+      "guess": "Ice Age",
+      "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+    },
+    {
+      "guess": "Despicable Me",
+      "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+    },
+    {
+      "guess": "The Super Mario Bros Movie",
+      "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+    }
+  ],
+  "population-100m": [
+    "India",
+    "China",
+    "United States",
+    "USA",
+    "Indonesia",
+    "Pakistan",
+    "Nigeria",
+    "Brazil",
+    "Bangladesh",
+    "Russia",
+    "Ethiopia",
+    "Mexico",
+    "Japan",
+    "Egypt",
+    "Philippines",
+    "DR Congo",
+    "Democratic Republic of the Congo",
+    "Congo Kinshasa",
+    "Vietnam",
+    "Viet Nam",
+    "United States of America",
+    "Russian Federation",
+    {
+      "guess": "Iran",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    },
+    {
+      "guess": "Turkey",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    },
+    {
+      "guess": "Germany",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    },
+    {
+      "guess": "Thailand",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    },
+    {
+      "guess": "United Kingdom",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    },
+    {
+      "guess": "France",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    },
+    {
+      "guess": "South Africa",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    },
+    {
+      "guess": "Tanzania",
+      "invalid": "Below 100 million in the displayed current national/UN population figures."
+    }
+  ],
+  "current-monarchies": [
+    "United Kingdom",
+    "Japan",
+    "Spain",
+    "Sweden",
+    "Norway",
+    "Denmark",
+    "Netherlands",
+    "Belgium",
+    "Luxembourg",
+    "Liechtenstein",
+    "Monaco",
+    "Andorra",
+    "Vatican City",
+    "Saudi Arabia",
+    "Jordan",
+    "Morocco",
+    "Bahrain",
+    "Qatar",
+    "Oman",
+    "Kuwait",
+    "United Arab Emirates",
+    "Brunei",
+    "Malaysia",
+    "Thailand",
+    "Cambodia",
+    "Bhutan",
+    "Tonga",
+    "Lesotho",
+    "Eswatini",
+    "Swaziland",
+    "Canada",
+    "Australia",
+    "New Zealand",
+    "Jamaica",
+    "Bahamas",
+    "Belize",
+    "Tuvalu",
+    "Papua New Guinea",
+    "Solomon Islands",
+    "Antigua and Barbuda",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Vincent and the Grenadines",
+    "Grenada",
+    {
+      "guess": "Nepal",
+      "invalid": "Former monarchies; now republics."
+    },
+    {
+      "guess": "Greece",
+      "invalid": "Former monarchies; now republics."
+    },
+    {
+      "guess": "Romania",
+      "invalid": "Former monarchies; now republics."
+    },
+    {
+      "guess": "Russia",
+      "invalid": "Former monarchies; now republics."
+    },
+    {
+      "guess": "Iran",
+      "invalid": "Former monarchies; now republics."
+    }
+  ],
+  "tropic-capricorn-countries": [
+    "Chile",
+    "Argentina",
+    "Paraguay",
+    "Brazil",
+    "Namibia",
+    "Botswana",
+    "South Africa",
+    "Mozambique",
+    "Madagascar",
+    "Australia",
+    "Republic of South Africa",
+    "Federative Republic of Brazil",
+    "Republic of Botswana",
+    "Republic of Namibia",
+    "Republic of Paraguay",
+    "Argentine Republic",
+    "Republic of Chile",
+    "Republic of Madagascar",
+    "Republic of Mozambique",
+    "Commonwealth of Australia",
+    {
+      "guess": "New Zealand",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Bolivia",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Peru",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Zimbabwe",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Zambia",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Angola",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Uruguay",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Lesotho",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Eswatini",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    },
+    {
+      "guess": "Tanzania",
+      "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+    }
+  ],
+  "france-overseas-territories": [
+    "French Guiana",
+    "Guyane",
+    "French Guyana",
+    "Guadeloupe",
+    "Martinique",
+    "Reunion",
+    "La Reunion",
+    "Mayotte",
+    "French Polynesia",
+    "Polynesie Francaise",
+    "New Caledonia",
+    "Nouvelle Caledonie",
+    "Saint Pierre and Miquelon",
+    "St Pierre and Miquelon",
+    "Saint Barthelemy",
+    "St Barts",
+    "Saint Martin",
+    "St Martin",
+    "Wallis and Futuna",
+    "Wallis et Futuna",
+    "French Southern and Antarctic Lands",
+    "TAAF",
+    "Clipperton Island",
+    "Clipperton",
+    "Tahiti",
+    {
+      "guess": "Bora Bora",
+      "invalid": "An island inside French Polynesia, not a separate top-level overseas territory."
+    },
+    {
+      "guess": "Corsica",
+      "invalid": "Metropolitan France, not an overseas territory."
+    },
+    {
+      "guess": "Guam",
+      "invalid": "US/British territories or independent countries, not current French overseas territories."
+    },
+    {
+      "guess": "Puerto Rico",
+      "invalid": "US/British territories or independent countries, not current French overseas territories."
+    },
+    {
+      "guess": "Mauritius",
+      "invalid": "US/British territories or independent countries, not current French overseas territories."
+    },
+    {
+      "guess": "Seychelles",
+      "invalid": "US/British territories or independent countries, not current French overseas territories."
+    },
+    {
+      "guess": "Saint Helena",
+      "invalid": "US/British territories or independent countries, not current French overseas territories."
+    }
+  ],
+  "seven-summits-peaks": [
+    "Everest",
+    "Mount Everest",
+    "Sagarmatha",
+    "Chomolungma",
+    "Aconcagua",
+    "Denali",
+    "Mount McKinley",
+    "Kilimanjaro",
+    "Mount Kilimanjaro",
+    "Elbrus",
+    "Mount Elbrus",
+    "Vinson",
+    "Vinson Massif",
+    "Mount Vinson",
+    "Mount Kosciuszko",
+    "Kosciuszko",
+    "Puncak Jaya",
+    "Carstensz Pyramid",
+    "Carstensz",
+    {
+      "guess": "K2",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Mont Blanc",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Mount Kenya",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Mount Wilhelm",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Mauna Kea",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Mount Cook",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Aoraki",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Chimborazo",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    },
+    {
+      "guess": "Mount Rainier",
+      "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+    }
+  ],
+  "g20-countries": [
+    "Argentina",
+    "Australia",
+    "Brazil",
+    "Canada",
+    "China",
+    "France",
+    "Germany",
+    "India",
+    "Indonesia",
+    "Italy",
+    "Japan",
+    "Mexico",
+    "Russia",
+    "Saudi Arabia",
+    "South Africa",
+    "South Korea",
+    "Republic of Korea",
+    "Turkey",
+    "Turkiye",
+    "United Kingdom",
+    "UK",
+    "United States",
+    "USA",
+    {
+      "guess": "Spain",
+      "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+    },
+    {
+      "guess": "Netherlands",
+      "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+    },
+    {
+      "guess": "Switzerland",
+      "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+    },
+    {
+      "guess": "Egypt",
+      "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+    },
+    {
+      "guess": "Nigeria",
+      "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+    },
+    {
+      "guess": "European Union",
+      "invalid": "G20 members, but organizations rather than countries."
+    },
+    {
+      "guess": "African Union",
+      "invalid": "G20 members, but organizations rather than countries."
+    },
+    {
+      "guess": "Belgium",
+      "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+    }
+  ],
+  "antarctic-treaty-originals": [
+    "Argentina",
+    "Australia",
+    "Belgium",
+    "Chile",
+    "France",
+    "Japan",
+    "New Zealand",
+    "NZ",
+    "Norway",
+    "South Africa",
+    "Soviet Union",
+    "USSR",
+    "Russia",
+    "Russian Federation",
+    "United Kingdom",
+    "UK",
+    "Britain",
+    "United States",
+    "USA",
+    "United States of America",
+    "Union of Soviet Socialist Republics",
+    "Union of South Africa",
+    {
+      "guess": "Canada",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    },
+    {
+      "guess": "China",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    },
+    {
+      "guess": "India",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    },
+    {
+      "guess": "Brazil",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    },
+    {
+      "guess": "Germany",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    },
+    {
+      "guess": "Italy",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    },
+    {
+      "guess": "South Korea",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    },
+    {
+      "guess": "Sweden",
+      "invalid": "Acceded after the original twelve states signed in 1959."
+    }
+  ],
+  "original-greek-titans": [
+    "Cronus",
+    "Kronos",
+    "Rhea",
+    "Rheia",
+    "Oceanus",
+    "Okeanos",
+    "Tethys",
+    "Hyperion",
+    "Theia",
+    "Thea",
+    "Coeus",
+    "Koios",
+    "Phoebe",
+    "Phoibe",
+    "Crius",
+    "Krios",
+    "Iapetus",
+    "Japetus",
+    "Themis",
+    "Mnemosyne",
+    {
+      "guess": "Atlas",
+      "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+    },
+    {
+      "guess": "Prometheus",
+      "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+    },
+    {
+      "guess": "Epimetheus",
+      "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+    },
+    {
+      "guess": "Dione",
+      "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+    },
+    {
+      "guess": "Asteria",
+      "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+    },
+    {
+      "guess": "Pallas",
+      "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+    },
+    {
+      "guess": "Perses",
+      "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+    },
+    {
+      "guess": "Zeus",
+      "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+    },
+    {
+      "guess": "Gaia",
+      "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+    },
+    {
+      "guess": "Uranus",
+      "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+    }
+  ],
+  "heracles-labours": [
+    "Nemean Lion",
+    "Slay the Nemean Lion",
+    "Lion",
+    "Lernaean Hydra",
+    "Hydra",
+    "Slay the Hydra",
+    "Ceryneian Hind",
+    "Golden Hind",
+    "Hind of Artemis",
+    "Erymanthian Boar",
+    "Capture the Erymanthian Boar",
+    "Augean Stables",
+    "Clean the Augean Stables",
+    "Stymphalian Birds",
+    "Cretan Bull",
+    "Mares of Diomedes",
+    "Horses of Diomedes",
+    "Belt of Hippolyta",
+    "Hippolytas Belt",
+    "Cattle of Geryon",
+    "Geryons Cattle",
+    "Apples of the Hesperides",
+    "Golden Apples",
+    "Cerberus",
+    "Capture Cerberus",
+    {
+      "guess": "Kill Medusa",
+      "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+    },
+    {
+      "guess": "Slay the Minotaur",
+      "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+    },
+    {
+      "guess": "Golden Fleece",
+      "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+    },
+    {
+      "guess": "Defeat the Cyclops",
+      "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+    },
+    {
+      "guess": "Sphinx",
+      "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+    }
+  ],
+  "cfa-cat-breeds": [
+    "Abyssinian",
+    "American Bobtail",
+    "American Curl",
+    "American Shorthair",
+    "American Wirehair",
+    "Balinese",
+    "Bengal",
+    "Birman",
+    "Bombay",
+    "British Shorthair",
+    "Burmese",
+    "Burmilla",
+    "Chartreux",
+    "Cornish Rex",
+    "Devon Rex",
+    "Egyptian Mau",
+    "European Burmese",
+    "Exotic Shorthair",
+    "Havana Brown",
+    "Japanese Bobtail",
+    "Khao Manee",
+    "Korat",
+    "LaPerm",
+    "Lykoi",
+    "Maine Coon",
+    "Manx",
+    "Norwegian Forest Cat",
+    "Ocicat",
+    "Oriental Shorthair",
+    "Persian",
+    "Ragamuffin",
+    "Ragdoll",
+    "Russian Blue",
+    "Scottish Fold",
+    "Selkirk Rex",
+    "Siamese",
+    "Siberian",
+    "Singapura",
+    "Somali",
+    "Sphynx",
+    "Tonkinese",
+    "Toybob",
+    "Turkish Angora",
+    "Turkish Van",
+    {
+      "guess": "Munchkin",
+      "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+    },
+    {
+      "guess": "Savannah",
+      "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+    },
+    {
+      "guess": "Toyger",
+      "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+    }
+  ],
+  "vulpes-foxes": [
+    "Red Fox",
+    "Arctic Fox",
+    "Fennec Fox",
+    "Kit Fox",
+    "Swift Fox",
+    "Corsac Fox",
+    "Tibetan Fox",
+    "Tibetan Sand Fox",
+    "Ruppells Fox",
+    "Ruppell Fox",
+    "Bengal Fox",
+    "Indian Fox",
+    "Cape Fox",
+    "Blanfords Fox",
+    "Pale Fox",
+    "Vulpes vulpes",
+    "Vulpes lagopus",
+    "Vulpes zerda",
+    "Vulpes macrotis",
+    "Vulpes velox",
+    "Vulpes corsac",
+    "Vulpes ferrilata",
+    "Vulpes rueppellii",
+    "Vulpes bengalensis",
+    "Vulpes chama",
+    "Vulpes cana",
+    "Vulpes pallida",
+    {
+      "guess": "Gray Fox",
+      "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+    },
+    {
+      "guess": "Grey Fox",
+      "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+    },
+    {
+      "guess": "Island Fox",
+      "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+    },
+    {
+      "guess": "Bat Eared Fox",
+      "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+    },
+    {
+      "guess": "Darwins Fox",
+      "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+    }
+  ],
+  "oceanic-dolphins": [
+    "Bottlenose Dolphin",
+    "Common Bottlenose Dolphin",
+    "Indo Pacific Bottlenose Dolphin",
+    "Spinner Dolphin",
+    "Striped Dolphin",
+    "Atlantic Spotted Dolphin",
+    "Pantropical Spotted Dolphin",
+    "Rissos Dolphin",
+    "Risso Dolphin",
+    "Rough Toothed Dolphin",
+    "Frasers Dolphin",
+    "Dusky Dolphin",
+    "Pacific White Sided Dolphin",
+    "Atlantic White Sided Dolphin",
+    "White Beaked Dolphin",
+    "Hourglass Dolphin",
+    "Peales Dolphin",
+    "Commersons Dolphin",
+    "Hectors Dolphin",
+    "Mauis Dolphin",
+    "Chilean Dolphin",
+    "Tucuxi",
+    "Guiana Dolphin",
+    "Irrawaddy Dolphin",
+    "Australian Snubfin Dolphin",
+    "Indo Pacific Humpback Dolphin",
+    "Atlantic Humpback Dolphin",
+    "Killer Whale",
+    "Orca",
+    "False Killer Whale",
+    "Pygmy Killer Whale",
+    "Melon Headed Whale",
+    "Short Finned Pilot Whale",
+    "Long Finned Pilot Whale",
+    {
+      "guess": "Amazon River Dolphin",
+      "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+    },
+    {
+      "guess": "Baiji",
+      "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+    },
+    {
+      "guess": "Ganges River Dolphin",
+      "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+    },
+    {
+      "guess": "Beluga",
+      "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+    },
+    {
+      "guess": "Narwhal",
+      "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+    },
+    {
+      "guess": "Sperm Whale",
+      "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+    }
+  ],
+  "armadillo-species": [
+    "Nine Banded Armadillo",
+    "Giant Armadillo",
+    "Pink Fairy Armadillo",
+    "Greater Fairy Armadillo",
+    "Pichi",
+    "Big Hairy Armadillo",
+    "Screaming Hairy Armadillo",
+    "Andean Hairy Armadillo",
+    "Southern Three Banded Armadillo",
+    "Brazilian Three Banded Armadillo",
+    "Six Banded Armadillo",
+    "Seven Banded Armadillo",
+    "Lesser Long Nosed Armadillo",
+    "Greater Long Nosed Armadillo",
+    "Hairy Long Nosed Armadillo",
+    "Northern Naked Tailed Armadillo",
+    "Southern Naked Tailed Armadillo",
+    "Chacoan Naked Tailed Armadillo",
+    "Greater Naked Tailed Armadillo",
+    "Yepes Mulita",
+    "Dasypus novemcinctus",
+    "Priodontes maximus",
+    "Chlamyphorus truncatus",
+    "Chaetophractus vellerosus",
+    "Tolypeutes matacus",
+    "Tolypeutes tricinctus",
+    "Euphractus sexcinctus",
+    {
+      "guess": "Glyptodon",
+      "invalid": "Extinct, not a living armadillo species."
+    },
+    {
+      "guess": "Pangolin",
+      "invalid": "Other mammalian orders, not armadillos."
+    },
+    {
+      "guess": "Aardvark",
+      "invalid": "Other mammalian orders, not armadillos."
+    },
+    {
+      "guess": "Anteater",
+      "invalid": "Other mammalian orders, not armadillos."
+    }
+  ],
+  "atlantic-category-five": [
+    "Andrew",
+    "Katrina",
+    "Rita",
+    "Wilma",
+    "Ivan",
+    "Isabel",
+    "Hugo",
+    "Gilbert",
+    "Allen",
+    "Camille",
+    "Mitch",
+    "Dean",
+    "Felix",
+    "Dorian",
+    "Maria",
+    "Irma",
+    "Matthew",
+    "Lorenzo",
+    "Lee",
+    "Milton",
+    "Beryl",
+    "Ian",
+    "Erin",
+    "Melissa",
+    "Janet",
+    "Hattie",
+    "Beulah",
+    "Anita",
+    "David",
+    "Emily",
+    "Isabella",
+    {
+      "guess": "Sandy",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    {
+      "guess": "Harvey",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    {
+      "guess": "Ida",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    {
+      "guess": "Gustav",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    {
+      "guess": "Florence",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    {
+      "guess": "Laura",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    {
+      "guess": "Helene",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    {
+      "guess": "Dog",
+      "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+    },
+    "Carol",
+    {
+      "guess": "Labor Day Hurricane",
+      "invalid": "A retrospective descriptive name for a 1935 storm, before official Atlantic storm naming."
+    }
+  ],
+  "fields-medallists": [
+    "Terence Tao",
+    "Terry Tao",
+    "Maryam Mirzakhani",
+    "Grigori Perelman",
+    "Gregory Perelman",
+    "Edward Witten",
+    "Peter Scholze",
+    "June Huh",
+    "Hugo Duminil Copin",
+    "James Maynard",
+    "Maryna Viazovska",
+    "Cedric Villani",
+    "Ngo Bao Chau",
+    "Stanislav Smirnov",
+    "Elon Lindenstrauss",
+    "Maxim Kontsevich",
+    "Timothy Gowers",
+    "Richard Borcherds",
+    "Vladimir Voevodsky",
+    "Laurent Lafforgue",
+    "Andrei Okounkov",
+    "Wendelin Werner",
+    "Manjul Bhargava",
+    "Martin Hairer",
+    "Artur Avila",
+    "Alessio Figalli",
+    "Akshay Venkatesh",
+    "Caucher Birkar",
+    "Michael Atiyah",
+    "Alexander Grothendieck",
+    "Stephen Smale",
+    {
+      "guess": "Alan Turing",
+      "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+    },
+    {
+      "guess": "Andrew Wiles",
+      "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+    },
+    {
+      "guess": "John Nash",
+      "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+    },
+    {
+      "guess": "Srinivasa Ramanujan",
+      "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+    }
+  ],
+  "turing-award-winners": [
+    "Alan Perlis",
+    "Maurice Wilkes",
+    "Richard Hamming",
+    "Marvin Minsky",
+    "James Wilkinson",
+    "John McCarthy",
+    "Edsger Dijkstra",
+    "Donald Knuth",
+    "Michael Rabin",
+    "Dana Scott",
+    "John Backus",
+    "Robert Floyd",
+    "Tony Hoare",
+    "Edgar Codd",
+    "Dennis Ritchie",
+    "Ken Thompson",
+    "Niklaus Wirth",
+    "John Hopcroft",
+    "Robert Tarjan",
+    "William Kahan",
+    "Barbara Liskov",
+    "Frances Allen",
+    "Shafi Goldwasser",
+    "Silvio Micali",
+    "Ron Rivest",
+    "Adi Shamir",
+    "Leonard Adleman",
+    "Tim Berners Lee",
+    "Vint Cerf",
+    "Bob Kahn",
+    "Geoffrey Hinton",
+    "Yann LeCun",
+    "Yoshua Bengio",
+    "Leslie Lamport",
+    {
+      "guess": "Alan Turing",
+      "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+    },
+    {
+      "guess": "Bill Gates",
+      "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+    },
+    {
+      "guess": "Steve Jobs",
+      "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+    },
+    {
+      "guess": "Linus Torvalds",
+      "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+    },
+    {
+      "guess": "Elon Musk",
+      "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+    }
+  ],
+  "apollo-moon-travellers": [
+    "Neil Armstrong",
+    "Buzz Aldrin",
+    "Edwin Aldrin",
+    "Michael Collins",
+    "Frank Borman",
+    "Jim Lovell",
+    "James Lovell",
+    "William Anders",
+    "Bill Anders",
+    "Thomas Stafford",
+    "Tom Stafford",
+    "John Young",
+    "Gene Cernan",
+    "Eugene Cernan",
+    "Pete Conrad",
+    "Charles Conrad",
+    "Alan Bean",
+    "Richard Gordon",
+    "Dick Gordon",
+    "Alan Shepard",
+    "Edgar Mitchell",
+    "Stuart Roosa",
+    "David Scott",
+    "Dave Scott",
+    "James Irwin",
+    "Jim Irwin",
+    "Alfred Worden",
+    "Al Worden",
+    "Charles Duke",
+    "Charlie Duke",
+    "Ken Mattingly",
+    "Thomas Mattingly",
+    "Harrison Schmitt",
+    "Jack Schmitt",
+    "Ronald Evans",
+    "Ron Evans",
+    "Fred Haise",
+    "Jack Swigert",
+    "John Swigert",
+    {
+      "guess": "John Glenn",
+      "invalid": "Earth-orbit astronauts, not Apollo lunar travelers."
+    },
+    {
+      "guess": "Alan Turing",
+      "invalid": "Not Apollo astronauts; later Artemis missions are outside this Apollo-specific question."
+    },
+    {
+      "guess": "Yuri Gagarin",
+      "invalid": "Earth-orbit astronauts, not Apollo lunar travelers."
+    },
+    {
+      "guess": "Christina Koch",
+      "invalid": "Not Apollo astronauts; later Artemis missions are outside this Apollo-specific question."
+    }
+  ],
+  "nobel-economics": [
+    "Milton Friedman",
+    "Friedrich Hayek",
+    "F A Hayek",
+    "Paul Samuelson",
+    "Kenneth Arrow",
+    "John Hicks",
+    "Amartya Sen",
+    "Daniel Kahneman",
+    "Vernon Smith",
+    "Paul Krugman",
+    "Elinor Ostrom",
+    "Oliver Williamson",
+    "Esther Duflo",
+    "Abhijit Banerjee",
+    "Michael Kremer",
+    "Claudia Goldin",
+    "Daron Acemoglu",
+    "Simon Johnson",
+    "James Robinson",
+    "Ben Bernanke",
+    "Douglas Diamond",
+    "Philip Dybvig",
+    "Richard Thaler",
+    "Joseph Stiglitz",
+    "George Akerlof",
+    "Michael Spence",
+    "Robert Shiller",
+    "Eugene Fama",
+    "Lars Peter Hansen",
+    "Robert Merton",
+    "Myron Scholes",
+    "John Nash",
+    "John Harsanyi",
+    "Reinhard Selten",
+    "Thomas Schelling",
+    "Robert Aumann",
+    "Jan Tinbergen",
+    "Ragnar Frisch",
+    {
+      "guess": "John Maynard Keynes",
+      "invalid": "Died before the 1969 prize began or have not received it."
+    },
+    {
+      "guess": "Adam Smith",
+      "invalid": "Died before the 1969 prize began or have not received it."
+    },
+    {
+      "guess": "Karl Marx",
+      "invalid": "Died before the 1969 prize began or have not received it."
+    },
+    {
+      "guess": "Thomas Piketty",
+      "invalid": "Died before the 1969 prize began or have not received it."
+    }
+  ],
+  "discovery-missions": [
+    "NEAR Shoemaker",
+    "NEAR",
+    "Mars Pathfinder",
+    "Pathfinder",
+    "Sojourner",
+    "Lunar Prospector",
+    "Stardust",
+    "Genesis",
+    "CONTOUR",
+    "Messenger",
+    "MESSENGER",
+    "Deep Impact",
+    "Dawn",
+    "Kepler",
+    "GRAIL",
+    "Ebb and Flow",
+    "InSight",
+    "Insight",
+    "Lucy",
+    "Psyche",
+    {
+      "guess": "DAVINCI",
+      "invalid": "Selected future missions that have not launched."
+    },
+    {
+      "guess": "VERITAS",
+      "invalid": "Selected future missions that have not launched."
+    },
+    {
+      "guess": "Trident",
+      "invalid": "An unselected proposal, not a launched Discovery mission."
+    },
+    {
+      "guess": "Curiosity",
+      "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+    },
+    {
+      "guess": "Perseverance",
+      "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+    },
+    {
+      "guess": "Juno",
+      "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+    },
+    {
+      "guess": "Cassini",
+      "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+    },
+    {
+      "guess": "New Horizons",
+      "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+    },
+    {
+      "guess": "Voyager 1",
+      "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+    },
+    {
+      "guess": "Europa Clipper",
+      "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+    }
+  ],
+  "f1-constructor-champions": [
+    "Ferrari",
+    "Scuderia Ferrari",
+    "McLaren",
+    "Williams",
+    "Mercedes",
+    "Mercedes Benz",
+    "Red Bull",
+    "Red Bull Racing",
+    "Renault",
+    "Benetton",
+    "Brawn",
+    "Brawn GP",
+    "Lotus",
+    "Team Lotus",
+    "Brabham",
+    "Cooper",
+    "Vanwall",
+    "BRM",
+    "British Racing Motors",
+    "Matra",
+    "Tyrrell",
+    "Tyrell",
+    "RBR",
+    "Williams Racing",
+    "McLaren Mercedes",
+    {
+      "guess": "Alpine",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "Aston Martin",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "Haas",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "Sauber",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "Jordan",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "Minardi",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "Toyota",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "Honda",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    },
+    {
+      "guess": "BMW",
+      "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+    }
+  ],
+  "test-cricket-teams": [
+    "Australia",
+    "England",
+    "India",
+    "Pakistan",
+    "New Zealand",
+    "NZ",
+    "South Africa",
+    "Sri Lanka",
+    "West Indies",
+    "Windies",
+    "Bangladesh",
+    "Zimbabwe",
+    "Ireland",
+    "Afghanistan",
+    "Indian cricket team",
+    "Pakistan cricket team",
+    "England cricket team",
+    "Australian cricket team",
+    "New Zealand cricket team",
+    "South African cricket team",
+    "Sri Lankan cricket team",
+    "West Indian cricket team",
+    "Bangladeshi cricket team",
+    "Zimbabwean cricket team",
+    "Irish cricket team",
+    "Afghan cricket team",
+    {
+      "guess": "Scotland",
+      "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+    },
+    {
+      "guess": "Netherlands",
+      "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+    },
+    {
+      "guess": "Kenya",
+      "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+    },
+    {
+      "guess": "United States",
+      "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+    },
+    {
+      "guess": "Nepal",
+      "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+    },
+    {
+      "guess": "Wales",
+      "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+    },
+    {
+      "guess": "ICC World XI",
+      "invalid": "A historical one-off Test side in 2005, not one of the twelve current teams."
+    }
+  ],
+  "nba-75-team": [
+    "Michael Jordan",
+    "LeBron James",
+    "Kobe Bryant",
+    "Kareem Abdul Jabbar",
+    "Lew Alcindor",
+    "Magic Johnson",
+    "Larry Bird",
+    "Wilt Chamberlain",
+    "Bill Russell",
+    "Shaquille O Neal",
+    "Shaq",
+    "Tim Duncan",
+    "Kobe",
+    "LeBron",
+    "Stephen Curry",
+    "Steph Curry",
+    "Kevin Durant",
+    "Giannis Antetokounmpo",
+    "James Harden",
+    "Russell Westbrook",
+    "Chris Paul",
+    "Damian Lillard",
+    "Anthony Davis",
+    "Carmelo Anthony",
+    "Dwyane Wade",
+    "Dwayne Wade",
+    "Dirk Nowitzki",
+    "Kevin Garnett",
+    "Allen Iverson",
+    "Steve Nash",
+    "John Stockton",
+    "Karl Malone",
+    "Charles Barkley",
+    "Julius Erving",
+    "Dr J",
+    "Oscar Robertson",
+    "Hakeem Olajuwon",
+    "Moses Malone",
+    "Patrick Ewing",
+    "Scottie Pippen",
+    {
+      "guess": "Tracy McGrady",
+      "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+    },
+    {
+      "guess": "Vince Carter",
+      "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+    },
+    {
+      "guess": "Dwight Howard",
+      "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+    },
+    {
+      "guess": "Yao Ming",
+      "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+    },
+    {
+      "guess": "Nikola Jokic",
+      "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+    }
+  ],
+  "paris-2024-sports": [
+    "Athletics",
+    "Track and Field",
+    "Swimming",
+    "Diving",
+    "Artistic Swimming",
+    "Synchronized Swimming",
+    "Water Polo",
+    "Marathon Swimming",
+    "Aquatics",
+    "Archery",
+    "Badminton",
+    "Basketball",
+    "3x3 Basketball",
+    "Boxing",
+    "Breaking",
+    "Breakdancing",
+    "Canoeing",
+    "Canoe Slalom",
+    "Canoe Sprint",
+    "Cycling",
+    "Road Cycling",
+    "Track Cycling",
+    "BMX Racing",
+    "BMX Freestyle",
+    "Mountain Biking",
+    "Equestrian",
+    "Dressage",
+    "Eventing",
+    "Show Jumping",
+    "Fencing",
+    "Football",
+    "Soccer",
+    "Golf",
+    "Gymnastics",
+    "Artistic Gymnastics",
+    "Rhythmic Gymnastics",
+    "Trampoline",
+    "Handball",
+    "Hockey",
+    "Field Hockey",
+    "Judo",
+    "Modern Pentathlon",
+    "Rowing",
+    "Rugby Sevens",
+    "Sailing",
+    "Shooting",
+    "Skateboarding",
+    "Sport Climbing",
+    "Surfing",
+    "Table Tennis",
+    "Taekwondo",
+    "Tennis",
+    "Triathlon",
+    "Volleyball",
+    "Beach Volleyball",
+    "Weightlifting",
+    "Wrestling",
+    "Freestyle Wrestling",
+    "Greco Roman Wrestling",
+    {
+      "guess": "Baseball",
+      "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+    },
+    {
+      "guess": "Softball",
+      "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+    },
+    {
+      "guess": "Karate",
+      "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+    },
+    {
+      "guess": "Squash",
+      "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+    },
+    {
+      "guess": "Cricket",
+      "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+    }
+  ],
+  "f1-race-host-countries": [
+    "United Kingdom",
+    "Britain",
+    "UK",
+    "Italy",
+    "Monaco",
+    "France",
+    "Belgium",
+    "Germany",
+    "Netherlands",
+    "Switzerland",
+    "Spain",
+    "Portugal",
+    "Austria",
+    "Sweden",
+    "Hungary",
+    "Turkey",
+    "Russia",
+    "Azerbaijan",
+    "United States",
+    "USA",
+    "Canada",
+    "Mexico",
+    "Brazil",
+    "Argentina",
+    "Morocco",
+    "South Africa",
+    "Japan",
+    "China",
+    "South Korea",
+    "India",
+    "Malaysia",
+    "Singapore",
+    "Australia",
+    "Bahrain",
+    "United Arab Emirates",
+    "UAE",
+    "Saudi Arabia",
+    "Qatar",
+    {
+      "guess": "Vietnam",
+      "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+    },
+    {
+      "guess": "Thailand",
+      "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+    },
+    {
+      "guess": "San Marino",
+      "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+    },
+    {
+      "guess": "Finland",
+      "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+    }
+  ],
+  "soviet-venus-landers": [
+    "Venera 7",
+    "Venera 8",
+    "Venera 9",
+    "Venera 10",
+    "Venera 11",
+    "Venera 12",
+    "Venera 13",
+    "Venera 14",
+    "Vega 1",
+    "Vega 2",
+    "Venera VII",
+    "Venera VIII",
+    "Venera IX",
+    "Venera X",
+    "Venera XI",
+    "Venera XII",
+    "Venera XIII",
+    "Venera XIV",
+    "Vega I",
+    "Vega II",
+    {
+      "guess": "Venera 3",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Venera 4",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Venera 5",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Venera 6",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Venera 1",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Venera 2",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Venera D",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Magellan",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Mariner 2",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    },
+    {
+      "guess": "Pioneer Venus",
+      "invalid": "American mission, not a Soviet probe."
+    },
+    {
+      "guess": "Cassini",
+      "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+    }
+  ],
+  "android-dessert-codenames": [
+    "Cupcake",
+    "Donut",
+    "Doughnut",
+    "Eclair",
+    "Froyo",
+    "Frozen Yogurt",
+    "Gingerbread",
+    "Honeycomb",
+    "Ice Cream Sandwich",
+    "Jelly Bean",
+    "KitKat",
+    "Kit Kat",
+    "Lollipop",
+    "Marshmallow",
+    "Nougat",
+    "Oreo",
+    "Pie",
+    "Quince Tart",
+    "Red Velvet Cake",
+    "Snow Cone",
+    "Tiramisu",
+    "Upside Down Cake",
+    "Vanilla Ice Cream",
+    "Baklava",
+    "Cinnamon Bun",
+    "Petit Four",
+    "Petit Fours",
+    {
+      "guess": "Apple Pie",
+      "invalid": "An unofficial retrospective label for Android 1.0, not its released official/internal codename."
+    },
+    {
+      "guess": "Bender",
+      "invalid": "A pre-release robot name, not a dessert codename of a released version."
+    },
+    {
+      "guess": "Astro Boy",
+      "invalid": "A pre-release robot name, not a dessert codename of a released version."
+    },
+    "Cinnamon Roll",
+    {
+      "guess": "Zebra Cake",
+      "invalid": "Not a released Android version codename."
+    },
+    {
+      "guess": "Flan",
+      "invalid": "A rumored/development label, not the final released Eclair codename."
+    },
+    {
+      "guess": "Pudding",
+      "invalid": "Not a released Android version codename."
+    },
+    {
+      "guess": "Chocolate Cake",
+      "invalid": "Not a released Android version codename."
+    }
+  ]
+}

@@ -88,7 +88,7 @@ class SpecsTest(unittest.TestCase):
                                   'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
-        self.assertEqual(sum(p['active'] for p in prompts), 287)
+        self.assertEqual(sum(p['active'] for p in prompts), 320)
         for prompt in prompts:
             self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
             self.assertRegex(prompt['text'], r'^Name [^.?!]+\.$')
@@ -97,7 +97,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 337)
+        self.assertEqual(len(prompts), 370)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])

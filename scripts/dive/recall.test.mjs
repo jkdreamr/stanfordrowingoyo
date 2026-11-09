@@ -14,6 +14,45 @@ const batchThree = JSON.parse(
   readFileSync(new URL('./recall/batch-3-selected.json', import.meta.url)),
 );
 
+test('fourth constrained batch preserves frozen guesses and accepts reviewed members', async () => {
+  const raw = JSON.parse(readFileSync(new URL('./recall/batch-4-raw.json', import.meta.url)));
+  const corpus = JSON.parse(
+    readFileSync(new URL('./recall/batch-4-selected.json', import.meta.url)),
+  );
+  const ids = Object.keys(corpus);
+  assert.equal(ids.length, 33);
+  assert.deepEqual(raw['soviet-venus-landers'], raw['venus-surface-probes-backup']);
+  for (const [id, guesses] of Object.entries(corpus)) {
+    assert.ok(guesses.length >= 25);
+    assert.deepEqual(
+      guesses.map((g) => (typeof g === 'string' ? g : g.guess)),
+      raw[id],
+    );
+  }
+  const result = await evaluateCorpus({
+    corpus,
+    schedule: [ids],
+    prompts: ids.map((id) => ({ id, constrained: true })),
+    loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
+    normalize: normalizeAnswer,
+  });
+  const audit = JSON.parse(readFileSync(new URL('./recall/batch-4-audit.json', import.meta.url)));
+  assert.deepEqual(
+    result.prompts,
+    audit.prompts.map((prompt) => prompt.after),
+  );
+  for (const prompt of result.prompts) {
+    assert.ok(prompt.total > 0 && prompt.rate >= 0.95, `${prompt.id}: ${prompt.misses.join(', ')}`);
+    const set = (await import(`../../worker/src/games/dive/data/${prompt.id}.ts`)).default;
+    for (const guess of prompt.invalid)
+      assert.equal(
+        exactHit(guess.guess, set, normalizeAnswer),
+        false,
+        `${prompt.id}: ${guess.guess}`,
+      );
+  }
+});
+
 test('third constrained batch preserves raw guesses and accepts valid variants, not reviewed nonmembers', async () => {
   const raw = JSON.parse(readFileSync(new URL('./recall/batch-3-raw.json', import.meta.url)));
   const ids = Object.keys(batchThree);

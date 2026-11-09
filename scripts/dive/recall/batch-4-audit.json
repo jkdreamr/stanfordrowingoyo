@@ -1,0 +1,3594 @@
+{
+  "baseline_sha256": "03c5d365f1f14a5dc0e2013b71fe1f0c153d89e41c5c818f537af0334004405c",
+  "raw_corpus_sha256": "5b0bbc80734c4424933cd3be382c16e4b97491d29aeebc4170c639a1348fd851",
+  "selected_corpus_sha256": "4491bd31b5f3e875e0b0d9b6c3888dcc91b037d672a2c768af41c2665452265f",
+  "initial_specs_sha256": "d27a2c54a78b6c48569e3d4137296640dbcc56df8278e03dff923f0c68ecc48b",
+  "raw_aliases": {
+    "soviet-venus-landers": "venus-surface-probes-backup"
+  },
+  "gzip_method": "Standalone generated module, Node v24.22.2, gzipSync level 6; not additive whole-Worker marginal compression.",
+  "source_snapshots": 33,
+  "corpus": {
+    "prompts": 33,
+    "guesses": 1192,
+    "invalid": 203
+  },
+  "before": {
+    "prompts": 33,
+    "hits": 717,
+    "total": 989,
+    "invalid": 203,
+    "rate": 0.7249747219413549
+  },
+  "after": {
+    "prompts": 33,
+    "hits": 989,
+    "total": 989,
+    "invalid": 203,
+    "rate": 1
+  },
+  "standalone_gzip_bytes": 32285,
+  "prompts": [
+    {
+      "id": "android-dessert-codenames",
+      "text": "Name a public or internal dessert codename of a released Android version.",
+      "active": true,
+      "size": 29,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 11,
+        "rare": 7,
+        "deep": 6,
+        "gem": 1
+      },
+      "surface": ["Pie", "Oreo", "KitKat"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 38,
+      "too_clever": ["Baklava"],
+      "gem": "Petit Four",
+      "theme": "everyday",
+      "cluster": "android",
+      "constrained": true,
+      "standalone_gzip_bytes": 996,
+      "before": {
+        "id": "android-dessert-codenames",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 24,
+        "total": 28,
+        "rate": 0.8571428571428571,
+        "invalid": [
+          {
+            "guess": "Apple Pie",
+            "invalid": "An unofficial retrospective label for Android 1.0, not its released official/internal codename."
+          },
+          {
+            "guess": "Bender",
+            "invalid": "A pre-release robot name, not a dessert codename of a released version."
+          },
+          {
+            "guess": "Astro Boy",
+            "invalid": "A pre-release robot name, not a dessert codename of a released version."
+          },
+          {
+            "guess": "Zebra Cake",
+            "invalid": "Not a released Android version codename."
+          },
+          {
+            "guess": "Flan",
+            "invalid": "A rumored/development label, not the final released Eclair codename."
+          },
+          {
+            "guess": "Pudding",
+            "invalid": "Not a released Android version codename."
+          },
+          {
+            "guess": "Chocolate Cake",
+            "invalid": "Not a released Android version codename."
+          }
+        ],
+        "misses": ["Doughnut", "Frozen Yogurt", "Kit Kat", "Cinnamon Roll"]
+      },
+      "after": {
+        "id": "android-dessert-codenames",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 28,
+        "total": 28,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Apple Pie",
+            "invalid": "An unofficial retrospective label for Android 1.0, not its released official/internal codename."
+          },
+          {
+            "guess": "Bender",
+            "invalid": "A pre-release robot name, not a dessert codename of a released version."
+          },
+          {
+            "guess": "Astro Boy",
+            "invalid": "A pre-release robot name, not a dessert codename of a released version."
+          },
+          {
+            "guess": "Zebra Cake",
+            "invalid": "Not a released Android version codename."
+          },
+          {
+            "guess": "Flan",
+            "invalid": "A rumored/development label, not the final released Eclair codename."
+          },
+          {
+            "guess": "Pudding",
+            "invalid": "Not a released Android version codename."
+          },
+          {
+            "guess": "Chocolate Cake",
+            "invalid": "Not a released Android version codename."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "antarctic-treaty-originals",
+      "text": "Name an original 1959 signatory of the Antarctic Treaty.",
+      "active": true,
+      "size": 12,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["United States", "Australia", "United Kingdom"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 14,
+      "too_clever": ["Russia"],
+      "gem": "Belgium",
+      "theme": "history",
+      "cluster": "antarctic-treaty",
+      "constrained": true,
+      "standalone_gzip_bytes": 572,
+      "before": {
+        "id": "antarctic-treaty-originals",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 12,
+        "total": 22,
+        "rate": 0.5454545454545454,
+        "invalid": [
+          {
+            "guess": "Canada",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "China",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "India",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Brazil",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Italy",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "South Korea",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          }
+        ],
+        "misses": [
+          "NZ",
+          "Soviet Union",
+          "USSR",
+          "Russian Federation",
+          "UK",
+          "Britain",
+          "USA",
+          "United States of America",
+          "Union of Soviet Socialist Republics",
+          "Union of South Africa"
+        ]
+      },
+      "after": {
+        "id": "antarctic-treaty-originals",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 22,
+        "total": 22,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Canada",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "China",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "India",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Brazil",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Italy",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "South Korea",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "Acceded after the original twelve states signed in 1959."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "apollo-moon-travellers",
+      "text": "Name a person who flew to the Moon on an Apollo mission.",
+      "active": true,
+      "size": 24,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 9,
+        "rare": 6,
+        "deep": 4,
+        "gem": 1
+      },
+      "surface": ["Michael Collins", "Neil Armstrong", "Buzz Aldrin"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 43,
+      "too_clever": ["Jim Lovell"],
+      "gem": "Alfred Worden",
+      "theme": "science",
+      "cluster": "space",
+      "constrained": true,
+      "standalone_gzip_bytes": 918,
+      "before": {
+        "id": "apollo-moon-travellers",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 24,
+        "total": 39,
+        "rate": 0.6153846153846154,
+        "invalid": [
+          {
+            "guess": "John Glenn",
+            "invalid": "Earth-orbit astronauts, not Apollo lunar travelers."
+          },
+          {
+            "guess": "Alan Turing",
+            "invalid": "Not Apollo astronauts; later Artemis missions are outside this Apollo-specific question."
+          },
+          {
+            "guess": "Yuri Gagarin",
+            "invalid": "Earth-orbit astronauts, not Apollo lunar travelers."
+          },
+          {
+            "guess": "Christina Koch",
+            "invalid": "Not Apollo astronauts; later Artemis missions are outside this Apollo-specific question."
+          }
+        ],
+        "misses": [
+          "Edwin Aldrin",
+          "James Lovell",
+          "William Anders",
+          "Thomas Stafford",
+          "Gene Cernan",
+          "Charles Conrad",
+          "Richard Gordon",
+          "Dave Scott",
+          "Jim Irwin",
+          "Al Worden",
+          "Charlie Duke",
+          "Thomas Mattingly",
+          "Jack Schmitt",
+          "Ron Evans",
+          "John Swigert"
+        ]
+      },
+      "after": {
+        "id": "apollo-moon-travellers",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 39,
+        "total": 39,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "John Glenn",
+            "invalid": "Earth-orbit astronauts, not Apollo lunar travelers."
+          },
+          {
+            "guess": "Alan Turing",
+            "invalid": "Not Apollo astronauts; later Artemis missions are outside this Apollo-specific question."
+          },
+          {
+            "guess": "Yuri Gagarin",
+            "invalid": "Earth-orbit astronauts, not Apollo lunar travelers."
+          },
+          {
+            "guess": "Christina Koch",
+            "invalid": "Not Apollo astronauts; later Artemis missions are outside this Apollo-specific question."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "armadillo-species",
+      "text": "Name a living species of armadillo.",
+      "active": true,
+      "size": 22,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 8,
+        "rare": 5,
+        "deep": 4,
+        "gem": 1
+      },
+      "surface": ["Giant armadillo", "Pink fairy armadillo", "Nine-banded armadillo"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 26,
+      "too_clever": ["Southern three-banded armadillo"],
+      "gem": "Pichi",
+      "theme": "nature",
+      "cluster": "armadillos",
+      "constrained": true,
+      "standalone_gzip_bytes": 959,
+      "before": {
+        "id": "armadillo-species",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 17,
+        "total": 27,
+        "rate": 0.6296296296296297,
+        "invalid": [
+          {
+            "guess": "Glyptodon",
+            "invalid": "Extinct, not a living armadillo species."
+          },
+          {
+            "guess": "Pangolin",
+            "invalid": "Other mammalian orders, not armadillos."
+          },
+          {
+            "guess": "Aardvark",
+            "invalid": "Other mammalian orders, not armadillos."
+          },
+          {
+            "guess": "Anteater",
+            "invalid": "Other mammalian orders, not armadillos."
+          }
+        ],
+        "misses": [
+          "Andean Hairy Armadillo",
+          "Lesser Long Nosed Armadillo",
+          "Yepes Mulita",
+          "Dasypus novemcinctus",
+          "Priodontes maximus",
+          "Chlamyphorus truncatus",
+          "Chaetophractus vellerosus",
+          "Tolypeutes matacus",
+          "Tolypeutes tricinctus",
+          "Euphractus sexcinctus"
+        ]
+      },
+      "after": {
+        "id": "armadillo-species",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 27,
+        "total": 27,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Glyptodon",
+            "invalid": "Extinct, not a living armadillo species."
+          },
+          {
+            "guess": "Pangolin",
+            "invalid": "Other mammalian orders, not armadillos."
+          },
+          {
+            "guess": "Aardvark",
+            "invalid": "Other mammalian orders, not armadillos."
+          },
+          {
+            "guess": "Anteater",
+            "invalid": "Other mammalian orders, not armadillos."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "asterix-albums",
+      "text": "Name an album in the main Asterix comic series.",
+      "active": true,
+      "size": 41,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 17,
+        "rare": 10,
+        "deep": 9,
+        "gem": 1
+      },
+      "surface": ["Asterix in Britain", "Asterix and Cleopatra", "Asterix the Gaul"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 30,
+      "too_clever": ["Asterix and the Golden Sickle"],
+      "gem": "Asterix and the Black Gold",
+      "theme": "books",
+      "cluster": "asterix",
+      "constrained": true,
+      "standalone_gzip_bytes": 1221,
+      "before": {
+        "id": "asterix-albums",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 39,
+        "total": 40,
+        "rate": 0.975,
+        "invalid": [
+          {
+            "guess": "Tintin in Tibet",
+            "invalid": "Other comic franchises, not main-series Asterix albums."
+          },
+          {
+            "guess": "The Blue Lotus",
+            "invalid": "Other comic franchises, not main-series Asterix albums."
+          },
+          {
+            "guess": "Lucky Luke",
+            "invalid": "Other comic franchises, not main-series Asterix albums."
+          }
+        ],
+        "misses": ["The Golden Sickle"]
+      },
+      "after": {
+        "id": "asterix-albums",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 40,
+        "total": 40,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Tintin in Tibet",
+            "invalid": "Other comic franchises, not main-series Asterix albums."
+          },
+          {
+            "guess": "The Blue Lotus",
+            "invalid": "Other comic franchises, not main-series Asterix albums."
+          },
+          {
+            "guess": "Lucky Luke",
+            "invalid": "Other comic franchises, not main-series Asterix albums."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "atlantic-category-five",
+      "text": "Name an officially named Atlantic hurricane that reached Category 5.",
+      "active": true,
+      "size": 35,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 14,
+        "rare": 9,
+        "deep": 7,
+        "gem": 1
+      },
+      "surface": ["Andrew", "Katrina", "Irma"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 36,
+      "too_clever": ["Wilma"],
+      "gem": "Carol",
+      "theme": "nature",
+      "cluster": "weather",
+      "constrained": true,
+      "standalone_gzip_bytes": 852,
+      "before": {
+        "id": "atlantic-category-five",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 31,
+        "total": 32,
+        "rate": 0.96875,
+        "invalid": [
+          {
+            "guess": "Sandy",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Harvey",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Ida",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Gustav",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Florence",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Laura",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Helene",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Dog",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Labor Day Hurricane",
+            "invalid": "A retrospective descriptive name for a 1935 storm, before official Atlantic storm naming."
+          }
+        ],
+        "misses": ["Isabella"]
+      },
+      "after": {
+        "id": "atlantic-category-five",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 32,
+        "total": 32,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Sandy",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Harvey",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Ida",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Gustav",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Florence",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Laura",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Helene",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Dog",
+            "invalid": "Analyzed peak Category 3 or 4, not Category 5; includes downgraded historical estimates for Dog."
+          },
+          {
+            "guess": "Labor Day Hurricane",
+            "invalid": "A retrospective descriptive name for a 1935 storm, before official Atlantic storm naming."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "cfa-cat-breeds",
+      "text": "Name a cat breed recognized by the Cat Fanciers' Association.",
+      "active": true,
+      "size": 45,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 18,
+        "rare": 12,
+        "deep": 10,
+        "gem": 1
+      },
+      "surface": ["Maine Coon", "Siamese", "Persian"],
+      "pageviews": 41,
+      "sitelinks": 41,
+      "wikidata": 0,
+      "aliases": 53,
+      "too_clever": ["Sphynx"],
+      "gem": "Toybob",
+      "theme": "nature",
+      "cluster": "cat-breeds",
+      "constrained": true,
+      "standalone_gzip_bytes": 1253,
+      "before": {
+        "id": "cfa-cat-breeds",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 43,
+        "total": 44,
+        "rate": 0.9772727272727273,
+        "invalid": [
+          {
+            "guess": "Munchkin",
+            "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+          },
+          {
+            "guess": "Savannah",
+            "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+          },
+          {
+            "guess": "Toyger",
+            "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+          }
+        ],
+        "misses": ["Oriental Shorthair"]
+      },
+      "after": {
+        "id": "cfa-cat-breeds",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 44,
+        "total": 44,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Munchkin",
+            "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+          },
+          {
+            "guess": "Savannah",
+            "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+          },
+          {
+            "guess": "Toyger",
+            "invalid": "Recognized in other registries, not CFA-recognized breeds in its 45-breed roll."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "current-monarchies",
+      "text": "Name a current monarchy among UN member and observer states.",
+      "active": true,
+      "size": 43,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 18,
+        "rare": 11,
+        "deep": 9,
+        "gem": 1
+      },
+      "surface": ["Japan", "United Kingdom", "Saudi Arabia"],
+      "pageviews": 0,
+      "sitelinks": 25,
+      "wikidata": 0,
+      "aliases": 14,
+      "too_clever": ["Vatican City"],
+      "gem": "Andorra",
+      "theme": "geography",
+      "cluster": "monarchies",
+      "constrained": true,
+      "standalone_gzip_bytes": 1046,
+      "before": {
+        "id": "current-monarchies",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 41,
+        "total": 44,
+        "rate": 0.9318181818181818,
+        "invalid": [
+          {
+            "guess": "Nepal",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Greece",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Romania",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Russia",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Iran",
+            "invalid": "Former monarchies; now republics."
+          }
+        ],
+        "misses": ["Denmark", "Netherlands", "Swaziland"]
+      },
+      "after": {
+        "id": "current-monarchies",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 44,
+        "total": 44,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Nepal",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Greece",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Romania",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Russia",
+            "invalid": "Former monarchies; now republics."
+          },
+          {
+            "guess": "Iran",
+            "invalid": "Former monarchies; now republics."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "discovery-missions",
+      "text": "Name a launched NASA Discovery Program mission.",
+      "active": true,
+      "size": 14,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 5,
+        "rare": 2,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["InSight", "Mars Pathfinder", "Kepler space telescope"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 9,
+      "too_clever": ["MESSENGER"],
+      "gem": "CONTOUR",
+      "theme": "science",
+      "cluster": "space",
+      "constrained": true,
+      "standalone_gzip_bytes": 626,
+      "before": {
+        "id": "discovery-missions",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 15,
+        "total": 20,
+        "rate": 0.75,
+        "invalid": [
+          {
+            "guess": "DAVINCI",
+            "invalid": "Selected future missions that have not launched."
+          },
+          {
+            "guess": "VERITAS",
+            "invalid": "Selected future missions that have not launched."
+          },
+          {
+            "guess": "Trident",
+            "invalid": "An unselected proposal, not a launched Discovery mission."
+          },
+          {
+            "guess": "Curiosity",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Perseverance",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Juno",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Cassini",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "New Horizons",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Voyager 1",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Europa Clipper",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          }
+        ],
+        "misses": ["NEAR", "Pathfinder", "Sojourner", "Kepler", "Ebb and Flow"]
+      },
+      "after": {
+        "id": "discovery-missions",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "DAVINCI",
+            "invalid": "Selected future missions that have not launched."
+          },
+          {
+            "guess": "VERITAS",
+            "invalid": "Selected future missions that have not launched."
+          },
+          {
+            "guess": "Trident",
+            "invalid": "An unselected proposal, not a launched Discovery mission."
+          },
+          {
+            "guess": "Curiosity",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Perseverance",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Juno",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Cassini",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "New Horizons",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Voyager 1",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          },
+          {
+            "guess": "Europa Clipper",
+            "invalid": "Other NASA programmes, not numbered Discovery Program missions."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "dreamworks-theatrical-films",
+      "text": "Name a theatrically released DreamWorks Animation feature film.",
+      "active": true,
+      "size": 52,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 22,
+        "rare": 14,
+        "deep": 11,
+        "gem": 1
+      },
+      "surface": ["Madagascar", "Shrek", "Kung Fu Panda"],
+      "pageviews": 0,
+      "sitelinks": 2,
+      "wikidata": 0,
+      "aliases": 23,
+      "too_clever": ["The Wild Robot"],
+      "gem": "Antz",
+      "theme": "film",
+      "cluster": "animation",
+      "constrained": true,
+      "standalone_gzip_bytes": 1542,
+      "before": {
+        "id": "dreamworks-theatrical-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 37,
+        "total": 39,
+        "rate": 0.9487179487179487,
+        "invalid": [
+          {
+            "guess": "Orion and the Dark",
+            "invalid": "Streaming-only, not a theatrical release."
+          },
+          {
+            "guess": "Toy Story",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          },
+          {
+            "guess": "Ice Age",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          },
+          {
+            "guess": "Despicable Me",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          },
+          {
+            "guess": "The Super Mario Bros Movie",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          }
+        ],
+        "misses": ["Wallace and Gromit The Curse of the Were Rabbit", "Madagascar 3"]
+      },
+      "after": {
+        "id": "dreamworks-theatrical-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 39,
+        "total": 39,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Orion and the Dark",
+            "invalid": "Streaming-only, not a theatrical release."
+          },
+          {
+            "guess": "Toy Story",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          },
+          {
+            "guess": "Ice Age",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          },
+          {
+            "guess": "Despicable Me",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          },
+          {
+            "guess": "The Super Mario Bros Movie",
+            "invalid": "Pixar, Blue Sky or Illumination productions, not DreamWorks Animation."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "f1-constructor-champions",
+      "text": "Name a constructor that won Formula One's Constructors' Championship.",
+      "active": true,
+      "size": 15,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 5,
+        "rare": 3,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["Mercedes", "Ferrari", "McLaren"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 11,
+      "too_clever": ["Brawn"],
+      "gem": "Vanwall",
+      "theme": "sports",
+      "cluster": "racing",
+      "constrained": true,
+      "standalone_gzip_bytes": 565,
+      "before": {
+        "id": "f1-constructor-champions",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 15,
+        "total": 25,
+        "rate": 0.6,
+        "invalid": [
+          {
+            "guess": "Alpine",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Aston Martin",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Haas",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Sauber",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Jordan",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Minardi",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Toyota",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Honda",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "BMW",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          }
+        ],
+        "misses": [
+          "Scuderia Ferrari",
+          "Mercedes Benz",
+          "Red Bull Racing",
+          "Brawn GP",
+          "Team Lotus",
+          "British Racing Motors",
+          "Tyrell",
+          "RBR",
+          "Williams Racing",
+          "McLaren Mercedes"
+        ]
+      },
+      "after": {
+        "id": "f1-constructor-champions",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 25,
+        "total": 25,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Alpine",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Aston Martin",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Haas",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Sauber",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Jordan",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Minardi",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Toyota",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "Honda",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          },
+          {
+            "guess": "BMW",
+            "invalid": "Never won under these chassis constructor identities; engine-supplier wins or a predecessor’s titles do not qualify."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "f1-race-host-countries",
+      "text": "Name a country that hosted a Formula One World Championship race.",
+      "active": true,
+      "size": 34,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 14,
+        "rare": 8,
+        "deep": 7,
+        "gem": 1
+      },
+      "surface": ["Italy", "United Kingdom", "Monaco"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 15,
+      "too_clever": ["South Korea"],
+      "gem": "Morocco",
+      "theme": "sports",
+      "cluster": "racing",
+      "constrained": true,
+      "standalone_gzip_bytes": 866,
+      "before": {
+        "id": "f1-race-host-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 34,
+        "total": 38,
+        "rate": 0.8947368421052632,
+        "invalid": [
+          {
+            "guess": "Vietnam",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          },
+          {
+            "guess": "Thailand",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          },
+          {
+            "guess": "San Marino",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          },
+          {
+            "guess": "Finland",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          }
+        ],
+        "misses": ["Britain", "UK", "USA", "UAE"]
+      },
+      "after": {
+        "id": "f1-race-host-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 38,
+        "total": 38,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Vietnam",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          },
+          {
+            "guess": "Thailand",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          },
+          {
+            "guess": "San Marino",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          },
+          {
+            "guess": "Finland",
+            "invalid": "Canceled/proposed venues, no World Championship venue, or a Grand Prix namesake actually held in Italy."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "fields-medallists",
+      "text": "Name a mathematician awarded the Fields Medal.",
+      "active": true,
+      "size": 68,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 29,
+        "rare": 19,
+        "deep": 15,
+        "gem": 1
+      },
+      "surface": ["Terence Tao", "Grigori Perelman", "Maryam Mirzakhani"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 73,
+      "too_clever": ["Edward Witten"],
+      "gem": "Lars Ahlfors",
+      "theme": "science",
+      "cluster": "mathematics-awards",
+      "constrained": true,
+      "standalone_gzip_bytes": 1919,
+      "before": {
+        "id": "fields-medallists",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 29,
+        "total": 31,
+        "rate": 0.9354838709677419,
+        "invalid": [
+          {
+            "guess": "Alan Turing",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          },
+          {
+            "guess": "Andrew Wiles",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          },
+          {
+            "guess": "John Nash",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          },
+          {
+            "guess": "Srinivasa Ramanujan",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          }
+        ],
+        "misses": ["Terry Tao", "Gregory Perelman"]
+      },
+      "after": {
+        "id": "fields-medallists",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 31,
+        "total": 31,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Alan Turing",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          },
+          {
+            "guess": "Andrew Wiles",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          },
+          {
+            "guess": "John Nash",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          },
+          {
+            "guess": "Srinivasa Ramanujan",
+            "invalid": "Not Fields Medal recipients; Wiles received a special IMU silver plaque, not a Fields Medal."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "france-overseas-territories",
+      "text": "Name one of France's thirteen overseas territories.",
+      "active": true,
+      "size": 13,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["French Guiana", "French Polynesia", "Réunion"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 17,
+      "too_clever": ["Saint Martin"],
+      "gem": "Clipperton Island",
+      "theme": "geography",
+      "cluster": "overseas-france",
+      "constrained": true,
+      "standalone_gzip_bytes": 667,
+      "before": {
+        "id": "france-overseas-territories",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 13,
+        "total": 25,
+        "rate": 0.52,
+        "invalid": [
+          {
+            "guess": "Bora Bora",
+            "invalid": "An island inside French Polynesia, not a separate top-level overseas territory."
+          },
+          {
+            "guess": "Corsica",
+            "invalid": "Metropolitan France, not an overseas territory."
+          },
+          {
+            "guess": "Guam",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Puerto Rico",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Mauritius",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Seychelles",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Saint Helena",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          }
+        ],
+        "misses": [
+          "Guyane",
+          "French Guyana",
+          "La Reunion",
+          "Polynesie Francaise",
+          "Nouvelle Caledonie",
+          "St Pierre and Miquelon",
+          "St Barts",
+          "St Martin",
+          "Wallis et Futuna",
+          "TAAF",
+          "Clipperton",
+          "Tahiti"
+        ]
+      },
+      "after": {
+        "id": "france-overseas-territories",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 25,
+        "total": 25,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Bora Bora",
+            "invalid": "An island inside French Polynesia, not a separate top-level overseas territory."
+          },
+          {
+            "guess": "Corsica",
+            "invalid": "Metropolitan France, not an overseas territory."
+          },
+          {
+            "guess": "Guam",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Puerto Rico",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Mauritius",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Seychelles",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          },
+          {
+            "guess": "Saint Helena",
+            "invalid": "US/British territories or independent countries, not current French overseas territories."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "g20-countries",
+      "text": "Name a country with its own G20 membership.",
+      "active": true,
+      "size": 19,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 7,
+        "rare": 4,
+        "deep": 3,
+        "gem": 1
+      },
+      "surface": ["United States", "India", "China"],
+      "pageviews": 0,
+      "sitelinks": 19,
+      "wikidata": 0,
+      "aliases": 12,
+      "too_clever": ["Turkey"],
+      "gem": "Argentina",
+      "theme": "geography",
+      "cluster": "international-groups",
+      "constrained": true,
+      "standalone_gzip_bytes": 634,
+      "before": {
+        "id": "g20-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 19,
+        "total": 23,
+        "rate": 0.8260869565217391,
+        "invalid": [
+          {
+            "guess": "Spain",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Netherlands",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Switzerland",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Egypt",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Nigeria",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "European Union",
+            "invalid": "G20 members, but organizations rather than countries."
+          },
+          {
+            "guess": "African Union",
+            "invalid": "G20 members, but organizations rather than countries."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          }
+        ],
+        "misses": ["Republic of Korea", "Turkiye", "UK", "USA"]
+      },
+      "after": {
+        "id": "g20-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 23,
+        "total": 23,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Spain",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Netherlands",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Switzerland",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Egypt",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "Nigeria",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          },
+          {
+            "guess": "European Union",
+            "invalid": "G20 members, but organizations rather than countries."
+          },
+          {
+            "guess": "African Union",
+            "invalid": "G20 members, but organizations rather than countries."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "No direct individual-country G20 membership; Spain is a permanent invitee and representation through unions is not direct membership."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "heracles-labours",
+      "text": "Name one of the Twelve Labours of Heracles or Hercules.",
+      "active": true,
+      "size": 12,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Cerberus", "Nemean lion", "Lernaean Hydra"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 21,
+      "too_clever": ["Augean stables"],
+      "gem": "Ceryneian Hind",
+      "theme": "history",
+      "cluster": "myth",
+      "constrained": true,
+      "standalone_gzip_bytes": 677,
+      "before": {
+        "id": "heracles-labours",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 11,
+        "total": 25,
+        "rate": 0.44,
+        "invalid": [
+          {
+            "guess": "Kill Medusa",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Slay the Minotaur",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Golden Fleece",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Defeat the Cyclops",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Sphinx",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          }
+        ],
+        "misses": [
+          "Slay the Nemean Lion",
+          "Lion",
+          "Hydra",
+          "Slay the Hydra",
+          "Golden Hind",
+          "Hind of Artemis",
+          "Capture the Erymanthian Boar",
+          "Clean the Augean Stables",
+          "Horses of Diomedes",
+          "Belt of Hippolyta",
+          "Hippolytas Belt",
+          "Geryons Cattle",
+          "Golden Apples",
+          "Capture Cerberus"
+        ]
+      },
+      "after": {
+        "id": "heracles-labours",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 25,
+        "total": 25,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Kill Medusa",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Slay the Minotaur",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Golden Fleece",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Defeat the Cyclops",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          },
+          {
+            "guess": "Sphinx",
+            "invalid": "Feats associated with Perseus, Theseus, Jason, Odysseus or Oedipus, not one of Hercules’ twelve principal labours."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "macos-cat-releases",
+      "text": "Name a cat-themed Mac OS X release.",
+      "active": true,
+      "size": 9,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 2,
+        "rare": 1,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Tiger", "Leopard", "Snow Leopard"],
+      "pageviews": 0,
+      "sitelinks": 2,
+      "wikidata": 0,
+      "aliases": 54,
+      "too_clever": ["Mountain Lion"],
+      "gem": "Puma",
+      "theme": "everyday",
+      "cluster": "macos",
+      "constrained": true,
+      "standalone_gzip_bytes": 618,
+      "before": {
+        "id": "macos-cat-releases",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 9,
+        "total": 27,
+        "rate": 0.3333333333333333,
+        "invalid": [
+          {
+            "guess": "Mavericks",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Yosemite",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Big Sur",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Sierra",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Cougar",
+            "invalid": "Not released Mac OS X cat codenames."
+          },
+          {
+            "guess": "Lynx",
+            "invalid": "Not released Mac OS X cat codenames."
+          }
+        ],
+        "misses": [
+          "Mac OS X Cheetah",
+          "Mac OS X Puma",
+          "Mac OS X Jaguar",
+          "Mac OS X Panther",
+          "Mac OS X Tiger",
+          "Mac OS X Leopard",
+          "OS X Snow Leopard",
+          "OS X Lion",
+          "OS X Mountain Lion",
+          "10.0",
+          "10.1",
+          "10.2",
+          "10.3",
+          "10.4",
+          "10.5",
+          "10.6",
+          "10.7",
+          "10.8"
+        ]
+      },
+      "after": {
+        "id": "macos-cat-releases",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 27,
+        "total": 27,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Mavericks",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Yosemite",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Big Sur",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Sierra",
+            "invalid": "California-place releases, not cat-themed releases."
+          },
+          {
+            "guess": "Cougar",
+            "invalid": "Not released Mac OS X cat codenames."
+          },
+          {
+            "guess": "Lynx",
+            "invalid": "Not released Mac OS X cat codenames."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "mission-impossible-films",
+      "text": "Name a Mission: Impossible feature film.",
+      "active": true,
+      "size": 8,
+      "tiers": {
+        "surface": 2,
+        "tooclever": 1,
+        "school": 2,
+        "rare": 1,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Mission: Impossible", "Ghost Protocol"],
+      "pageviews": 0,
+      "sitelinks": 3,
+      "wikidata": 0,
+      "aliases": 33,
+      "too_clever": ["Mission: Impossible III"],
+      "gem": "Mission: Impossible 2",
+      "theme": "film",
+      "cluster": "mission-impossible",
+      "constrained": true,
+      "standalone_gzip_bytes": 586,
+      "before": {
+        "id": "mission-impossible-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 9,
+        "total": 27,
+        "rate": 0.3333333333333333,
+        "invalid": [
+          {
+            "guess": "Top Gun Maverick",
+            "invalid": "Other film franchises, not Mission: Impossible."
+          },
+          {
+            "guess": "Jack Reacher",
+            "invalid": "Other film franchises, not Mission: Impossible."
+          },
+          {
+            "guess": "No Time to Die",
+            "invalid": "Other film franchises, not Mission: Impossible."
+          }
+        ],
+        "misses": [
+          "Mission Impossible II",
+          "Mission Impossible 3",
+          "Dead Reckoning",
+          "MI1",
+          "MI2",
+          "MI3",
+          "MI4",
+          "MI5",
+          "MI6",
+          "MI7",
+          "MI8",
+          "M I",
+          "M I 2",
+          "Mission Impossible Ghost Protocol",
+          "Mission Impossible Rogue Nation",
+          "Mission Impossible Fallout",
+          "Mission Impossible Dead Reckoning Part One",
+          "Mission Impossible The Final Reckoning"
+        ]
+      },
+      "after": {
+        "id": "mission-impossible-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 27,
+        "total": 27,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Top Gun Maverick",
+            "invalid": "Other film franchises, not Mission: Impossible."
+          },
+          {
+            "guess": "Jack Reacher",
+            "invalid": "Other film franchises, not Mission: Impossible."
+          },
+          {
+            "guess": "No Time to Die",
+            "invalid": "Other film franchises, not Mission: Impossible."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "nba-75-team",
+      "text": "Name a player selected for the NBA's 75th Anniversary Team.",
+      "active": true,
+      "size": 76,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 32,
+        "rare": 22,
+        "deep": 17,
+        "gem": 1
+      },
+      "surface": ["Michael Jordan", "LeBron James", "Kobe Bryant"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 115,
+      "too_clever": ["Stephen Curry"],
+      "gem": "Dolph Schayes",
+      "theme": "sports",
+      "cluster": "basketball",
+      "constrained": true,
+      "standalone_gzip_bytes": 2139,
+      "before": {
+        "id": "nba-75-team",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 32,
+        "total": 40,
+        "rate": 0.8,
+        "invalid": [
+          {
+            "guess": "Tracy McGrady",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Vince Carter",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Dwight Howard",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Yao Ming",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Nikola Jokic",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          }
+        ],
+        "misses": [
+          "Lew Alcindor",
+          "Shaquille O Neal",
+          "Shaq",
+          "Kobe",
+          "LeBron",
+          "Steph Curry",
+          "Dwayne Wade",
+          "Dr J"
+        ]
+      },
+      "after": {
+        "id": "nba-75-team",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 40,
+        "total": 40,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Tracy McGrady",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Vince Carter",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Dwight Howard",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Yao Ming",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          },
+          {
+            "guess": "Nikola Jokic",
+            "invalid": "Not selected for the fixed 2021 75th Anniversary Team, irrespective of Hall of Fame/MVP achievements."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "nobel-economics",
+      "text": "Name a winner of the Nobel Memorial Prize in Economic Sciences.",
+      "active": true,
+      "size": 101,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 44,
+        "rare": 28,
+        "deep": 24,
+        "gem": 1
+      },
+      "surface": ["Milton Friedman", "Daniel Kahneman", "Amartya Sen"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 126,
+      "too_clever": ["John Forbes Nash Jr."],
+      "gem": "Ragnar Frisch",
+      "theme": "science",
+      "cluster": "nobel",
+      "constrained": true,
+      "standalone_gzip_bytes": 2634,
+      "before": {
+        "id": "nobel-economics",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 30,
+        "total": 38,
+        "rate": 0.7894736842105263,
+        "invalid": [
+          {
+            "guess": "John Maynard Keynes",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          },
+          {
+            "guess": "Adam Smith",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          },
+          {
+            "guess": "Karl Marx",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          },
+          {
+            "guess": "Thomas Piketty",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          }
+        ],
+        "misses": [
+          "F A Hayek",
+          "Vernon Smith",
+          "Oliver Williamson",
+          "James Robinson",
+          "Philip Dybvig",
+          "Robert Shiller",
+          "Robert Merton",
+          "John Nash"
+        ]
+      },
+      "after": {
+        "id": "nobel-economics",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 38,
+        "total": 38,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "John Maynard Keynes",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          },
+          {
+            "guess": "Adam Smith",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          },
+          {
+            "guess": "Karl Marx",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          },
+          {
+            "guess": "Thomas Piketty",
+            "invalid": "Died before the 1969 prize began or have not received it."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "oceanic-dolphins",
+      "text": "Name a living species in the oceanic dolphin family Delphinidae.",
+      "active": true,
+      "size": 38,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 15,
+        "rare": 10,
+        "deep": 8,
+        "gem": 1
+      },
+      "surface": ["Spinner dolphin", "Orca", "Common bottlenose dolphin"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 58,
+      "too_clever": ["False killer whale"],
+      "gem": "Tucuxi",
+      "theme": "nature",
+      "cluster": "dolphins",
+      "constrained": true,
+      "standalone_gzip_bytes": 1448,
+      "before": {
+        "id": "oceanic-dolphins",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 30,
+        "total": 34,
+        "rate": 0.8823529411764706,
+        "invalid": [
+          {
+            "guess": "Amazon River Dolphin",
+            "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+          },
+          {
+            "guess": "Baiji",
+            "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+          },
+          {
+            "guess": "Ganges River Dolphin",
+            "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+          },
+          {
+            "guess": "Beluga",
+            "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+          },
+          {
+            "guess": "Narwhal",
+            "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+          },
+          {
+            "guess": "Sperm Whale",
+            "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+          }
+        ],
+        "misses": ["Bottlenose Dolphin", "Risso Dolphin", "Mauis Dolphin", "Killer Whale"]
+      },
+      "after": {
+        "id": "oceanic-dolphins",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 34,
+        "total": 34,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Amazon River Dolphin",
+            "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+          },
+          {
+            "guess": "Baiji",
+            "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+          },
+          {
+            "guess": "Ganges River Dolphin",
+            "invalid": "River dolphins in Inia, Lipotes or Platanista, outside Delphinidae."
+          },
+          {
+            "guess": "Beluga",
+            "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+          },
+          {
+            "guess": "Narwhal",
+            "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+          },
+          {
+            "guess": "Sperm Whale",
+            "invalid": "Monodontidae or Physeteridae, not Delphinidae."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "original-greek-titans",
+      "text": "Name one of the twelve original Greek Titans.",
+      "active": true,
+      "size": 12,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Cronus", "Oceanus", "Rhea"],
+      "pageviews": 0,
+      "sitelinks": 8,
+      "wikidata": 0,
+      "aliases": 8,
+      "too_clever": ["Hyperion"],
+      "gem": "Crius",
+      "theme": "history",
+      "cluster": "myth",
+      "constrained": true,
+      "standalone_gzip_bytes": 451,
+      "before": {
+        "id": "original-greek-titans",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 12,
+        "total": 20,
+        "rate": 0.6,
+        "invalid": [
+          {
+            "guess": "Atlas",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Prometheus",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Epimetheus",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Dione",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Asteria",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Pallas",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Perses",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Zeus",
+            "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+          },
+          {
+            "guess": "Gaia",
+            "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+          },
+          {
+            "guess": "Uranus",
+            "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+          }
+        ],
+        "misses": ["Kronos", "Rheia", "Okeanos", "Thea", "Koios", "Phoibe", "Krios", "Japetus"]
+      },
+      "after": {
+        "id": "original-greek-titans",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Atlas",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Prometheus",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Epimetheus",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Dione",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Asteria",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Pallas",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Perses",
+            "invalid": "Not among Hesiod’s original twelve children of Gaia and Uranus; includes descendants and a different genealogical tradition."
+          },
+          {
+            "guess": "Zeus",
+            "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+          },
+          {
+            "guess": "Gaia",
+            "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+          },
+          {
+            "guess": "Uranus",
+            "invalid": "An Olympian or primordial parent, not one of the twelve Titan children."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "paris-2024-sports",
+      "text": "Name an official sport or discipline at the Paris 2024 Olympics.",
+      "active": true,
+      "size": 54,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 23,
+        "rare": 14,
+        "deep": 12,
+        "gem": 1
+      },
+      "surface": ["Swimming", "Football", "Athletics"],
+      "pageviews": 0,
+      "sitelinks": 23,
+      "wikidata": 0,
+      "aliases": 24,
+      "too_clever": ["Skateboarding"],
+      "gem": "Breaking",
+      "theme": "sports",
+      "cluster": "olympics",
+      "constrained": true,
+      "standalone_gzip_bytes": 1211,
+      "before": {
+        "id": "paris-2024-sports",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 53,
+        "total": 59,
+        "rate": 0.8983050847457628,
+        "invalid": [
+          {
+            "guess": "Baseball",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Softball",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Karate",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Squash",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Cricket",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          }
+        ],
+        "misses": [
+          "Track and Field",
+          "Synchronized Swimming",
+          "3x3 Basketball",
+          "Breakdancing",
+          "Soccer",
+          "Hockey"
+        ]
+      },
+      "after": {
+        "id": "paris-2024-sports",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 59,
+        "total": 59,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Baseball",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Softball",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Karate",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Squash",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          },
+          {
+            "guess": "Cricket",
+            "invalid": "Not contested at Paris 2024; inclusion in other Olympic editions does not qualify."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "population-100m",
+      "text": "Name a country with over 100 million people in current national or UN estimates.",
+      "active": true,
+      "size": 16,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 5,
+        "rare": 4,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["United States", "India", "China"],
+      "pageviews": 0,
+      "sitelinks": 15,
+      "wikidata": 0,
+      "aliases": 11,
+      "too_clever": ["Indonesia"],
+      "gem": "Vietnam",
+      "theme": "geography",
+      "cluster": "population",
+      "constrained": true,
+      "standalone_gzip_bytes": 606,
+      "before": {
+        "id": "population-100m",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 16,
+        "total": 22,
+        "rate": 0.7272727272727273,
+        "invalid": [
+          {
+            "guess": "Iran",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Turkey",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Thailand",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "United Kingdom",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "France",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "South Africa",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Tanzania",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          }
+        ],
+        "misses": [
+          "USA",
+          "DR Congo",
+          "Congo Kinshasa",
+          "Viet Nam",
+          "United States of America",
+          "Russian Federation"
+        ]
+      },
+      "after": {
+        "id": "population-100m",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 22,
+        "total": 22,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Iran",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Turkey",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Thailand",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "United Kingdom",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "France",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "South Africa",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          },
+          {
+            "guess": "Tanzania",
+            "invalid": "Below 100 million in the displayed current national/UN population figures."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "seven-summits-peaks",
+      "text": "Name a mountain on the Bass or Messner Seven Summits list.",
+      "active": true,
+      "size": 8,
+      "tiers": {
+        "surface": 2,
+        "tooclever": 1,
+        "school": 2,
+        "rare": 1,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Mount Everest", "Kilimanjaro"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 12,
+      "too_clever": ["Aconcagua"],
+      "gem": "Puncak Jaya",
+      "theme": "geography",
+      "cluster": "mountains",
+      "constrained": true,
+      "standalone_gzip_bytes": 485,
+      "before": {
+        "id": "seven-summits-peaks",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 8,
+        "total": 19,
+        "rate": 0.42105263157894735,
+        "invalid": [
+          {
+            "guess": "K2",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mont Blanc",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Kenya",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Wilhelm",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mauna Kea",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Cook",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Aoraki",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Chimborazo",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Rainier",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          }
+        ],
+        "misses": [
+          "Everest",
+          "Sagarmatha",
+          "Chomolungma",
+          "Mount McKinley",
+          "Mount Kilimanjaro",
+          "Elbrus",
+          "Vinson",
+          "Vinson Massif",
+          "Kosciuszko",
+          "Carstensz Pyramid",
+          "Carstensz"
+        ]
+      },
+      "after": {
+        "id": "seven-summits-peaks",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 19,
+        "total": 19,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "K2",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mont Blanc",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Kenya",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Wilhelm",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mauna Kea",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Cook",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Aoraki",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Chimborazo",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          },
+          {
+            "guess": "Mount Rainier",
+            "invalid": "Not on either named Bass or Messner list; Mont Blanc belongs to the distinct Hackett alternative."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "soviet-venus-landers",
+      "text": "Name a Soviet probe that returned data from Venus's surface.",
+      "active": true,
+      "size": 10,
+      "tiers": {
+        "surface": 2,
+        "tooclever": 1,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Venera 13", "Venera 7"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 40,
+      "too_clever": ["Vega 1"],
+      "gem": "Venera 8",
+      "theme": "science",
+      "cluster": "space",
+      "constrained": true,
+      "standalone_gzip_bytes": 522,
+      "before": {
+        "id": "soviet-venus-landers",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 10,
+        "total": 20,
+        "rate": 0.5,
+        "invalid": [
+          {
+            "guess": "Venera 3",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 4",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 5",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 6",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 1",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 2",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera D",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Magellan",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Mariner 2",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Pioneer Venus",
+            "invalid": "American mission, not a Soviet probe."
+          },
+          {
+            "guess": "Cassini",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          }
+        ],
+        "misses": [
+          "Venera VII",
+          "Venera VIII",
+          "Venera IX",
+          "Venera X",
+          "Venera XI",
+          "Venera XII",
+          "Venera XIII",
+          "Venera XIV",
+          "Vega I",
+          "Vega II"
+        ]
+      },
+      "after": {
+        "id": "soviet-venus-landers",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Venera 3",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 4",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 5",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 6",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 1",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera 2",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Venera D",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Magellan",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Mariner 2",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          },
+          {
+            "guess": "Pioneer Venus",
+            "invalid": "American mission, not a Soviet probe."
+          },
+          {
+            "guess": "Cassini",
+            "invalid": "Not a Soviet probe that returned surface data: failed or atmospheric-only, orbiter/flyby, or future mission."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "star-wars-theatrical-films",
+      "text": "Name a Star Wars feature film first released theatrically.",
+      "active": true,
+      "size": 13,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["A New Hope", "The Empire Strikes Back", "Return of the Jedi"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 59,
+      "too_clever": ["Rogue One"],
+      "gem": "The Clone Wars",
+      "theme": "film",
+      "cluster": "star-wars",
+      "constrained": true,
+      "standalone_gzip_bytes": 860,
+      "before": {
+        "id": "star-wars-theatrical-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 13,
+        "total": 25,
+        "rate": 0.52,
+        "invalid": [
+          {
+            "guess": "The Mandalorian",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "Andor",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "The Bad Batch",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "Rebels",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "The Ewok Adventure",
+            "invalid": "A television-first film, not originally a theatrical feature; later overseas cinema distribution does not change its original format."
+          }
+        ],
+        "misses": [
+          "Star Wars",
+          "Episode I",
+          "Episode II",
+          "Episode III",
+          "Episode IV",
+          "Episode V",
+          "Episode VI",
+          "Episode VII",
+          "Episode VIII",
+          "Episode IX",
+          "Rogue One A Star Wars Story",
+          "Solo A Star Wars Story"
+        ]
+      },
+      "after": {
+        "id": "star-wars-theatrical-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 25,
+        "total": 25,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "The Mandalorian",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "Andor",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "The Bad Batch",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "Rebels",
+            "invalid": "Television series, not feature films."
+          },
+          {
+            "guess": "The Ewok Adventure",
+            "invalid": "A television-first film, not originally a theatrical feature; later overseas cinema distribution does not change its original format."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "test-cricket-teams",
+      "text": "Name one of the twelve current men's Test cricket teams.",
+      "active": true,
+      "size": 12,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["England", "Australia", "India"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 26,
+      "too_clever": ["New Zealand"],
+      "gem": "Afghanistan",
+      "theme": "sports",
+      "cluster": "cricket",
+      "constrained": true,
+      "standalone_gzip_bytes": 627,
+      "before": {
+        "id": "test-cricket-teams",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 12,
+        "total": 26,
+        "rate": 0.46153846153846156,
+        "invalid": [
+          {
+            "guess": "Scotland",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Netherlands",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Kenya",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "United States",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Nepal",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Wales",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "ICC World XI",
+            "invalid": "A historical one-off Test side in 2005, not one of the twelve current teams."
+          }
+        ],
+        "misses": [
+          "NZ",
+          "Windies",
+          "Indian cricket team",
+          "Pakistan cricket team",
+          "England cricket team",
+          "Australian cricket team",
+          "New Zealand cricket team",
+          "South African cricket team",
+          "Sri Lankan cricket team",
+          "West Indian cricket team",
+          "Bangladeshi cricket team",
+          "Zimbabwean cricket team",
+          "Irish cricket team",
+          "Afghan cricket team"
+        ]
+      },
+      "after": {
+        "id": "test-cricket-teams",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 26,
+        "total": 26,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Scotland",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Netherlands",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Kenya",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "United States",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Nepal",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "Wales",
+            "invalid": "Not current full-member men’s Test teams; England represents England and Wales jointly, not a separate Welsh Test side."
+          },
+          {
+            "guess": "ICC World XI",
+            "invalid": "A historical one-off Test side in 2005, not one of the twelve current teams."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "tropic-capricorn-countries",
+      "text": "Name a country the Tropic of Capricorn passes through.",
+      "active": true,
+      "size": 10,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 3,
+        "rare": 1,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Australia", "Brazil", "South Africa"],
+      "pageviews": 0,
+      "sitelinks": 6,
+      "wikidata": 0,
+      "aliases": 10,
+      "too_clever": ["Chile"],
+      "gem": "Botswana",
+      "theme": "geography",
+      "cluster": "tropics",
+      "constrained": true,
+      "standalone_gzip_bytes": 505,
+      "before": {
+        "id": "tropic-capricorn-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 10,
+        "total": 20,
+        "rate": 0.5,
+        "invalid": [
+          {
+            "guess": "New Zealand",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Bolivia",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Peru",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Zimbabwe",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Zambia",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Angola",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Uruguay",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Lesotho",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Eswatini",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Tanzania",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          }
+        ],
+        "misses": [
+          "Republic of South Africa",
+          "Federative Republic of Brazil",
+          "Republic of Botswana",
+          "Republic of Namibia",
+          "Republic of Paraguay",
+          "Argentine Republic",
+          "Republic of Chile",
+          "Republic of Madagascar",
+          "Republic of Mozambique",
+          "Commonwealth of Australia"
+        ]
+      },
+      "after": {
+        "id": "tropic-capricorn-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "New Zealand",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Bolivia",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Peru",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Zimbabwe",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Zambia",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Angola",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Uruguay",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Lesotho",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Eswatini",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          },
+          {
+            "guess": "Tanzania",
+            "invalid": "Their land does not cross the Tropic of Capricorn at approximately 23.4 degrees south."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "turing-award-winners",
+      "text": "Name a recipient of the ACM Turing Award.",
+      "active": true,
+      "size": 81,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 35,
+        "rare": 22,
+        "deep": 19,
+        "gem": 1
+      },
+      "surface": ["Dennis Ritchie", "Tim Berners-Lee", "Donald Knuth"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 108,
+      "too_clever": ["Geoffrey Hinton"],
+      "gem": "Alan Perlis",
+      "theme": "science",
+      "cluster": "computing-awards",
+      "constrained": true,
+      "standalone_gzip_bytes": 2243,
+      "before": {
+        "id": "turing-award-winners",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 28,
+        "total": 34,
+        "rate": 0.8235294117647058,
+        "invalid": [
+          {
+            "guess": "Alan Turing",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Bill Gates",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Steve Jobs",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Linus Torvalds",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Elon Musk",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          }
+        ],
+        "misses": [
+          "James Wilkinson",
+          "Edsger Dijkstra",
+          "Michael Rabin",
+          "Robert Floyd",
+          "Edgar Codd",
+          "Bob Kahn"
+        ]
+      },
+      "after": {
+        "id": "turing-award-winners",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 34,
+        "total": 34,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Alan Turing",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Bill Gates",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Steve Jobs",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Linus Torvalds",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          },
+          {
+            "guess": "Elon Musk",
+            "invalid": "Not ACM Turing Award recipients; Turing is the award’s namesake."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "vulpes-foxes",
+      "text": "Name a living true fox species in the genus Vulpes.",
+      "active": true,
+      "size": 12,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Red fox", "Arctic fox", "Fennec fox"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 24,
+      "too_clever": ["Tibetan fox"],
+      "gem": "Pale fox",
+      "theme": "nature",
+      "cluster": "foxes",
+      "constrained": true,
+      "standalone_gzip_bytes": 620,
+      "before": {
+        "id": "vulpes-foxes",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 12,
+        "total": 27,
+        "rate": 0.4444444444444444,
+        "invalid": [
+          {
+            "guess": "Gray Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Grey Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Island Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Bat Eared Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Darwins Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          }
+        ],
+        "misses": [
+          "Tibetan Sand Fox",
+          "Ruppell Fox",
+          "Indian Fox",
+          "Vulpes vulpes",
+          "Vulpes lagopus",
+          "Vulpes zerda",
+          "Vulpes macrotis",
+          "Vulpes velox",
+          "Vulpes corsac",
+          "Vulpes ferrilata",
+          "Vulpes rueppellii",
+          "Vulpes bengalensis",
+          "Vulpes chama",
+          "Vulpes cana",
+          "Vulpes pallida"
+        ]
+      },
+      "after": {
+        "id": "vulpes-foxes",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 27,
+        "total": 27,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Gray Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Grey Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Island Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Bat Eared Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          },
+          {
+            "guess": "Darwins Fox",
+            "invalid": "Fox-named canids in Urocyon, Otocyon or Lycalopex, not Vulpes."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "wes-anderson-features",
+      "text": "Name a feature film directed by Wes Anderson.",
+      "active": true,
+      "size": 13,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 4,
+        "rare": 2,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["Fantastic Mr. Fox", "The Grand Budapest Hotel", "The Royal Tenenbaums"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 6,
+      "too_clever": ["Isle of Dogs"],
+      "gem": "Bottle Rocket",
+      "theme": "film",
+      "cluster": "directors",
+      "constrained": true,
+      "standalone_gzip_bytes": 668,
+      "before": {
+        "id": "wes-anderson-features",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 18,
+        "total": 24,
+        "rate": 0.75,
+        "invalid": [
+          {
+            "guess": "The Swan",
+            "invalid": "Standalone shorts, not feature films; the complete Henry Sugar anthology is separately accepted."
+          },
+          {
+            "guess": "The Rat Catcher",
+            "invalid": "Standalone shorts, not feature films; the complete Henry Sugar anthology is separately accepted."
+          },
+          {
+            "guess": "The Squid and the Whale",
+            "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+          },
+          {
+            "guess": "Jojo Rabbit",
+            "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+          },
+          {
+            "guess": "Napoleon Dynamite",
+            "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+          }
+        ],
+        "misses": [
+          "Life Aquatic",
+          "Fantastic Mister Fox",
+          "The Wonderful Story of Henry Sugar",
+          "Henry Sugar",
+          "The Grand Budapest",
+          "The Life Aquatic"
+        ]
+      },
+      "after": {
+        "id": "wes-anderson-features",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 24,
+        "total": 24,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "The Swan",
+            "invalid": "Standalone shorts, not feature films; the complete Henry Sugar anthology is separately accepted."
+          },
+          {
+            "guess": "The Rat Catcher",
+            "invalid": "Standalone shorts, not feature films; the complete Henry Sugar anthology is separately accepted."
+          },
+          {
+            "guess": "The Squid and the Whale",
+            "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+          },
+          {
+            "guess": "Jojo Rabbit",
+            "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+          },
+          {
+            "guess": "Napoleon Dynamite",
+            "invalid": "Directed by Noah Baumbach, Taika Waititi or Jared Hess, not Wes Anderson."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "wizarding-world-films",
+      "text": "Name a theatrically released Wizarding World film.",
+      "active": true,
+      "size": 11,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Chamber of Secrets", "Fantastic Beasts", "Philosopher's Stone"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 36,
+      "too_clever": ["Prisoner of Azkaban"],
+      "gem": "The Secrets of Dumbledore",
+      "theme": "film",
+      "cluster": "wizarding-world",
+      "constrained": true,
+      "standalone_gzip_bytes": 749,
+      "before": {
+        "id": "wizarding-world-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 11,
+        "total": 25,
+        "rate": 0.44,
+        "invalid": [
+          {
+            "guess": "Cursed Child",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          },
+          {
+            "guess": "Tales of Beedle the Bard",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          },
+          {
+            "guess": "Hogwarts Legacy",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          },
+          {
+            "guess": "Quidditch Through the Ages",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          }
+        ],
+        "misses": [
+          "Harry Potter and the Philosophers Stone",
+          "Harry Potter and the Sorcerers Stone",
+          "Sorcerers Stone",
+          "Fantastic Beasts and Where to Find Them",
+          "Harry Potter 1",
+          "Harry Potter 2",
+          "Harry Potter 3",
+          "Harry Potter 4",
+          "Harry Potter 5",
+          "Harry Potter 6",
+          "Harry Potter 7 Part 1",
+          "Harry Potter 7 Part 2",
+          "Fantastic Beasts 2",
+          "Fantastic Beasts 3"
+        ]
+      },
+      "after": {
+        "id": "wizarding-world-films",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 25,
+        "total": 25,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Cursed Child",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          },
+          {
+            "guess": "Tales of Beedle the Bard",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          },
+          {
+            "guess": "Hogwarts Legacy",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          },
+          {
+            "guess": "Quidditch Through the Ages",
+            "invalid": "A stage play, book or game, not a theatrical Wizarding World film."
+          }
+        ],
+        "misses": []
+      }
+    }
+  ]
+}
