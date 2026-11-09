@@ -53,7 +53,7 @@ it('enables the complete reviewed bank at the configured cutover with every real
   }
   expect(seen.size).toBe(320);
   const retired = DIVE_INACTIVE_PROMPTS.filter((p) => p.constrained);
-  expect(retired).toHaveLength(108);
+  expect(retired).toHaveLength(112);
   expect(retired.every((p) => !seen.has(p.id))).toBe(true);
   expect(diveSelectionFor(addDays(DIVE_SCHEDULE_CUTOVER!, 64))).toEqual(
     diveSelectionFor(DIVE_SCHEDULE_CUTOVER!),

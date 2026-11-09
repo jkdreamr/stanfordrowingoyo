@@ -257,7 +257,7 @@ it('ships every runtime constrained canonical and alias, without broad-set caps'
   for (const [id, value, canonical] of [
     ['best-actor', 'Hanks', 'Tom Hanks'],
     ['best-director', 'Bong', 'Bong Joon-ho'],
-    ['nba-teams', 'Raptors', 'Toronto Raptors'],
+    ['nba-first-overall-picks', 'Shaq', "Shaquille O'Neal"],
     ['best-picture', 'Return of the King', 'The Return of the King'],
     ['countries-with-z', 'Czechia', 'Czech Republic'],
     ['countries-no-a', 'Great Britain', 'United Kingdom'],

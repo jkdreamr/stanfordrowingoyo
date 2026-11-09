@@ -2,22 +2,19 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '7': '\nalbania\t5u\nalgeria\t4r\nbritain\ty\ncroatia\t25\nlebanon\t35\nmorocco\t2n\ntunisia\t51\nturkiye\t9\n',
-    '6': '\nbosnia\t6h\ncyprus\t3f\nfrance\t0\ngreece\t1w\nisrael\t1n\nmonaco\t3o\nturkey\t9\n',
-    '22': '\nbosnia and herzegovina\t6h\n',
-    '5': '\negypt\t1f\nitaly\ti\nlibya\t2x\nmalta\t5b\nspain\tq\nsyria\t2f\n',
-    '13': '\ngreat britain\ty\n',
-    '10': '\nmontenegro\t64\n',
-    '15': '\nnorthern cyprus\t49\n',
-    '9': '\npalestine\t3x\n',
-    '8': '\nslovenia\t5j\n',
-    '18': '\nstate of palestine\t3x\n',
-    '20': '\nsyrian arab republic\t2f\n',
-    '2': '\nuk\ty\n',
-    '14': '\nunited kingdom\ty\n',
+    '7': '\nalbania\t5d\nalgeria\t4a\ncroatia\t1o\nlebanon\t2o\nmorocco\t26\ntunisia\t4k\nturkiye\t9\n',
+    '6': '\nbosnia\t60\ncyprus\t2y\nfrance\t0\ngreece\t1f\nisrael\t16\nmonaco\t37\nturkey\t9\n',
+    '22': '\nbosnia and herzegovina\t60\n',
+    '5': '\negypt\ty\nitaly\ti\nlibya\t2g\nmalta\t4u\nspain\tq\nsyria\t1y\n',
+    '10': '\nmontenegro\t5n\n',
+    '15': '\nnorthern cyprus\t3s\n',
+    '9': '\npalestine\t3g\n',
+    '8': '\nslovenia\t52\n',
+    '18': '\nstate of palestine\t3g\n',
+    '20': '\nsyrian arab republic\t1y\n',
   },
   answers:
-    's\tFrance\nm\tTurkey\ns\tItaly\ns\tSpain\nm\tUnited Kingdom\nm\tEgypt\nm\tIsrael\ns\tGreece\nm\tCroatia\nm\tSyria\nm\tMorocco\nm\tLibya\nm\tLebanon\nr\tCyprus\nr\tMonaco\nr\tPalestine\nr\tNorthern Cyprus\nr\tAlgeria\nr\tTunisia\nd\tMalta\nd\tSlovenia\nd\tAlbania\nd\tMontenegro\ng\tBosnia and Herzegovina\n',
+    's\tFrance\nm\tTurkey\ns\tItaly\ns\tSpain\nm\tEgypt\nm\tIsrael\ns\tGreece\nm\tCroatia\nm\tSyria\nm\tMorocco\nm\tLibya\nm\tLebanon\nm\tCyprus\nr\tMonaco\nr\tPalestine\nr\tNorthern Cyprus\nr\tAlgeria\nr\tTunisia\nd\tMalta\nd\tSlovenia\nd\tAlbania\nd\tMontenegro\ng\tBosnia and Herzegovina\n',
   gem: { answer: 'Bosnia and Herzegovina', tier: 'gem', points: 100 },
   notable: [
     { answer: 'France', tier: 'surface', points: 10 },
@@ -26,5 +23,5 @@ export default {
     { answer: 'Malta', tier: 'deep', points: 85 },
     { answer: 'Slovenia', tier: 'deep', points: 85 },
   ],
-  size: 24,
+  size: 23,
 } satisfies AnswerSet;

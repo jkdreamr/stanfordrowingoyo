@@ -6442,7 +6442,11 @@
         },
         {
           "name": "The Return of the King",
-          "aliases": ["Return of the King", "LOTR Return of the King"]
+          "aliases": [
+            "Return of the King",
+            "LOTR Return of the King",
+            "The Lord of the Rings: The Return of the King"
+          ]
         },
         {
           "name": "The Way We Were"
@@ -7860,7 +7864,7 @@
     },
     {
       "id": "nba-first-overall-picks",
-      "text": "a No. 1 overall NBA draft pick before 2027",
+      "text": "a first overall NBA draft pick before 2027",
       "theme": "sports",
       "cluster": "leagues",
       "active": true,
@@ -29081,8 +29085,7 @@
           "aliases": ["Ne"]
         },
         {
-          "name": "Sodium",
-          "aliases": ["Na"]
+          "name": "Sodium"
         },
         {
           "name": "Aluminium",
@@ -43676,7 +43679,7 @@
       "theme": "books",
       "sources": [
         {
-          "dataset": "https://www.ala.org/bbooks/frequentlychallengedbooks/top10/archive",
+          "dataset": "snapshots/ea41dd8679cad76912451f65104866c4353ee675c09b1ca599a4b37bc20f90be.raw",
           "page": "ALA annual Top 10 archive, 2010–2019",
           "revision": "sha256:ea41dd8679cad76912451f65104866c4353ee675c09b1ca599a4b37bc20f90be",
           "sha256": "ea41dd8679cad76912451f65104866c4353ee675c09b1ca599a4b37bc20f90be",
@@ -43740,7 +43743,8 @@
             "What My Mother Doesn't Know",
             "ttyl; ttfn; l8r, g8r"
           ],
-          "review": "Union of 101 entries in ten annual lists; ALA lists eleven in 2018. Remove only the series suffix when deduplicating; do not expand series. Checksum pin; Wayback returned HTTP 429."
+          "review": "Union of 101 entries in ten annual lists; ALA lists eleven in 2018. Remove only the series suffix when deduplicating; do not expand series. Checksum pin; Wayback returned HTTP 429.",
+          "original_url": "https://www.ala.org/bbooks/frequentlychallengedbooks/top10/archive"
         }
       ],
       "expect": [56, 56],
@@ -45706,9 +45710,17 @@
           ],
           "expect": [16, 16],
           "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
+        },
+        {
+          "page": "Lake Michigan–Huron",
+          "revision": 1382712580,
+          "members": ["Lake Michigan–Huron"],
+          "reviewed": ["Lake Michigan–Huron"],
+          "expect": [1, 1],
+          "review": "The introduction and infobox identify a hydrologically single lake of 117,300 square kilometres. It is valid alongside conventional separately named Michigan/Huron; answer overlap is not a reason to omit a qualifying lake."
         }
       ],
-      "expect": [16, 16],
+      "expect": [17, 17],
       "answers": [
         {
           "name": "Caspian Sea",
@@ -45773,13 +45785,18 @@
         {
           "name": "Lake Vostok",
           "aliases": ["Vostok"]
+        },
+        {
+          "name": "Lake Michigan–Huron",
+          "aliases": ["Lake Michigan-Huron", "Michigan-Huron", "Lakes Michigan and Huron"]
         }
       ],
       "surface": ["Caspian Sea", "Lake Superior", "Lake Victoria", "Lake Michigan", "Lake Baikal"],
       "too_clever": [],
       "pearl": "Lake Vostok",
       "acceptance_notes": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify.",
-      "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
+      "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify.",
+      "scope": "Includes both conventional individual lake names and the hydrologically combined Lake Michigan–Huron. Accepting the combined lake does not disqualify either separate conventional name."
     },
     {
       "id": "english-counties",
@@ -47998,7 +48015,7 @@
     },
     {
       "id": "hot100-number-one-two-versions",
-      "text": "a song with Hot 100 No. 1 versions by two artists before November 2026",
+      "text": "a song with Hot 100 number-one versions by two artists before November 2026",
       "theme": "music",
       "cluster": "hot100-records",
       "sources": [
@@ -53150,7 +53167,7 @@
     },
     {
       "id": "hot100-14-week-number-ones",
-      "text": "a song with 14 or more weeks at No. 1 on the Hot 100 before November 2026",
+      "text": "a song with 14+ weeks at number one on the Hot 100 before November 2026",
       "theme": "music",
       "cluster": "hot100-records",
       "sources": [
@@ -53477,7 +53494,7 @@
     },
     {
       "id": "macbeth-phrase-novels",
-      "text": "a novel whose title comes from a phrase in Macbeth",
+      "text": "a novel or novella whose title quotes a phrase from Macbeth",
       "theme": "books",
       "sources": [
         {
@@ -53631,104 +53648,114 @@
           "review": "Approved frozen-guess supplement: explicitly identifies her novel and its title as an allusion to the witches in Macbeth. This is not an alias for Pratchett’s Wyrd Sisters."
         },
         {
-          "dataset": "https://openlibrary.org/books/OL10678692M.json",
+          "dataset": "snapshots/7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7.raw",
           "page": "Brief Candle — Kate Pennington",
           "revision": "sha256:7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
           "sha256": "7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
           "format": "json-title",
           "expect": [1, 1],
           "reviewed": ["Brief Candle"],
-          "review": "Hodder Children’s Books, 272 pages; subjects include historical fiction. Macbeth V.v: “Out, out, brief candle!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Hodder Children’s Books, 272 pages; subjects include historical fiction. Macbeth V.v: “Out, out, brief candle!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://openlibrary.org/books/OL10678692M.json"
         },
         {
-          "dataset": "https://openlibrary.org/books/OL37014680M.json",
+          "dataset": "snapshots/455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c.raw",
           "page": "Out, Damned Spot! — F. J. McQueen",
           "revision": "sha256:455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
           "sha256": "455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
           "format": "json-title",
           "expect": [1, 1],
           "reviewed": ["Out damned spot!"],
-          "review": "Urbane Publications, 266 pages; fiction. Macbeth V.i: “Out, damned spot!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Urbane Publications, 266 pages; fiction. Macbeth V.i: “Out, damned spot!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://openlibrary.org/books/OL37014680M.json"
         },
         {
-          "dataset": "https://openlibrary.org/books/OL32147866M.json",
+          "dataset": "snapshots/72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61.raw",
           "page": "Toil and Trouble — H. P. Mallory",
           "revision": "sha256:72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
           "sha256": "72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
           "format": "json-title",
           "expect": [1, 1],
           "reviewed": ["Toil and trouble"],
-          "review": "234-page fictional Jolie Wilkins story; distinct from the comic volume in the original group. Macbeth IV.i: “Double, double, toil and trouble”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "234-page fictional Jolie Wilkins story; distinct from the comic volume in the original group. Macbeth IV.i: “Double, double, toil and trouble”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://openlibrary.org/books/OL32147866M.json"
         },
         {
-          "dataset": "https://openlibrary.org/books/OL1148339M.json",
+          "dataset": "snapshots/8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38.raw",
           "page": "Poor Player — Lesley Krueger",
           "revision": "sha256:8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
           "sha256": "8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
           "format": "json-title",
           "expect": [1, 1],
           "reviewed": ["Poor player"],
-          "review": "Oberon Press, 216 pages; author identifies this as her first novel at https://lesleykrueger.com/poor-player-out-today/. Macbeth V.v: “a poor player”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Oberon Press, 216 pages; author identifies this as her first novel at https://lesleykrueger.com/poor-player-out-today/. Macbeth V.v: “a poor player”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://openlibrary.org/books/OL1148339M.json"
         },
         {
-          "dataset": "https://openlibrary.org/books/OL22679131M.json",
+          "dataset": "snapshots/76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb.raw",
           "page": "Struts and Frets — Jon Skovron",
           "revision": "sha256:76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
           "sha256": "76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
           "format": "json-title",
           "expect": [1, 1],
           "reviewed": ["Struts and frets"],
-          "review": "Amulet Books; catalog subjects identify juvenile fiction. Singular frozen guess accepted as a natural near-verbatim variant. Macbeth V.v: “That struts and frets his hour upon the stage”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Amulet Books; catalog subjects identify juvenile fiction. Singular frozen guess accepted as a natural near-verbatim variant. Macbeth V.v: “That struts and frets his hour upon the stage”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://openlibrary.org/books/OL22679131M.json"
         },
         {
-          "dataset": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella",
+          "dataset": "snapshots/69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1.raw",
           "page": "Screw Your Courage — Alexandra Y. Caluen",
           "revision": "sha256:69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
           "sha256": "69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
           "format": "html-title",
           "expect": [1, 1],
           "reviewed": ["Screw Your Courage: a new novella — Alexandra Y. Caluen"],
-          "review": "Author’s September 18, 2022 publication post explicitly identifies the novella and Macbeth title. Macbeth I.vii: “screw your courage to the sticking-place”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Author’s September 18, 2022 publication post explicitly identifies the novella and Macbeth title. Macbeth I.vii: “screw your courage to the sticking-place”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella"
         },
         {
-          "dataset": "https://debigueron.com/books/vaulting-ambition/",
+          "dataset": "snapshots/975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75.raw",
           "page": "Vaulting Ambition — Debi Gueron and Barnett Greenman",
           "revision": "sha256:975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
           "sha256": "975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
           "format": "html-title",
           "expect": [1, 1],
           "reviewed": ["Vaulting Ambition - Debi Gueron"],
-          "review": "Author’s book page explicitly calls this a novel and links the published book. Macbeth I.vii: “Vaulting ambition”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Author’s book page explicitly calls this a novel and links the published book. Macbeth I.vii: “Vaulting ambition”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://debigueron.com/books/vaulting-ambition/"
         },
         {
-          "dataset": "https://www.angusrobertson.com.au/books/the-be-all-and-end-all-patti-larsen/p/9781998948239",
+          "dataset": "snapshots/7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92.raw",
           "page": "The Be All and End All — Patti Larsen",
           "revision": "sha256:7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
           "sha256": "7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
           "format": "html-title",
           "expect": [1, 1],
           "reviewed": ["The Be All and End All | Angus & Robertson"],
-          "review": "Retailer lists Purely Paranormal Press, publication January 30, 2024, 180 pages, ISBN 9781998948239. Smashwords series listing identifies 31,990 words of fiction; qualifies as a novella. Macbeth I.vii: “the be-all and the end-all”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Retailer lists Purely Paranormal Press, publication January 30, 2024, 180 pages, ISBN 9781998948239. Smashwords series listing identifies 31,990 words of fiction; qualifies as a novella. Macbeth I.vii: “the be-all and the end-all”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://www.angusrobertson.com.au/books/the-be-all-and-end-all-patti-larsen/p/9781998948239"
         },
         {
-          "dataset": "https://openlibrary.org/isbn/1594140960.json",
+          "dataset": "snapshots/823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814.raw",
           "page": "Eye of Newt — Denise Dietz",
           "revision": "sha256:823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
           "sha256": "823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
           "format": "json-title",
           "expect": [1, 1],
           "reviewed": ["Eye of newt"],
-          "review": "Five Star, 344 pages; mystery-fiction catalog subjects. This is the prose novel, not Michael Hague’s graphic work. Macbeth IV.i: “Eye of newt”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Five Star, 344 pages; mystery-fiction catalog subjects. This is the prose novel, not Michael Hague’s graphic work. Macbeth IV.i: “Eye of newt”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://openlibrary.org/isbn/1594140960.json"
         },
         {
-          "dataset": "https://openlibrary.org/books/OL50707534M.json",
+          "dataset": "snapshots/1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4.raw",
           "page": "The Instruments of Darkness — John Connolly",
           "revision": "sha256:1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
           "sha256": "1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
           "format": "json-title",
           "expect": [1, 1],
           "reviewed": ["The Instruments of Darkness"],
-          "review": "Emily Bestler Books/Atria, published May 7, 2024, 500 pages; Charlie Parker novel. Macbeth I.iii: “The instruments of darkness tell us truths”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+          "review": "Emily Bestler Books/Atria, published May 7, 2024, 500 pages; Charlie Parker novel. Macbeth I.iii: “The instruments of darkness tell us truths”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule.",
+          "original_url": "https://openlibrary.org/books/OL50707534M.json"
         },
         {
           "page": "Charlotte Armstrong",
@@ -66459,7 +66486,11 @@
         },
         {
           "name": "The Return of the King",
-          "aliases": ["Return of the King", "LOTR Return of the King"]
+          "aliases": [
+            "Return of the King",
+            "LOTR Return of the King",
+            "The Lord of the Rings: The Return of the King"
+          ]
         },
         {
           "name": "The Robe"

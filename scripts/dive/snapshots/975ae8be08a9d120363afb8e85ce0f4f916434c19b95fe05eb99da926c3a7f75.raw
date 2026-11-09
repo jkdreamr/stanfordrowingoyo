@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<script>
+var gform;gform||(document.addEventListener("gform_main_scripts_loaded",function(){gform.scriptsLoaded=!0}),document.addEventListener("gform/theme/scripts_loaded",function(){gform.themeScriptsLoaded=!0}),window.addEventListener("DOMContentLoaded",function(){gform.domLoaded=!0}),gform={domLoaded:!1,scriptsLoaded:!1,themeScriptsLoaded:!1,isFormEditor:()=>"function"==typeof InitializeEditor,callIfLoaded:function(o){return!(!gform.domLoaded||!gform.scriptsLoaded||!gform.themeScriptsLoaded&&!gform.isFormEditor()||(gform.isFormEditor()&&console.warn("The use of gform.initializeOnLoaded() is deprecated in the form editor context and will be removed in Gravity Forms 3.1."),o(),0))},initializeOnLoaded:function(o){gform.callIfLoaded(o)||(document.addEventListener("gform_main_scripts_loaded",()=>{gform.scriptsLoaded=!0,gform.callIfLoaded(o)}),document.addEventListener("gform/theme/scripts_loaded",()=>{gform.themeScriptsLoaded=!0,gform.callIfLoaded(o)}),window.addEventListener("DOMContentLoaded",()=>{gform.domLoaded=!0,gform.callIfLoaded(o)}))},hooks:{action:{},filter:{}},addAction:function(o,r,e,t){gform.addHook("action",o,r,e,t)},addFilter:function(o,r,e,t){gform.addHook("filter",o,r,e,t)},doAction:function(o){gform.doHook("action",o,arguments)},applyFilters:function(o){return gform.doHook("filter",o,arguments)},removeAction:function(o,r){gform.removeHook("action",o,r)},removeFilter:function(o,r,e){gform.removeHook("filter",o,r,e)},addHook:function(o,r,e,t,n){null==gform.hooks[o][r]&&(gform.hooks[o][r]=[]);var d=gform.hooks[o][r];null==n&&(n=r+"_"+d.length),gform.hooks[o][r].push({tag:n,callable:e,priority:t=null==t?10:t})},doHook:function(r,o,e){var t;if(e=Array.prototype.slice.call(e,1),null!=gform.hooks[r][o]&&((o=gform.hooks[r][o]).sort(function(o,r){return o.priority-r.priority}),o.forEach(function(o){"function"!=typeof(t=o.callable)&&(t=window[t]),"action"==r?t.apply(null,e):e[0]=t.apply(null,e)})),"filter"==r)return e[0]},removeHook:function(o,r,t,n){var e;null!=gform.hooks[o][r]&&(e=(e=gform.hooks[o][r]).filter(function(o,r,e){return!!(null!=n&&n!=o.tag||null!=t&&t!=o.priority)}),gform.hooks[o][r]=e)}});
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="https://gmpg.org/xfn/11"> 
+<link rel="preload" href="https://debigueron.com/wp-content/astra-local-fonts/lato/S6u9w4BMUTPHh6UVSwiPGQ.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://debigueron.com/wp-content/astra-local-fonts/lora/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBkq0.woff2" as="font" type="font/woff2" crossorigin><meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<!-- This site is optimized with the Yoast SEO plugin v28.7 - https://yoast.com/product/yoast-seo-wordpress/ -->
+<title>Vaulting Ambition - Debi Gueron</title>
+<link rel="canonical" href="https://debigueron.com/books/vaulting-ambition/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Vaulting Ambition - Debi Gueron" />
+<meta property="og:description" content="Vaulting Ambition He’s on the verge of discovering a miracle drug. But will his obsession blind him to the danger? Desperate to make a meaningful medical breakthrough, Dr. Jeff Brady lands in Brazil – but an inflamed appendix puts him in a hospital bed on his first night. Fate plays a special role and his [&hellip;]" />
+<meta property="og:url" content="https://debigueron.com/books/vaulting-ambition/" />
+<meta property="og:site_name" content="Debi Gueron" />
+<meta property="article:modified_time" content="2026-10-09T12:31:57+00:00" />
+<meta property="og:image" content="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-valuting-ambition.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:label1" content="Est. reading time" />
+<meta name="twitter:data1" content="2 minutes" />
+<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/debigueron.com\/books\/vaulting-ambition\/","url":"https:\/\/debigueron.com\/books\/vaulting-ambition\/","name":"Vaulting Ambition - Debi Gueron","isPartOf":{"@id":"https:\/\/debigueron.com\/#website"},"primaryImageOfPage":{"@id":"https:\/\/debigueron.com\/books\/vaulting-ambition\/#primaryimage"},"image":{"@id":"https:\/\/debigueron.com\/books\/vaulting-ambition\/#primaryimage"},"thumbnailUrl":"https:\/\/debigueron.com\/wp-content\/uploads\/2023\/12\/vaulting-ambition-valuting-ambition.jpg","datePublished":"2023-12-19T12:25:48+00:00","dateModified":"2026-10-09T12:31:57+00:00","breadcrumb":{"@id":"https:\/\/debigueron.com\/books\/vaulting-ambition\/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https:\/\/debigueron.com\/books\/vaulting-ambition\/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https:\/\/debigueron.com\/books\/vaulting-ambition\/#primaryimage","url":"https:\/\/debigueron.com\/wp-content\/uploads\/2023\/12\/vaulting-ambition-valuting-ambition.jpg","contentUrl":"https:\/\/debigueron.com\/wp-content\/uploads\/2023\/12\/vaulting-ambition-valuting-ambition.jpg"},{"@type":"BreadcrumbList","@id":"https:\/\/debigueron.com\/books\/vaulting-ambition\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/debigueron.com\/"},{"@type":"ListItem","position":2,"name":"Books","item":"https:\/\/debigueron.com\/books\/"},{"@type":"ListItem","position":3,"name":"Vaulting Ambition"}]},{"@type":"WebSite","@id":"https:\/\/debigueron.com\/#website","url":"https:\/\/debigueron.com\/","name":"Debi Gueron","description":"Author of Adventures with Eden and Ethan","publisher":{"@id":"https:\/\/debigueron.com\/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/debigueron.com\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https:\/\/debigueron.com\/#organization","name":"Debi Gueron","url":"https:\/\/debigueron.com\/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https:\/\/debigueron.com\/#\/schema\/logo\/image\/","url":"https:\/\/debigueron.com\/wp-content\/uploads\/2021\/12\/debi-gueron-logo.png","contentUrl":"https:\/\/debigueron.com\/wp-content\/uploads\/2021\/12\/debi-gueron-logo.png","width":225,"height":158,"caption":"Debi Gueron"},"image":{"@id":"https:\/\/debigueron.com\/#\/schema\/logo\/image\/"}}]}</script>
+<!-- / Yoast SEO plugin. -->
+<link rel="alternate" type="application/rss+xml" title="Debi Gueron &raquo; Feed" href="https://debigueron.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Debi Gueron &raquo; Comments Feed" href="https://debigueron.com/comments/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://debigueron.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdebigueron.com%2Fbooks%2Fvaulting-ambition%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://debigueron.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fdebigueron.com%2Fbooks%2Fvaulting-ambition%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='astra-theme-css-css' href='https://debigueron.com/wp-content/themes/astra/assets/css/minified/style.min.css?ver=4.14.0' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//debigueron.com/wp-content/cache/wpfc-minified/masy066x/hyapq.css" media="all"/>
+<style id="astra-theme-css-inline-css">
+.ast-no-sidebar .entry-content .alignfull {margin-left: calc( -50vw + 50%);margin-right: calc( -50vw + 50%);max-width: 100vw;width: 100vw;}.ast-no-sidebar .entry-content .alignwide {margin-left: calc(-41vw + 50%);margin-right: calc(-41vw + 50%);max-width: unset;width: unset;}.ast-no-sidebar .entry-content .alignfull .alignfull,.ast-no-sidebar .entry-content .alignfull .alignwide,.ast-no-sidebar .entry-content .alignwide .alignfull,.ast-no-sidebar .entry-content .alignwide .alignwide,.ast-no-sidebar .entry-content .wp-block-column .alignfull,.ast-no-sidebar .entry-content .wp-block-column .alignwide{width: 100%;margin-left: auto;margin-right: auto;}.wp-block-gallery,.blocks-gallery-grid {margin: 0;}.wp-block-separator {max-width: 100px;}.wp-block-separator.is-style-wide,.wp-block-separator.is-style-dots {max-width: none;}.entry-content .has-2-columns .wp-block-column:first-child {padding-right: 10px;}.entry-content .has-2-columns .wp-block-column:last-child {padding-left: 10px;}@media (max-width: 782px) {.entry-content .wp-block-columns .wp-block-column {flex-basis: 100%;}.entry-content .has-2-columns .wp-block-column:first-child {padding-right: 0;}.entry-content .has-2-columns .wp-block-column:last-child {padding-left: 0;}}body .entry-content .wp-block-latest-posts {margin-left: 0;}body .entry-content .wp-block-latest-posts li {list-style: none;}.ast-no-sidebar .ast-container .entry-content .wp-block-latest-posts {margin-left: 0;}.ast-header-break-point .entry-content .alignwide {margin-left: auto;margin-right: auto;}.entry-content .blocks-gallery-item img {margin-bottom: auto;}.wp-block-pullquote {border-top: 4px solid #555d66;border-bottom: 4px solid #555d66;color: #40464d;}:root{--ast-post-nav-space:0;--ast-container-default-xlg-padding:6.67em;--ast-container-default-lg-padding:5.67em;--ast-container-default-slg-padding:4.34em;--ast-container-default-md-padding:3.34em;--ast-container-default-sm-padding:6.67em;--ast-container-default-xs-padding:2.4em;--ast-container-default-xxs-padding:1.4em;--ast-code-block-background:#EEEEEE;--ast-comment-inputs-background:#FAFAFA;--ast-normal-container-width:1200px;--ast-narrow-container-width:750px;--ast-blog-title-font-weight:normal;--ast-blog-meta-weight:inherit;--ast-global-color-primary:var(--ast-global-color-5);--ast-global-color-secondary:var(--ast-global-color-4);--ast-global-color-alternate-background:var(--ast-global-color-7);--ast-global-color-subtle-background:var(--ast-global-color-6);--ast-bg-style-guide:var( --ast-global-color-secondary,var(--ast-global-color-5) );--ast-shadow-style-guide:0px 0px 4px 0 #00000057;--ast-global-dark-bg-style:#fff;--ast-global-dark-lfs:#fbfbfb;--ast-widget-bg-color:#fafafa;--ast-wc-container-head-bg-color:#fbfbfb;--ast-title-layout-bg:#eeeeee;--ast-search-border-color:#e7e7e7;--ast-lifter-hover-bg:#e6e6e6;--ast-gallery-block-color:#000;--srfm-color-input-label:var(--ast-global-color-2);}html{font-size:100%;}a,.page-title{color:#83009e;}a:hover,a:focus{color:#c40031;}body,button,input,select,textarea,.ast-button,.ast-custom-button{font-family:'Lora',serif;font-weight:400;font-size:16px;font-size:1rem;line-height:var(--ast-body-line-height,24px);}blockquote{color:#000000;}p,.entry-content p{margin-bottom:0.75em;}h1,h2,h3,h4,h5,h6,.entry-content :where(h1,h2,h3,h4,h5,h6),.site-title,.site-title a{font-family:'Lato',sans-serif;font-weight:400;letter-spacing:0;}.ast-site-identity .site-title a{color:var(--ast-global-color-2);}.site-title{font-size:35px;font-size:2.1875rem;display:none;}header .custom-logo-link img{max-width:200px;width:200px;}.astra-logo-svg{width:200px;}.site-header .site-description{font-size:15px;font-size:0.9375rem;display:none;}.entry-title{font-size:26px;font-size:1.625rem;}.archive .ast-article-post .ast-article-inner,.blog .ast-article-post .ast-article-inner,.archive .ast-article-post .ast-article-inner:hover,.blog .ast-article-post .ast-article-inner:hover{overflow:hidden;}h1,.entry-content :where(h1){font-size:36px;font-size:2.25rem;font-family:'Lato',sans-serif;line-height:1.4em;}h2,.entry-content :where(h2){font-size:30px;font-size:1.875rem;font-family:'Lato',sans-serif;line-height:1.3em;}h3,.entry-content :where(h3){font-size:25px;font-size:1.5625rem;font-family:'Lato',sans-serif;line-height:1.3em;}h4,.entry-content :where(h4){font-size:20px;font-size:1.25rem;line-height:1.2em;font-family:'Lato',sans-serif;}h5,.entry-content :where(h5){font-size:20px;font-size:1.25rem;line-height:1.2em;font-family:'Lato',sans-serif;}h6,.entry-content :where(h6){font-size:15px;font-size:0.9375rem;line-height:1.25em;font-family:'Lato',sans-serif;}::selection{background-color:#83009e;color:#ffffff;}body,h1,h2,h3,h4,h5,h6,.entry-title a,.entry-content :where(h1,h2,h3,h4,h5,h6){color:#000000;}.tagcloud a:hover,.tagcloud a:focus,.tagcloud a.current-item{color:#ffffff;border-color:#83009e;background-color:#83009e;}input:focus,input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="reset"]:focus,input[type="search"]:focus,textarea:focus{border-color:#83009e;}input[type="radio"]:checked,input[type=reset],input[type="checkbox"]:checked,input[type="checkbox"]:hover:checked,input[type="checkbox"]:focus:checked,input[type=range]::-webkit-slider-thumb{border-color:#83009e;background-color:#83009e;box-shadow:none;}.site-footer a:hover + .post-count,.site-footer a:focus + .post-count{background:#83009e;border-color:#83009e;}.single .nav-links .nav-previous,.single .nav-links .nav-next{color:#83009e;}.entry-meta,.entry-meta *{line-height:1.45;color:#83009e;}.entry-meta a:not(.ast-button):hover,.entry-meta a:not(.ast-button):hover *,.entry-meta a:not(.ast-button):focus,.entry-meta a:not(.ast-button):focus *,.page-links > .page-link,.page-links .page-link:hover,.post-navigation a:hover{color:#c40031;}#cat option,.secondary .calendar_wrap thead a,.secondary .calendar_wrap thead a:visited{color:#83009e;}.secondary .calendar_wrap #today,.ast-progress-val span{background:#83009e;}.secondary a:hover + .post-count,.secondary a:focus + .post-count{background:#83009e;border-color:#83009e;}.calendar_wrap #today > a{color:#ffffff;}.page-links .page-link,.single .post-navigation a{color:#83009e;}.ast-search-menu-icon .search-form button.search-submit{padding:0 4px;}.ast-search-menu-icon form.search-form{padding-right:0;}.ast-header-search .ast-search-menu-icon.ast-dropdown-active .search-form,.ast-header-search .ast-search-menu-icon.ast-dropdown-active .search-field:focus{transition:all 0.2s;}.search-form input.search-field:focus{outline:none;}.ast-mobile-header-content .ast-builder-layout-element:not(.ast-builder-menu):not(.ast-header-divider-element),.ast-mobile-popup-content .ast-builder-layout-element:not(.ast-builder-menu):not(.ast-header-divider-element){padding:15px 20px;}.widget-title,.widget .wp-block-heading{font-size:22px;font-size:1.375rem;color:#000000;}.single .ast-author-details .author-title{color:#c40031;}.ast-single-post .entry-content a,.ast-comment-content a:not(.ast-comment-edit-reply-wrap a){text-decoration:underline;}.ast-single-post .wp-block-button .wp-block-button__link,.ast-single-post .elementor-widget-button .elementor-button,a.ast-post-filter-single,.ast-single-post .wp-block-button.is-style-outline .wp-block-button__link,div.ast-custom-button,.ast-single-post .ast-comment-content .comment-reply-link,.ast-single-post .ast-comment-content .comment-edit-link{text-decoration:none;}.ast-search-menu-icon.slide-search a:focus-visible:focus-visible,.astra-search-icon:focus-visible,#close:focus-visible,a:focus-visible,.ast-menu-toggle:focus-visible,.site .skip-link:focus-visible,.wp-block-loginout input:focus-visible,.wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper,.ast-header-navigation-arrow:focus-visible,.ast-orders-table__row .ast-orders-table__cell:focus-visible,a#ast-apply-coupon:focus-visible,#ast-apply-coupon:focus-visible,#close:focus-visible,.button.search-submit:focus-visible,#search_submit:focus,.normal-search:focus-visible,.ast-header-account-wrap:focus-visible,.astra-cart-drawer-close:focus,.ast-single-variation:focus,.ast-button:focus,.ast-builder-button-wrap:has(.ast-custom-button-link:focus),.ast-builder-button-wrap .ast-custom-button-link:focus{outline-style:dotted;outline-color:inherit;outline-width:thin;}input:focus,input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="reset"]:focus,input[type="search"]:focus,input[type="number"]:focus,textarea:focus,.wp-block-search__input:focus,[data-section="section-header-mobile-trigger"] .ast-button-wrap .ast-mobile-menu-trigger-minimal:focus,.ast-mobile-popup-drawer.active .menu-toggle-close:focus,#ast-scroll-top:focus,#coupon_code:focus,#ast-coupon-code:focus{border-style:dotted;border-color:inherit;border-width:thin;}input{outline:none;}.main-header-menu .menu-link,.ast-header-custom-item a{color:#000000;}.main-header-menu .menu-item:hover > .menu-link,.main-header-menu .menu-item:hover > .ast-menu-toggle,.main-header-menu .ast-masthead-custom-menu-items a:hover,.main-header-menu .menu-item.focus > .menu-link,.main-header-menu .menu-item.focus > .ast-menu-toggle,.main-header-menu .current-menu-item > .menu-link,.main-header-menu .current-menu-ancestor > .menu-link,.main-header-menu .current-menu-item > .ast-menu-toggle,.main-header-menu .current-menu-ancestor > .ast-menu-toggle{color:#83009e;}.header-main-layout-3 .ast-main-header-bar-alignment{margin-right:auto;}.header-main-layout-2 .site-header-section-left .ast-site-identity{text-align:left;}.ast-logo-title-inline .site-logo-img{padding-right:1em;}.site-logo-img img{ transition:all 0.2s linear;}body .ast-oembed-container *{position:absolute;top:0;width:100%;height:100%;left:0;}body .wp-block-embed-pocket-casts .ast-oembed-container *{position:unset;}.ast-header-break-point .ast-mobile-menu-buttons-minimal.menu-toggle{background:transparent;color:#790fe2;}.ast-header-break-point .ast-mobile-menu-buttons-outline.menu-toggle{background:transparent;border:1px solid #790fe2;color:#790fe2;}.ast-header-break-point .ast-mobile-menu-buttons-fill.menu-toggle{background:#790fe2;color:#ffffff;}.ast-single-post-featured-section + article {margin-top: 2em;}.site-content .ast-single-post-featured-section img {width: 100%;overflow: hidden;object-fit: cover;}.site > .ast-single-related-posts-container {margin-top: 0;}@media (min-width: 769px) {.ast-desktop .ast-container--narrow {max-width: var(--ast-narrow-container-width);margin: 0 auto;}}.ast-page-builder-template .hentry {margin: 0;}.ast-page-builder-template .site-content > .ast-container {max-width: 100%;padding: 0;}.ast-page-builder-template .site .site-content #primary {padding: 0;margin: 0;}.ast-page-builder-template .no-results {text-align: center;margin: 4em auto;}.ast-page-builder-template .ast-pagination {padding: 2em;}.ast-page-builder-template .entry-header.ast-no-title.ast-no-thumbnail {margin-top: 0;}.ast-page-builder-template .entry-header.ast-header-without-markup {margin-top: 0;margin-bottom: 0;}.ast-page-builder-template .entry-header.ast-no-title.ast-no-meta {margin-bottom: 0;}.ast-page-builder-template.single .post-navigation {padding-bottom: 2em;}.ast-page-builder-template.single-post .site-content > .ast-container {max-width: 100%;}.ast-page-builder-template .entry-header {margin-top: 4em;margin-left: auto;margin-right: auto;padding-left: 20px;padding-right: 20px;}.single.ast-page-builder-template .entry-header {padding-left: 20px;padding-right: 20px;}.ast-page-builder-template .ast-archive-description {margin: 4em auto 0;padding-left: 20px;padding-right: 20px;}.ast-page-builder-template.ast-no-sidebar .entry-content .alignwide {margin-left: 0;margin-right: 0;}.ast-small-footer{color:#000000;}.ast-small-footer > .ast-footer-overlay{background-color:#ffffff;;}.ast-small-footer a{color:#83009e;}.ast-small-footer a:hover{color:#c40031;}.footer-adv .footer-adv-overlay{border-top-style:solid;border-top-color:#7a7a7a;}.footer-adv .widget-title,.footer-adv .widget-title a{color:#000000;}.footer-adv{color:#000000;}.footer-adv a{color:#dd3333;}.footer-adv .tagcloud a:hover,.footer-adv .tagcloud a.current-item{border-color:#dd3333;background-color:#dd3333;}.footer-adv a:hover,.footer-adv .no-widget-text a:hover,.footer-adv a:focus,.footer-adv .no-widget-text a:focus{color:#dd9933;}.footer-adv .calendar_wrap #today,.footer-adv a:hover + .post-count{background-color:#dd3333;}.footer-adv-overlay{background-color:#ffffff;;}.wp-block-buttons.aligncenter{justify-content:center;}@media (max-width:782px){.entry-content .wp-block-columns .wp-block-column{margin-left:0px;}}.wp-block-image.aligncenter{margin-left:auto;margin-right:auto;}.wp-block-table.aligncenter{margin-left:auto;margin-right:auto;}.wp-block-buttons .wp-block-button.is-style-outline .wp-block-button__link.wp-element-button,.ast-outline-button,.wp-block-uagb-buttons-child .uagb-buttons-repeater.ast-outline-button{border-color:#83009e;border-top-width:2px;border-right-width:2px;border-bottom-width:2px;border-left-width:2px;font-family:inherit;font-weight:inherit;line-height:1em;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;}.wp-block-button.is-style-outline .wp-block-button__link:hover,.wp-block-buttons .wp-block-button.is-style-outline .wp-block-button__link:focus,.wp-block-buttons .wp-block-button.is-style-outline > .wp-block-button__link:not(.has-text-color):hover,.wp-block-buttons .wp-block-button.wp-block-button__link.is-style-outline:not(.has-text-color):hover,.ast-outline-button:hover,.ast-outline-button:focus,.wp-block-uagb-buttons-child .uagb-buttons-repeater.ast-outline-button:hover,.wp-block-uagb-buttons-child .uagb-buttons-repeater.ast-outline-button:focus{background-color:#c40031;}.wp-block-button .wp-block-button__link.wp-element-button.is-style-outline:not(.has-background),.wp-block-button.is-style-outline>.wp-block-button__link.wp-element-button:not(.has-background),.ast-outline-button{background-color:#83009e;}.entry-content[data-ast-blocks-layout] > figure{margin-bottom:1em;}.elementor-widget-container .elementor-loop-container .e-loop-item[data-elementor-type="loop-item"]{width:100%;}@media (max-width:768px){.ast-left-sidebar #content > .ast-container{display:flex;flex-direction:column-reverse;width:100%;}.ast-separate-container .ast-article-post,.ast-separate-container .ast-article-single{padding:1.5em 2.14em;}.ast-author-box img.avatar{margin:20px 0 0 0;}}@media (min-width:769px){.ast-separate-container.ast-right-sidebar #primary,.ast-separate-container.ast-left-sidebar #primary{border:0;}.search-no-results.ast-separate-container #primary{margin-bottom:4em;}}.menu-toggle,button,.ast-button,.ast-custom-button,.button,input#submit,input[type="button"],input[type="submit"],input[type="reset"]{color:#ffffff;border-color:#83009e;background-color:#83009e;border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px;padding-top:10px;padding-right:25px;padding-bottom:10px;padding-left:25px;font-family:inherit;font-weight:inherit;}button:focus,.menu-toggle:hover,button:hover,.ast-button:hover,.ast-custom-button:hover .button:hover,.ast-custom-button:hover,input[type=reset]:hover,input[type=reset]:focus,input#submit:hover,input#submit:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus{color:#ffffff;background-color:#c40031;border-color:#c40031;}@media (max-width:768px){.ast-mobile-header-stack .main-header-bar .ast-search-menu-icon{display:inline-block;}.ast-header-break-point.ast-header-custom-item-outside .ast-mobile-header-stack .main-header-bar .ast-search-icon{margin:0;}.ast-comment-avatar-wrap img{max-width:2.5em;}.ast-comment-meta{padding:0 1.8888em 1.3333em;}.ast-separate-container .ast-comment-list li.depth-1{padding:1.5em 2.14em;}.ast-separate-container .comment-respond{padding:2em 2.14em;}}@media (min-width:544px){.ast-container{max-width:100%;}}@media (max-width:544px){.ast-separate-container .ast-article-post,.ast-separate-container .ast-article-single,.ast-separate-container .comments-title,.ast-separate-container .ast-archive-description{padding:1.5em 1em;}.ast-separate-container #content .ast-container{padding-left:0.54em;padding-right:0.54em;}.ast-separate-container .ast-comment-list .bypostauthor{padding:.5em;}.ast-search-menu-icon.ast-dropdown-active .search-field{width:170px;}.site-branding img,.site-header .site-logo-img .custom-logo-link img{max-width:100%;}}.footer-adv .tagcloud a:hover,.footer-adv .tagcloud a.current-item{color:#ffffff;}.footer-adv .calendar_wrap #today{color:#ffffff;} #ast-mobile-header .ast-site-header-cart-li a{pointer-events:none;}body,.ast-separate-container{background-color:#ffffff;background-image:none;}.ast-no-sidebar.ast-separate-container .entry-content .alignfull {margin-left: -6.67em;margin-right: -6.67em;width: auto;}@media (max-width: 1200px) {.ast-no-sidebar.ast-separate-container .entry-content .alignfull {margin-left: -2.4em;margin-right: -2.4em;}}@media (max-width: 768px) {.ast-no-sidebar.ast-separate-container .entry-content .alignfull {margin-left: -2.14em;margin-right: -2.14em;}}@media (max-width: 544px) {.ast-no-sidebar.ast-separate-container .entry-content .alignfull {margin-left: -1em;margin-right: -1em;}}.ast-no-sidebar.ast-separate-container .entry-content .alignwide {margin-left: -20px;margin-right: -20px;}.ast-no-sidebar.ast-separate-container .entry-content .wp-block-column .alignfull,.ast-no-sidebar.ast-separate-container .entry-content .wp-block-column .alignwide {margin-left: auto;margin-right: auto;width: 100%;}@media (max-width:768px){.widget-title{font-size:22px;font-size:1.375rem;}body,button,input,select,textarea,.ast-button,.ast-custom-button{font-size:16px;font-size:1rem;}#secondary,#secondary button,#secondary input,#secondary select,#secondary textarea{font-size:16px;font-size:1rem;}.site-title{display:none;}.site-header .site-description{display:none;}h1,.entry-content :where(h1){font-size:30px;}h2,.entry-content :where(h2){font-size:25px;}h3,.entry-content :where(h3){font-size:20px;}h5,.entry-content :where(h5){font-size:18px;font-size:1.125rem;}h6,.entry-content :where(h6){font-size:15px;font-size:0.9375rem;}}@media (max-width:544px){.widget-title{font-size:22px;font-size:1.375rem;}body,button,input,select,textarea,.ast-button,.ast-custom-button{font-size:16px;font-size:1rem;}#secondary,#secondary button,#secondary input,#secondary select,#secondary textarea{font-size:16px;font-size:1rem;}.site-title{display:none;}.site-header .site-description{display:none;}h1,.entry-content :where(h1){font-size:30px;}h2,.entry-content :where(h2){font-size:25px;}h3,.entry-content :where(h3){font-size:20px;}h5,.entry-content :where(h5){font-size:17px;font-size:1.0625rem;}h6,.entry-content :where(h6){font-size:15px;font-size:0.9375rem;}}@media (max-width:544px){html{font-size:100%;}}@media (min-width:769px){.ast-container{max-width:1240px;}}@font-face {font-family: "Astra";src: url(https://debigueron.com/wp-content/themes/astra/assets/fonts/astra.woff) format("woff"),url(https://debigueron.com/wp-content/themes/astra/assets/fonts/astra.ttf) format("truetype"),url(https://debigueron.com/wp-content/themes/astra/assets/fonts/astra.svg#astra) format("svg");font-weight: normal;font-style: normal;font-display: swap;}@media (max-width:921px) {.main-header-bar .main-header-bar-navigation{display:none;}}@media (min-width:769px){.blog .site-content > .ast-container,.archive .site-content > .ast-container,.search .site-content > .ast-container{max-width:1200px;}}@media (min-width:769px){.single-post .site-content > .ast-container{max-width:880px;}}.ast-desktop .main-header-menu.submenu-with-border .sub-menu,.ast-desktop .main-header-menu.submenu-with-border .astra-full-megamenu-wrapper{border-color:#83009e;}.ast-desktop .main-header-menu.submenu-with-border .sub-menu{border-top-width:2px;border-style:solid;}.ast-desktop .main-header-menu.submenu-with-border .sub-menu .sub-menu{top:-2px;}.ast-desktop .main-header-menu.submenu-with-border .sub-menu .menu-link,.ast-desktop .main-header-menu.submenu-with-border .children .menu-link{border-bottom-width:0px;border-style:solid;border-color:#eaeaea;}@media (min-width:769px){.main-header-menu .sub-menu .menu-item.ast-left-align-sub-menu:hover > .sub-menu,.main-header-menu .sub-menu .menu-item.ast-left-align-sub-menu.focus > .sub-menu{margin-left:-0px;}}.ast-small-footer{border-top-style:solid;border-top-width:1px;border-top-color:#7a7a7a;}.site .comments-area{padding-bottom:3em;}.ast-header-break-point .main-navigation ul .button-custom-menu-item .menu-link {padding: 0 20px;display: inline-block;width: 100%;border-bottom-width: 1px;border-style: solid;border-color: #eaeaea;}.button-custom-menu-item .ast-custom-button-link .ast-custom-button {font-size: inherit;font-family: inherit;font-weight: inherit;}.button-custom-menu-item .ast-custom-button-link .ast-custom-button:hover {transition: all 0.1s ease-in-out;}.ast-header-break-point.ast-header-custom-item-inside .main-header-bar .main-header-bar-navigation .ast-search-icon {display: none;}.ast-header-break-point.ast-header-custom-item-inside .main-header-bar .ast-search-menu-icon .search-form {padding: 0;display: block;overflow: hidden;}.ast-header-break-point .ast-header-custom-item .widget:last-child {margin-bottom: 1em;}.ast-header-custom-item .widget {margin: 0.5em;display: inline-block;vertical-align: middle;}.ast-header-custom-item .widget p {margin-bottom: 0;}.ast-header-custom-item .widget li {width: auto;}.ast-header-custom-item-inside .button-custom-menu-item .menu-link {display: none;}.ast-header-custom-item-inside.ast-header-break-point .button-custom-menu-item .ast-custom-button-link {display: none;}.ast-header-custom-item-inside.ast-header-break-point .button-custom-menu-item .menu-link {display: block;}.ast-header-break-point.ast-header-custom-item-outside .main-header-bar .ast-search-icon {margin-right: 1em;}.ast-header-break-point.ast-header-custom-item-inside .main-header-bar .ast-search-menu-icon .search-field,.ast-header-break-point.ast-header-custom-item-inside .main-header-bar .ast-search-menu-icon.ast-inline-search .search-field {width: 100%;padding-right: 5.5em;}.ast-header-break-point.ast-header-custom-item-inside .main-header-bar .ast-search-menu-icon .search-submit {display: block;position: absolute;height: 100%;top: 0;right: 0;padding: 0 1em;border-radius: 0;}.ast-header-break-point .ast-header-custom-item .ast-masthead-custom-menu-items {padding-left: 20px;padding-right: 20px;margin-bottom: 1em;margin-top: 1em;}.ast-header-custom-item-inside.ast-header-break-point .button-custom-menu-item {padding-left: 0;padding-right: 0;margin-top: 0;margin-bottom: 0;}.astra-icon-down_arrow::after {content: "\e900";font-family: Astra;}.astra-icon-close::after {content: "\e5cd";font-family: Astra;}.astra-icon-drag_handle::after {content: "\e25d";font-family: Astra;}.astra-icon-format_align_justify::after {content: "\e235";font-family: Astra;}.astra-icon-menu::after {content: "\e5d2";font-family: Astra;}.astra-icon-reorder::after {content: "\e8fe";font-family: Astra;}.astra-icon-search::after {content: "\e8b6";font-family: Astra;}.astra-icon-zoom_in::after {content: "\e56b";font-family: Astra;}.astra-icon-check-circle::after {content: "\e901";font-family: Astra;}.astra-icon-shopping-cart::after {content: "\f07a";font-family: Astra;}.astra-icon-shopping-bag::after {content: "\f290";font-family: Astra;}.astra-icon-shopping-basket::after {content: "\f291";font-family: Astra;}.astra-icon-circle-o::after {content: "\e903";font-family: Astra;}.astra-icon-certificate::after {content: "\e902";font-family: Astra;}blockquote {padding: 1.2em;}:root .has-ast-global-color-0-color{color:var(--ast-global-color-0);}:root .has-ast-global-color-0-background-color{background-color:var(--ast-global-color-0);}:root .wp-block-button .has-ast-global-color-0-color{color:var(--ast-global-color-0);}:root .wp-block-button .has-ast-global-color-0-background-color{background-color:var(--ast-global-color-0);}:root .has-ast-global-color-1-color{color:var(--ast-global-color-1);}:root .has-ast-global-color-1-background-color{background-color:var(--ast-global-color-1);}:root .wp-block-button .has-ast-global-color-1-color{color:var(--ast-global-color-1);}:root .wp-block-button .has-ast-global-color-1-background-color{background-color:var(--ast-global-color-1);}:root .has-ast-global-color-2-color{color:var(--ast-global-color-2);}:root .has-ast-global-color-2-background-color{background-color:var(--ast-global-color-2);}:root .wp-block-button .has-ast-global-color-2-color{color:var(--ast-global-color-2);}:root .wp-block-button .has-ast-global-color-2-background-color{background-color:var(--ast-global-color-2);}:root .has-ast-global-color-3-color{color:var(--ast-global-color-3);}:root .has-ast-global-color-3-background-color{background-color:var(--ast-global-color-3);}:root .wp-block-button .has-ast-global-color-3-color{color:var(--ast-global-color-3);}:root .wp-block-button .has-ast-global-color-3-background-color{background-color:var(--ast-global-color-3);}:root .has-ast-global-color-4-color{color:var(--ast-global-color-4);}:root .has-ast-global-color-4-background-color{background-color:var(--ast-global-color-4);}:root .wp-block-button .has-ast-global-color-4-color{color:var(--ast-global-color-4);}:root .wp-block-button .has-ast-global-color-4-background-color{background-color:var(--ast-global-color-4);}:root .has-ast-global-color-5-color{color:var(--ast-global-color-5);}:root .has-ast-global-color-5-background-color{background-color:var(--ast-global-color-5);}:root .wp-block-button .has-ast-global-color-5-color{color:var(--ast-global-color-5);}:root .wp-block-button .has-ast-global-color-5-background-color{background-color:var(--ast-global-color-5);}:root .has-ast-global-color-6-color{color:var(--ast-global-color-6);}:root .has-ast-global-color-6-background-color{background-color:var(--ast-global-color-6);}:root .wp-block-button .has-ast-global-color-6-color{color:var(--ast-global-color-6);}:root .wp-block-button .has-ast-global-color-6-background-color{background-color:var(--ast-global-color-6);}:root .has-ast-global-color-7-color{color:var(--ast-global-color-7);}:root .has-ast-global-color-7-background-color{background-color:var(--ast-global-color-7);}:root .wp-block-button .has-ast-global-color-7-color{color:var(--ast-global-color-7);}:root .wp-block-button .has-ast-global-color-7-background-color{background-color:var(--ast-global-color-7);}:root .has-ast-global-color-8-color{color:var(--ast-global-color-8);}:root .has-ast-global-color-8-background-color{background-color:var(--ast-global-color-8);}:root .wp-block-button .has-ast-global-color-8-color{color:var(--ast-global-color-8);}:root .wp-block-button .has-ast-global-color-8-background-color{background-color:var(--ast-global-color-8);}:root{--ast-global-color-0:#0170B9;--ast-global-color-1:#3a3a3a;--ast-global-color-2:#3a3a3a;--ast-global-color-3:#4B4F58;--ast-global-color-4:#F5F5F5;--ast-global-color-5:#FFFFFF;--ast-global-color-6:#E5E5E5;--ast-global-color-7:#424242;--ast-global-color-8:#000000;}:root {--ast-border-color : #dddddd;}.ast-single-entry-banner {-js-display: flex;display: flex;flex-direction: column;justify-content: center;text-align: center;position: relative;background: var(--ast-title-layout-bg);}.ast-single-entry-banner[data-banner-layout="layout-1"] {max-width: 1200px;background: inherit;padding: 20px 0;}.ast-single-entry-banner[data-banner-width-type="custom"] {margin: 0 auto;width: 100%;}.ast-single-entry-banner + .site-content .entry-header {margin-bottom: 0;}.site .ast-author-avatar {--ast-author-avatar-size: ;}a.ast-underline-text {text-decoration: underline;}.ast-container > .ast-terms-link {position: relative;display: block;}a.ast-button.ast-badge-tax {padding: 4px 8px;border-radius: 3px;font-size: inherit;}header.entry-header:not(.related-entry-header){text-align:left;}header.entry-header:not(.related-entry-header) > *:not(:last-child){margin-bottom:10px;}@media (max-width:768px){header.entry-header:not(.related-entry-header){text-align:left;}}@media (max-width:544px){header.entry-header:not(.related-entry-header){text-align:left;}}.ast-archive-entry-banner {-js-display: flex;display: flex;flex-direction: column;justify-content: center;text-align: center;position: relative;background: var(--ast-title-layout-bg);}.ast-archive-entry-banner[data-banner-width-type="custom"] {margin: 0 auto;width: 100%;}.ast-archive-entry-banner[data-banner-layout="layout-1"] {background: inherit;padding: 20px 0;text-align: left;}body.archive .ast-archive-description{max-width:1200px;width:100%;text-align:left;padding-top:3em;padding-right:3em;padding-bottom:3em;padding-left:3em;}body.archive .ast-archive-description .ast-archive-title,body.archive .ast-archive-description .ast-archive-title *{font-size:40px;font-size:2.5rem;}body.archive .ast-archive-description > *:not(:last-child){margin-bottom:10px;}@media (max-width:768px){body.archive .ast-archive-description{text-align:left;}}@media (max-width:544px){body.archive .ast-archive-description{text-align:left;}}.ast-breadcrumbs .trail-browse,.ast-breadcrumbs .trail-items,.ast-breadcrumbs .trail-items li{display:inline-block;margin:0;padding:0;border:none;background:inherit;text-indent:0;text-decoration:none;}.ast-breadcrumbs .trail-browse{font-size:inherit;font-style:inherit;font-weight:inherit;color:inherit;}.ast-breadcrumbs .trail-items{list-style:none;}.trail-items li::after{padding:0 0.3em;content:"\00bb";}.trail-items li:last-of-type::after{display:none;}h1,h2,h3,h4,h5,h6,.entry-content :where(h1,h2,h3,h4,h5,h6){color:var(--ast-global-color-2);}.elementor-widget-heading .elementor-heading-title{margin:0;}.elementor-page .ast-menu-toggle{color:unset;background:unset;}.elementor-post.elementor-grid-item.hentry{margin-bottom:0;}.woocommerce div.product .elementor-element.elementor-products-grid .related.products ul.products li.product,.elementor-element .elementor-wc-products .woocommerce[class*='columns-'] ul.products li.product{width:auto;margin:0;float:none;}body .elementor hr{background-color:#ccc;margin:0;}.ast-left-sidebar .elementor-section.elementor-section-stretched,.ast-right-sidebar .elementor-section.elementor-section-stretched{max-width:100%;left:0 !important;}.elementor-posts-container [CLASS*="ast-width-"]{width:100%;}.elementor-template-full-width .ast-container{display:block;}.elementor-screen-only,.screen-reader-text,.screen-reader-text span,.ui-helper-hidden-accessible{top:0 !important;}@media (max-width:544px){.elementor-element .elementor-wc-products .woocommerce[class*="columns-"] ul.products li.product{width:auto;margin:0;}.elementor-element .woocommerce .woocommerce-result-count{float:none;}}.ast-header-break-point .main-header-bar{border-bottom-width:1px;}@media (min-width:769px){.main-header-bar{border-bottom-width:1px;}}.main-header-menu .menu-item,#astra-footer-menu .menu-item,.main-header-bar .ast-masthead-custom-menu-items{-js-display:flex;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column;}.main-header-menu > .menu-item > .menu-link,#astra-footer-menu > .menu-item > .menu-link{height:100%;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;-js-display:flex;display:flex;}#ast-desktop-header .main-header-menu > .menu-item.menu-item-has-children > .menu-link .ast-header-navigation-arrow{padding-right:10px;margin-right:-10px;}.ast-primary-menu-disabled .main-header-bar .ast-masthead-custom-menu-items{flex:unset;}.header-main-layout-1 .ast-flex.main-header-container,.header-main-layout-3 .ast-flex.main-header-container{-webkit-align-content:center;-ms-flex-line-pack:center;align-content:center;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;}.main-header-menu .sub-menu .menu-item.menu-item-has-children > .menu-link:after{position:absolute;right:1em;top:50%;transform:translate(0,-50%) rotate(270deg);}.ast-header-break-point .main-header-bar .main-header-bar-navigation .page_item_has_children > .ast-menu-toggle::before,.ast-header-break-point .main-header-bar .main-header-bar-navigation .menu-item-has-children > .ast-menu-toggle::before,.ast-mobile-popup-drawer .main-header-bar-navigation .menu-item-has-children>.ast-menu-toggle::before,.ast-header-break-point .ast-mobile-header-wrap .main-header-bar-navigation .menu-item-has-children > .ast-menu-toggle::before{font-weight:bold;content:"\e900";font-family:Astra;text-decoration:inherit;display:inline-block;}.ast-header-break-point .main-navigation ul.sub-menu .menu-item .menu-link:before{content:"\e900";font-family:Astra;font-size:.65em;text-decoration:inherit;display:inline-block;transform:translate(0,-2px) rotateZ(270deg);margin-right:5px;}.widget_search .search-form:after{font-family:Astra;font-size:1.2em;font-weight:normal;content:"\e8b6";position:absolute;top:50%;right:15px;transform:translate(0,-50%);}.astra-search-icon::before{content:"\e8b6";font-family:Astra;font-style:normal;font-weight:normal;text-decoration:inherit;text-align:center;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;z-index:3;}.main-header-bar .main-header-bar-navigation .page_item_has_children > a:after,.main-header-bar .main-header-bar-navigation .menu-item-has-children > a:after,.menu-item-has-children .ast-header-navigation-arrow:after{content:"\e900";display:inline-block;font-family:Astra;font-size:.6rem;font-weight:bold;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;margin-left:10px;line-height:normal;}.menu-item-has-children .sub-menu .ast-header-navigation-arrow:after{margin-left:0;}.ast-mobile-popup-drawer .main-header-bar-navigation .ast-submenu-expanded>.ast-menu-toggle::before{transform:rotateX(180deg);}.ast-header-break-point .main-header-bar-navigation .menu-item-has-children > .menu-link:after{display:none;}@media (min-width:769px){.ast-builder-menu .main-navigation > ul > li:last-child a{margin-right:0;}}.ast-separate-container .ast-article-inner{background-color:transparent;background-image:none;}.ast-separate-container .ast-article-post{background-color:var(--ast-global-color-5);background-image:none;}@media (max-width:768px){.ast-separate-container .ast-article-post{background-color:var(--ast-global-color-5);background-image:none;}}@media (max-width:544px){.ast-separate-container .ast-article-post{background-color:var(--ast-global-color-5);background-image:none;}}.ast-separate-container .ast-article-single:not(.ast-related-post),.ast-separate-container .error-404,.ast-separate-container .no-results,.single.ast-separate-container.ast-author-meta,.ast-separate-container .related-posts-title-wrapper,.ast-separate-container .comments-count-wrapper,.ast-box-layout.ast-plain-container .site-content,.ast-padded-layout.ast-plain-container .site-content,.ast-separate-container .ast-archive-description,.ast-separate-container .comments-area .comment-respond,.ast-separate-container .comments-area .ast-comment-list li,.ast-separate-container .comments-area .comments-title{background-color:var(--ast-global-color-5);background-image:none;}@media (max-width:768px){.ast-separate-container .ast-article-single:not(.ast-related-post),.ast-separate-container .error-404,.ast-separate-container .no-results,.single.ast-separate-container.ast-author-meta,.ast-separate-container .related-posts-title-wrapper,.ast-separate-container .comments-count-wrapper,.ast-box-layout.ast-plain-container .site-content,.ast-padded-layout.ast-plain-container .site-content,.ast-separate-container .ast-archive-description{background-color:var(--ast-global-color-5);background-image:none;}}@media (max-width:544px){.ast-separate-container .ast-article-single:not(.ast-related-post),.ast-separate-container .error-404,.ast-separate-container .no-results,.single.ast-separate-container.ast-author-meta,.ast-separate-container .related-posts-title-wrapper,.ast-separate-container .comments-count-wrapper,.ast-box-layout.ast-plain-container .site-content,.ast-padded-layout.ast-plain-container .site-content,.ast-separate-container .ast-archive-description{background-color:var(--ast-global-color-5);background-image:none;}}.ast-separate-container.ast-two-container #secondary .widget{background-color:var(--ast-global-color-5);background-image:none;}@media (max-width:768px){.ast-separate-container.ast-two-container #secondary .widget{background-color:var(--ast-global-color-5);background-image:none;}}@media (max-width:544px){.ast-separate-container.ast-two-container #secondary .widget{background-color:var(--ast-global-color-5);background-image:none;}}:root{--e-global-color-astglobalcolor0:#0170B9;--e-global-color-astglobalcolor1:#3a3a3a;--e-global-color-astglobalcolor2:#3a3a3a;--e-global-color-astglobalcolor3:#4B4F58;--e-global-color-astglobalcolor4:#F5F5F5;--e-global-color-astglobalcolor5:#FFFFFF;--e-global-color-astglobalcolor6:#E5E5E5;--e-global-color-astglobalcolor7:#424242;--e-global-color-astglobalcolor8:#000000;}
+/*# sourceURL=astra-theme-css-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='astra-google-fonts-css' href='https://debigueron.com/wp-content/astra-local-fonts/astra-local-fonts.css?ver=4.14.0' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//debigueron.com/wp-content/cache/wpfc-minified/70g413ni/hyapq.css" media="all"/>
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--ast-global-color-0: var(--ast-global-color-0);--wp--preset--color--ast-global-color-1: var(--ast-global-color-1);--wp--preset--color--ast-global-color-2: var(--ast-global-color-2);--wp--preset--color--ast-global-color-3: var(--ast-global-color-3);--wp--preset--color--ast-global-color-4: var(--ast-global-color-4);--wp--preset--color--ast-global-color-5: var(--ast-global-color-5);--wp--preset--color--ast-global-color-6: var(--ast-global-color-6);--wp--preset--color--ast-global-color-7: var(--ast-global-color-7);--wp--preset--color--ast-global-color-8: var(--ast-global-color-8);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:root { --wp--style--global--content-size: var(--wp--custom--ast-content-width-size);--wp--style--global--wide-size: var(--wp--custom--ast-wide-width-size); }:where(body) { margin: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 24px; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 24px; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 24px;}:root :where(.is-layout-grid){gap: 24px;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}a:where(:not(.wp-element-button)){text-decoration: none;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-ast-global-color-0-color{color: var(--wp--preset--color--ast-global-color-0) !important;}.has-ast-global-color-1-color{color: var(--wp--preset--color--ast-global-color-1) !important;}.has-ast-global-color-2-color{color: var(--wp--preset--color--ast-global-color-2) !important;}.has-ast-global-color-3-color{color: var(--wp--preset--color--ast-global-color-3) !important;}.has-ast-global-color-4-color{color: var(--wp--preset--color--ast-global-color-4) !important;}.has-ast-global-color-5-color{color: var(--wp--preset--color--ast-global-color-5) !important;}.has-ast-global-color-6-color{color: var(--wp--preset--color--ast-global-color-6) !important;}.has-ast-global-color-7-color{color: var(--wp--preset--color--ast-global-color-7) !important;}.has-ast-global-color-8-color{color: var(--wp--preset--color--ast-global-color-8) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-ast-global-color-0-background-color{background-color: var(--wp--preset--color--ast-global-color-0) !important;}.has-ast-global-color-1-background-color{background-color: var(--wp--preset--color--ast-global-color-1) !important;}.has-ast-global-color-2-background-color{background-color: var(--wp--preset--color--ast-global-color-2) !important;}.has-ast-global-color-3-background-color{background-color: var(--wp--preset--color--ast-global-color-3) !important;}.has-ast-global-color-4-background-color{background-color: var(--wp--preset--color--ast-global-color-4) !important;}.has-ast-global-color-5-background-color{background-color: var(--wp--preset--color--ast-global-color-5) !important;}.has-ast-global-color-6-background-color{background-color: var(--wp--preset--color--ast-global-color-6) !important;}.has-ast-global-color-7-background-color{background-color: var(--wp--preset--color--ast-global-color-7) !important;}.has-ast-global-color-8-background-color{background-color: var(--wp--preset--color--ast-global-color-8) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-ast-global-color-0-border-color{border-color: var(--wp--preset--color--ast-global-color-0) !important;}.has-ast-global-color-1-border-color{border-color: var(--wp--preset--color--ast-global-color-1) !important;}.has-ast-global-color-2-border-color{border-color: var(--wp--preset--color--ast-global-color-2) !important;}.has-ast-global-color-3-border-color{border-color: var(--wp--preset--color--ast-global-color-3) !important;}.has-ast-global-color-4-border-color{border-color: var(--wp--preset--color--ast-global-color-4) !important;}.has-ast-global-color-5-border-color{border-color: var(--wp--preset--color--ast-global-color-5) !important;}.has-ast-global-color-6-border-color{border-color: var(--wp--preset--color--ast-global-color-6) !important;}.has-ast-global-color-7-border-color{border-color: var(--wp--preset--color--ast-global-color-7) !important;}.has-ast-global-color-8-border-color{border-color: var(--wp--preset--color--ast-global-color-8) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:root :where(.wp-block-icon svg){width: 24px;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='astra-addon-css-css' href='https://debigueron.com/wp-content/uploads/astra-addon/astra-addon-6acf90d43b41b9-04062143.css?ver=4.13.10' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//debigueron.com/wp-content/cache/wpfc-minified/kcpo8ewq/hyapq.css" media="all"/>
+<style id="astra-addon-css-inline-css">
+.ast-search-box.header-cover #close::before,.ast-search-box.full-screen #close::before{font-family:Astra;content:"\e5cd";display:inline-block;transition:transform .3s ease-in-out;}.site-header .ast-inline-search.ast-search-menu-icon .search-field {width: auto;}#ast-fixed-header .main-header-bar .site-title a,#ast-fixed-header .main-header-bar .site-title a:focus,#ast-fixed-header .main-header-bar .site-title a:hover,#ast-fixed-header .main-header-bar .site-title a:visited,.main-header-bar.ast-sticky-active .site-title a,.main-header-bar.ast-sticky-active .site-title a:focus,.main-header-bar.ast-sticky-active .site-title a:hover,.main-header-bar.ast-sticky-active .site-title a:visited{color:#222;}#ast-fixed-header .main-header-bar .site-description,.main-header-bar.ast-sticky-active .site-description{color:#000000;}.ast-sticky-active .main-header-menu > .menu-item.current-menu-item > .menu-link,.ast-sticky-active .main-header-menu >.menu-item.current-menu-ancestor > .menu-link,.main-header-bar.ast-sticky-active .main-header-menu > .menu-item.current-menu-item > .menu-link,.main-header-bar.ast-sticky-active .main-header-menu >.menu-item.current-menu-ancestor > .menu-link{color:#83009e;}.ast-sticky-active .main-header-menu,.ast-sticky-active .main-header-menu > .menu-item > .menu-link,.ast-sticky-active .ast-masthead-custom-menu-items,.ast-sticky-active .ast-masthead-custom-menu-items a,.main-header-bar.ast-sticky-active,.main-header-bar.ast-sticky-active .main-header-menu > .menu-item > .menu-link,.main-header-bar.ast-sticky-active .ast-masthead-custom-menu-items,.main-header-bar.ast-sticky-active .ast-masthead-custom-menu-items a{color:#000000;}.ast-sticky-active .main-header-menu .menu-link:hover,.ast-sticky-active .main-header-menu .menu-item:hover > .menu-link,.ast-sticky-active .main-header-menu .menu-item.focus > .menu-link,.main-header-bar.ast-sticky-active .main-header-menu .menu-item:hover > .menu-link,.main-header-bar.ast-sticky-active .main-header-menu .menu-item.focus > .menu-link{color:#83009e;}.ast-sticky-active .main-header-menu .ast-masthead-custom-menu-items a:hover,.ast-sticky-active .main-header-menu .menu-item:hover > .ast-menu-toggle,.ast-sticky-active .main-header-menu .menu-item.focus > .ast-menu-toggle,.main-header-bar.ast-sticky-active .main-header-menu .menu-item:hover > .ast-menu-toggle,.main-header-bar.ast-sticky-active .main-header-menu .menu-item.focus > .ast-menu-toggle{color:#83009e;}#masthead .site-logo-img .astra-logo-svg,.ast-header-break-point #ast-fixed-header .site-logo-img .custom-logo-link img {max-width:200px;}.ast-transparent-header.ast-primary-sticky-header-active .main-header-bar-wrap .main-header-bar,.ast-primary-sticky-header-active .main-header-bar-wrap .main-header-bar,.ast-primary-sticky-header-active.ast-header-break-point .main-header-bar-wrap .main-header-bar,.ast-transparent-header.ast-primary-sticky-enabled .ast-main-header-wrap .main-header-bar.ast-header-sticked,.ast-primary-sticky-enabled .ast-main-header-wrap .main-header-bar.ast-header-sticked,.ast-primary-sticky-header-ast-primary-sticky-enabled .ast-main-header-wrap .main-header-bar.ast-header-sticked{backdrop-filter:unset;-webkit-backdrop-filter:unset;}.ast-primary-sticky-header-active .site-title a,.ast-primary-sticky-header-active .site-title a:focus,.ast-primary-sticky-header-active .site-title a:hover,.ast-primary-sticky-header-active .site-title a:visited{color:#222;}.ast-primary-sticky-header-active .site-header .site-description{color:#000000;}
+/*# sourceURL=astra-addon-css-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='elementor-frontend-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-image-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-heading-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='e-popup-css' href='https://debigueron.com/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.2' media='all' /> -->
+<!-- <link rel='stylesheet' id='elementor-icons-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.54.0' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//debigueron.com/wp-content/cache/wpfc-minified/qvy8ofui/hyapq.css" media="all"/>
+<link rel='stylesheet' id='elementor-post-510-css' href='https://debigueron.com/wp-content/uploads/elementor/css/post-510.css?ver=1792028788' media='all' />
+<!-- <link rel='stylesheet' id='uael-frontend-css' href='https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/min-css/uael-frontend.min.css?ver=1.45.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='uael-teammember-social-icons-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=3.24.0' media='all' /> -->
+<!-- <link rel='stylesheet' id='uael-social-share-icons-brands-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.css?ver=5.15.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='uael-social-share-icons-fontawesome-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.css?ver=5.15.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='uael-nav-menu-icons-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.css?ver=5.15.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-5-all-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-4-shim-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='swiper-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='e-swiper-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-image-gallery-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/widget-image-gallery.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-spacer-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='e-animation-grow-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-grow.min.css?ver=4.3.5' media='all' /> -->
+<!-- <link rel='stylesheet' id='e-shapes-css' href='https://debigueron.com/wp-content/plugins/elementor/assets/css/conditionals/shapes.min.css?ver=4.3.5' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//debigueron.com/wp-content/cache/wpfc-minified/rts5i3n/i0uct.css" media="all"/>
+<link rel='stylesheet' id='elementor-post-1438-css' href='https://debigueron.com/wp-content/uploads/elementor/css/post-1438.css?ver=1792106129' media='all' />
+<link rel='stylesheet' id='elementor-post-547-css' href='https://debigueron.com/wp-content/uploads/elementor/css/post-547.css?ver=1792028788' media='all' />
+<!-- <link rel='stylesheet' id='gforms_reset_css-css' href='https://debigueron.com/wp-content/plugins/gravityforms/legacy/css/formreset.min.css?ver=3.1.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='gforms_formsmain_css-css' href='https://debigueron.com/wp-content/plugins/gravityforms/legacy/css/formsmain.min.css?ver=3.1.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='gforms_ready_class_css-css' href='https://debigueron.com/wp-content/plugins/gravityforms/legacy/css/readyclass.min.css?ver=3.1.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='gforms_browsers_css-css' href='https://debigueron.com/wp-content/plugins/gravityforms/legacy/css/browsers.min.css?ver=3.1.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='astra-gravity-forms-css' href='https://debigueron.com/wp-content/themes/astra/assets/css/minified/compatibility/gravity-forms.min.css?ver=4.14.0' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//debigueron.com/wp-content/cache/wpfc-minified/d60lz49z/hyapq.css" media="all"/>
+<link rel='stylesheet' id='elementor-gf-roboto-css' href='https://fonts.googleapis.com/css?family=Roboto:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=auto' media='all' />
+<link rel='stylesheet' id='elementor-gf-robotoslab-css' href='https://fonts.googleapis.com/css?family=Roboto+Slab:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=auto' media='all' />
+<link rel='stylesheet' id='elementor-gf-ebgaramond-css' href='https://fonts.googleapis.com/css?family=EB+Garamond:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&#038;display=auto' media='all' />
+<script src='//debigueron.com/wp-content/cache/wpfc-minified/1rigdqop/hyapq.js' type="text/javascript"></script>
+<!-- <script id="jquery-core-js" src="https://debigueron.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script> -->
+<!-- <script id="jquery-migrate-js" src="https://debigueron.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script> -->
+<!-- <script id="font-awesome-4-shim-js" src="https://debigueron.com/wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js?ver=4.3.5"></script> -->
+<script id="gform_json-js" defer='defer' src="https://debigueron.com/wp-content/plugins/gravityforms/js/jquery.json.min.js?ver=3.1.3"></script>
+<script id="gform_gravityforms-js-extra">
+var gf_global = {"gf_currency_config":{"name":"U.S. Dollar","symbol_left":"$","symbol_right":"","symbol_padding":"","thousand_separator":",","decimal_separator":".","decimals":2,"code":"USD"},"base_url":"https://debigueron.com/wp-content/plugins/gravityforms","number_formats":[],"version_hash":"743f9786fafbb1f937dcb021432ff0bf","countries":{"AF":"Afghanistan","AX":"\u00c5land Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"Andorra","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia","BQ":"Bonaire, Sint Eustatius and Saba","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","CV":"Cabo Verde","KH":"Cambodia","CM":"Cameroon","CA":"Canada","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos Islands","CO":"Colombia","KM":"Comoros","CD":"Congo, Democratic Republic of the","CG":"Congo","CK":"Cook Islands","CR":"Costa Rica","CI":"C\u00f4te d'Ivoire","HR":"Croatia","CU":"Cuba","CW":"Cura\u00e7ao","CY":"Cyprus","CZ":"Czechia","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","SZ":"Eswatini","ET":"Ethiopia","FK":"Falkland Islands","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and McDonald Islands","VA":"Holy See","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People's Republic of","KR":"Korea, Republic of","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People's Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia","MD":"Moldova","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MK":"North Macedonia","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestine, State of","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"R\u00e9union","RO":"Romania","RU":"Russian Federation","RW":"Rwanda","BL":"Saint Barth\u00e9lemy","SH":"Saint Helena, Ascension and Tristan da Cunha","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","MF":"Saint Martin","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SX":"Sint Maarten","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","SS":"South Sudan","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SE":"Sweden","CH":"Switzerland","SY":"Syria Arab Republic","TW":"Taiwan","TJ":"Tajikistan","TZ":"Tanzania, the United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"T\u00fcrkiye","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UY":"Uruguay","UM":"US Minor Outlying Islands","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"},"strings":{"newRowAdded":"New row added.","rowRemoved":"Row removed","formSaved":"The form has been saved.  The content contains the link to return and complete the form."}};
+var gform_i18n = {"datepicker":{"wdOffset":1,"helpTextShort":"Press F1 for help","helpText":"Press the arrow keys to navigate by day, PageUp and PageDown to navigate by month, Alt+PageUp and Alt+PageDown to navigate by year, or Escape to cancel.","openOnFocusHelpText":"Press Down arrow to browse the calendar, or Escape to close.","tooltipTxt":"Press Escape to cancel","disabledTxt":"Disabled","markedTxt":"Selected","prevTxt":"Previous","nextTxt":"Next","monthTxt":"Month","yearTxt":"Year","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"days":[{"s":"S","l":"Sunday"},{"s":"M","l":"Monday"},{"s":"T","l":"Tuesday"},{"s":"W","l":"Wednesday"},{"s":"T","l":"Thursday"},{"s":"F","l":"Friday"},{"s":"S","l":"Saturday"}]}};
+var gf_legacy_multi = {"3":"1"};
+var gform_gravityforms = {"strings":{"invalid_file_extension":"This type of file is not allowed. Must be one of the following:","file_uploaded":"File uploaded","delete_file":"Delete this file","in_progress":"in progress","file_exceeds_limit":"File exceeds size limit","illegal_extension":"This type of file is not allowed.","max_reached":"Maximum number of files reached","unknown_error":"There was a problem while saving the file on the server","currently_uploading":"Please wait for the uploading to complete","cancel":"Cancel","cancel_upload":"Cancel this upload","cancelled":"Cancelled","error":"Error","message":"Message"},"vars":{"images_url":"https://debigueron.com/wp-content/plugins/gravityforms/images"}};
+//# sourceURL=gform_gravityforms-js-extra
+</script>
+<script id="gform_gravityforms-js-before">
+//# sourceURL=gform_gravityforms-js-before
+</script>
+<script src='//debigueron.com/wp-content/cache/wpfc-minified/1dfdfmeg/hyapq.js' type="text/javascript"></script>
+<!-- <script id="gform_gravityforms-js" defer='defer' src="https://debigueron.com/wp-content/plugins/gravityforms/js/gravityforms.min.js?ver=3.1.3"></script> -->
+<!-- <script id="gform_gravityforms_utils-js" defer='defer' src="https://debigueron.com/wp-content/plugins/gravityforms/assets/js/dist/utils.min.js?ver=d7e103405223e60d2719f4c330fd11cf"></script> -->
+<script id="facebook-signal-js-extra">
+var facebookSignalConfig = {"cookieName":"wc_facebook_signals_state","ajaxUrl":"https://debigueron.com/wp-admin/admin-ajax.php","signalsAction":"fbpix_set_pixel_signals","signalsNonce":"147a8171df"};
+//# sourceURL=facebook-signal-js-extra
+</script>
+<script src='//debigueron.com/wp-content/cache/wpfc-minified/l114gxfw/hyapq.js' type="text/javascript"></script>
+<!-- <script id="facebook-signal-js" src="https://debigueron.com/wp-content/plugins/official-facebook-pixel/core/../js/facebook_signal.js?ver=5.2.2"></script> -->
+<link rel="https://api.w.org/" href="https://debigueron.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://debigueron.com/wp-json/wp/v2/pages/1438" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://debigueron.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.1.3" />
+<link rel='shortlink' href='https://debigueron.com/?p=1438' />
+<meta name="generator" content="Elementor 4.3.5; features: additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-auto">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133822842-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-133822842-1');
+</script>
+<!-- Meta Pixel Code -->
+<script type='text/javascript'>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+</script>
+<!-- End Meta Pixel Code -->
+<script type='text/javascript'>FacebookSignal.init({"held":false,"ajaxUrl":"https:\/\/debigueron.com\/wp-admin\/admin-ajax.php","releaseAction":"fbpix_release_signals","pixelId":"681208559095719","attribution":{},"capig":"1"});FacebookSignal.initPixel("681208559095719",{},{"agent":"wordpress_0-7.1.3-5.2.2","includeCapiIntegration":true});</script><script type='text/javascript'>
+fbq('track', 'PageView', []);
+</script>			<style>
+.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+background-image: none !important;
+}
+@media screen and (max-height: 1024px) {
+.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+background-image: none !important;
+}
+}
+@media screen and (max-height: 640px) {
+.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+background-image: none !important;
+}
+}
+</style>
+<link rel="icon" href="https://debigueron.com/wp-content/uploads/2021/12/cropped-debi-gueron-favicon-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="https://debigueron.com/wp-content/uploads/2021/12/cropped-debi-gueron-favicon-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://debigueron.com/wp-content/uploads/2021/12/cropped-debi-gueron-favicon-180x180.jpg" />
+<meta name="msapplication-TileImage" content="https://debigueron.com/wp-content/uploads/2021/12/cropped-debi-gueron-favicon-270x270.jpg" />
+<style id="wp-custom-css">
+.main-header-bar {
+border: none;
+}
+#aboutcloud .wp-caption-text {
+margin: -140px 0px 0px -17px;
+}
+#meetcharacters .wp-caption-text {
+margin: -140px 0px 0px 5px;
+}
+/*hamburg special wheel menu*/
+.edcm-template-9.edcm-top-right .edcm-toggle-wrapper {
+top: 30px;
+right: 50px;
+}
+@media only screen and (max-width: 950px) {
+.edcm-template-9.edcm-top-right .edcm-toggle-wrapper {
+top: 10px;
+right: 10px;
+}
+}
+.whitetext li,
+.whitetext h1, .whitetext h2, .whitetext h3, .whitetext h4, .whitetext h5, .whitetext h6, .whitetext p, .whitetext a {
+color: #FFF !important;
+}
+.darktext h1, .darktext h2, .darktext h3, .darktext h4, .darktext h5, .darktext h6, .darktext p, .darktext a {
+color: #001 !important;
+}
+.shadowtext h1, .shadowtext h2, .shadowtext h3, .shadowtext h4, .shadowtext h5, .shadowtext h6, .shadowtext p, .shadowtext a {
+text-shadow: #001 -1px 2px 2px!important;
+}
+.shadowbox {
+box-shadow: #c3c3c3 1px 3px 9px;
+}
+.underline {
+text-decoration: underline !important;
+}
+</style>
+</head>
+<body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="wp-singular page-template-default page page-id-1438 page-child parent-pageid-10 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.14.0 ast-header-custom-item-inside ast-single-post ast-inherit-site-logo-transparent ast-sticky-main-shrink ast-sticky-header-shrink ast-inherit-site-logo-sticky ast-sticky-custom-logo ast-primary-sticky-enabled elementor-default elementor-kit-510 elementor-page elementor-page-1438 astra-addon-4.13.10">
+<script data-cfasync="false">
+(function(){var mq=window.matchMedia('(max-width:921.99px)');function apply(isMobile){var b=document.body.classList;if(isMobile){b.add('ast-header-break-point');b.remove('ast-desktop');}else{b.remove('ast-header-break-point');b.add('ast-desktop');}}apply(mq.matches);if(mq.addEventListener){mq.addEventListener('change',function(e){apply(e.matches);});}else if(mq.addListener){mq.addListener(function(e){apply(e.matches);});}})();
+</script>
+<!-- Meta Pixel Code -->
+<noscript>
+<img height="1" width="1" style="display:none" alt="fbpx"
+src="https://www.facebook.com/tr?id=681208559095719&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Meta Pixel Code -->
+<a
+class="skip-link screen-reader-text"
+href="#content">
+Skip to content</a>
+<div
+class="hfeed site" id="page">
+<header
+class="site-header header-main-layout-1 ast-primary-menu-enabled ast-logo-title-inline ast-menu-toggle-icon ast-mobile-header-inline" id="masthead" itemtype="https://schema.org/WPHeader" itemscope="itemscope" itemid="#masthead"		>
+<div class="main-header-bar-wrap">
+<div class="main-header-bar">
+<div class="ast-container">
+<div class="ast-flex main-header-container">
+<div class="site-branding">
+<div
+class="ast-site-identity" itemtype="https://schema.org/Organization" itemscope="itemscope"			>
+<span class="site-logo-img"><a href="https://debigueron.com/" class="custom-logo-link" rel="home"><img width="200" height="140" src="https://debigueron.com/wp-content/uploads/2021/12/debi-gueron-logo-200x140.png" class="custom-logo" alt="Debi Gueron Author" decoding="async" srcset="https://debigueron.com/wp-content/uploads/2021/12/debi-gueron-logo-200x140.png 200w, https://debigueron.com/wp-content/uploads/2021/12/debi-gueron-logo.png 225w" sizes="(max-width: 200px) 100vw, 200px" /></a><a href="https://debigueron.com/" class="sticky-custom-logo" rel="home" itemprop="url"><img width="800" height="560" src="https://debigueron.com/wp-content/uploads/2021/12/debi-g.png" class="custom-logo" alt="Debi Gueron Author" decoding="async" srcset="https://debigueron.com/wp-content/uploads/2021/12/debi-g.png 800w, https://debigueron.com/wp-content/uploads/2021/12/debi-g-300x210.png 300w, https://debigueron.com/wp-content/uploads/2021/12/debi-g-768x538.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></span>			</div>
+</div>
+<!-- .site-branding -->
+<div class="ast-mobile-menu-buttons">
+<div class="ast-button-wrap">
+<button type="button" class="menu-toggle main-header-menu-toggle  ast-mobile-menu-buttons-fill "  aria-controls='primary-menu' aria-expanded='false'>
+<span class="screen-reader-text">Main Menu</span>
+<span class="ast-icon icon-menu-bars"><span class="menu-toggle-icon"></span></span>							</button>
+</div>
+</div>
+<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility" id="primary-site-navigation" aria-label="Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation"><ul id="primary-menu" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex ast-justify-content-flex-end  submenu-with-border"><li id="menu-item-1032" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1032"><a aria-expanded="false" href="#" class="menu-link">About Debi</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-714" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-714"><a href="https://debigueron.com/about/" class="menu-link">About Debi</a></li>
+<li id="menu-item-481" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-481"><a href="https://debigueron.com/blog/" class="menu-link">Debi&#8217;s Blog</a></li>
+</ul>
+</li>
+<li id="menu-item-441" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-441"><a aria-expanded="false" href="#" class="menu-link">About Color Therapy</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-332" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-332"><a href="https://debigueron.com/history-of-color/" class="menu-link">History of Color</a></li>
+<li id="menu-item-331" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-331"><a href="https://debigueron.com/theory-of-color/" class="menu-link">Theory of Color</a></li>
+<li id="menu-item-693" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-693"><a href="https://debigueron.com/what-is-color-therapy/" class="menu-link">What is Color Therapy?</a></li>
+<li id="menu-item-692" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-692"><a href="https://debigueron.com/how-does-color-affect-us/" class="menu-link">How Does Color Affect Us?</a></li>
+<li id="menu-item-691" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-691"><a href="https://debigueron.com/color-therapy-at-work-our-bodies/" class="menu-link">Color Therapy at Work – Our Bodies</a></li>
+<li id="menu-item-703" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-703"><a href="https://debigueron.com/forms-of-color-therapies/" class="menu-link">Different Forms of Color Therapies to Consider</a></li>
+<li id="menu-item-713" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-713"><a href="https://debigueron.com/color-therapy-improves-lives/" class="menu-link">Use Color-Therapy to Improve Our Lives</a></li>
+<li id="menu-item-712" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-712"><a href="https://debigueron.com/arguments-against-color-therapy/" class="menu-link">Arguments against Color Therapy</a></li>
+</ul>
+</li>
+<li id="menu-item-466" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor menu-item-has-children menu-item-466"><a aria-expanded="false" href="#" class="menu-link">Debi&#8217;s Books</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-750" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-750"><a aria-expanded="false" href="#" class="menu-link">The ‘Eden and Ethan’ Series</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-334" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-334"><a href="https://debigueron.com/books/adventures-with-eden-and-ethan/" class="menu-link">Eden and Ethan discover the Power of Color</a></li>
+<li id="menu-item-333" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-333"><a href="https://debigueron.com/books/eden-and-ethan-start-first-grade/" class="menu-link">Eden and Ethan Start First Grade</a></li>
+<li id="menu-item-872" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-872"><a href="https://debigueron.com/books/a-surprise-for-eden-and-ethan/" class="menu-link">A Surprise For Eden and Ethan</a></li>
+<li id="menu-item-873" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-873"><a href="https://debigueron.com/books/eden-and-ethan-make-a-new-friend/" class="menu-link">Eden and Ethan Make a New Friend</a></li>
+<li id="menu-item-871" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-871"><a href="https://debigueron.com/books/a-new-home-for-eden-and-ethan/" class="menu-link">A New Home for Eden and Ethan</a></li>
+<li id="menu-item-874" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-874"><a href="https://debigueron.com/books/have-fun-with-eden-and-ethans-coloring-in-activity-book/" class="menu-link">Eden and Ethan’s Magical Activity Book</a></li>
+</ul>
+</li>
+<li id="menu-item-1601" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1601"><a aria-expanded="false" href="#" class="menu-link">Family Fun Books</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-1773" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1773"><a href="https://debigueron.com/books/leos-big-day/" class="menu-link">Leo&#8217;s Big Day</a></li>
+<li id="menu-item-896" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-896"><a href="https://debigueron.com/books/sugar-the-magic-pony/" class="menu-link">Sugar the Magic Pony</a></li>
+<li id="menu-item-895" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-895"><a href="https://debigueron.com/books/sharing-is-caring/" class="menu-link">Sharing is Caring</a></li>
+<li id="menu-item-1603" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1603"><a href="https://debigueron.com/books/the-camping-challenge/" class="menu-link">The Camping Challenge</a></li>
+<li id="menu-item-1604" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1604"><a href="https://debigueron.com/books/the-daydreamer-and-the-dragon/" class="menu-link">The Daydreamer and the Dragon</a></li>
+</ul>
+</li>
+<li id="menu-item-1605" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1605"><a aria-expanded="false" href="#" class="menu-link">Safety and Health</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-616" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-616"><a href="https://debigueron.com/books/the-corona-virus-monster/" class="menu-link">The Corona Virus Monster</a></li>
+<li id="menu-item-893" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-893"><a href="https://debigueron.com/books/are-we-really-safe-now/" class="menu-link">Are We Really Safe Now?</a></li>
+<li id="menu-item-894" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-894"><a href="https://debigueron.com/books/danny-defeats-asthma/" class="menu-link">Danny Defeats Asthma</a></li>
+<li id="menu-item-1606" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1606"><a href="https://debigueron.com/books/braving-the-bossy-sibling/" class="menu-link">Braving the Bossy Sibling</a></li>
+<li id="menu-item-1607" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1607"><a href="https://debigueron.com/books/gramps-treasured-memories/" class="menu-link">Gramps Treasured Memories</a></li>
+<li id="menu-item-1602" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1602"><a href="https://debigueron.com/books/germs-be-gone-schools-back-on/" class="menu-link">Germs Be Gone – Schools Back on!</a></li>
+</ul>
+</li>
+<li id="menu-item-755" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-755"><a aria-expanded="false" href="#" class="menu-link">Encouraging Kindness</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-1774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1774"><a href="https://debigueron.com/books/elianas-birthday-surprise/" class="menu-link">Eliana&#8217;s Birthday Surprise</a></li>
+<li id="menu-item-1042" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1042"><a href="https://debigueron.com/books/an-ocean-of-change/" class="menu-link">An Ocean Of Change</a></li>
+<li id="menu-item-1610" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1610"><a href="https://debigueron.com/books/grandma-irenes-magic-note/" class="menu-link">Grandma Irene’s Magic Note</a></li>
+<li id="menu-item-1609" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1609"><a href="https://debigueron.com/books/the-worlds-shyest-superhero/" class="menu-link">The World’s Shyest Superhero</a></li>
+<li id="menu-item-1611" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1611"><a href="https://debigueron.com/books/the-power-of-words/" class="menu-link">The Power of Words</a></li>
+<li id="menu-item-897" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-897"><a href="https://debigueron.com/books/the-perfect-holiday-disaster/" class="menu-link">The Perfect Holiday Disaster</a></li>
+</ul>
+</li>
+<li id="menu-item-1613" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-1613"><a aria-expanded="false" href="#" class="menu-link">Novels</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-1612" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1438 current_page_item menu-item-1612"><a href="https://debigueron.com/books/vaulting-ambition/" aria-current="page" class="menu-link">Vaulting Ambition</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-1031" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1031"><a aria-expanded="false" href="#" class="menu-link">Eden and Ethan’s World</a><button class="ast-menu-toggle" aria-expanded="false" aria-label="Toggle Menu"><span class="ast-icon icon-arrow"></span></button>
+<ul class="sub-menu">
+<li id="menu-item-465" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor current-page-parent menu-item-465"><a href="https://debigueron.com/books/" class="menu-link">About Eden and Ethan</a></li>
+<li id="menu-item-1030" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1030"><a href="https://debigueron.com/characters/" class="menu-link">Meet the Characters</a></li>
+</ul>
+</li>
+<li class="ast-masthead-custom-menu-items button-custom-menu-item">
+<a class="ast-custom-button-link" href="https://debigueron.com/contact/" target="_self"  role="button" aria-label="Contact Debi">
+<div class="ast-button">Contact Debi</div>
+</a><a class="menu-link" href="https://debigueron.com/contact/" target="_self" >Contact Debi</a>			</li>
+</ul></div></nav></div></div>			</div><!-- Main Header Container -->
+</div><!-- ast-row -->
+</div> <!-- Main Header Bar -->
+</div> <!-- Main Header Bar Wrap -->
+</header><!-- #masthead -->
+<div id="content" class="site-content">
+<div class="ast-container">
+<div id="primary" class="content-area primary">
+<main id="main" class="site-main">
+<article
+class="post-1438 page type-page status-publish ast-article-single" id="post-1438" itemtype="https://schema.org/CreativeWork" itemscope="itemscope">
+<header class="entry-header ast-no-title ast-header-without-markup">
+</header> <!-- .entry-header -->
+<div class="entry-content clear"
+itemprop="text">
+<div data-elementor-type="wp-page" data-elementor-id="1438" class="elementor elementor-1438" data-elementor-post-type="page">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-20e836a elementor-section-height-min-height elementor-section-items-top elementor-section-boxed elementor-section-height-default" data-id="20e836a" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_top&quot;:&quot;wave-brush&quot;,&quot;shape_divider_bottom&quot;:&quot;clouds&quot;,&quot;shape_divider_bottom_negative&quot;:&quot;yes&quot;}">
+<div class="elementor-shape elementor-shape-top" aria-hidden="true" data-negative="false">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.5 27.8" preserveAspectRatio="none">
+<path class="elementor-shape-fill" d="M283.5,9.7c0,0-7.3,4.3-14,4.6c-6.8,0.3-12.6,0-20.9-1.5c-11.3-2-33.1-10.1-44.7-5.7	s-12.1,4.6-18,7.4c-6.6,3.2-20,9.6-36.6,9.3C131.6,23.5,99.5,7.2,86.3,8c-1.4,0.1-6.6,0.8-10.5,2c-3.8,1.2-9.4,3.8-17,4.7	c-3.2,0.4-8.3,1.1-14.2,0.9c-1.5-0.1-6.3-0.4-12-1.6c-5.7-1.2-11-3.1-15.8-3.7C6.5,9.2,0,10.8,0,10.8V0h283.5V9.7z M260.8,11.3	c-0.7-1-2-0.4-4.3-0.4c-2.3,0-6.1-1.2-5.8-1.1c0.3,0.1,3.1,1.5,6,1.9C259.7,12.2,261.4,12.3,260.8,11.3z M242.4,8.6	c0,0-2.4-0.2-5.6-0.9c-3.2-0.8-10.3-2.8-15.1-3.5c-8.2-1.1-15.8,0-15.1,0.1c0.8,0.1,9.6-0.6,17.6,1.1c3.3,0.7,9.3,2.2,12.4,2.7	C239.9,8.7,242.4,8.6,242.4,8.6z M185.2,8.5c1.7-0.7-13.3,4.7-18.5,6.1c-2.1,0.6-6.2,1.6-10,2c-3.9,0.4-8.9,0.4-8.8,0.5	c0,0.2,5.8,0.8,11.2,0c5.4-0.8,5.2-1.1,7.6-1.6C170.5,14.7,183.5,9.2,185.2,8.5z M199.1,6.9c0.2,0-0.8-0.4-4.8,1.1	c-4,1.5-6.7,3.5-6.9,3.7c-0.2,0.1,3.5-1.8,6.6-3C197,7.5,199,6.9,199.1,6.9z M283,6c-0.1,0.1-1.9,1.1-4.8,2.5s-6.9,2.8-6.7,2.7	c0.2,0,3.5-0.6,7.4-2.5C282.8,6.8,283.1,5.9,283,6z M31.3,11.6c0.1-0.2-1.9-0.2-4.5-1.2s-5.4-1.6-7.8-2C15,7.6,7.3,8.5,7.7,8.6	C8,8.7,15.9,8.3,20.2,9.3c2.2,0.5,2.4,0.5,5.7,1.6S31.2,11.9,31.3,11.6z M73,9.2c0.4-0.1,3.5-1.6,8.4-2.6c4.9-1.1,8.9-0.5,8.9-0.8	c0-0.3-1-0.9-6.2-0.3S72.6,9.3,73,9.2z M71.6,6.7C71.8,6.8,75,5.4,77.3,5c2.3-0.3,1.9-0.5,1.9-0.6c0-0.1-1.1-0.2-2.7,0.2	C74.8,5.1,71.4,6.6,71.6,6.7z M93.6,4.4c0.1,0.2,3.5,0.8,5.6,1.8c2.1,1,1.8,0.6,1.9,0.5c0.1-0.1-0.8-0.8-2.4-1.3	C97.1,4.8,93.5,4.2,93.6,4.4z M65.4,11.1c-0.1,0.3,0.3,0.5,1.9-0.2s2.6-1.3,2.2-1.2s-0.9,0.4-2.5,0.8C65.3,10.9,65.5,10.8,65.4,11.1	z M34.5,12.4c-0.2,0,2.1,0.8,3.3,0.9c1.2,0.1,2,0.1,2-0.2c0-0.3-0.1-0.5-1.6-0.4C36.6,12.8,34.7,12.4,34.5,12.4z M152.2,21.1	c-0.1,0.1-2.4-0.3-7.5-0.3c-5,0-13.6-2.4-17.2-3.5c-3.6-1.1,10,3.9,16.5,4.1C150.5,21.6,152.3,21,152.2,21.1z"/>
+<path class="elementor-shape-fill" d="M269.6,18c-0.1-0.1-4.6,0.3-7.2,0c-7.3-0.7-17-3.2-16.6-2.9c0.4,0.3,13.7,3.1,17,3.3	C267.7,18.8,269.7,18,269.6,18z"/>
+<path class="elementor-shape-fill" d="M227.4,9.8c-0.2-0.1-4.5-1-9.5-1.2c-5-0.2-12.7,0.6-12.3,0.5c0.3-0.1,5.9-1.8,13.3-1.2	S227.6,9.9,227.4,9.8z"/>
+<path class="elementor-shape-fill" d="M204.5,13.4c-0.1-0.1,2-1,3.2-1.1c1.2-0.1,2,0,2,0.3c0,0.3-0.1,0.5-1.6,0.4	C206.4,12.9,204.6,13.5,204.5,13.4z"/>
+<path class="elementor-shape-fill" d="M201,10.6c0-0.1-4.4,1.2-6.3,2.2c-1.9,0.9-6.2,3.1-6.1,3.1c0.1,0.1,4.2-1.6,6.3-2.6	S201,10.7,201,10.6z"/>
+<path class="elementor-shape-fill" d="M154.5,26.7c-0.1-0.1-4.6,0.3-7.2,0c-7.3-0.7-17-3.2-16.6-2.9c0.4,0.3,13.7,3.1,17,3.3	C152.6,27.5,154.6,26.8,154.5,26.7z"/>
+<path class="elementor-shape-fill" d="M41.9,19.3c0,0,1.2-0.3,2.9-0.1c1.7,0.2,5.8,0.9,8.2,0.7c4.2-0.4,7.4-2.7,7-2.6	c-0.4,0-4.3,2.2-8.6,1.9c-1.8-0.1-5.1-0.5-6.7-0.4S41.9,19.3,41.9,19.3z"/>
+<path class="elementor-shape-fill" d="M75.5,12.6c0.2,0.1,2-0.8,4.3-1.1c2.3-0.2,2.1-0.3,2.1-0.5c0-0.1-1.8-0.4-3.4,0	C76.9,11.5,75.3,12.5,75.5,12.6z"/>
+<path class="elementor-shape-fill" d="M15.6,13.2c0-0.1,4.3,0,6.7,0.5c2.4,0.5,5,1.9,5,2c0,0.1-2.7-0.8-5.1-1.4	C19.9,13.7,15.7,13.3,15.6,13.2z"/>
+</svg>		</div>
+<div class="elementor-shape elementor-shape-bottom" aria-hidden="true" data-negative="true">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.5 27.8" preserveAspectRatio="xMidYMax slice">
+<path class="elementor-shape-fill" d="M265.8 3.5c-10.9 0-15.9 6.2-15.9 6.2s-3.6-3.5-9.2-.9c-9.1 4.1-4.4 13.4-4.4 13.4s-1.2.2-1.9.9c-.6.7-.5 1.9-.5 1.9s-1-.5-2.3-.2c-1.3.3-1.6 1.4-1.6 1.4s.4-3.4-1.5-5c-3.9-3.4-8.3-.2-8.3-.2s-.6-.7-.9-.9c-.4-.2-1.2-.2-1.2-.2s-4.4-3.6-11.5-2.6-10.4 7.9-10.4 7.9-.5-3.3-3.9-4.9c-4.8-2.4-7.4 0-7.4 0s2.4-4.1-1.9-6.4-6.2 1.2-6.2 1.2-.9-.5-2.1-.5-2.3 1.1-2.3 1.1.1-.7-1.1-1.1c-1.2-.4-2 0-2 0s3.6-6.8-3.5-8.9c-6-1.8-7.9 2.6-8.4 4-.1-.3-.4-.7-.9-1.1-1-.7-1.3-.5-1.3-.5s1-4-1.7-5.2c-2.7-1.2-4.2 1.1-4.2 1.1s-3.1-1-5.7 1.4-2.1 5.5-2.1 5.5-.9 0-2.1.7-1.4 1.7-1.4 1.7-1.7-1.2-4.3-1.2c-2.6 0-4.5 1.2-4.5 1.2s-.7-1.5-2.8-2.4c-2.1-.9-4 0-4 0s2.6-5.9-4.7-9c-7.3-3.1-12.6 3.3-12.6 3.3s-.9 0-1.9.2c-.9.2-1.5.9-1.5.9S99.4 3 94.9 3.9c-4.5.9-5.7 5.7-5.7 5.7s-2.8-5-12.3-3.9-11.1 6-11.1 6-1.2-1.4-4-.7c-.8.2-1.3.5-1.8.9-.9-2.1-2.7-4.9-6.2-4.4-3.2.4-4 2.2-4 2.2s-.5-.7-1.2-.7h-1.4s-.5-.9-1.7-1.4-2.4 0-2.4 0-2.4-1.2-4.7 0-3.1 4.1-3.1 4.1-1.7-1.4-3.6-.7c-1.9.7-1.9 2.8-1.9 2.8s-.5-.5-1.7-.2c-1.2.2-1.4.7-1.4.7s-.7-2.3-2.8-2.8c-2.1-.5-4.3.2-4.3.2s-1.7-5-11.1-6c-3.8-.4-6.6.2-8.5 1v21.2h283.5V11.1c-.9.2-1.6.4-1.6.4s-5.2-8-16.1-8z"/>
+</svg>
+</div>
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-a2ed454" data-id="a2ed454" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-f3e11a9 elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="f3e11a9" data-element_type="section" data-e-type="section">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-7494b15" data-id="7494b15" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-4e2f07d elementor-widget elementor-widget-image-gallery" data-id="4e2f07d" data-element_type="widget" data-e-type="widget" data-widget_type="image-gallery.default">
+<div class="elementor-widget-container">
+<div class="elementor-image-gallery">
+<div id='gallery-1' class='gallery galleryid-1438 gallery-columns-1 gallery-size-full'><figure class='gallery-item'>
+<div class='gallery-icon portrait'>
+<a data-elementor-open-lightbox="yes" data-elementor-lightbox-slideshow="4e2f07d" data-elementor-lightbox-title="vaulting-ambition-valuting-ambition" data-e-action-hash="#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6MTQ0NCwidXJsIjoiaHR0cHM6XC9cL2RlYmlndWVyb24uY29tXC93cC1jb250ZW50XC91cGxvYWRzXC8yMDIzXC8xMlwvdmF1bHRpbmctYW1iaXRpb24tdmFsdXRpbmctYW1iaXRpb24uanBnIiwic2xpZGVzaG93IjoiNGUyZjA3ZCJ9" href='https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-valuting-ambition.jpg'><img fetchpriority="high" decoding="async" width="733" height="1100" src="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-valuting-ambition.jpg" class="attachment-full size-full" alt="" srcset="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-valuting-ambition.jpg 733w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-valuting-ambition-200x300.jpg 200w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-valuting-ambition-682x1024.jpg 682w" sizes="(max-width: 733px) 100vw, 733px" /></a>
+</div></figure><figure class='gallery-item'>
+<div class='gallery-icon landscape'>
+<a data-elementor-open-lightbox="yes" data-elementor-lightbox-slideshow="4e2f07d" data-elementor-lightbox-title="vaulting-ambition-amazon-for-arica" data-e-action-hash="#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6MTQ0MCwidXJsIjoiaHR0cHM6XC9cL2RlYmlndWVyb24uY29tXC93cC1jb250ZW50XC91cGxvYWRzXC8yMDIzXC8xMlwvdmF1bHRpbmctYW1iaXRpb24tYW1hem9uLWZvci1hcmljYS5qcGciLCJzbGlkZXNob3ciOiI0ZTJmMDdkIn0%3D" href='https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-amazon-for-arica.jpg'><img decoding="async" width="880" height="535" src="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-amazon-for-arica.jpg" class="attachment-full size-full" alt="" srcset="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-amazon-for-arica.jpg 880w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-amazon-for-arica-300x182.jpg 300w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-amazon-for-arica-768x467.jpg 768w" sizes="(max-width: 880px) 100vw, 880px" /></a>
+</div></figure><figure class='gallery-item'>
+<div class='gallery-icon portrait'>
+<a data-elementor-open-lightbox="yes" data-elementor-lightbox-slideshow="4e2f07d" data-elementor-lightbox-title="vaulting-ambition-aric-south-america-map" data-e-action-hash="#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6MTQ0MSwidXJsIjoiaHR0cHM6XC9cL2RlYmlndWVyb24uY29tXC93cC1jb250ZW50XC91cGxvYWRzXC8yMDIzXC8xMlwvdmF1bHRpbmctYW1iaXRpb24tYXJpYy1zb3V0aC1hbWVyaWNhLW1hcC5qcGciLCJzbGlkZXNob3ciOiI0ZTJmMDdkIn0%3D" href='https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-aric-south-america-map.jpg'><img decoding="async" width="871" height="1100" src="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-aric-south-america-map.jpg" class="attachment-full size-full" alt="" srcset="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-aric-south-america-map.jpg 871w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-aric-south-america-map-238x300.jpg 238w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-aric-south-america-map-811x1024.jpg 811w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-aric-south-america-map-768x970.jpg 768w" sizes="(max-width: 871px) 100vw, 871px" /></a>
+</div></figure><figure class='gallery-item'>
+<div class='gallery-icon landscape'>
+<a data-elementor-open-lightbox="yes" data-elementor-lightbox-slideshow="4e2f07d" data-elementor-lightbox-title="vaulting-ambition-arica-close-up-of-arica-village" data-e-action-hash="#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6MTQ0MiwidXJsIjoiaHR0cHM6XC9cL2RlYmlndWVyb24uY29tXC93cC1jb250ZW50XC91cGxvYWRzXC8yMDIzXC8xMlwvdmF1bHRpbmctYW1iaXRpb24tYXJpY2EtY2xvc2UtdXAtb2YtYXJpY2EtdmlsbGFnZS5qcGciLCJzbGlkZXNob3ciOiI0ZTJmMDdkIn0%3D" href='https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-arica-close-up-of-arica-village.jpg'><img loading="lazy" decoding="async" width="880" height="587" src="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-arica-close-up-of-arica-village.jpg" class="attachment-full size-full" alt="" srcset="https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-arica-close-up-of-arica-village.jpg 880w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-arica-close-up-of-arica-village-300x200.jpg 300w, https://debigueron.com/wp-content/uploads/2023/12/vaulting-ambition-arica-close-up-of-arica-village-768x512.jpg 768w" sizes="(max-width: 880px) 100vw, 880px" /></a>
+</div></figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-ccd9b6f" data-id="ccd9b6f" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-d18f059 elementor-widget elementor-widget-heading" data-id="d18f059" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Vaulting Ambition</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-891c27c elementor-widget elementor-widget-text-editor" data-id="891c27c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>He’s on the verge of discovering a miracle drug. But will his obsession blind him to the danger? Desperate to make a meaningful medical breakthrough, Dr. Jeff Brady lands in Brazil – but an inflamed appendix puts him in a hospital bed on his first night. Fate plays a special role and his hospital stay inadvertently leads him to uncover a fascinating mystery that could revolutionize medicine. </p><p>His roommate in the hospital, Father Roberto is a Catholic missionary, atoning for the sins of his ancestors. Inspired by his stories of disease-free native tribes, Dr. Brady and his team venture deep into the beautiful yet deadly Amazon rainforest to contact a remote tribe, that might be able to help him discover a miracle drug to treat diabetes. Fuelled by his ambition and his dreams of transforming medicine, Dr. Brady is convinced that he’s on the verge of a life-changing find. </p><p>But even in the most altruistic endeavours, greed, revenge, and corruption lurk just beneath the surface. When the animals used in Brady’s laboratory testing mysteriously start dying, Dr. Brady and his team will be faced with painful choices that cast their entire mission into doubt. Will Dr. Brady push on despite the possible dangers? And will his unchecked ambition lead him to his demise?</p><p>Expertly written as a gripping medical thriller and legal drama that grapples with timeless questions of human greed and the dangers behind good intentions, Vaulting Ambition is a memorable novel that asks difficult questions while capturing the untamed beauty of the Amazon rainforest. Scroll up and grab your copy now.</p>								</div>
+</div>
+<div class="elementor-element elementor-element-0bfe255 elementor-widget elementor-widget-spacer" data-id="0bfe255" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
+<div class="elementor-widget-container">
+<div class="elementor-spacer">
+<div class="elementor-spacer-inner"></div>
+</div>
+</div>
+</div>
+<div class="elementor-element elementor-element-655f8ad elementor-align-left elementor-widget elementor-widget-button" data-id="655f8ad" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+<div class="elementor-widget-container">
+<div class="elementor-button-wrapper">
+<a class="elementor-button elementor-button-link elementor-size-xl elementor-animation-grow" href="https://www.amazon.com/Vaulting-Ambition-Exhilarating-Suspense-Fuelled-Rainforest-ebook/dp/B0BXPNWZDZ/ref=tmm_kin_swatch_0?_encoding=UTF8&#038;qid=1702570449&#038;sr=8-20" target="_blank">
+<span class="elementor-button-content-wrapper">
+<span class="elementor-button-text">Get your copy today on Amazon!</span>
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div><!-- .entry-content .clear -->
+</article><!-- #post-## -->
+</main><!-- #main -->
+</div><!-- #primary -->
+	</div> <!-- ast-container -->
+</div><!-- #content -->
+<footer
+class="site-footer" id="colophon" itemtype="https://schema.org/WPFooter" itemscope="itemscope" itemid="#colophon"		>
+<div class="footer-adv footer-adv-layout-4">
+<div class="footer-adv-overlay">
+<div class="ast-container">
+<div class="ast-row">
+<div class="ast-col-lg-3 ast-col-md-3 ast-col-sm-12 ast-col-xs-12 footer-adv-widget footer-adv-widget-1" >
+<div id="custom_html-4" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"></div></div>				</div>
+<div class="ast-col-lg-3 ast-col-md-3 ast-col-sm-12 ast-col-xs-12 footer-adv-widget footer-adv-widget-2" >
+<div id="custom_html-3" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"></div></div>				</div>
+<div class="ast-col-lg-3 ast-col-md-3 ast-col-sm-12 ast-col-xs-12 footer-adv-widget footer-adv-widget-3" >
+<div id="custom_html-5" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"></div></div>				</div>
+<div class="ast-col-lg-3 ast-col-md-3 ast-col-sm-12 ast-col-xs-12 footer-adv-widget footer-adv-widget-4" >
+<div id="custom_html-6" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"></div></div>				</div>
+</div><!-- .ast-row -->
+</div><!-- .ast-container -->
+</div><!-- .footer-adv-overlay-->
+</div><!-- .ast-theme-footer .footer-adv-layout-4 -->
+<div class="ast-small-footer footer-sml-layout-2">
+<div class="ast-footer-overlay">
+<div class="ast-container">
+<div class="ast-small-footer-wrap" >
+<div class="ast-row ast-flex">
+<div class="ast-small-footer-section ast-small-footer-section-1 ast-small-footer-section-equally ast-col-md-6" >
+Copyright © 2026 <span class="ast-footer-site-title">Debi Gueron</span>						</div>
+<div class="ast-small-footer-section ast-small-footer-section-2 ast-small-footer-section-equally ast-col-md-6" >
+<div class="footer-primary-navigation"><ul id="menu-main" class="nav-menu"><li id="menu-item-17" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-17"><a href="https://debigueron.com/" class="menu-link">Home</a></li>
+<li id="menu-item-18" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18"><a href="https://debigueron.com/about/" class="menu-link">About</a></li>
+<li id="menu-item-19" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-19"><a href="https://debigueron.com/books/" class="menu-link">Books</a></li>
+<li id="menu-item-20" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="https://debigueron.com/characters/" class="menu-link">Characters</a></li>
+<li id="menu-item-478" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-478"><a href="https://debigueron.com/blog/" class="menu-link">Blog</a></li>
+<li id="menu-item-21" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21"><a href="https://debigueron.com/contact/" class="menu-link">Contact</a></li>
+<li id="menu-item-338" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-338"><a rel="privacy-policy" href="https://debigueron.com/privacy-policy/" class="menu-link">Privacy Policy</a></li>
+</ul></div>						</div>
+</div> <!-- .ast-row.ast-flex -->
+</div><!-- .ast-small-footer-wrap -->
+</div><!-- .ast-container -->
+</div><!-- .ast-footer-overlay -->
+</div><!-- .ast-small-footer-->
+</footer><!-- #colophon -->
+</div><!-- #page -->
+<!-- Meta Pixel Event Code -->
+<script type='text/javascript'>
+(function () {
+function runPixelCode( response ) {
+if ( ! response || ! response.data || ! response.data.fb_pxl_code ) {
+return;
+}
+try {
+new Function( response.data.fb_pxl_code )();
+} catch ( e ) {
+console && console.warn
+&& console.warn( 'Meta Pixel response parsing failed. Please check if your pixel is connected.', e );
+}
+}
+var radio = window.nfRadio
+|| ( window.Backbone && window.Backbone.Radio );
+if ( radio && radio.channel ) {
+radio.channel( 'forms' ).on( 'submit:response', runPixelCode );
+}
+if ( window.jQuery ) {
+window.jQuery( document ).on(
+'nfFormSubmitResponse',
+function ( event, data ) {
+if ( data && data.response ) {
+runPixelCode( data.response );
+}
+}
+);
+}
+})();
+</script>
+<!-- End Meta Pixel Event Code -->
+<!-- Meta Pixel Event Code -->
+<script type='text/javascript'>
+(function ( $ ) {
+if ( ! $ || typeof document === 'undefined' ) {
+return;
+}
+// WPForms triggers this jQuery event and passes the AJAX response object.
+$( document ).on( 'wpformsAjaxSubmitSuccess', function ( event, data ) {
+if ( data && data.data && data.data.fb_pxl_code ) {
+try {
+new Function( data.data.fb_pxl_code )();
+} catch ( e ) {
+console && console.warn && console.warn( 'Meta Pixel eval failed', e );
+}
+}
+} );
+})( window.jQuery );
+</script>
+<!-- End Meta Pixel Event Code -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/astra/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript">
+(function() {
+// Global page view and session tracking for UAEL Modal Popup feature
+try {
+// Session tracking: increment if this is a new session
+// Check if any popup on this page uses current page tracking
+var hasCurrentPageTracking = false;
+var currentPagePopups = [];
+// Check all modal popups on this page for current page tracking
+if (typeof jQuery !== 'undefined') {
+jQuery('.uael-modal-parent-wrapper').each(function() {
+var scope = jQuery(this).data('page-views-scope');
+var enabled = jQuery(this).data('page-views-enabled');
+var popupId = jQuery(this).attr('id').replace('-overlay', '');	
+if (enabled === 'yes' && scope === 'current') {
+hasCurrentPageTracking = true;
+currentPagePopups.push(popupId);
+}
+});
+}
+// Global tracking: ALWAYS increment if ANY popup on the site uses global tracking
+// Current page tracking: increment per-page counters
+if (hasCurrentPageTracking && currentPagePopups.length > 0) {
+var currentUrl = window.location.href;
+var urlKey = 'uael_page_views_' + btoa(currentUrl).replace(/[^a-zA-Z0-9]/g, '').substring(0, 50);
+var currentPageViews = parseInt(localStorage.getItem(urlKey) || '0');
+currentPageViews++;
+localStorage.setItem(urlKey, currentPageViews.toString());
+// Store URL mapping for each popup
+for (var i = 0; i < currentPagePopups.length; i++) {
+var popupUrlKey = 'uael_popup_' + currentPagePopups[i] + '_url_key';
+localStorage.setItem(popupUrlKey, urlKey);
+}
+}
+} catch (e) {
+// Silently fail if localStorage is not available
+}
+})();
+</script>
+<div data-elementor-type="popup" data-elementor-id="547" class="elementor elementor-547 elementor-location-popup" data-elementor-settings="{&quot;a11y_navigation&quot;:&quot;yes&quot;,&quot;triggers&quot;:{&quot;scrolling_offset&quot;:10,&quot;scrolling&quot;:&quot;yes&quot;,&quot;scrolling_direction&quot;:&quot;down&quot;},&quot;timing&quot;:{&quot;times_times&quot;:2,&quot;times_count&quot;:&quot;close&quot;,&quot;times&quot;:&quot;yes&quot;}}" data-elementor-post-type="elementor_library">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-cacacc3 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="cacacc3" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
+<div class="elementor-container elementor-column-gap-wide">
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-96d8672" data-id="96d8672" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-5718fb4 elementor-widget elementor-widget-image" data-id="5718fb4" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+<div class="elementor-widget-container">
+<img width="500" height="565" src="https://debigueron.com/wp-content/uploads/2019/02/the-twins.png" class="attachment-large size-large wp-image-286" alt="" srcset="https://debigueron.com/wp-content/uploads/2019/02/the-twins.png 500w, https://debigueron.com/wp-content/uploads/2019/02/the-twins-265x300.png 265w" sizes="(max-width: 500px) 100vw, 500px" />															</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-fbf268c" data-id="fbf268c" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-8769548 elementor-widget elementor-widget-heading" data-id="8769548" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Subscribe to Our Newsletter</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-b7384ba elementor-widget elementor-widget-heading" data-id="b7384ba" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<p class="elementor-heading-title elementor-size-default">and receive a special gift from us!
+<br />
+A free 32-page printable coloring-in book.</p>				</div>
+</div>
+<div class="elementor-element elementor-element-d425068 uael-gf-ajax-yes uael-gf-button-justify uael-gf-style-box uael-gf-input-size-sm uael-gf-enable-classes-no uael-gf-btn-size-sm elementor-widget elementor-widget-uael-gf-styler" data-id="d425068" data-element_type="widget" data-e-type="widget" data-widget_type="uael-gf-styler.default">
+<div class="elementor-widget-container">
+<div class="uael-gf-style uael-gf-check-style elementor-clickable">
+<div class='gf_browser_chrome gform_wrapper gform_legacy_markup_wrapper gform-theme--no-framework' data-form-theme='legacy' data-form-index='0' id='gform_wrapper_3' ><div id='gf_3' class='gform_anchor' tabindex='-1'></div><form method='post' enctype='multipart/form-data' target='gform_ajax_frame_3' id='gform_3'  action='/books/vaulting-ambition/#gf_3' data-formid='3' novalidate>
+<div class='gform-body gform_body'><ul id='gform_fields_3' class='gform_fields top_label form_sublabel_below description_below validation_below'><li id="field_3_3" class="gfield gfield--type-honeypot gform_validation_container field_sublabel_below gfield--has-description field_description_below field_validation_below gfield_visibility_visible"  ><label class='gfield_label gform-field-label' for='input_3_3'><span class='gform-field-label__text'>Phone</span></label><div class='ginput_container'><input name='input_3' id='input_3_3' type='text' value='' autocomplete='new-password'/></div><div class='gfield_description' id='gfield_description_3_3'>This field is for validation purposes and should be left unchanged.</div></li><li id="field_3_2" class="gfield gfield--type-email gfield_contains_required field_sublabel_below gfield--no-description field_description_below hidden_label field_validation_below gfield_visibility_visible"  ><label class='gfield_label gform-field-label' for='input_3_2'><span class='gform-field-label__text'>Email Address</span><span class="gfield_required"><span class="gfield_required gfield_required_text">(Required)</span></span></label><div class='ginput_container ginput_container_email'>
+<input name='input_2' id='input_3_2' type='email' value='' class='large' tabindex='1'  placeholder='Email Address' aria-required="true" aria-invalid="false"  />
+</div></li></ul></div>
+<div class='gform-footer gform_footer top_label'> <button type='submit' id='gform_submit_button_3' class='gform_button button' onclick='gform.submission.handleButtonClick(this);' data-submission-type='submit' tabindex='2'>Get Your FREE PDF</button> <input type='hidden' name='gform_ajax' value='form_id=3&amp;title=&amp;description=&amp;tabindex=1&amp;theme=legacy&amp;styles=[]&amp;hash=783d530437fa54a2277c120cdd158775' /><input type='hidden' class='gform_hidden' name='gform_submission_speeds' value='{&quot;pages&quot;:[]}' />
+<input type='hidden' class='gform_hidden' name='gform_submission_method' data-js='gform_submission_method_3' value='iframe' />
+<input type='hidden' class='gform_hidden' name='gform_theme' data-js='gform_theme_3' id='gform_theme_3' value='legacy' />
+<input type='hidden' class='gform_hidden' name='gform_style_settings' data-js='gform_style_settings_3' id='gform_style_settings_3' value='[]' />
+<input type='hidden' class='gform_hidden' name='is_submit_3' value='1' />
+<input type='hidden' class='gform_hidden' name='gform_submit' value='3' />
+<input type='hidden' class='gform_hidden' name='gform_currency' data-currency='USD' value='imga6iruQ7TLLaGiAPf5HPPvDCNUF8OImFIYZxBvx56F1cv8Zt+68n0Q/JdGEfeGFDmQ8zosPFayJ+1t3J+MSbLV+pWDrFrdgp6sLdCyHo7RBfE=' />
+<input type='hidden' class='gform_hidden' name='gform_unique_id' value='' />
+<input type='hidden' class='gform_hidden' name='state_3' value='WyJ7XCJnZm9ybV9zdWJtaXNzaW9uX21ldGhvZFwiOltcIjJjMDhkOTdmNGE1ZjFiYjUwMjEyZTdlN2I0MDRmOGJmXCIsXCIzODgwYmJiM2MwYzFlZGVjZmQwYjZhOWFkZTI0ZDRjOVwiLFwiZWZmMmEzM2Y0N2U5MmI2NTM5MmEwMDgzYjliNGUyZjhcIl0sXCJnZm9ybV90aGVtZVwiOlwiOGZmNDNmMDdmNzE1NTJmZTM2N2Y2ODc2NTk5YWRmM2FcIixcImdmb3JtX3N0eWxlX3NldHRpbmdzXCI6XCI5ZjNmOGMxMzc0N2I5NjhiZjJmMmUyMTA3MDMxMjFhYVwiLFwiZm9ybV9pZFwiOlwiZGE0OWYwZmIxMGY3ZTc0M2FhYjAwMzBmMjBkOGI4MDBcIixcInVybFwiOlwiYjRiNjBhMjFlZWIxYjA2ZmYzZDcxZTljODAxNTQ2N2JcIixcInN0YXRlX3RpbWVzdGFtcFwiOlwiMDZiNmM3ZDc2OWVmZWQ2MDU4N2QzMjJhNDk1ZTdiNjFcIn0iLCJlNTQ4MjdhN2NkOThjY2RiZTg1YWRiYjNiYzJlYzljMCIsMTc5MjEwNjEyOV0=' />
+<input type='hidden' autocomplete='off' class='gform_hidden' name='gform_target_page_number_3' id='gform_target_page_number_3' value='0' />
+<input type='hidden' autocomplete='off' class='gform_hidden' name='gform_source_page_number_3' id='gform_source_page_number_3' value='1' />
+<input type='hidden' name='gform_field_values' value='' />
+</div>
+</form>
+</div>
+<iframe style='display:none;width:0px;height:0px;' src='about:blank' name='gform_ajax_frame_3' id='gform_ajax_frame_3' title='This iframe contains the logic required to handle Ajax powered Gravity Forms.'></iframe>
+<script>
+gform.initializeOnLoaded( function() {jQuery('#gform_ajax_frame_3').on('load',function(){var contents = jQuery(this).contents().find('*').html();var is_postback = contents.indexOf('GF_AJAX_POSTBACK') >= 0;if(!is_postback){return;}var form_content = jQuery(this).contents().find('#gform_wrapper_3');var is_confirmation = jQuery(this).contents().find('#gform_confirmation_wrapper_3').length > 0;var is_redirect = contents.indexOf('gformRedirect(){') >= 0;var is_form = form_content.length > 0 && ! is_redirect && ! is_confirmation;var mt = parseInt(jQuery('html').css('margin-top'), 10) + parseInt(jQuery('body').css('margin-top'), 10) + 100;if(is_form){jQuery('#gform_wrapper_3').html(form_content.html());if(form_content.hasClass('gform_validation_error')){jQuery('#gform_wrapper_3').addClass('gform_validation_error');} else {jQuery('#gform_wrapper_3').removeClass('gform_validation_error');}setTimeout( function() { /* delay the scroll by 50 milliseconds to fix a bug in chrome */ jQuery(document).scrollTop(jQuery('#gform_wrapper_3').offset().top - mt); }, 50 );var current_page = jQuery('#gform_source_page_number_3').val();jQuery(document).trigger('gform_page_loaded', [3, current_page]);window['gf_submitting_3'] = false;}else if(!is_redirect){var confirmation_content = jQuery(this).contents().find('.GF_AJAX_POSTBACK').html();if(!confirmation_content){confirmation_content = contents;}jQuery('#gform_wrapper_3').replaceWith(confirmation_content);jQuery(document).scrollTop(jQuery('#gf_3').offset().top - mt);jQuery(document).trigger('gform_confirmation_loaded', [3]);window['gf_submitting_3'] = false;wp.a11y.speak(jQuery('#gform_confirmation_message_3').text());}else{jQuery('#gform_3').append(contents);if(window['gformRedirect']) {gformRedirect();}}jQuery(document).trigger("gform_pre_post_render", [{ formId: "3", currentPage: "current_page", abort: function() { this.preventDefault(); } }]);        if (event && event.defaultPrevented) {                return;        }        const gformWrapperDiv = document.getElementById( "gform_wrapper_3" );        if ( gformWrapperDiv ) {            const visibilitySpan = document.createElement( "span" );            visibilitySpan.id = "gform_visibility_test_3";            gformWrapperDiv.insertAdjacentElement( "afterend", visibilitySpan );        }        const visibilityTestDiv = document.getElementById( "gform_visibility_test_3" );        let postRenderFired = false;        function triggerPostRender() {            if ( postRenderFired ) {                return;            }            postRenderFired = true;            gform.core.triggerPostRenderEvents( 3, current_page );            if ( visibilityTestDiv ) {                visibilityTestDiv.parentNode.removeChild( visibilityTestDiv );            }        }        function debounce( func, wait, immediate ) {            var timeout;            return function() {                var context = this, args = arguments;                var later = function() {                    timeout = null;                    if ( !immediate ) func.apply( context, args );                };                var callNow = immediate && !timeout;                clearTimeout( timeout );                timeout = setTimeout( later, wait );                if ( callNow ) func.apply( context, args );            };        }        const debouncedTriggerPostRender = debounce( function() {            triggerPostRender();        }, 200 );        if ( visibilityTestDiv && visibilityTestDiv.offsetParent === null ) {            const observer = new MutationObserver( ( mutations ) => {                mutations.forEach( ( mutation ) => {                    if ( mutation.type === 'attributes' && visibilityTestDiv.offsetParent !== null ) {                        debouncedTriggerPostRender();                        observer.disconnect();                    }                });            });            observer.observe( document.body, {                attributes: true,                childList: false,                subtree: true,                attributeFilter: [ 'style', 'class' ],            });        } else {            triggerPostRender();        }    } );} );
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Meta Pixel Event Code -->
+<script type='text/javascript'>
+document.addEventListener( 'wpcf7mailsent', function( event ) {
+if( "fb_pxl_code" in event.detail.apiResponse){
+eval(event.detail.apiResponse.fb_pxl_code);
+}
+}, false );
+</script>
+<!-- End Meta Pixel Event Code -->
+<div id="fb-pxl-ajax-code"></div>			<script>
+( () => {
+const lazyloadRunObserver = () => {
+const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+entries.forEach( ( entry ) => {
+if ( entry.isIntersecting ) {
+let lazyloadBackground = entry.target;
+if( lazyloadBackground ) {
+lazyloadBackground.classList.add( 'e-lazyloaded' );
+}
+lazyloadBackgroundObserver.unobserve( entry.target );
+}
+});
+}, { rootMargin: '200px 0px 200px 0px' } );
+lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+lazyloadBackgroundObserver.observe( lazyloadBackground );
+} );
+};
+const events = [
+'DOMContentLoaded',
+'elementor/lazyload/observe',
+];
+events.forEach( ( event ) => {
+document.addEventListener( event, lazyloadRunObserver );
+} );
+} )();
+</script>
+<!-- <link rel='stylesheet' id='astra-galleries-css-css' href='https://debigueron.com/wp-content/themes/astra/assets/css/minified/galleries.min.css?ver=4.14.0' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="//debigueron.com/wp-content/cache/wpfc-minified/dq1g080m/hyaqa.css" media="all"/>
+<script id="astra-theme-js-js-extra">
+var astra = {"break_point":"921","isRtl":"","is_scroll_to_id":"","is_scroll_to_top":"","is_header_footer_builder_active":"","responsive_cart_click":"flyout","is_dark_palette":""};
+//# sourceURL=astra-theme-js-js-extra
+</script>
+<script id="astra-theme-js-js" src="https://debigueron.com/wp-content/themes/astra/assets/js/minified/style.min.js?ver=4.14.0"></script>
+<script id="astra-addon-js-js-extra">
+var astraAddon = {"is_elementor_active":"1","sticky_active":"1","svgIconClose":"\u003Cspan class=\"ast-icon icon-close\"\u003E\u003C/span\u003E","header_main_stick":"1","header_above_stick":"","header_below_stick":"","stick_header_meta":"","header_main_stick_meta":"","header_above_stick_meta":"","header_below_stick_meta":"","sticky_header_on_devices":"desktop","sticky_header_style":"none","sticky_hide_on_scroll":"0","break_point":"921","tablet_break_point":"768","mobile_break_point":"544","header_main_shrink":"1","header_animation_effect":"none","header_logo_width":"","responsive_header_logo_width":{"desktop":200,"tablet":"","mobile":""},"stick_origin_position":"","site_layout":"","site_content_width":"1240","site_layout_padded_width":"1200","site_layout_box_width":"1200","header_builder_active":"","component_limit":"10","is_header_builder_active":""};
+//# sourceURL=astra-addon-js-js-extra
+</script>
+<script id="astra-addon-js-js" src="https://debigueron.com/wp-content/uploads/astra-addon/astra-addon-6acf90d43b7782-32856131.js?ver=4.13.10"></script>
+<script id="astra-dom-purify-js" src="https://debigueron.com/wp-content/plugins/astra-addon/assets/js/minified/purify.min.js?ver=4.13.10"></script>
+<script id="elementor-webpack-runtime-js" src="https://debigueron.com/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=4.3.5"></script>
+<script id="elementor-frontend-modules-js" src="https://debigueron.com/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=4.3.5"></script>
+<script id="jquery-ui-core-js-before">
+jQuery.uiBackCompat = true;
+//# sourceURL=jquery-ui-core-js-before
+</script>
+<script id="jquery-ui-core-js" src="https://debigueron.com/wp-includes/js/jquery/ui/core.min.js?ver=1.14.2"></script>
+<script id="elementor-frontend-js-extra">
+var uael_particles_script = {"uael_particles_url":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/min-js/uael-particles.min.js","particles_url":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/lib/particles/particles.min.js","snowflakes_image":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/snowflake.svg","gift":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/gift.png","tree":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/tree.png","skull":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/skull.png","ghost":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/ghost.png","moon":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/moon.png","bat":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/bat.png","pumpkin":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/pumpkin.png"};
+//# sourceURL=elementor-frontend-js-extra
+</script>
+<script id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnX":"Share on X","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close","a11yCarouselPrevSlideMessage":"Previous slide","a11yCarouselNextSlideMessage":"Next slide","a11yCarouselFirstSlideMessage":"This is the first slide","a11yCarouselLastSlideMessage":"This is the last slide","a11yCarouselPaginationBulletMessage":"Go to slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"hasCustomBreakpoints":false},"version":"4.3.5","is_static":false,"experimentalFeatures":{"additional_custom_breakpoints":true,"theme_builder_v2":true,"import-export-customization":true,"e_pro_atomic_form":true,"e_pro_collection_loop":true},"urls":{"assets":"https:\/\/debigueron.com\/wp-content\/plugins\/elementor\/assets\/","ajaxurl":"https:\/\/debigueron.com\/wp-admin\/admin-ajax.php","uploadUrl":"https:\/\/debigueron.com\/wp-content\/uploads"},"nonces":{"floatingButtonsClickTracking":"5ce7a2e541","atomicFormsSendForm":"22e768af32"},"swiperClass":"swiper","settings":{"page":[],"editorPreferences":[]},"kit":{"global_image_lightbox":"yes","active_breakpoints":["viewport_mobile","viewport_tablet"],"lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":1438,"title":"Vaulting%20Ambition%20-%20Debi%20Gueron","excerpt":"","featuredImage":false}};
+//# sourceURL=elementor-frontend-js-before
+</script>
+<script id="elementor-frontend-js" src="https://debigueron.com/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=4.3.5"></script>
+<script id="elementor-frontend-js-after">
+window.scope_array = [];
+window.backend = 0;
+jQuery.cachedScript = function( url, options ) {
+// Allow user to set any option except for dataType, cache, and url.
+options = jQuery.extend( options || {}, {
+dataType: "script",
+cache: true,
+url: url
+});
+// Return the jqXHR object so we can chain callbacks.
+return jQuery.ajax( options );
+};
+jQuery( window ).on( "elementor/frontend/init", function() {
+elementorFrontend.hooks.addAction( "frontend/element_ready/global", function( $scope, $ ){
+if ( "undefined" == typeof $scope ) {
+return;
+}
+if ( $scope.hasClass( "uael-particle-yes" ) ) {
+window.scope_array.push( $scope );
+$scope.find(".uael-particle-wrapper").addClass("js-is-enabled");
+}else{
+return;
+}
+if(elementorFrontend.isEditMode() && $scope.find(".uael-particle-wrapper").hasClass("js-is-enabled") && window.backend == 0 ){
+var uael_url = uael_particles_script.uael_particles_url;
+jQuery.cachedScript( uael_url );
+window.backend = 1;
+}else if(elementorFrontend.isEditMode()){
+var uael_url = uael_particles_script.uael_particles_url;
+jQuery.cachedScript( uael_url ).done(function(){
+var flag = true;
+});
+}
+});
+});
+// Added both `document` and `window` event listeners to address issues where some users faced problems with the `document` event not triggering as expected.
+// Define cachedScript globally to avoid redefining it.
+jQuery.cachedScript = function(url, options) {
+options = jQuery.extend(options || {}, {
+dataType: "script",
+cache: true,
+url: url
+});
+return jQuery.ajax(options); // Return the jqXHR object so we can chain callbacks
+};
+let uael_particle_loaded = false; //flag to prevent multiple script loads.
+jQuery( document ).on( "ready elementor/popup/show", () => {
+loadParticleScript();
+});
+jQuery( window ).one( "elementor/frontend/init", () => {
+if (!uael_particle_loaded) {
+loadParticleScript();
+}
+});
+function loadParticleScript(){
+// Use jQuery to check for the presence of the element
+if (jQuery(".uael-particle-yes").length < 1) {
+return;
+}
+uael_particle_loaded = true;
+var uael_url = uael_particles_script.uael_particles_url;
+// Call the cachedScript function
+jQuery.cachedScript(uael_url);
+}
+//# sourceURL=elementor-frontend-js-after
+</script>
+<script id="uael-frontend-script-js-extra">
+var uael_script = {"ajax_url":"https://debigueron.com/wp-admin/admin-ajax.php"};
+var uael_post_loader_script = {"post_loader":"https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/img/post-loader.gif"};
+var uael_login_form_script = {"ajax_url":"https://debigueron.com/wp-admin/admin-ajax.php","invalid_mail":"Enter valid Email!","invalid_phone":"Enter valid Phone Number!","error_phone":"Phone number should not contain spaces!","pass_unmatch":"The specified password do not match!","required":"This Field is required!","incorrect_password":"Error: The Password you have entered is incorrect.","invalid_username":"Unknown username. Check again or try your email address.","invalid_email":"Unknown email address. Check again or try your username.","logged_in_message":"Thanks for logging in, ","wp_version":"1"};
+//# sourceURL=uael-frontend-script-js-extra
+</script>
+<script id="uael-frontend-script-js" src="https://debigueron.com/wp-content/plugins/ultimate-elementor/assets/min-js/uael-frontend.min.js?ver=1.45.5"></script>
+<script id="swiper-js" src="https://debigueron.com/wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js?ver=8.4.5"></script>
+<script id="wp-dom-ready-js" src="https://debigueron.com/wp-includes/js/dist/dom-ready.min.js?ver=3fe927cab37bf38d6a23"></script>
+<script id="wp-hooks-js" src="https://debigueron.com/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="https://debigueron.com/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="wp-a11y-js" src="https://debigueron.com/wp-includes/js/dist/a11y.min.js?ver=31c6cec5a4ff7aff483d"></script>
+<script id="gform_placeholder-js" defer='defer' src="https://debigueron.com/wp-content/plugins/gravityforms/js/placeholders.jquery.min.js?ver=3.1.3"></script>
+<script id="gform_gravityforms_theme_vendors-js" defer='defer' src="https://debigueron.com/wp-content/plugins/gravityforms/assets/js/dist/vendor-theme.min.js?ver=0c901cb641ce64b99c20ea1a4d208cc9"></script>
+<script id="gform_gravityforms_theme-js-extra">
+var gform_theme_config = {"common":{"form":{"honeypot":{"version_hash":"743f9786fafbb1f937dcb021432ff0bf"},"ajax":{"ajaxurl":"https://debigueron.com/wp-admin/admin-ajax.php","ajax_submission_nonce":"df87464ca7","i18n":{"step_announcement":"Step %1$s of %2$s, %3$s","unknown_error":"There was an unknown error processing your request. Please try again.","error_403":"The request was blocked (403 error) for unknown security reasons. Remove any code-like text (scripts or DB queries) and try again."}}}},"hmr_dev":"","public_path":"https://debigueron.com/wp-content/plugins/gravityforms/assets/js/dist/","config_nonce":"a3271527bf"};
+//# sourceURL=gform_gravityforms_theme-js-extra
+</script>
+<script id="gform_gravityforms_theme-js" defer='defer' src="https://debigueron.com/wp-content/plugins/gravityforms/assets/js/dist/scripts-theme.min.js?ver=373fcf115e257ba62fdd1a205717b981"></script>
+<script id="elementor-pro-frontend-js-before">
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/debigueron.com\/wp-admin\/admin-ajax.php","nonce":"627e0c2ce4","urls":{"assets":"https:\/\/debigueron.com\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/debigueron.com\/wp-json\/"},"settings":{"lazy_load_background_images":true},"popup":{"hasPopUps":true},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"},"x-twitter":{"title":"X"},"threads":{"title":"Threads"}},"facebook_sdk":{"lang":"en_US","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/debigueron.com\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+//# sourceURL=elementor-pro-frontend-js-before
+</script>
+<script id="elementor-pro-frontend-js" src="https://debigueron.com/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=4.3.2"></script>
+<script id="pro-elements-handlers-js" src="https://debigueron.com/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=4.3.2"></script>
+<script>
+/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
+</script>
+<script>
+gform.initializeOnLoaded( function() { jQuery(document).on('gform_post_render', function(event, formId, currentPage){if(formId == 3) {if(typeof Placeholders != 'undefined'){
+Placeholders.enable();
+}} } );jQuery(document).on('gform_post_conditional_logic', function(event, formId, fields, isInit){} ) } );
+</script>
+<script>
+gform.initializeOnLoaded( function() {jQuery(document).trigger("gform_pre_post_render", [{ formId: "3", currentPage: "1", abort: function() { this.preventDefault(); } }]);        if (event && event.defaultPrevented) {                return;        }        const gformWrapperDiv = document.getElementById( "gform_wrapper_3" );        if ( gformWrapperDiv ) {            const visibilitySpan = document.createElement( "span" );            visibilitySpan.id = "gform_visibility_test_3";            gformWrapperDiv.insertAdjacentElement( "afterend", visibilitySpan );        }        const visibilityTestDiv = document.getElementById( "gform_visibility_test_3" );        let postRenderFired = false;        function triggerPostRender() {            if ( postRenderFired ) {                return;            }            postRenderFired = true;            gform.core.triggerPostRenderEvents( 3, 1 );            if ( visibilityTestDiv ) {                visibilityTestDiv.parentNode.removeChild( visibilityTestDiv );            }        }        function debounce( func, wait, immediate ) {            var timeout;            return function() {                var context = this, args = arguments;                var later = function() {                    timeout = null;                    if ( !immediate ) func.apply( context, args );                };                var callNow = immediate && !timeout;                clearTimeout( timeout );                timeout = setTimeout( later, wait );                if ( callNow ) func.apply( context, args );            };        }        const debouncedTriggerPostRender = debounce( function() {            triggerPostRender();        }, 200 );        if ( visibilityTestDiv && visibilityTestDiv.offsetParent === null ) {            const observer = new MutationObserver( ( mutations ) => {                mutations.forEach( ( mutation ) => {                    if ( mutation.type === 'attributes' && visibilityTestDiv.offsetParent !== null ) {                        debouncedTriggerPostRender();                        observer.disconnect();                    }                });            });            observer.observe( document.body, {                attributes: true,                childList: false,                subtree: true,                attributeFilter: [ 'style', 'class' ],            });        } else {            triggerPostRender();        }    } );
+</script>
+</body>
+</html><!-- WP Fastest Cache file was created in 1.379 seconds, on October 16, 2026 @ 2:15 am -->

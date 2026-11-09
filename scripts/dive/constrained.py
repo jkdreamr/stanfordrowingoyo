@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 import unicodedata
 
-from sources import acquire, expect_count
+from sources import acquire, expect_count, immutable_dataset
 
 HERE = Path(__file__).parent
 
@@ -83,7 +83,11 @@ def read_specs(verify_sources=False):
         for source in container['sources']:
             if not source.get('revision') or not source.get('expect'):
                 raise ValueError('Missing pinned provenance or expected count')
+            if 'dataset' in source and not immutable_dataset(source['dataset']):
+                raise ValueError(f"Mutable dataset source: {source['dataset']}")
             if 'dataset' not in source:
+                if not isinstance(source['revision'], int) or source['revision'] <= 0:
+                    raise ValueError('Wikipedia requires a pinned positive revision')
                 expect_count(source['reviewed'], source['expect'], source['page'])
             sources[json.dumps(source, sort_keys=True)] = source
     if verify_sources:

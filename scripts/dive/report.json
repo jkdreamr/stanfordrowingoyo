@@ -11441,7 +11441,7 @@
   {
     "id": "spielberg-films",
     "text": "Name a feature film directed by Steven Spielberg.",
-    "active": true,
+    "active": false,
     "size": 37,
     "tiers": {
       "surface": 3,
@@ -11463,9 +11463,39 @@
     "constrained": true
   },
   {
+    "id": "national-film-registry-1989",
+    "text": "Name a film selected for the National Film Registry in its inaugural year, 1989.",
+    "active": true,
+    "size": 25,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 9,
+      "rare": 6,
+      "deep": 4,
+      "gem": 1
+    },
+    "surface": [
+      "Star Wars",
+      "Citizen Kane",
+      "The Wizard of Oz",
+      "Snow White and the Seven Dwarfs",
+      "Casablanca"
+    ],
+    "pageviews": 0,
+    "sitelinks": 5,
+    "wikidata": 0,
+    "aliases": 17,
+    "too_clever": [],
+    "gem": "The Learning Tree",
+    "theme": "film",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "hitchcock-films",
     "text": "Name a feature film directed by Alfred Hitchcock.",
-    "active": true,
+    "active": false,
     "size": 53,
     "tiers": {
       "surface": 3,
@@ -11487,9 +11517,33 @@
     "constrained": true
   },
   {
+    "id": "stephen-king-theatrical-films",
+    "text": "Name a theatrically released feature film adapted from a Stephen King story, by 2025.",
+    "active": true,
+    "size": 46,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 1,
+      "school": 18,
+      "rare": 12,
+      "deep": 9,
+      "gem": 1
+    },
+    "surface": ["The Shawshank Redemption", "The Green Mile", "The Shining", "It", "Carrie"],
+    "pageviews": 0,
+    "sitelinks": 8,
+    "wikidata": 0,
+    "aliases": 28,
+    "too_clever": ["'Salem's Lot"],
+    "gem": "Julie Ganapathi",
+    "theme": "film",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "kubrick-films",
     "text": "Name a feature film directed by Stanley Kubrick.",
-    "active": true,
+    "active": false,
     "size": 13,
     "tiers": {
       "surface": 3,
@@ -11511,9 +11565,33 @@
     "constrained": true
   },
   {
+    "id": "oscar-five-wins-no-best-picture",
+    "text": "Name a film that won at least five competitive Oscars but not Best Picture.",
+    "active": true,
+    "size": 16,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 4,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Star Wars", "Gravity", "Mad Max: Fury Road", "Cabaret"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 5,
+    "too_clever": [],
+    "gem": "Wilson",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
     "id": "nolan-films",
     "text": "Name a feature film directed by Christopher Nolan.",
-    "active": true,
+    "active": false,
     "size": 13,
     "tiers": {
       "surface": 3,
@@ -11535,9 +11613,33 @@
     "constrained": true
   },
   {
+    "id": "live-action-batman-actors",
+    "text": "Name an actor who played Batman in a live-action theatrical film or serial, by 2025.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 0,
+      "school": 2,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Christian Bale", "Ben Affleck", "Michael Keaton", "Robert Pattinson"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 13,
+    "too_clever": [],
+    "gem": "Robert Lowery",
+    "theme": "film",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "tarantino-films",
     "text": "Name a feature film directed by Quentin Tarantino.",
-    "active": true,
+    "active": false,
     "size": 10,
     "tiers": {
       "surface": 3,
@@ -11559,9 +11661,33 @@
     "constrained": true
   },
   {
+    "id": "worldwide-box-office-record-films",
+    "text": "Name a film that has held the all-time worldwide box-office record, by 2025.",
+    "active": true,
+    "size": 11,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Jurassic Park", "Star Wars", "Avatar", "Titanic", "Avengers: Endgame"],
+    "pageviews": 0,
+    "sitelinks": 5,
+    "wikidata": 0,
+    "aliases": 13,
+    "too_clever": [],
+    "gem": "The Birth of a Nation",
+    "theme": "film",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "burton-films",
     "text": "Name a feature film directed by Tim Burton.",
-    "active": true,
+    "active": false,
     "size": 20,
     "tiers": {
       "surface": 3,
@@ -11583,9 +11709,33 @@
     "constrained": true
   },
   {
+    "id": "oscar-song-and-score-films",
+    "text": "Name a film that won Oscars for both a song and its score.",
+    "active": true,
+    "size": 20,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 0,
+      "school": 7,
+      "rare": 5,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["The Lion King", "La La Land", "Titanic", "Aladdin"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 3,
+    "too_clever": [],
+    "gem": "Born Free",
+    "theme": "film",
+    "cluster": "oscars",
+    "constrained": true
+  },
+  {
     "id": "pixar-films",
     "text": "Name a Pixar feature film.",
-    "active": true,
+    "active": false,
     "size": 31,
     "tiers": {
       "surface": 3,
@@ -11607,9 +11757,33 @@
     "constrained": true
   },
   {
+    "id": "annual-worldwide-box-office-1990-2025",
+    "text": "Name the top-grossing film worldwide of its release year, for any year in 1990–2025.",
+    "active": true,
+    "size": 38,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 1,
+      "school": 14,
+      "rare": 10,
+      "deep": 7,
+      "gem": 1
+    },
+    "surface": ["Inside Out 2", "Avatar", "Titanic", "Barbie", "Avengers: Endgame"],
+    "pageviews": 0,
+    "sitelinks": 6,
+    "wikidata": 0,
+    "aliases": 90,
+    "too_clever": ["Die Hard with a Vengeance"],
+    "gem": "Demon Slayer: Mugen Train",
+    "theme": "film",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "bond-films",
     "text": "Name a James Bond film.",
-    "active": true,
+    "active": false,
     "size": 26,
     "tiers": {
       "surface": 3,
@@ -11628,6 +11802,36 @@
     "gem": "GoldenEye",
     "theme": "film",
     "cluster": "franchises",
+    "constrained": true
+  },
+  {
+    "id": "bond-villain-actors",
+    "text": "Name an actor who played a main villain in an official Eon James Bond film.",
+    "active": true,
+    "size": 36,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 1,
+      "school": 14,
+      "rare": 8,
+      "deep": 7,
+      "gem": 1
+    },
+    "surface": [
+      "Christoph Waltz",
+      "Rami Malek",
+      "Christopher Walken",
+      "Mads Mikkelsen",
+      "Javier Bardem"
+    ],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 36,
+    "too_clever": ["Eric Pohlmann"],
+    "gem": "Vladek Sheybal",
+    "theme": "film",
+    "cluster": null,
     "constrained": true
   },
   {
@@ -11656,7 +11860,7 @@
   },
   {
     "id": "disney-canon",
-    "text": "Name a Walt Disney Animation Studios feature film.",
+    "text": "Name a Walt Disney Animation Studios feature film released through October 2026.",
     "active": true,
     "size": 64,
     "tiers": {
@@ -11681,7 +11885,7 @@
   {
     "id": "nba-teams",
     "text": "Name a current NBA team.",
-    "active": true,
+    "active": false,
     "size": 30,
     "tiers": {
       "surface": 3,
@@ -11703,9 +11907,40 @@
     "constrained": true
   },
   {
+    "id": "nba-first-overall-picks",
+    "text": "Name a first overall NBA draft pick before 2027.",
+    "active": true,
+    "size": 80,
+    "tiers": {
+      "surface": 6,
+      "tooclever": 1,
+      "school": 33,
+      "rare": 21,
+      "deep": 18,
+      "gem": 1
+    },
+    "surface": [
+      "Magic Johnson",
+      "Tim Duncan",
+      "LeBron James",
+      "Kareem Abdul-Jabbar",
+      "Shaquille O'Neal",
+      "Victor Wembanyama"
+    ],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 86,
+    "too_clever": ["LaRue Martin"],
+    "gem": "Mychal Thompson",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
     "id": "nfl-teams",
     "text": "Name a current NFL team.",
-    "active": true,
+    "active": false,
     "size": 32,
     "tiers": {
       "surface": 3,
@@ -11727,9 +11962,40 @@
     "constrained": true
   },
   {
+    "id": "nfl-former-names",
+    "text": "Name a former team name of a current NFL franchise.",
+    "active": true,
+    "size": 29,
+    "tiers": {
+      "surface": 6,
+      "tooclever": 2,
+      "school": 9,
+      "rare": 6,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": [
+      "St. Louis Rams",
+      "Oakland Raiders",
+      "Washington Redskins",
+      "San Diego Chargers",
+      "Baltimore Colts",
+      "Houston Oilers"
+    ],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 17,
+    "too_clever": ["Steagles", "Card-Pitt"],
+    "gem": "Decatur Staleys",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
     "id": "mlb-teams",
     "text": "Name a current MLB team.",
-    "active": true,
+    "active": false,
     "size": 30,
     "tiers": {
       "surface": 3,
@@ -11751,9 +12017,40 @@
     "constrained": true
   },
   {
+    "id": "mlb-50-homer-seasons",
+    "text": "Name a player with a 50-home-run MLB season before 2026.",
+    "active": true,
+    "size": 34,
+    "tiers": {
+      "surface": 6,
+      "tooclever": 1,
+      "school": 12,
+      "rare": 8,
+      "deep": 6,
+      "gem": 1
+    },
+    "surface": [
+      "Aaron Judge",
+      "Barry Bonds",
+      "Babe Ruth",
+      "Roger Maris",
+      "Sammy Sosa",
+      "Mark McGwire"
+    ],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 51,
+    "too_clever": ["Greg Vaughn"],
+    "gem": "Brady Anderson",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
     "id": "nhl-teams",
     "text": "Name a current NHL team.",
-    "active": true,
+    "active": false,
     "size": 32,
     "tiers": {
       "surface": 3,
@@ -11770,6 +12067,37 @@
     "aliases": 47,
     "too_clever": [],
     "gem": "Seattle Kraken",
+    "theme": "sports",
+    "cluster": "leagues",
+    "constrained": true
+  },
+  {
+    "id": "nhl-500-goal-club",
+    "text": "Name a player with 500 career NHL goals by the end of the 2025–26 season.",
+    "active": true,
+    "size": 50,
+    "tiers": {
+      "surface": 6,
+      "tooclever": 1,
+      "school": 19,
+      "rare": 13,
+      "deep": 10,
+      "gem": 1
+    },
+    "surface": [
+      "Sidney Crosby",
+      "Wayne Gretzky",
+      "Alexander Ovechkin",
+      "Mario Lemieux",
+      "Gordie Howe",
+      "Jaromir Jagr"
+    ],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 67,
+    "too_clever": ["Pat Verbeek"],
+    "gem": "Lanny McDonald",
     "theme": "sports",
     "cluster": "leagues",
     "constrained": true
@@ -11873,7 +12201,7 @@
   {
     "id": "us-presidents",
     "text": "Name a US president.",
-    "active": true,
+    "active": false,
     "size": 45,
     "tiers": {
       "surface": 3,
@@ -11895,9 +12223,33 @@
     "constrained": true
   },
   {
+    "id": "presidents-ex-congress",
+    "text": "Name a US president who served in the US Congress before becoming president.",
+    "active": true,
+    "size": 26,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 10,
+      "rare": 6,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Barack Obama", "Abraham Lincoln", "Joe Biden"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 50,
+    "too_clever": ["John Quincy Adams"],
+    "gem": "William Henry Harrison",
+    "theme": "history",
+    "cluster": "us-politics",
+    "constrained": true
+  },
+  {
     "id": "us-vice-presidents",
     "text": "Name a US vice president.",
-    "active": true,
+    "active": false,
     "size": 50,
     "tiers": {
       "surface": 3,
@@ -11919,9 +12271,33 @@
     "constrained": true
   },
   {
+    "id": "vps-never-president",
+    "text": "Name a former US vice president who never became president.",
+    "active": true,
+    "size": 34,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 1,
+      "school": 13,
+      "rare": 8,
+      "deep": 7,
+      "gem": 1
+    },
+    "surface": ["Al Gore", "Mike Pence", "Dick Cheney", "Kamala Harris"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 55,
+    "too_clever": ["Aaron Burr"],
+    "gem": "William A. Wheeler",
+    "theme": "history",
+    "cluster": "us-politics",
+    "constrained": true
+  },
+  {
     "id": "uk-prime-ministers",
     "text": "Name a British prime minister.",
-    "active": true,
+    "active": false,
     "size": 59,
     "tiers": {
       "surface": 3,
@@ -11938,6 +12314,30 @@
     "aliases": 120,
     "too_clever": [],
     "gem": "Clement Attlee",
+    "theme": "history",
+    "cluster": "uk",
+    "constrained": true
+  },
+  {
+    "id": "pms-two-queens",
+    "text": "Name a British prime minister who served under Queen Victoria or Queen Elizabeth II.",
+    "active": true,
+    "size": 25,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 1,
+      "school": 9,
+      "rare": 6,
+      "deep": 4,
+      "gem": 1
+    },
+    "surface": ["Tony Blair", "Boris Johnson", "Winston Churchill", "Margaret Thatcher"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 53,
+    "too_clever": ["Liz Truss"],
+    "gem": "George Hamilton-Gordon",
     "theme": "history",
     "cluster": "uk",
     "constrained": true
@@ -12689,7 +13089,7 @@
   {
     "id": "japan-prefectures",
     "text": "Name a Japanese prefecture.",
-    "active": true,
+    "active": false,
     "size": 47,
     "tiers": {
       "surface": 3,
@@ -12706,6 +13106,30 @@
     "aliases": 46,
     "too_clever": [],
     "gem": "Okinawa",
+    "theme": "geography",
+    "cluster": "japan",
+    "constrained": true
+  },
+  {
+    "id": "japan-same-name-capitals",
+    "text": "Name a Japanese prefecture whose capital is a city of the same name.",
+    "active": true,
+    "size": 29,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 11,
+      "rare": 7,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Hiroshima", "Nagasaki", "Fukuoka", "Kyōto", "Ōsaka"],
+    "pageviews": 0,
+    "sitelinks": 9,
+    "wikidata": 0,
+    "aliases": 89,
+    "too_clever": [],
+    "gem": "Tottori",
     "theme": "geography",
     "cluster": "japan",
     "constrained": true
@@ -12737,7 +13161,7 @@
   {
     "id": "swiss-cantons",
     "text": "Name a Swiss canton.",
-    "active": true,
+    "active": false,
     "size": 26,
     "tiers": {
       "surface": 3,
@@ -12759,9 +13183,33 @@
     "constrained": true
   },
   {
+    "id": "alpine-four-thousanders",
+    "text": "Name one of the 82 official four-thousand-metre peaks of the Alps.",
+    "active": true,
+    "size": 82,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 35,
+      "rare": 22,
+      "deep": 19,
+      "gem": 1
+    },
+    "surface": ["Mont Blanc", "Matterhorn", "Jungfrau", "Dufourspitze", "Mönch"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 49,
+    "too_clever": [],
+    "gem": "Aiguille du Jardin",
+    "theme": "geography",
+    "cluster": "mountains",
+    "constrained": true
+  },
+  {
     "id": "brazil-states",
     "text": "Name a Brazilian state or federal district.",
-    "active": true,
+    "active": false,
     "size": 27,
     "tiers": {
       "surface": 3,
@@ -12783,9 +13231,33 @@
     "constrained": true
   },
   {
+    "id": "rivers-3000-km",
+    "text": "Name a river or river system more than 3,000 kilometres long.",
+    "active": true,
+    "size": 28,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 10,
+      "rare": 7,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Nile", "Yangtze", "Amazon", "Yellow River", "Mississippi–Missouri"],
+    "pageviews": 0,
+    "sitelinks": 10,
+    "wikidata": 0,
+    "aliases": 82,
+    "too_clever": [],
+    "gem": "Purús",
+    "theme": "geography",
+    "cluster": "rivers",
+    "constrained": true
+  },
+  {
     "id": "mexico-states",
     "text": "Name a Mexican state or Mexico City.",
-    "active": true,
+    "active": false,
     "size": 32,
     "tiers": {
       "surface": 3,
@@ -12807,9 +13279,33 @@
     "constrained": true
   },
   {
+    "id": "us-capitals-not-largest",
+    "text": "Name a US state capital that wasn't its state's largest city in the 2020 census.",
+    "active": true,
+    "size": 33,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 13,
+      "rare": 8,
+      "deep": 6,
+      "gem": 1
+    },
+    "surface": ["Sacramento", "Tallahassee", "Austin", "Albany", "Springfield"],
+    "pageviews": 0,
+    "sitelinks": 16,
+    "wikidata": 0,
+    "aliases": 36,
+    "too_clever": [],
+    "gem": "Pierre",
+    "theme": "geography",
+    "cluster": "us-states",
+    "constrained": true
+  },
+  {
     "id": "indian-states",
     "text": "Name an Indian state or union territory.",
-    "active": true,
+    "active": false,
     "size": 36,
     "tiers": {
       "surface": 3,
@@ -12831,9 +13327,33 @@
     "constrained": true
   },
   {
+    "id": "islands-50000-km2",
+    "text": "Name an island with an area of more than 50,000 square kilometres.",
+    "active": true,
+    "size": 28,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 10,
+      "rare": 7,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Great Britain", "New Guinea", "Greenland", "Madagascar", "Borneo"],
+    "pageviews": 0,
+    "sitelinks": 4,
+    "wikidata": 0,
+    "aliases": 22,
+    "too_clever": [],
+    "gem": "Alexander Island",
+    "theme": "geography",
+    "cluster": "islands",
+    "constrained": true
+  },
+  {
     "id": "china-provinces",
     "text": "Name a Chinese province.",
-    "active": true,
+    "active": false,
     "size": 23,
     "tiers": {
       "surface": 3,
@@ -12850,6 +13370,30 @@
     "aliases": 27,
     "too_clever": [],
     "gem": "Hainan",
+    "theme": "geography",
+    "cluster": "regions",
+    "constrained": true
+  },
+  {
+    "id": "china-compass-names",
+    "text": "Name a Chinese province-level division with a compass direction in its Chinese name.",
+    "active": true,
+    "size": 14,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 1,
+      "school": 4,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Guangdong", "Shandong", "Hunan", "Hebei"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 26,
+    "too_clever": ["Beijing"],
+    "gem": "Xizang",
     "theme": "geography",
     "cluster": "regions",
     "constrained": true
@@ -13240,7 +13784,7 @@
   },
   {
     "id": "booker-winners",
-    "text": "Name a Booker Prize-winning novel.",
+    "text": "Name a novel that won the Booker Prize before 2026.",
     "active": true,
     "size": 60,
     "tiers": {
@@ -13432,7 +13976,7 @@
   },
   {
     "id": "newbery-winners",
-    "text": "Name a Newbery Medal-winning book.",
+    "text": "Name a Newbery Medal winner from 2026 or earlier.",
     "active": true,
     "size": 105,
     "tiers": {
@@ -13864,7 +14408,7 @@
   },
   {
     "id": "borders-france",
-    "text": "Name a country with a land border with France.",
+    "text": "Name a country sharing a French land border, including overseas territories.",
     "active": true,
     "size": 11,
     "tiers": {
@@ -14033,7 +14577,7 @@
   {
     "id": "transuranium-elements",
     "text": "Name an element with atomic number greater than 92.",
-    "active": true,
+    "active": false,
     "size": 26,
     "tiers": {
       "surface": 3,
@@ -14050,6 +14594,30 @@
     "aliases": 26,
     "too_clever": [],
     "gem": "Einsteinium",
+    "theme": "science",
+    "cluster": "elements",
+    "constrained": true
+  },
+  {
+    "id": "element-symbol-words",
+    "text": "Name an element whose chemical symbol is also a two-letter English word.",
+    "active": true,
+    "size": 26,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 1,
+      "school": 9,
+      "rare": 6,
+      "deep": 5,
+      "gem": 1
+    },
+    "surface": ["Helium", "Lithium", "Sodium", "Neon"],
+    "pageviews": 0,
+    "sitelinks": 25,
+    "wikidata": 0,
+    "aliases": 26,
+    "too_clever": ["Nobelium"],
+    "gem": "Protactinium",
     "theme": "science",
     "cluster": "elements",
     "constrained": true
@@ -14897,7 +15465,7 @@
   {
     "id": "star-alliance",
     "text": "Name a Star Alliance member airline.",
-    "active": true,
+    "active": false,
     "size": 26,
     "tiers": {
       "surface": 3,
@@ -14919,9 +15487,33 @@
     "constrained": true
   },
   {
+    "id": "le-mans-winning-makes",
+    "text": "Name a car make that won the 24 Hours of Le Mans outright before 2027.",
+    "active": true,
+    "size": 25,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 9,
+      "rare": 6,
+      "deep": 4,
+      "gem": 1
+    },
+    "surface": ["Toyota", "Audi", "Ferrari", "Porsche", "Ford"],
+    "pageviews": 0,
+    "sitelinks": 14,
+    "wikidata": 0,
+    "aliases": 8,
+    "too_clever": [],
+    "gem": "Chenard & Walcker",
+    "theme": "everyday",
+    "cluster": "cars",
+    "constrained": true
+  },
+  {
     "id": "oneworld-airlines",
     "text": "Name a oneworld member airline.",
-    "active": true,
+    "active": false,
     "size": 15,
     "tiers": {
       "surface": 3,
@@ -14938,6 +15530,30 @@
     "aliases": 24,
     "too_clever": [],
     "gem": "Finnair",
+    "theme": "everyday",
+    "cluster": "travel",
+    "constrained": true
+  },
+  {
+    "id": "a380-airlines",
+    "text": "Name an airline that had flown the Airbus A380 before November 2026.",
+    "active": true,
+    "size": 16,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 3,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Singapore Airlines", "Emirates", "British Airways", "Qantas", "Lufthansa"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 14,
+    "too_clever": [],
+    "gem": "Global Airlines",
     "theme": "everyday",
     "cluster": "travel",
     "constrained": true
@@ -15088,7 +15704,7 @@
   },
   {
     "id": "heisman",
-    "text": "Name a Heisman Trophy winner.",
+    "text": "Name a Heisman Trophy winner before 2026.",
     "active": true,
     "size": 90,
     "tiers": {
@@ -15473,7 +16089,7 @@
   {
     "id": "supreme-court-since-1981",
     "text": "Name a US Supreme Court justice first appointed since 1981.",
-    "active": true,
+    "active": false,
     "size": 15,
     "tiers": {
       "surface": 3,
@@ -15495,8 +16111,32 @@
     "constrained": true
   },
   {
+    "id": "justices-thirty-years",
+    "text": "Name a US Supreme Court justice who served at least 30 years on the Court.",
+    "active": true,
+    "size": 16,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 5,
+      "rare": 4,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["John Marshall", "Clarence Thomas", "William Rehnquist"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 33,
+    "too_clever": ["Anthony Kennedy"],
+    "gem": "Bushrod Washington",
+    "theme": "history",
+    "cluster": "us-politics",
+    "constrained": true
+  },
+  {
     "id": "bake-off-winners",
-    "text": "Name a Great British Bake Off winner.",
+    "text": "Name a Great British Bake Off winner before 2026.",
     "active": true,
     "size": 16,
     "tiers": {
@@ -15809,7 +16449,7 @@
   {
     "id": "monopoly-us",
     "text": "Name a property on the US Monopoly board.",
-    "active": true,
+    "active": false,
     "size": 28,
     "tiers": {
       "surface": 3,
@@ -15831,9 +16471,33 @@
     "constrained": true
   },
   {
+    "id": "video-game-hall-of-fame",
+    "text": "Name a game inducted into the World Video Game Hall of Fame before 2027.",
+    "active": true,
+    "size": 53,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 22,
+      "rare": 14,
+      "deep": 11,
+      "gem": 1
+    },
+    "surface": ["Pac-Man", "Super Mario Bros.", "The Legend of Zelda", "Pong", "Tetris"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 11,
+    "too_clever": [],
+    "gem": "Barbie Fashion Designer",
+    "theme": "everyday",
+    "cluster": "video-games",
+    "constrained": true
+  },
+  {
     "id": "monopoly-uk",
     "text": "Name a property on the UK Monopoly board.",
-    "active": true,
+    "active": false,
     "size": 28,
     "tiers": {
       "surface": 3,
@@ -15850,6 +16514,30 @@
     "aliases": 4,
     "too_clever": [],
     "gem": "The Angel, Islington",
+    "theme": "everyday",
+    "cluster": "board-games",
+    "constrained": true
+  },
+  {
+    "id": "spiel-des-jahres-winners",
+    "text": "Name a winner of Germany's Spiel des Jahres board-game award before 2027.",
+    "active": true,
+    "size": 48,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 19,
+      "rare": 13,
+      "deep": 10,
+      "gem": 1
+    },
+    "surface": ["Ticket to Ride", "Azul", "Carcassonne", "The Settlers of Catan", "Codenames"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 13,
+    "too_clever": [],
+    "gem": "Drunter und Drüber",
     "theme": "everyday",
     "cluster": "board-games",
     "constrained": true
@@ -16048,7 +16736,7 @@
   },
   {
     "id": "pantone-coty",
-    "text": "Name a Pantone Color of the Year.",
+    "text": "Name a Pantone Color of the Year for 2026 or earlier.",
     "active": true,
     "size": 29,
     "tiers": {
@@ -16265,7 +16953,7 @@
   {
     "id": "dickens-books",
     "text": "Name a Charles Dickens novel or novella.",
-    "active": true,
+    "active": false,
     "size": 21,
     "tiers": {
       "surface": 3,
@@ -16287,9 +16975,33 @@
     "constrained": true
   },
   {
+    "id": "books-sold-100m",
+    "text": "Name a book with 100M+ estimated sales, excluding religious and political texts.",
+    "active": true,
+    "size": 8,
+    "tiers": {
+      "surface": 2,
+      "tooclever": 1,
+      "school": 2,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["The Hobbit", "Harry Potter and the Philosopher's Stone"],
+    "pageviews": 0,
+    "sitelinks": 4,
+    "wikidata": 0,
+    "aliases": 8,
+    "too_clever": ["And Then There Were None"],
+    "gem": "Dream of the Red Chamber",
+    "theme": "books",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "discworld-novels",
     "text": "Name a Discworld novel.",
-    "active": true,
+    "active": false,
     "size": 41,
     "tiers": {
       "surface": 3,
@@ -16311,9 +17023,39 @@
     "constrained": true
   },
   {
+    "id": "ala-challenged-2010s",
+    "text": "Name a book on any ALA annual top 10 most challenged list, 2010–2019.",
+    "active": true,
+    "size": 56,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 2,
+      "school": 22,
+      "rare": 14,
+      "deep": 12,
+      "gem": 1
+    },
+    "surface": [
+      "Harry Potter",
+      "The Hunger Games",
+      "Looking for Alaska",
+      "The Absolutely True Diary",
+      "Captain Underpants"
+    ],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 22,
+    "too_clever": ["The Holy Bible", "Big Hard Sex Criminals"],
+    "gem": "A Bad Boy Can Be Good for A Girl",
+    "theme": "books",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "dahl-novels",
     "text": "Name a Roald Dahl novel or novella.",
-    "active": true,
+    "active": false,
     "size": 19,
     "tiers": {
       "surface": 3,
@@ -16335,9 +17077,39 @@
     "constrained": true
   },
   {
+    "id": "big-read-top-21",
+    "text": "Name a book in the final top 21 of the BBC's 2003 Big Read poll.",
+    "active": true,
+    "size": 21,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 2,
+      "school": 6,
+      "rare": 4,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": [
+      "The Lord of the Rings",
+      "Pride and Prejudice",
+      "Nineteen Eighty-Four",
+      "To Kill a Mockingbird",
+      "Harry Potter and the Goblet of Fire"
+    ],
+    "pageviews": 0,
+    "sitelinks": 5,
+    "wikidata": 0,
+    "aliases": 10,
+    "too_clever": ["Captain Corelli's Mandolin", "War and Peace"],
+    "gem": "Birdsong",
+    "theme": "books",
+    "cluster": null,
+    "constrained": true
+  },
+  {
     "id": "swift-albums",
     "text": "Name a Taylor Swift studio album.",
-    "active": true,
+    "active": false,
     "size": 12,
     "tiers": {
       "surface": 3,
@@ -16356,6 +17128,30 @@
     "gem": "Speak Now",
     "theme": "music",
     "cluster": "artist-albums",
+    "constrained": true
+  },
+  {
+    "id": "riaa-20x-platinum-albums",
+    "text": "Name an album the RIAA had certified 20× Platinum or higher before November 2026.",
+    "active": true,
+    "size": 14,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 4,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Back in Black", "Hotel California", "Thriller", "Rumours", "Led Zeppelin IV"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 15,
+    "too_clever": [],
+    "gem": "Double Live",
+    "theme": "music",
+    "cluster": "album-records",
     "constrained": true
   },
   {
@@ -16457,7 +17253,7 @@
   {
     "id": "new-zealand-regions",
     "text": "Name a region of New Zealand.",
-    "active": true,
+    "active": false,
     "size": 16,
     "tiers": {
       "surface": 3,
@@ -16476,6 +17272,30 @@
     "gem": "Taranaki",
     "theme": "geography",
     "cluster": "new-zealand",
+    "constrained": true
+  },
+  {
+    "id": "lakes-10000-km2",
+    "text": "Name a lake with a surface area of more than 10,000 square kilometres.",
+    "active": true,
+    "size": 17,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 4,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Caspian Sea", "Lake Michigan", "Lake Superior", "Lake Victoria", "Lake Baikal"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 21,
+    "too_clever": [],
+    "gem": "Lake Vostok",
+    "theme": "geography",
+    "cluster": "lakes",
     "constrained": true
   },
   {
@@ -16529,7 +17349,7 @@
   {
     "id": "london-tube-lines",
     "text": "Name a London Underground line.",
-    "active": true,
+    "active": false,
     "size": 11,
     "tiers": {
       "surface": 3,
@@ -16548,6 +17368,30 @@
     "gem": "Bakerloo",
     "theme": "everyday",
     "cluster": "transport",
+    "constrained": true
+  },
+  {
+    "id": "monopoly-tokens",
+    "text": "Name a token used in the standard Monopoly set between 1943 and October 2026.",
+    "active": true,
+    "size": 15,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Thimble", "Top hat", "Boot", "Scottie dog", "Racecar"],
+    "pageviews": 0,
+    "sitelinks": 1,
+    "wikidata": 0,
+    "aliases": 20,
+    "too_clever": [],
+    "gem": "Horse and rider",
+    "theme": "everyday",
+    "cluster": "board-games",
     "constrained": true
   },
   {
@@ -16581,7 +17425,7 @@
   {
     "id": "beatles-albums",
     "text": "Name a Beatles studio album.",
-    "active": true,
+    "active": false,
     "size": 20,
     "tiers": {
       "surface": 3,
@@ -16600,6 +17444,36 @@
     "gem": "Rubber Soul",
     "theme": "music",
     "cluster": "artist-albums",
+    "constrained": true
+  },
+  {
+    "id": "beatles-name-songs",
+    "text": "Name a Beatles song released 1962–1970 with a person's name in its title.",
+    "active": true,
+    "size": 27,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 2,
+      "school": 9,
+      "rare": 6,
+      "deep": 4,
+      "gem": 1
+    },
+    "surface": [
+      "Michelle",
+      "Penny Lane",
+      "Lucy in the Sky with Diamonds",
+      "Hey Jude",
+      "Eleanor Rigby"
+    ],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 34,
+    "too_clever": ["My Bonnie", "Sweet Georgia Brown"],
+    "gem": "Anna (Go to Him)",
+    "theme": "music",
+    "cluster": "beatles-songs",
     "constrained": true
   },
   {
@@ -16725,7 +17599,7 @@
   {
     "id": "bowie-albums",
     "text": "Name a David Bowie solo studio album.",
-    "active": true,
+    "active": false,
     "size": 26,
     "tiers": {
       "surface": 3,
@@ -16747,9 +17621,33 @@
     "constrained": true
   },
   {
+    "id": "live-aid-1985-performers",
+    "text": "Name an act in Live Aid's 1985 Wembley or Philadelphia running order.",
+    "active": true,
+    "size": 78,
+    "tiers": {
+      "surface": 6,
+      "tooclever": 3,
+      "school": 31,
+      "rare": 20,
+      "deep": 17,
+      "gem": 1
+    },
+    "surface": ["Madonna", "Queen", "David Bowie", "Paul McCartney", "U2", "Led Zeppelin"],
+    "pageviews": 0,
+    "sitelinks": 8,
+    "wikidata": 0,
+    "aliases": 55,
+    "too_clever": ["Coldstream Guards", "Band Aid", "USA for Africa"],
+    "gem": "Bernard Watson",
+    "theme": "music",
+    "cluster": "concert-lineups",
+    "constrained": true
+  },
+  {
     "id": "queen-albums",
     "text": "Name a Queen studio album.",
-    "active": true,
+    "active": false,
     "size": 16,
     "tiers": {
       "surface": 3,
@@ -16768,6 +17666,30 @@
     "gem": "Innuendo",
     "theme": "music",
     "cluster": "artist-albums",
+    "constrained": true
+  },
+  {
+    "id": "hot100-number-one-two-versions",
+    "text": "Name a song with Hot 100 number-one versions by two artists before November 2026.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 0,
+      "school": 2,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Lean on Me", "Venus", "The Loco-Motion", "Lady Marmalade"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 6,
+    "too_clever": [],
+    "gem": "Go Away Little Girl",
+    "theme": "music",
+    "cluster": "hot100-records",
     "constrained": true
   },
   {
@@ -16844,7 +17766,7 @@
   },
   {
     "id": "baseball-hall-of-fame",
-    "text": "Name a member of the National Baseball Hall of Fame.",
+    "text": "Name a National Baseball Hall of Fame member inducted before 2027.",
     "active": true,
     "size": 354,
     "tiers": {
@@ -16916,7 +17838,7 @@
   },
   {
     "id": "mcu-films",
-    "text": "Name a released Marvel Cinematic Universe film.",
+    "text": "Name a Marvel Cinematic Universe film released through November 2026.",
     "active": true,
     "size": 38,
     "tiers": {
@@ -16965,7 +17887,7 @@
   {
     "id": "summer-olympic-hosts",
     "text": "Name a city that has hosted the Summer Olympics.",
-    "active": true,
+    "active": false,
     "size": 23,
     "tiers": {
       "surface": 3,
@@ -16982,6 +17904,30 @@
     "aliases": 10,
     "too_clever": [],
     "gem": "Barcelona",
+    "theme": "sports",
+    "cluster": "olympics",
+    "constrained": true
+  },
+  {
+    "id": "olympic-eight-golds",
+    "text": "Name an Olympian with at least eight gold medals before 2027.",
+    "active": true,
+    "size": 19,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 1,
+      "school": 6,
+      "rare": 3,
+      "deep": 3,
+      "gem": 1
+    },
+    "surface": ["Carl Lewis", "Michael Phelps", "Usain Bolt", "Mark Spitz", "Katie Ledecky"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 35,
+    "too_clever": ["Isabell Werth"],
+    "gem": "Ray Ewry",
     "theme": "sports",
     "cluster": "olympics",
     "constrained": true
@@ -17012,7 +17958,7 @@
   },
   {
     "id": "world-chess-champions",
-    "text": "Name a World Chess Champion in the open category.",
+    "text": "Name a World Chess Champion in the open category before 2026.",
     "active": true,
     "size": 22,
     "tiers": {
@@ -17156,7 +18102,7 @@
   },
   {
     "id": "un-secretaries-general",
-    "text": "Name a UN secretary-general.",
+    "text": "Name a UN secretary-general who took office before 2027.",
     "active": true,
     "size": 10,
     "tiers": {
@@ -17181,7 +18127,7 @@
   {
     "id": "pink-floyd-albums",
     "text": "Name a Pink Floyd studio album.",
-    "active": true,
+    "active": false,
     "size": 15,
     "tiers": {
       "surface": 3,
@@ -17203,9 +18149,39 @@
     "constrained": true
   },
   {
+    "id": "hot100-14-week-number-ones",
+    "text": "Name a song with 14+ weeks at number one on the Hot 100 before November 2026.",
+    "active": true,
+    "size": 15,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 2,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": [
+      "Old Town Road",
+      "All I Want for Christmas Is You",
+      "Uptown Funk",
+      "A Bar Song (Tipsy)",
+      "Despacito"
+    ],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 10,
+    "too_clever": [],
+    "gem": "I'll Make Love to You",
+    "theme": "music",
+    "cluster": "hot100-records",
+    "constrained": true
+  },
+  {
     "id": "shakespeare-plays",
     "text": "Name a Shakespeare play.",
-    "active": true,
+    "active": false,
     "size": 42,
     "tiers": {
       "surface": 3,
@@ -17224,6 +18200,36 @@
     "gem": "A Midsummer Night's Dream",
     "theme": "books",
     "cluster": "classics",
+    "constrained": true
+  },
+  {
+    "id": "macbeth-phrase-novels",
+    "text": "Name a novel or novella whose title quotes a phrase from Macbeth.",
+    "active": true,
+    "size": 46,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 2,
+      "school": 18,
+      "rare": 11,
+      "deep": 9,
+      "gem": 1
+    },
+    "surface": [
+      "Tomorrow, and Tomorrow, and Tomorrow",
+      "Something Wicked This Way Comes",
+      "The Sound and the Fury",
+      "By the Pricking of My Thumbs",
+      "Wyrd Sisters"
+    ],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 6,
+    "too_clever": ["The Moon Is Down", "Exit Ghost"],
+    "gem": "A Rooted Sorrow",
+    "theme": "books",
+    "cluster": null,
     "constrained": true
   },
   {
@@ -17521,7 +18527,7 @@
   {
     "id": "css-named-colors",
     "text": "Name a named color in CSS.",
-    "active": true,
+    "active": false,
     "size": 148,
     "tiers": {
       "surface": 5,
@@ -17540,6 +18546,30 @@
     "gem": "RebeccaPurple",
     "theme": "everyday",
     "cluster": "colors",
+    "constrained": true
+  },
+  {
+    "id": "generic-trademarks",
+    "text": "Name a brand in Wikipedia's generic-trademarks list as of 9 November 2026.",
+    "active": true,
+    "size": 205,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 1,
+      "school": 90,
+      "rare": 59,
+      "deep": 49,
+      "gem": 1
+    },
+    "surface": ["Google", "Band-Aid", "Xerox", "Velcro", "Kleenex"],
+    "pageviews": 0,
+    "sitelinks": 2,
+    "wikidata": 0,
+    "aliases": 9,
+    "too_clever": ["Heroin"],
+    "gem": "Connollising",
+    "theme": "everyday",
+    "cluster": "brands",
     "constrained": true
   },
   {
@@ -17569,7 +18599,7 @@
   {
     "id": "magic-eight-ball-responses",
     "text": "Name a standard Magic 8 Ball reply.",
-    "active": true,
+    "active": false,
     "size": 20,
     "tiers": {
       "surface": 3,
@@ -17586,6 +18616,30 @@
     "aliases": 6,
     "too_clever": [],
     "gem": "Better not tell you now",
+    "theme": "everyday",
+    "cluster": "toys",
+    "constrained": true
+  },
+  {
+    "id": "toy-hall-of-fame-originals",
+    "text": "Name a toy among the National Toy Hall of Fame's original inductees.",
+    "active": true,
+    "size": 17,
+    "tiers": {
+      "surface": 5,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 4,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Monopoly", "Lego", "Teddy bear", "Barbie", "Play-Doh"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 4,
+    "too_clever": [],
+    "gem": "View-Master",
     "theme": "everyday",
     "cluster": "toys",
     "constrained": true
@@ -17813,7 +18867,7 @@
   },
   {
     "id": "survivor-us-winners",
-    "text": "Name a winner of the US version of Survivor.",
+    "text": "Name a winner of the US version of Survivor through season 50.",
     "active": true,
     "size": 48,
     "tiers": {
@@ -18055,20 +19109,20 @@
     "id": "mediterranean-countries",
     "text": "Name a country with a Mediterranean coastline.",
     "active": true,
-    "size": 24,
+    "size": 23,
     "tiers": {
       "surface": 4,
       "tooclever": 0,
       "school": 9,
-      "rare": 6,
+      "rare": 5,
       "deep": 4,
       "gem": 1
     },
     "surface": ["France", "Italy", "Spain", "Greece"],
     "pageviews": 0,
-    "sitelinks": 15,
+    "sitelinks": 14,
     "wikidata": 0,
-    "aliases": 7,
+    "aliases": 4,
     "too_clever": [],
     "gem": "Bosnia and Herzegovina",
     "theme": "geography",
@@ -18317,7 +19371,7 @@
   },
   {
     "id": "davis-cup-countries",
-    "text": "Name a country that has won the Davis Cup.",
+    "text": "Name a country that won the Davis Cup before 2026.",
     "active": true,
     "size": 16,
     "tiers": {
@@ -18510,7 +19564,7 @@
   {
     "id": "miyazaki-films",
     "text": "Name a feature film directed by Hayao Miyazaki.",
-    "active": true,
+    "active": false,
     "size": 12,
     "tiers": {
       "surface": 3,
@@ -18529,6 +19583,30 @@
     "gem": "The Castle of Cagliostro",
     "theme": "film",
     "cluster": "japanese-directors",
+    "constrained": true
+  },
+  {
+    "id": "oscar-costume-and-design-films",
+    "text": "Name a film that won Oscars for both Costume Design and Production Design.",
+    "active": true,
+    "size": 46,
+    "tiers": {
+      "surface": 4,
+      "tooclever": 0,
+      "school": 19,
+      "rare": 12,
+      "deep": 10,
+      "gem": 1
+    },
+    "surface": ["Wicked", "Black Panther", "Titanic", "Moulin Rouge"],
+    "pageviews": 0,
+    "sitelinks": 4,
+    "wikidata": 0,
+    "aliases": 10,
+    "too_clever": [],
+    "gem": "Nicholas and Alexandra",
+    "theme": "film",
+    "cluster": "oscars",
     "constrained": true
   },
   {
@@ -18701,24 +19779,24 @@
   },
   {
     "id": "uk-three-michelin-stars",
-    "text": "Name a restaurant currently holding three Michelin stars in the UK.",
+    "text": "Name a UK restaurant with three stars in the 2026 Michelin Guide.",
     "active": true,
-    "size": 15,
+    "size": 10,
     "tiers": {
       "surface": 3,
       "tooclever": 0,
-      "school": 5,
-      "rare": 4,
-      "deep": 2,
+      "school": 3,
+      "rare": 2,
+      "deep": 1,
       "gem": 1
     },
     "surface": ["The Fat Duck", "Restaurant Gordon Ramsay", "The Waterside Inn"],
     "pageviews": 0,
     "sitelinks": 0,
     "wikidata": 0,
-    "aliases": 14,
+    "aliases": 15,
     "too_clever": [],
-    "gem": "Chez Nico",
+    "gem": "Moor Hall",
     "theme": "food",
     "cluster": "restaurants",
     "constrained": true
@@ -18773,7 +19851,7 @@
   },
   {
     "id": "world-cheese-champions",
-    "text": "Name a cheese variety named World Cheese Awards champion.",
+    "text": "Name a cheese variety named World Cheese Awards champion before 2026.",
     "active": true,
     "size": 26,
     "tiers": {
@@ -18941,7 +20019,7 @@
   },
   {
     "id": "lego-ideas-sets",
-    "text": "Name a numbered LEGO Ideas set released for sale.",
+    "text": "Name a numbered LEGO Ideas set released through October 2026.",
     "active": true,
     "size": 81,
     "tiers": {
@@ -18956,7 +20034,7 @@
     "pageviews": 0,
     "sitelinks": 0,
     "wikidata": 0,
-    "aliases": 37,
+    "aliases": 50,
     "too_clever": [],
     "gem": "Exo Suit",
     "theme": "everyday",
@@ -18966,7 +20044,7 @@
   {
     "id": "u2-studio-albums",
     "text": "Name a U2 studio album.",
-    "active": true,
+    "active": false,
     "size": 17,
     "tiers": {
       "surface": 3,
@@ -18985,6 +20063,30 @@
     "gem": "Zooropa",
     "theme": "music",
     "cluster": "artist-albums",
+    "constrained": true
+  },
+  {
+    "id": "vma-grammy-video-double",
+    "text": "Name a video that won both MTV Video of the Year and the Best Music Video Grammy.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Bad Blood", "Formation", "Bad Romance"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "Ray of Light",
+    "theme": "music",
+    "cluster": "video-awards",
     "constrained": true
   },
   {
@@ -19470,7 +20572,7 @@
   {
     "id": "wes-anderson-features",
     "text": "Name a feature film directed by Wes Anderson.",
-    "active": true,
+    "active": false,
     "size": 13,
     "tiers": {
       "surface": 3,
@@ -19489,6 +20591,30 @@
     "gem": "Bottle Rocket",
     "theme": "film",
     "cluster": "directors",
+    "constrained": true
+  },
+  {
+    "id": "oscar-supporting-pair-films",
+    "text": "Name a film that won both supporting-acting Oscars.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["West Side Story", "Everything Everywhere All at Once", "The Fighter"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 2,
+    "too_clever": [],
+    "gem": "Sayonara",
+    "theme": "film",
+    "cluster": "oscars",
     "constrained": true
   },
   {
@@ -19829,7 +20955,7 @@
   },
   {
     "id": "atlantic-category-five",
-    "text": "Name an officially named Atlantic hurricane that reached Category 5.",
+    "text": "Name an officially named Atlantic hurricane that reached Category 5 before 2026.",
     "active": true,
     "size": 35,
     "tiers": {
@@ -19902,7 +21028,7 @@
   {
     "id": "apollo-moon-travellers",
     "text": "Name a person who flew to the Moon on an Apollo mission.",
-    "active": true,
+    "active": false,
     "size": 24,
     "tiers": {
       "surface": 3,
@@ -19919,6 +21045,30 @@
     "aliases": 43,
     "too_clever": ["Jim Lovell"],
     "gem": "Alfred Worden",
+    "theme": "science",
+    "cluster": "space",
+    "constrained": true
+  },
+  {
+    "id": "jupiter-spacecraft",
+    "text": "Name a spacecraft that has flown past or orbited Jupiter.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 1,
+      "school": 2,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["Voyager 1", "Voyager 2", "Juno"],
+    "pageviews": 0,
+    "sitelinks": 0,
+    "wikidata": 0,
+    "aliases": 15,
+    "too_clever": ["New Horizons"],
+    "gem": "Ulysses",
     "theme": "science",
     "cluster": "space",
     "constrained": true

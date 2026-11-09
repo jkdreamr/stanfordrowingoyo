@@ -70,7 +70,10 @@ def build(prompts):
                 failed = True
                 break
             least = min(len(result[i]) for i in options)
-            i = rng.choice([i for i in options if len(result[i]) == least])
+            options = [i for i in options if len(result[i]) == least]
+            diversity = {i: len({size_band(p['size']) for p in [*result[i], prompt]}) for i in options}
+            best = max(diversity.values())
+            i = rng.choice([i for i in options if diversity[i] == best])
             result[i].append(prompt)
         if failed or any(len(day) < 3 for day in result):
             continue

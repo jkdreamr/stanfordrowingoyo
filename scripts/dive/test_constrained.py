@@ -16,6 +16,49 @@ import sources
 
 
 class SourcesTest(unittest.TestCase):
+    def test_immutable_source_urls_and_local_snapshot_bytes(self):
+        self.assertTrue(sources.immutable_dataset('https://raw.githubusercontent.com/org/repo/' + 'a' * 40 + '/data.json'))
+        self.assertTrue(sources.immutable_dataset('https://en.wiktionary.org/w/api.php?oldid=123'))
+        for url in ['', '../escape', 'https://example.test/live',
+                    'https://raw.githubusercontent.com/org/repo/main/data.json',
+                    'https://en.wikipedia.org/wiki/Live', 'http://en.wikipedia.org/?oldid=123']:
+            self.assertFalse(sources.immutable_dataset(url), url)
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        for container in [*document['bases'].values(), *document['prompts']]:
+            for spec in container['sources']:
+                if 'dataset' in spec:
+                    self.assertTrue(sources.immutable_dataset(spec['dataset']), spec['dataset'])
+                    if spec['dataset'].startswith('snapshots/'):
+                        with patch.object(sources, 'fetch', side_effect=AssertionError('Network not allowed')):
+                            self.assertEqual(sources.acquire(spec), spec['reviewed'])
+        with self.assertRaisesRegex(ValueError, 'inside snapshots'):
+            sources.dataset('../escape', '0' * 64, 'lines')
+
+    def test_book_title_parsers_and_malformed_records(self):
+        for data, format, expected in [('{"title":"Book"}', 'json-title', ['Book']),
+                                       ('<title>Book &amp; Co</title>', 'html-title', ['Book & Co'])]:
+            with patch.object(sources, 'fetch', return_value=data):
+                self.assertEqual(sources.dataset('https://fixture.test', hashlib.sha256(data.encode()).hexdigest(), format), expected)
+        for data, format in [('{}', 'json-title'), ('[]', 'json-title'),
+                             ('{"title":" "}', 'json-title'), ('<title> </title>', 'html-title'),
+                             ('<p>No title</p>', 'html-title')]:
+            with patch.object(sources, 'fetch', return_value=data):
+                with self.assertRaisesRegex(ValueError, 'title'):
+                    sources.dataset('https://fixture.test', hashlib.sha256(data.encode()).hexdigest(), format)
+
+    def test_ala_annual_parser_requires_all_complete_unique_years(self):
+        chunks = [f'<h2>{year}</h2><ol>' + ''.join(f'<li><em>Book {i} series</em></li>'
+                  for i in range(11 if year == 2018 else 10)) + '</ol>' for year in range(2010, 2020)]
+        data = ''.join(chunks)
+        def parse(text):
+            with patch.object(sources, 'fetch', return_value=text):
+                return sources.dataset('https://fixture.test', hashlib.sha256(text.encode()).hexdigest(), 'ala-annual-2010s')
+        self.assertEqual(parse(data), sorted(f'Book {i}' for i in range(11)))
+        for text in ['', ''.join(chunks[1:]), data + chunks[0], data.replace('<em>Book 0 series</em>', 'No title', 1),
+                     data.replace('<li><em>Book 0 series</em></li>', '', 1)]:
+            with self.assertRaises(ValueError):
+                parse(text)
+
     def test_malformed_spans_and_inherited_row_exclusions(self):
         soup = BeautifulSoup('<table class="wikitable"><tr><th>Year</th><th>Name</th></tr>'
                              '<tr><td rowspan="2,">2026</td><td><a href="/wiki/A">Alpha</a></td></tr>'
@@ -76,6 +119,16 @@ class SourcesTest(unittest.TestCase):
 
 
 class SpecsTest(unittest.TestCase):
+    def test_current_schedule_preserves_or_improves_premerge_daily_size_diversity(self):
+        prompts = [{**p, 'size': len(p['rows'])} for p in constrained.read_specs() if p['active']]
+        days, _ = schedule.build(prompts)
+        schedule.validate(days, prompts)
+        by_id = {p['id']: p for p in prompts}
+        bands = [{schedule.size_band(by_id[id]['size']) for id in day} for day in days]
+        self.assertEqual(len(days), 64)
+        self.assertGreaterEqual(min(map(len, bands)), 2)
+        self.assertGreaterEqual(sum(len(b) == 3 for b in bands), 12)
+
     def test_ambiguous_surnames_are_removed_even_when_explicit(self):
         for names, aliases, forbidden in [
             (['Craig Wood', 'Tiger Woods'], {'Tiger Woods': ['Tiger', 'Wood', 'Woods']}, {'wood'}),
@@ -118,6 +171,7 @@ class SpecsTest(unittest.TestCase):
                                   'supreme-court-since-1981', 'swift-albums', 'swiss-cantons',
                                   'tarantino-films', 'transuranium-elements', 'u2-studio-albums',
                                   'uk-prime-ministers', 'us-presidents', 'us-vice-presidents',
+                                  'shakespeare-plays', 'discworld-novels', 'dahl-novels', 'dickens-books',
                                   'wes-anderson-features'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
@@ -130,7 +184,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 428)
+        self.assertEqual(len(prompts), 432)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])

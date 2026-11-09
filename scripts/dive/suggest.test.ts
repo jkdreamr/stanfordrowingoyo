@@ -25,8 +25,8 @@ us-national-parks|Dry Tortugas|Tortugas;Dry Tortugaz
 us-national-parks|Yellowstone|Yelowstoon;Yellostonee
 best-actor|Leonardo DiCaprio|Leo Dicaprio;Leonardo Decapreo
 best-actor|Matthew McConaughey|Mathew Maconahay;Matthew McConaghy
-us-presidents|Abraham Lincoln|Abruham Linkoln;Abraham Lincon
-us-presidents|George Washington|George Woshingten;Georg Washinton
+presidents-ex-congress|Abraham Lincoln|Abruham Linkoln;Abraham Lincon
+us-banknote-portraits|George Washington|George Woshingten;Georg Washinton
 physicists|Albert Einstein|Alber Einstien;Albert Einstine
 composers|Ludwig van Beethoven|Ludvig van Betoven;Ludwig Beethoven
 proteinogenic-amino-acids|Phenylalanine|Fenylalanene;Phenylalnine
