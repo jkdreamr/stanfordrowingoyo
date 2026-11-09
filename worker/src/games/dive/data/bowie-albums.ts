@@ -2,9 +2,9 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '9': '\n1 outside\t1r\nblackstar\tai\nearthling\ta6\n',
     '12': '\naladdin sane\t7z\nspace oddity\t0\n',
     '21': '\nblack tie white noise\t5r\n',
-    '9': '\nblackstar\tai\nearthling\ta6\n',
     '18': '\nbuddha of suburbia\t8e\nstation to station\t4a\n',
     '11': '\ndavid bowie\t0\ndiamond dog\t5c\n',
     '16': '\ndavid bowie 1967\t0\ndavid bowie 1969\t0\n',
@@ -17,6 +17,8 @@ export default {
     '22': '\nman who sold the world\t2l\nnever let me down 2018\t17\n',
     '17': '\nnever let me down\t17\nspace oddity 1969\t0\n',
     '8': '\nnext day\te\n',
+    '31': '\nrise and fall of ziggy stardust\t93\n',
+    '13': '\nscary monster\t6p\n',
     '30': '\nscary monsters and super creep\t6p\n',
     '14': '\nyoung american\t3s\nziggy stardust\t93\n',
     '39': '\nziggy stardust and the spiders from mar\t93\n',

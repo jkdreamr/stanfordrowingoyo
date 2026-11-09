@@ -5,10 +5,11 @@ export default {
     '5': '\nariel\t1d\ncupid\t26\n',
     '7': '\nbelinda\t2e\ncaliban\t5g\nmiranda\tn\nophelia\t3a\nperdita\t61\nsycorax\t6b\ntitania\t4u\numbriel\t6w\n',
     '6': '\nbianca\t1x\njuliet\t14\noberon\t3t\nportia\t3k\nsetebo\t76\n',
-    '8': '\ncordelia\t2z\ncressida\t48\nmargaret\tc\nprospero\t4j\nrosalind\t2o\nstephano\t5q\ntrinculo\t6l\n',
-    '9': '\ndesdemona\t54\nferdinand\t1l\nfrancisco\t0\n',
+    '8': '\ncordelia\t2z\ncressida\t48\nmargaret\tc\nprospero\t4j\nrosalind\t2o\nstephano\t5q\ntrinculo\t6l\nuranus i\t1d\nuranus v\tn\n',
+    '9': '\ndesdemona\t54\nferdinand\t1l\nfrancisco\t0\nuranus ii\t6w\nuranus iv\t3t\n',
     '3': '\nmab\t42\n',
     '4': '\npuck\tx\n',
+    '10': '\nuranus iii\t4u\n',
   },
   answers:
     'm\tFrancisco\nm\tMargaret\nm\tMiranda\ng\tPuck\nm\tJuliet\ns\tAriel\nm\tFerdinand\nm\tBianca\nm\tCupid\nm\tBelinda\nm\tRosalind\nm\tCordelia\nm\tOphelia\nr\tPortia\ns\tOberon\nr\tMab\nr\tCressida\nr\tProspero\ns\tTitania\nr\tDesdemona\nr\tCaliban\nr\tStephano\nd\tPerdita\nd\tSycorax\nd\tTrinculo\nd\tUmbriel\nd\tSetebos\n',

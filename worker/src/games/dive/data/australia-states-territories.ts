@@ -2,8 +2,9 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '3': '\nact\t2z\nnsw\t1w\nqld\t3u\ntas\t61\nvic\t0\n',
-    '26': '\nashmore and cartier island\t7w\n',
+    '3': '\naat\t6c\nact\t2z\njbt\t79\nnsw\t1w\nqld\t3u\ntas\t61\nvic\t0\n',
+    '19': '\nashmore and cartier\t7w\n',
+    '26': '\nashmore and cartier island\t7w\nchristmas island territory\t1d\n',
     '30': '\naustralian antarctic territory\t6c\n',
     '28': '\naustralian capital territory\t2z\n',
     '16': '\nchristmas island\t1d\ncoral sea island\t4o\n',
@@ -12,11 +13,12 @@ export default {
     '27': '\ncoral sea islands territory\t4o\n',
     '25': '\nheard and mcdonald island\t58\n',
     '32': '\nheard island and mcdonald island\t58\n',
+    '10': '\njervis bay\t79\nqueensland\t3u\n',
     '14': '\nkeeling island\t8q\nnew south wale\t1w\nnorfolk island\t47\n',
     '15': '\nmcdonald island\t58\nsouth australia\tb\n',
+    '7': '\nnorfolk\t47\n',
     '18': '\nnorthern territory\t2e\n',
     '2': '\nnt\t2e\nsa\tb\nwa\tt\n',
-    '10': '\nqueensland\t3u\n',
     '8': '\ntasmania\t61\nvictoria\t0\n',
     '17': '\nwestern australia\tt\n',
   },

@@ -2,12 +2,15 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '5': '\nanhui\t3p\ngansu\t58\nhebei\t2x\nhenan\t2p\nhubei\t46\nhunan\t1y\njilin\t9\n',
-    '6': '\nfujian\t35\nhainan\t2g\nshanxi\t3x\ntaiwan\t0\nyunnan\t13\n',
-    '9': '\nguangdong\tr\n',
-    '7': '\nguizhou\t4o\njiangsu\t26\njiangxi\t4y\nqinghai\t5v\nshaanxi\t4e\nsichuan\th\n',
-    '12': '\nheilongjiang\t5g\n',
-    '8': '\nliaoning\t3e\nshandong\t1n\nzhejiang\t1c\n',
+    '5': '\nanhui\t3p\ngansu\t58\nhebei\t2x\nhenan\t2p\nhonan\t2p\nhopeh\t2x\nhopei\t2x\nhubei\t46\nhunan\t1y\nhupeh\t46\njilin\t9\nkansu\t58\nkirin\t9\n',
+    '6': '\nanhwei\t3p\ncanton\tr\nfujian\t35\nfukian\t35\nfukien\t35\nhainan\t2g\nshansi\t3x\nshanxi\t3x\nshensi\t4e\ntaiwan\t0\nyunnan\t13\n',
+    '8': '\nchekiang\t1c\nkweichow\t4o\nliaoning\t3e\nshandong\t1n\nshantung\t1n\nszechuan\th\nszechwan\th\ntsinghai\t5v\nzhejiang\t1c\n',
+    '7': '\nformosa\t0\nguizhou\t4o\njiangsu\t26\njiangxi\t4y\nkiangsi\t4y\nkiangsu\t26\nkokonor\t5v\nqinghai\t5v\nshaanxi\t4e\nsichuan\th\n',
+    '9': '\nguangdong\tr\nkwangtung\tr\n',
+    '15': '\nhainan province\t2g\n',
+    '12': '\nheilongjiang\t5g\nheilungkiang\t5g\n',
+    '14': '\nhunan province\t1y\n',
+    '17': '\nliaoning province\t3e\n',
   },
   answers:
     'm\tTaiwan\nm\tJilin\ns\tSichuan\ns\tGuangdong\ns\tYunnan\nm\tZhejiang\nm\tShandong\nm\tHunan\nm\tJiangsu\ng\tHainan\nm\tHenan\nm\tHebei\nm\tFujian\nr\tLiaoning\nr\tAnhui\nr\tShanxi\nr\tHubei\nr\tShaanxi\nr\tGuizhou\nd\tJiangxi\nd\tGansu\nd\tHeilongjiang\nd\tQinghai\n',

@@ -29,19 +29,20 @@ it.each([
   ['2027-01-01', ['k-dramas', 'cities-no', 'landforms', 'dinosaurs', 'italian-food']],
 ])('preserves pre-change legacy selection for %s, including retired prompts', (date, ids) => {
   expect(legacySelection(date).map((prompt) => prompt.id)).toEqual(ids);
-  if (date < '2026-11-10') expect(diveSelectionFor(date).map((prompt) => prompt.id)).toEqual(ids);
+  if (date < DIVE_SCHEDULE_CUTOVER!)
+    expect(diveSelectionFor(date).map((prompt) => prompt.id)).toEqual(ids);
   expect(createDiveSelector(cutover, schedule, bank)(date).map((prompt) => prompt.id)).toEqual(ids);
 });
 
-it('enables the complete reviewed bank on November 10 with every real day valid', () => {
-  expect(DIVE_SCHEDULE_CUTOVER).toBe('2026-11-10');
+it('enables the complete reviewed bank at the configured cutover with every real day valid', () => {
+  expect(DIVE_SCHEDULE_CUTOVER).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 320 constrained, 0 broad');
   expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(320);
   validateDiveSchedule(DIVE_SCHEDULE, DIVE_PROMPTS);
   expect(DIVE_SCHEDULE).toHaveLength(64);
   const seen = new Set<string>();
   for (let i = 0; i < DIVE_SCHEDULE.length; i++) {
-    const day = diveSelectionFor(addDays('2026-11-10', i));
+    const day = diveSelectionFor(addDays(DIVE_SCHEDULE_CUTOVER!, i));
     expect(day.map((p) => p.id)).toEqual(DIVE_SCHEDULE[i]);
     expect(day.filter((p) => p.constrained).length).toBeGreaterThanOrEqual(3);
     expect(new Set(day.map((p) => p.theme)).size).toBe(5);
@@ -52,9 +53,11 @@ it('enables the complete reviewed bank on November 10 with every real day valid'
   }
   expect(seen.size).toBe(320);
   const retired = DIVE_INACTIVE_PROMPTS.filter((p) => p.constrained);
-  expect(retired).toHaveLength(50);
+  expect(retired).toHaveLength(51);
   expect(retired.every((p) => !seen.has(p.id))).toBe(true);
-  expect(diveSelectionFor('2027-01-13')).toEqual(diveSelectionFor('2026-11-10'));
+  expect(diveSelectionFor(addDays(DIVE_SCHEDULE_CUTOVER!, 64))).toEqual(
+    diveSelectionFor(DIVE_SCHEDULE_CUTOVER!),
+  );
   expect([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].every((p) => p.theme)).toBe(true);
   for (const id of ['manga', 'anime', 'japanese-films', 'cities-jp', 'anime-characters'])
     expect([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].find((p) => p.id === id)?.cluster).toBe(

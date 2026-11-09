@@ -2,17 +2,17 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '14': '\nantoninus pius\t42\n',
-    '8': '\naugustus\t0\ncaligula\t2o\nclaudius\tq\ncommodus\t3k\ndomitian\t4j\nmacrinus\t7s\npertinax\t74\ntiberius\t11\n',
+    '17': '\nalexander severus\t1u\nseptimius severus\t5t\nseverus alexander\t1u\n',
+    '14': '\nantoninus pius\t42\ngaius caligula\t2o\n',
+    '8': '\naugustus\t0\naurelius\t1c\ncaligula\t2o\nclaudius\tq\ncommodus\t3k\ndomitian\t4j\nmacrinus\t7s\noctavian\t0\noctavius\t0\npertinax\t74\ntiberius\t11\n',
+    '15': '\naugustus caesar\t0\ncaesar augustus\t0\ndidius julianus\t83\nmarcus aurelius\t1c\n',
     '9': '\ncaracalla\t59\nvespasian\t38\nvitellius\t6d\n',
     '11': '\ndiadumenian\t8l\n',
-    '15': '\ndidius julianus\t83\nmarcus aurelius\t1c\n',
     '10': '\nelagabalus\t7f\n',
-    '5': '\ngalba\t5l\nnerva\t51\ntitus\ti\n',
+    '5': '\ngaius\t2o\ngalba\t5l\nnerva\t51\ntitus\ti\n',
     '4': '\ngeta\t4u\nnero\tb\notho\t3v\n',
-    '7': '\nhadrian\t2e\n',
-    '12': '\nlucius verus\t6p\n',
-    '17': '\nseptimius severus\t5t\nseverus alexander\t1u\n',
+    '7': '\nhadrian\t2e\nseverus\t5t\n',
+    '12': '\nheliogabalus\t7f\nlucius verus\t6p\n',
     '6': '\ntrajan\t2z\n',
   },
   answers:

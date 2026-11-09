@@ -2,15 +2,20 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '7': '\nabruzzo\t31\nliguria\t3s\ntuscany\t9\n',
-    '12': '\naosta valley\t42\n',
-    '6': '\napulia\t4h\nmarche\t28\nmolise\t6e\nsicily\t0\numbria\t2h\nveneto\t1z\n',
-    '10': '\nbasilicata\t61\n',
-    '8': '\ncalabria\t1d\ncampania\t2q\nlombardy\t1o\npiedmont\tj\nsardinia\tu\n',
+    '7': '\nabruzzi\t31\nabruzzo\t31\nliguria\t3s\nlucania\t61\nsicilia\t0\ntoscana\t9\ntuscany\t9\n',
+    '12': '\naosta valley\t42\nvalle daosta\t42\n',
+    '6': '\napulia\t4h\nlatium\t15\nmarche\t28\nmolise\t6e\npuglia\t4h\nsicily\t0\numbria\t2h\nveneto\t1z\n',
+    '10': '\nbasilicata\t61\nval daosta\t42\n',
+    '8': '\ncalabria\t1d\ncampania\t2q\nlombardy\t1o\npiedmont\tj\npiemonte\tj\nsardegna\tu\nsardinia\tu\n',
     '14': '\nemilia romagna\t3b\n',
     '21': '\nfriuli venezia giulia\t5d\n',
-    '5': '\nlazio\t15\n',
+    '5': '\nlazio\t15\nmarch\t28\n',
+    '9': '\nlombardia\t1o\n',
+    '19': '\ntrentino alto adige\t4q\n',
+    '28': '\ntrentino alto adige sudtirol\t4q\n',
     '20': '\ntrentino south tyrol\t4q\n',
+    '17': '\ntrentino sudtirol\t4q\n',
+    '13': '\nvalle d aosta\t42\nvallee daoste\t42\n',
   },
   answers:
     's\tSicily\ns\tTuscany\nm\tPiedmont\ng\tSardinia\nm\tLazio\nm\tCalabria\ns\tLombardy\nm\tVeneto\nm\tMarche\nm\tUmbria\nm\tCampania\nm\tAbruzzo\nr\tEmilia-Romagna\nr\tLiguria\nr\tAosta Valley\nr\tApulia\nd\tTrentino-South Tyrol\nd\tFriuli-Venezia Giulia\nd\tBasilicata\nd\tMolise\n',

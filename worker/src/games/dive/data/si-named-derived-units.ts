@@ -3,11 +3,13 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '9': '\nbecquerel\t41\nsteradian\t53\n',
-    '7': '\ncoulomb\t3i\nsievert\t4l\n',
+    '2': '\nbq\t41\ngy\t8\nhz\t2w\nlm\t2o\nlx\t1k\npa\t1b\nsr\t53\nsv\t4l\nwb\t13\n',
+    '1': '\nc\t3i\nf\t4d\nh\t0\nj\t3a\nn\tf\ns\t1q\nt\to\nv\t20\nw\tw\n',
+    '7': '\ncelsius\t27\ncoulomb\t3i\nsievert\t4l\n',
     '14': '\ndegree celsius\t27\n',
     '5': '\nfarad\t4d\nhenry\t0\nhertz\t2w\njoule\t3a\nkatal\t4v\nlumen\t2o\ntesla\to\nweber\t13\n',
     '4': '\ngray\t8\nvolt\t20\nwatt\tw\n',
-    '3': '\nlux\t1k\nohm\t34\n',
+    '3': '\nkat\t4v\nlux\t1k\nohm\t34\nrad\t3s\n',
     '6': '\nnewton\tf\npascal\t1b\nradian\t3s\nsiemen\t1q\n',
   },
   answers:

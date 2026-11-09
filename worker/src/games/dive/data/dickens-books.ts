@@ -3,8 +3,8 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '13': '\nbarnaby rudge\t9r\nlittle dorrit\t8r\n',
-    '14': '\nbattle of life\td\ndombey and son\tb0\npickwick paper\t6z\n',
-    '11': '\nbleak house\t4e\n',
+    '14': '\nbattle of life\td\ndombey and son\tb0\npickwick paper\t6z\ntale of 2 city\t23\n',
+    '11': '\nbleak house\t4e\nedwin drood\ta7\nhaunted man\t7l\n',
     '5': '\nchime\t5k\n',
     '15': '\nchristmas carol\t2q\nno thoroughfare\t5x\n',
     '21': '\ncricket on the hearth\t4s\n',

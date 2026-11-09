@@ -2,16 +2,17 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '9': '\nalan bean\t16\narmstrong\t1i\n',
-    '12': '\nalan shepard\t38\ncharles duke\tr\n',
+    '9': '\nalan bean\t16\narmstrong\t1i\njim irwin\t2g\n',
+    '12': '\nalan shepard\t38\ncharles duke\tr\ncharlie duke\tr\nedwin aldrin\t46\njack schmitt\t3n\n',
     '6': '\naldrin\t46\ncernan\t4k\nconrad\t2u\n',
     '4': '\nbean\t16\nduke\tr\n',
-    '11': '\nbuzz aldrin\t46\ndavid scott\td\njames irwin\t2g\npete conrad\t2u\n',
-    '14': '\nedgar mitchell\t1z\nneil armstrong\t1i\n',
+    '11': '\nbuzz aldrin\t46\ndavid scott\td\ned mitchell\t1z\ngene cernan\t4k\njames irwin\t2g\npete conrad\t2u\n',
+    '14': '\ncharles conrad\t2u\nedgar mitchell\t1z\nneil armstrong\t1i\n',
+    '10': '\ndave scott\td\njohn young\t0\n',
+    '17': '\nedwin buzz aldrin\t46\n',
     '13': '\neugene cernan\t4k\n',
     '16': '\nharrison schmitt\t3n\n',
     '5': '\nirwin\t2g\nscott\td\nyoung\t0\n',
-    '10': '\njohn young\t0\n',
     '8': '\nmitchell\t1z\n',
     '7': '\nschmitt\t3n\nshepard\t38\n',
   },

@@ -2,13 +2,27 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '18': '\ncolony of virginia\to\nconnecticut colony\t3d\n',
     '11': '\nconnecticut\t3d\n',
     '8': '\ndelaware\t47\nmaryland\t32\nnew york\t0\nvirginia\to\n',
+    '15': '\ndelaware colony\t47\nvirginia colony\to\n',
     '7': '\ngeorgia\t1g\n',
+    '4': '\nmass\t2m\npenn\t27\n',
     '12': '\nmassachusett\t2m\npennsylvania\t27\nrhode island\t4i\n',
+    '17': '\nmassachusetts bay\t2m\n',
+    '24': '\nmassachusetts bay colony\t2m\nprovince of pennsylvania\t27\n',
+    '2': '\nnc\t1q\nnh\t3r\nnj\tb\nny\t0\nsc\tz\n',
     '13': '\nnew hampshire\t3r\n',
     '10': '\nnew jersey\tb\n',
     '14': '\nnorth carolina\t1q\nsouth carolina\tz\n',
+    '21': '\nprovidence plantation\t4i\n',
+    '19': '\nprovince of georgia\t1g\n',
+    '20': '\nprovince of maryland\t32\nprovince of new york\t0\n',
+    '29': '\nprovince of massachusetts bay\t2m\n',
+    '25': '\nprovince of new hampshire\t3r\n',
+    '22': '\nprovince of new jersey\tb\n',
+    '26': '\nprovince of north carolina\t1q\nprovince of south carolina\tz\n',
+    '38': '\nrhode island and providence plantation\t4i\n',
   },
   answers:
     'm\tNew York\nm\tNew Jersey\ns\tVirginia\nm\tSouth Carolina\nm\tGeorgia\nm\tNorth Carolina\ns\tPennsylvania\ns\tMassachusetts\nr\tMaryland\nr\tConnecticut\nd\tNew Hampshire\nd\tDelaware\ng\tRhode Island\n',

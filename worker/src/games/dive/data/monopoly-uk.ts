@@ -3,9 +3,9 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '15': '\nangel islington\t8d\ncoventry street\t5u\n',
-    '11': '\nbond street\tx\neuston road\tai\nvine street\t57\n',
-    '10': '\nbow street\t39\npiccadilly\t90\nwater work\t0\n',
-    '16': '\nelectric company\te\nleicester square\t4o\npentonville road\tcr\ntrafalgar square\t9n\nwhitechapel road\taw\n',
+    '11': '\nbond street\tx\neuston road\tai\nkings cross\t3m\nvine street\t57\n',
+    '10': '\nbow street\t39\nmarylebone\tbf\npiccadilly\t90\nwater work\t0\n',
+    '16': '\nelectric company\te\nfenchurch street\tc0\nleicester square\t4o\nliverpool street\t2i\npentonville road\tcr\ntrafalgar square\t9n\nwhitechapel road\taw\n',
     '24': '\nfenchurch street station\tc0\nliverpool street station\t2i\n',
     '12': '\nfleet street\t23\n',
     '19': '\nkings cross station\t3m\n',

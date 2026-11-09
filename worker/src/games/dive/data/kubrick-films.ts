@@ -2,15 +2,19 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '4': '\n2001\t2s\n',
     '20': '\n2001 a space odyssey\t2s\n',
     '12': '\nbarry lyndon\t3g\nkillers kiss\t51\n',
     '16': '\nclockwork orange\t3v\n',
+    '18': '\ndoctor strangelove\t5h\n',
     '14': '\ndr strangelove\t5h\neyes wide shut\te\npaths of glory\t2b\n',
     '15': '\nfear and desire\t19\n',
     '17': '\nfull metal jacket\t1r\n',
     '7': '\nkilling\tv\nshining\t0\n',
     '6': '\nlolita\t4g\n',
+    '13': '\nspace odyssey\t2s\n',
     '9': '\nspartacus\t4p\n',
+    '11': '\nstrangelove\t5h\n',
   },
   answers:
     "s\tThe Shining\nm\tEyes Wide Shut\nm\tThe Killing\nm\tFear and Desire\ng\tFull Metal Jacket\nm\tPaths of Glory\ns\t2001: A Space Odyssey\nm\tBarry Lyndon\ns\tA Clockwork Orange\nr\tLolita\nr\tSpartacus\nd\tKiller's Kiss\nd\tDr. Strangelove\n",

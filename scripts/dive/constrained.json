@@ -225,7 +225,7 @@
         },
         {
           "name": "Albania",
-          "aliases": [],
+          "aliases": ["Shqipëria"],
           "names": []
         },
         {
@@ -235,7 +235,7 @@
         },
         {
           "name": "Andorra",
-          "aliases": [],
+          "aliases": ["Principality of Andorra"],
           "names": []
         },
         {
@@ -255,7 +255,7 @@
         },
         {
           "name": "Armenia",
-          "aliases": [],
+          "aliases": ["Hayastan"],
           "names": []
         },
         {
@@ -265,12 +265,12 @@
         },
         {
           "name": "Austria",
-          "aliases": [],
+          "aliases": ["Österreich", "Oesterreich"],
           "names": []
         },
         {
           "name": "Azerbaijan",
-          "aliases": [],
+          "aliases": ["Republic of Azerbaijan", "Azerbaijan Republic"],
           "names": []
         },
         {
@@ -295,12 +295,12 @@
         },
         {
           "name": "Belarus",
-          "aliases": [],
-          "names": []
+          "aliases": ["Byelorussia", "Bielorussia", "Republic of Belarus"],
+          "names": ["Byelorussia", "Bielorussia"]
         },
         {
           "name": "Belgium",
-          "aliases": [],
+          "aliases": ["België", "Belgique", "Belgien", "Kingdom of Belgium"],
           "names": []
         },
         {
@@ -325,8 +325,8 @@
         },
         {
           "name": "Bosnia and Herzegovina",
-          "aliases": [],
-          "names": []
+          "aliases": ["Bosnia", "BiH"],
+          "names": ["Bosnia"]
         },
         {
           "name": "Botswana",
@@ -335,7 +335,7 @@
         },
         {
           "name": "Brazil",
-          "aliases": [],
+          "aliases": ["Brasil", "Federative Republic of Brazil"],
           "names": []
         },
         {
@@ -350,7 +350,7 @@
         },
         {
           "name": "Burkina Faso",
-          "aliases": [],
+          "aliases": ["Burkina"],
           "names": []
         },
         {
@@ -360,7 +360,7 @@
         },
         {
           "name": "Cambodia",
-          "aliases": [],
+          "aliases": ["Kampuchea"],
           "names": []
         },
         {
@@ -380,12 +380,12 @@
         },
         {
           "name": "Central African Republic",
-          "aliases": [],
+          "aliases": ["CAR", "Central Africa Republic"],
           "names": []
         },
         {
           "name": "Chad",
-          "aliases": [],
+          "aliases": ["Republic of Chad", "Tchad"],
           "names": []
         },
         {
@@ -400,7 +400,7 @@
         },
         {
           "name": "Colombia",
-          "aliases": [],
+          "aliases": ["Republic of Colombia"],
           "names": []
         },
         {
@@ -410,12 +410,12 @@
         },
         {
           "name": "Democratic Republic of the Congo",
-          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire"],
+          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire", "Democratic Republic of Congo"],
           "names": ["DR Congo", "Congo Kinshasa", "Zaire"]
         },
         {
           "name": "Republic of the Congo",
-          "aliases": ["Congo", "Congo Brazzaville"],
+          "aliases": ["Congo", "Congo Brazzaville", "Republic of Congo"],
           "names": ["Congo", "Congo Brazzaville"]
         },
         {
@@ -440,7 +440,7 @@
         },
         {
           "name": "Czech Republic",
-          "aliases": ["Czechia"],
+          "aliases": ["Czechia", "Česko"],
           "names": ["Czechia"]
         },
         {
@@ -470,7 +470,7 @@
         },
         {
           "name": "Egypt",
-          "aliases": [],
+          "aliases": ["Arab Republic of Egypt"],
           "names": []
         },
         {
@@ -490,12 +490,12 @@
         },
         {
           "name": "Estonia",
-          "aliases": [],
+          "aliases": ["Eesti"],
           "names": []
         },
         {
           "name": "Eswatini",
-          "aliases": ["Swaziland"],
+          "aliases": ["Swaziland", "Kingdom of Eswatini"],
           "names": ["Swaziland"]
         },
         {
@@ -545,7 +545,7 @@
         },
         {
           "name": "Greece",
-          "aliases": [],
+          "aliases": ["Hellas", "Ellada", "Hellenic Republic"],
           "names": []
         },
         {
@@ -590,23 +590,23 @@
         },
         {
           "name": "Iceland",
-          "aliases": [],
+          "aliases": ["Ísland"],
           "names": []
         },
         {
           "name": "India",
-          "aliases": [],
+          "aliases": ["Republic of India", "Bharat"],
           "names": []
         },
         {
           "name": "Indonesia",
-          "aliases": [],
+          "aliases": ["Republic of Indonesia"],
           "names": []
         },
         {
           "name": "Iran",
-          "aliases": ["Islamic Republic of Iran"],
-          "names": []
+          "aliases": ["Islamic Republic of Iran", "Persia"],
+          "names": ["Persia"]
         },
         {
           "name": "Iraq",
@@ -615,7 +615,7 @@
         },
         {
           "name": "Ireland",
-          "aliases": [],
+          "aliases": ["Éire", "Republic of Ireland"],
           "names": []
         },
         {
@@ -625,7 +625,7 @@
         },
         {
           "name": "Italy",
-          "aliases": [],
+          "aliases": ["Italia", "Italian Republic"],
           "names": []
         },
         {
@@ -650,7 +650,7 @@
         },
         {
           "name": "Kazakhstan",
-          "aliases": [],
+          "aliases": ["Kazakstan", "Kazakh Republic", "Republic of Kazakhstan"],
           "names": []
         },
         {
@@ -670,12 +670,12 @@
         },
         {
           "name": "Kyrgyzstan",
-          "aliases": [],
-          "names": []
+          "aliases": ["Kirgizstan", "Kyrgyz Republic", "Kirghizia"],
+          "names": ["Kirghizia"]
         },
         {
           "name": "Laos",
-          "aliases": ["Lao PDR", "Lao People’s Democratic Republic"],
+          "aliases": ["Lao PDR", "Lao People’s Democratic Republic", "Lao Republic"],
           "names": []
         },
         {
@@ -690,7 +690,7 @@
         },
         {
           "name": "Lesotho",
-          "aliases": [],
+          "aliases": ["Kingdom of Lesotho"],
           "names": []
         },
         {
@@ -715,7 +715,7 @@
         },
         {
           "name": "Luxembourg",
-          "aliases": [],
+          "aliases": ["Luxemburg", "Lëtzebuerg", "Grand Duchy of Luxembourg"],
           "names": []
         },
         {
@@ -740,7 +740,7 @@
         },
         {
           "name": "Mali",
-          "aliases": [],
+          "aliases": ["Republic of Mali"],
           "names": []
         },
         {
@@ -765,7 +765,7 @@
         },
         {
           "name": "Mexico",
-          "aliases": [],
+          "aliases": ["Mexican Republic", "United Mexican States"],
           "names": []
         },
         {
@@ -775,12 +775,12 @@
         },
         {
           "name": "Moldova",
-          "aliases": [],
-          "names": []
+          "aliases": ["Moldavia", "Republic of Moldova"],
+          "names": ["Moldavia"]
         },
         {
           "name": "Monaco",
-          "aliases": [],
+          "aliases": ["Principality of Monaco"],
           "names": []
         },
         {
@@ -795,7 +795,7 @@
         },
         {
           "name": "Morocco",
-          "aliases": [],
+          "aliases": ["Maroc", "Kingdom of Morocco"],
           "names": []
         },
         {
@@ -830,7 +830,7 @@
         },
         {
           "name": "New Zealand",
-          "aliases": [],
+          "aliases": ["NZ", "Aotearoa"],
           "names": []
         },
         {
@@ -840,7 +840,7 @@
         },
         {
           "name": "Niger",
-          "aliases": [],
+          "aliases": ["Niger Republic", "Republic of Niger"],
           "names": []
         },
         {
@@ -855,8 +855,8 @@
         },
         {
           "name": "North Macedonia",
-          "aliases": [],
-          "names": []
+          "aliases": ["Macedonia", "Republic of North Macedonia", "FYROM"],
+          "names": ["Macedonia"]
         },
         {
           "name": "Norway",
@@ -900,7 +900,7 @@
         },
         {
           "name": "Peru",
-          "aliases": [],
+          "aliases": ["Republic of Peru"],
           "names": []
         },
         {
@@ -930,7 +930,7 @@
         },
         {
           "name": "Russia",
-          "aliases": ["Russian Federation"],
+          "aliases": ["Russian Federation", "Rossiya"],
           "names": []
         },
         {
@@ -955,7 +955,7 @@
         },
         {
           "name": "Samoa",
-          "aliases": [],
+          "aliases": ["Western Samoa"],
           "names": []
         },
         {
@@ -965,7 +965,7 @@
         },
         {
           "name": "São Tomé and Príncipe",
-          "aliases": ["Sao Tome and Principe"],
+          "aliases": ["Sao Tome and Principe", "Sao Tome"],
           "names": []
         },
         {
@@ -1000,12 +1000,12 @@
         },
         {
           "name": "Slovakia",
-          "aliases": [],
+          "aliases": ["Slovak Republic", "Slovensko"],
           "names": []
         },
         {
           "name": "Slovenia",
-          "aliases": [],
+          "aliases": ["Slovenija"],
           "names": []
         },
         {
@@ -1025,7 +1025,7 @@
         },
         {
           "name": "South Korea",
-          "aliases": ["Republic of Korea"],
+          "aliases": ["Republic of Korea", "ROK"],
           "names": []
         },
         {
@@ -1035,12 +1035,12 @@
         },
         {
           "name": "Spain",
-          "aliases": [],
+          "aliases": ["España", "Kingdom of Spain"],
           "names": []
         },
         {
           "name": "Sri Lanka",
-          "aliases": [],
+          "aliases": ["Ceylon"],
           "names": []
         },
         {
@@ -1050,17 +1050,17 @@
         },
         {
           "name": "Suriname",
-          "aliases": [],
+          "aliases": ["Surinam", "Republic of Suriname"],
           "names": []
         },
         {
           "name": "Sweden",
-          "aliases": [],
+          "aliases": ["Sverige"],
           "names": []
         },
         {
           "name": "Switzerland",
-          "aliases": [],
+          "aliases": ["Schweiz", "Suisse", "Svizzera", "Svizra", "Swiss Confederation"],
           "names": []
         },
         {
@@ -1110,7 +1110,7 @@
         },
         {
           "name": "Turkey",
-          "aliases": ["Türkiye"],
+          "aliases": ["Türkiye", "Republic of Turkey"],
           "names": ["Türkiye", "Turkiye"]
         },
         {
@@ -1135,7 +1135,7 @@
         },
         {
           "name": "United Arab Emirates",
-          "aliases": [],
+          "aliases": ["UAE", "Emirates"],
           "names": []
         },
         {
@@ -1155,7 +1155,7 @@
         },
         {
           "name": "Uzbekistan",
-          "aliases": [],
+          "aliases": ["Republic of Uzbekistan"],
           "names": []
         },
         {
@@ -1311,19 +1311,24 @@
       ],
       "answers": [
         {
-          "name": "Alabama"
+          "name": "Alabama",
+          "aliases": ["AL"]
         },
         {
-          "name": "Alaska"
+          "name": "Alaska",
+          "aliases": ["AK"]
         },
         {
-          "name": "Arizona"
+          "name": "Arizona",
+          "aliases": ["AZ"]
         },
         {
-          "name": "Arkansas"
+          "name": "Arkansas",
+          "aliases": ["AR"]
         },
         {
-          "name": "California"
+          "name": "California",
+          "aliases": ["CA"]
         },
         {
           "name": "Colorado"
@@ -1335,25 +1340,31 @@
           "name": "Delaware"
         },
         {
-          "name": "Florida"
+          "name": "Florida",
+          "aliases": ["FL"]
         },
         {
-          "name": "Georgia"
+          "name": "Georgia",
+          "aliases": ["GA"]
         },
         {
           "name": "Hawaii"
         },
         {
-          "name": "Idaho"
+          "name": "Idaho",
+          "aliases": ["ID"]
         },
         {
-          "name": "Illinois"
+          "name": "Illinois",
+          "aliases": ["IL"]
         },
         {
-          "name": "Indiana"
+          "name": "Indiana",
+          "aliases": ["IN"]
         },
         {
-          "name": "Iowa"
+          "name": "Iowa",
+          "aliases": ["IA"]
         },
         {
           "name": "Kansas"
@@ -1362,76 +1373,100 @@
           "name": "Kentucky"
         },
         {
-          "name": "Louisiana"
+          "name": "Louisiana",
+          "aliases": ["LA"]
         },
         {
-          "name": "Maine"
+          "name": "Maine",
+          "aliases": ["ME"]
         },
         {
-          "name": "Maryland"
+          "name": "Maryland",
+          "aliases": ["MD"]
         },
         {
-          "name": "Massachusetts"
+          "name": "Massachusetts",
+          "aliases": ["MA", "Mass"]
         },
         {
-          "name": "Michigan"
+          "name": "Michigan",
+          "aliases": ["MI", "Mich"]
         },
         {
-          "name": "Minnesota"
+          "name": "Minnesota",
+          "aliases": ["MN"]
         },
         {
-          "name": "Mississippi"
+          "name": "Mississippi",
+          "aliases": ["MS"]
         },
         {
-          "name": "Missouri"
+          "name": "Missouri",
+          "aliases": ["MO"]
         },
         {
-          "name": "Montana"
+          "name": "Montana",
+          "aliases": ["MT"]
         },
         {
-          "name": "Nebraska"
+          "name": "Nebraska",
+          "aliases": ["NE"]
         },
         {
-          "name": "Nevada"
+          "name": "Nevada",
+          "aliases": ["NV"]
         },
         {
-          "name": "New Hampshire"
+          "name": "New Hampshire",
+          "aliases": ["NH"]
         },
         {
-          "name": "New Jersey"
+          "name": "New Jersey",
+          "aliases": ["NJ"]
         },
         {
-          "name": "New Mexico"
+          "name": "New Mexico",
+          "aliases": ["NM"]
         },
         {
-          "name": "New York"
+          "name": "New York",
+          "aliases": ["NY", "New York State"]
         },
         {
-          "name": "North Carolina"
+          "name": "North Carolina",
+          "aliases": ["NC"]
         },
         {
-          "name": "North Dakota"
+          "name": "North Dakota",
+          "aliases": ["ND"]
         },
         {
-          "name": "Ohio"
+          "name": "Ohio",
+          "aliases": ["OH"]
         },
         {
-          "name": "Oklahoma"
+          "name": "Oklahoma",
+          "aliases": ["OK"]
         },
         {
-          "name": "Oregon"
+          "name": "Oregon",
+          "aliases": ["OR"]
         },
         {
-          "name": "Pennsylvania"
+          "name": "Pennsylvania",
+          "aliases": ["PA", "Penn"]
         },
         {
-          "name": "Rhode Island"
+          "name": "Rhode Island",
+          "aliases": ["RI"]
         },
         {
-          "name": "South Carolina"
+          "name": "South Carolina",
+          "aliases": ["SC"]
         },
         {
-          "name": "South Dakota"
+          "name": "South Dakota",
+          "aliases": ["SD"]
         },
         {
           "name": "Tennessee"
@@ -1440,19 +1475,22 @@
           "name": "Texas"
         },
         {
-          "name": "Utah"
+          "name": "Utah",
+          "aliases": ["UT"]
         },
         {
           "name": "Vermont"
         },
         {
-          "name": "Virginia"
+          "name": "Virginia",
+          "aliases": ["VA"]
         },
         {
           "name": "Washington"
         },
         {
-          "name": "West Virginia"
+          "name": "West Virginia",
+          "aliases": ["WV"]
         },
         {
           "name": "Wisconsin"
@@ -4455,9 +4493,7 @@
         },
         {
           "name": "Gabriel García Márquez",
-          "aliases": [
-            "Garcia Marquez"
-          ]
+          "aliases": ["Garcia Marquez"]
         },
         {
           "name": "Gabriela Mistral"
@@ -4488,9 +4524,7 @@
         },
         {
           "name": "Han Kang",
-          "aliases": [
-            "Kang"
-          ]
+          "aliases": ["Kang"]
         },
         {
           "name": "Harold Pinter"
@@ -10208,7 +10242,7 @@
           "review": "Reviewed table membership; names deduplicated after extraction. The final canonical count is separately pinned on the prompt."
         }
       ],
-      "expect": [18, 18],
+      "expect": [19, 19],
       "surface": ["Mexico", "Morocco", "Malaysia"],
       "pearl": "Madagascar",
       "derive": "countries",
@@ -10435,7 +10469,7 @@
           "review": "Reviewed table membership; names deduplicated after extraction. The final canonical count is separately pinned on the prompt."
         }
       ],
-      "expect": [42, 42],
+      "expect": [47, 47],
       "surface": ["Australia", "India", "Russia"],
       "pearl": "Namibia",
       "derive": "countries",
@@ -14700,145 +14734,191 @@
       "expect": [47, 47],
       "answers": [
         {
-          "name": "Aichi"
+          "name": "Aichi",
+          "aliases": ["Aichi-ken"]
         },
         {
-          "name": "Akita"
+          "name": "Akita",
+          "aliases": ["Akita-ken"]
         },
         {
-          "name": "Aomori"
+          "name": "Aomori",
+          "aliases": ["Aomori-ken"]
         },
         {
-          "name": "Chiba"
+          "name": "Chiba",
+          "aliases": ["Chiba-ken"]
         },
         {
-          "name": "Ehime"
+          "name": "Ehime",
+          "aliases": ["Ehime-ken"]
         },
         {
-          "name": "Fukui"
+          "name": "Fukui",
+          "aliases": ["Fukui-ken"]
         },
         {
-          "name": "Fukuoka"
+          "name": "Fukuoka",
+          "aliases": ["Fukuoka-ken"]
         },
         {
-          "name": "Fukushima"
+          "name": "Fukushima",
+          "aliases": ["Fukushima-ken"]
         },
         {
-          "name": "Gifu"
+          "name": "Gifu",
+          "aliases": ["Gifu-ken"]
         },
         {
-          "name": "Gunma"
+          "name": "Gunma",
+          "aliases": ["Gunma-ken"]
         },
         {
-          "name": "Hiroshima"
+          "name": "Hiroshima",
+          "aliases": ["Hiroshima-ken"]
         },
         {
           "name": "Hokkaido"
         },
         {
-          "name": "Hyōgo"
+          "name": "Hyōgo",
+          "aliases": ["Hyōgo-ken"]
         },
         {
-          "name": "Ibaraki"
+          "name": "Ibaraki",
+          "aliases": ["Ibaraki-ken"]
         },
         {
-          "name": "Ishikawa"
+          "name": "Ishikawa",
+          "aliases": ["Ishikawa-ken"]
         },
         {
-          "name": "Iwate"
+          "name": "Iwate",
+          "aliases": ["Iwate-ken"]
         },
         {
-          "name": "Kagawa"
+          "name": "Kagawa",
+          "aliases": ["Kagawa-ken"]
         },
         {
-          "name": "Kagoshima"
+          "name": "Kagoshima",
+          "aliases": ["Kagoshima-ken"]
         },
         {
-          "name": "Kanagawa"
+          "name": "Kanagawa",
+          "aliases": ["Kanagawa-ken"]
         },
         {
-          "name": "Kumamoto"
+          "name": "Kumamoto",
+          "aliases": ["Kumamoto-ken"]
         },
         {
-          "name": "Kyōto"
+          "name": "Kyōto",
+          "aliases": ["Kyōto-fu"]
         },
         {
-          "name": "Kōchi"
+          "name": "Kōchi",
+          "aliases": ["Kōchi-ken"]
         },
         {
-          "name": "Mie"
+          "name": "Mie",
+          "aliases": ["Mie-ken"]
         },
         {
-          "name": "Miyagi"
+          "name": "Miyagi",
+          "aliases": ["Miyagi-ken"]
         },
         {
-          "name": "Miyazaki"
+          "name": "Miyazaki",
+          "aliases": ["Miyazaki-ken"]
         },
         {
-          "name": "Nagano"
+          "name": "Nagano",
+          "aliases": ["Nagano-ken"]
         },
         {
-          "name": "Nagasaki"
+          "name": "Nagasaki",
+          "aliases": ["Nagasaki-ken"]
         },
         {
-          "name": "Nara"
+          "name": "Nara",
+          "aliases": ["Nara-ken"]
         },
         {
-          "name": "Niigata"
+          "name": "Niigata",
+          "aliases": ["Niigata-ken"]
         },
         {
-          "name": "Okayama"
+          "name": "Okayama",
+          "aliases": ["Okayama-ken"]
         },
         {
-          "name": "Okinawa"
+          "name": "Okinawa",
+          "aliases": ["Okinawa-ken"]
         },
         {
-          "name": "Saga"
+          "name": "Saga",
+          "aliases": ["Saga-ken"]
         },
         {
-          "name": "Saitama"
+          "name": "Saitama",
+          "aliases": ["Saitama-ken"]
         },
         {
-          "name": "Shiga"
+          "name": "Shiga",
+          "aliases": ["Shiga-ken"]
         },
         {
-          "name": "Shimane"
+          "name": "Shimane",
+          "aliases": ["Shimane-ken"]
         },
         {
-          "name": "Shizuoka"
+          "name": "Shizuoka",
+          "aliases": ["Shizuoka-ken"]
         },
         {
-          "name": "Tochigi"
+          "name": "Tochigi",
+          "aliases": ["Tochigi-ken"]
         },
         {
-          "name": "Tokushima"
+          "name": "Tokushima",
+          "aliases": ["Tokushima-ken"]
         },
         {
-          "name": "Tottori"
+          "name": "Tottori",
+          "aliases": ["Tottori-ken"]
         },
         {
-          "name": "Toyama"
+          "name": "Toyama",
+          "aliases": ["Toyama-ken"]
         },
         {
-          "name": "Tōkyō"
+          "name": "Tōkyō",
+          "aliases": ["Tōkyō-to"]
         },
         {
-          "name": "Wakayama"
+          "name": "Wakayama",
+          "aliases": ["Wakayama-ken"]
         },
         {
-          "name": "Yamagata"
+          "name": "Yamagata",
+          "aliases": ["Yamagata-ken"]
         },
         {
-          "name": "Yamaguchi"
+          "name": "Yamaguchi",
+          "aliases": ["Yamaguchi-ken"]
         },
         {
-          "name": "Yamanashi"
+          "name": "Yamanashi",
+          "aliases": ["Yamanashi-ken"]
         },
         {
-          "name": "Ōita"
+          "name": "Ōita",
+          "aliases": ["Ōita-ken"]
         },
         {
-          "name": "Ōsaka"
+          "name": "Ōsaka",
+          "aliases": ["Ōsaka-fu"]
         }
       ],
       "surface": ["Tōkyō", "Ōsaka", "Hokkaido"],
@@ -15105,7 +15185,8 @@
           "aliases": ["Tessin"]
         },
         {
-          "name": "Uri"
+          "name": "Uri",
+          "aliases": ["Ury"]
         },
         {
           "name": "Valais",
@@ -15695,7 +15776,8 @@
           "aliases": ["Kweichow"]
         },
         {
-          "name": "Hainan"
+          "name": "Hainan",
+          "aliases": ["Hainan Province"]
         },
         {
           "name": "Hebei",
@@ -15714,7 +15796,8 @@
           "aliases": ["Hupeh"]
         },
         {
-          "name": "Hunan"
+          "name": "Hunan",
+          "aliases": ["Hunan Province"]
         },
         {
           "name": "Jiangsu",
@@ -15729,7 +15812,8 @@
           "aliases": ["Kirin"]
         },
         {
-          "name": "Liaoning"
+          "name": "Liaoning",
+          "aliases": ["Liaoning Province"]
         },
         {
           "name": "Qinghai",
@@ -18579,9 +18663,7 @@
         },
         {
           "name": "Schindler's Ark",
-          "aliases": [
-            "Schindler's List"
-          ]
+          "aliases": ["Schindler's List"]
         },
         {
           "name": "Shuggie Bain"
@@ -18657,9 +18739,7 @@
         },
         {
           "name": "The Seven Moons of Maali Almeida",
-          "aliases": [
-            "Seven Moons"
-          ]
+          "aliases": ["Seven Moons"]
         },
         {
           "name": "The Siege of Krishnapur"
@@ -19140,10 +19220,7 @@
         },
         {
           "name": "Blackout/All Clear",
-          "aliases": [
-            "Blackout",
-            "All Clear"
-          ]
+          "aliases": ["Blackout", "All Clear"]
         },
         {
           "name": "Blue Mars"
@@ -19183,9 +19260,7 @@
         },
         {
           "name": "Harry Potter and the Goblet of Fire",
-          "aliases": [
-            "Goblet of Fire"
-          ]
+          "aliases": ["Goblet of Fire"]
         },
         {
           "name": "Hominids"
@@ -19270,9 +19345,7 @@
         },
         {
           "name": "The Fifth Season",
-          "aliases": [
-            "5th Season"
-          ]
+          "aliases": ["5th Season"]
         },
         {
           "name": "The Forever War"
@@ -21035,9 +21108,7 @@
         },
         {
           "name": "Kavalier & Clay",
-          "aliases": [
-            "The Amazing Adventures of Kavalier and Clay"
-          ]
+          "aliases": ["The Amazing Adventures of Kavalier and Clay"]
         },
         {
           "name": "Lamb in His Bosom"
@@ -21104,9 +21175,7 @@
         },
         {
           "name": "The Color Purple",
-          "aliases": [
-            "The Colour Purple"
-          ]
+          "aliases": ["The Colour Purple"]
         },
         {
           "name": "The Confessions of Nat Turner"
@@ -21780,14 +21849,16 @@
       "expect": [47, 47],
       "answers": [
         {
-          "name": "Afghanistan"
+          "name": "Afghanistan",
+          "aliases": ["Islamic Republic of Afghanistan"]
         },
         {
           "name": "Andorra",
           "aliases": ["Principality of Andorra"]
         },
         {
-          "name": "Armenia"
+          "name": "Armenia",
+          "aliases": ["Hayastan"]
         },
         {
           "name": "Austria",
@@ -21865,7 +21936,7 @@
         },
         {
           "name": "Luxembourg",
-          "aliases": ["Luxemburg", "Lëtzebuerg"]
+          "aliases": ["Luxemburg", "Lëtzebuerg", "Grand Duchy of Luxembourg"]
         },
         {
           "name": "Malawi"
@@ -21882,11 +21953,12 @@
           "name": "Mongolia"
         },
         {
-          "name": "Nepal"
+          "name": "Nepal",
+          "aliases": ["Federal Democratic Republic of Nepal"]
         },
         {
           "name": "Niger",
-          "aliases": ["Niger Republic"]
+          "aliases": ["Niger Republic", "Republic of Niger"]
         },
         {
           "name": "North Macedonia",
@@ -21932,7 +22004,8 @@
           "name": "Uganda"
         },
         {
-          "name": "Uzbekistan"
+          "name": "Uzbekistan",
+          "aliases": ["Republic of Uzbekistan"]
         },
         {
           "name": "Vatican City",
@@ -22024,7 +22097,7 @@
         },
         {
           "name": "Niger",
-          "aliases": ["Niger Republic"]
+          "aliases": ["Niger Republic", "Republic of Niger"]
         },
         {
           "name": "Rwanda"
@@ -22230,7 +22303,7 @@
         },
         {
           "name": "Morocco",
-          "aliases": ["Maroc"]
+          "aliases": ["Maroc", "Kingdom of Morocco"]
         },
         {
           "name": "Mozambique"
@@ -22240,7 +22313,7 @@
         },
         {
           "name": "Niger",
-          "aliases": ["Niger Republic"]
+          "aliases": ["Niger Republic", "Republic of Niger"]
         },
         {
           "name": "Nigeria"
@@ -22391,10 +22464,12 @@
           "name": "Abkhazia"
         },
         {
-          "name": "Afghanistan"
+          "name": "Afghanistan",
+          "aliases": ["Islamic Republic of Afghanistan"]
         },
         {
-          "name": "Armenia"
+          "name": "Armenia",
+          "aliases": ["Hayastan"]
         },
         {
           "name": "Azerbaijan",
@@ -22436,7 +22511,8 @@
           "aliases": ["Republic of India", "Bharat"]
         },
         {
-          "name": "Indonesia"
+          "name": "Indonesia",
+          "aliases": ["Republic of Indonesia"]
         },
         {
           "name": "Iran",
@@ -22487,7 +22563,8 @@
           "aliases": ["Burma"]
         },
         {
-          "name": "Nepal"
+          "name": "Nepal",
+          "aliases": ["Federal Democratic Republic of Nepal"]
         },
         {
           "name": "North Korea",
@@ -22564,7 +22641,8 @@
           "aliases": ["UAE", "Emirates"]
         },
         {
-          "name": "Uzbekistan"
+          "name": "Uzbekistan",
+          "aliases": ["Republic of Uzbekistan"]
         },
         {
           "name": "Vietnam",
@@ -22666,7 +22744,8 @@
           "aliases": ["Principality of Andorra"]
         },
         {
-          "name": "Armenia"
+          "name": "Armenia",
+          "aliases": ["Hayastan"]
         },
         {
           "name": "Austria",
@@ -22682,7 +22761,7 @@
         },
         {
           "name": "Belgium",
-          "aliases": ["België", "Belgique", "Belgien"]
+          "aliases": ["België", "Belgique", "Belgien", "Kingdom of Belgium"]
         },
         {
           "name": "Bosnia and Herzegovina",
@@ -22711,10 +22790,11 @@
         },
         {
           "name": "Finland",
-          "aliases": ["Suomi"]
+          "aliases": ["Suomi", "Suomen tasavalta"]
         },
         {
-          "name": "France"
+          "name": "France",
+          "aliases": ["French Republic", "République française"]
         },
         {
           "name": "Georgia"
@@ -22761,7 +22841,7 @@
         },
         {
           "name": "Luxembourg",
-          "aliases": ["Luxemburg", "Lëtzebuerg"]
+          "aliases": ["Luxemburg", "Lëtzebuerg", "Grand Duchy of Luxembourg"]
         },
         {
           "name": "Malta"
@@ -22790,14 +22870,15 @@
         },
         {
           "name": "Norway",
-          "aliases": ["Norge", "Noreg"]
+          "aliases": ["Norge", "Noreg", "Kingdom of Norway"]
         },
         {
           "name": "Poland",
           "aliases": ["Polska"]
         },
         {
-          "name": "Portugal"
+          "name": "Portugal",
+          "aliases": ["Portuguese Republic"]
         },
         {
           "name": "Romania"
@@ -23075,7 +23156,8 @@
           "aliases": ["Ísland"]
         },
         {
-          "name": "Indonesia"
+          "name": "Indonesia",
+          "aliases": ["Republic of Indonesia"]
         },
         {
           "name": "Ireland",
@@ -23335,7 +23417,8 @@
       "expect": [14, 14],
       "answers": [
         {
-          "name": "Afghanistan"
+          "name": "Afghanistan",
+          "aliases": ["Islamic Republic of Afghanistan"]
         },
         {
           "name": "Bhutan"
@@ -23364,7 +23447,8 @@
           "aliases": ["Burma"]
         },
         {
-          "name": "Nepal"
+          "name": "Nepal",
+          "aliases": ["Federal Democratic Republic of Nepal"]
         },
         {
           "name": "North Korea",
@@ -23463,7 +23547,7 @@
         },
         {
           "name": "Finland",
-          "aliases": ["Suomi"]
+          "aliases": ["Suomi", "Suomen tasavalta"]
         },
         {
           "name": "Georgia"
@@ -23487,7 +23571,7 @@
         },
         {
           "name": "Norway",
-          "aliases": ["Norge", "Noreg"]
+          "aliases": ["Norge", "Noreg", "Kingdom of Norway"]
         },
         {
           "name": "Poland",
@@ -23552,7 +23636,7 @@
         },
         {
           "name": "Belgium",
-          "aliases": ["België", "Belgique", "Belgien"]
+          "aliases": ["België", "Belgique", "Belgien", "Kingdom of Belgium"]
         },
         {
           "name": "Brazil",
@@ -23568,7 +23652,7 @@
         },
         {
           "name": "Luxembourg",
-          "aliases": ["Luxemburg", "Lëtzebuerg"]
+          "aliases": ["Luxemburg", "Lëtzebuerg", "Grand Duchy of Luxembourg"]
         },
         {
           "name": "Monaco",
@@ -28960,15 +29044,11 @@
         },
         {
           "name": "Chrysler",
-          "aliases": [
-            "Chrysler Motors"
-          ]
+          "aliases": ["Chrysler Motors"]
         },
         {
           "name": "Citroën",
-          "aliases": [
-            "Citroen Automobiles"
-          ]
+          "aliases": ["Citroen Automobiles"]
         },
         {
           "name": "DS Automobiles",
@@ -28979,10 +29059,7 @@
         },
         {
           "name": "Fiat",
-          "aliases": [
-            "Fiat Automobiles",
-            "Fiat Professional"
-          ]
+          "aliases": ["Fiat Automobiles", "Fiat Professional"]
         },
         {
           "name": "Jeep"
@@ -29001,15 +29078,11 @@
         },
         {
           "name": "Ram",
-          "aliases": [
-            "Ram Trucks"
-          ]
+          "aliases": ["Ram Trucks"]
         },
         {
           "name": "Vauxhall",
-          "aliases": [
-            "Vauxhall Motors"
-          ]
+          "aliases": ["Vauxhall Motors"]
         }
       ],
       "surface": ["Jeep", "Fiat", "Peugeot"],
@@ -29063,181 +29136,107 @@
       "answers": [
         {
           "name": "Aegean Airlines",
-          "aliases": [
-            "Aegean",
-            "A3"
-          ]
+          "aliases": ["Aegean", "A3"]
         },
         {
           "name": "Air Canada",
-          "aliases": [
-            "AC"
-          ]
+          "aliases": ["AC"]
         },
         {
           "name": "Air China",
-          "aliases": [
-            "CA"
-          ]
+          "aliases": ["CA"]
         },
         {
           "name": "Air India",
-          "aliases": [
-            "AI"
-          ]
+          "aliases": ["AI"]
         },
         {
           "name": "Air New Zealand",
-          "aliases": [
-            "NZ"
-          ]
+          "aliases": ["NZ"]
         },
         {
           "name": "All Nippon Airways",
-          "aliases": [
-            "ANA",
-            "NH"
-          ]
+          "aliases": ["ANA", "NH"]
         },
         {
           "name": "Asiana Airlines",
-          "aliases": [
-            "Asiana",
-            "OZ"
-          ]
+          "aliases": ["Asiana", "OZ"]
         },
         {
           "name": "Austrian Airlines",
-          "aliases": [
-            "Austrian",
-            "OS"
-          ]
+          "aliases": ["Austrian", "OS"]
         },
         {
           "name": "Avianca",
-          "aliases": [
-            "AV"
-          ]
+          "aliases": ["AV"]
         },
         {
           "name": "Brussels Airlines",
-          "aliases": [
-            "Brussels",
-            "SN"
-          ]
+          "aliases": ["Brussels", "SN"]
         },
         {
           "name": "Copa Airlines",
-          "aliases": [
-            "Copa",
-            "CM"
-          ]
+          "aliases": ["Copa", "CM"]
         },
         {
           "name": "Croatia Airlines",
-          "aliases": [
-            "Croatia",
-            "OU"
-          ]
+          "aliases": ["Croatia", "OU"]
         },
         {
           "name": "EVA Air",
-          "aliases": [
-            "EVA",
-            "BR"
-          ]
+          "aliases": ["EVA", "BR"]
         },
         {
           "name": "Egyptair",
-          "aliases": [
-            "Egypt Air",
-            "MS"
-          ]
+          "aliases": ["Egypt Air", "MS"]
         },
         {
           "name": "Ethiopian Airlines",
-          "aliases": [
-            "Ethiopian",
-            "ET"
-          ]
+          "aliases": ["Ethiopian", "ET"]
         },
         {
           "name": "ITA Airways",
-          "aliases": [
-            "ITA",
-            "AZ"
-          ]
+          "aliases": ["ITA", "AZ"]
         },
         {
           "name": "LOT Polish Airlines",
-          "aliases": [
-            "LOT",
-            "LO"
-          ]
+          "aliases": ["LOT", "LO"]
         },
         {
           "name": "Lufthansa",
-          "aliases": [
-            "LH"
-          ]
+          "aliases": ["LH"]
         },
         {
           "name": "Shenzhen Airlines",
-          "aliases": [
-            "Shenzhen",
-            "ZH"
-          ]
+          "aliases": ["Shenzhen", "ZH"]
         },
         {
           "name": "Singapore Airlines",
-          "aliases": [
-            "Singapore",
-            "SQ"
-          ]
+          "aliases": ["Singapore", "SQ"]
         },
         {
           "name": "South African Airways",
-          "aliases": [
-            "South African",
-            "SAA",
-            "SA"
-          ]
+          "aliases": ["South African", "SAA", "SA"]
         },
         {
           "name": "Swiss International Air Lines",
-          "aliases": [
-            "Swiss",
-            "LX"
-          ]
+          "aliases": ["Swiss", "LX"]
         },
         {
           "name": "TAP Air Portugal",
-          "aliases": [
-            "TAP",
-            "TP"
-          ]
+          "aliases": ["TAP", "TP"]
         },
         {
           "name": "Thai Airways International",
-          "aliases": [
-            "Thai Airways",
-            "Thai",
-            "TG"
-          ]
+          "aliases": ["Thai Airways", "Thai", "TG"]
         },
         {
           "name": "Turkish Airlines",
-          "aliases": [
-            "Turkish",
-            "TK"
-          ]
+          "aliases": ["Turkish", "TK"]
         },
         {
           "name": "United Airlines",
-          "aliases": [
-            "United",
-            "UA"
-          ]
+          "aliases": ["United", "UA"]
         }
       ],
       "surface": ["United Airlines", "Lufthansa", "Air Canada"],
@@ -29281,102 +29280,63 @@
       "answers": [
         {
           "name": "Alaska Airlines",
-          "aliases": [
-            "Alaska",
-            "AS"
-          ]
+          "aliases": ["Alaska", "AS"]
         },
         {
           "name": "American Airlines",
-          "aliases": [
-            "American",
-            "AA"
-          ]
+          "aliases": ["American", "AA"]
         },
         {
           "name": "British Airways",
-          "aliases": [
-            "BA"
-          ]
+          "aliases": ["BA"]
         },
         {
           "name": "Cathay Pacific",
-          "aliases": [
-            "Cathay",
-            "CX"
-          ]
+          "aliases": ["Cathay", "CX"]
         },
         {
           "name": "Fiji Airways",
-          "aliases": [
-            "Fiji",
-            "FJ"
-          ]
+          "aliases": ["Fiji", "FJ"]
         },
         {
           "name": "Finnair",
-          "aliases": [
-            "AY"
-          ]
+          "aliases": ["AY"]
         },
         {
           "name": "Iberia",
-          "aliases": [
-            "IB"
-          ]
+          "aliases": ["IB"]
         },
         {
           "name": "Japan Airlines",
-          "aliases": [
-            "JAL",
-            "JL"
-          ]
+          "aliases": ["JAL", "JL"]
         },
         {
           "name": "Malaysia Airlines",
-          "aliases": [
-            "Malaysia",
-            "MH"
-          ]
+          "aliases": ["Malaysia", "MH"]
         },
         {
           "name": "Oman Air",
-          "aliases": [
-            "WY"
-          ]
+          "aliases": ["WY"]
         },
         {
           "name": "Qantas",
-          "aliases": [
-            "QF"
-          ]
+          "aliases": ["QF"]
         },
         {
           "name": "Qatar Airways",
-          "aliases": [
-            "Qatar",
-            "QR"
-          ]
+          "aliases": ["Qatar", "QR"]
         },
         {
           "name": "Royal Air Maroc",
-          "aliases": [
-            "RAM",
-            "AT"
-          ]
+          "aliases": ["RAM", "AT"]
         },
         {
           "name": "Royal Jordanian",
-          "aliases": [
-            "RJ"
-          ]
+          "aliases": ["RJ"]
         },
         {
           "name": "SriLankan Airlines",
-          "aliases": [
-            "SriLankan",
-            "UL"
-          ]
+          "aliases": ["SriLankan", "UL"]
         }
       ],
       "surface": ["American Airlines", "British Airways", "Qantas"],
@@ -29423,121 +29383,75 @@
       "answers": [
         {
           "name": "Aerolíneas Argentinas",
-          "aliases": [
-            "AR"
-          ]
+          "aliases": ["AR"]
         },
         {
           "name": "Aeroméxico",
-          "aliases": [
-            "AM"
-          ]
+          "aliases": ["AM"]
         },
         {
           "name": "Air Europa",
-          "aliases": [
-            "UX"
-          ]
+          "aliases": ["UX"]
         },
         {
           "name": "Air France",
-          "aliases": [
-            "AF"
-          ]
+          "aliases": ["AF"]
         },
         {
           "name": "China Airlines",
-          "aliases": [
-            "CI"
-          ]
+          "aliases": ["CI"]
         },
         {
           "name": "China Eastern Airlines",
-          "aliases": [
-            "China Eastern",
-            "MU"
-          ]
+          "aliases": ["China Eastern", "MU"]
         },
         {
           "name": "Delta Air Lines",
-          "aliases": [
-            "Delta",
-            "DL"
-          ]
+          "aliases": ["Delta", "DL"]
         },
         {
           "name": "Garuda Indonesia",
-          "aliases": [
-            "Garuda",
-            "GA"
-          ]
+          "aliases": ["Garuda", "GA"]
         },
         {
           "name": "KLM",
-          "aliases": [
-            "Royal Dutch Airlines",
-            "KL"
-          ]
+          "aliases": ["Royal Dutch Airlines", "KL"]
         },
         {
           "name": "Kenya Airways",
-          "aliases": [
-            "KQ"
-          ]
+          "aliases": ["KQ"]
         },
         {
           "name": "Korean Air",
-          "aliases": [
-            "Korean",
-            "KE"
-          ]
+          "aliases": ["Korean", "KE"]
         },
         {
           "name": "Middle East Airlines",
-          "aliases": [
-            "MEA",
-            "ME"
-          ]
+          "aliases": ["MEA", "ME"]
         },
         {
           "name": "Saudia",
-          "aliases": [
-            "Saudi Arabian Airlines",
-            "SV"
-          ]
+          "aliases": ["Saudi Arabian Airlines", "SV"]
         },
         {
           "name": "Scandinavian Airlines",
-          "aliases": [
-            "SAS",
-            "SK"
-          ]
+          "aliases": ["SAS", "SK"]
         },
         {
           "name": "TAROM",
-          "aliases": [
-            "RO"
-          ]
+          "aliases": ["RO"]
         },
         {
           "name": "Vietnam Airlines",
-          "aliases": [
-            "Vietnam",
-            "VN"
-          ]
+          "aliases": ["Vietnam", "VN"]
         },
         {
           "name": "Virgin Atlantic",
-          "aliases": [
-            "VS"
-          ]
+          "aliases": ["VS"]
         },
         {
           "name": "XiamenAir",
-          "aliases": [
-            "Xiamen Airlines",
-            "MF"
-          ]
+          "aliases": ["Xiamen Airlines", "MF"]
         }
       ],
       "surface": ["Delta Air Lines", "Air France", "KLM"],
@@ -34773,10 +34687,7 @@
         },
         {
           "name": "Crustaceans",
-          "aliases": [
-            "Crustacean shellfish",
-            "Shellfish"
-          ]
+          "aliases": ["Crustacean shellfish", "Shellfish"]
         },
         {
           "name": "Eggs"
@@ -34802,9 +34713,7 @@
         },
         {
           "name": "Milk",
-          "aliases": [
-            "Dairy"
-          ]
+          "aliases": ["Dairy"]
         },
         {
           "name": "Molluscs",
@@ -34822,11 +34731,7 @@
         },
         {
           "name": "Soy",
-          "aliases": [
-            "Soya",
-            "Soybeans",
-            "Soya beans"
-          ]
+          "aliases": ["Soya", "Soybeans", "Soya beans"]
         },
         {
           "name": "Sulphites",
@@ -35052,21 +34957,14 @@
         },
         {
           "name": "B&O Railroad",
-          "aliases": [
-            "B and O Railroad",
-            "BO Railroad",
-            "Baltimore and Ohio Railroad",
-            "B&O"
-          ]
+          "aliases": ["B and O Railroad", "BO Railroad", "Baltimore and Ohio Railroad", "B&O"]
         },
         {
           "name": "Baltic Avenue"
         },
         {
           "name": "Boardwalk",
-          "aliases": [
-            "Board Walk"
-          ]
+          "aliases": ["Board Walk"]
         },
         {
           "name": "Connecticut Avenue"
@@ -35115,21 +35013,15 @@
         },
         {
           "name": "Short Line",
-          "aliases": [
-            "Short Line Railroad"
-          ]
+          "aliases": ["Short Line Railroad"]
         },
         {
           "name": "St. Charles Place",
-          "aliases": [
-            "Saint Charles Place"
-          ]
+          "aliases": ["Saint Charles Place"]
         },
         {
           "name": "St. James Place",
-          "aliases": [
-            "Saint James Place"
-          ]
+          "aliases": ["Saint James Place"]
         },
         {
           "name": "States Avenue"
@@ -35247,36 +35139,28 @@
         },
         {
           "name": "Fenchurch Street Station",
-          "aliases": [
-            "Fenchurch Street"
-          ]
+          "aliases": ["Fenchurch Street"]
         },
         {
           "name": "Fleet Street"
         },
         {
           "name": "Kings Cross Station",
-          "aliases": [
-            "King's Cross"
-          ]
+          "aliases": ["King's Cross"]
         },
         {
           "name": "Leicester Square"
         },
         {
           "name": "Liverpool Street Station",
-          "aliases": [
-            "Liverpool Street"
-          ]
+          "aliases": ["Liverpool Street"]
         },
         {
           "name": "Marlborough Street"
         },
         {
           "name": "Marylebone Station",
-          "aliases": [
-            "Marylebone"
-          ]
+          "aliases": ["Marylebone"]
         },
         {
           "name": "Mayfair"
@@ -35741,7 +35625,7 @@
         },
         {
           "name": "Athens",
-          "aliases": ["Athina"]
+          "aliases": ["Athina", "Athinae"]
         },
         {
           "name": "Baku"
@@ -36897,9 +36781,7 @@
         },
         {
           "name": "Topaz",
-          "aliases": [
-            "Blue topaz"
-          ]
+          "aliases": ["Blue topaz"]
         },
         {
           "name": "Turquoise"
@@ -36955,9 +36837,7 @@
         },
         {
           "name": "tourmaline",
-          "aliases": [
-            "Pink tourmaline"
-          ]
+          "aliases": ["Pink tourmaline"]
         }
       ],
       "surface": ["Diamond", "ruby", "Emerald"],
@@ -37054,9 +36934,7 @@
         },
         {
           "name": "Cerulean",
-          "aliases": [
-            "Cerulean Blue"
-          ]
+          "aliases": ["Cerulean Blue"]
         },
         {
           "name": "Chili Pepper"
@@ -37613,27 +37491,15 @@
         },
         {
           "name": "Right effort",
-          "aliases": [
-            "effort",
-            "Wise effort",
-            "Samma vayama"
-          ]
+          "aliases": ["effort", "Wise effort", "Samma vayama"]
         },
         {
           "name": "Right livelihood",
-          "aliases": [
-            "livelihood",
-            "Wise livelihood",
-            "Samma ajiva"
-          ]
+          "aliases": ["livelihood", "Wise livelihood", "Samma ajiva"]
         },
         {
           "name": "Right mindfulness",
-          "aliases": [
-            "mindfulness",
-            "Wise mindfulness",
-            "Samma sati"
-          ]
+          "aliases": ["mindfulness", "Wise mindfulness", "Samma sati"]
         },
         {
           "name": "Right resolve",
@@ -37665,21 +37531,11 @@
         },
         {
           "name": "Right speech",
-          "aliases": [
-            "speech",
-            "Wise speech",
-            "Samma vaca"
-          ]
+          "aliases": ["speech", "Wise speech", "Samma vaca"]
         },
         {
           "name": "Right view",
-          "aliases": [
-            "Right understanding",
-            "understanding",
-            "view",
-            "Wise view",
-            "Samma ditthi"
-          ]
+          "aliases": ["Right understanding", "understanding", "view", "Wise view", "Samma ditthi"]
         }
       ],
       "surface": ["Right speech", "Right mindfulness", "Right livelihood"],
@@ -37886,9 +37742,7 @@
         },
         {
           "name": "A Tale of Two Cities",
-          "aliases": [
-            "Tale of 2 Cities"
-          ]
+          "aliases": ["Tale of 2 Cities"]
         },
         {
           "name": "Barnaby Rudge"
@@ -37937,15 +37791,11 @@
         },
         {
           "name": "The Haunted Man and the Ghost's Bargain",
-          "aliases": [
-            "The Haunted Man"
-          ]
+          "aliases": ["The Haunted Man"]
         },
         {
           "name": "The Mystery of Edwin Drood",
-          "aliases": [
-            "Edwin Drood"
-          ]
+          "aliases": ["Edwin Drood"]
         },
         {
           "name": "The Old Curiosity Shop"
@@ -38107,9 +37957,7 @@
         },
         {
           "name": "The Fifth Elephant",
-          "aliases": [
-            "5th Elephant"
-          ]
+          "aliases": ["5th Elephant"]
         },
         {
           "name": "The Last Continent"
@@ -38196,15 +38044,11 @@
         },
         {
           "name": "Charlie and the Great Glass Elevator",
-          "aliases": [
-            "Great Glass Elevator"
-          ]
+          "aliases": ["Great Glass Elevator"]
         },
         {
           "name": "Danny the Champion of the World",
-          "aliases": [
-            "Danny Champion of the World"
-          ]
+          "aliases": ["Danny Champion of the World"]
         },
         {
           "name": "Esio Trot"
@@ -38214,9 +38058,7 @@
         },
         {
           "name": "George's Marvellous Medicine",
-          "aliases": [
-            "George's Marvelous Medicine"
-          ]
+          "aliases": ["George's Marvelous Medicine"]
         },
         {
           "name": "James and the Giant Peach"
@@ -39674,7 +39516,8 @@
       "expect": [48, 48],
       "answers": [
         {
-          "name": "Bedfordshire"
+          "name": "Bedfordshire",
+          "aliases": ["Beds"]
         },
         {
           "name": "Berkshire"
@@ -39684,10 +39527,12 @@
           "aliases": ["City and County of Bristol"]
         },
         {
-          "name": "Buckinghamshire"
+          "name": "Buckinghamshire",
+          "aliases": ["Bucks"]
         },
         {
-          "name": "Cambridgeshire"
+          "name": "Cambridgeshire",
+          "aliases": ["Cambs"]
         },
         {
           "name": "Cheshire"
@@ -39726,7 +39571,8 @@
           "name": "Essex"
         },
         {
-          "name": "Gloucestershire"
+          "name": "Gloucestershire",
+          "aliases": ["Glos"]
         },
         {
           "name": "Greater London",
@@ -39736,13 +39582,15 @@
           "name": "Greater Manchester"
         },
         {
-          "name": "Hampshire"
+          "name": "Hampshire",
+          "aliases": ["Hants"]
         },
         {
           "name": "Herefordshire"
         },
         {
-          "name": "Hertfordshire"
+          "name": "Hertfordshire",
+          "aliases": ["Herts"]
         },
         {
           "name": "Isle of Wight"
@@ -39751,13 +39599,16 @@
           "name": "Kent"
         },
         {
-          "name": "Lancashire"
+          "name": "Lancashire",
+          "aliases": ["Lancs"]
         },
         {
-          "name": "Leicestershire"
+          "name": "Leicestershire",
+          "aliases": ["Leics"]
         },
         {
-          "name": "Lincolnshire"
+          "name": "Lincolnshire",
+          "aliases": ["Lincs"]
         },
         {
           "name": "Merseyside"
@@ -39769,22 +39620,26 @@
           "name": "North Yorkshire"
         },
         {
-          "name": "Northamptonshire"
+          "name": "Northamptonshire",
+          "aliases": ["Northants"]
         },
         {
           "name": "Northumberland"
         },
         {
-          "name": "Nottinghamshire"
+          "name": "Nottinghamshire",
+          "aliases": ["Notts"]
         },
         {
-          "name": "Oxfordshire"
+          "name": "Oxfordshire",
+          "aliases": ["Oxon"]
         },
         {
           "name": "Rutland"
         },
         {
-          "name": "Shropshire"
+          "name": "Shropshire",
+          "aliases": ["Salop"]
         },
         {
           "name": "Somerset"
@@ -39793,7 +39648,8 @@
           "name": "South Yorkshire"
         },
         {
-          "name": "Staffordshire"
+          "name": "Staffordshire",
+          "aliases": ["Staffs"]
         },
         {
           "name": "Suffolk"
@@ -39805,7 +39661,8 @@
           "name": "Tyne and Wear"
         },
         {
-          "name": "Warwickshire"
+          "name": "Warwickshire",
+          "aliases": ["Warks"]
         },
         {
           "name": "West Midlands"
@@ -39817,10 +39674,12 @@
           "name": "West Yorkshire"
         },
         {
-          "name": "Wiltshire"
+          "name": "Wiltshire",
+          "aliases": ["Wilts"]
         },
         {
-          "name": "Worcestershire"
+          "name": "Worcestershire",
+          "aliases": ["Worcs"]
         }
       ],
       "surface": ["Kent", "Devon", "Cornwall"],
@@ -39913,7 +39772,8 @@
       "surface": ["Snow White", "Cinderella", "Ariel"],
       "pearl": "Tiana",
       "people": false,
-      "review": "All 13 current official franchise members from the roster table, not the broader class of princess characters in Disney-owned media. Former members Tinker Bell and Esmeralda are outside this current roster."
+      "review": "All 13 current official franchise members from the roster table, not the broader class of princess characters in Disney-owned media. Former members Tinker Bell and Esmeralda are outside this current roster.",
+      "active": false
     },
     {
       "id": "london-tube-lines",
@@ -40037,9 +39897,7 @@
         },
         {
           "name": "His Last Bow",
-          "aliases": [
-            "Last Bow"
-          ]
+          "aliases": ["Last Bow"]
         },
         {
           "name": "The Adventures of Sherlock Holmes",
@@ -40047,16 +39905,11 @@
         },
         {
           "name": "The Case-Book of Sherlock Holmes",
-          "aliases": [
-            "Casebook of Sherlock Holmes",
-            "Casebook"
-          ]
+          "aliases": ["Casebook of Sherlock Holmes", "Casebook"]
         },
         {
           "name": "The Hound of the Baskervilles",
-          "aliases": [
-            "Hound of Baskervilles"
-          ]
+          "aliases": ["Hound of Baskervilles"]
         },
         {
           "name": "The Memoirs of Sherlock Holmes",
@@ -40064,17 +39917,11 @@
         },
         {
           "name": "The Return of Sherlock Holmes",
-          "aliases": [
-            "Return"
-          ]
+          "aliases": ["Return"]
         },
         {
           "name": "The Sign of the Four",
-          "aliases": [
-            "The Sign of Four",
-            "Sign of the 4",
-            "Sign of 4"
-          ]
+          "aliases": ["The Sign of Four", "Sign of the 4", "Sign of 4"]
         },
         {
           "name": "The Valley of Fear"
@@ -43430,53 +43277,64 @@
       "expect": [49, 49],
       "answers": [
         {
-          "name": "Aulavik"
+          "name": "Aulavik",
+          "aliases": ["Aulavik National Park"]
         },
         {
-          "name": "Auyuittuq"
+          "name": "Auyuittuq",
+          "aliases": ["Auyuittuq National Park"]
         },
         {
           "name": "Banff",
           "aliases": ["Banff National Park"]
         },
         {
-          "name": "Bruce Peninsula"
+          "name": "Bruce Peninsula",
+          "aliases": ["Bruce Peninsula National Park"]
         },
         {
-          "name": "Cape Breton Highlands"
+          "name": "Cape Breton Highlands",
+          "aliases": ["Cape Breton Highlands National Park"]
         },
         {
-          "name": "Elk Island"
+          "name": "Elk Island",
+          "aliases": ["Elk Island National Park"]
         },
         {
-          "name": "Forillon"
+          "name": "Forillon",
+          "aliases": ["Forillon National Park"]
         },
         {
           "name": "Fundy",
           "aliases": ["Fundy National Park"]
         },
         {
-          "name": "Georgian Bay Islands"
+          "name": "Georgian Bay Islands",
+          "aliases": ["Georgian Bay Islands National Park"]
         },
         {
-          "name": "Glacier"
+          "name": "Glacier",
+          "aliases": ["Glacier National Park"]
         },
         {
-          "name": "Grasslands"
+          "name": "Grasslands",
+          "aliases": ["Grasslands National Park"]
         },
         {
           "name": "Gros Morne",
           "aliases": ["Gros Morne National Park"]
         },
         {
-          "name": "Gulf Islands"
+          "name": "Gulf Islands",
+          "aliases": ["Gulf Islands National Park"]
         },
         {
           "name": "Gwaii Haanas",
-          "aliases": ["Gwaii Haanas National Park Reserve"]
+          "aliases": ["Gwaii Haanas National Park Reserve", "Gwaii Haanas National Park"]
         },
         {
-          "name": "Ivvavik"
+          "name": "Ivvavik",
+          "aliases": ["Ivvavik National Park"]
         },
         {
           "name": "Jasper",
@@ -43484,103 +43342,127 @@
         },
         {
           "name": "Kejimkujik",
-          "aliases": ["Keji"]
+          "aliases": ["Keji", "Kejimkujik National Park"]
         },
         {
           "name": "Kluane",
-          "aliases": ["Kluane National Park Reserve"]
+          "aliases": ["Kluane National Park Reserve", "Kluane National Park"]
         },
         {
           "name": "Kootenay",
           "aliases": ["Kootenay National Park"]
         },
         {
-          "name": "Kouchibouguac"
+          "name": "Kouchibouguac",
+          "aliases": ["Kouchibouguac National Park"]
         },
         {
-          "name": "La Mauricie"
+          "name": "La Mauricie",
+          "aliases": ["La Mauricie National Park"]
         },
         {
           "name": "Mealy Mountains",
-          "aliases": ["Akami Uapishku KakKasuak", "Akami-UapishkU-KakKasuak-Mealy Mountains"]
+          "aliases": [
+            "Akami Uapishku KakKasuak",
+            "Akami-UapishkU-KakKasuak-Mealy Mountains",
+            "Mealy Mountains National Park"
+          ]
         },
         {
-          "name": "Mingan Archipelago"
+          "name": "Mingan Archipelago",
+          "aliases": ["Mingan Archipelago National Park"]
         },
         {
-          "name": "Mount Revelstoke"
+          "name": "Mount Revelstoke",
+          "aliases": ["Mount Revelstoke National Park"]
         },
         {
           "name": "Nahanni",
-          "aliases": ["Nahanni National Park Reserve"]
+          "aliases": ["Nahanni National Park Reserve", "Nahanni National Park"]
         },
         {
-          "name": "Nááts'ihch'oh"
+          "name": "Nááts'ihch'oh",
+          "aliases": ["Nááts'ihch'oh National Park"]
         },
         {
           "name": "Pacific Rim",
-          "aliases": ["Pacific Rim National Park Reserve"]
+          "aliases": ["Pacific Rim National Park Reserve", "Pacific Rim National Park"]
         },
         {
           "name": "Pituamkek",
-          "aliases": ["Pituamkek National Park Reserve"]
+          "aliases": ["Pituamkek National Park Reserve", "Pituamkek National Park"]
         },
         {
-          "name": "Point Pelee"
+          "name": "Point Pelee",
+          "aliases": ["Point Pelee National Park"]
         },
         {
-          "name": "Prince Albert"
+          "name": "Prince Albert",
+          "aliases": ["Prince Albert National Park"]
         },
         {
           "name": "Prince Edward Island",
-          "aliases": ["PEI"]
+          "aliases": ["PEI", "Prince Edward Island National Park"]
         },
         {
-          "name": "Pukaskwa"
+          "name": "Pukaskwa",
+          "aliases": ["Pukaskwa National Park"]
         },
         {
-          "name": "Qausuittuq"
+          "name": "Qausuittuq",
+          "aliases": ["Qausuittuq National Park"]
         },
         {
-          "name": "Quttinirpaaq"
+          "name": "Quttinirpaaq",
+          "aliases": ["Quttinirpaaq National Park"]
         },
         {
-          "name": "Riding Mountain"
+          "name": "Riding Mountain",
+          "aliases": ["Riding Mountain National Park"]
         },
         {
           "name": "Rouge",
           "aliases": ["Rouge National Park"]
         },
         {
-          "name": "Sable Island"
+          "name": "Sable Island",
+          "aliases": ["Sable Island National Park"]
         },
         {
-          "name": "Sirmilik"
+          "name": "Sirmilik",
+          "aliases": ["Sirmilik National Park"]
         },
         {
-          "name": "Terra Nova"
+          "name": "Terra Nova",
+          "aliases": ["Terra Nova National Park"]
         },
         {
-          "name": "Thaidene Nëné"
+          "name": "Thaidene Nëné",
+          "aliases": ["Thaidene Nëné National Park"]
         },
         {
           "name": "Thousand Islands",
-          "aliases": ["St Lawrence Islands"]
+          "aliases": ["St Lawrence Islands", "Thousand Islands National Park"]
         },
         {
-          "name": "Torngat Mountains"
+          "name": "Torngat Mountains",
+          "aliases": ["Torngat Mountains National Park"]
         },
         {
-          "name": "Tuktut Nogait"
+          "name": "Tuktut Nogait",
+          "aliases": ["Tuktut Nogait National Park"]
         },
         {
-          "name": "Ukkusiksalik"
+          "name": "Ukkusiksalik",
+          "aliases": ["Ukkusiksalik National Park"]
         },
         {
-          "name": "Vuntut"
+          "name": "Vuntut",
+          "aliases": ["Vuntut National Park"]
         },
         {
-          "name": "Wapusk"
+          "name": "Wapusk",
+          "aliases": ["Wapusk National Park"]
         },
         {
           "name": "Waterton Lakes",
@@ -43862,7 +43744,7 @@
             "Walking with Prehistoric Beasts",
             "Ziggy's Gift"
           ],
-          "review": "All winner-highlighted programs in every decade, covering both program-length predecessor categories. Year-only header rows are not winners. Specials count, including A Charlie Brown Thanksgiving and the Peanuts and Garfield winners."
+          "review": "All winner-highlighted programs in every decade, covering both program-length predecessor categories. Year-only header rows are not winners. Specials count, including Life Is a Circus, Charlie Brown and the Garfield winners."
         },
         {
           "page": "Primetime Emmy Award for Outstanding Animated Program",
@@ -45548,7 +45430,8 @@
           "aliases": ["Flemish", "Nederlands"]
         },
         {
-          "name": "English"
+          "name": "English",
+          "aliases": ["Engels"]
         },
         {
           "name": "Estonian",
@@ -46125,11 +46008,7 @@
         },
         {
           "name": "Henry IV, Part 2",
-          "aliases": [
-            "Henry IV Part Two",
-            "Henry 4 Part 2",
-            "Henry 4 Part Two"
-          ]
+          "aliases": ["Henry IV Part Two", "Henry 4 Part 2", "Henry 4 Part Two"]
         },
         {
           "name": "Henry V",
@@ -46147,19 +46026,11 @@
         },
         {
           "name": "Henry VI, Part 2",
-          "aliases": [
-            "Henry VI Part Two",
-            "Henry 6 Part 2",
-            "Henry 6 Part Two"
-          ]
+          "aliases": ["Henry VI Part Two", "Henry 6 Part 2", "Henry 6 Part Two"]
         },
         {
           "name": "Henry VI, Part 3",
-          "aliases": [
-            "Henry VI Part Three",
-            "Henry 6 Part 3",
-            "Henry 6 Part Three"
-          ]
+          "aliases": ["Henry VI Part Three", "Henry 6 Part 3", "Henry 6 Part Three"]
         },
         {
           "name": "Henry VIII",
@@ -46246,9 +46117,7 @@
         },
         {
           "name": "Twelfth Night",
-          "aliases": [
-            "12th Night"
-          ]
+          "aliases": ["12th Night"]
         }
       ],
       "surface": ["Hamlet", "Macbeth", "Romeo and Juliet"],
@@ -47849,9 +47718,7 @@
         },
         {
           "name": "Cosmopolitan",
-          "aliases": [
-            "Cosmo"
-          ]
+          "aliases": ["Cosmo"]
         },
         {
           "name": "Cuba libre"
@@ -47878,9 +47745,7 @@
         },
         {
           "name": "French 75",
-          "aliases": [
-            "French Seventy Five"
-          ]
+          "aliases": ["French Seventy Five"]
         },
         {
           "name": "French Connection"
@@ -47923,9 +47788,7 @@
         },
         {
           "name": "John Collins",
-          "aliases": [
-            "Tom Collins"
-          ]
+          "aliases": ["Tom Collins"]
         },
         {
           "name": "Jungle Bird"
@@ -47941,10 +47804,7 @@
         },
         {
           "name": "Long Island iced tea",
-          "aliases": [
-            "Long Island",
-            "LIIT"
-          ]
+          "aliases": ["Long Island", "LIIT"]
         },
         {
           "name": "Mai Tai"
@@ -70495,6 +70355,97 @@
       "pearl": "Morocco",
       "scope": "Countries from every circuit with a positive completed World Championship race count; not namesakes such as San Marino, canceled Vietnam or proposed future host countries. West Germany merges with continuing state Germany; historical venues are included.",
       "too_clever": ["South Korea"]
+    },
+    {
+      "id": "pixar-single-word-films",
+      "text": "a Pixar feature film with a one-word English title",
+      "theme": "film",
+      "cluster": "animation",
+      "active": true,
+      "answers": [
+        {
+          "name": "Cars"
+        },
+        {
+          "name": "Ratatouille"
+        },
+        {
+          "name": "WALL-E",
+          "aliases": ["WallE"]
+        },
+        {
+          "name": "Up"
+        },
+        {
+          "name": "Brave"
+        },
+        {
+          "name": "Coco"
+        },
+        {
+          "name": "Onward"
+        },
+        {
+          "name": "Soul"
+        },
+        {
+          "name": "Luca"
+        },
+        {
+          "name": "Lightyear"
+        },
+        {
+          "name": "Elemental"
+        },
+        {
+          "name": "Elio"
+        },
+        {
+          "name": "Hoppers"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Pixar films",
+          "revision": 1384003758,
+          "members": [
+            "Cars",
+            "Ratatouille",
+            "WALL-E",
+            "Up",
+            "Brave",
+            "Coco",
+            "Onward",
+            "Soul",
+            "Luca",
+            "Lightyear",
+            "Elemental",
+            "Elio",
+            "Hoppers"
+          ],
+          "reviewed": [
+            "Cars",
+            "Ratatouille",
+            "WALL-E",
+            "Up",
+            "Brave",
+            "Coco",
+            "Onward",
+            "Soul",
+            "Luca",
+            "Lightyear",
+            "Elemental",
+            "Elio",
+            "Hoppers"
+          ],
+          "expect": [13, 13]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["Up", "Cars", "Coco"],
+      "too_clever": ["WALL-E"],
+      "pearl": "Onward",
+      "scope": "All released Pixar features whose official English title is one whitespace-separated word; WALL-E counts as one hyphenated word, and articles count as words. Includes Disney+-first features, not unreleased announcements. Distinct from pixar-films because multiword titles such as Toy Story, Finding Nemo and Inside Out do not qualify."
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

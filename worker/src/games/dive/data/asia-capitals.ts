@@ -2,17 +2,17 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '9': '\nabu dhabi\t7j\nislamabad\t6j\njerusalem\t13\nkathmandu\t67\nnew delhi\t45\nputrajaya\tdd\npyongyang\t5m\nsingapore\t9\nvientiane\tcq\n',
-    '4': '\naden\t92\nbaku\t2p\ndili\tca\ndoha\t7c\nmale\tf1\n',
-    '5': '\namman\t74\ncairo\t1p\ndhaka\t3x\nhanoi\t5e\nkabul\t3p\nkotte\tg8\nsanaa\tbr\nseoul\t1x\ntokyo\tv\n',
-    '6': '\nangora\t37\nankara\t37\nastana\t9j\nbeirut\t4w\nmanama\tch\nmanila\t55\nmoscow\t0\nmuscat\t8j\nriyadh\t6v\ntaipei\t5y\ntehran\t3g\n',
-    '8': '\nashgabat\te3\ndamascus\t2w\ndushanbe\td2\nramallah\taf\ntashkent\tbg\n',
-    '7': '\nbaghdad\t2f\nbangkok\t1f\nbeijing\tl\nbishkek\tc0\ncolombo\t8s\njakarta\t25\nnicosia\taq\nsukhumi\ter\ntbilisi\t99\nthimphu\t7v\nyerevan\t9s\n',
+    '9': '\nabu dhabi\t7j\nashkhabad\te3\nislamabad\t6j\njerusalem\t13\nkathmandu\t67\nnaypyidaw\tf8\nnaypyitaw\tf8\nnew delhi\t45\nnursultan\t9j\nputrajaya\tdd\npyongyang\t5m\nsingapore\t9\nvientiane\tcq\n',
+    '4': '\naden\t92\nbaku\t2p\ndili\tca\ndoha\t7c\nmale\tf1\nsana\tbr\n',
+    '5': '\namman\t74\ncairo\t1p\ndacca\t3x\ndelhi\t45\ndhaka\t3x\nhanoi\t5e\nkabul\t3p\nkotte\tg8\nsanaa\tbr\nseoul\t1x\ntokyo\tv\n',
+    '6': '\nangora\t37\nankara\t37\nastana\t9j\nbandar\tfm\nbeirut\t4w\nerevan\t9s\nfrunze\tc0\nkuwait\t85\nmanama\tch\nmanila\t55\nmoscow\t0\nmuscat\t8j\npeking\tl\nriyadh\t6v\ntaipeh\t5y\ntaipei\t5y\ntehran\t3g\ntiflis\t99\n',
+    '8': '\nashgabat\te3\ndamascus\t2w\ndjakarta\t25\ndushanbe\td2\nkatmandu\t67\nramallah\taf\ntashkent\tbg\n',
+    '7': '\nbaghdad\t2f\nbangkok\t1f\nbatavia\t25\nbeijing\tl\nbishkek\tc0\ncolombo\t8s\njakarta\t25\nnicosia\taq\npeiping\tl\nsukhumi\ter\ntbilisi\t99\nteheran\t3g\nthimphu\t7v\nyerevan\t9s\n',
     '19': '\nbandar seri begawan\tfm\n',
-    '12': '\nkuala lumpur\t4h\n',
-    '11': '\nkuwait city\t85\nnay pyi taw\tf8\nulaanbaatar\tdp\n',
+    '10': '\nkrung thep\t1f\nnur sultan\t9j\nphnom penh\ta2\ntskhinvali\tee\nulan bator\tdp\n',
+    '12': '\nkuala lumpur\t4h\nulaan baatar\tdp\n',
+    '11': '\nkuwait city\t85\nnay pyi daw\tf8\nnay pyi taw\tf8\nulaanbaatar\tdp\n',
     '13': '\nnorth nicosia\tb0\n',
-    '10': '\nphnom penh\ta2\ntskhinvali\tee\n',
     '25': '\nsri jayawardenepura kotte\tg8\n',
   },
   answers:

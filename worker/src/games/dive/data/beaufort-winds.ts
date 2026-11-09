@@ -3,14 +3,17 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '4': '\ncalm\tk\ngale\t3r\n',
+    '7': '\nforce 0\tk\nforce 1\t8\nforce 2\t1j\nforce 3\t3b\nforce 4\t2t\nforce 5\t2e\nforce 6\t1y\nforce 7\t3y\nforce 8\t3r\nforce 9\t4a\n',
+    '8': '\nforce 10\t0\nforce 11\tr\nforce 12\t17\n',
     '12': '\nfresh breeze\t2e\nlight breeze\t1j\n',
+    '10': '\nfresh gale\t3r\nwhole gale\t0\n',
     '15': '\ngale fresh gale\t3r\nhurricane force\t17\nmoderate breeze\t2t\n',
-    '13': '\ngentle breeze\t3b\nstrong breeze\t1y\nviolent storm\tr\n',
-    '9': '\nhurricane\t17\nlight air\t8\nnear gale\t3y\n',
+    '13': '\ngentle breeze\t3b\nmoderate gale\t3y\nstrong breeze\t1y\nviolent storm\tr\n',
+    '9': '\nhigh wind\t3y\nhurricane\t17\nlight air\t8\nnear gale\t3y\n',
     '23': '\nmoderate gale near gale\t3y\n',
+    '11': '\nsevere gale\t4a\nstrong gale\t4a\n',
     '5': '\nstorm\t0\n',
     '16': '\nstorm whole gale\t0\n',
-    '11': '\nstrong gale\t4a\n',
     '18': '\nstrong severe gale\t4a\n',
   },
   answers:

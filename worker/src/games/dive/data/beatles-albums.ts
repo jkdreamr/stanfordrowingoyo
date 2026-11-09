@@ -7,7 +7,7 @@ export default {
     '16': '\nbeatles for sale\t50\nplease please me\t1e\nyellow submarine\t7a\n',
     '20': '\nbeatles second album\t5j\nmagical mystery tour\t2x\n',
     '23': '\nbeatles the white album\t0\n',
-    '15': '\nhard days night\t6p\nmeet the beatle\t4g\nsergeant pepper\t9a\nwith the beatle\t3k\n',
+    '15': '\nhard days night\t6p\nlet it be naked\t12\nmeet the beatle\t4g\nsergeant pepper\t9a\nwith the beatle\t3k\n',
     '4': '\nhelp\te\n',
     '22': '\nintroducing the beatle\t7t\n',
     '9': '\nlet it be\t12\n',

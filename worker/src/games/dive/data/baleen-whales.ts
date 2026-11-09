@@ -3,11 +3,11 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '15': '\nantarctic minke\t5n\n',
-    '21': '\nantarctic minke whale\t5n\n',
+    '21': '\nantarctic minke whale\t5n\nbalaenoptera musculus\t0\n',
     '4': '\nblue\t0\neden\t6b\ngray\t1s\ngrey\t1s\nrice\t4n\n',
     '10': '\nblue whale\t0\ngray whale\t1s\ngrey whale\t1s\n',
-    '7': '\nbowhead\t6q\n',
-    '13': '\nbowhead whale\t6q\n',
+    '7': '\nbowhead\t6q\nfinback\t2y\n',
+    '13': '\nbowhead whale\t6q\nfinback whale\t2y\n',
     '5': '\nbryde\t76\nminke\t52\nomura\t7m\n',
     '12': '\nbrydes whale\t76\ncommon minke\t52\nomuras whale\t7m\n',
     '18': '\ncommon minke whale\t52\n',
@@ -16,6 +16,7 @@ export default {
     '9': '\nfin whale\t2y\nsei whale\t3a\n',
     '8': '\nhumpback\t3m\n',
     '14': '\nhumpback whale\t3m\nsouthern right\td\n',
+    '22': '\nmegaptera novaeangliae\t3m\n',
     '20': '\nnorth atlantic right\t25\nsouthern right whale\td\n',
     '26': '\nnorth atlantic right whale\t25\n',
     '19': '\nnorth pacific right\t10\n',

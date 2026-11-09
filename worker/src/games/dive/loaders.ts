@@ -501,7 +501,6 @@ export const loaders: Record<string, () => Promise<{ default: AnswerSet }>> = {
   'australia-states-territories': () => import('./data/australia-states-territories'),
   'new-zealand-regions': () => import('./data/new-zealand-regions'),
   'english-counties': () => import('./data/english-counties'),
-  'disney-princesses': () => import('./data/disney-princesses'),
   'london-tube-lines': () => import('./data/london-tube-lines'),
   'sherlock-holmes-books': () => import('./data/sherlock-holmes-books'),
   'beatles-albums': () => import('./data/beatles-albums'),
@@ -651,4 +650,5 @@ export const loaders: Record<string, () => Promise<{ default: AnswerSet }>> = {
   'nba-75-team': () => import('./data/nba-75-team'),
   'paris-2024-sports': () => import('./data/paris-2024-sports'),
   'f1-race-host-countries': () => import('./data/f1-race-host-countries'),
+  'pixar-single-word-films': () => import('./data/pixar-single-word-films'),
 };

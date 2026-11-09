@@ -2,18 +2,19 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '19': '\nantigone canadensis\t4h\nblack crowned crane\ts\n',
     '13': '\nblack crowned\ts\nwattled crane\t5h\n',
-    '19': '\nblack crowned crane\ts\n',
     '12': '\nblack necked\t3w\ncommon crane\t0\ngray crowned\t1y\ngrey crowned\t1y\nhooded crane\t30\n',
     '18': '\nblack necked crane\t3w\ngray crowned crane\t1y\ngrey crowned crane\t1y\n',
     '4': '\nblue\tf\n',
     '10': '\nblue crane\tf\ndemoiselle\t4y\n',
     '6': '\nbrolga\t6h\ncommon\t0\nhooded\t30\n',
-    '16': '\ndemoiselle crane\t4y\n',
+    '16': '\ndemoiselle crane\t4y\nmanchurian crane\t1e\n',
+    '14': '\neurasian crane\t0\njapanese crane\t1e\nsandhill crane\t4h\nsiberian crane\t2j\nwhooping crane\t3f\n',
+    '9': '\ngrus grus\t0\n',
     '11': '\nred crowned\t1e\nsarus crane\t6q\nwhite naped\t5x\n',
     '17': '\nred crowned crane\t1e\nwhite naped crane\t5x\n',
     '8': '\nsandhill\t4h\nsiberian\t2j\nwhooping\t3f\n',
-    '14': '\nsandhill crane\t4h\nsiberian crane\t2j\nwhooping crane\t3f\n',
     '5': '\nsarus\t6q\n',
     '7': '\nwattled\t5h\n',
   },

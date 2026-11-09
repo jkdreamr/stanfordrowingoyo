@@ -3628,24 +3628,60 @@
     "Arcane",
     "Blue Eye Samurai",
     "Over the Garden Wall",
-    "Adventure Time",
-    "Kung Fu Panda Legends of Awesomeness",
-    "Garfield",
-    "A Garfield Christmas",
+    {
+      "guess": "Adventure Time",
+      "invalid": "Its wins are in short-format/juried animation categories, not this award. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "Kung Fu Panda Legends of Awesomeness",
+      "invalid": "Won Daytime animation awards, not this Primetime category. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "Garfield",
+      "invalid": "A franchise/character, not a specific winning program; four separately titled Garfield specials won. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "A Garfield Christmas",
+      "invalid": "Not a winner; distinct from the winning Garfield specials. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
     "Garfield on the Town",
     "Garfield in the Rough",
     "Garfields Halloween Adventure",
-    "A Charlie Brown Christmas",
-    "Charlie Brown Christmas",
-    "Its the Great Pumpkin Charlie Brown",
-    "A Charlie Brown Thanksgiving",
-    "The Snowman",
-    "Snowman",
+    {
+      "guess": "A Charlie Brown Christmas",
+      "invalid": "Won a different children-program category before this category began. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "Charlie Brown Christmas",
+      "invalid": "The same non-winning title as A Charlie Brown Christmas. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "Its the Great Pumpkin Charlie Brown",
+      "invalid": "Not a winner of this award; children-program recognition is a different category. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "A Charlie Brown Thanksgiving",
+      "invalid": "Won a different children-program category, not Outstanding Animated Program. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "The Snowman",
+      "invalid": "A nominee, not a winning program. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "Snowman",
+      "invalid": "The same non-winning nominee as The Snowman. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
     "The Penguins of Madagascar",
     "Penguins of Madagascar",
     "Batman The Animated Series",
-    "The Pink Panther Show",
-    "Pink Panther"
+    {
+      "guess": "The Pink Panther Show",
+      "invalid": "A nominee, not a winning program. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    },
+    {
+      "guess": "Pink Panther",
+      "invalid": "The same non-winning program as The Pink Panther Show. Reviewed against complete winner-highlighted rows, Wikipedia revision 1375256355."
+    }
   ],
   "emmy-comedy": [
     "Frasier",
@@ -8713,7 +8749,10 @@
     "sodium",
     "potassium",
     "iron",
-    "copper",
+    {
+      "guess": "copper",
+      "invalid": "Copper has symbol Cu: its English name and symbol both begin with C, so it fails the symbol-initial mismatch condition."
+    },
     "silver",
     "tin",
     "antimony",

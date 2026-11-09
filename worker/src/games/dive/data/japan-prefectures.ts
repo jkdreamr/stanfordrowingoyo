@@ -3,11 +3,15 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '5': '\naichi\t8g\nakita\t6a\nchiba\t50\nehime\taj\nfukui\t8o\ngunma\t9f\nhyogo\tb9\niwate\t97\nkochi\tbh\nkyoto\tbp\nosaka\tc4\nshiga\t7x\ntokyo\tb1\n',
+    '9': '\naichi ken\t8g\nakita ken\t6a\nchiba ken\t50\nehime ken\taj\nfukui ken\t8o\nfukushima\t2t\ngunma ken\t9f\nhiroshima\t0\nhyogo ken\tb9\niwate ken\t97\nkagoshima\t19\nkochi ken\tbh\nshiga ken\t7x\ntokushima\tx\nyamaguchi\t58\nyamanashi\t9n\n',
     '6': '\naomori\t26\nkagawa\t47\nmiyagi\t4r\nnagano\t61\ntoyama\t6t\n',
-    '7': '\nfukuoka\tn\nibaraki\t72\nniigata\t7n\nokayama\t1w\nokinawa\t35\nsaitama\t3x\nshimane\tar\ntochigi\t9z\ntottori\ta9\n',
-    '9': '\nfukushima\t2t\nhiroshima\t0\nkagoshima\t19\ntokushima\tx\nyamaguchi\t58\nyamanashi\t9n\n',
+    '10': '\naomori ken\t26\nkagawa ken\t47\nmiyagi ken\t4r\nnagano ken\t61\ntoyama ken\t6t\n',
+    '7': '\nfukuoka\tn\nibaraki\t72\nmie ken\t5v\nniigata\t7n\nokayama\t1w\nokinawa\t35\nsaitama\t3x\nshimane\tar\ntochigi\t9z\ntottori\ta9\n',
+    '11': '\nfukuoka ken\tn\nibaraki ken\t72\nniigata ken\t7n\nokayama ken\t1w\nokinawa ken\t35\nsaitama ken\t3x\nshimane ken\tar\ntochigi ken\t9z\ntottori ken\ta9\n',
+    '13': '\nfukushima ken\t2t\nhiroshima ken\t0\nkagoshima ken\t19\ntokushima ken\tx\nyamaguchi ken\t58\nyamanashi ken\t9n\n',
     '4': '\ngifu\t2f\nnara\t3q\noita\tbx\nsaga\t2m\n',
-    '8': '\nhokkaido\t3f\nishikawa\t5k\nkanagawa\t6i\nkumamoto\t1l\nmiyazaki\t4g\nnagasaki\tc\nshizuoka\t7c\nwakayama\t8w\nyamagata\t85\n',
+    '8': '\ngifu ken\t2f\nhokkaido\t3f\nishikawa\t5k\nkanagawa\t6i\nkumamoto\t1l\nkyoto fu\tbp\nmiyazaki\t4g\nnagasaki\tc\nnara ken\t3q\noita ken\tbx\nosaka fu\tc4\nsaga ken\t2m\nshizuoka\t7c\ntokyo to\tb1\nwakayama\t8w\nyamagata\t85\n',
+    '12': '\nishikawa ken\t5k\nkanagawa ken\t6i\nkumamoto ken\t1l\nmiyazaki ken\t4g\nnagasaki ken\tc\nshizuoka ken\t7c\nwakayama ken\t8w\nyamagata ken\t85\n',
     '3': '\nmie\t5v\n',
   },
   answers:

@@ -2,10 +2,11 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '5': '\nalpha\t0\ndelta\tf\ngamma\t1b\nkappa\t27\nomega\t13\nsigma\t1z\ntheta\t2x\n',
+    '5': '\nalpha\t0\ndelta\tf\ngamma\t1b\nkappa\t27\nlabda\t4j\nlamda\t4j\nomega\t13\nsigma\t1z\ntheta\t2x\n',
     '4': '\nbeta\t8\niota\t3c\nzeta\t35\n',
     '3': '\nchi\ts\neta\t2l\nphi\t1t\npsi\t2f\nrho\t3t\ntau\t2r\n',
-    '7': '\nepsilon\t3j\nomicron\t3z\nupsilon\t49\n',
+    '7': '\nepsilon\t3j\nomicron\t3z\nupsilon\t49\nypsilon\t49\n',
+    '6': '\nlambda\t4j\n',
     '18': '\nlambda lamda labda\t4j\n',
     '2': '\nmu\t1j\nnu\t1o\npi\ty\nxi\tn\n',
   },

@@ -94,6 +94,7 @@ const sortedJSON = (value) =>
 
 export async function main(args = process.argv.slice(2)) {
   let ref;
+  let customCorpus = false;
   let corpusPath = join(repo, 'scripts/dive/recall/corpus.json');
   let reportPath = join(repo, 'scripts/dive/recall/report.json');
   for (let i = 0; i < args.length; i++) {
@@ -104,7 +105,10 @@ export async function main(args = process.argv.slice(2)) {
     const flag = args[i];
     const value = args[++i];
     if (flag === '--ref') ref = value;
-    if (flag === '--corpus') corpusPath = resolve(value);
+    if (flag === '--corpus') {
+      corpusPath = resolve(value);
+      customCorpus = true;
+    }
     if (flag === '--report') reportPath = resolve(value);
   }
   const git = (...args) => execFileSync('git', args, { cwd: repo, encoding: 'utf8' }).trim();
@@ -135,8 +139,26 @@ export async function main(args = process.argv.slice(2)) {
       moduleAt('worker/src/games/dive/prompts.ts'),
       moduleAt('shared/games/dive.ts'),
     ]);
-    const corpusText = await readFile(corpusPath, 'utf8');
+    let corpusText = await readFile(corpusPath, 'utf8');
     const corpus = JSON.parse(corpusText);
+    if (!customCorpus) {
+      for (const file of [
+        'batch-1-selected.json',
+        'batch-2-selected.json',
+        'batch-3-selected.json',
+        'batch-4-selected.json',
+        'supplemental-selected.json',
+      ]) {
+        const additions = JSON.parse(
+          await readFile(join(repo, 'scripts/dive/recall', file), 'utf8'),
+        );
+        for (const [id, guesses] of Object.entries(additions)) {
+          if (Object.hasOwn(corpus, id)) throw new Error(`Duplicate corpus prompt: ${id}`);
+          corpus[id] = guesses;
+        }
+      }
+      corpusText = JSON.stringify(corpus);
+    }
     const result = await evaluateCorpus({
       corpus,
       schedule: DIVE_SCHEDULE,

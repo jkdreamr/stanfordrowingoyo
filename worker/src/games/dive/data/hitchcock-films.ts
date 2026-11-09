@@ -15,7 +15,7 @@ export default {
     '32': '\nlodger a story of the london fog\tjv\n',
     '26': '\nman who knew too much 1934\t13\nman who knew too much 1956\t13\n',
     '14': '\nmountain eagle\t9b\n',
-    '16': '\nmr and mrs smith\t3f\nnumber seventeen\tbs\nrich and strange\t56\nto catch a thief\tcb\n',
+    '16': '\nmr and mrs smith\t3f\nnumber seventeen\tbs\nrich and strange\t56\nthirty nine step\t4r\nto catch a thief\tcb\n',
     '18': '\nnorth by northwest\t8j\ntrouble with harry\t5p\nyoung and innocent\t6e\n',
     '13': '\nparadine case\tma\n',
     '15': '\npleasure garden\t6z\nunder capricorn\tij\n',

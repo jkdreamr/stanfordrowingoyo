@@ -2,12 +2,13 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '1': '\nb\t2n\nc\tk\nf\t2c\nh\t0\ni\t2v\nk\t1d\nn\tt\no\tb\np\t1z\ns\t14\nu\t1p\nv\t34\nw\t3p\ny\t3f\n',
     '5': '\nboron\t2n\n',
     '6': '\ncarbon\tk\niodine\t2v\noxygen\tb\nsulfur\t14\n',
     '8': '\nfluorine\t2c\nhydrogen\t0\nnitrogen\tt\ntungsten\t3p\nvanadium\t34\n',
     '10': '\nphosphorus\t1z\n',
     '9': '\npotassium\t1d\n',
-    '7': '\nuranium\t1p\nyttrium\t3f\n',
+    '7': '\nsulphur\t14\nuranium\t1p\nyttrium\t3f\n',
   },
   answers:
     's\tHydrogen\ns\tOxygen\ns\tCarbon\nm\tNitrogen\nm\tSulfur\nm\tPotassium\nm\tUranium\nm\tPhosphorus\nr\tFluorine\nr\tBoron\nr\tIodine\nd\tVanadium\nd\tYttrium\ng\tTungsten\n',

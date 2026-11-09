@@ -4,8 +4,11 @@ export default {
   buckets: {
     '7': '\ndespina\t1s\ngalatea\tz\nlarissa\tf\nproteus\tp\n',
     '8': '\nhalimede\t2i\npsamathe\t3h\nthalassa\t1h\n',
-    '9': '\nhippocamp\t2t\nlaomedeia\t35\n',
+    '9': '\nhippocamp\t2t\nlaomedeia\t35\nneptune i\t6\nneptune v\t1s\nneptune x\t3h\n',
     '5': '\nnaiad\t19\n',
+    '10': '\nneptune ii\t22\nneptune iv\t1h\nneptune ix\t2i\nneptune vi\tz\nneptune xi\t0\n',
+    '11': '\nneptune iii\t19\nneptune vii\tf\nneptune xii\t35\nneptune xiv\t2t\n',
+    '12': '\nneptune viii\tp\nneptune xiii\t2b\n',
     '6': '\nnereid\t22\ntriton\t6\n',
     '4': '\nneso\t2b\n',
     '3': '\nsao\t0\n',

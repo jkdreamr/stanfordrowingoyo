@@ -3,6 +3,7 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '11': '\nadolescence\ti4\nelizabeth i\t68\ngame change\t20\nlost prince\t3r\nwhite lotus\tfs\n',
+    '20': '\namerican crime story\tb2\npeople v o j simpson\tb2\npeople vs oj simpson\tb2\ntom browns schoolday\to3\n',
     '17': '\nangels in america\t91\nbenjamin franklin\tc8\nnicholas nickleby\tos\n',
     '26': '\nanne frank the whole story\t9l\nfrom the earth to the moon\t4n\n',
     '31': '\nassassination of gianni versace\tkm\n',
@@ -20,10 +21,9 @@ export default {
     '16': '\ngullivers travel\tpc\nolive kitteridge\tqt\nyear in the life\t17\n',
     '18': '\nhoratio hornblower\tmm\njewel in the crown\te0\nseparate but equal\t6m\nupstairs downstair\thh\nwoman named jackie\taf\n',
     '10': '\nmarco polo\th4\n',
-    '20': '\npeople v o j simpson\tb2\ntom browns schoolday\to3\n',
+    '19': '\npeople v oj simpson\tb2\nwar and remembrance\tgi\n',
     '35': '\nprime suspect 5 errors of judgement\tep\n',
     '25': '\nroots the next generation\td\n',
-    '19': '\nwar and remembrance\tgi\n',
     '8': '\nwatchmen\tjv\n',
   },
   answers:

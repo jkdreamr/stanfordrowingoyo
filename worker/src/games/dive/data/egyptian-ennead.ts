@@ -2,11 +2,13 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '4': '\natum\t14\nisis\t6\nseth\t0\n',
-    '3': '\ngeb\ty\nnut\td\nset\t0\nshu\tj\n',
+    '4': '\naset\t6\natum\t14\nisis\t6\nseth\t0\nusir\tp\n',
+    '7': '\natum ra\t14\nnephthy\t1b\nra atum\t14\n',
+    '5': '\nausar\tp\n',
+    '3': '\ngeb\ty\nkeb\ty\nnut\td\nset\t0\nshu\tj\ntem\t14\n',
     '9': '\nnebet het\t1b\n',
-    '7': '\nnephthy\t1b\n',
-    '6': '\nosiris\tp\ntefnut\t1m\n',
+    '6': '\nosiris\tp\nsutekh\t0\ntefnut\t1m\n',
+    '2': '\nra\t14\nre\t14\n',
   },
   answers: 's\tSet\ns\tIsis\ng\tNut\nm\tShu\ns\tOsiris\nm\tGeb\nm\tAtum\nr\tNephthys\nd\tTefnut\n',
   gem: { answer: 'Nut', tier: 'gem', points: 100 },

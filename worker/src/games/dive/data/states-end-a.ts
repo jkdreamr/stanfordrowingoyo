@@ -2,10 +2,11 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nak\t4p\nal\t4f\naz\t31\nca\t0\nfl\td\nga\t1v\nia\t3b\nin\t3i\nla\t4y\nmn\t3s\nmt\t64\nnc\t25\nnd\t5p\nne\t6n\nnv\t6e\nok\t44\npa\t2m\nsc\t1e\nsd\t5a\nva\tn\nwv\ty\n',
     '7': '\nalabama\t4f\narizona\t31\nflorida\td\ngeorgia\t1v\nindiana\t3i\nmontana\t64\n',
     '6': '\nalaska\t4p\nnevada\t6e\n',
     '10': '\ncalifornia\t0\n',
-    '4': '\niowa\t3b\n',
+    '4': '\niowa\t3b\npenn\t2m\n',
     '9': '\nlouisiana\t4y\nminnesota\t3s\n',
     '8': '\nnebraska\t6n\noklahoma\t44\nvirginia\tn\n',
     '14': '\nnorth carolina\t25\nsouth carolina\t1e\n',

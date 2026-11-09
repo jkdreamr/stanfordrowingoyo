@@ -3,15 +3,17 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '9': '\namsterdam\t4a\nbarcelona\t3d\nmelbourne\t2t\nstockholm\t5c\n',
-    '7': '\nantwerp\t6g\natlanta\t2j\nbeijing\t3p\n',
+    '7': '\nantwerp\t6g\natlanta\t2j\nbeijing\t3p\nmunchen\t4m\n',
     '5': '\nathen\t53\nparis\t9\nseoul\t4v\ntokyo\t35\n',
-    '6': '\nberlin\t2a\nlondon\t0\nmoscow\t21\nmunich\t4m\nsydney\t17\n',
-    '8': '\nhelsinki\t65\nmontreal\t3z\nst louis\tv\n',
+    '6': '\nathina\t53\nberlin\t2a\nlondon\t0\nmoscow\t21\nmoskva\t21\nmunich\t4m\npeking\t3p\nsydney\t17\n',
+    '16': '\nciudad de mexico\th\n',
+    '8': '\nhelsinki\t65\nmontreal\t3z\nmuenchen\t4m\nst louis\tv\n',
+    '2': '\nla\t1g\n',
     '10': '\nlos angele\t1g\n',
     '11': '\nmexico city\th\nsaint louis\tv\n',
     '3': '\nrio\t5o\n',
     '14': '\nrio de janeiro\t5o\n',
-    '4': '\nrome\t1u\n',
+    '4': '\nroma\t1u\nrome\t1u\n',
   },
   answers:
     's\tLondon\ns\tParis\nm\tMexico City\nm\tSt. Louis\nm\tSydney\nm\tLos Angeles\nm\tRome\nm\tMoscow\nm\tBerlin\nm\tAtlanta\nm\tMelbourne\nr\tTokyo\ng\tBarcelona\nr\tBeijing\nr\tMontreal\nr\tAmsterdam\nr\tMunich\nr\tSeoul\ns\tAthens\nd\tStockholm\nd\tRio de Janeiro\nd\tHelsinki\nd\tAntwerp\n',

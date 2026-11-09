@@ -2,7 +2,7 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '7': '\n30 rock\ta\nfleabag\tjr\nfrasier\tgh\n',
+    '7': '\n30 rock\ta\nfleabag\tjr\nfrasier\tgh\nm a s h\t4q\n',
     '17': '\nall in the family\t2o\nmy name is barbra\tfx\nphil silvers show\tgr\n',
     '11': '\nally mcbeal\tiq\ngolden girl\t6b\ni love lucy\t84\nwonder year\t47\n',
     '20': '\narrested development\t5o\nmarvelous mrs maisel\tk1\n',
@@ -12,7 +12,7 @@ export default {
     '16': '\nbob newhart show\tj4\nred skelton show\tfa\nsex and the city\t38\n',
     '12': '\ncaesars hour\teu\nmurphy brown\t7p\n',
     '5': '\ncheer\t7g\n',
-    '10': '\ncosby show\tdo\nwidows bay\thr\n',
+    '10': '\ncosby show\tdo\nmrs maisel\tk1\nwidows bay\thr\n',
     '23': '\neverybody loves raymond\ta0\n',
     '6': '\nfriend\t0\nmonkee\tic\noffice\t1i\nstudio\t5b\n',
     '9': '\nget smart\tk\nted lasso\thf\n',

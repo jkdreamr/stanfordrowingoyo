@@ -8,6 +8,8 @@ export default {
     '7': '\nallison\t7j\ncamille\tfo\ncharley\tgd\ngilbert\t5g\nisidore\tmh\njoaquin\tfe\nkatrina\tb7\nmarilyn\t8v\nmatthew\t1c\nmelissa\t6d\nmichael\t8\nroxanne\tkj\n',
     '3': '\nbob\ti\neta\tet\nian\t1u\nida\tcw\nike\tdp\n',
     '8': '\nflorence\t4p\nfrederic\th4\nhortense\tm6\nmichelle\t2o\n',
+    '16': '\nhurricane andrew\to\n',
+    '17': '\nhurricane katrina\tb7\n',
   },
   answers:
     'm\tDavid\nm\tMichael\nm\tBob\ns\tAndrew\nm\tDean\nm\tAllen\nm\tMatthew\nm\tMaria\nm\tIan\nm\tLaura\ns\tSandy\nm\tKeith\nm\tMichelle\nm\tHarvey\nm\tJuan\nm\tDennis\nm\tStan\nm\tCarol\nm\tDiana\nm\tJoan\nm\tLuis\nm\tFlorence\nm\tJanet\nm\tMitch\nm\tGilbert\nm\tIvan\nm\tDonna\nm\tFelix\nm\tMelissa\nm\tMilton\nm\tDiane\nm\tFloyd\nm\tNate\nm\tAllison\nm\tHugo\nm\tIris\nm\tElena\nm\tRita\nm\tGloria\nm\tMarilyn\nm\tIrene\nm\tFlora\nm\tFrances\nm\tOtto\nm\tAlicia\nm\tAnita\nr\tCarmen\nr\tFiona\nr\tNoel\ns\tKatrina\nr\tAgnes\nr\tIsabel\nr\tAudrey\nr\tHazel\nr\tKlaus\nr\tConnie\nr\tIda\nr\tCarla\nr\tFran\nr\tBetsy\nr\tIke\nr\tDora\nr\tGeorges\nr\tJeanne\nr\tTomas\nr\tEta\nr\tIgor\nr\tLenny\nr\tJoaquin\nr\tCamille\nr\tCesar\nr\tEdna\nr\tCharley\nr\tIngrid\nr\tGreta\nd\tFrederic\nd\tCelia\ng\tOpal\nd\tGustav\nd\tDorian\nd\tErika\nd\tFabian\nd\tHilda\nd\tHelene\nd\tIrma\nd\tCleo\nd\tIota\nd\tLili\nd\tBeryl\nd\tHattie\nd\tRoxanne\nd\tWilma\nd\tPaloma\nd\tEloise\nd\tFifi\nd\tInez\nd\tBeulah\nd\tHortense\nd\tIsidore\nd\tIone\n',

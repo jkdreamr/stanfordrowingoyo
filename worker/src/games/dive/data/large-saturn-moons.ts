@@ -2,22 +2,24 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '5': '\ndione\t1j\njanus\th\ntethy\t1r\ntitan\t0\n',
-    '9': '\nenceladus\t17\n',
-    '10': '\nepimetheus\t2i\n',
-    '8': '\nhyperion\tw\n',
-    '7': '\niapetus\t28\n',
-    '4': '\nmima\t20\nrhea\tp\n',
-    '6': '\nphoebe\t8\n',
+    '5': '\ndione\t26\njanus\t14\ntethy\t2e\ntitan\t0\n',
+    '9': '\nenceladus\t1u\nsaturn ii\t1u\nsaturn iv\t26\nsaturn ix\ti\nsaturn vi\t0\n',
+    '10': '\nepimetheus\t35\nprometheus\tr\nsaturn iii\t2e\nsaturn vii\t1j\ntitan moon\t0\n',
+    '8': '\nhyperion\t1j\nsaturn i\t2n\nsaturn v\t1c\n',
+    '7': '\niapetus\t2v\npandora\t8\n',
+    '4': '\nmima\t2n\nrhea\t1c\n',
+    '6': '\nphoebe\ti\n',
+    '11': '\nsaturn viii\t2v\n',
   },
   answers:
-    's\tTitan\ng\tPhoebe\nm\tJanus\nm\tRhea\nm\tHyperion\ns\tEnceladus\nm\tDione\nr\tTethys\ns\tMimas\nr\tIapetus\nd\tEpimetheus\n',
+    's\tTitan\nm\tPandora\ng\tPhoebe\nm\tPrometheus\nm\tJanus\nm\tRhea\nm\tHyperion\ns\tEnceladus\nr\tDione\nr\tTethys\ns\tMimas\nd\tIapetus\nd\tEpimetheus\n',
   gem: { answer: 'Phoebe', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Titan', tier: 'surface', points: 10 },
     { answer: 'Enceladus', tier: 'surface', points: 10 },
     { answer: 'Mimas', tier: 'surface', points: 10 },
+    { answer: 'Iapetus', tier: 'deep', points: 85 },
     { answer: 'Epimetheus', tier: 'deep', points: 85 },
   ],
-  size: 11,
+  size: 13,
 } satisfies AnswerSet;

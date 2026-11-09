@@ -3,10 +3,10 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '10': '\nalan arkin\tri\ndon ameche\twx\nfitzgerald\t9q\nj k simmon\t78\njames dunn\t85\njared leto\tf7\nred button\t4s\ntim robbin\ta9\nvan heflin\tss\nwashington\tfk\n',
-    '9': '\nalbertson\trv\nbrad pitt\t8x\nbroadbent\tlj\ned begley\tnh\ngig young\t4g\njoe pesci\tr6\njoel grey\t64\njohn mill\t1s\nnicholson\tan\nsean penn\t6w\n',
-    '3': '\nali\tvz\nive\tnt\n',
+    '9': '\nalbertson\trv\nbrad pitt\t8x\nbroadbent\tlj\ned begley\tnh\ngig young\t4g\njk simmon\t78\njoe pesci\tr6\njoel grey\t64\njohn mill\t1s\nnicholson\tan\nsean penn\t6w\n',
+    '3': '\nali\tvz\nive\tnt\nrdj\tcf\n',
     '6': '\nameche\twx\nbalsam\tkp\nbardem\tsc\nbegley\tnh\nbutton\t4s\ncooper\t31\nculkin\tok\ndougla\tp0\ndowney\tcf\nheflin\tss\nhuston\tgx\nhutton\tde\njagger\tec\nkotsur\tz8\nlandau\tjr\nledger\tbk\nlemmon\tn3\nmalden\tl5\nobrien\teq\nrobard\tqb\nrobbin\ta9\nsander\t56\nsimmon\t78\nspacey\tgi\nwalken\tmi\n',
-    '13': '\nanthony quinn\t6g\nedmond obrien\teq\nfrank sinatra\tbz\ngeorge sander\t56\nhugh griffith\tb4\njavier bardem\tsc\njim broadbent\tlj\njohn houseman\tpv\nkieran culkin\tok\nmartin balsam\tkp\nmartin landau\tjr\nmelvyn dougla\tp0\nmichael caine\t0\npeter ustinov\tun\nrobin william\t2k\nwalter huston\tgx\n',
+    '13': '\nanthony quinn\t6g\nedmond obrien\teq\nfrank sinatra\tbz\ngeorge sander\t56\nhugh griffith\tb4\njavier bardem\tsc\njim broadbent\tlj\njohn houseman\tpv\nkieran culkin\tok\nmartin balsam\tkp\nmartin landau\tjr\nmelvyn dougla\tp0\nmichael caine\t0\npeter ustinov\tun\nrobert downey\tcf\nrobin william\t2k\nwalter huston\tgx\n',
     '5': '\narkin\tri\ncaine\t0\ncrisp\t8i\ngwenn\txa\nkline\tg4\npesci\tr6\nquinn\t6g\nwaltz\tk7\nyoung\t4g\n',
     '4': '\nbale\tg\nburn\t25\ndunn\t85\ngrey\t64\njone\t3y\nleto\tf7\nmill\t1s\nngor\tya\nniro\thd\npenn\t6w\npitt\t8x\nquan\tph\ntoro\tt5\n',
     '16': '\nbarry fitzgerald\t9q\nbenicio del toro\tt5\nlouis gossett jr\tto\nrobert downey jr\tcf\n',

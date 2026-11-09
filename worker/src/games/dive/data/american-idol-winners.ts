@@ -3,13 +3,13 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '10': '\nabi carter\t4r\ndavid cook\tb\nkris allen\t23\nlee dewyze\t8r\n',
-    '5': '\nallen\t23\nhardy\t60\npoppe\t6e\nspark\t6t\ntongi\t94\n',
+    '5': '\nallen\t23\nhardy\t60\npoppe\t6e\nruben\t7r\nspark\t6t\ntongi\t94\n',
     '7': '\nbarrino\t88\nbeckham\t9g\njohnson\t2v\nphillip\t1k\n',
     '13': '\ncaleb johnson\t2v\nhannah harper\t14\nnick fradiani\t9x\nnoah thompson\to\n',
     '14': '\ncandice glover\t5j\nchayce beckham\t9g\nkelly clarkson\t3b\nruben studdard\t7r\n',
     '16': '\ncarrie underwood\t48\nfantasia barrino\t88\n',
     '6': '\ncarter\t4r\ndewyze\t8r\nglover\t5j\nharmon\t54\nharper\t14\nrobert\t3s\n',
-    '8': '\nclarkson\t3b\nfradiani\t9x\njust sam\t0\nmccreery\t79\nstuddard\t7r\nthompson\to\n',
+    '8': '\nclarkson\t3b\nfantasia\t88\nfradiani\t9x\njust sam\t0\nmccreery\t79\nstuddard\t7r\nthompson\to\n',
     '4': '\ncook\tb\nhick\t2g\n',
     '9': '\niam tongi\t94\nunderwood\t48\n',
     '12': '\njamal robert\t3s\njordin spark\t6t\nmaddie poppe\t6e\ntrent harmon\t54\n',

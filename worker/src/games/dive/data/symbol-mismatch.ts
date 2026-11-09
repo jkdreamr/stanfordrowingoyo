@@ -2,15 +2,19 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '8': '\nantimony\t1u\ntungsten\t2f\n',
-    '6': '\ncopper\tn\nsilver\te\nsodium\t19\n',
-    '4': '\ngold\t0\niron\t7\nlead\tw\n',
-    '7': '\nmercury\t25\n',
-    '9': '\npotassium\t1i\n',
-    '3': '\ntin\t13\n',
+    '2': '\nag\te\nau\t0\nfe\t7\nhg\t1w\npb\tn\nsb\t1l\nsn\tu\n',
+    '8': '\nantimony\t1l\nargentum\te\ntungsten\t26\n',
+    '5': '\naurum\t0\n',
+    '6': '\nferrum\t7\nkalium\t19\nsilver\te\nsodium\t10\n',
+    '4': '\ngold\t0\niron\t7\nlead\tn\n',
+    '11': '\nhydrargyrum\t1w\n',
+    '1': '\nk\t19\nw\t26\n',
+    '7': '\nmercury\t1w\nnatrium\t10\nplumbum\tn\nstannum\tu\nstibium\t1l\nwolfram\t26\n',
+    '9': '\npotassium\t19\n',
+    '3': '\ntin\tu\n',
   },
   answers:
-    's\tGold\ns\tIron\ns\tSilver\nm\tCopper\nm\tLead\nm\tTin\nm\tSodium\nr\tPotassium\nr\tAntimony\nd\tMercury\ng\tTungsten\n',
+    's\tGold\ns\tIron\ns\tSilver\nm\tLead\nm\tTin\nm\tSodium\nr\tPotassium\nr\tAntimony\nd\tMercury\ng\tTungsten\n',
   gem: { answer: 'Tungsten', tier: 'gem', points: 100 },
   notable: [
     { answer: 'Gold', tier: 'surface', points: 10 },
@@ -18,5 +22,5 @@ export default {
     { answer: 'Silver', tier: 'surface', points: 10 },
     { answer: 'Mercury', tier: 'deep', points: 85 },
   ],
-  size: 11,
+  size: 10,
 } satisfies AnswerSet;

@@ -2,17 +2,21 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '8': '\natherton\t1f\ndellanno\t5y\nmitchell\t0\nwheatley\t1w\n',
-    '11': '\nbirtwhistle\t4y\njohn whaite\t6j\n',
-    '5': '\nbrown\tz\nfaldo\t3n\nquinn\tj\n',
+    '8': '\natherton\t1f\ndellanno\t5y\ngiuseppe\t5y\nmitchell\t0\nwheatley\t1w\n',
+    '11': '\nbirtwhistle\t4y\njo wheatley\t1w\njohn whaite\t6j\n',
+    '5': '\nbrown\tz\ndavid\t1f\nfaldo\t3n\nmatty\t4j\nnancy\t4y\npeter\t5i\nquinn\tj\nrahul\t2r\n',
+    '7': '\ncandice\tz\ngeorgie\t36\nhussain\t42\njasmine\t0\nsyabira\t6x\n',
     '13': '\ncandice brown\tz\nfrances quinn\tj\n',
     '14': '\ndavid atherton\t1f\ngeorgie grasso\t36\nnadiya hussain\t42\nsyabira yusoff\t6x\n',
+    '3': '\nedd\t2e\n',
     '10': '\nedd kimber\t2e\n',
-    '6': '\nedgell\t4j\ngrasso\t36\nkimber\t2e\nmandal\t2r\nsawkin\t5i\nwhaite\t6j\nyusoff\t6x\n',
+    '6': '\nedgell\t4j\nfrance\tj\ngrasso\t36\nkimber\t2e\nmandal\t2r\nnadiya\t42\nsawkin\t5i\nsophie\t3n\nwhaite\t6j\nyusoff\t6x\n',
+    '18': '\ngiuseppe dell anno\t5y\n',
     '17': '\ngiuseppe dellanno\t5y\nnancy birtwhistle\t4y\n',
-    '7': '\nhussain\t42\n',
     '16': '\njasmine mitchell\t0\n',
+    '2': '\njo\t1w\n',
     '15': '\njoanne wheatley\t1w\n',
+    '4': '\njohn\t6j\n',
     '12': '\nmatty edgell\t4j\npeter sawkin\t5i\nrahul mandal\t2r\nsophie faldo\t3n\n',
   },
   answers:

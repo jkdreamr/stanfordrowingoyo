@@ -2,13 +2,13 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '8': '\ncalliope\tg\npolymnia\t28\n',
-    '4': '\nclio\t0\n',
-    '5': '\nerato\t1c\n',
-    '7': '\neuterpe\t1k\n',
-    '9': '\nmelpomene\t10\n',
+    '8': '\ncalliope\tg\nkalliope\tg\nkalliopi\tg\npolymnia\t28\n',
+    '4': '\nclio\t0\nklio\t0\n',
+    '5': '\nerato\t1c\nkleio\t0\ntalia\t7\n',
+    '7': '\neuterpe\t1k\nourania\tr\nthaleia\t7\n',
+    '9': '\nmelpomene\t10\npolhymnia\t28\n',
     '10': '\npolyhymnia\t28\n',
-    '11': '\nterpsichore\t1u\n',
+    '11': '\nterpsichora\t1u\nterpsichore\t1u\n',
     '6': '\nthalia\t7\nurania\tr\n',
   },
   answers:

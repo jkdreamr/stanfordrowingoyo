@@ -3,12 +3,17 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '11': '\ndeath proof\t18\nkill bill 1\t0\nkill bill 2\tm\n',
+    '6': '\ndjango\t4d\nouatih\t1m\n',
     '16': '\ndjango unchained\t4d\n',
+    '10': '\ngrindhouse\t18\n',
+    '9': '\nhateful 8\t3t\nkill bill\t0\n',
     '13': '\nhateful eight\t3t\nreservoir dog\t2x\n',
+    '18': '\ninglorious bastard\t4w\ninglorious basterd\t4w\nkill bill volume 1\t0\nkill bill volume 2\tm\n',
     '19': '\ninglourious basterd\t4w\n',
     '12': '\njackie brown\t2i\npulp fiction\t3e\n',
+    '33': '\nkill bill the whole bloody affair\t0\n',
     '15': '\nkill bill vol 1\t0\nkill bill vol 2\tm\n',
-    '18': '\nkill bill volume 1\t0\nkill bill volume 2\tm\n',
+    '20': '\nkill bill volume one\t0\nkill bill volume two\tm\n',
     '29': '\nonce upon a time in hollywood\t1m\n',
   },
   answers:

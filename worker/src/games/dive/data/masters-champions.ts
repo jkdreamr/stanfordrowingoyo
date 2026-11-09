@@ -2,7 +2,7 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '5': '\naaron\t3g\nburke\t4a\ncoody\tlv\nfaldo\th6\nfloyd\t5m\nhogan\t62\nscott\tf\nsingh\t8e\nsmith\t7z\nsnead\tfl\n',
+    '5': '\naaron\t3g\nburke\t4a\ncoody\tlv\nfaldo\th6\nfloyd\t5m\nhogan\t62\nscott\tf\nsingh\t8e\nsmith\t7z\nsnead\tfl\ntiger\t1w\n',
     '10': '\nadam scott\tf\nballestero\thj\nbob goalby\tmx\ncraig wood\t1j\ngay brewer\t6t\nlarry mize\tgt\nmiddlecoff\tna\nnick faldo\th6\nsandy lyle\t97\nschwartzel\tke\ntiger wood\t1w\ntom watson\t16\n',
     '13': '\nangel cabrera\teq\narnold palmer\t56\ncharles coody\tlv\nclaude harmon\tae\ncraig stadler\tfx\ndanny willett\tds\nfuzzy zoeller\tjj\ngeorge archer\t3u\nherman keiser\tgd\njack burke jr\t4a\njack nicklaus\tcv\njimmy demaret\tlf\njordan spieth\tba\nralph guldahl\tns\nraymond floyd\t5m\nsergio garcia\tau\n',
     '6': '\narcher\t3u\nbrewer\t6t\ncasper\t9k\ncouple\t2a\ngarcia\tau\ngoalby\tmx\nharmon\tae\nkeiser\tgd\nlanger\te8\nnelson\t6e\nomeara\tf6\npalmer\t56\npicard\t9z\nplayer\ts\nspieth\tba\n',
@@ -14,7 +14,7 @@ export default {
     '16': '\ncharl schwartzel\tke\nhideki matsuyama\ti2\n',
     '8': '\ncrenshaw\tbq\nimmelman\tkx\njon rahm\tc5\nnicklaus\tcv\nolazabal\tmb\n',
     '14': '\ndustin johnson\t7i\nphil mickelson\tdb\n',
-    '4': '\nford\t2p\nlyle\t97\nmize\tgt\nrahm\tc5\nreed\t31\nwall\t0\nweir\t76\n',
+    '4': '\nford\t2p\nlyle\t97\nmize\tgt\nrahm\tc5\nreed\t31\nwall\t0\nweir\t76\nwood\t1w\n',
     '19': '\njose maria olazabal\tmb\n',
     '17': '\nscottie scheffler\til\n',
   },

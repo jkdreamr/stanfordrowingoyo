@@ -2,6 +2,7 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nam\t1g\nbh\t3r\nbk\t21\ncf\to\ncm\t1s\ncn\t41\ndb\t4u\nds\t4f\nes\t12\nfl\t54\nfm\t33\nhs\t5g\nlr\t2d\nlv\t5q\nmc\t6h\nmd\t3d\nmt\t64\nnh\t6t\nno\t74\nnp\tc\nog\t7f\npu\t0\nrf\t85\nrg\t7r\nsg\t2q\nts\t8l\n',
     '9': '\namericium\t1g\nberkelium\t21\nflerovium\t54\nmoscovium\t6h\nneptunium\tc\noganesson\t7f\nplutonium\t0\n',
     '7': '\nbohrium\t3r\ndubnium\t4u\nfermium\t33\nhassium\t5g\n',
     '11': '\ncalifornium\to\ncopernicium\t41\neinsteinium\t12\nlivermorium\t5q\nmendelevium\t3d\nroentgenium\t7r\n',

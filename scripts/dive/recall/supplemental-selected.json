@@ -1,0 +1,80 @@
+{
+  "pixar-single-word-films": [
+    "Up",
+    "Cars",
+    "Coco",
+    "Soul",
+    "Brave",
+    "Luca",
+    "Onward",
+    "Lightyear",
+    "Elemental",
+    "Elio",
+    "Hoppers",
+    "WALL-E",
+    "Wall E",
+    "WALL E",
+    "WallE",
+    {
+      "guess": "Toy Story",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Toy Story 2",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Toy Story 3",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Toy Story 4",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Toy Story 5",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "A Bugs Life",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Monsters Inc",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Finding Nemo",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Finding Dory",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "The Incredibles",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Incredibles 2",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Inside Out",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Inside Out 2",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    "Ratatouille",
+    {
+      "guess": "The Good Dinosaur",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    },
+    {
+      "guess": "Turning Red",
+      "invalid": "The official English Pixar feature title has multiple words, including any article or sequel number."
+    }
+  ]
+}

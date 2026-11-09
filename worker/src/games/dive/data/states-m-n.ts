@@ -2,8 +2,10 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nma\t1t\nmd\t2l\nme\t3l\nmi\t11\nmn\t29\nmo\t2w\nms\t37\nmt\t48\nnc\t1c\nnd\t3t\nne\t57\nnh\t4r\nnj\to\nnm\tb\nnv\t4i\nny\t0\n',
     '5': '\nmaine\t3l\n',
     '8': '\nmaryland\t2l\nmichigan\t11\nmissouri\t2w\nnebraska\t57\nnew york\t0\n',
+    '4': '\nmass\t1t\nmich\t11\n',
     '12': '\nmassachusett\t1t\nnorth dakota\t3t\n',
     '9': '\nminnesota\t29\n',
     '11': '\nmississippi\t37\n',
@@ -11,7 +13,7 @@ export default {
     '6': '\nnevada\t4i\n',
     '13': '\nnew hampshire\t4r\n',
     '10': '\nnew jersey\to\nnew mexico\tb\n',
-    '14': '\nnorth carolina\t1c\n',
+    '14': '\nnew york state\t0\nnorth carolina\t1c\n',
   },
   answers:
     's\tNew York\nm\tNew Mexico\nm\tNew Jersey\ns\tMichigan\nm\tNorth Carolina\ns\tMassachusetts\nm\tMinnesota\nm\tMaryland\nm\tMissouri\nr\tMississippi\nr\tMaine\nr\tNorth Dakota\ng\tMontana\nd\tNevada\nd\tNew Hampshire\nd\tNebraska\n',

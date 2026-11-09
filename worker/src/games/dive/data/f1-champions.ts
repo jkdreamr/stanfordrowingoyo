@@ -2,7 +2,7 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '11': '\nalain prost\t8e\ndenny hulme\t8s\ngraham hill\t12\njohn surtee\tbv\n',
+    '11': '\nalain prost\t8e\ndenny hulme\t8s\ngraham hill\t12\njohn surtee\tbv\nnino farina\t7w\n',
     '9': '\nalan jone\td\nantonelli\tcq\njim clark\t1g\nphil hill\tq\nraikkonen\te9\nscheckter\tf5\n',
     '14': '\nalberto ascari\td7\njackie stewart\t29\njody scheckter\tf5\nkimi antonelli\tcq\nkimi raikkonen\te9\nlewis hamilton\t1s\nmario andretti\tae\nmax verstappen\t70\n',
     '6': '\nalonso\t33\nascari\td7\nbutton\t5k\nfangio\tba\nfarina\t7w\nnorris\t60\npiquet\tca\nsurtee\tbv\nvettel\t4m\n',

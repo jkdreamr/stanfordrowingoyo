@@ -2,8 +2,8 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '9': '\nandromeda\tk9\ncentaurus\t3n\ndelphinus\t7l\ngreat dog\t2v\nleo minor\tbo\nophiuchus\t48\nreticulum\th2\nvulpecula\t9u\n',
-    '6': '\nantlia\t6a\naquila\tmo\nauriga\t3z\ncaelum\t8i\ncancer\t0\ncarina\tmf\ncorvus\ts\ncrater\ti8\ncygnus\tnc\ndorado\tdf\nfornax\t94\ngemini\tj5\nhydrus\t7x\npictor\tee\npuppis\tcj\nscutum\thz\nserpen\tbe\nsextan\td5\ntaurus\tju\ntucana\tdx\n',
+    '9': '\nandromeda\tk9\ncapricorn\t26\ncentaurus\t3n\ndelphinus\t7l\ngreat dog\t2v\nleo minor\tbo\nophiuchus\t48\nreticulum\th2\nvulpecula\t9u\n',
+    '6': '\nantlia\t6a\naquila\tmo\nauriga\t3z\ncaelum\t8i\ncancer\t0\ncarina\tmf\ncorvus\ts\ncrater\ti8\ncygnus\tnc\ndorado\tdf\nfornax\t94\ngemini\tj5\nhunter\tix\nhydrus\t7x\npictor\tee\npuppis\tcj\nscutum\thz\nserpen\tbe\nsextan\td5\ntaurus\tju\ntucana\tdx\n',
     '4': '\napus\tan\ncrux\t39\ngrus\ton\nlynx\t1m\nlyra\t3g\npavo\to6\nvela\tn5\n',
     '8': '\naquarius\tl1\nbig bear\t19\ncircinus\tfx\nequuleus\t70\neridanus\t5b\nmonocero\t86\nscorpius\t2k\nsculptor\t9\n',
     '3': '\nara\tk3\nary\tkl\nleo\tih\n',
@@ -11,7 +11,7 @@ export default {
     '14': '\ncamelopardalis\t9d\ncanes venatici\ta6\nsouthern cross\t39\n',
     '11': '\ncanis major\t2v\ncanis minor\t5w\ncapricornus\t26\nlittle bear\t1t\nsagittarius\tm1\ntelescopium\tg8\n',
     '10': '\ncassiopeia\tnl\nchamaeleon\tcs\ngreat bear\t19\nhorologium\tou\nlittle dog\t5w\ntriangulum\t8r\nursa major\t19\nursa minor\t1t\n',
-    '7': '\ncepheus\tod\ncolumba\thp\nhercule\the\nlacerta\tau\npegasus\t5m\nperseus\t7b\nphoenix\tin\nsagitta\tb4\n',
+    '7': '\ncepheus\tod\ncolumba\thp\nhercule\the\nlacerta\tau\npegasus\t5m\nperseus\t7b\nphoenix\tin\nsagitta\tb4\nscorpio\t2k\n',
     '13': '\ncoma berenice\t6j\n',
     '16': '\ncorona australis\tc0\npiscis austrinus\tp7\n',
     '15': '\ncorona borealis\t4t\n',

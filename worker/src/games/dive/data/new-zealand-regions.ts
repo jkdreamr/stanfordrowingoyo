@@ -2,16 +2,19 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '8': '\nauckland\td\ngisborne\t3w\ntaranaki\t47\n',
-    '13': '\nbay of plenty\t1e\n',
-    '10': '\ncanterbury\to\nhawkes bay\t4i\nwellington\t0\nwest coast\t11\n',
-    '17': '\nmanawatu wanganui\t4w\n',
+    '8': '\nauckland\td\ngisborne\t3w\nmurihiku\t2q\ntaranaki\t47\n',
+    '13': '\nbay of plenty\t1e\nte tairawhiti\t3w\n',
+    '10': '\ncanterbury\to\nhawkes bay\t4i\ntairawhiti\t3w\nte waikato\t3a\nwellington\t0\nwest coast\t11\n',
+    '7': '\nhorizon\t4w\nwaikato\t3a\nwaitaha\to\nwhakatu\t1u\n',
+    '17': '\nmanawatu wanganui\t4w\nte upoko o te ika\t0\n',
     '18': '\nmanawatu whanganui\t4w\n',
-    '11': '\nmarlborough\t23\n',
-    '6': '\nnelson\t1u\ntasman\t2h\n',
+    '11': '\nmarlborough\t23\nte taranaki\t47\n',
+    '6': '\nnelson\t1u\notakou\t32\ntasman\t2h\n',
     '9': '\nnorthland\t3k\nsouthland\t2q\n',
     '5': '\notago\t32\n',
-    '7': '\nwaikato\t3a\n',
+    '15': '\ntamaki makaurau\td\nte matau a maui\t4i\nte tai o aorere\t2h\n',
+    '14': '\nte moana a toi\t1e\nte tai poutini\t11\nte tai tokerau\t3k\n',
+    '19': '\nte tauihu o te waka\t23\nte whanganui a tara\t0\n',
   },
   answers:
     "s\tWellington\ns\tAuckland\ns\tCanterbury\nm\tWest Coast\nm\tBay of Plenty\nm\tNelson\nm\tMarlborough\nm\tTasman\nm\tSouthland\nr\tOtago\nr\tWaikato\nr\tNorthland\nd\tGisborne\ng\tTaranaki\nd\tHawke's Bay\nd\tManawatū-Whanganui\n",

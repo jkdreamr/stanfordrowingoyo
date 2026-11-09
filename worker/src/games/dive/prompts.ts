@@ -2864,7 +2864,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'words',
     cluster: 'countries',
     constrained: true,
-    size: 18,
+    size: 19,
   },
   {
     id: 'countries-ia',
@@ -2872,7 +2872,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'words',
     cluster: 'countries',
     constrained: true,
-    size: 42,
+    size: 47,
   },
   {
     id: 'countries-same-letter',
@@ -3320,7 +3320,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'science',
     cluster: 'elements',
     constrained: true,
-    size: 11,
+    size: 10,
   },
   {
     id: 'gaseous-elements',
@@ -3336,7 +3336,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'science',
     cluster: 'moons',
     constrained: true,
-    size: 11,
+    size: 13,
   },
   {
     id: 'carpal-bones',
@@ -3384,7 +3384,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'nature',
     cluster: 'animals',
     constrained: true,
-    size: 37,
+    size: 38,
   },
   {
     id: 'crocodilians',
@@ -3915,14 +3915,6 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     size: 48,
   },
   {
-    id: 'disney-princesses',
-    text: 'Name an official Disney Princess.',
-    theme: 'film',
-    cluster: 'disney',
-    constrained: true,
-    size: 13,
-  },
-  {
     id: 'london-tube-lines',
     text: 'Name a London Underground line.',
     theme: 'everyday',
@@ -3968,7 +3960,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'nature',
     cluster: 'seals',
     constrained: true,
-    size: 18,
+    size: 19,
   },
   {
     id: 'ancient-modern-wonders',
@@ -4064,7 +4056,7 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     theme: 'tv',
     cluster: 'emmys',
     constrained: true,
-    size: 33,
+    size: 37,
   },
   {
     id: 'summer-olympic-hosts',
@@ -5114,6 +5106,14 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     constrained: true,
     size: 34,
   },
+  {
+    id: 'pixar-single-word-films',
+    text: 'Name a Pixar feature film with a one-word English title.',
+    theme: 'film',
+    cluster: 'animation',
+    constrained: true,
+    size: 13,
+  },
 ];
 /** Retired candidate metadata; only legacy or scheduled IDs have runtime data. */
 export const DIVE_INACTIVE_PROMPTS: readonly DivePrompt[] = [
@@ -5772,6 +5772,14 @@ export const DIVE_INACTIVE_PROMPTS: readonly DivePrompt[] = [
     cluster: 'allergens',
     constrained: true,
     size: 9,
+  },
+  {
+    id: 'disney-princesses',
+    text: 'Name an official Disney Princess.',
+    theme: 'film',
+    cluster: 'disney',
+    constrained: true,
+    size: 13,
   },
 ];
 const byId = new Map([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].map((p) => [p.id, p]));

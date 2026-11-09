@@ -10,7 +10,7 @@ export default {
     '8': '\ninnuendo\t6d\nqueen ii\t2g\n',
     '13': '\nkind of magic\t1y\n',
     '14': '\nmade in heaven\t2r\n',
-    '7': '\nmiracle\t4g\n',
+    '7': '\nmiracle\t4g\nqueen 2\t2g\n',
     '17': '\nnews of the world\tq\n',
     '18': '\nnight at the opera\t3t\nsheer heart attack\t59\n',
     '5': '\nqueen\t0\n',

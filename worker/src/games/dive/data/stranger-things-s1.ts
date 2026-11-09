@@ -4,8 +4,17 @@ export default {
   buckets: {
     '7': '\nbathtub\t17\nmonster\tb\n',
     '4': '\nbody\t0\n',
+    '9': '\nchapter 1\t2t\nchapter 2\t20\nchapter 3\t1l\nchapter 4\t0\nchapter 5\t3n\nchapter 6\tb\nchapter 7\t17\nchapter 8\tp\n',
+    '13': '\nchapter eight\tp\nchapter seven\t17\nchapter three\t1l\n',
+    '29': '\nchapter eight the upside down\tp\n',
+    '12': '\nchapter five\t3n\nchapter four\t0\n',
+    '37': '\nchapter five the flea and the acrobat\t3n\n',
+    '21': '\nchapter four the body\t0\n',
+    '11': '\nchapter one\t2t\nchapter six\tb\nchapter two\t20\nholly jolly\t1l\nupside down\tp\n',
+    '38': '\nchapter one the vanishing of will byer\t2t\nchapter two the weirdo on maple street\t20\n',
+    '25': '\nchapter seven the bathtub\t17\nchapter three holly jolly\t1l\n',
+    '23': '\nchapter six the monster\tb\n',
     '20': '\nflea and the acrobat\t3n\n',
-    '11': '\nholly jolly\t1l\nupside down\tp\n',
     '22': '\nvanishing of will byer\t2t\nweirdo on maple street\t20\n',
   },
   answers:

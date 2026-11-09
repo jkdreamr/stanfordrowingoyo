@@ -3,15 +3,16 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '3': '\ncao\tf\nhan\ts\nlan\t1i\n',
-    '10': '\ncao guojiu\tf\nli tieguai\t1u\nlu dongbin\t27\n',
+    '11': '\ncao guo jiu\tf\nhan xiangzi\ts\nhan zhongli\t0\nho hsien ku\t16\nlan tsai ho\t1i\nli tie guai\t1u\nlu dong bin\t27\nlu tung pin\t27\n',
+    '10': '\ncao guojiu\tf\nhe xian gu\t16\nlan cai he\t1i\nli tieguai\t1u\nlu dongbin\t27\ntieguai li\t1u\n',
+    '13': '\nchang kuo lao\t2k\ntsao kuo chiu\tf\nzhang guo lao\t2k\nzhong li quan\t0\n',
+    '14': '\nchung li chuan\t0\nhan hsiang tzu\ts\niron crutch li\t1u\n',
     '15': '\nelder zhang guo\t2k\nroyal uncle cao\tf\n',
-    '11': '\nhan xiangzi\ts\nhan zhongli\t0\n',
+    '12': '\nhan xiang zi\ts\nli tieh kuai\t1u\nzhang guolao\t2k\nzhongli quan\t0\n',
     '2': '\nhe\t16\nli\t1u\nlu\t27\n',
     '9': '\nhe xiangu\t16\nlan caihe\t1i\n',
     '17': '\nimmortal woman he\t16\n',
-    '14': '\niron crutch li\t1u\n',
     '5': '\nzhang\t2k\n',
-    '12': '\nzhang guolao\t2k\nzhongli quan\t0\n',
     '7': '\nzhongli\t0\n',
   },
   answers:

@@ -2,17 +2,20 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\naa\t0\nas\t1l\nat\t58\nay\t5q\nba\t23\ncx\t4i\nfj\t31\nib\t4z\njl\tk\nmh\t11\nqf\t49\nqr\t2l\nrj\t3r\nul\t60\nwy\t3g\n',
+    '6': '\nalaska\t1l\ncathay\t4i\niberia\t4z\n',
     '14': '\nalaska airline\t1l\nbritish airway\t23\ncathay pacific\t4i\n',
-    '8': '\namerican\t0\noman air\t3g\n',
+    '8': '\namerican\t0\nmalaysia\t11\noman air\t3g\n',
     '16': '\namerican airline\t0\nmalaysia airline\t11\n',
-    '2': '\nba\t23\n',
+    '4': '\nfiji\t31\n',
     '11': '\nfiji airway\t31\n',
     '7': '\nfinnair\t5q\n',
-    '6': '\niberia\t4z\n',
+    '3': '\njal\tk\nram\t58\n',
     '13': '\njapan airline\tk\n',
-    '5': '\nqanta\t49\n',
+    '5': '\nqanta\t49\nqatar\t2l\n',
     '12': '\nqatar airway\t2l\n',
     '15': '\nroyal air maroc\t58\nroyal jordanian\t3r\n',
+    '9': '\nsrilankan\t60\n',
     '17': '\nsrilankan airline\t60\n',
   },
   answers:

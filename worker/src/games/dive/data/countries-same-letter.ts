@@ -2,20 +2,24 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '8': '\nabkhazia\t4u\n',
+    '8': '\nabkhazia\t4u\nhayastan\t3e\n',
     '7': '\nalbania\t3o\nalgeria\t34\namerica\t0\nandorra\t4k\narmenia\t3e\naustria\t1v\nczechia\t25\n',
     '6': '\nangola\t3y\n',
     '19': '\nantigua and barbuda\t6s\n',
-    '9': '\nargentina\t1j\naustralia\tg\nseychelle\t47\n',
+    '9': '\nargentina\t1j\naustralia\tg\nseychelle\t47\nshqiperia\t3o\n',
+    '3': '\ncar\ts\nusa\t0\n',
+    '23': '\ncentral africa republic\ts\nprincipality of andorra\t4k\n',
     '24': '\ncentral african republic\ts\nunited states of america\t0\n',
+    '5': '\ncesko\t25\n',
     '14': '\nczech republic\t25\nsolomon island\t2m\n',
+    '11': '\noesterreich\t1v\n',
+    '10': '\nosterreich\t1v\n',
     '21': '\nsaint kitts and nevis\t64\n',
     '31': '\nsaint vincent and the grenadine\t55\n',
     '18': '\nst kitts and nevis\t64\n',
     '28': '\nst vincent and the grenadine\t55\n',
     '12': '\nunited state\t0\n',
     '2': '\nus\t0\n',
-    '3': '\nusa\t0\n',
   },
   answers:
     'm\tUnited States\nm\tAustralia\nm\tCentral African Republic\ns\tArgentina\nm\tAustria\nm\tCzech Republic\nm\tSolomon Islands\ns\tAlgeria\nr\tArmenia\ns\tAlbania\nr\tAngola\ng\tSeychelles\nr\tAndorra\nr\tAbkhazia\nd\tSaint Vincent and the Grenadines\nd\tSaint Kitts and Nevis\nd\tAntigua and Barbuda\n',

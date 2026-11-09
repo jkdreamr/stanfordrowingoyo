@@ -2,11 +2,15 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '11': '\naltocumulus\t1o\naltostratus\t2h\n',
-    '12': '\ncirrocumulus\t3a\ncirrostratus\t2v\ncumulonimbus\tt\nnimbostratus\t22\n',
+    '2': '\nac\t1o\nas\t2h\ncb\tt\ncc\t3a\nci\t0\ncs\t2v\ncu\t9\nns\t22\nsc\t18\nst\tj\n',
+    '11': '\naltocumulus\t1o\naltostratus\t2h\nanvil cloud\tt\n',
+    '17': '\naltocumulus cloud\t1o\naltostratus cloud\t2h\n',
+    '12': '\ncirrocumulus\t3a\ncirrostratus\t2v\ncirrus cloud\t0\ncumulonimbus\tt\nnimbostratus\t22\nthundercloud\tt\n',
+    '18': '\ncirrocumulus cloud\t3a\ncirrostratus cloud\t2v\ncumulonimbus cloud\tt\nnimbostratus cloud\t22\n',
     '6': '\ncirrus\t0\n',
     '7': '\ncumulus\t9\nstratus\tj\n',
-    '13': '\nstratocumulus\t18\n',
+    '13': '\ncumulus cloud\t9\nstratocumulus\t18\nstratus cloud\tj\n',
+    '19': '\nstratocumulus cloud\t18\n',
   },
   answers:
     's\tCirrus\ns\tCumulus\ns\tStratus\ng\tCumulonimbus\nm\tStratocumulus\nm\tAltocumulus\nm\tNimbostratus\nr\tAltostratus\nr\tCirrostratus\nd\tCirrocumulus\n',

@@ -3,10 +3,13 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '7': '\napatite\t1s\ncalcite\t10\ndiamond\t0\n',
+    '15': '\napatite mineral\t1s\n',
     '8': '\ncorundum\t22\nfeldspar\t2d\nfluorite\t1h\n',
-    '6': '\ngypsum\tj\nquartz\ta\n',
+    '9': '\nfluorspar\t1h\n',
+    '6': '\ngypsum\tj\nquartz\ta\ntalcum\t1a\n',
     '10': '\northoclase\t2d\n',
     '19': '\northoclase feldspar\t2d\n',
+    '14': '\nquartz crystal\ta\n',
     '4': '\ntalc\t1a\n',
     '5': '\ntopaz\ts\n',
   },

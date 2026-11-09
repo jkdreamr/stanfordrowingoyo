@@ -2,6 +2,7 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nak\t2a\nal\t1t\nar\t2j\naz\ti\nia\ts\nid\t2u\nil\t7\nin\tz\noh\t0\nok\t1i\nor\t19\nut\t23\n',
     '7': '\nalabama\t1t\narizona\ti\narkansa\t2j\nindiana\tz\n',
     '6': '\nalaska\t2a\noregon\t19\n',
     '5': '\nidaho\t2u\n',

@@ -2,18 +2,20 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '3': '\nacb\t2j\nkbj\t6s\nrbg\t3h\n',
     '5': '\nalito\t5y\nkagan\t33\nthoma\tx\n',
+    '11': '\namy barrett\t2j\nelena kagan\t33\njohn robert\t0\nnino scalia\t5h\n',
     '17': '\namy coney barrett\t2j\n',
-    '15': '\nanthony kennedy\tf\nbrett kavanaugh\t21\nsonia sotomayor\t4z\n',
-    '14': '\nantonin scalia\t5h\nclarence thoma\tx\nstephen breyer\t4i\n',
+    '15': '\nanthony kennedy\tf\nbrett kavanaugh\t21\nketanji jackson\t6s\nsonia sotomayor\t4z\n',
+    '14': '\nantonin scalia\t5h\nclarence thoma\tx\nsandra oconnor\t1f\nstephen breyer\t4i\n',
     '7': '\nbarrett\t2j\ngorsuch\t43\njackson\t6s\nkennedy\tf\noconnor\t1f\n',
     '6': '\nbreyer\t4i\nrobert\t0\nscalia\t5h\nsouter\t6d\n',
     '12': '\ndavid souter\t6d\nneil gorsuch\t43\nsamuel alito\t5y\n',
-    '11': '\nelena kagan\t33\njohn robert\t0\n',
-    '8': '\nginsburg\t3h\n',
-    '9': '\nkavanaugh\t21\nsotomayor\t4z\n',
+    '8': '\nginsburg\t3h\no connor\t1f\n',
+    '13': '\njohn g robert\t0\n',
+    '9': '\nkavanaugh\t21\nsam alito\t5y\nsotomayor\t4z\n',
     '21': '\nketanji brown jackson\t6s\n',
-    '19': '\nruth bader ginsburg\t3h\n',
+    '19': '\nruth bader ginsburg\t3h\nsandra day o connor\t1f\n',
     '18': '\nsandra day oconnor\t1f\n',
   },
   answers:

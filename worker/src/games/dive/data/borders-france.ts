@@ -2,12 +2,23 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '7': '\nandorra\t2n\nbelgium\t1d\ngermany\t8\nholland\t29\n',
-    '6': '\nbrazil\tq\nmonaco\t1n\n',
+    '7': '\nandorra\t2n\nbelgien\t1d\nbelgium\t1d\ngermany\t8\nholland\t29\nschweiz\tz\nsurinam\t2x\n',
+    '6': '\nbelgie\t1d\nbrasil\tq\nbrazil\tq\nespana\ti\nitalia\t0\nmonaco\t1n\nsuisse\tz\nsvizra\tz\n',
+    '8': '\nbelgique\t1d\nsuriname\t2x\nsvizzera\tz\n',
+    '26': '\nbundesrepublik deutschland\t8\n',
+    '11': '\ndeutschland\t8\nswitzerland\tz\n',
+    '27': '\nfederal republic of germany\t8\n',
+    '29': '\nfederative republic of brazil\tq\n',
+    '25': '\ngrand duchy of luxembourg\t1w\nkingdom of the netherland\t29\n',
+    '16': '\nitalian republic\t0\nkingdom of spain\ti\n',
     '5': '\nitaly\t0\nspain\ti\n',
-    '10': '\nluxembourg\t1w\nnetherland\t29\n',
-    '8': '\nsuriname\t2x\n',
-    '11': '\nswitzerland\tz\n',
+    '18': '\nkingdom of belgium\t1d\n',
+    '10': '\nletzebuerg\t1w\nluxembourg\t1w\nnetherland\t29\n',
+    '9': '\nluxemburg\t1w\nnederland\t29\n',
+    '23': '\nprincipality of andorra\t2n\n',
+    '22': '\nprincipality of monaco\t1n\n',
+    '20': '\nrepublic of suriname\t2x\n',
+    '19': '\nswiss confederation\tz\n',
   },
   answers:
     's\tItaly\ns\tGermany\ns\tSpain\ng\tBrazil\nm\tSwitzerland\nm\tBelgium\nm\tMonaco\nm\tLuxembourg\nr\tNetherlands\nr\tAndorra\nd\tSuriname\n',

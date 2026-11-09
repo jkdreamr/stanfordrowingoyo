@@ -2,8 +2,11 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nar\t1x\ncl\t1m\nf2\t1b\nh2\t0\nhe\tk\nkr\t25\nn2\tt\nne\t14\no2\tb\nrn\t2f\nxe\t2n\n',
     '5': '\nargon\t1x\nradon\t2f\nxenon\t2n\n',
     '8': '\nchlorine\t1m\nfluorine\t1b\nhydrogen\t0\nnitrogen\tt\n',
+    '3': '\ncl2\t1m\n',
+    '1': '\nf\t1b\nh\t0\nn\tt\no\tb\n',
     '6': '\nhelium\tk\noxygen\tb\n',
     '7': '\nkrypton\t25\n',
     '4': '\nneon\t14\n',

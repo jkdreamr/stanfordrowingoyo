@@ -2,13 +2,13 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '12': '\n5th elephant\t8c\nfeet of clay\t5q\ngoing postal\t9g\nguards guard\t7u\nmaking money\t0\nwee free men\tab\n',
     '15': '\namazing maurice\tau\ncolour of magic\t4k\nhat full of sky\t56\nlight fantastic\t3e\nshepherds crown\tdz\n',
     '39': '\namazing maurice and his educated rodent\tau\n',
     '13': '\ncarpe jugulum\tge\nraising steam\t65\nthief of time\t9v\n',
     '14': '\ncolor of magic\t4k\nfifth elephant\t8c\nlast continent\t79\nlords and lady\t8x\nmoving picture\t2g\nwitches abroad\tbg\n',
     '10': '\nequal rite\tbx\nmen at arm\t1p\nreaper man\tcm\nsoul music\t23\n',
     '4': '\neric\t40\nmort\tds\nthud\tem\n',
-    '12': '\nfeet of clay\t5q\ngoing postal\t9g\nguards guard\t7u\nmaking money\t0\nwee free men\tab\n',
     '9': '\nhogfather\tfh\nlast hero\t2y\nmaskerade\tgu\nsmall god\t47\n',
     '21': '\ni shall wear midnight\t6l\n',
     '16': '\ninteresting time\t15\n',

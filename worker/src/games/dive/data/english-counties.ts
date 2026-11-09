@@ -2,20 +2,22 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '3': '\nbed\ti1\nglo\tb6\n',
     '12': '\nbedfordshire\ti1\nlincolnshire\t9y\nwarwickshire\te1\nwest midland\t76\n',
     '9': '\nberkshire\t89\nhampshire\t3h\nwiltshire\tad\n',
     '7': '\nbristol\t0\ncumbria\tci\nnorfolk\t50\nrutland\th8\nsuffolk\t7m\n',
+    '4': '\nbuck\tgq\ncamb\tet\nhant\t3h\nhert\tbo\nkent\t1t\nlanc\t7w\nleic\tg9\nlinc\t9y\nnott\tfa\noxon\tc4\nwark\te1\nwilt\tad\nworc\tfs\n',
     '15': '\nbuckinghamshire\tgq\ngloucestershire\tb6\nnorth yorkshire\t20\nnottinghamshire\tfa\nsouth yorkshire\t2i\n',
     '14': '\ncambridgeshire\tet\ncity of london\ta\neast yorkshire\t41\ngreater london\tr\nleicestershire\tg9\nnorthumberland\tap\nwest yorkshire\t30\nworcestershire\tfs\n',
-    '8': '\ncheshire\t8u\ncornwall\t5u\nsomerset\t5j\n',
+    '8': '\ncheshire\t8u\ncornwall\t5u\nnorthant\thi\nsomerset\t5j\n',
+    '26': '\ncity and county of bristol\t0\n',
+    '13': '\ncounty durham\t5a\nherefordshire\tig\nhertfordshire\tbo\nisle of wight\td8\nstaffordshire\t95\ntyne and wear\tcs\n',
     '10': '\nderbyshire\t9l\nlancashire\t7w\nmerseyside\teg\nshropshire\tdo\n',
-    '5': '\ndevon\t4s\nessex\t3t\n',
+    '5': '\ndevon\t4s\nessex\t3t\nsalop\tdo\nstaff\t95\n',
     '6': '\ndorset\t8l\ndurham\t5a\nlondon\tr\nsurrey\t65\n',
     '24': '\neast riding of yorkshire\t41\n',
     '11': '\neast sussex\t6s\nlondon city\ta\noxfordshire\tc4\nwest sussex\t6e\n',
     '18': '\ngreater manchester\t18\n',
-    '13': '\nherefordshire\tig\nhertfordshire\tbo\nisle of wight\td8\nstaffordshire\t95\ntyne and wear\tcs\n',
-    '4': '\nkent\t1t\n',
     '16': '\nnorthamptonshire\thi\n',
   },
   answers:

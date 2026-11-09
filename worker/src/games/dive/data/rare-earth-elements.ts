@@ -2,12 +2,14 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nce\t18\ndy\t35\ner\t47\neu\tx\ngd\t23\nho\t4s\nla\tl\nlu\t1s\nnd\t2t\npm\t2g\npr\t3i\nsc\t0\nsm\t1h\ntb\t3x\ntm\t52\nyb\t4g\n',
     '6': '\ncerium\t18\nerbium\t47\n',
     '10': '\ndysprosium\t35\ngadolinium\t23\npromethium\t2g\n',
     '8': '\neuropium\tx\nlutetium\t1s\nsamarium\t1h\nscandium\t0\n',
     '7': '\nholmium\t4s\nterbium\t3x\nthulium\t52\nyttrium\tb\n',
     '9': '\nlanthanum\tl\nneodymium\t2t\nytterbium\t4g\n',
     '12': '\npraseodymium\t3i\n',
+    '1': '\ny\tb\n',
   },
   answers:
     'm\tScandium\nm\tYttrium\ns\tLanthanum\ng\tEuropium\ns\tCerium\nm\tSamarium\nm\tLutetium\nm\tGadolinium\nm\tPromethium\ns\tNeodymium\nr\tDysprosium\nr\tPraseodymium\nr\tTerbium\nr\tErbium\nd\tYtterbium\nd\tHolmium\nd\tThulium\n',

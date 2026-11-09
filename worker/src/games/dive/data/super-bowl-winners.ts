@@ -7,7 +7,7 @@ export default {
     '15': '\nbaltimore raven\t82\nlos angeles ram\t70\nseattle seahawk\t7j\n',
     '6': '\nbronco\t6j\ncowboy\t38\npacker\t4r\nraider\t5z\n',
     '3': '\nbuc\t9s\njet\ty\nram\t70\n',
-    '9': '\nbuccaneer\t9s\n',
+    '9': '\nbuccaneer\t9s\ncommander\t5b\n',
     '12': '\nchicago bear\ti\nnew york jet\ty\nst louis ram\t70\n',
     '5': '\nchief\t2n\neagle\t1e\ngiant\t0\nniner\taf\nraven\t82\nsaint\t3p\n',
     '13': '\ndallas cowboy\t38\ndenver bronco\t6j\nmiami dolphin\t4a\n',

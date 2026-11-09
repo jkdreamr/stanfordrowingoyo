@@ -2,14 +2,15 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '9': '\namsterdam\t3i\nbucharest\t68\nljubljana\tbf\npodgorica\te7\nreykjavik\tdv\nstockholm\t3u\n',
+    '9': '\namsterdam\t3i\nbucharest\t68\nbucuresti\t68\nkobenhavn\t56\nljubljana\tbf\nluxemburg\t8l\npodgorica\te7\nprishtina\tdk\nreykjavik\tdv\nstockholm\t3u\n',
     '16': '\nandorra la vella\td1\n',
-    '6': '\nangora\t5q\nankara\t5q\nastana\taa\nberlin\t1c\ndublin\t5z\nlisbon\t4f\nlondon\t8\nmadrid\t27\nmonaco\t1l\nmoscow\t13\nprague\t46\nskopje\tb6\ntirana\tch\nvienna\t2g\nwarsaw\t39\nzagreb\t7t\n',
-    '5': '\nathen\t30\nhague\t89\nminsk\t6k\nparis\t0\npraha\t46\nsofia\t73\nvaduz\tfh\n',
-    '4': '\nbaku\t4z\nbern\t82\nkiev\t99\nkyiv\t99\noslo\t5j\nriga\t7b\nrome\th\nwien\t2g\n',
-    '8': '\nbelgrade\t6s\nbudapest\t4o\nchisinau\tfp\nden haag\t89\nhelsinki\t2p\npristina\tdk\nsarajevo\t7i\ntiraspol\tf6\nvalletta\tcq\n',
-    '10': '\nbratislava\taj\ncopenhagen\t56\nluxembourg\t8l\nsan marino\t1u\ntskhinvali\tej\n',
-    '7': '\nbrussel\t8y\nnicosia\tbr\nsukhumi\tew\ntallinn\ta0\ntbilisi\t9q\nvilnius\t9g\nyerevan\taw\n',
+    '6': '\nangora\t5q\nankara\t5q\nastana\taa\nathina\t30\nberlin\t1c\ndublin\t5z\nerevan\taw\nlisboa\t4f\nlisbon\t4f\nlondon\t8\nmadrid\t27\nmonaco\t1l\nmoscow\t13\nmoskva\t13\nprague\t46\nskopje\tb6\ntiflis\t9q\ntirana\tch\nvienna\t2g\nwarsaw\t39\nzagreb\t7t\n',
+    '5': '\nathen\t30\nberne\t82\nhague\t89\nminsk\t6k\nparis\t0\npraha\t46\nsofia\t73\nvaduz\tfh\n',
+    '7': '\nathinae\t30\nbeograd\t6s\nbrussel\t8y\nnicosia\tbr\nsukhumi\tew\ntallinn\ta0\ntbilisi\t9q\nvilnius\t9g\nyerevan\taw\n',
+    '4': '\nbaku\t4z\nbern\t82\nkiev\t99\nkyiv\t99\noslo\t5j\nriga\t7b\nroma\th\nrome\th\nwien\t2g\n',
+    '8': '\nbelgrade\t6s\nbruxelle\t8y\nbudapest\t4o\nchisinau\tfp\nden haag\t89\nhelsinki\t2p\nkbenhavn\t56\nkishinev\tfp\npristina\tdk\nsarajevo\t7i\ntiraspol\tf6\nvalletta\tcq\nwarszawa\t39\n',
+    '10': '\nbratislava\taj\ncopenhagen\t56\nluxembourg\t8l\nnur sultan\taa\nsan marino\t1u\ntskhinvali\tej\n',
+    '15': '\nluxembourg city\t8l\n',
     '13': '\nnorth nicosia\tc1\n',
     '12': '\nvatican city\to\n',
   },

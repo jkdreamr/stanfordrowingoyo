@@ -2,12 +2,14 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '13': '\nabraham clark\t8t\nbenjamin rush\t64\ncaesar rodney\tem\nfrancis lewis\t3w\ngeorge clymer\tpi\ngeorge taylor\t17\ngeorge walton\tck\nrobert morris\t4c\nroger sherman\tbb\nthomas mckean\tno\nwilliam floyd\tav\n',
+    '13': '\nabraham clark\t8t\nbenjamin rush\t64\ncaesar rodney\tem\nfrancis lewis\t3w\ngeorge clymer\tpi\ngeorge taylor\t17\ngeorge walton\tck\nrobert morris\t4c\nroger sherman\tbb\nthomas mckean\tno\nthomas nelson\t5j\nwilliam floyd\tav\n',
     '16': '\narthur middleton\td0\njohn witherspoon\tij\nmatthew thornton\tdj\nrichard stockton\tfm\nthomas jefferson\t6z\nthomas nelson jr\t5j\n',
-    '8': '\nbartlett\ti1\nfranklin\t89\ngwinnett\tlc\nharrison\t99\nrutledge\tj2\nstockton\tfm\nthornton\tdj\n',
+    '8': '\nbartlett\ti1\nfranklin\t89\ngwinnett\tlc\nharrison\t99\nrutledge\tj2\nsam adam\t7i\nstockton\tfm\nthornton\tdj\n',
+    '12': '\nben franklin\t89\ngeorge wythe\too\njames wilson\t26\njohn hancock\tc5\nlewis morris\t6k\nsamuel chase\t54\nthomas stone\ts\nwilliam paca\tpy\n',
     '17': '\nbenjamin franklin\t89\nbenjamin harrison\t99\nfrancis hopkinson\to4\nphilip livingston\tf2\nrichard henry lee\t2z\nsamuel huntington\te2\nthomas heyward jr\tjk\n',
-    '7': '\nbraxton\thk\nhancock\tc5\nheyward\tjk\nsherman\tbb\nwhipple\tku\nwilliam\t1n\nwolcott\tn7\n',
-    '15': '\nbutton gwinnett\tlc\nedward rutledge\tj2\njosiah bartlett\ti1\nthomas lynch jr\t9t\nwilliam whipple\tku\nwilliam william\t1n\n',
+    '19': '\nbenjamin harrison v\t99\n',
+    '7': '\nbraxton\thk\ncarroll\tlu\nhancock\tc5\nheyward\tjk\nsherman\tbb\nwhipple\tku\nwilliam\t1n\nwolcott\tn7\n',
+    '15': '\nbutton gwinnett\tlc\ncharles carroll\tlu\nedward rutledge\tj2\njosiah bartlett\ti1\nthomas lynch jr\t9t\nwilliam whipple\tku\nwilliam william\t1n\n',
     '10': '\ncarrollton\tlu\nhuntington\te2\nlivingston\tf2\nlyman hall\th7\n',
     '14': '\ncarter braxton\thk\nelbridge gerry\tqd\noliver wolcott\tn7\nstephen hopkin\tad\nwilliam ellery\tmq\nwilliam hooper\tg5\n',
     '29': '\ncharles carroll of carrollton\tlu\n',
@@ -15,7 +17,6 @@ export default {
     '6': '\nclymer\tpi\nellery\tmq\nhooper\tg5\nhopkin\tad\nmckean\tno\nmorton\tbr\nnelson\t5j\nrodney\tem\ntaylor\t17\nwalton\tck\nwilson\t26\n',
     '21': '\nfrancis lightfoot lee\tk6\n',
     '11': '\ngeorge read\t0\ngeorge ross\t2l\njames smith\te\njohn morton\tbr\njoseph hewe\tp3\nsamuel adam\t7i\nwitherspoon\tij\n',
-    '12': '\ngeorge wythe\too\njames wilson\t26\njohn hancock\tc5\nlewis morris\t6k\nsamuel chase\t54\nthomas stone\ts\nwilliam paca\tpy\n',
     '4': '\nhall\th7\nhart\t4s\nhewe\tp3\npaca\tpy\npenn\t7x\nread\t0\nross\t2l\nrush\t64\n',
     '9': '\nhopkinson\to4\njefferson\t6z\njohn adam\t3j\njohn hart\t4s\njohn penn\t7x\nmiddleton\td0\n',
     '18': '\nrobert treat paine\tgm\n',

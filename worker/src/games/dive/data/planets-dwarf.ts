@@ -2,9 +2,12 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '4': '\ncere\t27\neris\t2f\n',
-    '5': '\nearth\t0\npluto\t1q\nvenus\tp\n',
-    '6': '\nhaumea\t2m\nsaturn\t17\nuranus\t1y\n',
+    '6': '\n1 cere\t27\nhaumea\t2m\nsaturn\t17\nuranus\t1y\n',
+    '12': '\n134340 pluto\t1q\n',
+    '11': '\n136199 eris\t2f\n',
+    '10': '\n2003 ub313\t2f\n',
+    '4': '\ncere\t27\neris\t2f\nxena\t2f\n',
+    '5': '\nearth\t0\npluto\t1q\nterra\t0\nvenus\tp\n',
     '7': '\njupiter\tx\nmercury\tf\nneptune\t1g\n',
     '8': '\nmakemake\t2v\n',
     '3': '\nmar\t8\n',

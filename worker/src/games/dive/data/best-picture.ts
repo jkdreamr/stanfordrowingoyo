@@ -2,7 +2,7 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '16': '\n12 years a slave\tnr\nchariots of fire\t142\nkramer vs kramer\t10p\n',
+    '16': '\n12 years a slave\tnr\nchariots of fire\t142\ngodfather part 2\tz9\nkramer vs kramer\t10p\nlord of the ring\tc4\n',
     '13': '\nall about eve\tnb\nout of africa\t5h\n',
     '30': '\nall quiet on the western front\tme\none flew over the cuckoos nest\t18g\n',
     '17': '\nall the kings men\tos\namerican in paris\tfh\ndances with wolve\tx9\nfrench connection\t6s\ngodfather part ii\tz9\non the waterfront\ty4\n',
@@ -18,13 +18,14 @@ export default {
     '22': '\nbest years of our live\t7g\ngreatest show on earth\thl\nno country for old men\t2q\n',
     '24': '\nbridge on the river kwai\t16g\nin the heat of the night\teq\none battle after another\tct\n',
     '8': '\ncimarron\t1ay\ndeparted\tuc\nparasite\tyy\nrain man\t3f\ntom jone\tl0\n',
-    '11': '\ndeer hunter\tqt\ngrand hotel\th7\nhurt locker\trb\nmrs miniver\t1b9\noppenheimer\t13o\n',
+    '11': '\ndeer hunter\tqt\ngodfather 2\tz9\ngrand hotel\th7\nhurt locker\trb\nmrs miniver\t1b9\noppenheimer\t13o\n',
     '18': '\ndriving miss daisy\tur\ngone with the wind\t1m\nlawrence of arabia\trt\nlife of emile zola\t14s\nman for all season\tkc\nreturn of the king\tc4\n',
     '33': '\neverything everywhere all at once\tjc\n',
-    '12': '\nforrest gump\t0\ngoing my way\t8s\nkings speech\tpz\nlast emperor\t4y\nlost weekend\te7\nmy fair lady\t5x\n',
+    '12': '\nforrest gump\t0\ngodfather ii\tz9\ngoing my way\t8s\nkings speech\tpz\nlast emperor\t4y\nlost weekend\te7\nmy fair lady\t5x\n',
     '21': '\nfrom here to eternity\ttc\nit happened one night\ta0\n',
     '20': '\ngentlemans agreement\t12g\nmutiny on the bounty\t119\n',
     '23': '\nhow green was my valley\tie\nlotr return of the king\tc4\n',
+    '40': '\nlord of the rings the return of the king\tc4\n',
     '19': '\nmillion dollar baby\t4c\nshakespeare in love\tpd\nsilence of the lamb\tv\nslumdog millionaire\t1ac\nterms of endearment\t17b\n',
     '25': '\nyou cant take it with you\t97\n',
   },

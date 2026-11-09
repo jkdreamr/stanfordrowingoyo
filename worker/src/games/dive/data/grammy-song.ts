@@ -2,7 +2,7 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '17': '\nalways on my mind\t7x\ngames people play\t8z\nsend in the clown\tyw\nthats what i like\t3l\ntheme from exodus\txw\nthinking out loud\tkr\n',
+    '17': '\nalways on my mind\t7x\ngames people play\t8z\nkilling me softly\twp\nsend in the clown\tyw\nthats what i like\t3l\ntheme from exodus\txw\nthinking out loud\tkr\n',
     '7': '\nbad guy\tas\nsailing\ttf\n',
     '20': '\nbattle of new orlean\tri\ndance with my father\th1\ndays of wine and ros\tud\njust the way you are\tv\nshadow of your smile\tp8\nwind beneath my wing\ttp\nyou light up my life\ta5\n',
     '13': '\nbeautiful day\tb2\ndont know why\t46\nunforgettable\tzh\n',
@@ -16,7 +16,7 @@ export default {
     '6': '\nfallin\t117\nsmooth\tlb\nvolare\t11u\n',
     '31': '\nfirst time ever i saw your face\te9\nkilling me softly with his song\twp\n',
     '5': '\nhello\tho\nrehab\twh\nroyal\txn\n',
-    '11': '\nhello dolly\tyg\nnot like us\th\nway we were\t1i\n',
+    '11': '\nhello dolly\tyg\nnot like us\th\nsingle lady\tmp\nway we were\t1i\n',
     '14': '\ni cant breathe\to0\njust like that\t0\nup up and away\t4n\n',
     '18': '\nlittle green apple\tv2\nyouve got a friend\tfb\n',
     '10': '\nmoon river\tjq\nwildflower\t11h\n',

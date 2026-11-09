@@ -2,17 +2,19 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nac\th\nal\t7i\nam\t3n\nap\t93\nba\t10\nce\t6z\ndf\t66\nes\t3y\ngo\t7s\nma\t77\nmg\t38\nms\t4t\nmt\t4f\npa\t5n\npb\t8l\npe\t2e\npi\t8v\npr\t5e\nrj\t0\nrn\t1s\nro\t8a\nrr\t6p\nrs\t18\nsc\t2r\nse\t80\nsp\to\nto\t5u\n',
     '4': '\nacre\th\ngoia\t7s\npara\t5n\n',
     '6': '\nalagoa\t7i\nparana\t5e\n',
     '5': '\namapa\t93\nbahia\t10\nceara\t6z\npiaui\t8v\n',
     '7': '\namazona\t3n\nparaiba\t8l\nroraima\t6p\nsergipe\t80\n',
-    '16': '\ndistrito federal\t66\n',
+    '8': '\nbrasilia\t66\nmaranhao\t77\nrondonia\t8a\ntocantin\t5u\n',
+    '16': '\ndistrito federal\t66\nfederal district\t66\n',
     '14': '\nespirito santo\t3y\nrio de janeiro\t0\nsanta catarina\t2r\n',
-    '8': '\nmaranhao\t77\nrondonia\t8a\ntocantin\t5u\n',
     '11': '\nmato grosso\t4f\n',
     '18': '\nmato grosso do sul\t4t\n',
     '12': '\nminas gerais\t38\n',
     '10': '\npernambuco\t2e\n',
+    '3': '\nrio\t0\n',
     '19': '\nrio grande do norte\t1s\n',
     '17': '\nrio grande do sul\t18\n',
     '9': '\nsao paulo\to\n',

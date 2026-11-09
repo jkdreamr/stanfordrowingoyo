@@ -2,19 +2,21 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '8': '\naotearoa\tc\nkiribati\t4b\n',
     '9': '\naustralia\t0\n',
     '11': '\ncook island\t20\nnew zealand\tc\n',
     '30': '\nfederated states of micronesia\t4m\n',
     '4': '\nfiji\t2f\nniue\t5j\n',
-    '3': '\nfsm\t4m\n',
-    '8': '\nkiribati\t4b\n',
+    '3': '\nfsm\t4m\npng\t2u\n',
     '15': '\nmarshall island\t1h\n',
     '10': '\nmicronesia\t4m\n',
     '5': '\nnauru\t3l\npalau\t43\nsamoa\t2m\ntonga\t3d\n',
+    '2': '\nnz\tc\n',
     '16': '\npapua new guinea\t2u\n',
     '14': '\nsolomon island\tz\n',
     '6': '\ntuvalu\tq\n',
     '7': '\nvanuatu\t3t\n',
+    '13': '\nwestern samoa\t2m\n',
   },
   answers:
     's\tAustralia\ns\tNew Zealand\nm\tTuvalu\nm\tSolomon Islands\nm\tMarshall Islands\nm\tCook Islands\ns\tFiji\nm\tSamoa\nm\tPapua New Guinea\nr\tTonga\nr\tNauru\nr\tVanuatu\nd\tPalau\ng\tKiribati\nd\tFederated States of Micronesia\nd\tNiue\n',

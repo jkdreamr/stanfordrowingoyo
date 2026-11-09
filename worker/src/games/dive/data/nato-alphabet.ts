@@ -2,10 +2,10 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '4': '\nalfa\t52\necho\t2u\ngolf\t15\nkilo\t4v\nlima\t4g\nmike\ty\npapa\t3a\nzulu\t0\n',
-    '5': '\nalpha\t52\nbravo\t3r\ndelta\t2d\nhotel\tq\nindia\ti\noscar\t1w\nromeo\t3z\ntango\t4n\n',
+    '4': '\nalfa\t52\necho\t2u\ngolf\t15\nkilo\t4v\nlima\t4g\nmike\ty\npapa\t3a\nxray\t5j\nzulu\t0\n',
+    '5': '\nalpha\t52\nbravo\t3r\ndelta\t2d\nhotel\tq\nindia\ti\noscar\t1w\nromeo\t3z\ntango\t4n\nx ray\t5j\n',
     '7': '\ncharlie\t1c\nfoxtrot\t59\njuliett\t5x\nuniform\t1m\nwhiskey\t3h\n',
-    '6': '\njuliet\t5x\nquebec\t31\nsierra\t2l\nvictor\t24\nyankee\t47\n',
+    '6': '\njuliet\t5x\nquebec\t31\nsierra\t2l\nvictor\t24\nwhisky\t3h\nyankee\t47\n',
     '8': '\nnovember\t7\n',
     '10': '\nxray x ray\t5j\n',
   },

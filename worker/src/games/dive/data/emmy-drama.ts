@@ -11,7 +11,7 @@ export default {
     '8': '\ndefender\t96\nfugitive\tcp\ngunsmoke\tnv\nhomeland\t9m\nmaverick\tf5\npractice\t3l\n',
     '18': '\ndick van dyke show\teg\nmission impossible\t5u\nproducers showcase\tba\nupstairs downstair\td4\n',
     '10': '\ndisneyland\tdr\nstudio one\t4p\nsuccession\t8t\n',
-    '7': '\ndragnet\tlj\nmad men\tx\nsoprano\ti0\n',
+    '7': '\ndragnet\tlj\nl a law\t1r\nmad men\tx\nsoprano\ti0\n',
     '11': '\nelizabeth r\t22\n',
     '14': '\ngame of throne\t0\nhandmaids tale\tmv\n',
     '6': '\nla law\t1r\nshogun\too\nwalton\tnh\n',

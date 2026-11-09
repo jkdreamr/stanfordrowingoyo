@@ -4,12 +4,15 @@ export default {
   buckets: {
     '9': '\nargentina\th\nvenezuela\t14\n',
     '32': '\nbolivarian republic of venezuela\t14\n',
-    '7': '\nbolivia\t2i\necuador\t1x\nuruguay\t1n\n',
-    '6': '\nbrazil\t0\nguyana\t2s\n',
+    '7': '\nbolivia\t2i\necuador\t1x\nsurinam\t31\nuruguay\t1n\n',
+    '6': '\nbrasil\t0\nbrazil\t0\nguyana\t2s\n',
     '5': '\nchile\t9\n',
     '8': '\ncolombia\tt\nparaguay\t27\nsuriname\t31\n',
+    '29': '\nfederative republic of brazil\t0\n',
     '4': '\nperu\t1g\n',
     '30': '\nplurinational state of bolivia\t2i\n',
+    '20': '\nrepublic of colombia\tt\nrepublic of suriname\t31\n',
+    '16': '\nrepublic of peru\t1g\n',
   },
   answers:
     's\tBrazil\ns\tChile\ns\tArgentina\nm\tColombia\nm\tVenezuela\nm\tPeru\nm\tUruguay\nr\tEcuador\nr\tParaguay\nd\tBolivia\nd\tGuyana\ng\tSuriname\n',

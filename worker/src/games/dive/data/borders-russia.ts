@@ -2,16 +2,23 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '8': '\nabkhazia\t4k\nmongolia\t3t\n',
+    '8': '\nabkhazia\t4k\nmongolia\t3t\nzhongguo\ta\n',
     '10': '\nazerbaijan\t2n\nkazakhstan\t1y\n',
+    '19': '\nazerbaijan republic\t2n\nrepublic of belarus\t3a\n',
     '7': '\nbelarus\t3a\nestonia\t30\nfinland\t0\ngeorgia\t1o\nukraine\t10\n',
-    '5': '\nchina\ta\n',
+    '11': '\nbielorussia\t3a\nbyelorussia\t3a\nnorth korea\t1a\n',
+    '5': '\nchina\ta\neesti\t30\nnoreg\ti\nnorge\ti\nsuomi\t0\n',
     '36': '\ndemocratic peoples republic of korea\t1a\n',
     '4': '\ndprk\t1a\n',
-    '6': '\nlatvia\t3k\nnorway\ti\npoland\tr\n',
-    '9': '\nlithuania\t2b\n',
-    '11': '\nnorth korea\t1a\n',
+    '15': '\nkazakh republic\t1y\n',
+    '9': '\nkazakstan\t1y\nlithuania\t2b\n',
+    '17': '\nkingdom of norway\ti\n',
+    '6': '\nlatvia\t3k\nnorway\ti\npoland\tr\npolska\tr\n',
+    '25': '\npeoples republic of china\ta\n',
+    '3': '\nprc\ta\n',
+    '22': '\nrepublic of azerbaijan\t2n\nrepublic of kazakhstan\t1y\n',
     '13': '\nsouth ossetia\t44\n',
+    '16': '\nsuomen tasavalta\t0\n',
   },
   answers:
     's\tFinland\ns\tChina\nm\tNorway\nm\tPoland\ns\tUkraine\ng\tNorth Korea\nm\tGeorgia\nm\tKazakhstan\nm\tLithuania\nm\tAzerbaijan\nr\tEstonia\nr\tBelarus\nr\tLatvia\nd\tMongolia\nd\tSouth Ossetia\nd\tAbkhazia\n',

@@ -2,6 +2,8 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '1': '\nf\t19\nh\t21\ni\t2m\nk\t0\nl\tz\nm\tm\nt\t1p\nv\t2d\nw\t9\n',
+    '3': '\nhis\t21\nile\t2m\nleu\tz\nlys\t0\nmet\tm\nphe\t19\nthr\t1p\ntrp\t9\nval\t2d\n',
     '9': '\nhistidine\t21\nthreonine\t1p\n',
     '10': '\nisoleucine\t2m\nmethionine\tm\ntryptophan\t9\n',
     '7': '\nleucine\tz\n',

@@ -3,12 +3,13 @@ import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
     '8': '\naffirmed\t2m\ncitation\t1c\n',
-    '16': '\namerican pharoah\t3q\n',
-    '7': '\nassault\t0\njustify\to\n',
+    '16': '\namerican pharaoh\t3q\namerican pharoah\t3q\n',
+    '7': '\nassault\t0\njustify\to\npharoah\t3q\n',
     '11': '\ncount fleet\ta\ngallant fox\t3c\nsecretariat\t28\nwar admiral\ty\n',
     '5': '\nomaha\t1n\n',
     '12': '\nseattle slew\t2x\n',
     '10': '\nsir barton\t1v\n',
+    '4': '\nslew\t2x\n',
     '9': '\nwhirlaway\t49\n',
   },
   answers:

@@ -2,17 +2,21 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
+    '2': '\nab\t2c\nbc\tn\nmb\t3q\nnb\t3a\nnl\t4f\nns\t41\nnt\t2m\nnu\t57\non\t1t\npe\t16\npq\t23\nqc\t23\nsk\t0\nyt\tf\n',
     '7': '\nalberta\t2c\nnunavut\t57\nontario\t1t\n',
+    '4': '\nalta\t2c\nnfld\t4f\nsask\t0\n',
     '16': '\nbritish columbia\tn\n',
+    '3': '\nman\t3q\nnwt\t2m\nont\t1t\npei\t16\n',
     '8': '\nmanitoba\t3q\n',
     '13': '\nnew brunswick\t3a\n',
+    '12': '\nnew scotland\t41\nnewfoundland\t4f\nsaskatchewan\t0\n',
     '25': '\nnewfoundland and labrador\t4f\n',
+    '20': '\nnorth west territory\t2m\nprince edward island\t16\n',
     '19': '\nnorthwest territory\t2m\n',
     '11': '\nnova scotia\t41\n',
-    '20': '\nprince edward island\t16\n',
     '6': '\nquebec\t23\n',
-    '12': '\nsaskatchewan\t0\n',
     '5': '\nyukon\tf\n',
+    '15': '\nyukon territory\tf\n',
   },
   answers:
     'm\tSaskatchewan\ng\tYukon\ns\tBritish Columbia\nm\tPrince Edward Island\ns\tOntario\ns\tQuebec\nm\tAlberta\nm\tNorthwest Territories\nm\tNew Brunswick\nr\tManitoba\nr\tNova Scotia\nd\tNewfoundland and Labrador\nd\tNunavut\n',

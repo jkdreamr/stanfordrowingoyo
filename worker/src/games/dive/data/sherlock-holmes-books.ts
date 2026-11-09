@@ -2,14 +2,17 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '9': '\nadventure\t43\n',
+    '9': '\nadventure\t43\nsign of 4\t0\n',
     '28': '\nadventures of sherlock holme\t43\n',
     '27': '\ncase book of sherlock holme\t28\n',
+    '8': '\ncasebook\t28\nlast bow\t18\n',
     '26': '\ncasebook of sherlock holme\t28\n',
     '12': '\nhis last bow\t18\nsign of four\t0\n',
+    '20': '\nhound of baskerville\t60\n',
     '24': '\nhound of the baskerville\t60\nreturn of sherlock holme\t37\n',
-    '6': '\nmemoir\t53\n',
+    '6': '\nmemoir\t53\nreturn\t37\n',
     '25': '\nmemoirs of sherlock holme\t53\n',
+    '13': '\nsign of the 4\t0\n',
     '16': '\nsign of the four\t0\nstudy in scarlet\t1n\n',
     '14': '\nvalley of fear\tn\n',
   },

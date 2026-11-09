@@ -7,6 +7,10 @@ export default {
     '3': '\nlao\t1k\n',
     '7': '\nlao pdr\t1k\n',
     '31': '\nlao peoples democratic republic\t1k\n',
+    '12': '\nlao republic\t1k\n',
+    '6': '\npersia\t0\n',
+    '16': '\nrepublic of chad\tl\nrepublic of mali\t16\nrepublic of peru\ts\n',
+    '5': '\ntchad\tl\n',
   },
   answers:
     'm\tIran\ns\tIraq\ns\tCuba\ns\tChad\nm\tPeru\ng\tFiji\nm\tMali\nm\tOman\nr\tLaos\nr\tTogo\nd\tNiue\n',

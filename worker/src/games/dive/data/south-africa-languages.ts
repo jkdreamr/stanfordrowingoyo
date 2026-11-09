@@ -11,7 +11,9 @@ export default {
     '16': '\nsesotho sa leboa\t33\nsouthern ndebele\t24\n',
     '13': '\nsign language\t11\nsouth ndebele\t24\n',
     '5': '\nsotho\t3k\nswati\t2v\nswazi\t2v\nvenda\t2n\nxhosa\tt\n',
+    '18': '\nsouth african sign\t11\n',
     '27': '\nsouth african sign language\t11\n',
+    '19': '\nsouthern isindebele\t24\n',
     '9': '\ntshivenda\t2n\n',
   },
   answers:

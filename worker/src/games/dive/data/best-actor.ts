@@ -2,12 +2,12 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '7': '\nabraham\t67\naffleck\tgi\nbenigni\t11w\nbrynner\t104\nhackman\tvn\njanning\t12e\nmilland\t110\nolivier\ti5\nphoenix\tcc\npoitier\tx1\nsteiger\txi\nstewart\t3k\n',
-    '12': '\nadrien brody\tpd\nben kingsley\ty\nemil janning\t12e\ngene hackman\tvn\ngregory peck\tbx\njames cagney\tu7\nkevin spacey\tkx\nnicolas cage\ta4\nrex harrison\t7l\nrobert donat\tz9\nwilliam hurt\t1q\n',
+    '7': '\nabraham\t67\naffleck\tgi\nbenigni\t11w\nbrynner\t104\nde niro\tlc\nhackman\tvn\njanning\t12e\nmilland\t110\nolivier\ti5\nphoenix\tcc\npoitier\tx1\nsteiger\txi\nstewart\t3k\n',
+    '12': '\nadrien brody\tpd\nben kingsley\ty\nemil janning\t12e\ngene hackman\tvn\ngregory peck\tbx\njames cagney\tu7\nkevin spacey\tkx\nleo dicaprio\tj2\nnicolas cage\ta4\nrex harrison\t7l\nrobert donat\tz9\nwilliam hurt\t1q\n',
     '9': '\nal pacino\tnt\nbarrymore\tm7\nday lewis\t0\nlancaster\tdx\nnicholson\tbg\npaul luka\tft\npaul muni\tp1\nrobertson\t73\nsean penn\t6r\n',
-    '13': '\nalec guinness\tee\ncasey affleck\tgi\nfredric march\tw2\ngeoffrey rush\t9a\ngeorge arliss\tzo\njames stewart\t3k\njean dujardin\tyt\nmarlon brando\to5\npaul scofield\tr4\nrobert duvall\tqo\nronald colman\tol\nrussell crowe\tgy\nspencer tracy\t80\nwallace beery\tyd\nwarner baxter\tb0\n',
+    '13': '\nalec guinness\tee\ncasey affleck\tgi\nfredric march\tw2\ngeoffrey rush\t9a\ngeorge arliss\tzo\njames stewart\t3k\njean dujardin\tyt\njimmy stewart\t3k\nmarlon brando\to5\npaul scofield\tr4\nrobert deniro\tlc\nrobert duvall\tqo\nronald colman\tol\nrussell crowe\tgy\nspencer tracy\t80\nwallace beery\tyd\nwarner baxter\tb0\n',
     '14': '\nanthony hopkin\t5p\nbrendan fraser\taj\nburt lancaster\tdx\ncillian murphy\txw\ndustin hoffman\teu\neddie redmayne\tv6\ngeorge c scott\t25\njack nicholson\tbg\nmichael dougla\t40\nrobert de niro\tlc\nsidney poitier\tx1\nwilliam holden\t8t\n',
-    '6': '\narliss\tzo\nbaxter\tb0\nbogart\tmq\nbrando\to5\nbridge\t4w\ncagney\tu7\ncarney\the\ncolman\tol\ncooper\t4i\ncrosby\tcu\ndougla\t40\nduvall\tqo\nferrer\tlt\nfraser\taj\nheston\tps\nholden\t8t\nhopkin\t5p\njordan\t2n\nlemmon\tta\nmarvin\t8g\nmurphy\txw\nnewman\t5b\noldman\tqa\npacino\tnt\nschell\tum\nspacey\tkx\nvoight\ts6\n',
+    '6': '\narliss\tzo\nbaxter\tb0\nbogart\tmq\nbrando\to5\nbridge\t4w\ncagney\tu7\ncarney\the\ncolman\tol\ncooper\t4i\ncrosby\tcu\ndeniro\tlc\ndougla\t40\nduvall\tqo\nferrer\tlt\nfraser\taj\nheston\tps\nholden\t8t\nhopkin\t5p\njordan\t2n\nlemmon\tta\nmarvin\t8g\nmurphy\txw\nnewman\t5b\noldman\tqa\npacino\tnt\nschell\tum\nspacey\tkx\nvoight\ts6\n',
     '10': '\nart carney\the\njamie foxx\tkk\njohn wayne\t37\njon voight\ts6\nlee marvin\t8g\nrami malek\tsj\nwashington\tjm\nwill smith\t1d\n',
     '5': '\nbeery\tyd\nbrody\tpd\ncrowe\tgy\ndonat\tz9\nfinch\t9q\nfirth\thr\nfonda\tk6\ngable\tio\nmalek\tsj\nmarch\tw2\nniven\tsw\nscott\t25\nsmith\t1d\ntracy\t80\nwayne\t37\n',
     '11': '\nbing crosby\tcu\nclark gable\tio\ncolin firth\thr\ndavid niven\tsw\ngary cooper\t4i\ngary oldman\tqa\nhenry fonda\tk6\njack lemmon\tta\njeff bridge\t4w\njeremy iron\tj\njose ferrer\tlt\nmcconaughey\trk\npaul newman\t5b\npeter finch\t9q\nray milland\t110\nrod steiger\txi\nyul brynner\t104\n',
@@ -17,6 +17,7 @@ export default {
     '16': '\ncharles laughton\twi\ndaniel day lewis\t0\nf murray abraham\t67\nlaurence olivier\ti5\nlionel barrymore\tm7\nmichael b jordan\t2n\nrichard dreyfuss\tto\n',
     '15': '\ncharlton heston\tps\ncliff robertson\t73\nernest borgnine\t10i\nforest whitaker\tfb\nhumphrey bogart\tmq\njoaquin phoenix\tcc\nroberto benigni\t11w\nvictor mclaglen\t11e\n',
     '17': '\ndenzel washington\tjm\nleonardo dicaprio\tj2\nmaximilian schell\tum\n',
+    '3': '\nleo\tj2\n',
     '19': '\nmatthew mcconaughey\trk\n',
     '22': '\nphilip seymour hoffman\td8\n',
   },

@@ -2,16 +2,17 @@
 import type { AnswerSet } from '../matcher';
 export default {
   buckets: {
-    '6': '\ncelery\t25\ngluten\t1m\npeanut\t1v\nsesame\t0\n',
+    '6': '\nbarley\t1m\ncelery\t25\ngluten\t1m\npeanut\t1v\nsesame\t0\n',
     '25': '\ncereals containing gluten\t1m\n',
     '10': '\ncrustacean\t2m\n',
     '20': '\ncrustacean shellfish\t2m\n',
-    '3': '\negg\tx\nnut\t14\nsoy\t1g\n',
+    '5': '\ndairy\tq\nkamut\t1m\nlupin\t2e\nspelt\t1m\nwheat\t1m\n',
+    '3': '\negg\tx\nnut\t14\noat\t1m\nrye\t1m\nsoy\t1g\n',
     '4': '\nfish\tj\nmilk\tq\nsoya\t1g\n',
     '24': '\ngluten containing cereal\t1m\n',
-    '5': '\nlupin\t2e\n',
     '7': '\nmollusc\t30\nmollusk\t30\nmustard\t9\nsoybean\t1g\nsulfite\t3b\n',
     '11': '\nsesame seed\t0\n',
+    '9': '\nshellfish\t2m\nsoya bean\t1g\n',
     '14': '\nsulfur dioxide\t3b\n',
     '8': '\nsulphite\t3b\ntree nut\t14\n',
     '15': '\nsulphur dioxide\t3b\n',
