@@ -37829,7 +37829,7 @@
     },
     {
       "id": "books-sold-100m",
-      "text": "a book estimated to have sold at least 100 million copies, not counting religious or political texts",
+      "text": "a book with 100M+ estimated sales, excluding religious and political texts",
       "theme": "books",
       "sources": [
         {
@@ -37898,7 +37898,7 @@
       "too_clever": ["And Then There Were None"],
       "pearl": "Dream of the Red Chamber",
       "people": false,
-      "review": "Pinned-revision eight-book set; at least, not strictly over, 100 million. Religious/political exclusions are explicit. Sales are source estimates, not audited totals."
+      "review": "Pinned-revision eight-book set. 100M+ means at least 100 million, including exactly 100 million. Religious/political exclusions are explicit. Sales are source estimates, not audited totals."
     },
     {
       "id": "discworld-novels",
@@ -38095,7 +38095,7 @@
     },
     {
       "id": "ala-challenged-2010s",
-      "text": "a book that made the ALA's annual top 10 most challenged list in any year from 2010 to 2019",
+      "text": "a book on any ALA annual top 10 most challenged list, 2010–2019",
       "theme": "books",
       "sources": [
         {
@@ -46796,9 +46796,117 @@
           "members": ["The Weird Sisters"],
           "reviewed": ["The Weird Sisters"],
           "review": "Approved frozen-guess supplement: explicitly identifies her novel and its title as an allusion to the witches in Macbeth. This is not an alias for Pratchett’s Wyrd Sisters."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL10678692M.json",
+          "page": "Brief Candle — Kate Pennington",
+          "revision": "sha256:7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+          "sha256": "7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Brief Candle"],
+          "review": "Hodder Children’s Books, 272 pages; subjects include historical fiction. Macbeth V.v: “Out, out, brief candle!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL37014680M.json",
+          "page": "Out, Damned Spot! — F. J. McQueen",
+          "revision": "sha256:455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+          "sha256": "455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Out damned spot!"],
+          "review": "Urbane Publications, 266 pages; fiction. Macbeth V.i: “Out, damned spot!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL32147866M.json",
+          "page": "Toil and Trouble — H. P. Mallory",
+          "revision": "sha256:72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+          "sha256": "72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Toil and trouble"],
+          "review": "234-page fictional Jolie Wilkins story; distinct from the comic volume in the original group. Macbeth IV.i: “Double, double, toil and trouble”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL1148339M.json",
+          "page": "Poor Player — Lesley Krueger",
+          "revision": "sha256:8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+          "sha256": "8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Poor player"],
+          "review": "Oberon Press, 216 pages; author identifies this as her first novel at https://lesleykrueger.com/poor-player-out-today/. Macbeth V.v: “a poor player”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL22679131M.json",
+          "page": "Struts and Frets — Jon Skovron",
+          "revision": "sha256:76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+          "sha256": "76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Struts and frets"],
+          "review": "Amulet Books; catalog subjects identify juvenile fiction. Singular frozen guess accepted as a natural near-verbatim variant. Macbeth V.v: “That struts and frets his hour upon the stage”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella",
+          "page": "Screw Your Courage — Alexandra Y. Caluen",
+          "revision": "sha256:69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+          "sha256": "69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["Screw Your Courage: a new novella — Alexandra Y. Caluen"],
+          "review": "Author’s September 18, 2022 publication post explicitly identifies the novella and Macbeth title. Macbeth I.vii: “screw your courage to the sticking-place”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://debigueron.com/books/vaulting-ambition/",
+          "page": "Vaulting Ambition — Debi Gueron and Barnett Greenman",
+          "revision": "sha256:975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+          "sha256": "975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["Vaulting Ambition - Debi Gueron"],
+          "review": "Author’s book page explicitly calls this a novel and links the published book. Macbeth I.vii: “Vaulting ambition”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://www.angusrobertson.com.au/books/the-be-all-and-end-all-patti-larsen/p/9781998948239",
+          "page": "The Be All and End All — Patti Larsen",
+          "revision": "sha256:7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+          "sha256": "7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["The Be All and End All | Angus & Robertson"],
+          "review": "Retailer lists Purely Paranormal Press, publication January 30, 2024, 180 pages, ISBN 9781998948239. Smashwords series listing identifies 31,990 words of fiction; qualifies as a novella. Macbeth I.vii: “the be-all and the end-all”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/isbn/1594140960.json",
+          "page": "Eye of Newt — Denise Dietz",
+          "revision": "sha256:823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+          "sha256": "823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Eye of newt"],
+          "review": "Five Star, 344 pages; mystery-fiction catalog subjects. This is the prose novel, not Michael Hague’s graphic work. Macbeth IV.i: “Eye of newt”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL50707534M.json",
+          "page": "The Instruments of Darkness — John Connolly",
+          "revision": "sha256:1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+          "sha256": "1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["The Instruments of Darkness"],
+          "review": "Emily Bestler Books/Atria, published May 7, 2024, 500 pages; Charlie Parker novel. Macbeth I.iii: “The instruments of darkness tell us truths”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "page": "Charlotte Armstrong",
+          "revision": 1371549314,
+          "expect": [1, 1],
+          "members": ["Lay On, Mac Duff!"],
+          "reviewed": ["Lay On, Mac Duff!"],
+          "review": "The author’s pinned bibliography lists Lay On, Mac Duff! (1942) as her first MacDougal Duff mystery novel. Macbeth V.viii: “lay on, Macduff”. Near-verbatim spacing variant."
         }
       ],
-      "expect": [35, 35],
+      "expect": [46, 46],
       "answers": [
         {
           "name": "The Battle Lost and Won"
@@ -46908,6 +47016,41 @@
         },
         {
           "name": "The Weird Sisters"
+        },
+        {
+          "name": "Brief Candle"
+        },
+        {
+          "name": "Out, Damned Spot!"
+        },
+        {
+          "name": "Toil and Trouble"
+        },
+        {
+          "name": "Poor Player"
+        },
+        {
+          "name": "Struts and Frets",
+          "aliases": ["Strut and Fret"]
+        },
+        {
+          "name": "Screw Your Courage"
+        },
+        {
+          "name": "Vaulting Ambition"
+        },
+        {
+          "name": "The Be All and End All"
+        },
+        {
+          "name": "Eye of Newt"
+        },
+        {
+          "name": "The Instruments of Darkness"
+        },
+        {
+          "name": "Lay On, Macduff!",
+          "aliases": ["Lay On, Mac Duff!"]
         }
       ],
       "surface": [
@@ -46920,7 +47063,7 @@
       "too_clever": ["The Moon Is Down", "Exit Ghost"],
       "pearl": "A Rooted Sorrow",
       "people": false,
-      "review": "35 normalized titles: 34 from the pinned Macbeth group and its disambiguation links, plus the approved Eleanor Brown supplement. Same titles by multiple authors collapse; punctuation-only differences collapse. Frozen Instruments of Darkness remains a recall miss because no qualifying Wikipedia Macbeth-title statement was found. See refine-R7-audit.json."
+      "review": "46 normalized titles: 34 from the pinned Macbeth group/disambiguation links, Brown’s independently pinned novel, and eleven published novel/novella supplements drawn only from the frozen brainstorm. A verbatim or near-verbatim Macbeth phrase plus demonstrable publication qualifies; explicit attribution of the title’s origin is not required. Same titles by multiple authors collapse. Checksummed library, author and retailer records pin the added works. See refine-R7-audit.json."
     },
     {
       "id": "international-feature-oscar",

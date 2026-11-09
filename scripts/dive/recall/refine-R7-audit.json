@@ -361,11 +361,31 @@
   ],
   "overlap_method": "Count distinct overlapping answers after normalized canonical/alias matching, not alias keys; divide by smaller canonical count. All active constrained prompts and every other Appendix B shard proposal. Reject >= 0.5.",
   "overlap": {
-    "macbeth-phrase-novels": [
+    "books-sold-100m": [
       {
-        "id": "star-trek-original-episodes",
-        "intersection": ["all our yesterday", "dagger of the mind"],
-        "ratio": 0.05714285714285714
+        "id": "burton-films",
+        "intersection": ["alice in wonderland"],
+        "ratio": 0.125
+      },
+      {
+        "id": "disney-canon",
+        "intersection": ["alice in wonderland"],
+        "ratio": 0.125
+      },
+      {
+        "id": "review-proposal:miyazaki-films",
+        "intersection": ["alice in wonderland"],
+        "ratio": 0.125
+      },
+      {
+        "id": "wizarding-world-films",
+        "intersection": [
+          "harry potter and the philosophers stone",
+          "harry potter and the sorcerers stone",
+          "philosophers stone",
+          "sorcerers stone"
+        ],
+        "ratio": 0.125
       }
     ],
     "ala-challenged-2010s": [
@@ -507,46 +527,25 @@
         "ratio": 0.047619047619047616
       }
     ],
-    "books-sold-100m": [
+    "macbeth-phrase-novels": [
       {
-        "id": "burton-films",
-        "intersection": ["alice in wonderland"],
-        "ratio": 0.125
-      },
-      {
-        "id": "disney-canon",
-        "intersection": ["alice in wonderland"],
-        "ratio": 0.125
-      },
-      {
-        "id": "review-proposal:miyazaki-films",
-        "intersection": ["alice in wonderland"],
-        "ratio": 0.125
-      },
-      {
-        "id": "wizarding-world-films",
-        "intersection": [
-          "harry potter and the philosophers stone",
-          "harry potter and the sorcerers stone",
-          "philosophers stone",
-          "sorcerers stone"
-        ],
-        "ratio": 0.125
+        "id": "star-trek-original-episodes",
+        "intersection": ["all our yesterday", "dagger of the mind"],
+        "ratio": 0.043478260869565216
       }
     ]
   },
   "other_shard_proposals_checked": 36,
   "exceptions": [
-    "Macbeth recall is 16/27 (59.26%). Eleven known or plausible novel/novella guesses remain in the denominator, not marked invalid; no qualifying novel/author Wikipedia oldid explicitly linking those titles to Macbeth was found. Only the independently pinned Eleanor Brown supplement was added. The user’s source-pin rule prevents adding unpinned supplements, so the 95% target is not met.",
     "Wayback unavailable (HTTP 429); ALA uses the approved original-byte SHA-256 pin only.",
     "Eight-book bestseller set has two surface anchors and one too-clever pick, preserving school/rare/deep and pearl tiers.",
-    "Python catalog tests and the expected Worker retired-count test require parent-side updates outside this shard’s allowed edit scope."
+    "Catalog/retirement count assertions remain parent-owned; prompt wordings now meet the 85-character limit."
   ],
   "prompts": [
     {
       "id": "macbeth-phrase-novels",
       "text": "Name a novel whose title comes from a phrase in Macbeth.",
-      "size": 35,
+      "size": 46,
       "band": "medium",
       "surface": [
         "Something Wicked This Way Comes",
@@ -707,40 +706,137 @@
           "members": ["The Weird Sisters"],
           "reviewed": ["The Weird Sisters"],
           "review": "Approved frozen-guess supplement: explicitly identifies her novel and its title as an allusion to the witches in Macbeth. This is not an alias for Pratchett’s Wyrd Sisters."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL10678692M.json",
+          "page": "Brief Candle — Kate Pennington",
+          "revision": "sha256:7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+          "sha256": "7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Brief Candle"],
+          "review": "Hodder Children’s Books, 272 pages; subjects include historical fiction. Macbeth V.v: “Out, out, brief candle!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL37014680M.json",
+          "page": "Out, Damned Spot! — F. J. McQueen",
+          "revision": "sha256:455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+          "sha256": "455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Out damned spot!"],
+          "review": "Urbane Publications, 266 pages; fiction. Macbeth V.i: “Out, damned spot!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL32147866M.json",
+          "page": "Toil and Trouble — H. P. Mallory",
+          "revision": "sha256:72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+          "sha256": "72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Toil and trouble"],
+          "review": "234-page fictional Jolie Wilkins story; distinct from the comic volume in the original group. Macbeth IV.i: “Double, double, toil and trouble”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL1148339M.json",
+          "page": "Poor Player — Lesley Krueger",
+          "revision": "sha256:8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+          "sha256": "8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Poor player"],
+          "review": "Oberon Press, 216 pages; author identifies this as her first novel at https://lesleykrueger.com/poor-player-out-today/. Macbeth V.v: “a poor player”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL22679131M.json",
+          "page": "Struts and Frets — Jon Skovron",
+          "revision": "sha256:76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+          "sha256": "76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Struts and frets"],
+          "review": "Amulet Books; catalog subjects identify juvenile fiction. Singular frozen guess accepted as a natural near-verbatim variant. Macbeth V.v: “That struts and frets his hour upon the stage”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella",
+          "page": "Screw Your Courage — Alexandra Y. Caluen",
+          "revision": "sha256:69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+          "sha256": "69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["Screw Your Courage: a new novella — Alexandra Y. Caluen"],
+          "review": "Author’s September 18, 2022 publication post explicitly identifies the novella and Macbeth title. Macbeth I.vii: “screw your courage to the sticking-place”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://debigueron.com/books/vaulting-ambition/",
+          "page": "Vaulting Ambition — Debi Gueron and Barnett Greenman",
+          "revision": "sha256:975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+          "sha256": "975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["Vaulting Ambition - Debi Gueron"],
+          "review": "Author’s book page explicitly calls this a novel and links the published book. Macbeth I.vii: “Vaulting ambition”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://www.angusrobertson.com.au/books/the-be-all-and-end-all-patti-larsen/p/9781998948239",
+          "page": "The Be All and End All — Patti Larsen",
+          "revision": "sha256:7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+          "sha256": "7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["The Be All and End All | Angus & Robertson"],
+          "review": "Retailer lists Purely Paranormal Press, publication January 30, 2024, 180 pages, ISBN 9781998948239. Smashwords series listing identifies 31,990 words of fiction; qualifies as a novella. Macbeth I.vii: “the be-all and the end-all”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/isbn/1594140960.json",
+          "page": "Eye of Newt — Denise Dietz",
+          "revision": "sha256:823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+          "sha256": "823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Eye of newt"],
+          "review": "Five Star, 344 pages; mystery-fiction catalog subjects. This is the prose novel, not Michael Hague’s graphic work. Macbeth IV.i: “Eye of newt”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL50707534M.json",
+          "page": "The Instruments of Darkness — John Connolly",
+          "revision": "sha256:1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+          "sha256": "1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["The Instruments of Darkness"],
+          "review": "Emily Bestler Books/Atria, published May 7, 2024, 500 pages; Charlie Parker novel. Macbeth I.iii: “The instruments of darkness tell us truths”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "page": "Charlotte Armstrong",
+          "revision": 1371549314,
+          "expect": [1, 1],
+          "members": ["Lay On, Mac Duff!"],
+          "reviewed": ["Lay On, Mac Duff!"],
+          "review": "The author’s pinned bibliography lists Lay On, Mac Duff! (1942) as her first MacDougal Duff mystery novel. Macbeth V.viii: “lay on, Macduff”. Near-verbatim spacing variant."
         }
       ],
       "recall": {
-        "hits": 16,
+        "hits": 27,
         "total": 27,
-        "rate": 0.5925925925925926,
+        "rate": 1,
         "invalid": 11,
-        "misses": [
-          "Brief Candle",
-          "Out, Damned Spot",
-          "Toil and Trouble",
-          "Poor Player",
-          "Strut and Fret",
-          "Lay On, Macduff",
-          "Screw Your Courage",
-          "Vaulting Ambition",
-          "The Be-All and End-All",
-          "Eye of Newt",
-          "Instruments of Darkness"
-        ]
+        "misses": []
       },
       "generated_tiers": {
         "surface": 5,
         "tooclever": 2,
-        "school": 13,
-        "rare": 8,
-        "deep": 6,
+        "school": 18,
+        "rare": 11,
+        "deep": 9,
         "gem": 1
       },
-      "aliases": 4
+      "aliases": 6,
+      "text_characters": 56
     },
     {
       "id": "ala-challenged-2010s",
-      "text": "Name a book that made the ALA's annual top 10 most challenged list in any year from 2010 to 2019.",
+      "text": "Name a book on any ALA annual top 10 most challenged list, 2010–2019.",
       "size": 56,
       "band": "medium",
       "surface": [
@@ -836,7 +932,8 @@
         "deep": 12,
         "gem": 1
       },
-      "aliases": 22
+      "aliases": 22,
+      "text_characters": 69
     },
     {
       "id": "big-read-top-21",
@@ -921,11 +1018,12 @@
         "deep": 3,
         "gem": 1
       },
-      "aliases": 10
+      "aliases": 10,
+      "text_characters": 64
     },
     {
       "id": "books-sold-100m",
-      "text": "Name a book estimated to have sold at least 100 million copies, not counting religious or political texts.",
+      "text": "Name a book with 100M+ estimated sales, excluding religious and political texts.",
       "size": 8,
       "band": "tiny",
       "surface": ["Harry Potter and the Philosopher's Stone", "The Hobbit"],
@@ -974,81 +1072,16 @@
         "deep": 1,
         "gem": 1
       },
-      "aliases": 8
+      "aliases": 8,
+      "text_characters": 80
     }
   ],
   "selected_corpus_sha256": "d4bdda2bebbfb1ad2864a9319c49c6f29b3e6b7e8f346683aa5d9a1610652317",
-  "gzip_kib": {
-    "baseline": 2993.75,
-    "after": 2994.31,
-    "delta": 0.56,
-    "approximate_delta_bytes": 573,
-    "limit_delta_kib": 1.5
-  },
   "gzip_method": "Standalone npm run build Worker dry-run Total Upload gzip; baseline d9f96cf generated output. No deployment.",
   "canonicals": {
     "retired": 123,
-    "added": 120,
-    "net": -3
-  },
-  "checks": {
-    "generation": "PASS: 64 days, 320 constrained, 0 broad; legacy unchanged.",
-    "source_membership": "PASS: all new source reviewed lists re-acquired and matched exactly.",
-    "source_fixture_tests": "PASS: Ran 5 tests; OK (normal/CRLF pin, empty/missing year, checksum mismatch, missing title, wrong count/duplicate year). Throwaway script outside repository.",
-    "recall_tests": "PASS: tests 15; pass 15; fail 0.",
-    "format": "PASS: All matched files use Prettier code style!",
-    "lint": "PASS: eslint . exited 0.",
-    "typecheck": "PASS: npm run typecheck exited 0.",
-    "build": "PASS: --dry-run: exiting now. Total Upload: 8018.27 KiB / gzip: 2994.31 KiB",
-    "unittest": "FAIL: Ran 30 tests; failures=2. AssertionError: 391 != 387; four newly retired IDs absent from hard-coded retired set.",
-    "npm_test": "FAIL: root 112 files / 1025 tests passed; Worker 29 files passed, 1 failed; 445 tests passed, 1 failed. Expected retired count 67, received 71.",
-    "test_scope": "No tests edited: allowed edit scope excludes test files. Parent must update catalog/retirement assertions when merging shards. The Python test’s later <=85-character assertion also conflicts with the exact approved ALA (97) and bestseller (106) wording; currently masked by its retired-set assertion."
-  },
-  "unpinned_frozen_guess_investigation": {
-    "Brief Candle": {
-      "url": "https://www.hachette.co.uk/titles/kate-pennington/brief-candle/9781444909609/",
-      "note": "Publisher identifies a fictional story; no qualifying Wikipedia title-origin pin found."
-    },
-    "Out, Damned Spot": {
-      "url": "https://inkpantry.com/books-from-the-pantry-out-damned-spot-by-f-j-mcqueen-reviewed-by-kev-milsom/",
-      "note": "Review identifies McQueen’s novel; no qualifying Wikipedia title-origin pin found."
-    },
-    "Toil and Trouble": {
-      "url": "https://www.fantasticfiction.com/m/h-p-mallory/toil-and-trouble.htm",
-      "note": "Mallory novel, not just the source group’s comic volume; no qualifying Wikipedia title-origin pin found."
-    },
-    "Poor Player": {
-      "url": "https://lesleykrueger.com/poor-player-out-today/",
-      "note": "Author identifies her novel; no qualifying Wikipedia title-origin pin found."
-    },
-    "Strut and Fret": {
-      "url": "https://openroadmedia.com/ebook/struts-and-frets/9781613120293",
-      "note": "Possible natural variant of Struts & Frets; no qualifying Wikipedia title-origin pin found. Kept conservatively in denominator."
-    },
-    "Lay On, Macduff": {
-      "url": "https://charlottearmstrong.org/about",
-      "note": "Author’s family identifies the novel and Macbeth title. Wikipedia author revision 1371549314 lists the novel but does not explicitly explain its title; cannot use as approved supplement."
-    },
-    "Screw Your Courage": {
-      "url": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella",
-      "note": "Author explicitly identifies a novella and its Macbeth-derived title; no Wikipedia article pin found."
-    },
-    "Vaulting Ambition": {
-      "url": "https://debigueron.com/books/vaulting-ambition/",
-      "note": "Author identifies a novel; no qualifying Wikipedia title-origin pin found."
-    },
-    "The Be-All and End-All": {
-      "url": "https://www.fantasticfiction.com/l/patti-larsen/be-all-and-end-all.htm",
-      "note": "Novel exists with this title; no qualifying Wikipedia title-origin pin found. Kept conservatively in denominator."
-    },
-    "Eye of Newt": {
-      "url": "https://www.penguinrandomhouse.com/books/243684/eye-of-newt-by-michael-hague/",
-      "note": "Graphic-fiction candidate; qualification as a novel under the prompt is uncertain. Kept conservatively in denominator, not declared invalid."
-    },
-    "Instruments of Darkness": {
-      "url": "https://www.bookreporter.com/reviews/the-instruments-of-darkness",
-      "note": "Review identifies Connolly novel and quotes Macbeth. Examined novel/author Wikipedia articles for Connolly, Huston, Robertson and Russell did not supply the required explicit title-origin statement."
-    }
+    "added": 131,
+    "net": 8
   },
   "macbeth_novel_classification_pins": {
     "The Battle Lost and Won": 1384237682,
@@ -1077,5 +1110,172 @@
     "Dusty Death": 1362948547,
     "Walking Shadow": 1384346859,
     "Told by an Idiot": 1377861227
+  },
+  "followup": {
+    "rule": "A published novel or novella qualifies when its title is a verbatim/near-verbatim Macbeth phrase. Supplemental search restricted to the eleven missed frozen guesses.",
+    "supplements": [
+      {
+        "guess": "Brief Candle",
+        "name": "Brief Candle",
+        "author": "Kate Pennington",
+        "url": "https://openlibrary.org/books/OL10678692M.json",
+        "phrase": "Out, out, brief candle!",
+        "scene": "V.v",
+        "year": 2005,
+        "evidence": "Hodder Children’s Books, 272 pages; subjects include historical fiction.",
+        "sha256": "7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+        "reviewed_title": "Brief Candle"
+      },
+      {
+        "guess": "Out, Damned Spot",
+        "name": "Out, Damned Spot!",
+        "author": "F. J. McQueen",
+        "url": "https://openlibrary.org/books/OL37014680M.json",
+        "phrase": "Out, damned spot!",
+        "scene": "V.i",
+        "year": 2016,
+        "evidence": "Urbane Publications, 266 pages; fiction.",
+        "sha256": "455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+        "reviewed_title": "Out damned spot!"
+      },
+      {
+        "guess": "Toil and Trouble",
+        "name": "Toil and Trouble",
+        "author": "H. P. Mallory",
+        "url": "https://openlibrary.org/books/OL32147866M.json",
+        "phrase": "Double, double, toil and trouble",
+        "scene": "IV.i",
+        "year": 2010,
+        "evidence": "234-page fictional Jolie Wilkins story; distinct from the comic volume in the original group.",
+        "sha256": "72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+        "reviewed_title": "Toil and trouble"
+      },
+      {
+        "guess": "Poor Player",
+        "name": "Poor Player",
+        "author": "Lesley Krueger",
+        "url": "https://openlibrary.org/books/OL1148339M.json",
+        "phrase": "a poor player",
+        "scene": "V.v",
+        "year": 1993,
+        "evidence": "Oberon Press, 216 pages; author identifies this as her first novel at https://lesleykrueger.com/poor-player-out-today/.",
+        "sha256": "8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+        "reviewed_title": "Poor player"
+      },
+      {
+        "guess": "Strut and Fret",
+        "name": "Struts and Frets",
+        "author": "Jon Skovron",
+        "url": "https://openlibrary.org/books/OL22679131M.json",
+        "phrase": "That struts and frets his hour upon the stage",
+        "scene": "V.v",
+        "year": 2009,
+        "evidence": "Amulet Books; catalog subjects identify juvenile fiction. Singular frozen guess accepted as a natural near-verbatim variant.",
+        "aliases": ["Strut and Fret"],
+        "sha256": "76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+        "reviewed_title": "Struts and frets"
+      },
+      {
+        "guess": "Screw Your Courage",
+        "name": "Screw Your Courage",
+        "author": "Alexandra Y. Caluen",
+        "url": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella",
+        "phrase": "screw your courage to the sticking-place",
+        "scene": "I.vii",
+        "year": 2022,
+        "evidence": "Author’s September 18, 2022 publication post explicitly identifies the novella and Macbeth title.",
+        "sha256": "69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+        "reviewed_title": "Screw Your Courage: a new novella — Alexandra Y. Caluen"
+      },
+      {
+        "guess": "Vaulting Ambition",
+        "name": "Vaulting Ambition",
+        "author": "Debi Gueron and Barnett Greenman",
+        "url": "https://debigueron.com/books/vaulting-ambition/",
+        "phrase": "Vaulting ambition",
+        "scene": "I.vii",
+        "year": 2023,
+        "evidence": "Author’s book page explicitly calls this a novel and links the published book.",
+        "sha256": "975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+        "reviewed_title": "Vaulting Ambition - Debi Gueron"
+      },
+      {
+        "guess": "The Be-All and End-All",
+        "name": "The Be All and End All",
+        "author": "Patti Larsen",
+        "url": "https://www.angusrobertson.com.au/books/the-be-all-and-end-all-patti-larsen/p/9781998948239",
+        "phrase": "the be-all and the end-all",
+        "scene": "I.vii",
+        "year": 2024,
+        "evidence": "Retailer lists Purely Paranormal Press, publication January 30, 2024, 180 pages, ISBN 9781998948239. Smashwords series listing identifies 31,990 words of fiction; qualifies as a novella.",
+        "sha256": "7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+        "reviewed_title": "The Be All and End All | Angus & Robertson"
+      },
+      {
+        "guess": "Eye of Newt",
+        "name": "Eye of Newt",
+        "author": "Denise Dietz",
+        "url": "https://openlibrary.org/isbn/1594140960.json",
+        "phrase": "Eye of newt",
+        "scene": "IV.i",
+        "year": 2004,
+        "evidence": "Five Star, 344 pages; mystery-fiction catalog subjects. This is the prose novel, not Michael Hague’s graphic work.",
+        "sha256": "823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+        "reviewed_title": "Eye of newt"
+      },
+      {
+        "guess": "Instruments of Darkness",
+        "name": "The Instruments of Darkness",
+        "author": "John Connolly",
+        "url": "https://openlibrary.org/books/OL50707534M.json",
+        "phrase": "The instruments of darkness tell us truths",
+        "scene": "I.iii",
+        "year": 2024,
+        "evidence": "Emily Bestler Books/Atria, published May 7, 2024, 500 pages; Charlie Parker novel.",
+        "sha256": "1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+        "reviewed_title": "The Instruments of Darkness"
+      },
+      {
+        "guess": "Lay On, Macduff",
+        "name": "Lay On, Macduff!",
+        "author": "Charlotte Armstrong",
+        "page": "Charlotte Armstrong",
+        "revision": 1371549314,
+        "phrase": "lay on, Macduff",
+        "scene": "V.viii",
+        "year": 1942,
+        "evidence": "The author’s pinned bibliography lists Lay On, Mac Duff! (1942) as her first MacDougal Duff mystery novel."
+      }
+    ],
+    "phrase_source": {
+      "url": "https://www.gutenberg.org/files/1533/1533-h/1533-h.htm",
+      "sha256": "f6a7a6d17291cddce7e4093065e04cb6e6f8847914aa64e5206649cd864b6351",
+      "review": "All eleven quoted phrases checked against this full text of Macbeth. Typographic punctuation, omission of an article, spacing and singular/plural near-verbatim variants are allowed."
+    },
+    "all_eleven_published": true,
+    "parent_commit": "48ece60fdc6b1c962754ddf360c8d232f9c117a6",
+    "invalidated_frozen_guesses": []
+  },
+  "gzip_kib": {
+    "baseline": 2993.75,
+    "after": 2994.46,
+    "delta": 0.71,
+    "approximate_delta_bytes": 727,
+    "previous_commit": 2994.31,
+    "followup_delta": 0.15,
+    "limit_delta_kib": 1.5
+  },
+  "checks": {
+    "generation": "PASS: 64 days, 320 constrained, 0 broad; earlier legacy unchanged.",
+    "source_membership": "PASS: all four prompt source sets, including all eleven supplemental publication records, acquired and compared exactly with their reviewed snapshots.",
+    "book_source_fixtures": "PASS: 5 tests, OK; JSON/HTML normal, empty/malformed, original CRLF bytes, checksum mismatch and count guard.",
+    "recall_tests": "PASS: tests 15; pass 15; fail 0.",
+    "lint": "PASS: npm run lint exited 0.",
+    "typecheck": "PASS: npm run typecheck exited 0.",
+    "build": "PASS: Total Upload: 8018.72 KiB / gzip: 2994.46 KiB; --dry-run: exiting now.",
+    "unittest": "30 tests, failures=2: fixed catalog count 391 != 387; fixed retired set omits the four replaced IDs. No other original-suite failures.",
+    "unittest_remaining": "PASS: throwaway harness ran all 30 tests with only those two specific equality assertions bypassed; all remaining assertions passed, including every prompt’s <=85-character and wording checks. Repository tests unchanged.",
+    "npm_test": "Root 112 files / 1025 tests passed. Worker: 29 files / 445 tests passed; only the parent-owned retired-count assertion fails (71 != 67).",
+    "format": "Prettier formatting and full format check run after final artifact update."
   }
 }

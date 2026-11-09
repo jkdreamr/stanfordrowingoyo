@@ -49,7 +49,7 @@ def dataset(url, sha256, format):
     if not re.fullmatch(r'[a-f0-9]{64}', sha256):
         raise ValueError('Dataset requires a SHA-256 pin')
     data = fetch(url)
-    if format == 'ala-annual-2010s':
+    if format in {'ala-annual-2010s', 'json-title', 'html-title'}:
         data = (CACHE / (hashlib.sha256(url.encode()).hexdigest() + '.raw')).read_bytes().decode()
     if hashlib.sha256(data.encode()).hexdigest() != sha256:
         raise ValueError('Dataset checksum mismatch')
@@ -57,6 +57,17 @@ def dataset(url, sha256, format):
         return list(csv.DictReader(io.StringIO(data)))
     if format == 'json':
         return json.loads(data)
+    if format == 'json-title':
+        record = json.loads(data)
+        title = record.get('title') if isinstance(record, dict) else None
+        if not isinstance(title, str) or not title.strip():
+            raise ValueError('Book JSON requires a nonempty title')
+        return [title]
+    if format == 'html-title':
+        title = BeautifulSoup(data, 'html.parser').title
+        if title is None or not title.get_text(strip=True):
+            raise ValueError('Book HTML requires a nonempty title')
+        return [title.get_text(' ', strip=True)]
     if format == 'lines':
         return [line.strip() for line in data.splitlines() if line.strip()]
     if format == 'ala-annual-2010s':
