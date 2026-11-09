@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Activity, MessageCircle, MoreHorizontal, Share2 } from 'lucide-react';
 import {
@@ -38,6 +38,9 @@ export default function EntryDetail() {
   const remove = useDeleteEntry();
   const query = useEntry(id, !remove.isPending && !remove.isSuccess);
   const comments = useComments(id, !remove.isPending && !remove.isSuccess);
+  const seenComments = useRef<Set<string> | null>(null);
+  if (!seenComments.current && comments.data)
+    seenComments.current = new Set(comments.data.map((comment) => comment.id));
   const { data: me } = useMe();
   const { data: config } = useConfig();
   const create = useCreateComment();
@@ -166,7 +169,10 @@ export default function EntryDetail() {
               ) : (
                 <ul className="mb-6 divide-y divide-divider">
                   {comments.data.map((comment) => (
-                    <li key={comment.id} className="flex gap-3 py-4">
+                    <li
+                      key={comment.id}
+                      className={`flex gap-3 py-4 ${seenComments.current && !seenComments.current.has(comment.id) ? 'comment-arrive' : ''}`}
+                    >
                       <Avatar name={comment.author.name} imageId={comment.author.avatar_image_id} />
                       <div className="min-w-0 flex-1">
                         <Link

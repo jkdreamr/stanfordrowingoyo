@@ -77,7 +77,9 @@ export function Sheet({
     const animation = dialog.animate(
       [
         { opacity: 1, transform: 'none' },
-        { opacity: 0, transform: desktop ? 'scale(0.99)' : 'translateY(32px)' },
+        desktop
+          ? { opacity: 0, transform: 'scale(0.96)' }
+          : { opacity: 1, transform: 'translateY(100%)' },
       ],
       {
         duration,

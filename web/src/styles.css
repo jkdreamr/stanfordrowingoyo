@@ -843,10 +843,18 @@ textarea::placeholder {
 .ui-sheet[open] {
   display: flex;
   flex-direction: column;
-  animation: ui-sheet-enter var(--oyo-motion-sheet) var(--oyo-ease-out);
+  animation: ui-sheet-enter 420ms var(--oyo-ease-out);
 }
 .ui-sheet::backdrop {
   background: rgb(0 0 0 / 0.4);
+}
+.ui-sheet[open]::backdrop {
+  animation: ui-backdrop-enter var(--oyo-motion-sheet) var(--oyo-ease-out);
+}
+@keyframes ui-backdrop-enter {
+  from {
+    opacity: 0;
+  }
 }
 .ui-sheet-header {
   padding: 8px 16px;
@@ -866,14 +874,13 @@ textarea::placeholder {
   padding: 16px;
   border-top: 1px solid var(--divider);
 }
+/* Sheets travel up from the bottom edge like native sheets; dialogs scale up from center. */
 @keyframes ui-sheet-enter {
   from {
-    transform: translateY(32px);
-    opacity: 0;
+    transform: translateY(100%);
   }
   to {
     transform: translateY(0);
-    opacity: 1;
   }
 }
 .ui-toast-region {
@@ -897,6 +904,49 @@ textarea::placeholder {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
   pointer-events: auto;
+}
+/* Toasts rise in on the slower clock and leave on the faster one. */
+.ui-toast {
+  animation: ui-toast-enter 360ms var(--oyo-ease-out) both;
+}
+.ui-toast.is-leaving {
+  animation: ui-toast-exit 200ms var(--oyo-ease-in) both;
+}
+@keyframes ui-toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+}
+@keyframes ui-toast-exit {
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+/* Form errors and new comments: a short horizontal shake, and a settle from below. */
+.form-errors {
+  animation: ui-error-shake 280ms linear;
+}
+@keyframes ui-error-shake {
+  28.57% {
+    transform: translateX(6px);
+  }
+  57.14% {
+    transform: translateX(-6px);
+  }
+  78.57% {
+    transform: translateX(2px);
+  }
+}
+.comment-arrive {
+  animation: comment-arrive 360ms var(--oyo-ease-out) both;
+}
+@keyframes comment-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 .ui-toast-action {
   min-height: 44px;
@@ -1043,7 +1093,7 @@ textarea::placeholder {
     box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
   }
   .ui-sheet[open] {
-    animation-name: ui-dialog-enter;
+    animation: ui-dialog-enter 260ms var(--oyo-ease-out);
   }
   .ui-grabber {
     display: none;
@@ -1055,7 +1105,7 @@ textarea::placeholder {
 @keyframes ui-dialog-enter {
   from {
     opacity: 0;
-    transform: scale(1);
+    transform: scale(0.96);
   }
   to {
     opacity: 1;
@@ -1438,8 +1488,18 @@ main h1[tabindex='-1']:focus {
   .ui-spinner,
   .ui-skeleton,
   .ui-sheet[open],
+  .ui-sheet[open]::backdrop,
+  .form-errors,
   .ui-finish-tick {
     animation: none;
+  }
+  .ui-toast,
+  .ui-toast.is-leaving,
+  .comment-arrive {
+    animation: drive-fade-in 120ms linear both;
+  }
+  .ui-toast.is-leaving {
+    animation-direction: reverse;
   }
 }
 @media (hover: hover) and (pointer: fine) {
