@@ -440,24 +440,6 @@ it('explains the final suggestion rejection before it consumes the last guess', 
     'Rejecting this suggestion or submitting another answer ends this prompt.',
   );
 });
-it('announces an already-used answer distinctly, keeps focus and attempts, and permits a new answer', async () => {
-  mount();
-  await settle();
-  vi.mocked(api).mockResolvedValueOnce({ outcome: 'already_used', attempts_left: 15 });
-  type('Oar');
-  submit();
-  await settle();
-  expect(screen.getByRole('status').textContent).toBe('Already Used Today');
-  expect(screen.queryByText('Not an answer')).toBeNull();
-  expect(document.querySelector('.dive-input-shake')).toBeNull();
-  expect(input().value).toBe('');
-  expect(document.activeElement).toBe(input());
-  type('Other answer');
-  submit();
-  await settle();
-  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
-});
-
 it('uses elapsed time rather than wall-clock changes, including after backgrounding', async () => {
   mount();
   await settle();

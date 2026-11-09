@@ -33,6 +33,29 @@ const input = {
   visibility: 'team',
 };
 describe('Dive', () => {
+  it.each(['answers', 'guesses'])(
+    'scores the same mock canonical on separate prompts via %s',
+    async (path) => {
+      const { request, state } = setup();
+      await request('/auth/login', 'POST', {
+        email: state.users.find((user) => user.role === 'admin')!.email,
+        password: 'password',
+      });
+      for (let index = 0; index < 2; index++) {
+        await request('/games/dive/start', 'POST', { prompt_index: index });
+        const response = await request('/games/dive/' + path, 'POST', {
+          prompt_index: index,
+          answer: 'Mock answer',
+        });
+        const body = await response.json();
+        expect(path === 'answers' ? body : body.answer).toMatchObject({
+          canonical: 'Mock answer',
+          points: 100,
+        });
+      }
+      expect((await (await request('/games/dive/today')).json()).answers).toHaveLength(2);
+    },
+  );
   it.each(['answers', 'guesses'])('enforces the 60-character mock Dive %s cap', async (path) => {
     const { request, state } = setup();
     await request('/auth/login', 'POST', {

@@ -33,6 +33,9 @@ it('reveals the canonical, friendly tier, Pearl and two notable answers without 
   expect(screen.getAllByRole('listitem')).toHaveLength(2);
   expect(screen.getByText('Medlar')).toBeTruthy();
   expect(screen.queryByText(/matched|99|rarity/i)).toBeNull();
+  expect(screen.getByRole('button', { name: 'Continue' }).classList.contains('dive-continue')).toBe(
+    true,
+  );
   fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
   expect(next).toHaveBeenCalledOnce();
 });

@@ -73,13 +73,13 @@ export function Prompt({
   const [feedback, setFeedback] = useState<string | null>(null);
   const [shake, setShake] = useState(false);
   const focusInput = () => form.current?.querySelector('input')?.focus({ preventScroll: true });
-  const wrongAnswer = (left: number, message = 'Not an answer') => {
+  const wrongAnswer = (left: number) => {
     setAttemptsLeft(left);
     const unchanged = form.current?.querySelector('input')?.value === submittedText.current;
     if (unchanged) setAnswer('');
     setSuggestion(null);
-    setFeedback(unchanged ? message : null);
-    setShake(unchanged && message === 'Not an answer');
+    setFeedback(unchanged ? 'Not an answer' : null);
+    setShake(unchanged);
     focusInput();
   };
   const startMutation = useMutation({
@@ -159,11 +159,7 @@ export function Prompt({
         setDeadline(value);
         setRemaining(Math.max(0, value - performance.now()));
         focusInput();
-      } else
-        wrongAnswer(
-          response.attempts_left,
-          response.outcome === 'already_used' ? 'Already Used Today' : 'Not an answer',
-        );
+      } else wrongAnswer(response.attempts_left);
     },
     onError: async (error) => {
       if (isConflict(error)) await onConflict();

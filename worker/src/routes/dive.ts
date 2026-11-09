@@ -38,19 +38,6 @@ function refreshClock(ctx: Context, date = today(ctx.now)) {
   if (today(ctx.now) !== date)
     throw new HttpError(409, 'DAY_CHANGED', 'The team day changed. Refresh to keep playing.');
 }
-function alreadyUsed(ctx: Context, date: string, userId: string, matched: DiveMatch): boolean {
-  return Boolean(
-    matched.canonical &&
-    ctx.storage.sql
-      .exec(
-        'SELECT 1 FROM dive_answers WHERE date=? AND user_id=? AND canonical IS NOT NULL AND normalized=? LIMIT 1',
-        date,
-        userId,
-        normalizeAnswer(matched.canonical),
-      )
-      .toArray().length,
-  );
-}
 function sameSuggestion(row: DiveAttemptExport, value: string) {
   return (
     row.suggestion_status === 'pending' &&
@@ -270,11 +257,6 @@ export async function answer(ctx: Context) {
       }
     }
     const matched = timeout ? miss : matchAnswer(value, set);
-    if (alreadyUsed(ctx, date, user.id, matched))
-      return {
-        outcome: 'already_used' as const,
-        attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count,
-      };
     return storeAnswer(ctx, index, timeout ? '' : value, matched, set, user.id, date);
   });
   return json(result, 'outcome' in result ? 200 : 201);
@@ -330,8 +312,6 @@ export async function guess(ctx: Context) {
       if (rejected.outcome === 'scored') return rejected;
     }
     const matched = matchAnswer(value, set);
-    if (alreadyUsed(ctx, date, user.id, matched))
-      return { outcome: 'already_used', attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count };
     if (matched.canonical)
       return {
         outcome: 'scored',
@@ -339,8 +319,6 @@ export async function guess(ctx: Context) {
       };
     if (!row.suggestion_status) {
       const candidate = suggestAnswer(value, set);
-      if (candidate && alreadyUsed(ctx, date, user.id, candidate))
-        return { outcome: 'already_used', attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count };
       if (candidate?.canonical) {
         ctx.storage.sql.exec(
           "UPDATE dive_attempts SET suggestion_canonical=?,suggestion_answer=?,suggestion_status='pending',suggested_at=? WHERE date=? AND user_id=? AND prompt_index=?",
@@ -376,8 +354,6 @@ export async function suggestion(ctx: Context) {
       if (!row || row.suggestion_status !== 'pending' || !row.suggestion_canonical)
         throw new HttpError(409, 'NO_SUGGESTION', 'No pending suggestion.');
       const matched = matchAnswer(row.suggestion_canonical, set);
-      if (accept && alreadyUsed(ctx, date, user.id, matched))
-        return { outcome: 'already_used', attempts_left: DIVE_MAX_WRONG_GUESSES - row.wrong_count };
       ctx.storage.sql.exec(
         'UPDATE dive_attempts SET suggestion_status=? WHERE date=? AND user_id=? AND prompt_index=?',
         accept ? 'accepted' : 'rejected',

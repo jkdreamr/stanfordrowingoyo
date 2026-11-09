@@ -503,24 +503,34 @@ describe('Dive', () => {
     });
   });
   it.each(['/guesses', '/answers'])(
-    'does not score a canonical already used on another prompt via %s',
+    'scores the same canonical independently on two prompts via %s',
     async (path) => {
-      await rest();
-      const hit = (await set(1)).gem.answer;
-      await submit(0, '');
+      const now = '2026-11-17T18:00:00Z';
       await sql((storage) =>
-        storage.sql.exec(
-          "UPDATE dive_answers SET canonical=?,normalized=?,points=100,tier='gem' WHERE user_id='u0'",
-          hit,
-          normalizeAnswer(hit),
-        ),
+        storage.sql.exec("UPDATE sessions SET expires_at='2027-01-01T00:00:00Z'"),
       );
-      await api('/start', 'POST', { prompt_index: 1 });
-      const body = await (await api(path, 'POST', { prompt_index: 1, answer: hit })).json();
-      expect(body).toMatchObject({ outcome: 'already_used', attempts_left: 15 });
-      expect((await current()).answers).toHaveLength(1);
-      expect((await current()).pending?.attempts_left).toBe(15);
-      expect((await current()).score).toBe(0);
+      for (let index = 0; index < 3; index++) {
+        expect((await api('/start', 'POST', { prompt_index: index }, 59, now)).status).toBe(200);
+        const response = await api(
+          path,
+          'POST',
+          { prompt_index: index, answer: index === 1 ? '' : 'United Kingdom' },
+          59,
+          now,
+        );
+        expect(response.status).toBe(path === '/answers' ? 201 : 200);
+        const body = await response.json<
+          DiveAnswerResult | { outcome: 'scored'; answer: DiveAnswerResult }
+        >();
+        const answer = 'outcome' in body ? body.answer : body;
+        if (index !== 1) {
+          expect(answer.canonical).toBe('United Kingdom');
+          expect(answer.points).toBeGreaterThan(0);
+        }
+      }
+      const day = await (await api('/today', 'GET', undefined, 59, now)).json<DiveDay>();
+      expect(day.answers).toHaveLength(3);
+      expect(day.score).toBe(day.answers[0].points + day.answers[2].points);
     },
   );
   it('cannot bypass a final pending rejection using the legacy endpoint', async () => {

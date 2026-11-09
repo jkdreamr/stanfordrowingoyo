@@ -1259,14 +1259,6 @@ export function createMockApi({
                 p.active!.wrong++;
               }
               if (p.active!.wrong >= DIVE_MAX_WRONG_GUESSES) return finish('', false);
-              if (
-                ['mock answer', 'mock anser'].includes(normalized) &&
-                p.answers.some((answer) => answer.canonical === 'Mock answer')
-              )
-                return json({
-                  outcome: 'already_used',
-                  attempts_left: DIVE_MAX_WRONG_GUESSES - p.active!.wrong,
-                });
               if (parts[4] === 'answers') return finish(typed, normalized === 'mock answer');
               if (normalized === 'mock answer') return finish(typed, true);
               if (!p.active!.issued && normalized === 'mock anser') {

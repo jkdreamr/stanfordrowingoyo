@@ -69,8 +69,11 @@
   }
 }
 .dive-reveal {
-  padding: 16px 0;
+  padding: 16px 0 calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 24px);
   min-width: 0;
+}
+.dive-continue {
+  scroll-margin-block-end: calc(var(--tabbar-height) + env(safe-area-inset-bottom) + 24px);
 }
 .dive-answer-notes {
   display: grid;
