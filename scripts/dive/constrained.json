@@ -11527,49 +11527,64 @@
       "cluster": "elements",
       "answers": [
         {
-          "name": "Actinium"
+          "name": "Actinium",
+          "aliases": ["Ac"]
         },
         {
-          "name": "Thorium"
+          "name": "Thorium",
+          "aliases": ["Th"]
         },
         {
-          "name": "Protactinium"
+          "name": "Protactinium",
+          "aliases": ["Pa"]
         },
         {
-          "name": "Uranium"
+          "name": "Uranium",
+          "aliases": ["U"]
         },
         {
-          "name": "Neptunium"
+          "name": "Neptunium",
+          "aliases": ["Np"]
         },
         {
-          "name": "Plutonium"
+          "name": "Plutonium",
+          "aliases": ["Pu"]
         },
         {
-          "name": "Americium"
+          "name": "Americium",
+          "aliases": ["Am"]
         },
         {
-          "name": "Curium"
+          "name": "Curium",
+          "aliases": ["Cm"]
         },
         {
-          "name": "Berkelium"
+          "name": "Berkelium",
+          "aliases": ["Bk"]
         },
         {
-          "name": "Californium"
+          "name": "Californium",
+          "aliases": ["Cf"]
         },
         {
-          "name": "Einsteinium"
+          "name": "Einsteinium",
+          "aliases": ["Es"]
         },
         {
-          "name": "Fermium"
+          "name": "Fermium",
+          "aliases": ["Fm"]
         },
         {
-          "name": "Mendelevium"
+          "name": "Mendelevium",
+          "aliases": ["Md"]
         },
         {
-          "name": "Nobelium"
+          "name": "Nobelium",
+          "aliases": ["No"]
         },
         {
-          "name": "Lawrencium"
+          "name": "Lawrencium",
+          "aliases": ["Lr"]
         }
       ],
       "sources": [
@@ -11577,7 +11592,7 @@
           "page": "Actinide",
           "revision": 1373830078,
           "expect": [15, 15],
-          "review": "Header element links (exclude Chemical element heading); use title for full names.",
+          "review": "Header element links (exclude Chemical element heading); use title for full names. Element symbols in the pinned header table identify existing members.",
           "header_table": 4,
           "reviewed": [
             "Actinium",
@@ -11615,7 +11630,8 @@
           "name": "Venus"
         },
         {
-          "name": "Earth"
+          "name": "Earth",
+          "aliases": ["Terra"]
         },
         {
           "name": "Mars"
@@ -11633,10 +11649,12 @@
           "name": "Neptune"
         },
         {
-          "name": "Ceres"
+          "name": "Ceres",
+          "aliases": ["1 Ceres"]
         },
         {
-          "name": "Pluto"
+          "name": "Pluto",
+          "aliases": ["134340 Pluto"]
         },
         {
           "name": "Haumea"
@@ -11645,7 +11663,8 @@
           "name": "Makemake"
         },
         {
-          "name": "Eris"
+          "name": "Eris",
+          "aliases": ["2003 UB313", "Xena", "136199 Eris"]
         }
       ],
       "sources": [
@@ -11653,7 +11672,7 @@
           "page": "Dwarf planet",
           "revision": 1383195538,
           "expect": [13, 13],
-          "review": "Eight planets and five IAU-recognised dwarf planets; candidates are not included.",
+          "review": "Eight planets and five IAU-recognised dwarf planets; candidates are not included. Accept Terra, minor-planet numbers and Eris discovery designation/nickname 2003 UB313/Xena. Sedna, Orcus, Quaoar and Gonggong remain outside this explicitly IAU-recognised list.",
           "members": [
             "Mercury",
             "Venus",
@@ -24116,61 +24135,78 @@
             "Ytterbium",
             "Yttrium"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept all seventeen element symbols."
         }
       ],
       "expect": [17, 17],
       "answers": [
         {
-          "name": "Cerium"
+          "name": "Cerium",
+          "aliases": ["Ce"]
         },
         {
-          "name": "Dysprosium"
+          "name": "Dysprosium",
+          "aliases": ["Dy"]
         },
         {
-          "name": "Erbium"
+          "name": "Erbium",
+          "aliases": ["Er"]
         },
         {
-          "name": "Europium"
+          "name": "Europium",
+          "aliases": ["Eu"]
         },
         {
-          "name": "Gadolinium"
+          "name": "Gadolinium",
+          "aliases": ["Gd"]
         },
         {
-          "name": "Holmium"
+          "name": "Holmium",
+          "aliases": ["Ho"]
         },
         {
-          "name": "Lanthanum"
+          "name": "Lanthanum",
+          "aliases": ["La"]
         },
         {
-          "name": "Lutetium"
+          "name": "Lutetium",
+          "aliases": ["Lu"]
         },
         {
-          "name": "Neodymium"
+          "name": "Neodymium",
+          "aliases": ["Nd"]
         },
         {
-          "name": "Praseodymium"
+          "name": "Praseodymium",
+          "aliases": ["Pr"]
         },
         {
-          "name": "Promethium"
+          "name": "Promethium",
+          "aliases": ["Pm"]
         },
         {
-          "name": "Samarium"
+          "name": "Samarium",
+          "aliases": ["Sm"]
         },
         {
-          "name": "Scandium"
+          "name": "Scandium",
+          "aliases": ["Sc"]
         },
         {
-          "name": "Terbium"
+          "name": "Terbium",
+          "aliases": ["Tb"]
         },
         {
-          "name": "Thulium"
+          "name": "Thulium",
+          "aliases": ["Tm"]
         },
         {
-          "name": "Ytterbium"
+          "name": "Ytterbium",
+          "aliases": ["Yb"]
         },
         {
-          "name": "Yttrium"
+          "name": "Yttrium",
+          "aliases": ["Y"]
         }
       ],
       "surface": ["Neodymium", "Cerium", "Lanthanum"],
@@ -24340,88 +24376,114 @@
             "Seaborgium",
             "Tennessine"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept the symbols of all 26 elements with atomic number greater than 92."
         }
       ],
       "expect": [26, 26],
       "answers": [
         {
-          "name": "Americium"
+          "name": "Americium",
+          "aliases": ["Am"]
         },
         {
-          "name": "Berkelium"
+          "name": "Berkelium",
+          "aliases": ["Bk"]
         },
         {
-          "name": "Bohrium"
+          "name": "Bohrium",
+          "aliases": ["Bh"]
         },
         {
-          "name": "Californium"
+          "name": "Californium",
+          "aliases": ["Cf"]
         },
         {
-          "name": "Copernicium"
+          "name": "Copernicium",
+          "aliases": ["Cn"]
         },
         {
-          "name": "Curium"
+          "name": "Curium",
+          "aliases": ["Cm"]
         },
         {
-          "name": "Darmstadtium"
+          "name": "Darmstadtium",
+          "aliases": ["Ds"]
         },
         {
-          "name": "Dubnium"
+          "name": "Dubnium",
+          "aliases": ["Db"]
         },
         {
-          "name": "Einsteinium"
+          "name": "Einsteinium",
+          "aliases": ["Es"]
         },
         {
-          "name": "Fermium"
+          "name": "Fermium",
+          "aliases": ["Fm"]
         },
         {
-          "name": "Flerovium"
+          "name": "Flerovium",
+          "aliases": ["Fl"]
         },
         {
-          "name": "Hassium"
+          "name": "Hassium",
+          "aliases": ["Hs"]
         },
         {
-          "name": "Lawrencium"
+          "name": "Lawrencium",
+          "aliases": ["Lr"]
         },
         {
-          "name": "Livermorium"
+          "name": "Livermorium",
+          "aliases": ["Lv"]
         },
         {
-          "name": "Meitnerium"
+          "name": "Meitnerium",
+          "aliases": ["Mt"]
         },
         {
-          "name": "Mendelevium"
+          "name": "Mendelevium",
+          "aliases": ["Md"]
         },
         {
-          "name": "Moscovium"
+          "name": "Moscovium",
+          "aliases": ["Mc"]
         },
         {
-          "name": "Neptunium"
+          "name": "Neptunium",
+          "aliases": ["Np"]
         },
         {
-          "name": "Nihonium"
+          "name": "Nihonium",
+          "aliases": ["Nh"]
         },
         {
-          "name": "Nobelium"
+          "name": "Nobelium",
+          "aliases": ["No"]
         },
         {
-          "name": "Oganesson"
+          "name": "Oganesson",
+          "aliases": ["Og"]
         },
         {
-          "name": "Plutonium"
+          "name": "Plutonium",
+          "aliases": ["Pu"]
         },
         {
-          "name": "Roentgenium"
+          "name": "Roentgenium",
+          "aliases": ["Rg"]
         },
         {
-          "name": "Rutherfordium"
+          "name": "Rutherfordium",
+          "aliases": ["Rf"]
         },
         {
-          "name": "Seaborgium"
+          "name": "Seaborgium",
+          "aliases": ["Sg"]
         },
         {
-          "name": "Tennessine"
+          "name": "Tennessine",
+          "aliases": ["Ts"]
         }
       ],
       "surface": ["Plutonium", "Neptunium", "Americium"],
@@ -24457,52 +24519,66 @@
             "Vanadium",
             "Yttrium"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept all fourteen chemical symbols and British sulphur spelling; both element names and symbols identify the stated members."
         }
       ],
       "expect": [14, 14],
       "answers": [
         {
-          "name": "Boron"
+          "name": "Boron",
+          "aliases": ["B"]
         },
         {
-          "name": "Carbon"
+          "name": "Carbon",
+          "aliases": ["C"]
         },
         {
-          "name": "Fluorine"
+          "name": "Fluorine",
+          "aliases": ["F"]
         },
         {
-          "name": "Hydrogen"
+          "name": "Hydrogen",
+          "aliases": ["H"]
         },
         {
-          "name": "Iodine"
+          "name": "Iodine",
+          "aliases": ["I"]
         },
         {
-          "name": "Nitrogen"
+          "name": "Nitrogen",
+          "aliases": ["N"]
         },
         {
-          "name": "Oxygen"
+          "name": "Oxygen",
+          "aliases": ["O"]
         },
         {
-          "name": "Phosphorus"
+          "name": "Phosphorus",
+          "aliases": ["P"]
         },
         {
-          "name": "Potassium"
+          "name": "Potassium",
+          "aliases": ["K"]
         },
         {
-          "name": "Sulfur"
+          "name": "Sulfur",
+          "aliases": ["S", "Sulphur"]
         },
         {
-          "name": "Tungsten"
+          "name": "Tungsten",
+          "aliases": ["W"]
         },
         {
-          "name": "Uranium"
+          "name": "Uranium",
+          "aliases": ["U"]
         },
         {
-          "name": "Vanadium"
+          "name": "Vanadium",
+          "aliases": ["V"]
         },
         {
-          "name": "Yttrium"
+          "name": "Yttrium",
+          "aliases": ["Y"]
         }
       ],
       "surface": ["Hydrogen", "Carbon", "Oxygen"],
@@ -24551,13 +24627,14 @@
             "Trinculo",
             "Umbriel"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept Uranus I-V for Ariel, Umbriel, Titania, Oberon and Miranda respectively."
         }
       ],
       "expect": [27, 27],
       "answers": [
         {
-          "name": "Ariel"
+          "name": "Ariel",
+          "aliases": ["Uranus I"]
         },
         {
           "name": "Belinda"
@@ -24596,10 +24673,12 @@
           "name": "Margaret"
         },
         {
-          "name": "Miranda"
+          "name": "Miranda",
+          "aliases": ["Uranus V"]
         },
         {
-          "name": "Oberon"
+          "name": "Oberon",
+          "aliases": ["Uranus IV"]
         },
         {
           "name": "Ophelia"
@@ -24629,13 +24708,15 @@
           "name": "Sycorax"
         },
         {
-          "name": "Titania"
+          "name": "Titania",
+          "aliases": ["Uranus III"]
         },
         {
           "name": "Trinculo"
         },
         {
-          "name": "Umbriel"
+          "name": "Umbriel",
+          "aliases": ["Uranus II"]
         }
       ],
       "surface": ["Titania", "Oberon", "Ariel"],
@@ -24672,52 +24753,66 @@
             "Thalassa",
             "Triton"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept conventional Neptune I-XIV Roman numeral designations, assigned by satellite designation rather than alphabetic or orbital order."
         }
       ],
       "expect": [14, 14],
       "answers": [
         {
-          "name": "Despina"
+          "name": "Despina",
+          "aliases": ["Neptune V"]
         },
         {
-          "name": "Galatea"
+          "name": "Galatea",
+          "aliases": ["Neptune VI"]
         },
         {
-          "name": "Halimede"
+          "name": "Halimede",
+          "aliases": ["Neptune IX"]
         },
         {
-          "name": "Hippocamp"
+          "name": "Hippocamp",
+          "aliases": ["Neptune XIV"]
         },
         {
-          "name": "Laomedeia"
+          "name": "Laomedeia",
+          "aliases": ["Neptune XII"]
         },
         {
-          "name": "Larissa"
+          "name": "Larissa",
+          "aliases": ["Neptune VII"]
         },
         {
-          "name": "Naiad"
+          "name": "Naiad",
+          "aliases": ["Neptune III"]
         },
         {
-          "name": "Nereid"
+          "name": "Nereid",
+          "aliases": ["Neptune II"]
         },
         {
-          "name": "Neso"
+          "name": "Neso",
+          "aliases": ["Neptune XIII"]
         },
         {
-          "name": "Proteus"
+          "name": "Proteus",
+          "aliases": ["Neptune VIII"]
         },
         {
-          "name": "Psamathe"
+          "name": "Psamathe",
+          "aliases": ["Neptune X"]
         },
         {
-          "name": "Sao"
+          "name": "Sao",
+          "aliases": ["Neptune XI"]
         },
         {
-          "name": "Thalassa"
+          "name": "Thalassa",
+          "aliases": ["Neptune IV"]
         },
         {
-          "name": "Triton"
+          "name": "Triton",
+          "aliases": ["Neptune I"]
         }
       ],
       "surface": ["Triton", "Proteus", "Naiad"],
@@ -24840,76 +24935,97 @@
             "watt",
             "weber"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept ASCII unit symbols and Celsius shorthand. Greek omega is a valid ohm symbol but the unchanged game normalizer strips non-ASCII symbols; do not invent an invalid alias or exclude that valid guess."
         }
       ],
       "expect": [22, 22],
       "answers": [
         {
-          "name": "becquerel"
+          "name": "becquerel",
+          "aliases": ["Bq"]
         },
         {
-          "name": "coulomb"
+          "name": "coulomb",
+          "aliases": ["C"]
         },
         {
-          "name": "degree Celsius"
+          "name": "degree Celsius",
+          "aliases": ["Celsius"]
         },
         {
-          "name": "farad"
+          "name": "farad",
+          "aliases": ["F"]
         },
         {
-          "name": "gray"
+          "name": "gray",
+          "aliases": ["Gy"]
         },
         {
-          "name": "henry"
+          "name": "henry",
+          "aliases": ["H"]
         },
         {
-          "name": "hertz"
+          "name": "hertz",
+          "aliases": ["Hz"]
         },
         {
-          "name": "joule"
+          "name": "joule",
+          "aliases": ["J"]
         },
         {
-          "name": "katal"
+          "name": "katal",
+          "aliases": ["kat"]
         },
         {
-          "name": "lumen"
+          "name": "lumen",
+          "aliases": ["lm"]
         },
         {
-          "name": "lux"
+          "name": "lux",
+          "aliases": ["lx"]
         },
         {
-          "name": "newton"
+          "name": "newton",
+          "aliases": ["N"]
         },
         {
           "name": "ohm"
         },
         {
-          "name": "pascal"
+          "name": "pascal",
+          "aliases": ["Pa"]
         },
         {
-          "name": "radian"
+          "name": "radian",
+          "aliases": ["rad"]
         },
         {
-          "name": "siemens"
+          "name": "siemens",
+          "aliases": ["S"]
         },
         {
-          "name": "sievert"
+          "name": "sievert",
+          "aliases": ["Sv"]
         },
         {
-          "name": "steradian"
+          "name": "steradian",
+          "aliases": ["sr"]
         },
         {
-          "name": "tesla"
+          "name": "tesla",
+          "aliases": ["T"]
         },
         {
-          "name": "volt"
+          "name": "volt",
+          "aliases": ["V"]
         },
         {
-          "name": "watt"
+          "name": "watt",
+          "aliases": ["W"]
         },
         {
-          "name": "weber"
+          "name": "weber",
+          "aliases": ["Wb"]
         }
       ],
       "surface": ["newton", "joule", "watt"],
@@ -24957,7 +25073,7 @@
             "zepto",
             "zetta"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept deka and ASCII symbol forms. Case-folding merges M/m: the normalized m key maps to milli, while capital M cannot be distinguished as mega. The valid micro symbol is stripped by normalization; u is a conventional ASCII substitute."
         }
       ],
       "expect": [24, 24],
@@ -24969,7 +25085,8 @@
           "name": "centi"
         },
         {
-          "name": "deca"
+          "name": "deca",
+          "aliases": ["Deka"]
         },
         {
           "name": "deci"
@@ -24981,25 +25098,30 @@
           "name": "femto"
         },
         {
-          "name": "giga"
+          "name": "giga",
+          "aliases": ["G"]
         },
         {
           "name": "hecto"
         },
         {
-          "name": "kilo"
+          "name": "kilo",
+          "aliases": ["k"]
         },
         {
           "name": "mega"
         },
         {
-          "name": "micro"
+          "name": "micro",
+          "aliases": ["u"]
         },
         {
-          "name": "milli"
+          "name": "milli",
+          "aliases": ["m"]
         },
         {
-          "name": "nano"
+          "name": "nano",
+          "aliases": ["n"]
         },
         {
           "name": "peta"
@@ -25063,37 +25185,46 @@
             "Tryptophan",
             "Valine"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept three-letter/one-letter codes. Arginine, cysteine and tyrosine are conditionally essential, not unconditional essentials in this adult list."
         }
       ],
       "expect": [9, 9],
       "answers": [
         {
-          "name": "Histidine"
+          "name": "Histidine",
+          "aliases": ["His", "H"]
         },
         {
-          "name": "Isoleucine"
+          "name": "Isoleucine",
+          "aliases": ["Ile", "I"]
         },
         {
-          "name": "Leucine"
+          "name": "Leucine",
+          "aliases": ["Leu", "L"]
         },
         {
-          "name": "Lysine"
+          "name": "Lysine",
+          "aliases": ["Lys", "K"]
         },
         {
-          "name": "Methionine"
+          "name": "Methionine",
+          "aliases": ["Met", "M"]
         },
         {
-          "name": "Phenylalanine"
+          "name": "Phenylalanine",
+          "aliases": ["Phe", "F"]
         },
         {
-          "name": "Threonine"
+          "name": "Threonine",
+          "aliases": ["Thr", "T"]
         },
         {
-          "name": "Tryptophan"
+          "name": "Tryptophan",
+          "aliases": ["Trp", "W"]
         },
         {
-          "name": "Valine"
+          "name": "Valine",
+          "aliases": ["Val", "V"]
         }
       ],
       "surface": ["Leucine", "Lysine", "Valine"],
@@ -25137,76 +25268,98 @@
             "Tyrosine",
             "Valine"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept standard three-letter and one-letter codes for all 22 members plus aspartate/glutamate biochemical names."
         }
       ],
       "expect": [22, 22],
       "answers": [
         {
-          "name": "Alanine"
+          "name": "Alanine",
+          "aliases": ["Ala", "A"]
         },
         {
-          "name": "Arginine"
+          "name": "Arginine",
+          "aliases": ["Arg", "R"]
         },
         {
-          "name": "Asparagine"
+          "name": "Asparagine",
+          "aliases": ["Asn", "N"]
         },
         {
-          "name": "Aspartic acid"
+          "name": "Aspartic acid",
+          "aliases": ["Aspartate", "Asp", "D"]
         },
         {
-          "name": "Cysteine"
+          "name": "Cysteine",
+          "aliases": ["Cys", "C"]
         },
         {
-          "name": "Glutamic acid"
+          "name": "Glutamic acid",
+          "aliases": ["Glutamate", "Glu", "E"]
         },
         {
-          "name": "Glutamine"
+          "name": "Glutamine",
+          "aliases": ["Gln", "Q"]
         },
         {
-          "name": "Glycine"
+          "name": "Glycine",
+          "aliases": ["Gly", "G"]
         },
         {
-          "name": "Histidine"
+          "name": "Histidine",
+          "aliases": ["His", "H"]
         },
         {
-          "name": "Isoleucine"
+          "name": "Isoleucine",
+          "aliases": ["Ile", "I"]
         },
         {
-          "name": "Leucine"
+          "name": "Leucine",
+          "aliases": ["Leu", "L"]
         },
         {
-          "name": "Lysine"
+          "name": "Lysine",
+          "aliases": ["Lys", "K"]
         },
         {
-          "name": "Methionine"
+          "name": "Methionine",
+          "aliases": ["Met", "M"]
         },
         {
-          "name": "Phenylalanine"
+          "name": "Phenylalanine",
+          "aliases": ["Phe", "F"]
         },
         {
-          "name": "Proline"
+          "name": "Proline",
+          "aliases": ["Pro", "P"]
         },
         {
-          "name": "Pyrrolysine"
+          "name": "Pyrrolysine",
+          "aliases": ["Pyl", "O"]
         },
         {
-          "name": "Selenocysteine"
+          "name": "Selenocysteine",
+          "aliases": ["Sec", "U"]
         },
         {
-          "name": "Serine"
+          "name": "Serine",
+          "aliases": ["Ser", "S"]
         },
         {
-          "name": "Threonine"
+          "name": "Threonine",
+          "aliases": ["Thr", "T"]
         },
         {
-          "name": "Tryptophan"
+          "name": "Tryptophan",
+          "aliases": ["Trp", "W"]
         },
         {
-          "name": "Tyrosine"
+          "name": "Tyrosine",
+          "aliases": ["Tyr", "Y"]
         },
         {
-          "name": "Valine"
+          "name": "Valine",
+          "aliases": ["Val", "V"]
         }
       ],
       "surface": ["Glycine", "Alanine", "Glutamic acid"],
@@ -25223,12 +25376,11 @@
         {
           "page": "List of chemical elements",
           "revision": 1377683963,
-          "expect": [11, 11],
+          "expect": [10, 10],
           "members": [
             "Sodium",
             "Potassium",
             "Iron",
-            "Copper",
             "Silver",
             "Tin",
             "Antimony",
@@ -25241,7 +25393,6 @@
             "Sodium",
             "Potassium",
             "Iron",
-            "Copper",
             "Silver",
             "Tin",
             "Antimony",
@@ -25250,43 +25401,50 @@
             "Mercury",
             "Lead"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Corrected Copper exclusion: Copper and Cu both start with C. The complete qualifying list has ten elements. Accept their symbols and historical Latin/German name roots as identities, while the predicate is applied to the English element name."
         }
       ],
-      "expect": [11, 11],
+      "expect": [10, 10],
       "answers": [
         {
-          "name": "Antimony"
+          "name": "Antimony",
+          "aliases": ["Sb", "Stibium"]
         },
         {
-          "name": "Copper"
+          "name": "Gold",
+          "aliases": ["Au", "Aurum"]
         },
         {
-          "name": "Gold"
+          "name": "Iron",
+          "aliases": ["Fe", "Ferrum"]
         },
         {
-          "name": "Iron"
+          "name": "Lead",
+          "aliases": ["Pb", "Plumbum"]
         },
         {
-          "name": "Lead"
+          "name": "Mercury",
+          "aliases": ["Hg", "Hydrargyrum"]
         },
         {
-          "name": "Mercury"
+          "name": "Potassium",
+          "aliases": ["K", "Kalium"]
         },
         {
-          "name": "Potassium"
+          "name": "Silver",
+          "aliases": ["Ag", "Argentum"]
         },
         {
-          "name": "Silver"
+          "name": "Sodium",
+          "aliases": ["Natrium"]
         },
         {
-          "name": "Sodium"
+          "name": "Tin",
+          "aliases": ["Sn", "Stannum"]
         },
         {
-          "name": "Tin"
-        },
-        {
-          "name": "Tungsten"
+          "name": "Tungsten",
+          "aliases": ["W", "Wolfram"]
         }
       ],
       "surface": ["Iron", "Gold", "Silver"],
@@ -25330,43 +25488,54 @@
             "Xenon",
             "Radon"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept element symbols and diatomic molecular formulas."
         }
       ],
       "expect": [11, 11],
       "answers": [
         {
-          "name": "Argon"
+          "name": "Argon",
+          "aliases": ["Ar"]
         },
         {
-          "name": "Chlorine"
+          "name": "Chlorine",
+          "aliases": ["Cl", "Cl2"]
         },
         {
-          "name": "Fluorine"
+          "name": "Fluorine",
+          "aliases": ["F", "F2"]
         },
         {
-          "name": "Helium"
+          "name": "Helium",
+          "aliases": ["He"]
         },
         {
-          "name": "Hydrogen"
+          "name": "Hydrogen",
+          "aliases": ["H", "H2"]
         },
         {
-          "name": "Krypton"
+          "name": "Krypton",
+          "aliases": ["Kr"]
         },
         {
-          "name": "Neon"
+          "name": "Neon",
+          "aliases": ["Ne"]
         },
         {
-          "name": "Nitrogen"
+          "name": "Nitrogen",
+          "aliases": ["N", "N2"]
         },
         {
-          "name": "Oxygen"
+          "name": "Oxygen",
+          "aliases": ["O", "O2"]
         },
         {
-          "name": "Radon"
+          "name": "Radon",
+          "aliases": ["Rn"]
         },
         {
-          "name": "Xenon"
+          "name": "Xenon",
+          "aliases": ["Xe"]
         }
       ],
       "surface": ["Oxygen", "Hydrogen", "Helium"],
@@ -25410,49 +25579,80 @@
             "Janus",
             "Epimetheus"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
-        }
-      ],
-      "expect": [11, 11],
-      "answers": [
-        {
-          "name": "Dione"
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Saturn I-IX identify named members. Literal across wording includes Prometheus and Pandora by maximum span; mean-diameter wording would exclude them."
         },
         {
-          "name": "Enceladus"
+          "page": "Prometheus (moon)",
+          "revision": 1381961719,
+          "expect": [1, 1],
+          "members": ["Prometheus"],
+          "reviewed": ["Prometheus"],
+          "review": "Longest measured axis exceeds 100 km; accept literal across wording, not only mean diameter."
+        },
+        {
+          "page": "Pandora (moon)",
+          "revision": 1377883382,
+          "expect": [1, 1],
+          "members": ["Pandora"],
+          "reviewed": ["Pandora"],
+          "review": "Longest measured axis exceeds 100 km; accept literal across wording, not only mean diameter."
+        }
+      ],
+      "expect": [13, 13],
+      "answers": [
+        {
+          "name": "Dione",
+          "aliases": ["Saturn IV"]
+        },
+        {
+          "name": "Enceladus",
+          "aliases": ["Saturn II"]
         },
         {
           "name": "Epimetheus"
         },
         {
-          "name": "Hyperion"
+          "name": "Hyperion",
+          "aliases": ["Saturn VII"]
         },
         {
-          "name": "Iapetus"
+          "name": "Iapetus",
+          "aliases": ["Saturn VIII"]
         },
         {
           "name": "Janus"
         },
         {
-          "name": "Mimas"
+          "name": "Mimas",
+          "aliases": ["Saturn I"]
         },
         {
-          "name": "Phoebe"
+          "name": "Phoebe",
+          "aliases": ["Saturn IX"]
         },
         {
-          "name": "Rhea"
+          "name": "Rhea",
+          "aliases": ["Saturn V"]
         },
         {
-          "name": "Tethys"
+          "name": "Tethys",
+          "aliases": ["Saturn III"]
         },
         {
-          "name": "Titan"
+          "name": "Titan",
+          "aliases": ["Saturn VI", "Titan moon"]
+        },
+        {
+          "name": "Prometheus"
+        },
+        {
+          "name": "Pandora"
         }
       ],
       "surface": ["Titan", "Enceladus", "Mimas"],
       "pearl": "Phoebe",
       "people": false,
-      "acceptance_notes": "a moon of Saturn with a diameter over 100 kilometres"
+      "acceptance_notes": "a moon of Saturn with at least one measured diameter over 100 kilometres (including elongated Prometheus and Pandora)"
     },
     {
       "id": "carpal-bones",
@@ -25484,34 +25684,52 @@
             "Capitate",
             "Hamate"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept bone suffixes and Latin names. Historical navicular identifies the hand's scaphoid (Scaphoid bone oldid 1369788418). Greater/lesser multangular identify trapezium/trapezoid (oldids 1373211955/1373211899)."
         }
       ],
       "expect": [8, 8],
       "answers": [
         {
-          "name": "Capitate"
+          "name": "Capitate",
+          "aliases": ["Capitate bone", "os capitatum"]
         },
         {
-          "name": "Hamate"
+          "name": "Hamate",
+          "aliases": ["Hamate bone", "os hamatum"]
         },
         {
-          "name": "Lunate"
+          "name": "Lunate",
+          "aliases": ["Lunate bone", "os lunatum"]
         },
         {
-          "name": "Pisiform"
+          "name": "Pisiform",
+          "aliases": ["Pisiform bone", "os pisiforme"]
         },
         {
-          "name": "Scaphoid"
+          "name": "Scaphoid",
+          "aliases": ["Scaphoid bone", "os scaphoideum", "Navicular"]
         },
         {
-          "name": "Trapezium"
+          "name": "Trapezium",
+          "aliases": [
+            "Trapezium bone",
+            "os trapezium",
+            "Greater multangular",
+            "Greater multangular bone"
+          ]
         },
         {
-          "name": "Trapezoid"
+          "name": "Trapezoid",
+          "aliases": [
+            "Trapezoid bone",
+            "os trapezoideum",
+            "Lesser multangular",
+            "Lesser multangular bone"
+          ]
         },
         {
-          "name": "Triquetrum"
+          "name": "Triquetrum",
+          "aliases": ["Triquetrum bone", "os triquetrum", "Triquetral", "Triquetral bone"]
         }
       ],
       "surface": ["Scaphoid", "Lunate", "Hamate"],
@@ -25561,52 +25779,65 @@
             "Vomer",
             "Inferior nasal concha"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept suffix-free names, jaw/cheekbone common names and inferior nasal turbinate/conchae forms; auditory ossicles are not cranial/facial bones."
         }
       ],
       "expect": [14, 14],
       "answers": [
         {
-          "name": "Ethmoid bone"
+          "name": "Ethmoid bone",
+          "aliases": ["Ethmoid"]
         },
         {
-          "name": "Frontal bone"
+          "name": "Frontal bone",
+          "aliases": ["Frontal"]
         },
         {
-          "name": "Inferior nasal concha"
+          "name": "Inferior nasal concha",
+          "aliases": ["Inferior nasal conchae", "Inferior nasal turbinate"]
         },
         {
-          "name": "Lacrimal bone"
+          "name": "Lacrimal bone",
+          "aliases": ["Lacrimal"]
         },
         {
-          "name": "Mandible"
+          "name": "Mandible",
+          "aliases": ["Lower jaw"]
         },
         {
-          "name": "Maxilla"
+          "name": "Maxilla",
+          "aliases": ["Upper jaw"]
         },
         {
-          "name": "Nasal bone"
+          "name": "Nasal bone",
+          "aliases": ["Nasal"]
         },
         {
-          "name": "Occipital bone"
+          "name": "Occipital bone",
+          "aliases": ["Occipital"]
         },
         {
-          "name": "Palatine bone"
+          "name": "Palatine bone",
+          "aliases": ["Palatine"]
         },
         {
-          "name": "Parietal bone"
+          "name": "Parietal bone",
+          "aliases": ["Parietal"]
         },
         {
-          "name": "Sphenoid bone"
+          "name": "Sphenoid bone",
+          "aliases": ["Sphenoid"]
         },
         {
-          "name": "Temporal bone"
+          "name": "Temporal bone",
+          "aliases": ["Temporal"]
         },
         {
           "name": "Vomer"
         },
         {
-          "name": "Zygomatic bone"
+          "name": "Zygomatic bone",
+          "aliases": ["Zygomatic", "Cheekbone"]
         }
       ],
       "surface": ["Mandible", "Frontal bone", "Temporal bone"],
@@ -25652,46 +25883,119 @@
             "Accessory nerve",
             "Hypoglossal nerve"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept suffix-free names, auditory/acoustic and spinal accessory synonyms, and CN/cranial nerve Arabic/Roman numbering I-XII."
         }
       ],
       "expect": [12, 12],
       "answers": [
         {
-          "name": "Abducens nerve"
+          "name": "Abducens nerve",
+          "aliases": ["Abducens", "CN VI", "CN 6", "Cranial nerve 6", "Cranial nerve VI", "VI", "6"]
         },
         {
-          "name": "Accessory nerve"
+          "name": "Accessory nerve",
+          "aliases": [
+            "Accessory",
+            "CN XI",
+            "CN 11",
+            "Cranial nerve 11",
+            "Cranial nerve XI",
+            "XI",
+            "11",
+            "Spinal accessory",
+            "Spinal accessory nerve"
+          ]
         },
         {
-          "name": "Facial nerve"
+          "name": "Facial nerve",
+          "aliases": [
+            "Facial",
+            "CN VII",
+            "CN 7",
+            "Cranial nerve 7",
+            "Cranial nerve VII",
+            "VII",
+            "7"
+          ]
         },
         {
-          "name": "Glossopharyngeal nerve"
+          "name": "Glossopharyngeal nerve",
+          "aliases": [
+            "Glossopharyngeal",
+            "CN IX",
+            "CN 9",
+            "Cranial nerve 9",
+            "Cranial nerve IX",
+            "IX",
+            "9"
+          ]
         },
         {
-          "name": "Hypoglossal nerve"
+          "name": "Hypoglossal nerve",
+          "aliases": [
+            "Hypoglossal",
+            "CN XII",
+            "CN 12",
+            "Cranial nerve 12",
+            "Cranial nerve XII",
+            "XII",
+            "12"
+          ]
         },
         {
-          "name": "Oculomotor nerve"
+          "name": "Oculomotor nerve",
+          "aliases": [
+            "Oculomotor",
+            "CN III",
+            "CN 3",
+            "Cranial nerve 3",
+            "Cranial nerve III",
+            "III",
+            "3"
+          ]
         },
         {
-          "name": "Olfactory nerve"
+          "name": "Olfactory nerve",
+          "aliases": ["Olfactory", "CN I", "CN 1", "Cranial nerve 1", "Cranial nerve I", "I", "1"]
         },
         {
-          "name": "Optic nerve"
+          "name": "Optic nerve",
+          "aliases": ["Optic", "CN II", "CN 2", "Cranial nerve 2", "Cranial nerve II", "II", "2"]
         },
         {
-          "name": "Trigeminal nerve"
+          "name": "Trigeminal nerve",
+          "aliases": ["Trigeminal", "CN V", "CN 5", "Cranial nerve 5", "Cranial nerve V", "V", "5"]
         },
         {
-          "name": "Trochlear nerve"
+          "name": "Trochlear nerve",
+          "aliases": [
+            "Trochlear",
+            "CN IV",
+            "CN 4",
+            "Cranial nerve 4",
+            "Cranial nerve IV",
+            "IV",
+            "4"
+          ]
         },
         {
-          "name": "Vagus nerve"
+          "name": "Vagus nerve",
+          "aliases": ["Vagus", "CN X", "CN 10", "Cranial nerve 10", "Cranial nerve X", "X", "10"]
         },
         {
-          "name": "Vestibulocochlear nerve"
+          "name": "Vestibulocochlear nerve",
+          "aliases": [
+            "Vestibulocochlear",
+            "CN VIII",
+            "CN 8",
+            "Cranial nerve 8",
+            "Cranial nerve VIII",
+            "VIII",
+            "8",
+            "Auditory nerve",
+            "Acoustic nerve",
+            "Eighth cranial nerve"
+          ]
         }
       ],
       "surface": ["Optic nerve", "Facial nerve", "Olfactory nerve"],
@@ -25734,7 +26038,7 @@
             "Southern rockhopper penguin",
             "Yellow-eyed penguin"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept fairy, jackass and hoiho names. Rockhopper names the traditional southern rockhopper grouping in this traditional-species list."
         }
       ],
       "expect": [18, 18],
@@ -25745,7 +26049,7 @@
         },
         {
           "name": "African penguin",
-          "aliases": ["African"]
+          "aliases": ["African", "Jackass penguin"]
         },
         {
           "name": "Chinstrap penguin",
@@ -25800,7 +26104,8 @@
             "Little blue",
             "Little blue penguin",
             "White-flippered",
-            "White-flippered penguin"
+            "White-flippered penguin",
+            "Fairy penguin"
           ]
         },
         {
@@ -25825,11 +26130,16 @@
         },
         {
           "name": "Southern rockhopper penguin",
-          "aliases": ["Eastern rockhopper", "Eastern rockhopper penguin", "Southern rockhopper"]
+          "aliases": [
+            "Eastern rockhopper",
+            "Eastern rockhopper penguin",
+            "Southern rockhopper",
+            "Rockhopper penguin"
+          ]
         },
         {
           "name": "Yellow-eyed penguin",
-          "aliases": ["Yellow-eyed"]
+          "aliases": ["Yellow-eyed", "Hoiho"]
         }
       ],
       "surface": ["Emperor penguin", "King penguin", "Adélie penguin"],
@@ -25893,7 +26203,7 @@
             "Sunda leopard cat",
             "Tiger"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept familiar short names wildcat/lynx and Pallas cat possessive variant."
         }
       ],
       "expect": [41, 41],
@@ -25949,10 +26259,12 @@
           "aliases": ["Domestic"]
         },
         {
-          "name": "Eurasian lynx"
+          "name": "Eurasian lynx",
+          "aliases": ["Lynx"]
         },
         {
-          "name": "European wildcat"
+          "name": "European wildcat",
+          "aliases": ["Wildcat"]
         },
         {
           "name": "Fishing cat",
@@ -26006,7 +26318,7 @@
         },
         {
           "name": "Pallas's cat",
-          "aliases": ["Manul", "Pallas's"]
+          "aliases": ["Manul", "Pallas's", "Pallas cat"]
         },
         {
           "name": "Pampas cat",
@@ -26097,10 +26409,18 @@
             "Tibetan fox",
             "Wolf"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Domestic dog and dingo identify Dog; Red wolf is independently pinned as an accepted species."
+        },
+        {
+          "page": "Red wolf",
+          "revision": 1384091642,
+          "expect": [1, 1],
+          "members": ["Red wolf"],
+          "reviewed": ["Red wolf"],
+          "review": "Accept Canis rufus as a living canid species as recognized by US Fish and Wildlife Service despite competing taxonomies in the primary list."
         }
       ],
-      "expect": [37, 37],
+      "expect": [38, 38],
       "answers": [
         {
           "name": "African wild dog",
@@ -26163,7 +26483,8 @@
           "name": "Dhole"
         },
         {
-          "name": "Dog"
+          "name": "Dog",
+          "aliases": ["Domestic dog", "Dingo"]
         },
         {
           "name": "Ethiopian wolf",
@@ -26242,6 +26563,10 @@
         {
           "name": "Tibetan fox",
           "aliases": ["Tibetan"]
+        },
+        {
+          "name": "Red wolf",
+          "aliases": ["Canis rufus"]
         }
       ],
       "surface": ["Gray wolf", "Red fox", "African wild dog"],
@@ -26289,7 +26614,7 @@
             "West African slender-snouted crocodile",
             "Yacare caiman"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept saltie, marsh, Australian freshwater, Indian gharial and Tomistoma; unqualified slender-snouted is the traditional West African species name."
         }
       ],
       "expect": [26, 26],
@@ -26328,14 +26653,16 @@
           "aliases": ["Dwarf"]
         },
         {
-          "name": "False gharial"
+          "name": "False gharial",
+          "aliases": ["Tomistoma"]
         },
         {
           "name": "Freshwater crocodile",
-          "aliases": ["Freshwater"]
+          "aliases": ["Freshwater", "Australian freshwater crocodile"]
         },
         {
-          "name": "Gharial"
+          "name": "Gharial",
+          "aliases": ["Indian gharial"]
         },
         {
           "name": "Morelet's crocodile",
@@ -26343,7 +26670,7 @@
         },
         {
           "name": "Mugger crocodile",
-          "aliases": ["Mugger"]
+          "aliases": ["Mugger", "Marsh crocodile"]
         },
         {
           "name": "New Guinea crocodile",
@@ -26367,7 +26694,7 @@
         },
         {
           "name": "Saltwater crocodile",
-          "aliases": ["Saltwater"]
+          "aliases": ["Saltwater", "Saltie", "Salties"]
         },
         {
           "name": "Siamese crocodile",
@@ -26387,7 +26714,7 @@
         },
         {
           "name": "West African slender-snouted crocodile",
-          "aliases": ["West African slender-snouted"]
+          "aliases": ["West African slender-snouted", "Slender-snouted crocodile"]
         },
         {
           "name": "Yacare caiman",
@@ -26421,42 +26748,48 @@
             "Pink-backed pelican",
             "Spot-billed pelican"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept binomials and white/eastern white/rosy names for Great white pelican; grey pelican identifies Spot-billed pelican (Spot-billed pelican oldid 1332360262)."
         }
       ],
       "expect": [8, 8],
       "answers": [
         {
           "name": "American white pelican",
-          "aliases": ["American white"]
+          "aliases": ["American white", "Pelecanus erythrorhynchos"]
         },
         {
           "name": "Australian pelican",
-          "aliases": ["Australian"]
+          "aliases": ["Australian", "Pelecanus conspicillatus"]
         },
         {
           "name": "Brown pelican",
-          "aliases": ["Brown"]
+          "aliases": ["Brown", "Pelecanus occidentalis"]
         },
         {
           "name": "Dalmatian pelican",
-          "aliases": ["Dalmatian"]
+          "aliases": ["Dalmatian", "Pelecanus crispus"]
         },
         {
           "name": "Great white pelican",
-          "aliases": ["Great white"]
+          "aliases": [
+            "Great white",
+            "White pelican",
+            "Eastern white pelican",
+            "Rosy pelican",
+            "Pelecanus onocrotalus"
+          ]
         },
         {
           "name": "Peruvian pelican",
-          "aliases": ["Peruvian"]
+          "aliases": ["Peruvian", "Pelecanus thagus"]
         },
         {
           "name": "Pink-backed pelican",
-          "aliases": ["Pink-backed"]
+          "aliases": ["Pink-backed", "Pelecanus rufescens"]
         },
         {
           "name": "Spot-billed pelican",
-          "aliases": ["Spot-billed"]
+          "aliases": ["Spot-billed", "Grey pelican", "Pelecanus philippensis"]
         }
       ],
       "surface": ["Brown pelican", "American white pelican", "Australian pelican"],
@@ -26486,24 +26819,26 @@
             "Tapanuli orangutan",
             "Western gorilla"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept common/pygmy chimpanzee, binomials, orang-utan and familiar gorilla subspecies under parent species."
         }
       ],
       "expect": [8, 8],
       "answers": [
         {
-          "name": "Bonobo"
+          "name": "Bonobo",
+          "aliases": ["Pygmy chimpanzee", "Pan paniscus"]
         },
         {
           "name": "Bornean orangutan",
-          "aliases": ["Bornean", "Orangutan"]
+          "aliases": ["Bornean", "Orangutan", "Orang-utan", "Pongo pygmaeus"]
         },
         {
-          "name": "Chimpanzee"
+          "name": "Chimpanzee",
+          "aliases": ["Common chimpanzee", "Chimp", "Pan troglodytes"]
         },
         {
           "name": "Eastern gorilla",
-          "aliases": ["Eastern"]
+          "aliases": ["Eastern", "Mountain gorilla", "Eastern lowland gorilla", "Gorilla beringei"]
         },
         {
           "name": "Human",
@@ -26511,15 +26846,21 @@
         },
         {
           "name": "Sumatran orangutan",
-          "aliases": ["Sumatran"]
+          "aliases": ["Sumatran", "Pongo abelii"]
         },
         {
           "name": "Tapanuli orangutan",
-          "aliases": ["Tapanuli"]
+          "aliases": ["Tapanuli", "Pongo tapanuliensis"]
         },
         {
           "name": "Western gorilla",
-          "aliases": ["Gorilla", "Western"]
+          "aliases": [
+            "Gorilla",
+            "Western",
+            "Western lowland gorilla",
+            "Cross river gorilla",
+            "Gorilla gorilla"
+          ]
         }
       ],
       "surface": ["Human", "Chimpanzee", "Western gorilla"],
@@ -26641,7 +26982,7 @@
             "Tomas",
             "Wilma"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept Hurricane Katrina and Hurricane Andrew as unambiguous prefixed forms of the corresponding retired names."
         }
       ],
       "expect": [100, 100],
@@ -26659,7 +27000,8 @@
           "name": "Allison"
         },
         {
-          "name": "Andrew"
+          "name": "Andrew",
+          "aliases": ["Hurricane Andrew"]
         },
         {
           "name": "Anita"
@@ -26869,7 +27211,8 @@
           "name": "Juan"
         },
         {
-          "name": "Katrina"
+          "name": "Katrina",
+          "aliases": ["Hurricane Katrina"]
         },
         {
           "name": "Keith"
@@ -26980,54 +27323,62 @@
             "Strong/severe gale",
             "Violent storm"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Split alternate descriptions in combined source cells; force numbers identify corresponding descriptions 0-12."
         }
       ],
       "expect": [13, 13],
       "answers": [
         {
-          "name": "Calm"
+          "name": "Calm",
+          "aliases": ["Force 0"]
         },
         {
-          "name": "Fresh breeze"
+          "name": "Fresh breeze",
+          "aliases": ["Force 5"]
         },
         {
           "name": "Gale",
-          "aliases": ["Gale , fresh gale"]
+          "aliases": ["Gale , fresh gale", "Force 8", "Fresh gale"]
         },
         {
-          "name": "Gentle breeze"
+          "name": "Gentle breeze",
+          "aliases": ["Force 3"]
         },
         {
           "name": "Hurricane",
-          "aliases": ["Hurricane -force"]
+          "aliases": ["Hurricane -force", "Force 12"]
         },
         {
-          "name": "Light air"
+          "name": "Light air",
+          "aliases": ["Force 1"]
         },
         {
-          "name": "Light breeze"
+          "name": "Light breeze",
+          "aliases": ["Force 2"]
         },
         {
-          "name": "Moderate breeze"
+          "name": "Moderate breeze",
+          "aliases": ["Force 4"]
         },
         {
           "name": "Near gale",
-          "aliases": ["Moderate gale, near gale"]
+          "aliases": ["Moderate gale, near gale", "Force 7", "Moderate gale", "High wind"]
         },
         {
           "name": "Storm",
-          "aliases": ["Storm , whole gale"]
+          "aliases": ["Storm , whole gale", "Force 10", "Whole gale"]
         },
         {
-          "name": "Strong breeze"
+          "name": "Strong breeze",
+          "aliases": ["Force 6"]
         },
         {
           "name": "Strong gale",
-          "aliases": ["Strong/severe gale"]
+          "aliases": ["Strong/severe gale", "Force 9", "Severe gale"]
         },
         {
-          "name": "Violent storm"
+          "name": "Violent storm",
+          "aliases": ["Force 11"]
         }
       ],
       "surface": ["Calm", "Gale", "Storm"],
@@ -27065,22 +27416,31 @@
             "Spectacled bear",
             "Sun bear"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept scientific names and familiar subspecies names under the parent species; Asiatic, Malayan, black bear and honey bear are established common names."
         }
       ],
       "expect": [8, 8],
       "answers": [
         {
           "name": "American black bear",
-          "aliases": ["American black"]
+          "aliases": ["American black", "Black bear", "Ursus americanus"]
         },
         {
           "name": "Asian black bear",
-          "aliases": ["Asian black", "Moon", "Moon bear"]
+          "aliases": ["Asian black", "Moon", "Moon bear", "Asiatic black bear", "Ursus thibetanus"]
         },
         {
           "name": "Brown bear",
-          "aliases": ["Brown", "Grizzly", "Grizzly bear", "Kodiak", "Kodiak bear"]
+          "aliases": [
+            "Brown",
+            "Grizzly",
+            "Grizzly bear",
+            "Kodiak",
+            "Kodiak bear",
+            "Tibetan blue bear",
+            "Eurasian brown bear",
+            "Ursus arctos"
+          ]
         },
         {
           "name": "Giant panda",
@@ -27088,7 +27448,7 @@
         },
         {
           "name": "Polar bear",
-          "aliases": ["Polar"]
+          "aliases": ["Polar", "Ursus maritimus"]
         },
         {
           "name": "Sloth bear",
@@ -27100,7 +27460,7 @@
         },
         {
           "name": "Sun bear",
-          "aliases": ["Sun"]
+          "aliases": ["Sun", "Malayan sun bear", "Honey bear"]
         }
       ],
       "surface": ["Polar bear", "Brown bear", "Giant panda"],
@@ -27148,18 +27508,23 @@
             "Congo clawless otter",
             "Sea otter"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept binomials and established European/European river, Oriental small-clawed, Cape clawless and giant river names. River otter is conventional North American shorthand; sea cat identifies marine otter (Marine otter oldid 1369755923)."
         }
       ],
       "expect": [13, 13],
       "answers": [
         {
           "name": "African clawless otter",
-          "aliases": ["African clawless"]
+          "aliases": ["African clawless", "Cape clawless otter"]
         },
         {
           "name": "Asian small-clawed otter",
-          "aliases": ["Asian small-clawed", "Small-clawed", "Small-clawed otter"]
+          "aliases": [
+            "Asian small-clawed",
+            "Small-clawed",
+            "Small-clawed otter",
+            "Oriental small-clawed otter"
+          ]
         },
         {
           "name": "Congo clawless otter",
@@ -27167,11 +27532,11 @@
         },
         {
           "name": "Eurasian otter",
-          "aliases": ["Eurasian"]
+          "aliases": ["Eurasian", "European otter", "European river otter", "Lutra lutra"]
         },
         {
           "name": "Giant otter",
-          "aliases": ["Giant"]
+          "aliases": ["Giant", "Giant river otter", "Pteronura brasiliensis"]
         },
         {
           "name": "Hairy-nosed otter",
@@ -27179,7 +27544,7 @@
         },
         {
           "name": "Marine otter",
-          "aliases": ["Marine"]
+          "aliases": ["Marine", "Sea cat"]
         },
         {
           "name": "Neotropical otter",
@@ -27187,11 +27552,11 @@
         },
         {
           "name": "North American river otter",
-          "aliases": ["North American river"]
+          "aliases": ["North American river", "River otter", "Lontra canadensis"]
         },
         {
           "name": "Sea otter",
-          "aliases": ["Sea"]
+          "aliases": ["Sea", "Enhydra lutris"]
         },
         {
           "name": "Smooth-coated otter",
@@ -27255,7 +27620,7 @@
             "Sarus crane",
             "White-naped crane"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept Eurasian/Japanese/Manchurian names and Grus grus/Antigone canadensis binomials; African crowned crane spans two species."
         }
       ],
       "expect": [15, 15],
@@ -27277,7 +27642,7 @@
         },
         {
           "name": "Common crane",
-          "aliases": ["Common"]
+          "aliases": ["Common", "Eurasian crane", "Grus grus"]
         },
         {
           "name": "Demoiselle crane",
@@ -27293,11 +27658,11 @@
         },
         {
           "name": "Red-crowned crane",
-          "aliases": ["Red-crowned"]
+          "aliases": ["Red-crowned", "Japanese crane", "Manchurian crane"]
         },
         {
           "name": "Sandhill crane",
-          "aliases": ["Sandhill"]
+          "aliases": ["Sandhill", "Antigone canadensis"]
         },
         {
           "name": "Sarus crane",
@@ -27379,7 +27744,7 @@
             "Painted stork",
             "Wood stork"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept binomials, saddlebill and the traditional woolly-necked name for the Asian member of the former unsplit species."
         }
       ],
       "expect": [20, 20],
@@ -27400,11 +27765,11 @@
         },
         {
           "name": "Asian woolly-necked stork",
-          "aliases": ["Asian woolly-necked"]
+          "aliases": ["Asian woolly-necked", "Woolly-necked stork"]
         },
         {
           "name": "Black stork",
-          "aliases": ["Black"]
+          "aliases": ["Black", "Ciconia nigra"]
         },
         {
           "name": "Black-necked stork",
@@ -27441,7 +27806,7 @@
         },
         {
           "name": "Saddle-billed stork",
-          "aliases": ["Saddle-billed"]
+          "aliases": ["Saddle-billed", "Saddlebill"]
         },
         {
           "name": "Storm's stork",
@@ -27449,7 +27814,7 @@
         },
         {
           "name": "White stork",
-          "aliases": ["White"]
+          "aliases": ["White", "Ciconia ciconia"]
         },
         {
           "name": "Wood stork",
@@ -27499,40 +27864,50 @@
             "Cumulus",
             "Cumulonimbus"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Accept standard Ci/Cc/Cs/Ac/As/Ns/St/Sc/Cu/Cb abbreviations and cloud suffixes. Thundercloud/anvil cloud identify cumulonimbus; height classes and generic rain clouds are not individual genera."
         }
       ],
       "expect": [10, 10],
       "answers": [
         {
-          "name": "Altocumulus"
+          "name": "Altocumulus",
+          "aliases": ["Ac", "Altocumulus cloud"]
         },
         {
-          "name": "Altostratus"
+          "name": "Altostratus",
+          "aliases": ["As", "Altostratus cloud"]
         },
         {
-          "name": "Cirrocumulus"
+          "name": "Cirrocumulus",
+          "aliases": ["Cc", "Cirrocumulus cloud"]
         },
         {
-          "name": "Cirrostratus"
+          "name": "Cirrostratus",
+          "aliases": ["Cs", "Cirrostratus cloud"]
         },
         {
-          "name": "Cirrus"
+          "name": "Cirrus",
+          "aliases": ["Ci", "Cirrus cloud"]
         },
         {
-          "name": "Cumulonimbus"
+          "name": "Cumulonimbus",
+          "aliases": ["Cb", "Cumulonimbus cloud", "Thundercloud", "Anvil cloud"]
         },
         {
-          "name": "Cumulus"
+          "name": "Cumulus",
+          "aliases": ["Cu", "Cumulus cloud"]
         },
         {
-          "name": "Nimbostratus"
+          "name": "Nimbostratus",
+          "aliases": ["Ns", "Nimbostratus cloud"]
         },
         {
-          "name": "Stratocumulus"
+          "name": "Stratocumulus",
+          "aliases": ["Sc", "Stratocumulus cloud"]
         },
         {
-          "name": "Stratus"
+          "name": "Stratus",
+          "aliases": ["St", "Stratus cloud"]
         }
       ],
       "surface": ["Cirrus", "Cumulus", "Stratus"],
@@ -27586,7 +27961,7 @@
             "Omura's whale",
             "Rice's whale"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Finback and scientific binomials identify existing species; rorqual and right whale alone are broader groups, not species."
         }
       ],
       "expect": [16, 16],
@@ -27597,7 +27972,7 @@
         },
         {
           "name": "Blue whale",
-          "aliases": ["Blue"]
+          "aliases": ["Blue", "Balaenoptera musculus"]
         },
         {
           "name": "Bowhead whale",
@@ -27617,7 +27992,7 @@
         },
         {
           "name": "Fin whale",
-          "aliases": ["Fin"]
+          "aliases": ["Fin", "Finback", "Finback whale"]
         },
         {
           "name": "Gray whale",
@@ -27625,7 +28000,7 @@
         },
         {
           "name": "Humpback whale",
-          "aliases": ["Humpback"]
+          "aliases": ["Humpback", "Megaptera novaeangliae"]
         },
         {
           "name": "North Atlantic right whale",
@@ -27699,7 +28074,7 @@
             "Waved albatross",
             "White-capped albatross"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Snowy identifies Diomedea exulans (Snowy albatross oldid 1379042248); gray/grey variants accepted. Yellow-nosed is the traditional Atlantic name (Atlantic yellow-nosed albatross oldid 1354731517)."
         }
       ],
       "expect": [22, 22],
@@ -27714,7 +28089,7 @@
         },
         {
           "name": "Atlantic yellow-nosed albatross",
-          "aliases": ["Atlantic yellow-nosed"]
+          "aliases": ["Atlantic yellow-nosed", "Yellow-nosed albatross", "Yellow-nosed"]
         },
         {
           "name": "Black-browed albatross",
@@ -27738,7 +28113,7 @@
         },
         {
           "name": "Grey-headed albatross",
-          "aliases": ["Grey-headed"]
+          "aliases": ["Grey-headed", "Gray-headed albatross", "Gray-headed"]
         },
         {
           "name": "Indian yellow-nosed albatross",
@@ -27782,7 +28157,7 @@
         },
         {
           "name": "Wandering Albatross",
-          "aliases": ["Wandering"]
+          "aliases": ["Wandering", "Snowy albatross", "Snowy"]
         },
         {
           "name": "Waved albatross",
@@ -33986,7 +34361,7 @@
             "Volans",
             "Vulpecula"
           ],
-          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately."
+          "review": "Reviewed complete membership of the selected list/table and its stated time boundary; source rows and canonical counts pinned separately. Hunter identifies Orion; Scorpio/Capricorn are familiar names for Scorpius/Capricornus, not additional members."
         }
       ],
       "expect": [88, 88],
@@ -34039,7 +34414,8 @@
           "aliases": ["Little Dog"]
         },
         {
-          "name": "Capricornus"
+          "name": "Capricornus",
+          "aliases": ["Capricorn"]
         },
         {
           "name": "Carina"
@@ -34172,7 +34548,8 @@
           "name": "Ophiuchus"
         },
         {
-          "name": "Orion"
+          "name": "Orion",
+          "aliases": ["Hunter"]
         },
         {
           "name": "Pavo"
@@ -34211,7 +34588,8 @@
           "name": "Sagittarius"
         },
         {
-          "name": "Scorpius"
+          "name": "Scorpius",
+          "aliases": ["Scorpio"]
         },
         {
           "name": "Sculptor"
@@ -38403,7 +38781,7 @@
             "Yuan T. Lee",
             "Yves Chauvin"
           ],
-          "review": "All named laureates in the complete award table, including shared and declined awards. Unawarded-year labels are not canonical answers."
+          "review": "All named laureates in the complete award table, including shared and declined awards. Unawarded-year labels are not canonical answers. Accept John Goodenough and John Jumper without middle initials; these identify the existing laureates."
         }
       ],
       "expect": [200, 200],
@@ -38698,7 +39076,8 @@
           "name": "Johann Deisenhofer"
         },
         {
-          "name": "John B. Goodenough"
+          "name": "John B. Goodenough",
+          "aliases": ["John Goodenough"]
         },
         {
           "name": "John Cornforth"
@@ -38716,7 +39095,8 @@
           "name": "John Kendrew"
         },
         {
-          "name": "John M. Jumper"
+          "name": "John M. Jumper",
+          "aliases": ["John Jumper"]
         },
         {
           "name": "John Polanyi"
@@ -40150,7 +40530,7 @@
         {
           "page": "Earless seal",
           "revision": 1383620392,
-          "expect": [18, 18],
+          "expect": [19, 19],
           "members": [
             "Bearded seal",
             "Hooded seal",
@@ -40169,7 +40549,8 @@
             "Ross seal",
             "Crabeater seal",
             "Leopard seal",
-            "Weddell seal"
+            "Weddell seal",
+            "Caribbean monk seal"
           ],
           "reviewed": [
             "Bearded seal",
@@ -40189,12 +40570,13 @@
             "Ross seal",
             "Crabeater seal",
             "Leopard seal",
-            "Weddell seal"
+            "Weddell seal",
+            "Caribbean monk seal"
           ],
-          "review": "All 18 living species in the Phocidae taxonomy, excluding the extinct Caribbean monk seal. Recognized ringed-seal regional subspecies map to Ringed seal; fur seals and sea lions are not true seals."
+          "review": "All 18 living Phocidae species plus the recently extinct Caribbean monk seal explicitly named in the pinned taxonomy. The prompt does not say living. Recognized ringed-seal regional subspecies map to Ringed seal; fur seals and sea lions are excluded. Monk seal and elephant seal alone name multi-species groups."
         }
       ],
-      "expect": [18, 18],
+      "expect": [19, 19],
       "answers": [
         {
           "name": "Baikal seal"
@@ -40210,11 +40592,11 @@
         },
         {
           "name": "Grey seal",
-          "aliases": ["Gray seal"]
+          "aliases": ["Gray seal", "Halichoerus grypus"]
         },
         {
           "name": "Harbor seal",
-          "aliases": ["Harbour seal", "Common seal"]
+          "aliases": ["Harbour seal", "Common seal", "Phoca vitulina"]
         },
         {
           "name": "Harp seal"
@@ -40252,12 +40634,15 @@
         },
         {
           "name": "Weddell seal"
+        },
+        {
+          "name": "Caribbean monk seal"
         }
       ],
       "surface": ["Harbor seal", "Grey seal", "Leopard seal"],
       "pearl": "Crabeater seal",
       "people": false,
-      "review": "All 18 living species in the Phocidae taxonomy, excluding the extinct Caribbean monk seal. Recognized ringed-seal regional subspecies map to Ringed seal; fur seals and sea lions are not true seals."
+      "review": "All 18 living Phocidae species plus the recently extinct Caribbean monk seal explicitly named in the pinned taxonomy. The prompt does not say living. Recognized ringed-seal regional subspecies map to Ringed seal; fur seals and sea lions are excluded. Monk seal and elephant seal alone name multi-species groups."
     },
     {
       "id": "ancient-modern-wonders",
@@ -41115,7 +41500,7 @@
           "expect": [10, 10],
           "tables": [0],
           "column": 1,
-          "review": "Complete primary reference table. Element naming accepts indirect and debated namesakes documented in the source; terrestrial names are separate from celestial bodies. Element symbols are accepted as aliases; Mohs reference minerals are the original ten, not intermediate-hardness examples.",
+          "review": "Complete primary reference table. Element naming accepts indirect and debated namesakes documented in the source; terrestrial names are separate from celestial bodies. Element symbols are accepted as aliases; Mohs reference minerals are the original ten, not intermediate-hardness examples. Fluorspar/talcum are mineral synonyms; mineral/crystal suffixes identify existing references. Calcium carbonate/sulfate and silica are not unique mineral identities; gemstone varieties and commercial talcum powder are not separate members of the ten reference minerals.",
           "reviewed": [
             "Apatite",
             "Calcite",
@@ -41133,7 +41518,8 @@
       "expect": [10, 10],
       "answers": [
         {
-          "name": "Apatite"
+          "name": "Apatite",
+          "aliases": ["Apatite mineral"]
         },
         {
           "name": "Calcite"
@@ -41145,7 +41531,8 @@
           "name": "Diamond"
         },
         {
-          "name": "Fluorite"
+          "name": "Fluorite",
+          "aliases": ["Fluorspar"]
         },
         {
           "name": "Gypsum"
@@ -41155,10 +41542,12 @@
           "aliases": ["Orthoclase", "Feldspar"]
         },
         {
-          "name": "Quartz"
+          "name": "Quartz",
+          "aliases": ["Quartz crystal"]
         },
         {
-          "name": "Talc"
+          "name": "Talc",
+          "aliases": ["Talcum"]
         },
         {
           "name": "Topaz"
