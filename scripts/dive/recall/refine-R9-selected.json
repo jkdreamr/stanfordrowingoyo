@@ -1,0 +1,173 @@
+{
+  "lego-ideas-sets": [
+    "Saturn V",
+    "NASA Apollo Saturn V",
+    "Ship in a Bottle",
+    "Women of NASA",
+    "Central Perk",
+    "Friends",
+    "Seinfeld",
+    "The Office",
+    "Home Alone",
+    "Tree House",
+    "Grand Piano",
+    "Typewriter",
+    "Fender Stratocaster",
+    "Sesame Street",
+    "Doctor Who",
+    "Ghostbusters Ecto-1",
+    "DeLorean",
+    "Back to the Future",
+    "Yellow Submarine",
+    "Voltron",
+    "International Space Station",
+    "Pirates of Barracuda Bay",
+    "The Globe",
+    "The Starry Night",
+    "Jaws",
+    "Tuxedo Cat",
+    "Hocus Pocus",
+    "Orient Express",
+    "Polaroid Camera",
+    "Red London Telephone Box",
+    "Dungeons & Dragons",
+    "WALL-E",
+    "Minecraft",
+    "Exo Suit",
+    "The Big Bang Theory",
+    "Adventure Time",
+    "The Flintstones",
+    "Steamboat Willie",
+    "Old Fishing Store",
+    "Dinosaur Fossils",
+    "Medieval Blacksmith",
+    "Winnie the Pooh",
+    "Sonic the Hedgehog",
+    "Viking Village",
+    "The Insect Collection",
+    "The Botanical Garden",
+    "Twilight",
+    "The Goonies",
+    "Gremlins",
+    "Tintin",
+    "Snoopy's Doghouse",
+    "The X-Files",
+    "E.T.",
+    "Wallace & Gromit",
+    "Downton Abbey",
+    "Highclere Castle",
+    {
+      "guess": "Godzilla",
+      "invalid": "Ideas set #082, released 27 November 2026, after the October 2026 bound."
+    },
+    {
+      "guess": "Daft Punk",
+      "invalid": "Approved Ideas project announced October 2026 with no release by October 2026."
+    },
+    {
+      "guess": "Lunch Atop a Skyscraper",
+      "invalid": "Ideas review-stage project, not a released numbered set."
+    },
+    "Mineral Collection",
+    "Love Birds",
+    "Italian Riviera",
+    "Minifigure Vending Machine",
+    "Willy Wonka",
+    "The Nightmare Before Christmas",
+    "Luxo Jr.",
+    "Hayabusa",
+    "Curiosity Rover",
+    "Birds",
+    "Maze",
+    "Lighthouse",
+    "Table Football",
+    "A-Frame Cabin",
+    "BTS Dynamite",
+    "Jazz Quartet",
+    "Family Tree",
+    "Orange Cat",
+    "Sea Otters",
+    "La Catrina",
+    {
+      "guess": "Hogwarts Castle",
+      "invalid": "LEGO Harry Potter set, not a numbered Ideas set."
+    },
+    {
+      "guess": "Millennium Falcon",
+      "invalid": "LEGO Star Wars set, not a numbered Ideas set."
+    },
+    {
+      "guess": "Titanic",
+      "invalid": "LEGO Icons/Creator Expert set, not a numbered Ideas set."
+    }
+  ],
+  "uk-three-michelin-stars": [
+    "The Fat Duck",
+    "Fat Duck",
+    "Restaurant Gordon Ramsay",
+    "Gordon Ramsay",
+    "Royal Hospital Road",
+    "The Waterside Inn",
+    "Waterside Inn",
+    "Alain Ducasse at The Dorchester",
+    "The Dorchester",
+    "Alain Ducasse",
+    "The Ledbury",
+    "Ledbury",
+    "Core by Clare Smyth",
+    "Core",
+    "Clare Smyth",
+    "Sketch",
+    "Sketch Lecture Room",
+    "The Lecture Room and Library",
+    "Hélène Darroze at The Connaught",
+    "Helene Darroze",
+    "The Connaught",
+    "L'Enclume",
+    "Moor Hall",
+    {
+      "guess": "Le Gavroche",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Araki",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "Restaurant Sat Bains",
+      "invalid": "Not among the ten three-star UK restaurants in the official Michelin Guide Great Britain & Ireland 2026 selection."
+    },
+    {
+      "guess": "Le Manoir aux Quat'Saisons",
+      "invalid": "Not among the ten three-star UK restaurants in the official Michelin Guide Great Britain & Ireland 2026 selection."
+    },
+    {
+      "guess": "The Ritz",
+      "invalid": "Not among the ten three-star UK restaurants in the official Michelin Guide Great Britain & Ireland 2026 selection."
+    },
+    {
+      "guess": "Dinner by Heston Blumenthal",
+      "invalid": "Not among the ten three-star UK restaurants in the official Michelin Guide Great Britain & Ireland 2026 selection."
+    },
+    {
+      "guess": "The Hand and Flowers",
+      "invalid": "Not among the ten three-star UK restaurants in the official Michelin Guide Great Britain & Ireland 2026 selection."
+    },
+    {
+      "guess": "Ynyshir",
+      "invalid": "Not among the ten three-star UK restaurants in the official Michelin Guide Great Britain & Ireland 2026 selection."
+    },
+    {
+      "guess": "Chez Nico",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "La Tante Claire",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "Marco Pierre White",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    }
+  ]
+}

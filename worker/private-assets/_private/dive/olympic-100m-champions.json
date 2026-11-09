@@ -1,0 +1,34 @@
+{
+  "buckets": {
+    "7": "\nabraham\tb7\nashford\t9r\ndillard\tao\njackson\t6q\njohnson\t0\npaddock\t99\nrichter\tgl\nrudolph\ta8\nstecher\tg4\nstephen\t5f\nwilliam\t36\n",
+    "6": "\nalfred\t79\nbailey\t4h\nborzov\tkp\nflo jo\tcf\ngatlin\td6\ngreene\t4y\njarvis\t6b\njoyner\tcf\nmorrow\t5w\nwalker\t3n\n",
+    "10": "\nallan well\t2s\narmin hary\tfr\ncarl lewis\te\ngail dever\teg\njesse owen\t43\nusain bolt\t8f\n",
+    "16": "\nannegret richter\tgl\nharrison dillard\tao\nlinford christie\teu\nmarjorie jackson\t6q\n",
+    "11": "\narchie hahn\t81\nben johnson\t0\neddie tolan\tfd\nkondratyeva\tjd\nmarion jone\t1w\nralph craig\tr\nwalasiewicz\tk0\nwyomia tyus\tl6\n",
+    "14": "\nbetty cuthbert\t8s\nbetty robinson\t2b\ndonovan bailey\t4h\nevelyn ashford\t9r\nharold abraham\tb7\nlindy remigino\tiw\nmaurice greene\t4y\nrenate stecher\tg4\nthompson herah\th4\nvaleriy borzov\tkp\n",
+    "13": "\nblankers koen\ths\nhelen stephen\t5f\njulien alfred\t79\njustin gatlin\td6\nmarcell jacob\tdz\npercy william\t36\nreggie walker\t3n\nwilma rudolph\ta8\n",
+    "8": "\nbob haye\t1k\nchristie\teu\ncrawford\tie\ncuthbert\t8s\njim hine\t7p\nremigino\tiw\nrobinson\t2b\n",
+    "12": "\nbobby morrow\t5w\nfrank jarvis\t6b\nfraser pryce\tbp\nnestsiarenka\tlk\nstella walsh\tk0\nthomas burke\t15\n",
+    "4": "\nbolt\t8f\nhahn\t81\nhary\tfr\nhaye\t1k\nhine\t7p\njone\t1w\nlyle\tdm\nowen\t43\ntyus\tl6\nwell\t2s\n",
+    "5": "\nburke\t15\ncraig\tr\ndever\teg\nflojo\tcf\njacob\tdz\nlewis\te\ntolan\tfd\n",
+    "15": "\ncharley paddock\t99\nelaine thompson\th4\nhasely crawford\tie\n",
+    "21": "\nelaine thompson herah\th4\nstanisawa walasiewicz\tk0\n",
+    "19": "\nfanny blankers koen\ths\n",
+    "24": "\nflorence griffith joyner\tcf\n",
+    "20": "\nlamont marcell jacob\tdz\nlyudmila kondratyeva\tjd\n",
+    "9": "\nnoah lyle\tdm\n",
+    "17": "\nshelly ann fraser\tbp\n",
+    "23": "\nshelly ann fraser pryce\tbp\n",
+    "18": "\nyulia nestsiarenka\tlk\n"
+  },
+  "answers": "m\tBen Johnson\ns\tCarl Lewis\nm\tRalph Craig\nm\tThomas Burke\nm\tBob Hayes\nm\tMarion Jones\ng\tBetty Robinson\nm\tAllan Wells\nm\tPercy Williams\nm\tReggie Walker\ns\tJesse Owens\nm\tDonovan Bailey\nm\tMaurice Greene\nm\tHelen Stephens\nm\tBobby Morrow\nm\tFrank Jarvis\nm\tMarjorie Jackson\nm\tJulien Alfred\nm\tJim Hines\nm\tArchie Hahn\ns\tUsain Bolt\nm\tBetty Cuthbert\nm\tCharley Paddock\nr\tEvelyn Ashford\nr\tWilma Rudolph\nr\tHarrison Dillard\nr\tHarold Abrahams\nr\tShelly-Ann Fraser-Pryce\nr\tFlorence Griffith Joyner\nr\tJustin Gatlin\nr\tNoah Lyles\nr\tMarcell Jacobs\nr\tGail Devers\nr\tLinford Christie\nr\tEddie Tolan\nr\tArmin Hary\nd\tRenate Stecher\nd\tAnnegret Richter\ns\tElaine Thompson-Herah\nd\tFanny Blankers-Koen\nd\tHasely Crawford\nd\tLindy Remigino\nd\tLyudmila Kondratyeva\nd\tStanisława Walasiewicz\nd\tValeriy Borzov\nd\tWyomia Tyus\nd\tYulia Nestsiarenka\n",
+  "gem": { "answer": "Betty Robinson", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Carl Lewis", "tier": "surface", "points": 10 },
+    { "answer": "Jesse Owens", "tier": "surface", "points": 10 },
+    { "answer": "Usain Bolt", "tier": "surface", "points": 10 },
+    { "answer": "Renate Stecher", "tier": "deep", "points": 85 },
+    { "answer": "Annegret Richter", "tier": "deep", "points": 85 }
+  ],
+  "size": 47
+}

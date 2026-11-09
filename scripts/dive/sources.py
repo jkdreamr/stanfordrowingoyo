@@ -1,4 +1,4 @@
-"""Pinned build-time sources; raw responses are never committed."""
+"""Pinned build-time sources, including checksummed immutable local snapshots."""
 
 import csv
 import hashlib
@@ -12,6 +12,7 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 CACHE = Path(__file__).parent / '.cache' / 'constrained'
+SNAPSHOTS = Path(__file__).parent / 'snapshots'
 AGENT = 'StanfordOYO-DiveBuilder/2.0 (https://github.com/jkdreamr/stanfordrowingoyo)'
 
 
@@ -23,7 +24,20 @@ def fetch(url):
         with urllib.request.urlopen(request, timeout=90) as response:
             data = response.read()
         path.write_bytes(data)
-    return path.read_text()
+    return path.read_bytes().decode()
+
+
+def immutable_dataset(url):
+    parsed = urllib.parse.urlparse(url)
+    if not parsed.scheme:
+        path = (Path(__file__).parent / url).resolve()
+        return path.is_relative_to(SNAPSHOTS.resolve()) and path.is_file()
+    if parsed.scheme != 'https':
+        return False
+    if parsed.netloc == 'raw.githubusercontent.com':
+        return bool(re.fullmatch(r'/[^/]+/[^/]+/[a-f0-9]{40}/.+', parsed.path))
+    return (parsed.netloc in {'en.wikipedia.org', 'en.wiktionary.org'} and
+            bool(re.fullmatch(r'[1-9][0-9]*', urllib.parse.parse_qs(parsed.query).get('oldid', [''])[0])))
 
 
 def expect_count(values, expect, label):
@@ -48,13 +62,55 @@ def list_page(title, revision):
 def dataset(url, sha256, format):
     if not re.fullmatch(r'[a-f0-9]{64}', sha256):
         raise ValueError('Dataset requires a SHA-256 pin')
-    data = fetch(url)
+    if urllib.parse.urlparse(url).scheme:
+        data = fetch(url)
+    else:
+        path = (Path(__file__).parent / url).resolve()
+        if not path.is_relative_to(SNAPSHOTS.resolve()):
+            raise ValueError('Local dataset must be inside snapshots')
+        data = path.read_bytes().decode()
     if hashlib.sha256(data.encode()).hexdigest() != sha256:
         raise ValueError('Dataset checksum mismatch')
     if format == 'csv':
         return list(csv.DictReader(io.StringIO(data)))
     if format == 'json':
         return json.loads(data)
+    if format == 'json-title':
+        record = json.loads(data)
+        title = record.get('title') if isinstance(record, dict) else None
+        if not isinstance(title, str) or not title.strip():
+            raise ValueError('Book JSON requires a nonempty title')
+        return [title]
+    if format == 'html-title':
+        title = BeautifulSoup(data, 'html.parser').title
+        if title is None or not title.get_text(strip=True):
+            raise ValueError('Book HTML requires a nonempty title')
+        return [title.get_text(' ', strip=True)]
+    if format == 'lines':
+        return [line.strip() for line in data.splitlines() if line.strip()]
+    if format == 'ala-annual-2010s':
+        soup = BeautifulSoup(data, 'html.parser')
+        years, titles = set(), set()
+        for heading in soup.find_all(['h2', 'h3', 'h4']):
+            match = re.search(r'\b201[0-9]\b', heading.get_text())
+            if not match:
+                continue
+            year = int(match.group())
+            if year in years:
+                raise ValueError('Duplicate ALA annual list')
+            years.add(year)
+            listing = heading.find_next('ol')
+            entries = listing.find_all('li', recursive=False) if listing else []
+            expect_count(entries, [11, 11] if year == 2018 else [10, 10], f'ALA {year}')
+            for entry in entries:
+                title = entry.find(['em', 'i'])
+                if title is None:
+                    raise ValueError(f'ALA {year}: missing book title')
+                name = re.sub(r'\s+', ' ', title.get_text(' ', strip=True)).strip(' ,')
+                titles.add(re.sub(r' series$', '', name))
+        if years != set(range(2010, 2020)):
+            raise ValueError('Missing ALA annual list')
+        return sorted(titles)
     raise ValueError(f'Unsupported dataset format: {format}')
 
 

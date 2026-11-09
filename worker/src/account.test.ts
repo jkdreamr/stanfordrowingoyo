@@ -162,6 +162,7 @@ beforeEach(async () => {
         'kudos',
         'comments',
         'dive_answers',
+        'dive_attempts',
         'game_results',
         'comment_mentions',
         'notifications',
@@ -219,6 +220,7 @@ describe('GET /api/me/export', () => {
       [
         'comments',
         'dive_answers',
+        'dive_attempts',
         'game_results',
         'erg_tests',
         'exported_at',

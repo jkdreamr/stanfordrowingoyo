@@ -1,9 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import type { DiveAnswerResult } from '../../../../shared/types';
+import type { DiveAnswerResult, DivePending } from '../../../../shared/types';
 import { Button, TextField } from '../../components/ui';
 import { api, ApiClientError } from '../../lib/api';
-import { DIVE_PROMPTS_PER_DAY } from '../../../../shared/games/dive';
+import {
+  DIVE_MAX_WRONG_GUESSES,
+  DIVE_PROMPT_MS,
+  DIVE_PROMPTS_PER_DAY,
+} from '../../../../shared/games/dive';
+
+type Submission = { kind: 'guess'; value: string } | { kind: 'suggestion'; accept: boolean };
+function isConflict(error: unknown) {
+  return error instanceof ApiClientError && error.status === 409;
+}
+function isTooFast(error: unknown) {
+  return error instanceof ApiClientError && error.detail.code === 'TOO_FAST';
+}
 
 export function deadlineKey(userId: string, date: string, index: number) {
   return `oyo:dive:${userId}:${date}:${index}`;
@@ -20,49 +32,162 @@ export function Prompt({
   prompt,
   index,
   storageKey,
+  pending,
   onSaved,
   onConflict,
 }: {
   prompt: string;
   index: number;
   storageKey: string;
+  pending?: DivePending | null;
   onSaved: (answer: DiveAnswerResult) => void;
   onConflict: () => Promise<unknown>;
 }) {
-  const [deadline] = useState(() => {
-    const value = savedDeadline(storageKey) ?? Date.now() + 25000;
-    try {
-      localStorage.setItem(storageKey, String(value));
-    } catch {
-      /* The in-memory deadline still applies. */
-    }
-    return value;
-  });
-  const [remaining, setRemaining] = useState(() => Math.max(0, deadline - Date.now()));
+  const [deadline, setDeadline] = useState(
+    () =>
+      performance.now() +
+      Math.max(
+        0,
+        Math.min(
+          DIVE_PROMPT_MS,
+          pending?.deadline_ms_remaining ??
+            (savedDeadline(storageKey) ?? Date.now() + DIVE_PROMPT_MS) - Date.now(),
+        ),
+      ),
+  );
+  const deadlineRef = useRef(deadline);
+  const form = useRef<HTMLFormElement>(null);
+  const locked = useRef(false);
+  const submittedText = useRef('');
+  const finished = useRef(false);
+  const timeoutSent = useRef(false);
+  const [started, setStarted] = useState(false);
+  const [remaining, setRemaining] = useState(() => Math.max(0, deadline - performance.now()));
   const [answer, setAnswer] = useState('');
-  const attempted = useRef(false);
-  const mutation = useMutation({
-    mutationFn: (value: string) =>
-      api('POST /api/games/dive/answers', { body: { prompt_index: index, answer: value } }),
-    onSuccess: onSaved,
+  const [suggestion, setSuggestion] = useState(() =>
+    pending?.suggestion ? { canonical: pending.suggestion, typed: '' } : null,
+  );
+  const [attemptsLeft, setAttemptsLeft] = useState(
+    pending?.attempts_left ?? DIVE_MAX_WRONG_GUESSES,
+  );
+  const [feedback, setFeedback] = useState<string | null>(null);
+  const [shake, setShake] = useState(false);
+  const focusInput = () => form.current?.querySelector('input')?.focus({ preventScroll: true });
+  const wrongAnswer = (left: number) => {
+    setAttemptsLeft(left);
+    const unchanged = form.current?.querySelector('input')?.value === submittedText.current;
+    if (unchanged) setAnswer('');
+    setSuggestion(null);
+    setFeedback(unchanged ? 'Not an answer' : null);
+    setShake(unchanged);
+    focusInput();
+  };
+  const startMutation = useMutation({
+    mutationFn: async () => {
+      const sent = performance.now();
+      const response = await api('POST /api/games/dive/start', { body: { prompt_index: index } });
+      return {
+        ...response,
+        deadline_ms_remaining: Math.max(
+          0,
+          response.deadline_ms_remaining - (performance.now() - sent),
+        ),
+      };
+    },
+    onSuccess: (response) => {
+      const value = performance.now() + response.deadline_ms_remaining;
+      deadlineRef.current = value;
+      setDeadline(value);
+      setRemaining(response.deadline_ms_remaining);
+      setStarted(true);
+      try {
+        localStorage.setItem(storageKey, String(Date.now() + response.deadline_ms_remaining));
+      } catch {
+        /* The in-memory deadline still applies. */
+      }
+    },
     onError: async (error) => {
-      if (Date.now() < deadline) attempted.current = false;
-      if (
-        error instanceof ApiClientError &&
-        ['ALREADY_ANSWERED', 'OUT_OF_ORDER'].includes(error.detail.code)
-      )
-        await onConflict();
+      if (isConflict(error)) await onConflict();
+    },
+  });
+  const begin = startMutation.mutate;
+  useEffect(() => {
+    begin();
+  }, [begin]);
+  const mutation = useMutation({
+    mutationFn: async (submission: Submission) => {
+      const sent = performance.now();
+      const response = await (submission.kind === 'suggestion'
+        ? api('POST /api/games/dive/suggestion', {
+            body: { prompt_index: index, accept: submission.accept },
+          })
+        : api('POST /api/games/dive/guesses', {
+            body: { prompt_index: index, answer: submission.value },
+          }));
+      return response.outcome === 'suggestion'
+        ? {
+            ...response,
+            deadline_ms_remaining: Math.max(
+              0,
+              response.deadline_ms_remaining - (performance.now() - sent),
+            ),
+          }
+        : response;
+    },
+    onSuccess: (response, submission) => {
+      if (response.outcome === 'scored') {
+        finished.current = true;
+        try {
+          localStorage.removeItem(storageKey);
+        } catch {
+          /* Storage may be unavailable. */
+        }
+        onSaved(response.answer);
+      } else if (response.outcome === 'suggestion') {
+        setAttemptsLeft(response.attempts_left);
+        setFeedback(null);
+        if (
+          submission.kind === 'guess' &&
+          form.current?.querySelector('input')?.value.trim() === submission.value
+        )
+          setSuggestion({ canonical: response.suggestion, typed: submission.value });
+        const value = Math.min(
+          deadlineRef.current,
+          performance.now() + response.deadline_ms_remaining,
+        );
+        deadlineRef.current = value;
+        setDeadline(value);
+        setRemaining(Math.max(0, value - performance.now()));
+        focusInput();
+      } else wrongAnswer(response.attempts_left);
+    },
+    onError: async (error) => {
+      if (isConflict(error)) await onConflict();
+    },
+    onSettled: () => {
+      locked.current = false;
     },
   });
   const mutate = mutation.mutate;
+  const send = useCallback(
+    (submission: Submission) => {
+      if (locked.current || finished.current) return;
+      locked.current = true;
+      submittedText.current = form.current?.querySelector('input')?.value ?? '';
+      if (performance.now() >= deadlineRef.current) {
+        timeoutSent.current = true;
+        mutate({ kind: 'guess', value: '' });
+      } else mutate(submission);
+    },
+    [mutate],
+  );
   useEffect(() => {
+    if (!started) return;
     function tick() {
-      const time = Math.max(0, deadline - Date.now());
+      const time = Math.max(0, deadline - performance.now());
       setRemaining(time);
-      if (time === 0 && !attempted.current) {
-        attempted.current = true;
-        mutate('');
-      }
+      if (time === 0 && !timeoutSent.current && !locked.current && !finished.current)
+        send({ kind: 'guess', value: '' });
     }
     tick();
     const timer = setInterval(tick, 200);
@@ -73,15 +198,42 @@ export function Prompt({
       document.removeEventListener('visibilitychange', tick);
       window.removeEventListener('pageshow', tick);
     };
-  }, [deadline, mutate]);
+  }, [deadline, started, send]);
+  useEffect(() => {
+    if (!shake) return;
+    const timer = setTimeout(() => setShake(false), 280);
+    return () => clearTimeout(timer);
+  }, [shake]);
+  useEffect(() => {
+    const keepVisible = () => {
+      if (form.current?.contains(document.activeElement))
+        form.current.lastElementChild?.scrollIntoView?.({ block: 'nearest', behavior: 'instant' });
+    };
+    keepVisible();
+    window.addEventListener('resize', keepVisible);
+    window.visualViewport?.addEventListener('resize', keepVisible);
+    return () => {
+      window.removeEventListener('resize', keepVisible);
+      window.visualViewport?.removeEventListener('resize', keepVisible);
+    };
+  }, [answer, started, suggestion, feedback, attemptsLeft]);
+  const error =
+    startMutation.error ??
+    (isTooFast(mutation.error) || isConflict(mutation.error) ? null : mutation.error);
   return (
     <form
+      ref={form}
       className="dive-prompt space-y-4"
       onSubmit={(event) => {
         event.preventDefault();
-        if (mutation.isPending) return;
-        attempted.current = true;
-        mutate(Date.now() >= deadline ? '' : answer.trim());
+        focusInput();
+        if (!started) {
+          if (!startMutation.isPending) begin();
+          return;
+        }
+        if (suggestion && answer.trim() === suggestion.typed)
+          send({ kind: 'suggestion', accept: true });
+        else send({ kind: 'guess', value: answer.trim() });
       }}
     >
       <div className="flex items-center justify-between gap-4">
@@ -101,7 +253,9 @@ export function Prompt({
               cy="28"
               r="24"
               strokeDasharray={2 * Math.PI * 24}
-              strokeDashoffset={2 * Math.PI * 24 * (1 - remaining / 25000)}
+              strokeDashoffset={
+                2 * Math.PI * 24 * (1 - Math.min(remaining, DIVE_PROMPT_MS) / DIVE_PROMPT_MS)
+              }
             />
           </svg>
           <span className="dive-timer-value" aria-hidden="true">
@@ -120,24 +274,103 @@ export function Prompt({
       <h2 className="dive-prompt-title text-title2" tabIndex={-1}>
         {prompt}
       </h2>
-      <TextField
-        label="Your Answer"
-        value={answer}
-        maxLength={40}
-        autoComplete="off"
-        autoCapitalize="sentences"
-        disabled={mutation.isPending || remaining === 0}
-        onChange={(event) => setAnswer(event.target.value)}
-        error={mutation.error ? mutation.error.message : undefined}
-      />
-      <Button
-        type="submit"
-        fullWidth
-        loading={mutation.isPending}
-        disabled={!answer.trim() && remaining > 0}
-      >
-        {mutation.isError ? 'Retry' : remaining === 0 ? 'Time’s Up' : 'Dive'}
-      </Button>
+      <div className="dive-answer-area">
+        <div className={shake ? 'dive-input-shake' : undefined}>
+          <TextField
+            label="Your Answer"
+            value={answer}
+            maxLength={60}
+            autoComplete="off"
+            autoCapitalize="sentences"
+            autoFocus
+            readOnly={started && remaining === 0}
+            onChange={(event) => {
+              setAnswer(event.target.value);
+              setFeedback(null);
+              setShake(false);
+              setSuggestion(null);
+              if (!locked.current) mutation.reset();
+            }}
+            onKeyDown={(event) => {
+              if (
+                event.key === 'Enter' &&
+                !event.nativeEvent.isComposing &&
+                suggestion &&
+                answer.trim() === suggestion.typed
+              ) {
+                event.preventDefault();
+                if (started) send({ kind: 'suggestion', accept: true });
+              }
+              if (event.key === 'Escape' && suggestion) {
+                event.preventDefault();
+                if (started) send({ kind: 'suggestion', accept: false });
+              }
+            }}
+            error={error && !isConflict(error) ? error.message : undefined}
+          />
+        </div>
+        <div className={suggestion ? 'dive-suggestion' : 'dive-feedback'}>
+          <div role="status" aria-atomic="true">
+            {suggestion && (
+              <p>
+                Did you mean <strong>{suggestion.canonical}</strong>?
+              </p>
+            )}
+            {feedback && <p className="dive-wrong-feedback">{feedback}</p>}
+            {attemptsLeft <= 5 && (
+              <p className="text-footnote text-muted">
+                {attemptsLeft} {attemptsLeft === 1 ? 'Guess' : 'Guesses'} Left
+              </p>
+            )}
+            {suggestion && attemptsLeft <= 5 && (
+              <p className="text-footnote text-muted">
+                {attemptsLeft === 1
+                  ? 'Rejecting this suggestion or submitting another answer ends this prompt.'
+                  : 'Rejecting this suggestion or submitting another answer uses a guess.'}
+              </p>
+            )}
+          </div>
+          {suggestion && (
+            <div className="dive-suggestion-actions">
+              <Button
+                disabled={!started || mutation.isPending || remaining === 0}
+                onPointerDown={(event) => event.preventDefault()}
+                onClick={() => {
+                  focusInput();
+                  send({ kind: 'suggestion', accept: true });
+                }}
+              >
+                Yes
+              </Button>
+              <Button
+                variant="secondary"
+                disabled={!started || mutation.isPending || remaining === 0}
+                onPointerDown={(event) => event.preventDefault()}
+                onClick={() => {
+                  focusInput();
+                  send({ kind: 'suggestion', accept: false });
+                }}
+              >
+                No
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+      {(!suggestion || !!error) && (
+        <Button
+          type="submit"
+          fullWidth
+          loading={mutation.isPending || startMutation.isPending}
+          onPointerDown={(event) => event.preventDefault()}
+          disabled={
+            (!started && !startMutation.isError) ||
+            (!answer.trim() && remaining > 0 && !startMutation.isError)
+          }
+        >
+          {error ? 'Retry' : remaining === 0 ? 'Time’s Up' : 'Dive'}
+        </Button>
+      )}
     </form>
   );
 }

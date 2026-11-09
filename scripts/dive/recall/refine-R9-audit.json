@@ -1,0 +1,88 @@
+{
+  "baseBranch": "devin/1794186244-dive-did-you-mean",
+  "baseCommit": "d9f96cf",
+  "reviewDate": "2026-11-09",
+  "rawSha256": "391d32335f296d3975f40bb7d685653c674e87aa31df7fdab1890eb8cb422417",
+  "selectedSha256": "8258fb876f464e0e99fcc321275b3d0822314825d3325f6ec6adbc133ca4e204",
+  "rawGuesses": 116,
+  "reviewedInvalid": 17,
+  "corpusLayer": "Registered in scripts/dive/recall.mjs after the disjoint selected files; R9 prompts replace earlier frozen corpora for the same prompt ids.",
+  "workerGzip": {
+    "afterKiB": 2993.77,
+    "limitKiB": 3072,
+    "note": "npm run build dry run on the R9 tree."
+  },
+  "fullCorpus": {
+    "before": "8741/8783 (99.52%) at d9f96cf data",
+    "after": "8754/8783 (99.67%)"
+  },
+  "prompts": [
+    {
+      "id": "lego-ideas-sets",
+      "before": {
+        "hits": 66,
+        "total": 76,
+        "rate": 0.868421052631579
+      },
+      "after": {
+        "hits": 76,
+        "total": 76,
+        "rate": 1
+      },
+      "answersRemoved": [],
+      "answersAdded": [],
+      "aliasesAdded": {
+        "The Orient Express Train": ["Orient Express"],
+        "Polaroid Onestep SX-70 Camera": ["Polaroid Camera", "Polaroid"],
+        "Twilight The Cullen House": ["Twilight", "The Cullen House"],
+        "The Adventures of Tintin": ["Tintin"],
+        "E.T. The Extra-Terrestrial": ["E.T."],
+        "Downton Abbey": ["Highclere Castle"],
+        "Willy Wonka & the Chocolate Factory": ["Willy Wonka"],
+        "Disney Pixar Luxo Jr.": ["Luxo Jr."],
+        "Motorised Lighthouse": ["Lighthouse", "Motorized Lighthouse"],
+        "Floating Sea Otters": ["Sea Otters"]
+      }
+    },
+    {
+      "id": "uk-three-michelin-stars",
+      "before": {
+        "hits": 20,
+        "total": 23,
+        "rate": 0.8695652173913043
+      },
+      "after": {
+        "hits": 23,
+        "total": 23,
+        "rate": 1
+      },
+      "answersRemoved": [
+        "Le Gavroche",
+        "Chez Nico",
+        "La Tante Claire",
+        "The Restaurant Marco Pierre White",
+        "The Araki"
+      ],
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Alain Ducasse at the Dorchester": ["The Dorchester"],
+        "Core by Clare Smyth": ["Clare Smyth"],
+        "Sketch (The Lecture Room & Library)": ["Sketch Lecture Room"]
+      }
+    }
+  ],
+  "batch3Amendment": {
+    "file": "batch-3-selected.json",
+    "prompt": "uk-three-michelin-stars",
+    "markedInvalid": [
+      "Le Gavroche",
+      "La Tante Claire",
+      "The Restaurant Marco Pierre White",
+      "Marco Pierre White",
+      "The Oak Room",
+      "The Araki",
+      "Araki"
+    ],
+    "after": "17/17 (100%); batch-3-audit after updated to match."
+  }
+}

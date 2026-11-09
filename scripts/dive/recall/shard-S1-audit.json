@@ -1,0 +1,706 @@
+{
+  "baseline_sha256": "03c5d365f1f14a5dc0e2013b71fe1f0c153d89e41c5c818f537af0334004405c",
+  "raw_corpus_sha256": "10396777119d34a7b0631b0f858947ad219ac70b2c0d86758204d208e0e27b7f",
+  "selected_corpus_sha256": "5ed84e51963e661785e5441378107d20a1b0d342387c0c6c3b3fd005d0805a84",
+  "initial_specs_sha256": "80484cc1f772c6e1adcae3c7e8f262bc09b441ff9efa3c5efe8d42f5cf35e64e",
+  "initial_specs_ref": "73e32e3ea888bec50542404dea973e2f51fa0837",
+  "gzip_method": "Whole-Worker npm run build / Wrangler 4.158.0 dry-run Total Upload gzip, Node v24.22.2; printed KiB rounded to 2 decimals, not additive per-module estimates.",
+  "gzip_kib": {
+    "before": 2946.24,
+    "after": 2950.12,
+    "delta": 3.88,
+    "budget_delta": 4
+  },
+  "corpus": {
+    "prompts": 51,
+    "guesses": 1893,
+    "invalid": 128
+  },
+  "before": {
+    "baseline": {
+      "hits": 1274,
+      "total": 1350
+    },
+    "shard": {
+      "hits": 1507,
+      "total": 1765
+    }
+  },
+  "after": {
+    "baseline": {
+      "hits": 1344,
+      "total": 1350
+    },
+    "shard": {
+      "hits": 1701,
+      "total": 1765
+    }
+  },
+  "aliases_added": 665,
+  "answers_added": 0,
+  "prompts": [
+    {
+      "id": "africa-capitals",
+      "before": {
+        "baseline": [36, 36],
+        "shard": [44, 44]
+      },
+      "after": {
+        "baseline": [36, 36],
+        "shard": [44, 44]
+      },
+      "aliases_added": 7,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "africa-countries",
+      "before": {
+        "baseline": [39, 40],
+        "shard": [45, 45]
+      },
+      "after": {
+        "baseline": [40, 40],
+        "shard": [45, 45]
+      },
+      "aliases_added": 16,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "africa-landlocked",
+      "before": {
+        "baseline": [17, 18],
+        "shard": [19, 26]
+      },
+      "after": {
+        "baseline": [18, 18],
+        "shard": [26, 26]
+      },
+      "aliases_added": 9,
+      "flags": []
+    },
+    {
+      "id": "americas-capitals",
+      "before": {
+        "baseline": [38, 41],
+        "shard": [40, 42]
+      },
+      "after": {
+        "baseline": [41, 41],
+        "shard": [42, 42]
+      },
+      "aliases_added": 9,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "ancient-modern-wonders",
+      "before": {
+        "baseline": [21, 24],
+        "shard": [21, 28]
+      },
+      "after": {
+        "baseline": [24, 24],
+        "shard": [28, 28]
+      },
+      "aliases_added": 14,
+      "flags": []
+    },
+    {
+      "id": "asia-capitals",
+      "before": {
+        "baseline": [36, 40],
+        "shard": [39, 43]
+      },
+      "after": {
+        "baseline": [40, 40],
+        "shard": [43, 43]
+      },
+      "aliases_added": 24,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "asia-countries",
+      "before": {
+        "baseline": [39, 40],
+        "shard": [44, 45]
+      },
+      "after": {
+        "baseline": [40, 40],
+        "shard": [45, 45]
+      },
+      "aliases_added": 31,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "australia-states-territories",
+      "before": {
+        "baseline": [25, 25],
+        "shard": [28, 29]
+      },
+      "after": {
+        "baseline": [25, 25],
+        "shard": [29, 29]
+      },
+      "aliases_added": 6,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "australia-world-heritage",
+      "before": {
+        "baseline": [25, 36],
+        "shard": [26, 38]
+      },
+      "after": {
+        "baseline": [36, 36],
+        "shard": [38, 38]
+      },
+      "aliases_added": 20,
+      "flags": []
+    },
+    {
+      "id": "borders-china",
+      "before": {
+        "baseline": [16, 16],
+        "shard": [21, 26]
+      },
+      "after": {
+        "baseline": [16, 16],
+        "shard": [26, 26]
+      },
+      "aliases_added": 14,
+      "flags": []
+    },
+    {
+      "id": "borders-france",
+      "before": {
+        "baseline": [12, 12],
+        "shard": [14, 27]
+      },
+      "after": {
+        "baseline": [12, 12],
+        "shard": [27, 27]
+      },
+      "aliases_added": 25,
+      "flags": []
+    },
+    {
+      "id": "borders-russia",
+      "before": {
+        "baseline": [14, 14],
+        "shard": [18, 24]
+      },
+      "after": {
+        "baseline": [14, 14],
+        "shard": [24, 24]
+      },
+      "aliases_added": 16,
+      "flags": []
+    },
+    {
+      "id": "brazil-states",
+      "before": {
+        "baseline": [33, 34],
+        "shard": [38, 42]
+      },
+      "after": {
+        "baseline": [34, 34],
+        "shard": [42, 42]
+      },
+      "aliases_added": 30,
+      "flags": []
+    },
+    {
+      "id": "canada-national-parks",
+      "before": {
+        "baseline": [34, 35],
+        "shard": [43, 44]
+      },
+      "after": {
+        "baseline": [35, 35],
+        "shard": [44, 44]
+      },
+      "aliases_added": 17,
+      "flags": []
+    },
+    {
+      "id": "canada-provinces",
+      "before": {
+        "baseline": [14, 20],
+        "shard": [14, 31]
+      },
+      "after": {
+        "baseline": [19, 20],
+        "shard": [31, 31]
+      },
+      "aliases_added": 25,
+      "flags": ["baseline-labrador-nonmember", "plain-prompt-editorial-review"]
+    },
+    {
+      "id": "china-provinces",
+      "before": {
+        "baseline": [23, 23],
+        "shard": [23, 29]
+      },
+      "after": {
+        "baseline": [23, 23],
+        "shard": [29, 29]
+      },
+      "aliases_added": 24,
+      "flags": []
+    },
+    {
+      "id": "countries-b",
+      "before": {
+        "baseline": [19, 20],
+        "shard": [23, 27]
+      },
+      "after": {
+        "baseline": [19, 20],
+        "shard": [23, 27]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "countries-ia",
+      "before": {
+        "baseline": [39, 39],
+        "shard": [40, 41]
+      },
+      "after": {
+        "baseline": [39, 39],
+        "shard": [40, 41]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "countries-m",
+      "before": {
+        "baseline": [19, 21],
+        "shard": [20, 25]
+      },
+      "after": {
+        "baseline": [19, 21],
+        "shard": [20, 25]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "countries-no-a",
+      "before": {
+        "baseline": [32, 32],
+        "shard": [35, 35]
+      },
+      "after": {
+        "baseline": [32, 32],
+        "shard": [35, 35]
+      },
+      "aliases_added": 0,
+      "flags": []
+    },
+    {
+      "id": "countries-s",
+      "before": {
+        "baseline": [30, 30],
+        "shard": [30, 31]
+      },
+      "after": {
+        "baseline": [30, 30],
+        "shard": [30, 31]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "countries-same-letter",
+      "before": {
+        "baseline": [16, 16],
+        "shard": [29, 29]
+      },
+      "after": {
+        "baseline": [16, 16],
+        "shard": [29, 29]
+      },
+      "aliases_added": 0,
+      "flags": []
+    },
+    {
+      "id": "countries-vowel",
+      "before": {
+        "baseline": [38, 39],
+        "shard": [39, 40]
+      },
+      "after": {
+        "baseline": [38, 39],
+        "shard": [39, 40]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "countries-with-z",
+      "before": {
+        "baseline": [17, 18],
+        "shard": [23, 27]
+      },
+      "after": {
+        "baseline": [17, 18],
+        "shard": [23, 27]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "english-counties",
+      "before": {
+        "baseline": [39, 40],
+        "shard": [45, 45]
+      },
+      "after": {
+        "baseline": [40, 40],
+        "shard": [45, 45]
+      },
+      "aliases_added": 2,
+      "flags": []
+    },
+    {
+      "id": "eu-official-languages",
+      "before": {
+        "baseline": [26, 27],
+        "shard": [26, 31]
+      },
+      "after": {
+        "baseline": [27, 27],
+        "shard": [31, 31]
+      },
+      "aliases_added": 26,
+      "flags": []
+    },
+    {
+      "id": "europe-capitals",
+      "before": {
+        "baseline": [39, 40],
+        "shard": [43, 45]
+      },
+      "after": {
+        "baseline": [40, 40],
+        "shard": [45, 45]
+      },
+      "aliases_added": 18,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "europe-countries",
+      "before": {
+        "baseline": [40, 40],
+        "shard": [45, 45]
+      },
+      "after": {
+        "baseline": [40, 40],
+        "shard": [45, 45]
+      },
+      "aliases_added": 59,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "four-letter-countries",
+      "before": {
+        "baseline": [11, 11],
+        "shard": [22, 22]
+      },
+      "after": {
+        "baseline": [11, 11],
+        "shard": [22, 22]
+      },
+      "aliases_added": 0,
+      "flags": []
+    },
+    {
+      "id": "german-states",
+      "before": {
+        "baseline": [17, 26],
+        "shard": [18, 29]
+      },
+      "after": {
+        "baseline": [26, 26],
+        "shard": [29, 29]
+      },
+      "aliases_added": 15,
+      "flags": []
+    },
+    {
+      "id": "great-lakes-states",
+      "before": {
+        "baseline": [8, 8],
+        "shard": [16, 28]
+      },
+      "after": {
+        "baseline": [8, 8],
+        "shard": [28, 28]
+      },
+      "aliases_added": 16,
+      "flags": []
+    },
+    {
+      "id": "greek-letters",
+      "before": {
+        "baseline": [23, 24],
+        "shard": [25, 32]
+      },
+      "after": {
+        "baseline": [24, 24],
+        "shard": [28, 32]
+      },
+      "aliases_added": 4,
+      "flags": ["glyphs-normalize-empty", "plain-prompt-editorial-review"]
+    },
+    {
+      "id": "indian-states",
+      "before": {
+        "baseline": [33, 35],
+        "shard": [36, 43]
+      },
+      "after": {
+        "baseline": [35, 35],
+        "shard": [43, 43]
+      },
+      "aliases_added": 24,
+      "flags": []
+    },
+    {
+      "id": "island-countries",
+      "before": {
+        "baseline": [40, 40],
+        "shard": [44, 45]
+      },
+      "after": {
+        "baseline": [40, 40],
+        "shard": [44, 45]
+      },
+      "aliases_added": 13,
+      "flags": ["australia-scope-conflict"]
+    },
+    {
+      "id": "italian-regions",
+      "before": {
+        "baseline": [20, 30],
+        "shard": [21, 32]
+      },
+      "after": {
+        "baseline": [30, 30],
+        "shard": [32, 32]
+      },
+      "aliases_added": 17,
+      "flags": []
+    },
+    {
+      "id": "japan-prefectures",
+      "before": {
+        "baseline": [31, 31],
+        "shard": [45, 45]
+      },
+      "after": {
+        "baseline": [31, 31],
+        "shard": [45, 45]
+      },
+      "aliases_added": 0,
+      "flags": []
+    },
+    {
+      "id": "landlocked-countries",
+      "before": {
+        "baseline": [42, 42],
+        "shard": [45, 45]
+      },
+      "after": {
+        "baseline": [42, 42],
+        "shard": [45, 45]
+      },
+      "aliases_added": 42,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "mexico-states",
+      "before": {
+        "baseline": [32, 35],
+        "shard": [38, 43]
+      },
+      "after": {
+        "baseline": [35, 35],
+        "shard": [43, 43]
+      },
+      "aliases_added": 12,
+      "flags": []
+    },
+    {
+      "id": "nato-alphabet",
+      "before": {
+        "baseline": [27, 30],
+        "shard": [27, 30]
+      },
+      "after": {
+        "baseline": [30, 30],
+        "shard": [30, 30]
+      },
+      "aliases_added": 3,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "new-zealand-regions",
+      "before": {
+        "baseline": [17, 17],
+        "shard": [19, 25]
+      },
+      "after": {
+        "baseline": [17, 17],
+        "shard": [25, 25]
+      },
+      "aliases_added": 18,
+      "flags": []
+    },
+    {
+      "id": "oceania-countries",
+      "before": {
+        "baseline": [15, 17],
+        "shard": [18, 22]
+      },
+      "after": {
+        "baseline": [17, 17],
+        "shard": [21, 22]
+      },
+      "aliases_added": 4,
+      "flags": ["indonesia-scope-debatable", "plain-prompt-editorial-review"]
+    },
+    {
+      "id": "south-africa-languages",
+      "before": {
+        "baseline": [25, 25],
+        "shard": [27, 28]
+      },
+      "after": {
+        "baseline": [25, 25],
+        "shard": [28, 28]
+      },
+      "aliases_added": 2,
+      "flags": []
+    },
+    {
+      "id": "south-america-countries",
+      "before": {
+        "baseline": [12, 12],
+        "shard": [25, 29]
+      },
+      "after": {
+        "baseline": [12, 12],
+        "shard": [29, 29]
+      },
+      "aliases_added": 6,
+      "flags": ["plain-prompt-editorial-review"]
+    },
+    {
+      "id": "states-border-canada",
+      "before": {
+        "baseline": [13, 13],
+        "shard": [15, 29]
+      },
+      "after": {
+        "baseline": [13, 13],
+        "shard": [29, 29]
+      },
+      "aliases_added": 17,
+      "flags": []
+    },
+    {
+      "id": "states-end-a",
+      "before": {
+        "baseline": [21, 21],
+        "shard": [37, 37]
+      },
+      "after": {
+        "baseline": [21, 21],
+        "shard": [37, 37]
+      },
+      "aliases_added": 0,
+      "flags": []
+    },
+    {
+      "id": "states-m-n",
+      "before": {
+        "baseline": [16, 16],
+        "shard": [18, 36]
+      },
+      "after": {
+        "baseline": [16, 16],
+        "shard": [18, 36]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "states-mississippi",
+      "before": {
+        "baseline": [10, 10],
+        "shard": [20, 30]
+      },
+      "after": {
+        "baseline": [10, 10],
+        "shard": [30, 30]
+      },
+      "aliases_added": 16,
+      "flags": []
+    },
+    {
+      "id": "states-two-words",
+      "before": {
+        "baseline": [10, 10],
+        "shard": [20, 31]
+      },
+      "after": {
+        "baseline": [10, 10],
+        "shard": [20, 31]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "states-vowel",
+      "before": {
+        "baseline": [12, 12],
+        "shard": [24, 36]
+      },
+      "after": {
+        "baseline": [12, 12],
+        "shard": [24, 36]
+      },
+      "aliases_added": 0,
+      "flags": ["base-alias-blocked"]
+    },
+    {
+      "id": "swiss-cantons",
+      "before": {
+        "baseline": [27, 33],
+        "shard": [28, 39]
+      },
+      "after": {
+        "baseline": [33, 33],
+        "shard": [38, 39]
+      },
+      "aliases_added": 56,
+      "flags": ["basel-ambiguous"]
+    },
+    {
+      "id": "us-national-parks",
+      "before": {
+        "baseline": [36, 36],
+        "shard": [44, 45]
+      },
+      "after": {
+        "baseline": [36, 36],
+        "shard": [45, 45]
+      },
+      "aliases_added": 8,
+      "flags": []
+    }
+  ]
+}

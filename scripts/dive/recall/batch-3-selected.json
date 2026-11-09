@@ -1,0 +1,1450 @@
+{
+  "beyonce-studio-albums": [
+    "Dangerously in Love",
+    "B Day",
+    "BDay",
+    "B-Day",
+    "Beyonce",
+    "Beyoncé",
+    "4",
+    "I Am Sasha Fierce",
+    "I Am... Sasha Fierce",
+    "Sasha Fierce",
+    "Lemonade",
+    "Renaissance",
+    "Cowboy Carter",
+    "Act I Renaissance",
+    "Act II Cowboy Carter",
+    "CowboyCarter",
+    {
+      "guess": "Homecoming",
+      "invalid": "Live albums, not solo studio albums."
+    },
+    {
+      "guess": "The Lion King The Gift",
+      "invalid": "Soundtrack/curated compilation, not one of Beyoncé’s solo studio albums."
+    },
+    {
+      "guess": "The Gift",
+      "invalid": "Soundtrack/curated compilation, not one of Beyoncé’s solo studio albums."
+    },
+    {
+      "guess": "Everything Is Love",
+      "invalid": "Collaborative/group releases or artists, not Beyoncé solo studio albums."
+    },
+    {
+      "guess": "The Carters",
+      "invalid": "Collaborative/group releases or artists, not Beyoncé solo studio albums."
+    },
+    {
+      "guess": "Destinys Child",
+      "invalid": "Collaborative/group releases or artists, not Beyoncé solo studio albums."
+    },
+    {
+      "guess": "Survivor",
+      "invalid": "Collaborative/group releases or artists, not Beyoncé solo studio albums."
+    },
+    {
+      "guess": "The Writing s on the Wall",
+      "invalid": "Collaborative/group releases or artists, not Beyoncé solo studio albums."
+    },
+    {
+      "guess": "Dangerously In Love 2",
+      "invalid": "A song on the album Dangerously in Love, not a separate studio album."
+    },
+    {
+      "guess": "Live at Wembley",
+      "invalid": "Live albums, not solo studio albums."
+    }
+  ],
+  "big-brother-us-winners": [
+    "Eddie McGee",
+    "Will Kirby",
+    "Dr Will",
+    "Lisa Donahue",
+    "Jun Song",
+    "Drew Daniel",
+    "Maggie Ausburn",
+    "Mike Malin",
+    "Mike Boogie",
+    "Dick Donato",
+    "Evel Dick",
+    "Adam Jasinski",
+    "Dan Gheesling",
+    "Jordan Lloyd",
+    "Hayden Moss",
+    "Rachel Reilly",
+    "Ian Terry",
+    "Andy Herren",
+    "Derrick Levasseur",
+    "Steve Moses",
+    "Nicole Franzel",
+    "Josh Martinez",
+    "Kaycee Clark",
+    "Jackson Michie",
+    "Cody Calafiore",
+    "Xavier Prather",
+    "Taylor Hale",
+    "Jag Bains",
+    "Chelsie Baham",
+    {
+      "guess": "Morgan Willett",
+      "invalid": "Won Over the Top, not the main numbered US series."
+    },
+    {
+      "guess": "Tamar Braxton",
+      "invalid": "Won Celebrity Big Brother, not the main numbered US series."
+    },
+    {
+      "guess": "Marissa Jaret Winokur",
+      "invalid": "Won Celebrity Big Brother, not the main numbered US series."
+    }
+  ],
+  "bond-theme-songs": [
+    "James Bond Theme",
+    "Three Blind Mice",
+    "Kingston Calypso",
+    "From Russia with Love",
+    "Goldfinger",
+    "Thunderball",
+    "You Only Live Twice",
+    "On Her Majesty s Secret Service",
+    {
+      "guess": "We Have All the Time in the World",
+      "invalid": "Secondary/closing themes, not main-title themes of their films."
+    },
+    "Diamonds Are Forever",
+    "Live and Let Die",
+    "The Man with the Golden Gun",
+    "Nobody Does It Better",
+    "Moonraker",
+    "For Your Eyes Only",
+    "All Time High",
+    "A View to a Kill",
+    "The Living Daylights",
+    "Licence to Kill",
+    "License to Kill",
+    "GoldenEye",
+    "Tomorrow Never Dies",
+    {
+      "guess": "Surrender",
+      "invalid": "Secondary/closing themes, not main-title themes of their films."
+    },
+    "The World Is Not Enough",
+    "Die Another Day",
+    "You Know My Name",
+    "Another Way to Die",
+    "Skyfall",
+    "Writing s on the Wall",
+    "No Time to Die",
+    {
+      "guess": "007 Theme",
+      "invalid": "Secondary action theme, not a main-title theme in the official title-sequence table."
+    },
+    {
+      "guess": "Never Say Never Again",
+      "invalid": "Unofficial non-Eon Bond film, outside the specified official film series."
+    }
+  ],
+  "celebrations-chocolates": [
+    "Mars",
+    "Snickers",
+    "Twix",
+    "Bounty",
+    "Galaxy",
+    "Galaxy Caramel",
+    "Milky Way",
+    "Maltesers Teasers",
+    "Maltesers",
+    "Teasers",
+    "Mars bar",
+    "Snickers bar",
+    "Twix bar",
+    "Bounty bar",
+    "Galaxy chocolate",
+    "Galaxy caramel chocolate",
+    "Milky Way bar",
+    "Malteser",
+    "Malteser Teaser",
+    {
+      "guess": "Topic",
+      "invalid": "Discontinued Celebrations varieties, not the current standard UK assortment."
+    },
+    {
+      "guess": "Truffle",
+      "invalid": "Discontinued Celebrations varieties, not the current standard UK assortment."
+    },
+    {
+      "guess": "Dairy Milk",
+      "invalid": "Cadbury products, not members of the Mars Celebrations assortment."
+    },
+    {
+      "guess": "Wispa",
+      "invalid": "Cadbury products, not members of the Mars Celebrations assortment."
+    },
+    {
+      "guess": "Fudge",
+      "invalid": "Cadbury products, not members of the Mars Celebrations assortment."
+    },
+    {
+      "guess": "Crunchie",
+      "invalid": "Cadbury products, not members of the Mars Celebrations assortment."
+    }
+  ],
+  "christie-poirot-novels": [
+    "The Mysterious Affair at Styles",
+    "Mysterious Affair at Styles",
+    "The Murder on the Links",
+    "Murder on the Links",
+    "The Murder of Roger Ackroyd",
+    "Murder of Roger Ackroyd",
+    "The Big Four",
+    "Big Four",
+    "The Mystery of the Blue Train",
+    "Mystery of the Blue Train",
+    "Peril at End House",
+    "Lord Edgware Dies",
+    "Thirteen at Dinner",
+    "Murder on the Orient Express",
+    "Murder in Mesopotamia",
+    "Death on the Nile",
+    "Death in the Clouds",
+    "The ABC Murders",
+    "ABC Murders",
+    "Cards on the Table",
+    "Dumb Witness",
+    "Appointment with Death",
+    "Hercule Poirots Christmas",
+    "Sad Cypress",
+    "One Two Buckle My Shoe",
+    "Evil Under the Sun",
+    "Five Little Pigs",
+    "The Hollow",
+    "Taken at the Flood",
+    "Mrs McGintys Dead",
+    "After the Funeral",
+    "Hickory Dickory Dock",
+    "Dead Mans Folly",
+    "Cat Among the Pigeons",
+    "The Clocks",
+    "Third Girl",
+    "Halloween Party",
+    "Elephants Can Remember",
+    "Curtain",
+    {
+      "guess": "Black Coffee",
+      "invalid": "Christie wrote a play; its novelization is by Charles Osborne, not Christie."
+    },
+    {
+      "guess": "The Monogram Murders",
+      "invalid": "Written by Sophie Hannah, not Agatha Christie."
+    }
+  ],
+  "crayola-retired-1990": [
+    "Maize",
+    "Lemon Yellow",
+    "Blue Gray",
+    "Blue Grey",
+    "Raw Umber",
+    "Green Blue",
+    "Orange Red",
+    "Orange Yellow",
+    "Violet Blue",
+    "Green-Blue",
+    "Orange-Red",
+    "Orange-Yellow",
+    "Violet-Blue",
+    "Blue-Gray",
+    "Blue-Grey",
+    "Lemon-Yellow",
+    "Raw-Umber",
+    {
+      "guess": "Dandelion",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Blizzard Blue",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Mulberry",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Teal Blue",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Magic Mint",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Burnt Sienna",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Prussian Blue",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Flesh",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Indian Red",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    },
+    {
+      "guess": "Goldenrod",
+      "invalid": "Not among the eight 1990 retirements: other years, renamings or never retired. The source table records the individual years."
+    }
+  ],
+  "disney-princess-lineup": [
+    "Snow White",
+    "Cinderella",
+    "Aurora",
+    "Briar Rose",
+    "Sleeping Beauty",
+    "Ariel",
+    "Belle",
+    "Jasmine",
+    "Pocahontas",
+    "Mulan",
+    "Fa Mulan",
+    "Hua Mulan",
+    "Tiana",
+    "Rapunzel",
+    "Merida",
+    "Moana",
+    "Raya",
+    "Princess Jasmine",
+    "Princess Aurora",
+    "Princess Ariel",
+    "Princess Belle",
+    "Princess Tiana",
+    "Princess Rapunzel",
+    {
+      "guess": "Elsa",
+      "invalid": "Frozen is a separate brand; not official Disney Princess lineup members."
+    },
+    {
+      "guess": "Anna",
+      "invalid": "Frozen is a separate brand; not official Disney Princess lineup members."
+    },
+    {
+      "guess": "Esmeralda",
+      "invalid": "Disney characters/guest or honorary princesses, not members of the official 13-member brand lineup."
+    },
+    {
+      "guess": "Megara",
+      "invalid": "Disney characters/guest or honorary princesses, not members of the official 13-member brand lineup."
+    },
+    {
+      "guess": "Kida",
+      "invalid": "Disney characters/guest or honorary princesses, not members of the official 13-member brand lineup."
+    },
+    {
+      "guess": "Vanellope",
+      "invalid": "Disney characters/guest or honorary princesses, not members of the official 13-member brand lineup."
+    }
+  ],
+  "eevee-evolutions": [
+    "Vaporeon",
+    "Jolteon",
+    "Flareon",
+    "Espeon",
+    "Umbreon",
+    "Leafeon",
+    "Glaceon",
+    "Sylveon",
+    "Vaporeons",
+    "Jolteons",
+    "Flareons",
+    "Espeons",
+    "Umbreons",
+    "Leafeons",
+    "Glaceons",
+    "Sylveons",
+    {
+      "guess": "Eevee",
+      "invalid": "Eevee or a form of Eevee, not a species Eevee evolves into."
+    },
+    {
+      "guess": "Pikachu",
+      "invalid": "A different evolutionary family, not an Eevee evolution."
+    },
+    {
+      "guess": "Raichu",
+      "invalid": "A different evolutionary family, not an Eevee evolution."
+    },
+    {
+      "guess": "Pichu",
+      "invalid": "A different evolutionary family, not an Eevee evolution."
+    },
+    {
+      "guess": "Gigantamax Eevee",
+      "invalid": "Eevee or a form of Eevee, not a species Eevee evolves into."
+    },
+    {
+      "guess": "Gmax Eevee",
+      "invalid": "Eevee or a form of Eevee, not a species Eevee evolves into."
+    },
+    {
+      "guess": "Partner Eevee",
+      "invalid": "Eevee or a form of Eevee, not a species Eevee evolves into."
+    },
+    {
+      "guess": "Shiny Eevee",
+      "invalid": "Eevee or a form of Eevee, not a species Eevee evolves into."
+    },
+    {
+      "guess": "Dynamax Eevee",
+      "invalid": "Eevee or a form of Eevee, not a species Eevee evolves into."
+    }
+  ],
+  "fellowship-members": [
+    "Frodo Baggins",
+    "Frodo",
+    "Samwise Gamgee",
+    "Sam",
+    "Sam Gamgee",
+    "Samwise",
+    "Meriadoc Brandybuck",
+    "Merry",
+    "Merry Brandybuck",
+    "Peregrin Took",
+    "Pippin",
+    "Pippin Took",
+    "Aragorn",
+    "Strider",
+    "Elessar",
+    "Gandalf",
+    "Gandalf the Grey",
+    "Gandalf the White",
+    "Legolas",
+    "Legolas Greenleaf",
+    "Gimli",
+    "Gimli son of Gloin",
+    "Boromir",
+    {
+      "guess": "Bilbo Baggins",
+      "invalid": "Not one of the nine who set out from Rivendell as the Fellowship."
+    },
+    {
+      "guess": "Elrond",
+      "invalid": "Not one of the nine who set out from Rivendell as the Fellowship."
+    },
+    {
+      "guess": "Faramir",
+      "invalid": "Not one of the nine who set out from Rivendell as the Fellowship."
+    },
+    {
+      "guess": "Arwen",
+      "invalid": "Not one of the nine who set out from Rivendell as the Fellowship."
+    },
+    {
+      "guess": "Gollum",
+      "invalid": "Not one of the nine who set out from Rivendell as the Fellowship."
+    },
+    {
+      "guess": "Smeagol",
+      "invalid": "Not one of the nine who set out from Rivendell as the Fellowship."
+    },
+    {
+      "guess": "Thorin Oakenshield",
+      "invalid": "Not one of the nine who set out from Rivendell as the Fellowship."
+    }
+  ],
+  "headphone-jack-iphones": [
+    "iPhone",
+    "Original iPhone",
+    "iPhone 2G",
+    "iPhone 3G",
+    "iPhone 3GS",
+    "iPhone 4",
+    "iPhone 4S",
+    "iPhone 5",
+    "iPhone 5C",
+    "iPhone 5S",
+    "iPhone 6",
+    "iPhone 6 Plus",
+    "iPhone 6S",
+    "iPhone 6S Plus",
+    "iPhone SE",
+    "iPhone SE first generation",
+    "iPhone SE 2016",
+    "3G",
+    "3GS",
+    "4S",
+    "5C",
+    "5S",
+    "6 Plus",
+    "6S",
+    "6S Plus",
+    "SE 2016",
+    {
+      "guess": "iPhone 7",
+      "invalid": "No built-in 3.5 mm headphone jack; adapters do not count."
+    },
+    {
+      "guess": "iPhone SE 2020",
+      "invalid": "No built-in 3.5 mm headphone jack; adapters do not count."
+    },
+    {
+      "guess": "iPhone X",
+      "invalid": "No built-in 3.5 mm headphone jack; adapters do not count."
+    },
+    {
+      "guess": "iPhone 8",
+      "invalid": "No built-in 3.5 mm headphone jack; adapters do not count."
+    }
+  ],
+  "hemingway-novels": [
+    "The Sun Also Rises",
+    "Sun Also Rises",
+    "Fiesta",
+    "A Farewell to Arms",
+    "Farewell to Arms",
+    "For Whom the Bell Tolls",
+    "To Have and Have Not",
+    "The Old Man and the Sea",
+    "Old Man and the Sea",
+    "Across the River and Into the Trees",
+    "Across the River",
+    "The Torrents of Spring",
+    "Torrents of Spring",
+    "Islands in the Stream",
+    "Islands in Stream",
+    "The Garden of Eden",
+    "Garden of Eden",
+    "True at First Light",
+    "Under Kilimanjaro",
+    {
+      "guess": "A Moveable Feast",
+      "invalid": "Nonfiction memoir/reportage, not a novel or novella. Borderline fictionalized posthumous works are separately accepted."
+    },
+    {
+      "guess": "Moveable Feast",
+      "invalid": "Nonfiction memoir/reportage, not a novel or novella. Borderline fictionalized posthumous works are separately accepted."
+    },
+    {
+      "guess": "The Snows of Kilimanjaro",
+      "invalid": "A short story/story collection, not a novel or novella."
+    },
+    {
+      "guess": "Men Without Women",
+      "invalid": "A short story/story collection, not a novel or novella."
+    },
+    {
+      "guess": "In Our Time",
+      "invalid": "A short story/story collection, not a novel or novella."
+    },
+    {
+      "guess": "Death in the Afternoon",
+      "invalid": "Nonfiction memoir/reportage, not a novel or novella. Borderline fictionalized posthumous works are separately accepted."
+    },
+    {
+      "guess": "The Dangerous Summer",
+      "invalid": "Nonfiction memoir/reportage, not a novel or novella. Borderline fictionalized posthumous works are separately accepted."
+    },
+    {
+      "guess": "Green Hills of Africa",
+      "invalid": "Nonfiction memoir/reportage, not a novel or novella. Borderline fictionalized posthumous works are separately accepted."
+    }
+  ],
+  "heroes-chocolates": [
+    "Dairy Milk",
+    "Caramel",
+    "Dairy Milk Caramel",
+    "Wispa",
+    "Twirl",
+    "Fudge",
+    "Eclairs",
+    "Eclair",
+    "Creme Egg Twisted",
+    "Twisted",
+    "Dinky Decker",
+    "Crunchie Bits",
+    "Crunchie",
+    "Double Decker",
+    "Cadbury Dairy Milk",
+    "Cadbury Caramel",
+    "Cadbury Wispa",
+    "Cadbury Twirl",
+    "Cadbury Fudge",
+    "Cadbury Eclairs",
+    "Cadbury Creme Egg Twisted",
+    "Cadbury Dinky Decker",
+    "Cadbury Crunchie Bits",
+    {
+      "guess": "Dream",
+      "invalid": "Discontinued British Heroes varieties; not the current standard British assortment."
+    },
+    {
+      "guess": "Picnic",
+      "invalid": "Discontinued British Heroes varieties; not the current standard British assortment."
+    },
+    {
+      "guess": "Time Out",
+      "invalid": "Discontinued British Heroes varieties; not the current standard British assortment."
+    },
+    {
+      "guess": "Bournville",
+      "invalid": "Not in the standard British Heroes assortment; a different Cadbury product."
+    }
+  ],
+  "iba-bloody-mary-ingredients": [
+    "Vodka",
+    "Tomato juice",
+    "Tomato",
+    "Lemon juice",
+    "Lemon",
+    "Lemon wedge",
+    "Worcestershire sauce",
+    "Worcester sauce",
+    "Lea and Perrins",
+    "Tabasco",
+    "Tabasco sauce",
+    "Hot sauce",
+    "Celery salt",
+    "Salt",
+    "Black pepper",
+    "Pepper",
+    "Ground black pepper",
+    "Celery",
+    "Celery stalk",
+    "Ice",
+    {
+      "guess": "Horseradish",
+      "invalid": "Used in other Bloody Mary variations, not the specified IBA ingredient/garnish/preparation recipe."
+    },
+    {
+      "guess": "Olive",
+      "invalid": "Used in other Bloody Mary variations, not the specified IBA ingredient/garnish/preparation recipe."
+    },
+    {
+      "guess": "Pickle",
+      "invalid": "Used in other Bloody Mary variations, not the specified IBA ingredient/garnish/preparation recipe."
+    },
+    {
+      "guess": "Lime",
+      "invalid": "Used in other Bloody Mary variations, not the specified IBA ingredient/garnish/preparation recipe."
+    },
+    {
+      "guess": "Lime juice",
+      "invalid": "Used in other Bloody Mary variations, not the specified IBA ingredient/garnish/preparation recipe."
+    },
+    {
+      "guess": "Gin",
+      "invalid": "Used in other Bloody Mary variations, not the specified IBA ingredient/garnish/preparation recipe."
+    },
+    {
+      "guess": "Clamato",
+      "invalid": "Used in other Bloody Mary variations, not the specified IBA ingredient/garnish/preparation recipe."
+    }
+  ],
+  "iba-singapore-sling-ingredients": [
+    "Gin",
+    "Cherry liqueur",
+    "Cherry brandy",
+    "Cherry Heering",
+    "Heering",
+    "Cointreau",
+    "Triple sec",
+    "Benedictine",
+    "DOM Benedictine",
+    "Pineapple juice",
+    "Lime juice",
+    "Lime",
+    "Grenadine",
+    "Angostura bitters",
+    "Bitters",
+    "Pineapple",
+    "Pineapple slice",
+    "Cherry",
+    "Maraschino cherry",
+    "Cocktail cherry",
+    "Ice",
+    {
+      "guess": "Orange juice",
+      "invalid": "Not in the specified IBA recipe; other historical Singapore Sling recipes differ."
+    },
+    {
+      "guess": "Lemon juice",
+      "invalid": "Not in the specified IBA recipe; other historical Singapore Sling recipes differ."
+    },
+    {
+      "guess": "Soda water",
+      "invalid": "Not in the specified IBA recipe; other historical Singapore Sling recipes differ."
+    },
+    "Brandy",
+    {
+      "guess": "Rum",
+      "invalid": "Not in the specified IBA recipe; other historical Singapore Sling recipes differ."
+    },
+    {
+      "guess": "Vodka",
+      "invalid": "Not in the specified IBA recipe; other historical Singapore Sling recipes differ."
+    }
+  ],
+  "lego-ideas-sets": [
+    "Back to the Future",
+    "DeLorean Time Machine",
+    "Doctor Who",
+    "TARDIS",
+    "The Big Bang Theory",
+    "Big Bang Theory",
+    "Ghostbusters",
+    "Ecto-1",
+    "Wall-E",
+    "WALL E",
+    "Exo Suit",
+    "Birds",
+    "Research Institute",
+    "Minecraft Micro World",
+    "Minecraft",
+    "Hayabusa",
+    "Shinkai 6500",
+    "Curiosity Rover",
+    "NASA Apollo Saturn V",
+    "Saturn V",
+    "Ship in a Bottle",
+    "Old Fishing Store",
+    "Tree House",
+    "The Flintstones",
+    "Central Perk",
+    "Friends",
+    "International Space Station",
+    "ISS",
+    "Seinfeld",
+    "Home Alone",
+    "The Office",
+    "Sesame Street",
+    "Sonic the Hedgehog",
+    "Winnie the Pooh",
+    "Typewriter",
+    "Grand Piano",
+    "The Starry Night",
+    "Vincent van Gogh Starry Night",
+    "Women of NASA",
+    "Voltron",
+    {
+      "guess": "The Simpsons",
+      "invalid": "LEGO licensed/Icons sets, not numbered Cuusoo/Ideas main-series sets."
+    },
+    {
+      "guess": "Queer Eye",
+      "invalid": "LEGO licensed/Icons sets, not numbered Cuusoo/Ideas main-series sets."
+    }
+  ],
+  "leonardo-paintings": [
+    "Mona Lisa",
+    "La Gioconda",
+    "The Last Supper",
+    "Last Supper",
+    "Lady with an Ermine",
+    "Lady with Ermine",
+    "The Virgin of the Rocks",
+    "Virgin of the Rocks",
+    "Madonna of the Rocks",
+    "Salvator Mundi",
+    "Saint John the Baptist",
+    "St John the Baptist",
+    "Annunciation",
+    "The Adoration of the Magi",
+    "Adoration of the Magi",
+    "Benois Madonna",
+    "The Madonna of the Carnation",
+    "Madonna of the Carnation",
+    "Ginevra de Benci",
+    "La Belle Ferronniere",
+    "The Virgin and Child with Saint Anne",
+    "Virgin and Child with St Anne",
+    "The Baptism of Christ",
+    "Baptism of Christ",
+    "Portrait of a Musician",
+    "La Scapigliata",
+    "Leda and the Swan",
+    "The Battle of Anghiari",
+    "Madonna Litta",
+    "Dreyfus Madonna",
+    "Madonna of the Yarnwinder",
+    "Isleworth Mona Lisa",
+    {
+      "guess": "Vitruvian Man",
+      "invalid": "A drawing, not a painting."
+    },
+    {
+      "guess": "The Creation of Adam",
+      "invalid": "Painted by Michelangelo, not attributed to Leonardo."
+    },
+    {
+      "guess": "The School of Athens",
+      "invalid": "Painted by Raphael, not attributed to Leonardo."
+    }
+  ],
+  "lloyd-webber-musicals": [
+    "The Phantom of the Opera",
+    "Phantom of the Opera",
+    "Cats",
+    "Evita",
+    "Jesus Christ Superstar",
+    "Joseph and the Amazing Technicolor Dreamcoat",
+    "Joseph",
+    "Starlight Express",
+    "Sunset Boulevard",
+    "Aspects of Love",
+    "Love Never Dies",
+    "School of Rock",
+    "The Woman in White",
+    "Woman in White",
+    "Whistle Down the Wind",
+    "By Jeeves",
+    "Jeeves",
+    "Tell Me on a Sunday",
+    "Song and Dance",
+    "The Beautiful Game",
+    "Beautiful Game",
+    "Stephen Ward",
+    "Cinderella",
+    "Bad Cinderella",
+    "The Likes of Us",
+    "Cricket",
+    {
+      "guess": "Requiem",
+      "invalid": "A mass, not a stage musical."
+    },
+    {
+      "guess": "Les Miserables",
+      "invalid": "Composed by Claude-Michel Schönberg, not Andrew Lloyd Webber."
+    },
+    {
+      "guess": "Les Mis",
+      "invalid": "Composed by Claude-Michel Schönberg, not Andrew Lloyd Webber."
+    }
+  ],
+  "masterchef-us-winners": [
+    "Whitney Miller",
+    "Jennifer Behm",
+    "Christine Ha",
+    "Luca Manfe",
+    "Courtney Lapresi",
+    "Claudia Sandoval",
+    "Shaun O Neale",
+    "Dino Angelo Luciano",
+    "Gerron Hurt",
+    "Dorian Hunter",
+    "Kelsey Murphy",
+    "Dara Yu",
+    "Grant Gillon",
+    "Michael Leonard",
+    "Whitney",
+    "Jennifer",
+    "Christine",
+    "Luca",
+    "Courtney",
+    "Claudia",
+    "Shaun",
+    "Dino",
+    "Gerron",
+    "Dorian",
+    "Kelsey",
+    "Dara",
+    "Grant",
+    {
+      "guess": "Gordon Ramsay",
+      "invalid": "A judge, not a winning contestant."
+    },
+    {
+      "guess": "Joe Bastianich",
+      "invalid": "A judge, not a winning contestant."
+    },
+    {
+      "guess": "Christian Green",
+      "invalid": "A main-series runner-up, not a winner."
+    }
+  ],
+  "original-care-bears": [
+    "Bedtime Bear",
+    "Birthday Bear",
+    "Cheer Bear",
+    "Friend Bear",
+    "Funshine Bear",
+    "Good Luck Bear",
+    "Grumpy Bear",
+    "Love-a-Lot Bear",
+    "Tenderheart Bear",
+    "Wish Bear",
+    "Bedtime",
+    "Birthday",
+    "Cheer",
+    "Friend",
+    "Funshine",
+    "Good Luck",
+    "Grumpy",
+    "Love a Lot",
+    "Tenderheart",
+    "Wish",
+    {
+      "guess": "Share Bear",
+      "invalid": "Later additions, not one of the original ten Care Bears."
+    },
+    {
+      "guess": "Champ Bear",
+      "invalid": "Later additions, not one of the original ten Care Bears."
+    },
+    {
+      "guess": "Secret Bear",
+      "invalid": "Later additions, not one of the original ten Care Bears."
+    },
+    {
+      "guess": "Harmony Bear",
+      "invalid": "Later additions, not one of the original ten Care Bears."
+    },
+    {
+      "guess": "Brave Heart Lion",
+      "invalid": "Care Bear Cousins, not original Care Bears."
+    },
+    {
+      "guess": "Cozy Heart Penguin",
+      "invalid": "Care Bear Cousins, not original Care Bears."
+    },
+    {
+      "guess": "True Heart Bear",
+      "invalid": "Later additions, not one of the original ten Care Bears."
+    }
+  ],
+  "quality-street-chocolates": [
+    "Green Triangle",
+    "Purple One",
+    "The Purple One",
+    "Toffee Finger",
+    "Toffee Penny",
+    "Orange Creme",
+    "Strawberry Delight",
+    "Coconut Eclair",
+    "Orange Crunch",
+    "Caramel Swirl",
+    "Milk Choc Block",
+    {
+      "guess": "Chocolate Caramel Brownie",
+      "invalid": "Discontinued varieties in the pinned Quality Street history, not current in-tin sweets."
+    },
+    {
+      "guess": "Toffee Deluxe",
+      "invalid": "Discontinued varieties in the pinned Quality Street history, not current in-tin sweets."
+    },
+    {
+      "guess": "Honeycomb Crunch",
+      "invalid": "Discontinued varieties in the pinned Quality Street history, not current in-tin sweets."
+    },
+    "Coffee Cream",
+    "Coffee Creme",
+    "Strawberry Cream",
+    "Orange Cream",
+    "Coconut",
+    "The Green Triangle",
+    "The Toffee Penny",
+    "Milk Chocolate Block",
+    {
+      "guess": "Caramel Brownie",
+      "invalid": "Discontinued varieties in the pinned Quality Street history, not current in-tin sweets."
+    },
+    "The Orange Crunch",
+    "Chocolate Toffee Finger",
+    "Golden Toffee Finger",
+    "Fudge"
+  ],
+  "radiohead-studio-albums": [
+    "Pablo Honey",
+    "The Bends",
+    "Bends",
+    "OK Computer",
+    "Kid A",
+    "Amnesiac",
+    "Hail to the Thief",
+    "In Rainbows",
+    "The King of Limbs",
+    "King of Limbs",
+    "A Moon Shaped Pool",
+    "Moon Shaped Pool",
+    "OK Computer OKNOTOK 1997 2017",
+    "OKNOTOK",
+    "Kid A Mnesia",
+    {
+      "guess": "I Might Be Wrong",
+      "invalid": "Live release, EP or bonus disc, not a standalone studio album."
+    },
+    {
+      "guess": "Com Lag",
+      "invalid": "Live release, EP or bonus disc, not a standalone studio album."
+    },
+    {
+      "guess": "In Rainbows Disk 2",
+      "invalid": "Live release, EP or bonus disc, not a standalone studio album."
+    },
+    {
+      "guess": "The Smile",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    },
+    {
+      "guess": "A Light for Attracting Attention",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    },
+    {
+      "guess": "Wall of Eyes",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    },
+    {
+      "guess": "Cutouts",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    },
+    {
+      "guess": "The Eraser",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    },
+    {
+      "guess": "Amok",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    },
+    {
+      "guess": "Tomorrow s Modern Boxes",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    },
+    {
+      "guess": "Suspiria",
+      "invalid": "A side-project/solo act or release, not a Radiohead studio album."
+    }
+  ],
+  "rock-hall-multiple-inductees": [
+    "Eric Clapton",
+    "Clapton",
+    "Paul McCartney",
+    "John Lennon",
+    "George Harrison",
+    "Ringo Starr",
+    "Michael Jackson",
+    "Curtis Mayfield",
+    "Tina Turner",
+    "Stevie Nicks",
+    "Ozzy Osbourne",
+    "Rod Stewart",
+    "Ronnie Wood",
+    "Ron Wood",
+    "Jimmy Page",
+    "Jeff Beck",
+    "Neil Young",
+    "Stephen Stills",
+    "David Crosby",
+    "Graham Nash",
+    "Peter Gabriel",
+    "Phil Collins",
+    "Dave Grohl",
+    "Lou Reed",
+    "Sammy Strain",
+    "Carole King",
+    {
+      "guess": "Lionel Richie",
+      "invalid": "Only one Rock Hall induction in the complete multiple-inductees source; associated acts do not supply a second induction."
+    },
+    {
+      "guess": "Diana Ross",
+      "invalid": "Only one Rock Hall induction in the complete multiple-inductees source; associated acts do not supply a second induction."
+    },
+    {
+      "guess": "Bobby Womack",
+      "invalid": "Only one Rock Hall induction in the complete multiple-inductees source; associated acts do not supply a second induction."
+    },
+    "Clyde McPhatter"
+  ],
+  "smash-64-fighters": [
+    "Mario",
+    "Luigi",
+    "Donkey Kong",
+    "DK",
+    "Link",
+    "Samus",
+    "Samus Aran",
+    "Yoshi",
+    "Kirby",
+    "Fox",
+    "Fox McCloud",
+    "Pikachu",
+    "Jigglypuff",
+    "Captain Falcon",
+    "Falcon",
+    "Ness",
+    "Mario Mario",
+    {
+      "guess": "Bowser",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Peach",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Wario",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Ganondorf",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Mewtwo",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Zelda",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Pit",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Diddy Kong",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    },
+    {
+      "guess": "Sonic",
+      "invalid": "Joined playable rosters in later games, not the original 12-fighter Nintendo 64 roster."
+    }
+  ],
+  "super-bowl-halftime-leads": [
+    "Michael Jackson",
+    "Diana Ross",
+    "Gloria Estefan",
+    "Stevie Wonder",
+    "Smokey Robinson",
+    "The Temptations",
+    "Boyz II Men",
+    "ZZ Top",
+    "Clint Black",
+    "The Judds",
+    "Travis Tritt",
+    "Tanya Tucker",
+    "Tony Bennett",
+    "Patti LaBelle",
+    {
+      "guess": "New Kids on the Block",
+      "invalid": "Appeared in 1991, before the prompt’s 1993 starting point."
+    },
+    "Phil Collins",
+    "Christina Aguilera",
+    "Enrique Iglesias",
+    "Toni Braxton",
+    "Aerosmith",
+    "NSYNC",
+    "U2",
+    "Shania Twain",
+    "No Doubt",
+    "Sting",
+    "Janet Jackson",
+    "Justin Timberlake",
+    "Paul McCartney",
+    "The Rolling Stones",
+    "Prince",
+    "Tom Petty",
+    "Bruce Springsteen",
+    "The Who",
+    "The Black Eyed Peas",
+    "Madonna",
+    "Beyonce",
+    "Bruno Mars",
+    "Katy Perry",
+    "Coldplay",
+    "Lady Gaga",
+    "Maroon 5",
+    "Shakira",
+    "Jennifer Lopez",
+    "The Weeknd",
+    "Dr Dre",
+    "Snoop Dogg",
+    "Eminem",
+    "Mary J Blige",
+    "Kendrick Lamar",
+    "Rihanna",
+    "Usher",
+    "Bad Bunny"
+  ],
+  "u2-studio-albums": [
+    "Boy",
+    "October",
+    "War",
+    "The Unforgettable Fire",
+    "Unforgettable Fire",
+    "The Joshua Tree",
+    "Joshua Tree",
+    "Rattle and Hum",
+    "Achtung Baby",
+    "Zooropa",
+    "Pop",
+    "All That You Cant Leave Behind",
+    "All That You Cannot Leave Behind",
+    "How to Dismantle an Atomic Bomb",
+    "Atomic Bomb",
+    "No Line on the Horizon",
+    "Songs of Innocence",
+    "Songs of Experience",
+    "Songs of Surrender",
+    "Original Soundtracks 1",
+    "Passengers",
+    {
+      "guess": "Under a Blood Red Sky",
+      "invalid": "Live album/EP or compilation/remix release, not a studio album."
+    },
+    {
+      "guess": "Wide Awake in America",
+      "invalid": "Live album/EP or compilation/remix release, not a studio album."
+    },
+    {
+      "guess": "The Best of 1980-1990",
+      "invalid": "Live album/EP or compilation/remix release, not a studio album."
+    },
+    {
+      "guess": "U218 Singles",
+      "invalid": "Live album/EP or compilation/remix release, not a studio album."
+    },
+    {
+      "guess": "Artificial Horizon",
+      "invalid": "Live album/EP or compilation/remix release, not a studio album."
+    }
+  ],
+  "uk-childrens-laureates": [
+    "Quentin Blake",
+    "Blake",
+    "Anne Fine",
+    "Fine",
+    "Michael Morpurgo",
+    "Morpurgo",
+    "Jacqueline Wilson",
+    "Wilson",
+    "Michael Rosen",
+    "Rosen",
+    "Anthony Browne",
+    "Browne",
+    "Julia Donaldson",
+    "Donaldson",
+    "Malorie Blackman",
+    "Blackman",
+    "Chris Riddell",
+    "Riddell",
+    "Lauren Child",
+    "Child",
+    "Cressida Cowell",
+    "Cowell",
+    "Joseph Coelho",
+    "Coelho",
+    "Frank Cottrell Boyce",
+    "Frank Cottrell-Boyce",
+    "Cottrell Boyce",
+    {
+      "guess": "Roald Dahl",
+      "invalid": "Not a UK national Children’s Laureate in the complete appointment roll."
+    },
+    {
+      "guess": "David Walliams",
+      "invalid": "Not a UK national Children’s Laureate in the complete appointment roll."
+    },
+    {
+      "guess": "J K Rowling",
+      "invalid": "Not a UK national Children’s Laureate in the complete appointment roll."
+    },
+    {
+      "guess": "Philip Pullman",
+      "invalid": "Not a UK national Children’s Laureate in the complete appointment roll."
+    }
+  ],
+  "uk-three-michelin-stars": [
+    "The Fat Duck",
+    "Fat Duck",
+    "Restaurant Gordon Ramsay",
+    "Gordon Ramsay",
+    "The Waterside Inn",
+    "Waterside Inn",
+    "Alain Ducasse at the Dorchester",
+    "Alain Ducasse",
+    "The Ledbury",
+    "Ledbury",
+    "Core by Clare Smyth",
+    "Core",
+    {
+      "guess": "Restaurant Sat Bains",
+      "invalid": "Two-star restaurants, not historical UK three-star holders in the complete Michelin roll."
+    },
+    {
+      "guess": "Sat Bains",
+      "invalid": "Two-star restaurants, not historical UK three-star holders in the complete Michelin roll."
+    },
+    "Moor Hall",
+    "Sketch",
+    "Sketch Lecture Room and Library",
+    "The Lecture Room and Library",
+    "L Enclume",
+    {
+      "guess": "Le Gavroche",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "La Tante Claire",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Restaurant Marco Pierre White",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "Marco Pierre White",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Oak Room",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Araki",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "Araki",
+      "invalid": "Former UK three-star restaurant, closed or no longer three-starred; not in the Michelin Guide Great Britain & Ireland 2026 three-star selection."
+    },
+    {
+      "guess": "The Ritz",
+      "invalid": "Two-star restaurants, not historical UK three-star holders in the complete Michelin roll."
+    },
+    {
+      "guess": "Ritz",
+      "invalid": "Two-star restaurants, not historical UK three-star holders in the complete Michelin roll."
+    },
+    {
+      "guess": "The Hand and Flowers",
+      "invalid": "Two-star restaurants, not historical UK three-star holders in the complete Michelin roll."
+    },
+    {
+      "guess": "Dinner by Heston Blumenthal",
+      "invalid": "Two-star restaurants, not historical UK three-star holders in the complete Michelin roll."
+    }
+  ],
+  "world-cheese-champions": [
+    "Cheddar",
+    "Stilton",
+    "Gruyere",
+    "Le Gruyere",
+    "Gruyere AOP",
+    "Parmigiano Reggiano",
+    "Parmesan",
+    {
+      "guess": "Gorgonzola",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    {
+      "guess": "Roquefort",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    "Brie",
+    "Brie de Meaux",
+    "Camembert",
+    "Gouda",
+    "Manchego",
+    "Rogue River Blue",
+    "Rogue River Blue Cheese",
+    "Nidelven Bla",
+    "Nidelven Blue",
+    "Olavidia",
+    {
+      "guess": "Epoisses",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    "Ossau Iraty",
+    "Montagnolo Dolce",
+    {
+      "guess": "Pont l Eveque",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    {
+      "guess": "Tomme de Savoie",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    {
+      "guess": "Raclette",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    "Queijo de Ovelha Amanteigado",
+    {
+      "guess": "Queijo de Azeitao",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    {
+      "guess": "Cashel Blue",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    "Shropshire Blue",
+    {
+      "guess": "Dairylea",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    },
+    {
+      "guess": "The Laughing Cow",
+      "invalid": "Not a champion variety in the complete World Cheese Awards roll; other competitions and other PDO varieties do not qualify."
+    }
+  ],
+  "worlds-best-restaurants": [
+    "El Bulli",
+    "ElBulli",
+    "Noma",
+    "The French Laundry",
+    "French Laundry",
+    "The Fat Duck",
+    "Fat Duck",
+    "El Celler de Can Roca",
+    "Celler de Can Roca",
+    "Osteria Francescana",
+    "Eleven Madison Park",
+    "EMP",
+    "Mirazur",
+    "Geranium",
+    "Central",
+    "Disfrutar",
+    "Maido",
+    {
+      "guess": "Gaggan",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    {
+      "guess": "Gaggan Anand",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    "Asador Etxebarri",
+    {
+      "guess": "Mugaritz",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    {
+      "guess": "DiverXO",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    {
+      "guess": "Diverxo",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    {
+      "guess": "Restaurant Gordon Ramsay",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    {
+      "guess": "Le Bernardin",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    {
+      "guess": "Alchemist",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    },
+    {
+      "guess": "Sukiyabashi Jiro",
+      "invalid": "Has not ranked first in the global World’s 50 Best Restaurants roll; regional wins and lower global ranks do not qualify."
+    }
+  ]
+}

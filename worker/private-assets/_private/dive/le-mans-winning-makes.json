@@ -1,0 +1,28 @@
+{
+  "buckets": {
+    "10": "\nalfa romeo\t2d\n",
+    "6": "\nalpine\t4f\njaguar\t9\nmirage\t46\nsauber\t5u\ntalbot\t5g\ntoyota\t0\n",
+    "12": "\naston martin\t2q\n",
+    "4": "\naudi\t14\nford\t3z\n",
+    "7": "\nbentley\t3f\nbugatti\t3p\nferrari\t1b\nlagonda\t6m\nmclaren\t35\nmercede\ti\npeugeot\t23\nporsche\t1l\nrenault\t4f\nrondeau\t6c\n",
+    "3": "\nbmw\ty\n",
+    "15": "\nbugatti type 57\t3p\nchenard walcker\t7l\n",
+    "19": "\nchenard and walcker\t7l\n",
+    "8": "\ndelahaye\t7a\n",
+    "17": "\nlorraine dietrich\t4w\n",
+    "5": "\nmatra\t6w\nmazda\t1v\n",
+    "11": "\nmatra simca\t6w\ntalbot lago\t5g\n",
+    "13": "\nmercedes benz\ti\n",
+    "14": "\nrenault alpine\t4f\nsauber mercede\t5u\n"
+  },
+  "answers": "s\tToyota\nm\tJaguar\nm\tMercedes-Benz\nm\tBMW\ns\tAudi\ns\tFerrari\ns\tPorsche\nm\tMazda\nm\tPeugeot\nm\tAlfa Romeo\nm\tAston Martin\nm\tMcLaren\nm\tBentley\nr\tBugatti\ns\tFord\nr\tMirage\nr\tRenault-Alpine\nr\tLorraine-Dietrich\nr\tTalbot-Lago\nr\tSauber-Mercedes\nd\tRondeau\nd\tLagonda\nd\tMatra-Simca\nd\tDelahaye\ng\tChenard & Walcker\n",
+  "gem": { "answer": "Chenard & Walcker", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Toyota", "tier": "surface", "points": 10 },
+    { "answer": "Audi", "tier": "surface", "points": 10 },
+    { "answer": "Ferrari", "tier": "surface", "points": 10 },
+    { "answer": "Rondeau", "tier": "deep", "points": 85 },
+    { "answer": "Lagonda", "tier": "deep", "points": 85 }
+  ],
+  "size": 25
+}

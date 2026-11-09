@@ -1,0 +1,28 @@
+{
+  "buckets": {
+    "7": "\naviator\t5v\ncabaret\t4n\ngravity\t3e\nzhivago\t6o\n",
+    "21": "\nbad and the beautiful\t1f\n",
+    "14": "\ndoctor zhivago\t6o\n",
+    "10": "\ndr zhivago\t6o\nking and i\ty\nla la land\t2s\n",
+    "4": "\ndune\t4g\nhugo\t49\n",
+    "9": "\nfury road\t3o\n",
+    "17": "\nmad max fury road\t3o\n",
+    "11": "\nmary poppin\t69\n",
+    "8": "\nnew hope\t0\nstar war\t0\n",
+    "16": "\nplace in the sun\t27\n",
+    "19": "\nsaving private ryan\tc\n",
+    "20": "\nstar wars a new hope\t0\n",
+    "29": "\nwhos afraid of virginia woolf\t4x\n",
+    "6": "\nwilson\t35\n"
+  },
+  "answers": "s\tStar Wars\nm\tSaving Private Ryan\nm\tThe King and I\nm\tThe Bad and the Beautiful\nm\tA Place in the Sun\nm\tLa La Land\ng\tWilson\ns\tGravity\ns\tMad Max: Fury Road\nr\tHugo\nr\tDune\ns\tCabaret\nr\tWho's Afraid of Virginia Woolf?\nr\tThe Aviator\nd\tMary Poppins\nd\tDoctor Zhivago\n",
+  "gem": { "answer": "Wilson", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Star Wars", "tier": "surface", "points": 10 },
+    { "answer": "Gravity", "tier": "surface", "points": 10 },
+    { "answer": "Mad Max: Fury Road", "tier": "surface", "points": 10 },
+    { "answer": "Mary Poppins", "tier": "deep", "points": 85 },
+    { "answer": "Doctor Zhivago", "tier": "deep", "points": 85 }
+  ],
+  "size": 16
+}

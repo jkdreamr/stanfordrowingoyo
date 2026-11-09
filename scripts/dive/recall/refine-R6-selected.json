@@ -1,0 +1,606 @@
+{
+  "china-compass-names": [
+    "Hebei",
+    "Hubei",
+    "Henan",
+    "Hunan",
+    "Shandong",
+    "Shanxi",
+    "Shaanxi",
+    "Guangdong",
+    "Guangxi",
+    "Jiangxi",
+    "Yunnan",
+    "Hainan",
+    "Beijing",
+    {
+      "guess": "Nanjing",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    {
+      "guess": "Xinjiang",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    "Tibet",
+    "Xizang",
+    {
+      "guess": "Shanghai",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    {
+      "guess": "Guangzhou",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    {
+      "guess": "Dongbei",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    {
+      "guess": "Ningxia",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    "Shensi",
+    "Shansi",
+    "Hupeh",
+    "Honan",
+    "Kwangtung",
+    "Kwangsi",
+    "Peking",
+    "Kiangsi",
+    "Hopei",
+    "Shantung",
+    "Hunan Province",
+    "Guangxi Zhuang Autonomous Region",
+    {
+      "guess": "Xi'an",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    {
+      "guess": "Hong Kong",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    {
+      "guess": "Taiwan",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    {
+      "guess": "Jiangsu",
+      "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    }
+  ],
+  "lakes-10000-km2": [
+    "Caspian Sea",
+    "Lake Superior",
+    "Superior",
+    "Lake Victoria",
+    "Victoria",
+    "Lake Huron",
+    "Huron",
+    "Lake Michigan",
+    "Michigan",
+    "Lake Tanganyika",
+    "Tanganyika",
+    "Lake Baikal",
+    "Baikal",
+    "Great Bear Lake",
+    "Lake Malawi",
+    "Lake Nyasa",
+    "Great Slave Lake",
+    "Lake Erie",
+    "Erie",
+    "Lake Winnipeg",
+    "Lake Ontario",
+    "Ontario",
+    "Lake Ladoga",
+    "Ladoga",
+    "Lake Balkhash",
+    "Lake Vostok",
+    {
+      "guess": "Lake Titicaca",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Lake Onega",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Aral Sea",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Lake Chad",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Great Salt Lake",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Lake Nicaragua",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Lake Geneva",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Dead Sea",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    {
+      "guess": "Lake Turkana",
+      "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    "Lake Michigan-Huron",
+    "Caspian"
+  ],
+  "japan-same-name-capitals": [
+    "Osaka",
+    "Kyoto",
+    "Hiroshima",
+    "Fukuoka",
+    "Nagasaki",
+    "Nara",
+    "Kagoshima",
+    "Kumamoto",
+    "Okayama",
+    "Shizuoka",
+    "Niigata",
+    "Nagano",
+    "Chiba",
+    "Saitama",
+    {
+      "guess": "Tokyo",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    "Aomori",
+    "Akita",
+    "Yamagata",
+    "Fukushima",
+    "Toyama",
+    "Fukui",
+    "Gifu",
+    "Wakayama",
+    "Tottori",
+    "Yamaguchi",
+    "Tokushima",
+    "Kochi",
+    "Kōchi",
+    "Saga",
+    "Oita",
+    "Ōita",
+    "Miyazaki",
+    "Ōsaka",
+    "Kyōto",
+    {
+      "guess": "Sapporo",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Hokkaido",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Kobe",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Nagoya",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Yokohama",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Sendai",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Okinawa",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Kanazawa",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Matsuyama",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Shimane",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    {
+      "guess": "Ehime",
+      "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    }
+  ],
+  "alpine-four-thousanders": [
+    "Mont Blanc",
+    "Matterhorn",
+    "Monte Rosa",
+    "Dufourspitze",
+    "Jungfrau",
+    "Mönch",
+    "Monch",
+    {
+      "guess": "Eiger",
+      "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+    },
+    "Weisshorn",
+    "Dom",
+    "Lyskamm",
+    "Liskamm",
+    "Grand Combin",
+    "Finsteraarhorn",
+    "Aletschhorn",
+    "Gran Paradiso",
+    "Piz Bernina",
+    "Barre des Écrins",
+    "Barre des Ecrins",
+    "Dent Blanche",
+    "Grandes Jorasses",
+    "Aiguille Verte",
+    "Dent d'Hérens",
+    "Breithorn",
+    "Weissmies",
+    "Täschhorn",
+    "Allalinhorn",
+    "Ober Gabelhorn",
+    "Zinalrothorn",
+    "Lagginhorn",
+    "Nadelhorn",
+    "Strahlhorn",
+    "Bishorn",
+    "Schreckhorn",
+    "Lauteraarhorn",
+    "Gross Grünhorn",
+    "Mont Blanc du Tacul",
+    "Mont Maudit",
+    {
+      "guess": "Aiguille du Midi",
+      "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+    },
+    "Dôme du Goûter",
+    "Signalkuppe",
+    {
+      "guess": "Zugspitze",
+      "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+    },
+    "Mont Cervin",
+    "Monte Cervino",
+    {
+      "guess": "Grossglockner",
+      "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+    },
+    {
+      "guess": "Piz Palü",
+      "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+    },
+    {
+      "guess": "Ortler",
+      "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+    },
+    "Rimpfischhorn",
+    "Alphubel",
+    "Pollux",
+    "Castor",
+    "Nordend"
+  ],
+  "rivers-3000-km": [
+    "Nile",
+    "Amazon",
+    "Yangtze",
+    "Mississippi",
+    "Missouri",
+    "Yenisei",
+    "Yellow River",
+    "Huang He",
+    "Ob",
+    "Irtysh",
+    "Paraná",
+    "Parana",
+    "Congo",
+    "Amur",
+    "Lena",
+    "Mekong",
+    "Mackenzie",
+    "Niger",
+    "Volga",
+    "Murray",
+    "Murray-Darling",
+    "Brahmaputra",
+    "Indus",
+    {
+      "guess": "Ganges",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    {
+      "guess": "Danube",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    "Euphrates",
+    "Yukon",
+    "St. Lawrence",
+    "Saint Lawrence",
+    "Rio Grande",
+    {
+      "guess": "Colorado",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    {
+      "guess": "Zambezi",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    "Madeira",
+    "Purus",
+    "Tocantins",
+    "São Francisco",
+    {
+      "guess": "Orinoco",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    "Syr Darya",
+    {
+      "guess": "Amu Darya",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    "Salween",
+    {
+      "guess": "Tigris",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    {
+      "guess": "Ohio",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    {
+      "guess": "Arkansas",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    {
+      "guess": "Ural",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    {
+      "guess": "Dnieper",
+      "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    "Yangtze River",
+    "Amazon River",
+    "Nile River",
+    "Chang Jiang",
+    "Mississippi River"
+  ],
+  "us-capitals-not-largest": [
+    "Albany",
+    "Sacramento",
+    "Tallahassee",
+    "Austin",
+    "Springfield",
+    "Harrisburg",
+    "Annapolis",
+    "Olympia",
+    "Salem",
+    "Carson City",
+    "Juneau",
+    "Santa Fe",
+    "Lansing",
+    "Madison",
+    "Saint Paul",
+    "St. Paul",
+    "Jefferson City",
+    "Topeka",
+    "Lincoln",
+    "Pierre",
+    "Bismarck",
+    "Helena",
+    {
+      "guess": "Cheyenne",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    "Frankfort",
+    "Baton Rouge",
+    "Montgomery",
+    "Tallahasee",
+    "Columbia",
+    "Raleigh",
+    "Richmond",
+    "Dover",
+    "Trenton",
+    "Hartford",
+    "Concord",
+    "Montpelier",
+    "Augusta",
+    {
+      "guess": "Charleston",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Boise",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Denver",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Phoenix",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Boston",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Nashville",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Atlanta",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Honolulu",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Columbus",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Indianapolis",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Providence",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Salt Lake City",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Des Moines",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Oklahoma City",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Little Rock",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Jackson",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    {
+      "guess": "Washington DC",
+      "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    }
+  ],
+  "islands-50000-km2": [
+    "Greenland",
+    "New Guinea",
+    "Borneo",
+    "Madagascar",
+    "Baffin Island",
+    "Sumatra",
+    "Honshu",
+    "Great Britain",
+    "Victoria Island",
+    "Ellesmere Island",
+    "Sulawesi",
+    "South Island",
+    "Java",
+    "North Island",
+    "Luzon",
+    "Newfoundland",
+    "Cuba",
+    "Iceland",
+    "Mindanao",
+    "Ireland",
+    "Hokkaido",
+    "Hispaniola",
+    "Sakhalin",
+    "Tasmania",
+    "Sri Lanka",
+    "Banks Island",
+    "Devon Island",
+    {
+      "guess": "Tierra del Fuego",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Isla Grande de Tierra del Fuego",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Taiwan",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Hainan",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Sicily",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Vancouver Island",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Hawaii",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Kyushu",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Spitsbergen",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    "Britain",
+    "Celebes",
+    "Kalimantan",
+    {
+      "guess": "Australia",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Antarctica",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Long Island",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Jamaica",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Cyprus",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Sardinia",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Severny Island",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Novaya Zemlya",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Melville Island",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Axel Heiberg Island",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Southampton Island",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "New Britain",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    },
+    {
+      "guess": "Timor",
+      "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    }
+  ]
+}

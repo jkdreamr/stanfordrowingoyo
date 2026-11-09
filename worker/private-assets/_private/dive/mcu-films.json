@@ -1,0 +1,42 @@
+{
+  "buckets": {
+    "13": "\nage of ultron\tii\nblack panther\tba\nbrand new day\t6s\nfar from home\t3z\nfirst avenger\tga\nthor ragnarok\tlz\n",
+    "7": "\nant man\t8f\navenger\t8p\nendgame\thb\neternal\tmw\n",
+    "20": "\nant man and the wasp\tfn\nspiderman homecoming\tey\n",
+    "32": "\nant man and the wasp quantumania\tn7\n",
+    "10": "\navengers 3\te9\navengers 4\thb\ndark world\tan\nhomecoming\tey\niron man 2\t0\niron man 3\to\n",
+    "22": "\navengers age of ultron\tii\ndeadpool and wolverine\thv\nspider man no way home\t39\n",
+    "17": "\navengers assemble\t8p\ncaptain america 4\t5t\n",
+    "16": "\navengers endgame\thb\ndoctor strange 2\tjy\nlove and thunder\tdk\n",
+    "21": "\navengers infinity war\te9\nmultiverse of madness\tjy\nspider man homecoming\tey\nthor love and thunder\tdk\n",
+    "29": "\nblack panther wakanda forever\tl2\nguardians of the galaxy vol 2\tbq\nguardians of the galaxy vol 3\tcn\n",
+    "11": "\nblack widow\t81\nguardians 2\tbq\nguardians 3\tcn\nnew avenger\tmg\nno way home\t39\nquantumania\tn7\nthunderbolt\tmg\n",
+    "15": "\nbrave new world\t5t\ncaptain america\tga\nincredible hulk\ta1\nwakanda forever\tl2\n",
+    "31": "\ncaptain america brave new world\t5t\n",
+    "25": "\ncaptain america civil war\t11\nfantastic four first step\t2b\n",
+    "33": "\ncaptain america the first avenger\tga\n",
+    "34": "\ncaptain america the winter soldier\t4r\n",
+    "14": "\ncaptain marvel\t7k\ndoctor strange\t1u\nfantastic four\t2b\nwinter soldier\t4r\n",
+    "9": "\ncivil war\t11\nshang chi\tjm\n",
+    "43": "\ndoctor strange in the multiverse of madness\tjy\n",
+    "36": "\ndoctor strange multiverse of madness\tjy\n",
+    "8": "\nguardian\t9b\niron man\td\nragnarok\tlz\n",
+    "23": "\nguardians of the galaxy\t9b\n",
+    "12": "\ninfinity war\te9\n",
+    "6": "\nmarvel\tj8\n",
+    "40": "\nshang chi and the legend of the ten ring\tjm\n",
+    "24": "\nspider man brand new day\t6s\nspider man far from home\t3z\n",
+    "4": "\nthor\t94\n",
+    "19": "\nthor the dark world\tan\n"
+  },
+  "answers": "m\tIron Man 2\ns\tIron Man\nm\tIron Man 3\nm\tCaptain America: Civil War\nm\tDoctor Strange\nm\tThe Fantastic Four: First Steps\nm\tSpider-Man: No Way Home\nm\tSpider-Man: Far From Home\nm\tCaptain America: The Winter Soldier\nm\tCaptain America: Brave New World\nm\tSpider-Man: Brand New Day\nm\tCaptain Marvel\nm\tBlack Widow\ng\tAnt-Man\ns\tThe Avengers\nm\tThor\nm\tGuardians of the Galaxy\nm\tThe Incredible Hulk\nm\tThor: The Dark World\ns\tBlack Panther\nr\tGuardians of the Galaxy Vol. 2\nr\tGuardians of the Galaxy Vol. 3\nr\tThor: Love and Thunder\nr\tAvengers: Infinity War\nr\tSpider-Man: Homecoming\nr\tAnt-Man and the Wasp\nr\tCaptain America: The First Avenger\nr\tAvengers: Endgame\nr\tDeadpool & Wolverine\nr\tAvengers: Age of Ultron\nd\tThe Marvels\nd\tShang-Chi\nd\tDoctor Strange: Multiverse of Madness\nd\tBlack Panther: Wakanda Forever\nd\tThor: Ragnarok\nd\tThunderbolts*\nd\tEternals\nd\tAnt-Man and the Wasp: Quantumania\n",
+  "gem": { "answer": "Ant-Man", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Iron Man", "tier": "surface", "points": 10 },
+    { "answer": "The Avengers", "tier": "surface", "points": 10 },
+    { "answer": "Black Panther", "tier": "surface", "points": 10 },
+    { "answer": "The Marvels", "tier": "deep", "points": 85 },
+    { "answer": "Shang-Chi", "tier": "deep", "points": 85 }
+  ],
+  "size": 38
+}

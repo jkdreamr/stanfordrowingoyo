@@ -1,0 +1,42 @@
+{
+  "buckets": {
+    "17": "\nallegory of faith\tfy\ngirl with a flute\te8\nmistress and maid\tdo\nwoman with a lute\ti5\n",
+    "20": "\nallegory of painting\tgm\nhead of a young girl\thd\nwoman with a balance\t3c\n",
+    "21": "\nallegory of the faith\tfy\nlady writing a letter\t25\n",
+    "15": "\nart of painting\tgm\n",
+    "10": "\nastronomer\tfh\ngeographer\tj5\nwine glass\t2v\n",
+    "38": "\nchrist in the house of martha and mary\t90\nlady at the virginals with a gentleman\t42\n",
+    "7": "\nconcert\t1r\n",
+    "23": "\ndiana and her companion\tcx\ngirl with the wineglass\tln\nwoman holding a balance\t3c\n",
+    "11": "\ngirl asleep\t7s\nlove letter\tk\nmaid asleep\t7s\n",
+    "16": "\ngirl in a turban\thd\n",
+    "29": "\ngirl interrupted at her music\ta5\nlady drinking and a gentleman\t2v\n",
+    "39": "\ngirl reading a letter at an open window\t6m\n",
+    "25": "\ngirl with a pearl earring\thd\nlady seated at a virginal\tkg\nofficer and laughing girl\t4l\nportrait of a young woman\t88\n",
+    "19": "\ngirl with a red hat\t5g\n",
+    "27": "\ngirl with the pearl earring\thd\nlady standing at a virginal\tjm\nwoman with a pearl necklace\tc3\n",
+    "13": "\nglass of wine\t2v\nguitar player\t62\nlittle street\t0\nview of delft\tip\n",
+    "9": "\nlacemaker\to1\nprocuress\tmh\n",
+    "42": "\nlady with her maidservant holding a letter\tdo\n",
+    "35": "\nlady writing a letter with her maid\tb1\n",
+    "8": "\nmilkmaid\tl8\n",
+    "12": "\nmusic lesson\t42\n",
+    "28": "\nofficer with a laughing girl\t4l\n",
+    "14": "\nsaint praxedis\toh\n",
+    "22": "\nstudy of a young woman\t88\nwoman reading a letter\t12\nwoman with a water jug\tes\n",
+    "30": "\nwoman in blue reading a letter\t12\n",
+    "46": "\nyoung woman reading a letter at an open window\t6m\n",
+    "32": "\nyoung woman seated at a virginal\tkg\nyoung woman with a water pitcher\tes\n",
+    "34": "\nyoung woman seated at the virginal\tmx\nyoung woman standing at a virginal\tjm\n"
+  },
+  "answers": "m\tThe Little Street\nm\tThe Love Letter\nm\tWoman Reading a Letter\nm\tThe Concert\nm\tA Lady Writing a Letter\nm\tThe Wine Glass\nm\tWoman Holding a Balance\nm\tThe Music Lesson\nm\tOfficer with a Laughing Girl\nm\tGirl with a Red Hat\nm\tThe Guitar Player\nm\tGirl Reading a Letter at an Open Window\nm\tA Girl Asleep\nm\tPortrait of a Young Woman\nm\tChrist in the House of Martha and Mary\nr\tGirl Interrupted at Her Music\nr\tLady Writing a Letter with her Maid\nr\tWoman with a Pearl Necklace\nr\tDiana and Her Companions\nr\tMistress and Maid\nt\tGirl with a Flute\nr\tWoman with a Water Jug\nr\tThe Astronomer\nr\tThe Allegory of Faith\nr\tThe Allegory of Painting\ns\tGirl with a Pearl Earring\nd\tWoman with a Lute\ns\tView of Delft\nd\tThe Geographer\nd\tLady Standing at a Virginal\nd\tLady Seated at a Virginal\ns\tThe Milkmaid\nd\tThe Girl with the Wineglass\nd\tThe Procuress\nd\tA Young Woman Seated at the Virginals\nd\tThe Lacemaker\ng\tSaint Praxedis\n",
+  "gem": { "answer": "Saint Praxedis", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Girl with a Pearl Earring", "tier": "surface", "points": 10 },
+    { "answer": "View of Delft", "tier": "surface", "points": 10 },
+    { "answer": "The Milkmaid", "tier": "surface", "points": 10 },
+    { "answer": "Woman with a Lute", "tier": "deep", "points": 85 },
+    { "answer": "The Geographer", "tier": "deep", "points": 85 }
+  ],
+  "size": 37
+}

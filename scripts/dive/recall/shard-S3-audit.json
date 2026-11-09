@@ -1,0 +1,543 @@
+{
+  "baseline_sha256": "03c5d365f1f14a5dc0e2013b71fe1f0c153d89e41c5c818f537af0334004405c",
+  "raw_corpus_sha256": "b21ffe143f66aaff4ea460fcca8e8961800b6cbbb3333668f047e692cb69535f",
+  "selected_corpus_sha256": "9971a6171e7c70ad6f01ecaaa39c1e13272bbbd9d83fed13f205607695f5d20a",
+  "initial_specs_sha256": "80484cc1f772c6e1adcae3c7e8f262bc09b441ff9efa3c5efe8d42f5cf35e64e",
+  "gzip_method": "npm run build Worker dry run \"Total Upload\" gzip, this branch vs base branch generated output, Node v24.",
+  "gzip_kib": {
+    "base": 2946.24,
+    "after": 2949.85,
+    "delta": 3.61
+  },
+  "corpus": {
+    "prompts": 49,
+    "guesses": 2229,
+    "invalid": 175
+  },
+  "baseline": {
+    "before": {
+      "hits": 1353,
+      "total": 1497,
+      "rate": 0.9038076152304609
+    },
+    "after": {
+      "hits": 1475,
+      "total": 1497,
+      "rate": 0.9853039412157648
+    }
+  },
+  "shard": {
+    "before": {
+      "hits": 1778,
+      "total": 2054,
+      "rate": 0.8656280428432327
+    },
+    "after": {
+      "hits": 2052,
+      "total": 2054,
+      "rate": 0.9990262901655307
+    }
+  },
+  "answers_added": 0,
+  "aliases_added": 648,
+  "flagged": [
+    "baseball-hall-of-fame",
+    "declaration-signers",
+    "f1-champions",
+    "heisman",
+    "masters-champions",
+    "super-bowl-mvp"
+  ],
+  "prompts": {
+    "baseball-hall-of-fame": {
+      "baseline_before": "34/37",
+      "baseline_after": "34/37",
+      "shard_before": "71/72",
+      "shard_after": "72/72",
+      "answers_added": 0,
+      "aliases_added": 1,
+      "baseline_misses": ["Williams", "Robinson", "Martinez"],
+      "shard_misses": []
+    },
+    "declaration-signers": {
+      "baseline_before": "27/34",
+      "baseline_after": "31/34",
+      "shard_before": "60/65",
+      "shard_after": "65/65",
+      "answers_added": 0,
+      "aliases_added": 6,
+      "baseline_misses": ["Adams", "Lee", "Morris"],
+      "shard_misses": []
+    },
+    "early-roman-emperors": {
+      "baseline_before": "27/31",
+      "baseline_after": "31/31",
+      "shard_before": "27/33",
+      "shard_after": "33/33",
+      "answers_added": 0,
+      "aliases_added": 10,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "egypt-plagues": {
+      "baseline_before": "15/19",
+      "baseline_after": "19/19",
+      "shard_before": "23/38",
+      "shard_after": "38/38",
+      "answers_added": 0,
+      "aliases_added": 25,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "egyptian-ennead": {
+      "baseline_before": "11/12",
+      "baseline_after": "12/12",
+      "shard_before": "11/21",
+      "shard_after": "21/21",
+      "answers_added": 0,
+      "aliases_added": 10,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "eight-immortals": {
+      "baseline_before": "10/17",
+      "baseline_after": "17/17",
+      "shard_before": "14/26",
+      "shard_after": "26/26",
+      "answers_added": 0,
+      "aliases_added": 17,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "english-football-champions": {
+      "baseline_before": "40/40",
+      "baseline_after": "40/40",
+      "shard_before": "40/42",
+      "shard_after": "42/42",
+      "answers_added": 0,
+      "aliases_added": 13,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "english-monarchs": {
+      "baseline_before": "42/46",
+      "baseline_after": "46/46",
+      "shard_before": "45/64",
+      "shard_after": "64/64",
+      "answers_added": 0,
+      "aliases_added": 70,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "f1-champions": {
+      "baseline_before": "32/34",
+      "baseline_after": "32/34",
+      "shard_before": "46/47",
+      "shard_after": "47/47",
+      "answers_added": 0,
+      "aliases_added": 1,
+      "baseline_misses": ["Rosberg", "Hill"],
+      "shard_misses": []
+    },
+    "former-soviet": {
+      "baseline_before": "16/20",
+      "baseline_after": "20/20",
+      "shard_before": "16/24",
+      "shard_after": "24/24",
+      "answers_added": 0,
+      "aliases_added": 13,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "greek-muses": {
+      "baseline_before": "10/13",
+      "baseline_after": "13/13",
+      "shard_before": "10/17",
+      "shard_after": "17/17",
+      "answers_added": 0,
+      "aliases_added": 9,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "heisman": {
+      "baseline_before": "31/35",
+      "baseline_after": "32/35",
+      "shard_before": "56/60",
+      "shard_after": "60/60",
+      "answers_added": 0,
+      "aliases_added": 5,
+      "baseline_misses": ["Williams", "Smith", "Jackson"],
+      "shard_misses": []
+    },
+    "masters-champions": {
+      "baseline_before": "34/37",
+      "baseline_after": "35/37",
+      "shard_before": "42/43",
+      "shard_after": "43/43",
+      "answers_added": 0,
+      "aliases_added": 2,
+      "baseline_misses": ["Watson", "Johnson"],
+      "shard_misses": []
+    },
+    "mlb-teams": {
+      "baseline_before": "32/33",
+      "baseline_after": "33/33",
+      "shard_before": "42/51",
+      "shard_after": "51/51",
+      "answers_added": 0,
+      "aliases_added": 20,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "moonwalkers": {
+      "baseline_before": "24/32",
+      "baseline_after": "32/32",
+      "shard_before": "16/23",
+      "shard_after": "23/23",
+      "answers_added": 0,
+      "aliases_added": 9,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "nba-mvp": {
+      "baseline_before": "26/32",
+      "baseline_after": "31/32",
+      "shard_before": "39/44",
+      "shard_after": "44/44",
+      "answers_added": 0,
+      "aliases_added": 14,
+      "baseline_misses": ["Malone"],
+      "shard_misses": []
+    },
+    "nba-teams": {
+      "baseline_before": "31/33",
+      "baseline_after": "33/33",
+      "shard_before": "32/40",
+      "shard_after": "40/40",
+      "answers_added": 0,
+      "aliases_added": 15,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "nfl-teams": {
+      "baseline_before": "32/33",
+      "baseline_after": "33/33",
+      "shard_before": "36/42",
+      "shard_after": "42/42",
+      "answers_added": 0,
+      "aliases_added": 15,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "nhl-teams": {
+      "baseline_before": "32/33",
+      "baseline_after": "33/33",
+      "shard_before": "40/51",
+      "shard_after": "51/51",
+      "answers_added": 0,
+      "aliases_added": 15,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "nobel-peace": {
+      "baseline_before": "29/37",
+      "baseline_after": "37/37",
+      "shard_before": "61/64",
+      "shard_after": "64/64",
+      "answers_added": 0,
+      "aliases_added": 12,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "olympian-gods": {
+      "baseline_before": "13/15",
+      "baseline_after": "15/15",
+      "shard_before": "14/18",
+      "shard_after": "18/18",
+      "answers_added": 0,
+      "aliases_added": 5,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "pokemon-fire": {
+      "baseline_before": "32/32",
+      "baseline_after": "32/32",
+      "shard_before": "81/81",
+      "shard_after": "81/81",
+      "answers_added": 0,
+      "aliases_added": 0,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "pokemon-gen1": {
+      "baseline_before": "32/32",
+      "baseline_after": "32/32",
+      "shard_before": "57/59",
+      "shard_after": "57/59",
+      "answers_added": 0,
+      "aliases_added": 0,
+      "baseline_misses": [],
+      "shard_misses": ["Nidoran", "Nidoran♀"]
+    },
+    "pokemon-legendary": {
+      "baseline_before": "32/32",
+      "baseline_after": "32/32",
+      "shard_before": "93/93",
+      "shard_after": "93/93",
+      "answers_added": 0,
+      "aliases_added": 0,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "pokemon-types": {
+      "baseline_before": "18/18",
+      "baseline_after": "18/18",
+      "shard_before": "19/22",
+      "shard_after": "22/22",
+      "answers_added": 0,
+      "aliases_added": 19,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "pokemon-water": {
+      "baseline_before": "32/32",
+      "baseline_after": "32/32",
+      "shard_before": "84/84",
+      "shard_after": "84/84",
+      "answers_added": 0,
+      "aliases_added": 0,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "popes-modern": {
+      "baseline_before": "12/24",
+      "baseline_after": "24/24",
+      "shard_before": "12/43",
+      "shard_after": "43/43",
+      "answers_added": 0,
+      "aliases_added": 56,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "secretaries-of-state": {
+      "baseline_before": "43/46",
+      "baseline_after": "45/46",
+      "shard_before": "43/51",
+      "shard_after": "51/51",
+      "answers_added": 0,
+      "aliases_added": 23,
+      "baseline_misses": ["Marshall"],
+      "shard_misses": []
+    },
+    "states-thirteen": {
+      "baseline_before": "13/13",
+      "baseline_after": "13/13",
+      "shard_before": "13/22",
+      "shard_after": "22/22",
+      "answers_added": 0,
+      "aliases_added": 24,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "summer-olympic-hosts": {
+      "baseline_before": "26/27",
+      "baseline_after": "27/27",
+      "shard_before": "27/30",
+      "shard_after": "30/30",
+      "answers_added": 0,
+      "aliases_added": 8,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "super-bowl-mvp": {
+      "baseline_before": "31/33",
+      "baseline_after": "31/33",
+      "shard_before": "51/51",
+      "shard_after": "51/51",
+      "answers_added": 0,
+      "aliases_added": 0,
+      "baseline_misses": ["Manning", "Smith"],
+      "shard_misses": []
+    },
+    "super-bowl-winners": {
+      "baseline_before": "40/41",
+      "baseline_after": "41/41",
+      "shard_before": "35/36",
+      "shard_after": "36/36",
+      "answers_added": 0,
+      "aliases_added": 1,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "supreme-court-since-1981": {
+      "baseline_before": "28/31",
+      "baseline_after": "31/31",
+      "shard_before": "26/29",
+      "shard_after": "29/29",
+      "answers_added": 0,
+      "aliases_added": 11,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "tour-de-france": {
+      "baseline_before": "36/36",
+      "baseline_after": "36/36",
+      "shard_before": "41/41",
+      "shard_after": "41/41",
+      "answers_added": 0,
+      "aliases_added": 0,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "triple-crown-horses": {
+      "baseline_before": "13/13",
+      "baseline_after": "13/13",
+      "shard_before": "13/16",
+      "shard_after": "16/16",
+      "answers_added": 0,
+      "aliases_added": 3,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "ucl-winners": {
+      "baseline_before": "30/39",
+      "baseline_after": "39/39",
+      "shard_before": "31/41",
+      "shard_after": "41/41",
+      "answers_added": 0,
+      "aliases_added": 22,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "uk-prime-ministers": {
+      "baseline_before": "31/39",
+      "baseline_after": "38/39",
+      "shard_before": "38/53",
+      "shard_after": "53/53",
+      "answers_added": 0,
+      "aliases_added": 61,
+      "baseline_misses": ["William Pitt"],
+      "shard_misses": []
+    },
+    "un-secretaries-general": {
+      "baseline_before": "20/21",
+      "baseline_after": "21/21",
+      "shard_before": "22/24",
+      "shard_after": "24/24",
+      "answers_added": 0,
+      "aliases_added": 2,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "us-first-ladies": {
+      "baseline_before": "42/46",
+      "baseline_after": "44/46",
+      "shard_before": "46/47",
+      "shard_after": "47/47",
+      "answers_added": 0,
+      "aliases_added": 9,
+      "baseline_misses": ["Adams", "Harrison"],
+      "shard_misses": []
+    },
+    "us-presidents": {
+      "baseline_before": "29/35",
+      "baseline_after": "34/35",
+      "shard_before": "52/62",
+      "shard_after": "62/62",
+      "answers_added": 0,
+      "aliases_added": 38,
+      "baseline_misses": ["Adams"],
+      "shard_misses": []
+    },
+    "us-vice-presidents": {
+      "baseline_before": "38/43",
+      "baseline_after": "42/43",
+      "shard_before": "45/56",
+      "shard_after": "56/56",
+      "answers_added": 0,
+      "aliases_added": 29,
+      "baseline_misses": ["Johnson"],
+      "shard_misses": []
+    },
+    "wimbledon-men": {
+      "baseline_before": "42/42",
+      "baseline_after": "42/42",
+      "shard_before": "31/32",
+      "shard_after": "32/32",
+      "answers_added": 0,
+      "aliases_added": 3,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "wimbledon-women": {
+      "baseline_before": "46/48",
+      "baseline_after": "48/48",
+      "shard_before": "36/40",
+      "shard_after": "40/40",
+      "answers_added": 0,
+      "aliases_added": 7,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "winter-2026-disciplines": {
+      "baseline_before": "20/20",
+      "baseline_after": "20/20",
+      "shard_before": "21/22",
+      "shard_after": "22/22",
+      "answers_added": 0,
+      "aliases_added": 5,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "winter-olympic-hosts": {
+      "baseline_before": "24/28",
+      "baseline_after": "28/28",
+      "shard_before": "25/30",
+      "shard_after": "30/30",
+      "answers_added": 0,
+      "aliases_added": 10,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "world-chess-champions": {
+      "baseline_before": "35/37",
+      "baseline_after": "37/37",
+      "shard_before": "32/32",
+      "shard_after": "32/32",
+      "answers_added": 0,
+      "aliases_added": 6,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "world-cup-hosts": {
+      "baseline_before": "22/23",
+      "baseline_after": "23/23",
+      "shard_before": "23/23",
+      "shard_after": "23/23",
+      "answers_added": 0,
+      "aliases_added": 2,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "world-cup-winners": {
+      "baseline_before": "10/12",
+      "baseline_after": "12/12",
+      "shard_before": "10/13",
+      "shard_after": "13/13",
+      "answers_added": 0,
+      "aliases_added": 5,
+      "baseline_misses": [],
+      "shard_misses": []
+    },
+    "zelda-games": {
+      "baseline_before": "28/31",
+      "baseline_after": "31/31",
+      "shard_before": "30/36",
+      "shard_after": "36/36",
+      "answers_added": 0,
+      "aliases_added": 17,
+      "baseline_misses": [],
+      "shard_misses": []
+    }
+  }
+}

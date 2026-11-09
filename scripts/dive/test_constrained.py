@@ -16,6 +16,49 @@ import sources
 
 
 class SourcesTest(unittest.TestCase):
+    def test_immutable_source_urls_and_local_snapshot_bytes(self):
+        self.assertTrue(sources.immutable_dataset('https://raw.githubusercontent.com/org/repo/' + 'a' * 40 + '/data.json'))
+        self.assertTrue(sources.immutable_dataset('https://en.wiktionary.org/w/api.php?oldid=123'))
+        for url in ['', '../escape', 'https://example.test/live',
+                    'https://raw.githubusercontent.com/org/repo/main/data.json',
+                    'https://en.wikipedia.org/wiki/Live', 'http://en.wikipedia.org/?oldid=123']:
+            self.assertFalse(sources.immutable_dataset(url), url)
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        for container in [*document['bases'].values(), *document['prompts']]:
+            for spec in container['sources']:
+                if 'dataset' in spec:
+                    self.assertTrue(sources.immutable_dataset(spec['dataset']), spec['dataset'])
+                    if spec['dataset'].startswith('snapshots/'):
+                        with patch.object(sources, 'fetch', side_effect=AssertionError('Network not allowed')):
+                            self.assertEqual(sources.acquire(spec), spec['reviewed'])
+        with self.assertRaisesRegex(ValueError, 'inside snapshots'):
+            sources.dataset('../escape', '0' * 64, 'lines')
+
+    def test_book_title_parsers_and_malformed_records(self):
+        for data, format, expected in [('{"title":"Book"}', 'json-title', ['Book']),
+                                       ('<title>Book &amp; Co</title>', 'html-title', ['Book & Co'])]:
+            with patch.object(sources, 'fetch', return_value=data):
+                self.assertEqual(sources.dataset('https://fixture.test', hashlib.sha256(data.encode()).hexdigest(), format), expected)
+        for data, format in [('{}', 'json-title'), ('[]', 'json-title'),
+                             ('{"title":" "}', 'json-title'), ('<title> </title>', 'html-title'),
+                             ('<p>No title</p>', 'html-title')]:
+            with patch.object(sources, 'fetch', return_value=data):
+                with self.assertRaisesRegex(ValueError, 'title'):
+                    sources.dataset('https://fixture.test', hashlib.sha256(data.encode()).hexdigest(), format)
+
+    def test_ala_annual_parser_requires_all_complete_unique_years(self):
+        chunks = [f'<h2>{year}</h2><ol>' + ''.join(f'<li><em>Book {i} series</em></li>'
+                  for i in range(11 if year == 2018 else 10)) + '</ol>' for year in range(2010, 2020)]
+        data = ''.join(chunks)
+        def parse(text):
+            with patch.object(sources, 'fetch', return_value=text):
+                return sources.dataset('https://fixture.test', hashlib.sha256(text.encode()).hexdigest(), 'ala-annual-2010s')
+        self.assertEqual(parse(data), sorted(f'Book {i}' for i in range(11)))
+        for text in ['', ''.join(chunks[1:]), data + chunks[0], data.replace('<em>Book 0 series</em>', 'No title', 1),
+                     data.replace('<li><em>Book 0 series</em></li>', '', 1)]:
+            with self.assertRaises(ValueError):
+                parse(text)
+
     def test_malformed_spans_and_inherited_row_exclusions(self):
         soup = BeautifulSoup('<table class="wikitable"><tr><th>Year</th><th>Name</th></tr>'
                              '<tr><td rowspan="2,">2026</td><td><a href="/wiki/A">Alpha</a></td></tr>'
@@ -54,7 +97,8 @@ class SourcesTest(unittest.TestCase):
                     sources.list_page(title, revision)
 
     def test_dataset_checksum_formats_and_empty(self):
-        for raw, format, expected in [('id,name\n1,Alpha\n', 'csv', [{'id': '1', 'name': 'Alpha'}]), ('[]', 'json', [])]:
+        for raw, format, expected in [('id,name\n1,Alpha\n', 'csv', [{'id': '1', 'name': 'Alpha'}]), ('[]', 'json', []),
+                                      (' alpha \n\n beta\r\n', 'lines', ['alpha', 'beta']), ('\n  \n', 'lines', [])]:
             with patch.object(sources, 'fetch', return_value=raw):
                 self.assertEqual(sources.dataset('https://example.test/pin', hashlib.sha256(raw.encode()).hexdigest(), format), expected)
                 with self.assertRaisesRegex(ValueError, 'checksum'):
@@ -75,19 +119,63 @@ class SourcesTest(unittest.TestCase):
 
 
 class SpecsTest(unittest.TestCase):
+    def test_current_schedule_preserves_or_improves_premerge_daily_size_diversity(self):
+        prompts = [{**p, 'size': len(p['rows'])} for p in constrained.read_specs() if p['active']]
+        days, _ = schedule.build(prompts)
+        schedule.validate(days, prompts)
+        by_id = {p['id']: p for p in prompts}
+        bands = [{schedule.size_band(by_id[id]['size']) for id in day} for day in days]
+        self.assertEqual(len(days), 64)
+        self.assertGreaterEqual(min(map(len, bands)), 2)
+        self.assertGreaterEqual(sum(len(b) == 3 for b in bands), 12)
+
+    def test_ambiguous_surnames_are_removed_even_when_explicit(self):
+        for names, aliases, forbidden in [
+            (['Craig Wood', 'Tiger Woods'], {'Tiger Woods': ['Tiger', 'Wood', 'Woods']}, {'wood'}),
+            (['George Washington', 'Martha Washington'], {'George Washington': ['Washington']}, {'washington'}),
+            (['Ronaldo', 'Cristiano Ronaldo'], {'Cristiano Ronaldo': ['CR7', 'Ronaldo']}, {'ronaldo'}),
+        ]:
+            constrained.add_surnames([{'name': name} for name in names], aliases)
+            for values in aliases.values():
+                self.assertFalse(forbidden & {constrained.normalize(v) for v in values})
+        aliases = {}
+        constrained.add_surnames([], aliases)
+        self.assertEqual(aliases, {})
+        constrained.add_surnames([{'name': 'Ronaldo'}, {'name': 'Lionel Messi'}], aliases)
+        self.assertEqual(aliases, {'Lionel Messi': ['messi']})
+
     def test_short_natural_texts_and_retired_sets_remain_complete(self):
         prompts = constrained.read_specs()
         retired = {p['id'] for p in prompts if not p['active']}
-        self.assertEqual(retired, {'calendar-months', 'zodiac-signs', 'chinese-zodiac',
+        self.assertEqual(retired, {'disney-princesses', 'calendar-months', 'zodiac-signs', 'chinese-zodiac',
                                   'zodiac-constellations', 'santas-reindeer', 'cluedo-rooms',
                                   'us-food-allergens', 'lanthanides', 'synthetic-elements',
                                   'b-vitamins', 'period-4-elements', 'period-5-elements',
                                   'period-6-elements', 'period-7-elements',
                                   'astronaut-group-2', 'astronaut-group-3', 'astronaut-group-5',
-                                  'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
+                                  'iba-unforgettables', 'iba-contemporary', 'iba-new-era',
+                                  'africa-countries', 'asia-countries', 'europe-countries',
+                                  'south-america-countries', 'oceania-countries', 'africa-capitals',
+                                  'asia-capitals', 'europe-capitals', 'americas-capitals',
+                                  'canada-provinces', 'australia-states-territories',
+                                  'landlocked-countries', 'greek-letters', 'nato-alphabet',
+                                  'borders-austria', 'borders-zambia',
+                                  'apollo-moon-travellers', 'beatles-albums', 'bond-films', 'bowie-albums',
+                                  'brazil-states', 'burton-films', 'china-provinces', 'css-named-colors',
+                                  'hitchcock-films', 'indian-states', 'japan-prefectures', 'kubrick-films',
+                                  'london-tube-lines', 'magic-eight-ball-responses', 'mexico-states',
+                                  'miyazaki-films', 'mlb-teams', 'monopoly-uk', 'monopoly-us', 'nba-teams',
+                                  'new-zealand-regions', 'nfl-teams', 'nhl-teams', 'nolan-films',
+                                  'oneworld-airlines', 'pink-floyd-albums', 'pixar-films', 'queen-albums',
+                                  'spielberg-films', 'star-alliance', 'summer-olympic-hosts',
+                                  'supreme-court-since-1981', 'swift-albums', 'swiss-cantons',
+                                  'tarantino-films', 'transuranium-elements', 'u2-studio-albums',
+                                  'uk-prime-ministers', 'us-presidents', 'us-vice-presidents',
+                                  'shakespeare-plays', 'discworld-novels', 'dahl-novels', 'dickens-books',
+                                  'wes-anderson-features'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
-        self.assertEqual(sum(p['active'] for p in prompts), 203)
+        self.assertEqual(sum(p['active'] for p in prompts), 320)
         for prompt in prompts:
             self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
             self.assertRegex(prompt['text'], r'^Name [^.?!]+\.$')
@@ -96,7 +184,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 253)
+        self.assertEqual(len(prompts), 432)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
@@ -104,6 +192,146 @@ class SpecsTest(unittest.TestCase):
         self.assertEqual(constrained.derive(rows, constrained.PREDICATES['countries-ia']), rows[:1])
         self.assertEqual(constrained.derive([], constrained.PREDICATES['countries-ia']), [])
         self.assertEqual(constrained.letters('São Tomé and Príncipe'), 'saotomeandprincipe')
+
+    def test_third_batch_closed_scopes_and_named_upcoming_album(self):
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        names = lambda id: {r['name'] for r in prompts[id]['rows']}
+        self.assertEqual(len(names('original-care-bears')), 10)
+        self.assertEqual(len(names('smash-64-fighters')), 12)
+        self.assertEqual(len(names('eevee-evolutions')), 8)
+        self.assertNotIn('Eevee', names('eevee-evolutions'))
+        self.assertNotIn('Bowser', names('smash-64-fighters'))
+        self.assertNotIn('Topic', names('celebrations-chocolates'))
+        self.assertNotIn('Elsa', names('disney-princess-lineup'))
+        self.assertNotIn('Vitruvian Man', names('leonardo-paintings'))
+        self.assertIn('Salvator Mundi', names('leonardo-paintings'))
+        self.assertIn('Ice', names('iba-singapore-sling-ingredients'))
+        self.assertIn('Original Soundtracks 1', names('u2-studio-albums'))
+        self.assertIn('Carnaval de Luz', names('u2-studio-albums'))
+        self.assertNotIn('TBA', names('u2-studio-albums'))
+        self.assertEqual(len(names('super-bowl-halftime-leads')), 124)
+        self.assertIn('will.i.am', names('super-bowl-halftime-leads'))
+        aliases = prompts['super-bowl-halftime-leads']['aliases']
+        for name, variant in [('Mustard', 'djmustard'), ('H.E.R.', 'gabriellawilson'),
+                              ('Justin Timberlake', 'timberlake')]:
+            self.assertIn(variant, {a.lower().replace(' ', '') for a in aliases.get(name, [])})
+
+    def test_plain_list_swaps_and_word_pattern_boundaries(self):
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        specs = {p['id']: p for p in document['prompts']}
+        retired = ['africa-countries', 'asia-countries', 'europe-countries', 'south-america-countries',
+                   'oceania-countries', 'africa-capitals', 'asia-capitals', 'europe-capitals',
+                   'americas-capitals', 'canada-provinces', 'australia-states-territories',
+                   'landlocked-countries', 'greek-letters', 'nato-alphabet']
+        self.assertTrue(all(not specs[id]['active'] for id in retired))
+        ids = ['borders-germany', 'borders-dr-congo', 'borders-austria', 'borders-zambia',
+               'high-capitals', 'drive-left-countries', 'crescent-flags', 'multi-zone-countries',
+               'countries-peaks-5000', 'moscow-1980-boycott', 'olympic-capitals',
+               'english-eurovision-countries', 'enable-greek-hidden', 'enable-qwerty-top-row']
+        self.assertEqual([specs[id]['theme'] for id in ids].count('geography'), 12)
+        self.assertEqual([specs[id]['theme'] for id in ids].count('words'), 2)
+        prompts = {p['id']: p for p in constrained.read_specs()}
+        def names(id):
+            return {r['name'] for r in prompts[id]['rows']}
+        for id in ids:
+            self.assertEqual(specs[id]['active'], id not in ['borders-austria', 'borders-zambia'])
+            self.assertEqual(specs[id]['expect'], [len(names(id))] * 2)
+            self.assertLessEqual(len(names(id)), 430)
+            self.assertTrue(specs[id]['sources'])
+            self.assertTrue(all(s['revision'] and s['expect'] for s in specs[id]['sources']))
+        self.assertEqual(len(names('high-capitals')), 9)
+        self.assertIn('Sucre', names('high-capitals'))
+        self.assertNotIn('Kabul', names('high-capitals'))
+        self.assertEqual(len(names('drive-left-countries')), 54)
+        self.assertNotIn('Hong Kong', names('drive-left-countries'))
+        self.assertNotIn('United States', names('drive-left-countries'))
+        self.assertEqual(len(names('crescent-flags')), 19)
+        self.assertTrue({'Iran', 'Brunei', 'Nepal', 'Moldova'} <= names('crescent-flags'))
+        self.assertNotIn('Western Sahara', names('crescent-flags'))
+        self.assertEqual(len(names('multi-zone-countries')), 22)
+        self.assertTrue({'South Africa', 'Denmark'} <= names('multi-zone-countries'))
+        self.assertTrue({'China', 'Kazakhstan', 'Greenland'}.isdisjoint(names('multi-zone-countries')))
+        self.assertEqual(len(names('countries-peaks-5000')), 27)
+        self.assertTrue({'Indonesia', 'Venezuela'}.isdisjoint(names('countries-peaks-5000')))
+        self.assertEqual(len(names('olympic-capitals')), 15)
+        self.assertTrue({'Sarajevo', 'Stockholm'} <= names('olympic-capitals'))
+        self.assertNotIn('Singapore', names('olympic-capitals'))
+        self.assertEqual(len(names('moscow-1980-boycott')), 68)
+        self.assertIn('West Germany', names('moscow-1980-boycott'))
+        self.assertTrue({'East Germany', 'New Zealand'}.isdisjoint(names('moscow-1980-boycott')))
+        self.assertEqual(len(names('english-eurovision-countries')), 19)
+        self.assertIn('Ukraine', names('english-eurovision-countries'))
+        self.assertTrue({'West Germany', 'Serbia'}.isdisjoint(names('english-eurovision-countries')))
+        for id in ['enable-greek-hidden', 'enable-qwerty-top-row']:
+            spec = specs[id]
+            excluded = {constrained.normalize(w) for w in spec['editorial_exclusions']}
+            for row in spec['answers']:
+                self.assertTrue(4 <= len(row['name']) <= 12)
+                self.assertNotIn(constrained.normalize(row['name']), excluded)
+                if id == 'enable-greek-hidden':
+                    for word in [row['name'], *row.get('aliases', [])]:
+                        self.assertTrue(any(n in word for n in ['eta', 'rho', 'tau', 'phi', 'chi', 'psi']))
+                else:
+                    self.assertLessEqual(set(row['name']), set('qwertyuiop'))
+                    self.assertTrue(all(constrained.normalize(a) == constrained.normalize(row['name'])
+                                        for a in row.get('aliases', [])))
+
+    def test_batch_six_complete_predicate_and_olympic_intersection(self):
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        specs = {p['id']: p for p in document['prompts']}
+        self.assertFalse(specs['borders-austria']['active'])
+        self.assertFalse(specs['borders-zambia']['active'])
+        self.assertEqual(len(specs['borders-austria']['answers']), 8)
+        self.assertEqual(len(specs['borders-zambia']['answers']), 8)
+        usa = specs['countries-without-usa']
+        names = {r['name'] for r in usa['answers']}
+        self.assertEqual(len(usa['sources'][0]['reviewed']), 193)
+        self.assertEqual(names, {n for n in usa['sources'][0]['reviewed']
+                                 if not set(constrained.letters(n)) & set('usa')})
+        self.assertEqual(usa['expect'], [14, 14])
+        self.assertTrue({'Mexico', 'Congo', "Côte d'Ivoire"} <= names)
+        self.assertTrue({'Ivory Coast', 'Democratic Republic of the Congo', 'Niue', 'Hong Kong'}.isdisjoint(names))
+        olympics = specs['both-season-olympics']
+        expected = {'United States', 'France', 'Germany', 'Italy', 'Japan',
+                    'Canada', 'China', 'Russia', 'South Korea'}
+        self.assertEqual({r['name'] for r in olympics['answers']}, expected)
+        self.assertEqual(set(olympics['sources'][0]['reviewed']), expected)
+        self.assertEqual(olympics['expect'], [9, 9])
+        for spec in [usa, olympics]:
+            self.assertTrue(spec['active'])
+            self.assertEqual(spec['theme'], 'geography')
+            self.assertLessEqual(len(spec['answers']), 24)
+            self.assertTrue(spec['surface'])
+            self.assertIn(spec['pearl'], {r['name'] for r in spec['answers']})
+
+    def test_second_batch_word_patterns_and_editorial_boundaries(self):
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        prompts = {p['id']: p for p in document['prompts']}
+        for id in ['enable-semordnilaps', 'enable-three-es', 'enable-five-vowels']:
+            prompt = prompts[id]
+            self.assertTrue(prompt['active'])
+            self.assertLessEqual(len(prompt['answers']), 2000)
+            self.assertEqual(prompt['sources'][0]['sha256'],
+                             '3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89')
+            for row in prompt['answers']:
+                for word in [row['name'], *row.get('aliases', [])]:
+                    self.assertRegex(word, r'^[a-z]+$')
+                    if id == 'enable-semordnilaps':
+                        self.assertTrue(4 <= len(word) <= 9)
+                        self.assertNotEqual(word, word[::-1])
+                        self.assertNotIn(word, prompt['editorial_exclusions'])
+                    elif id == 'enable-three-es':
+                        self.assertTrue(6 <= len(word) <= 9)
+                        self.assertGreaterEqual(word.count('e'), 3)
+                    else:
+                        self.assertLessEqual(set('aeiou'), set(word))
+        self.assertEqual(prompts['enable-five-vowels']['dictionary_supplements'], ['cautioner'])
+        self.assertIn('cautioner', {r['name'] for r in prompts['enable-five-vowels']['answers']})
+        self.assertEqual(prompts['enable-five-vowels']['sources'][1]['revision'], '93683712')
+        self.assertTrue({'Frank Lockhart', 'Johnnie Parsons', 'Buddy Rice'} <=
+                        {r['name'] for r in prompts['indy-500-winners']['answers']})
+        self.assertEqual(len(prompts['shuttle-final-crews']['answers']), 30)
+        self.assertNotIn('Ingenuity', {r['name'] for r in prompts['moon-mars-rovers']['answers']})
 
     def test_reviewed_phase_two_boundaries(self):
         prompts = {p['id']: p for p in constrained.read_specs()}
@@ -218,6 +446,26 @@ class ScheduleTest(unittest.TestCase):
         self.assertEqual(schedule.build(prompts)[0], [])
         with self.assertRaisesRegex(ValueError, '64 days'):
             schedule.validate([], [])
+
+    def test_fully_constrained_bank_keeps_a_difficulty_mix(self):
+        prompts = self.fixture()
+        for i, prompt in enumerate(prompts):
+            prompt.update(constrained=True, size=12 if i < 160 else 80)
+        days, status = schedule.build(prompts)
+        self.assertEqual(len(days), 64, status)
+        schedule.validate(days, prompts)
+
+    def test_fully_constrained_homogeneous_days_retry_and_fail_cleanly(self):
+        for size in [12, 200]:
+            prompts = self.fixture()[:5]
+            for prompt in prompts:
+                prompt.update(constrained=True, size=size)
+            with patch.object(schedule, 'MIN_DAYS', 1), \
+                    patch.object(schedule.random, 'Random', wraps=schedule.random.Random) as random:
+                days, status = schedule.build(prompts)
+            self.assertEqual(days, [])
+            self.assertIn('unable to satisfy', status)
+            self.assertEqual(random.call_count, 200)
 
 
 if __name__ == '__main__':

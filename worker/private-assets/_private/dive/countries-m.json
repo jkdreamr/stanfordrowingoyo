@@ -1,0 +1,30 @@
+{
+  "buckets": {
+    "5": "\nburma\t13\nfyrom\t2o\nmalta\t1w\nmaroc\t1d\n",
+    "30": "\nfederated states of micronesia\t5q\n",
+    "3": "\nfsm\t5q\n",
+    "18": "\nkingdom of morocco\t1d\n",
+    "9": "\nmacedonia\t2o\nmauritius\t4e\n",
+    "10": "\nmadagascar\t2b\nmauritania\t5d\nmicronesia\t5q\nmontenegro\t50\nmozambique\t41\n",
+    "6": "\nmalawi\t3s\nmexico\t0\nmonaco\t1n\n",
+    "8": "\nmalaysia\t9\nmoldavia\t4q\nmongolia\t3h\n",
+    "7": "\nmaldive\t36\nmoldova\t4q\nmorocco\t1d\nmyanmar\t13\n",
+    "4": "\nmali\t24\n",
+    "15": "\nmarshall island\tk\nnorth macedonia\t2o\n",
+    "16": "\nmexican republic\t0\nrepublic of mali\t24\n",
+    "22": "\nprincipality of monaco\t1n\n",
+    "19": "\nrepublic of moldova\t4q\n",
+    "27": "\nrepublic of north macedonia\t2o\n",
+    "20": "\nunited mexican state\t0\n"
+  },
+  "answers": "s\tMexico\ns\tMalaysia\nm\tMarshall Islands\nm\tMyanmar\ns\tMorocco\nm\tMonaco\nm\tMalta\nm\tMali\ng\tMadagascar\nm\tNorth Macedonia\nm\tMaldives\nr\tMongolia\nr\tMalawi\nr\tMozambique\nr\tMauritius\nr\tMoldova\nd\tMontenegro\nd\tMauritania\nd\tMicronesia\n",
+  "gem": { "answer": "Madagascar", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Mexico", "tier": "surface", "points": 10 },
+    { "answer": "Malaysia", "tier": "surface", "points": 10 },
+    { "answer": "Morocco", "tier": "surface", "points": 10 },
+    { "answer": "Montenegro", "tier": "deep", "points": 85 },
+    { "answer": "Mauritania", "tier": "deep", "points": 85 }
+  ],
+  "size": 19
+}

@@ -1,0 +1,21 @@
+{
+  "buckets": {
+    "8": "\ncalliope\tg\nkalliope\tg\nkalliopi\tg\npolymnia\t28\n",
+    "4": "\nclio\t0\nklio\t0\n",
+    "5": "\nerato\t1c\nkleio\t0\ntalia\t7\n",
+    "7": "\neuterpe\t1k\nourania\tr\nthaleia\t7\n",
+    "9": "\nmelpomene\t10\npolhymnia\t28\n",
+    "10": "\npolyhymnia\t28\n",
+    "11": "\nterpsichora\t1u\nterpsichore\t1u\n",
+    "6": "\nthalia\t7\nurania\tr\n"
+  },
+  "answers": "s\tClio\ns\tThalia\ns\tCalliope\ng\tUrania\nm\tMelpomene\nm\tErato\nm\tEuterpe\nr\tTerpsichore\nd\tPolyhymnia\n",
+  "gem": { "answer": "Urania", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Clio", "tier": "surface", "points": 10 },
+    { "answer": "Thalia", "tier": "surface", "points": 10 },
+    { "answer": "Calliope", "tier": "surface", "points": 10 },
+    { "answer": "Polyhymnia", "tier": "deep", "points": 85 }
+  ],
+  "size": 9
+}

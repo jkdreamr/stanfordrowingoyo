@@ -1,0 +1,19 @@
+{
+  "buckets": {
+    "5": "\ncoeus\t1m\ncrius\t1u\nkrono\t0\nrheia\t2b\ntethy\t2t\ntheia\t14\n",
+    "6": "\ncronus\t0\nokeano\t9\nphoebe\t22\nphoibe\t22\nthemis\tj\n",
+    "8": "\nhyperion\t2i\n",
+    "7": "\niapetus\t1c\njapetus\t1c\noceanus\t9\n",
+    "4": "\nkoio\t1m\nkrio\t1u\nrhea\t2b\nthea\t14\n",
+    "9": "\nmnemosyne\ts\n"
+  },
+  "answers": "s\tCronus\ns\tOceanus\nm\tThemis\nm\tMnemosyne\nm\tTheia\nm\tIapetus\nr\tCoeus\ng\tCrius\nr\tPhoebe\ns\tRhea\nt\tHyperion\nd\tTethys\n",
+  "gem": { "answer": "Crius", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Cronus", "tier": "surface", "points": 10 },
+    { "answer": "Oceanus", "tier": "surface", "points": 10 },
+    { "answer": "Rhea", "tier": "surface", "points": 10 },
+    { "answer": "Tethys", "tier": "deep", "points": 85 }
+  ],
+  "size": 12
+}

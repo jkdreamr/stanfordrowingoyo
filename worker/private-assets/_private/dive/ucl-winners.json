@@ -1,0 +1,32 @@
+{
+  "buckets": {
+    "8": "\nac milan\t2e\ndortmund\t7k\nfc porto\t4n\njuventus\t4v\nman city\t0\nparis sg\t69\n",
+    "4": "\najax\t56\njuve\t4v\nreal\t1o\n",
+    "14": "\najax amsterdam\t56\nbayern munchen\t47\ninternazionale\t2v\n",
+    "11": "\naston villa\t3t\ninter milan\t2v\nreal madrid\t1o\n",
+    "5": "\nbarca\t22\ninter\t2v\nman u\ti\nmilan\t2e\nporto\t4n\n",
+    "9": "\nbarcelona\t22\nceltic fc\t2m\nfc bayern\t47\nfeyenoord\t84\nliverpool\t12\nmarseille\t5x\n",
+    "6": "\nbayern\t47\nceltic\t2m\nforest\t39\nmadrid\t1o\n",
+    "13": "\nbayern munich\t47\ncrvena zvezda\t5d\npsv eindhoven\t8g\n",
+    "7": "\nbenfica\t7a\nchelsea\t1e\nhamburg\t6v\nman utd\ti\n",
+    "17": "\nborussia dortmund\t7k\nmanchester united\ti\nnottingham forest\t39\nred star belgrade\t5d\n",
+    "12": "\nfc barcelona\t22\nhamburger sv\t6v\nliverpool fc\t12\n",
+    "3": "\nhsv\t6v\npsg\t69\npsv\t8g\n",
+    "10": "\nman united\ti\nsl benfica\t7a\n",
+    "15": "\nmanchester city\t0\n",
+    "22": "\nolympique de marseille\t5x\n",
+    "2": "\nom\t5x\n",
+    "19": "\nparis saint germain\t69\n",
+    "16": "\nsteaua bucharest\t8w\nsteaua bucuresti\t8w\n"
+  },
+  "answers": "m\tManchester City\nm\tManchester United\ns\tLiverpool\nm\tChelsea\ns\tReal Madrid\ns\tBarcelona\nm\tMilan\nm\tCeltic\nm\tInter Milan\ng\tNottingham Forest\nm\tAston Villa\nm\tBayern Munich\nm\tPorto\nr\tJuventus\nr\tAjax\nr\tRed Star Belgrade\nr\tMarseille\nr\tParis Saint-Germain\nr\tHamburger SV\nd\tBenfica\nd\tBorussia Dortmund\nd\tFeyenoord\nd\tPSV Eindhoven\nd\tSteaua București\n",
+  "gem": { "answer": "Nottingham Forest", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Liverpool", "tier": "surface", "points": 10 },
+    { "answer": "Real Madrid", "tier": "surface", "points": 10 },
+    { "answer": "Barcelona", "tier": "surface", "points": 10 },
+    { "answer": "Benfica", "tier": "deep", "points": 85 },
+    { "answer": "Borussia Dortmund", "tier": "deep", "points": 85 }
+  ],
+  "size": 24
+}

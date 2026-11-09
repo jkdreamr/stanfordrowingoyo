@@ -1,0 +1,27 @@
+{
+  "buckets": {
+    "12": "\naaron rodger\t61\nchuck howley\th3\ndeion branch\tez\ndoug william\t3h\nemmitt smith\tgb\njim plunkett\tcp\nlarry csonka\tk9\nmarcus allen\t3x\nrichard dent\t6x\n",
+    "6": "\naikman\tel\nbranch\tez\ncsonka\tk9\ndawson\t95\nflacco\te8\nharris\t6h\nhoward\t8o\nhowley\th3\nmahome\tft\nmartin\t1u\nmiller\t2a\nnamath\tgq\nriggin\tfe\nrodger\t61\nrypien\thz\nwalker\t52\nwarner\t5n\n",
+    "5": "\nallen\t3x\nbrady\t4q\nbrown\tq\ndavis\tc9\nelway\tdv\nholme\tja\nlewis\te\nscott\t1h\nstarr\t9i\nswann\tb2\nwhite\t4c\nyoung\t0\n",
+    "8": "\nanderson\tjs\nbradshaw\t9v\nplunkett\tcp\nstaubach\thi\n",
+    "10": "\nbart starr\t9i\nhines ward\tac\njake scott\t1h\njalen hurt\td4\njerry rice\t14\njoe flacco\te8\njoe namath\tgq\njohn elway\tdv\nlen dawson\t95\nlynn swann\tb2\nvon miller\t2a\n",
+    "11": "\nbiletnikoff\tir\ncooper kupp\tid\neli manning\t7t\njoe montana\t2n\njohn riggin\tfe\nkurt warner\t5n\nlarry brown\tq\nmark rypien\thz\nrandy white\t4c\nsteve young\t0\ntroy aikman\tel\n",
+    "4": "\nbree\tbw\ndent\t6x\nfole\tdi\nhurt\td4\nkupp\tid\nrice\t14\nsimm\tap\nward\tac\n",
+    "14": "\ndesmond howard\t8o\ndexter jackson\t7c\njulian edelman\tbf\nottis anderson\tjs\npatrick mahome\tft\npeyton manning\t87\nroger staubach\thi\nsantonio holme\tja\nterry bradshaw\t9v\n",
+    "9": "\ndrew bree\tbw\nnick fole\tdi\nphil simm\tap\nray lewis\te\ntom brady\t4q\n",
+    "7": "\nedelman\tbf\njackson\t7c\nmontana\t2n\nwilliam\t3h\n",
+    "13": "\nfranco harris\t6h\nharvey martin\t1u\nmalcolm smith\t31\nterrell davis\tc9\n",
+    "16": "\nfred biletnikoff\tir\n",
+    "18": "\nkenneth walker iii\t52\n"
+  },
+  "answers": "m\tSteve Young\nm\tRay Lewis\nm\tLarry Brown\nm\tJerry Rice\nm\tJake Scott\nm\tHarvey Martin\nm\tVon Miller\ns\tJoe Montana\nm\tMalcolm Smith\nm\tDoug Williams\nm\tMarcus Allen\nm\tRandy White\ns\tTom Brady\nm\tKenneth Walker III\nm\tKurt Warner\nm\tAaron Rodgers\nm\tFranco Harris\nm\tRichard Dent\nm\tDexter Jackson\nm\tEli Manning\nm\tPeyton Manning\nm\tDesmond Howard\nm\tLen Dawson\nr\tBart Starr\nr\tTerry Bradshaw\nr\tHines Ward\nr\tPhil Simms\nr\tLynn Swann\nr\tJulian Edelman\nr\tDrew Brees\nr\tTerrell Davis\nr\tJim Plunkett\nr\tJalen Hurts\ng\tNick Foles\nr\tJohn Elway\nr\tJoe Flacco\nr\tTroy Aikman\nr\tDeion Branch\nd\tJohn Riggins\ns\tPatrick Mahomes\nd\tEmmitt Smith\nd\tJoe Namath\nd\tChuck Howley\nd\tRoger Staubach\nd\tMark Rypien\nd\tCooper Kupp\nd\tFred Biletnikoff\nd\tSantonio Holmes\nd\tOttis Anderson\nd\tLarry Csonka\n",
+  "gem": { "answer": "Nick Foles", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Joe Montana", "tier": "surface", "points": 10 },
+    { "answer": "Tom Brady", "tier": "surface", "points": 10 },
+    { "answer": "Patrick Mahomes", "tier": "surface", "points": 10 },
+    { "answer": "John Riggins", "tier": "deep", "points": 85 },
+    { "answer": "Emmitt Smith", "tier": "deep", "points": 85 }
+  ],
+  "size": 50
+}

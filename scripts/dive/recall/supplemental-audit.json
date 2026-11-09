@@ -1,0 +1,54 @@
+{
+  "raw_corpus_sha256": "5b0bbc80734c4424933cd3be382c16e4b97491d29aeebc4170c639a1348fd851",
+  "source": {
+    "page": "List of Pixar films",
+    "revision": 1384003758,
+    "members": [
+      "Cars",
+      "Ratatouille",
+      "WALL-E",
+      "Up",
+      "Brave",
+      "Coco",
+      "Onward",
+      "Soul",
+      "Luca",
+      "Lightyear",
+      "Elemental",
+      "Elio",
+      "Hoppers"
+    ],
+    "reviewed": [
+      "Cars",
+      "Ratatouille",
+      "WALL-E",
+      "Up",
+      "Brave",
+      "Coco",
+      "Onward",
+      "Soul",
+      "Luca",
+      "Lightyear",
+      "Elemental",
+      "Elio",
+      "Hoppers"
+    ],
+    "expect": [13, 13]
+  },
+  "size": 13,
+  "standalone_gzip_bytes": 450,
+  "before": {
+    "prompts": 1,
+    "hits": 15,
+    "total": 16,
+    "invalid": 15,
+    "rate": 0.9375
+  },
+  "after": {
+    "prompts": 1,
+    "hits": 16,
+    "total": 16,
+    "invalid": 15,
+    "rate": 1
+  }
+}

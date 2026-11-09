@@ -1,0 +1,28 @@
+{
+  "buckets": {
+    "7": "\namerica\t0\nbelgium\t34\nbritain\t1x\n",
+    "9": "\nargentina\t2s\naustralia\tg\n",
+    "5": "\nchile\t3n\njapan\t1a\n",
+    "6": "\nfrance\ts\nnorway\t3e\nrussia\t11\n",
+    "13": "\ngreat britain\t1x\n",
+    "11": "\nnew zealand\t2e\n",
+    "2": "\nnz\t2e\nuk\t1x\nus\t0\n",
+    "24": "\nrepublic of south africa\t1i\nunited states of america\t0\n",
+    "18": "\nrussian federation\t11\n",
+    "12": "\nsouth africa\t1i\nsoviet union\t11\nunited state\t0\n",
+    "21": "\nunion of south africa\t1i\n",
+    "34": "\nunion of soviet socialist republic\t11\n",
+    "14": "\nunited kingdom\t1x\n",
+    "3": "\nusa\t0\n",
+    "4": "\nussr\t11\n"
+  },
+  "answers": "s\tUnited States\ns\tAustralia\nm\tFrance\nt\tRussia\nm\tJapan\nm\tSouth Africa\ns\tUnited Kingdom\nm\tNew Zealand\nr\tArgentina\ng\tBelgium\nr\tNorway\nd\tChile\n",
+  "gem": { "answer": "Belgium", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "United States", "tier": "surface", "points": 10 },
+    { "answer": "Australia", "tier": "surface", "points": 10 },
+    { "answer": "United Kingdom", "tier": "surface", "points": 10 },
+    { "answer": "Chile", "tier": "deep", "points": 85 }
+  ],
+  "size": 12
+}

@@ -74,7 +74,7 @@ it('upgrades v19 with only the exact seeded Monday erg set to zone B and no seed
   await database((storage) => {
     v19(storage);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(20);
+    expect(getSetting(storage, 'schema_version')).toBe(21);
     expect(
       storage.sql.exec("SELECT * FROM roster WHERE lower(name)='thomas kelley'").toArray(),
     ).toHaveLength(1);
@@ -131,7 +131,7 @@ it('guards an existing column and never reapplies the data change after v20', as
 it('produces the same final state on fresh databases', async () => {
   await database((storage) => {
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(20);
+    expect(getSetting(storage, 'schema_version')).toBe(21);
     expect(getPlan(storage, '2026-11-09').slots).toEqual(TEAM_PLAN_CURRENT_SLOTS);
   });
 });

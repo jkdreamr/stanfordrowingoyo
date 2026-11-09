@@ -29,9 +29,12 @@ function Session({
 }) {
   const index = day.answers.length;
   const key = deadlineKey(userId, day.date, index);
-  const [active, setActive] = useState(() => !day.complete && savedDeadline(key) !== null);
+  const resumed = day.pending?.prompt_index === index;
+  const [active, setActive] = useState(
+    () => !day.complete && (resumed || savedDeadline(key) !== null),
+  );
   const [reveal, setReveal] = useState<DiveAnswerResult | null>(() =>
-    !day.complete && !savedDeadline(key) ? (day.answers.at(-1) ?? null) : null,
+    !day.complete && !resumed && !savedDeadline(key) ? (day.answers.at(-1) ?? null) : null,
   );
   const shown = reveal ? 'reveal' : day.complete ? 'results' : active ? 'prompt' : 'start';
   return (
@@ -65,6 +68,7 @@ function Session({
             prompt={day.prompts[index]}
             index={index}
             storageKey={key}
+            pending={resumed ? day.pending : null}
             onConflict={refresh}
             onSaved={(answer) => {
               setReveal(answer);

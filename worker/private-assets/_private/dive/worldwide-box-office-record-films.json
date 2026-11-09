@@ -1,0 +1,30 @@
+{
+  "buckets": {
+    "6": "\navatar\t32\n",
+    "10": "\navengers 4\t3s\nepisode iv\t1h\n",
+    "17": "\navengers end game\t3s\nbirth of a nation\t1t\n",
+    "16": "\navengers endgame\t3s\n",
+    "3": "\ne t\t4c\njaw\t3l\n",
+    "7": "\nendgame\t3s\ntitanic\t3b\n",
+    "9": "\nepisode 4\t1h\ngodfather\t0\n",
+    "2": "\net\t4c\n",
+    "24": "\net the extra terrestrial\t4c\n",
+    "18": "\ngone with the wind\tw\n",
+    "13": "\njurassic park\tg\n",
+    "8": "\nnew hope\t1h\nstar war\t1h\n",
+    "14": "\nsound of music\t2h\n",
+    "20": "\nstar wars a new hope\t1h\nstar wars episode iv\t1h\n",
+    "19": "\nstar wars episode 4\t1h\n",
+    "30": "\nstar wars episode 4 a new hope\t1h\n",
+    "31": "\nstar wars episode iv a new hope\t1h\n"
+  },
+  "answers": "m\tThe Godfather\ns\tJurassic Park\nm\tGone with the Wind\ns\tStar Wars\ng\tThe Birth of a Nation\nm\tThe Sound of Music\ns\tAvatar\ns\tTitanic\nr\tJaws\ns\tAvengers: Endgame\nd\tE.T. the Extra-Terrestrial\n",
+  "gem": { "answer": "The Birth of a Nation", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Jurassic Park", "tier": "surface", "points": 10 },
+    { "answer": "Star Wars", "tier": "surface", "points": 10 },
+    { "answer": "Avatar", "tier": "surface", "points": 10 },
+    { "answer": "E.T. the Extra-Terrestrial", "tier": "deep", "points": 85 }
+  ],
+  "size": 11
+}

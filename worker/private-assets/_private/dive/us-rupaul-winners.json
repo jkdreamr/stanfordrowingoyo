@@ -1,0 +1,27 @@
+{
+  "buckets": {
+    "7": "\naquaria\t2x\nnymphia\t6n\n",
+    "4": "\nbebe\t3m\nmyki\t46\nonya\t72\nraja\t1g\ntyra\t2i\nyvie\t5t\n",
+    "17": "\nbebe zahara benet\t3m\n",
+    "6": "\nbianca\t1n\nsharon\tz\nsymone\t4j\nvelour\t37\nviolet\t66\nwillow\tl\n",
+    "14": "\nbianca del rio\t1n\nviolet chachki\t66\n",
+    "3": "\nbob\t0\n",
+    "18": "\nbob the drag queen\t0\njaida essence hall\t58\n",
+    "5": "\ncolby\t24\njaida\t58\njinkx\t4s\n",
+    "13": "\njinkx monsoon\t4s\nsharon needle\tz\n",
+    "9": "\nmyki meek\t46\n",
+    "12": "\nnymphia wind\t6n\nsasha velour\t37\ntyra sanchez\t2i\n",
+    "10": "\nonya nurve\t72\nyvie oddly\t5t\n",
+    "11": "\nsasha colby\t24\nwillow pill\tl\n"
+  },
+  "answers": "s\tBob the Drag Queen\nm\tWillow Pill\nm\tSharon Needles\nm\tRaja\ns\tBianca Del Rio\nm\tSasha Colby\nm\tTyra Sanchez\nm\tAquaria\nm\tSasha Velour\ng\tBeBe Zahara Benet\nr\tMyki Meeks\nr\tSymone\ns\tJinkx Monsoon\nr\tJaida Essence Hall\nr\tYvie Oddly\nd\tViolet Chachki\nd\tNymphia Wind\nd\tOnya Nurve\n",
+  "gem": { "answer": "BeBe Zahara Benet", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Bob the Drag Queen", "tier": "surface", "points": 10 },
+    { "answer": "Bianca Del Rio", "tier": "surface", "points": 10 },
+    { "answer": "Jinkx Monsoon", "tier": "surface", "points": 10 },
+    { "answer": "Violet Chachki", "tier": "deep", "points": 85 },
+    { "answer": "Nymphia Wind", "tier": "deep", "points": 85 }
+  ],
+  "size": 18
+}

@@ -1,0 +1,29 @@
+{
+  "buckets": {
+    "23": "\napples of the hesperide\t29\nclean the augean stable\t3j\n",
+    "13": "\naugean stable\t3j\nlernean hydra\t50\n",
+    "17": "\nbelt of hippolyta\t19\nhorses of diomede\tp\n",
+    "24": "\nbelt of the amazon queen\t19\n",
+    "16": "\ncapture cerberus\t0\ncattle of geryon\t30\nerymanthian boar\t4h\nhesperides apple\t29\nmares of diomede\tp\nstymphalian bird\t5h\n",
+    "19": "\ncapture of cerberus\t0\ngirdle of hippolyta\t19\n",
+    "26": "\ncapture the ceryneian hind\t40\n",
+    "28": "\ncapture the erymanthian boar\t4h\n",
+    "8": "\ncerberus\t0\n",
+    "14": "\nceryneian hind\t40\ngeryons cattle\t30\nlernaean hydra\t50\nslay the hydra\t50\n",
+    "11": "\ncretan bull\tb\ngolden hind\t40\nnemean lion\t1v\n",
+    "12": "\ngolden apple\t29\n",
+    "15": "\nhind of artemis\t40\nhippolytas belt\t19\nhippolytes belt\t19\n",
+    "5": "\nhydra\t50\n",
+    "20": "\nkill the nemean lion\t1v\nslay the nemean lion\t1v\n",
+    "4": "\nlion\t1v\n"
+  },
+  "answers": "s\tCerberus\nm\tCretan Bull\nm\tMares of Diomedes\nm\tGirdle of Hippolyta\ns\tNemean lion\nm\tApples of the Hesperides\nr\tCattle of Geryon\nt\tAugean stables\ng\tCeryneian Hind\nr\tErymanthian boar\ns\tLernaean Hydra\nd\tStymphalian birds\n",
+  "gem": { "answer": "Ceryneian Hind", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Cerberus", "tier": "surface", "points": 10 },
+    { "answer": "Nemean lion", "tier": "surface", "points": 10 },
+    { "answer": "Lernaean Hydra", "tier": "surface", "points": 10 },
+    { "answer": "Stymphalian birds", "tier": "deep", "points": 85 }
+  ],
+  "size": 12
+}

@@ -1,0 +1,349 @@
+{
+  "baseline_ref": "4e9516025b8b53eaaa12bccf0482636a83bce68b",
+  "swaps": {
+    "borders-austria": "countries-without-usa",
+    "borders-zambia": "both-season-olympics"
+  },
+  "raw_sha256": {
+    "batch-6-raw.json": "5fd0d8b016cebda5f2480816270c357fb2d97388f05e8fd96dc5bdbc808f202b",
+    "batch-6-olympics-raw.json": "0cb17203db501f918ea2619e87eb4648fc122d29c05d703694bf5ef9dd058527"
+  },
+  "selected_sha256": "52782a2ef396d2a4d08afd9d6a72bf7d953902483548a562752972b8349ab4fd",
+  "before_definition": "Same reviewed guesses and canonical membership, canonical keys only before alias review; not recall against the retired border prompts.",
+  "before": {
+    "prompts": 2,
+    "hits": 23,
+    "total": 37,
+    "invalid": 26,
+    "rate": 0.6216216216216216
+  },
+  "after": {
+    "prompts": 2,
+    "hits": 37,
+    "total": 37,
+    "invalid": 26,
+    "rate": 1
+  },
+  "prompts": [
+    {
+      "id": "both-season-olympics",
+      "text": "Name a present-day country where both Summer and Winter Olympics have been held.",
+      "active": true,
+      "size": 9,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 1,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["France", "United States", "Japan"],
+      "pageviews": 0,
+      "sitelinks": 9,
+      "wikidata": 0,
+      "aliases": 15,
+      "too_clever": [],
+      "gem": "South Korea",
+      "theme": "geography",
+      "cluster": "olympics",
+      "constrained": true,
+      "before": {
+        "id": "both-season-olympics",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 9,
+        "total": 20,
+        "rate": 0.45,
+        "invalid": [
+          {
+            "guess": "Australia",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Greece",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "United Kingdom",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Britain",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Spain",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Norway",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Austria",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Switzerland",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Finland",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Bosnia and Herzegovina",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Brazil",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Mexico",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          }
+        ],
+        "misses": [
+          "USA",
+          "US",
+          "United States of America",
+          "French Republic",
+          "Federal Republic of Germany",
+          "Italian Republic",
+          "People's Republic of China",
+          "PRC",
+          "Russian Federation",
+          "Republic of Korea",
+          "Korea"
+        ]
+      },
+      "after": {
+        "id": "both-season-olympics",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Australia",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Greece",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "United Kingdom",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Britain",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Spain",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Norway",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Austria",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Switzerland",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Finland",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Bosnia and Herzegovina",
+            "invalid": "No completed Summer Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Brazil",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          },
+          {
+            "guess": "Mexico",
+            "invalid": "No completed Winter Olympics on this present-day country’s territory."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "countries-without-usa",
+      "text": "Name a UN member country with no U, S or A in its UN short name.",
+      "active": true,
+      "size": 14,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 3,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["Mexico", "Egypt", "Fiji"],
+      "pageviews": 0,
+      "sitelinks": 7,
+      "wikidata": 0,
+      "aliases": 14,
+      "too_clever": [],
+      "gem": "Côte d'Ivoire",
+      "theme": "geography",
+      "cluster": "countries",
+      "constrained": true,
+      "before": {
+        "id": "countries-without-usa",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 14,
+        "total": 17,
+        "rate": 0.8235294117647058,
+        "invalid": [
+          {
+            "guess": "France",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Peru",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "China",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Japan",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Djibouti",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Niue",
+            "invalid": "Not a UN member state; also contains U."
+          },
+          {
+            "guess": "Hong Kong",
+            "invalid": "Not a UN member state."
+          },
+          {
+            "guess": "Czechia",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Norway",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "DR Congo",
+            "invalid": "Its UN short name contains U, S or A."
+          }
+        ],
+        "misses": ["Republic of the Congo", "Ivory Coast", "Congo-Brazzaville"]
+      },
+      "after": {
+        "id": "countries-without-usa",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 17,
+        "total": 17,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "France",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Peru",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "China",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Japan",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Djibouti",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Niue",
+            "invalid": "Not a UN member state; also contains U."
+          },
+          {
+            "guess": "Hong Kong",
+            "invalid": "Not a UN member state."
+          },
+          {
+            "guess": "Czechia",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "Norway",
+            "invalid": "Its UN short name contains U, S or A."
+          },
+          {
+            "guess": "DR Congo",
+            "invalid": "Its UN short name contains U, S or A."
+          }
+        ],
+        "misses": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,2137 @@
+{
+  "baseline_sha256": "03c5d365f1f14a5dc0e2013b71fe1f0c153d89e41c5c818f537af0334004405c",
+  "raw_corpus_sha256": "05147ad6fb690b1936c985455789752a346cbd95d9fff282d200e57f40d1c24e",
+  "selected_corpus_sha256": "5c072d559463fbe2364a99aba031cd38a27f3be6d3a7c721e850f7ad92bcade2",
+  "initial_specs_sha256": "4898fb1fed9a14904fd2f207e0160d157f168b3b250abd9f7abcfb2778a39359",
+  "gzip_method": "Standalone generated module, gzip level 6; not additive whole-Worker marginal size.",
+  "source_snapshots": 40,
+  "corpus": {
+    "prompts": 30,
+    "guesses": 887,
+    "invalid": 76
+  },
+  "before": {
+    "hits": 602,
+    "total": 811,
+    "rate": 0.7422934648581998
+  },
+  "after": {
+    "hits": 810,
+    "total": 811,
+    "rate": 0.998766954377312
+  },
+  "standalone_gzip_bytes": 33530,
+  "worker_gzip_kib": 2926.87,
+  "worker_batch_increase_kib": 28.44,
+  "headroom_to_3000_kib": 73.13,
+  "headroom_to_3072_kib": 145.13,
+  "full_cycle_after": {
+    "overall": {
+      "hits": 8121,
+      "invalid": 136,
+      "prompts": 320,
+      "rate": 0.8997341014846001,
+      "total": 9026
+    },
+    "constrained": {
+      "hits": 6727,
+      "invalid": 136,
+      "prompts": 258,
+      "rate": 0.9387384873011443,
+      "total": 7166
+    },
+    "broad": {
+      "hits": 1394,
+      "invalid": 0,
+      "prompts": 62,
+      "rate": 0.7494623655913979,
+      "total": 1860
+    }
+  },
+  "prompts": [
+    {
+      "id": "eight-thousanders",
+      "text": "Name one of the fourteen eight-thousander mountains.",
+      "theme": "geography",
+      "size": 14,
+      "aliases": 14,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 3,
+        "deep": 2,
+        "gem": 1
+      },
+      "gzip_bytes": 586,
+      "module_bytes": 1361,
+      "before": {
+        "constrained": true,
+        "hits": 14,
+        "id": "eight-thousanders",
+        "invalid": [
+          {
+            "guess": "Mount McKinley",
+            "invalid": "Below 8,000 metres."
+          },
+          {
+            "guess": "Mont Blanc",
+            "invalid": "Below 8,000 metres."
+          }
+        ],
+        "misses": [
+          "Mount Everest",
+          "K 2",
+          "Kanchenjunga",
+          "Dhaulagiri",
+          "Annapurna",
+          "Hidden Peak",
+          "Shisha Pangma",
+          "Gosainthan",
+          "Chomolungma",
+          "Sagarmatha",
+          "Qogir"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.56,
+        "text": "Name one of the fourteen eight-thousander mountains.",
+        "total": 25
+      },
+      "after": {
+        "constrained": true,
+        "hits": 25,
+        "id": "eight-thousanders",
+        "invalid": [
+          {
+            "guess": "Mount McKinley",
+            "invalid": "Below 8,000 metres."
+          },
+          {
+            "guess": "Mont Blanc",
+            "invalid": "Below 8,000 metres."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name one of the fourteen eight-thousander mountains.",
+        "total": 25
+      }
+    },
+    {
+      "id": "borders-brazil",
+      "text": "Name a country with a land border with Brazil.",
+      "theme": "geography",
+      "size": 10,
+      "aliases": 14,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "gzip_bytes": 527,
+      "module_bytes": 1305,
+      "before": {
+        "constrained": true,
+        "hits": 10,
+        "id": "borders-brazil",
+        "invalid": [
+          {
+            "guess": "Ecuador",
+            "invalid": "Has no land border with Brazil."
+          },
+          {
+            "guess": "Chile",
+            "invalid": "Has no land border with Brazil."
+          },
+          {
+            "guess": "Panama",
+            "invalid": "Has no land border with Brazil."
+          }
+        ],
+        "misses": [
+          "Argentine Republic",
+          "Surinam",
+          "French Republic",
+          "French Guiana",
+          "Guiana",
+          "Republic of Argentina",
+          "Republic of Paraguay",
+          "Republic of Peru",
+          "Republic of Colombia",
+          "Republic of Suriname",
+          "Cooperative Republic of Guyana",
+          "Bolivarian Republic of Venezuela",
+          "Plurinational State of Bolivia",
+          "Oriental Republic of Uruguay"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.4166666666666667,
+        "text": "Name a country with a land border with Brazil.",
+        "total": 24
+      },
+      "after": {
+        "constrained": true,
+        "hits": 24,
+        "id": "borders-brazil",
+        "invalid": [
+          {
+            "guess": "Ecuador",
+            "invalid": "Has no land border with Brazil."
+          },
+          {
+            "guess": "Chile",
+            "invalid": "Has no land border with Brazil."
+          },
+          {
+            "guess": "Panama",
+            "invalid": "Has no land border with Brazil."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country with a land border with Brazil.",
+        "total": 24
+      }
+    },
+    {
+      "id": "equator-countries",
+      "text": "Name a country the equator passes through.",
+      "theme": "geography",
+      "size": 13,
+      "aliases": 9,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 2,
+        "deep": 2,
+        "gem": 1
+      },
+      "gzip_bytes": 574,
+      "module_bytes": 1301,
+      "before": {
+        "constrained": true,
+        "hits": 15,
+        "id": "equator-countries",
+        "invalid": [
+          {
+            "guess": "Equador",
+            "invalid": "Misspelling of Ecuador; excluded from exact-match measurement."
+          },
+          {
+            "guess": "Peru",
+            "invalid": "The equator does not cross Peru."
+          },
+          {
+            "guess": "Tanzania",
+            "invalid": "The equator does not cross Tanzania."
+          }
+        ],
+        "misses": [
+          "Sao Tome",
+          "Congo Brazzaville",
+          "DR Congo",
+          "DRC",
+          "Congo Kinshasa",
+          "Republic of Indonesia",
+          "Republic of Kiribati"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6818181818181818,
+        "text": "Name a country the equator passes through.",
+        "total": 22
+      },
+      "after": {
+        "constrained": true,
+        "hits": 22,
+        "id": "equator-countries",
+        "invalid": [
+          {
+            "guess": "Equador",
+            "invalid": "Misspelling of Ecuador; excluded from exact-match measurement."
+          },
+          {
+            "guess": "Peru",
+            "invalid": "The equator does not cross Peru."
+          },
+          {
+            "guess": "Tanzania",
+            "invalid": "The equator does not cross Tanzania."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country the equator passes through.",
+        "total": 22
+      }
+    },
+    {
+      "id": "euro-countries",
+      "text": "Name a country that uses the euro.",
+      "theme": "geography",
+      "size": 27,
+      "aliases": 3,
+      "tiers": {
+        "surface": 4,
+        "tooclever": 0,
+        "school": 10,
+        "rare": 7,
+        "deep": 5,
+        "gem": 1
+      },
+      "gzip_bytes": 647,
+      "module_bytes": 1374,
+      "before": {
+        "constrained": true,
+        "hits": 27,
+        "id": "euro-countries",
+        "invalid": [
+          {
+            "guess": "UK",
+            "invalid": "Does not use the euro as its national currency."
+          },
+          {
+            "guess": "Denmark",
+            "invalid": "Does not use the euro as its national currency."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "Does not use the euro as its national currency."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country that uses the euro.",
+        "total": 27
+      },
+      "after": {
+        "constrained": true,
+        "hits": 27,
+        "id": "euro-countries",
+        "invalid": [
+          {
+            "guess": "UK",
+            "invalid": "Does not use the euro as its national currency."
+          },
+          {
+            "guess": "Denmark",
+            "invalid": "Does not use the euro as its national currency."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "Does not use the euro as its national currency."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country that uses the euro.",
+        "total": 27
+      }
+    },
+    {
+      "id": "capital-country-name",
+      "text": "Name a country whose name appears in its capital's name.",
+      "theme": "geography",
+      "size": 11,
+      "aliases": 11,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 4,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "gzip_bytes": 533,
+      "module_bytes": 1254,
+      "before": {
+        "constrained": true,
+        "hits": 11,
+        "id": "capital-country-name",
+        "invalid": [
+          {
+            "guess": "Mexico City",
+            "invalid": "A capital city, not a country."
+          },
+          {
+            "guess": "Tunisia",
+            "invalid": "Tunis does not contain the full country name Tunisia."
+          },
+          {
+            "guess": "Brazil",
+            "invalid": "Brasilia does not contain the full English country name Brazil."
+          }
+        ],
+        "misses": [
+          "Republic of Guatemala",
+          "Republic of Panama",
+          "Grand Duchy of Luxembourg",
+          "Principality of Monaco",
+          "Republic of Singapore",
+          "Republic of Djibouti",
+          "State of Kuwait",
+          "Principality of Andorra",
+          "Republic of San Marino",
+          "Vatican",
+          "Holy See"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.5,
+        "text": "Name a country whose name appears in its capital's name.",
+        "total": 22
+      },
+      "after": {
+        "constrained": true,
+        "hits": 22,
+        "id": "capital-country-name",
+        "invalid": [
+          {
+            "guess": "Mexico City",
+            "invalid": "A capital city, not a country."
+          },
+          {
+            "guess": "Tunisia",
+            "invalid": "Tunis does not contain the full country name Tunisia."
+          },
+          {
+            "guess": "Brazil",
+            "invalid": "Brasilia does not contain the full English country name Brazil."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country whose name appears in its capital's name.",
+        "total": 22
+      }
+    },
+    {
+      "id": "no-standing-army",
+      "text": "Name a country without a standing army.",
+      "theme": "geography",
+      "size": 21,
+      "aliases": 6,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 8,
+        "rare": 5,
+        "deep": 4,
+        "gem": 1
+      },
+      "gzip_bytes": 663,
+      "module_bytes": 1568,
+      "before": {
+        "constrained": true,
+        "hits": 21,
+        "id": "no-standing-army",
+        "invalid": [
+          {
+            "guess": "San Marino",
+            "invalid": "Maintains an Army branch and full-time forces, per Sammarinese Armed Forces revision 1376753992; not merely volunteer ceremonial units."
+          },
+          {
+            "guess": "Haiti",
+            "invalid": "Reestablished its armed forces in 2017."
+          },
+          {
+            "guess": "Japan",
+            "invalid": "Maintains the standing ground forces of the Self-Defense Forces."
+          },
+          {
+            "guess": "Switzerland",
+            "invalid": "Maintains the Swiss Armed Forces including a standing professional cadre."
+          }
+        ],
+        "misses": ["St Lucia", "St Vincent and the Grenadines", "Micronesia"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.875,
+        "text": "Name a country without a standing army.",
+        "total": 24
+      },
+      "after": {
+        "constrained": true,
+        "hits": 24,
+        "id": "no-standing-army",
+        "invalid": [
+          {
+            "guess": "San Marino",
+            "invalid": "Maintains an Army branch and full-time forces, per Sammarinese Armed Forces revision 1376753992; not merely volunteer ceremonial units."
+          },
+          {
+            "guess": "Haiti",
+            "invalid": "Reestablished its armed forces in 2017."
+          },
+          {
+            "guess": "Japan",
+            "invalid": "Maintains the standing ground forces of the Self-Defense Forces."
+          },
+          {
+            "guess": "Switzerland",
+            "invalid": "Maintains the Swiss Armed Forces including a standing professional cadre."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country without a standing army.",
+        "total": 24
+      }
+    },
+    {
+      "id": "mediterranean-countries",
+      "text": "Name a country with a Mediterranean coastline.",
+      "theme": "geography",
+      "size": 24,
+      "aliases": 7,
+      "tiers": {
+        "surface": 4,
+        "tooclever": 0,
+        "school": 9,
+        "rare": 6,
+        "deep": 4,
+        "gem": 1
+      },
+      "gzip_bytes": 667,
+      "module_bytes": 1490,
+      "before": {
+        "constrained": true,
+        "hits": 22,
+        "id": "mediterranean-countries",
+        "invalid": [
+          {
+            "guess": "Portugal",
+            "invalid": "No Mediterranean coastline."
+          },
+          {
+            "guess": "Jordan",
+            "invalid": "No Mediterranean coastline."
+          }
+        ],
+        "misses": ["Bosnia", "Turkiye", "State of Palestine"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.88,
+        "text": "Name a country with a Mediterranean coastline.",
+        "total": 25
+      },
+      "after": {
+        "constrained": true,
+        "hits": 25,
+        "id": "mediterranean-countries",
+        "invalid": [
+          {
+            "guess": "Portugal",
+            "invalid": "No Mediterranean coastline."
+          },
+          {
+            "guess": "Jordan",
+            "invalid": "No Mediterranean coastline."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country with a Mediterranean coastline.",
+        "total": 25
+      }
+    },
+    {
+      "id": "large-solar-moons",
+      "text": "Name a Solar System moon over 1,000 kilometres across.",
+      "theme": "science",
+      "size": 16,
+      "aliases": 7,
+      "tiers": {
+        "surface": 4,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 4,
+        "deep": 2,
+        "gem": 1
+      },
+      "gzip_bytes": 525,
+      "module_bytes": 1175,
+      "before": {
+        "constrained": true,
+        "hits": 17,
+        "id": "large-solar-moons",
+        "invalid": [
+          {
+            "guess": "Enceladus",
+            "invalid": "Under 1,000 kilometres in diameter."
+          },
+          {
+            "guess": "Mimas",
+            "invalid": "Under 1,000 kilometres in diameter."
+          }
+        ],
+        "misses": [
+          "Luna",
+          "Earths Moon",
+          "Earth Moon",
+          "Jupiters Ganymede",
+          "Saturns Titan",
+          "Neptunes Triton",
+          "Plutos Charon"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.7083333333333334,
+        "text": "Name a Solar System moon over 1,000 kilometres across.",
+        "total": 24
+      },
+      "after": {
+        "constrained": true,
+        "hits": 24,
+        "id": "large-solar-moons",
+        "invalid": [
+          {
+            "guess": "Enceladus",
+            "invalid": "Under 1,000 kilometres in diameter."
+          },
+          {
+            "guess": "Mimas",
+            "invalid": "Under 1,000 kilometres in diameter."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Solar System moon over 1,000 kilometres across.",
+        "total": 24
+      }
+    },
+    {
+      "id": "standard-model-particles",
+      "text": "Name one of the 17 fundamental particle types in the Standard Model.",
+      "theme": "science",
+      "size": 17,
+      "aliases": 31,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 6,
+        "rare": 4,
+        "deep": 3,
+        "gem": 1
+      },
+      "gzip_bytes": 660,
+      "module_bytes": 1808,
+      "before": {
+        "constrained": true,
+        "hits": 17,
+        "id": "standard-model-particles",
+        "invalid": [
+          {
+            "guess": "graviton",
+            "invalid": "A hypothetical gravity carrier, not part of the Standard Model."
+          }
+        ],
+        "misses": [
+          "up",
+          "down",
+          "strange",
+          "charm",
+          "top",
+          "bottom",
+          "W plus",
+          "W minus",
+          "Higgs",
+          "positron"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6296296296296297,
+        "text": "Name one of the 17 fundamental particle types in the Standard Model.",
+        "total": 27
+      },
+      "after": {
+        "constrained": true,
+        "hits": 27,
+        "id": "standard-model-particles",
+        "invalid": [
+          {
+            "guess": "graviton",
+            "invalid": "A hypothetical gravity carrier, not part of the Standard Model."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name one of the 17 fundamental particle types in the Standard Model.",
+        "total": 27
+      }
+    },
+    {
+      "id": "astronomical-elements",
+      "text": "Name an element named after a celestial body.",
+      "theme": "science",
+      "size": 8,
+      "aliases": 10,
+      "tiers": {
+        "surface": 2,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 1,
+        "deep": 1,
+        "gem": 1
+      },
+      "gzip_bytes": 422,
+      "module_bytes": 870,
+      "before": {
+        "constrained": true,
+        "hits": 8,
+        "id": "astronomical-elements",
+        "invalid": [
+          {
+            "guess": "Mercury",
+            "invalid": "Mercury is named after the Roman god, not the planet, per pinned element-etymology revision 1382331679."
+          },
+          {
+            "guess": "Hg",
+            "invalid": "Mercury is named after the Roman god, not the planet, per pinned element-etymology revision 1382331679."
+          },
+          {
+            "guess": "Titanium",
+            "invalid": "Named for the Titans of mythology, not a celestial body."
+          },
+          {
+            "guess": "Titanium Ti",
+            "invalid": "Titanium is named for the Titans, not the moon Titan."
+          },
+          {
+            "guess": "Europium",
+            "invalid": "Named for Europe, not Europa."
+          },
+          {
+            "guess": "Neon",
+            "invalid": "Named from Greek neos, meaning new."
+          },
+          {
+            "guess": "Terbium",
+            "invalid": "Named after Ytterby, not a celestial body."
+          }
+        ],
+        "misses": [
+          "He",
+          "Se",
+          "Te",
+          "U",
+          "Np",
+          "Pu",
+          "Ce",
+          "Pd",
+          "Helium named after the Sun",
+          "Tellurium Earth"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.4444444444444444,
+        "text": "Name an element named after a celestial body.",
+        "total": 18
+      },
+      "after": {
+        "constrained": true,
+        "hits": 18,
+        "id": "astronomical-elements",
+        "invalid": [
+          {
+            "guess": "Mercury",
+            "invalid": "Mercury is named after the Roman god, not the planet, per pinned element-etymology revision 1382331679."
+          },
+          {
+            "guess": "Hg",
+            "invalid": "Mercury is named after the Roman god, not the planet, per pinned element-etymology revision 1382331679."
+          },
+          {
+            "guess": "Titanium",
+            "invalid": "Named for the Titans of mythology, not a celestial body."
+          },
+          {
+            "guess": "Titanium Ti",
+            "invalid": "Titanium is named for the Titans, not the moon Titan."
+          },
+          {
+            "guess": "Europium",
+            "invalid": "Named for Europe, not Europa."
+          },
+          {
+            "guess": "Neon",
+            "invalid": "Named from Greek neos, meaning new."
+          },
+          {
+            "guess": "Terbium",
+            "invalid": "Named after Ytterby, not a celestial body."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an element named after a celestial body.",
+        "total": 18
+      }
+    },
+    {
+      "id": "lunar-maria",
+      "text": "Name a named sea on the Moon.",
+      "theme": "science",
+      "size": 23,
+      "aliases": 51,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 9,
+        "rare": 6,
+        "deep": 4,
+        "gem": 1
+      },
+      "gzip_bytes": 930,
+      "module_bytes": 2590,
+      "before": {
+        "constrained": true,
+        "hits": 26,
+        "id": "lunar-maria",
+        "invalid": [],
+        "misses": ["Sea of Rains", "Sea of Fertility", "Sea of Moscow", "Smyths Sea"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.8666666666666667,
+        "text": "Name a named sea on the Moon.",
+        "total": 30
+      },
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "lunar-maria",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a named sea on the Moon.",
+        "total": 30
+      }
+    },
+    {
+      "id": "moon-mars-rovers",
+      "text": "Name a rover that operated on the Moon or Mars.",
+      "theme": "science",
+      "size": 15,
+      "aliases": 19,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 4,
+        "deep": 2,
+        "gem": 1
+      },
+      "gzip_bytes": 602,
+      "module_bytes": 1450,
+      "before": {
+        "constrained": true,
+        "hits": 14,
+        "id": "moon-mars-rovers",
+        "invalid": [
+          {
+            "guess": "Rosalind Franklin",
+            "invalid": "Has not yet operated on Mars."
+          },
+          {
+            "guess": "Viking",
+            "invalid": "A stationary lander mission, not a rover."
+          }
+        ],
+        "misses": [
+          "Lunokhod One",
+          "Lunokhod Two",
+          "Jade Rabbit",
+          "Jade Rabbit 2",
+          "Oppy",
+          "Percy",
+          "LEV 2",
+          "Apollo 15 rover",
+          "Apollo 16 rover",
+          "Apollo 17 rover"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.5833333333333334,
+        "text": "Name a rover that operated on the Moon or Mars.",
+        "total": 24
+      },
+      "after": {
+        "constrained": true,
+        "hits": 24,
+        "id": "moon-mars-rovers",
+        "invalid": [
+          {
+            "guess": "Rosalind Franklin",
+            "invalid": "Has not yet operated on Mars."
+          },
+          {
+            "guess": "Viking",
+            "invalid": "A stationary lander mission, not a rover."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a rover that operated on the Moon or Mars.",
+        "total": 24
+      }
+    },
+    {
+      "id": "shuttle-final-crews",
+      "text": "Name a crew member on a Space Shuttle orbiter's final flight.",
+      "theme": "science",
+      "size": 30,
+      "aliases": 53,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 12,
+        "rare": 8,
+        "deep": 6,
+        "gem": 1
+      },
+      "gzip_bytes": 1137,
+      "module_bytes": 2911,
+      "before": {
+        "constrained": true,
+        "hits": 17,
+        "id": "shuttle-final-crews",
+        "invalid": [
+          {
+            "guess": "Scott Kelly",
+            "invalid": "Did not fly on any orbiter’s final flight; Mark Kelly commanded Endeavour’s last flight."
+          }
+        ],
+        "misses": [
+          "Chris Ferguson",
+          "Doug Hurley",
+          "Greg Johnson",
+          "Gregory Johnson",
+          "Drew Feustel",
+          "Andrew Feustel",
+          "Greg Chamitoff",
+          "Steve Lindsey",
+          "Steve Bowen",
+          "Steven Bowen",
+          "William McCool",
+          "Michael Anderson",
+          "David Brown",
+          "Dick Scobee",
+          "Francis Scobee",
+          "Michael Smith",
+          "Judith Resnik",
+          "Ellison Onizuka",
+          "Ronald McNair",
+          "Gregory Jarvis",
+          "Christa McAuliffe"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.4473684210526316,
+        "text": "Name a crew member on a Space Shuttle orbiter's final flight.",
+        "total": 38
+      },
+      "after": {
+        "constrained": true,
+        "hits": 38,
+        "id": "shuttle-final-crews",
+        "invalid": [
+          {
+            "guess": "Scott Kelly",
+            "invalid": "Did not fly on any orbiter’s final flight; Mark Kelly commanded Endeavour’s last flight."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a crew member on a Space Shuttle orbiter's final flight.",
+        "total": 38
+      }
+    },
+    {
+      "id": "ballon-dor-winners",
+      "text": "Name a winner of the men's or women's Ballon d'Or.",
+      "theme": "sports",
+      "size": 54,
+      "aliases": 56,
+      "tiers": {
+        "surface": 4,
+        "tooclever": 0,
+        "school": 23,
+        "rare": 14,
+        "deep": 12,
+        "gem": 1
+      },
+      "gzip_bytes": 1596,
+      "module_bytes": 3584,
+      "before": {
+        "constrained": true,
+        "hits": 31,
+        "id": "ballon-dor-winners",
+        "invalid": [],
+        "misses": ["Ronaldo Nazario"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.96875,
+        "text": "Name a winner of the men's or women's Ballon d'Or.",
+        "total": 32
+      },
+      "after": {
+        "constrained": true,
+        "hits": 32,
+        "id": "ballon-dor-winners",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a winner of the men's or women's Ballon d'Or.",
+        "total": 32
+      }
+    },
+    {
+      "id": "indy-500-winners",
+      "text": "Name a driver who won the Indianapolis 500.",
+      "theme": "sports",
+      "size": 77,
+      "aliases": 83,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 33,
+        "rare": 22,
+        "deep": 18,
+        "gem": 1
+      },
+      "gzip_bytes": 1979,
+      "module_bytes": 4632,
+      "before": {
+        "constrained": true,
+        "hits": 32,
+        "id": "indy-500-winners",
+        "invalid": [
+          {
+            "guess": "Danica Patrick",
+            "invalid": "Did not win the Indianapolis 500."
+          }
+        ],
+        "misses": ["AJ Foyt", "Al Unser Sr", "Buddy Rice"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.9142857142857143,
+        "text": "Name a driver who won the Indianapolis 500.",
+        "total": 35
+      },
+      "after": {
+        "constrained": true,
+        "hits": 35,
+        "id": "indy-500-winners",
+        "invalid": [
+          {
+            "guess": "Danica Patrick",
+            "invalid": "Did not win the Indianapolis 500."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a driver who won the Indianapolis 500.",
+        "total": 35
+      }
+    },
+    {
+      "id": "olympic-decathlon-champions",
+      "text": "Name an athlete awarded Olympic decathlon gold.",
+      "theme": "sports",
+      "size": 24,
+      "aliases": 28,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 9,
+        "rare": 6,
+        "deep": 5,
+        "gem": 1
+      },
+      "gzip_bytes": 893,
+      "module_bytes": 1994,
+      "before": {
+        "constrained": true,
+        "hits": 30,
+        "id": "olympic-decathlon-champions",
+        "invalid": [
+          {
+            "guess": "Kevin Mayer",
+            "invalid": "An Olympic silver medallist, not a gold medallist."
+          }
+        ],
+        "misses": ["Caitlyn Jenner"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.967741935483871,
+        "text": "Name an athlete awarded Olympic decathlon gold.",
+        "total": 31
+      },
+      "after": {
+        "constrained": true,
+        "hits": 31,
+        "id": "olympic-decathlon-champions",
+        "invalid": [
+          {
+            "guess": "Kevin Mayer",
+            "invalid": "An Olympic silver medallist, not a gold medallist."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an athlete awarded Olympic decathlon gold.",
+        "total": 31
+      }
+    },
+    {
+      "id": "olympic-100m-champions",
+      "text": "Name a sprinter awarded Olympic 100 metres gold.",
+      "theme": "sports",
+      "size": 47,
+      "aliases": 53,
+      "tiers": {
+        "surface": 4,
+        "tooclever": 0,
+        "school": 19,
+        "rare": 13,
+        "deep": 10,
+        "gem": 1
+      },
+      "gzip_bytes": 1483,
+      "module_bytes": 3403,
+      "before": {
+        "constrained": true,
+        "hits": 35,
+        "id": "olympic-100m-champions",
+        "invalid": [],
+        "misses": ["Flo Jo"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.9722222222222222,
+        "text": "Name a sprinter awarded Olympic 100 metres gold.",
+        "total": 36
+      },
+      "after": {
+        "constrained": true,
+        "hits": 36,
+        "id": "olympic-100m-champions",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a sprinter awarded Olympic 100 metres gold.",
+        "total": 36
+      }
+    },
+    {
+      "id": "davis-cup-countries",
+      "text": "Name a country that has won the Davis Cup.",
+      "theme": "sports",
+      "size": 16,
+      "aliases": 15,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 6,
+        "rare": 3,
+        "deep": 3,
+        "gem": 1
+      },
+      "gzip_bytes": 627,
+      "module_bytes": 1446,
+      "before": {
+        "constrained": true,
+        "hits": 16,
+        "id": "davis-cup-countries",
+        "invalid": [
+          {
+            "guess": "Japan",
+            "invalid": "A runner-up, not a Davis Cup champion."
+          }
+        ],
+        "misses": [
+          "USA",
+          "United States of America",
+          "UK",
+          "United Kingdom",
+          "British Isles",
+          "West Germany",
+          "Czechoslovakia",
+          "Czechia",
+          "Russian Tennis Federation",
+          "RTF"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6153846153846154,
+        "text": "Name a country that has won the Davis Cup.",
+        "total": 26
+      },
+      "after": {
+        "constrained": true,
+        "hits": 26,
+        "id": "davis-cup-countries",
+        "invalid": [
+          {
+            "guess": "Japan",
+            "invalid": "A runner-up, not a Davis Cup champion."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a country that has won the Davis Cup.",
+        "total": 26
+      }
+    },
+    {
+      "id": "nz-bird-year",
+      "text": "Name a winner of New Zealand's Bird of the Year vote.",
+      "theme": "nature",
+      "size": 19,
+      "aliases": 29,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 7,
+        "rare": 5,
+        "deep": 3,
+        "gem": 1
+      },
+      "gzip_bytes": 830,
+      "module_bytes": 2007,
+      "before": {
+        "constrained": true,
+        "hits": 11,
+        "id": "nz-bird-year",
+        "invalid": [
+          {
+            "guess": "Takahe",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Takahē",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Long tailed cuckoo",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Koekoea",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Paradise shelduck",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Whio",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Blue duck",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Rifleman",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Titipounamu",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          }
+        ],
+        "misses": [
+          "Little spotted kiwi",
+          "Brown kiwi",
+          "North Island brown kiwi",
+          "Yellow eyed penguin",
+          "Fairy tern",
+          "New Zealand falcon",
+          "Fantail",
+          "Rock wren",
+          "Australasian crested grebe",
+          "Long tailed bat",
+          "Pekapeka tou roa"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.5,
+        "text": "Name a winner of New Zealand's Bird of the Year vote.",
+        "total": 22
+      },
+      "after": {
+        "constrained": true,
+        "hits": 22,
+        "id": "nz-bird-year",
+        "invalid": [
+          {
+            "guess": "Takahe",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Takahē",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Long tailed cuckoo",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Koekoea",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Paradise shelduck",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Whio",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Blue duck",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Rifleman",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          },
+          {
+            "guess": "Titipounamu",
+            "invalid": "A candidate/species, but not a Bird of the Year winner in the complete published winning roll."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a winner of New Zealand's Bird of the Year vote.",
+        "total": 22
+      }
+    },
+    {
+      "id": "dickin-medal-animals",
+      "text": "Name an animal awarded the Dickin Medal.",
+      "theme": "nature",
+      "size": 75,
+      "aliases": 8,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 32,
+        "rare": 22,
+        "deep": 17,
+        "gem": 1
+      },
+      "gzip_bytes": 1360,
+      "module_bytes": 2800,
+      "before": {
+        "constrained": true,
+        "hits": 26,
+        "id": "dickin-medal-animals",
+        "invalid": [
+          {
+            "guess": "Rupert",
+            "invalid": "No Dickin Medal award in the complete published recipients roll; not a recipient."
+          },
+          {
+            "guess": "Rupert the pigeon",
+            "invalid": "No Dickin Medal recipient named Rupert in the complete published roll."
+          }
+        ],
+        "misses": ["Simon the cat", "Judy the dog", "Appollo", "G I Joe"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.8666666666666667,
+        "text": "Name an animal awarded the Dickin Medal.",
+        "total": 30
+      },
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "dickin-medal-animals",
+        "invalid": [
+          {
+            "guess": "Rupert",
+            "invalid": "No Dickin Medal award in the complete published recipients roll; not a recipient."
+          },
+          {
+            "guess": "Rupert the pigeon",
+            "invalid": "No Dickin Medal recipient named Rupert in the complete published roll."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an animal awarded the Dickin Medal.",
+        "total": 30
+      }
+    },
+    {
+      "id": "westminster-winning-breeds",
+      "text": "Name a dog breed that won Best in Show at Westminster.",
+      "theme": "nature",
+      "size": 50,
+      "aliases": 27,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 21,
+        "rare": 14,
+        "deep": 11,
+        "gem": 1
+      },
+      "gzip_bytes": 1360,
+      "module_bytes": 3584,
+      "before": {
+        "constrained": true,
+        "hits": 17,
+        "id": "westminster-winning-breeds",
+        "invalid": [
+          {
+            "guess": "Irish Terrier",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Norfolk Terrier",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Shih Tzu",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Labrador Retriever",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Golden Retriever",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          }
+        ],
+        "misses": [
+          "Wire Fox Terrier",
+          "Smooth Fox Terrier",
+          "Westie",
+          "Colored Bull Terrier",
+          "Bull Terrier",
+          "Standard Poodle",
+          "Miniature Poodle",
+          "Toy Poodle",
+          "Beagle",
+          "German Shepherd",
+          "PBGV"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6071428571428571,
+        "text": "Name a dog breed that won Best in Show at Westminster.",
+        "total": 28
+      },
+      "after": {
+        "constrained": true,
+        "hits": 28,
+        "id": "westminster-winning-breeds",
+        "invalid": [
+          {
+            "guess": "Irish Terrier",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Norfolk Terrier",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Shih Tzu",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Labrador Retriever",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          },
+          {
+            "guess": "Golden Retriever",
+            "invalid": "Has never won Westminster Best in Show in the published winners roll."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a dog breed that won Best in Show at Westminster.",
+        "total": 28
+      }
+    },
+    {
+      "id": "canadian-emblem-birds",
+      "text": "Name an official Canadian provincial or territorial bird.",
+      "theme": "nature",
+      "size": 14,
+      "aliases": 14,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 3,
+        "deep": 2,
+        "gem": 1
+      },
+      "gzip_bytes": 622,
+      "module_bytes": 1551,
+      "before": {
+        "constrained": true,
+        "hits": 12,
+        "id": "canadian-emblem-birds",
+        "invalid": [],
+        "misses": [
+          "Loon",
+          "Great gray owl",
+          "Puffin",
+          "Ptarmigan",
+          "Raven",
+          "Steller jay",
+          "Grouse",
+          "Ontario loon",
+          "Quebec snowy owl",
+          "Manitoba great gray owl",
+          "PEI blue jay",
+          "Nova Scotia osprey",
+          "Yukon raven",
+          "Nunavut rock ptarmigan"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.46153846153846156,
+        "text": "Name an official Canadian provincial or territorial bird.",
+        "total": 26
+      },
+      "after": {
+        "constrained": true,
+        "hits": 26,
+        "id": "canadian-emblem-birds",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an official Canadian provincial or territorial bird.",
+        "total": 26
+      }
+    },
+    {
+      "id": "us-state-butterflies",
+      "text": "Name a butterfly that is an official US state symbol.",
+      "theme": "nature",
+      "size": 20,
+      "aliases": 30,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 8,
+        "rare": 4,
+        "deep": 4,
+        "gem": 1
+      },
+      "gzip_bytes": 986,
+      "module_bytes": 2619,
+      "before": {
+        "constrained": true,
+        "hits": 11,
+        "id": "us-state-butterflies",
+        "invalid": [
+          {
+            "guess": "Southern dogface",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Great purple hairstreak",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Cabbage white",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Great spangled fritillary",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Palamedes swallowtail",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Red spotted purple",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Painted lady",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          }
+        ],
+        "misses": [
+          "Monarch",
+          "Tiger swallowtail",
+          "Eastern black swallowtail",
+          "California dogface",
+          "Dogface butterfly",
+          "Mourning cloak",
+          "Viceroy",
+          "Baltimore checkerspot",
+          "Karner blue"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.55,
+        "text": "Name a butterfly that is an official US state symbol.",
+        "total": 20
+      },
+      "after": {
+        "constrained": true,
+        "hits": 20,
+        "id": "us-state-butterflies",
+        "invalid": [
+          {
+            "guess": "Southern dogface",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Great purple hairstreak",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Cabbage white",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Great spangled fritillary",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Palamedes swallowtail",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Red spotted purple",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          },
+          {
+            "guess": "Painted lady",
+            "invalid": "Not a legally designated butterfly/state-insect symbol in the published state register."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a butterfly that is an official US state symbol.",
+        "total": 20
+      }
+    },
+    {
+      "id": "constitution-signers",
+      "text": "Name a signer of the US Constitution.",
+      "theme": "history",
+      "size": 40,
+      "aliases": 37,
+      "tiers": {
+        "surface": 4,
+        "tooclever": 0,
+        "school": 16,
+        "rare": 11,
+        "deep": 8,
+        "gem": 1
+      },
+      "gzip_bytes": 1206,
+      "module_bytes": 3041,
+      "before": {
+        "constrained": true,
+        "hits": 24,
+        "id": "constitution-signers",
+        "invalid": [
+          {
+            "guess": "Thomas Jefferson",
+            "invalid": "Did not sign the US Constitution."
+          },
+          {
+            "guess": "John Adams",
+            "invalid": "Did not sign the US Constitution."
+          },
+          {
+            "guess": "John Hancock",
+            "invalid": "Did not sign the US Constitution."
+          },
+          {
+            "guess": "Patrick Henry",
+            "invalid": "Did not sign the US Constitution."
+          }
+        ],
+        "misses": ["Morris"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.96,
+        "text": "Name a signer of the US Constitution.",
+        "total": 25
+      },
+      "after": {
+        "constrained": true,
+        "hits": 24,
+        "id": "constitution-signers",
+        "invalid": [
+          {
+            "guess": "Thomas Jefferson",
+            "invalid": "Did not sign the US Constitution."
+          },
+          {
+            "guess": "John Adams",
+            "invalid": "Did not sign the US Constitution."
+          },
+          {
+            "guess": "John Hancock",
+            "invalid": "Did not sign the US Constitution."
+          },
+          {
+            "guess": "Patrick Henry",
+            "invalid": "Did not sign the US Constitution."
+          }
+        ],
+        "misses": ["Morris"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.96,
+        "text": "Name a signer of the US Constitution.",
+        "total": 25
+      }
+    },
+    {
+      "id": "us-banknote-portraits",
+      "text": "Name a person whose individual portrait appeared on a US dollar banknote.",
+      "theme": "history",
+      "size": 53,
+      "aliases": 69,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 23,
+        "rare": 14,
+        "deep": 12,
+        "gem": 1
+      },
+      "gzip_bytes": 1681,
+      "module_bytes": 4309,
+      "before": {
+        "constrained": true,
+        "hits": 24,
+        "id": "us-banknote-portraits",
+        "invalid": [
+          {
+            "guess": "Pocahontas",
+            "invalid": "Depicted in a reverse-side historical vignette, not an individual portrait."
+          },
+          {
+            "guess": "Harriet Tubman",
+            "invalid": "Proposed future portrait; not yet on an issued US banknote."
+          }
+        ],
+        "misses": ["Washington", "Salmon P Chase", "Martha"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.8888888888888888,
+        "text": "Name a person whose individual portrait appeared on a US dollar banknote.",
+        "total": 27
+      },
+      "after": {
+        "constrained": true,
+        "hits": 27,
+        "id": "us-banknote-portraits",
+        "invalid": [
+          {
+            "guess": "Pocahontas",
+            "invalid": "Depicted in a reverse-side historical vignette, not an individual portrait."
+          },
+          {
+            "guess": "Harriet Tubman",
+            "invalid": "Proposed future portrait; not yet on an issued US banknote."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a person whose individual portrait appeared on a US dollar banknote.",
+        "total": 27
+      }
+    },
+    {
+      "id": "miyazaki-films",
+      "text": "Name a feature film directed by Hayao Miyazaki.",
+      "theme": "film",
+      "size": 12,
+      "aliases": 15,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 4,
+        "rare": 2,
+        "deep": 2,
+        "gem": 1
+      },
+      "gzip_bytes": 692,
+      "module_bytes": 1765,
+      "before": {
+        "constrained": true,
+        "hits": 13,
+        "id": "miyazaki-films",
+        "invalid": [
+          {
+            "guess": "Grave of the Fireflies",
+            "invalid": "Directed by Isao Takahata, not Hayao Miyazaki."
+          }
+        ],
+        "misses": [
+          "Lupin III The Castle of Cagliostro",
+          "Nausicaa",
+          "Laputa",
+          "Laputa Castle in the Sky",
+          "My Neighbour Totoro",
+          "Totoro",
+          "Kiki",
+          "Mononoke",
+          "Howl",
+          "Ponyo on the Cliff by the Sea",
+          "Boy and Heron",
+          "How Do You Live"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.52,
+        "text": "Name a feature film directed by Hayao Miyazaki.",
+        "total": 25
+      },
+      "after": {
+        "constrained": true,
+        "hits": 25,
+        "id": "miyazaki-films",
+        "invalid": [
+          {
+            "guess": "Grave of the Fireflies",
+            "invalid": "Directed by Isao Takahata, not Hayao Miyazaki."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a feature film directed by Hayao Miyazaki.",
+        "total": 25
+      }
+    },
+    {
+      "id": "palme-dor-films",
+      "text": "Name a feature film that won Cannes' Palme d'Or or its predecessor.",
+      "theme": "film",
+      "size": 103,
+      "aliases": 2,
+      "tiers": {
+        "surface": 4,
+        "tooclever": 0,
+        "school": 45,
+        "rare": 29,
+        "deep": 24,
+        "gem": 1
+      },
+      "gzip_bytes": 2402,
+      "module_bytes": 5111,
+      "before": {
+        "constrained": true,
+        "hits": 28,
+        "id": "palme-dor-films",
+        "invalid": [
+          {
+            "guess": "The Godfather",
+            "invalid": "Did not win the Palme d’Or or predecessor top prize."
+          }
+        ],
+        "misses": ["Blue Is the Warmest Color"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.9655172413793104,
+        "text": "Name a feature film that won Cannes' Palme d'Or or its predecessor.",
+        "total": 29
+      },
+      "after": {
+        "constrained": true,
+        "hits": 29,
+        "id": "palme-dor-films",
+        "invalid": [
+          {
+            "guess": "The Godfather",
+            "invalid": "Did not win the Palme d’Or or predecessor top prize."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a feature film that won Cannes' Palme d'Or or its predecessor.",
+        "total": 29
+      }
+    },
+    {
+      "id": "enable-semordnilaps",
+      "text": "Name a familiar 4–9-letter word that makes a different word backwards.",
+      "theme": "words",
+      "size": 217,
+      "aliases": 0,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 2,
+        "school": 95,
+        "rare": 64,
+        "deep": 52,
+        "gem": 1
+      },
+      "gzip_bytes": 2139,
+      "module_bytes": 4925,
+      "before": {
+        "constrained": true,
+        "hits": 27,
+        "id": "enable-semordnilaps",
+        "invalid": [
+          {
+            "guess": "dog",
+            "invalid": "Three letters, below the 4-letter minimum."
+          },
+          {
+            "guess": "god",
+            "invalid": "Three letters, below the 4-letter minimum."
+          },
+          {
+            "guess": "vile",
+            "invalid": "Reverses to eliv, not an English word."
+          },
+          {
+            "guess": "levi",
+            "invalid": "A proper name; its reverse is not an ordinary English word."
+          },
+          {
+            "guess": "level",
+            "invalid": "A palindrome, not a different word backwards."
+          },
+          {
+            "guess": "racecar",
+            "invalid": "A palindrome, not a different word backwards."
+          }
+        ],
+        "misses": ["reviled", "gateman", "nametag"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.9,
+        "text": "Name a familiar 4–9-letter word that makes a different word backwards.",
+        "total": 30
+      },
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "enable-semordnilaps",
+        "invalid": [
+          {
+            "guess": "dog",
+            "invalid": "Three letters, below the 4-letter minimum."
+          },
+          {
+            "guess": "god",
+            "invalid": "Three letters, below the 4-letter minimum."
+          },
+          {
+            "guess": "vile",
+            "invalid": "Reverses to eliv, not an English word."
+          },
+          {
+            "guess": "levi",
+            "invalid": "A proper name; its reverse is not an ordinary English word."
+          },
+          {
+            "guess": "level",
+            "invalid": "A palindrome, not a different word backwards."
+          },
+          {
+            "guess": "racecar",
+            "invalid": "A palindrome, not a different word backwards."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a familiar 4–9-letter word that makes a different word backwards.",
+        "total": 30
+      }
+    },
+    {
+      "id": "enable-three-es",
+      "text": "Name a familiar 6–9-letter word containing at least three Es.",
+      "theme": "words",
+      "size": 356,
+      "aliases": 0,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 158,
+        "rare": 106,
+        "deep": 87,
+        "gem": 1
+      },
+      "gzip_bytes": 3825,
+      "module_bytes": 10475,
+      "before": {
+        "constrained": true,
+        "hits": 26,
+        "id": "enable-three-es",
+        "invalid": [
+          {
+            "guess": "eerie",
+            "invalid": "Only five letters, below the six-letter minimum."
+          },
+          {
+            "guess": "committee",
+            "invalid": "Contains only two Es."
+          }
+        ],
+        "misses": ["severest", "weekender", "weekended"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.896551724137931,
+        "text": "Name a familiar 6–9-letter word containing at least three Es.",
+        "total": 29
+      },
+      "after": {
+        "constrained": true,
+        "hits": 29,
+        "id": "enable-three-es",
+        "invalid": [
+          {
+            "guess": "eerie",
+            "invalid": "Only five letters, below the six-letter minimum."
+          },
+          {
+            "guess": "committee",
+            "invalid": "Contains only two Es."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a familiar 6–9-letter word containing at least three Es.",
+        "total": 29
+      }
+    },
+    {
+      "id": "enable-five-vowels",
+      "text": "Name a familiar word containing all five vowels.",
+      "theme": "words",
+      "size": 91,
+      "aliases": 0,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 2,
+        "school": 39,
+        "rare": 25,
+        "deep": 21,
+        "gem": 1
+      },
+      "gzip_bytes": 1376,
+      "module_bytes": 3757,
+      "before": {
+        "constrained": true,
+        "hits": 20,
+        "id": "enable-five-vowels",
+        "invalid": [
+          {
+            "guess": "discourse",
+            "invalid": "Contains no A."
+          }
+        ],
+        "misses": [
+          "sequoia",
+          "facetiously",
+          "abstemious",
+          "abstemiously",
+          "unquestionable",
+          "authorise",
+          "authorizes",
+          "cautioner",
+          "housemaid",
+          "housemaids"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6666666666666666,
+        "text": "Name a familiar word containing all five vowels.",
+        "total": 30
+      },
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "enable-five-vowels",
+        "invalid": [
+          {
+            "guess": "discourse",
+            "invalid": "Contains no A."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a familiar word containing all five vowels.",
+        "total": 30
+      }
+    }
+  ]
+}

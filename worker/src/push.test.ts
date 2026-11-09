@@ -685,7 +685,7 @@ it('migrates to v15 idempotently, with or without intermediate versions', async 
     setSetting(storage, 'schema_version', 9);
     migrate(storage);
     migrate(storage);
-    expect(getSetting(storage, 'schema_version')).toBe(20);
+    expect(getSetting(storage, 'schema_version')).toBe(21);
     expect(storage.sql.exec('SELECT * FROM push_subscriptions').toArray()).toEqual([]);
     expect(storage.sql.exec('SELECT * FROM push_outbox').toArray()).toEqual([]);
   });

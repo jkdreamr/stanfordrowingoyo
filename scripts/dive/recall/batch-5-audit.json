@@ -1,0 +1,1908 @@
+{
+  "raw_sha256": {
+    "batch-5-raw.json": "723f0b52a828dce00628f4496b6a7d5c470c88e3d1653af8ea879a9cef8dd7d1",
+    "batch-5-backup-raw.json": "987010aecf48832585df07949d52915a60147938984d8281bc6f112179c0b0a3",
+    "batch-5-border-backup-raw.json": "ac2eeea1ce21818db818fd15c10c1815c431488374c5ab6a8557ede992390c66",
+    "batch-5-word-backup-raw.json": "38b8b38a2ad04559e8d5cb846b952501379af851f5d2419e499b17d2959ebdb7",
+    "batch-5-award-backup-raw.json": "83a46858b84c731a04689eaef08675e78996f0015f2df1d90ab6fe0b2c3926b1"
+  },
+  "baseline_ref": "ebaec43f982b8b6f1c5a800baeff80cd71e8071f",
+  "swaps": {
+    "africa-countries": "english-eurovision-countries",
+    "asia-countries": "drive-left-countries",
+    "europe-countries": "countries-peaks-5000",
+    "south-america-countries": "borders-zambia",
+    "oceania-countries": "crescent-flags",
+    "africa-capitals": "borders-dr-congo",
+    "asia-capitals": "borders-germany",
+    "europe-capitals": "high-capitals",
+    "americas-capitals": "olympic-capitals",
+    "canada-provinces": "borders-austria",
+    "australia-states-territories": "multi-zone-countries",
+    "landlocked-countries": "moscow-1980-boycott",
+    "greek-letters": "enable-greek-hidden",
+    "nato-alphabet": "enable-qwerty-top-row"
+  },
+  "raw_duplicates_removed": {
+    "borders-austria": ["Czech Republic"]
+  },
+  "valid_misses": {
+    "enable-greek-hidden": {
+      "gypsies": "Valid pattern word, retained as a valid miss rather than falsely invalidated; explicitly editorially excluded ethnic slur."
+    }
+  },
+  "rejected_candidates": {
+    "capital-not-largest": "City/metro boundaries and omitted Sri Lanka prevent a clean complete global scope.",
+    "two-land-neighbours": "Constituent-country versus kingdom/dependency treatment, including Netherlands/Denmark and overseas borders, prevents a clean global scope.",
+    "countries-person-namesakes": "Legendary/disputed etymologies and family/official-long-name scope were not clean enough.",
+    "countries-without-railways": "No complete pinned current operational-railway absence list was established.",
+    "countries-flag-cross": "The proposed complete source was unavailable.",
+    "enable-nato-hidden": "Inflection/codeword-only edge cases made this less clean than the QWERTY-row pattern."
+  },
+  "original_raw_sha256": {
+    "batch-5-raw.json": "723f0b52a828dce00628f4496b6a7d5c470c88e3d1653af8ea879a9cef8dd7d1",
+    "batch-5-backup-raw.json": "987010aecf48832585df07949d52915a60147938984d8281bc6f112179c0b0a3",
+    "batch-5-border-backup-raw.json": "ac2eeea1ce21818db818fd15c10c1815c431488374c5ab6a8557ede992390c66",
+    "batch-5-word-backup-raw.json": "38b8b38a2ad04559e8d5cb846b952501379af851f5d2419e499b17d2959ebdb7",
+    "batch-5-award-backup-raw.json": "83a46858b84c731a04689eaef08675e78996f0015f2df1d90ab6fe0b2c3926b1"
+  },
+  "selected_sha256": "2e95786c93ebc7feb8c062b0b730b00109e25f81bfb4fde4ec5424602ddd5bf0",
+  "initial_specs_sha256": "19206ad99435f867ee9f0d0a0b3b4c35045ee53ba6d569c21315fd51f229a775",
+  "source_snapshots": 25,
+  "corpus": {
+    "prompts": 14,
+    "guesses": 475,
+    "invalid": 137
+  },
+  "gzip_method": "Standalone generated module, Node v24.22.2, gzipSync level 6; not additive marginal Worker compression.",
+  "before": {
+    "prompts": 14,
+    "hits": 316,
+    "total": 338,
+    "invalid": 137,
+    "rate": 0.9349112426035503
+  },
+  "after": {
+    "prompts": 14,
+    "hits": 337,
+    "total": 338,
+    "invalid": 137,
+    "rate": 0.9970414201183432
+  },
+  "prompts": [
+    {
+      "id": "borders-austria",
+      "text": "Name a country with a land border with Austria.",
+      "active": true,
+      "size": 8,
+      "tiers": {
+        "surface": 1,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Germany"],
+      "pageviews": 0,
+      "sitelinks": 5,
+      "wikidata": 0,
+      "aliases": 16,
+      "too_clever": [],
+      "gem": "Liechtenstein",
+      "theme": "geography",
+      "cluster": "borders-austria",
+      "constrained": true,
+      "standalone_gzip_bytes": 513,
+      "before": {
+        "id": "borders-austria",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 12,
+        "total": 16,
+        "rate": 0.75,
+        "invalid": [
+          {
+            "guess": "Croatia",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Poland",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "France",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Luxembourg",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Romania",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Netherlands",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Serbia",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Denmark",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "San Marino",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Vatican City",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Bosnia and Herzegovina",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          }
+        ],
+        "misses": [
+          "German Federal Republic",
+          "Federal Republic of Germany",
+          "Republic of Slovenia",
+          "Principality of Liechtenstein"
+        ]
+      },
+      "after": {
+        "id": "borders-austria",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 16,
+        "total": 16,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Croatia",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Poland",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "France",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Luxembourg",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Romania",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Netherlands",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Serbia",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Denmark",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "San Marino",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Vatican City",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          },
+          {
+            "guess": "Bosnia and Herzegovina",
+            "invalid": "No land border with Austria in the complete geographic enumeration."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "borders-dr-congo",
+      "text": "Name a country with a land border with the Democratic Republic of the Congo.",
+      "active": true,
+      "size": 9,
+      "tiers": {
+        "surface": 2,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Zambia", "Angola"],
+      "pageviews": 0,
+      "sitelinks": 3,
+      "wikidata": 0,
+      "aliases": 11,
+      "too_clever": [],
+      "gem": "Central African Republic",
+      "theme": "geography",
+      "cluster": "borders-dr-congo",
+      "constrained": true,
+      "standalone_gzip_bytes": 487,
+      "before": {
+        "id": "borders-dr-congo",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 14,
+        "total": 19,
+        "rate": 0.7368421052631579,
+        "invalid": [
+          {
+            "guess": "Kenya",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "South Africa",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Sudan",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Cameroon",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Gabon",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Equatorial Guinea",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Chad",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Nigeria",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Malawi",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Mozambique",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          }
+        ],
+        "misses": [
+          "Republic of Zambia",
+          "Republic of Angola",
+          "Republic of Burundi",
+          "Republic of Rwanda",
+          "Republic of Uganda"
+        ]
+      },
+      "after": {
+        "id": "borders-dr-congo",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 19,
+        "total": 19,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Kenya",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "South Africa",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Sudan",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Cameroon",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Gabon",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Equatorial Guinea",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Chad",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Nigeria",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Malawi",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          },
+          {
+            "guess": "Mozambique",
+            "invalid": "Not a land neighbour of DR Congo; South Sudan, not Sudan, shares its northern border."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "borders-germany",
+      "text": "Name a country with a land border with Germany.",
+      "active": true,
+      "size": 9,
+      "tiers": {
+        "surface": 2,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["France", "Poland"],
+      "pageviews": 0,
+      "sitelinks": 8,
+      "wikidata": 0,
+      "aliases": 22,
+      "too_clever": [],
+      "gem": "Luxembourg",
+      "theme": "geography",
+      "cluster": "borders-germany",
+      "constrained": true,
+      "standalone_gzip_bytes": 560,
+      "before": {
+        "id": "borders-germany",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 14,
+        "total": 19,
+        "rate": 0.7368421052631579,
+        "invalid": [
+          {
+            "guess": "Italy",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Slovakia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Slovenia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Hungary",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Liechtenstein",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "United Kingdom",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Croatia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Russia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Lithuania",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          }
+        ],
+        "misses": [
+          "French Republic",
+          "Republic of Poland",
+          "Republic of Austria",
+          "Kingdom of Denmark",
+          "Kingdom of the Netherlands"
+        ]
+      },
+      "after": {
+        "id": "borders-germany",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 19,
+        "total": 19,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Italy",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Slovakia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Slovenia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Hungary",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Liechtenstein",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "United Kingdom",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Sweden",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Croatia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Russia",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          },
+          {
+            "guess": "Lithuania",
+            "invalid": "No land border with Germany; maritime proximity and intervening countries do not count."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "borders-zambia",
+      "text": "Name a country with a land border with Zambia.",
+      "active": true,
+      "size": 8,
+      "tiers": {
+        "surface": 1,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Zimbabwe"],
+      "pageviews": 0,
+      "sitelinks": 2,
+      "wikidata": 0,
+      "aliases": 12,
+      "too_clever": [],
+      "gem": "Botswana",
+      "theme": "geography",
+      "cluster": "borders-zambia",
+      "constrained": true,
+      "standalone_gzip_bytes": 485,
+      "before": {
+        "id": "borders-zambia",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 11,
+        "total": 17,
+        "rate": 0.6470588235294118,
+        "invalid": [
+          {
+            "guess": "South Africa",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Kenya",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Uganda",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Rwanda",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Burundi",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Congo Brazzaville",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Central African Republic",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Gabon",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Lesotho",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Eswatini",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Sudan",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "South Sudan",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          }
+        ],
+        "misses": [
+          "Republic of Angola",
+          "Republic of Malawi",
+          "Republic of Mozambique",
+          "Republic of Zimbabwe",
+          "Republic of Botswana",
+          "Republic of Namibia"
+        ]
+      },
+      "after": {
+        "id": "borders-zambia",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 17,
+        "total": 17,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "South Africa",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Kenya",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Uganda",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Rwanda",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Burundi",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Congo Brazzaville",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Central African Republic",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Gabon",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Lesotho",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Eswatini",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "Sudan",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          },
+          {
+            "guess": "South Sudan",
+            "invalid": "No land border with Zambia; the Congo neighbour is DR Congo, not Congo-Brazzaville."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "countries-peaks-5000",
+      "text": "Name a country with a mountain summit higher than 5,000 metres.",
+      "active": true,
+      "size": 27,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 11,
+        "rare": 7,
+        "deep": 5,
+        "gem": 1
+      },
+      "surface": ["China", "Pakistan", "Nepal"],
+      "pageviews": 0,
+      "sitelinks": 21,
+      "wikidata": 0,
+      "aliases": 31,
+      "too_clever": [],
+      "gem": "Uganda",
+      "theme": "geography",
+      "cluster": "countries-peaks-5000",
+      "constrained": true,
+      "standalone_gzip_bytes": 886,
+      "before": {
+        "id": "countries-peaks-5000",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 30,
+        "total": 30,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "France",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          },
+          {
+            "guess": "New Zealand",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          },
+          {
+            "guess": "Indonesia",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          },
+          {
+            "guess": "Venezuela",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "countries-peaks-5000",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 30,
+        "total": 30,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "France",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          },
+          {
+            "guess": "New Zealand",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          },
+          {
+            "guess": "Indonesia",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          },
+          {
+            "guess": "Venezuela",
+            "invalid": "The highest summit is below 5,000 metres in the complete pinned elevation table."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "crescent-flags",
+      "text": "Name a UN member country whose national flag contains a crescent.",
+      "active": true,
+      "size": 19,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 7,
+        "rare": 4,
+        "deep": 3,
+        "gem": 1
+      },
+      "surface": ["Turkey", "Pakistan", "Malaysia"],
+      "pageviews": 0,
+      "sitelinks": 8,
+      "wikidata": 0,
+      "aliases": 10,
+      "too_clever": ["Nepal"],
+      "gem": "Croatia",
+      "theme": "geography",
+      "cluster": "crescent-flags",
+      "constrained": true,
+      "standalone_gzip_bytes": 615,
+      "before": {
+        "id": "crescent-flags",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 18,
+        "total": 18,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Kazakhstan",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Saudi Arabia",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Bangladesh",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Palau",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Laos",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Bahrain",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Qatar",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Iraq",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Egypt",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Syria",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Morocco",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Western Sahara",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "crescent-flags",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 18,
+        "total": 18,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Kazakhstan",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Saudi Arabia",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Bangladesh",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Palau",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Laos",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Bahrain",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Qatar",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Iraq",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Egypt",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Syria",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Morocco",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          },
+          {
+            "guess": "Western Sahara",
+            "invalid": "No crescent on the current UN-member national flag. Full sun/moon discs do not count; historical flags and non-UN-member Western Sahara are outside the stated scope."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "drive-left-countries",
+      "text": "Name a UN member country where road traffic normally drives on the left.",
+      "active": true,
+      "size": 54,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 23,
+        "rare": 14,
+        "deep": 12,
+        "gem": 1
+      },
+      "surface": ["Japan", "Australia", "United Kingdom"],
+      "pageviews": 0,
+      "sitelinks": 23,
+      "wikidata": 0,
+      "aliases": 30,
+      "too_clever": ["Samoa"],
+      "gem": "Suriname",
+      "theme": "geography",
+      "cluster": "drive-left-countries",
+      "constrained": true,
+      "standalone_gzip_bytes": 1276,
+      "before": {
+        "id": "drive-left-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 33,
+        "total": 33,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Hong Kong",
+            "invalid": "Not a qualifying UN member country: Hong Kong is a Chinese SAR; the US normally drives on the right, despite its Virgin Islands exception."
+          },
+          {
+            "guess": "United States",
+            "invalid": "Not a qualifying UN member country: Hong Kong is a Chinese SAR; the US normally drives on the right, despite its Virgin Islands exception."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "drive-left-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 33,
+        "total": 33,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Hong Kong",
+            "invalid": "Not a qualifying UN member country: Hong Kong is a Chinese SAR; the US normally drives on the right, despite its Virgin Islands exception."
+          },
+          {
+            "guess": "United States",
+            "invalid": "Not a qualifying UN member country: Hong Kong is a Chinese SAR; the US normally drives on the right, despite its Virgin Islands exception."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "enable-greek-hidden",
+      "text": "Name a familiar 4–12-letter word containing a three-letter Greek letter name.",
+      "active": true,
+      "size": 198,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 87,
+        "rare": 58,
+        "deep": 48,
+        "gem": 1
+      },
+      "surface": ["metal", "restaurant", "chicken"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 0,
+      "too_clever": ["epsilon"],
+      "gem": "rhododendron",
+      "theme": "words",
+      "cluster": "enable-patterns",
+      "constrained": true,
+      "standalone_gzip_bytes": 2351,
+      "before": {
+        "id": "enable-greek-hidden",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 37,
+        "total": 38,
+        "rate": 0.9736842105263158,
+        "invalid": [
+          {
+            "guess": "metamorphosis",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "alpha",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "alphabet",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "gamma",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "psychology",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "telephone",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "rhubarb",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          }
+        ],
+        "misses": ["gypsies"]
+      },
+      "after": {
+        "id": "enable-greek-hidden",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 37,
+        "total": 38,
+        "rate": 0.9736842105263158,
+        "invalid": [
+          {
+            "guess": "metamorphosis",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "alpha",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "alphabet",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "gamma",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "psychology",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "telephone",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          },
+          {
+            "guess": "rhubarb",
+            "invalid": "Does not satisfy the literal 4–12-letter predicate containing ETA, RHO, TAU, PHI, CHI or PSI; metamorphosis has 13 letters. Longer Greek-letter names and similar-looking letter sequences do not qualify."
+          }
+        ],
+        "misses": ["gypsies"]
+      }
+    },
+    {
+      "id": "enable-qwerty-top-row",
+      "text": "Name a familiar 4–12-letter word on QWERTY’s top letter row, allowing plurals.",
+      "active": true,
+      "size": 146,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 64,
+        "rare": 42,
+        "deep": 35,
+        "gem": 1
+      },
+      "surface": ["power", "pretty", "type"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 0,
+      "too_clever": ["typewriter"],
+      "gem": "perpetuity",
+      "theme": "words",
+      "cluster": "enable-patterns",
+      "constrained": true,
+      "standalone_gzip_bytes": 1524,
+      "before": {
+        "id": "enable-qwerty-top-row",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 45,
+        "total": 45,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "potato",
+            "invalid": "The singular spelling needs letters outside Q W E R T Y U I O P."
+          },
+          {
+            "guess": "apple",
+            "invalid": "The singular spelling needs letters outside Q W E R T Y U I O P."
+          },
+          {
+            "guess": "keyboard",
+            "invalid": "The singular spelling needs letters outside Q W E R T Y U I O P."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "enable-qwerty-top-row",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 45,
+        "total": 45,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "potato",
+            "invalid": "The singular spelling needs letters outside Q W E R T Y U I O P."
+          },
+          {
+            "guess": "apple",
+            "invalid": "The singular spelling needs letters outside Q W E R T Y U I O P."
+          },
+          {
+            "guess": "keyboard",
+            "invalid": "The singular spelling needs letters outside Q W E R T Y U I O P."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "english-eurovision-countries",
+      "text": "Name a country that won Eurovision with English lyrics, in whole or in part.",
+      "active": true,
+      "size": 19,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 7,
+        "rare": 4,
+        "deep": 3,
+        "gem": 1
+      },
+      "surface": ["United Kingdom", "Sweden", "Ireland"],
+      "pageviews": 0,
+      "sitelinks": 15,
+      "wikidata": 0,
+      "aliases": 27,
+      "too_clever": ["Ukraine"],
+      "gem": "Azerbaijan",
+      "theme": "geography",
+      "cluster": "english-eurovision-countries",
+      "constrained": true,
+      "standalone_gzip_bytes": 737,
+      "before": {
+        "id": "english-eurovision-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Lithuania",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "West Germany",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Cyprus",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Malta",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Serbia",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Croatia",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Poland",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Romania",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Moldova",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Spain",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Portugal",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Italy",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Luxembourg",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "France",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Australia",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Iceland",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "english-eurovision-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 20,
+        "total": 20,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Lithuania",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "West Germany",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Cyprus",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Malta",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Belgium",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Serbia",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Croatia",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Poland",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Romania",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Moldova",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Spain",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Portugal",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Italy",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Luxembourg",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "France",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Australia",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          },
+          {
+            "guess": "Iceland",
+            "invalid": "No Eurovision win with English lyrics in the complete winners-by-language table through 2026. West Germany won in German in 1982; reunified Germany won in English in 2010. Other listed countries either never won or won only in non-English languages."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "high-capitals",
+      "text": "Name a national capital more than 2,000 metres above sea level.",
+      "active": true,
+      "size": 9,
+      "tiers": {
+        "surface": 2,
+        "tooclever": 0,
+        "school": 3,
+        "rare": 2,
+        "deep": 1,
+        "gem": 1
+      },
+      "surface": ["Mexico City", "Quito"],
+      "pageviews": 0,
+      "sitelinks": 3,
+      "wikidata": 0,
+      "aliases": 2,
+      "too_clever": [],
+      "gem": "Thimphu",
+      "theme": "geography",
+      "cluster": "high-capitals",
+      "constrained": true,
+      "standalone_gzip_bytes": 416,
+      "before": {
+        "id": "high-capitals",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 11,
+        "total": 12,
+        "rate": 0.9166666666666666,
+        "invalid": [
+          {
+            "guess": "Kabul",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Kathmandu",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Nairobi",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Tehran",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Ulaanbaatar",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Lhasa",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Pretoria",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Maseru",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Windhoek",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Kigali",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Harare",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Caracas",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "San Jose",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Guatemala City",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Brasilia",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "San Salvador",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Bishkek",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Dushanbe",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          }
+        ],
+        "misses": ["Ciudad de Mexico"]
+      },
+      "after": {
+        "id": "high-capitals",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 12,
+        "total": 12,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Kabul",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Kathmandu",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Nairobi",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Tehran",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Ulaanbaatar",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Lhasa",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Pretoria",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Maseru",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Windhoek",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Kigali",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Harare",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Caracas",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "San Jose",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Guatemala City",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Brasilia",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "San Salvador",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Bishkek",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          },
+          {
+            "guess": "Dushanbe",
+            "invalid": "Not a sovereign-state capital above 2,000 metres in the complete pinned elevation table; Lhasa is a regional, not national, capital."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "moscow-1980-boycott",
+      "text": "Name an Olympic team that did not compete at the 1980 Moscow Summer Games.",
+      "active": true,
+      "size": 68,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 29,
+        "rare": 19,
+        "deep": 16,
+        "gem": 1
+      },
+      "surface": ["United States", "Japan", "Canada"],
+      "pageviews": 0,
+      "sitelinks": 39,
+      "wikidata": 0,
+      "aliases": 46,
+      "too_clever": [],
+      "gem": "Liechtenstein",
+      "theme": "geography",
+      "cluster": "moscow-1980-boycott",
+      "constrained": true,
+      "standalone_gzip_bytes": 1583,
+      "before": {
+        "id": "moscow-1980-boycott",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 30,
+        "total": 30,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "United Kingdom",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "Australia",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "New Zealand",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "France",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "Italy",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "Spain",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "moscow-1980-boycott",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 30,
+        "total": 30,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "United Kingdom",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "Australia",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "New Zealand",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "France",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "Italy",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          },
+          {
+            "guess": "Spain",
+            "invalid": "The team did compete in Moscow in 1980; Olympic/NOC-flag participation is still participation."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "multi-zone-countries",
+      "text": "Name a country using multiple standard time zones, including overseas territory.",
+      "active": true,
+      "size": 22,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 0,
+        "school": 9,
+        "rare": 5,
+        "deep": 4,
+        "gem": 1
+      },
+      "surface": ["United States", "Russia", "Canada"],
+      "pageviews": 0,
+      "sitelinks": 17,
+      "wikidata": 0,
+      "aliases": 29,
+      "too_clever": [],
+      "gem": "South Africa",
+      "theme": "geography",
+      "cluster": "multi-zone-countries",
+      "constrained": true,
+      "standalone_gzip_bytes": 852,
+      "before": {
+        "id": "multi-zone-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 26,
+        "total": 26,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Kazakhstan",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Greenland",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Norway",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "China",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "India",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Japan",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "multi-zone-countries",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 26,
+        "total": 26,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Kazakhstan",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Greenland",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Norway",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "China",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "India",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Japan",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          },
+          {
+            "guess": "Germany",
+            "invalid": "Not a country with multiple standard offsets in the pinned complete table. Kazakhstan unified in 2024; Greenland is counted within Denmark; seasonal daylight-saving shifts and unofficial offsets are not extra standard zones."
+          }
+        ],
+        "misses": []
+      }
+    },
+    {
+      "id": "olympic-capitals",
+      "text": "Name a present-day national capital that has hosted the Summer or Winter Olympics.",
+      "active": true,
+      "size": 15,
+      "tiers": {
+        "surface": 3,
+        "tooclever": 1,
+        "school": 5,
+        "rare": 3,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["Paris", "London", "Tokyo"],
+      "pageviews": 0,
+      "sitelinks": 15,
+      "wikidata": 0,
+      "aliases": 8,
+      "too_clever": ["Stockholm"],
+      "gem": "Sarajevo",
+      "theme": "geography",
+      "cluster": "olympic-capitals",
+      "constrained": true,
+      "standalone_gzip_bytes": 521,
+      "before": {
+        "id": "olympic-capitals",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 15,
+        "total": 15,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Ottawa",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Washington",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Canberra",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Brasilia",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Buenos Aires",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Singapore",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Copenhagen",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Vienna",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Budapest",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Dublin",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Madrid",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Lisbon",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Brussels",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Warsaw",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Ankara",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Doha",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Cape Town",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          }
+        ],
+        "misses": []
+      },
+      "after": {
+        "id": "olympic-capitals",
+        "text": null,
+        "constrained": true,
+        "missingCorpus": false,
+        "missingData": false,
+        "hits": 15,
+        "total": 15,
+        "rate": 1,
+        "invalid": [
+          {
+            "guess": "Ottawa",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Washington",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Canberra",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Brasilia",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Buenos Aires",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Singapore",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Copenhagen",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Vienna",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Budapest",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Dublin",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Madrid",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Lisbon",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Brussels",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Warsaw",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Ankara",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Doha",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          },
+          {
+            "guess": "Cape Town",
+            "invalid": "Not a present national capital that has hosted the senior Summer/Winter Olympics through 2026. Youth Olympics, future/cancelled games and other sporting events do not count."
+          }
+        ],
+        "misses": []
+      }
+    }
+  ]
+}

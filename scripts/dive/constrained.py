@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 import unicodedata
 
-from sources import acquire, expect_count
+from sources import acquire, expect_count, immutable_dataset
 
 HERE = Path(__file__).parent
 
@@ -55,6 +55,24 @@ def derive(rows, predicate):
     return [row for row in rows if any(predicate(n) for n in [row['name'], *row.get('names', [])])]
 
 
+def add_surnames(rows, aliases):
+    claims = {}
+    for row in rows:
+        surname = {'Bong Joon-ho': 'Bong', 'Gao Xingjian': 'Gao', 'Han Kang': 'Han', 'Mo Yan': 'Mo'}.get(row['name'])
+        surname = surname or re.sub(r'\s+(Jr\.?|Sr\.?|I{1,3})$', '', row['name']).split()[-1]
+        if letters(surname):
+            claims.setdefault(normalize(surname), []).append(row['name'])
+    ambiguous = {key for key, owners in claims.items() if len(owners) > 1}
+    for name, values in aliases.items():
+        aliases[name] = [value for value in values if normalize(value) not in ambiguous]
+    names = {normalize(row['name']) for row in rows}
+    for surname, owners in claims.items():
+        if len(owners) == 1 and surname not in names:
+            values = aliases.setdefault(owners[0], [])
+            if surname not in [normalize(a) for a in values]:
+                values.append(surname)
+
+
 def read_specs(verify_sources=False):
     path = HERE / 'constrained.json'
     document = json.loads(path.read_text())
@@ -65,7 +83,11 @@ def read_specs(verify_sources=False):
         for source in container['sources']:
             if not source.get('revision') or not source.get('expect'):
                 raise ValueError('Missing pinned provenance or expected count')
+            if 'dataset' in source and not immutable_dataset(source['dataset']):
+                raise ValueError(f"Mutable dataset source: {source['dataset']}")
             if 'dataset' not in source:
+                if not isinstance(source['revision'], int) or source['revision'] <= 0:
+                    raise ValueError('Wikipedia requires a pinned positive revision')
                 expect_count(source['reviewed'], source['expect'], source['page'])
             sources[json.dumps(source, sort_keys=True)] = source
     if verify_sources:
@@ -92,17 +114,7 @@ def read_specs(verify_sources=False):
                       aliases={r['name']: r.get('aliases', []) for r in rows if r.get('aliases')},
                       wiki={}, common=False, cap=len(rows), rows=rows, expect=spec['expect'])
         if spec.get('people'):
-            claims = {}
-            for row in rows:
-                surname = {'Bong Joon-ho': 'Bong', 'Gao Xingjian': 'Gao', 'Han Kang': 'Han', 'Mo Yan': 'Mo'}.get(row['name'])
-                surname = surname or re.sub(r'\s+(Jr\.?|Sr\.?|I{1,3})$', '', row['name']).split()[-1]
-                if letters(surname):
-                    claims.setdefault(normalize(surname), []).append(row['name'])
-            for surname, owners in claims.items():
-                if len(owners) == 1 and surname not in {normalize(n) for n in names}:
-                    aliases = prompt['aliases'].setdefault(owners[0], [])
-                    if surname not in [normalize(a) for a in aliases]:
-                        aliases.append(surname)
+            add_surnames(rows, prompt['aliases'])
         specs.append(prompt)
     return specs
 

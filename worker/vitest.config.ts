@@ -4,11 +4,13 @@ import { generateVapidKeys } from '../scripts/generate-vapid-keys.ts';
 
 const vapid = generateVapidKeys();
 export default defineConfig({
+  define: { __OYO_DIVE_TEST__: 'true' },
   test: { fileParallelism: false },
   plugins: [
     cloudflareTest({
       wrangler: { configPath: '../wrangler.jsonc' },
       miniflare: {
+        assets: { directory: './private-assets' },
         bindings: {
           OYO_TEST_CLOCK: '1',
           TEAM_CODE: 'koo26',

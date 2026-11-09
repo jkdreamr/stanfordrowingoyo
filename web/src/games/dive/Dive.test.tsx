@@ -7,7 +7,10 @@ import { api } from '../../lib/api';
 import Dive from './Dive';
 import { ToastProvider } from '../../components/ui';
 const { identity } = vi.hoisted(() => ({ identity: { id: 'staff', role: 'coach' } }));
-vi.mock('../../lib/api', () => ({ api: vi.fn() }));
+vi.mock('../../lib/api', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../../lib/api')>()),
+  api: vi.fn(),
+}));
 vi.mock('../../lib/queries', () => ({
   qk: { root: () => ['games'] },
   useMe: () => ({ data: identity }),
@@ -22,6 +25,7 @@ afterEach(() => {
   clients.forEach((client) => client.clear());
   clients.length = 0;
   vi.mocked(api).mockReset();
+  localStorage.clear();
 });
 const day: DiveDay = {
   date: '2026-11-07',
@@ -56,7 +60,12 @@ const day: DiveDay = {
 function mount(data = day) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   clients.push(client);
-  vi.mocked(api).mockResolvedValue(data);
+  vi.mocked(api).mockImplementation(
+    async (endpoint) =>
+      (endpoint === 'POST /api/games/dive/start'
+        ? { prompt_index: 0, deadline_ms_remaining: data.pending?.deadline_ms_remaining ?? 25000 }
+        : data) as never,
+  );
   render(
     <QueryClientProvider client={client}>
       <ToastProvider>
@@ -96,3 +105,25 @@ it.each(['coxswain', 'coach'])(
     expect(await screen.findByRole('button', { name: 'Hide Apple' })).toBeTruthy();
   },
 );
+
+it('opens the active prompt and restores its pending suggestion from the day without localStorage', async () => {
+  identity.role = 'rower';
+  mount({
+    ...day,
+    pending: {
+      prompt_index: 0,
+      deadline_ms_remaining: 14000,
+      suggestion: 'Dry Tortugas',
+      attempts_left: 3,
+    },
+  });
+  expect(await screen.findByRole('button', { name: 'Yes' })).toBeTruthy();
+  expect(screen.getByRole('status').textContent).toContain(
+    'Did you mean Dry Tortugas?3 Guesses Left',
+  );
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('14 Seconds Left');
+  expect(screen.queryByRole('button', { name: 'Begin' })).toBeNull();
+  await waitFor(() =>
+    expect(api).toHaveBeenCalledWith('POST /api/games/dive/start', { body: { prompt_index: 0 } }),
+  );
+});

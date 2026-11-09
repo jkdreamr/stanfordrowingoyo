@@ -1,0 +1,363 @@
+{
+  "macbeth-phrase-novels": [
+    "Something Wicked This Way Comes",
+    "The Sound and the Fury",
+    "Tomorrow, and Tomorrow, and Tomorrow",
+    "Tomorrow and Tomorrow and Tomorrow",
+    "Brief Candles",
+    "Brief Candle",
+    "Out, Damned Spot",
+    "Toil and Trouble",
+    "Double Double",
+    "By the Pricking of My Thumbs",
+    {
+      "guess": "The Milk of Human Kindness",
+      "invalid": "The identified works are an album and a nonfiction anthology, not a qualifying novel."
+    },
+    {
+      "guess": "Full of Sound and Fury",
+      "invalid": "Quotation fragment, not the title The Sound and the Fury."
+    },
+    "A Tale Told by an Idiot",
+    "Walking Shadow",
+    "Poor Player",
+    "Strut and Fret",
+    "The Way to Dusty Death",
+    "Dusty Death",
+    "Lay On, Macduff",
+    "Screw Your Courage",
+    "Vaulting Ambition",
+    "All Our Yesterdays",
+    "The Be-All and End-All",
+    {
+      "guess": "Unsex Me Here",
+      "invalid": "Quotation fragment, not an identified novel title."
+    },
+    "Eye of Newt",
+    "The Weird Sisters",
+    "Wyrd Sisters",
+    "Instruments of Darkness",
+    "Sleep No More",
+    {
+      "guess": "Murder Most Foul",
+      "invalid": "Hamlet phrase; the Christie-derived film is not a Macbeth-titled novel."
+    },
+    {
+      "guess": "Infinite Jest",
+      "invalid": "Title derives from Hamlet, not Macbeth."
+    },
+    {
+      "guess": "Brave New World",
+      "invalid": "Title derives from The Tempest, not Macbeth."
+    },
+    {
+      "guess": "Dead Butchers",
+      "invalid": "Quotation fragment, not an identified novel title."
+    },
+    {
+      "guess": "The Seeds of Time",
+      "invalid": "John Wyndham short-story collection, not a novel."
+    },
+    "Light Thickens",
+    "Birnam Wood",
+    {
+      "guess": "Hurlyburly",
+      "invalid": "David Rabe play, not a novel."
+    },
+    {
+      "guess": "Pale Fire",
+      "invalid": "Nabokov novel titled from Timon of Athens, not Macbeth."
+    }
+  ],
+  "ala-challenged-2010s": [
+    "Captain Underpants",
+    "The Absolutely True Diary of a Part-Time Indian",
+    "Thirteen Reasons Why",
+    "Looking for Alaska",
+    "George",
+    "And Tango Makes Three",
+    "Drama",
+    "Fifty Shades of Grey",
+    "The Kite Runner",
+    "The Hunger Games",
+    "Harry Potter",
+    "To Kill a Mockingbird",
+    "The Perks of Being a Wallflower",
+    "Persepolis",
+    "The Bluest Eye",
+    "The Hate U Give",
+    "Two Boys Kissing",
+    {
+      "guess": "Speak",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    "Eleanor & Park",
+    {
+      "guess": "Of Mice and Men",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    {
+      "guess": "The Catcher in the Rye",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    "Brave New World",
+    "The Handmaid's Tale",
+    "Beloved",
+    {
+      "guess": "The Color Purple",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    "Twilight",
+    "I Am Jazz",
+    {
+      "guess": "Gender Queer",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    "This One Summer",
+    "Fun Home",
+    "Bone",
+    "Habibi",
+    "Sex Is a Funny Word",
+    "It's Perfectly Normal",
+    "Ttyl",
+    "Gossip Girl",
+    "Scary Stories to Tell in the Dark",
+    "Crank",
+    "The Glass Castle",
+    "Bless Me, Ultima",
+    "A Day in the Life of Marlon Bundo",
+    "Prince & Knight",
+    "Lush",
+    {
+      "guess": "Nineteen Minutes",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    {
+      "guess": "Water for Elephants",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    {
+      "guess": "The Giver",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    {
+      "guess": "Bridge to Terabithia",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    {
+      "guess": "Huckleberry Finn",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    {
+      "guess": "Lord of the Flies",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    },
+    {
+      "guess": "Fahrenheit 451",
+      "invalid": "Not listed in any of the ALA annual top-ten lists for 2010–2019 (including 2018’s eleventh entry)."
+    }
+  ],
+  "big-read-top-21": [
+    "The Lord of the Rings",
+    "Pride and Prejudice",
+    "His Dark Materials",
+    "The Hitchhiker's Guide to the Galaxy",
+    "Harry Potter and the Goblet of Fire",
+    "To Kill a Mockingbird",
+    "Winnie-the-Pooh",
+    "Nineteen Eighty-Four",
+    "1984",
+    "The Lion, the Witch and the Wardrobe",
+    "Jane Eyre",
+    "Catch-22",
+    "Wuthering Heights",
+    "Birdsong",
+    "Rebecca",
+    "The Catcher in the Rye",
+    "The Wind in the Willows",
+    "Great Expectations",
+    "Little Women",
+    "Captain Corelli's Mandolin",
+    "War and Peace",
+    "Gone with the Wind",
+    {
+      "guess": "Harry Potter and the Philosopher's Stone",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "The Hobbit",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Animal Farm",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Emma",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Middlemarch",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "A Christmas Carol",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Charlie and the Chocolate Factory",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Matilda",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "The Great Gatsby",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Discworld",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Lord of the Flies",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Brave New World",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Jane Austen",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Anna Karenina",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    },
+    {
+      "guess": "Bleak House",
+      "invalid": "Not in the BBC 2003 final top 21; author names and lower-ranked books do not qualify."
+    }
+  ],
+  "books-sold-100m": [
+    {
+      "guess": "Don Quixote",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    "A Tale of Two Cities",
+    "The Little Prince",
+    "Harry Potter and the Philosopher's Stone",
+    "Harry Potter and the Sorcerer's Stone",
+    "The Hobbit",
+    {
+      "guess": "The Lord of the Rings",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    "And Then There Were None",
+    "Dream of the Red Chamber",
+    "Alice's Adventures in Wonderland",
+    {
+      "guess": "The Lion, the Witch and the Wardrobe",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "The Da Vinci Code",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "The Catcher in the Rye",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    "The Alchemist",
+    {
+      "guess": "The Bible",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Quotations from Chairman Mao",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "The Quran",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Harry Potter",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Twilight",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "To Kill a Mockingbird",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Gone with the Wind",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Charlotte's Web",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "The Very Hungry Caterpillar",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Think and Grow Rich",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Anne of Green Gables",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Black Beauty",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Heidi",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Lolita",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "The Name of the Rose",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "She",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "The Hunger Games",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Fifty Shades of Grey",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Pride and Prejudice",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Nineteen Eighty-Four",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "The Diary of Anne Frank",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    },
+    {
+      "guess": "Harry Potter and the Chamber of Secrets",
+      "invalid": "Not an eligible individual-book entry in the pinned at-least-100-million table; series, religious and political texts are excluded."
+    }
+  ]
+}

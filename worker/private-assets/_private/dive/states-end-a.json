@@ -1,0 +1,24 @@
+{
+  "buckets": {
+    "2": "\nak\t4p\nal\t4f\naz\t31\nca\t0\nfl\td\nga\t1v\nia\t3b\nin\t3i\nla\t4y\nmn\t3s\nmt\t64\nnc\t25\nnd\t5p\nne\t6n\nnv\t6e\nok\t44\npa\t2m\nsc\t1e\nsd\t5a\nva\tn\nwv\ty\n",
+    "7": "\nalabama\t4f\narizona\t31\nflorida\td\ngeorgia\t1v\nindiana\t3i\nmontana\t64\n",
+    "6": "\nalaska\t4p\nnevada\t6e\n",
+    "10": "\ncalifornia\t0\n",
+    "4": "\niowa\t3b\npenn\t2m\n",
+    "9": "\nlouisiana\t4y\nminnesota\t3s\n",
+    "8": "\nnebraska\t6n\noklahoma\t44\nvirginia\tn\n",
+    "14": "\nnorth carolina\t25\nsouth carolina\t1e\n",
+    "12": "\nnorth dakota\t5p\npennsylvania\t2m\nsouth dakota\t5a\n",
+    "13": "\nwest virginia\ty\n"
+  },
+  "answers": "s\tCalifornia\ns\tFlorida\nm\tVirginia\nm\tWest Virginia\nm\tSouth Carolina\nm\tGeorgia\nm\tNorth Carolina\nm\tPennsylvania\nm\tArizona\nm\tIowa\nr\tIndiana\nr\tMinnesota\nr\tOklahoma\ns\tAlabama\ng\tAlaska\nr\tLouisiana\nr\tSouth Dakota\nd\tNorth Dakota\nd\tMontana\nd\tNevada\nd\tNebraska\n",
+  "gem": { "answer": "Alaska", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "California", "tier": "surface", "points": 10 },
+    { "answer": "Florida", "tier": "surface", "points": 10 },
+    { "answer": "Alabama", "tier": "surface", "points": 10 },
+    { "answer": "North Dakota", "tier": "deep", "points": 85 },
+    { "answer": "Montana", "tier": "deep", "points": 85 }
+  ],
+  "size": 21
+}

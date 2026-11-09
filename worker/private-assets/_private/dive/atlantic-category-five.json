@@ -1,0 +1,26 @@
+{
+  "buckets": {
+    "5": "\nallen\t14\nanita\t4p\nberyl\t6p\ncarol\t28\ndavid\t0\nemily\t20\nfelix\t3d\njanet\t2g\nmaria\t1m\nmitch\t2o\nwilma\t76\n",
+    "6": "\nandrew\to\nbeulah\t7l\ndorian\t69\nesther\t4x\nhattie\t6x\nisabel\t5g\nmilton\t3v\n",
+    "7": "\ncamille\t5z\ngilbert\t2w\nkatrina\t56\nlorenzo\t5p\nmatthew\t1c\nmelissa\t3l\nmichael\t8\n",
+    "4": "\ndean\tx\nerin\t4i\nhugo\t44\ninez\t7e\nirma\t6i\nivan\t36\nrita\t4b\n",
+    "8": "\nhumberto\t7u\nisabella\t5g\n",
+    "15": "\nhurricane allen\t14\nhurricane anita\t4p\nhurricane beryl\t6p\nhurricane carol\t28\nhurricane david\t0\nhurricane emily\t20\nhurricane felix\t3d\nhurricane janet\t2g\nhurricane maria\t1m\nhurricane mitch\t2o\nhurricane wilma\t76\n",
+    "16": "\nhurricane andrew\to\nhurricane beulah\t7l\nhurricane dorian\t69\nhurricane esther\t4x\nhurricane hattie\t6x\nhurricane isabel\t5g\nhurricane milton\t3v\n",
+    "17": "\nhurricane camille\t5z\nhurricane gilbert\t2w\nhurricane katrina\t56\nhurricane lorenzo\t5p\nhurricane matthew\t1c\nhurricane melissa\t3l\nhurricane michael\t8\n",
+    "14": "\nhurricane dean\tx\nhurricane erin\t4i\nhurricane hugo\t44\nhurricane inez\t7e\nhurricane irma\t6i\nhurricane ivan\t36\nhurricane rita\t4b\n",
+    "18": "\nhurricane humberto\t7u\n",
+    "13": "\nhurricane ian\t1u\nhurricane lee\ti\n",
+    "3": "\nian\t1u\nlee\ti\n"
+  },
+  "answers": "m\tDavid\nm\tMichael\nm\tLee\ns\tAndrew\nm\tDean\nm\tAllen\nm\tMatthew\nm\tMaria\nm\tIan\nm\tEmily\ng\tCarol\nm\tJanet\nm\tMitch\nm\tGilbert\nm\tIvan\nm\tFelix\nr\tMelissa\nr\tMilton\nr\tHugo\nr\tRita\nr\tErin\nr\tAnita\nr\tEsther\ns\tKatrina\nr\tIsabel\nr\tLorenzo\nd\tCamille\nd\tDorian\ns\tIrma\nd\tBeryl\nd\tHattie\nt\tWilma\nd\tInez\nd\tBeulah\nd\tHumberto\n",
+  "gem": { "answer": "Carol", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Andrew", "tier": "surface", "points": 10 },
+    { "answer": "Katrina", "tier": "surface", "points": 10 },
+    { "answer": "Irma", "tier": "surface", "points": 10 },
+    { "answer": "Camille", "tier": "deep", "points": 85 },
+    { "answer": "Dorian", "tier": "deep", "points": 85 }
+  ],
+  "size": 35
+}

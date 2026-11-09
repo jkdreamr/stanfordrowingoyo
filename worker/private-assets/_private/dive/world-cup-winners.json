@@ -1,0 +1,21 @@
+{
+  "buckets": {
+    "9": "\nargentina\t1i\nles bleus\ta\n",
+    "6": "\nbrasil\t19\nbrazil\t19\nespana\t11\nfrance\ta\nitalia\tt\n",
+    "11": "\ndeutschland\tj\n",
+    "7": "\nengland\t0\nenglish\t0\ngermany\tj\nuruguay\t1u\n",
+    "27": "\nfederal republic of germany\tj\n",
+    "5": "\nitaly\tt\nspain\t11\n",
+    "14": "\nla albiceleste\t1i\n",
+    "12": "\nwest germany\tj\n"
+  },
+  "answers": "m\tEngland\nm\tFrance\ns\tGermany\nr\tItaly\nd\tSpain\ns\tBrazil\ns\tArgentina\ng\tUruguay\n",
+  "gem": { "answer": "Uruguay", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Germany", "tier": "surface", "points": 10 },
+    { "answer": "Brazil", "tier": "surface", "points": 10 },
+    { "answer": "Argentina", "tier": "surface", "points": 10 },
+    { "answer": "Spain", "tier": "deep", "points": 85 }
+  ],
+  "size": 8
+}

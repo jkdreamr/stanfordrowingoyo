@@ -1,0 +1,26 @@
+{
+  "buckets": {
+    "13": "\ncoup de grace\t50\nslim shady lp\t1v\n",
+    "19": "\ndeath of slim shady\t50\nmarshall mathers lp\t3i\n",
+    "33": "\ndeath of slim shady coup de grace\t50\n",
+    "11": "\neminem show\t2f\n",
+    "6": "\nencore\t1m\nmmlp 2\t48\n",
+    "8": "\ninfinite\t11\nkamikaze\t37\nrecovery\t0\n",
+    "21": "\nmarshall mathers lp 2\t48\n",
+    "4": "\nmmlp\t3i\nsslp\t1v\n",
+    "5": "\nmmlp2\t48\nmtbmb\tb\ntdoss\t50\n",
+    "23": "\nmusic to be murdered by\tb\n",
+    "7": "\nrelapse\t2x\nrevival\t1c\n",
+    "3": "\ntes\t2f\n"
+  },
+  "answers": "m\tRecovery\nm\tMusic to Be Murdered By\ng\tInfinite\nm\tRevival\nm\tEncore\ns\tThe Slim Shady LP\ns\tThe Eminem Show\nr\tRelapse\nr\tKamikaze\ns\tThe Marshall Mathers LP\nd\tThe Marshall Mathers LP 2\nd\tThe Death of Slim Shady (Coup de Grâce)\n",
+  "gem": { "answer": "Infinite", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "The Slim Shady LP", "tier": "surface", "points": 10 },
+    { "answer": "The Eminem Show", "tier": "surface", "points": 10 },
+    { "answer": "The Marshall Mathers LP", "tier": "surface", "points": 10 },
+    { "answer": "The Marshall Mathers LP 2", "tier": "deep", "points": 85 },
+    { "answer": "The Death of Slim Shady (Coup de Grâce)", "tier": "deep", "points": 85 }
+  ],
+  "size": 12
+}

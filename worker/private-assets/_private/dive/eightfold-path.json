@@ -1,0 +1,27 @@
+{
+  "buckets": {
+    "6": "\naction\t17\neffort\td\nspeech\ts\n",
+    "13": "\nconcentration\t36\nright conduct\t17\nright resolve\t1n\nright samadhi\t36\nright thought\t1n\nsamma samadhi\t36\nunderstanding\t0\n",
+    "7": "\nconduct\t17\nresolve\t1n\nsamadhi\t36\nthought\t1n\n",
+    "9": "\nintention\t1n\nwise view\t0\n",
+    "10": "\nlivelihood\t23\nmeditation\t36\nright view\t0\nsamma sati\t2m\nsamma vaca\ts\n",
+    "11": "\nmindfulness\t2m\nsamma ajiva\t23\nwise action\t17\nwise effort\td\nwise speech\ts\n",
+    "12": "\nright action\t17\nright effort\td\nright speech\ts\nsamma ditthi\t0\nsamma vayama\td\nwise conduct\t17\nwise resolve\t1n\nwise thought\t1n\n",
+    "19": "\nright concentration\t36\nright understanding\t0\n",
+    "15": "\nright intention\t1n\nwise livelihood\t23\nwise meditation\t36\n",
+    "16": "\nright livelihood\t23\nright meditation\t36\nwise mindfulness\t2m\n",
+    "17": "\nright mindfulness\t2m\n",
+    "14": "\nright thinking\t1n\nsamma kammanta\t17\nsamma sankappa\t1n\nwise intention\t1n\n",
+    "4": "\nview\t0\n",
+    "18": "\nwise concentration\t36\n"
+  },
+  "answers": "m\tRight view\ng\tRight effort\ns\tRight speech\nm\tRight conduct\nr\tRight resolve\ns\tRight livelihood\ns\tRight mindfulness\nd\tRight samadhi\n",
+  "gem": { "answer": "Right effort", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Right speech", "tier": "surface", "points": 10 },
+    { "answer": "Right livelihood", "tier": "surface", "points": 10 },
+    { "answer": "Right mindfulness", "tier": "surface", "points": 10 },
+    { "answer": "Right samadhi", "tier": "deep", "points": 85 }
+  ],
+  "size": 8
+}

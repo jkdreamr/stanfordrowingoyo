@@ -1,0 +1,30 @@
+{
+  "buckets": {
+    "17": "\nchamber of secret\t17\ndeathly hallows 1\t46\ndeathly hallows 2\t4v\nhalf blood prince\t0\n",
+    "21": "\ncrimes of grindelwald\t66\nharry potter 7 part 1\t46\nharry potter 7 part 2\t4v\nsecrets of dumbledore\t2b\n",
+    "22": "\ndeathly hallows part 1\t46\ndeathly hallows part 2\t4v\n",
+    "15": "\nfantastic beast\t1s\nsorcerers stone\t3k\n",
+    "18": "\nfantastic beasts 1\t1s\nfantastic beasts 2\t66\nfantastic beasts 3\t2b\nphilosophers stone\t3k\n",
+    "39": "\nfantastic beasts and where to find them\t1s\nharry potter and the philosophers stone\t3k\n",
+    "42": "\nfantastic beasts the crimes of grindelwald\t66\nfantastic beasts the secrets of dumbledore\t2b\n",
+    "14": "\ngoblet of fire\t33\nharry potter 1\t3k\nharry potter 2\t17\nharry potter 3\t5k\nharry potter 4\t33\nharry potter 5\tk\nharry potter 6\t0\nharry potter 7\t46\nharry potter 8\t4v\n",
+    "38": "\nharry potter and the chamber of secret\t17\nharry potter and the half blood prince\t0\n",
+    "43": "\nharry potter and the deathly hallows part 1\t46\nharry potter and the deathly hallows part 2\t4v\n",
+    "35": "\nharry potter and the goblet of fire\t33\n",
+    "41": "\nharry potter and the order of the phoenix\tk\n",
+    "40": "\nharry potter and the prisoner of azkaban\t5k\n",
+    "36": "\nharry potter and the sorcerers stone\t3k\n",
+    "3": "\nhp1\t3k\nhp2\t17\nhp3\t5k\nhp4\t33\nhp5\tk\nhp6\t0\nhp7\t46\nhp8\t4v\n",
+    "20": "\norder of the phoenix\tk\n",
+    "19": "\nprisoner of azkaban\t5k\n"
+  },
+  "answers": "m\tHalf-Blood Prince\nm\tOrder of the Phoenix\ns\tChamber of Secrets\ns\tFantastic Beasts\ng\tThe Secrets of Dumbledore\nm\tGoblet of Fire\ns\tPhilosopher's Stone\nm\tDeathly Hallows Part 1\nr\tDeathly Hallows Part 2\nr\tPrisoner of Azkaban\nd\tThe Crimes of Grindelwald\n",
+  "gem": { "answer": "The Secrets of Dumbledore", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Chamber of Secrets", "tier": "surface", "points": 10 },
+    { "answer": "Fantastic Beasts", "tier": "surface", "points": 10 },
+    { "answer": "Philosopher's Stone", "tier": "surface", "points": 10 },
+    { "answer": "The Crimes of Grindelwald", "tier": "deep", "points": 85 }
+  ],
+  "size": 11
+}

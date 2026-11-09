@@ -1,0 +1,39 @@
+{
+  "buckets": {
+    "10": "\nangry bird\ty\nlast of us\t0\nmadden nfl\tch\nmario kart\tg2\nms pac man\t68\ntamagotchi\tma\n",
+    "15": "\nanimal crossing\t2v\nlegend of zelda\td4\nsuper mario bro\t7o\n",
+    "8": "\nasteroid\thj\ndefender\t3x\nspacewar\toz\n",
+    "23": "\nbarbie fashion designer\tdq\ncolossal cave adventure\tfc\nsid meiers civilization\to8\n",
+    "9": "\nbejeweled\tly\ncentipede\tjh\nminecraft\t8q\nsolitaire\tig\nstarcraft\tk2\nwii sport\taa\n",
+    "12": "\ncivilization\to8\ndragon quest\t4r\noregon trail\t48\n",
+    "14": "\ncomputer space\th\nstreet fighter\t3d\n",
+    "22": "\ndance dance revolution\t1q\n",
+    "11": "\ndonkey kong\tan\nkings quest\t79\nsilent hill\t1c\ntomb raider\th5\n",
+    "4": "\ndoom\t88\nfifa\t56\nhalo\tb1\nmyst\tlh\npong\teg\n",
+    "25": "\nfifa international soccer\t56\n",
+    "17": "\nfinal fantasy vii\t92\nstreet fighter ii\t3d\nworld of warcraft\tgl\n",
+    "13": "\ngoldeneye 007\tns\nmortal kombat\tis\nresident evil\t2f\nspace invader\tev\n",
+    "20": "\ngrand theft auto iii\t6m\njohn madden football\tch\npokemon red and blue\t9m\n",
+    "19": "\nhalo combat evolved\tb1\nmicrosoft solitaire\tig\n",
+    "31": "\nlegend of zelda ocarina of time\tke\n",
+    "6": "\nmadden\tch\ntetris\tj8\nultima\tjt\n",
+    "26": "\nmicrosoft flight simulator\tbo\n",
+    "7": "\npac man\t5y\npokemon\t9m\nsimcity\tlo\n",
+    "21": "\npokemon red and green\t9m\n",
+    "5": "\nquake\ten\nzelda\td4\n",
+    "3": "\nsim\t8f\n",
+    "18": "\nsonic the hedgehog\thv\n",
+    "16": "\nsuper mario kart\tg2\n",
+    "37": "\nwhere in the world is carmen sandiego\tmn\n"
+  },
+  "answers": "m\tThe Last of Us\nm\tComputer Space\nm\tAngry Birds\nm\tSilent Hill\nm\tDance Dance Revolution\nm\tResident Evil\nm\tAnimal Crossing\nm\tStreet Fighter II\nm\tDefender\nm\tThe Oregon Trail\nm\tDragon Quest\nm\tFIFA International Soccer\ns\tPac-Man\nm\tMs. Pac-Man\nm\tGrand Theft Auto III\nm\tKing's Quest\ns\tSuper Mario Bros.\nm\tDoom\nm\tThe Sims\nm\tMinecraft\nm\tFinal Fantasy VII\nm\tPokémon Red and Green\nm\tWii Sports\nm\tDonkey Kong\nr\tHalo: Combat Evolved\nr\tMicrosoft Flight Simulator\nr\tJohn Madden Football\ns\tThe Legend of Zelda\ng\tBarbie Fashion Designer\ns\tPong\nr\tQuake\nr\tSpace Invaders\nr\tColossal Cave Adventure\nr\tSuper Mario Kart\nr\tWorld of Warcraft\nr\tTomb Raider\nr\tAsteroids\nr\tSonic the Hedgehog\nr\tSolitaire\nr\tMortal Kombat\ns\tTetris\nr\tCentipede\nd\tUltima\nd\tStarCraft\nd\tThe Legend of Zelda: Ocarina of Time\nd\tMyst\nd\tSimCity\nd\tBejeweled\nd\tTamagotchi\nd\tWhere in the World Is Carmen Sandiego?\nd\tGoldenEye 007\nd\tSid Meier's Civilization\nd\tSpacewar!\n",
+  "gem": { "answer": "Barbie Fashion Designer", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Pac-Man", "tier": "surface", "points": 10 },
+    { "answer": "Super Mario Bros.", "tier": "surface", "points": 10 },
+    { "answer": "The Legend of Zelda", "tier": "surface", "points": 10 },
+    { "answer": "Ultima", "tier": "deep", "points": 85 },
+    { "answer": "StarCraft", "tier": "deep", "points": 85 }
+  ],
+  "size": 53
+}

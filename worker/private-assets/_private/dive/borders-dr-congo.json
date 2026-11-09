@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "6": "\nangola\t2v\nrwanda\t2d\nuganda\t0\nzambia\t2m\n",
+    "7": "\nburundi\t34\n",
+    "3": "\ncar\t9\n",
+    "23": "\ncentral africa republic\t9\n",
+    "24": "\ncentral african republic\t9\n",
+    "5": "\ncongo\t1e\n",
+    "17": "\ncongo brazzaville\t1e\nrepublic of congo\t1e\n",
+    "18": "\nrepublic of angola\t2v\nrepublic of rwanda\t2d\nrepublic of uganda\t0\nrepublic of zambia\t2m\n",
+    "19": "\nrepublic of burundi\t34\n",
+    "21": "\nrepublic of the congo\t1e\n",
+    "11": "\nsouth sudan\t10\n",
+    "8": "\ntanzania\t22\n",
+    "27": "\nunited republic of tanzania\t22\n"
+  },
+  "answers": "m\tUganda\ng\tCentral African Republic\nm\tSouth Sudan\nm\tRepublic of the Congo\nr\tTanzania\nr\tRwanda\ns\tZambia\ns\tAngola\nd\tBurundi\n",
+  "gem": { "answer": "Central African Republic", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Zambia", "tier": "surface", "points": 10 },
+    { "answer": "Angola", "tier": "surface", "points": 10 },
+    { "answer": "Burundi", "tier": "deep", "points": 85 }
+  ],
+  "size": 9
+}

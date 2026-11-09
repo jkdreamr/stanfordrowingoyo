@@ -1,0 +1,36 @@
+{
+  "buckets": {
+    "15": "\nabraham lincoln\t7b\nalbert gallatin\tm7\njames mcpherson\tpu\nmichael hillega\tsy\nphilip sheridan\taw\nsilas wright jr\tfd\nstephen decatur\thn\nthomas hendrick\tgd\nulysses s grant\te8\nwilliam sherman\tmp\n",
+    "4": "\nadam\tbk\nclay\t2g\nknox\t9f\n",
+    "18": "\nalexander hamilton\t3p\nthomas hart benton\tc4\n",
+    "14": "\nandrew jackson\t13\ncharles sumner\tcp\ndaniel manning\t7t\ndaniel webster\t8a\ndavid farragut\tng\ndewitt clinton\tjx\nedward everett\t9z\ngeorge h thoma\tk\nhugh mcculloch\tjg\njames garfield\tkv\nsalmon p chase\t8r\nwilliam seward\ti5\nwilliam windom\too\nwinfield scott\tke\nwoodrow wilson\tfw\n",
+    "8": "\nantelope\th4\nfarragut\tng\nfranklin\t5d\ngallatin\tm7\ngarfield\tkv\nhamilton\t3p\nharrison\t6r\nhendrick\tgd\nmarshall\t20\nmckinley\tdp\nsheridan\taw\nus grant\te8\n",
+    "17": "\nbenjamin franklin\t5d\nbenjamin harrison\t6r\ngeorge washington\t0\nmartha washington\t4a\n",
+    "6": "\nbenton\tc4\nfulton\tag\nmartha\t4a\nmonroe\t5x\nmorris\t39\nseward\ti5\nsumner\tcp\nwilson\tfw\nwindom\too\nwright\tfd\n",
+    "5": "\nchase\t8r\nclark\t1k\ngrant\te8\nlewis\to5\nmarcy\tis\nmeade\ter\nmorse\tql\nscott\tke\nthoma\tk\n",
+    "9": "\ncleveland\td6\nfessenden\tp5\njefferson\t4u\nmansfield\ts4\nmcculloch\tjg\nmcpherson\tpu\nu s grant\te8\n",
+    "7": "\nclinton\tjx\ndecatur\thn\neverett\t9z\nhancock\tli\nhillega\tsy\njackson\t13\nlincoln\t7b\nmadison\t2t\nmanning\t7t\nstanton\tre\nwebster\t8a\n",
+    "22": "\ndavid glasgow farragut\tng\nwilliam pitt fessenden\tp5\nwinfield scott hancock\tli\n",
+    "23": "\nedwin mcmasters stanton\tre\nthomas andrews hendrick\tgd\n",
+    "13": "\nedwin stanton\tre\njames madison\t2t\njohn marshall\t20\nrobert fulton\tag\nrobert morris\t39\nulysses grant\te8\nwilliam clark\t1k\nwilliam marcy\tis\n",
+    "19": "\ngeorge gordon meade\ter\n",
+    "12": "\ngeorge meade\ter\ngeorge thoma\tk\njames monroe\t5x\njohn sherman\t6c\nsalmon chase\t8r\nsamuel morse\tql\nsilas wright\tfd\n",
+    "16": "\ngrover cleveland\td6\njohn jay knox jr\t9f\njohn quincy adam\tbk\nmeriwether lewis\to5\nrunning antelope\th4\nthomas jefferson\t4u\nwilliam mckinley\tdp\n",
+    "10": "\nhenry clay\t2g\n",
+    "20": "\njames abram garfield\tkv\nwilliam henry seward\ti5\n",
+    "24": "\njames birdseye mcpherson\tpu\nwilliam tecumseh sherman\tmp\n",
+    "27": "\njoseph king fenno mansfield\ts4\n",
+    "21": "\nphilip henry sheridan\taw\nsalmon portland chase\t8r\nwilliam learned marcy\tis\n",
+    "26": "\nsamuel finley breese morse\tql\n"
+  },
+  "answers": "s\tGeorge Washington\nm\tGeorge H. Thomas\nm\tAndrew Jackson\nm\tWilliam Clark\nm\tJohn Marshall\nm\tHenry Clay\nm\tJames Madison\nm\tRobert Morris\nm\tAlexander Hamilton\nm\tMartha Washington\nm\tThomas Jefferson\ns\tBenjamin Franklin\nm\tJames Monroe\nm\tJohn Sherman\nm\tBenjamin Harrison\ns\tAbraham Lincoln\nm\tDaniel Manning\nm\tDaniel Webster\nm\tSalmon Portland Chase\nm\tJohn Jay Knox Jr.\nm\tEdward Everett\nm\tRobert Fulton\nm\tPhilip Henry Sheridan\nm\tJohn Quincy Adams\nm\tThomas Hart Benton\nm\tCharles Sumner\nr\tGrover Cleveland\nr\tWilliam McKinley\nr\tUlysses S. Grant\nr\tGeorge Gordon Meade\nr\tSilas Wright Jr.\nr\tWoodrow Wilson\nr\tThomas Andrews Hendricks\ng\tRunning Antelope\nr\tStephen Decatur\nr\tWilliam Henry Seward\nr\tWilliam Learned Marcy\nr\tHugh McCulloch\nr\tDeWitt Clinton\nr\tWinfield Scott\nr\tJames Abram Garfield\nd\tWinfield Scott Hancock\nd\tAlbert Gallatin\nd\tWilliam Tecumseh Sherman\nd\tDavid Glasgow Farragut\nd\tMeriwether Lewis\nd\tWilliam Windom\nd\tWilliam Pitt Fessenden\nd\tJames Birdseye McPherson\nd\tSamuel Finley Breese Morse\nd\tEdwin McMasters Stanton\nd\tJoseph King Fenno Mansfield\nd\tMichael Hillegas\n",
+  "gem": { "answer": "Running Antelope", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "George Washington", "tier": "surface", "points": 10 },
+    { "answer": "Benjamin Franklin", "tier": "surface", "points": 10 },
+    { "answer": "Abraham Lincoln", "tier": "surface", "points": 10 },
+    { "answer": "Winfield Scott Hancock", "tier": "deep", "points": 85 },
+    { "answer": "Albert Gallatin", "tier": "deep", "points": 85 }
+  ],
+  "size": 53
+}

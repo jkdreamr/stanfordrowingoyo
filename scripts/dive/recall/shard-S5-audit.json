@@ -1,0 +1,829 @@
+{
+  "baseBranch": "devin/1794186388-dive-content-pass",
+  "baseCommit": "6b96adde72f6b65904eab39ad3ba61b2c2fa4a9c",
+  "rawSha256": "8502e92480325c4a70ae5a9229e846d5283181a2b17001841d02feb85fb8e0f6",
+  "rawGuesses": 678,
+  "reviewedInvalid": 21,
+  "workerGzip": {
+    "beforeKiB": 2946.24,
+    "afterKiB": 2947.28,
+    "deltaBytesApprox": 1065,
+    "precision": "Derived from Wrangler values rounded to 0.01 KiB; exact byte delta unavailable.",
+    "budgetBytes": 4096
+  },
+  "prompts": [
+    {
+      "id": "birthstones",
+      "baseline": {
+        "before": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1
+        },
+        "after": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 24,
+          "total": 26,
+          "rate": 0.9230769230769231
+        },
+        "after": {
+          "hits": 26,
+          "total": 26,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Topaz": ["Blue topaz"],
+        "tourmaline": ["Pink tourmaline"]
+      }
+    },
+    {
+      "id": "booker-winners",
+      "baseline": {
+        "before": {
+          "hits": 34,
+          "total": 34,
+          "rate": 1
+        },
+        "after": {
+          "hits": 34,
+          "total": 34,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 26,
+          "total": 27,
+          "rate": 0.9629629629629629
+        },
+        "after": {
+          "hits": 27,
+          "total": 27,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Schindler's Ark": ["Schindler's List"],
+        "The Seven Moons of Maali Almeida": ["Seven Moons"]
+      }
+    },
+    {
+      "id": "chinese-cuisines",
+      "baseline": {
+        "before": {
+          "hits": 18,
+          "total": 18,
+          "rate": 1
+        },
+        "after": {
+          "hits": 18,
+          "total": 18,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 26,
+          "total": 26,
+          "rate": 1
+        },
+        "after": {
+          "hits": 26,
+          "total": 26,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {}
+    },
+    {
+      "id": "dahl-novels",
+      "baseline": {
+        "before": {
+          "hits": 25,
+          "total": 26,
+          "rate": 0.9615384615384616
+        },
+        "after": {
+          "hits": 26,
+          "total": 26,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 26,
+          "total": 29,
+          "rate": 0.896551724137931
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Charlie and the Great Glass Elevator": ["Great Glass Elevator"],
+        "Danny the Champion of the World": ["Danny Champion of the World"],
+        "George's Marvellous Medicine": ["George's Marvelous Medicine"]
+      }
+    },
+    {
+      "id": "dickens-books",
+      "baseline": {
+        "before": {
+          "hits": 28,
+          "total": 29,
+          "rate": 0.9655172413793104
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 24,
+          "total": 27,
+          "rate": 0.8888888888888888
+        },
+        "after": {
+          "hits": 27,
+          "total": 27,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "A Tale of Two Cities": ["Tale of 2 Cities"],
+        "The Haunted Man and the Ghost's Bargain": ["The Haunted Man"],
+        "The Mystery of Edwin Drood": ["Edwin Drood"]
+      }
+    },
+    {
+      "id": "discworld-novels",
+      "baseline": {
+        "before": {
+          "hits": 37,
+          "total": 37,
+          "rate": 1
+        },
+        "after": {
+          "hits": 37,
+          "total": 37,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 31,
+          "total": 32,
+          "rate": 0.96875
+        },
+        "after": {
+          "hits": 32,
+          "total": 32,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "The Fifth Elephant": ["5th Elephant"]
+      }
+    },
+    {
+      "id": "eightfold-path",
+      "baseline": {
+        "before": {
+          "hits": 13,
+          "total": 13,
+          "rate": 1
+        },
+        "after": {
+          "hits": 13,
+          "total": 13,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 13,
+          "total": 30,
+          "rate": 0.43333333333333335
+        },
+        "after": {
+          "hits": 30,
+          "total": 30,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Right conduct": ["Wise action", "Wise conduct", "Samma kammanta"],
+        "Right effort": ["Wise effort", "Samma vayama"],
+        "Right livelihood": ["Wise livelihood", "Samma ajiva"],
+        "Right mindfulness": ["Wise mindfulness", "Samma sati"],
+        "Right resolve": [
+          "Right thinking",
+          "Wise intention",
+          "Wise resolve",
+          "Wise thought",
+          "Samma sankappa"
+        ],
+        "Right samadhi": ["Wise concentration", "Wise meditation", "Samma samadhi"],
+        "Right speech": ["Wise speech", "Samma vaca"],
+        "Right view": ["Wise view", "Samma ditthi"]
+      }
+    },
+    {
+      "id": "eu-food-allergens",
+      "baseline": {
+        "before": {
+          "hits": 24,
+          "total": 27,
+          "rate": 0.8888888888888888
+        },
+        "after": {
+          "hits": 27,
+          "total": 27,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 24,
+          "total": 29,
+          "rate": 0.8275862068965517
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Crustaceans": ["Shellfish"],
+        "Gluten": ["Wheat", "Rye", "Barley", "Oats", "Spelt", "Kamut"],
+        "Milk": ["Dairy"],
+        "Soy": ["Soya beans"]
+      }
+    },
+    {
+      "id": "hugo-novels",
+      "baseline": {
+        "before": {
+          "hits": 35,
+          "total": 35,
+          "rate": 1
+        },
+        "after": {
+          "hits": 35,
+          "total": 35,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 24,
+          "total": 26,
+          "rate": 0.9230769230769231
+        },
+        "after": {
+          "hits": 26,
+          "total": 26,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Blackout/All Clear": ["Blackout", "All Clear"],
+        "Harry Potter and the Goblet of Fire": ["Goblet of Fire"],
+        "The Fifth Season": ["5th Season"]
+      }
+    },
+    {
+      "id": "iba-cocktails",
+      "baseline": {
+        "before": {
+          "hits": 34,
+          "total": 36,
+          "rate": 0.9444444444444444
+        },
+        "after": {
+          "hits": 36,
+          "total": 36,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 26,
+          "total": 29,
+          "rate": 0.896551724137931
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Corpse reviver #2": ["Corpse Reviver No 2", "Corpse Reviver No. Two", "Corpse Reviver II"],
+        "Cosmopolitan": ["Cosmo"],
+        "French 75": ["French Seventy Five"],
+        "John Collins": ["Tom Collins"],
+        "Long Island iced tea": ["Long Island", "LIIT"]
+      }
+    },
+    {
+      "id": "london-tube-lines",
+      "baseline": {
+        "before": {
+          "hits": 22,
+          "total": 22,
+          "rate": 1
+        },
+        "after": {
+          "hits": 22,
+          "total": 22,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 24,
+          "total": 24,
+          "rate": 1
+        },
+        "after": {
+          "hits": 24,
+          "total": 24,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {}
+    },
+    {
+      "id": "monopoly-uk",
+      "baseline": {
+        "before": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 30,
+          "total": 31,
+          "rate": 0.967741935483871
+        },
+        "after": {
+          "hits": 31,
+          "total": 31,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Fenchurch Street Station": ["Fenchurch Street"],
+        "Kings Cross Station": ["King's Cross"],
+        "Liverpool Street Station": ["Liverpool Street"],
+        "Marylebone Station": ["Marylebone"]
+      }
+    },
+    {
+      "id": "monopoly-us",
+      "baseline": {
+        "before": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 28,
+          "total": 30,
+          "rate": 0.9333333333333333
+        },
+        "after": {
+          "hits": 30,
+          "total": 30,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "B&O Railroad": ["Baltimore and Ohio Railroad", "B&O"],
+        "Boardwalk": ["Board Walk"],
+        "Short Line": ["Short Line Railroad"],
+        "St. Charles Place": ["Saint Charles Place"],
+        "St. James Place": ["Saint James Place"]
+      }
+    },
+    {
+      "id": "newbery-winners",
+      "baseline": {
+        "before": {
+          "hits": 36,
+          "total": 36,
+          "rate": 1
+        },
+        "after": {
+          "hits": 36,
+          "total": 36,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 27,
+          "total": 27,
+          "rate": 1
+        },
+        "after": {
+          "hits": 27,
+          "total": 27,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {}
+    },
+    {
+      "id": "nobel-literature",
+      "baseline": {
+        "before": {
+          "hits": 29,
+          "total": 30,
+          "rate": 0.9666666666666667
+        },
+        "after": {
+          "hits": 30,
+          "total": 30,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 27,
+          "total": 29,
+          "rate": 0.9310344827586207
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Gabriel García Márquez": ["Garcia Marquez"],
+        "Han Kang": ["Kang"]
+      }
+    },
+    {
+      "id": "oneworld-airlines",
+      "baseline": {
+        "before": {
+          "hits": 17,
+          "total": 19,
+          "rate": 0.8947368421052632
+        },
+        "after": {
+          "hits": 19,
+          "total": 19,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 17,
+          "total": 30,
+          "rate": 0.5666666666666667
+        },
+        "after": {
+          "hits": 30,
+          "total": 30,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Alaska Airlines": ["Alaska", "AS"],
+        "American Airlines": ["AA"],
+        "Cathay Pacific": ["Cathay", "CX"],
+        "Fiji Airways": ["Fiji", "FJ"],
+        "Finnair": ["AY"],
+        "Iberia": ["IB"],
+        "Japan Airlines": ["JAL", "JL"],
+        "Malaysia Airlines": ["Malaysia", "MH"],
+        "Oman Air": ["WY"],
+        "Qantas": ["QF"],
+        "Qatar Airways": ["Qatar", "QR"],
+        "Royal Air Maroc": ["RAM", "AT"],
+        "Royal Jordanian": ["RJ"],
+        "SriLankan Airlines": ["SriLankan", "UL"]
+      }
+    },
+    {
+      "id": "pantone-coty",
+      "baseline": {
+        "before": {
+          "hits": 28,
+          "total": 29,
+          "rate": 0.9655172413793104
+        },
+        "after": {
+          "hits": 29,
+          "total": 29,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 31,
+          "total": 31,
+          "rate": 1
+        },
+        "after": {
+          "hits": 31,
+          "total": 31,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Cerulean": ["Cerulean Blue"]
+      }
+    },
+    {
+      "id": "pulitzer-fiction",
+      "baseline": {
+        "before": {
+          "hits": 35,
+          "total": 36,
+          "rate": 0.9722222222222222
+        },
+        "after": {
+          "hits": 36,
+          "total": 36,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 26,
+          "total": 28,
+          "rate": 0.9285714285714286
+        },
+        "after": {
+          "hits": 28,
+          "total": 28,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Kavalier & Clay": ["The Amazing Adventures of Kavalier and Clay"],
+        "The Color Purple": ["The Colour Purple"]
+      }
+    },
+    {
+      "id": "shakespeare-plays",
+      "baseline": {
+        "before": {
+          "hits": 36,
+          "total": 36,
+          "rate": 1
+        },
+        "after": {
+          "hits": 36,
+          "total": 36,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 27,
+          "total": 30,
+          "rate": 0.9
+        },
+        "after": {
+          "hits": 30,
+          "total": 30,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Henry IV, Part 1": ["Henry 4 Part 1", "Henry 4 Part One"],
+        "Henry IV, Part 2": ["Henry 4 Part 2", "Henry 4 Part Two"],
+        "Henry VI, Part 1": ["Henry 6 Part 1", "Henry 6 Part One"],
+        "Henry VI, Part 2": ["Henry 6 Part 2", "Henry 6 Part Two"],
+        "Henry VI, Part 3": ["Henry 6 Part 3", "Henry 6 Part Three"],
+        "Twelfth Night": ["12th Night"]
+      }
+    },
+    {
+      "id": "sherlock-holmes-books",
+      "baseline": {
+        "before": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1
+        },
+        "after": {
+          "hits": 21,
+          "total": 21,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 21,
+          "total": 26,
+          "rate": 0.8076923076923077
+        },
+        "after": {
+          "hits": 26,
+          "total": 26,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "His Last Bow": ["Last Bow"],
+        "The Case-Book of Sherlock Holmes": ["Casebook"],
+        "The Hound of the Baskervilles": ["Hound of Baskervilles"],
+        "The Return of Sherlock Holmes": ["Return"],
+        "The Sign of the Four": ["Sign of the 4", "Sign of 4"]
+      }
+    },
+    {
+      "id": "skyteam-airlines",
+      "baseline": {
+        "before": {
+          "hits": 20,
+          "total": 25,
+          "rate": 0.8
+        },
+        "after": {
+          "hits": 25,
+          "total": 25,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 17,
+          "total": 32,
+          "rate": 0.53125
+        },
+        "after": {
+          "hits": 32,
+          "total": 32,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Aerolíneas Argentinas": ["AR"],
+        "Aeroméxico": ["AM"],
+        "Air Europa": ["UX"],
+        "Air France": ["AF"],
+        "China Airlines": ["CI"],
+        "China Eastern Airlines": ["China Eastern", "MU"],
+        "Delta Air Lines": ["DL"],
+        "Garuda Indonesia": ["Garuda", "GA"],
+        "KLM": ["Royal Dutch Airlines", "KL"],
+        "Kenya Airways": ["KQ"],
+        "Korean Air": ["Korean", "KE"],
+        "Middle East Airlines": ["MEA", "ME"],
+        "Saudia": ["Saudi Arabian Airlines", "SV"],
+        "Scandinavian Airlines": ["SAS", "SK"],
+        "TAROM": ["RO"],
+        "Vietnam Airlines": ["Vietnam", "VN"],
+        "Virgin Atlantic": ["VS"],
+        "XiamenAir": ["Xiamen Airlines", "MF"]
+      }
+    },
+    {
+      "id": "star-alliance",
+      "baseline": {
+        "before": {
+          "hits": 27,
+          "total": 34,
+          "rate": 0.7941176470588235
+        },
+        "after": {
+          "hits": 34,
+          "total": 34,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 19,
+          "total": 32,
+          "rate": 0.59375
+        },
+        "after": {
+          "hits": 32,
+          "total": 32,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Aegean Airlines": ["Aegean", "A3"],
+        "Air Canada": ["AC"],
+        "Air China": ["CA"],
+        "Air India": ["AI"],
+        "Air New Zealand": ["NZ"],
+        "All Nippon Airways": ["NH"],
+        "Asiana Airlines": ["Asiana", "OZ"],
+        "Austrian Airlines": ["Austrian", "OS"],
+        "Avianca": ["AV"],
+        "Brussels Airlines": ["Brussels", "SN"],
+        "Copa Airlines": ["Copa", "CM"],
+        "Croatia Airlines": ["Croatia", "OU"],
+        "EVA Air": ["EVA", "BR"],
+        "Egyptair": ["Egypt Air", "MS"],
+        "Ethiopian Airlines": ["Ethiopian", "ET"],
+        "ITA Airways": ["ITA", "AZ"],
+        "LOT Polish Airlines": ["LOT", "LO"],
+        "Lufthansa": ["LH"],
+        "Shenzhen Airlines": ["Shenzhen", "ZH"],
+        "Singapore Airlines": ["Singapore", "SQ"],
+        "South African Airways": ["South African", "SAA", "SA"],
+        "Swiss International Air Lines": ["Swiss", "LX"],
+        "TAP Air Portugal": ["TP"],
+        "Thai Airways International": ["Thai Airways", "Thai", "TG"],
+        "Turkish Airlines": ["Turkish", "TK"],
+        "United Airlines": ["UA"]
+      }
+    },
+    {
+      "id": "stellantis-brands",
+      "baseline": {
+        "before": {
+          "hits": 16,
+          "total": 17,
+          "rate": 0.9411764705882353
+        },
+        "after": {
+          "hits": 17,
+          "total": 17,
+          "rate": 1
+        }
+      },
+      "shard": {
+        "before": {
+          "hits": 20,
+          "total": 26,
+          "rate": 0.7692307692307693
+        },
+        "after": {
+          "hits": 26,
+          "total": 26,
+          "rate": 1
+        }
+      },
+      "answersAdded": [],
+      "aliasesAdded": {
+        "Chrysler": ["Chrysler Motors"],
+        "Citroën": ["Citroen Automobiles"],
+        "Fiat": ["Fiat Automobiles", "Fiat Professional"],
+        "Ram": ["Ram Trucks"],
+        "Vauxhall": ["Vauxhall Motors"]
+      }
+    }
+  ],
+  "originalRawSha256": "1d2f30c61f7dcb6c44c9151c928d30ef810f7fd0822cc434d3524995976f4721"
+}

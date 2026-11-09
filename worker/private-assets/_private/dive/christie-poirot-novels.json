@@ -1,0 +1,35 @@
+{
+  "buckets": {
+    "10": "\nabc murder\th2\nthird girl\tf\n",
+    "17": "\nafter the funeral\t3d\ndeath on the nile\t9s\nmrs mcgintys dead\tj3\nmurder after hour\t7i\noverdose of death\tap\nthree act tragedy\t6f\n",
+    "22": "\nappointment with death\t2o\nelephants can remember\t85\none two buckle my shoe\tap\n",
+    "8": "\nbig four\t0\n",
+    "18": "\ncards on the table\ts\ndeath in the cloud\t5t\nevil under the sun\t1d\nfunerals are fatal\t3d\nholiday for murder\thn\nmrs mcginty s dead\tj3\nmurder on the link\t1y\nperil at end house\tcb\ntaken at the flood\t3x\nthirteen at dinner\tf5\n",
+    "20": "\ncat among the pigeon\tcw\nhickory dickory dock\tig\nmurder in retrospect\t6z\n",
+    "5": "\nclock\tac\n",
+    "7": "\ncurtain\t7v\n",
+    "25": "\ncurtain poirots last case\t7v\nhercule poirot s christma\thn\nmystery of the blue train\t4i\n",
+    "16": "\ndead man s folly\tdk\ndeath in the air\t5t\ngreenshore folly\tjo\nhallowe en party\tfp\npatriotic murder\tap\n",
+    "15": "\ndead mans folly\tdk\nfive little pig\t6z\nhalloween party\tfp\nlord edgware dy\tf5\nthere is a tide\t3x\n",
+    "12": "\ndumb witness\t5e\n",
+    "39": "\nhercule poirot and the greenshore folly\tjo\n",
+    "24": "\nhercule poirots christma\thn\n",
+    "21": "\nhickory dickory death\tig\nmurder in mesopotamia\teh\npoirot loses a client\t5e\n",
+    "6": "\nhollow\t7i\n",
+    "19": "\nmurder for christma\thn\nmurder in three act\t6f\n",
+    "26": "\nmurder in the calais coach\tbg\nmysterious affair at style\t8u\n",
+    "23": "\nmurder of roger ackroyd\tg8\n",
+    "28": "\nmurder on the orient express\tbg\n",
+    "11": "\nsad cypress\te3\n"
+  },
+  "answers": "m\tThe Big Four\nm\tThird Girl\nm\tCards on the Table\nm\tEvil Under the Sun\nm\tThe Murder on the Links\nm\tAppointment with Death\nm\tAfter the Funeral\nm\tTaken at the Flood\nm\tThe Mystery of the Blue Train\nm\tDumb Witness\nm\tDeath in the Clouds\nm\tThree Act Tragedy\nm\tFive Little Pigs\nm\tThe Hollow\nr\tCurtain\nr\tElephants Can Remember\nr\tThe Mysterious Affair at Styles\ns\tDeath on the Nile\nr\tThe Clocks\nr\tOne, Two, Buckle My Shoe\ns\tMurder on the Orient Express\nr\tPeril at End House\nr\tCat Among the Pigeons\nr\tDead Man's Folly\ng\tSad Cypress\nr\tMurder in Mesopotamia\nd\tLord Edgware Dies\nd\tHallowe'en Party\ns\tThe Murder of Roger Ackroyd\nd\tThe A.B.C. Murders\nd\tHercule Poirot's Christmas\nd\tHickory Dickory Dock\nd\tMrs McGinty's Dead\nd\tHercule Poirot and the Greenshore Folly\n",
+  "gem": { "answer": "Sad Cypress", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Death on the Nile", "tier": "surface", "points": 10 },
+    { "answer": "Murder on the Orient Express", "tier": "surface", "points": 10 },
+    { "answer": "The Murder of Roger Ackroyd", "tier": "surface", "points": 10 },
+    { "answer": "Lord Edgware Dies", "tier": "deep", "points": 85 },
+    { "answer": "Hallowe'en Party", "tier": "deep", "points": 85 }
+  ],
+  "size": 34
+}

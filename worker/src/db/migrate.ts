@@ -671,6 +671,22 @@ CREATE INDEX IF NOT EXISTS dive_answers_group ON dive_answers(date, prompt_index
         '20',
       );
     });
+  if (version < 21)
+    storage.transactionSync(() => {
+      sql.exec(`CREATE TABLE IF NOT EXISTS dive_attempts (
+  date TEXT NOT NULL, user_id TEXT NOT NULL,
+  prompt_index INTEGER NOT NULL CHECK(prompt_index BETWEEN 0 AND 4),
+  started_at TEXT NOT NULL, wrong_count INTEGER NOT NULL DEFAULT 0,
+  last_guess_at TEXT, suggestion_canonical TEXT, suggestion_answer TEXT,
+  suggestion_status TEXT CHECK(suggestion_status IN ('pending','rejected','accepted')),
+  suggested_at TEXT, PRIMARY KEY(date,user_id,prompt_index));
+CREATE INDEX IF NOT EXISTS dive_attempts_user ON dive_attempts(user_id,date);`);
+      sql.exec(
+        'INSERT INTO settings VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value_json=excluded.value_json',
+        'schema_version',
+        '21',
+      );
+    });
 }
 export function seedRoster(storage: DurableObjectStorage): void {
   for (const row of ROSTER)

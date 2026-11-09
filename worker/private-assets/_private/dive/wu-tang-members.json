@@ -1,0 +1,29 @@
+{
+  "buckets": {
+    "13": "\nbobby digital\t15\nlamont hawkin\t0\n",
+    "10": "\ncappadonna\t35\ncorey wood\t1b\ngary grice\t1l\nmethod man\t8\n",
+    "4": "\nchef\t1b\n",
+    "14": "\nclifford smith\t8\ninspectah deck\t2o\njason s hunter\t2o\n",
+    "17": "\nclifford smith jr\t8\nelgin evad turner\t2a\n",
+    "20": "\ncorey quontrell wood\t1b\n",
+    "11": "\ndarryl hill\t35\ndennis cole\t1r\njamel irief\t2a\nmasta killa\t2a\nrobert digg\t15\n",
+    "12": "\nelgin turner\t2a\njason hunter\t2o\njohnny blaze\t8\nrussell jone\tl\n",
+    "19": "\ngary eldridge grice\t1l\nrussell tyrone jone\tl\n",
+    "6": "\ngenius\t1l\n",
+    "9": "\nghostface\t1r\n",
+    "16": "\nghostface killah\t1r\nol dirty bastard\tl\n",
+    "3": "\ngza\t1l\nodb\tl\nrza\t15\n",
+    "18": "\nlamont jody hawkin\t0\n",
+    "7": "\nraekwon\t1b\n",
+    "22": "\nrobert fitzgerald digg\t15\n",
+    "5": "\nu god\t0\n"
+  },
+  "answers": "m\tU-God\ns\tMethod Man\nm\tOl' Dirty Bastard\ns\tRZA\nm\tRaekwon\nm\tGZA\nr\tGhostface Killah\ng\tMasta Killa\nr\tInspectah Deck\nd\tCappadonna\n",
+  "gem": { "answer": "Masta Killa", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Method Man", "tier": "surface", "points": 10 },
+    { "answer": "RZA", "tier": "surface", "points": 10 },
+    { "answer": "Cappadonna", "tier": "deep", "points": 85 }
+  ],
+  "size": 10
+}

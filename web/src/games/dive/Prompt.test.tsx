@@ -2,7 +2,8 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { api } from '../../lib/api';
+import type { DiveGuessResponse, DivePending } from '../../../../shared/types';
+import { api, ApiClientError } from '../../lib/api';
 import { Prompt, deadlineKey, savedDeadline } from './Prompt';
 
 vi.mock('../../lib/api', async (importOriginal) => ({
@@ -12,6 +13,7 @@ vi.mock('../../lib/api', async (importOriginal) => ({
 const clients: QueryClient[] = [];
 const key = deadlineKey('u1', '2026-11-07', 0);
 const onSaved = vi.fn();
+const onConflict = vi.fn(async () => {});
 const result = {
   prompt_index: 0,
   answer: 'Oar',
@@ -24,7 +26,14 @@ const result = {
   total: 1,
   hidden: false,
 };
-function mount() {
+const suggested: DiveGuessResponse = {
+  outcome: 'suggestion',
+  prompt_index: 0,
+  suggestion: 'Dry Tortugas',
+  deadline_ms_remaining: 20000,
+  attempts_left: 15,
+};
+function mount(pending?: DivePending) {
   const client = new QueryClient({
     defaultOptions: { mutations: { retry: false }, queries: { retry: false } },
   });
@@ -35,74 +44,273 @@ function mount() {
         index={0}
         prompt="Name a part of a rowing shell."
         storageKey={key}
+        pending={pending}
         onSaved={onSaved}
-        onConflict={async () => {}}
+        onConflict={onConflict}
       />
     </QueryClientProvider>,
   );
 }
-async function settle() {
+async function settle(ms = 20) {
   await act(async () => {
-    await vi.advanceTimersByTimeAsync(20);
+    await vi.advanceTimersByTimeAsync(ms);
   });
 }
+function input() {
+  return screen.getByLabelText('Your Answer') as HTMLInputElement;
+}
+function type(value: string) {
+  fireEvent.change(input(), { target: { value } });
+}
+function submit() {
+  fireEvent.submit(input().form!);
+}
+async function showSuggestion() {
+  mount();
+  await settle();
+  vi.mocked(api).mockResolvedValueOnce(suggested);
+  type('Dry Tortugus');
+  submit();
+  await settle();
+  expect(screen.getByRole('status').textContent).toContain('Did you mean Dry Tortugas?');
+  expect(document.activeElement).toBe(input());
+}
 beforeEach(() => {
+  HTMLElement.prototype.scrollIntoView = vi.fn();
   vi.useFakeTimers();
   vi.setSystemTime(new Date('2026-11-07T18:00:00Z'));
   localStorage.clear();
   vi.mocked(api).mockReset();
   onSaved.mockReset();
-  vi.mocked(api).mockResolvedValue(result);
+  onConflict.mockClear();
+  vi.mocked(api).mockImplementation(
+    async (endpoint) =>
+      (endpoint === 'POST /api/games/dive/start'
+        ? { prompt_index: 0, deadline_ms_remaining: 25000 }
+        : { outcome: 'scored', answer: result }) as never,
+  );
 });
 afterEach(() => {
   cleanup();
   clients.splice(0).forEach((client) => client.clear());
+  vi.restoreAllMocks();
   vi.useRealTimers();
 });
-it('submits a trimmed answer once and shows the provisional result', async () => {
+it('allows submitting a 60-character answer', async () => {
   mount();
-  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('25 Seconds Left');
-  fireEvent.change(screen.getByLabelText('Your Answer'), { target: { value: '  Oar  ' } });
-  fireEvent.click(screen.getByRole('button', { name: 'Dive' }));
   await settle();
-  expect(api).toHaveBeenCalledWith('POST /api/games/dive/answers', {
+  expect(input().maxLength).toBe(60);
+  const answer = 'a'.repeat(60);
+  type(answer);
+  submit();
+  await settle();
+  expect(api).toHaveBeenCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer },
+  });
+});
+it('keeps suggestion controls above the navigation on viewport changes without moving focus', async () => {
+  await showSuggestion();
+  const scroll = vi.mocked(HTMLElement.prototype.scrollIntoView);
+  expect(scroll).toHaveBeenCalledWith({ block: 'nearest', behavior: 'instant' });
+  expect(scroll.mock.contexts.at(-1)).toBe(input().form!.lastElementChild);
+  scroll.mockClear();
+  fireEvent(window, new Event('resize'));
+  expect(scroll).toHaveBeenCalledOnce();
+  expect(document.activeElement).toBe(input());
+  input().blur();
+  scroll.mockClear();
+  fireEvent(window, new Event('resize'));
+  expect(scroll).not.toHaveBeenCalled();
+});
+it('starts on open, submits a trimmed guess once and shows the provisional result', async () => {
+  mount();
+  await settle();
+  expect(api).toHaveBeenCalledWith('POST /api/games/dive/start', { body: { prompt_index: 0 } });
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('25 Seconds Left');
+  type('  Oar  ');
+  submit();
+  submit();
+  await settle();
+  expect(
+    vi.mocked(api).mock.calls.filter(([endpoint]) => endpoint.endsWith('/guesses')),
+  ).toHaveLength(1);
+  expect(api).toHaveBeenCalledWith('POST /api/games/dive/guesses', {
     body: { prompt_index: 0, answer: 'Oar' },
   });
-  expect(onSaved.mock.calls[0][0]).toEqual(result);
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+  expect(savedDeadline(key)).toBeNull();
 });
-it('keeps the original deadline after remount and submits one empty timeout answer', async () => {
-  const first = mount();
-  const deadline = savedDeadline(key);
-  await act(async () => {
-    await vi.advanceTimersByTimeAsync(11000);
-  });
-  first.unmount();
+it('clears a wrong guess, keeps focus and the timer, announces feedback, then accepts another guess', async () => {
   mount();
+  await settle();
+  const deadline = savedDeadline(key);
+  vi.mocked(api).mockResolvedValueOnce({ outcome: 'not_an_answer', attempts_left: 14 });
+  type('Banana');
+  submit();
+  await settle(1000);
+  expect(input().value).toBe('');
+  expect(input().readOnly).toBe(false);
+  expect(document.activeElement).toBe(input());
+  expect(screen.getByRole('status').textContent).toBe('Not an answer');
+  expect(screen.queryByText(/Guesses Left/)).toBeNull();
+  expect(onSaved).not.toHaveBeenCalled();
   expect(savedDeadline(key)).toBe(deadline);
-  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('14 Seconds Left');
-  await act(async () => {
-    await vi.advanceTimersByTimeAsync(15000);
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('24 Seconds Left');
+  type('Oar');
+  expect(screen.queryByText('Not an answer')).toBeNull();
+  submit();
+  await settle();
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+});
+it('shows the remaining guesses only at five or fewer and shakes the field', async () => {
+  mount();
+  await settle();
+  vi.mocked(api).mockResolvedValueOnce({ outcome: 'not_an_answer', attempts_left: 5 });
+  type('Banana');
+  submit();
+  await settle();
+  expect(screen.getByRole('status').textContent).toBe('Not an answer5 Guesses Left');
+  expect(document.querySelector('.dive-input-shake')).not.toBeNull();
+  type('Oar');
+  expect(document.querySelector('.dive-input-shake')).toBeNull();
+});
+it.each(['Yes', 'Enter'])(
+  'accepts the stored suggestion with %s without sending arbitrary text',
+  async (action) => {
+    await showSuggestion();
+    if (action === 'Yes') fireEvent.click(screen.getByRole('button', { name: 'Yes' }));
+    else fireEvent.keyDown(input(), { key: 'Enter' });
+    await settle();
+    expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/suggestion', {
+      body: { prompt_index: 0, accept: true },
+    });
+    expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+  },
+);
+it.each(['No', 'Escape'])(
+  'rejects the stored suggestion with %s and keeps playing',
+  async (action) => {
+    await showSuggestion();
+    vi.mocked(api).mockResolvedValueOnce({ outcome: 'not_an_answer', attempts_left: 14 });
+    if (action === 'No') fireEvent.click(screen.getByRole('button', { name: 'No' }));
+    else fireEvent.keyDown(input(), { key: 'Escape' });
+    await settle();
+    expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/suggestion', {
+      body: { prompt_index: 0, accept: false },
+    });
+    expect(screen.queryByRole('button', { name: 'Yes' })).toBeNull();
+    expect(screen.getByRole('status').textContent).toBe('Not an answer');
+    expect(input().value).toBe('');
+    expect(document.activeElement).toBe(input());
+    expect(onSaved).not.toHaveBeenCalled();
+  },
+);
+it('dismisses the chip on typing and submits the new guess instead of accepting', async () => {
+  await showSuggestion();
+  const calls = vi.mocked(api).mock.calls.length;
+  type('Oar');
+  expect(screen.queryByText('Dry Tortugas')).toBeNull();
+  expect(api).toHaveBeenCalledTimes(calls);
+  submit();
+  await settle();
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer: 'Oar' },
   });
-  expect(api).toHaveBeenCalledTimes(1);
-  expect(api).toHaveBeenCalledWith('POST /api/games/dive/answers', {
+});
+it('resumes pending suggestion and attempts, then sends an empty guess at timeout', async () => {
+  vi.mocked(api).mockResolvedValueOnce({ prompt_index: 0, deadline_ms_remaining: 1000 });
+  mount({
+    prompt_index: 0,
+    deadline_ms_remaining: 1000,
+    suggestion: 'Dry Tortugas',
+    attempts_left: 4,
+  });
+  await settle();
+  expect(screen.getByRole('status').textContent).toContain(
+    'Did you mean Dry Tortugas?4 Guesses Left',
+  );
+  await settle(2000);
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer: '' },
+  });
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+  expect(
+    vi.mocked(api).mock.calls.filter(([endpoint]) => endpoint.endsWith('/suggestion')),
+  ).toHaveLength(0);
+});
+it('uses the server deadline on remount, overriding stale or modified storage', async () => {
+  localStorage.setItem(key, String(Date.now() + 999999));
+  vi.mocked(api).mockResolvedValueOnce({ prompt_index: 0, deadline_ms_remaining: 14000 });
+  const first = mount();
+  await settle();
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('14 Seconds Left');
+  first.unmount();
+  vi.mocked(api).mockResolvedValueOnce({ prompt_index: 0, deadline_ms_remaining: 0 });
+  mount();
+  await settle();
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
     body: { prompt_index: 0, answer: '' },
   });
 });
-it('expires immediately on reload after the deadline and lets failed timeouts retry', async () => {
-  localStorage.setItem(key, String(Date.now() - 100));
+it('allows a failed timeout to retry without repeatedly sending in the background', async () => {
+  vi.mocked(api).mockResolvedValueOnce({ prompt_index: 0, deadline_ms_remaining: 0 });
+  vi.mocked(api).mockRejectedValueOnce(new Error('No connection. Try again.'));
+  mount();
+  await settle();
+  await settle(1000);
+  expect(screen.getByRole('alert').textContent).toBe('No connection. Try again.');
+  expect(api).toHaveBeenCalledTimes(2);
+  fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+  await settle();
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer: '' },
+  });
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+});
+it('preserves the entered text and shows no error for TOO_FAST', async () => {
+  mount();
+  await settle();
+  vi.mocked(api).mockRejectedValueOnce(
+    new ApiClientError(429, { code: 'TOO_FAST', message: 'Wait' }),
+  );
+  type('Oar');
+  submit();
+  await settle();
+  expect(input().value).toBe('Oar');
+  expect(screen.queryByRole('alert')).toBeNull();
+  expect(screen.getByRole('button', { name: 'Dive' })).toBeTruthy();
+  expect(onSaved).not.toHaveBeenCalled();
+});
+it('refreshes on 409 conflicts', async () => {
+  mount();
+  await settle();
+  vi.mocked(api).mockRejectedValueOnce(
+    new ApiClientError(409, { code: 'ALREADY_ANSWERED', message: 'Already answered' }),
+  );
+  type('Oar');
+  submit();
+  await settle();
+  expect(onConflict).toHaveBeenCalledTimes(1);
+  expect(onSaved).not.toHaveBeenCalled();
+  expect(screen.queryByRole('alert')).toBeNull();
+});
+it('requires a successful start before guessing and permits an idempotent start retry', async () => {
   vi.mocked(api).mockRejectedValueOnce(new Error('No connection. Try again.'));
   mount();
   await settle();
   expect(screen.getByRole('alert').textContent).toBe('No connection. Try again.');
+  type('Oar');
   fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
   await settle();
-  expect(api).toHaveBeenCalledTimes(2);
-  expect(vi.mocked(api).mock.calls[1]).toEqual([
-    'POST /api/games/dive/answers',
-    { body: { prompt_index: 0, answer: '' } },
+  expect(vi.mocked(api).mock.calls.map(([endpoint]) => endpoint)).toEqual([
+    'POST /api/games/dive/start',
+    'POST /api/games/dive/start',
   ]);
+  submit();
+  await settle();
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
 });
-it('uses independent deadline keys per player, date and prompt and tolerates unavailable storage', () => {
+it('uses independent keys and tolerates unavailable localStorage', async () => {
   expect(
     new Set([
       key,
@@ -111,14 +319,158 @@ it('uses independent deadline keys per player, date and prompt and tolerates una
       deadlineKey('u1', '2026-11-07', 1),
     ]).size,
   ).toBe(4);
-  const get = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+  vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
     throw new Error('Denied');
   });
-  const set = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+  vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
     throw new Error('Denied');
   });
   mount();
+  await settle();
   expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('25 Seconds Left');
-  get.mockRestore();
-  set.mockRestore();
+  type('Oar');
+  submit();
+  await settle();
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+});
+
+it('keeps the field editable and preserves new typing while a guess is in flight', async () => {
+  mount();
+  await settle();
+  let resolve!: (response: DiveGuessResponse) => void;
+  vi.mocked(api).mockImplementationOnce(
+    () =>
+      new Promise((done) => {
+        resolve = done;
+      }),
+  );
+  type('Dry Tortugus');
+  submit();
+  await settle();
+  expect(input().readOnly).toBe(false);
+  expect(document.activeElement).toBe(input());
+  type('Oar');
+  submit();
+  expect(api).toHaveBeenCalledTimes(2);
+  await act(async () => {
+    resolve(suggested);
+  });
+  await settle();
+  expect(input().value).toBe('Oar');
+  expect(screen.queryByRole('button', { name: 'Yes' })).toBeNull();
+  submit();
+  await settle();
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer: 'Oar' },
+  });
+});
+
+it('offers Retry when the empty timeout guess fails with a pending suggestion', async () => {
+  vi.mocked(api).mockResolvedValueOnce({ prompt_index: 0, deadline_ms_remaining: 0 });
+  vi.mocked(api).mockRejectedValueOnce(new Error('No connection. Try again.'));
+  mount({
+    prompt_index: 0,
+    deadline_ms_remaining: 0,
+    suggestion: 'Dry Tortugas',
+    attempts_left: 14,
+  });
+  await settle();
+  await settle();
+  fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
+  await settle();
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer: '' },
+  });
+  expect(onSaved).toHaveBeenCalledExactlyOnceWith(result);
+});
+
+it('keeps the same focused input through wrong-answer and suggestion responses without blur', async () => {
+  mount();
+  await settle();
+  const field = input();
+  const blur = vi.fn();
+  field.addEventListener('blur', blur);
+  vi.mocked(api).mockResolvedValueOnce({ outcome: 'not_an_answer', attempts_left: 14 });
+  type('Wrong');
+  submit();
+  await settle();
+  vi.mocked(api).mockResolvedValueOnce(suggested);
+  type('Dry Tortugus');
+  submit();
+  await settle();
+  expect(input()).toBe(field);
+  expect(document.activeElement).toBe(field);
+  expect(blur).not.toHaveBeenCalled();
+  expect(screen.getAllByRole('status')).toHaveLength(1);
+  expect(screen.getByRole('status').hasAttribute('aria-live')).toBe(false);
+});
+
+it('does not shake or announce a stale wrong answer over newer typing', async () => {
+  mount();
+  await settle();
+  let resolve!: (response: DiveGuessResponse) => void;
+  vi.mocked(api).mockImplementationOnce(
+    () =>
+      new Promise((done) => {
+        resolve = done;
+      }),
+  );
+  type('Wrong');
+  submit();
+  await settle();
+  type('Oar');
+  await act(async () => resolve({ outcome: 'not_an_answer', attempts_left: 5 }));
+  await settle();
+  expect(input().value).toBe('Oar');
+  expect(screen.queryByText('Not an answer')).toBeNull();
+  expect(document.querySelector('.dive-input-shake')).toBeNull();
+  expect(screen.getByText('5 Guesses Left')).toBeTruthy();
+});
+
+it('explains the final suggestion rejection before it consumes the last guess', async () => {
+  mount({
+    prompt_index: 0,
+    deadline_ms_remaining: 20000,
+    suggestion: 'Dry Tortugas',
+    attempts_left: 1,
+  });
+  await settle();
+  expect(screen.getByRole('status').textContent).toContain('1 Guess Left');
+  expect(screen.getByRole('status').textContent).toContain(
+    'Rejecting this suggestion or submitting another answer ends this prompt.',
+  );
+});
+it('uses elapsed time rather than wall-clock changes, including after backgrounding', async () => {
+  mount();
+  await settle();
+  vi.setSystemTime(new Date(Date.now() - 3600000));
+  await settle(5000);
+  fireEvent(document, new Event('visibilitychange'));
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('20 Seconds Left');
+  await settle(20000);
+  await settle();
+  expect(api).toHaveBeenLastCalledWith('POST /api/games/dive/guesses', {
+    body: { prompt_index: 0, answer: '' },
+  });
+});
+
+it('deducts start transport time and never extends a running deadline from a suggestion', async () => {
+  let resolve!: (response: { prompt_index: number; deadline_ms_remaining: number }) => void;
+  vi.mocked(api).mockImplementationOnce(
+    () =>
+      new Promise((done) => {
+        resolve = done;
+      }),
+  );
+  mount();
+  await settle(2000);
+  await act(async () => resolve({ prompt_index: 0, deadline_ms_remaining: 25000 }));
+  await settle();
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('23 Seconds Left');
+  await settle(4000);
+  vi.mocked(api).mockResolvedValueOnce({ ...suggested, deadline_ms_remaining: 25000 });
+  type('Dry Tortugus');
+  submit();
+  await settle();
+  expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('19 Seconds Left');
 });

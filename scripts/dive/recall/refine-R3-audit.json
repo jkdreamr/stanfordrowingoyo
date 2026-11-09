@@ -1,0 +1,74 @@
+{
+  "baseBranch": "devin/1794186244-dive-did-you-mean",
+  "baseCommit": "d9f96cfed310ad709dd8cb89084c1eedfacf3118",
+  "rawSha256": "93a140c613f39dc693bdc3987114d68cc7d8fa0722229f9d0f0e67febcd90bf9",
+  "rawGuesses": 278,
+  "reviewedInvalid": 125,
+  "unusedRawCandidates": {
+    "twenty-seven-club": "No pinned complete member list (no List of 27 Club members page; 27 Club article is narrative).",
+    "non-english-hot100-number-ones": "Source predicate ambiguous: bilingual No. 1s such as I Like It are not listed."
+  },
+  "workerGzip": {
+    "beforeKiB": 2993.75,
+    "afterKiB": 2995.15,
+    "deltaKiB": 1.4,
+    "precision": "Wrangler total gzip rounded to 0.01 KiB; baseline from parent brief.",
+    "budgetKiB": 1.5
+  },
+  "prompts": [
+    {
+      "id": "beatles-name-songs",
+      "replaces": "beatles-albums",
+      "after": {
+        "hits": 42,
+        "total": 42,
+        "rate": 1.0
+      }
+    },
+    {
+      "id": "live-aid-1985-performers",
+      "replaces": "bowie-albums",
+      "after": {
+        "hits": 54,
+        "total": 54,
+        "rate": 1.0
+      }
+    },
+    {
+      "id": "hot100-number-one-two-versions",
+      "replaces": "queen-albums",
+      "after": {
+        "hits": 12,
+        "total": 12,
+        "rate": 1.0
+      }
+    },
+    {
+      "id": "hot100-14-week-number-ones",
+      "replaces": "pink-floyd-albums",
+      "after": {
+        "hits": 17,
+        "total": 17,
+        "rate": 1.0
+      }
+    },
+    {
+      "id": "riaa-20x-platinum-albums",
+      "replaces": "swift-albums",
+      "after": {
+        "hits": 20,
+        "total": 20,
+        "rate": 1.0
+      }
+    },
+    {
+      "id": "vma-grammy-video-double",
+      "replaces": "u2-studio-albums",
+      "after": {
+        "hits": 8,
+        "total": 8,
+        "rate": 1.0
+      }
+    }
+  ]
+}

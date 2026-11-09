@@ -1,0 +1,24 @@
+{
+  "buckets": {
+    "7": "\naustria\t16\nbelgien\tw\nbelgium\tw\nczechia\t1q\ndenmark\t1g\nholland\t2k\nschweiz\ti\n",
+    "6": "\nbelgie\tw\nfrance\t0\npoland\t9\nsuisse\ti\nsvizra\ti\n",
+    "8": "\nbelgique\tw\nsvizzera\ti\n",
+    "5": "\ncesko\t1q\n",
+    "14": "\nczech republic\t1q\n",
+    "15": "\nfrench republic\t0\n",
+    "25": "\ngrand duchy of luxembourg\t27\nkingdom of the netherland\t2k\n",
+    "18": "\nkingdom of belgium\tw\nkingdom of denmark\t1g\nrepublic of poland\t9\n",
+    "10": "\nletzebuerg\t27\nluxembourg\t27\nnetherland\t2k\nosterreich\t16\n",
+    "9": "\nluxemburg\t27\n",
+    "11": "\noesterreich\t16\nswitzerland\ti\n",
+    "19": "\nrepublic of austria\t16\nswiss confederation\ti\n"
+  },
+  "answers": "s\tFrance\ns\tPoland\nm\tSwitzerland\nm\tBelgium\nm\tAustria\nr\tDenmark\nr\tCzech Republic\ng\tLuxembourg\nd\tNetherlands\n",
+  "gem": { "answer": "Luxembourg", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "France", "tier": "surface", "points": 10 },
+    { "answer": "Poland", "tier": "surface", "points": 10 },
+    { "answer": "Netherlands", "tier": "deep", "points": 85 }
+  ],
+  "size": 9
+}

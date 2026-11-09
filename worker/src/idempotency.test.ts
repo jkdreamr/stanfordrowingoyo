@@ -209,7 +209,7 @@ describe('idempotent workout creation', () => {
       s.sql.exec('DROP TABLE entry_idempotency');
       setSetting(s, 'schema_version', version);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(20);
+      expect(getSetting(s, 'schema_version')).toBe(21);
       s.sql.exec(
         'INSERT INTO entry_idempotency VALUES (?,?,?,?)',
         'user',
@@ -220,7 +220,7 @@ describe('idempotent workout creation', () => {
       setSetting(s, 'schema_version', version);
       migrate(s);
       migrate(s);
-      expect(getSetting(s, 'schema_version')).toBe(20);
+      expect(getSetting(s, 'schema_version')).toBe(21);
       expect(s.sql.exec('SELECT * FROM entry_idempotency').toArray()).toHaveLength(1);
       expect(
         s.sql

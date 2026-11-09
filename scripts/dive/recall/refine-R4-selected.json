@@ -1,0 +1,380 @@
+{
+  "bond-villain-actors": [
+    "Javier Bardem",
+    "Bardem",
+    "Rami Malek",
+    "Malek",
+    "Mads Mikkelsen",
+    "Mikkelsen",
+    "Christoph Waltz",
+    "Waltz",
+    "Christopher Walken",
+    "Walken",
+    "Sean Bean",
+    "Bean",
+    "Christopher Lee",
+    "Lee",
+    "Donald Pleasence",
+    "Pleasence",
+    "Telly Savalas",
+    "Charles Gray",
+    "Gert Frobe",
+    "Gert Fröbe",
+    {
+      "guess": "Goldfinger",
+      "invalid": "Character name, not an actor."
+    },
+    "Joseph Wiseman",
+    "Yaphet Kotto",
+    "Robert Davi",
+    "Jonathan Pryce",
+    "Toby Stephens",
+    "Sophie Marceau",
+    "Michael Lonsdale",
+    "Louis Jourdan",
+    "Julian Glover",
+    "Adolfo Celi",
+    {
+      "guess": "Max von Sydow",
+      "invalid": "Blofeld in non-Eon Never Say Never Again, outside the Eon scope."
+    },
+    {
+      "guess": "Richard Kiel",
+      "invalid": "Jaws is a henchman, not in the main-villain table."
+    },
+    {
+      "guess": "Oddjob",
+      "invalid": "Henchman character, not an actor."
+    },
+    {
+      "guess": "Harold Sakata",
+      "invalid": "Played henchman Oddjob, not a main villain."
+    },
+    {
+      "guess": "Dave Bautista",
+      "invalid": "Played henchman Mr. Hinx, not a main villain."
+    },
+    "Andrew Scott",
+    {
+      "guess": "Sean Connery",
+      "invalid": "Played James Bond, not a main villain."
+    }
+  ],
+  "national-film-registry-1989": [
+    "Star Wars",
+    "A New Hope",
+    "Star Wars Episode IV",
+    "The Wizard of Oz",
+    "Wizard of Oz",
+    "Citizen Kane",
+    "Casablanca",
+    "Gone with the Wind",
+    "Snow White",
+    "Snow White and the Seven Dwarfs",
+    "Dr Strangelove",
+    "Dr. Strangelove or How I Learned to Stop Worrying and Love the Bomb",
+    {
+      "guess": "The Godfather",
+      "invalid": "Selected in 1990, not 1989."
+    },
+    "The Searchers",
+    "Singin in the Rain",
+    "Singing in the Rain",
+    "Sunset Boulevard",
+    "Sunset Blvd",
+    {
+      "guess": "2001 A Space Odyssey",
+      "invalid": "Selected in 1991, not 1989."
+    },
+    {
+      "guess": "The Birth of a Nation",
+      "invalid": "Selected in 1992, not 1989."
+    },
+    "Modern Times",
+    {
+      "guess": "City Lights",
+      "invalid": "Selected in 1991, not 1989."
+    },
+    "The General",
+    "Intolerance",
+    "The Crowd",
+    "On the Waterfront",
+    "Some Like It Hot",
+    "Vertigo",
+    {
+      "guess": "Psycho",
+      "invalid": "Selected in 1992, not 1989."
+    },
+    {
+      "guess": "Jaws",
+      "invalid": "Selected in 2001, not 1989."
+    },
+    {
+      "guess": "E.T.",
+      "invalid": "Selected in 1994, not 1989."
+    },
+    {
+      "guess": "Bambi",
+      "invalid": "Selected in 2011, not 1989."
+    },
+    {
+      "guess": "Fantasia",
+      "invalid": "Selected in 1990, not 1989."
+    },
+    {
+      "guess": "It's a Wonderful Life",
+      "invalid": "Selected in 1990, not 1989."
+    },
+    {
+      "guess": "The Great Train Robbery",
+      "invalid": "Selected in 1990, not 1989."
+    }
+  ],
+  "stephen-king-theatrical-films": [
+    "Carrie",
+    "Carrie 1976",
+    "Carrie 2013",
+    "The Shining",
+    "Shining",
+    "The Shawshank Redemption",
+    "Shawshank",
+    "The Green Mile",
+    "Stand By Me",
+    "It",
+    "It 2017",
+    "It Chapter Two",
+    "It 2",
+    "Pet Sematary",
+    "Pet Cemetery",
+    "Pet Sematary 2019",
+    "Misery",
+    "Christine",
+    "Cujo",
+    "Firestarter",
+    "Firestarter 2022",
+    "Children of the Corn",
+    "The Dead Zone",
+    "Dead Zone",
+    "The Running Man",
+    "Running Man",
+    "1408",
+    "The Mist",
+    "Doctor Sleep",
+    "Dr Sleep",
+    "Dreamcatcher",
+    "Secret Window",
+    "Dolores Claiborne",
+    "The Dark Tower",
+    "The Monkey",
+    "The Long Walk",
+    "The Life of Chuck",
+    "Salem's Lot",
+    {
+      "guess": "Gerald's Game",
+      "invalid": "Netflix release and premiere screening, not a commercial theatrical release."
+    },
+    {
+      "guess": "1922",
+      "invalid": "Netflix release and festival premiere, not a commercial theatrical release."
+    },
+    "Maximum Overdrive",
+    "Thinner",
+    "Apt Pupil",
+    {
+      "guess": "The Lawnmower Man",
+      "invalid": "Not an adaptation of King's story; removed his name after litigation."
+    }
+  ],
+  "live-action-batman-actors": [
+    "Christian Bale",
+    "Bale",
+    "Cristian Bale",
+    "Michael Keaton",
+    "Keaton",
+    "Micheal Keaton",
+    "Val Kilmer",
+    "Kilmer",
+    "George Clooney",
+    "Clooney",
+    "Ben Affleck",
+    "Affleck",
+    "Ben Afleck",
+    "Robert Pattinson",
+    "Pattinson",
+    "Rob Pattinson",
+    "Adam West",
+    "West",
+    "Lewis Wilson",
+    "Wilson",
+    "Robert Lowery",
+    "Lowery",
+    {
+      "guess": "Kevin Conroy",
+      "invalid": "Animated/voice-only theatrical Batman; live-action appearance was television."
+    },
+    {
+      "guess": "Conroy",
+      "invalid": "Kevin Conroy is outside the live-action theatrical scope."
+    },
+    {
+      "guess": "Will Arnett",
+      "invalid": "Voice-only animated Batman."
+    },
+    {
+      "guess": "Arnett",
+      "invalid": "Will Arnett is a voice-only animated Batman."
+    },
+    {
+      "guess": "Jensen Ackles",
+      "invalid": "Voice-only animated Batman."
+    },
+    {
+      "guess": "Bruce Wayne",
+      "invalid": "Fictional character, not an actor."
+    },
+    {
+      "guess": "David Mazouz",
+      "invalid": "Television-only Batman in Gotham."
+    },
+    {
+      "guess": "Iain Glen",
+      "invalid": "Television-only Bruce Wayne in Titans."
+    },
+    {
+      "guess": "Bruce Thomas",
+      "invalid": "Batman in commercials and stand-in work, not a credited theatrical Batman portrayal."
+    },
+    {
+      "guess": "Josh Brolin",
+      "invalid": "Considered for the role but did not play Batman."
+    }
+  ],
+  "worldwide-box-office-record-films": [
+    "Avatar",
+    "Titanic",
+    "Avengers Endgame",
+    "Endgame",
+    "Avengers: End Game",
+    "Gone with the Wind",
+    "Star Wars",
+    "Star Wars A New Hope",
+    "A New Hope",
+    "Jaws",
+    "Jurassic Park",
+    "E.T.",
+    "ET",
+    "E.T. the Extra-Terrestrial",
+    "The Sound of Music",
+    "Sound of Music",
+    "The Godfather",
+    "Godfather",
+    {
+      "guess": "Ben Hur",
+      "invalid": "Discussed only as a possible holder, not included in the pinned timeline table."
+    },
+    {
+      "guess": "Ben-Hur",
+      "invalid": "Discussed only as a possible holder, not included in the pinned timeline table."
+    },
+    {
+      "guess": "The Ten Commandments",
+      "invalid": "Possible/disputed record in prose only, absent from the timeline table."
+    },
+    {
+      "guess": "Snow White",
+      "invalid": "Not a record holder in the pinned timeline table."
+    },
+    {
+      "guess": "Snow White and the Seven Dwarfs",
+      "invalid": "Not a record holder in the pinned timeline table."
+    },
+    "The Birth of a Nation",
+    "Birth of a Nation",
+    {
+      "guess": "Intolerance",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    },
+    {
+      "guess": "The Big Parade",
+      "invalid": "Did not overtake The Birth of a Nation in the pinned timeline."
+    },
+    {
+      "guess": "The Four Horsemen of the Apocalypse",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    },
+    {
+      "guess": "King Kong",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    },
+    {
+      "guess": "The Exorcist",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    },
+    {
+      "guess": "The Sting",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    },
+    {
+      "guess": "The Lion King",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    },
+    {
+      "guess": "Avengers Infinity War",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    },
+    {
+      "guess": "Avatar The Way of Water",
+      "invalid": "Not included in the worldwide record-holder timeline."
+    }
+  ],
+  "annual-worldwide-box-office-1990-2025": [
+    "Ghost",
+    "Terminator 2",
+    "T2",
+    "Aladdin",
+    "Jurassic Park",
+    "The Lion King",
+    "Toy Story",
+    "Independence Day",
+    "Titanic",
+    "Armageddon",
+    "Star Wars The Phantom Menace",
+    "Phantom Menace",
+    "Mission Impossible 2",
+    "M:I 2",
+    "Harry Potter and the Philosopher's Stone",
+    "Sorcerer's Stone",
+    "The Two Towers",
+    "Return of the King",
+    "Shrek 2",
+    "Harry Potter and the Goblet of Fire",
+    "Pirates of the Caribbean Dead Man's Chest",
+    "At World's End",
+    "The Dark Knight",
+    "Avatar",
+    "Toy Story 3",
+    "Deathly Hallows Part 2",
+    "The Avengers",
+    "Frozen",
+    "Transformers Age of Extinction",
+    "The Force Awakens",
+    "Captain America Civil War",
+    "The Last Jedi",
+    "Avengers Infinity War",
+    "Avengers Endgame",
+    "Demon Slayer Mugen Train",
+    "Spider Man No Way Home",
+    "Avatar The Way of Water",
+    "Barbie",
+    "Inside Out 2",
+    "Ne Zha 2",
+    {
+      "guess": "Zootopia 2",
+      "invalid": "Not the pinned 2025 worldwide leader, which is Ne Zha 2."
+    },
+    {
+      "guess": "Super Mario Bros Movie",
+      "invalid": "Not the 2023 worldwide leader, which is Barbie."
+    }
+  ]
+}

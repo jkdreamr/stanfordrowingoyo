@@ -1,0 +1,709 @@
+{
+  "baseline_sha256": "03c5d365f1f14a5dc0e2013b71fe1f0c153d89e41c5c818f537af0334004405c",
+  "raw_corpus_sha256": "0c5a81c0fe08dc312ff4780a05bd8400cdd66f0a7f2c1d466a75dc81faf41ce8",
+  "selected_corpus_sha256": "5bed1f7a769776067a624d65d0fed1710b4d2ef414a0a2c6a42ae0cc8bfe754a",
+  "initial_specs_sha256": "80484cc1f772c6e1adcae3c7e8f262bc09b441ff9efa3c5efe8d42f5cf35e64e",
+  "gzip_method": "npm run build Total Upload gzip, base branch generated output vs S4 regenerated output.",
+  "gzip_kib": {
+    "base": 2946.24,
+    "after": 2947.8,
+    "delta": 1.56
+  },
+  "corpus": {
+    "prompts": 40,
+    "guesses": 1547,
+    "invalid": 211
+  },
+  "canonicals_added": 4,
+  "aliases_added": 250,
+  "baseline": {
+    "before": [1079, 1192],
+    "after": [1175, 1192]
+  },
+  "shard": {
+    "before": [1250, 1336],
+    "after": [1334, 1336]
+  },
+  "prompts": [
+    {
+      "id": "american-idol-winners",
+      "text": "an American Idol winner",
+      "size": 24,
+      "canonicals_added": 0,
+      "aliases_added": 2,
+      "baseline": {
+        "before": [40, 41],
+        "after": [41, 41]
+      },
+      "shard": {
+        "before": [25, 27],
+        "after": [27, 27]
+      },
+      "invalid": 5,
+      "flag": null
+    },
+    {
+      "id": "bake-off-winners",
+      "text": "a Great British Bake Off winner",
+      "size": 16,
+      "canonicals_added": 0,
+      "aliases_added": 19,
+      "baseline": {
+        "before": [24, 41],
+        "after": [41, 41]
+      },
+      "shard": {
+        "before": [14, 19],
+        "after": [19, 19]
+      },
+      "invalid": 9,
+      "flag": null
+    },
+    {
+      "id": "beatles-albums",
+      "text": "a Beatles studio album",
+      "size": 20,
+      "canonicals_added": 0,
+      "aliases_added": 1,
+      "baseline": {
+        "before": [18, 18],
+        "after": [18, 18]
+      },
+      "shard": {
+        "before": [23, 24],
+        "after": [24, 24]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "best-actor",
+      "text": "a Best Actor Oscar winner",
+      "size": 87,
+      "canonicals_added": 0,
+      "aliases_added": 6,
+      "baseline": {
+        "before": [28, 30],
+        "after": [29, 30]
+      },
+      "shard": {
+        "before": [47, 49],
+        "after": [49, 49]
+      },
+      "invalid": 2,
+      "flag": null
+    },
+    {
+      "id": "best-actress",
+      "text": "a Best Actress Oscar winner",
+      "size": 81,
+      "canonicals_added": 0,
+      "aliases_added": 0,
+      "baseline": {
+        "before": [29, 30],
+        "after": [29, 30]
+      },
+      "shard": {
+        "before": [45, 45],
+        "after": [45, 45]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "best-animated-feature",
+      "text": "a Best Animated Feature Oscar winner",
+      "size": 25,
+      "canonicals_added": 0,
+      "aliases_added": 9,
+      "baseline": {
+        "before": [27, 31],
+        "after": [31, 31]
+      },
+      "shard": {
+        "before": [26, 30],
+        "after": [30, 30]
+      },
+      "invalid": 9,
+      "flag": null
+    },
+    {
+      "id": "best-director",
+      "text": "a Best Director Oscar winner",
+      "size": 75,
+      "canonicals_added": 0,
+      "aliases_added": 13,
+      "baseline": {
+        "before": [28, 30],
+        "after": [30, 30]
+      },
+      "shard": {
+        "before": [44, 50],
+        "after": [50, 50]
+      },
+      "invalid": 6,
+      "flag": null
+    },
+    {
+      "id": "best-original-song",
+      "text": "an Oscar-winning original song",
+      "size": 92,
+      "canonicals_added": 0,
+      "aliases_added": 8,
+      "baseline": {
+        "before": [26, 30],
+        "after": [30, 30]
+      },
+      "shard": {
+        "before": [42, 44],
+        "after": [44, 44]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "best-picture",
+      "text": "a Best Picture Oscar winner",
+      "size": 98,
+      "canonicals_added": 0,
+      "aliases_added": 5,
+      "baseline": {
+        "before": [34, 34],
+        "after": [34, 34]
+      },
+      "shard": {
+        "before": [56, 58],
+        "after": [58, 58]
+      },
+      "invalid": 6,
+      "flag": null
+    },
+    {
+      "id": "best-supporting-actor",
+      "text": "a Best Supporting Actor Oscar winner",
+      "size": 81,
+      "canonicals_added": 0,
+      "aliases_added": 3,
+      "baseline": {
+        "before": [30, 31],
+        "after": [31, 31]
+      },
+      "shard": {
+        "before": [37, 38],
+        "after": [38, 38]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "best-supporting-actress",
+      "text": "a Best Supporting Actress Oscar winner",
+      "size": 88,
+      "canonicals_added": 0,
+      "aliases_added": 4,
+      "baseline": {
+        "before": [28, 30],
+        "after": [29, 30]
+      },
+      "shard": {
+        "before": [37, 38],
+        "after": [38, 38]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "best-visual-effects",
+      "text": "a film that won the Visual Effects Oscar",
+      "size": 87,
+      "canonicals_added": 0,
+      "aliases_added": 12,
+      "baseline": {
+        "before": [27, 31],
+        "after": [31, 31]
+      },
+      "shard": {
+        "before": [45, 48],
+        "after": [48, 48]
+      },
+      "invalid": 3,
+      "flag": null
+    },
+    {
+      "id": "bond-films",
+      "text": "a James Bond film",
+      "size": 26,
+      "canonicals_added": 0,
+      "aliases_added": 4,
+      "baseline": {
+        "before": [30, 32],
+        "after": [32, 32]
+      },
+      "shard": {
+        "before": [26, 29],
+        "after": [29, 29]
+      },
+      "invalid": 1,
+      "flag": null
+    },
+    {
+      "id": "bowie-albums",
+      "text": "a David Bowie solo studio album",
+      "size": 26,
+      "canonicals_added": 0,
+      "aliases_added": 7,
+      "baseline": {
+        "before": [29, 32],
+        "after": [31, 32]
+      },
+      "shard": {
+        "before": [29, 32],
+        "after": [31, 32]
+      },
+      "invalid": 2,
+      "flag": null
+    },
+    {
+      "id": "burton-films",
+      "text": "a feature film directed by Tim Burton",
+      "size": 20,
+      "canonicals_added": 0,
+      "aliases_added": 6,
+      "baseline": {
+        "before": [19, 21],
+        "after": [21, 21]
+      },
+      "shard": {
+        "before": [20, 25],
+        "after": [25, 25]
+      },
+      "invalid": 5,
+      "flag": null
+    },
+    {
+      "id": "disney-canon",
+      "text": "a Walt Disney Animation Studios feature film",
+      "size": 64,
+      "canonicals_added": 0,
+      "aliases_added": 6,
+      "baseline": {
+        "before": [31, 32],
+        "after": [32, 32]
+      },
+      "shard": {
+        "before": [57, 60],
+        "after": [60, 60]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "disney-princesses",
+      "text": "an official Disney Princess",
+      "size": 13,
+      "canonicals_added": 0,
+      "aliases_added": 12,
+      "baseline": {
+        "before": [14, 14],
+        "after": [14, 14]
+      },
+      "shard": {
+        "before": [14, 18],
+        "after": [18, 18]
+      },
+      "invalid": 9,
+      "flag": "Duplicates batch-3 disney-princess-lineup (same 13 official members); dull/plain and redundant. Merger may want to retire one."
+    },
+    {
+      "id": "emmy-animated",
+      "text": "an Emmy winner for Outstanding Animated Program",
+      "size": 37,
+      "canonicals_added": 4,
+      "aliases_added": 2,
+      "baseline": {
+        "before": [16, 30],
+        "after": [18, 30]
+      },
+      "shard": {
+        "before": [12, 14],
+        "after": [14, 14]
+      },
+      "invalid": 13,
+      "flag": "Baseline 18/30 (60%). The remaining 12 baseline misses are genuinely not Primetime Outstanding Animated Program winners (A Charlie Brown Christmas / Great Pumpkin / Thanksgiving won other Emmy categories; The Snowman and The Pink Panther Show were nominees; Adventure Time won juried/short-format; Kung Fu Panda: Legends of Awesomeness won Daytime Emmys; \"Garfield\"/\"A Garfield Christmas\" are ambiguous across four winning Garfield specials or a nominee). corpus.json is frozen, so the merger should annotate them invalid there. Shard corpus 14/14."
+    },
+    {
+      "id": "emmy-comedy",
+      "text": "an Emmy winner for Outstanding Comedy Series",
+      "size": 45,
+      "canonicals_added": 0,
+      "aliases_added": 4,
+      "baseline": {
+        "before": [32, 34],
+        "after": [34, 34]
+      },
+      "shard": {
+        "before": [27, 28],
+        "after": [28, 28]
+      },
+      "invalid": 8,
+      "flag": null
+    },
+    {
+      "id": "emmy-drama",
+      "text": "an Emmy winner for Outstanding Drama Series",
+      "size": 53,
+      "canonicals_added": 0,
+      "aliases_added": 3,
+      "baseline": {
+        "before": [29, 30],
+        "after": [30, 30]
+      },
+      "shard": {
+        "before": [25, 25],
+        "after": [25, 25]
+      },
+      "invalid": 7,
+      "flag": null
+    },
+    {
+      "id": "emmy-limited",
+      "text": "an Emmy winner for Outstanding Limited Series",
+      "size": 54,
+      "canonicals_added": 0,
+      "aliases_added": 3,
+      "baseline": {
+        "before": [29, 32],
+        "after": [32, 32]
+      },
+      "shard": {
+        "before": [18, 19],
+        "after": [19, 19]
+      },
+      "invalid": 10,
+      "flag": null
+    },
+    {
+      "id": "eurovision-winners",
+      "text": "an artist who has won the Eurovision Song Contest",
+      "size": 75,
+      "canonicals_added": 0,
+      "aliases_added": 27,
+      "baseline": {
+        "before": [30, 43],
+        "after": [43, 43]
+      },
+      "shard": {
+        "before": [46, 47],
+        "after": [47, 47]
+      },
+      "invalid": 3,
+      "flag": null
+    },
+    {
+      "id": "ghibli-films",
+      "text": "a Studio Ghibli feature film",
+      "size": 25,
+      "canonicals_added": 0,
+      "aliases_added": 8,
+      "baseline": {
+        "before": [27, 32],
+        "after": [32, 32]
+      },
+      "shard": {
+        "before": [27, 30],
+        "after": [30, 30]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "grammy-album",
+      "text": "a Grammy Album of the Year winner",
+      "size": 68,
+      "canonicals_added": 0,
+      "aliases_added": 0,
+      "baseline": {
+        "before": [32, 32],
+        "after": [32, 32]
+      },
+      "shard": {
+        "before": [33, 33],
+        "after": [33, 33]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "grammy-new-artist",
+      "text": "a Grammy Best New Artist winner",
+      "size": 66,
+      "canonicals_added": 0,
+      "aliases_added": 5,
+      "baseline": {
+        "before": [37, 39],
+        "after": [39, 39]
+      },
+      "shard": {
+        "before": [37, 37],
+        "after": [37, 37]
+      },
+      "invalid": 6,
+      "flag": null
+    },
+    {
+      "id": "grammy-record",
+      "text": "a Grammy Record of the Year winner",
+      "size": 68,
+      "canonicals_added": 0,
+      "aliases_added": 2,
+      "baseline": {
+        "before": [31, 33],
+        "after": [33, 33]
+      },
+      "shard": {
+        "before": [38, 38],
+        "after": [38, 38]
+      },
+      "invalid": 6,
+      "flag": null
+    },
+    {
+      "id": "grammy-song",
+      "text": "a Grammy Song of the Year winner",
+      "size": 69,
+      "canonicals_added": 0,
+      "aliases_added": 2,
+      "baseline": {
+        "before": [34, 35],
+        "after": [35, 35]
+      },
+      "shard": {
+        "before": [41, 42],
+        "after": [42, 42]
+      },
+      "invalid": 6,
+      "flag": null
+    },
+    {
+      "id": "hitchcock-films",
+      "text": "a feature film directed by Alfred Hitchcock",
+      "size": 53,
+      "canonicals_added": 0,
+      "aliases_added": 1,
+      "baseline": {
+        "before": [32, 32],
+        "after": [32, 32]
+      },
+      "shard": {
+        "before": [39, 40],
+        "after": [40, 40]
+      },
+      "invalid": 3,
+      "flag": null
+    },
+    {
+      "id": "international-feature-oscar",
+      "text": "an Oscar winner for Best International Feature Film",
+      "size": 78,
+      "canonicals_added": 0,
+      "aliases_added": 0,
+      "baseline": {
+        "before": [38, 38],
+        "after": [38, 38]
+      },
+      "shard": {
+        "before": [42, 42],
+        "after": [42, 42]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "kubrick-films",
+      "text": "a feature film directed by Stanley Kubrick",
+      "size": 13,
+      "canonicals_added": 0,
+      "aliases_added": 4,
+      "baseline": {
+        "before": [16, 19],
+        "after": [18, 19]
+      },
+      "shard": {
+        "before": [17, 21],
+        "after": [20, 21]
+      },
+      "invalid": 5,
+      "flag": "Baseline 18/19 (94.7%), shard 20/21 (95.2%). The only miss is the 66-character full title of Dr. Strangelove, which exceeds the 40-character input limit and cannot be typed; Dr. Strangelove, Doctor Strangelove and Strangelove are accepted."
+    },
+    {
+      "id": "mcu-films",
+      "text": "a released Marvel Cinematic Universe film",
+      "size": 38,
+      "canonicals_added": 0,
+      "aliases_added": 19,
+      "baseline": {
+        "before": [32, 38],
+        "after": [38, 38]
+      },
+      "shard": {
+        "before": [40, 47],
+        "after": [47, 47]
+      },
+      "invalid": 5,
+      "flag": null
+    },
+    {
+      "id": "nolan-films",
+      "text": "a feature film directed by Christopher Nolan",
+      "size": 13,
+      "canonicals_added": 0,
+      "aliases_added": 0,
+      "baseline": {
+        "before": [15, 15],
+        "after": [15, 15]
+      },
+      "shard": {
+        "before": [17, 17],
+        "after": [17, 17]
+      },
+      "invalid": 8,
+      "flag": null
+    },
+    {
+      "id": "pink-floyd-albums",
+      "text": "a Pink Floyd studio album",
+      "size": 15,
+      "canonicals_added": 0,
+      "aliases_added": 3,
+      "baseline": {
+        "before": [24, 26],
+        "after": [26, 26]
+      },
+      "shard": {
+        "before": [22, 22],
+        "after": [22, 22]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "pixar-films",
+      "text": "a Pixar feature film",
+      "size": 31,
+      "canonicals_added": 0,
+      "aliases_added": 0,
+      "baseline": {
+        "before": [32, 32],
+        "after": [32, 32]
+      },
+      "shard": {
+        "before": [31, 31],
+        "after": [31, 31]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "queen-albums",
+      "text": "a Queen studio album",
+      "size": 16,
+      "canonicals_added": 0,
+      "aliases_added": 1,
+      "baseline": {
+        "before": [21, 21],
+        "after": [21, 21]
+      },
+      "shard": {
+        "before": [18, 19],
+        "after": [19, 19]
+      },
+      "invalid": 6,
+      "flag": null
+    },
+    {
+      "id": "spielberg-films",
+      "text": "a feature film directed by Steven Spielberg",
+      "size": 37,
+      "canonicals_added": 0,
+      "aliases_added": 9,
+      "baseline": {
+        "before": [31, 35],
+        "after": [35, 35]
+      },
+      "shard": {
+        "before": [38, 42],
+        "after": [42, 42]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "star-trek-original-episodes",
+      "text": "an episode of Star Trek: The Original Series",
+      "size": 79,
+      "canonicals_added": 0,
+      "aliases_added": 0,
+      "baseline": {
+        "before": [36, 36],
+        "after": [36, 36]
+      },
+      "shard": {
+        "before": [46, 46],
+        "after": [46, 46]
+      },
+      "invalid": 2,
+      "flag": null
+    },
+    {
+      "id": "stranger-things-s1",
+      "text": "an episode from the first season of Stranger Things",
+      "size": 8,
+      "canonicals_added": 0,
+      "aliases_added": 25,
+      "baseline": {
+        "before": [15, 23],
+        "after": [23, 23]
+      },
+      "shard": {
+        "before": [16, 20],
+        "after": [20, 20]
+      },
+      "invalid": 6,
+      "flag": null
+    },
+    {
+      "id": "swift-albums",
+      "text": "a Taylor Swift studio album",
+      "size": 12,
+      "canonicals_added": 0,
+      "aliases_added": 5,
+      "baseline": {
+        "before": [15, 15],
+        "after": [15, 15]
+      },
+      "shard": {
+        "before": [19, 22],
+        "after": [22, 22]
+      },
+      "invalid": 4,
+      "flag": null
+    },
+    {
+      "id": "tarantino-films",
+      "text": "a feature film directed by Quentin Tarantino",
+      "size": 10,
+      "canonicals_added": 0,
+      "aliases_added": 10,
+      "baseline": {
+        "before": [13, 14],
+        "after": [14, 14]
+      },
+      "shard": {
+        "before": [14, 20],
+        "after": [20, 20]
+      },
+      "invalid": 8,
+      "flag": null
+    }
+  ]
+}

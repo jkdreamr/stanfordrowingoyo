@@ -1,0 +1,33 @@
+{
+  "buckets": {
+    "14": "\nanimal kingdom\t40\n",
+    "20": "\ncalifornia adventure\t15\ndisney studios paris\tg\nhong kong disneyland\t3d\n",
+    "3": "\ndca\t15\n",
+    "22": "\ndisney adventure world\tg\ndisneys animal kingdom\t40\n",
+    "21": "\ndisney animal kingdom\t40\ndisneyland california\t1z\ndisneyland park paris\t2c\n",
+    "27": "\ndisney california adventure\t15\n",
+    "23": "\ndisney hollywood studio\t5c\n",
+    "17": "\ndisney mgm studio\t5c\n",
+    "10": "\ndisneyland\t1z\nmgm studio\t5c\n",
+    "18": "\ndisneyland anaheim\t1z\nwalt disney studio\tg\n",
+    "16": "\ndisneyland paris\t2c\nhollywood studio\t5c\ntokyo disneyland\t2u\n",
+    "15": "\ndisneyland park\t2c\neuro disneyland\t2c\ntokyo disneysea\t6d\n",
+    "24": "\ndisneys hollywood studio\t5c\nshanghai disneyland park\t4q\nwalt disney studios park\tg\n",
+    "9": "\ndisneysea\t6d\n",
+    "5": "\nepcot\t65\n",
+    "12": "\nepcot center\t65\n",
+    "11": "\neuro disney\t2c\n",
+    "13": "\nmagic kingdom\t0\n",
+    "19": "\nshanghai disneyland\t4q\n"
+  },
+  "answers": "s\tMagic Kingdom\nm\tDisney Adventure World\nm\tDisney California Adventure\ns\tDisneyland\nm\tDisneyland Park\nm\tTokyo Disneyland\nr\tHong Kong Disneyland\nr\tDisney's Animal Kingdom\nd\tShanghai Disneyland\nd\tDisney's Hollywood Studios\ns\tEpcot\ng\tTokyo DisneySea\n",
+  "gem": { "answer": "Tokyo DisneySea", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Magic Kingdom", "tier": "surface", "points": 10 },
+    { "answer": "Disneyland", "tier": "surface", "points": 10 },
+    { "answer": "Epcot", "tier": "surface", "points": 10 },
+    { "answer": "Shanghai Disneyland", "tier": "deep", "points": 85 },
+    { "answer": "Disney's Hollywood Studios", "tier": "deep", "points": 85 }
+  ],
+  "size": 12
+}

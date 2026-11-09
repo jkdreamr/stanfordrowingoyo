@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "9": "\ncheekbone\t4a\nlower jaw\t24\noccipital\t2f\nupper jaw\t2w\nzygomatic\t4a\n",
+    "7": "\nethmoid\t57\nfrontal\tt\nmaxilla\t2w\n",
+    "12": "\nethmoid bone\t57\nfrontal bone\tt\n",
+    "21": "\ninferior nasal concha\t36\n",
+    "22": "\ninferior nasal conchae\t36\n",
+    "24": "\ninferior nasal turbinate\t36\n",
+    "8": "\nlacrimal\t3u\nmandible\t24\npalatine\t18\nparietal\t1o\nsphenoid\t4r\ntemporal\t0\n",
+    "13": "\nlacrimal bone\t3u\npalatine bone\t18\nparietal bone\t1o\nsphenoid bone\t4r\ntemporal bone\t0\n",
+    "5": "\nnasal\tg\nvomer\t5m\n",
+    "10": "\nnasal bone\tg\n",
+    "14": "\noccipital bone\t2f\nzygomatic bone\t4a\n"
+  },
+  "answers": "s\tTemporal bone\nm\tNasal bone\ns\tFrontal bone\nm\tPalatine bone\nm\tParietal bone\ns\tMandible\nm\tOccipital bone\nm\tMaxilla\nr\tInferior nasal concha\nr\tLacrimal bone\nr\tZygomatic bone\ng\tSphenoid bone\nd\tEthmoid bone\nd\tVomer\n",
+  "gem": { "answer": "Sphenoid bone", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Temporal bone", "tier": "surface", "points": 10 },
+    { "answer": "Frontal bone", "tier": "surface", "points": 10 },
+    { "answer": "Mandible", "tier": "surface", "points": 10 },
+    { "answer": "Ethmoid bone", "tier": "deep", "points": 85 },
+    { "answer": "Vomer", "tier": "deep", "points": 85 }
+  ],
+  "size": 14
+}

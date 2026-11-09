@@ -1,0 +1,24 @@
+{
+  "buckets": {
+    "2": "\nag\t0\nal\t9\nam\t6e\nar\t26\nas\t2p\nat\t4f\nba\t2z\nbe\t1d\nbi\t38\ner\t6q\nes\t60\nhe\tl\nho\t6z\nin\t4q\nla\t4z\nli\tu\nmo\t3i\nne\t1p\nno\t79\nos\t3v\npa\t5l\nre\t5b\nsi\t1w\nta\t44\nti\t2e\n",
+    "9": "\naluminium\t9\namericium\t6e\nberyllium\t1d\nlanthanum\t4z\n",
+    "8": "\naluminum\t9\nastatine\t4f\nnobelium\t79\ntantalum\t44\ntitanium\t2e\n",
+    "5": "\nargon\t26\n",
+    "7": "\narsenic\t2p\nbismuth\t38\nholmium\t6z\nlithium\tu\nrhenium\t5b\nsilicon\t1w\n",
+    "6": "\nbarium\t2z\nerbium\t6q\nhelium\tl\nindium\t4q\nosmium\t3v\nsilver\t0\nsodium\t14\n",
+    "11": "\neinsteinium\t60\n",
+    "10": "\nmolybdenum\t3i\n",
+    "4": "\nneon\t1p\n",
+    "12": "\nprotactinium\t5l\n"
+  },
+  "answers": "m\tSilver\nm\tAluminium\ns\tHelium\ns\tLithium\ns\tSodium\nm\tBeryllium\ns\tNeon\nm\tSilicon\nm\tArgon\nm\tTitanium\nm\tArsenic\nm\tBarium\nm\tBismuth\nr\tMolybdenum\nr\tOsmium\nr\tTantalum\nr\tAstatine\nr\tIndium\nr\tLanthanum\nd\tRhenium\ng\tProtactinium\nd\tEinsteinium\nd\tAmericium\nd\tErbium\nd\tHolmium\nt\tNobelium\n",
+  "gem": { "answer": "Protactinium", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Helium", "tier": "surface", "points": 10 },
+    { "answer": "Lithium", "tier": "surface", "points": 10 },
+    { "answer": "Sodium", "tier": "surface", "points": 10 },
+    { "answer": "Rhenium", "tier": "deep", "points": 85 },
+    { "answer": "Einsteinium", "tier": "deep", "points": 85 }
+  ],
+  "size": 26
+}

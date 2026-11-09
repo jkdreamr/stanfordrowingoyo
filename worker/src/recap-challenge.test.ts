@@ -102,7 +102,7 @@ it('backfills v9 best splits on team-local date and is idempotent', async () => 
     setSetting(s, 'schema_version', 9);
     migrate(s);
     migrate(s);
-    expect(getSetting(s, 'schema_version')).toBe(20);
+    expect(getSetting(s, 'schema_version')).toBe(21);
     const rows = s.sql.exec<Row<ErgTest>>('SELECT * FROM erg_tests ORDER BY kind').toArray();
     expect(rows).toHaveLength(2);
     expect(rows[0]).toMatchObject({ date: '2026-03-09', time_s: 400, split_s: 100 });
@@ -270,9 +270,9 @@ it('recaps the final race, My Fortnight week and games highlights in one respons
     complete: true,
   });
   expect(recap.games).toEqual({
-    played: 3,
-    days: 2,
-    best_dive: null,
+    played: 5,
+    days: 4,
+    best_dive: 70,
     word_guess_solves: 1,
     streak: 2,
   });
@@ -291,11 +291,11 @@ it('recaps the final race, My Fortnight week and games highlights in one respons
   ).toHaveLength(3);
   expect(quiet.plan).toBeNull();
   expect(quiet.games).toEqual({
-    played: 0,
-    days: 0,
-    best_dive: null,
+    played: 1,
+    days: 1,
+    best_dive: 80,
     word_guess_solves: 0,
-    streak: 0,
+    streak: 1,
   });
   await sql((s) => s.sql.exec("UPDATE users SET role='coach'"));
   expect((await (await api('/stats/recap', a)).json<WeeklyRecap>()).race).toBeNull();

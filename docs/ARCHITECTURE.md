@@ -276,7 +276,7 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 20; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 21; migrations run in the DO constructor via `blockConcurrencyWhile`.
 Version 19 transactionally creates the dated team-plan tables with IF NOT EXISTS and seeds only
 2026-11-09 with the supplied 14 slots (all zones NULL, no total), using INSERT OR IGNORE inside
 the guarded v19 step. It never copies the old example fortnight, modifies legacy tables, or
@@ -293,6 +293,11 @@ Versions 18 and 19 are unchanged.
 Version 20 also inserts Thomas Kelley as an unclaimed rower with null email, group,
 side and class year, using the seeded UUID scheme, only when no case-insensitive name
 match exists. The shared fresh roster includes him once; existing manual rows are preserved.
+Version 21 adds Dive-owned `dive_attempts(date,user_id,prompt_index,started_at,wrong_count,
+last_guess_at,suggestion_canonical,suggestion_answer,suggestion_status,suggested_at)` with primary
+key `(date,user_id,prompt_index)` and index `(user_id,date)`. Its self-contained guarded transaction
+uses `CREATE TABLE/INDEX IF NOT EXISTS`; account export includes these private attempt rows and
+account removal deletes them. Suggestion status is nullable until issued, then pending/rejected/accepted.
 Version 17 adds game progress before version 18. Version 18 adds `users.evening_reminder`
 (integer boolean, default 1), nullable `push_outbox.reminder_date`, and `reminder_sends(user_id,date)`
 with a composite primary key for daily idempotency. The guarded migrations run in order,
@@ -392,14 +397,19 @@ Results are written by the Worker transaction that finishes the game.
   and contact answers before `visibleMs` or claiming `contactMs > elapsed - visibleMs + 1000`.
   All timing rejections are 400, `Timing is not plausible for this round.` No progress is consumed.
 
-#### Enabled games for launch
+#### Enabled games
 
-`DIVE_ENABLED = false` in `worker/src/games/features.ts` is the single production
-switch for Dive. Launch includes Word Guess, Connections and Perception only.
-Set it to `true` and rebuild to restore Dive; no data migration or browser flag is needed.
+`DIVE_ENABLED = false` in `worker/src/games/features.ts` is the production
+switch for Dive. Word Guess, Connections and Perception are enabled; Dive is disabled.
+Changing the switch requires a rebuild; no data migration or browser flag is needed.
+`DIVE_AVAILABLE` uses that switch or the compile-time `__OYO_DIVE_TEST__` override.
+Only the Worker Vitest config and managed E2E Wrangler dev command define the override
+as true. All Dive tests run, and synthetic mock preview includes Dive. Production
+Wrangler config has no override; enabling a deployed build requires an explicit
+code/config change, not a request header, runtime variable or browser flag.
 `GET /api/games` returns only enabled games, results and enabled-game streaks.
 Clients use this list for the hub, game navigation and day boards; disabled game
-routes (including `/games/dive/*`) redirect to `/games`. Dive API paths return 404
+routes redirect to `/games`. If Dive is disabled, its API paths return 404
 for everyone, including admins. Existing Dive answers and results remain untouched,
 including in account exports; they do not contribute to weekly boards, played counts
 or recap highlights while disabled. A game streak requires playing any enabled game
@@ -482,17 +492,57 @@ Workout mutations invalidate the games query root, including cached Word Guess a
 Connections day queries. Perception resumes on mount after access unlocks, never from
 background invalidation that would abandon an active round.
 
-Dive adds four dedicated endpoints without changing the generic hub contract:
+Dive adds seven dedicated endpoints without changing the generic hub contract:
 
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
   (text only, empty when locked), ordered caller answers with their own prompt reveals,
   completion, immutable running score, verdict, caller's generic result and nullable team reveal.
   Only admins may see team groups before completing all five prompts;
   coxswains/coaches retain the same spoiler gate as rowers.
+- `POST /api/games/dive/start` takes `{prompt_index}` and returns `DiveStart`
+  `{prompt_index,deadline_ms_remaining}` (200). Only the next unanswered prompt can start;
+  retries reuse its persisted start, never reset it. The nominal deadline is 25 seconds with
+  2 seconds of server latency grace; remaining milliseconds exclude grace and clamp to zero.
+- `POST /api/games/dive/guesses` takes `{prompt_index,answer}` and requires start (409 `NOT_STARTED`).
+  `DiveGuessResponse` is `{outcome:'scored',answer:DiveAnswerResult}`, or
+  `{outcome:'suggestion',suggestion:string,prompt_index,deadline_ms_remaining,attempts_left}`, or
+  `{outcome:'not_an_answer',attempts_left}` (all 200). Exact/alias/auto-typo hits score;
+  ordinary misses keep the prompt open and increment its wrong count. Only after a miss,
+  and only before any suggestion was issued for this prompt, does the Worker run the local
+  near-miss matcher. It reveals only the single suggested canonical, never a set or another prompt.
+  Re-entering the pending suggestion's original text or canonical returns that same suggestion
+  without a rejection or wrong-attempt charge; the deadline and 400 ms interval still apply.
+  Suggestions are persisted pending; a different subsequent guess implicitly rejects one and charges
+  that rejection as a wrong attempt before evaluating the new guess. Every wrong guess counts,
+  including repeats. The 15th wrong locks in a miss. Nonempty guesses less than 400 ms apart
+  return 429 `TOO_FAST` with `Retry-After: 1`, without changing state. Empty/whitespace input
+  gives up immediately; a request after the grace deadline stores an empty-answer miss, even
+  with a pending suggestion. Deadline/give-up handling precedes rate limiting.
+- `POST /api/games/dive/suggestion` takes only `{prompt_index,accept:boolean}` and returns
+  `DiveGuessResponse` (200). Accept re-resolves the stored pending canonical and scores its
+  real tier/points, retaining the original typed guess as `answer`. Reject marks it rejected,
+  charges one wrong attempt and returns `not_an_answer` (or scored miss at the limit).
+  There is at most one suggestion per prompt ever. No pending suggestion returns 409
+  `NO_SUGGESTION`; replay after scoring returns 409 `ALREADY_ANSWERED`. After the deadline,
+  resolution stores a miss instead. Neither the body nor another user's/prompt's state can
+  supply a canonical. All writes recheck access and sequence inside a synchronous transaction.
+  All three write routes share the existing `OUT_OF_ORDER`/`ALREADY_ANSWERED` checks.
+  `DiveDay.pending` resumes only the caller's active started prompt:
+  `{prompt_index,deadline_ms_remaining,suggestion:string|null,attempts_left}` or null.
+  It is null for completed, past or locked games; expired pending suggestions are not returned.
 - `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
   accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
-  Empty answers represent timeouts. Trimmed answers are at most 40 characters; control characters
+  This compatibility endpoint requires `/start` (409 `NOT_STARTED`) and shares the 400 ms
+  guess interval and pending-rejection budget with `/guesses`, while retaining its scored
+  201 response for scored answers. Pending-suggestion replays instead return
+  the corresponding nonterminal `DiveGuessResponse` (200), without ending the prompt.
+  An expired start forces an empty-answer miss. Empty answers represent timeouts.
+  The server refreshes its clock after asynchronous reads/loading and rejects a changed team day.
+  Each prompt is independent: a valid canonical scores even if the player already used it on
+  another prompt that day. Any different pending suggestion is first rejected under the ordinary
+  rejection rule.
+  Trimmed answers are at most 60 characters; control characters
   are rejected. Canonical match (nullable), tier and points are stored at submit time in
   v16's Dive-owned `dive_answers` columns `canonical TEXT`, `tier TEXT NOT NULL`,
   `points INTEGER NOT NULL`. The first answer creates a generic result; payload is
@@ -518,7 +568,7 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
 The general-knowledge bank includes 203 active complete constrained prompts, alongside the broad
-curated bank. The catalog has 522 active and 82 inactive/loadable prompts, each
+curated bank. The catalog has 522 active and 82 inactive candidate prompts, each
 with a theme and optional cluster; related Japanese content shares `japan`. Constrained sets
 have ≥8 canonical answers and no size cap; broad active sets retain ≥200 and their bundle cap.
 There are no rowing/team prompts. **Before the cutover, selection uses the frozen 330-prompt legacy
@@ -533,10 +583,11 @@ Therefore retired legacy prompts remain loadable and all pre-cutover dates must 
 selector forever. A generated explicit cyclic schedule replaces it from team-local
 **2026-11-10** (`DIVE_SCHEDULE_CUTOVER`). The reviewed bank has 253 constrained prompts;
 the 64-day cycle uses all 203 active sets plus 117 broad fillers, without repeats. Fifty
-constrained sets are inactive but remain loadable: low-depth sets, award-era splits,
+constrained sets are inactive: low-depth sets, award-era splits,
 NASA selection classes, arbitrary cocktail categories and near-duplicate chemical/vitamin
 subsets. Each award has one all-years prompt; the IBA cocktail categories share one complete
-prompt. Generation
+prompt. Only IDs in the frozen legacy order or explicit schedule have runtime data and
+loader entries (currently 533); other candidates retain metadata and source specs. Generation
 fails rather than enabling an insufficient or unbalanced bank. The schedule builder
 uses all constrained prompts plus preferred broad fillers; each five-prompt day has unique
 themes/clusters and a size mix (not all ≤24 or all >120 answers). Python/Worker validators
@@ -578,14 +629,27 @@ secondary signal below resolved entities. Homographs use explicit contextual art
 titles and multiword corrections. ISO 639-1 languages replace the noisy ISO 639-3 tail;
 cities are capped at the 500 largest per country, movies at 1,000 per genre by source votes,
 plus reviewed additions. See the committed full-prompt review and familiarity snapshot.
-Generated Worker-only per-prompt modules contain sorted normalized-key length-bucket
+Generated private JSON assets in `worker/private-assets/_private/dive/` contain sorted normalized-key length-bucket
 strings, a shared canonical table referenced by base-36 UTF-16
-offsets, and constant Pearl/notable metadata. `sets.ts` returns
-lazy module data directly: no request parses a set, builds key maps, or incurs parsed-LRU
-eviction. Exact canonical/alias lookup searches the key's length bucket for a
+offsets, and constant Pearl/notable metadata. The generated `loaders.ts` contains only IDs and filenames.
+`answerSet(env, id)` reads one set through `env.ASSETS.fetch`, including inside TeamDO,
+and caches its parsed Promise per isolate; failed fetches/parses are evicted for retry.
+Exact canonical/alias lookup searches the key's length bucket for a
 newline/key/tab delimiter (no duplicate global index); fuzzy
 matching scans only eligible bucket strings, decoding only accepted candidate rows.
 The browser imports tier helpers/types only, never answer data.
+
+`scripts/assemble-assets.mjs` combines public `web/dist` and private Worker assets into
+ignored `dist/site`, which Wrangler serves. Private data never enters Vercel's `web/dist`.
+Build, deploy, dev and managed E2E assemble this directory. Worker tests bind assets
+directly from `worker/private-assets`, without requiring a web build.
+Asset routing remains `run_worker_first: ["/api/*", "/_private/*"]`; the Worker decodes,
+normalizes and case-folds private paths and returns 404 before invoking ASSETS.
+The privacy contract forbids public answer bytes: normalization redirects are followed,
+and case-mismatched paths may return the public SPA HTML rather than 404. The asset
+store is case-sensitive. `scripts/dive/check-private-assets.mjs --base-url <url>` checks
+real sets, encoded/slash/case/query variants and HEAD, recording redirect locations.
+The web and Worker bundle leak guards also enforce that answer data is absent there.
 
 The pure Worker matcher first checks normalized canonical/alias keys. Otherwise banded,
 early-exit Levenshtein uses no fuzzy matching below length 4, distance ≤1 for length 4–7,
@@ -594,6 +658,12 @@ canonical wins (aliases of the same canonical do not count as ties); ambiguous, 
 unknown, timeout and non-answer stopword inputs miss for zero. No external request or
 frequency lookup happens at submit time. Data integrity/matcher/selection tests cover all
 sets; `scripts/dive/check-web.mjs` checks built web assets for Pearl-string leaks.
+
+The advisory near-miss matcher is separate from scoring: length/letter-bag prefilters feed
+banded adjacent-transposition distance, token coverage and a lightweight phonetic key.
+Inputs below four normalized characters and non-answer stopwords never suggest; short lone
+tokens cannot suggest multiword canonicals. Canonical-level near ties return no suggestion.
+DP rows and letter-count buffers are reused within the submit; nothing leaves the Worker.
 
 The Dive client persists each 25-second deadline under a user/date/prompt localStorage key;
 reload/visibility changes use the original wall-clock deadline, expiry submits an empty answer,
@@ -661,7 +731,7 @@ aggregation picks up server entries. Use `useGameAccess`, `GameLocked`, and
 with no generic scorer; dedicated Dive routes handle sequential answers and immutable scoring.
 
 Registered daily games (all `higher`, scoring in `worker/src/games/more.ts`, public rules in
-`shared/games/` and private answer banks in `worker/src/games/`). Daily puzzles derive from the team date via a seeded
+`shared/games/` and private answer banks in `worker/src/games/` or `worker/private-assets/`). Daily puzzles derive from the team date via a seeded
 `mulberry32(fnv1a(id:date))` or a day-number answer index, so every teammate gets the same
 puzzle. The server recomputes every score from raw input; client scores are ignored, and
 malformed or implausible payloads return 400.

@@ -1,0 +1,22 @@
+{
+  "buckets": {
+    "9": "\nbalgarski\t45\nbulgarian\t45\nbulgarski\t45\nhungarian\t3i\nnederland\t1p\nslovakian\t5d\nslovenian\t6e\n",
+    "10": "\ncastellano\ts\nlithuanian\t50\nportuguese\t1c\nslovencina\t5d\n",
+    "7": "\ncestina\t2q\ndeutsch\ta\nenglish\t0\nespanol\ts\nfinnish\t2g\nflemish\t1p\ngaeilge\t4s\nitalian\t12\nlatvian\t5m\nmaltese\t5w\nslovene\t6e\nspanish\ts\nsvenska\t1x\nswedish\t1x\n",
+    "8": "\ncroatian\t3u\nellinika\t66\nestonian\t4h\nfrancais\tj\nhrvatski\t3u\nitaliano\t12\nlatviesu\t5m\nlietuviu\t50\nportugue\t1c\nromanian\t37\n",
+    "5": "\nczech\t2q\ndansk\t2y\ndutch\t1p\neesti\t4h\nengel\t0\ngreek\t66\nirish\t4s\nmalti\t5w\nsuomi\t2g\n",
+    "6": "\ndanish\t2y\nfrench\tj\ngaelic\t4s\ngerman\ta\nmagyar\t3i\npolish\t27\npolski\t27\nromana\t37\nslovak\t5d\n",
+    "12": "\nirish gaelic\t4s\nmodern greek\t66\n",
+    "11": "\nslovenscina\t6e\n"
+  },
+  "answers": "s\tEnglish\ns\tGerman\ns\tFrench\nm\tSpanish\nm\tItalian\nm\tPortuguese\nm\tDutch\nm\tSwedish\nm\tPolish\nm\tFinnish\nm\tCzech\nm\tDanish\nr\tRomanian\nr\tHungarian\nr\tCroatian\nr\tBulgarian\nr\tEstonian\nr\tIrish\nd\tLithuanian\nd\tSlovak\nd\tLatvian\ng\tMaltese\nd\tGreek\nd\tSlovene\n",
+  "gem": { "answer": "Maltese", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "English", "tier": "surface", "points": 10 },
+    { "answer": "German", "tier": "surface", "points": 10 },
+    { "answer": "French", "tier": "surface", "points": 10 },
+    { "answer": "Lithuanian", "tier": "deep", "points": 85 },
+    { "answer": "Slovak", "tier": "deep", "points": 85 }
+  ],
+  "size": 24
+}

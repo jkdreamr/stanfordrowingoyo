@@ -1,0 +1,4037 @@
+{
+  "reference": "d9f96cfed310ad709dd8cb89084c1eedfacf3118",
+  "epoch": "2026-01-01",
+  "files": {
+    "scripts/dive/legacy.json": "bad7a50bcafba7c6f1e45e94501b2b9a9d340207e83cda112a4b4e99813a367d",
+    "worker/src/games/dive/data/animals.ts": "6bec95e8ef35a511f065346cff1a65f3802a6168168f8994eb185ec974fcdf1f",
+    "worker/src/games/dive/data/dogs.ts": "0807ca6668be6f50a122eeaa23b093310b021dfbd06bf0025119ccbaab99e86f",
+    "worker/src/games/dive/data/dinosaurs.ts": "f5c552f6c771d9fe359443eda9f17112a04eca6ab98dfeba4563b5eb72fba82b",
+    "worker/src/games/dive/data/horses.ts": "12512aabe68776a756aa7e9423f6e353c9599472a651ad6bc846eeddc4389567",
+    "worker/src/games/dive/data/first-names.ts": "ac941da04d2463dfefed515485b034f7c0a0c472881290fd5fbab270b233a239",
+    "worker/src/games/dive/data/birds.ts": "869f1298b83dd6196830f1f86d409939578f6c04ef6f9d5cc0bab63dfd546665",
+    "worker/src/games/dive/data/seafood.ts": "6f8539f65e3f2e4af57a1acfa4ceee4186cac7eff74ee7d6be8739def23e7dbe",
+    "worker/src/games/dive/data/fruits.ts": "f63c33c1bbae2b39fe3cb0dc0d25940a18d16507e8a97abb4503adadfed63358",
+    "worker/src/games/dive/data/vegetables.ts": "84f141d9a6064869c897a0283b8406ba4ccb908731946ae194ea86ad4e53488e",
+    "worker/src/games/dive/data/cheeses.ts": "046d9d6e102bcc1dfcc9a1d991762fcb33b146cd3d4ec9bc0752fa7a97661d49",
+    "worker/src/games/dive/data/sandwiches.ts": "4f5e439200a7da5508b296b8eed26a4cbb1a1cf117c876ed39f1ac2cc140938e",
+    "worker/src/games/dive/data/sausages.ts": "3765798ceec0be53e4529f413c0acc201e45168c4693af458eb8bdc96dc8a9e5",
+    "worker/src/games/dive/data/apples.ts": "d3fa712da80c9684aea8e765e327eeabcb043b46cc9dccffeba43bbfee4901b9",
+    "worker/src/games/dive/data/tea.ts": "f7bcc2445b162b3e34b48ca9b8065556f256671974477891e58f23c02b691ce2",
+    "worker/src/games/dive/data/condiments.ts": "43aad38797fec46bd9f28356b46bbbc1539554b9d594c84be4a48e993919b6f3",
+    "worker/src/games/dive/data/beer.ts": "30d8953d8d93c95dc0e7734b5abf8be9d7a30e90099714f45b28e1231665735b",
+    "worker/src/games/dive/data/cocktails.ts": "221ed2407a4a21600504668694446b283f191cd667c31fea83b5f5151e9e8a1c",
+    "worker/src/games/dive/data/flowers.ts": "8f0403077b27abf5845d01030cbbc765fcaaac3fd6e45663d6c6d33aabfd23c9",
+    "worker/src/games/dive/data/plants.ts": "0ebd2813ed3d76da9a42edc92a238a244706a6ec4d14c645ce0467d19e9b007e",
+    "worker/src/games/dive/data/toxic-plants.ts": "2c35f02fd6915aef8aad8494e17e7c0d2736499a841ecac3edcf1941bad8df81",
+    "worker/src/games/dive/data/gemstones.ts": "67175212bbf6c1c3297a43eab120ead1466f7b4744351677f71dcd02ce23ff9a",
+    "worker/src/games/dive/data/fabrics.ts": "1d09f75f9e631aa3b0e1a401ffeabd1f9ef7bc55a14570c89b8f7c5439fa26a6",
+    "worker/src/games/dive/data/metals.ts": "8a192d46f46e4b928302c9ded3f87f92d8ba4854c23190fb7e752e07dfb732c0",
+    "worker/src/games/dive/data/clothing.ts": "4dc729318ec5f19a07fd4cad3c35dab912c696cdaf45e5110a2971f3ad281451",
+    "worker/src/games/dive/data/rooms.ts": "2295161d295d5c3eb5f89273c0627689745518c689a21e864e6427f4f2987b34",
+    "worker/src/games/dive/data/objects.ts": "6dbf6f0d12118b90a86454c7a671e5a406d3494e06bb3fa43e0adae79c05afe7",
+    "worker/src/games/dive/data/appliances.ts": "1dae6a7d22ca38db618a10196b3dac46ae9643463fd128fc62c4deb354e790d6",
+    "worker/src/games/dive/data/sports.ts": "f61c55351566254f802561e6f5de9b520c5e464eceb6988c529d07ba47454088",
+    "worker/src/games/dive/data/board-games.ts": "6c9cbfa2202bc5ef927133a3b471f07fdac53ec3b5aca133a2f4c18dbfd809eb",
+    "worker/src/games/dive/data/pokemon.ts": "3c195080945d3a89c724ad0d8e6b87d6d1526d6e92337ffe6de594ea59c292ee",
+    "worker/src/games/dive/data/wrestling.ts": "1508c18452dcb4886c288f76d709a5a8c4f355f92836247dcb8956d664e93748",
+    "worker/src/games/dive/data/monsters.ts": "48deccfe7db26197cf94df49f498efb3ae2969a940e21808b086f160c8c21d46",
+    "worker/src/games/dive/data/colors.ts": "54e380ac33fe4aa81955bd6a095ad3c9f6d62b0aeb143df6a8f1c8480ef33a5a",
+    "worker/src/games/dive/data/nationalities.ts": "3667ecb9890304a71f62b13b741fbd64d7ad4d2a9c5529433e578927599db2f4",
+    "worker/src/games/dive/data/rivers.ts": "82951f39500a04b930ad766d0e9b5290a37352e8da84021761283dae31ecd6c5",
+    "worker/src/games/dive/data/landforms.ts": "e6ab6f33a08b336160e3a3e426b1637aa212164e548c3f239a68be247f43277a",
+    "worker/src/games/dive/data/english-towns.ts": "022f80b462d5d6a6498db707740b4133e255606351b4213e879b59e5e0c6889f",
+    "worker/src/games/dive/data/tube.ts": "cdd7d9abc2523384e0c63096afae2cdc1cc2e2fe5273b8ca3031817d54b45b34",
+    "worker/src/games/dive/data/languages.ts": "8f01598e91110d62cb7a7ac4f89f466618a4a7d56c4a50932c5d2bc4f7a18fc3",
+    "worker/src/games/dive/data/scientists.ts": "62c0d3b2bd3134786594f701b6eb7aec577e0fce284458fb5e84e877abca8927",
+    "worker/src/games/dive/data/authors.ts": "a911a3e864d0ada97b10e9ff1658c8c832e3d369c4cb2ba514a51b277d09b27c",
+    "worker/src/games/dive/data/books.ts": "85bda8b09e11027bdf75bc273365fa89734ec0a99297cacb8bacc92738ecb8b4",
+    "worker/src/games/dive/data/british-actors.ts": "7d49db421a27889e4b05b113e89a26fec5810b52c97b9269f7934e8683ba5141",
+    "worker/src/games/dive/data/jobs.ts": "5ff8cc614c33a5a012e2aa2a8d35f48905e4c7e56364da18e80ab30927bbd1d2",
+    "worker/src/games/dive/data/subjects.ts": "b51ad4d0adf3b1fd58141cb797935589300611e57e2697dad02d78658b6db469",
+    "worker/src/games/dive/data/art.ts": "2605175cb72d9bffcdd9da419b4c1c4bee4b0ebff96c3f17a6441a9eb86ab25f",
+    "worker/src/games/dive/data/music-genres.ts": "2ea1dbedd79694ea3dcfcd0decef735b59b625d77a27bed1f3d942b85ea21af9",
+    "worker/src/games/dive/data/instruments.ts": "d84ccd626ea67b9c6c4d47775438715af2a8aaa4a8f801dc47e5627a4d39205c",
+    "worker/src/games/dive/data/rock-hall.ts": "4a0a4ef531d91c7560b8ea3cb131c83a51cfbd740ad504ce71843dbc65d70b9c",
+    "worker/src/games/dive/data/guitars.ts": "9856e404fef3308fd525b8346f10de0bfc68e55d05579e23aba8bbe1a3219785",
+    "worker/src/games/dive/data/movies.ts": "9680900d4163aa8b1be3d8b7408adccedb6709765b7ff1c62d08b7b4da9a461e",
+    "worker/src/games/dive/data/tv.ts": "8202604eaa320d9f59ed2680dcc052f6c1d6b76fd7a48367cfd51437add495f6",
+    "worker/src/games/dive/data/weather.ts": "ace27dc1633dd16866f5fd8aabf1be7e3eb7c6489981f66c046ffaa7155854d9",
+    "worker/src/games/dive/data/meteorology.ts": "e04b2a27dfcc3c3a096ce41e48a825910468fad0aa577e1c15d40f6beecc86cf",
+    "worker/src/games/dive/data/cars.ts": "65196e4c03ac56cffff62e6d2191bfb10186ece8395a564bad949fced7d9e0da",
+    "worker/src/games/dive/data/companies.ts": "136bd8247cdf9fdda23f14c9ace8b5d95c7ebe9e2dd64f7310c4b76c18241115",
+    "worker/src/games/dive/data/newspapers.ts": "a9e9f704840506bb8aa31f39de077cdad03f353cbcf256c56097670fa00d93c6",
+    "worker/src/games/dive/data/uk-parties.ts": "770a24842fa97f8716038c3d9cc3d280c009b6a627efff002d263515e90bf9ac",
+    "worker/src/games/dive/data/knots.ts": "416a67b874d63f666a9ba974a48f87988cd0fc4280cc291c608051790ae8ad74",
+    "worker/src/games/dive/data/tolkien.ts": "ecdb147e2ba891c47ad9f52987de2eb557bcb9989fff0d45026c243d4171b304",
+    "worker/src/games/dive/data/comedy-movies.ts": "be0232b6bd770067dd87dc600c732fd7e09b729f6a7a6b6075d2aa0618a0c59c",
+    "worker/src/games/dive/data/horror-movies.ts": "1d1045a5c99893217a788641591cd9dd17d89d3ceed89348b25ff69fc1eff288",
+    "worker/src/games/dive/data/action-movies.ts": "39b71242c645ba4ed673c523af635f0ad6e8509b14c37811bac2475c6ddf93e6",
+    "worker/src/games/dive/data/drama-movies.ts": "aa5ee54df633fedd96c285d92166c7a6231f59e8e12aafb27ebb968fd1e285a9",
+    "worker/src/games/dive/data/thriller-movies.ts": "2fa25ba4a9d6a4929047365a5b6e0ab1b653bff5a40f5b6bc69a1abcd6c38a53",
+    "worker/src/games/dive/data/cities-us.ts": "bf53c2af03f5331e83674a22cb028a0f5abcd4636993ddb051169ff218621f74",
+    "worker/src/games/dive/data/cities-gb.ts": "ca18b13ff0079f43af4ea41119788aad77a86af882bdfe0a8d591bddddcd7b72",
+    "worker/src/games/dive/data/cities-ca.ts": "69724a021e1f75e2a9acaa362ada8db1f284f2fdbff835eae4ace9cef5ace6e9",
+    "worker/src/games/dive/data/cities-au.ts": "546d0a979cfd80b13370e3970219f8ba843320b29b141e763fdbd06e7a8629b9",
+    "worker/src/games/dive/data/cities-nz.ts": "343349282d560a72e3a5bb6d01b42fced0d3d32f0fcc1723b876fccff861e4e3",
+    "worker/src/games/dive/data/cities-jp.ts": "d6a4b82c4abc03f8e0a897d63cd628b968a6cf608bb91f783e85226883546981",
+    "worker/src/games/dive/data/cities-cn.ts": "202e9828923f29659caa394661bc4d2ad01571b3922cbcb2d3dcf3cae5a444a8",
+    "worker/src/games/dive/data/cities-in.ts": "fa14ffafd0d994e3b9467ddeb4ad3748d53701750f439d6de47d3219076c6dc9",
+    "worker/src/games/dive/data/cities-br.ts": "be425be1df7511a22198a052ddb1dc64c1242067e4c2a88090c8793baa48d413",
+    "worker/src/games/dive/data/cities-mx.ts": "22943f5f52b3eb3f4297df718b904b49d31f2b9c69954990674cf7570a13627a",
+    "worker/src/games/dive/data/cities-fr.ts": "7b5b8e1034a5921cc0661b065eb5e22b42755e57702a4af85b53eae61a40b1a1",
+    "worker/src/games/dive/data/cities-it.ts": "ecb4673c24d333f7657815be90b2f7e3de7b82dc149b542778d2066fb08a230c",
+    "worker/src/games/dive/data/cities-es.ts": "a2ff92744e260a9d2659d4f002eef1e01c340d76d167dbc586492e6ae4566822",
+    "worker/src/games/dive/data/cities-de.ts": "820f35a4e91fda88f7e8a28507c8a83e20ae5af073753b664fa99ffb3e2c4115",
+    "worker/src/games/dive/data/cities-ru.ts": "686ea5f2d137c0c4c2303544b5b9fb84d8f72bb2aa379b2d78373091a024c046",
+    "worker/src/games/dive/data/cities-ar.ts": "7437b18ebbddb96eb37d911d9311cdd0df3d2e16d824af328ff7811b555f07c3",
+    "worker/src/games/dive/data/cities-co.ts": "64c9d72ad3f80eed76d44f52607fd5cc2295a29a589b7460e61ff5ecc9faafc3",
+    "worker/src/games/dive/data/cities-cl.ts": "589a31bf192ce8e74ac705bd599209617429085164e8b9cdbe48e5b0e7c7de19",
+    "worker/src/games/dive/data/cities-pe.ts": "6efd85aaecbfb1742d0db622a3d85d4f50884b3cf145ac8ce7e11d5621ad33cf",
+    "worker/src/games/dive/data/cities-za.ts": "651c437e63903487047518e74d5fc90eb302bd794fc5f83db9aa5caddbd2174f",
+    "worker/src/games/dive/data/cities-eg.ts": "38786ce5c47ebb9eda462f583cdcc934d4edf30218a7e2dd44c243c49cc9e52d",
+    "worker/src/games/dive/data/cities-ng.ts": "fced3e0cabd994bb9e93d971b30a981c3211e71b9146dae500342867d7b6b7c7",
+    "worker/src/games/dive/data/cities-gr.ts": "71dabd266ce81eb358acd1c7113ddd6c967d7454396ea463aaa5923c4fc684d7",
+    "worker/src/games/dive/data/cities-pt.ts": "e332db8c416b69b8a2b3baed2f188234d7189127ff562eed8e029525d701ec28",
+    "worker/src/games/dive/data/cities-nl.ts": "e79156a9f8214305d869b837c07cfa97bbfacd8e6e3fe199408f98640197c6dc",
+    "worker/src/games/dive/data/cities-be.ts": "dd8feb7cae992aa46338bb91575a72a3883fdab4d11e27cdeddbe2edbf899536",
+    "worker/src/games/dive/data/cities-pl.ts": "bed925184417fbcf2c17647a8d921915485437040305acf08b7a751eade2d4c9",
+    "worker/src/games/dive/data/cities-se.ts": "f5420ed37327da405aa03cd6d48a00c969d1d4e2c279747475b51055637e4028",
+    "worker/src/games/dive/data/cities-fi.ts": "091c3181a946e1ac598fc42fd62fbbc6d4204b1d7242d680e1f3976396741d3b",
+    "worker/src/games/dive/data/cities-tr.ts": "f85d9b50434c74a8644d0d847dfcd522f649691c61befae6064f0af60861e503",
+    "worker/src/games/dive/data/cities-th.ts": "4b0900e2552f5bac3fc64fdacaeb039733e573277161b009591ea41656bbdb29",
+    "worker/src/games/dive/data/cities-id.ts": "e7217712299829cfa3f247edf21a9369e1fe7bcb1970588d1e1df0c6be8fae0d",
+    "worker/src/games/dive/data/cities-ph.ts": "ee1c906984921fa928f3690cb969dd580a63e8f9666c98596b5b5cc5599e09c9",
+    "worker/src/games/dive/data/cities-vn.ts": "452d25ca508f1b124c2d4ab6d18fe4e693e146ec7bf246494f0b54ceb6e5db8f",
+    "worker/src/games/dive/data/cities-ie.ts": "e026d08804fb7fbbac53c5f47ce63aa35b0e917ddb6e90f845d8acc9db279e21",
+    "worker/src/games/dive/data/cities-ch.ts": "f2fd7453e271acfdd5e2086fe72c50e099b28f6a3ba557031ad538a6aee5a2d7",
+    "worker/src/games/dive/data/cities-at.ts": "91ab08cb5781a0ba3ddc34f40bbfaec1401b70823b841624b6cca93ac2a9b922",
+    "worker/src/games/dive/data/cities-no.ts": "ac7cafe0cd5a8de8113bdf7fda9c5f2f19da78913a605cbfccb67bdd9bbbe117",
+    "worker/src/games/dive/data/cities-cz.ts": "2a5a958d7d257994d2157598673abbd3608206ddc82f6dc7e36e6c22bd4beee6",
+    "worker/src/games/dive/data/cities-hu.ts": "74cbb6f03946ef77d8e3048d1325139bed95a1ecf5102cbfdad5b3b824f02729",
+    "worker/src/games/dive/data/cities-hr.ts": "36d41d801a0da1b18109ee2c37dc23639e196f11f67ffc827be2d9bb989ad662",
+    "worker/src/games/dive/data/cities-ma.ts": "b326ea3d887956aa781801025bdfb76eeb3a5e2f793eb6a6dffa23a8eba6740a",
+    "worker/src/games/dive/data/cities-my.ts": "216300643028656ef20ba11e5688cb9fc8865f1fc5204601104cfea187d7f1f8",
+    "worker/src/games/dive/data/cities-pk.ts": "1584675b81aabdb6eefc3e298791d0139bbab81ba660ccd3730eb7da9d120248",
+    "worker/src/games/dive/data/cities-ro.ts": "87e59c4bbec7231505485c56e22e2f1b07d896e6124208ac08b06c26322956b7",
+    "worker/src/games/dive/data/painters.ts": "44054fba76fda6a9951860e87e3cebaffc7588c55d1f397091e939407c0a66fb",
+    "worker/src/games/dive/data/composers.ts": "f342bd0fb342a2306420fc10613319700be3b665fd8e1c7b56eb4230c98e4b09",
+    "worker/src/games/dive/data/physicists.ts": "e3da547feea9e6efa56849eb107d3a129565ed1945825ad24fb06d42b1cdd7a9",
+    "worker/src/games/dive/data/chemists.ts": "8a57fc2521b663ddb344517aefde93376ab5895b00d0c415d69ad2e2a34d3aa0",
+    "worker/src/games/dive/data/mathematicians.ts": "de7bb0f5e4edb99f955fda1b9703aaa3d88fe7f6c8faeaffa0c4983796414d44",
+    "worker/src/games/dive/data/philosophers.ts": "fc2efadc7bcee9ff2f5b91e665980bb0c841720d55d3bd43098b5690fc4b5a58",
+    "worker/src/games/dive/data/poets.ts": "e1d8a5b13cf76fd5b866fab6d845bb8176244cb5083c04d6681d948cb4ce919c",
+    "worker/src/games/dive/data/playwrights.ts": "2c4d51e771d1c2d876e1d19b5cb2f2171c73b1b29bfc26ab694d3212291f3e9e",
+    "worker/src/games/dive/data/architects.ts": "7c7698dc01047f59977610535a0458461eb474ae61982f52fff4f40b7eda8847",
+    "worker/src/games/dive/data/sculptors.ts": "0e2ff7aec24c89dfbfa79a8ff2926131200d46fa326bc93369c4e9aab6978259",
+    "worker/src/games/dive/data/photographers.ts": "0a44d5ddc32992ad8f836e943ffa804a647fb8aeee3c664215c0bfec764f30f5",
+    "worker/src/games/dive/data/directors.ts": "5150f7be91053165fc2e1143d36e951c70a0865dcfb8d4a217e741319f944667",
+    "worker/src/games/dive/data/american-actors.ts": "c58f954b8021b346dedca98a2044da328a72002c8d5028a75d4d960c467ba77e",
+    "worker/src/games/dive/data/singers.ts": "7c09575f2506d299a60890483f53b2c709830f1703387fa679a1bac86724947a",
+    "worker/src/games/dive/data/rappers.ts": "97676ea8b591d6be656c1ab16ac2323e598d0016811b00d1a6975680d252ce94",
+    "worker/src/games/dive/data/guitarists.ts": "84669133670ec9506d6eb90e47b4581781445217ac1db03e0500c46a398431ac",
+    "worker/src/games/dive/data/drummers.ts": "07bb9e9691863d74c118f058c9e3a26280465e15885ec1a9a248795a20599a36",
+    "worker/src/games/dive/data/pianists.ts": "ba13640ed94f57228faa9d29bc22b19ccd199c40b58dd0b1d49b362aa52edb37",
+    "worker/src/games/dive/data/jazz.ts": "c4fc1269a35827c44c138f1148f7a012e69439263b69a9de585c9f4e9db615bf",
+    "worker/src/games/dive/data/comedians.ts": "b7dc51a20f878fe5d1d4b961b9cc98067da8f481bb2391f3dc92c6c7768cdc6d",
+    "worker/src/games/dive/data/astronauts.ts": "aca43e0024c3e36a4e5c7c994af123efa2ed4208679d48e45cec15e99741e84b",
+    "worker/src/games/dive/data/explorers.ts": "e537db260c58ef82b5e7590bbc7ffd3722db565ada3d024e753e1de13e78960c",
+    "worker/src/games/dive/data/inventors.ts": "74dd4d4c91cb432059a262a8a4831db3f25837fdff6091a1dd9802a17e005a54",
+    "worker/src/games/dive/data/economists.ts": "4f5fafb43f00358e4d8a87046b011be5a6bc1fb4c688084958237f67207f1416",
+    "worker/src/games/dive/data/psychologists.ts": "c07008003b2382a7890dc59e7620cba509a255847fea0301a641bb085d7dfdf9",
+    "worker/src/games/dive/data/astronomers.ts": "bf74258ac2b1b54cace80b1f1de939a1de6e5e3d6a1cc89020c8552316ca0cf9",
+    "worker/src/games/dive/data/biologists.ts": "313106b1ec94d8e6e2eb087c7a0d520bcc6b50615b47cd3045bdd862d5aa73fc",
+    "worker/src/games/dive/data/chefs.ts": "7b8149af2597e92b1337a3ce181d68ade729780fcf4695a7cec393ae2fdec82d",
+    "worker/src/games/dive/data/fashion-designers.ts": "3fcd4b5d6bf05c706da259dc6fa96f2622fec641054475e0ce7b68ca2a2ea4c4",
+    "worker/src/games/dive/data/soccer-players.ts": "67d442fbeba832b2655cd63539d34299245a3c46cd639136552d76771567b19b",
+    "worker/src/games/dive/data/basketball-players.ts": "4d5e97fc95d91d0d5e93020831532e34483d23b0a7d0fcd7ed0d98a07742c2cb",
+    "worker/src/games/dive/data/baseball-players.ts": "75945b9d5c3500335fbeaaa26ca2a124b1afcd8ba89235b874eb10dce536fbc9",
+    "worker/src/games/dive/data/nfl-players.ts": "fa73d501de37202f9f2213bf2fb25a04ad6f61d19f82988082fc0e455d579674",
+    "worker/src/games/dive/data/tennis-players.ts": "f32b6b4ff82322838e0522ff921413ceec64d1992aa0605e169595611f9df396",
+    "worker/src/games/dive/data/golfers.ts": "08d4eb5b3b2d5165a46c4d64cdad91702036670592b624315198bd16c5550af7",
+    "worker/src/games/dive/data/boxers.ts": "60e8576f366f6f254e65ce5cd3a7153a5400b4c3d3b6215f65ca0110ccd7e033",
+    "worker/src/games/dive/data/f1-drivers.ts": "6fcba36efd46628f42a74b2c7ab8d2ea5c39ed2cb00f4b2a4dc37c59ea861c7b",
+    "worker/src/games/dive/data/hockey-players.ts": "017bf7d5a31c36de9d0ac3bb1c98e995bb7aaf93f79cb55041e362a786473494",
+    "worker/src/games/dive/data/cricketers.ts": "2a26b7ac77ff05ebfe0b8eb51ad6ac60559169607ef60abe5e92c8f90382d48b",
+    "worker/src/games/dive/data/chess-players.ts": "de18caf9989baf07e3c3a86ca58050ce906d411f6eaceabc620f7a28200b337f",
+    "worker/src/games/dive/data/swimmers.ts": "248efac157d11ecbf2051a535681b3ade6c2438d2da4a71ab155fcc180e889d4",
+    "worker/src/games/dive/data/track-athletes.ts": "fe4f1b05262128856a3678aad24ccfda0aadea00270353d37bf294e74eb7c7b3",
+    "worker/src/games/dive/data/figure-skaters.ts": "ef3c6aa435f54bd9f4e1d2a953fdcbdd7c5e52897265521bc88c9bb5dcf1b203",
+    "worker/src/games/dive/data/cyclists.ts": "ec03789b87c2c601903134085f2d426abb4092770ed1df671a40847bc0f03cef",
+    "worker/src/games/dive/data/skiers.ts": "95270dc435d15908638d09076c8441ff40f24b0f45761de6b34f25abc3346bbe",
+    "worker/src/games/dive/data/gymnasts.ts": "0b6fb360a2ba8642645c56834a3c68f9e304f868900d416e419d56f59d54bc98",
+    "worker/src/games/dive/data/pro-wrestlers.ts": "cc5664bdc96c6a4c34354a116f97932f35ea548ae763656927c8f7963ab7bc4e",
+    "worker/src/games/dive/data/mma-fighters.ts": "55651ab4ee70d6ff085075dbcd145fc3793b1e8e102b23970388d74b45793ded",
+    "worker/src/games/dive/data/historians.ts": "28978c693edfaf8d776dcd5d546d200577060f19c1b0c7c973dfd9a430e8a8b9",
+    "worker/src/games/dive/data/childrens-authors.ts": "c9b1dc8ef0e2f49fbf211362270e740899b7fe994a7f82bcbfb5c0adc6c4c1fb",
+    "worker/src/games/dive/data/scifi-authors.ts": "0403e4c91570fd2658cd2a55e1c5aee549a20be146b55a1ecfe2528ebaafe723",
+    "worker/src/games/dive/data/youtubers.ts": "8119406afcfcfad20184fa66390980288b32bbd2690bbde159833ac2ea255216",
+    "worker/src/games/dive/data/cartoonists.ts": "38c958d3bf0ba6adfb63e7ae0aa7dd52c30152c038cd5e02400c77541809acce",
+    "worker/src/games/dive/data/opera-singers.ts": "fed881fe1ac66f529c73029fc5e41b2cd29c1b410b1bdfe39af99dccae784aca",
+    "worker/src/games/dive/data/country-singers.ts": "4958b4ba584d73ed3ef77f078d09fd17267a6cc2b9597514e9be048ba0e3ad96",
+    "worker/src/games/dive/data/djs.ts": "d54a50782aceea053430463b6038eae793fad4cc077de4f5cd3d7fcf82535ca5",
+    "worker/src/games/dive/data/entrepreneurs.ts": "7de13881635004b0ce2aab831165d7a0ada6597daf9bdc9fad10aad0e0f239f4",
+    "worker/src/games/dive/data/violinists.ts": "a84ee72c3913a58f6e89c050e4235ac04720909e5255163f0ea34e82c4620ee0",
+    "worker/src/games/dive/data/conductors.ts": "28a55a9740b15748cfa0df6683235eb8a3c412e34ba0443103735afb3468c2cd",
+    "worker/src/games/dive/data/monarchs.ts": "4f3f579925942115a4744bfa8e59e92949173092feb11e0c6247185deb05bced",
+    "worker/src/games/dive/data/ballet-dancers.ts": "5c85521baaad8bd1f0bf66b24fcdf99bb4144ce7c72e410ac6a7b64b7d596c46",
+    "worker/src/games/dive/data/magicians.ts": "00e9952d7f021455dc8d424a7b61f8c7d50b4017067c4b0a0f522d5ce327f376",
+    "worker/src/games/dive/data/rugby-players.ts": "0d07aae99914643f997cf8b72bcfefca5c31e4767945a32c2574d533e2a485be",
+    "worker/src/games/dive/data/tv-hosts.ts": "2fc15dc690d88fd28d7b148f59e9fff2a69643c1983a79c9be884b659651a3de",
+    "worker/src/games/dive/data/mountaineers.ts": "66d0e7aeb6f043d86a07193f4715d547bc13f4819493690e0148af94138ce57c",
+    "worker/src/games/dive/data/animators.ts": "478299421cb48fdb927ecebb2d8c58f25805eb813f31ab6b3a3a9101c7c80591",
+    "worker/src/games/dive/data/computer-scientists.ts": "ba08dab88dd26b920ed402e2f657ad3f8d9f11cde8af4cccb710e13a4627de28",
+    "worker/src/games/dive/data/nobel-laureates.ts": "dddc99df0ebf2f3496872a78247c9cd3a2820e9fbbea7a20b226e08d3e859a65",
+    "worker/src/games/dive/data/oscar-actors.ts": "68670bbce247b6662cf73808c468d49f38932d47cd26d132f902ad6d65a18db2",
+    "worker/src/games/dive/data/superheroes.ts": "21b30316755d5164fe8fa9e332be9be79e776b315a3cc5983635a46f1904b21a",
+    "worker/src/games/dive/data/marvel.ts": "bf3ac21f590dcb0d57ac2f5e2a0795240101c1c994225d338875b74f381b9e9b",
+    "worker/src/games/dive/data/dc.ts": "42d6e65de775db127b5f68d98ccd6cfc6dfa9e5d89ddf6813013574ba2265353",
+    "worker/src/games/dive/data/harry-potter.ts": "cdf9f05f9bb670dfd1e94bab0d10cb1ce64162111814c5ea26da778b50679a1c",
+    "worker/src/games/dive/data/simpsons.ts": "ec7be749170c242b1c91f1878c805e32cf5d33580bfb573a421962fbd3e43462",
+    "worker/src/games/dive/data/game-characters.ts": "dcb5b521a54a7883cd76605bfed95c5505065f2f11db3d142dee304c8669b0c7",
+    "worker/src/games/dive/data/cartoon-characters.ts": "6c772ef2bf6b056e8201ee1e6b7ae4544759e56253208c91a5099c00d248ab75",
+    "worker/src/games/dive/data/anime-characters.ts": "b6197dfc65c852ef949e30c886a12469e6af0149a2cc8b25facd69c230e78edb",
+    "worker/src/games/dive/data/greek-myth.ts": "b84eea712438b5ee940fe19e3bb130ee0acd0c7a3820ef9083ee21b564926581",
+    "worker/src/games/dive/data/norse-myth.ts": "53567659429c65af049988fe644585244bb1ee743da7dc00a339ce8cd7a13d6f",
+    "worker/src/games/dive/data/literary-characters.ts": "170ff939745629ffb8e48a1b5f041f9995ce32870b932d991ecac51a57192f55",
+    "worker/src/games/dive/data/films-classic.ts": "1f3c56837b07d840b3fa5cf270e59ef345a5ddd6dca8d0e06c188d231720d123",
+    "worker/src/games/dive/data/films-1960s.ts": "eebdb14e17c7de81c8aede0253d31190cc189b57963818dece42fc70eafd07fc",
+    "worker/src/games/dive/data/films-1970s.ts": "101896adfac1b655f0e32bf4f381d38168cf1bac12be437889453780d9dddfc3",
+    "worker/src/games/dive/data/films-1980s.ts": "0ad06ebcd4b2e4329e1e0b30c18c0354df16c7b78210a541835149f9be38be95",
+    "worker/src/games/dive/data/films-1990s.ts": "63aa82f8d1f582c1175e900fce7dae8870181632f71a3a3b29fe679e2586c93d",
+    "worker/src/games/dive/data/films-2000s.ts": "df33453b1e9f7bbca3bf92db2460811c5cfe61e342d5d7d62683a8bbaaf6827a",
+    "worker/src/games/dive/data/films-2010s.ts": "19c64cf2cd14889e9821c1bbbba156a094cc95e1eff84ec915e413ed8eeb7d54",
+    "worker/src/games/dive/data/films-2020s.ts": "083a2588a9d53f26b26ff6a7fa57f2203aadeddfd6ebb9ca6390196b74b6dc42",
+    "worker/src/games/dive/data/scifi-films.ts": "5f90fbd0b657136985f9420014851424eb4668f33e7c8799a352d3685d175887",
+    "worker/src/games/dive/data/fantasy-films.ts": "c2f1ab1d78e358c25573aea2fa73531651804f21dc647aae52a0a019c2a6442c",
+    "worker/src/games/dive/data/animated-films.ts": "603b6cfa7f8d10aa1a12a2f3bf2c1e9daa1571ff05d5961d14697bc611e91fe3",
+    "worker/src/games/dive/data/romance-films.ts": "113d931a75893ed2beee7511170024dd6e9dc369b63cd7b614b4f74262a70a7c",
+    "worker/src/games/dive/data/westerns.ts": "6bb356bca6d4e54cc9ae22264d25e7ecaa43f05c7e663e5a7ed455254a2969e4",
+    "worker/src/games/dive/data/musical-films.ts": "7de07cf7ed905d08579ead05fa989b5350c4799b418b30fdb2e4a5606f0a21fb",
+    "worker/src/games/dive/data/war-films.ts": "f64c950269386d0ed97f488bf90a5d8186e7f047bee49410fc01bafbfd0bff05",
+    "worker/src/games/dive/data/crime-films.ts": "e01d84b30a35a8f4f16d15f6388dfde08453fce75843bdddd740b4b3e22baa34",
+    "worker/src/games/dive/data/superhero-films.ts": "658bc62f575f0bde4420c37b2ead242ca099797878302851b932c61b88011a29",
+    "worker/src/games/dive/data/christmas-films.ts": "70e66235009f7cf79a2180f718181106e69a631d8325e0719eaba19974cd98ac",
+    "worker/src/games/dive/data/teen-films.ts": "7bafb7909d24874b29038c11491a314116d07ebf62cf075a20e57285e8e442f9",
+    "worker/src/games/dive/data/spy-films.ts": "082aeb26fd189a610683989131278870c9d740c71d28d6911c2e279e67b890ce",
+    "worker/src/games/dive/data/martial-arts-films.ts": "3fe51481bd27c8c17dfc138c5f0b4958193886101460076903c142e2458c4bb2",
+    "worker/src/games/dive/data/biopics.ts": "9076dafd1fe76a32c530424d2283b6fcbeee45b25c082db50df3d30e575e3d5a",
+    "worker/src/games/dive/data/romcoms.ts": "68cc4a11864f89e0243400a9a1e140c71064bcf1258af7fb05a1a38540a17cca",
+    "worker/src/games/dive/data/mystery-films.ts": "794907fd32762cb6f79d77a7e102f0a8abd942e84892851c417fbf013ffc86cb",
+    "worker/src/games/dive/data/adventure-films.ts": "39ae81e312a75bf4694557fa841f96a5676de0b46b11535e81ac25e2fb68fc93",
+    "worker/src/games/dive/data/disney-films.ts": "cb65bb4d3b9165b91fd26610d16d9dd76f3689207d97f65367b2baab62ae84db",
+    "worker/src/games/dive/data/bollywood.ts": "7fcf029677d1a14868281a5bd1d0b13775f89bdef19a43a8c3f98c441fee9d9a",
+    "worker/src/games/dive/data/japanese-films.ts": "e486a6484d3ef3699ede995a61be1de859eb9dea9c8db39a57b04df9d63794f5",
+    "worker/src/games/dive/data/french-films.ts": "bb6f65bafccaa3b85eda04e755a142c122042891bdf573cd5b4407adef8a3ba0",
+    "worker/src/games/dive/data/sitcoms.ts": "1e368199227b4939a43ceb7c62f8383e7bfcb10687d08aa07ebbc1d5ee6bc865",
+    "worker/src/games/dive/data/animated-series.ts": "ed162e64db197f22f1d7729a86c726056bf5ff4699aef9366353ab7abcdb4622",
+    "worker/src/games/dive/data/reality-tv.ts": "c5592d18db9a1cbf402904ef772c6abd41be51c30d41511a8d061ac58bf9f3a9",
+    "worker/src/games/dive/data/game-shows.ts": "b863deb50103783f4a1f3aa2d3bb1d7945990f644a6204c41f4138002e6b9f05",
+    "worker/src/games/dive/data/soap-operas.ts": "fc520ade8eee7779ee0f7aeeed0f5861d8af93b9d63a12b2a807147147efd99c",
+    "worker/src/games/dive/data/anime.ts": "fdfe3858f52863c7ca440ffbd0d1a986f668c1f5f4d04e4e8f0e940ea0ef3ce6",
+    "worker/src/games/dive/data/british-tv.ts": "b26460ea57248a83ee6a2824f3304161e435ea7162206c7921bcb127afe37538",
+    "worker/src/games/dive/data/netflix.ts": "2f31ac0e0b4624f198b3e62afe1be9b7ae4539a4764fcdda234c5cec6ef03025",
+    "worker/src/games/dive/data/hbo.ts": "82dcd76a8edfc3d7b05248bcb6880046f255e673993d092a1f36769662a8789b",
+    "worker/src/games/dive/data/kids-tv.ts": "c95068412766e7c31b27db96a6261c732eaa98883e9f95cf38c6758742812330",
+    "worker/src/games/dive/data/k-dramas.ts": "f50a0341a4743cc633b9a6a844fb0a4c81b3b39726e072520017085870a16c51",
+    "worker/src/games/dive/data/tv-channels.ts": "87ac1161ac5e5599f858164f15f57760754d3e1adba4be1caa1145f98447d097",
+    "worker/src/games/dive/data/scifi-books.ts": "82348f2ecdea72b0b7c90022f8dddaa2aaeb1e8922f75e15379c74c5164de504",
+    "worker/src/games/dive/data/fantasy-books.ts": "55c4926ca9e874723b53a7f8cd675843ffca6b68b42a8b7f1a04aae7bb525b20",
+    "worker/src/games/dive/data/mystery-books.ts": "b56f872b512052726f312eabbf876458b2e5c6b3f6b4132599d00559078ffab8",
+    "worker/src/games/dive/data/classic-novels.ts": "53264130d2f583e6c75ade38fcc4979cbed64a771d124770b2b7ab0c012816e7",
+    "worker/src/games/dive/data/comic-strips.ts": "9c9b18b23cbf3459a800408139a6563e9a17dfcd2652a61b8e51704210989d9b",
+    "worker/src/games/dive/data/manga.ts": "0c06853a4140ec2b1ef2c03729851e63c60c062654f6e5bcc67d2205e8c6f73a",
+    "worker/src/games/dive/data/comic-books.ts": "cb10a76c0aaf9893779235a9a6b00db84ca2397bbb4ee862163b6e6a9feaf9d3",
+    "worker/src/games/dive/data/fairy-tales.ts": "ecce06258a39249f92eae747701434990199df842289b0d81ca197903a9beaa3",
+    "worker/src/games/dive/data/albums.ts": "f76fa3760ac908fd3654895eedb060944ee1f3f8e07b24b6351c9eb12ae5cadc",
+    "worker/src/games/dive/data/songs.ts": "d451c43ef11054501527d6b83124eea0d32473c669ead68a0e3770ae6dd19b33",
+    "worker/src/games/dive/data/ballets.ts": "60c0a06a1d0dd5a92396ae0018f1cb2ecf9a6bfef3a8c926cfe88128cfbc7582",
+    "worker/src/games/dive/data/rock-bands.ts": "9a8afdba75a343510224319dab547a7ea71ece35299a4a5b79c5dbb1675ce584",
+    "worker/src/games/dive/data/metal-bands.ts": "dbe208f711cbcba9f11099fc1af0f0ee0000584b0a9ea2285fc05e522311d471",
+    "worker/src/games/dive/data/boy-bands.ts": "daf82907d155d6a737468393fcdd5536234d7a8d6bdea2c7abc7dda63f09ac27",
+    "worker/src/games/dive/data/girl-groups.ts": "394525286fd93d60b341b77fae68b833df1d719221578342db0712187ab0459d",
+    "worker/src/games/dive/data/kpop.ts": "9623866cccd96f0c70fea3b2eb08a79440527ea3e500c246594d0c7e0a671826",
+    "worker/src/games/dive/data/music-festivals.ts": "313f46c8b2e24e018e7f2246b933bcdcf788654365dfcfb714bc1b9a7b23dd4b",
+    "worker/src/games/dive/data/record-labels.ts": "11a5702d5f93856dccd75efb57b1ab4d2f247ac891b692311800fcb74133fcdb",
+    "worker/src/games/dive/data/sculptures.ts": "da0c4fff3ad866cf2927b0dbe37cac5c9112e53b71e7c11ef3f217872043af3e",
+    "worker/src/games/dive/data/video-games.ts": "ed736c0bd162eb0ed676d1eaf6121d98f8197a14b2128a407ab110cd7eb9d8c2",
+    "worker/src/games/dive/data/nintendo-games.ts": "d7ad7b43fad054fa5f85920931689daa10a6b461c2e214c9c3f504550a115150",
+    "worker/src/games/dive/data/game-series.ts": "8805afcef2151513b083e0fa46f2859146b981ccba3e58321152dae208bd8845",
+    "worker/src/games/dive/data/card-games.ts": "5d5429b40582cf2ccfbc71595e0f84bc8578f67c961a95ebc3f66f6380de1a8c",
+    "worker/src/games/dive/data/toys.ts": "abe322546f1c34b830c5e2c085718b5f2dd1f393e0283961e7a864c41b8e4019",
+    "worker/src/games/dive/data/car-models.ts": "e2fc1d84bb530e735cf213d48b74d73aeb010824424b36a7295099b3fc9d8e1d",
+    "worker/src/games/dive/data/airlines.ts": "1a5a4b98c57b1c35cdd2ec6de1820c75ad9f79a6eea78530368e2286d4df6cb3",
+    "worker/src/games/dive/data/airports.ts": "156a42bcd1ea417bb6ff88292c00ec00315afee12d43a7f93635a073cb65d530",
+    "worker/src/games/dive/data/restaurant-chains.ts": "af43226e9d5be9739a0a7d6ff0342ed90fe60928e2a47805e0e29a45d58e9f03",
+    "worker/src/games/dive/data/retailers.ts": "5654d5439d653b09479772db462ca6f7b5bf486ce05305f6a463966949248647",
+    "worker/src/games/dive/data/soft-drinks.ts": "c5492ba1e97fab7505356fc79b1b0e8cdcbd165fe197b43ff47332da88cebe66",
+    "worker/src/games/dive/data/candy.ts": "ad0978cf62a83e47581bf466b9fd42a19bb7ee177014544b3fae7cfbb7980ad1",
+    "worker/src/games/dive/data/beer-brands.ts": "f4b2ea8cffcb97aaff3e6844504cdde88a20f07d5bc0b48cf9d11fbe9ffd5330",
+    "worker/src/games/dive/data/magazines.ts": "c636f002985681dbc710fa887a74f7db6648c2f568bcfece7c2abf45a9a3caf2",
+    "worker/src/games/dive/data/banks.ts": "e2efa62b87d29e2cadd2a4d2e1e1aff57a0d6af5c6287301babfadbf0a48d4d0",
+    "worker/src/games/dive/data/game-studios.ts": "8d7f1e9c63614be743bc0708cfde6771eb59db788ab39f446bac827644effa56",
+    "worker/src/games/dive/data/motorcycles.ts": "1baa6dc1d59f6aeb5f07d12d462341322e745cc75464fab60a11970dceb6188f",
+    "worker/src/games/dive/data/websites.ts": "f389022f1cd974b156d7a10993e693771ddc0f95f5c39e706d20cbacad6a7cf7",
+    "worker/src/games/dive/data/apps.ts": "71815973d91f57af47f4275dc0361b1f327c6e08a3a8395ae6805ae7b8ab1022",
+    "worker/src/games/dive/data/programming-languages.ts": "ce64140f82c530e9f728fb686ca5b71c3469822f899242bf02ebdf9f1252ad62",
+    "worker/src/games/dive/data/operating-systems.ts": "f78f344a4ca18623f69134d9fb6eafec8fb116b74e7df4ad2cb3b6170de2f4a1",
+    "worker/src/games/dive/data/fonts.ts": "c756b2c6de3bf58a789d7249908da69c2deb0762350583e332596f9b1541a5d0",
+    "worker/src/games/dive/data/hotel-chains.ts": "7eb97ef77af6400a6802e9fb17f3b754b8de9a1d29fe8f9c6eaa737fa7a858dd",
+    "worker/src/games/dive/data/italian-food.ts": "63e0d8c4b91b02ca3fa9f017663af8d25e440db4660f8d07191ce77e6c05bee3",
+    "worker/src/games/dive/data/french-food.ts": "b06dfb45c5dda4492f53fb74cc23a43ee9cdde2a1439a70f7167b5441da4d22d",
+    "worker/src/games/dive/data/desserts.ts": "3aa06cce02632978680bcaa863df60de6b1a228a2747771ed19965fe08bc15bd",
+    "worker/src/games/dive/data/cakes.ts": "6b3a114e902ccbfb22d2ed58e9e27756f67f343eb3f18821f942130ea6fd685e",
+    "worker/src/games/dive/data/cookies.ts": "7891deaead52ffef36ad81e09d55135b0e1c56da8eb9124ea60355b58543bf35",
+    "worker/src/games/dive/data/breads.ts": "8499be3257ffdf0eebae4d2cdb44022308d838a12e72bceedd33998cf24e684b",
+    "worker/src/games/dive/data/soups.ts": "8ca3bfea2bae069d622e486935eda4d4e0b7f6864e3ed5987ca4c854e550020c",
+    "worker/src/games/dive/data/pastries.ts": "a4cdb4327f3056da59e2b071c1280bdcd252ba06d04fccbd3794badfa9673fd7",
+    "worker/src/games/dive/data/pasta.ts": "14b3e3da70a60d74e1e3356992014832b146c4fb4dd2de6809058f4750e4067d",
+    "worker/src/games/dive/data/salads.ts": "fb4d2fa2323eec76d1e99068eb0a0c287d41cee722ceb02531fad49b0e78e580",
+    "worker/src/games/dive/data/noodles.ts": "a756a5e7e47b25d94138fb589d2e92b94dd61d6158de7236c1ddf332683df5fa",
+    "worker/src/games/dive/data/wine-grapes.ts": "2cf5f865319544117f6eeb74b8ee9d3c02ef4b8f3edef943c3ab15ea529c2b02",
+    "worker/src/games/dive/data/liqueurs.ts": "53c537a32b7c635baa7b104ef0cfcd8ea6f044b4d5fe1f729bcf3e1abadf6f70",
+    "worker/src/games/dive/data/mammals.ts": "ae3bfc75ae8464c65b954f40a134dffcc1cd1ffdbda343ff469573229a4ee0b9",
+    "worker/src/games/dive/data/reptiles.ts": "07c36949912a15aeced4c7c229f1f8013ce87b2a805ecec09b147f355f85bdbc",
+    "worker/src/games/dive/data/amphibians.ts": "c5ce725552068454200b743997252ddede9bbd65f522addd0645915d98b560e2",
+    "worker/src/games/dive/data/cattle.ts": "a5a2856256681e57d4e22c3aaf8d415b9e32010b02221d8dcfa40f03bff78beb",
+    "worker/src/games/dive/data/chickens.ts": "73841f5e50257144b32d0ce166d7fc9623e7a3dbeffef49c5bc3cd67e36611f4",
+    "worker/src/games/dive/data/sheep.ts": "b7343e8f67447182a5489a82379deb8f23942bc6e4c87dfc00c7912c68918936",
+    "worker/src/games/dive/data/goats.ts": "f10be1343127cbca1a5d897d95cf98f5d766e844a946f7a58165ba86ece3a7f1",
+    "worker/src/games/dive/data/minerals.ts": "8f1fcfec15ab9f514c0ec621890235d69b64e9d9dfe6f6e1ce7b4f0551688fea",
+    "worker/src/games/dive/data/rocks.ts": "e96029054fa6084a3ee894bef4e94ea6d26fe4b68698ba8da1e5f411a227bf2d",
+    "worker/src/games/dive/data/volcanoes.ts": "20104023ed193d50557c1353aa1cc7d3eb3fca819574fb5497f69d46a35be6a7",
+    "worker/src/games/dive/data/mountains.ts": "26ca77809b0e445d986339423fecdfa3fd68d53f340ec4eb17050fa5cca1397e",
+    "worker/src/games/dive/data/islands.ts": "03580fd1d77d878398e517c539a7b0fe9a8b166f136963b803c0fc8f279c9de4",
+    "worker/src/games/dive/data/lakes.ts": "a6d58233614524008dbff9cffedcf8e8accc368cd982f2210912e76f70b48797",
+    "worker/src/games/dive/data/waterfalls.ts": "c80d56e53f84ae0aa93396a0504694bc795efd0bef28df5f18ff1a15cb9f8a53",
+    "worker/src/games/dive/data/national-parks.ts": "fe9a39e68aa7616ecaddb376af457b4166304daac545fc8e63ae509908508cac",
+    "worker/src/games/dive/data/mountain-ranges.ts": "8763044df7e71da30b52d8c61829c52cb797839de7aaed4184e0dd33e4ecc1ac",
+    "worker/src/games/dive/data/bays.ts": "e6d77bd022c5eade6df87b6241021ea2ce24e4e2c3f0023d1275e337ea103471",
+    "worker/src/games/dive/data/peninsulas.ts": "b83a1d77c776ef6dfcc75da9d95ad56232a6a3cc7bebe826bf515bc9d10e8b15",
+    "worker/src/games/dive/data/caves.ts": "37928acfa9d864a26479581294045eb8be965746c9eba572d7225a793ef852db",
+    "worker/src/games/dive/data/archipelagos.ts": "fb93f5e34df781a8f1daf32549dcd322921b8e287e6646b3d38d016c3b7b4ee1",
+    "worker/src/games/dive/data/castles.ts": "29612102fc6a292a6806102e89863b8306cf8827031deae6f6dc126a334c2600",
+    "worker/src/games/dive/data/palaces.ts": "b691ee60d4f5e3cf9e8603ffe39aa3f628c0372602835def586508c888a6f442",
+    "worker/src/games/dive/data/bridges.ts": "be854e21b08fe3ff3c683e6e83bdcbbf55c8ac13680038dc577649bb3d1a73f5",
+    "worker/src/games/dive/data/skyscrapers.ts": "0ec232d9062d4af4e96cceadc16f14494a679c732665d68196785b9ea3fe527c",
+    "worker/src/games/dive/data/museums.ts": "523002aa33b9587419dc81e424b71fd1264ad782b34b4349d3265128ddbba07a",
+    "worker/src/games/dive/data/stadiums.ts": "a9cccdfa524631a47b59fb464a2f99a383b0ffc374e76c92e34c85c1459641cb",
+    "worker/src/games/dive/data/universities.ts": "7c0e896e94064d4a27806ead9056d5d59e987ea94beee2932e1647bc8e1d0f76",
+    "worker/src/games/dive/data/world-heritage.ts": "3d58aad25d76c98d7bc41d3ac9ed697bf5543ceefe3315392282f487053206e3",
+    "worker/src/games/dive/data/former-countries.ts": "4641e11670f7335abce46290c65e3651bd580875b837e1b1bf258e7bcde00ec0",
+    "worker/src/games/dive/data/provinces.ts": "03b40b6c988ee16b4fa27c98ba65fdab754a1f05b9bc25462c3e4f8063a63ba4",
+    "worker/src/games/dive/data/soccer-clubs.ts": "6d3e5d036f26ebfb0a4a5ac6834d45f18d11360a61b246efb64fc8744880419a",
+    "worker/src/games/dive/data/basketball-teams.ts": "0943691ea3c93e36c064c4aa2bc6443eb8dcb3e9630f5490216beb2a641b6e64",
+    "worker/src/games/dive/data/hockey-teams.ts": "c48794eeefb4fc0060369188c0a44261e4c717867db7e8a2bb69cf8c2a03102c",
+    "worker/src/games/dive/data/baseball-teams.ts": "997484731fff9ae41818df27099f85975e4349c77cfb3d3f9e6b3e61e577a4c5",
+    "worker/src/games/dive/data/football-teams.ts": "2e66f74dad09b5514d800d66fe7f25d45bae78f2af57cb43ac47dc9d0b1366e7",
+    "worker/src/games/dive/data/dances.ts": "0816176bfcf41a3a3f25117a84ffa88775203c6e35cc1584b39f43b0a979e2b4",
+    "worker/src/games/dive/data/martial-arts.ts": "b4328f63c8051e0af5f16aa8867bf140b77c0103fb09a8d5d1dd6c6705f86279",
+    "worker/src/games/dive/data/hairstyles.ts": "0549cbdd359dc47d53ddd8a279f338e55c1ecbcb6ab2f6e82a3ba08623e66a9c",
+    "worker/src/games/dive/data/furniture.ts": "12373e0ddf761f6302e3504acbdd7d502ffd026e9f9266774d77d865ad3c5596",
+    "worker/src/games/dive/data/vehicles.ts": "1010698c8d9b619d9057275ae20821c2a3aac926f0d084fea5bb296aad6c9659",
+    "worker/src/games/dive/data/kitchen-tools.ts": "969c52754fad3117ae1f3ba676acec8bd7351ac70f036e6ceea5f4be6e747364",
+    "worker/src/games/dive/data/units.ts": "cc2935532a8260f37d5be4430d5d4641152e8f79a22076f2b88250b2328c2f03",
+    "worker/src/games/dive/data/currencies.ts": "ea12d43c134a592f6efeb69e89806b85a406e1872015d8668d4a8c6b657a803b",
+    "worker/src/games/dive/data/spacecraft.ts": "a15e109e5c61b08ebc9f06b0b2605efd0a26e54bdbc94a946ef26b2706b0db7f"
+  },
+  "days": [
+    ["game-characters", "cities-cz", "cities-de", "cities-pe", "chickens"],
+    ["dogs", "chefs", "cities-in", "painters", "tv"],
+    ["cities-eg", "directors", "cities-cl", "economists", "sports"],
+    ["kitchen-tools", "girl-groups", "drama-movies", "candy", "albums"],
+    ["cricketers", "nfl-players", "apps", "cocktails", "fabrics"],
+    ["horses", "country-singers", "waterfalls", "musical-films", "cities-se"],
+    ["pro-wrestlers", "christmas-films", "nintendo-games", "figure-skaters", "former-countries"],
+    ["pokemon", "cartoonists", "monarchs", "world-heritage", "french-food"],
+    ["monsters", "dances", "mma-fighters", "cities-ar", "playwrights"],
+    ["cities-es", "films-1960s", "tv-hosts", "entrepreneurs", "superheroes"],
+    ["mammals", "subjects", "anime-characters", "kpop", "cities-fi"],
+    ["cities-ch", "thriller-movies", "philosophers", "books", "pastries"],
+    ["harry-potter", "fruits", "physicists", "museums", "salads"],
+    ["palaces", "programming-languages", "nobel-laureates", "french-films", "crime-films"],
+    ["cities-it", "airports", "minerals", "goats", "tv-channels"],
+    ["films-2000s", "spy-films", "vegetables", "first-names", "car-models"],
+    ["teen-films", "condiments", "classic-novels", "boy-bands", "game-shows"],
+    ["disney-films", "bollywood", "astronauts", "amphibians", "plants"],
+    ["english-towns", "tennis-players", "drummers", "films-2020s", "anime"],
+    ["cities-ru", "photographers", "caves", "scifi-authors", "biologists"],
+    ["video-games", "vehicles", "netflix", "toxic-plants", "sculptures"],
+    ["basketball-players", "game-series", "mystery-films", "childrens-authors", "scifi-books"],
+    ["airlines", "baseball-teams", "game-studios", "films-classic", "cyclists"],
+    ["cities-th", "weather", "wine-grapes", "provinces", "basketball-teams"],
+    ["retailers", "hockey-teams", "cookies", "rugby-players", "cities-nz"],
+    ["rock-bands", "guitarists", "spacecraft", "sandwiches", "fairy-tales"],
+    ["cities-ma", "universities", "guitars", "cities-hu", "computer-scientists"],
+    ["golfers", "adventure-films", "noodles", "cities-at", "gemstones"],
+    ["chemists", "rooms", "toys", "mathematicians", "stadiums"],
+    ["bays", "islands", "beer-brands", "bridges", "historians"],
+    ["cities-ng", "magazines", "cities-cn", "apples", "uk-parties"],
+    ["desserts", "inventors", "beer", "authors", "baseball-players"],
+    ["cities-gr", "nationalities", "mountains", "biopics", "songs"],
+    ["fantasy-films", "cities-ca", "romcoms", "magicians", "movies"],
+    ["cities-pl", "greek-myth", "colors", "metals", "websites"],
+    ["k-dramas", "cities-no", "landforms", "dinosaurs", "italian-food"],
+    ["comic-strips", "marvel", "volcanoes", "singers", "metal-bands"],
+    ["newspapers", "animals", "animators", "card-games", "sheep"],
+    ["cakes", "objects", "action-movies", "violinists", "cities-us"],
+    ["soap-operas", "knots", "castles", "tea", "skiers"],
+    ["animated-films", "mountaineers", "furniture", "films-1990s", "flowers"],
+    ["superhero-films", "swimmers", "kids-tv", "rappers", "jobs"],
+    ["opera-singers", "norse-myth", "dc", "cities-ph", "sausages"],
+    ["literary-characters", "cars", "composers", "cities-co", "board-games"],
+    ["record-labels", "martial-arts", "conductors", "sitcoms", "fonts"],
+    ["boxers", "mystery-books", "languages", "westerns", "cities-mx"],
+    ["jazz", "soups", "soccer-clubs", "comedians", "cities-br"],
+    ["reality-tv", "manga", "japanese-films", "tube", "lakes"],
+    ["pasta", "tolkien", "cities-be", "meteorology", "psychologists"],
+    ["cities-pk", "comic-books", "rocks", "instruments", "music-festivals"],
+    ["seafood", "cities-au", "simpsons", "hairstyles", "gymnasts"],
+    ["war-films", "cities-nl", "soccer-players", "djs", "clothing"],
+    ["youtubers", "fantasy-books", "banks", "reptiles", "rock-hall"],
+    ["romance-films", "poets", "breads", "rivers", "mountain-ranges"],
+    ["national-parks", "scientists", "films-1980s", "british-tv", "scifi-films"],
+    ["f1-drivers", "cities-tr", "liqueurs", "operating-systems", "cartoon-characters"],
+    ["currencies", "cities-jp", "peninsulas", "astronomers", "ballets"],
+    ["cities-vn", "fashion-designers", "cities-za", "explorers", "wrestling"],
+    ["british-actors", "cities-pt", "horror-movies", "art", "martial-arts-films"],
+    ["football-teams", "oscar-actors", "motorcycles", "cities-ro", "american-actors"],
+    ["cities-ie", "archipelagos", "restaurant-chains", "sculptors", "hockey-players"],
+    ["hbo", "appliances", "architects", "skyscrapers", "cities-id"],
+    ["ballet-dancers", "animated-series", "comedy-movies", "companies", "cities-gb"],
+    ["films-1970s", "cities-hr", "music-genres", "birds", "cheeses"],
+    ["soft-drinks", "units", "pianists", "hotel-chains", "cities-fr"],
+    ["films-2010s", "chess-players", "cities-my", "cattle", "track-athletes"]
+  ],
+  "prompts": {
+    "game-characters": {
+      "metadata": {
+        "id": "game-characters",
+        "text": "Name a video game character.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c02642fe45b010d5b4b9e860f2181a71d0389b27ea8fd598349905020ef0eb1d"
+    },
+    "cities-cz": {
+      "metadata": {
+        "id": "cities-cz",
+        "text": "Name a city or town in the Czech Republic.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "0473abab1e5a3bda8937e5a635394f32dbaf3445943f35f5e8999c3cdbf54fdd"
+    },
+    "cities-de": {
+      "metadata": {
+        "id": "cities-de",
+        "text": "Name a city or town in Germany.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "2b90ebb3c66d46c7304512b8975b0abc9216e05d3e7ed50a321fb26d147ff969"
+    },
+    "cities-pe": {
+      "metadata": {
+        "id": "cities-pe",
+        "text": "Name a city or town in Peru.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 253
+      },
+      "answersSha256": "597a0d9492e649401a5f6c889f1f8819e0e70bca6322fa2713cb600c5a5f4d7a"
+    },
+    "chickens": {
+      "metadata": {
+        "id": "chickens",
+        "text": "Name a chicken breed.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 306
+      },
+      "answersSha256": "f9868b2ad905e20f453bfd70b8e443a41e74e7ff2139642919e434d009d85eaf"
+    },
+    "dogs": {
+      "metadata": {
+        "id": "dogs",
+        "text": "Name a dog breed.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5cf9b6625215b99abc10ec432c411a59306f269f48fc5686115382c7e1277f0e"
+    },
+    "chefs": {
+      "metadata": {
+        "id": "chefs",
+        "text": "Name a chef.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 337
+      },
+      "answersSha256": "7590325ddb5291e9eef790a15bec20d6fa7beeb2ed1ad27669d0bf643b1b7107"
+    },
+    "cities-in": {
+      "metadata": {
+        "id": "cities-in",
+        "text": "Name a city or town in India.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8847756556c41cafb67b789b0d6952ddd7d735d75c73d7636531e5ee12a28b10"
+    },
+    "painters": {
+      "metadata": {
+        "id": "painters",
+        "text": "Name a painter.",
+        "theme": "art",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "515632c8c173fe811e4c969371633399650fa4fab425cea54bf8edb20814880c"
+    },
+    "tv": {
+      "metadata": {
+        "id": "tv",
+        "text": "Name a TV show.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "fc1ae953880734b2dcd4b26309e8dd9445ff13c1b840cdfd570c33f706f38d3a"
+    },
+    "cities-eg": {
+      "metadata": {
+        "id": "cities-eg",
+        "text": "Name a city or town in Egypt.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 406
+      },
+      "answersSha256": "44813d6d449cc399991640a95dbeaca52522b331b150fbd427ef444d523899d0"
+    },
+    "directors": {
+      "metadata": {
+        "id": "directors",
+        "text": "Name a film director.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "68a012a3ec08a7b9bf3de5eaa3ccfca4117fb9413408847572b9d57c021300c8"
+    },
+    "cities-cl": {
+      "metadata": {
+        "id": "cities-cl",
+        "text": "Name a city or town in Chile.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 263
+      },
+      "answersSha256": "ae398be37b97b88991a1d27da610991a4d0ebe42f3b0396fcd2e75128e1b411f"
+    },
+    "economists": {
+      "metadata": {
+        "id": "economists",
+        "text": "Name an economist.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5ee31d5e4b7ba841503216e47fe387c3eae835c88fd59807d0905a9815e607e0"
+    },
+    "sports": {
+      "metadata": {
+        "id": "sports",
+        "text": "Name a sport.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f5c4ee150016a75346ad32dba20dd5a3d3a3a4397e574fa49b224707fca69756"
+    },
+    "kitchen-tools": {
+      "metadata": {
+        "id": "kitchen-tools",
+        "text": "Name a kitchen utensil.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 352
+      },
+      "answersSha256": "0f04f9af6e488557319c6b6d5d7d46509e9435f1f3b8a69980b381eb3898f905"
+    },
+    "girl-groups": {
+      "metadata": {
+        "id": "girl-groups",
+        "text": "Name a girl group.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "47c1955274e969bb26271d4874ef1f7fb2ad94b2b96417320d1bcbe0b76adc08"
+    },
+    "drama-movies": {
+      "metadata": {
+        "id": "drama-movies",
+        "text": "Name a drama movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "2db07b9c71c100c8e2363e6a9a9e13a6feebd980f8c29e00f5d27ccb32cf9401"
+    },
+    "candy": {
+      "metadata": {
+        "id": "candy",
+        "text": "Name a candy or chocolate bar.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "72f9f93578d71d0217b89e3c105a7b17101f14d70d1d22fd099d9c8654af3939"
+    },
+    "albums": {
+      "metadata": {
+        "id": "albums",
+        "text": "Name an album.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "990b5b2054254936ae049cb17552b7bb180373c12b592ea704f2f6ef27ba30eb"
+    },
+    "cricketers": {
+      "metadata": {
+        "id": "cricketers",
+        "text": "Name a cricketer.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4829ef7052e45409b7c03f3f06c05ae2efed621a8b7c83fa7fcaeebca5505fba"
+    },
+    "nfl-players": {
+      "metadata": {
+        "id": "nfl-players",
+        "text": "Name an American football player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "0821c9be0f3cb15cd5b4c3c291c0d31da99a8e8ea82c2f4a23725b439786afeb"
+    },
+    "apps": {
+      "metadata": {
+        "id": "apps",
+        "text": "Name a mobile app.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 331
+      },
+      "answersSha256": "ab72f529c16531794d63a9d498cec109e58173d2e223e5f4eff2db231ab66f3a"
+    },
+    "cocktails": {
+      "metadata": {
+        "id": "cocktails",
+        "text": "Name a cocktail.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "be064ff082205573ad97660b3a8ee0337a3748725e6c628a68fca83d8d5d9daa"
+    },
+    "fabrics": {
+      "metadata": {
+        "id": "fabrics",
+        "text": "Name a fabric.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 207
+      },
+      "answersSha256": "55ce0a26cc3e4e6b7c08cf86142fc824c5655c62067f940f3be19b87331d39ac"
+    },
+    "horses": {
+      "metadata": {
+        "id": "horses",
+        "text": "Name a horse breed.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ae927faa9e59ce7b5c951733b06e4358b3325d2cf9d2087da74f62ca324ac6e7"
+    },
+    "country-singers": {
+      "metadata": {
+        "id": "country-singers",
+        "text": "Name a country music artist.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b0b98655c38643ed4c071728ec1f998050a27be11756590e8f30ee6bc0c48be8"
+    },
+    "waterfalls": {
+      "metadata": {
+        "id": "waterfalls",
+        "text": "Name a waterfall.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "2d187928866e36aec7138ca233bc3ebe4bc42eb5a481ff81842386d1972a0173"
+    },
+    "musical-films": {
+      "metadata": {
+        "id": "musical-films",
+        "text": "Name a movie musical.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "d8bd6cebba45d993d01da73465b8c14f63060f6654af4c4eb8484dad34836b47"
+    },
+    "cities-se": {
+      "metadata": {
+        "id": "cities-se",
+        "text": "Name a city or town in Sweden.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "43752e759c10c3cd1c14743fcd8c9ee8b8b0e302a53bec749ff42d84ac6d9245"
+    },
+    "pro-wrestlers": {
+      "metadata": {
+        "id": "pro-wrestlers",
+        "text": "Name a professional wrestler.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c8d3524dfecab2fb8c58891cccc2e79279767dc70f46bc47fec57fc26bc4c144"
+    },
+    "christmas-films": {
+      "metadata": {
+        "id": "christmas-films",
+        "text": "Name a Christmas movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "d38c2b5b4fed26cac164df654079c905dedebe86be22d8358f7481e95d9f73ab"
+    },
+    "nintendo-games": {
+      "metadata": {
+        "id": "nintendo-games",
+        "text": "Name a Nintendo game.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "e3826328385a4f8810997c895025ff360b556f6ed113999c8ac1acdb8ca27e22"
+    },
+    "figure-skaters": {
+      "metadata": {
+        "id": "figure-skaters",
+        "text": "Name a figure skater.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8cf04e3147486a6662920a22408682887a9cccbf1fd00521a84a0a2d0c18a749"
+    },
+    "former-countries": {
+      "metadata": {
+        "id": "former-countries",
+        "text": "Name a country or empire that no longer exists.",
+        "theme": "history",
+        "cluster": "countries",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b591daab6929b6daa7a4158d64f32e07cacd713403d2fe72cd08de8dff869357"
+    },
+    "pokemon": {
+      "metadata": {
+        "id": "pokemon",
+        "text": "Name a Pokémon.",
+        "theme": "games",
+        "cluster": "pokemon",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "3ffcafe4bd67f6784221d51310b04a6e1af50ec393bc1d1a67c160fe0b2ca2b4"
+    },
+    "cartoonists": {
+      "metadata": {
+        "id": "cartoonists",
+        "text": "Name a cartoonist or comic artist.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "521d7a69d3733ca08fd227e09aa727dd50ea67ad9138fea1d2ed12829ad8e790"
+    },
+    "monarchs": {
+      "metadata": {
+        "id": "monarchs",
+        "text": "Name a king, queen or emperor.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "6060ac58e41f8d1f5b6ea96fdcff864b585ff594d7de82d2634c95770bb868d7"
+    },
+    "world-heritage": {
+      "metadata": {
+        "id": "world-heritage",
+        "text": "Name a UNESCO World Heritage Site.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "7e73fdbca90d48eacf96818111cdb719df1a3feb1636af045d02db41e91958c1"
+    },
+    "french-food": {
+      "metadata": {
+        "id": "french-food",
+        "text": "Name a French food or dish.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 216
+      },
+      "answersSha256": "490bd14864e13b128a997e5522a5f349768c65d2ea7ea54f7d6b77de94f728f4"
+    },
+    "monsters": {
+      "metadata": {
+        "id": "monsters",
+        "text": "Name a mythical creature.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "263940e71c86698544b97d2aad0d8a7bbbfc9c60ca811636f6f82f4603eb0ca9"
+    },
+    "dances": {
+      "metadata": {
+        "id": "dances",
+        "text": "Name a dance.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ad3b50adf7c1bf91532b2f5255468209ccdae369bbcb8d46536c64f61f9c751d"
+    },
+    "mma-fighters": {
+      "metadata": {
+        "id": "mma-fighters",
+        "text": "Name a mixed martial artist.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1a3a2fec05c5bb695b1a5d960f94a832f29f2864d4af09e94eae41cbce47781c"
+    },
+    "cities-ar": {
+      "metadata": {
+        "id": "cities-ar",
+        "text": "Name a city or town in Argentina.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 312
+      },
+      "answersSha256": "a2ed2731ba1500b1b03033685af3c11520458660ec1536187a0abd759a8adc3d"
+    },
+    "playwrights": {
+      "metadata": {
+        "id": "playwrights",
+        "text": "Name a playwright.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "89951c56173377fbf0015576040651f4caf60f16f79e87f792291e263426a90a"
+    },
+    "cities-es": {
+      "metadata": {
+        "id": "cities-es",
+        "text": "Name a city or town in Spain.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "205b346ab90a12c7f5fd42a436f82c93e72ab63e367d4a82c3ae5e5ac890a1fc"
+    },
+    "films-1960s": {
+      "metadata": {
+        "id": "films-1960s",
+        "text": "Name a movie from the 1960s.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "64867d901b8996be176a7ea67cc98d181215d1d02aa843defadbb1373125deaf"
+    },
+    "tv-hosts": {
+      "metadata": {
+        "id": "tv-hosts",
+        "text": "Name a TV host or presenter.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 366
+      },
+      "answersSha256": "623328f21ae4f412c4756e41beba83c05e02dca9d80040effe162cc9a536b458"
+    },
+    "entrepreneurs": {
+      "metadata": {
+        "id": "entrepreneurs",
+        "text": "Name an entrepreneur.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1f9123c4a098d542a4673771fcbf70aa6b0af790650d537fe59b3718e8970ee0"
+    },
+    "superheroes": {
+      "metadata": {
+        "id": "superheroes",
+        "text": "Name a superhero.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 412
+      },
+      "answersSha256": "9b385ed0a7a9c637387c0d529a0ccf8b86d8cecbcdb7c75f86f262d35031935f"
+    },
+    "mammals": {
+      "metadata": {
+        "id": "mammals",
+        "text": "Name a mammal.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4cd98bc7d5d17a1e2d720105ee388d7f9e099e2a938615a4c43a30a20dee7ab8"
+    },
+    "subjects": {
+      "metadata": {
+        "id": "subjects",
+        "text": "Name an academic subject.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 253
+      },
+      "answersSha256": "49e9458d0ca38e203cfe2652e7bd2758b436d92bded6b838bfd3264e2712c826"
+    },
+    "anime-characters": {
+      "metadata": {
+        "id": "anime-characters",
+        "text": "Name an anime or manga character.",
+        "theme": "tv",
+        "cluster": "japan",
+        "constrained": false,
+        "size": 296
+      },
+      "answersSha256": "c7cb9b153eca2a421a6a73da31ea574df5332d3f12835e1680b433d58a94a772"
+    },
+    "kpop": {
+      "metadata": {
+        "id": "kpop",
+        "text": "Name a K-pop group.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "43690aa8b91b0dfb530630acb4777ffb912c02d3653e1981b5e0a7f2220f6046"
+    },
+    "cities-fi": {
+      "metadata": {
+        "id": "cities-fi",
+        "text": "Name a city or town in Finland.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 394
+      },
+      "answersSha256": "1614b121dc27b1a3c5a256dc43f854a3838676b1c9e3b3c9e9b401a4ae992b5e"
+    },
+    "cities-ch": {
+      "metadata": {
+        "id": "cities-ch",
+        "text": "Name a city or town in Switzerland.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bb62d5743229fefe742ae5a68f8368fed8df5172654a7b28f57b4e7be89cb85a"
+    },
+    "thriller-movies": {
+      "metadata": {
+        "id": "thriller-movies",
+        "text": "Name a thriller movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "13b29fd673837f3fff8f7c22057c99d4db66261beb26b5e41dc21bfb5b19e634"
+    },
+    "philosophers": {
+      "metadata": {
+        "id": "philosophers",
+        "text": "Name a philosopher.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "82946f6aa9ae8cc4fbaa066d2c3b9a330c78c67c5e46540b62edadc3872e6825"
+    },
+    "books": {
+      "metadata": {
+        "id": "books",
+        "text": "Name a book.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bd2b2bb851da862fa9cdfeb137355bdba282061b89b65a7fc1889a36453bfd76"
+    },
+    "pastries": {
+      "metadata": {
+        "id": "pastries",
+        "text": "Name a pastry.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1a4ba55078e0597b084efd3bffae447f53c411700e3f58059e0886e795f1c91e"
+    },
+    "harry-potter": {
+      "metadata": {
+        "id": "harry-potter",
+        "text": "Name a Harry Potter character.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 341
+      },
+      "answersSha256": "f5d9a1c7a0ea7e1d98670bcd68ce086aeeb3ee8322f0693e5349c162c566483f"
+    },
+    "fruits": {
+      "metadata": {
+        "id": "fruits",
+        "text": "Name a fruit.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "85ecfa1741a7a0deeeb25daf45100b126a85e58c4ad111234d654ad1b5d52156"
+    },
+    "physicists": {
+      "metadata": {
+        "id": "physicists",
+        "text": "Name a physicist.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "6c82dba065fbba712ecf58631e0bc2308766f5f80d77defd023bab43cb9955d3"
+    },
+    "museums": {
+      "metadata": {
+        "id": "museums",
+        "text": "Name a museum.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "fb46f4f9c17927c4b507166f38b87d82cdf8ef5a9510d2df6136dc569067eb65"
+    },
+    "salads": {
+      "metadata": {
+        "id": "salads",
+        "text": "Name a salad.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 244
+      },
+      "answersSha256": "33e9c6befa6afe0271f88d3b36f1409664b60a3041eca9ab48753cb334b533f2"
+    },
+    "palaces": {
+      "metadata": {
+        "id": "palaces",
+        "text": "Name a palace.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "13f81ed36c897afd2f7ffbcf77e7228e280d513db512bb601a5d1e577672c1ac"
+    },
+    "programming-languages": {
+      "metadata": {
+        "id": "programming-languages",
+        "text": "Name a programming language.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8449dcd6af63b883a15a60e28c5d307a9228a053c300321c7eda91d9b2235ae0"
+    },
+    "nobel-laureates": {
+      "metadata": {
+        "id": "nobel-laureates",
+        "text": "Name a Nobel Prize winner.",
+        "theme": "science",
+        "cluster": "nobel",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "350dcdbdc5e818724df7d0aa95bdcabefd697363f7cbc83a597cf65777c3f20f"
+    },
+    "french-films": {
+      "metadata": {
+        "id": "french-films",
+        "text": "Name a French movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "060ffd4592d9c0fb5b0b6a2aae5b724945b387c49963483d0928268a352d9b04"
+    },
+    "crime-films": {
+      "metadata": {
+        "id": "crime-films",
+        "text": "Name a crime movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "039d3393433b2838877f04fcf7f90379450d56de856a735c3484b52b771e004e"
+    },
+    "cities-it": {
+      "metadata": {
+        "id": "cities-it",
+        "text": "Name a city or town in Italy.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8361530b044cf8240e882bbd0aeedfe1c0051342538da4b36b49a67255b9a558"
+    },
+    "airports": {
+      "metadata": {
+        "id": "airports",
+        "text": "Name an airport.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c0c8033d5af937e6ba4314710a76b1d473583b15585bc056167a21de929ba49c"
+    },
+    "minerals": {
+      "metadata": {
+        "id": "minerals",
+        "text": "Name a mineral.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5cc8998b57e44a2cd94b45ca218a44122a15eb3a30be9b0fae0e1897cf2e52d5"
+    },
+    "goats": {
+      "metadata": {
+        "id": "goats",
+        "text": "Name a goat breed.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 205
+      },
+      "answersSha256": "47320df1fc772830b51a95f4dcfb27bafb7c333cd7e1be487d79c47c2891f232"
+    },
+    "tv-channels": {
+      "metadata": {
+        "id": "tv-channels",
+        "text": "Name a TV channel or network.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b3b162b55ea659d0f4e0718838acd5243ad1be29cac56a6e5bc379d9af2873d4"
+    },
+    "films-2000s": {
+      "metadata": {
+        "id": "films-2000s",
+        "text": "Name a movie from the 2000s.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1055fce2ff706c0a51b6505618aa07532f4f5b6433723c5137a65051d05d276d"
+    },
+    "spy-films": {
+      "metadata": {
+        "id": "spy-films",
+        "text": "Name a spy movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bfe0a94fb80f7276f96ca0cbd6f3115bcc3edf9855494f34dbf9ca8fade66728"
+    },
+    "vegetables": {
+      "metadata": {
+        "id": "vegetables",
+        "text": "Name a vegetable.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4c88ba58a997917f78a06e6e96e8eec7e15a1d89a4de077d917594c77975c164"
+    },
+    "first-names": {
+      "metadata": {
+        "id": "first-names",
+        "text": "Name a first name.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 399
+      },
+      "answersSha256": "82e1c5340d52bbc666288e9f82ed006efa97a21ef20401c0f0032d8c04c6326f"
+    },
+    "car-models": {
+      "metadata": {
+        "id": "car-models",
+        "text": "Name a car model.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "0d64d8d5541917b9ba2525e398c63e459f9832286106023e0dfafb70c8d40acf"
+    },
+    "teen-films": {
+      "metadata": {
+        "id": "teen-films",
+        "text": "Name a teen movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "260125ddee5f6519ece95962319bd7438478ab9c65cc793e1830cabaa93a001a"
+    },
+    "condiments": {
+      "metadata": {
+        "id": "condiments",
+        "text": "Name a condiment.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ea45040f6ffc52c4926488e99f05182f52f11bdf8b29b7eee8b23f8d74be86f5"
+    },
+    "classic-novels": {
+      "metadata": {
+        "id": "classic-novels",
+        "text": "Name a novel published before 1900.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "76148ab2be10d12a36e885fc47d1e40d56a5e6dbb5f57222a2ff4ab1418f2c02"
+    },
+    "boy-bands": {
+      "metadata": {
+        "id": "boy-bands",
+        "text": "Name a boy band.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 381
+      },
+      "answersSha256": "d1762513cb1743924f10ef3d3439d2e7e26569dec4f755332f66c401c75290f1"
+    },
+    "game-shows": {
+      "metadata": {
+        "id": "game-shows",
+        "text": "Name a TV game show.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 259
+      },
+      "answersSha256": "672ed03ef5b5bf06f5d34571786d4c9167cb0b19290530a3f7e156b972565680"
+    },
+    "disney-films": {
+      "metadata": {
+        "id": "disney-films",
+        "text": "Name a Disney movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 251
+      },
+      "answersSha256": "e2a743a34597466c87580be0c59e0e146b6c68fba28d2819b384d6f617e97c55"
+    },
+    "bollywood": {
+      "metadata": {
+        "id": "bollywood",
+        "text": "Name a Bollywood movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "7a8dd1857a94ddf81f802ce2eb469a8fdb7a79e0a039f33eebb3b80a7aad5bfd"
+    },
+    "astronauts": {
+      "metadata": {
+        "id": "astronauts",
+        "text": "Name an astronaut.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "27f9dec6d53704520c2278d4a8ded5dffee467f49d8f9d5c9ae43f0649ffbee8"
+    },
+    "amphibians": {
+      "metadata": {
+        "id": "amphibians",
+        "text": "Name an amphibian.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9e2f5edb8254c77b20cee8ea1f3933efdfebe436d91ad6984a9e32a8be425e5f"
+    },
+    "plants": {
+      "metadata": {
+        "id": "plants",
+        "text": "Name a plant.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ab78f22e5718acc72ac114c501fc6ca69c51686da4e0140b3635c7d915cc55a7"
+    },
+    "english-towns": {
+      "metadata": {
+        "id": "english-towns",
+        "text": "Name a town or city in England.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cf50762fa8a1740c9ef3b53b091af5dc017167e7bc7976715fe0fd7f37e03750"
+    },
+    "tennis-players": {
+      "metadata": {
+        "id": "tennis-players",
+        "text": "Name a tennis player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "6e527c9484295b79e5506405d12d33ad859ba2e6feced71b681fb2f0ac1c4ad3"
+    },
+    "drummers": {
+      "metadata": {
+        "id": "drummers",
+        "text": "Name a drummer.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 378
+      },
+      "answersSha256": "24a7b9a275120691316fcc57e14cf70a06e5e435898ad024bb2335429b16a26e"
+    },
+    "films-2020s": {
+      "metadata": {
+        "id": "films-2020s",
+        "text": "Name a movie from the 2020s.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cfa078b8b5aa4be0bed05f93b9eff5a247fe02c04ef796867a0bfe12b989c7e2"
+    },
+    "anime": {
+      "metadata": {
+        "id": "anime",
+        "text": "Name an anime series.",
+        "theme": "tv",
+        "cluster": "japan",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "d8c737697b2aec6792c3662724922ce85c6afd9f46580e071aea5ca9765abc68"
+    },
+    "cities-ru": {
+      "metadata": {
+        "id": "cities-ru",
+        "text": "Name a city or town in Russia.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "85277a694cdfdd74ffe960d73c37d1f7586ed1465e7f0f43e41b10c070e66743"
+    },
+    "photographers": {
+      "metadata": {
+        "id": "photographers",
+        "text": "Name a photographer.",
+        "theme": "art",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "e6b63a685705a742e0b81b426755a3d314877d81c9e7d95d33b9fc4c6329ad0f"
+    },
+    "caves": {
+      "metadata": {
+        "id": "caves",
+        "text": "Name a cave.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "3a9ffe8f3c7ecb5a5f00bf0dfb6b0595bbc1948b23528c859dd2672289d9c12a"
+    },
+    "scifi-authors": {
+      "metadata": {
+        "id": "scifi-authors",
+        "text": "Name a science fiction author.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cf3aee15facce4a235eb5f5190176154744acbb860357d5e63020415188f16f3"
+    },
+    "biologists": {
+      "metadata": {
+        "id": "biologists",
+        "text": "Name a biologist.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "a80df765353574c6fb2e329a593eff47c7ca067a4d30390ef41c21b2f2a1555a"
+    },
+    "video-games": {
+      "metadata": {
+        "id": "video-games",
+        "text": "Name a video game.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "86eb194c17fb3d9f6f123380dacb023371cb71d20b58b343d4a123d80db58451"
+    },
+    "vehicles": {
+      "metadata": {
+        "id": "vehicles",
+        "text": "Name a type of vehicle.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "11cc7554c812ae79b7a8cdd85fe7d52d0b8bcf80ddc68ffa8138bb2a0028620a"
+    },
+    "netflix": {
+      "metadata": {
+        "id": "netflix",
+        "text": "Name a Netflix original series.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "878f5524c24f20c0514f4981ba56a560cea197bd96eb7e7f2cbb863bd28ad55e"
+    },
+    "toxic-plants": {
+      "metadata": {
+        "id": "toxic-plants",
+        "text": "Name a poisonous plant.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 311
+      },
+      "answersSha256": "54531f4454c2e2986c143dade316a9f192fe56bec16fa19323d96783228fb082"
+    },
+    "sculptures": {
+      "metadata": {
+        "id": "sculptures",
+        "text": "Name a famous sculpture or statue.",
+        "theme": "art",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "86f7a590646fadc68bc209dcf2132bce0645c45e2bcc602c794f825c76a781c0"
+    },
+    "basketball-players": {
+      "metadata": {
+        "id": "basketball-players",
+        "text": "Name a basketball player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "243e32485e141e31dc261eb8b7522ae01c70a5ad8443c3c774046eabfac0321c"
+    },
+    "game-series": {
+      "metadata": {
+        "id": "game-series",
+        "text": "Name a video game series.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "fa1ac9a9dfbae58537da5ae17f61bb7e4c9fb20172b1e0be30995377cec19ffb"
+    },
+    "mystery-films": {
+      "metadata": {
+        "id": "mystery-films",
+        "text": "Name a mystery movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "30fc978abc28376b68985f074695ce1ccf24cf287e1f55b4d1d27b5c8e50dd7c"
+    },
+    "childrens-authors": {
+      "metadata": {
+        "id": "childrens-authors",
+        "text": "Name a children's author.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cbff13dddead646e2f20518e63060b713b3dc2b208abcf76907b65a3b0dc8516"
+    },
+    "scifi-books": {
+      "metadata": {
+        "id": "scifi-books",
+        "text": "Name a science fiction novel.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9030cc29554a79b1e2172ab5952d9d02dfbffb47e7745aada1287680b456bae6"
+    },
+    "airlines": {
+      "metadata": {
+        "id": "airlines",
+        "text": "Name an airline.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "e4d09f8dbd6a5e0bd34e5f8a4909d4d4ee09d8bcc656b9b258107f2e7e5e206e"
+    },
+    "baseball-teams": {
+      "metadata": {
+        "id": "baseball-teams",
+        "text": "Name a baseball team.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "98066adb8c2580442f8a756c544e0d47a789c5d60fb435da5e6d4ebf0d65fdc7"
+    },
+    "game-studios": {
+      "metadata": {
+        "id": "game-studios",
+        "text": "Name a video game company.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b87dfe6f7572dc2ffe64d3bbae655e41e2307b825320240512d07449c9b9813d"
+    },
+    "films-classic": {
+      "metadata": {
+        "id": "films-classic",
+        "text": "Name a movie released before 1960.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "34a3cc349e7818287f270996a8f6502dcfce64b0b206f6f4ce62221d1ac07a9a"
+    },
+    "cyclists": {
+      "metadata": {
+        "id": "cyclists",
+        "text": "Name a professional cyclist.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b363467c144a4d4e251fadd0648e92ec1dc7a91c55b58fee900a5621b0f461cd"
+    },
+    "cities-th": {
+      "metadata": {
+        "id": "cities-th",
+        "text": "Name a city or town in Thailand.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 328
+      },
+      "answersSha256": "f90fe0300ecfa922e5307631d551d00fb642f49ef146366a257ea1809a6ed3cb"
+    },
+    "weather": {
+      "metadata": {
+        "id": "weather",
+        "text": "Name a weather condition.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 263
+      },
+      "answersSha256": "c3a1961aecdfe67621ca9eeba7a242a0eabd957be26331913ecdc83345c4f8bd"
+    },
+    "wine-grapes": {
+      "metadata": {
+        "id": "wine-grapes",
+        "text": "Name a wine grape variety.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "be9693fe1638bc5b5a1e6b6e2279669bdee6648c90cd266375138399f3c62260"
+    },
+    "provinces": {
+      "metadata": {
+        "id": "provinces",
+        "text": "Name a state, province or region of any country.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "e5e2c569142542ed929aef50fd98b8f73e95105acb125d4f27b3c6d686f47821"
+    },
+    "basketball-teams": {
+      "metadata": {
+        "id": "basketball-teams",
+        "text": "Name a basketball team.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "e7241e436248cdd4ec2cf87df362155238fb1dd56e54f44018e8cca10da0a4d9"
+    },
+    "retailers": {
+      "metadata": {
+        "id": "retailers",
+        "text": "Name a store chain.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ae9f3e2c4a80094bd5386f3d183774bf454007846c2455f2864c25c63e71a4ab"
+    },
+    "hockey-teams": {
+      "metadata": {
+        "id": "hockey-teams",
+        "text": "Name an ice hockey team.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5c6add5263d2e6319615bc7c154bf911fe9780c0ed8f0317e8f37ede7035f8e2"
+    },
+    "cookies": {
+      "metadata": {
+        "id": "cookies",
+        "text": "Name a cookie or biscuit.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 408
+      },
+      "answersSha256": "74e04608423e45546f6161c068730b5f9efcbc378be3879abd2f1b24ff5331f2"
+    },
+    "rugby-players": {
+      "metadata": {
+        "id": "rugby-players",
+        "text": "Name a rugby player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f46710e38cf56785039e132d38e02eb30f7567bd2fa71db1d6b920499b0b19be"
+    },
+    "cities-nz": {
+      "metadata": {
+        "id": "cities-nz",
+        "text": "Name a city or town in New Zealand.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "921e6f696e5fb3b2359d908945c07edebdc2ac76532deb487579ca7c468b9702"
+    },
+    "rock-bands": {
+      "metadata": {
+        "id": "rock-bands",
+        "text": "Name a rock band.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 428
+      },
+      "answersSha256": "559197401a69ab7dcbe1f31d6989a6f5c713df23dfb3016018597b2d1d12da37"
+    },
+    "guitarists": {
+      "metadata": {
+        "id": "guitarists",
+        "text": "Name a guitarist.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f41df0f0967ba901c03a50c7d8f15590f0a5dd7fe8eef21ab216c6d5fe72df9e"
+    },
+    "spacecraft": {
+      "metadata": {
+        "id": "spacecraft",
+        "text": "Name a spacecraft or space mission.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "872c9b6cc5bfd4f753d6eae1202414811b47aee60b23887f4ee6eb9bbe5b4522"
+    },
+    "sandwiches": {
+      "metadata": {
+        "id": "sandwiches",
+        "text": "Name a type of sandwich.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5f1de3a72b86168844edcecac26187a70e1253a32f9a211a1d81d2f2dca87d95"
+    },
+    "fairy-tales": {
+      "metadata": {
+        "id": "fairy-tales",
+        "text": "Name a fairy tale.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9c5878c1f414e811af19691a57af3e1ec497648d0cc3a0c8edc5de2e148ca87d"
+    },
+    "cities-ma": {
+      "metadata": {
+        "id": "cities-ma",
+        "text": "Name a city or town in Morocco.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1c5b0cd5f4f412ebe360551de30dfeb80b3d6bd509d1a2d8133547026f72bbaa"
+    },
+    "universities": {
+      "metadata": {
+        "id": "universities",
+        "text": "Name a university.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "71d98b4ecca671db2504035cee9ab563f5af83045c979acf15d7d08e2e7cc583"
+    },
+    "guitars": {
+      "metadata": {
+        "id": "guitars",
+        "text": "Name a guitar maker.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 235
+      },
+      "answersSha256": "ab180b3e41b7e864abf7bac5042b4332396689b294156ded6b64d36d469c8df7"
+    },
+    "cities-hu": {
+      "metadata": {
+        "id": "cities-hu",
+        "text": "Name a city or town in Hungary.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "df0603266b03a87eaccd0f3fca554eccb6258a0fb0c3e713df8cc820ba72fc9a"
+    },
+    "computer-scientists": {
+      "metadata": {
+        "id": "computer-scientists",
+        "text": "Name a computer scientist.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "a25999ee9a7b8673c7d9430a9f5876db4095d6cd2b4cb8cb6365d454f685ea94"
+    },
+    "golfers": {
+      "metadata": {
+        "id": "golfers",
+        "text": "Name a golfer.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "0e34765ac0b40478bbd10fad558f27695b5b45358c805f4e18f7be67133b1ac5"
+    },
+    "adventure-films": {
+      "metadata": {
+        "id": "adventure-films",
+        "text": "Name an adventure movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ddb65a450b4e526e89ef45bd00d05d775594e7d77283d33f2ca68770efe019f0"
+    },
+    "noodles": {
+      "metadata": {
+        "id": "noodles",
+        "text": "Name a noodle or noodle dish.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 271
+      },
+      "answersSha256": "947ea626eef2123b679dfbd224ff55d98250abdf1b0e95af873ae91caf5b9ea1"
+    },
+    "cities-at": {
+      "metadata": {
+        "id": "cities-at",
+        "text": "Name a city or town in Austria.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "873fc34530babbec0277af97842f71e9b435ed7f17124a4a487b52146e522f2a"
+    },
+    "gemstones": {
+      "metadata": {
+        "id": "gemstones",
+        "text": "Name a gemstone.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 351
+      },
+      "answersSha256": "abc27b6c2dd8bbda6d45399a4fbd57df61526ade9baf29311ab9c3dcad8e54db"
+    },
+    "chemists": {
+      "metadata": {
+        "id": "chemists",
+        "text": "Name a chemist.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f6e5f519966647034f04828565ee2114fd86d74d75472443cbff9b3ea448a5c9"
+    },
+    "rooms": {
+      "metadata": {
+        "id": "rooms",
+        "text": "Name a type of room.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "86275dfd4de3fd40dfeec4ee3dfa9f9a7f7ee538aa95a39390a19c5b4a06cfcc"
+    },
+    "toys": {
+      "metadata": {
+        "id": "toys",
+        "text": "Name a toy.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b7b8f9b128d9784ae035c3d5df3cdb89013f7cb49f8b14520c38aca24f089da6"
+    },
+    "mathematicians": {
+      "metadata": {
+        "id": "mathematicians",
+        "text": "Name a mathematician.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "23d2f561347893bfaa42fefa96088776f4aa8c95172da5cd950c2af72a46275b"
+    },
+    "stadiums": {
+      "metadata": {
+        "id": "stadiums",
+        "text": "Name a stadium or arena.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "03d3cd58eb5c6325d47a9ba24f597d0ddbc0fdc1edaadfcd17f15d6b1d221fb7"
+    },
+    "bays": {
+      "metadata": {
+        "id": "bays",
+        "text": "Name a bay or gulf.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "6512ac79b196b3755166fc55a7c187f54b0cbf158e2c1e5f60c88fb95ba9c1c7"
+    },
+    "islands": {
+      "metadata": {
+        "id": "islands",
+        "text": "Name an island.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "0831d9583ee704d3b5d02e69427d9da9e139dfdc851b0593b0a2eaa1ab8904b3"
+    },
+    "beer-brands": {
+      "metadata": {
+        "id": "beer-brands",
+        "text": "Name a beer brand.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 370
+      },
+      "answersSha256": "e1c03b2f3693869824ccf2fda637a682c6be6918430afe904c409090f8181c89"
+    },
+    "bridges": {
+      "metadata": {
+        "id": "bridges",
+        "text": "Name a bridge.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c021870ab4c2ee181bd51134022729df71ff7c2fc2660f20ca40199cbc5f61cd"
+    },
+    "historians": {
+      "metadata": {
+        "id": "historians",
+        "text": "Name a historian.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "7dc1ce3f3277d0d57616f8a0f2f672764f3e2f092d301df717ce6ee5d77a09f9"
+    },
+    "cities-ng": {
+      "metadata": {
+        "id": "cities-ng",
+        "text": "Name a city or town in Nigeria.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 268
+      },
+      "answersSha256": "590c4176da9bf832238c614a0441f0627bb306d0084fdcb79cd35aa44a900e53"
+    },
+    "magazines": {
+      "metadata": {
+        "id": "magazines",
+        "text": "Name a magazine.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "7346b90996271cbfdf66fa48cb3b11a4927643758393290161108e02d6b7b16d"
+    },
+    "cities-cn": {
+      "metadata": {
+        "id": "cities-cn",
+        "text": "Name a city or town in China.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "99686e8d8ce53e6affaff0b751555cf2dbbdbbeea41b21f92de7d9289f7a2da0"
+    },
+    "apples": {
+      "metadata": {
+        "id": "apples",
+        "text": "Name an apple variety.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1e932cf0e054583ad173c6b2322741f3b705b1b0f7e66ebe4b805ae162167b8c"
+    },
+    "uk-parties": {
+      "metadata": {
+        "id": "uk-parties",
+        "text": "Name a British political party, past or present.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1a86a92fc845e06e44f23ed745c66642803fdfcd165155a99da0c0fd1287fb3f"
+    },
+    "desserts": {
+      "metadata": {
+        "id": "desserts",
+        "text": "Name a dessert.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "56767ac25f44a8fb95fff2a8ca141579b449ba922411bffa7c4633f588ce236e"
+    },
+    "inventors": {
+      "metadata": {
+        "id": "inventors",
+        "text": "Name an inventor.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "3764ff73d10b9c48370b074b5c222598efc3ea2ae1d0990aff4063d1844e3d47"
+    },
+    "beer": {
+      "metadata": {
+        "id": "beer",
+        "text": "Name a beer style.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 250
+      },
+      "answersSha256": "ca8533e1e12de2ff296fbc29990d652b0c6308711b25204155d74c2c14456b20"
+    },
+    "authors": {
+      "metadata": {
+        "id": "authors",
+        "text": "Name an author.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c15336839b3b3d78a4be70b1a82333d9f505ccb71f59dc5aa0b71118833e9134"
+    },
+    "baseball-players": {
+      "metadata": {
+        "id": "baseball-players",
+        "text": "Name a baseball player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "16db00c1967015aefd3db0d1e76730c34405709aebf6eed2b74d46c36f195fc4"
+    },
+    "cities-gr": {
+      "metadata": {
+        "id": "cities-gr",
+        "text": "Name a city or town in Greece.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "397c9b8b8b08abfcaeb78de43f1cee8055a471212ebecd0b66024ddfb1c49060"
+    },
+    "nationalities": {
+      "metadata": {
+        "id": "nationalities",
+        "text": "Name a nationality.",
+        "theme": "geography",
+        "cluster": "countries",
+        "constrained": false,
+        "size": 226
+      },
+      "answersSha256": "5024f2ab2f3757a747b03d744fbbc2450e020482e915f3635fc6b4a882e27b33"
+    },
+    "mountains": {
+      "metadata": {
+        "id": "mountains",
+        "text": "Name a mountain.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "6e9e97b6be35149bf897b7ad6819d2e4f03874cfc919f68dae271d57e0028927"
+    },
+    "biopics": {
+      "metadata": {
+        "id": "biopics",
+        "text": "Name a biographical movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "d4ed044de19a6705d576341a5a1d3cecc3a8e68b410f18946bfe288afa646657"
+    },
+    "songs": {
+      "metadata": {
+        "id": "songs",
+        "text": "Name a song.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cb7963c9af2e75e4ad95e15f1cb7d0c0cc5daa8de027deaeba93f893081899d8"
+    },
+    "fantasy-films": {
+      "metadata": {
+        "id": "fantasy-films",
+        "text": "Name a fantasy movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5c4e5c42e5992933fb8ec995801fbbf23842598ad7f78b87f239706615bcdab5"
+    },
+    "cities-ca": {
+      "metadata": {
+        "id": "cities-ca",
+        "text": "Name a city or town in Canada.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5cb5da46dd7f8509d076e773b531fd919e318cf4bbd35842f379a44398f91842"
+    },
+    "romcoms": {
+      "metadata": {
+        "id": "romcoms",
+        "text": "Name a romantic comedy movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9aa85f62eaaeafa4c2efc2e41b873eae2013ae42329cd712191a74c905edd8bb"
+    },
+    "magicians": {
+      "metadata": {
+        "id": "magicians",
+        "text": "Name a magician.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 337
+      },
+      "answersSha256": "aa4ca479d8176f405489a6cf87c737e92793b25d523b3c6b0097b3faf288bd4a"
+    },
+    "movies": {
+      "metadata": {
+        "id": "movies",
+        "text": "Name a movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9332b8ca34fac6620cb7897e75950c7d79686cc2caebbd84277a7059b2fb1909"
+    },
+    "cities-pl": {
+      "metadata": {
+        "id": "cities-pl",
+        "text": "Name a city or town in Poland.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 361
+      },
+      "answersSha256": "8851a5c789df0c87645fa8d366e6db5617cbdf3e387515f481d7ce0ecea6c07e"
+    },
+    "greek-myth": {
+      "metadata": {
+        "id": "greek-myth",
+        "text": "Name a figure from Greek mythology.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "285ca5709e8fa5e8fd9c4512c0101486d78911018c2409309c53c1930661c692"
+    },
+    "colors": {
+      "metadata": {
+        "id": "colors",
+        "text": "Name a color.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "3941adb58971003a223bf39af04608687f81c60626baf500546d27af93be0c6b"
+    },
+    "metals": {
+      "metadata": {
+        "id": "metals",
+        "text": "Name a metal or alloy.",
+        "theme": "science",
+        "cluster": "elements",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "d965a6748df1cc37c9adeb7e4d7af82207d7aa8e3107d90ec7acf3882aeed6f6"
+    },
+    "websites": {
+      "metadata": {
+        "id": "websites",
+        "text": "Name a website.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8362dd179c8b7b4f822476c848d918fe8353fc406d5ccb0b6191658f59bcf2e8"
+    },
+    "k-dramas": {
+      "metadata": {
+        "id": "k-dramas",
+        "text": "Name a Korean TV drama.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8c582c256a33804c139137ecd6a7f681ad24c8ed387969e7d2ee2107549b0c9a"
+    },
+    "cities-no": {
+      "metadata": {
+        "id": "cities-no",
+        "text": "Name a city or town in Norway.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "238c7b9bdcef9007c623c9dc37211e48b5924f7bdb3ef18e511614053981d909"
+    },
+    "landforms": {
+      "metadata": {
+        "id": "landforms",
+        "text": "Name a geographical feature.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "460b8d2f9e469d5820f5a6ac7e363e5d8cda506e56783dd111deb8c34e241ba0"
+    },
+    "dinosaurs": {
+      "metadata": {
+        "id": "dinosaurs",
+        "text": "Name a dinosaur.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c2e7030d8192b39d609ee0250715c230af568460d06ee38ec4be8000e306af0f"
+    },
+    "italian-food": {
+      "metadata": {
+        "id": "italian-food",
+        "text": "Name an Italian food or dish.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "888e3a756a613100bbe37dfb01422e3553265050502b5a42441d5e0861761a43"
+    },
+    "comic-strips": {
+      "metadata": {
+        "id": "comic-strips",
+        "text": "Name a comic strip.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 251
+      },
+      "answersSha256": "98fdf6afa79e5fa7ec40e77f7b35081fa374cd7b214f4bdc60f18fbc932ac149"
+    },
+    "marvel": {
+      "metadata": {
+        "id": "marvel",
+        "text": "Name a Marvel character.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ac96bf06a09d8c0938814444952c28e8ae2d3c4abd5d766424286481f8e1866a"
+    },
+    "volcanoes": {
+      "metadata": {
+        "id": "volcanoes",
+        "text": "Name a volcano.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "e331bf17a07c05e5dc18cd984e2ab4c1f3e189c03e996527621a5bb9bc559d31"
+    },
+    "singers": {
+      "metadata": {
+        "id": "singers",
+        "text": "Name a singer.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "200c5c71ace85e23ac28e2bfb7bc027488c19cd2764458ba80b330534f5a6fbb"
+    },
+    "metal-bands": {
+      "metadata": {
+        "id": "metal-bands",
+        "text": "Name a heavy metal band.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 373
+      },
+      "answersSha256": "4b622b5d19b1451d11e4e3d3376f14255606e4c2695d7669cd0e3922a90a019a"
+    },
+    "newspapers": {
+      "metadata": {
+        "id": "newspapers",
+        "text": "Name a newspaper.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5b89f7cbcdcd973d46b3b66a5e539723f58b7f5d3047fc42525d54aea49a8a0d"
+    },
+    "animals": {
+      "metadata": {
+        "id": "animals",
+        "text": "Name an animal.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 247
+      },
+      "answersSha256": "91b47c7b19afa3c82fcb56f5a975670fea55413fc2fa76d2fc73d04db9f3ef56"
+    },
+    "animators": {
+      "metadata": {
+        "id": "animators",
+        "text": "Name an animator.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "322b30462427c88cab7e93dd6ad4c51c86c6d75faf2380e6146e2abd31e295da"
+    },
+    "card-games": {
+      "metadata": {
+        "id": "card-games",
+        "text": "Name a card game.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "22b676e7ece6d47b2fac9d4f073894710d2933059f40724d5155ac7920987a17"
+    },
+    "sheep": {
+      "metadata": {
+        "id": "sheep",
+        "text": "Name a sheep breed.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8a4072000ec5c6f970fa99ee6249d389fe05cba6ba27235fd7121bb103ae1601"
+    },
+    "cakes": {
+      "metadata": {
+        "id": "cakes",
+        "text": "Name a type of cake.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "3e2662678d79472ed0da78358d552068b07aa5ac6b097eb6b34e4a8216943556"
+    },
+    "objects": {
+      "metadata": {
+        "id": "objects",
+        "text": "Name an everyday object.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 387
+      },
+      "answersSha256": "e6144efab950ecc5d9bec5d20e3cd174baaf71fc0d6760a3b076f359c111c65d"
+    },
+    "action-movies": {
+      "metadata": {
+        "id": "action-movies",
+        "text": "Name an action movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 419
+      },
+      "answersSha256": "66f172f7ed7c3b3cf0e30ed2d2eca2ffc821aafb551459377ba8078e29876ade"
+    },
+    "violinists": {
+      "metadata": {
+        "id": "violinists",
+        "text": "Name a violinist.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 351
+      },
+      "answersSha256": "74ec7fcb1ee79912dd92cac4537332b8737fa71e444838458c28c7e578e75e2f"
+    },
+    "cities-us": {
+      "metadata": {
+        "id": "cities-us",
+        "text": "Name a city or town in the United States.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "948180987cd305edb9ef09725074f13571c8e3979f471ed96ca85db25500e64d"
+    },
+    "soap-operas": {
+      "metadata": {
+        "id": "soap-operas",
+        "text": "Name a soap opera.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 344
+      },
+      "answersSha256": "5ac0ff0bc55931ec47293009d7a7ceea53364b00674c3515278dc936ab2c40fe"
+    },
+    "knots": {
+      "metadata": {
+        "id": "knots",
+        "text": "Name a type of knot.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 214
+      },
+      "answersSha256": "bb829a8d37e171eb1d7b75297d637e7ea98c3f29a568e1977f4c0a5e347012ce"
+    },
+    "castles": {
+      "metadata": {
+        "id": "castles",
+        "text": "Name a castle.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "722692e7ae1164ee3d92d5c03f4095f208dd4d2aa9fb3da4bd305e248be16e91"
+    },
+    "tea": {
+      "metadata": {
+        "id": "tea",
+        "text": "Name a tea variety or blend.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "7b60a0751f6b2982de9abbf57f2f1d94515d66f79d58c5d55e29a8e8f6fc5a51"
+    },
+    "skiers": {
+      "metadata": {
+        "id": "skiers",
+        "text": "Name an alpine skier.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c88981b20f7cd7fcd983b2d48df47f1f802db903b2bcf80c5394fb6b3cabc205"
+    },
+    "animated-films": {
+      "metadata": {
+        "id": "animated-films",
+        "text": "Name an animated movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5425c5d427e42d24a62cea5fb8031060108dbda77bd21f908d4da9dd3f80f6f8"
+    },
+    "mountaineers": {
+      "metadata": {
+        "id": "mountaineers",
+        "text": "Name a mountaineer.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "54b24baac213ce55bf1fbab6ff1a8098cbfe023dcfb986ed85c1ccc51007ce66"
+    },
+    "furniture": {
+      "metadata": {
+        "id": "furniture",
+        "text": "Name a piece of furniture.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "45e55fef4c12e359384fc8b27766a3ff6af898f170e144a16db93bdce9a85d64"
+    },
+    "films-1990s": {
+      "metadata": {
+        "id": "films-1990s",
+        "text": "Name a movie from the 1990s.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cb811fca0ce7535a989496ff72813dfa953ffd018a671a7f66b85de1b9e3b9e4"
+    },
+    "flowers": {
+      "metadata": {
+        "id": "flowers",
+        "text": "Name a flowering plant.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4126c5c14b56aef9934427756df5c4f3049dead36e57e13fdc21c5a592c2d323"
+    },
+    "superhero-films": {
+      "metadata": {
+        "id": "superhero-films",
+        "text": "Name a superhero movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 290
+      },
+      "answersSha256": "ff334dd400272a83a3caecd348453ad9e45167af6c9f98b9db1aa46c0eb59dd8"
+    },
+    "swimmers": {
+      "metadata": {
+        "id": "swimmers",
+        "text": "Name a swimmer.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "3e5c5139c4e13b053b65138a9f0857165e1b6968be52ea2604da84d825601c02"
+    },
+    "kids-tv": {
+      "metadata": {
+        "id": "kids-tv",
+        "text": "Name a children's TV show.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b6f5e2c8b3ed62a5f4b6a3f0eca8065d32fc0cd3e4c3d1de76f325e98c260523"
+    },
+    "rappers": {
+      "metadata": {
+        "id": "rappers",
+        "text": "Name a rapper.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "2fb270988f591431c5b90aa324a1fe7abae88b2c54f6b4738721ebce667dfaf5"
+    },
+    "jobs": {
+      "metadata": {
+        "id": "jobs",
+        "text": "Name an occupation.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "067b6cd260426d994d72ec98590b2553e1966be9fed708ec90277a7ec7f13f22"
+    },
+    "opera-singers": {
+      "metadata": {
+        "id": "opera-singers",
+        "text": "Name an opera singer.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4aeb413f2daa0e6a35fcf107cf70486eacd7bec0d118ec127bb32fb2fcb7d13c"
+    },
+    "norse-myth": {
+      "metadata": {
+        "id": "norse-myth",
+        "text": "Name a figure from Norse mythology.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 225
+      },
+      "answersSha256": "2d8626331c208e36e981c97147a451a63a111cd145aa5ba307dd1367d9e94bec"
+    },
+    "dc": {
+      "metadata": {
+        "id": "dc",
+        "text": "Name a DC Comics character.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 424
+      },
+      "answersSha256": "a01e1ba2f79f7310547f48e9156cead738dd9b63dc36a9c552690734a7cd1cb1"
+    },
+    "cities-ph": {
+      "metadata": {
+        "id": "cities-ph",
+        "text": "Name a city or town in the Philippines.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8d3534812848624a85c888940acdaea3d04d3d520ed873a176607375f30d3c49"
+    },
+    "sausages": {
+      "metadata": {
+        "id": "sausages",
+        "text": "Name a type of sausage.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "754e54b240201c9a2114f99580fec3dccf7450816d5fbd85e8883862be0e6bac"
+    },
+    "literary-characters": {
+      "metadata": {
+        "id": "literary-characters",
+        "text": "Name a character from a novel.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 249
+      },
+      "answersSha256": "5e720690e9d5d6b700d9e2507265aa5f731ec1de16b6b01749af1e84d2f6c335"
+    },
+    "cars": {
+      "metadata": {
+        "id": "cars",
+        "text": "Name a car brand.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "00372ef68eb9c516c5ec27e07418441a9db20e5156c94804cc88f05e4c9464b6"
+    },
+    "composers": {
+      "metadata": {
+        "id": "composers",
+        "text": "Name a composer.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "30d858c3b87203cfa648126ac9cf8d05920c7892955f43a912c7e731d2c43cee"
+    },
+    "cities-co": {
+      "metadata": {
+        "id": "cities-co",
+        "text": "Name a city or town in Colombia.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 310
+      },
+      "answersSha256": "02e805f9ff63cb51c61c3336ad920f88514e4d1eda35cc4f26da5f1aea46a355"
+    },
+    "board-games": {
+      "metadata": {
+        "id": "board-games",
+        "text": "Name a board game.",
+        "theme": "games",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8859345a4331280df19cfb7c5bf92235a187755aa6014890d33192de07405b9a"
+    },
+    "record-labels": {
+      "metadata": {
+        "id": "record-labels",
+        "text": "Name a record label.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f70aed6530dcfecfd222650cab80849c28a8197211baa86acf13386d621aca3a"
+    },
+    "martial-arts": {
+      "metadata": {
+        "id": "martial-arts",
+        "text": "Name a martial art.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 334
+      },
+      "answersSha256": "c4165edcdc3f976ce481e1d685ce2575fb0ba091372f9f4dcb651317183b4881"
+    },
+    "conductors": {
+      "metadata": {
+        "id": "conductors",
+        "text": "Name an orchestra conductor.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "445a710d60efeb35dd3b98c1d3a079ccf3aef25645b49d9037592f46ad68d072"
+    },
+    "sitcoms": {
+      "metadata": {
+        "id": "sitcoms",
+        "text": "Name a sitcom.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bd63a908ef0636b97958eab8e9f7ff0c3adf61a2f8e0c12833339958c7e563a4"
+    },
+    "fonts": {
+      "metadata": {
+        "id": "fonts",
+        "text": "Name a font or typeface.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 258
+      },
+      "answersSha256": "aadb8111a5b826b667ec505474133812ffa85481de8c6e07856b4f9f38a51037"
+    },
+    "boxers": {
+      "metadata": {
+        "id": "boxers",
+        "text": "Name a boxer.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4d52b7beb599bcd3b4905b2341f0501f1a9d710187aa8d804093a46d0a5cf1fa"
+    },
+    "mystery-books": {
+      "metadata": {
+        "id": "mystery-books",
+        "text": "Name a mystery or crime novel.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 394
+      },
+      "answersSha256": "b01b3f35711d42a07a3179eec186ec999299e4eba0153560314ba55364a68c97"
+    },
+    "languages": {
+      "metadata": {
+        "id": "languages",
+        "text": "Name a language.",
+        "theme": "words",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "fa01adedbd6482b2165ab652c2da7669466387caede134a3b104dc3562dd9bfc"
+    },
+    "westerns": {
+      "metadata": {
+        "id": "westerns",
+        "text": "Name a western movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9edf3a1a8816f79731e8faff3aafd4de98183512deb669df8d6c62deff8e6367"
+    },
+    "cities-mx": {
+      "metadata": {
+        "id": "cities-mx",
+        "text": "Name a city or town in Mexico.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "70b2185940db044de9c038663c3962e5cd8a95c452cdb78299d988fa903419d1"
+    },
+    "jazz": {
+      "metadata": {
+        "id": "jazz",
+        "text": "Name a jazz musician.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c1f30fdf47242562acd9926bc1e1a55500ca3742e730c888aa43043d8150b300"
+    },
+    "soups": {
+      "metadata": {
+        "id": "soups",
+        "text": "Name a soup.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c5992c3caf27b30e318fbeba370742332b99e76b4e4f668461e40a49fca140a1"
+    },
+    "soccer-clubs": {
+      "metadata": {
+        "id": "soccer-clubs",
+        "text": "Name a soccer club.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f8fda8a2f23140cefe7ecb385c33f2960a0cc8beeb2b403ae215448f10ab7f5f"
+    },
+    "comedians": {
+      "metadata": {
+        "id": "comedians",
+        "text": "Name a comedian.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "2de9da56f0b385d2dfd890c9766035dd5b88214619bb3068c02efc6789af4392"
+    },
+    "cities-br": {
+      "metadata": {
+        "id": "cities-br",
+        "text": "Name a city or town in Brazil.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9ab29b759ac27e92d96ea1b7db7fb1c2fd2b0dc2f530b3acacfb85c79c6bb08f"
+    },
+    "reality-tv": {
+      "metadata": {
+        "id": "reality-tv",
+        "text": "Name a reality TV show.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4757fe2f1749008ea72cbae8da143dbe16b6a79eb4eb1eff30ba6e40384793a2"
+    },
+    "manga": {
+      "metadata": {
+        "id": "manga",
+        "text": "Name a manga series.",
+        "theme": "books",
+        "cluster": "japan",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "fa3d50caa53c3c1c40068e99f942d619ef0bfe6f7d5b8cd9a5bc83a75ed36026"
+    },
+    "japanese-films": {
+      "metadata": {
+        "id": "japanese-films",
+        "text": "Name a Japanese movie.",
+        "theme": "film",
+        "cluster": "japan",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "eda2c8152bd33ecd3e252fc06a72130e99605e088a92e26afe88f3ab719f5d3c"
+    },
+    "tube": {
+      "metadata": {
+        "id": "tube",
+        "text": "Name a London Underground station.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 267
+      },
+      "answersSha256": "1185f4b150e0ebdc0b0286c5300f32caf9eb46421761da87dcf97e646efd56b7"
+    },
+    "lakes": {
+      "metadata": {
+        "id": "lakes",
+        "text": "Name a lake.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c2542345e25d69a7aa7776bb4d05d45f3ab5b31246774b14c2227bc1c7974d14"
+    },
+    "pasta": {
+      "metadata": {
+        "id": "pasta",
+        "text": "Name a pasta shape or dish.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 266
+      },
+      "answersSha256": "10f6190a1b57586b7a7d936313933ac112ec1c37ec6e617c598101805d3dbf52"
+    },
+    "tolkien": {
+      "metadata": {
+        "id": "tolkien",
+        "text": "Name a Tolkien character.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c4c68b986620fff3832547e43c8f61a760d69f857b856c7d7cbac780b57b1bbb"
+    },
+    "cities-be": {
+      "metadata": {
+        "id": "cities-be",
+        "text": "Name a city or town in Belgium.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 379
+      },
+      "answersSha256": "5522c6a7c487eab8fc2b8daa55adbc5cc1aa6c82684245f1c19239f484409357"
+    },
+    "meteorology": {
+      "metadata": {
+        "id": "meteorology",
+        "text": "Name a meteorological term.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "54386e23465cc43d02c2a78ae3f2a890e1b315f0762789bddc918dc54fb2014d"
+    },
+    "psychologists": {
+      "metadata": {
+        "id": "psychologists",
+        "text": "Name a psychologist.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "07644d4d8a6b4796472d4f9accdcdeab212c21aa4a10ba93c385670b7c83cd5a"
+    },
+    "cities-pk": {
+      "metadata": {
+        "id": "cities-pk",
+        "text": "Name a city or town in Pakistan.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bcb99771dad736263c78b5c9b0828c744549b385cf0c03628c24471f7ba13b8e"
+    },
+    "comic-books": {
+      "metadata": {
+        "id": "comic-books",
+        "text": "Name a comic book series.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "130befb76c2d40cff6cfd1237113a6feb64d87cbaf031537beca49462d8e374a"
+    },
+    "rocks": {
+      "metadata": {
+        "id": "rocks",
+        "text": "Name a type of rock.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "054c11a02860e311a8da958ec184b25d44b3e7a5d26e9eff85c8324b2d22d3a1"
+    },
+    "instruments": {
+      "metadata": {
+        "id": "instruments",
+        "text": "Name a musical instrument.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "590038f84e92628ec809bbcc15a8478538f6ec126109c58da774f1d3dc738d4a"
+    },
+    "music-festivals": {
+      "metadata": {
+        "id": "music-festivals",
+        "text": "Name a music festival.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ece070ff7aea53567e42ca45e115f65a6f6f252164df1329641fa6dd2cebd40a"
+    },
+    "seafood": {
+      "metadata": {
+        "id": "seafood",
+        "text": "Name a type of seafood.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 310
+      },
+      "answersSha256": "cc7411dbef46cf692e58c04661879e9b77d507ac65dc7de975b004cb86a22d27"
+    },
+    "cities-au": {
+      "metadata": {
+        "id": "cities-au",
+        "text": "Name a city or town in Australia.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 311
+      },
+      "answersSha256": "6990afcb02c2b3ba5285dbe2f93e8c490456f85145c1c0b0af943ebb9cbeef8f"
+    },
+    "simpsons": {
+      "metadata": {
+        "id": "simpsons",
+        "text": "Name a Simpsons character.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 211
+      },
+      "answersSha256": "ed4de5ed2b279a677086fdfc14c245ab0fafbd821a44bd957665ad9193b0f53f"
+    },
+    "hairstyles": {
+      "metadata": {
+        "id": "hairstyles",
+        "text": "Name a hairstyle.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 208
+      },
+      "answersSha256": "e7d219c0cd37e32425d7b752fdd8bfbf32f19cb2fde38179f2953c2c00767216"
+    },
+    "gymnasts": {
+      "metadata": {
+        "id": "gymnasts",
+        "text": "Name a gymnast.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c488b1a4b52d21ea7e1ce955653876323d936823a5b773f9fdd5371c0ecb4429"
+    },
+    "war-films": {
+      "metadata": {
+        "id": "war-films",
+        "text": "Name a war movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "9fb71adeced3acf931ddd7d267e56220f94a235ba3e5f9e8b31adbe76150f03f"
+    },
+    "cities-nl": {
+      "metadata": {
+        "id": "cities-nl",
+        "text": "Name a city or town in the Netherlands.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "aaad90bf4925deb34a153879d555ef1d5959bece4e72d2d04e826076233e27d1"
+    },
+    "soccer-players": {
+      "metadata": {
+        "id": "soccer-players",
+        "text": "Name a soccer player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "23ec0a9015090fb55f136f7b202bc0a4f57d95189ec0f026d9c5b9bccb232821"
+    },
+    "djs": {
+      "metadata": {
+        "id": "djs",
+        "text": "Name a DJ or electronic music producer.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "2d54d33c98fb501877d0dc70573b643f4d88ed81cd153d45335cfb6976838001"
+    },
+    "clothing": {
+      "metadata": {
+        "id": "clothing",
+        "text": "Name an item of clothing.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bb11828efd0f156b9ae668d3816daf518fce5e73ffd3e031c1ace52f11ea73fe"
+    },
+    "youtubers": {
+      "metadata": {
+        "id": "youtubers",
+        "text": "Name a YouTuber.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "373662b0b6e90b163ccaa9b00a24a2c54f16b1ab327fe6e24984abac7dce08f9"
+    },
+    "fantasy-books": {
+      "metadata": {
+        "id": "fantasy-books",
+        "text": "Name a fantasy novel.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bb970547051bcfef29b5616155eb59954414a2a138f39f4fb20cd6e1b32a01e2"
+    },
+    "banks": {
+      "metadata": {
+        "id": "banks",
+        "text": "Name a bank.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "a42132d750fb30a2dc06c1f55bd68ff8d9c2cd2c2dda9522a3c6da88088d7672"
+    },
+    "reptiles": {
+      "metadata": {
+        "id": "reptiles",
+        "text": "Name a reptile.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "ce1b85136f31b408a02ce457e365f4d89d4c6df75432594c36d93edc4420949d"
+    },
+    "rock-hall": {
+      "metadata": {
+        "id": "rock-hall",
+        "text": "Name a Rock and Roll Hall of Fame artist.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 222
+      },
+      "answersSha256": "2104b08b765f59f1a10c224e4e37f813e7365351de3811c8f192b4c5489accf2"
+    },
+    "romance-films": {
+      "metadata": {
+        "id": "romance-films",
+        "text": "Name a romance movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "751acf4c1b2870c47027cba870d81a3022e93ac99126444d7a64a219379d4690"
+    },
+    "poets": {
+      "metadata": {
+        "id": "poets",
+        "text": "Name a poet.",
+        "theme": "books",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "dba151fbb3b9ee26be0a9a00df8426fdfa174e102ac7c6f242f3ef48ee51f7f9"
+    },
+    "breads": {
+      "metadata": {
+        "id": "breads",
+        "text": "Name a type of bread.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "80a579463f7c0a7e8e86c4ec34e81c58721ec6fee3c40e797291550d9527a693"
+    },
+    "rivers": {
+      "metadata": {
+        "id": "rivers",
+        "text": "Name a river.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5f9987462497f490e30577b82eb19fa83ede6a3e71e0dfe5e63df9bcbcdb9e8b"
+    },
+    "mountain-ranges": {
+      "metadata": {
+        "id": "mountain-ranges",
+        "text": "Name a mountain range.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b3f3d33f2402c8ad490a6efea1e465bf4ba3e960bf1984bd534e88d533e6a981"
+    },
+    "national-parks": {
+      "metadata": {
+        "id": "national-parks",
+        "text": "Name a national park.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "2c0da49296691ed28c5d773e686ed57d067abd0a30dd94b61e371982f15f3db8"
+    },
+    "scientists": {
+      "metadata": {
+        "id": "scientists",
+        "text": "Name a scientist.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 329
+      },
+      "answersSha256": "683ac05f4350c481016f5557452830a408e185a59b15266a5fbe3b53cd4a815c"
+    },
+    "films-1980s": {
+      "metadata": {
+        "id": "films-1980s",
+        "text": "Name a movie from the 1980s.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f6b160042f438284ad73a1d84d4a97d00597d269e0f93e92700024347437328a"
+    },
+    "british-tv": {
+      "metadata": {
+        "id": "british-tv",
+        "text": "Name a British TV show.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "0ed947d3fd56362e30399c29997a4859f2c7f8d99667fb72e6c752787bea8f4d"
+    },
+    "scifi-films": {
+      "metadata": {
+        "id": "scifi-films",
+        "text": "Name a science fiction movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "31ffbd6ac68fc11760bd4f1c8b8358964b7efbc784293a439e6c6dfce1648aa4"
+    },
+    "f1-drivers": {
+      "metadata": {
+        "id": "f1-drivers",
+        "text": "Name a Formula One driver.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c35dd9a6f1db42a996706cc3ee294dd3def754f9459c1d1a2318590f78d6b27e"
+    },
+    "cities-tr": {
+      "metadata": {
+        "id": "cities-tr",
+        "text": "Name a city or town in Turkey.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 424
+      },
+      "answersSha256": "b9bd12ad100559f357dae5e64240b3ed7b7b49f07865d595ac44bf4a04b376f3"
+    },
+    "liqueurs": {
+      "metadata": {
+        "id": "liqueurs",
+        "text": "Name a liqueur or spirit.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "16c2f9c19ffbd2d5978ed8c7c54533189e5a7923f60b480056f7a411aecdcfb9"
+    },
+    "operating-systems": {
+      "metadata": {
+        "id": "operating-systems",
+        "text": "Name an operating system.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "aad982f03db247a9ffb45a5fb4d12ffc1f31412da21081d7127fb3655eee674d"
+    },
+    "cartoon-characters": {
+      "metadata": {
+        "id": "cartoon-characters",
+        "text": "Name a cartoon character.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "24a49a939785bc2ab99a8ea894620c22c999b5d669cb2348f2d9c6130919fecd"
+    },
+    "currencies": {
+      "metadata": {
+        "id": "currencies",
+        "text": "Name a currency, past or present.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cc055c432ff508d322617b7f5720f9d03334e0911b9ad5e8c00fbbf344a91188"
+    },
+    "cities-jp": {
+      "metadata": {
+        "id": "cities-jp",
+        "text": "Name a city or town in Japan.",
+        "theme": "geography",
+        "cluster": "japan",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "a5374447f81d97171682da2718380e01e00643e31c8a93f49ba9f7f53b80bec7"
+    },
+    "peninsulas": {
+      "metadata": {
+        "id": "peninsulas",
+        "text": "Name a peninsula.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "4b4184774f1f3f5a4e1044dc404256b77fbc69552917a95ba63409946d0925e8"
+    },
+    "astronomers": {
+      "metadata": {
+        "id": "astronomers",
+        "text": "Name an astronomer.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "92b5a77ed420a7a2938a4488c0b646b7d60272b18cd5701ccd32ecceec0efdd7"
+    },
+    "ballets": {
+      "metadata": {
+        "id": "ballets",
+        "text": "Name a ballet.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 322
+      },
+      "answersSha256": "75856f8ff59dcfedf85ddad2ee870a92e3381939791eff076993e2c71cb2df6f"
+    },
+    "cities-vn": {
+      "metadata": {
+        "id": "cities-vn",
+        "text": "Name a city or town in Vietnam.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 293
+      },
+      "answersSha256": "955778913215d3814e1a33506075545059fbbcb63cc764dcdd6d8a77a888f9ab"
+    },
+    "fashion-designers": {
+      "metadata": {
+        "id": "fashion-designers",
+        "text": "Name a fashion designer.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 287
+      },
+      "answersSha256": "fe9fee39acf29f2ad33cabe8af52159a8adc7039eef2a60e2c2f8e59930f5d6b"
+    },
+    "cities-za": {
+      "metadata": {
+        "id": "cities-za",
+        "text": "Name a city or town in South Africa.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 303
+      },
+      "answersSha256": "82b6ecf685ddb35f59a090bb8a916eeb27e3783bc4378e578fb616ba2673ecb2"
+    },
+    "explorers": {
+      "metadata": {
+        "id": "explorers",
+        "text": "Name an explorer.",
+        "theme": "history",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "41dd5f36ad618a840a026a79bc06c08969e97ad481e6f18e2d390f23d786b9a2"
+    },
+    "wrestling": {
+      "metadata": {
+        "id": "wrestling",
+        "text": "Name a wrestling move.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 271
+      },
+      "answersSha256": "78900ce7e3d54c8c919bcb3d90cf0a57adde24df100c18c75dc361a6703aabd9"
+    },
+    "british-actors": {
+      "metadata": {
+        "id": "british-actors",
+        "text": "Name a British actor.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "80697e8d38363ebd911c3b15e7293a52173c1a037ed992996a07ba29017568a2"
+    },
+    "cities-pt": {
+      "metadata": {
+        "id": "cities-pt",
+        "text": "Name a city or town in Portugal.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 214
+      },
+      "answersSha256": "ceb9c6498d225b9b29fd6fbfe78dd4ff01d42a3270c810fdb994655c8d7a08ff"
+    },
+    "horror-movies": {
+      "metadata": {
+        "id": "horror-movies",
+        "text": "Name a horror movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bba9fbb1d3c651a5205e37547641519d7a219a780122f3da8b31c587a23fd365"
+    },
+    "art": {
+      "metadata": {
+        "id": "art",
+        "text": "Name an art movement or style.",
+        "theme": "art",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "68e01764828007422159d90dab50b66696b11703bf7eb67c85b69cbd7c9805de"
+    },
+    "martial-arts-films": {
+      "metadata": {
+        "id": "martial-arts-films",
+        "text": "Name a martial arts movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "a829e37a89a7b653d298741b5718266361da3f88f5cc9c13c9182d608fc3efbb"
+    },
+    "football-teams": {
+      "metadata": {
+        "id": "football-teams",
+        "text": "Name an American football team.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "912d76f0d0ccd93981fefdfaa9e3decd8e9c6dd1048474b64236beea14050e78"
+    },
+    "oscar-actors": {
+      "metadata": {
+        "id": "oscar-actors",
+        "text": "Name an Oscar-winning actor or actress.",
+        "theme": "film",
+        "cluster": "oscars",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "70a519420bb56479aa9a7517bf2aaad400c48f00611b260c8d8e66a6452fd2a9"
+    },
+    "motorcycles": {
+      "metadata": {
+        "id": "motorcycles",
+        "text": "Name a motorcycle brand.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "42df26d8029545295f1b634bed38df5f57c1bb9427611cb1bac2a7a943568788"
+    },
+    "cities-ro": {
+      "metadata": {
+        "id": "cities-ro",
+        "text": "Name a city or town in Romania.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "8972c99a094827590ecd37263ba31c017886241ae35310a2f3a31b0b48e1c642"
+    },
+    "american-actors": {
+      "metadata": {
+        "id": "american-actors",
+        "text": "Name an American actor or actress.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "389f1728b802b46d3f3f344d21a79988eaf8f30910fb3f720611fa30d79dd1c7"
+    },
+    "cities-ie": {
+      "metadata": {
+        "id": "cities-ie",
+        "text": "Name a city or town in Ireland.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 244
+      },
+      "answersSha256": "5801bff316e74784d35a3d7380cd9454ac0c0d409f10f35b74da84f16b73b542"
+    },
+    "archipelagos": {
+      "metadata": {
+        "id": "archipelagos",
+        "text": "Name an archipelago or island group.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "1a3325cf491e8e974f552c247a96b16f9cf635cf72fb877ebe1a816fe3e7b586"
+    },
+    "restaurant-chains": {
+      "metadata": {
+        "id": "restaurant-chains",
+        "text": "Name a restaurant chain.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "38c99f588e5bc1fb220849a76f4b0d997af29bce2f7f08e85ef30237313fe66c"
+    },
+    "sculptors": {
+      "metadata": {
+        "id": "sculptors",
+        "text": "Name a sculptor.",
+        "theme": "art",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "5af1c61f0267adbbac60746857765bb54e2f2aa6982b693df909c2bb09a2eea0"
+    },
+    "hockey-players": {
+      "metadata": {
+        "id": "hockey-players",
+        "text": "Name an ice hockey player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "e882ba3a00ef4eda795e82cabc489f8d2bf5f090a66dbe64b1acea0c92b4007f"
+    },
+    "hbo": {
+      "metadata": {
+        "id": "hbo",
+        "text": "Name an HBO series.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "d32609aa2aa3d9ed52d5f5cd3a0a505d8197f837eba25a771965c04da0046a62"
+    },
+    "appliances": {
+      "metadata": {
+        "id": "appliances",
+        "text": "Name a household appliance.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "42d784b530e3546765b0129d87246f123f43f6a1894bd51e49c582e99d11bb34"
+    },
+    "architects": {
+      "metadata": {
+        "id": "architects",
+        "text": "Name an architect.",
+        "theme": "art",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b0e08e9e48b04228cf371838a46ca706466072625a5aceace24bf5ba5a8a5018"
+    },
+    "skyscrapers": {
+      "metadata": {
+        "id": "skyscrapers",
+        "text": "Name a skyscraper.",
+        "theme": "geography",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "a0106a4afbcb6011df69e8f93ab7e7e79e7b0f0752ddfe2276d96619c7d3b156"
+    },
+    "cities-id": {
+      "metadata": {
+        "id": "cities-id",
+        "text": "Name a city or town in Indonesia.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "cab64580ffb3946aec21e10278e759f68ffbe60a3707405c2c9e32083038603b"
+    },
+    "ballet-dancers": {
+      "metadata": {
+        "id": "ballet-dancers",
+        "text": "Name a ballet dancer.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "7371ce623d79e277b5f5f0f303044672c774466e12a9a964516da20add524213"
+    },
+    "animated-series": {
+      "metadata": {
+        "id": "animated-series",
+        "text": "Name an animated TV series.",
+        "theme": "tv",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "27b9a08b4ae7a7fd19339f3393efdb3d40c65881fe3ade8af53e16d7db761f9d"
+    },
+    "comedy-movies": {
+      "metadata": {
+        "id": "comedy-movies",
+        "text": "Name a comedy movie.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "aa32f2e693a65777bbad5e9ff147a2cab3449d7c2b6c700996d41a9525fe1f7d"
+    },
+    "companies": {
+      "metadata": {
+        "id": "companies",
+        "text": "Name a company.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "83dc191b22d5ba76608ae190dacc3c2dc9fb82cad59746fb52f73b02185dc0c1"
+    },
+    "cities-gb": {
+      "metadata": {
+        "id": "cities-gb",
+        "text": "Name a city or town in the United Kingdom.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "7fa6b80e0500a004899c144724db3392a1880aabe2cb6dfb44f13b685828ff43"
+    },
+    "films-1970s": {
+      "metadata": {
+        "id": "films-1970s",
+        "text": "Name a movie from the 1970s.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "bb810268d8e203bd2b53c35fcb794bebcefc76b4a50faed6cf526c8807e204c8"
+    },
+    "cities-hr": {
+      "metadata": {
+        "id": "cities-hr",
+        "text": "Name a city or town in Croatia.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "6bfd8ac25f5935cea0819d44cc7684bd57673c85199d5938ca1790af48e95b54"
+    },
+    "music-genres": {
+      "metadata": {
+        "id": "music-genres",
+        "text": "Name a music genre.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 375
+      },
+      "answersSha256": "9f9d537406c81cbd2ba05b557677d5847c97de8a83654893a3c20480ddc49ceb"
+    },
+    "birds": {
+      "metadata": {
+        "id": "birds",
+        "text": "Name a bird.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "f58e0f65dd856ce50c6ba332449a34fd9679e33a6d19814ffaf70db1945546ea"
+    },
+    "cheeses": {
+      "metadata": {
+        "id": "cheeses",
+        "text": "Name a cheese or fermented dairy product.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "c0c2eb90ca49e43d9059c567c1823397cb8f46f9abbde945b0c7e0073b63ba32"
+    },
+    "soft-drinks": {
+      "metadata": {
+        "id": "soft-drinks",
+        "text": "Name a soft drink.",
+        "theme": "food",
+        "cluster": null,
+        "constrained": false,
+        "size": 427
+      },
+      "answersSha256": "f53bfe8ebe22825def9132a1c6e19267f560c19d267820a4dad971601e9c72ba"
+    },
+    "units": {
+      "metadata": {
+        "id": "units",
+        "text": "Name a unit of measurement.",
+        "theme": "science",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "acfb74844bb4471b6c53b942cc8333ec932c50695f3b17940acb1081cd860db3"
+    },
+    "pianists": {
+      "metadata": {
+        "id": "pianists",
+        "text": "Name a pianist.",
+        "theme": "music",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "22b081ce5acab54700a568fe26312bc2865e2001da8a210f417017b86c484f1d"
+    },
+    "hotel-chains": {
+      "metadata": {
+        "id": "hotel-chains",
+        "text": "Name a hotel chain.",
+        "theme": "everyday",
+        "cluster": null,
+        "constrained": false,
+        "size": 252
+      },
+      "answersSha256": "592b73b9c2bc8c4404f0074f35f47ab6e361a79c9a6c1081dd93a3825df24cb7"
+    },
+    "cities-fr": {
+      "metadata": {
+        "id": "cities-fr",
+        "text": "Name a city or town in France.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "6d6173b8b372b7570783e9b0414ffeaa9d9d13cfa2a3513a76a2ce4f4aa51323"
+    },
+    "films-2010s": {
+      "metadata": {
+        "id": "films-2010s",
+        "text": "Name a movie from the 2010s.",
+        "theme": "film",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "3e5dcf4073578c87c731a2c609e7a82b6887591bf0ae200fafaf9be517c0af98"
+    },
+    "chess-players": {
+      "metadata": {
+        "id": "chess-players",
+        "text": "Name a chess player.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "b8ecfe12963b09cab9c047b498cd2191c62e11d063092eae8f9660395b3b4217"
+    },
+    "cities-my": {
+      "metadata": {
+        "id": "cities-my",
+        "text": "Name a city or town in Malaysia.",
+        "theme": "geography",
+        "cluster": "cities",
+        "constrained": false,
+        "size": 358
+      },
+      "answersSha256": "e56010b199c1f2b1840c2097d5b8028c56e473c8d5a2c33017de5fd0ac3df579"
+    },
+    "cattle": {
+      "metadata": {
+        "id": "cattle",
+        "text": "Name a cattle breed.",
+        "theme": "nature",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "31d1c03d8d172b978d1039ef9860e04db096a014ac7576bededca2cc4684de90"
+    },
+    "track-athletes": {
+      "metadata": {
+        "id": "track-athletes",
+        "text": "Name a track and field athlete.",
+        "theme": "sports",
+        "cluster": null,
+        "constrained": false,
+        "size": 430
+      },
+      "answersSha256": "0fe74df20877ec18668d0e2b634b16ec00c3d3166720296d7f7e89bee7f6b4b0"
+    }
+  }
+}

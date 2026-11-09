@@ -1,0 +1,39 @@
+{
+  "buckets": {
+    "4": "\nanna\tg\njude\t71\nlucy\t49\nrita\t3v\n",
+    "14": "\nanna go to him\tg\nmartha my dear\t2h\n",
+    "23": "\nballad of john and yoko\tao\nlonely hearts club band\td7\n",
+    "9": "\nbeethoven\t7p\ndr robert\t0\nmy bonnie\t5o\n",
+    "32": "\nbeing for the benefit of mr kite\t60\n",
+    "13": "\nbungalow bill\t8b\ndear prudence\ta8\ndoctor robert\t0\neleanor rigby\tc1\ngeorgia brown\tz\njohn and yoko\tao\npolythene pam\teb\nrocky raccoon\t9s\n",
+    "33": "\ncontinuing story of bungalow bill\t8b\n",
+    "17": "\ndizzy miss lizzie\tbi\n",
+    "16": "\ndizzy miss lizzy\tbi\n",
+    "7": "\neleanor\tc1\nmadonna\t3g\nmaxwell\tch\nmr kite\t60\nmustard\t55\n",
+    "26": "\nfor the benefit of mr kite\t60\n",
+    "8": "\nhey jude\t71\nmichelle\t1l\nprudence\ta8\n",
+    "5": "\njulia\t1w\nrocky\t9s\nsadie\t9f\nsally\t2y\n",
+    "12": "\nlady madonna\t3g\n",
+    "15": "\nlong tall sally\t2y\nlucy in the sky\t49\nmean mr mustard\t55\nsergeant pepper\td7\n",
+    "11": "\nlovely rita\t3v\n",
+    "22": "\nlovely rita meter maid\t3v\nmaxwells silver hammer\tch\n",
+    "3": "\nlsd\t49\npam\teb\n",
+    "28": "\nlucy in the sky with diamond\t49\n",
+    "10": "\nmaggie mae\t7c\nmaggie may\t7c\nmiss lizzy\tbi\nmr mustard\t55\npenny lane\t24\nsexy sadie\t9f\nsgt pepper\td7\n",
+    "6": "\nmartha\t2h\n",
+    "19": "\nmean mister mustard\t55\nroll over beethoven\t7p\nsweet georgia brown\tz\n",
+    "40": "\nsergeant peppers lonely hearts club band\td7\n",
+    "35": "\nsgt peppers lonely hearts club band\td7\n",
+    "43": "\nsgt peppers lonely hearts club band reprise\td7\n"
+  },
+  "answers": "m\tDoctor Robert\ng\tAnna (Go to Him)\nt\tSweet Georgia Brown\ns\tMichelle\nm\tJulia\ns\tPenny Lane\nm\tMartha My Dear\nm\tLong Tall Sally\nm\tLady Madonna\nm\tLovely Rita\ns\tLucy in the Sky with Diamonds\nm\tMean Mr. Mustard\nt\tMy Bonnie\nm\tBeing for the Benefit of Mr. Kite!\ns\tHey Jude\nm\tMaggie Mae\nr\tRoll Over Beethoven\nr\tThe Continuing Story of Bungalow Bill\nr\tSexy Sadie\nr\tRocky Raccoon\nr\tDear Prudence\nr\tThe Ballad of John and Yoko\nd\tDizzy Miss Lizzy\ns\tEleanor Rigby\nd\tMaxwell's Silver Hammer\nd\tSgt. Pepper's Lonely Hearts Club Band\nd\tPolythene Pam\n",
+  "gem": { "answer": "Anna (Go to Him)", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Michelle", "tier": "surface", "points": 10 },
+    { "answer": "Penny Lane", "tier": "surface", "points": 10 },
+    { "answer": "Lucy in the Sky with Diamonds", "tier": "surface", "points": 10 },
+    { "answer": "Dizzy Miss Lizzy", "tier": "deep", "points": 85 },
+    { "answer": "Maxwell's Silver Hammer", "tier": "deep", "points": 85 }
+  ],
+  "size": 27
+}

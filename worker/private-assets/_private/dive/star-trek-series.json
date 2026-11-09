@@ -1,0 +1,31 @@
+{
+  "buckets": {
+    "13": "\nanimated sery\t30\noriginal sery\t0\n",
+    "12": "\ndeep space 9\t18\n",
+    "15": "\ndeep space nine\t18\nnext generation\tm\n",
+    "3": "\ndis\t1q\nds9\t18\ndsc\t1q\nent\t22\nlds\t3m\npic\t4k\npro\t4a\nsfa\t4t\nsnw\t2f\ntas\t30\ntng\tm\ntos\t0\nvoy\t40\n",
+    "5": "\ndisco\t1q\n",
+    "9": "\ndiscovery\t1q\nstar trek\t0\n",
+    "10": "\nenterprise\t22\nlower deck\t3m\nshort trek\t5d\n",
+    "2": "\nld\t3m\nst\t5d\n",
+    "6": "\npicard\t4k\n",
+    "7": "\nprodigy\t4a\nvoyager\t40\n",
+    "25": "\nstar trek deep space nine\t18\n",
+    "19": "\nstar trek discovery\t1q\n",
+    "20": "\nstar trek enterprise\t22\nstar trek lower deck\t3m\nstar trek short trek\t5d\n",
+    "16": "\nstar trek picard\t4k\n",
+    "17": "\nstar trek prodigy\t4a\nstar trek voyager\t40\nstarfleet academy\t4t\nstrange new world\t2f\n",
+    "27": "\nstar trek starfleet academy\t4t\nstar trek strange new world\t2f\nstar trek the animated sery\t30\nstar trek the original sery\t0\n",
+    "29": "\nstar trek the next generation\tm\n"
+  },
+  "answers": "s\tThe Original Series\ns\tThe Next Generation\nm\tDeep Space Nine\nm\tDiscovery\nm\tEnterprise\nm\tStrange New Worlds\nm\tThe Animated Series\nr\tLower Decks\ns\tVoyager\nr\tProdigy\nd\tPicard\nd\tStarfleet Academy\ng\tShort Treks\n",
+  "gem": { "answer": "Short Treks", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "The Original Series", "tier": "surface", "points": 10 },
+    { "answer": "The Next Generation", "tier": "surface", "points": 10 },
+    { "answer": "Voyager", "tier": "surface", "points": 10 },
+    { "answer": "Picard", "tier": "deep", "points": 85 },
+    { "answer": "Starfleet Academy", "tier": "deep", "points": 85 }
+  ],
+  "size": 13
+}

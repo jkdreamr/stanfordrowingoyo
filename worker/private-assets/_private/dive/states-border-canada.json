@@ -1,0 +1,25 @@
+{
+  "buckets": {
+    "2": "\nak\t0\nid\t1i\nme\t2a\nmi\tv\nmn\t16\nmt\t20\nnd\t2y\nnh\t2i\nny\t3d\noh\t9\npa\tg\nvt\t1q\nwa\t3o\n",
+    "6": "\nalaska\t0\n",
+    "5": "\nidaho\t1i\nmaine\t2a\npenna\tg\n",
+    "4": "\nmich\tv\nohio\t9\npenn\tg\n",
+    "8": "\nmichigan\tv\nnew york\t3d\n",
+    "9": "\nminnesota\t16\n",
+    "7": "\nmontana\t20\nvermont\t1q\n",
+    "13": "\nnew hampshire\t2i\n",
+    "14": "\nnew york state\t3d\n",
+    "12": "\nnorth dakota\t2y\npennsylvania\tg\n",
+    "10": "\nwashington\t3o\n"
+  },
+  "answers": "s\tAlaska\ng\tOhio\nm\tPennsylvania\nm\tMichigan\nm\tMinnesota\nm\tIdaho\nm\tVermont\nr\tMontana\nr\tMaine\nd\tNew Hampshire\nd\tNorth Dakota\ns\tNew York\ns\tWashington\n",
+  "gem": { "answer": "Ohio", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Alaska", "tier": "surface", "points": 10 },
+    { "answer": "New York", "tier": "surface", "points": 10 },
+    { "answer": "Washington", "tier": "surface", "points": 10 },
+    { "answer": "New Hampshire", "tier": "deep", "points": 85 },
+    { "answer": "North Dakota", "tier": "deep", "points": 85 }
+  ],
+  "size": 13
+}

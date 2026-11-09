@@ -1,0 +1,31 @@
+{
+  "buckets": {
+    "16": "\nbaltimore bullet\tu\nlarissa latynina\t4o\n",
+    "6": "\nbiondi\t3g\nbjrgen\t56\nklaebo\t6i\n",
+    "14": "\nbirgit fischer\t2j\ncaeleb dressel\t61\njenny thompson\td\nlightning bolt\t1t\n",
+    "7": "\nbjorgen\t56\ndaehlie\t5m\ndressel\t61\nfischer\t2j\nledecky\t30\n",
+    "13": "\nbjorn daehlie\t5m\nisabell werth\t3u\njohannes klbo\t6i\nkatie ledecky\t30\nmarit bjorgen\t56\nmichael phelp\tu\n",
+    "12": "\nbjorn dahlie\t5m\nmarit bjrgen\t56\n",
+    "10": "\nbjorndalen\t77\nbjrn dhlie\t5m\ncarl lewis\t0\ncarrington\t1b\nmark spitz\t26\nsawao kato\t85\nusain bolt\t1t\n",
+    "9": "\nbjrndalen\t77\n",
+    "4": "\nbolt\t1t\newry\t7u\nkato\t85\nklbo\t6i\n",
+    "5": "\ndhlie\t5m\nlewis\t0\nnurmi\t4a\nphelp\tu\nspitz\t26\nwerth\t3u\n",
+    "11": "\nflying finn\t4a\nmatt biondi\t3g\npaavo nurmi\t4a\n",
+    "24": "\njohannes hoesflot klaebo\t6i\n",
+    "23": "\njohannes hosflot klaebo\t6i\n",
+    "20": "\njohannes hsflot klbo\t6i\nole einar bjorndalen\t77\n",
+    "15": "\njohannes klaebo\t6i\nlarisa latynina\t4o\nlisa carrington\t1b\n",
+    "8": "\nlatynina\t4o\nray ewry\t7u\nthompson\td\n",
+    "19": "\nole einar bjrndalen\t77\n"
+  },
+  "answers": "s\tCarl Lewis\nm\tJenny Thompson\ns\tMichael Phelps\nm\tLisa Carrington\ns\tUsain Bolt\ns\tMark Spitz\nm\tBirgit Fischer\ns\tKatie Ledecky\nm\tMatt Biondi\nt\tIsabell Werth\nm\tPaavo Nurmi\nm\tLarisa Latynina\nr\tMarit Bjørgen\nr\tBjørn Dæhlie\nr\tCaeleb Dressel\nd\tJohannes Høsflot Klæbo\nd\tOle Einar Bjørndalen\ng\tRay Ewry\nd\tSawao Katō\n",
+  "gem": { "answer": "Ray Ewry", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Carl Lewis", "tier": "surface", "points": 10 },
+    { "answer": "Michael Phelps", "tier": "surface", "points": 10 },
+    { "answer": "Usain Bolt", "tier": "surface", "points": 10 },
+    { "answer": "Johannes Høsflot Klæbo", "tier": "deep", "points": 85 },
+    { "answer": "Ole Einar Bjørndalen", "tier": "deep", "points": 85 }
+  ],
+  "size": 19
+}

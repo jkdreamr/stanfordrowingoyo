@@ -1,0 +1,771 @@
+{
+  "le-mans-winning-makes": [
+    "Porsche",
+    "Audi",
+    "Ferrari",
+    "Ford",
+    "Toyota",
+    "Jaguar",
+    "Bentley",
+    "Peugeot",
+    "Mazda",
+    "McLaren",
+    "BMW",
+    "Mercedes-Benz",
+    "Mercedes",
+    "Sauber",
+    "Aston Martin",
+    "Matra",
+    "Alfa Romeo",
+    "Bugatti",
+    "Renault",
+    "Alpine",
+    "Lorraine-Dietrich",
+    "Talbot",
+    "Delahaye",
+    "Lagonda",
+    "Mirage",
+    "Chenard & Walcker",
+    "Rondeau",
+    {
+      "guess": "Cadillac",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    {
+      "guess": "Chevrolet",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    {
+      "guess": "Corvette",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    {
+      "guess": "Lancia",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    {
+      "guess": "Lotus",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    {
+      "guess": "Nissan",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    {
+      "guess": "Honda",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    {
+      "guess": "Dodge",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    "Matra-Simca",
+    {
+      "guess": "Delage",
+      "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+    },
+    "Bugatti Type 57",
+    "Sauber-Mercedes"
+  ],
+  "a380-airlines": [
+    "Emirates",
+    "Qantas",
+    "Singapore Airlines",
+    "British Airways",
+    "Lufthansa",
+    "Air France",
+    "Korean Air",
+    "Qatar Airways",
+    "Etihad Airways",
+    "Etihad",
+    "All Nippon Airways",
+    "ANA",
+    "Thai Airways",
+    "Asiana Airlines",
+    "Asiana",
+    "China Southern Airlines",
+    "China Southern",
+    "Malaysia Airlines",
+    "Hi Fly",
+    "Global Airlines",
+    {
+      "guess": "Cathay Pacific",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "Delta Air Lines",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "United Airlines",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "American Airlines",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "Virgin Atlantic",
+      "invalid": "Ordered A380s but cancelled; never operated the type."
+    },
+    {
+      "guess": "Air India",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "Turkish Airlines",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "Japan Airlines",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "Saudia",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    {
+      "guess": "Air China",
+      "invalid": "Not a current or former A380 operator on the pinned list."
+    },
+    "Singapore",
+    "Emirates Airline",
+    "Thai Airways International",
+    "Qatar",
+    "Korean",
+    "Lufthansa Airlines"
+  ],
+  "video-game-hall-of-fame": [
+    "Pong",
+    "Pac-Man",
+    "Tetris",
+    "Super Mario Bros.",
+    "Super Mario Bros",
+    "The Legend of Zelda",
+    "Zelda",
+    "Doom",
+    "World of Warcraft",
+    "The Oregon Trail",
+    "Oregon Trail",
+    "The Sims",
+    "Pokémon Red and Blue",
+    "Pokemon Red and Blue",
+    "Pokémon",
+    "Space Invaders",
+    "Street Fighter II",
+    "Sonic the Hedgehog",
+    "Grand Theft Auto III",
+    "Halo",
+    "Halo: Combat Evolved",
+    "Minecraft",
+    "Myst",
+    "Wii Sports",
+    "Tomb Raider",
+    "Animal Crossing",
+    "Final Fantasy VII",
+    "Mortal Kombat",
+    "Super Mario Kart",
+    "Mario Kart",
+    "Ms. Pac-Man",
+    "Donkey Kong",
+    "Asteroids",
+    "Centipede",
+    {
+      "guess": "Frogger",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Galaga",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "Dance Dance Revolution",
+    {
+      "guess": "Guitar Hero",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "Angry Birds",
+    {
+      "guess": "Candy Crush Saga",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "SimCity",
+    "Civilization",
+    "Sid Meier's Civilization",
+    "Resident Evil",
+    {
+      "guess": "Metroid",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Super Mario 64",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "GoldenEye 007",
+    {
+      "guess": "Pokémon Go",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "John Madden Football",
+    "Madden NFL",
+    "FIFA",
+    "Spacewar!",
+    {
+      "guess": "Zork",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Rogue",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "Colossal Cave Adventure",
+    "King's Quest",
+    "StarCraft",
+    {
+      "guess": "Half-Life",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Call of Duty",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Fortnite",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Minesweeper",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "Solitaire",
+    "Microsoft Solitaire",
+    {
+      "guess": "Breakout",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "Dragon Quest",
+    {
+      "guess": "Final Fantasy",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Mega Man",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Castlevania",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    "Street Fighter",
+    {
+      "guess": "Elder Scrolls V: Skyrim",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Skyrim",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    }
+  ],
+  "spiel-des-jahres-winners": [
+    "Catan",
+    "The Settlers of Catan",
+    "Settlers of Catan",
+    "Ticket to Ride",
+    "Carcassonne",
+    "Azul",
+    "Codenames",
+    "Dixit",
+    "Kingdomino",
+    "Just One",
+    "Hanabi",
+    "Camel Up",
+    "Colt Express",
+    "Qwirkle",
+    "Dominion",
+    "Keltis",
+    "Zooloretto",
+    "Thurn and Taxis",
+    "Niagara",
+    "Villa Paletti",
+    "Elfenland",
+    "Torres",
+    "Tikal",
+    "Mississippi Queen",
+    "El Grande",
+    "Manhattan",
+    "Drunter und Drüber",
+    "Hare and Tortoise",
+    "Scotland Yard",
+    "Rummikub",
+    "Sagaland",
+    "Heimlich & Co.",
+    "Café International",
+    {
+      "guess": "Cartagena",
+      "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+    },
+    "MicroMacro: Crime City",
+    "Cascadia",
+    "Dorfromantik",
+    {
+      "guess": "Pandemic",
+      "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+    },
+    {
+      "guess": "7 Wonders",
+      "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+    },
+    {
+      "guess": "Splendor",
+      "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+    },
+    {
+      "guess": "Wingspan",
+      "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+    },
+    {
+      "guess": "The Crew",
+      "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+    },
+    {
+      "guess": "Labyrinth",
+      "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+    },
+    "Barbarossa"
+  ],
+  "monopoly-tokens": [
+    "Scottie dog",
+    "Dog",
+    "Top hat",
+    "Thimble",
+    "Boot",
+    "Shoe",
+    "Iron",
+    "Battleship",
+    "Ship",
+    "Race car",
+    "Car",
+    "Racecar",
+    "Wheelbarrow",
+    "Cat",
+    "T. rex",
+    "T-Rex",
+    "Dinosaur",
+    "Rubber duck",
+    "Duck",
+    "Penguin",
+    "Horse and rider",
+    "Money bag",
+    "Sack of money",
+    "Cannon",
+    {
+      "guess": "Lantern",
+      "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+    },
+    {
+      "guess": "Purse",
+      "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+    },
+    {
+      "guess": "Rocking horse",
+      "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+    },
+    "Thimble token",
+    {
+      "guess": "Howitzer",
+      "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+    },
+    {
+      "guess": "Train",
+      "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+    },
+    "Hat",
+    "Dog token",
+    "Ducky",
+    "Man on horse"
+  ],
+  "generic-trademarks": [
+    "Kleenex",
+    "Band-Aid",
+    "Xerox",
+    "Velcro",
+    "Jacuzzi",
+    "Escalator",
+    "Aspirin",
+    "Zipper",
+    "Trampoline",
+    "Thermos",
+    "Yo-yo",
+    "Frisbee",
+    "Hoover",
+    "Google",
+    "Photoshop",
+    "Q-tips",
+    "Post-it",
+    "Jell-O",
+    "Popsicle",
+    "Bubble Wrap",
+    "Styrofoam",
+    "Taser",
+    "Jet Ski",
+    "Rollerblade",
+    "Ping-Pong",
+    {
+      "guess": "Kitty Litter",
+      "invalid": "not on the pinned list"
+    },
+    "Dumpster",
+    "Plexiglas",
+    "Tupperware",
+    "Chapstick",
+    "Sharpie",
+    "Super Glue",
+    "Onesie",
+    "Heroin",
+    "Cellophane",
+    "Linoleum",
+    "Laundromat",
+    {
+      "guess": "Teflon",
+      "invalid": "not on the pinned list"
+    },
+    "Vaseline",
+    "Scotch tape",
+    "Sellotape",
+    "Hacky Sack",
+    "Crock-Pot",
+    "Ziploc",
+    {
+      "guess": "Windbreaker",
+      "invalid": "not on the pinned list"
+    },
+    "Lava lamp",
+    "Hula Hoop",
+    "Realtor",
+    {
+      "guess": "Weed eater",
+      "invalid": "not on the pinned list"
+    },
+    "Bobcat",
+    {
+      "guess": "Breathalyzer",
+      "invalid": "not on the pinned list"
+    },
+    "Videotape",
+    {
+      "guess": "Granola",
+      "invalid": "not on the pinned list"
+    },
+    "Kerosene",
+    "Dry ice",
+    "Mace",
+    {
+      "guess": "Novocain",
+      "invalid": "not on the pinned list"
+    },
+    {
+      "guess": "Tabasco",
+      "invalid": "not on the pinned list"
+    },
+    {
+      "guess": "Spandex",
+      "invalid": "not on the pinned list"
+    },
+    {
+      "guess": "Lycra",
+      "invalid": "not on the pinned list"
+    },
+    "Formica",
+    "Muzak",
+    "Polaroid",
+    "Walkman",
+    "Zamboni",
+    "Coke",
+    {
+      "guess": "Bic",
+      "invalid": "not on the pinned list"
+    },
+    "Biro",
+    "Tarmac",
+    "JCB",
+    "Hovercraft",
+    {
+      "guess": "Pilates",
+      "invalid": "not on the pinned list"
+    },
+    {
+      "guess": "Crayola",
+      "invalid": "not on the pinned list"
+    },
+    {
+      "guess": "Scotchgard",
+      "invalid": "not on the pinned list"
+    },
+    {
+      "guess": "Sheetrock",
+      "invalid": "not on the pinned list"
+    },
+    "Memory stick",
+    "Wite-Out",
+    "Tipp-Ex",
+    "Lego"
+  ],
+  "toy-hall-of-fame-originals": [
+    "Barbie",
+    "LEGO",
+    "Lego",
+    {
+      "guess": "Slinky",
+      "invalid": "inducted after 1998 (2000)"
+    },
+    "Etch A Sketch",
+    "Crayola crayons",
+    "Crayons",
+    "Monopoly",
+    "Play-Doh",
+    "Frisbee",
+    "Hula hoop",
+    "Teddy bear",
+    "Yo-yo",
+    {
+      "guess": "Raggedy Ann",
+      "invalid": "inducted after 1998 (2002)"
+    },
+    {
+      "guess": "Mr. Potato Head",
+      "invalid": "inducted after 1998 (2000)"
+    },
+    "Lincoln Logs",
+    "Tinkertoy",
+    "Erector Set",
+    "Radio Flyer wagon",
+    "Wagon",
+    {
+      "guess": "Bicycle",
+      "invalid": "inducted after 1998 (2000)"
+    },
+    {
+      "guess": "Kite",
+      "invalid": "inducted after 1998 (2007)"
+    },
+    {
+      "guess": "Jump rope",
+      "invalid": "inducted after 1998 (2000)"
+    },
+    {
+      "guess": "Stick",
+      "invalid": "inducted after 1998 (2008)"
+    },
+    {
+      "guess": "Cardboard box",
+      "invalid": "inducted after 1998 (2005)"
+    },
+    {
+      "guess": "Ball",
+      "invalid": "inducted after 1998 (2009)"
+    },
+    {
+      "guess": "Blanket",
+      "invalid": "inducted after 1998 (2011)"
+    },
+    {
+      "guess": "Rubik's Cube",
+      "invalid": "inducted after 1998 (2014)"
+    },
+    {
+      "guess": "G.I. Joe",
+      "invalid": "inducted after 1998 (2004)"
+    },
+    {
+      "guess": "Hot Wheels",
+      "invalid": "inducted after 1998 (2011)"
+    },
+    "Duncan yo-yo",
+    {
+      "guess": "Scrabble",
+      "invalid": "inducted after 1998 (2004)"
+    },
+    {
+      "guess": "Candy Land",
+      "invalid": "inducted after 1998 (2005)"
+    },
+    {
+      "guess": "Checkers",
+      "invalid": "inducted after 1998 (2003)"
+    },
+    {
+      "guess": "Chess",
+      "invalid": "inducted after 1998 (2013)"
+    },
+    {
+      "guess": "Jacks",
+      "invalid": "inducted after 1998 (2000)"
+    },
+    "Marbles",
+    {
+      "guess": "Jigsaw puzzle",
+      "invalid": "inducted after 1998 (2002)"
+    },
+    {
+      "guess": "Rubber duck",
+      "invalid": "inducted after 1998 (2013)"
+    },
+    {
+      "guess": "Skateboard",
+      "invalid": "inducted after 1998 (2008)"
+    },
+    "Roller skates",
+    {
+      "guess": "Dominoes",
+      "invalid": "inducted after 1998 (2012)"
+    },
+    {
+      "guess": "Dollhouse",
+      "invalid": "inducted after 1998 (2011)"
+    },
+    {
+      "guess": "Puppet",
+      "invalid": "inducted after 1998 (2015)"
+    },
+    {
+      "guess": "Baby doll",
+      "invalid": "inducted after 1998 (2008)"
+    },
+    {
+      "guess": "Star Wars action figures",
+      "invalid": "inducted after 1998 (2012)"
+    },
+    {
+      "guess": "Magic 8 Ball",
+      "invalid": "inducted after 1998 (2018)"
+    },
+    {
+      "guess": "Uno",
+      "invalid": "inducted after 1998 (2018)"
+    },
+    {
+      "guess": "Twister",
+      "invalid": "inducted after 1998 (2015)"
+    },
+    {
+      "guess": "The Game of Life",
+      "invalid": "inducted after 1998 (2010)"
+    },
+    {
+      "guess": "Easy-Bake Oven",
+      "invalid": "inducted after 1998 (2006)"
+    },
+    "View-Master",
+    {
+      "guess": "Silly Putty",
+      "invalid": "inducted after 1998 (2001)"
+    },
+    {
+      "guess": "Super Soaker",
+      "invalid": "inducted after 1998 (2015)"
+    },
+    {
+      "guess": "Nerf ball",
+      "invalid": "inducted after 1998 (2023)"
+    },
+    {
+      "guess": "Wiffle ball",
+      "invalid": "inducted after 1998 (2017)"
+    },
+    {
+      "guess": "Little People",
+      "invalid": "inducted after 1998 (2016)"
+    },
+    {
+      "guess": "Tonka trucks",
+      "invalid": "inducted after 1998 (2001)"
+    },
+    {
+      "guess": "Matchbox cars",
+      "invalid": "inducted after 1998 (2019)"
+    },
+    {
+      "guess": "Atari 2600",
+      "invalid": "inducted after 1998 (2007)"
+    },
+    {
+      "guess": "Game Boy",
+      "invalid": "inducted after 1998 (2009)"
+    },
+    {
+      "guess": "Dungeons & Dragons",
+      "invalid": "inducted after 1998 (2016)"
+    },
+    {
+      "guess": "Bubbles",
+      "invalid": "inducted after 1998 (2014)"
+    },
+    {
+      "guess": "Swing",
+      "invalid": "inducted after 1998 (2016)"
+    },
+    {
+      "guess": "Paper airplane",
+      "invalid": "inducted after 1998 (2017)"
+    },
+    {
+      "guess": "Sidewalk chalk",
+      "invalid": "inducted after 1998 (2020)"
+    },
+    {
+      "guess": "Spirograph",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "My Little Pony",
+      "invalid": "inducted after 1998 (2024)"
+    },
+    {
+      "guess": "Cabbage Patch Kids",
+      "invalid": "inducted after 1998 (2023)"
+    },
+    {
+      "guess": "Care Bears",
+      "invalid": "inducted after 1998 (2026)"
+    },
+    {
+      "guess": "Furby",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Tickle Me Elmo",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Clue",
+      "invalid": "inducted after 1998 (2017)"
+    },
+    {
+      "guess": "Operation",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Lite-Brite",
+      "invalid": "inducted after 1998 (2022)"
+    },
+    {
+      "guess": "Pogo stick",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Sled",
+      "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+    },
+    {
+      "guess": "Top",
+      "invalid": "inducted after 1998 (2022)"
+    },
+    {
+      "guess": "Fisher-Price Little People",
+      "invalid": "inducted after 1998 (2016)"
+    },
+    {
+      "guess": "Jenga",
+      "invalid": "inducted after 1998 (2020)"
+    }
+  ]
+}

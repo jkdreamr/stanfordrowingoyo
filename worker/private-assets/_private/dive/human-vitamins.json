@@ -1,0 +1,28 @@
+{
+  "buckets": {
+    "1": "\na\t0\nc\tc\nd\to\ne\t10\nk\t1c\n",
+    "13": "\nascorbic acid\tc\nphylloquinone\t1c\n",
+    "2": "\nb1\t1o\nb2\t21\nb3\t2e\nb5\t2r\nb6\t34\nb7\t3h\nb9\t3u\n",
+    "3": "\nb12\t47\n",
+    "6": "\nbiotin\t3h\nfolate\t3u\nniacin\t2e\n",
+    "10": "\ncalciferol\to\nfolic acid\t3u\npyridoxine\t34\nriboflavin\t21\ntocopherol\t10\nvitamin b1\t1o\nvitamin b2\t21\nvitamin b3\t2e\nvitamin b5\t2r\nvitamin b6\t34\nvitamin b7\t3h\nvitamin b9\t3u\n",
+    "15": "\ncholecalciferol\to\n",
+    "9": "\ncobalamin\t47\nvitamin a\t0\nvitamin c\tc\nvitamin d\to\nvitamin e\t10\nvitamin h\t3h\nvitamin k\t1c\n",
+    "12": "\nnicotinamide\t2e\n",
+    "14": "\nnicotinic acid\t2e\n",
+    "16": "\npantothenic acid\t2r\n",
+    "7": "\nretinol\t0\nthiamin\t1o\n",
+    "8": "\nthiamine\t1o\n",
+    "11": "\nvitamin b12\t47\n"
+  },
+  "answers": "s\tVitamin A\ns\tVitamin C\ns\tVitamin D\nm\tVitamin E\nm\tVitamin K\nm\tVitamin B1\nm\tVitamin B2\nm\tVitamin B3\nr\tVitamin B5\nr\tVitamin B6\nd\tVitamin B7\nd\tVitamin B9\ng\tVitamin B12\n",
+  "gem": { "answer": "Vitamin B12", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Vitamin A", "tier": "surface", "points": 10 },
+    { "answer": "Vitamin C", "tier": "surface", "points": 10 },
+    { "answer": "Vitamin D", "tier": "surface", "points": 10 },
+    { "answer": "Vitamin B7", "tier": "deep", "points": 85 },
+    { "answer": "Vitamin B9", "tier": "deep", "points": 85 }
+  ],
+  "size": 13
+}

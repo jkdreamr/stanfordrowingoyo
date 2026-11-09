@@ -1,0 +1,23 @@
+{
+  "buckets": {
+    "8": "\namnesiac\t3f\n",
+    "4": "\nbend\t2p\n",
+    "17": "\nhail to the thief\t25\n",
+    "10": "\nin rainbow\t31\n",
+    "5": "\nkid a\t0\n",
+    "12": "\nkid a mnesia\t0\nking of limb\t17\n",
+    "16": "\nmoon shaped pool\tm\n",
+    "11": "\nok computer\t8\npablo honey\t1r\n",
+    "29": "\nok computer oknotok 1997 2017\t8\n",
+    "7": "\noknotok\t8\n"
+  },
+  "answers": "s\tKid A\ns\tOK Computer\nm\tA Moon Shaped Pool\nm\tThe King of Limbs\nm\tPablo Honey\nr\tHail to the Thief\ns\tThe Bends\nd\tIn Rainbows\ng\tAmnesiac\n",
+  "gem": { "answer": "Amnesiac", "tier": "gem", "points": 100 },
+  "notable": [
+    { "answer": "Kid A", "tier": "surface", "points": 10 },
+    { "answer": "OK Computer", "tier": "surface", "points": 10 },
+    { "answer": "The Bends", "tier": "surface", "points": 10 },
+    { "answer": "In Rainbows", "tier": "deep", "points": 85 }
+  ],
+  "size": 9
+}
