@@ -4967,7 +4967,182 @@
       "surface": ["Jaws", "Jurassic Park", "E.T. the Extra-Terrestrial"],
       "pearl": "Catch Me If You Can",
       "people": false,
-      "acceptance_notes": "a feature film directed by Steven Spielberg (Duel and anthology segments count)"
+      "acceptance_notes": "a feature film directed by Steven Spielberg (Duel and anthology segments count)",
+      "active": false
+    },
+    {
+      "id": "national-film-registry-1989",
+      "text": "a film selected for the National Film Registry in its inaugural year, 1989",
+      "theme": "film",
+      "sources": [
+        {
+          "page": "National Film Registry",
+          "revision": 1384519422,
+          "members": [
+            "Casablanca",
+            "Citizen Kane",
+            "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+            "Gone with the Wind",
+            "High Noon",
+            "Intolerance",
+            "Modern Times",
+            "Mr. Smith Goes to Washington",
+            "Nanook of the North",
+            "On the Waterfront",
+            "Singin' in the Rain",
+            "Snow White and the Seven Dwarfs",
+            "Some Like It Hot",
+            "Star Wars",
+            "Sunrise",
+            "Sunset Boulevard",
+            "The Best Years of Our Lives",
+            "The Crowd",
+            "The General",
+            "The Grapes of Wrath",
+            "The Learning Tree",
+            "The Maltese Falcon",
+            "The Searchers",
+            "The Wizard of Oz",
+            "Vertigo"
+          ],
+          "expect": [25, 25],
+          "reviewed": [
+            "Casablanca",
+            "Citizen Kane",
+            "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+            "Gone with the Wind",
+            "High Noon",
+            "Intolerance",
+            "Modern Times",
+            "Mr. Smith Goes to Washington",
+            "Nanook of the North",
+            "On the Waterfront",
+            "Singin' in the Rain",
+            "Snow White and the Seven Dwarfs",
+            "Some Like It Hot",
+            "Star Wars",
+            "Sunrise",
+            "Sunset Boulevard",
+            "The Best Years of Our Lives",
+            "The Crowd",
+            "The General",
+            "The Grapes of Wrath",
+            "The Learning Tree",
+            "The Maltese Falcon",
+            "The Searchers",
+            "The Wizard of Oz",
+            "Vertigo"
+          ],
+          "review": "Films table, induction year 1989: all 25 inaugural selections, with display markers stripped."
+        }
+      ],
+      "expect": [25, 25],
+      "answers": [
+        {
+          "name": "The Best Years of Our Lives"
+        },
+        {
+          "name": "Casablanca"
+        },
+        {
+          "name": "Citizen Kane"
+        },
+        {
+          "name": "The Crowd"
+        },
+        {
+          "name": "Dr. Strangelove",
+          "aliases": [
+            "Doctor Strangelove",
+            "Dr. Strangelove or How I Learned to Stop Worrying and Love the Bomb"
+          ]
+        },
+        {
+          "name": "The General"
+        },
+        {
+          "name": "Gone with the Wind"
+        },
+        {
+          "name": "The Grapes of Wrath"
+        },
+        {
+          "name": "High Noon"
+        },
+        {
+          "name": "Intolerance"
+        },
+        {
+          "name": "The Learning Tree"
+        },
+        {
+          "name": "The Maltese Falcon"
+        },
+        {
+          "name": "Modern Times"
+        },
+        {
+          "name": "Mr. Smith Goes to Washington"
+        },
+        {
+          "name": "Nanook of the North"
+        },
+        {
+          "name": "On the Waterfront"
+        },
+        {
+          "name": "The Searchers"
+        },
+        {
+          "name": "Singin' in the Rain",
+          "aliases": ["Singing in the Rain"]
+        },
+        {
+          "name": "Snow White and the Seven Dwarfs",
+          "aliases": ["Snow White", "Snow White and the Seven Dwarves", "Snow White 1937"]
+        },
+        {
+          "name": "Some Like It Hot"
+        },
+        {
+          "name": "Star Wars",
+          "aliases": [
+            "Star Wars Episode IV",
+            "Star Wars Episode 4",
+            "Star Wars Episode IV A New Hope",
+            "Star Wars Episode 4 A New Hope",
+            "Star Wars A New Hope",
+            "A New Hope",
+            "Episode IV",
+            "Episode 4"
+          ]
+        },
+        {
+          "name": "Sunrise",
+          "aliases": ["Sunrise A Song of Two Humans"]
+        },
+        {
+          "name": "Sunset Boulevard",
+          "aliases": ["Sunset Blvd"]
+        },
+        {
+          "name": "Vertigo"
+        },
+        {
+          "name": "The Wizard of Oz",
+          "aliases": ["The Wizard of Oz 1939"]
+        }
+      ],
+      "surface": [
+        "Star Wars",
+        "The Wizard of Oz",
+        "Casablanca",
+        "Citizen Kane",
+        "Snow White and the Seven Dwarfs"
+      ],
+      "pearl": "The Learning Tree",
+      "people": false,
+      "acceptance_notes": "The inaugural 25 only. Star Wars is the 1977 film, Episode IV / A New Hope; Snow White is the 1937 animated film. Short and full Dr. Strangelove titles and Sunrise subtitle variants count."
     },
     {
       "id": "hitchcock-films",
@@ -5208,7 +5383,280 @@
       ],
       "surface": ["Psycho", "The Birds", "Vertigo"],
       "pearl": "Rear Window",
-      "people": false
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "stephen-king-theatrical-films",
+      "text": "a theatrically released feature film adapted from a Stephen King story, by 2025",
+      "theme": "film",
+      "sources": [
+        {
+          "page": "List of adaptations of works by Stephen King",
+          "revision": 1384004791,
+          "members": [
+            "'Salem's Lot",
+            "1408",
+            "A Good Marriage",
+            "Apt Pupil",
+            "Carrie",
+            "Cat's Eye",
+            "Cell",
+            "Children of the Corn",
+            "Christine",
+            "Creepshow",
+            "Creepshow 2",
+            "Cujo",
+            "Doctor Sleep",
+            "Dolores Claiborne",
+            "Dreamcatcher",
+            "Firestarter",
+            "Graveyard Shift",
+            "Hearts in Atlantis",
+            "It",
+            "It Chapter Two",
+            "Julie Ganapathi",
+            "Maximum Overdrive",
+            "Misery",
+            "Needful Things",
+            "No Smoking",
+            "Pet Sematary",
+            "Riding the Bullet",
+            "Secret Window",
+            "Silver Bullet",
+            "Stand by Me",
+            "Tales from the Darkside: The Movie",
+            "The Boogeyman",
+            "The Dark Half",
+            "The Dark Tower",
+            "The Dead Zone",
+            "The Green Mile",
+            "The Life of Chuck",
+            "The Long Walk",
+            "The Mangler",
+            "The Mist",
+            "The Monkey",
+            "The Night Flier",
+            "The Running Man",
+            "The Shawshank Redemption",
+            "The Shining",
+            "Thinner"
+          ],
+          "expect": [46, 46],
+          "reviewed": [
+            "'Salem's Lot",
+            "1408",
+            "A Good Marriage",
+            "Apt Pupil",
+            "Carrie",
+            "Cat's Eye",
+            "Cell",
+            "Children of the Corn",
+            "Christine",
+            "Creepshow",
+            "Creepshow 2",
+            "Cujo",
+            "Doctor Sleep",
+            "Dolores Claiborne",
+            "Dreamcatcher",
+            "Firestarter",
+            "Graveyard Shift",
+            "Hearts in Atlantis",
+            "It",
+            "It Chapter Two",
+            "Julie Ganapathi",
+            "Maximum Overdrive",
+            "Misery",
+            "Needful Things",
+            "No Smoking",
+            "Pet Sematary",
+            "Riding the Bullet",
+            "Secret Window",
+            "Silver Bullet",
+            "Stand by Me",
+            "Tales from the Darkside: The Movie",
+            "The Boogeyman",
+            "The Dark Half",
+            "The Dark Tower",
+            "The Dead Zone",
+            "The Green Mile",
+            "The Life of Chuck",
+            "The Long Walk",
+            "The Mangler",
+            "The Mist",
+            "The Monkey",
+            "The Night Flier",
+            "The Running Man",
+            "The Shawshank Redemption",
+            "The Shining",
+            "Thinner"
+          ],
+          "review": "Both Films adaptation tables, excluding Television and Derivative works. Retain feature adaptations with commercial theatrical distribution in any country by 2025; exclude shorts, festival-only screenings and streaming/DVD-only films. Deduplicate same-title remakes with year aliases."
+        }
+      ],
+      "expect": [46, 46],
+      "answers": [
+        {
+          "name": "Creepshow"
+        },
+        {
+          "name": "Cat's Eye"
+        },
+        {
+          "name": "Silver Bullet"
+        },
+        {
+          "name": "Maximum Overdrive"
+        },
+        {
+          "name": "Creepshow 2",
+          "aliases": ["Creepshow II", "Creepshow Two"]
+        },
+        {
+          "name": "Pet Sematary",
+          "aliases": ["Pet Sematary 1989", "Pet Sematary 2019", "Pet Cemetery", "Pet Cemetary"]
+        },
+        {
+          "name": "Thinner"
+        },
+        {
+          "name": "A Good Marriage"
+        },
+        {
+          "name": "Cell"
+        },
+        {
+          "name": "It Chapter Two",
+          "aliases": ["It 2", "It II", "It Chapter 2", "It Chapter II", "It Two", "It 2019"]
+        },
+        {
+          "name": "Carrie",
+          "aliases": ["Carrie 1976", "Carrie 2013"]
+        },
+        {
+          "name": "The Shining"
+        },
+        {
+          "name": "Cujo"
+        },
+        {
+          "name": "The Dead Zone"
+        },
+        {
+          "name": "Christine"
+        },
+        {
+          "name": "Children of the Corn",
+          "aliases": [
+            "Children of the Corn 1984",
+            "Children of the Corn 2020",
+            "Children of the Corn 2023"
+          ]
+        },
+        {
+          "name": "Firestarter",
+          "aliases": ["Firestarter 1984", "Firestarter 2022"]
+        },
+        {
+          "name": "Stand by Me"
+        },
+        {
+          "name": "The Running Man",
+          "aliases": ["The Running Man 1987", "The Running Man 2025"]
+        },
+        {
+          "name": "Tales from the Darkside: The Movie",
+          "aliases": ["Tales from the Darkside"]
+        },
+        {
+          "name": "Graveyard Shift"
+        },
+        {
+          "name": "Misery"
+        },
+        {
+          "name": "The Dark Half"
+        },
+        {
+          "name": "Needful Things"
+        },
+        {
+          "name": "The Shawshank Redemption",
+          "aliases": ["Shawshank"]
+        },
+        {
+          "name": "The Mangler"
+        },
+        {
+          "name": "Dolores Claiborne"
+        },
+        {
+          "name": "The Night Flier"
+        },
+        {
+          "name": "Apt Pupil"
+        },
+        {
+          "name": "The Green Mile"
+        },
+        {
+          "name": "Hearts in Atlantis"
+        },
+        {
+          "name": "Dreamcatcher"
+        },
+        {
+          "name": "Julie Ganapathi",
+          "aliases": ["Julie Ganapathy"]
+        },
+        {
+          "name": "Secret Window"
+        },
+        {
+          "name": "Riding the Bullet"
+        },
+        {
+          "name": "1408"
+        },
+        {
+          "name": "No Smoking"
+        },
+        {
+          "name": "The Mist"
+        },
+        {
+          "name": "The Dark Tower"
+        },
+        {
+          "name": "It",
+          "aliases": ["It 2017", "Stephen King's It"]
+        },
+        {
+          "name": "Doctor Sleep",
+          "aliases": ["Dr Sleep"]
+        },
+        {
+          "name": "The Boogeyman"
+        },
+        {
+          "name": "The Life of Chuck"
+        },
+        {
+          "name": "'Salem's Lot",
+          "aliases": ["Salem's Lot 2024"]
+        },
+        {
+          "name": "The Monkey"
+        },
+        {
+          "name": "The Long Walk"
+        }
+      ],
+      "surface": ["The Shining", "The Shawshank Redemption", "The Green Mile", "It", "Carrie"],
+      "too_clever": ["'Salem's Lot"],
+      "pearl": "Julie Ganapathi",
+      "people": false,
+      "acceptance_notes": "Includes Richard Bachman works, Indian adaptations and anthology films containing a King-adapted segment. Same-title remakes collapse: Carrie 1976/2013, Pet Sematary 1989/2019, Firestarter 1984/2022, Children of the Corn 1984/2020 (wide release 2023), The Running Man 1987/2025. It 2017 and It Chapter Two 2019 remain distinct. 'Salem's Lot 2024 qualifies via UK/Ireland theaters despite its US Max debut; The Night Flier received a theatrical run after HBO. Exclude TV films/miniseries; Disciples of the Crow (short); Dolan's Cadillac and Mercy (direct-to-video); Gerald's Game, 1922, In the Tall Grass and Mr. Harrigan's Phone (streaming/festival-only). Exclude derivative sequels with no King source material whether theatrical or direct-to-video: Pet Sematary Two, The Rage: Carrie 2, Children of the Corn sequels. Creepshow 2 adapts The Raft and qualifies. The Lawnmower Man is not an adaptation of King's story."
     },
     {
       "id": "kubrick-films",
@@ -5478,7 +5926,81 @@
       ],
       "surface": ["Inception", "Oppenheimer", "The Dark Knight"],
       "pearl": "The Prestige",
-      "people": false
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "live-action-batman-actors",
+      "text": "an actor who played Batman in a live-action theatrical film or serial, by 2025",
+      "theme": "film",
+      "sources": [
+        {
+          "page": "Batman in film",
+          "revision": 1379246665,
+          "members": [
+            "Adam West",
+            "Ben Affleck",
+            "Christian Bale",
+            "George Clooney",
+            "Lewis Wilson",
+            "Michael Keaton",
+            "Robert Lowery",
+            "Robert Pattinson",
+            "Val Kilmer"
+          ],
+          "expect": [9, 9],
+          "reviewed": [
+            "Adam West",
+            "Ben Affleck",
+            "Christian Bale",
+            "George Clooney",
+            "Lewis Wilson",
+            "Michael Keaton",
+            "Robert Lowery",
+            "Robert Pattinson",
+            "Val Kilmer"
+          ],
+          "review": "Early films / Serials and recurring cast / live-action theatrical films: all nine Batman actors through 2025 including the 1943/1949 theatrical serials and 1966 feature."
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "Lewis Wilson"
+        },
+        {
+          "name": "Robert Lowery"
+        },
+        {
+          "name": "Adam West"
+        },
+        {
+          "name": "Michael Keaton",
+          "aliases": ["Micheal Keaton"]
+        },
+        {
+          "name": "Val Kilmer"
+        },
+        {
+          "name": "George Clooney"
+        },
+        {
+          "name": "Christian Bale",
+          "aliases": ["Cristian Bale"]
+        },
+        {
+          "name": "Ben Affleck",
+          "aliases": ["Ben Afleck"]
+        },
+        {
+          "name": "Robert Pattinson",
+          "aliases": ["Rob Pattinson"]
+        }
+      ],
+      "surface": ["Christian Bale", "Michael Keaton", "Ben Affleck", "Robert Pattinson"],
+      "pearl": "Robert Lowery",
+      "people": true,
+      "acceptance_notes": "Include Lewis Wilson (1943 serial), Robert Lowery (1949 serial) and Adam West (1966 feature). Exclude TV-only Batman (David Mazouz, Iain Glen), animated voice-only roles (Kevin Conroy, Will Arnett, Jensen Ackles) and stand-ins. Returning actors count once. Four explicit Surface anchors leave enough non-anchor answers for all required ordinary tiers in this nine-member set."
     },
     {
       "id": "tarantino-films",
@@ -5556,7 +6078,99 @@
       "surface": ["Pulp Fiction", "Kill Bill: Volume 1", "Django Unchained"],
       "pearl": "Jackie Brown",
       "people": false,
-      "acceptance_notes": "a completed feature film directed by Quentin Tarantino (not guest segments)"
+      "acceptance_notes": "a completed feature film directed by Quentin Tarantino (not guest segments)",
+      "active": false
+    },
+    {
+      "id": "worldwide-box-office-record-films",
+      "text": "a film that has held the all-time worldwide box-office record, by 2025",
+      "theme": "film",
+      "sources": [
+        {
+          "page": "List of highest-grossing films",
+          "revision": 1384541318,
+          "members": [
+            "Avatar",
+            "Avengers: Endgame",
+            "E.T. the Extra-Terrestrial",
+            "Gone with the Wind",
+            "Jaws",
+            "Jurassic Park",
+            "Star Wars",
+            "The Birth of a Nation",
+            "The Godfather",
+            "The Sound of Music",
+            "Titanic"
+          ],
+          "expect": [11, 11],
+          "reviewed": [
+            "Avatar",
+            "Avengers: Endgame",
+            "E.T. the Extra-Terrestrial",
+            "Gone with the Wind",
+            "Jaws",
+            "Jurassic Park",
+            "Star Wars",
+            "The Birth of a Nation",
+            "The Godfather",
+            "The Sound of Music",
+            "Titanic"
+          ],
+          "review": "Timeline of highest-grossing films table, established year <=2025, deduplicating re-release rows: eleven distinct titles including early rental-era entries. Not speculative record holders in prose."
+        }
+      ],
+      "expect": [11, 11],
+      "answers": [
+        {
+          "name": "The Birth of a Nation"
+        },
+        {
+          "name": "Gone with the Wind"
+        },
+        {
+          "name": "The Sound of Music"
+        },
+        {
+          "name": "The Godfather"
+        },
+        {
+          "name": "Jaws"
+        },
+        {
+          "name": "Star Wars",
+          "aliases": [
+            "Star Wars Episode IV",
+            "Star Wars Episode 4",
+            "Star Wars Episode IV A New Hope",
+            "Star Wars Episode 4 A New Hope",
+            "Star Wars A New Hope",
+            "A New Hope",
+            "Episode IV",
+            "Episode 4"
+          ]
+        },
+        {
+          "name": "E.T. the Extra-Terrestrial",
+          "aliases": ["ET", "E T"]
+        },
+        {
+          "name": "Jurassic Park"
+        },
+        {
+          "name": "Titanic"
+        },
+        {
+          "name": "Avatar"
+        },
+        {
+          "name": "Avengers: Endgame",
+          "aliases": ["Endgame", "Avengers End Game", "Avengers 4"]
+        }
+      ],
+      "surface": ["Avatar", "Titanic", "Avengers: Endgame", "Star Wars", "Jurassic Park"],
+      "pearl": "The Birth of a Nation",
+      "people": false,
+      "acceptance_notes": "Worldwide unadjusted timeline-table members only, not current highest grossers or inflation-adjusted leaders. Re-releases do not create new answers. Exclude speculative holders discussed only in prose: Ben-Hur, The Ten Commandments, Snow White and Deep Throat. Ignore 2026 entries."
     },
     {
       "id": "burton-films",
@@ -5991,7 +6605,312 @@
       ],
       "surface": ["Toy Story", "Finding Nemo", "Inside Out"],
       "pearl": "Ratatouille",
-      "people": false
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "annual-worldwide-box-office-1990-2025",
+      "text": "the top-grossing film worldwide of its release year, for any year in 1990–2025",
+      "theme": "film",
+      "sources": [
+        {
+          "page": "List of highest-grossing films",
+          "revision": 1384541318,
+          "members": [
+            "Aladdin",
+            "Armageddon",
+            "Avatar",
+            "Avatar: The Way of Water",
+            "Avengers: Endgame",
+            "Avengers: Infinity War",
+            "Barbie",
+            "Captain America: Civil War",
+            "Demon Slayer: Kimetsu no Yaiba – The Movie: Mugen Train",
+            "Die Hard with a Vengeance",
+            "Frozen",
+            "Ghost",
+            "Harry Potter and the Deathly Hallows – Part 2",
+            "Harry Potter and the Goblet of Fire",
+            "Harry Potter and the Philosopher's Stone",
+            "Independence Day",
+            "Inside Out 2",
+            "Jurassic Park",
+            "Mission: Impossible 2",
+            "Ne Zha 2",
+            "Pirates of the Caribbean: At World's End",
+            "Pirates of the Caribbean: Dead Man's Chest",
+            "Shrek 2",
+            "Spider-Man: No Way Home",
+            "Star Wars: Episode I – The Phantom Menace",
+            "Star Wars: Episode III – Revenge of the Sith",
+            "Star Wars: The Force Awakens",
+            "Star Wars: The Last Jedi",
+            "Terminator 2: Judgment Day",
+            "The Avengers",
+            "The Dark Knight",
+            "The Lion King",
+            "The Lord of the Rings: The Return of the King",
+            "The Lord of the Rings: The Two Towers",
+            "Titanic",
+            "Toy Story",
+            "Toy Story 3",
+            "Transformers: Age of Extinction"
+          ],
+          "expect": [38, 38],
+          "reviewed": [
+            "Aladdin",
+            "Armageddon",
+            "Avatar",
+            "Avatar: The Way of Water",
+            "Avengers: Endgame",
+            "Avengers: Infinity War",
+            "Barbie",
+            "Captain America: Civil War",
+            "Demon Slayer: Kimetsu no Yaiba – The Movie: Mugen Train",
+            "Die Hard with a Vengeance",
+            "Frozen",
+            "Ghost",
+            "Harry Potter and the Deathly Hallows – Part 2",
+            "Harry Potter and the Goblet of Fire",
+            "Harry Potter and the Philosopher's Stone",
+            "Independence Day",
+            "Inside Out 2",
+            "Jurassic Park",
+            "Mission: Impossible 2",
+            "Ne Zha 2",
+            "Pirates of the Caribbean: At World's End",
+            "Pirates of the Caribbean: Dead Man's Chest",
+            "Shrek 2",
+            "Spider-Man: No Way Home",
+            "Star Wars: Episode I – The Phantom Menace",
+            "Star Wars: Episode III – Revenge of the Sith",
+            "Star Wars: The Force Awakens",
+            "Star Wars: The Last Jedi",
+            "Terminator 2: Judgment Day",
+            "The Avengers",
+            "The Dark Knight",
+            "The Lion King",
+            "The Lord of the Rings: The Return of the King",
+            "The Lord of the Rings: The Two Towers",
+            "Titanic",
+            "Toy Story",
+            "Toy Story 3",
+            "Transformers: Age of Extinction"
+          ],
+          "review": "Highest-grossing films by year table, release years 1990–2025 inclusive. Keep all titles in multi-entry years 1995 and 2005: 38 distinct films across 36 years."
+        }
+      ],
+      "expect": [38, 38],
+      "answers": [
+        {
+          "name": "Ghost"
+        },
+        {
+          "name": "Terminator 2: Judgment Day",
+          "aliases": [
+            "Terminator 2",
+            "T2",
+            "Judgment Day",
+            "Terminator 2 Judgement Day",
+            "Terminator II"
+          ]
+        },
+        {
+          "name": "Aladdin"
+        },
+        {
+          "name": "Jurassic Park"
+        },
+        {
+          "name": "The Lion King",
+          "aliases": ["Lion King 1994"]
+        },
+        {
+          "name": "Toy Story"
+        },
+        {
+          "name": "Die Hard with a Vengeance",
+          "aliases": ["Die Hard 3", "Die Hard III"]
+        },
+        {
+          "name": "Independence Day"
+        },
+        {
+          "name": "Titanic"
+        },
+        {
+          "name": "Armageddon"
+        },
+        {
+          "name": "The Phantom Menace",
+          "aliases": [
+            "Star Wars The Phantom Menace",
+            "Star Wars Episode 1",
+            "Star Wars Episode I",
+            "Star Wars 1",
+            "Star Wars: Episode I – The Phantom Menace"
+          ]
+        },
+        {
+          "name": "Mission: Impossible 2",
+          "aliases": ["MI2", "M:I 2", "Mission Impossible II", "Mission Impossible Two"]
+        },
+        {
+          "name": "Harry Potter and the Philosopher's Stone",
+          "aliases": [
+            "Philosopher's Stone",
+            "Harry Potter and the Sorcerer's Stone",
+            "Sorcerer's Stone",
+            "Harry Potter 1",
+            "Harry Potter One",
+            "HP1"
+          ]
+        },
+        {
+          "name": "The Lord of the Rings: The Two Towers",
+          "aliases": ["The Two Towers", "LOTR The Two Towers", "LOTR 2", "Lord of the Rings 2"]
+        },
+        {
+          "name": "The Return of the King",
+          "aliases": [
+            "LOTR Return of the King",
+            "LOTR 3",
+            "Lord of the Rings 3",
+            "The Lord of the Rings: The Return of the King"
+          ]
+        },
+        {
+          "name": "Shrek 2",
+          "aliases": ["Shrek II", "Shrek Two"]
+        },
+        {
+          "name": "Harry Potter and the Goblet of Fire",
+          "aliases": ["Goblet of Fire", "Harry Potter 4", "HP4"]
+        },
+        {
+          "name": "Revenge of the Sith",
+          "aliases": [
+            "Star Wars Revenge of the Sith",
+            "Star Wars Episode 3",
+            "Star Wars Episode III",
+            "Star Wars 3",
+            "Star Wars: Episode III – Revenge of the Sith"
+          ]
+        },
+        {
+          "name": "Dead Man's Chest",
+          "aliases": [
+            "Pirates of the Caribbean 2",
+            "Pirates 2",
+            "Pirates of the Caribbean: Dead Man's Chest"
+          ]
+        },
+        {
+          "name": "At World's End",
+          "aliases": [
+            "Pirates of the Caribbean 3",
+            "Pirates 3",
+            "Pirates of the Caribbean: At World's End"
+          ]
+        },
+        {
+          "name": "The Dark Knight"
+        },
+        {
+          "name": "Avatar"
+        },
+        {
+          "name": "Toy Story 3",
+          "aliases": ["Toy Story III", "Toy Story Three"]
+        },
+        {
+          "name": "Deathly Hallows: Part 2",
+          "aliases": [
+            "Harry Potter and the Deathly Hallows Part Two",
+            "Deathly Hallows 2",
+            "Deathly Hallows Part II",
+            "Harry Potter 8",
+            "HP8",
+            "Harry Potter and the Deathly Hallows – Part 2"
+          ]
+        },
+        {
+          "name": "The Avengers",
+          "aliases": ["Avengers Assemble", "Avengers 2012"]
+        },
+        {
+          "name": "Frozen",
+          "aliases": ["Frozen 2013"]
+        },
+        {
+          "name": "Transformers: Age of Extinction",
+          "aliases": ["Age of Extinction", "Transformers 4", "Transformers IV"]
+        },
+        {
+          "name": "Star Wars: The Force Awakens",
+          "aliases": [
+            "The Force Awakens",
+            "Star Wars Episode VII",
+            "Star Wars Episode 7",
+            "Star Wars 7"
+          ]
+        },
+        {
+          "name": "Captain America: Civil War",
+          "aliases": ["Civil War", "Captain America 3"]
+        },
+        {
+          "name": "Star Wars: The Last Jedi",
+          "aliases": [
+            "The Last Jedi",
+            "Star Wars Episode VIII",
+            "Star Wars Episode 8",
+            "Star Wars 8"
+          ]
+        },
+        {
+          "name": "Avengers: Infinity War",
+          "aliases": ["Infinity War", "Avengers 3"]
+        },
+        {
+          "name": "Avengers: Endgame",
+          "aliases": ["Endgame", "Avengers End Game", "Avengers 4"]
+        },
+        {
+          "name": "Demon Slayer: Mugen Train",
+          "aliases": [
+            "Mugen Train",
+            "Demon Slayer",
+            "Kimetsu no Yaiba Mugen Train",
+            "Demon Slayer The Movie Mugen Train",
+            "Demon Slayer: Kimetsu no Yaiba – The Movie: Mugen Train"
+          ]
+        },
+        {
+          "name": "Spider-Man: No Way Home",
+          "aliases": ["No Way Home", "Spiderman No Way Home"]
+        },
+        {
+          "name": "Avatar: The Way of Water",
+          "aliases": ["The Way of Water", "Avatar 2"]
+        },
+        {
+          "name": "Barbie"
+        },
+        {
+          "name": "Inside Out 2",
+          "aliases": ["Inside Out II", "Inside Out Two"]
+        },
+        {
+          "name": "Ne Zha 2",
+          "aliases": ["Nezha 2", "Ne Zha II", "Ne Zha Two"]
+        }
+      ],
+      "surface": ["Titanic", "Avatar", "Avengers: Endgame", "Barbie", "Inside Out 2"],
+      "too_clever": ["Die Hard with a Vengeance"],
+      "pearl": "Demon Slayer: Mugen Train",
+      "people": false,
+      "acceptance_notes": "Lifetime worldwide grosses including re-releases, not calendar-year receipts. Accept every listed leader in a year: both Toy Story and Die Hard with a Vengeance in 1995, and both Harry Potter and the Goblet of Fire and Revenge of the Sith in 2005. These are re-release/first-run alternatives, not numerical ties. No other year in the range has multiple entries; any listed tied leaders would all count. Exclude 2026 and later."
     },
     {
       "id": "bond-films",
@@ -6125,7 +7044,225 @@
       "surface": ["Goldfinger", "Skyfall", "Casino Royale"],
       "pearl": "GoldenEye",
       "people": false,
-      "acceptance_notes": "a James Bond film (non-Eon films count)"
+      "acceptance_notes": "a James Bond film (non-Eon films count)",
+      "active": false
+    },
+    {
+      "id": "bond-villain-actors",
+      "text": "an actor who played a main villain in an official Eon James Bond film",
+      "theme": "film",
+      "sources": [
+        {
+          "page": "List of James Bond villains",
+          "revision": 1383256511,
+          "members": [
+            "Adolfo Celi",
+            "Andrew Scott",
+            "Anthony Dawson",
+            "Charles Gray",
+            "Christoph Waltz",
+            "Christopher Lee",
+            "Christopher Walken",
+            "Curd Jürgens",
+            "Donald Pleasence",
+            "Eric Pohlmann",
+            "Gert Fröbe",
+            "Javier Bardem",
+            "Jeroen Krabbé",
+            "Jesper Christensen",
+            "Joe Don Baker",
+            "Jonathan Pryce",
+            "Joseph Wiseman",
+            "Julian Glover",
+            "Lotte Lenya",
+            "Louis Jourdan",
+            "Mads Mikkelsen",
+            "Mathieu Amalric",
+            "Michael Lonsdale",
+            "Rami Malek",
+            "Robert Carlyle",
+            "Robert Davi",
+            "Sean Bean",
+            "Sophie Marceau",
+            "Steven Berkoff",
+            "Telly Savalas",
+            "Toby Stephens",
+            "Vladek Sheybal",
+            "Will Yun Lee",
+            "Yaphet Kotto"
+          ],
+          "expect": [34, 34],
+          "reviewed": [
+            "Adolfo Celi",
+            "Andrew Scott",
+            "Anthony Dawson",
+            "Charles Gray",
+            "Christoph Waltz",
+            "Christopher Lee",
+            "Christopher Walken",
+            "Curd Jürgens",
+            "Donald Pleasence",
+            "Eric Pohlmann",
+            "Gert Fröbe",
+            "Javier Bardem",
+            "Jeroen Krabbé",
+            "Jesper Christensen",
+            "Joe Don Baker",
+            "Jonathan Pryce",
+            "Joseph Wiseman",
+            "Julian Glover",
+            "Lotte Lenya",
+            "Louis Jourdan",
+            "Mads Mikkelsen",
+            "Mathieu Amalric",
+            "Michael Lonsdale",
+            "Rami Malek",
+            "Robert Carlyle",
+            "Robert Davi",
+            "Sean Bean",
+            "Sophie Marceau",
+            "Steven Berkoff",
+            "Telly Savalas",
+            "Toby Stephens",
+            "Vladek Sheybal",
+            "Will Yun Lee",
+            "Yaphet Kotto"
+          ],
+          "review": "Film villains / Eon Productions main-villain table, Portrayed by column: all 34 unique named performers including shared roles and Blofeld body/voice performers. No henchman expansion needed."
+        },
+        {
+          "page": "Ernst Stavro Blofeld",
+          "revision": 1384588655,
+          "members": ["John Hollis", "Peter Marinker"],
+          "expect": [2, 2],
+          "reviewed": ["John Hollis", "Peter Marinker"],
+          "review": "Film appearances / Eon Productions, For Your Eyes Only: uncredited Blofeld body and voice actors supplement the main-villain table."
+        }
+      ],
+      "expect": [36, 36],
+      "answers": [
+        {
+          "name": "Joseph Wiseman"
+        },
+        {
+          "name": "Lotte Lenya"
+        },
+        {
+          "name": "Anthony Dawson"
+        },
+        {
+          "name": "Eric Pohlmann"
+        },
+        {
+          "name": "Vladek Sheybal"
+        },
+        {
+          "name": "Gert Fröbe"
+        },
+        {
+          "name": "Adolfo Celi"
+        },
+        {
+          "name": "Donald Pleasence"
+        },
+        {
+          "name": "Telly Savalas"
+        },
+        {
+          "name": "Charles Gray"
+        },
+        {
+          "name": "Yaphet Kotto"
+        },
+        {
+          "name": "Christopher Lee"
+        },
+        {
+          "name": "Curd Jürgens",
+          "aliases": ["Curt Jurgens"]
+        },
+        {
+          "name": "Michael Lonsdale"
+        },
+        {
+          "name": "Julian Glover"
+        },
+        {
+          "name": "Louis Jourdan"
+        },
+        {
+          "name": "Steven Berkoff"
+        },
+        {
+          "name": "Christopher Walken"
+        },
+        {
+          "name": "Jeroen Krabbé"
+        },
+        {
+          "name": "Joe Don Baker"
+        },
+        {
+          "name": "Robert Davi"
+        },
+        {
+          "name": "Sean Bean"
+        },
+        {
+          "name": "Jonathan Pryce"
+        },
+        {
+          "name": "Sophie Marceau"
+        },
+        {
+          "name": "Robert Carlyle"
+        },
+        {
+          "name": "Toby Stephens"
+        },
+        {
+          "name": "Will Yun Lee",
+          "aliases": ["Will Lee"]
+        },
+        {
+          "name": "Mads Mikkelsen"
+        },
+        {
+          "name": "Jesper Christensen"
+        },
+        {
+          "name": "Mathieu Amalric"
+        },
+        {
+          "name": "Javier Bardem"
+        },
+        {
+          "name": "Christoph Waltz"
+        },
+        {
+          "name": "Andrew Scott"
+        },
+        {
+          "name": "Rami Malek"
+        },
+        {
+          "name": "John Hollis"
+        },
+        {
+          "name": "Peter Marinker"
+        }
+      ],
+      "surface": [
+        "Javier Bardem",
+        "Rami Malek",
+        "Mads Mikkelsen",
+        "Christoph Waltz",
+        "Christopher Walken"
+      ],
+      "too_clever": ["Eric Pohlmann"],
+      "pearl": "Vladek Sheybal",
+      "people": true,
+      "acceptance_notes": "All main-table performers count, including voice and uncredited Blofeld portrayals. Supplement with For Your Eyes Only's John Hollis (body) and Peter Marinker (voice). Non-Eon Max von Sydow and henchmen-only roles are excluded. Lee alone is ambiguous between Christopher Lee and Will Yun Lee and is not accepted."
     },
     {
       "id": "ghibli-films",
