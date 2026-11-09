@@ -91,7 +91,8 @@ class SpecsTest(unittest.TestCase):
                                   'asia-capitals', 'europe-capitals', 'americas-capitals',
                                   'canada-provinces', 'australia-states-territories',
                                   'landlocked-countries', 'greek-letters', 'nato-alphabet',
-                                  'borders-austria', 'borders-zambia'} |
+                                  'borders-austria', 'borders-zambia', 'kubrick-films', 'burton-films',
+                                  'miyazaki-films', 'wes-anderson-features'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
         self.assertEqual(sum(p['active'] for p in prompts), 320)
@@ -103,7 +104,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 387)
+        self.assertEqual(len(prompts), 391)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])

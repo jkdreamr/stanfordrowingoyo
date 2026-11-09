@@ -5215,6 +5215,7 @@
       "text": "a feature film directed by Stanley Kubrick",
       "theme": "film",
       "cluster": "directors",
+      "active": false,
       "sources": [
         {
           "page": "Stanley Kubrick filmography",
@@ -5291,6 +5292,115 @@
       "surface": ["The Shining", "2001: A Space Odyssey", "A Clockwork Orange"],
       "pearl": "Full Metal Jacket",
       "people": false
+    },
+    {
+      "id": "oscar-five-wins-no-best-picture",
+      "text": "a film that won at least five competitive Oscars but not Best Picture",
+      "theme": "film",
+      "cluster": "oscars",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of Academy Award–winning films",
+          "revision": 1365065191,
+          "members": [
+            "A Place in the Sun",
+            "Cabaret",
+            "Doctor Zhivago",
+            "Dune",
+            "Gravity",
+            "Hugo",
+            "La La Land",
+            "Mad Max: Fury Road",
+            "Mary Poppins",
+            "Saving Private Ryan",
+            "Star Wars",
+            "The Aviator",
+            "The Bad and the Beautiful",
+            "The King and I",
+            "Who's Afraid of Virginia Woolf?",
+            "Wilson"
+          ],
+          "reviewed": [
+            "A Place in the Sun",
+            "Cabaret",
+            "Doctor Zhivago",
+            "Dune",
+            "Gravity",
+            "Hugo",
+            "La La Land",
+            "Mad Max: Fury Road",
+            "Mary Poppins",
+            "Saving Private Ryan",
+            "Star Wars",
+            "The Aviator",
+            "The Bad and the Beautiful",
+            "The King and I",
+            "Who's Afraid of Virginia Woolf?",
+            "Wilson"
+          ],
+          "expect": [16, 16]
+        }
+      ],
+      "expect": [16, 16],
+      "answers": [
+        {
+          "name": "A Place in the Sun"
+        },
+        {
+          "name": "Cabaret"
+        },
+        {
+          "name": "Doctor Zhivago",
+          "aliases": ["Dr. Zhivago", "Zhivago"]
+        },
+        {
+          "name": "Dune"
+        },
+        {
+          "name": "Gravity"
+        },
+        {
+          "name": "Hugo"
+        },
+        {
+          "name": "La La Land"
+        },
+        {
+          "name": "Mad Max: Fury Road",
+          "aliases": ["Fury Road", "Mad Max Fury Road"]
+        },
+        {
+          "name": "Mary Poppins"
+        },
+        {
+          "name": "Saving Private Ryan"
+        },
+        {
+          "name": "Star Wars",
+          "aliases": ["A New Hope", "Star Wars: A New Hope"]
+        },
+        {
+          "name": "The Aviator"
+        },
+        {
+          "name": "The Bad and the Beautiful"
+        },
+        {
+          "name": "The King and I"
+        },
+        {
+          "name": "Who's Afraid of Virginia Woolf?",
+          "aliases": ["Who's Afraid of Virginia Woolf", "Whos Afraid of Virginia Woolf"]
+        },
+        {
+          "name": "Wilson"
+        }
+      ],
+      "surface": ["Cabaret", "Star Wars", "Mad Max: Fury Road", "Gravity"],
+      "pearl": "Mary Poppins",
+      "people": false,
+      "scope": "Through the 98th Academy Awards (2026). At least five competitive wins for the same film; exclude Best Picture winners and honorary, special achievement, juvenile and technical awards. Star Wars has six competitive wins plus an excluded special achievement award. Best Picture exclusion cross-checked against revision 1384180534."
     },
     {
       "id": "nolan-films",
@@ -5453,6 +5563,7 @@
       "text": "a feature film directed by Tim Burton",
       "theme": "film",
       "cluster": "directors",
+      "active": false,
       "sources": [
         {
           "page": "Tim Burton filmography",
@@ -5557,6 +5668,182 @@
       "surface": ["Beetlejuice", "Edward Scissorhands", "Batman"],
       "pearl": "Big Fish",
       "people": false
+    },
+    {
+      "id": "oscar-song-and-score-films",
+      "text": "a film that won Oscars for both a song and its score",
+      "theme": "film",
+      "cluster": "oscars",
+      "active": true,
+      "sources": [
+        {
+          "page": "Academy Award for Best Original Song",
+          "revision": 1380826630,
+          "members": [
+            "Aladdin",
+            "Beauty and the Beast",
+            "Born Free",
+            "Breakfast at Tiffany's",
+            "Butch Cassidy and the Sundance Kid",
+            "Fame",
+            "Gigi",
+            "High Noon",
+            "La La Land",
+            "Love Is a Many-Splendored Thing",
+            "Mary Poppins",
+            "Pinocchio",
+            "Pocahontas",
+            "Slumdog Millionaire",
+            "The Lion King",
+            "The Little Mermaid",
+            "The Lord of the Rings: The Return of the King",
+            "The Way We Were",
+            "The Wizard of Oz",
+            "Titanic"
+          ],
+          "reviewed": [
+            "Aladdin",
+            "Beauty and the Beast",
+            "Born Free",
+            "Breakfast at Tiffany's",
+            "Butch Cassidy and the Sundance Kid",
+            "Fame",
+            "Gigi",
+            "High Noon",
+            "La La Land",
+            "Love Is a Many-Splendored Thing",
+            "Mary Poppins",
+            "Pinocchio",
+            "Pocahontas",
+            "Slumdog Millionaire",
+            "The Lion King",
+            "The Little Mermaid",
+            "The Lord of the Rings: The Return of the King",
+            "The Way We Were",
+            "The Wizard of Oz",
+            "Titanic"
+          ],
+          "expect": [20, 20]
+        },
+        {
+          "page": "Academy Award for Best Original Score",
+          "revision": 1384231617,
+          "members": [
+            "Aladdin",
+            "Beauty and the Beast",
+            "Born Free",
+            "Breakfast at Tiffany's",
+            "Butch Cassidy and the Sundance Kid",
+            "Fame",
+            "Gigi",
+            "High Noon",
+            "La La Land",
+            "Love Is a Many-Splendored Thing",
+            "Mary Poppins",
+            "Pinocchio",
+            "Pocahontas",
+            "Slumdog Millionaire",
+            "The Lion King",
+            "The Little Mermaid",
+            "The Lord of the Rings: The Return of the King",
+            "The Way We Were",
+            "The Wizard of Oz",
+            "Titanic"
+          ],
+          "reviewed": [
+            "Aladdin",
+            "Beauty and the Beast",
+            "Born Free",
+            "Breakfast at Tiffany's",
+            "Butch Cassidy and the Sundance Kid",
+            "Fame",
+            "Gigi",
+            "High Noon",
+            "La La Land",
+            "Love Is a Many-Splendored Thing",
+            "Mary Poppins",
+            "Pinocchio",
+            "Pocahontas",
+            "Slumdog Millionaire",
+            "The Lion King",
+            "The Little Mermaid",
+            "The Lord of the Rings: The Return of the King",
+            "The Way We Were",
+            "The Wizard of Oz",
+            "Titanic"
+          ],
+          "expect": [20, 20]
+        }
+      ],
+      "expect": [20, 20],
+      "answers": [
+        {
+          "name": "Aladdin"
+        },
+        {
+          "name": "Beauty and the Beast"
+        },
+        {
+          "name": "Born Free"
+        },
+        {
+          "name": "Breakfast at Tiffany's"
+        },
+        {
+          "name": "Butch Cassidy and the Sundance Kid",
+          "aliases": ["Butch Cassidy"]
+        },
+        {
+          "name": "Fame"
+        },
+        {
+          "name": "Gigi"
+        },
+        {
+          "name": "High Noon"
+        },
+        {
+          "name": "La La Land"
+        },
+        {
+          "name": "Love Is a Many-Splendored Thing"
+        },
+        {
+          "name": "Mary Poppins"
+        },
+        {
+          "name": "Pinocchio"
+        },
+        {
+          "name": "Pocahontas"
+        },
+        {
+          "name": "Slumdog Millionaire"
+        },
+        {
+          "name": "The Lion King"
+        },
+        {
+          "name": "The Little Mermaid"
+        },
+        {
+          "name": "The Return of the King",
+          "aliases": ["Return of the King", "LOTR Return of the King"]
+        },
+        {
+          "name": "The Way We Were"
+        },
+        {
+          "name": "The Wizard of Oz"
+        },
+        {
+          "name": "Titanic"
+        }
+      ],
+      "surface": ["Titanic", "The Lion King", "Aladdin", "La La Land"],
+      "pearl": "Butch Cassidy and the Sundance Kid",
+      "people": false,
+      "scope": "Through the 98th Academy Awards (2026). Best Original Song and any competitive scoring category must both be won by the same film at the same ceremony. Includes historical dramatic/comedy/musical, adaptation and original song score categories."
     },
     {
       "id": "pixar-films",
@@ -57048,7 +57335,7 @@
       "text": "a feature film directed by Hayao Miyazaki",
       "theme": "film",
       "cluster": "japanese-directors",
-      "active": true,
+      "active": false,
       "answers": [
         {
           "name": "The Castle of Cagliostro",
@@ -57139,6 +57426,374 @@
       "surface": ["My Neighbor Totoro", "Spirited Away", "Princess Mononoke"],
       "pearl": "The Castle of Cagliostro",
       "scope": ""
+    },
+    {
+      "id": "oscar-costume-and-design-films",
+      "text": "a film that won Oscars for both Costume Design and Production Design",
+      "theme": "film",
+      "cluster": "oscars",
+      "active": true,
+      "sources": [
+        {
+          "page": "Academy Award for Best Costume Design",
+          "revision": 1374921507,
+          "members": [
+            "A Room with a View",
+            "Alice in Wonderland",
+            "All That Jazz",
+            "Amadeus",
+            "An American in Paris",
+            "Barry Lyndon",
+            "Ben-Hur",
+            "Black Panther",
+            "Bugsy",
+            "Camelot",
+            "Chicago",
+            "Cleopatra",
+            "Dangerous Liaisons",
+            "Doctor Zhivago",
+            "Fanny and Alexander",
+            "Frankenstein",
+            "Gandhi",
+            "Gigi",
+            "Hamlet",
+            "Mad Max: Fury Road",
+            "Memoirs of a Geisha",
+            "Moulin Rouge",
+            "Moulin Rouge!",
+            "My Fair Lady",
+            "Nicholas and Alexandra",
+            "Poor Things",
+            "Restoration",
+            "Samson and Delilah",
+            "Shakespeare in Love",
+            "Spartacus",
+            "Star Wars",
+            "Tess",
+            "The Aviator",
+            "The Bad and the Beautiful",
+            "The English Patient",
+            "The Grand Budapest Hotel",
+            "The Great Gatsby",
+            "The Heiress",
+            "The King and I",
+            "The Last Emperor",
+            "The Lord of the Rings: The Return of the King",
+            "The Robe",
+            "The Sting",
+            "Titanic",
+            "West Side Story",
+            "Who's Afraid of Virginia Woolf?",
+            "Wicked"
+          ],
+          "reviewed": [
+            "A Room with a View",
+            "Alice in Wonderland",
+            "All That Jazz",
+            "Amadeus",
+            "An American in Paris",
+            "Barry Lyndon",
+            "Ben-Hur",
+            "Black Panther",
+            "Bugsy",
+            "Camelot",
+            "Chicago",
+            "Cleopatra",
+            "Dangerous Liaisons",
+            "Doctor Zhivago",
+            "Fanny and Alexander",
+            "Frankenstein",
+            "Gandhi",
+            "Gigi",
+            "Hamlet",
+            "Mad Max: Fury Road",
+            "Memoirs of a Geisha",
+            "Moulin Rouge",
+            "Moulin Rouge!",
+            "My Fair Lady",
+            "Nicholas and Alexandra",
+            "Poor Things",
+            "Restoration",
+            "Samson and Delilah",
+            "Shakespeare in Love",
+            "Spartacus",
+            "Star Wars",
+            "Tess",
+            "The Aviator",
+            "The Bad and the Beautiful",
+            "The English Patient",
+            "The Grand Budapest Hotel",
+            "The Great Gatsby",
+            "The Heiress",
+            "The King and I",
+            "The Last Emperor",
+            "The Lord of the Rings: The Return of the King",
+            "The Robe",
+            "The Sting",
+            "Titanic",
+            "West Side Story",
+            "Who's Afraid of Virginia Woolf?",
+            "Wicked"
+          ],
+          "expect": [47, 47]
+        },
+        {
+          "page": "Academy Award for Best Production Design",
+          "revision": 1374921434,
+          "members": [
+            "A Room with a View",
+            "Alice in Wonderland",
+            "All That Jazz",
+            "Amadeus",
+            "An American in Paris",
+            "Barry Lyndon",
+            "Ben-Hur",
+            "Black Panther",
+            "Bugsy",
+            "Camelot",
+            "Chicago",
+            "Cleopatra",
+            "Dangerous Liaisons",
+            "Doctor Zhivago",
+            "Fanny and Alexander",
+            "Frankenstein",
+            "Gandhi",
+            "Gigi",
+            "Hamlet",
+            "Mad Max: Fury Road",
+            "Memoirs of a Geisha",
+            "Moulin Rouge",
+            "Moulin Rouge!",
+            "My Fair Lady",
+            "Nicholas and Alexandra",
+            "Poor Things",
+            "Restoration",
+            "Samson and Delilah",
+            "Shakespeare in Love",
+            "Spartacus",
+            "Star Wars",
+            "Tess",
+            "The Aviator",
+            "The Bad and the Beautiful",
+            "The English Patient",
+            "The Grand Budapest Hotel",
+            "The Great Gatsby",
+            "The Heiress",
+            "The King and I",
+            "The Last Emperor",
+            "The Lord of the Rings: The Return of the King",
+            "The Robe",
+            "The Sting",
+            "Titanic",
+            "West Side Story",
+            "Who's Afraid of Virginia Woolf?",
+            "Wicked"
+          ],
+          "reviewed": [
+            "A Room with a View",
+            "Alice in Wonderland",
+            "All That Jazz",
+            "Amadeus",
+            "An American in Paris",
+            "Barry Lyndon",
+            "Ben-Hur",
+            "Black Panther",
+            "Bugsy",
+            "Camelot",
+            "Chicago",
+            "Cleopatra",
+            "Dangerous Liaisons",
+            "Doctor Zhivago",
+            "Fanny and Alexander",
+            "Frankenstein",
+            "Gandhi",
+            "Gigi",
+            "Hamlet",
+            "Mad Max: Fury Road",
+            "Memoirs of a Geisha",
+            "Moulin Rouge",
+            "Moulin Rouge!",
+            "My Fair Lady",
+            "Nicholas and Alexandra",
+            "Poor Things",
+            "Restoration",
+            "Samson and Delilah",
+            "Shakespeare in Love",
+            "Spartacus",
+            "Star Wars",
+            "Tess",
+            "The Aviator",
+            "The Bad and the Beautiful",
+            "The English Patient",
+            "The Grand Budapest Hotel",
+            "The Great Gatsby",
+            "The Heiress",
+            "The King and I",
+            "The Last Emperor",
+            "The Lord of the Rings: The Return of the King",
+            "The Robe",
+            "The Sting",
+            "Titanic",
+            "West Side Story",
+            "Who's Afraid of Virginia Woolf?",
+            "Wicked"
+          ],
+          "expect": [47, 47]
+        }
+      ],
+      "expect": [46, 46],
+      "answers": [
+        {
+          "name": "A Room with a View"
+        },
+        {
+          "name": "Alice in Wonderland"
+        },
+        {
+          "name": "All That Jazz"
+        },
+        {
+          "name": "Amadeus"
+        },
+        {
+          "name": "An American in Paris"
+        },
+        {
+          "name": "Barry Lyndon"
+        },
+        {
+          "name": "Ben-Hur"
+        },
+        {
+          "name": "Black Panther"
+        },
+        {
+          "name": "Bugsy"
+        },
+        {
+          "name": "Camelot"
+        },
+        {
+          "name": "Chicago"
+        },
+        {
+          "name": "Cleopatra"
+        },
+        {
+          "name": "Dangerous Liaisons"
+        },
+        {
+          "name": "Doctor Zhivago",
+          "aliases": ["Dr. Zhivago", "Zhivago"]
+        },
+        {
+          "name": "Fanny and Alexander"
+        },
+        {
+          "name": "Frankenstein"
+        },
+        {
+          "name": "Gandhi"
+        },
+        {
+          "name": "Gigi"
+        },
+        {
+          "name": "Hamlet"
+        },
+        {
+          "name": "Mad Max: Fury Road",
+          "aliases": ["Fury Road", "Mad Max Fury Road"]
+        },
+        {
+          "name": "Memoirs of a Geisha"
+        },
+        {
+          "name": "Moulin Rouge",
+          "aliases": ["Moulin Rouge!", "Moulin Rouge 1952", "Moulin Rouge 2001"]
+        },
+        {
+          "name": "My Fair Lady"
+        },
+        {
+          "name": "Nicholas and Alexandra"
+        },
+        {
+          "name": "Poor Things"
+        },
+        {
+          "name": "Restoration"
+        },
+        {
+          "name": "Samson and Delilah"
+        },
+        {
+          "name": "Shakespeare in Love"
+        },
+        {
+          "name": "Spartacus"
+        },
+        {
+          "name": "Star Wars",
+          "aliases": ["A New Hope", "Star Wars: A New Hope"]
+        },
+        {
+          "name": "Tess"
+        },
+        {
+          "name": "The Aviator"
+        },
+        {
+          "name": "The Bad and the Beautiful"
+        },
+        {
+          "name": "The English Patient"
+        },
+        {
+          "name": "The Grand Budapest Hotel",
+          "aliases": ["Grand Budapest", "Grand Budapest Hotel"]
+        },
+        {
+          "name": "The Great Gatsby",
+          "aliases": ["Great Gatsby"]
+        },
+        {
+          "name": "The Heiress"
+        },
+        {
+          "name": "The King and I"
+        },
+        {
+          "name": "The Last Emperor"
+        },
+        {
+          "name": "The Return of the King",
+          "aliases": ["Return of the King", "LOTR Return of the King"]
+        },
+        {
+          "name": "The Robe"
+        },
+        {
+          "name": "The Sting"
+        },
+        {
+          "name": "Titanic"
+        },
+        {
+          "name": "West Side Story"
+        },
+        {
+          "name": "Who's Afraid of Virginia Woolf?",
+          "aliases": ["Who's Afraid of Virginia Woolf", "Whos Afraid of Virginia Woolf"]
+        },
+        {
+          "name": "Wicked"
+        }
+      ],
+      "surface": ["Titanic", "Moulin Rouge", "Black Panther", "Wicked"],
+      "pearl": "The Grand Budapest Hotel",
+      "people": false,
+      "scope": "Through the 98th Academy Awards (2026). Costume Design and Production Design (formerly Art Direction), including black-and-white/color divisions, must both be won by the same film at the same ceremony. Join film and award year, never bare title. Moulin Rouge (1952) and Moulin Rouge! (2001) collapse to one canonical accepting both titles; 47 qualifying films, 46 answers."
     },
     {
       "id": "palme-dor-films",
@@ -64999,7 +65654,7 @@
       "text": "a feature film directed by Wes Anderson",
       "theme": "film",
       "cluster": "directors",
-      "active": true,
+      "active": false,
       "answers": [
         {
           "name": "Bottle Rocket"
@@ -65091,6 +65746,105 @@
       "pearl": "Bottle Rocket",
       "scope": "All 13 directed features, including the 2024 feature-length Henry Sugar anthology. Standalone shorts are not features; producer-only films do not qualify.",
       "too_clever": ["Isle of Dogs"]
+    },
+    {
+      "id": "oscar-supporting-pair-films",
+      "text": "a film that won both supporting-acting Oscars",
+      "theme": "film",
+      "cluster": "oscars",
+      "active": true,
+      "sources": [
+        {
+          "page": "Academy Award for Best Supporting Actor",
+          "revision": 1378698429,
+          "members": [
+            "A Streetcar Named Desire",
+            "Everything Everywhere All at Once",
+            "From Here to Eternity",
+            "Hannah and Her Sisters",
+            "Julia",
+            "Sayonara",
+            "The Fighter",
+            "The Last Picture Show",
+            "West Side Story"
+          ],
+          "reviewed": [
+            "A Streetcar Named Desire",
+            "Everything Everywhere All at Once",
+            "From Here to Eternity",
+            "Hannah and Her Sisters",
+            "Julia",
+            "Sayonara",
+            "The Fighter",
+            "The Last Picture Show",
+            "West Side Story"
+          ],
+          "expect": [9, 9]
+        },
+        {
+          "page": "Academy Award for Best Supporting Actress",
+          "revision": 1369073137,
+          "members": [
+            "A Streetcar Named Desire",
+            "Everything Everywhere All at Once",
+            "From Here to Eternity",
+            "Hannah and Her Sisters",
+            "Julia",
+            "Sayonara",
+            "The Fighter",
+            "The Last Picture Show",
+            "West Side Story"
+          ],
+          "reviewed": [
+            "A Streetcar Named Desire",
+            "Everything Everywhere All at Once",
+            "From Here to Eternity",
+            "Hannah and Her Sisters",
+            "Julia",
+            "Sayonara",
+            "The Fighter",
+            "The Last Picture Show",
+            "West Side Story"
+          ],
+          "expect": [9, 9]
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "A Streetcar Named Desire",
+          "aliases": ["Streetcar Named Desire", "Streetcar"]
+        },
+        {
+          "name": "Everything Everywhere All at Once",
+          "aliases": ["EEAAO"]
+        },
+        {
+          "name": "From Here to Eternity"
+        },
+        {
+          "name": "Hannah and Her Sisters"
+        },
+        {
+          "name": "Julia"
+        },
+        {
+          "name": "Sayonara"
+        },
+        {
+          "name": "The Fighter"
+        },
+        {
+          "name": "The Last Picture Show"
+        },
+        {
+          "name": "West Side Story"
+        }
+      ],
+      "surface": ["Everything Everywhere All at Once", "West Side Story", "The Fighter"],
+      "pearl": "A Streetcar Named Desire",
+      "people": false,
+      "scope": "Through the 98th Academy Awards (2026). The same film must win Supporting Actor and Supporting Actress at the same ceremony. West Side Story is the 1961 film, not the 2021 remake."
     },
     {
       "id": "dreamworks-theatrical-films",
