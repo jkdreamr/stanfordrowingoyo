@@ -33,7 +33,7 @@ function mount(role: 'rower' | 'coach') {
   vi.stubGlobal('fetch', (url: URL, init: RequestInit) =>
     mock.handle(new Request(String(url), init)),
   );
-  render(
+  return render(
     <MemoryRouter>
       <QueryClientProvider client={client}>
         <ToastProvider>
@@ -52,7 +52,18 @@ function mount(role: 'rower' | 'coach') {
       </QueryClientProvider>
     </MemoryRouter>,
   );
-  return mock;
+}
+async function finishPerception() {
+  for (let round = 0; round < 5; round++) {
+    await fetch('https://oyo.test/api/games/perception/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ round }),
+    });
+    await fetch('https://oyo.test/api/games/perception/today');
+  }
+  fireEvent.click(screen.getByRole('button', { name: 'Finish' }));
+  await screen.findByText('Score 0');
 }
 it('gates locked rowers before play', async () => {
   mount('rower');
@@ -64,15 +75,7 @@ it('loads the server-completed result once, then shows the server result, share 
   vi.stubGlobal('navigator', { ...navigator, share });
   mount('coach');
   await screen.findByRole('button', { name: 'Finish' });
-  for (let round = 0; round < 5; round++) {
-    await fetch('https://oyo.test/api/games/perception/start', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ round }),
-    });
-    await fetch('https://oyo.test/api/games/perception/today');
-  }
-  fireEvent.click(screen.getByRole('button', { name: 'Finish' }));
+  await finishPerception();
   expect(await screen.findByText('Score 0')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Share' }));
   expect(share).toHaveBeenCalledWith({
@@ -81,7 +84,20 @@ it('loads the server-completed result once, then shows the server result, share 
   });
   await waitFor(() =>
     expect(screen.getByRole('region', { name: 'Perception Day Board' }).textContent).toContain(
-      '1 Players',
+      '1 Player',
     ),
   );
+});
+
+it.each([
+  { name: 'undefined', value: undefined },
+  { name: 'a scroll-completion promise', value: Promise.resolve() },
+])('unmounts completed results when scrollTo returns $name', async ({ value }) => {
+  const scrollTo = vi.fn(() => value);
+  vi.stubGlobal('scrollTo', scrollTo);
+  const view = mount('coach');
+  await screen.findByRole('button', { name: 'Finish' });
+  await finishPerception();
+  expect(scrollTo).toHaveBeenCalledWith(0, 0);
+  expect(() => view.unmount()).not.toThrow();
 });

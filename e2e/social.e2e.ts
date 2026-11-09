@@ -16,7 +16,7 @@ test('feed kudos and comments notify the author', async ({ makeRower }) => {
     'true',
   );
   await a.page.goto('/feed');
-  await feedCard(a.page, title).getByRole('button', { name: 'View 1 Kudos', exact: true }).click();
+  await feedCard(a.page, title).getByRole('button', { name: 'View 1 Kudo', exact: true }).click();
   const kudos = a.page.getByRole('dialog', { name: 'Kudos', exact: true });
   await expect(kudos.getByRole('link', { name: b.user.name, exact: true })).toBeVisible();
   await kudos.getByRole('link', { name: b.user.name, exact: true }).click();

@@ -29,6 +29,7 @@ import type {
   Zone,
   RaceWeek,
   GameResult,
+  DiveAnswerResult,
 } from '../../../shared/types';
 import { addDays, seasonRange, today, weekStart, yearRange } from '../../../shared/dates';
 import { equivalentMeters, MODE_FACTORS, ZONE_FACTORS, ZONES } from '../../../shared/math';
@@ -45,7 +46,15 @@ import {
   raceWeekBounds,
 } from '../../../shared/race';
 import { personalPlan, covers } from '../lib/myPlan';
-import { DIVE_PROMPTS_PER_DAY } from '../../../shared/games/dive';
+import {
+  DIVE_PROMPTS_PER_DAY,
+  DIVE_PROMPT_MS,
+  DIVE_GRACE_MS,
+  DIVE_MAX_WRONG_GUESSES,
+  DIVE_GUESS_INTERVAL_MS,
+  diveVerdict,
+  normalizeAnswer,
+} from '../../../shared/games/dive';
 import { unpack, score } from '../../../shared/games/wordGuess';
 import { GUESSES } from '../../../shared/games/wordGuessGuesses';
 import { gamesStreak } from '../../../shared/games/streak';
@@ -147,6 +156,20 @@ export function createMockApi({
 }: { now?: () => Date; session?: string | null; onSession?: (id: string | null) => void } = {}) {
   const state = createFixtures(now());
   const gameResults: GameResult[] = [];
+  const diveProgress = new Map<
+    string,
+    {
+      answers: DiveAnswerResult[];
+      active: {
+        at: number;
+        wrong: number;
+        last: number | null;
+        issued: boolean;
+        suggestion: string | null;
+        typed: string;
+      } | null;
+    }
+  >();
   const wordProgress = new Map<string, string[]>();
   const connectionProgress = new Map<string, string[][]>();
   const perceptionProgress = new Map<
@@ -775,7 +798,7 @@ export function createMockApi({
             fail(400, 'JSON object required');
         }
       }
-      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 18 });
+      if (path === '/api/health' && method === 'GET') return json({ ok: true, schema_version: 19 });
       if (path === '/api/auth/logout' && method === 'POST') {
         setSession(null);
         return empty();
@@ -1007,26 +1030,156 @@ export function createMockApi({
             answer: done ? answer : null,
           });
         }
-        if (gameId === 'dive' && parts[4] === 'today' && method === 'GET')
-          return json({
-            date,
-            access,
-            prompts: access.unlocked
-              ? [
-                  'Name a part of a rowing shell.',
-                  'Name a fruit with a peel.',
-                  'Name a Bay Area city.',
-                  'Name a thing in a gym bag.',
-                  'Name a Stanford campus landmark.',
-                  'Name an animal with stripes.',
-                  'Name a snack after a long row.',
-                ]
-              : [],
-            answers: [],
-            complete: false,
-            score: 0,
-            reveal: user.role === 'admin' ? [] : null,
-          });
+        if (
+          gameId === 'dive' &&
+          ['today', 'start', 'guesses', 'suggestion', 'answers'].includes(parts[4])
+        ) {
+          const key = `${user.id}:${date}`;
+          if (!diveProgress.has(key)) diveProgress.set(key, { answers: [], active: null });
+          const p = diveProgress.get(key)!;
+          const remaining = () =>
+            Math.max(0, (p.active?.at ?? now().getTime()) + DIVE_PROMPT_MS - now().getTime());
+          const expired = () =>
+            p.active !== null && now().getTime() > p.active.at + DIVE_PROMPT_MS + DIVE_GRACE_MS;
+          if (parts[4] === 'today' && method === 'GET')
+            return json({
+              date,
+              access,
+              prompts: access.unlocked
+                ? Array.from(
+                    { length: DIVE_PROMPTS_PER_DAY },
+                    () => 'Preview: type “Mock answer” to score.',
+                  )
+                : [],
+              answers: p.answers,
+              complete: p.answers.length === DIVE_PROMPTS_PER_DAY,
+              score: mine(date)?.score ?? 0,
+              verdict: diveVerdict(mine(date)?.score ?? 0),
+              result: mine(date),
+              pending:
+                access.unlocked && p.active
+                  ? {
+                      prompt_index: p.answers.length,
+                      deadline_ms_remaining: remaining(),
+                      suggestion: expired() ? null : p.active.suggestion,
+                      attempts_left: DIVE_MAX_WRONG_GUESSES - p.active.wrong,
+                    }
+                  : null,
+              reveal:
+                p.answers.length === DIVE_PROMPTS_PER_DAY || user.role === 'admin' ? [] : null,
+            });
+          if (method === 'POST') {
+            if (!access.unlocked) fail(403, 'Log a workout today to play.', 'GAME_LOCKED');
+            const index = body.prompt_index;
+            if (
+              !Number.isInteger(index) ||
+              Number(index) < 0 ||
+              Number(index) >= DIVE_PROMPTS_PER_DAY
+            )
+              fail(400, 'Invalid prompt index.');
+            if (Number(index) < p.answers.length)
+              fail(409, 'Already answered.', 'ALREADY_ANSWERED');
+            if (index !== p.answers.length) fail(409, 'Answer the next prompt.', 'OUT_OF_ORDER');
+            if (parts[4] === 'start') {
+              p.active ??= {
+                at: now().getTime(),
+                wrong: 0,
+                last: null,
+                issued: false,
+                suggestion: null,
+                typed: '',
+              };
+              return json({ prompt_index: index, deadline_ms_remaining: remaining() });
+            }
+            const finish = (typed: string, hit: boolean) => {
+              const answer: DiveAnswerResult = {
+                prompt_index: Number(index),
+                answer: typed,
+                canonical: hit ? 'Mock answer' : null,
+                tier: hit ? 'gem' : 'miss',
+                points: hit ? 100 : 0,
+                count: 1,
+                total: 1,
+                hidden: false,
+                gem: { answer: 'Mock answer', tier: 'gem', points: 100 },
+                notable: [],
+              };
+              p.answers.push(answer);
+              p.active = null;
+              const result = mine(date);
+              if (result) {
+                result.score += answer.points;
+                result.payload = { answered: p.answers.length };
+                result.updated_at = stamp();
+              } else
+                gameResults.push({
+                  game_id: 'dive',
+                  user_id: user.id,
+                  date,
+                  score: answer.points,
+                  payload: { answered: p.answers.length },
+                  created_at: stamp(),
+                  updated_at: stamp(),
+                });
+              return parts[4] === 'answers'
+                ? json(answer, 201)
+                : json({ outcome: 'scored', answer });
+            };
+            if (parts[4] === 'suggestion') {
+              if (typeof body.accept !== 'boolean') fail(400, 'Accept must be boolean.');
+              if (expired()) return finish('', false);
+              if (!p.active?.suggestion) fail(409, 'No pending suggestion.', 'NO_SUGGESTION');
+              if (body.accept) return finish(p.active.typed, true);
+              p.active.suggestion = null;
+              p.active.wrong++;
+            } else {
+              if (
+                typeof body.answer !== 'string' ||
+                body.answer.length > 60 ||
+                /\p{Cc}/u.test(body.answer)
+              )
+                fail(400, 'Invalid answer.');
+              const typed = body.answer.trim(),
+                normalized = normalizeAnswer(typed);
+              if (parts[4] === 'guesses' && !p.active) fail(409, 'Start first.', 'NOT_STARTED');
+              if (expired() || !typed) return finish('', false);
+              if (parts[4] === 'answers') return finish(typed, normalized === 'mock answer');
+              if (
+                p.active!.last !== null &&
+                now().getTime() - p.active!.last! < DIVE_GUESS_INTERVAL_MS
+              )
+                return Response.json(
+                  { error: { code: 'TOO_FAST', message: 'Wait between guesses.' } },
+                  { status: 429, headers: { 'Retry-After': '1' } },
+                );
+              p.active!.last = now().getTime();
+              if (p.active!.suggestion) {
+                p.active!.suggestion = null;
+                p.active!.wrong++;
+              }
+              if (p.active!.wrong >= DIVE_MAX_WRONG_GUESSES) return finish('', false);
+              if (normalized === 'mock answer') return finish(typed, true);
+              if (!p.active!.issued && normalized === 'mock anser') {
+                p.active!.issued = true;
+                p.active!.suggestion = 'Mock answer';
+                p.active!.typed = typed;
+                return json({
+                  outcome: 'suggestion',
+                  suggestion: 'Mock answer',
+                  prompt_index: index,
+                  deadline_ms_remaining: remaining(),
+                  attempts_left: DIVE_MAX_WRONG_GUESSES - p.active!.wrong,
+                });
+              }
+              p.active!.wrong++;
+            }
+            if (p.active!.wrong >= DIVE_MAX_WRONG_GUESSES) return finish('', false);
+            return json({
+              outcome: 'not_an_answer',
+              attempts_left: DIVE_MAX_WRONG_GUESSES - p.active!.wrong,
+            });
+          }
+        }
         const addResult = (score: number, payload: unknown) => {
           const stamp = now().toISOString();
           gameResults.push({
@@ -1246,6 +1399,7 @@ export function createMockApi({
         const data: AccountDataExport = {
           game_results: [],
           dive_answers: [],
+          dive_attempts: [],
           format_version: 1,
           exported_at: stamp(),
           profile: user,

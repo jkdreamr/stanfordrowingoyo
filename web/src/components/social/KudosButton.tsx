@@ -59,7 +59,7 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
           <Button
             variant="plain"
             className="min-w-11 tabular-nums"
-            aria-label={`View ${entry.kudos_count} Kudos`}
+            aria-label={`View ${entry.kudos_count} ${entry.kudos_count === 1 ? 'Kudo' : 'Kudos'}`}
             onClick={(event) => {
               event.currentTarget.focus({ preventScroll: true });
               setOpen(true);

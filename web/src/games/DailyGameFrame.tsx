@@ -111,7 +111,9 @@ function GameResultView({
   summary: GameSummary;
 }) {
   const shareResult = useShareResult();
-  useEffect(() => window.scrollTo(0, 0), []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   function share() {
     void shareResult(title, summary.share);
   }

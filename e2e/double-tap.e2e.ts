@@ -63,7 +63,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   }
   await doubleTap(card.locator('dl'), mobile, true);
   await expect(kudos).toHaveAttribute('aria-pressed', 'true');
-  await expect(card.getByRole('button', { name: 'View 1 Kudos', exact: true })).toBeVisible();
+  await expect(card.getByRole('button', { name: 'View 1 Kudo', exact: true })).toBeVisible();
   await expect(page).toHaveURL(/\/feed$/);
   await doubleTap(card.getByRole('button', { name: 'Open Photo 1' }), mobile);
   await expect(kudos).toHaveAttribute('aria-pressed', 'true');
@@ -74,7 +74,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   await expect(kudos).toBeEnabled();
   await doubleTap(card.getByRole('button', { name: 'Open Photo 1' }), mobile);
   await expect(kudos).toHaveAttribute('aria-pressed', 'true');
-  await expect(card.getByRole('button', { name: 'View 1 Kudos', exact: true })).toBeVisible();
+  await expect(card.getByRole('button', { name: 'View 1 Kudo', exact: true })).toBeVisible();
   const burst = card.locator('.social-heart-burst');
   await expect(burst).toBeVisible();
   await burst.evaluate((element) => {
@@ -95,7 +95,7 @@ test('double-tap gives once on feed body, photos and detail; single taps and vie
   await expect(detailKudos).toBeEnabled();
   await doubleTap(detail.getByRole('button', { name: 'Open Photo 1' }), mobile);
   await expect(detailKudos).toHaveAttribute('aria-pressed', 'true');
-  await expect(detail.getByRole('button', { name: 'View 1 Kudos', exact: true })).toBeVisible();
+  await expect(detail.getByRole('button', { name: 'View 1 Kudo', exact: true })).toBeVisible();
   const photo = detail.getByRole('button', { name: 'Open Photo 1' });
   await photo.click();
   const dialog = page.getByRole('dialog');

@@ -1,6 +1,10 @@
 /** Prompts per team day; every prompt scores at most 100 (Pearl). */
 export const DIVE_PROMPTS_PER_DAY = 5;
 export const DIVE_MAX_SCORE = DIVE_PROMPTS_PER_DAY * 100;
+export const DIVE_PROMPT_MS = 25_000;
+export const DIVE_GRACE_MS = 2_000;
+export const DIVE_MAX_WRONG_GUESSES = 15;
+export const DIVE_GUESS_INTERVAL_MS = 400;
 
 export const DIVE_TIERS = {
   surface: { label: 'Surface', points: 10, emoji: '🫧' },

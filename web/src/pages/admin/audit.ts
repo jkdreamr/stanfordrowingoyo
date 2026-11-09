@@ -94,19 +94,23 @@ export function auditEntry(
       ['challenges', 'team challenge'],
       ['images', 'photo'],
       ['comments', 'comment'],
-      ['kudos', 'kudos'],
+      ['kudos', 'kudo'],
       ['plans', 'private plan'],
       ['weekly_targets', 'weekly target'],
     ]) {
       const count = removed[key];
       if (typeof count === 'number' && Number.isSafeInteger(count) && count > 0)
-        changes.push(`${formatNumber(count)} ${label}${count === 1 || key === 'kudos' ? '' : 's'}`);
+        changes.push(`${formatNumber(count)} ${label}${count === 1 ? '' : 's'}`);
     }
   }
   if (typeof after.imported === 'number')
-    changes.push(`Imported ${formatNumber(after.imported)} names`);
+    changes.push(
+      `Imported ${formatNumber(after.imported)} ${after.imported === 1 ? 'name' : 'names'}`,
+    );
   if (typeof after.updated === 'number')
-    changes.push(`Updated ${formatNumber(after.updated)} entries`);
+    changes.push(
+      `Updated ${formatNumber(after.updated)} ${after.updated === 1 ? 'entry' : 'entries'}`,
+    );
   if (after.team_code_changed === true) changes.push('Regenerated the join code');
   if (action === 'update') {
     for (const key of Object.keys(labels)) {

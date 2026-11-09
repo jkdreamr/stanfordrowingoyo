@@ -1,6 +1,7 @@
 import type {
   AccountDataExport,
   DiveAnswerExport,
+  DiveAttemptExport,
   AccountExportMention,
   AccountExportPerson,
   AccountExportTag,
@@ -107,6 +108,12 @@ export function accountExport(
     'comment_id',
   );
   return {
+    dive_attempts: sql
+      .exec<Row<DiveAttemptExport>>(
+        'SELECT * FROM dive_attempts WHERE user_id=? ORDER BY date,prompt_index',
+        id,
+      )
+      .toArray(),
     game_results: sql
       .exec<ResultRow>('SELECT * FROM game_results WHERE user_id=? ORDER BY date,game_id', id)
       .toArray()
@@ -278,6 +285,7 @@ export function removeAccount(storage: DurableObjectStorage, user: UserRow): Rem
     'DELETE FROM game_results WHERE user_id = ?',
     'DELETE FROM game_progress WHERE user_id = ?',
     'DELETE FROM dive_answers WHERE user_id = ?',
+    'DELETE FROM dive_attempts WHERE user_id = ?',
     'UPDATE dive_answers SET hidden_by = NULL WHERE hidden_by = ?',
     'DELETE FROM images WHERE owner_id = ?',
     'DELETE FROM entries WHERE user_id = ?',
