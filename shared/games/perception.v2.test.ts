@@ -27,6 +27,52 @@ const perfect = (p: PerceptionV2Puzzle): PerceptionRoundAnswer => ({
   contactMs: p.contact.hiddenMs,
 });
 
+it.each(Array.from({ length: 21 }, (_, day) => dateAt(day)))(
+  '%s generates valid stimuli and five bounded scores with a 500 maximum',
+  (date) => {
+    const rounds = perceptionLineup(date);
+    expect(new Set(rounds).size).toBe(5);
+    const previous = dateAt(Math.round((Date.parse(date) - Date.parse(dateAt(0))) / 86400000) - 1);
+    expect(
+      rounds.filter((round) => perceptionLineup(previous).includes(round)).length,
+    ).toBeLessThanOrEqual(2);
+    const p = perceptionV2Puzzle(date);
+    expect(perceptionPuzzle(date)).toEqual(p);
+    expect(p.clockMs).toBeGreaterThanOrEqual(3000);
+    expect(p.clockMs).toBeLessThanOrEqual(8000);
+    expect(p.rotation).toBeGreaterThanOrEqual(0);
+    expect(p.rotation).toBeLessThanOrEqual(359);
+    expect(p.reactionDelayMs).toBeGreaterThanOrEqual(1500);
+    expect(p.reactionDelayMs).toBeLessThanOrEqual(5000);
+    expect(p.shadeBackgrounds.slice().sort((a, b) => a - b)).toEqual([10, 90]);
+    expect(p.countDots).toHaveLength(p.count);
+    expect(p.count).toBeGreaterThanOrEqual(30);
+    expect(p.count).toBeLessThanOrEqual(80);
+    for (const [x, y] of [
+      ...p.countDots,
+      ...p.endpoints,
+      p.dot,
+      p.contact.from,
+      p.contact.occlusion,
+      p.contact.finish,
+    ]) {
+      expect(x).toBeGreaterThanOrEqual(0);
+      expect(x).toBeLessThanOrEqual(1000);
+      expect(y).toBeGreaterThanOrEqual(0);
+      expect(y).toBeLessThanOrEqual(1000);
+    }
+    for (const round of PERCEPTION_POOL) {
+      const field = PERCEPTION_FIELDS[round];
+      expect(parsePerceptionRound(round, { [field]: perfect(p)[field] }, true)).not.toBeNull();
+      expect(scorePerceptionRound(round, p, perfect(p))).toBe(100);
+    }
+    const scores = scorePerception(date, perfect(p));
+    expect(Object.keys(scores)).toEqual(rounds);
+    expect(perceptionTotal(scores, rounds)).toBe(500);
+    console.log(`${date}: ${rounds.join(', ')}; max=500`);
+  },
+);
+
 it('pins pre-cutover puzzles and scores captured before changing the generator', () => {
   const fixtures = [
     [

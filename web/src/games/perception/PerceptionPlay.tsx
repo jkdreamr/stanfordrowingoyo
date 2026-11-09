@@ -115,8 +115,12 @@ export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
     sending.current = true;
     setBusy(true);
     setError('');
-    void api('POST /api/games/perception/start', { body: { round: index } })
+    void api('POST /api/games/perception/start', { body: { round: index, date } })
       .then((day) => {
+        if (day.date !== date) {
+          setError('A New Day Has Started. Reload to Play.');
+          return;
+        }
         setPuzzle((p) => ({ ...p, ...day.stimulus }));
         setExtra(day.stimulus);
         setStage(next);
@@ -135,8 +139,12 @@ export function PerceptionPlay({ date, onComplete }: PlayProps<void>) {
     sending.current = true;
     setBusy(true);
     setError('');
-    void api('POST /api/games/perception/answer', { body: { round: index, answer: part } })
+    void api('POST /api/games/perception/answer', { body: { round: index, date, answer: part } })
       .then((day) => {
+        if (day.date !== date) {
+          setError('A New Day Has Started. Reload to Play.');
+          return;
+        }
         setScores(rounds.map((r) => day.scores[r] ?? 0));
         setStage('reveal');
       })

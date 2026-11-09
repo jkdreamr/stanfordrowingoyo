@@ -125,6 +125,49 @@ async function unlock() {
   expect(workout.status).toBe(201);
 }
 
+it.each(['/games/perception/start', '/games/perception/answer'])(
+  'rejects a stale date on %s before consuming a new-day round',
+  async (path) => {
+    await v2Unlock('2026-11-10');
+    const response = await api(
+      path,
+      'POST',
+      { date: '2026-11-09', round: 0, answer: { clockMs: 3300 } },
+      '2026-11-10T08:00:01Z',
+    );
+    expect(response.status).toBe(409);
+    expect(await response.json()).toMatchObject({ error: { code: 'DAY_CHANGED' } });
+    const state = await (
+      await api('/games/perception/today', 'GET', undefined, '2026-11-10T08:00:02Z')
+    ).json();
+    expect(state).toMatchObject({ date: '2026-11-10', round: 0, scores: {}, done: false });
+    expect(
+      (
+        await api(
+          '/games/perception/start',
+          'POST',
+          { date: '2026-11-10', round: 0 },
+          '2026-11-10T08:00:03Z',
+        )
+      ).status,
+    ).toBe(200);
+  },
+);
+
+it('rejects malformed expected dates without changing progress', async () => {
+  await v2Unlock('2026-11-10');
+  const response = await api(
+    '/games/perception/start',
+    'POST',
+    { date: '', round: 0 },
+    v2At('2026-11-10'),
+  );
+  expect(response.status).toBe(400);
+  expect(
+    await (await api('/games/perception/today', 'GET', undefined, v2At('2026-11-10'))).json(),
+  ).toMatchObject({ round: 0, scores: {} });
+});
+
 it.each(Array.from({ length: 7 }, (_, i) => v2Date(i)))(
   'plays a complete v2 lineup on %s with an atomic immutable 500 result',
   async (date) => {
