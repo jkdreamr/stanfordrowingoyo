@@ -89,6 +89,11 @@ The host allows three attempts per day, abandons an active attempt when another
 starts, and stores the strictly best finished score. Starting and finishing require
 access and the displayed date. Tokens belong only to the active run.
 
+Currently, arcade best means **highest non-negative safe-integer score**. Register
+`direction: 'higher'`. For timed puzzles, agree a higher-is-better scoring policy
+before porting; choosing `direction: 'lower'` alone does not change the arcade
+upsert or frame best detection and would require extending both first.
+
 **Arcade runs are client-simulated and client-scored; the server only plausibility-checks
 them (consistency, elapsed-time and action-rate bounds, maximum). They are not tamper-proof.**
 
