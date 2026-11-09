@@ -17,6 +17,7 @@ import { CommentEditor } from '../components/social/CommentEditor';
 import { ReportSheet } from '../components/social/ReportSheet';
 import { MentionComposer } from '../components/social/MentionComposer';
 import {
+  DialogPresence,
   Avatar,
   Button,
   ConfirmSheet,
@@ -128,34 +129,36 @@ export default function EntryDetail() {
         ) : (
           <>
             <EntryCard entry={entry} config={config} full onComment={focusComment} />
-            {more && (
-              <Sheet open onClose={() => setMore(false)} title="Workout Actions">
-                <ListGroup>
-                  {canEdit && (
-                    <>
-                      <ListRow title="Edit Workout" to={`/log?edit=${encodeURIComponent(id)}`} />
+            <DialogPresence>
+              {more && (
+                <Sheet open onClose={() => setMore(false)} title="Workout Actions">
+                  <ListGroup>
+                    {canEdit && (
+                      <>
+                        <ListRow title="Edit Workout" to={`/log?edit=${encodeURIComponent(id)}`} />
+                        <ListRow
+                          title="Delete Workout"
+                          tone="destructive"
+                          onClick={() => {
+                            setMore(false);
+                            setDeleting('entry');
+                          }}
+                        />
+                      </>
+                    )}
+                    {me && me.id !== entry.user_id && (
                       <ListRow
-                        title="Delete Workout"
-                        tone="destructive"
+                        title="Report Workout"
                         onClick={() => {
                           setMore(false);
-                          setDeleting('entry');
+                          setReporting({ target_type: 'entry', target_id: id });
                         }}
                       />
-                    </>
-                  )}
-                  {me && me.id !== entry.user_id && (
-                    <ListRow
-                      title="Report Workout"
-                      onClick={() => {
-                        setMore(false);
-                        setReporting({ target_type: 'entry', target_id: id });
-                      }}
-                    />
-                  )}
-                </ListGroup>
-              </Sheet>
-            )}
+                    )}
+                  </ListGroup>
+                </Sheet>
+              )}
+            </DialogPresence>
             <section id="comments" className="scroll-mt-20">
               <h2 className="mb-4 text-title3">Comments</h2>
               {comments.isError ? (
@@ -262,47 +265,51 @@ export default function EntryDetail() {
                 </Button>
               </form>
             </section>
-            {deleting !== null && (
-              <ConfirmSheet
-                open={deleting !== null}
-                onClose={() => setDeleting(null)}
-                title={deleting === 'entry' ? 'Delete Workout' : 'Delete Comment'}
-                body="This cannot be undone"
-                confirmLabel="Delete"
-                cancelLabel="Cancel"
-                loading={remove.isPending || removeComment.isPending}
-                onConfirm={() => {
-                  const onError = () =>
-                    toast.show({ title: 'Could not delete. Try again', tone: 'error' });
-                  if (deleting === 'entry')
-                    remove.mutate(
-                      { params: { id } },
-                      {
-                        onSuccess: () => {
-                          toast.show({ title: 'Workout deleted' });
-                          navigate('/feed', { replace: true });
+            <DialogPresence>
+              {deleting !== null && (
+                <ConfirmSheet
+                  open={deleting !== null}
+                  onClose={() => setDeleting(null)}
+                  title={deleting === 'entry' ? 'Delete Workout' : 'Delete Comment'}
+                  body="This cannot be undone"
+                  confirmLabel="Delete"
+                  cancelLabel="Cancel"
+                  loading={remove.isPending || removeComment.isPending}
+                  onConfirm={() => {
+                    const onError = () =>
+                      toast.show({ title: 'Could not delete. Try again', tone: 'error' });
+                    if (deleting === 'entry')
+                      remove.mutate(
+                        { params: { id } },
+                        {
+                          onSuccess: () => {
+                            toast.show({ title: 'Workout deleted' });
+                            navigate('/feed', { replace: true });
+                          },
+                          onError,
                         },
-                        onError,
-                      },
-                    );
-                  else if (deleting)
-                    removeComment.mutate(
-                      { params: { id: deleting } },
-                      {
-                        onSuccess: () => {
-                          setDeleting(null);
-                          toast.show({ title: 'Comment deleted' });
+                      );
+                    else if (deleting)
+                      removeComment.mutate(
+                        { params: { id: deleting } },
+                        {
+                          onSuccess: () => {
+                            setDeleting(null);
+                            toast.show({ title: 'Comment deleted' });
+                          },
+                          onError,
                         },
-                        onError,
-                      },
-                    );
-                }}
-              />
-            )}
+                      );
+                  }}
+                />
+              )}
+            </DialogPresence>
           </>
         )}
       </div>
-      {reporting && <ReportSheet target={reporting} onClose={() => setReporting(null)} />}
+      <DialogPresence>
+        {reporting && <ReportSheet target={reporting} onClose={() => setReporting(null)} />}
+      </DialogPresence>
     </>
   );
 }

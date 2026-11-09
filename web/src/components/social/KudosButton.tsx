@@ -74,48 +74,46 @@ export function KudosButton({ entry }: { entry: EntryDetail }) {
           <span className="entry-action-count text-muted">0</span>
         )}
       </div>
-      {open && (
-        <Sheet open onClose={() => setOpen(false)} title="Kudos">
-          {givers.isPending ? (
-            <div role="status" aria-label="Loading Kudos">
-              <span className="sr-only">Loading Kudos</span>
-              {Array.from({ length: 3 }, (_, index) => (
-                <div key={index} className="flex items-center gap-3 py-4">
-                  <Skeleton className="h-10 w-10 rounded-full" />
-                  <Skeleton className="h-4 w-32" />
-                </div>
-              ))}
-            </div>
-          ) : givers.isError ? (
-            <div className="space-y-4">
-              <p role="alert" className="text-danger">
-                Could not load kudos
-              </p>
-              <Button variant="secondary" onClick={() => void givers.refetch()}>
-                Retry
-              </Button>
-            </div>
-          ) : !givers.data?.length ? (
-            <EmptyState icon={<ThumbsUp size={20} />} title="No Kudos Yet" />
-          ) : (
-            <ListGroup>
-              {givers.data.map((user) => (
-                <Link
-                  key={user.id}
-                  to={`/users/${user.id}`}
-                  className="ui-row text-text"
-                  onClick={() => setOpen(false)}
-                >
-                  <span aria-hidden="true" className="shrink-0">
-                    <Avatar name={user.name} imageId={user.avatar_image_id} />
-                  </span>
-                  <span className="min-w-0 flex-1 break-words">{user.name}</span>
-                </Link>
-              ))}
-            </ListGroup>
-          )}
-        </Sheet>
-      )}
+      <Sheet open={open} onClose={() => setOpen(false)} title="Kudos">
+        {givers.isPending ? (
+          <div role="status" aria-label="Loading Kudos">
+            <span className="sr-only">Loading Kudos</span>
+            {Array.from({ length: 3 }, (_, index) => (
+              <div key={index} className="flex items-center gap-3 py-4">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <Skeleton className="h-4 w-32" />
+              </div>
+            ))}
+          </div>
+        ) : givers.isError ? (
+          <div className="space-y-4">
+            <p role="alert" className="text-danger">
+              Could not load kudos
+            </p>
+            <Button variant="secondary" onClick={() => void givers.refetch()}>
+              Retry
+            </Button>
+          </div>
+        ) : !givers.data?.length ? (
+          <EmptyState icon={<ThumbsUp size={20} />} title="No Kudos Yet" />
+        ) : (
+          <ListGroup>
+            {givers.data.map((user) => (
+              <Link
+                key={user.id}
+                to={`/users/${user.id}`}
+                className="ui-row text-text"
+                onClick={() => setOpen(false)}
+              >
+                <span aria-hidden="true" className="shrink-0">
+                  <Avatar name={user.name} imageId={user.avatar_image_id} />
+                </span>
+                <span className="min-w-0 flex-1 break-words">{user.name}</span>
+              </Link>
+            ))}
+          </ListGroup>
+        )}
+      </Sheet>
     </>
   );
 }

@@ -39,6 +39,7 @@ import { clearTargetFinish, recordTargetFinish } from '../lib/targetFinish';
 import { detectBests, recordCelebration } from '../lib/celebrations';
 import { announceSave } from '../lib/saveCelebration';
 import {
+  DialogPresence,
   Button,
   Card,
   ConfirmSheet,
@@ -590,14 +591,16 @@ function LogForm({
           )}
         </fieldset>
       </form>
-      {tagging && (
-        <TeammatePicker
-          self={entry?.user_id ?? user.id}
-          selected={tagged}
-          onChange={setTagged}
-          onClose={() => setTagging(false)}
-        />
-      )}
+      <DialogPresence>
+        {tagging && (
+          <TeammatePicker
+            self={entry?.user_id ?? user.id}
+            selected={tagged}
+            onChange={setTagged}
+            onClose={() => setTagging(false)}
+          />
+        )}
+      </DialogPresence>
       <Sheet open={menu} onClose={() => setMenu(false)} title="Workout Menu">
         <div className="mb-5">
           <Toggle label="All Zones" checked={allZones} onChange={setAllZones} />
