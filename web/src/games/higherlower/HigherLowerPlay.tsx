@@ -36,6 +36,7 @@ function ItemCard({
   asOf: number | null;
   outcome?: boolean;
 }) {
+  const hasDateOverride = item.asOf !== undefined && item.asOf !== asOf;
   return (
     <section
       className={`hl-card${outcome === true ? ' hl-correct' : outcome === false ? ' hl-miss' : ''}`}
@@ -46,12 +47,16 @@ function ItemCard({
         {outcome !== undefined &&
           (outcome ? <Check aria-label="Correct" size={20} /> : <X aria-label="Miss" size={20} />)}
       </div>
-      <p className="hl-detail">
-        <span>{item.detail || (next ? 'Your Next Comparison' : 'Current Item')}</span>
-        {item.asOf !== undefined && item.asOf !== asOf && (
-          <span className="hl-year">{item.asOf === null ? 'Timeless' : `As of ${item.asOf}`}</span>
-        )}
-      </p>
+      {(item.detail || hasDateOverride) && (
+        <p className="hl-detail">
+          {item.detail && <span>{item.detail}</span>}
+          {hasDateOverride && (
+            <span className="hl-year">
+              {item.asOf === null ? 'Timeless' : `As of ${item.asOf}`}
+            </span>
+          )}
+        </p>
+      )}
       <p
         className={`hl-value${display === null ? ' hl-hidden' : ''}`}
         aria-label={display ?? 'Value Hidden'}
@@ -205,6 +210,7 @@ export function HigherLowerPlay({ date, onComplete }: PlayProps<Record<string, n
       {day.next && !day.finished && (
         <div className="hl-actions" role="group" aria-label="Your Guess">
           <Button
+            variant="secondary"
             disabled={pending}
             leading={<ChevronUp size={20} />}
             aria-label={`${titleCase(day.higherLabel!)} Than ${current.name}`}

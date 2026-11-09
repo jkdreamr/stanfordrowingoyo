@@ -83,6 +83,7 @@ async function setup({
   reduced = true,
   game = false,
   error = '',
+  noDetail = false,
   factYear = undefined as number | null | undefined,
 } = {}) {
   vi.stubGlobal('matchMedia', () => ({
@@ -131,9 +132,13 @@ async function setup({
       });
     }
     const response = await mock.handle(request);
-    if (request.url.endsWith('/higherlower/today') && factYear !== undefined) {
+    if (request.url.endsWith('/higherlower/today') && (factYear !== undefined || noDetail)) {
       const day = await response.json();
-      day.items[0].asOf = factYear;
+      if (factYear !== undefined) day.items[0].asOf = factYear;
+      if (noDetail) {
+        for (const item of day.items) item.detail = null;
+        if (day.next) day.next.detail = null;
+      }
       return new Response(JSON.stringify(day), { headers: { 'Content-Type': 'application/json' } });
     }
     return response;
@@ -163,6 +168,17 @@ it('uses sentence case, one category date caption and a neutral question mark', 
   expect(screen.queryByText(/As of 2020/i)).toBeNull();
   expect(screen.getByLabelText('Value Hidden').textContent).toBe('?');
 });
+it('omits empty detail rows and gives both answers the same neutral style', async () => {
+  await setup({ noDetail: true });
+  await screen.findByRole('heading', { name: 'Which practice town has more residents?' });
+  for (const name of ['Current Item', 'Next Item'])
+    expect(screen.getByRole('region', { name }).querySelector('.hl-detail')).toBeNull();
+  expect(screen.queryByText('Current Item')).toBeNull();
+  expect(screen.queryByText('Your Next Comparison')).toBeNull();
+  const buttons = within(screen.getByRole('group', { name: 'Your Guess' })).getAllByRole('button');
+  expect(buttons).toHaveLength(2);
+  for (const button of buttons) expect(button.classList.contains('ui-button-secondary')).toBe(true);
+});
 it.each([
   [2019, 'As of 2019'],
   [null, 'Timeless'],
@@ -188,6 +204,9 @@ it('reveals with a count-up, blocks double taps, announces, and advances focus',
   fireEvent.click(button);
   await waitFor(() => expect(frames.length).toBe(1));
   expect(button.hasAttribute('disabled')).toBe(true);
+  expect(
+    screen.getByRole('button', { name: 'Fewer Than Practice Town 1' }).hasAttribute('disabled'),
+  ).toBe(true);
   act(() => frames.shift()!(400));
   expect(
     within(screen.getByRole('region', { name: 'Next Item' })).getByLabelText('1,663 people'),
