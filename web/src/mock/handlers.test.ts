@@ -31,6 +31,45 @@ const input = {
   notes: '',
   visibility: 'team',
 };
+it('supports the mock Dive start, keep-guessing, suggestion and scoring lifecycle', async () => {
+  let clock = now();
+  const { request, state } = setup({ now: () => clock });
+  await request('/auth/login', 'POST', {
+    email: state.users.find((user) => user.role === 'admin')!.email,
+    password: 'password',
+  });
+  const post = (path: string, body: unknown) => request('/games/dive/' + path, 'POST', body);
+  expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(409);
+  expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
+    deadline_ms_remaining: 25000,
+  });
+  clock = new Date(clock.getTime() + 1000);
+  expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
+    deadline_ms_remaining: 24000,
+  });
+  expect(await (await post('guesses', { prompt_index: 0, answer: 'wrong' })).json()).toEqual({
+    outcome: 'not_an_answer',
+    attempts_left: 14,
+  });
+  expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(429);
+  clock = new Date(clock.getTime() + 400);
+  expect(
+    await (await post('guesses', { prompt_index: 0, answer: 'mock anser' })).json(),
+  ).toMatchObject({ outcome: 'suggestion', suggestion: 'Mock answer' });
+  expect((await (await request('/games/dive/today')).json()).pending.suggestion).toBe(
+    'Mock answer',
+  );
+  expect(await (await post('suggestion', { prompt_index: 0, accept: true })).json()).toMatchObject({
+    outcome: 'scored',
+    answer: { answer: 'mock anser', canonical: 'Mock answer', points: 100 },
+  });
+  expect((await post('suggestion', { prompt_index: 0, accept: true })).status).toBe(409);
+  await post('start', { prompt_index: 1 });
+  clock = new Date(clock.getTime() + 27001);
+  expect(
+    await (await post('guesses', { prompt_index: 1, answer: 'Mock answer' })).json(),
+  ).toMatchObject({ outcome: 'scored', answer: { answer: '', points: 0 } });
+});
 it('exports mock account JSON and CSV without teammate private data', async () => {
   const { request, state } = setup();
   const response = await request('/me/export');

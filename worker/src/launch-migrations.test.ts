@@ -18,6 +18,7 @@ const featureTables = [
   'webauthn_challenges',
   'game_results',
   'dive_answers',
+  'dive_attempts',
   'game_progress',
   'reminder_sends',
 ];
@@ -32,7 +33,7 @@ function reset(storage: DurableObjectStorage) {
 }
 
 function expectLatest(storage: DurableObjectStorage) {
-  expect(getSetting(storage, 'schema_version')).toBe(18);
+  expect(getSetting(storage, 'schema_version')).toBe(19);
   expect(
     storage.sql
       .exec<{ name: string }>('PRAGMA table_info(users)')
@@ -59,7 +60,7 @@ function expectLatest(storage: DurableObjectStorage) {
   ).toContain('edited_at');
 }
 
-it('migrates an empty database from 0 to 18 and is idempotent', async () => {
+it('migrates an empty database from 0 to 19 and is idempotent', async () => {
   const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
   await runInDurableObject(stub, (_, state) => {
     const storage = state.storage;
@@ -70,6 +71,42 @@ it('migrates an empty database from 0 to 18 and is idempotent', async () => {
     expectLatest(storage);
     for (const table of featureTables)
       expect(storage.sql.exec(`SELECT * FROM ${table}`).toArray()).toEqual([]);
+  });
+});
+
+it('adds private Dive attempts to v18 without changing existing answers and is idempotent', async () => {
+  const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
+  await runInDurableObject(stub, (_, state) => {
+    const storage = state.storage;
+    reset(storage);
+    migrate({
+      sql: storage.sql,
+      transactionSync: (callback: () => unknown) => {
+        const version = storage.sql
+          .exec<{ value_json: string }>(
+            "SELECT value_json FROM settings WHERE key='schema_version'",
+          )
+          .toArray()[0];
+        if (!version || Number(version.value_json) < 18) return storage.transactionSync(callback);
+      },
+    } as DurableObjectStorage);
+    expect(getSetting(storage, 'schema_version')).toBe(18);
+    storage.sql.exec(
+      "INSERT INTO dive_answers VALUES ('2026-03-09','u',0,'','',NULL,'miss',0,NULL,NULL,?)",
+      now,
+    );
+    const before = storage.sql.exec('SELECT * FROM dive_answers').toArray();
+    migrate(storage);
+    expectLatest(storage);
+    storage.sql.exec(
+      "INSERT INTO dive_attempts (date,user_id,prompt_index,started_at) VALUES ('2026-03-09','u',1,?)",
+      now,
+    );
+    migrate(storage);
+    expect(storage.sql.exec('SELECT * FROM dive_answers').toArray()).toEqual(before);
+    expect(storage.sql.exec('SELECT * FROM dive_attempts').toArray()).toMatchObject([
+      { user_id: 'u', prompt_index: 1, started_at: now, wrong_count: 0 },
+    ]);
   });
 });
 
@@ -188,7 +225,7 @@ it('upgrades populated v10 tables to 15 without changing existing rows', async (
   });
 });
 
-it('upgrades a v16 database through v17 then v18 without losing results', async () => {
+it('upgrades a v16 database through v17, v18 and v19 without losing results', async () => {
   const stub = bindings.TEAM.get(bindings.TEAM.idFromName(crypto.randomUUID()));
   await runInDurableObject(stub, (_, state) => {
     const storage = state.storage;
@@ -219,7 +256,7 @@ it('upgrades a v16 database through v17 then v18 without losing results', async 
         return result;
       },
     } as DurableObjectStorage);
-    expect(versions).toEqual([17, 18]);
+    expect(versions).toEqual([17, 18, 19]);
     expectLatest(storage);
     storage.sql.exec("INSERT INTO game_progress VALUES ('u','wordguess','2026-03-10','{}',?)", now);
     storage.sql.exec("INSERT INTO reminder_sends VALUES ('u','2026-03-10')");

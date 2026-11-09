@@ -273,7 +273,12 @@ announcement reference (no foreign key); API hydration exposes it as optional `a
 `entry_id` null. Other kinds retain workout references. Legacy announcement rows have no reference and
 retain author/time fallback resolution. This is backward compatible and requires no migration (schema v15).
 
-Schema migrations: a `schema_version` setting, currently 18; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Schema migrations: a `schema_version` setting, currently 19; migrations run in the DO constructor via `blockConcurrencyWhile`.
+Version 19 adds Dive-owned `dive_attempts(date,user_id,prompt_index,started_at,wrong_count,
+last_guess_at,suggestion_canonical,suggestion_answer,suggestion_status,suggested_at)` with primary
+key `(date,user_id,prompt_index)` and index `(user_id,date)`. Its self-contained guarded transaction
+uses `CREATE TABLE/INDEX IF NOT EXISTS`; account export includes these private attempt rows and
+account removal deletes them. Suggestion status is nullable until issued, then pending/rejected/accepted.
 Version 17 adds game progress before version 18. Version 18 adds `users.evening_reminder`
 (integer boolean, default 1), nullable `push_outbox.reminder_date`, and `reminder_sends(user_id,date)`
 with a composite primary key for daily idempotency. The guarded migrations run in order,
@@ -396,17 +401,47 @@ Workout mutations invalidate the games query root, including cached Word Guess a
 Connections day queries. Perception resumes on mount after access unlocks, never from
 background invalidation that would abandon an active round.
 
-Dive adds four dedicated endpoints without changing the generic hub contract:
+Dive adds seven dedicated endpoints without changing the generic hub contract:
 
 - `GET /api/games/dive/today` returns `DiveDay`: team-local date, access, prompts
   (text only, empty when locked), ordered caller answers with their own prompt reveals,
   completion, immutable running score, verdict, caller's generic result and nullable team reveal.
   Only admins may see team groups before completing all five prompts;
   coxswains/coaches retain the same spoiler gate as rowers.
+- `POST /api/games/dive/start` takes `{prompt_index}` and returns `DiveStart`
+  `{prompt_index,deadline_ms_remaining}` (200). Only the next unanswered prompt can start;
+  retries reuse its persisted start, never reset it. The nominal deadline is 25 seconds with
+  2 seconds of server latency grace; remaining milliseconds exclude grace and clamp to zero.
+- `POST /api/games/dive/guesses` takes `{prompt_index,answer}` and requires start (409 `NOT_STARTED`).
+  `DiveGuessResponse` is `{outcome:'scored',answer:DiveAnswerResult}`, or
+  `{outcome:'suggestion',suggestion:string,prompt_index,deadline_ms_remaining,attempts_left}`, or
+  `{outcome:'not_an_answer',attempts_left}` (all 200). Exact/alias/auto-typo hits score;
+  ordinary misses keep the prompt open and increment its wrong count. Only after a miss,
+  and only before any suggestion was issued for this prompt, does the Worker run the local
+  near-miss matcher. It reveals only the single suggested canonical, never a set or another prompt.
+  Suggestions are persisted pending; a subsequent guess implicitly rejects one and charges
+  that rejection as a wrong attempt before evaluating the new guess. Every wrong guess counts,
+  including repeats. The 15th wrong locks in a miss. Nonempty guesses less than 400 ms apart
+  return 429 `TOO_FAST` with `Retry-After: 1`, without changing state. Empty/whitespace input
+  gives up immediately; a request after the grace deadline stores an empty-answer miss, even
+  with a pending suggestion. Deadline/give-up handling precedes rate limiting.
+- `POST /api/games/dive/suggestion` takes only `{prompt_index,accept:boolean}` and returns
+  `DiveGuessResponse` (200). Accept re-resolves the stored pending canonical and scores its
+  real tier/points, retaining the original typed guess as `answer`. Reject marks it rejected,
+  charges one wrong attempt and returns `not_an_answer` (or scored miss at the limit).
+  There is at most one suggestion per prompt ever. No pending suggestion returns 409
+  `NO_SUGGESTION`; replay after scoring returns 409 `ALREADY_ANSWERED`. After the deadline,
+  resolution stores a miss instead. Neither the body nor another user's/prompt's state can
+  supply a canonical. All writes recheck access and sequence inside a synchronous transaction.
+  All three write routes share the existing `OUT_OF_ORDER`/`ALREADY_ANSWERED` checks.
+  `DiveDay.pending` resumes only the caller's active started prompt:
+  `{prompt_index,deadline_ms_remaining,suggestion:string|null,attempts_left}` or null.
+  It is null for completed, past or locked games; expired pending suggestions are not returned.
 - `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
   accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
-  Empty answers represent timeouts. Trimmed answers are at most 40 characters; control characters
+  This compatibility endpoint still scores immediately without requiring start, but an existing
+  expired start forces an empty-answer miss. Empty answers represent timeouts. Trimmed answers are at most 40 characters; control characters
   are rejected. Canonical match (nullable), tier and points are stored at submit time in
   v16's Dive-owned `dive_answers` columns `canonical TEXT`, `tier TEXT NOT NULL`,
   `points INTEGER NOT NULL`. The first answer creates a generic result; payload is
@@ -508,6 +543,12 @@ canonical wins (aliases of the same canonical do not count as ties); ambiguous, 
 unknown, timeout and non-answer stopword inputs miss for zero. No external request or
 frequency lookup happens at submit time. Data integrity/matcher/selection tests cover all
 sets; `scripts/dive/check-web.mjs` checks built web assets for Pearl-string leaks.
+
+The advisory near-miss matcher is separate from scoring: length/letter-bag prefilters feed
+banded adjacent-transposition distance, token coverage and a lightweight phonetic key.
+Inputs below four normalized characters and non-answer stopwords never suggest; short lone
+tokens cannot suggest multiword canonicals. Canonical-level near ties return no suggestion.
+DP rows and letter-count buffers are reused within the submit; nothing leaves the Worker.
 
 The Dive client persists each 25-second deadline under a user/date/prompt localStorage key;
 reload/visibility changes use the original wall-clock deadline, expiry submits an empty answer,

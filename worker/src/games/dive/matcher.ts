@@ -146,3 +146,137 @@ export function matchAnswer(input: string, set: AnswerSet): DiveMatch {
   }
   return best.canonical !== null && !ambiguous ? best : miss;
 }
+
+function phonetic(key: string): string {
+  return key
+    .replace(/ph/g, 'f')
+    .replace(/[cq]/g, 'k')
+    .replace(/[aeiouy]/g, 'a')
+    .replace(/(.)\1+/g, '$1');
+}
+
+/** Optimal-string-alignment distance: adjacent transpositions count as one edit. */
+function transpositionDistance(
+  a: string,
+  b: string,
+  limit: number,
+  workspace: Uint16Array[],
+): number {
+  if (a === b) return 0;
+  if (Math.abs(a.length - b.length) > limit) return limit + 1;
+  let [older, previous, current] = workspace;
+  older.fill(limit + 1);
+  previous.fill(limit + 1);
+  for (let j = 0; j <= Math.min(b.length, limit); j++) previous[j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    current[0] = i;
+    const low = Math.max(1, i - limit),
+      high = Math.min(b.length, i + limit);
+    if (low > 1) current[low - 1] = limit + 1;
+    current[high + 1] = limit + 1;
+    let minimum = limit + 1;
+    for (let j = low; j <= high; j++) {
+      current[j] = Math.min(
+        current[j - 1] + 1,
+        previous[j] + 1,
+        previous[j - 1] + Number(a[i - 1] !== b[j - 1]),
+      );
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1])
+        current[j] = Math.min(current[j], older[j - 2] + 1);
+      minimum = Math.min(minimum, current[j]);
+    }
+    if (minimum > limit) return limit + 1;
+    [older, previous, current] = [previous, current, older];
+  }
+  return previous[b.length];
+}
+
+function tokenSimilarity(a: string[], b: string[], workspace: Uint16Array[]): number {
+  const used = new Set<number>();
+  let shared = 0;
+  for (const token of a) {
+    let best = 0,
+      index = -1;
+    for (let i = 0; i < b.length; i++) {
+      if (used.has(i)) continue;
+      const length = Math.max(token.length, b[i].length);
+      if (Math.abs(token.length - b[i].length) > Math.floor(length * 0.28)) continue;
+      const distance = transpositionDistance(token, b[i], Math.floor(length * 0.28), workspace);
+      if (distance > Math.floor(length * 0.28)) continue;
+      const weight = Math.min(token.length, b[i].length) - distance;
+      if (weight > best) {
+        best = weight;
+        index = i;
+      }
+    }
+    if (index !== -1) {
+      used.add(index);
+      shared += best;
+    }
+  }
+  return shared / Math.max(a.join('').length, b.join('').length);
+}
+
+/** Advisory only; callers consult this after a miss, never award its points automatically. */
+export function suggestAnswer(input: string, set: AnswerSet): DiveMatch | null {
+  const key = normalizeAnswer(input);
+  if (key.length < 4 || key.length > 80 || stopwords.has(key)) return null;
+  const counts = new Uint8Array(128);
+  const remaining = new Uint8Array(128);
+  const workspace = [new Uint16Array(136), new Uint16Array(136), new Uint16Array(136)];
+  for (const character of key) counts[character.charCodeAt(0)]++;
+  const tokens = key.split(' ');
+  const sound = phonetic(key);
+  const scores = new Map<string, { score: number; match: DiveMatch }>();
+  for (const [size, bucket] of Object.entries(set.buckets)) {
+    const length = Number(size);
+    const longest = Math.max(length, key.length);
+    if (Math.min(length, key.length) < longest * 0.6) continue;
+    let position = 1;
+    while (position < bucket.length) {
+      const separator = bucket.indexOf('\t', position);
+      const end = bucket.indexOf('\n', separator);
+      const candidate = bucket.slice(position, separator);
+      position = end + 1;
+      remaining.set(counts);
+      let shared = 0;
+      for (const character of candidate) {
+        const code = character.charCodeAt(0);
+        if (remaining[code]) {
+          remaining[code]--;
+          shared++;
+        }
+      }
+      if (shared / longest < 0.6) continue;
+      let score = 0;
+      const limit = Math.min(5, Math.floor(longest * 0.28));
+      if (Math.abs(length - key.length) <= limit && longest - shared <= limit) {
+        const distance = transpositionDistance(key, candidate, limit, workspace);
+        if (distance <= limit) score = 1 - distance / longest;
+      }
+      if (
+        sound.length >= 4 &&
+        sound === phonetic(candidate) &&
+        transpositionDistance(key, candidate, Math.floor(longest * 0.4), workspace) <=
+          Math.floor(longest * 0.4)
+      )
+        score = Math.max(score, 0.8);
+      if (key.includes(' ') || candidate.includes(' ')) {
+        const other = candidate.split(' ');
+        if ((tokens.length > 1 && other.length > 1) || Math.min(key.length, length) >= 6)
+          score = Math.max(score, tokenSimilarity(tokens, other, workspace) - 0.04);
+      }
+      if (score < 0.65) continue;
+      const match = decode(set, bucket, separator);
+      const canonical = match.canonical!;
+      if (tokens.length === 1 && key.length < 6 && normalizeAnswer(canonical).includes(' '))
+        continue;
+      if (score > (scores.get(canonical)?.score ?? 0)) scores.set(canonical, { score, match });
+    }
+  }
+  const ranked = [...scores.values()].sort(
+    (a, b) => b.score - a.score || (a.match.canonical! < b.match.canonical! ? -1 : 1),
+  );
+  if (!ranked.length || (ranked[1] && ranked[0].score - ranked[1].score <= 0.035)) return null;
+  return ranked[0].match;
+}

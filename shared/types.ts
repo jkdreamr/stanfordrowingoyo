@@ -543,11 +543,36 @@ export interface DiveReveal {
   prompt: string;
   groups: DiveRevealGroup[];
 }
+export interface DiveStart {
+  prompt_index: number;
+  deadline_ms_remaining: number;
+}
+export interface DivePending extends DiveStart {
+  suggestion: string | null;
+  attempts_left: number;
+}
+export type DiveGuessResponse =
+  | { outcome: 'scored'; answer: DiveAnswerResult }
+  | ({ outcome: 'suggestion'; suggestion: string } & DiveStart & { attempts_left: number })
+  | { outcome: 'not_an_answer'; attempts_left: number };
+export interface DiveAttemptExport {
+  date: string;
+  user_id: string;
+  prompt_index: number;
+  started_at: string;
+  wrong_count: number;
+  last_guess_at: string | null;
+  suggestion_canonical: string | null;
+  suggestion_answer: string | null;
+  suggestion_status: 'pending' | 'rejected' | 'accepted' | null;
+  suggested_at: string | null;
+}
 export interface DiveDay {
   date: string;
   access: GameAccess;
   prompts: string[];
   answers: DiveAnswerResult[];
+  pending?: DivePending | null;
   complete: boolean;
   score: number;
   verdict: string;
@@ -675,6 +700,7 @@ export interface DiveAnswerExport {
 }
 /** `GET /api/me/export`: the signed-in user's own data. Image bytes are fetched via `GET /api/images/:id`. */
 export interface AccountDataExport {
+  dive_attempts: DiveAttemptExport[];
   game_results: GameResult[];
   dive_answers: DiveAnswerExport[];
   format_version: 1;
@@ -714,6 +740,15 @@ export interface Endpoint<Req, Res, Query = never> {
 /** Canonical endpoint paths for the backend and typed browser client. Void responses use HTTP 204. */
 export interface Api {
   'GET /api/games/dive/today': Endpoint<void, DiveDay>;
+  'POST /api/games/dive/start': Endpoint<{ prompt_index: number }, DiveStart>;
+  'POST /api/games/dive/guesses': Endpoint<
+    { prompt_index: number; answer: string },
+    DiveGuessResponse
+  >;
+  'POST /api/games/dive/suggestion': Endpoint<
+    { prompt_index: number; accept: boolean },
+    DiveGuessResponse
+  >;
   'POST /api/games/dive/answers': Endpoint<
     { prompt_index: number; answer: string },
     DiveAnswerResult
