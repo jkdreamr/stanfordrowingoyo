@@ -67,18 +67,13 @@ export function perceptionV2Puzzle(date: string): PerceptionV2Puzzle {
     rotation = pick(0, 359),
     length = pick(250, 800),
     count = pick(30, 80);
-  // One jittered dot per grid cell avoids overlap, including on a 360px board.
-  const positions = Array.from({ length: 100 }, (_, i) => i);
-  for (let i = 99; i > 0; i--) {
-    const j = pick(0, i);
-    [positions[i], positions[j]] = [positions[j], positions[i]];
+  const countDots: [number, number][] = [];
+  for (let attempt = 0; countDots.length < count && attempt < 5000; attempt++) {
+    const point: [number, number] = [pick(35, 965), pick(35, 965)];
+    if (countDots.every(([x, y]) => (x - point[0]) ** 2 + (y - point[1]) ** 2 >= 70 ** 2))
+      countDots.push(point);
   }
-  const countDots: [number, number][] = positions
-    .slice(0, count)
-    .map((i) => [
-      50 + (i % 10) * 100 + pick(-15, 15),
-      50 + Math.floor(i / 10) * 100 + pick(-15, 15),
-    ]);
+  if (countDots.length !== count) throw new Error('Invalid Perception puzzle date');
   const digits = Array.from({ length: pick(8, 9) }, () => String(pick(0, 9))).join('');
   const shade = pick(20, 80),
     shadeBackgrounds: [number, number] = rand() < 0.5 ? [10, 90] : [90, 10];

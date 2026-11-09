@@ -80,6 +80,19 @@ it.each(['2026-11-11', '2026-11-12'])(
       const start = await request('/games/perception/start', 'POST', { round });
       expect(start.status).toBe(200);
       const { stimulus, rounds } = (await start.json()) as PerceptionStart;
+      if ('countDots' in stimulus) {
+        expect(stimulus.countDots).toHaveLength(48);
+        expect(
+          stimulus.countDots.every((point, i) =>
+            stimulus.countDots
+              .slice(i + 1)
+              .every((other) => (point[0] - other[0]) ** 2 + (point[1] - other[1]) ** 2 >= 70 ** 2),
+          ),
+        ).toBe(true);
+        expect(
+          stimulus.countDots.filter(([x]) => x % 100 >= 35 && x % 100 <= 65).length,
+        ).toBeLessThan(48 * 0.8);
+      }
       const answer =
         'angle' in stimulus
           ? { angle: stimulus.angle }

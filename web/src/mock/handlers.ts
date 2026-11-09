@@ -69,7 +69,7 @@ import {
   type PerceptionRoundId,
   type PerceptionRoundAnswer,
 } from '../../../shared/games/perceptionV2';
-import { dayNumber } from '../../../shared/games/daily';
+import { dayNumber, dailyRandom } from '../../../shared/games/daily';
 import {
   boardWords,
   connectionsScore,
@@ -103,6 +103,16 @@ const MOCK_PERCEPTION = {
   cells: [0, 1, 2, 3, 4, 5, 6],
   reactionDelayMs: 2000,
 };
+const mockCountRandom = dailyRandom('mock-perception-count', '2000-01-01');
+const MOCK_COUNT_DOTS: [number, number][] = [];
+for (let attempt = 0; MOCK_COUNT_DOTS.length < 48 && attempt < 5000; attempt++) {
+  const point: [number, number] = [
+    35 + Math.floor(mockCountRandom() * 931),
+    35 + Math.floor(mockCountRandom() * 931),
+  ];
+  if (MOCK_COUNT_DOTS.every(([x, y]) => (x - point[0]) ** 2 + (y - point[1]) ** 2 >= 70 ** 2))
+    MOCK_COUNT_DOTS.push(point);
+}
 const MOCK_PERCEPTION_V2: PerceptionV2Puzzle = {
   ...MOCK_PERCEPTION,
   clockMs: 5200,
@@ -112,10 +122,7 @@ const MOCK_PERCEPTION_V2: PerceptionV2Puzzle = {
   rotation: 28,
   length: 620,
   count: 48,
-  countDots: Array.from({ length: 48 }, (_, i) => [
-    80 + (i % 8) * 120,
-    100 + Math.floor(i / 8) * 150,
-  ]),
+  countDots: MOCK_COUNT_DOTS,
   digits: '804267193',
   shade: 43,
   shadeBackgrounds: [10, 90],

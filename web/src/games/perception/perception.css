@@ -306,7 +306,13 @@
   justify-content: center;
   align-items: center;
   font-size: 72px;
+  line-height: 1;
+  gap: 16px;
   font-variant-numeric: tabular-nums;
+}
+.pc-digit-stage .pc-sub {
+  line-height: 20px;
+  margin: 0;
 }
 .pc-number-entry {
   display: grid;

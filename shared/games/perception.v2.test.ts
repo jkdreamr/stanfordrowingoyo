@@ -93,6 +93,22 @@ it('provides deterministic, diverse lineups with bounded epoch work over two yea
     expect(p).toEqual(perceptionV2Puzzle(dateAt(day)));
     expect(p.cells).toHaveLength(9);
     expect(p.countDots).toHaveLength(p.count);
+    expect(p.count).toBeGreaterThanOrEqual(30);
+    expect(p.count).toBeLessThanOrEqual(80);
+    expect(
+      p.countDots.every(
+        (point, i) =>
+          point.every((n) => n >= 35 && n <= 965) &&
+          p.countDots
+            .slice(i + 1)
+            .every((other) => (point[0] - other[0]) ** 2 + (point[1] - other[1]) ** 2 >= 70 ** 2),
+      ),
+    ).toBe(true);
+    expect(p.countDots.filter(([x]) => x % 100 >= 35 && x % 100 <= 65).length).toBeLessThan(
+      p.count * 0.8,
+    );
+    expect(new Set(p.countDots.map((p) => p[0])).size).toBeGreaterThan(p.count * 0.8);
+    expect(new Set(p.countDots.map((p) => p[1])).size).toBeGreaterThan(p.count * 0.8);
     expect(p.digits).toMatch(/^\d{8,9}$/);
     expect((p.contact.occlusion[0] - 100) / p.contact.visibleMs).toBeCloseTo(
       (900 - p.contact.occlusion[0]) / p.contact.hiddenMs,
