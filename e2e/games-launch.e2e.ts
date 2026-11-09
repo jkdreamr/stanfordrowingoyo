@@ -16,6 +16,7 @@ test('launch games omit Dive from Home, hub and boards and redirect disabled lin
   await expect(response).toBeOK();
   const games = await response.json();
   expect(games.games.map((game: { id: string }) => game.id).sort()).toEqual([
+    'chicken-crossing',
     'connections',
     'perception',
     'wordguess',
@@ -54,14 +55,14 @@ test('launch games omit Dive from Home, hub and boards and redirect disabled lin
           await expect(card).toBeVisible();
           await card.scrollIntoViewIfNeeded();
         } else if (name === 'hub') {
-          for (const title of ['Word Guess', 'Connections', 'Perception'])
+          for (const title of ['Word Guess', 'Connections', 'Perception', 'Chicken Crossing'])
             await expect(page.getByRole('link', { name: new RegExp(title) })).toBeVisible();
           await expect(
             page.locator('a[href^="/games/"]').filter({ hasText: /Locked|Play/ }),
-          ).toHaveCount(3);
+          ).toHaveCount(4);
         } else {
-          await expect(page.getByRole('region', { name: / Day Board$/ })).toHaveCount(3);
-          for (const title of ['Word Guess', 'Connections', 'Perception'])
+          await expect(page.getByRole('region', { name: / Day Board$/ })).toHaveCount(4);
+          for (const title of ['Word Guess', 'Connections', 'Perception', 'Chicken Crossing'])
             await expect(page.getByRole('region', { name: `${title} Day Board` })).toBeVisible();
         }
         await expect(page.getByRole('link', { name: /\bDive\b/ })).toHaveCount(0);

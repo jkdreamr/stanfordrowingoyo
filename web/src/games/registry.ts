@@ -1,11 +1,12 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
-import { Anchor, Eye, Grid3x3, LayoutGrid, type LucideIcon } from 'lucide-react';
+import { Anchor, Bird, Eye, Grid3x3, LayoutGrid, type LucideIcon } from 'lucide-react';
 import { formatConnectionsScore } from '../../../shared/games/connections';
 import type { GameScoreDirection } from '../../../shared/types';
 import { formatNumber } from '../lib/format';
 
 export interface GameDefinition {
   id: string;
+  kind?: 'puzzle' | 'arcade';
   title: string;
   icon: LucideIcon;
   accent: string;
@@ -14,6 +15,16 @@ export interface GameDefinition {
   formatScore(score: number): string;
 }
 export const GAMES: GameDefinition[] = [
+  {
+    id: 'chicken-crossing',
+    kind: 'arcade',
+    title: 'Chicken Crossing',
+    icon: Bird,
+    accent: 'var(--accent-ink)',
+    direction: 'higher',
+    component: lazy(() => import('./arcade/chicken-crossing')),
+    formatScore: (score) => `${score} pts`,
+  },
   {
     id: 'dive',
     title: 'Dive',

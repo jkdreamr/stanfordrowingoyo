@@ -1,5 +1,13 @@
 # Adding A Daily Game
 
+## Arcade
+
+Daily Arcade uses generic `/api/games/:game/today`, `/runs/start` and `/runs/finish`
+routes. Send the displayed date on writes; use only the server-provided seed and
+active run token. Three attempts per day, best finished score wins; starting again
+abandons an active attempt. Chicken Crossing is the first enabled arcade game.
+Runs are client-simulated/scored and server plausibility-checked, not tamper-proof.
+
 - Add a server entry to `worker/src/games/registry.ts`: id matching
   `/^[a-z][a-z0-9-]{1,31}$/`, score direction (`higher` or `lower`), and optionally
   synchronous `score(payload, ctx, date)` returning a safe integer score and JSON payload.
@@ -24,3 +32,9 @@ Word Guess, Perception and Connections use `serverComplete`: their dedicated end
 own progress and write results, and the frame fetches the completed result rather than
 submitting a payload. Their generic result endpoints return 405. Answer banks and future
 stimulus generation stay Worker-only. Streaks and recap highlights read `game_results`.
+
+Arcade entries set `kind: 'arcade'` and lazy-load `ArcadeDailyFrame`. Pass `gameId`,
+`title`, `howTo`, `formatScore`, `renderPlay(ArcadePlayProps<S>)`, and optionally
+`summarizeStats(stats)`. The frame owns today/start/finish, retrying the same run on
+save failures, Share and the day board; `ArcadeStage` owns the full-screen lifecycle.
+Keep game logic, rendering and the kit behind the lazy entry, never in the eager registry.

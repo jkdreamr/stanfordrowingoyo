@@ -52,6 +52,10 @@ export function gameFacts(games: RecapGames) {
     games.best_dive !== null && `Best Dive ${formatNumber(games.best_dive)}`,
     games.word_guess_solves > 0 &&
       `${formatNumber(games.word_guess_solves)} Word Guess ${games.word_guess_solves === 1 ? 'Solve' : 'Solves'}`,
+    games.best_dive === null &&
+      games.word_guess_solves === 0 &&
+      games.played > 0 &&
+      `${formatNumber(games.played)} ${games.played === 1 ? 'Game' : 'Games'} Played`,
     games.streak > 1 && `${formatNumber(games.streak)} Day Streak`,
   ].filter((part): part is string => !!part);
 }
