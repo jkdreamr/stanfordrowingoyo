@@ -46250,6 +46250,4548 @@
       "pearl": "Penicillin",
       "people": false,
       "review": "Complete union of all 102 current official cocktails across Unforgettables, Contemporary Classics and New Era Drinks. These arbitrary list categories are no longer separate prompts; the same pinned page and reviewed members are retained."
+    },
+    {
+      "id": "vermeer-paintings",
+      "text": "a painting attributed to Johannes Vermeer",
+      "theme": "art",
+      "cluster": "painters",
+      "answers": [
+        {
+          "name": "Christ in the House of Martha and Mary"
+        },
+        {
+          "name": "Saint Praxedis"
+        },
+        {
+          "name": "Diana and Her Companions"
+        },
+        {
+          "name": "The Procuress"
+        },
+        {
+          "name": "Girl Reading a Letter at an Open Window",
+          "aliases": ["Young Woman Reading a Letter at an Open Window"]
+        },
+        {
+          "name": "A Girl Asleep",
+          "aliases": ["A Maid Asleep"]
+        },
+        {
+          "name": "The Little Street"
+        },
+        {
+          "name": "Officer with a Laughing Girl",
+          "aliases": ["Officer and Laughing Girl"]
+        },
+        {
+          "name": "The Milkmaid"
+        },
+        {
+          "name": "The Wine Glass",
+          "aliases": ["The Glass of Wine", "A Lady Drinking and a Gentleman"]
+        },
+        {
+          "name": "The Girl with the Wineglass"
+        },
+        {
+          "name": "View of Delft"
+        },
+        {
+          "name": "Girl Interrupted at Her Music"
+        },
+        {
+          "name": "Woman Reading a Letter",
+          "aliases": ["Woman in Blue Reading a Letter"]
+        },
+        {
+          "name": "The Music Lesson",
+          "aliases": ["A Lady at the Virginals with a Gentleman"]
+        },
+        {
+          "name": "Woman with a Lute"
+        },
+        {
+          "name": "Woman with a Pearl Necklace"
+        },
+        {
+          "name": "Woman with a Water Jug",
+          "aliases": ["Young Woman with a Water Pitcher"]
+        },
+        {
+          "name": "Woman Holding a Balance",
+          "aliases": ["Woman with a Balance"]
+        },
+        {
+          "name": "A Lady Writing a Letter"
+        },
+        {
+          "name": "Girl with a Pearl Earring",
+          "aliases": ["Girl with the Pearl Earring", "Girl in a Turban", "Head of a Young Girl"]
+        },
+        {
+          "name": "The Concert"
+        },
+        {
+          "name": "Portrait of a Young Woman",
+          "aliases": ["Study of a Young Woman"]
+        },
+        {
+          "name": "The Allegory of Painting",
+          "aliases": ["The Art of Painting"]
+        },
+        {
+          "name": "Mistress and Maid",
+          "aliases": ["Lady with her Maidservant Holding a Letter"]
+        },
+        {
+          "name": "Girl with a Red Hat"
+        },
+        {
+          "name": "The Astronomer"
+        },
+        {
+          "name": "The Geographer"
+        },
+        {
+          "name": "The Lacemaker"
+        },
+        {
+          "name": "The Love Letter"
+        },
+        {
+          "name": "A Young Woman Seated at the Virginals"
+        },
+        {
+          "name": "Lady Writing a Letter with her Maid"
+        },
+        {
+          "name": "The Allegory of Faith",
+          "aliases": ["Allegory of the Faith"]
+        },
+        {
+          "name": "The Guitar Player"
+        },
+        {
+          "name": "Lady Standing at a Virginal",
+          "aliases": ["Young Woman Standing at a Virginal"]
+        },
+        {
+          "name": "Lady Seated at a Virginal",
+          "aliases": ["Young Woman Seated at a Virginal"]
+        },
+        {
+          "name": "Girl with a Flute"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of paintings by Johannes Vermeer",
+          "revision": 1336610016,
+          "members": [
+            "Christ in the House of Martha and Mary",
+            "Saint Praxedis",
+            "Diana and Her Companions",
+            "The Procuress",
+            "Girl Reading a Letter at an Open Window",
+            "A Girl Asleep",
+            "The Little Street",
+            "Officer with a Laughing Girl",
+            "The Milkmaid",
+            "The Wine Glass",
+            "The Girl with the Wineglass",
+            "View of Delft",
+            "Girl Interrupted at Her Music",
+            "Woman Reading a Letter",
+            "The Music Lesson",
+            "Woman with a Lute",
+            "Woman with a Pearl Necklace",
+            "Woman with a Water Jug",
+            "Woman Holding a Balance",
+            "A Lady Writing a Letter",
+            "Girl with a Pearl Earring",
+            "The Concert",
+            "Portrait of a Young Woman",
+            "The Allegory of Painting",
+            "Mistress and Maid",
+            "Girl with a Red Hat",
+            "The Astronomer",
+            "The Geographer",
+            "The Lacemaker",
+            "The Love Letter",
+            "A Young Woman Seated at the Virginals",
+            "Lady Writing a Letter with her Maid",
+            "The Allegory of Faith",
+            "The Guitar Player",
+            "Lady Standing at a Virginal",
+            "Lady Seated at a Virginal",
+            "Girl with a Flute"
+          ],
+          "expect": [37, 37],
+          "reviewed": [
+            "Christ in the House of Martha and Mary",
+            "Saint Praxedis",
+            "Diana and Her Companions",
+            "The Procuress",
+            "Girl Reading a Letter at an Open Window",
+            "A Girl Asleep",
+            "The Little Street",
+            "Officer with a Laughing Girl",
+            "The Milkmaid",
+            "The Wine Glass",
+            "The Girl with the Wineglass",
+            "View of Delft",
+            "Girl Interrupted at Her Music",
+            "Woman Reading a Letter",
+            "The Music Lesson",
+            "Woman with a Lute",
+            "Woman with a Pearl Necklace",
+            "Woman with a Water Jug",
+            "Woman Holding a Balance",
+            "A Lady Writing a Letter",
+            "Girl with a Pearl Earring",
+            "The Concert",
+            "Portrait of a Young Woman",
+            "The Allegory of Painting",
+            "Mistress and Maid",
+            "Girl with a Red Hat",
+            "The Astronomer",
+            "The Geographer",
+            "The Lacemaker",
+            "The Love Letter",
+            "A Young Woman Seated at the Virginals",
+            "Lady Writing a Letter with her Maid",
+            "The Allegory of Faith",
+            "The Guitar Player",
+            "Lady Standing at a Virginal",
+            "Lady Seated at a Virginal",
+            "Girl with a Flute"
+          ]
+        }
+      ],
+      "expect": [37, 37],
+      "surface": ["Girl with a Pearl Earring", "The Milkmaid", "View of Delft"],
+      "pearl": "Saint Praxedis",
+      "active": true,
+      "scope": "Both the accepted and disputed painting tables; disputed attributions are accepted, not silently excluded.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit.",
+      "too_clever": ["Girl with a Flute"]
+    },
+    {
+      "id": "pritzker-architects",
+      "text": "an architect who has won the Pritzker Prize",
+      "theme": "art",
+      "cluster": "architecture",
+      "answers": [
+        {
+          "name": "Philip Johnson"
+        },
+        {
+          "name": "Luis Barragán"
+        },
+        {
+          "name": "James Stirling"
+        },
+        {
+          "name": "Kevin Roche"
+        },
+        {
+          "name": "I. M. Pei",
+          "aliases": ["IM Pei", "Ieoh Ming Pei"]
+        },
+        {
+          "name": "Richard Meier"
+        },
+        {
+          "name": "Hans Hollein"
+        },
+        {
+          "name": "Gottfried Böhm"
+        },
+        {
+          "name": "Kenzō Tange"
+        },
+        {
+          "name": "Gordon Bunshaft"
+        },
+        {
+          "name": "Oscar Niemeyer"
+        },
+        {
+          "name": "Frank Gehry"
+        },
+        {
+          "name": "Aldo Rossi"
+        },
+        {
+          "name": "Robert Venturi"
+        },
+        {
+          "name": "Álvaro Siza Vieira",
+          "aliases": ["Alvaro Siza", "Siza"]
+        },
+        {
+          "name": "Fumihiko Maki"
+        },
+        {
+          "name": "Christian de Portzamparc",
+          "aliases": ["Portzamparc"]
+        },
+        {
+          "name": "Tadao Ando"
+        },
+        {
+          "name": "Rafael Moneo"
+        },
+        {
+          "name": "Sverre Fehn"
+        },
+        {
+          "name": "Renzo Piano"
+        },
+        {
+          "name": "Norman Foster"
+        },
+        {
+          "name": "Rem Koolhaas"
+        },
+        {
+          "name": "Glenn Murcutt"
+        },
+        {
+          "name": "Jørn Utzon"
+        },
+        {
+          "name": "Zaha Hadid"
+        },
+        {
+          "name": "Thom Mayne"
+        },
+        {
+          "name": "Paulo Mendes da Rocha"
+        },
+        {
+          "name": "Richard Rogers"
+        },
+        {
+          "name": "Jean Nouvel"
+        },
+        {
+          "name": "Peter Zumthor"
+        },
+        {
+          "name": "Kazuyo Sejima"
+        },
+        {
+          "name": "Ryue Nishizawa"
+        },
+        {
+          "name": "Eduardo Souto de Moura"
+        },
+        {
+          "name": "Wang Shu",
+          "aliases": ["Wang"]
+        },
+        {
+          "name": "Toyo Ito"
+        },
+        {
+          "name": "Shigeru Ban"
+        },
+        {
+          "name": "Frei Otto"
+        },
+        {
+          "name": "Alejandro Aravena"
+        },
+        {
+          "name": "Rafael Aranda"
+        },
+        {
+          "name": "Carme Pigem"
+        },
+        {
+          "name": "Ramon Vilalta"
+        },
+        {
+          "name": "B. V. Doshi",
+          "aliases": ["Balkrishna Doshi", "Balkrishna Vithaldas Doshi", "BV Doshi"]
+        },
+        {
+          "name": "Arata Isozaki"
+        },
+        {
+          "name": "Yvonne Farrell"
+        },
+        {
+          "name": "Shelley McNamara"
+        },
+        {
+          "name": "Anne Lacaton"
+        },
+        {
+          "name": "Jean-Philippe Vassal"
+        },
+        {
+          "name": "Diébédo Francis Kéré",
+          "aliases": ["Francis Kere"]
+        },
+        {
+          "name": "David Chipperfield"
+        },
+        {
+          "name": "Riken Yamamoto"
+        },
+        {
+          "name": "Liu Jiakun",
+          "aliases": ["Liu"]
+        },
+        {
+          "name": "Smiljan Radić Clarke",
+          "aliases": ["Smiljan Radic", "Radic"]
+        },
+        {
+          "name": "Jacques Herzog"
+        },
+        {
+          "name": "Pierre de Meuron",
+          "aliases": ["de Meuron"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Pritzker Architecture Prize",
+          "revision": 1378364942,
+          "members": [
+            "Philip Johnson",
+            "Luis Barragán",
+            "James Stirling",
+            "Kevin Roche",
+            "I. M. Pei",
+            "Richard Meier",
+            "Hans Hollein",
+            "Gottfried Böhm",
+            "Kenzō Tange",
+            "Gordon Bunshaft",
+            "Oscar Niemeyer",
+            "Frank Gehry",
+            "Aldo Rossi",
+            "Robert Venturi",
+            "Álvaro Siza Vieira",
+            "Fumihiko Maki",
+            "Christian de Portzamparc",
+            "Tadao Ando",
+            "Rafael Moneo",
+            "Sverre Fehn",
+            "Renzo Piano",
+            "Norman Foster",
+            "Rem Koolhaas",
+            "Glenn Murcutt",
+            "Jørn Utzon",
+            "Zaha Hadid",
+            "Thom Mayne",
+            "Paulo Mendes da Rocha",
+            "Richard Rogers",
+            "Jean Nouvel",
+            "Peter Zumthor",
+            "Kazuyo Sejima",
+            "Ryue Nishizawa",
+            "Eduardo Souto de Moura",
+            "Wang Shu",
+            "Toyo Ito",
+            "Shigeru Ban",
+            "Frei Otto",
+            "Alejandro Aravena",
+            "Rafael Aranda",
+            "Carme Pigem",
+            "Ramon Vilalta",
+            "B. V. Doshi",
+            "Arata Isozaki",
+            "Yvonne Farrell",
+            "Shelley McNamara",
+            "Anne Lacaton",
+            "Jean-Philippe Vassal",
+            "Diébédo Francis Kéré",
+            "David Chipperfield",
+            "Riken Yamamoto",
+            "Liu Jiakun",
+            "Smiljan Radić Clarke",
+            "Jacques Herzog",
+            "Pierre de Meuron"
+          ],
+          "expect": [55, 55],
+          "reviewed": [
+            "Philip Johnson",
+            "Luis Barragán",
+            "James Stirling",
+            "Kevin Roche",
+            "I. M. Pei",
+            "Richard Meier",
+            "Hans Hollein",
+            "Gottfried Böhm",
+            "Kenzō Tange",
+            "Gordon Bunshaft",
+            "Oscar Niemeyer",
+            "Frank Gehry",
+            "Aldo Rossi",
+            "Robert Venturi",
+            "Álvaro Siza Vieira",
+            "Fumihiko Maki",
+            "Christian de Portzamparc",
+            "Tadao Ando",
+            "Rafael Moneo",
+            "Sverre Fehn",
+            "Renzo Piano",
+            "Norman Foster",
+            "Rem Koolhaas",
+            "Glenn Murcutt",
+            "Jørn Utzon",
+            "Zaha Hadid",
+            "Thom Mayne",
+            "Paulo Mendes da Rocha",
+            "Richard Rogers",
+            "Jean Nouvel",
+            "Peter Zumthor",
+            "Kazuyo Sejima",
+            "Ryue Nishizawa",
+            "Eduardo Souto de Moura",
+            "Wang Shu",
+            "Toyo Ito",
+            "Shigeru Ban",
+            "Frei Otto",
+            "Alejandro Aravena",
+            "Rafael Aranda",
+            "Carme Pigem",
+            "Ramon Vilalta",
+            "B. V. Doshi",
+            "Arata Isozaki",
+            "Yvonne Farrell",
+            "Shelley McNamara",
+            "Anne Lacaton",
+            "Jean-Philippe Vassal",
+            "Diébédo Francis Kéré",
+            "David Chipperfield",
+            "Riken Yamamoto",
+            "Liu Jiakun",
+            "Smiljan Radić Clarke",
+            "Jacques Herzog",
+            "Pierre de Meuron"
+          ]
+        }
+      ],
+      "expect": [55, 55],
+      "surface": ["Frank Gehry", "Zaha Hadid", "Norman Foster", "I. M. Pei"],
+      "pearl": "Sverre Fehn",
+      "active": true,
+      "people": true,
+      "scope": "All individual laureates, splitting joint awards into people.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "smithsonian-museums",
+      "text": "a Smithsonian museum, gallery or zoo",
+      "theme": "art",
+      "cluster": "museums",
+      "answers": [
+        {
+          "name": "Anacostia Community Museum",
+          "aliases": ["Anacostia"]
+        },
+        {
+          "name": "Arthur M. Sackler Gallery",
+          "aliases": ["Sackler Gallery", "Sackler"]
+        },
+        {
+          "name": "Arts and Industries Building"
+        },
+        {
+          "name": "Cooper Hewitt, Smithsonian Design Museum",
+          "aliases": ["Cooper Hewitt", "Cooper Hewitt Design Museum"]
+        },
+        {
+          "name": "Freer Gallery of Art",
+          "aliases": ["Freer Gallery", "Freer", "National Museum of Asian Art", "Asian Art Museum"]
+        },
+        {
+          "name": "Hirshhorn Museum and Sculpture Garden",
+          "aliases": ["Hirshhorn Museum", "Hirshhorn"]
+        },
+        {
+          "name": "National Air and Space Museum",
+          "aliases": ["Air and Space Museum", "Air and Space", "NASM"]
+        },
+        {
+          "name": "Steven F. Udvar-Hazy Center",
+          "aliases": ["Udvar Hazy Center", "Udvar Hazy"]
+        },
+        {
+          "name": "African American History Museum",
+          "aliases": ["National Museum of African American History and Culture", "NMAAHC"]
+        },
+        {
+          "name": "National Museum of African Art"
+        },
+        {
+          "name": "National Museum of American History",
+          "aliases": ["American History Museum", "NMAH"]
+        },
+        {
+          "name": "National Museum of the American Indian",
+          "aliases": ["American Indian Museum", "NMAI"]
+        },
+        {
+          "name": "George Gustav Heye Center",
+          "aliases": ["Heye Center"]
+        },
+        {
+          "name": "National Museum of Natural History",
+          "aliases": ["Natural History Museum", "NMNH"]
+        },
+        {
+          "name": "National Portrait Gallery",
+          "aliases": ["Portrait Gallery", "NPG"]
+        },
+        {
+          "name": "National Postal Museum",
+          "aliases": ["Postal Museum"]
+        },
+        {
+          "name": "Renwick Gallery"
+        },
+        {
+          "name": "Smithsonian American Art Museum",
+          "aliases": ["American Art Museum", "SAAM"]
+        },
+        {
+          "name": "Smithsonian Institution Building",
+          "aliases": ["Smithsonian Castle", "The Castle"]
+        },
+        {
+          "name": "National Zoological Park",
+          "aliases": ["National Zoo", "Smithsonian Zoo"]
+        },
+        {
+          "name": "National Museum of the American Latino"
+        },
+        {
+          "name": "American Women's History Museum",
+          "aliases": ["Smithsonian American Women's History Museum"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Smithsonian museums",
+          "revision": 1367831992,
+          "members": [
+            "Anacostia Community Museum",
+            "Arthur M. Sackler Gallery",
+            "Arts and Industries Building",
+            "Cooper Hewitt, Smithsonian Design Museum",
+            "Freer Gallery of Art",
+            "Hirshhorn Museum and Sculpture Garden",
+            "National Air and Space Museum",
+            "Steven F. Udvar-Hazy Center",
+            "National Museum of African American History and Culture",
+            "National Museum of African Art",
+            "National Museum of American History",
+            "National Museum of the American Indian",
+            "George Gustav Heye Center",
+            "National Museum of Natural History",
+            "National Portrait Gallery",
+            "National Postal Museum",
+            "Renwick Gallery",
+            "Smithsonian American Art Museum",
+            "Smithsonian Institution Building",
+            "National Zoological Park",
+            "National Museum of the American Latino",
+            "Smithsonian American Women's History Museum"
+          ],
+          "expect": [22, 22],
+          "reviewed": [
+            "Anacostia Community Museum",
+            "Arthur M. Sackler Gallery",
+            "Arts and Industries Building",
+            "Cooper Hewitt, Smithsonian Design Museum",
+            "Freer Gallery of Art",
+            "Hirshhorn Museum and Sculpture Garden",
+            "National Air and Space Museum",
+            "Steven F. Udvar-Hazy Center",
+            "National Museum of African American History and Culture",
+            "National Museum of African Art",
+            "National Museum of American History",
+            "National Museum of the American Indian",
+            "George Gustav Heye Center",
+            "National Museum of Natural History",
+            "National Portrait Gallery",
+            "National Postal Museum",
+            "Renwick Gallery",
+            "Smithsonian American Art Museum",
+            "Smithsonian Institution Building",
+            "National Zoological Park",
+            "National Museum of the American Latino",
+            "Smithsonian American Women's History Museum"
+          ]
+        }
+      ],
+      "expect": [22, 22],
+      "surface": [
+        "National Air and Space Museum",
+        "National Museum of Natural History",
+        "National Museum of American History"
+      ],
+      "pearl": "George Gustav Heye Center",
+      "active": true,
+      "scope": "All 20 institutions/locations in the museum table, plus the two additional museums authorized in 2020 and named in the pinned page. The latter are accepted even before opening. Includes the Castle and Arts and Industries Building; excludes independent Smithsonian affiliates.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit.",
+      "too_clever": ["Smithsonian Institution Building"]
+    },
+    {
+      "id": "wright-unesco-buildings",
+      "text": "a Frank Lloyd Wright building on the UNESCO World Heritage List",
+      "theme": "art",
+      "cluster": "architecture",
+      "answers": [
+        {
+          "name": "Unity Temple",
+          "aliases": ["Oak Park Unity Temple"]
+        },
+        {
+          "name": "Frederick C. Robie House",
+          "aliases": ["Robie House"]
+        },
+        {
+          "name": "Taliesin",
+          "aliases": ["Taliesin East", "Taliesin Spring Green"]
+        },
+        {
+          "name": "Hollyhock House",
+          "aliases": ["Aline Barnsdall House", "Barnsdall House"]
+        },
+        {
+          "name": "Fallingwater",
+          "aliases": ["Falling Water", "Kaufmann House", "Kaufmann Residence"]
+        },
+        {
+          "name": "Herbert and Katherine Jacobs House",
+          "aliases": [
+            "Jacobs House",
+            "Jacobs I",
+            "Jacobs First House",
+            "Herbert and Katherine Jacobs First House"
+          ]
+        },
+        {
+          "name": "Taliesin West",
+          "aliases": ["Scottsdale Taliesin"]
+        },
+        {
+          "name": "Solomon R. Guggenheim Museum",
+          "aliases": ["Guggenheim Museum", "The Guggenheim"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "20th-Century Architecture of Frank Lloyd Wright",
+          "revision": 1377746211,
+          "members": [
+            "Unity Temple",
+            "Frederick C. Robie House",
+            "Taliesin",
+            "Hollyhock House",
+            "Fallingwater",
+            "Herbert and Katherine Jacobs House",
+            "Taliesin West",
+            "Solomon R. Guggenheim Museum"
+          ],
+          "expect": [8, 8],
+          "reviewed": [
+            "Unity Temple",
+            "Frederick C. Robie House",
+            "Taliesin",
+            "Hollyhock House",
+            "Fallingwater",
+            "Herbert and Katherine Jacobs House",
+            "Taliesin West",
+            "Solomon R. Guggenheim Museum"
+          ]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Fallingwater", "Solomon R. Guggenheim Museum"],
+      "pearl": "Herbert and Katherine Jacobs House",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "trappist-breweries",
+      "text": "a brewery that has made Trappist beer",
+      "theme": "food",
+      "cluster": "beer",
+      "answers": [
+        {
+          "name": "Westmalle",
+          "aliases": ["Brouwerij der Trappisten van Westmalle"]
+        },
+        {
+          "name": "Westvleteren",
+          "aliases": ["Sint Sixtus", "Saint Sixtus", "St Sixtus", "Brouwerij Westvleteren"]
+        },
+        {
+          "name": "Chimay",
+          "aliases": ["Scourmont", "Bieres de Chimay", "Scourmont Abbey"]
+        },
+        {
+          "name": "La Trappe",
+          "aliases": ["Koningshoeven", "Brouwerij de Koningshoeven"]
+        },
+        {
+          "name": "Rochefort",
+          "aliases": ["Notre Dame de Saint Remy", "Abbaye Notre Dame de Saint Remy"]
+        },
+        {
+          "name": "Orval"
+        },
+        {
+          "name": "Engelszell",
+          "aliases": ["Stift Engelszell"]
+        },
+        {
+          "name": "Spencer",
+          "aliases": ["St Josephs Abbey", "Saint Josephs Abbey", "Spencer Brewery"]
+        },
+        {
+          "name": "Zundert",
+          "aliases": ["Maria Toevlucht", "Brouwerij Abdij Maria Toevlucht"]
+        },
+        {
+          "name": "Tre Fontane",
+          "aliases": ["Three Fountains", "Tre Fontane Abbey"]
+        },
+        {
+          "name": "Tynt Meadow",
+          "aliases": [
+            "Mount Saint Bernard",
+            "Mount St Bernard",
+            "Mont Saint Bernard",
+            "Mount St Bernard Abbey"
+          ]
+        },
+        {
+          "name": "Mont des Cats"
+        },
+        {
+          "name": "Cardeña",
+          "aliases": ["Cerveza Cardena Trappist", "San Pedro de Cardena"]
+        },
+        {
+          "name": "Achel",
+          "aliases": ["Achelse Kluis", "Achel Abbey"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Trappist beer",
+          "revision": 1379887076,
+          "members": [
+            "Brouwerij der Trappisten van Westmalle",
+            "Brouwerij Westvleteren (St Sixtus)",
+            "Bières de Chimay",
+            "Brouwerij de Koningshoeven (La Trappe)",
+            "Brasserie de Rochefort",
+            "Brasserie d'Orval",
+            "Stift Engelszell",
+            "St. Joseph's Abbey in Spencer, Massachusetts",
+            "Brouwerij Abdij Maria Toevlucht (Zundert)",
+            "Tre Fontane Abbey",
+            "Mount St Bernard Abbey ( Tynt Meadow )",
+            "Mont des Cats",
+            "Cerveza Cardeña Trappist",
+            "Achel Abbey"
+          ],
+          "expect": [14, 14],
+          "reviewed": [
+            "Brouwerij der Trappisten van Westmalle",
+            "Brouwerij Westvleteren (St Sixtus)",
+            "Bières de Chimay",
+            "Brouwerij de Koningshoeven (La Trappe)",
+            "Brasserie de Rochefort",
+            "Brasserie d'Orval",
+            "Stift Engelszell",
+            "St. Joseph's Abbey in Spencer, Massachusetts",
+            "Brouwerij Abdij Maria Toevlucht (Zundert)",
+            "Tre Fontane Abbey",
+            "Mount St Bernard Abbey ( Tynt Meadow )",
+            "Mont des Cats",
+            "Cerveza Cardeña Trappist",
+            "Achel Abbey"
+          ]
+        }
+      ],
+      "expect": [14, 14],
+      "surface": ["Chimay", "Orval", "Westmalle"],
+      "pearl": "Cardeña",
+      "active": true,
+      "scope": "All 14 breweries in the pinned list, including former producers and Mont des Cats/Cardeña without ATP certification. No claim that all retain certification.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit.",
+      "too_clever": ["Mont des Cats"]
+    },
+    {
+      "id": "girl-scout-cookies-2025",
+      "text": "a Girl Scout cookie sold in 2025",
+      "theme": "food",
+      "cluster": "cookies",
+      "answers": [
+        {
+          "name": "Thin Mints"
+        },
+        {
+          "name": "Samoas",
+          "aliases": ["Caramel deLites", "Caramel Delights"]
+        },
+        {
+          "name": "Do-si-dos",
+          "aliases": ["Dosidos", "Peanut Butter Sandwich"]
+        },
+        {
+          "name": "Tagalongs",
+          "aliases": ["Peanut Butter Patties"]
+        },
+        {
+          "name": "Lemonades"
+        },
+        {
+          "name": "Trefoils",
+          "aliases": ["Shortbread"]
+        },
+        {
+          "name": "Girl Scout S'mores",
+          "aliases": ["S'mores"]
+        },
+        {
+          "name": "Toffee-tastic"
+        },
+        {
+          "name": "Caramel Chocolate Chip"
+        },
+        {
+          "name": "Lemon-Ups"
+        },
+        {
+          "name": "Toast-Yay"
+        },
+        {
+          "name": "Adventurefuls"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Girl Scout Cookies",
+          "revision": 1268562154,
+          "members": [
+            "Thin Mints",
+            "Samoas",
+            "Do-si-dos",
+            "Tagalongs",
+            "Lemonades",
+            "Trefoils",
+            "Girl Scout S'mores",
+            "Toffee-tastic",
+            "Caramel Chocolate Chip",
+            "Lemon-Ups",
+            "Toast-Yay",
+            "Adventurefuls"
+          ],
+          "expect": [12, 12],
+          "reviewed": [
+            "Thin Mints",
+            "Samoas",
+            "Do-si-dos",
+            "Tagalongs",
+            "Lemonades",
+            "Trefoils",
+            "Girl Scout S'mores",
+            "Toffee-tastic",
+            "Caramel Chocolate Chip",
+            "Lemon-Ups",
+            "Toast-Yay",
+            "Adventurefuls"
+          ]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["Thin Mints", "Samoas", "Tagalongs"],
+      "pearl": "Toffee-tastic",
+      "active": true,
+      "scope": "All 12 varieties in the February 2025 table; equivalent bakery names are aliases, distinct lemon recipes stay separate.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "tarot-major-arcana",
+      "text": "a Major Arcana card in a tarot deck",
+      "theme": "everyday",
+      "cluster": "cards",
+      "answers": [
+        {
+          "name": "The Fool"
+        },
+        {
+          "name": "The Magician",
+          "aliases": ["The Magus"]
+        },
+        {
+          "name": "The High Priestess",
+          "aliases": ["The Papess", "Priestess"]
+        },
+        {
+          "name": "The Empress"
+        },
+        {
+          "name": "The Emperor"
+        },
+        {
+          "name": "The Hierophant",
+          "aliases": ["The Pope"]
+        },
+        {
+          "name": "The Lovers"
+        },
+        {
+          "name": "The Chariot"
+        },
+        {
+          "name": "Strength",
+          "aliases": ["Lust", "Fortitude"]
+        },
+        {
+          "name": "The Hermit"
+        },
+        {
+          "name": "Wheel of Fortune"
+        },
+        {
+          "name": "Justice",
+          "aliases": ["Adjustment"]
+        },
+        {
+          "name": "The Hanged Man"
+        },
+        {
+          "name": "Death"
+        },
+        {
+          "name": "Temperance",
+          "aliases": ["Art"]
+        },
+        {
+          "name": "The Devil"
+        },
+        {
+          "name": "The Tower"
+        },
+        {
+          "name": "The Star"
+        },
+        {
+          "name": "The Moon"
+        },
+        {
+          "name": "The Sun"
+        },
+        {
+          "name": "Judgement",
+          "aliases": ["Judgment", "The Aeon"]
+        },
+        {
+          "name": "The World",
+          "aliases": ["The Universe"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Major Arcana",
+          "revision": 1382160374,
+          "members": [
+            "The Fool",
+            "The Magician",
+            "The High Priestess",
+            "The Empress",
+            "The Emperor",
+            "The Hierophant",
+            "The Lovers",
+            "The Chariot",
+            "Strength",
+            "The Hermit",
+            "Wheel of Fortune",
+            "Justice",
+            "The Hanged Man",
+            "Death",
+            "Temperance",
+            "The Devil",
+            "The Tower",
+            "The Star",
+            "The Moon",
+            "The Sun",
+            "Judgement",
+            "The World"
+          ],
+          "expect": [22, 22],
+          "reviewed": [
+            "The Fool",
+            "The Magician",
+            "The High Priestess",
+            "The Empress",
+            "The Emperor",
+            "The Hierophant",
+            "The Lovers",
+            "The Chariot",
+            "Strength",
+            "The Hermit",
+            "Wheel of Fortune",
+            "Justice",
+            "The Hanged Man",
+            "Death",
+            "Temperance",
+            "The Devil",
+            "The Tower",
+            "The Star",
+            "The Moon",
+            "The Sun",
+            "Judgement",
+            "The World"
+          ]
+        }
+      ],
+      "expect": [22, 22],
+      "surface": ["The Fool", "The Lovers", "Death"],
+      "pearl": "The Hierophant",
+      "active": true,
+      "scope": "All 22 Rider–Waite cards; common Marseille and Thoth names are accepted as aliases.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "us-federal-holidays",
+      "text": "an annual US federal holiday",
+      "theme": "everyday",
+      "cluster": "calendar",
+      "answers": [
+        {
+          "name": "New Year's Day",
+          "aliases": ["New Year"]
+        },
+        {
+          "name": "Birthday of Martin Luther King, Jr.",
+          "aliases": ["Martin Luther King Jr Day", "Martin Luther King Day", "MLK Day", "MLK"]
+        },
+        {
+          "name": "Washington's Birthday",
+          "aliases": ["Presidents Day", "Presidents Birthday"]
+        },
+        {
+          "name": "Memorial Day",
+          "aliases": ["Decoration Day"]
+        },
+        {
+          "name": "Juneteenth National Independence Day",
+          "aliases": ["Juneteenth"]
+        },
+        {
+          "name": "Independence Day",
+          "aliases": ["Fourth of July", "July 4", "4th of July"]
+        },
+        {
+          "name": "Labor Day",
+          "aliases": ["Labour Day"]
+        },
+        {
+          "name": "Columbus Day"
+        },
+        {
+          "name": "Veterans Day",
+          "aliases": ["Armistice Day"]
+        },
+        {
+          "name": "Thanksgiving Day",
+          "aliases": ["Thanksgiving"]
+        },
+        {
+          "name": "Christmas Day",
+          "aliases": ["Christmas"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Federal holidays in the United States",
+          "revision": 1382315262,
+          "members": [
+            "New Year's Day",
+            "Birthday of Martin Luther King, Jr.",
+            "Washington's Birthday",
+            "Memorial Day",
+            "Juneteenth National Independence Day",
+            "Independence Day",
+            "Labor Day",
+            "Columbus Day",
+            "Veterans Day",
+            "Thanksgiving Day",
+            "Christmas Day"
+          ],
+          "expect": [11, 11],
+          "reviewed": [
+            "New Year's Day",
+            "Birthday of Martin Luther King, Jr.",
+            "Washington's Birthday",
+            "Memorial Day",
+            "Juneteenth National Independence Day",
+            "Independence Day",
+            "Labor Day",
+            "Columbus Day",
+            "Veterans Day",
+            "Thanksgiving Day",
+            "Christmas Day"
+          ]
+        }
+      ],
+      "expect": [11, 11],
+      "surface": ["New Year's Day", "Christmas Day", "Thanksgiving Day"],
+      "pearl": "Columbus Day",
+      "active": true,
+      "scope": "All 11 nationwide annual holidays, not regional Inauguration Day or one-off executive closure dates.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "volkswagen-group-brands",
+      "text": "a vehicle brand in Volkswagen Group",
+      "theme": "everyday",
+      "cluster": "cars",
+      "answers": [
+        {
+          "name": "Audi"
+        },
+        {
+          "name": "Bentley"
+        },
+        {
+          "name": "Cupra"
+        },
+        {
+          "name": "Ducati"
+        },
+        {
+          "name": "Jetta"
+        },
+        {
+          "name": "Lamborghini",
+          "aliases": ["Lambo"]
+        },
+        {
+          "name": "Porsche"
+        },
+        {
+          "name": "Scout"
+        },
+        {
+          "name": "SEAT"
+        },
+        {
+          "name": "Škoda"
+        },
+        {
+          "name": "Volkswagen",
+          "aliases": ["VW"]
+        },
+        {
+          "name": "Volkswagen Commercial Vehicles",
+          "aliases": ["VW Commercial Vehicles", "VW Vans"]
+        },
+        {
+          "name": "MAN",
+          "aliases": ["MAN Truck and Bus"]
+        },
+        {
+          "name": "Scania"
+        },
+        {
+          "name": "International",
+          "aliases": ["International Motors", "Navistar"]
+        },
+        {
+          "name": "IC Bus"
+        },
+        {
+          "name": "Neoplan"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Volkswagen Group",
+          "revision": 1384527033,
+          "members": [
+            "Audi",
+            "Bentley",
+            "Cupra",
+            "Ducati",
+            "Jetta",
+            "Lamborghini",
+            "Porsche",
+            "Scout",
+            "SEAT",
+            "Škoda",
+            "Volkswagen",
+            "Volkswagen Commercial Vehicles",
+            "MAN",
+            "Scania",
+            "International",
+            "IC Bus",
+            "Neoplan"
+          ],
+          "expect": [17, 17],
+          "reviewed": [
+            "Audi",
+            "Bentley",
+            "Cupra",
+            "Ducati",
+            "Jetta",
+            "Lamborghini",
+            "Porsche",
+            "Scout",
+            "SEAT",
+            "Škoda",
+            "Volkswagen",
+            "Volkswagen Commercial Vehicles",
+            "MAN",
+            "Scania",
+            "International",
+            "IC Bus",
+            "Neoplan"
+          ]
+        }
+      ],
+      "expect": [17, 17],
+      "surface": ["Volkswagen", "Audi", "Porsche", "Lamborghini"],
+      "pearl": "Jetta",
+      "active": true,
+      "scope": "All 12 passenger/light-commercial/motorcycle brands plus the five Traton truck/bus brands named in the article, including IC Bus and Neoplan; former brands excluded.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit.",
+      "too_clever": ["Scout"]
+    },
+    {
+      "id": "css-named-colors",
+      "text": "a named color in CSS",
+      "theme": "everyday",
+      "cluster": "colors",
+      "answers": [
+        {
+          "name": "MediumVioletRed",
+          "aliases": ["Medium Violet Red"]
+        },
+        {
+          "name": "DeepPink",
+          "aliases": ["Deep Pink"]
+        },
+        {
+          "name": "PaleVioletRed",
+          "aliases": ["Pale Violet Red"]
+        },
+        {
+          "name": "HotPink",
+          "aliases": ["Hot Pink"]
+        },
+        {
+          "name": "LightPink",
+          "aliases": ["Light Pink"]
+        },
+        {
+          "name": "Pink"
+        },
+        {
+          "name": "DarkRed",
+          "aliases": ["Dark Red"]
+        },
+        {
+          "name": "Red"
+        },
+        {
+          "name": "Firebrick"
+        },
+        {
+          "name": "Crimson"
+        },
+        {
+          "name": "IndianRed",
+          "aliases": ["Indian Red"]
+        },
+        {
+          "name": "LightCoral",
+          "aliases": ["Light Coral"]
+        },
+        {
+          "name": "Salmon"
+        },
+        {
+          "name": "DarkSalmon",
+          "aliases": ["Dark Salmon"]
+        },
+        {
+          "name": "LightSalmon",
+          "aliases": ["Light Salmon"]
+        },
+        {
+          "name": "OrangeRed",
+          "aliases": ["Orange Red"]
+        },
+        {
+          "name": "Tomato"
+        },
+        {
+          "name": "DarkOrange",
+          "aliases": ["Dark Orange"]
+        },
+        {
+          "name": "Coral"
+        },
+        {
+          "name": "Orange"
+        },
+        {
+          "name": "DarkKhaki",
+          "aliases": ["Dark Khaki"]
+        },
+        {
+          "name": "Gold"
+        },
+        {
+          "name": "Khaki"
+        },
+        {
+          "name": "PeachPuff",
+          "aliases": ["Peach Puff"]
+        },
+        {
+          "name": "Yellow"
+        },
+        {
+          "name": "PaleGoldenrod",
+          "aliases": ["Pale Goldenrod"]
+        },
+        {
+          "name": "Moccasin"
+        },
+        {
+          "name": "PapayaWhip",
+          "aliases": ["Papaya Whip"]
+        },
+        {
+          "name": "LightGoldenrodYellow",
+          "aliases": ["Light Goldenrod Yellow"]
+        },
+        {
+          "name": "LemonChiffon",
+          "aliases": ["Lemon Chiffon"]
+        },
+        {
+          "name": "LightYellow",
+          "aliases": ["Light Yellow"]
+        },
+        {
+          "name": "Maroon"
+        },
+        {
+          "name": "Brown"
+        },
+        {
+          "name": "SaddleBrown",
+          "aliases": ["Saddle Brown"]
+        },
+        {
+          "name": "Sienna"
+        },
+        {
+          "name": "Chocolate"
+        },
+        {
+          "name": "DarkGoldenrod",
+          "aliases": ["Dark Goldenrod"]
+        },
+        {
+          "name": "Peru"
+        },
+        {
+          "name": "RosyBrown",
+          "aliases": ["Rosy Brown"]
+        },
+        {
+          "name": "Goldenrod"
+        },
+        {
+          "name": "SandyBrown",
+          "aliases": ["Sandy Brown"]
+        },
+        {
+          "name": "Tan"
+        },
+        {
+          "name": "Burlywood"
+        },
+        {
+          "name": "Wheat"
+        },
+        {
+          "name": "NavajoWhite",
+          "aliases": ["Navajo White"]
+        },
+        {
+          "name": "Bisque"
+        },
+        {
+          "name": "BlanchedAlmond",
+          "aliases": ["Blanched Almond"]
+        },
+        {
+          "name": "Cornsilk"
+        },
+        {
+          "name": "Indigo"
+        },
+        {
+          "name": "Purple"
+        },
+        {
+          "name": "DarkMagenta",
+          "aliases": ["Dark Magenta"]
+        },
+        {
+          "name": "DarkViolet",
+          "aliases": ["Dark Violet"]
+        },
+        {
+          "name": "DarkSlateBlue",
+          "aliases": ["Dark Slate Blue"]
+        },
+        {
+          "name": "BlueViolet",
+          "aliases": ["Blue Violet"]
+        },
+        {
+          "name": "DarkOrchid",
+          "aliases": ["Dark Orchid"]
+        },
+        {
+          "name": "Fuchsia"
+        },
+        {
+          "name": "Magenta"
+        },
+        {
+          "name": "SlateBlue",
+          "aliases": ["Slate Blue"]
+        },
+        {
+          "name": "MediumSlateBlue",
+          "aliases": ["Medium Slate Blue"]
+        },
+        {
+          "name": "MediumOrchid",
+          "aliases": ["Medium Orchid"]
+        },
+        {
+          "name": "MediumPurple",
+          "aliases": ["Medium Purple"]
+        },
+        {
+          "name": "Orchid"
+        },
+        {
+          "name": "Violet"
+        },
+        {
+          "name": "Plum"
+        },
+        {
+          "name": "Thistle"
+        },
+        {
+          "name": "Lavender"
+        },
+        {
+          "name": "MidnightBlue",
+          "aliases": ["Midnight Blue"]
+        },
+        {
+          "name": "Navy"
+        },
+        {
+          "name": "DarkBlue",
+          "aliases": ["Dark Blue"]
+        },
+        {
+          "name": "MediumBlue",
+          "aliases": ["Medium Blue"]
+        },
+        {
+          "name": "Blue"
+        },
+        {
+          "name": "RoyalBlue",
+          "aliases": ["Royal Blue"]
+        },
+        {
+          "name": "SteelBlue",
+          "aliases": ["Steel Blue"]
+        },
+        {
+          "name": "DodgerBlue",
+          "aliases": ["Dodger Blue"]
+        },
+        {
+          "name": "DeepSkyBlue",
+          "aliases": ["Deep Sky Blue"]
+        },
+        {
+          "name": "CornflowerBlue",
+          "aliases": ["Cornflower Blue"]
+        },
+        {
+          "name": "SkyBlue",
+          "aliases": ["Sky Blue"]
+        },
+        {
+          "name": "LightSkyBlue",
+          "aliases": ["Light Sky Blue"]
+        },
+        {
+          "name": "LightSteelBlue",
+          "aliases": ["Light Steel Blue"]
+        },
+        {
+          "name": "LightBlue",
+          "aliases": ["Light Blue"]
+        },
+        {
+          "name": "PowderBlue",
+          "aliases": ["Powder Blue"]
+        },
+        {
+          "name": "Teal"
+        },
+        {
+          "name": "DarkCyan",
+          "aliases": ["Dark Cyan"]
+        },
+        {
+          "name": "LightSeaGreen",
+          "aliases": ["Light Sea Green"]
+        },
+        {
+          "name": "CadetBlue",
+          "aliases": ["Cadet Blue"]
+        },
+        {
+          "name": "DarkTurquoise",
+          "aliases": ["Dark Turquoise"]
+        },
+        {
+          "name": "MediumTurquoise",
+          "aliases": ["Medium Turquoise"]
+        },
+        {
+          "name": "Turquoise"
+        },
+        {
+          "name": "Aqua"
+        },
+        {
+          "name": "Cyan"
+        },
+        {
+          "name": "Aquamarine"
+        },
+        {
+          "name": "PaleTurquoise",
+          "aliases": ["Pale Turquoise"]
+        },
+        {
+          "name": "LightCyan",
+          "aliases": ["Light Cyan"]
+        },
+        {
+          "name": "DarkGreen",
+          "aliases": ["Dark Green"]
+        },
+        {
+          "name": "Green"
+        },
+        {
+          "name": "DarkOliveGreen",
+          "aliases": ["Dark Olive Green"]
+        },
+        {
+          "name": "ForestGreen",
+          "aliases": ["Forest Green"]
+        },
+        {
+          "name": "SeaGreen",
+          "aliases": ["Sea Green"]
+        },
+        {
+          "name": "Olive"
+        },
+        {
+          "name": "OliveDrab",
+          "aliases": ["Olive Drab"]
+        },
+        {
+          "name": "MediumSeaGreen",
+          "aliases": ["Medium Sea Green"]
+        },
+        {
+          "name": "LimeGreen",
+          "aliases": ["Lime Green"]
+        },
+        {
+          "name": "Lime"
+        },
+        {
+          "name": "SpringGreen",
+          "aliases": ["Spring Green"]
+        },
+        {
+          "name": "MediumSpringGreen",
+          "aliases": ["Medium Spring Green"]
+        },
+        {
+          "name": "DarkSeaGreen",
+          "aliases": ["Dark Sea Green"]
+        },
+        {
+          "name": "MediumAquamarine",
+          "aliases": ["Medium Aquamarine"]
+        },
+        {
+          "name": "YellowGreen",
+          "aliases": ["Yellow Green"]
+        },
+        {
+          "name": "LawnGreen",
+          "aliases": ["Lawn Green"]
+        },
+        {
+          "name": "Chartreuse"
+        },
+        {
+          "name": "LightGreen",
+          "aliases": ["Light Green"]
+        },
+        {
+          "name": "GreenYellow",
+          "aliases": ["Green Yellow"]
+        },
+        {
+          "name": "PaleGreen",
+          "aliases": ["Pale Green"]
+        },
+        {
+          "name": "MistyRose",
+          "aliases": ["Misty Rose"]
+        },
+        {
+          "name": "AntiqueWhite",
+          "aliases": ["Antique White"]
+        },
+        {
+          "name": "Linen"
+        },
+        {
+          "name": "Beige"
+        },
+        {
+          "name": "WhiteSmoke",
+          "aliases": ["White Smoke"]
+        },
+        {
+          "name": "LavenderBlush",
+          "aliases": ["Lavender Blush"]
+        },
+        {
+          "name": "OldLace",
+          "aliases": ["Old Lace"]
+        },
+        {
+          "name": "AliceBlue",
+          "aliases": ["Alice Blue"]
+        },
+        {
+          "name": "Seashell"
+        },
+        {
+          "name": "GhostWhite",
+          "aliases": ["Ghost White"]
+        },
+        {
+          "name": "Honeydew"
+        },
+        {
+          "name": "FloralWhite",
+          "aliases": ["Floral White"]
+        },
+        {
+          "name": "Azure"
+        },
+        {
+          "name": "MintCream",
+          "aliases": ["Mint Cream"]
+        },
+        {
+          "name": "Snow"
+        },
+        {
+          "name": "Ivory"
+        },
+        {
+          "name": "White"
+        },
+        {
+          "name": "Black"
+        },
+        {
+          "name": "DarkSlateGray",
+          "aliases": ["Dark Slate Gray"]
+        },
+        {
+          "name": "DimGray",
+          "aliases": ["Dim Gray"]
+        },
+        {
+          "name": "SlateGray",
+          "aliases": ["Slate Gray"]
+        },
+        {
+          "name": "Gray"
+        },
+        {
+          "name": "LightSlateGray",
+          "aliases": ["Light Slate Gray"]
+        },
+        {
+          "name": "DarkGray",
+          "aliases": ["Dark Gray"]
+        },
+        {
+          "name": "Silver"
+        },
+        {
+          "name": "LightGray",
+          "aliases": ["Light Gray"]
+        },
+        {
+          "name": "Gainsboro"
+        },
+        {
+          "name": "RebeccaPurple",
+          "aliases": ["Rebecca Purple"]
+        },
+        {
+          "name": "DarkSlateGrey",
+          "aliases": ["Dark Slate Grey"]
+        },
+        {
+          "name": "DimGrey",
+          "aliases": ["Dim Grey"]
+        },
+        {
+          "name": "SlateGrey",
+          "aliases": ["Slate Grey"]
+        },
+        {
+          "name": "Grey"
+        },
+        {
+          "name": "LightSlateGrey",
+          "aliases": ["Light Slate Grey"]
+        },
+        {
+          "name": "DarkGrey",
+          "aliases": ["Dark Grey"]
+        },
+        {
+          "name": "LightGrey",
+          "aliases": ["Light Grey"]
+        }
+      ],
+      "sources": [
+        {
+          "dataset": "https://raw.githubusercontent.com/bahamas10/css-color-names/c41f2d98d6b018226f3505d6e0238bd7e2d7e611/css-color-names.json",
+          "sha256": "d1ea4c9cfb8462cac4fe1cb62929696daa95b9fa5f6fc4cac5e8798afc44eeb7",
+          "revision": "c41f2d98d6b018226f3505d6e0238bd7e2d7e611",
+          "format": "json",
+          "expect": [148, 148],
+          "reviewed": {
+            "aliceblue": "#f0f8ff",
+            "antiquewhite": "#faebd7",
+            "aqua": "#00ffff",
+            "aquamarine": "#7fffd4",
+            "azure": "#f0ffff",
+            "beige": "#f5f5dc",
+            "bisque": "#ffe4c4",
+            "black": "#000000",
+            "blanchedalmond": "#ffebcd",
+            "blue": "#0000ff",
+            "blueviolet": "#8a2be2",
+            "brown": "#a52a2a",
+            "burlywood": "#deb887",
+            "cadetblue": "#5f9ea0",
+            "chartreuse": "#7fff00",
+            "chocolate": "#d2691e",
+            "coral": "#ff7f50",
+            "cornflowerblue": "#6495ed",
+            "cornsilk": "#fff8dc",
+            "crimson": "#dc143c",
+            "cyan": "#00ffff",
+            "darkblue": "#00008b",
+            "darkcyan": "#008b8b",
+            "darkgoldenrod": "#b8860b",
+            "darkgray": "#a9a9a9",
+            "darkgreen": "#006400",
+            "darkgrey": "#a9a9a9",
+            "darkkhaki": "#bdb76b",
+            "darkmagenta": "#8b008b",
+            "darkolivegreen": "#556b2f",
+            "darkorange": "#ff8c00",
+            "darkorchid": "#9932cc",
+            "darkred": "#8b0000",
+            "darksalmon": "#e9967a",
+            "darkseagreen": "#8fbc8f",
+            "darkslateblue": "#483d8b",
+            "darkslategray": "#2f4f4f",
+            "darkslategrey": "#2f4f4f",
+            "darkturquoise": "#00ced1",
+            "darkviolet": "#9400d3",
+            "deeppink": "#ff1493",
+            "deepskyblue": "#00bfff",
+            "dimgray": "#696969",
+            "dimgrey": "#696969",
+            "dodgerblue": "#1e90ff",
+            "firebrick": "#b22222",
+            "floralwhite": "#fffaf0",
+            "forestgreen": "#228b22",
+            "fuchsia": "#ff00ff",
+            "gainsboro": "#dcdcdc",
+            "ghostwhite": "#f8f8ff",
+            "goldenrod": "#daa520",
+            "gold": "#ffd700",
+            "gray": "#808080",
+            "green": "#008000",
+            "greenyellow": "#adff2f",
+            "grey": "#808080",
+            "honeydew": "#f0fff0",
+            "hotpink": "#ff69b4",
+            "indianred": "#cd5c5c",
+            "indigo": "#4b0082",
+            "ivory": "#fffff0",
+            "khaki": "#f0e68c",
+            "lavenderblush": "#fff0f5",
+            "lavender": "#e6e6fa",
+            "lawngreen": "#7cfc00",
+            "lemonchiffon": "#fffacd",
+            "lightblue": "#add8e6",
+            "lightcoral": "#f08080",
+            "lightcyan": "#e0ffff",
+            "lightgoldenrodyellow": "#fafad2",
+            "lightgray": "#d3d3d3",
+            "lightgreen": "#90ee90",
+            "lightgrey": "#d3d3d3",
+            "lightpink": "#ffb6c1",
+            "lightsalmon": "#ffa07a",
+            "lightseagreen": "#20b2aa",
+            "lightskyblue": "#87cefa",
+            "lightslategray": "#778899",
+            "lightslategrey": "#778899",
+            "lightsteelblue": "#b0c4de",
+            "lightyellow": "#ffffe0",
+            "lime": "#00ff00",
+            "limegreen": "#32cd32",
+            "linen": "#faf0e6",
+            "magenta": "#ff00ff",
+            "maroon": "#800000",
+            "mediumaquamarine": "#66cdaa",
+            "mediumblue": "#0000cd",
+            "mediumorchid": "#ba55d3",
+            "mediumpurple": "#9370db",
+            "mediumseagreen": "#3cb371",
+            "mediumslateblue": "#7b68ee",
+            "mediumspringgreen": "#00fa9a",
+            "mediumturquoise": "#48d1cc",
+            "mediumvioletred": "#c71585",
+            "midnightblue": "#191970",
+            "mintcream": "#f5fffa",
+            "mistyrose": "#ffe4e1",
+            "moccasin": "#ffe4b5",
+            "navajowhite": "#ffdead",
+            "navy": "#000080",
+            "oldlace": "#fdf5e6",
+            "olive": "#808000",
+            "olivedrab": "#6b8e23",
+            "orange": "#ffa500",
+            "orangered": "#ff4500",
+            "orchid": "#da70d6",
+            "palegoldenrod": "#eee8aa",
+            "palegreen": "#98fb98",
+            "paleturquoise": "#afeeee",
+            "palevioletred": "#db7093",
+            "papayawhip": "#ffefd5",
+            "peachpuff": "#ffdab9",
+            "peru": "#cd853f",
+            "pink": "#ffc0cb",
+            "plum": "#dda0dd",
+            "powderblue": "#b0e0e6",
+            "purple": "#800080",
+            "rebeccapurple": "#663399",
+            "red": "#ff0000",
+            "rosybrown": "#bc8f8f",
+            "royalblue": "#4169e1",
+            "saddlebrown": "#8b4513",
+            "salmon": "#fa8072",
+            "sandybrown": "#f4a460",
+            "seagreen": "#2e8b57",
+            "seashell": "#fff5ee",
+            "sienna": "#a0522d",
+            "silver": "#c0c0c0",
+            "skyblue": "#87ceeb",
+            "slateblue": "#6a5acd",
+            "slategray": "#708090",
+            "slategrey": "#708090",
+            "snow": "#fffafa",
+            "springgreen": "#00ff7f",
+            "steelblue": "#4682b4",
+            "tan": "#d2b48c",
+            "teal": "#008080",
+            "thistle": "#d8bfd8",
+            "tomato": "#ff6347",
+            "turquoise": "#40e0d0",
+            "violet": "#ee82ee",
+            "wheat": "#f5deb3",
+            "white": "#ffffff",
+            "whitesmoke": "#f5f5f5",
+            "yellow": "#ffff00",
+            "yellowgreen": "#9acd32"
+          }
+        }
+      ],
+      "expect": [148, 148],
+      "surface": ["Red", "Blue", "Green", "White", "Black"],
+      "pearl": "RebeccaPurple",
+      "active": true,
+      "scope": "All 148 standardized named sRGB colors; transparent and currentColor are special keywords, not named colors.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "disney-theme-parks",
+      "text": "an operating Disney theme park",
+      "theme": "everyday",
+      "cluster": "disney",
+      "answers": [
+        {
+          "name": "Disneyland",
+          "aliases": ["Disneyland Anaheim", "Disneyland California"]
+        },
+        {
+          "name": "Magic Kingdom"
+        },
+        {
+          "name": "Epcot",
+          "aliases": ["EPCOT Center"]
+        },
+        {
+          "name": "Disney's Hollywood Studios",
+          "aliases": [
+            "Hollywood Studios",
+            "Disney Hollywood Studios",
+            "Disney MGM Studios",
+            "MGM Studios"
+          ]
+        },
+        {
+          "name": "Disney's Animal Kingdom",
+          "aliases": ["Animal Kingdom", "Disney Animal Kingdom"]
+        },
+        {
+          "name": "Disney California Adventure",
+          "aliases": ["California Adventure", "DCA"]
+        },
+        {
+          "name": "Tokyo Disneyland"
+        },
+        {
+          "name": "Tokyo DisneySea",
+          "aliases": ["DisneySea"]
+        },
+        {
+          "name": "Disneyland Park",
+          "aliases": ["Disneyland Paris", "Euro Disney", "Euro Disneyland", "Disneyland Park Paris"]
+        },
+        {
+          "name": "Disney Adventure World",
+          "aliases": ["Walt Disney Studios Park", "Walt Disney Studios", "Disney Studios Paris"]
+        },
+        {
+          "name": "Hong Kong Disneyland"
+        },
+        {
+          "name": "Shanghai Disneyland",
+          "aliases": ["Shanghai Disneyland Park"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Disney Experiences",
+          "revision": 1382282208,
+          "members": [
+            "Disneyland",
+            "Magic Kingdom",
+            "Epcot",
+            "Disney's Hollywood Studios",
+            "Disney's Animal Kingdom",
+            "Disney California Adventure",
+            "Tokyo Disneyland",
+            "Tokyo DisneySea",
+            "Disneyland Park",
+            "Disney Adventure World",
+            "Hong Kong Disneyland",
+            "Shanghai Disneyland"
+          ],
+          "expect": [12, 12],
+          "reviewed": [
+            "Disneyland",
+            "Magic Kingdom",
+            "Epcot",
+            "Disney's Hollywood Studios",
+            "Disney's Animal Kingdom",
+            "Disney California Adventure",
+            "Tokyo Disneyland",
+            "Tokyo DisneySea",
+            "Disneyland Park",
+            "Disney Adventure World",
+            "Hong Kong Disneyland",
+            "Shanghai Disneyland"
+          ]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["Disneyland", "Magic Kingdom", "Epcot"],
+      "pearl": "Tokyo DisneySea",
+      "active": true,
+      "scope": "The 12 operating theme parks across six resorts; excludes water parks and announced/unopened parks. Disneyland Park here denotes Paris; Anaheim is Disneyland.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "magic-eight-ball-responses",
+      "text": "a standard Magic 8 Ball reply",
+      "theme": "everyday",
+      "cluster": "toys",
+      "answers": [
+        {
+          "name": "It is certain",
+          "aliases": ["Certain"]
+        },
+        {
+          "name": "It is decidedly so",
+          "aliases": ["Decidedly so"]
+        },
+        {
+          "name": "Without a doubt"
+        },
+        {
+          "name": "Yes definitely",
+          "aliases": ["Definitely"]
+        },
+        {
+          "name": "You may rely on it"
+        },
+        {
+          "name": "As I see it, yes"
+        },
+        {
+          "name": "Most likely"
+        },
+        {
+          "name": "Outlook good"
+        },
+        {
+          "name": "Yes"
+        },
+        {
+          "name": "Signs point to yes"
+        },
+        {
+          "name": "Reply hazy, try again",
+          "aliases": ["Reply hazy", "Try again"]
+        },
+        {
+          "name": "Ask again later"
+        },
+        {
+          "name": "Better not tell you now"
+        },
+        {
+          "name": "Cannot predict now"
+        },
+        {
+          "name": "Concentrate and ask again"
+        },
+        {
+          "name": "Don't count on it",
+          "aliases": ["Do not count on it"]
+        },
+        {
+          "name": "My reply is no"
+        },
+        {
+          "name": "My sources say no"
+        },
+        {
+          "name": "Outlook not so good"
+        },
+        {
+          "name": "Very doubtful"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Magic 8 Ball",
+          "revision": 1382908759,
+          "members": [
+            "It is certain",
+            "It is decidedly so",
+            "Without a doubt",
+            "Yes definitely",
+            "You may rely on it",
+            "As I see it, yes",
+            "Most likely",
+            "Outlook good",
+            "Yes",
+            "Signs point to yes",
+            "Reply hazy, try again",
+            "Ask again later",
+            "Better not tell you now",
+            "Cannot predict now",
+            "Concentrate and ask again",
+            "Don't count on it",
+            "My reply is no",
+            "My sources say no",
+            "Outlook not so good",
+            "Very doubtful"
+          ],
+          "expect": [20, 20],
+          "reviewed": [
+            "It is certain",
+            "It is decidedly so",
+            "Without a doubt",
+            "Yes definitely",
+            "You may rely on it",
+            "As I see it, yes",
+            "Most likely",
+            "Outlook good",
+            "Yes",
+            "Signs point to yes",
+            "Reply hazy, try again",
+            "Ask again later",
+            "Better not tell you now",
+            "Cannot predict now",
+            "Concentrate and ask again",
+            "Don't count on it",
+            "My reply is no",
+            "My sources say no",
+            "Outlook not so good",
+            "Very doubtful"
+          ]
+        }
+      ],
+      "expect": [20, 20],
+      "surface": ["It is certain", "Yes", "Ask again later"],
+      "pearl": "Better not tell you now",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "egot-winners",
+      "text": "an EGOT winner",
+      "theme": "music",
+      "cluster": "entertainment-awards",
+      "answers": [
+        {
+          "name": "Richard Rodgers"
+        },
+        {
+          "name": "Helen Hayes"
+        },
+        {
+          "name": "Rita Moreno"
+        },
+        {
+          "name": "John Gielgud"
+        },
+        {
+          "name": "Audrey Hepburn"
+        },
+        {
+          "name": "Marvin Hamlisch"
+        },
+        {
+          "name": "Jonathan Tunick"
+        },
+        {
+          "name": "Mel Brooks"
+        },
+        {
+          "name": "Mike Nichols"
+        },
+        {
+          "name": "Whoopi Goldberg",
+          "aliases": ["Whoopi"]
+        },
+        {
+          "name": "Scott Rudin"
+        },
+        {
+          "name": "Robert Lopez"
+        },
+        {
+          "name": "Andrew Lloyd Webber",
+          "aliases": ["Lloyd Webber"]
+        },
+        {
+          "name": "Tim Rice"
+        },
+        {
+          "name": "John Legend"
+        },
+        {
+          "name": "Alan Menken"
+        },
+        {
+          "name": "Jennifer Hudson"
+        },
+        {
+          "name": "Viola Davis"
+        },
+        {
+          "name": "Elton John",
+          "aliases": ["Elton"]
+        },
+        {
+          "name": "Benj Pasek"
+        },
+        {
+          "name": "Justin Paul"
+        },
+        {
+          "name": "Steven Spielberg"
+        },
+        {
+          "name": "Barbra Streisand"
+        },
+        {
+          "name": "Liza Minnelli"
+        },
+        {
+          "name": "James Earl Jones"
+        },
+        {
+          "name": "Harry Belafonte"
+        },
+        {
+          "name": "Quincy Jones"
+        },
+        {
+          "name": "Frank Marshall"
+        }
+      ],
+      "sources": [
+        {
+          "page": "EGOT",
+          "revision": 1380959024,
+          "members": [
+            "Richard Rodgers",
+            "Helen Hayes",
+            "Rita Moreno",
+            "John Gielgud",
+            "Audrey Hepburn",
+            "Marvin Hamlisch",
+            "Jonathan Tunick",
+            "Mel Brooks",
+            "Mike Nichols",
+            "Whoopi Goldberg",
+            "Scott Rudin",
+            "Robert Lopez",
+            "Andrew Lloyd Webber",
+            "Tim Rice",
+            "John Legend",
+            "Alan Menken",
+            "Jennifer Hudson",
+            "Viola Davis",
+            "Elton John",
+            "Benj Pasek",
+            "Justin Paul",
+            "Steven Spielberg",
+            "Barbra Streisand",
+            "Liza Minnelli",
+            "James Earl Jones",
+            "Harry Belafonte",
+            "Quincy Jones",
+            "Frank Marshall"
+          ],
+          "expect": [28, 28],
+          "reviewed": [
+            "Richard Rodgers",
+            "Helen Hayes",
+            "Rita Moreno",
+            "John Gielgud",
+            "Audrey Hepburn",
+            "Marvin Hamlisch",
+            "Jonathan Tunick",
+            "Mel Brooks",
+            "Mike Nichols",
+            "Whoopi Goldberg",
+            "Scott Rudin",
+            "Robert Lopez",
+            "Andrew Lloyd Webber",
+            "Tim Rice",
+            "John Legend",
+            "Alan Menken",
+            "Jennifer Hudson",
+            "Viola Davis",
+            "Elton John",
+            "Benj Pasek",
+            "Justin Paul",
+            "Steven Spielberg",
+            "Barbra Streisand",
+            "Liza Minnelli",
+            "James Earl Jones",
+            "Harry Belafonte",
+            "Quincy Jones",
+            "Frank Marshall"
+          ]
+        }
+      ],
+      "expect": [28, 28],
+      "surface": ["Whoopi Goldberg", "Audrey Hepburn", "Elton John", "John Legend"],
+      "pearl": "Jonathan Tunick",
+      "active": true,
+      "people": true,
+      "scope": "Both competitive and honorary EGOT recipients, because the unqualified prompt does not exclude honorary awards.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit.",
+      "too_clever": ["Barbra Streisand"]
+    },
+    {
+      "id": "woodstock-1969-performers",
+      "text": "a musical act that performed at Woodstock in 1969",
+      "theme": "music",
+      "cluster": "festivals",
+      "answers": [
+        {
+          "name": "Richie Havens",
+          "aliases": ["Havens"]
+        },
+        {
+          "name": "Sweetwater"
+        },
+        {
+          "name": "Bert Sommer",
+          "aliases": ["Sommer"]
+        },
+        {
+          "name": "Tim Hardin",
+          "aliases": ["Hardin"]
+        },
+        {
+          "name": "Ravi Shankar",
+          "aliases": ["Shankar"]
+        },
+        {
+          "name": "Melanie"
+        },
+        {
+          "name": "Arlo Guthrie",
+          "aliases": ["Guthrie"]
+        },
+        {
+          "name": "Joan Baez",
+          "aliases": ["Baez"]
+        },
+        {
+          "name": "Quill"
+        },
+        {
+          "name": "Country Joe McDonald"
+        },
+        {
+          "name": "Santana",
+          "aliases": ["Carlos Santana"]
+        },
+        {
+          "name": "John Sebastian",
+          "aliases": ["Sebastian"]
+        },
+        {
+          "name": "Keef Hartley Band"
+        },
+        {
+          "name": "The Incredible String Band"
+        },
+        {
+          "name": "Canned Heat"
+        },
+        {
+          "name": "Mountain"
+        },
+        {
+          "name": "Grateful Dead"
+        },
+        {
+          "name": "Creedence Clearwater Revival",
+          "aliases": ["CCR"]
+        },
+        {
+          "name": "Janis Joplin and the Kozmic Blues Band",
+          "aliases": ["Janis Joplin", "Joplin", "Kozmic Blues Band"]
+        },
+        {
+          "name": "Sly & the Family Stone",
+          "aliases": ["Sly", "Sly Stone"]
+        },
+        {
+          "name": "The Who"
+        },
+        {
+          "name": "Jefferson Airplane"
+        },
+        {
+          "name": "Joe Cocker and the Grease Band",
+          "aliases": ["Joe Cocker", "Cocker", "Grease Band"]
+        },
+        {
+          "name": "Country Joe and the Fish"
+        },
+        {
+          "name": "Ten Years After"
+        },
+        {
+          "name": "The Band"
+        },
+        {
+          "name": "Johnny Winter",
+          "aliases": ["Winter"]
+        },
+        {
+          "name": "Blood, Sweat & Tears"
+        },
+        {
+          "name": "Crosby, Stills, Nash & Young",
+          "aliases": ["CSNY", "Crosby Stills and Nash", "CSN"]
+        },
+        {
+          "name": "Paul Butterfield Blues Band"
+        },
+        {
+          "name": "Sha Na Na"
+        },
+        {
+          "name": "Jimi Hendrix",
+          "aliases": ["Hendrix"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of performances and events at Woodstock Festival",
+          "revision": 1380215437,
+          "members": [
+            "Richie Havens",
+            "Sweetwater",
+            "Bert Sommer",
+            "Tim Hardin",
+            "Ravi Shankar",
+            "Melanie",
+            "Arlo Guthrie",
+            "Joan Baez",
+            "Quill",
+            "Country Joe McDonald",
+            "Santana",
+            "John Sebastian",
+            "Keef Hartley Band",
+            "The Incredible String Band",
+            "Canned Heat",
+            "Mountain",
+            "Grateful Dead",
+            "Creedence Clearwater Revival",
+            "Janis Joplin and the Kozmic Blues Band",
+            "Sly & the Family Stone",
+            "The Who",
+            "Jefferson Airplane",
+            "Joe Cocker and the Grease Band",
+            "Country Joe and the Fish",
+            "Ten Years After",
+            "The Band",
+            "Johnny Winter",
+            "Blood, Sweat & Tears",
+            "Crosby, Stills, Nash & Young",
+            "Paul Butterfield Blues Band",
+            "Sha Na Na",
+            "Jimi Hendrix"
+          ],
+          "expect": [32, 32],
+          "reviewed": [
+            "Richie Havens",
+            "Sweetwater",
+            "Bert Sommer",
+            "Tim Hardin",
+            "Ravi Shankar",
+            "Melanie",
+            "Arlo Guthrie",
+            "Joan Baez",
+            "Quill",
+            "Country Joe McDonald",
+            "Santana",
+            "John Sebastian",
+            "Keef Hartley Band",
+            "The Incredible String Band",
+            "Canned Heat",
+            "Mountain",
+            "Grateful Dead",
+            "Creedence Clearwater Revival",
+            "Janis Joplin and the Kozmic Blues Band",
+            "Sly & the Family Stone",
+            "The Who",
+            "Jefferson Airplane",
+            "Joe Cocker and the Grease Band",
+            "Country Joe and the Fish",
+            "Ten Years After",
+            "The Band",
+            "Johnny Winter",
+            "Blood, Sweat & Tears",
+            "Crosby, Stills, Nash & Young",
+            "Paul Butterfield Blues Band",
+            "Sha Na Na",
+            "Jimi Hendrix"
+          ]
+        }
+      ],
+      "expect": [32, 32],
+      "surface": ["Jimi Hendrix", "The Who", "Santana", "Janis Joplin and the Kozmic Blues Band"],
+      "pearl": "Quill",
+      "active": true,
+      "scope": "All 32 musical headline acts in the performance chronology; opening speaker Swami Satchidananda is not a musical act. Individual backing musicians are not separate billed acts.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "wu-tang-members",
+      "text": "a current or former member of Wu-Tang Clan",
+      "theme": "music",
+      "cluster": "bands",
+      "answers": [
+        {
+          "name": "RZA",
+          "aliases": ["Robert Diggs", "Robert Fitzgerald Diggs", "Bobby Digital"]
+        },
+        {
+          "name": "GZA",
+          "aliases": ["Gary Grice", "Gary Eldridge Grice", "The Genius"]
+        },
+        {
+          "name": "Inspectah Deck",
+          "aliases": ["Jason Hunter", "Jason S. Hunter"]
+        },
+        {
+          "name": "U-God",
+          "aliases": ["Lamont Hawkins", "Lamont Jody Hawkins"]
+        },
+        {
+          "name": "Ghostface Killah",
+          "aliases": ["Ghostface", "Dennis Coles"]
+        },
+        {
+          "name": "Method Man",
+          "aliases": ["Clifford Smith", "Clifford Smith Jr", "Johnny Blaze"]
+        },
+        {
+          "name": "Raekwon",
+          "aliases": ["Corey Woods", "Corey Quontrell Woods", "The Chef"]
+        },
+        {
+          "name": "Masta Killa",
+          "aliases": ["Elgin Turner", "Elgin Evad Turner", "Jamel Irief"]
+        },
+        {
+          "name": "Cappadonna",
+          "aliases": ["Darryl Hill"]
+        },
+        {
+          "name": "Ol' Dirty Bastard",
+          "aliases": ["ODB", "Russell Jones", "Russell Tyrone Jones"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Wu-Tang Clan",
+          "revision": 1383253853,
+          "members": [
+            "RZA",
+            "GZA",
+            "Inspectah Deck",
+            "U-God",
+            "Ghostface Killah",
+            "Method Man",
+            "Raekwon",
+            "Masta Killa",
+            "Cappadonna",
+            "Ol' Dirty Bastard"
+          ],
+          "expect": [10, 10],
+          "reviewed": [
+            "RZA",
+            "GZA",
+            "Inspectah Deck",
+            "U-God",
+            "Ghostface Killah",
+            "Method Man",
+            "Raekwon",
+            "Masta Killa",
+            "Cappadonna",
+            "Ol' Dirty Bastard"
+          ]
+        },
+        {
+          "page": "GZA",
+          "revision": 1364814818,
+          "members": ["Gary Eldridge Grice", "Gary Grice"],
+          "expect": [2, 2],
+          "reviewed": ["Gary Eldridge Grice", "Gary Grice"]
+        },
+        {
+          "page": "Method Man",
+          "revision": 1381392065,
+          "members": ["Johnny Blaze", "Clifford Smith"],
+          "expect": [2, 2],
+          "reviewed": ["Johnny Blaze", "Clifford Smith"]
+        },
+        {
+          "page": "Inspectah Deck",
+          "revision": 1381393220,
+          "members": ["Jason S. Hunter", "Jason Hunter"],
+          "expect": [2, 2],
+          "reviewed": ["Jason S. Hunter", "Jason Hunter"]
+        },
+        {
+          "page": "U-God",
+          "revision": 1373393222,
+          "members": ["Lamont Jody Hawkins"],
+          "expect": [1, 1],
+          "reviewed": ["Lamont Jody Hawkins"]
+        }
+      ],
+      "expect": [10, 10],
+      "surface": ["RZA", "Method Man"],
+      "pearl": "Masta Killa",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "hamilton-songs",
+      "text": "a song in the musical Hamilton",
+      "theme": "music",
+      "cluster": "musicals",
+      "answers": [
+        {
+          "name": "Alexander Hamilton"
+        },
+        {
+          "name": "Aaron Burr, Sir"
+        },
+        {
+          "name": "My Shot"
+        },
+        {
+          "name": "The Story of Tonight"
+        },
+        {
+          "name": "The Schuyler Sisters"
+        },
+        {
+          "name": "Farmer Refuted"
+        },
+        {
+          "name": "You'll Be Back"
+        },
+        {
+          "name": "Right Hand Man"
+        },
+        {
+          "name": "A Winter's Ball"
+        },
+        {
+          "name": "Helpless"
+        },
+        {
+          "name": "Satisfied"
+        },
+        {
+          "name": "The Story of Tonight (Reprise)"
+        },
+        {
+          "name": "Wait for It"
+        },
+        {
+          "name": "Stay Alive"
+        },
+        {
+          "name": "Ten Duel Commandments"
+        },
+        {
+          "name": "Meet Me Inside"
+        },
+        {
+          "name": "That Would Be Enough"
+        },
+        {
+          "name": "Guns and Ships"
+        },
+        {
+          "name": "History Has Its Eyes on You"
+        },
+        {
+          "name": "Yorktown (The World Turned Upside Down)",
+          "aliases": ["Yorktown", "The World Turned Upside Down"]
+        },
+        {
+          "name": "What Comes Next?"
+        },
+        {
+          "name": "Dear Theodosia"
+        },
+        {
+          "name": "Tomorrow There'll Be More of Us"
+        },
+        {
+          "name": "Non-Stop",
+          "aliases": ["Nonstop"]
+        },
+        {
+          "name": "What'd I Miss?"
+        },
+        {
+          "name": "Cabinet Battle #1"
+        },
+        {
+          "name": "Take a Break"
+        },
+        {
+          "name": "Say No to This"
+        },
+        {
+          "name": "The Room Where It Happens"
+        },
+        {
+          "name": "Schuyler Defeated"
+        },
+        {
+          "name": "Cabinet Battle #2"
+        },
+        {
+          "name": "Washington on Your Side"
+        },
+        {
+          "name": "One Last Time"
+        },
+        {
+          "name": "I Know Him"
+        },
+        {
+          "name": "The Adams Administration"
+        },
+        {
+          "name": "We Know"
+        },
+        {
+          "name": "Hurricane"
+        },
+        {
+          "name": "The Reynolds Pamphlet"
+        },
+        {
+          "name": "Burn"
+        },
+        {
+          "name": "Blow Us All Away"
+        },
+        {
+          "name": "Stay Alive (Reprise)"
+        },
+        {
+          "name": "It's Quiet Uptown"
+        },
+        {
+          "name": "The Election of 1800"
+        },
+        {
+          "name": "Your Obedient Servant"
+        },
+        {
+          "name": "Best of Wives and Best of Women"
+        },
+        {
+          "name": "The World Was Wide Enough"
+        },
+        {
+          "name": "Who Lives Who Dies Who Tells Your Story"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Hamilton (musical)",
+          "revision": 1384404840,
+          "members": [
+            "Alexander Hamilton",
+            "Aaron Burr, Sir",
+            "My Shot",
+            "The Story of Tonight",
+            "The Schuyler Sisters",
+            "Farmer Refuted",
+            "You'll Be Back",
+            "Right Hand Man",
+            "A Winter's Ball",
+            "Helpless",
+            "Satisfied",
+            "The Story of Tonight (Reprise)",
+            "Wait for It",
+            "Stay Alive",
+            "Ten Duel Commandments",
+            "Meet Me Inside",
+            "That Would Be Enough",
+            "Guns and Ships",
+            "History Has Its Eyes on You",
+            "Yorktown (The World Turned Upside Down)",
+            "What Comes Next?",
+            "Dear Theodosia",
+            "Tomorrow There'll Be More of Us",
+            "Non-Stop",
+            "What'd I Miss?",
+            "Cabinet Battle #1",
+            "Take a Break",
+            "Say No to This",
+            "The Room Where It Happens",
+            "Schuyler Defeated",
+            "Cabinet Battle #2",
+            "Washington on Your Side",
+            "One Last Time",
+            "I Know Him",
+            "The Adams Administration",
+            "We Know",
+            "Hurricane",
+            "The Reynolds Pamphlet",
+            "Burn",
+            "Blow Us All Away",
+            "Stay Alive (Reprise)",
+            "It's Quiet Uptown",
+            "The Election of 1800",
+            "Your Obedient Servant",
+            "Best of Wives and Best of Women",
+            "The World Was Wide Enough",
+            "Who Lives, Who Dies, Who Tells Your Story"
+          ],
+          "expect": [47, 47],
+          "reviewed": [
+            "Alexander Hamilton",
+            "Aaron Burr, Sir",
+            "My Shot",
+            "The Story of Tonight",
+            "The Schuyler Sisters",
+            "Farmer Refuted",
+            "You'll Be Back",
+            "Right Hand Man",
+            "A Winter's Ball",
+            "Helpless",
+            "Satisfied",
+            "The Story of Tonight (Reprise)",
+            "Wait for It",
+            "Stay Alive",
+            "Ten Duel Commandments",
+            "Meet Me Inside",
+            "That Would Be Enough",
+            "Guns and Ships",
+            "History Has Its Eyes on You",
+            "Yorktown (The World Turned Upside Down)",
+            "What Comes Next?",
+            "Dear Theodosia",
+            "Tomorrow There'll Be More of Us",
+            "Non-Stop",
+            "What'd I Miss?",
+            "Cabinet Battle #1",
+            "Take a Break",
+            "Say No to This",
+            "The Room Where It Happens",
+            "Schuyler Defeated",
+            "Cabinet Battle #2",
+            "Washington on Your Side",
+            "One Last Time",
+            "I Know Him",
+            "The Adams Administration",
+            "We Know",
+            "Hurricane",
+            "The Reynolds Pamphlet",
+            "Burn",
+            "Blow Us All Away",
+            "Stay Alive (Reprise)",
+            "It's Quiet Uptown",
+            "The Election of 1800",
+            "Your Obedient Servant",
+            "Best of Wives and Best of Women",
+            "The World Was Wide Enough",
+            "Who Lives, Who Dies, Who Tells Your Story"
+          ]
+        }
+      ],
+      "expect": [47, 47],
+      "surface": ["Alexander Hamilton", "My Shot", "Satisfied", "You'll Be Back"],
+      "pearl": "Tomorrow There'll Be More of Us",
+      "active": true,
+      "scope": "All 47 onstage musical numbers including reprises and the Laurens interlude omitted from the cast album.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "eminem-studio-albums",
+      "text": "an Eminem solo studio album",
+      "theme": "music",
+      "cluster": "artist-albums",
+      "answers": [
+        {
+          "name": "Infinite"
+        },
+        {
+          "name": "The Slim Shady LP",
+          "aliases": ["SSLP"]
+        },
+        {
+          "name": "The Marshall Mathers LP",
+          "aliases": ["MMLP"]
+        },
+        {
+          "name": "The Eminem Show",
+          "aliases": ["TES"]
+        },
+        {
+          "name": "Encore"
+        },
+        {
+          "name": "Relapse"
+        },
+        {
+          "name": "Recovery"
+        },
+        {
+          "name": "The Marshall Mathers LP 2",
+          "aliases": ["MMLP2", "MMLP 2"]
+        },
+        {
+          "name": "Revival"
+        },
+        {
+          "name": "Kamikaze"
+        },
+        {
+          "name": "Music to Be Murdered By",
+          "aliases": ["MTBMB"]
+        },
+        {
+          "name": "The Death of Slim Shady (Coup de Grâce)",
+          "aliases": ["The Death of Slim Shady", "Coup de Grace", "TDOSS"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Eminem albums discography",
+          "revision": 1382852844,
+          "members": [
+            "Infinite",
+            "The Slim Shady LP",
+            "The Marshall Mathers LP",
+            "The Eminem Show",
+            "Encore",
+            "Relapse",
+            "Recovery",
+            "The Marshall Mathers LP 2",
+            "Revival",
+            "Kamikaze",
+            "Music to Be Murdered By",
+            "The Death of Slim Shady (Coup de Grâce)"
+          ],
+          "expect": [12, 12],
+          "reviewed": [
+            "Infinite",
+            "The Slim Shady LP",
+            "The Marshall Mathers LP",
+            "The Eminem Show",
+            "Encore",
+            "Relapse",
+            "Recovery",
+            "The Marshall Mathers LP 2",
+            "Revival",
+            "Kamikaze",
+            "Music to Be Murdered By",
+            "The Death of Slim Shady (Coup de Grâce)"
+          ]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["The Slim Shady LP", "The Marshall Mathers LP", "The Eminem Show"],
+      "pearl": "Infinite",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "thorin-company-dwarves",
+      "text": "a dwarf in Thorin's company in The Hobbit",
+      "theme": "books",
+      "cluster": "tolkien",
+      "answers": [
+        {
+          "name": "Thorin Oakenshield",
+          "aliases": ["Thorin", "Oakenshield", "Thorin II", "Thorin Oakenshield the dwarf"]
+        },
+        {
+          "name": "Balin",
+          "aliases": ["Balin son of Fundin", "Balin the dwarf"]
+        },
+        {
+          "name": "Dwalin",
+          "aliases": ["Dwalin son of Fundin", "Dwalin the dwarf"]
+        },
+        {
+          "name": "Fili",
+          "aliases": ["Fili the dwarf"]
+        },
+        {
+          "name": "Kili",
+          "aliases": ["Kili the dwarf"]
+        },
+        {
+          "name": "Dori",
+          "aliases": ["Dori the dwarf"]
+        },
+        {
+          "name": "Nori",
+          "aliases": ["Nori the dwarf"]
+        },
+        {
+          "name": "Ori",
+          "aliases": ["Ori the dwarf"]
+        },
+        {
+          "name": "Oin",
+          "aliases": ["Oin the dwarf"]
+        },
+        {
+          "name": "Glóin",
+          "aliases": ["Glóin the dwarf"]
+        },
+        {
+          "name": "Bifur",
+          "aliases": ["Bifur the dwarf"]
+        },
+        {
+          "name": "Bofur",
+          "aliases": ["Bofur the dwarf"]
+        },
+        {
+          "name": "Bombur",
+          "aliases": ["Bombur the dwarf"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Thorin Oakenshield",
+          "revision": 1373322387,
+          "members": [
+            "Thorin Oakenshield",
+            "Balin",
+            "Dwalin",
+            "Fili",
+            "Kili",
+            "Dori",
+            "Nori",
+            "Ori",
+            "Oin",
+            "Glóin",
+            "Bifur",
+            "Bofur",
+            "Bombur"
+          ],
+          "expect": [13, 13],
+          "reviewed": [
+            "Thorin Oakenshield",
+            "Balin",
+            "Dwalin",
+            "Fili",
+            "Kili",
+            "Dori",
+            "Nori",
+            "Ori",
+            "Oin",
+            "Glóin",
+            "Bifur",
+            "Bofur",
+            "Bombur"
+          ]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["Thorin Oakenshield", "Balin", "Bombur"],
+      "pearl": "Oin",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "oz-baum-books",
+      "text": "an Oz novel by L Frank Baum",
+      "theme": "books",
+      "cluster": "oz",
+      "answers": [
+        {
+          "name": "The Wonderful Wizard of Oz",
+          "aliases": ["The Wizard of Oz"]
+        },
+        {
+          "name": "The Marvelous Land of Oz",
+          "aliases": ["The Land of Oz", "The Marvellous Land of Oz"]
+        },
+        {
+          "name": "Ozma of Oz"
+        },
+        {
+          "name": "Dorothy and the Wizard in Oz",
+          "aliases": ["Dorothy and the Wizard"]
+        },
+        {
+          "name": "The Road to Oz"
+        },
+        {
+          "name": "The Emerald City of Oz"
+        },
+        {
+          "name": "The Patchwork Girl of Oz"
+        },
+        {
+          "name": "Tik-Tok of Oz"
+        },
+        {
+          "name": "The Scarecrow of Oz"
+        },
+        {
+          "name": "Rinkitink in Oz"
+        },
+        {
+          "name": "The Lost Princess of Oz"
+        },
+        {
+          "name": "The Tin Woodman of Oz"
+        },
+        {
+          "name": "The Magic of Oz"
+        },
+        {
+          "name": "Glinda of Oz"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Oz books",
+          "revision": 1384076259,
+          "members": [
+            "The Wonderful Wizard of Oz",
+            "The Marvelous Land of Oz",
+            "Ozma of Oz",
+            "Dorothy and the Wizard in Oz",
+            "The Road to Oz",
+            "The Emerald City of Oz",
+            "The Patchwork Girl of Oz",
+            "Tik-Tok of Oz",
+            "The Scarecrow of Oz",
+            "Rinkitink in Oz",
+            "The Lost Princess of Oz",
+            "The Tin Woodman of Oz",
+            "The Magic of Oz",
+            "Glinda of Oz"
+          ],
+          "expect": [14, 14],
+          "reviewed": [
+            "The Wonderful Wizard of Oz",
+            "The Marvelous Land of Oz",
+            "Ozma of Oz",
+            "Dorothy and the Wizard in Oz",
+            "The Road to Oz",
+            "The Emerald City of Oz",
+            "The Patchwork Girl of Oz",
+            "Tik-Tok of Oz",
+            "The Scarecrow of Oz",
+            "Rinkitink in Oz",
+            "The Lost Princess of Oz",
+            "The Tin Woodman of Oz",
+            "The Magic of Oz",
+            "Glinda of Oz"
+          ]
+        }
+      ],
+      "expect": [14, 14],
+      "surface": ["The Wonderful Wizard of Oz", "The Marvelous Land of Oz", "Ozma of Oz"],
+      "pearl": "Rinkitink in Oz",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "goosebumps-original-books",
+      "text": "a book in the original Goosebumps series",
+      "theme": "books",
+      "cluster": "horror-books",
+      "answers": [
+        {
+          "name": "Welcome to Dead House"
+        },
+        {
+          "name": "Stay Out of the Basement"
+        },
+        {
+          "name": "Monster Blood"
+        },
+        {
+          "name": "Say Cheese and Die!"
+        },
+        {
+          "name": "The Curse of the Mummy's Tomb"
+        },
+        {
+          "name": "Let's Get Invisible"
+        },
+        {
+          "name": "Night of the Living Dummy"
+        },
+        {
+          "name": "The Girl Who Cried Monster"
+        },
+        {
+          "name": "Welcome to Camp Nightmare"
+        },
+        {
+          "name": "The Ghost Next Door"
+        },
+        {
+          "name": "The Haunted Mask"
+        },
+        {
+          "name": "Be Careful What You Wish For..."
+        },
+        {
+          "name": "Piano Lessons Can Be Murder"
+        },
+        {
+          "name": "The Werewolf of Fever Swamp"
+        },
+        {
+          "name": "You Can't Scare Me!"
+        },
+        {
+          "name": "One Day at HorrorLand",
+          "aliases": ["Horrorland"]
+        },
+        {
+          "name": "Why I'm Afraid of Bees"
+        },
+        {
+          "name": "Monster Blood II",
+          "aliases": ["Monster Blood 2"]
+        },
+        {
+          "name": "Deep Trouble"
+        },
+        {
+          "name": "The Scarecrow Walks at Midnight"
+        },
+        {
+          "name": "Go Eat Worms!"
+        },
+        {
+          "name": "Ghost Beach"
+        },
+        {
+          "name": "Return of the Mummy"
+        },
+        {
+          "name": "Phantom of the Auditorium"
+        },
+        {
+          "name": "Attack of the Mutant"
+        },
+        {
+          "name": "My Hairiest Adventure"
+        },
+        {
+          "name": "A Night in Terror Tower"
+        },
+        {
+          "name": "The Cuckoo Clock of Doom"
+        },
+        {
+          "name": "Monster Blood III",
+          "aliases": ["Monster Blood 3"]
+        },
+        {
+          "name": "It Came from Beneath the Sink!"
+        },
+        {
+          "name": "Night of the Living Dummy II",
+          "aliases": ["Night of the Living Dummy 2"]
+        },
+        {
+          "name": "The Barking Ghost"
+        },
+        {
+          "name": "The Horror at Camp Jellyjam"
+        },
+        {
+          "name": "Revenge of the Lawn Gnomes"
+        },
+        {
+          "name": "A Shocker on Shock Street"
+        },
+        {
+          "name": "The Haunted Mask II",
+          "aliases": ["The Haunted Mask 2"]
+        },
+        {
+          "name": "The Headless Ghost"
+        },
+        {
+          "name": "The Abominable Snowman of Pasadena"
+        },
+        {
+          "name": "How I Got My Shrunken Head"
+        },
+        {
+          "name": "Night of the Living Dummy III",
+          "aliases": ["Night of the Living Dummy 3"]
+        },
+        {
+          "name": "Bad Hare Day"
+        },
+        {
+          "name": "Egg Monsters from Mars"
+        },
+        {
+          "name": "The Beast from the East"
+        },
+        {
+          "name": "Say Cheese and Die—Again!"
+        },
+        {
+          "name": "Ghost Camp"
+        },
+        {
+          "name": "How to Kill a Monster"
+        },
+        {
+          "name": "Legend of the Lost Legend"
+        },
+        {
+          "name": "Attack of the Jack-O'-Lanterns"
+        },
+        {
+          "name": "Vampire Breath"
+        },
+        {
+          "name": "Calling All Creeps!"
+        },
+        {
+          "name": "Beware, the Snowman"
+        },
+        {
+          "name": "How I Learned to Fly"
+        },
+        {
+          "name": "Chicken Chicken"
+        },
+        {
+          "name": "Don't Go to Sleep!"
+        },
+        {
+          "name": "The Blob That Ate Everyone"
+        },
+        {
+          "name": "The Curse of Camp Cold Lake"
+        },
+        {
+          "name": "My Best Friend Is Invisible"
+        },
+        {
+          "name": "Deep Trouble II",
+          "aliases": ["Deep Trouble 2"]
+        },
+        {
+          "name": "The Haunted School"
+        },
+        {
+          "name": "Werewolf Skin"
+        },
+        {
+          "name": "I Live in Your Basement!"
+        },
+        {
+          "name": "Monster Blood IV",
+          "aliases": ["Monster Blood 4"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Goosebumps books",
+          "revision": 1384330895,
+          "members": [
+            "Welcome to Dead House",
+            "Stay Out of the Basement",
+            "Monster Blood",
+            "Say Cheese and Die!",
+            "The Curse of the Mummy's Tomb",
+            "Let's Get Invisible",
+            "Night of the Living Dummy",
+            "The Girl Who Cried Monster",
+            "Welcome to Camp Nightmare",
+            "The Ghost Next Door",
+            "The Haunted Mask",
+            "Be Careful What You Wish For...",
+            "Piano Lessons Can Be Murder",
+            "The Werewolf of Fever Swamp",
+            "You Can't Scare Me!",
+            "One Day at HorrorLand",
+            "Why I'm Afraid of Bees",
+            "Monster Blood II",
+            "Deep Trouble",
+            "The Scarecrow Walks at Midnight",
+            "Go Eat Worms!",
+            "Ghost Beach",
+            "Return of the Mummy",
+            "Phantom of the Auditorium",
+            "Attack of the Mutant",
+            "My Hairiest Adventure",
+            "A Night in Terror Tower",
+            "The Cuckoo Clock of Doom",
+            "Monster Blood III",
+            "It Came from Beneath the Sink!",
+            "Night of the Living Dummy II",
+            "The Barking Ghost",
+            "The Horror at Camp Jellyjam",
+            "Revenge of the Lawn Gnomes",
+            "A Shocker on Shock Street",
+            "The Haunted Mask II",
+            "The Headless Ghost",
+            "The Abominable Snowman of Pasadena",
+            "How I Got My Shrunken Head",
+            "Night of the Living Dummy III",
+            "Bad Hare Day",
+            "Egg Monsters from Mars",
+            "The Beast from the East",
+            "Say Cheese and Die—Again!",
+            "Ghost Camp",
+            "How to Kill a Monster",
+            "Legend of the Lost Legend",
+            "Attack of the Jack-O'-Lanterns",
+            "Vampire Breath",
+            "Calling All Creeps!",
+            "Beware, the Snowman",
+            "How I Learned to Fly",
+            "Chicken Chicken",
+            "Don't Go to Sleep!",
+            "The Blob That Ate Everyone",
+            "The Curse of Camp Cold Lake",
+            "My Best Friend Is Invisible",
+            "Deep Trouble II",
+            "The Haunted School",
+            "Werewolf Skin",
+            "I Live in Your Basement!",
+            "Monster Blood IV"
+          ],
+          "expect": [62, 62],
+          "reviewed": [
+            "Welcome to Dead House",
+            "Stay Out of the Basement",
+            "Monster Blood",
+            "Say Cheese and Die!",
+            "The Curse of the Mummy's Tomb",
+            "Let's Get Invisible",
+            "Night of the Living Dummy",
+            "The Girl Who Cried Monster",
+            "Welcome to Camp Nightmare",
+            "The Ghost Next Door",
+            "The Haunted Mask",
+            "Be Careful What You Wish For...",
+            "Piano Lessons Can Be Murder",
+            "The Werewolf of Fever Swamp",
+            "You Can't Scare Me!",
+            "One Day at HorrorLand",
+            "Why I'm Afraid of Bees",
+            "Monster Blood II",
+            "Deep Trouble",
+            "The Scarecrow Walks at Midnight",
+            "Go Eat Worms!",
+            "Ghost Beach",
+            "Return of the Mummy",
+            "Phantom of the Auditorium",
+            "Attack of the Mutant",
+            "My Hairiest Adventure",
+            "A Night in Terror Tower",
+            "The Cuckoo Clock of Doom",
+            "Monster Blood III",
+            "It Came from Beneath the Sink!",
+            "Night of the Living Dummy II",
+            "The Barking Ghost",
+            "The Horror at Camp Jellyjam",
+            "Revenge of the Lawn Gnomes",
+            "A Shocker on Shock Street",
+            "The Haunted Mask II",
+            "The Headless Ghost",
+            "The Abominable Snowman of Pasadena",
+            "How I Got My Shrunken Head",
+            "Night of the Living Dummy III",
+            "Bad Hare Day",
+            "Egg Monsters from Mars",
+            "The Beast from the East",
+            "Say Cheese and Die—Again!",
+            "Ghost Camp",
+            "How to Kill a Monster",
+            "Legend of the Lost Legend",
+            "Attack of the Jack-O'-Lanterns",
+            "Vampire Breath",
+            "Calling All Creeps!",
+            "Beware, the Snowman",
+            "How I Learned to Fly",
+            "Chicken Chicken",
+            "Don't Go to Sleep!",
+            "The Blob That Ate Everyone",
+            "The Curse of Camp Cold Lake",
+            "My Best Friend Is Invisible",
+            "Deep Trouble II",
+            "The Haunted School",
+            "Werewolf Skin",
+            "I Live in Your Basement!",
+            "Monster Blood IV"
+          ]
+        }
+      ],
+      "expect": [62, 62],
+      "surface": [
+        "Welcome to Dead House",
+        "Night of the Living Dummy",
+        "The Haunted Mask",
+        "Monster Blood"
+      ],
+      "pearl": "Monster Blood IV",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "star-trek-series",
+      "text": "a Star Trek television series",
+      "theme": "tv",
+      "cluster": "star-trek",
+      "answers": [
+        {
+          "name": "The Original Series",
+          "aliases": ["Star Trek", "TOS", "Star Trek The Original Series"]
+        },
+        {
+          "name": "The Animated Series",
+          "aliases": ["TAS", "Star Trek The Animated Series"]
+        },
+        {
+          "name": "The Next Generation",
+          "aliases": ["TNG", "Star Trek The Next Generation"]
+        },
+        {
+          "name": "Deep Space Nine",
+          "aliases": ["Deep Space 9", "DS9", "Star Trek Deep Space Nine"]
+        },
+        {
+          "name": "Voyager",
+          "aliases": ["VOY", "Star Trek Voyager"]
+        },
+        {
+          "name": "Enterprise",
+          "aliases": ["ENT", "Star Trek Enterprise"]
+        },
+        {
+          "name": "Discovery",
+          "aliases": ["DIS", "DISCO", "DSC", "Star Trek Discovery"]
+        },
+        {
+          "name": "Short Treks",
+          "aliases": ["ST", "Star Trek Short Treks"]
+        },
+        {
+          "name": "Picard",
+          "aliases": ["PIC", "Star Trek Picard"]
+        },
+        {
+          "name": "Lower Decks",
+          "aliases": ["LD", "LDS", "Star Trek Lower Decks"]
+        },
+        {
+          "name": "Prodigy",
+          "aliases": ["PRO", "Star Trek Prodigy"]
+        },
+        {
+          "name": "Strange New Worlds",
+          "aliases": ["SNW", "Star Trek Strange New Worlds"]
+        },
+        {
+          "name": "Starfleet Academy",
+          "aliases": ["SFA", "Star Trek Starfleet Academy"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Star Trek",
+          "revision": 1384087417,
+          "members": [
+            "The Original Series",
+            "The Animated Series",
+            "The Next Generation",
+            "Deep Space Nine",
+            "Voyager",
+            "Enterprise",
+            "Discovery",
+            "Short Treks",
+            "Picard",
+            "Lower Decks",
+            "Prodigy",
+            "Strange New Worlds",
+            "Starfleet Academy"
+          ],
+          "expect": [13, 13],
+          "reviewed": [
+            "The Original Series",
+            "The Animated Series",
+            "The Next Generation",
+            "Deep Space Nine",
+            "Voyager",
+            "Enterprise",
+            "Discovery",
+            "Short Treks",
+            "Picard",
+            "Lower Decks",
+            "Prodigy",
+            "Strange New Worlds",
+            "Starfleet Academy"
+          ]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["The Original Series", "The Next Generation", "Voyager"],
+      "pearl": "Short Treks",
+      "active": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "survivor-us-winners",
+      "text": "a winner of the US version of Survivor",
+      "theme": "tv",
+      "cluster": "reality",
+      "answers": [
+        {
+          "name": "Richard Hatch"
+        },
+        {
+          "name": "Tina Wesson"
+        },
+        {
+          "name": "Ethan Zohn"
+        },
+        {
+          "name": "Vecepia Towery",
+          "aliases": ["Vecepia"]
+        },
+        {
+          "name": "Brian Heidik"
+        },
+        {
+          "name": "Jenna Morasca"
+        },
+        {
+          "name": "Sandra Diaz-Twine",
+          "aliases": ["Sandra"]
+        },
+        {
+          "name": "Amber Brkich",
+          "aliases": ["Amber Mariano"]
+        },
+        {
+          "name": "Chris Daugherty"
+        },
+        {
+          "name": "Tom Westman"
+        },
+        {
+          "name": "Danni Boatwright"
+        },
+        {
+          "name": "Aras Baskauskas"
+        },
+        {
+          "name": "Yul Kwon"
+        },
+        {
+          "name": "Earl Cole"
+        },
+        {
+          "name": "Todd Herzog"
+        },
+        {
+          "name": "Parvati Shallow",
+          "aliases": ["Parvati"]
+        },
+        {
+          "name": "Robert \"Bob\" Crowley",
+          "aliases": ["Bob Crowley", "Bob"]
+        },
+        {
+          "name": "James \"J.T.\" Thomas Jr.",
+          "aliases": ["JT Thomas", "James Thomas", "JT", "James Thomas Jr"]
+        },
+        {
+          "name": "Natalie White"
+        },
+        {
+          "name": "Jud \"Fabio\" Birza",
+          "aliases": ["Fabio", "Jud Birza"]
+        },
+        {
+          "name": "Rob Mariano",
+          "aliases": ["Boston Rob"]
+        },
+        {
+          "name": "Sophie Clarke"
+        },
+        {
+          "name": "Kim Spradlin"
+        },
+        {
+          "name": "Denise Stapley"
+        },
+        {
+          "name": "John Cochran"
+        },
+        {
+          "name": "Tyson Apostol"
+        },
+        {
+          "name": "Tony Vlachos"
+        },
+        {
+          "name": "Natalie Anderson"
+        },
+        {
+          "name": "Mike Holloway"
+        },
+        {
+          "name": "Jeremy Collins"
+        },
+        {
+          "name": "Michele Fitzgerald"
+        },
+        {
+          "name": "Adam Klein"
+        },
+        {
+          "name": "Sarah Lacina"
+        },
+        {
+          "name": "Ben Driebergen"
+        },
+        {
+          "name": "Wendell Holland"
+        },
+        {
+          "name": "Nick Wilson"
+        },
+        {
+          "name": "Chris Underwood"
+        },
+        {
+          "name": "Tommy Sheehan"
+        },
+        {
+          "name": "Erika Casupanan"
+        },
+        {
+          "name": "Maryanne Oketch"
+        },
+        {
+          "name": "Mike Gabler"
+        },
+        {
+          "name": "Yamil \"Yam Yam\" Arocho",
+          "aliases": ["Yam Yam", "Yamil Arocho"]
+        },
+        {
+          "name": "Dee Valladares"
+        },
+        {
+          "name": "Kenzie Petty"
+        },
+        {
+          "name": "Rachel LaMont"
+        },
+        {
+          "name": "Kyle Fraser"
+        },
+        {
+          "name": "Savannah Louie"
+        },
+        {
+          "name": "Aubry Bracco"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Survivor (American TV series)",
+          "revision": 1384429077,
+          "members": [
+            "Richard Hatch",
+            "Tina Wesson",
+            "Ethan Zohn",
+            "Vecepia Towery",
+            "Brian Heidik",
+            "Jenna Morasca",
+            "Sandra Diaz-Twine",
+            "Amber Brkich",
+            "Chris Daugherty",
+            "Tom Westman",
+            "Danni Boatwright",
+            "Aras Baskauskas",
+            "Yul Kwon",
+            "Earl Cole",
+            "Todd Herzog",
+            "Parvati Shallow",
+            "Robert \"Bob\" Crowley",
+            "James \"J.T.\" Thomas Jr.",
+            "Natalie White",
+            "Jud \"Fabio\" Birza",
+            "Rob Mariano",
+            "Sophie Clarke",
+            "Kim Spradlin",
+            "Denise Stapley",
+            "John Cochran",
+            "Tyson Apostol",
+            "Tony Vlachos",
+            "Natalie Anderson",
+            "Mike Holloway",
+            "Jeremy Collins",
+            "Michele Fitzgerald",
+            "Adam Klein",
+            "Sarah Lacina",
+            "Ben Driebergen",
+            "Wendell Holland",
+            "Nick Wilson",
+            "Chris Underwood",
+            "Tommy Sheehan",
+            "Erika Casupanan",
+            "Maryanne Oketch",
+            "Mike Gabler",
+            "Yamil \"Yam Yam\" Arocho",
+            "Dee Valladares",
+            "Kenzie Petty",
+            "Rachel LaMont",
+            "Kyle Fraser",
+            "Savannah Louie",
+            "Aubry Bracco"
+          ],
+          "expect": [48, 48],
+          "reviewed": [
+            "Richard Hatch",
+            "Tina Wesson",
+            "Ethan Zohn",
+            "Vecepia Towery",
+            "Brian Heidik",
+            "Jenna Morasca",
+            "Sandra Diaz-Twine",
+            "Amber Brkich",
+            "Chris Daugherty",
+            "Tom Westman",
+            "Danni Boatwright",
+            "Aras Baskauskas",
+            "Yul Kwon",
+            "Earl Cole",
+            "Todd Herzog",
+            "Parvati Shallow",
+            "Robert \"Bob\" Crowley",
+            "James \"J.T.\" Thomas Jr.",
+            "Natalie White",
+            "Jud \"Fabio\" Birza",
+            "Rob Mariano",
+            "Sophie Clarke",
+            "Kim Spradlin",
+            "Denise Stapley",
+            "John Cochran",
+            "Tyson Apostol",
+            "Tony Vlachos",
+            "Natalie Anderson",
+            "Mike Holloway",
+            "Jeremy Collins",
+            "Michele Fitzgerald",
+            "Adam Klein",
+            "Sarah Lacina",
+            "Ben Driebergen",
+            "Wendell Holland",
+            "Nick Wilson",
+            "Chris Underwood",
+            "Tommy Sheehan",
+            "Erika Casupanan",
+            "Maryanne Oketch",
+            "Mike Gabler",
+            "Yamil \"Yam Yam\" Arocho",
+            "Dee Valladares",
+            "Kenzie Petty",
+            "Rachel LaMont",
+            "Kyle Fraser",
+            "Savannah Louie",
+            "Aubry Bracco"
+          ]
+        }
+      ],
+      "expect": [48, 48],
+      "surface": ["Richard Hatch", "Sandra Diaz-Twine", "Rob Mariano", "Parvati Shallow"],
+      "pearl": "Vecepia Towery",
+      "active": true,
+      "people": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "us-rupaul-winners",
+      "text": "a winner of the main US RuPaul's Drag Race series",
+      "theme": "tv",
+      "cluster": "reality",
+      "answers": [
+        {
+          "name": "BeBe Zahara Benet",
+          "aliases": ["Bebe"]
+        },
+        {
+          "name": "Tyra Sanchez",
+          "aliases": ["Tyra"]
+        },
+        {
+          "name": "Raja"
+        },
+        {
+          "name": "Sharon Needles",
+          "aliases": ["Sharon"]
+        },
+        {
+          "name": "Jinkx Monsoon",
+          "aliases": ["Jinkx"]
+        },
+        {
+          "name": "Bianca Del Rio",
+          "aliases": ["Bianca"]
+        },
+        {
+          "name": "Violet Chachki",
+          "aliases": ["Violet"]
+        },
+        {
+          "name": "Bob the Drag Queen",
+          "aliases": ["Bob"]
+        },
+        {
+          "name": "Sasha Velour",
+          "aliases": ["Velour"]
+        },
+        {
+          "name": "Aquaria"
+        },
+        {
+          "name": "Yvie Oddly",
+          "aliases": ["Yvie"]
+        },
+        {
+          "name": "Jaida Essence Hall",
+          "aliases": ["Jaida"]
+        },
+        {
+          "name": "Symone"
+        },
+        {
+          "name": "Willow Pill",
+          "aliases": ["Willow"]
+        },
+        {
+          "name": "Sasha Colby",
+          "aliases": ["Colby"]
+        },
+        {
+          "name": "Nymphia Wind",
+          "aliases": ["Nymphia"]
+        },
+        {
+          "name": "Onya Nurve",
+          "aliases": ["Onya"]
+        },
+        {
+          "name": "Myki Meeks",
+          "aliases": ["Myki"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "RuPaul's Drag Race",
+          "revision": 1383550360,
+          "members": [
+            "BeBe Zahara Benet",
+            "Tyra Sanchez",
+            "Raja",
+            "Sharon Needles",
+            "Jinkx Monsoon",
+            "Bianca Del Rio",
+            "Violet Chachki",
+            "Bob the Drag Queen",
+            "Sasha Velour",
+            "Aquaria",
+            "Yvie Oddly",
+            "Jaida Essence Hall",
+            "Symone",
+            "Willow Pill",
+            "Sasha Colby",
+            "Nymphia Wind",
+            "Onya Nurve",
+            "Myki Meeks"
+          ],
+          "expect": [18, 18],
+          "reviewed": [
+            "BeBe Zahara Benet",
+            "Tyra Sanchez",
+            "Raja",
+            "Sharon Needles",
+            "Jinkx Monsoon",
+            "Bianca Del Rio",
+            "Violet Chachki",
+            "Bob the Drag Queen",
+            "Sasha Velour",
+            "Aquaria",
+            "Yvie Oddly",
+            "Jaida Essence Hall",
+            "Symone",
+            "Willow Pill",
+            "Sasha Colby",
+            "Nymphia Wind",
+            "Onya Nurve",
+            "Myki Meeks"
+          ]
+        }
+      ],
+      "expect": [18, 18],
+      "surface": ["Bianca Del Rio", "Bob the Drag Queen", "Jinkx Monsoon"],
+      "pearl": "BeBe Zahara Benet",
+      "active": true,
+      "scope": "Main US seasons only; All Stars, international franchises and spin-offs excluded.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "top-chef-us-winners",
+      "text": "a winner of the US version of Top Chef",
+      "theme": "tv",
+      "cluster": "reality",
+      "answers": [
+        {
+          "name": "Harold Dieterle",
+          "aliases": ["Harold"]
+        },
+        {
+          "name": "Ilan Hall",
+          "aliases": ["Ilan"]
+        },
+        {
+          "name": "Hung Huynh",
+          "aliases": ["Hung"]
+        },
+        {
+          "name": "Stephanie Izard",
+          "aliases": ["Stephanie"]
+        },
+        {
+          "name": "Hosea Rosenberg",
+          "aliases": ["Hosea"]
+        },
+        {
+          "name": "Michael Voltaggio",
+          "aliases": ["Michael"]
+        },
+        {
+          "name": "Kevin Sbraga",
+          "aliases": ["Kevin"]
+        },
+        {
+          "name": "Richard Blais",
+          "aliases": ["Richard"]
+        },
+        {
+          "name": "Paul Qui",
+          "aliases": ["Paul"]
+        },
+        {
+          "name": "Kristen Kish",
+          "aliases": ["Kristen"]
+        },
+        {
+          "name": "Nicholas Elmi",
+          "aliases": ["Nicholas"]
+        },
+        {
+          "name": "Mei Lin",
+          "aliases": ["Mei"]
+        },
+        {
+          "name": "Jeremy Ford",
+          "aliases": ["Jeremy"]
+        },
+        {
+          "name": "Brooke Williamson",
+          "aliases": ["Brooke"]
+        },
+        {
+          "name": "Joe Flamm",
+          "aliases": ["Joe"]
+        },
+        {
+          "name": "Kelsey Barnard Clark",
+          "aliases": ["Kelsey"]
+        },
+        {
+          "name": "Melissa King",
+          "aliases": ["Melissa"]
+        },
+        {
+          "name": "Gabe Erales",
+          "aliases": ["Gabe"]
+        },
+        {
+          "name": "Buddha Lo",
+          "aliases": ["Buddha"]
+        },
+        {
+          "name": "Danny Garcia",
+          "aliases": ["Danny"]
+        },
+        {
+          "name": "Tristen Epps-Long",
+          "aliases": ["Tristen"]
+        },
+        {
+          "name": "Rhoda Magbitang",
+          "aliases": ["Rhoda"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Top Chef",
+          "revision": 1380976841,
+          "members": [
+            "Harold Dieterle",
+            "Ilan Hall",
+            "Hung Huynh",
+            "Stephanie Izard",
+            "Hosea Rosenberg",
+            "Michael Voltaggio",
+            "Kevin Sbraga",
+            "Richard Blais",
+            "Paul Qui",
+            "Kristen Kish",
+            "Nicholas Elmi",
+            "Mei Lin",
+            "Jeremy Ford",
+            "Brooke Williamson",
+            "Joe Flamm",
+            "Kelsey Barnard Clark",
+            "Melissa King",
+            "Gabe Erales",
+            "Buddha Lo",
+            "Danny Garcia",
+            "Tristen Epps-Long",
+            "Rhoda Magbitang"
+          ],
+          "expect": [22, 22],
+          "reviewed": [
+            "Harold Dieterle",
+            "Ilan Hall",
+            "Hung Huynh",
+            "Stephanie Izard",
+            "Hosea Rosenberg",
+            "Michael Voltaggio",
+            "Kevin Sbraga",
+            "Richard Blais",
+            "Paul Qui",
+            "Kristen Kish",
+            "Nicholas Elmi",
+            "Mei Lin",
+            "Jeremy Ford",
+            "Brooke Williamson",
+            "Joe Flamm",
+            "Kelsey Barnard Clark",
+            "Melissa King",
+            "Gabe Erales",
+            "Buddha Lo",
+            "Danny Garcia",
+            "Tristen Epps-Long",
+            "Rhoda Magbitang"
+          ]
+        }
+      ],
+      "expect": [22, 22],
+      "surface": ["Stephanie Izard", "Kristen Kish", "Richard Blais"],
+      "pearl": "Kevin Sbraga",
+      "active": true,
+      "people": true,
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "nathans-hot-dog-champions",
+      "text": "a Nathan's Hot Dog Eating Contest champion",
+      "theme": "food",
+      "cluster": "eating-contests",
+      "answers": [
+        {
+          "name": "Joey Chestnut",
+          "aliases": ["Joey"]
+        },
+        {
+          "name": "Miki Sudo",
+          "aliases": ["Miki"]
+        },
+        {
+          "name": "Takeru Kobayashi",
+          "aliases": ["Takeru"]
+        },
+        {
+          "name": "Mike DeVito",
+          "aliases": ["Mike"]
+        },
+        {
+          "name": "Jay Green",
+          "aliases": ["Jay"]
+        },
+        {
+          "name": "Hirofumi Nakajima",
+          "aliases": ["Hirofumi"]
+        },
+        {
+          "name": "Sonya Thomas",
+          "aliases": ["Sonya", "The Black Widow"]
+        },
+        {
+          "name": "Frankie Dellarosa",
+          "aliases": ["Frank Dellarosa", "Frankie"]
+        },
+        {
+          "name": "Ed Krachie",
+          "aliases": ["Ed"]
+        },
+        {
+          "name": "Walter Paul",
+          "aliases": ["Walter"]
+        },
+        {
+          "name": "Steven Abrams",
+          "aliases": ["Steven"]
+        },
+        {
+          "name": "Melody Andorfer",
+          "aliases": ["Melody"]
+        },
+        {
+          "name": "Kazutoyo Arai",
+          "aliases": ["Kazutoyo"]
+        },
+        {
+          "name": "Joe Baldini",
+          "aliases": ["Joe"]
+        },
+        {
+          "name": "Patrick Bertoletti",
+          "aliases": ["Patrick", "Pat Bertoletti"]
+        },
+        {
+          "name": "Lonnie Brown",
+          "aliases": ["Lonnie"]
+        },
+        {
+          "name": "John Connolly",
+          "aliases": ["John"]
+        },
+        {
+          "name": "Thomas DeBerry"
+        },
+        {
+          "name": "Birgit Felden",
+          "aliases": ["Birgit"]
+        },
+        {
+          "name": "Luther Frazier",
+          "aliases": ["Luther"]
+        },
+        {
+          "name": "Emil Gomez",
+          "aliases": ["Emil"]
+        },
+        {
+          "name": "Mark Heller",
+          "aliases": ["Mark"]
+        },
+        {
+          "name": "Manel Hollenback",
+          "aliases": ["Manel"]
+        },
+        {
+          "name": "Steve Keiner",
+          "aliases": ["Steve"]
+        },
+        {
+          "name": "Michelle Lesco",
+          "aliases": ["Michelle"]
+        },
+        {
+          "name": "Jim Mattner",
+          "aliases": ["Jim"]
+        },
+        {
+          "name": "Roberto Muriel",
+          "aliases": ["Roberto"]
+        },
+        {
+          "name": "Oscar Rodriguez",
+          "aliases": ["Oscar"]
+        },
+        {
+          "name": "Jason Schechter",
+          "aliases": ["Jason"]
+        },
+        {
+          "name": "Paul Siederman"
+        },
+        {
+          "name": "Kevin Sinclair",
+          "aliases": ["Kevin"]
+        },
+        {
+          "name": "Paul Sirop"
+        },
+        {
+          "name": "Sharlene Smith",
+          "aliases": ["Sharlene"]
+        },
+        {
+          "name": "Matt Stonie",
+          "aliases": ["Matt"]
+        },
+        {
+          "name": "Hiroaki Tominaga",
+          "aliases": ["Hiroaki"]
+        },
+        {
+          "name": "Don Wolfman",
+          "aliases": ["Don"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Nathan's Hot Dog Eating Contest",
+          "revision": 1384393046,
+          "members": [
+            "Joey Chestnut",
+            "Miki Sudo",
+            "Takeru Kobayashi",
+            "Mike DeVito",
+            "Jay Green",
+            "Hirofumi Nakajima",
+            "Sonya Thomas",
+            "Frankie Dellarosa",
+            "Ed Krachie",
+            "Walter Paul",
+            "Steven Abrams",
+            "Melody Andorfer",
+            "Kazutoyo Arai",
+            "Joe Baldini",
+            "Patrick Bertoletti",
+            "Lonnie Brown",
+            "John Connolly",
+            "Thomas DeBerry",
+            "Birgit Felden",
+            "Luther Frazier",
+            "Emil Gomez",
+            "Mark Heller",
+            "Manel Hollenback",
+            "Steve Keiner",
+            "Michelle Lesco",
+            "Jim Mattner",
+            "Roberto Muriel",
+            "Oscar Rodriguez",
+            "Jason Schechter",
+            "Paul Siederman",
+            "Kevin Sinclair",
+            "Paul Sirop",
+            "Sharlene Smith",
+            "Matt Stonie",
+            "Hiroaki Tominaga",
+            "Don Wolfman"
+          ],
+          "expect": [36, 36],
+          "reviewed": [
+            "Joey Chestnut",
+            "Miki Sudo",
+            "Takeru Kobayashi",
+            "Mike DeVito",
+            "Jay Green",
+            "Hirofumi Nakajima",
+            "Sonya Thomas",
+            "Frankie Dellarosa",
+            "Ed Krachie",
+            "Walter Paul",
+            "Steven Abrams",
+            "Melody Andorfer",
+            "Kazutoyo Arai",
+            "Joe Baldini",
+            "Patrick Bertoletti",
+            "Lonnie Brown",
+            "John Connolly",
+            "Thomas DeBerry",
+            "Birgit Felden",
+            "Luther Frazier",
+            "Emil Gomez",
+            "Mark Heller",
+            "Manel Hollenback",
+            "Steve Keiner",
+            "Michelle Lesco",
+            "Jim Mattner",
+            "Roberto Muriel",
+            "Oscar Rodriguez",
+            "Jason Schechter",
+            "Paul Siederman",
+            "Kevin Sinclair",
+            "Paul Sirop",
+            "Sharlene Smith",
+            "Matt Stonie",
+            "Hiroaki Tominaga",
+            "Don Wolfman"
+          ]
+        }
+      ],
+      "expect": [36, 36],
+      "surface": ["Joey Chestnut", "Takeru Kobayashi", "Miki Sudo"],
+      "pearl": "Melody Andorfer",
+      "active": true,
+      "people": true,
+      "scope": "All 36 named champions in the complete titles table, including women, ties, early contests and documented one-on-one challenges. Excludes the unidentifiable 1973 winner and the debunked 1916 origin story.",
+      "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

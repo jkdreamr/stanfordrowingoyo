@@ -55,6 +55,8 @@ def dataset(url, sha256, format):
         return list(csv.DictReader(io.StringIO(data)))
     if format == 'json':
         return json.loads(data)
+    if format == 'lines':
+        return [line.strip() for line in data.splitlines() if line.strip()]
     raise ValueError(f'Unsupported dataset format: {format}')
 
 

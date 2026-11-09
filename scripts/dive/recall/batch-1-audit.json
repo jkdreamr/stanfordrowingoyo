@@ -1,0 +1,1388 @@
+{
+  "baseline_sha256": "03c5d365f1f14a5dc0e2013b71fe1f0c153d89e41c5c818f537af0334004405c",
+  "corpus_sha256": "fc1682aa8e95fdf3a34c0ca48909210a82e37dfdde9696dfbe0f140a2e4c60f9",
+  "gzip_method": "Standalone generated module, gzip level 6, mtime 0; not additive whole-Worker marginal size.",
+  "prompts": [
+    {
+      "after": {
+        "constrained": true,
+        "hits": 38,
+        "id": "vermeer-paintings",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a painting attributed to Johannes Vermeer.",
+        "total": 38
+      },
+      "aliases": 18,
+      "before": {
+        "constrained": true,
+        "hits": 31,
+        "id": "vermeer-paintings",
+        "invalid": [],
+        "misses": [
+          "Girl with the Pearl Earring",
+          "The Art of Painting",
+          "Art of Painting",
+          "Woman with a Balance",
+          "Woman in Blue Reading a Letter",
+          "The Glass of Wine",
+          "Glass of Wine"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.8157894736842105,
+        "text": "Name a painting attributed to Johannes Vermeer.",
+        "total": 38
+      },
+      "cluster": "painters",
+      "gzip_bytes": 1288,
+      "id": "vermeer-paintings",
+      "size": 37,
+      "text": "Name a painting attributed to Johannes Vermeer.",
+      "theme": "art"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 39,
+        "id": "pritzker-architects",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an architect who has won the Pritzker Prize.",
+        "total": 39
+      },
+      "aliases": 68,
+      "before": {
+        "constrained": true,
+        "hits": 35,
+        "id": "pritzker-architects",
+        "invalid": [],
+        "misses": ["IM Pei", "Balkrishna Doshi", "Liu", "Francis Kere"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.8974358974358975,
+        "text": "Name an architect who has won the Pritzker Prize.",
+        "total": 39
+      },
+      "cluster": "architecture",
+      "gzip_bytes": 1689,
+      "id": "pritzker-architects",
+      "size": 55,
+      "text": "Name an architect who has won the Pritzker Prize.",
+      "theme": "art"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 35,
+        "id": "smithsonian-museums",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Smithsonian museum, gallery or zoo.",
+        "total": 35
+      },
+      "aliases": 35,
+      "before": {
+        "constrained": true,
+        "hits": 12,
+        "id": "smithsonian-museums",
+        "invalid": [],
+        "misses": [
+          "Air and Space Museum",
+          "Air and Space",
+          "Natural History Museum",
+          "American History Museum",
+          "NMAAHC",
+          "American Indian Museum",
+          "Portrait Gallery",
+          "American Art Museum",
+          "SAAM",
+          "Hirshhorn Museum",
+          "Hirshhorn",
+          "Freer Gallery",
+          "Freer",
+          "Sackler Gallery",
+          "Sackler",
+          "National Museum of Asian Art",
+          "Asian Art Museum",
+          "Cooper Hewitt",
+          "Cooper Hewitt Design Museum",
+          "Postal Museum",
+          "Anacostia",
+          "Smithsonian Castle",
+          "National Zoo"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.34285714285714286,
+        "text": "Name a Smithsonian museum, gallery or zoo.",
+        "total": 35
+      },
+      "cluster": "museums",
+      "gzip_bytes": 1104,
+      "id": "smithsonian-museums",
+      "size": 22,
+      "text": "Name a Smithsonian museum, gallery or zoo.",
+      "theme": "art"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 25,
+        "id": "wright-unesco-buildings",
+        "invalid": [
+          {
+            "guess": "Imperial Hotel",
+            "invalid": "Not one of the eight buildings in Wright’s UNESCO inscription."
+          },
+          {
+            "guess": "Johnson Wax Building",
+            "invalid": "Not one of the eight buildings in Wright’s UNESCO inscription."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Frank Lloyd Wright building on the UNESCO World Heritage List.",
+        "total": 25
+      },
+      "aliases": 16,
+      "before": {
+        "constrained": true,
+        "hits": 10,
+        "id": "wright-unesco-buildings",
+        "invalid": [
+          {
+            "guess": "Imperial Hotel",
+            "invalid": "Not one of the eight buildings in Wright’s UNESCO inscription."
+          },
+          {
+            "guess": "Johnson Wax Building",
+            "invalid": "Not one of the eight buildings in Wright’s UNESCO inscription."
+          }
+        ],
+        "misses": [
+          "Falling Water",
+          "Kaufmann House",
+          "Kaufmann Residence",
+          "Guggenheim Museum",
+          "The Guggenheim",
+          "Oak Park Unity Temple",
+          "Robie House",
+          "Aline Barnsdall House",
+          "Barnsdall House",
+          "Jacobs House",
+          "Jacobs I",
+          "Jacobs First House",
+          "Taliesin East",
+          "Taliesin Spring Green",
+          "Scottsdale Taliesin"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.4,
+        "text": "Name a Frank Lloyd Wright building on the UNESCO World Heritage List.",
+        "total": 25
+      },
+      "cluster": "architecture",
+      "gzip_bytes": 590,
+      "id": "wright-unesco-buildings",
+      "size": 8,
+      "text": "Name a Frank Lloyd Wright building on the UNESCO World Heritage List.",
+      "theme": "art"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 27,
+        "id": "trappist-breweries",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a brewery that has made Trappist beer.",
+        "total": 27
+      },
+      "aliases": 28,
+      "before": {
+        "constrained": true,
+        "hits": 15,
+        "id": "trappist-breweries",
+        "invalid": [],
+        "misses": [
+          "Sint Sixtus",
+          "Saint Sixtus",
+          "Scourmont",
+          "Notre Dame de Saint Remy",
+          "Koningshoeven",
+          "Maria Toevlucht",
+          "St Josephs Abbey",
+          "Three Fountains",
+          "Stift Engelszell",
+          "Achelse Kluis",
+          "Mount Saint Bernard",
+          "Mont Saint Bernard"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.5555555555555556,
+        "text": "Name a brewery that has made Trappist beer.",
+        "total": 27
+      },
+      "cluster": "beer",
+      "gzip_bytes": 777,
+      "id": "trappist-breweries",
+      "size": 14,
+      "text": "Name a brewery that has made Trappist beer.",
+      "theme": "food"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 26,
+        "id": "girl-scout-cookies-2025",
+        "invalid": [
+          {
+            "guess": "Raspberry Rally",
+            "invalid": "Discontinued before the 2025 season."
+          },
+          {
+            "guess": "Savannah Smiles",
+            "invalid": "Retired before the 2025 season."
+          },
+          {
+            "guess": "Thanks A Lot",
+            "invalid": "Retired before the 2025 season."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Girl Scout cookie sold in 2025.",
+        "total": 26
+      },
+      "aliases": 7,
+      "before": {
+        "constrained": true,
+        "hits": 19,
+        "id": "girl-scout-cookies-2025",
+        "invalid": [
+          {
+            "guess": "Raspberry Rally",
+            "invalid": "Discontinued before the 2025 season."
+          },
+          {
+            "guess": "Savannah Smiles",
+            "invalid": "Retired before the 2025 season."
+          },
+          {
+            "guess": "Thanks A Lot",
+            "invalid": "Retired before the 2025 season."
+          }
+        ],
+        "misses": [
+          "Caramel deLites",
+          "Caramel Delights",
+          "Peanut Butter Patties",
+          "Peanut Butter Sandwich",
+          "Shortbread",
+          "S'mores",
+          "Smores"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.7307692307692307,
+        "text": "Name a Girl Scout cookie sold in 2025.",
+        "total": 26
+      },
+      "cluster": "cookies",
+      "gzip_bytes": 574,
+      "id": "girl-scout-cookies-2025",
+      "size": 12,
+      "text": "Name a Girl Scout cookie sold in 2025.",
+      "theme": "food"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 41,
+        "id": "tarot-major-arcana",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Major Arcana card in a tarot deck.",
+        "total": 41
+      },
+      "aliases": 11,
+      "before": {
+        "constrained": true,
+        "hits": 38,
+        "id": "tarot-major-arcana",
+        "invalid": [],
+        "misses": ["Judgment", "The Pope", "The Papess"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.926829268292683,
+        "text": "Name a Major Arcana card in a tarot deck.",
+        "total": 41
+      },
+      "cluster": "cards",
+      "gzip_bytes": 654,
+      "id": "tarot-major-arcana",
+      "size": 22,
+      "text": "Name a Major Arcana card in a tarot deck.",
+      "theme": "everyday"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 28,
+        "id": "us-federal-holidays",
+        "invalid": [
+          {
+            "guess": "Inauguration Day",
+            "invalid": "A regional quadrennial observance, not an annual federal holiday."
+          },
+          {
+            "guess": "Election Day",
+            "invalid": "Not a US federal holiday."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an annual US federal holiday.",
+        "total": 28
+      },
+      "aliases": 16,
+      "before": {
+        "constrained": true,
+        "hits": 13,
+        "id": "us-federal-holidays",
+        "invalid": [
+          {
+            "guess": "Inauguration Day",
+            "invalid": "A regional quadrennial observance, not an annual federal holiday."
+          },
+          {
+            "guess": "Election Day",
+            "invalid": "Not a US federal holiday."
+          }
+        ],
+        "misses": [
+          "New Year",
+          "Martin Luther King Jr Day",
+          "Martin Luther King Day",
+          "MLK Day",
+          "MLK",
+          "Presidents Day",
+          "President's Day",
+          "Decoration Day",
+          "Juneteenth",
+          "Fourth of July",
+          "July 4",
+          "Labour Day",
+          "Armistice Day",
+          "Thanksgiving",
+          "Christmas"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.4642857142857143,
+        "text": "Name an annual US federal holiday.",
+        "total": 28
+      },
+      "cluster": "calendar",
+      "gzip_bytes": 639,
+      "id": "us-federal-holidays",
+      "size": 11,
+      "text": "Name an annual US federal holiday.",
+      "theme": "everyday"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 22,
+        "id": "volkswagen-group-brands",
+        "invalid": [
+          {
+            "guess": "Bugatti",
+            "invalid": "Former group brand; no longer controlled by Volkswagen Group."
+          },
+          {
+            "guess": "Bugatti Rimac",
+            "invalid": "A joint venture not controlled by Volkswagen Group."
+          },
+          {
+            "guess": "Suzuki",
+            "invalid": "Not a Volkswagen Group brand; former minority stake was sold."
+          },
+          {
+            "guess": "Rolls Royce",
+            "invalid": "A BMW Group brand, not a Volkswagen Group brand."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a vehicle brand in Volkswagen Group.",
+        "total": 22
+      },
+      "aliases": 7,
+      "before": {
+        "constrained": true,
+        "hits": 15,
+        "id": "volkswagen-group-brands",
+        "invalid": [
+          {
+            "guess": "Bugatti",
+            "invalid": "Former group brand; no longer controlled by Volkswagen Group."
+          },
+          {
+            "guess": "Bugatti Rimac",
+            "invalid": "A joint venture not controlled by Volkswagen Group."
+          },
+          {
+            "guess": "Suzuki",
+            "invalid": "Not a Volkswagen Group brand; former minority stake was sold."
+          },
+          {
+            "guess": "Rolls Royce",
+            "invalid": "A BMW Group brand, not a Volkswagen Group brand."
+          }
+        ],
+        "misses": [
+          "VW",
+          "Lambo",
+          "VW Commercial Vehicles",
+          "VW Vans",
+          "MAN Truck and Bus",
+          "International Motors",
+          "Navistar"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6818181818181818,
+        "text": "Name a vehicle brand in Volkswagen Group.",
+        "total": 22
+      },
+      "cluster": "cars",
+      "gzip_bytes": 591,
+      "id": "volkswagen-group-brands",
+      "size": 17,
+      "text": "Name a vehicle brand in Volkswagen Group.",
+      "theme": "everyday"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 32,
+        "id": "css-named-colors",
+        "invalid": [
+          {
+            "guess": "transparent",
+            "invalid": "A special CSS keyword, not one of the named sRGB colors."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a named color in CSS.",
+        "total": 32
+      },
+      "aliases": 92,
+      "before": {
+        "constrained": true,
+        "hits": 31,
+        "id": "css-named-colors",
+        "invalid": [
+          {
+            "guess": "transparent",
+            "invalid": "A special CSS keyword, not one of the named sRGB colors."
+          }
+        ],
+        "misses": ["Rebecca purple"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.96875,
+        "text": "Name a named color in CSS.",
+        "total": 32
+      },
+      "cluster": "colors",
+      "gzip_bytes": 2406,
+      "id": "css-named-colors",
+      "size": 148,
+      "text": "Name a named color in CSS.",
+      "theme": "everyday"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 25,
+        "id": "disney-theme-parks",
+        "invalid": [
+          {
+            "guess": "Blizzard Beach",
+            "invalid": "A water park, not a theme park."
+          },
+          {
+            "guess": "Typhoon Lagoon",
+            "invalid": "A water park, not a theme park."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an operating Disney theme park.",
+        "total": 25
+      },
+      "aliases": 20,
+      "before": {
+        "constrained": true,
+        "hits": 10,
+        "id": "disney-theme-parks",
+        "invalid": [
+          {
+            "guess": "Blizzard Beach",
+            "invalid": "A water park, not a theme park."
+          },
+          {
+            "guess": "Typhoon Lagoon",
+            "invalid": "A water park, not a theme park."
+          }
+        ],
+        "misses": [
+          "EPCOT Center",
+          "Hollywood Studios",
+          "Disney Hollywood Studios",
+          "Disney MGM Studios",
+          "MGM Studios",
+          "Animal Kingdom",
+          "Disney Animal Kingdom",
+          "California Adventure",
+          "DCA",
+          "DisneySea",
+          "Disneyland Paris",
+          "Euro Disney",
+          "Euro Disneyland",
+          "Walt Disney Studios Park",
+          "Shanghai Disneyland Park"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.4,
+        "text": "Name an operating Disney theme park.",
+        "total": 25
+      },
+      "cluster": "disney",
+      "gzip_bytes": 654,
+      "id": "disney-theme-parks",
+      "size": 12,
+      "text": "Name an operating Disney theme park.",
+      "theme": "everyday"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 26,
+        "id": "magic-eight-ball-responses",
+        "invalid": [
+          {
+            "guess": "No",
+            "invalid": "Not one of the standard 20 printed responses."
+          },
+          {
+            "guess": "Maybe",
+            "invalid": "Not one of the standard 20 printed responses."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a standard Magic 8 Ball reply.",
+        "total": 26
+      },
+      "aliases": 6,
+      "before": {
+        "constrained": true,
+        "hits": 20,
+        "id": "magic-eight-ball-responses",
+        "invalid": [
+          {
+            "guess": "No",
+            "invalid": "Not one of the standard 20 printed responses."
+          },
+          {
+            "guess": "Maybe",
+            "invalid": "Not one of the standard 20 printed responses."
+          }
+        ],
+        "misses": [
+          "Certain",
+          "Decidedly so",
+          "Definitely",
+          "Reply hazy",
+          "Try again",
+          "Do not count on it"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.7692307692307693,
+        "text": "Name a standard Magic 8 Ball reply.",
+        "total": 26
+      },
+      "cluster": "toys",
+      "gzip_bytes": 702,
+      "id": "magic-eight-ball-responses",
+      "size": 20,
+      "text": "Name a standard Magic 8 Ball reply.",
+      "theme": "everyday"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 39,
+        "id": "egot-winners",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an EGOT winner.",
+        "total": 39
+      },
+      "aliases": 29,
+      "before": {
+        "constrained": true,
+        "hits": 36,
+        "id": "egot-winners",
+        "invalid": [],
+        "misses": ["Whoopi", "Elton", "Lloyd Webber"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.9230769230769231,
+        "text": "Name an EGOT winner.",
+        "total": 39
+      },
+      "cluster": "entertainment-awards",
+      "gzip_bytes": 952,
+      "id": "egot-winners",
+      "size": 28,
+      "text": "Name an EGOT winner.",
+      "theme": "music"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 43,
+        "id": "woodstock-1969-performers",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a musical act that performed at Woodstock in 1969.",
+        "total": 43
+      },
+      "aliases": 22,
+      "before": {
+        "constrained": true,
+        "hits": 31,
+        "id": "woodstock-1969-performers",
+        "invalid": [],
+        "misses": [
+          "Hendrix",
+          "Carlos Santana",
+          "Janis Joplin",
+          "Joplin",
+          "CSNY",
+          "Crosby Stills and Nash",
+          "Havens",
+          "Baez",
+          "Joe Cocker",
+          "Cocker",
+          "Sly",
+          "CCR"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.7209302325581395,
+        "text": "Name a musical act that performed at Woodstock in 1969.",
+        "total": 43
+      },
+      "cluster": "festivals",
+      "gzip_bytes": 1091,
+      "id": "woodstock-1969-performers",
+      "size": 32,
+      "text": "Name a musical act that performed at Woodstock in 1969.",
+      "theme": "music"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 29,
+        "id": "wu-tang-members",
+        "invalid": [
+          {
+            "guess": "Redman",
+            "invalid": "An affiliate, not a member of Wu-Tang Clan."
+          },
+          {
+            "guess": "Killah Priest",
+            "invalid": "An affiliate, not a member of Wu-Tang Clan."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a current or former member of Wu-Tang Clan.",
+        "total": 29
+      },
+      "aliases": 25,
+      "before": {
+        "constrained": true,
+        "hits": 12,
+        "id": "wu-tang-members",
+        "invalid": [
+          {
+            "guess": "Redman",
+            "invalid": "An affiliate, not a member of Wu-Tang Clan."
+          },
+          {
+            "guess": "Killah Priest",
+            "invalid": "An affiliate, not a member of Wu-Tang Clan."
+          }
+        ],
+        "misses": [
+          "Robert Diggs",
+          "Bobby Digital",
+          "Gary Grice",
+          "The Genius",
+          "Genius",
+          "ODB",
+          "Russell Jones",
+          "Clifford Smith",
+          "Johnny Blaze",
+          "Corey Woods",
+          "The Chef",
+          "Ghostface",
+          "Dennis Coles",
+          "Jason Hunter",
+          "Lamont Hawkins",
+          "Elgin Turner",
+          "Darryl Hill"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.41379310344827586,
+        "text": "Name a current or former member of Wu-Tang Clan.",
+        "total": 29
+      },
+      "cluster": "bands",
+      "gzip_bytes": 684,
+      "id": "wu-tang-members",
+      "size": 10,
+      "text": "Name a current or former member of Wu-Tang Clan.",
+      "theme": "music"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 41,
+        "id": "hamilton-songs",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a song in the musical Hamilton.",
+        "total": 41
+      },
+      "aliases": 3,
+      "before": {
+        "constrained": true,
+        "hits": 40,
+        "id": "hamilton-songs",
+        "invalid": [],
+        "misses": ["Yorktown"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.975609756097561,
+        "text": "Name a song in the musical Hamilton.",
+        "total": 41
+      },
+      "cluster": "musicals",
+      "gzip_bytes": 1431,
+      "id": "hamilton-songs",
+      "size": 47,
+      "text": "Name a song in the musical Hamilton.",
+      "theme": "music"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 25,
+        "id": "eminem-studio-albums",
+        "invalid": [
+          {
+            "guess": "Curtain Call",
+            "invalid": "A greatest-hits compilation, not a solo studio album."
+          },
+          {
+            "guess": "8 Mile",
+            "invalid": "A soundtrack, not an Eminem solo studio album."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an Eminem solo studio album.",
+        "total": 25
+      },
+      "aliases": 9,
+      "before": {
+        "constrained": true,
+        "hits": 16,
+        "id": "eminem-studio-albums",
+        "invalid": [
+          {
+            "guess": "Curtain Call",
+            "invalid": "A greatest-hits compilation, not a solo studio album."
+          },
+          {
+            "guess": "8 Mile",
+            "invalid": "A soundtrack, not an Eminem solo studio album."
+          }
+        ],
+        "misses": [
+          "SSLP",
+          "MMLP",
+          "TES",
+          "MMLP2",
+          "MTBMB",
+          "The Death of Slim Shady",
+          "Death of Slim Shady",
+          "Coup de Grace",
+          "TDOSS"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.64,
+        "text": "Name an Eminem solo studio album.",
+        "total": 25
+      },
+      "cluster": "artist-albums",
+      "gzip_bytes": 580,
+      "id": "eminem-studio-albums",
+      "size": 12,
+      "text": "Name an Eminem solo studio album.",
+      "theme": "music"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 26,
+        "id": "thorin-company-dwarves",
+        "invalid": [
+          {
+            "guess": "Dori son of Nori",
+            "invalid": "Nori is Dori’s brother, not his father."
+          },
+          {
+            "guess": "Bilbo",
+            "invalid": "A hobbit, not a dwarf."
+          },
+          {
+            "guess": "Gandalf",
+            "invalid": "A wizard, not a dwarf."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a dwarf in Thorin's company in The Hobbit.",
+        "total": 26
+      },
+      "aliases": 18,
+      "before": {
+        "constrained": true,
+        "hits": 17,
+        "id": "thorin-company-dwarves",
+        "invalid": [
+          {
+            "guess": "Dori son of Nori",
+            "invalid": "Nori is Dori’s brother, not his father."
+          },
+          {
+            "guess": "Bilbo",
+            "invalid": "A hobbit, not a dwarf."
+          },
+          {
+            "guess": "Gandalf",
+            "invalid": "A wizard, not a dwarf."
+          }
+        ],
+        "misses": [
+          "Thorin",
+          "Oakenshield",
+          "Balin son of Fundin",
+          "Dwalin son of Fundin",
+          "Nori the dwarf",
+          "Ori the dwarf",
+          "Bifur the dwarf",
+          "Bofur the dwarf",
+          "Bombur the dwarf"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6538461538461539,
+        "text": "Name a dwarf in Thorin's company in The Hobbit.",
+        "total": 26
+      },
+      "cluster": "tolkien",
+      "gzip_bytes": 532,
+      "id": "thorin-company-dwarves",
+      "size": 13,
+      "text": "Name a dwarf in Thorin's company in The Hobbit.",
+      "theme": "books"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 29,
+        "id": "oz-baum-books",
+        "invalid": [
+          {
+            "guess": "The Royal Book of Oz",
+            "invalid": "Written by Ruth Plumly Thompson, not one of Baum’s original Oz novels."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an Oz novel by L Frank Baum.",
+        "total": 29
+      },
+      "aliases": 4,
+      "before": {
+        "constrained": true,
+        "hits": 24,
+        "id": "oz-baum-books",
+        "invalid": [
+          {
+            "guess": "The Royal Book of Oz",
+            "invalid": "Written by Ruth Plumly Thompson, not one of Baum’s original Oz novels."
+          }
+        ],
+        "misses": [
+          "The Wizard of Oz",
+          "Wizard of Oz",
+          "The Land of Oz",
+          "Land of Oz",
+          "Dorothy and the Wizard"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.8275862068965517,
+        "text": "Name one of L. Frank Baum's original Oz novels.",
+        "total": 29
+      },
+      "cluster": "oz",
+      "gzip_bytes": 587,
+      "id": "oz-baum-books",
+      "size": 14,
+      "text": "Name an Oz novel by L Frank Baum.",
+      "theme": "books"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "goosebumps-original-books",
+        "invalid": [
+          {
+            "guess": "The Werewolf of Twisted Tree Lodge",
+            "invalid": "Goosebumps Series 2000, not the original 62-book series."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a book in the original Goosebumps series.",
+        "total": 30
+      },
+      "aliases": 8,
+      "before": {
+        "constrained": true,
+        "hits": 28,
+        "id": "goosebumps-original-books",
+        "invalid": [
+          {
+            "guess": "The Werewolf of Twisted Tree Lodge",
+            "invalid": "Goosebumps Series 2000, not the original 62-book series."
+          }
+        ],
+        "misses": ["Horrorland", "Monster Blood 2"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.9333333333333333,
+        "text": "Name a book in the original Goosebumps series.",
+        "total": 30
+      },
+      "cluster": "horror-books",
+      "gzip_bytes": 1870,
+      "id": "goosebumps-original-books",
+      "size": 62,
+      "text": "Name a book in the original Goosebumps series.",
+      "theme": "books"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "star-trek-series",
+        "invalid": [
+          {
+            "guess": "Section 31",
+            "invalid": "A television film, not a television series."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Star Trek television series.",
+        "total": 30
+      },
+      "aliases": 31,
+      "before": {
+        "constrained": true,
+        "hits": 16,
+        "id": "star-trek-series",
+        "invalid": [
+          {
+            "guess": "Section 31",
+            "invalid": "A television film, not a television series."
+          }
+        ],
+        "misses": [
+          "Star Trek",
+          "TOS",
+          "Star Trek The Original Series",
+          "TAS",
+          "TNG",
+          "Deep Space 9",
+          "DS9",
+          "VOY",
+          "ENT",
+          "DIS",
+          "PIC",
+          "LD",
+          "PRO",
+          "SNW"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.5333333333333333,
+        "text": "Name a Star Trek television series.",
+        "total": 30
+      },
+      "cluster": "star-trek",
+      "gzip_bytes": 679,
+      "id": "star-trek-series",
+      "size": 13,
+      "text": "Name a Star Trek television series.",
+      "theme": "tv"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 57,
+        "id": "survivor-us-winners",
+        "invalid": [],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a winner of the US version of Survivor.",
+        "total": 57
+      },
+      "aliases": 63,
+      "before": {
+        "constrained": true,
+        "hits": 46,
+        "id": "survivor-us-winners",
+        "invalid": [],
+        "misses": [
+          "Vecepia",
+          "Sandra",
+          "Amber Mariano",
+          "Parvati",
+          "Bob Crowley",
+          "JT Thomas",
+          "James Thomas",
+          "Fabio",
+          "Jud Birza",
+          "Boston Rob",
+          "Yam Yam"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.8070175438596491,
+        "text": "Name a winner of the US version of Survivor.",
+        "total": 57
+      },
+      "cluster": "reality",
+      "gzip_bytes": 1494,
+      "id": "survivor-us-winners",
+      "size": 48,
+      "text": "Name a winner of the US version of Survivor.",
+      "theme": "tv"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 29,
+        "id": "us-rupaul-winners",
+        "invalid": [
+          {
+            "guess": "Alaska",
+            "invalid": "Won All Stars, not a main US season."
+          },
+          {
+            "guess": "Trixie Mattel",
+            "invalid": "Won All Stars, not a main US season."
+          },
+          {
+            "guess": "Chad Michaels",
+            "invalid": "Won All Stars, not a main US season."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a winner of the main US RuPaul's Drag Race series.",
+        "total": 29
+      },
+      "aliases": 15,
+      "before": {
+        "constrained": true,
+        "hits": 16,
+        "id": "us-rupaul-winners",
+        "invalid": [
+          {
+            "guess": "Alaska",
+            "invalid": "Won All Stars, not a main US season."
+          },
+          {
+            "guess": "Trixie Mattel",
+            "invalid": "Won All Stars, not a main US season."
+          },
+          {
+            "guess": "Chad Michaels",
+            "invalid": "Won All Stars, not a main US season."
+          }
+        ],
+        "misses": [
+          "Bebe",
+          "Tyra",
+          "Sharon",
+          "Jinkx",
+          "Bianca",
+          "Violet",
+          "Bob",
+          "Velour",
+          "Yvie",
+          "Jaida",
+          "Willow",
+          "Colby",
+          "Nymphia"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.5517241379310345,
+        "text": "Name a winner of the main US RuPaul's Drag Race series.",
+        "total": 29
+      },
+      "cluster": "reality",
+      "gzip_bytes": 714,
+      "id": "us-rupaul-winners",
+      "size": 18,
+      "text": "Name a winner of the main US RuPaul's Drag Race series.",
+      "theme": "tv"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 57,
+        "id": "top-chef-us-winners",
+        "invalid": [
+          {
+            "guess": "David Moir",
+            "invalid": "The show’s photographer, not a winning contestant."
+          },
+          {
+            "guess": "Shota Nakajima",
+            "invalid": "A finalist, not the season winner."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a winner of the US version of Top Chef.",
+        "total": 57
+      },
+      "aliases": 44,
+      "before": {
+        "constrained": true,
+        "hits": 38,
+        "id": "top-chef-us-winners",
+        "invalid": [
+          {
+            "guess": "David Moir",
+            "invalid": "The show’s photographer, not a winning contestant."
+          },
+          {
+            "guess": "Shota Nakajima",
+            "invalid": "A finalist, not the season winner."
+          }
+        ],
+        "misses": [
+          "Harold",
+          "Ilan",
+          "Hung",
+          "Stephanie",
+          "Hosea",
+          "Michael",
+          "Kevin",
+          "Richard",
+          "Paul",
+          "Kristen",
+          "Nicholas",
+          "Mei",
+          "Jeremy",
+          "Brooke",
+          "Joe",
+          "Kelsey",
+          "Melissa",
+          "Gabe",
+          "Buddha"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.6666666666666666,
+        "text": "Name a winner of the US version of Top Chef.",
+        "total": 57
+      },
+      "cluster": "reality",
+      "gzip_bytes": 902,
+      "id": "top-chef-us-winners",
+      "size": 22,
+      "text": "Name a winner of the US version of Top Chef.",
+      "theme": "tv"
+    },
+    {
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "nathans-hot-dog-champions",
+        "invalid": [
+          {
+            "guess": "Richard LeFevre",
+            "invalid": "A competitive eater, but not a Nathan’s champion."
+          },
+          {
+            "guess": "Eric Booker",
+            "invalid": "Won the separate lemonade chugging contest, not the hot-dog-eating championship."
+          },
+          {
+            "guess": "Badlands Booker",
+            "invalid": "Eric Booker’s nickname; a lemonade champion, not a hot-dog-eating champion."
+          },
+          {
+            "guess": "Toshiru Kobayashi",
+            "invalid": "Erroneous name; the champion is Takeru Kobayashi."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Nathan's Hot Dog Eating Contest champion.",
+        "total": 30
+      },
+      "aliases": 72,
+      "before": {
+        "constrained": true,
+        "hits": 21,
+        "id": "nathans-hot-dog-champions",
+        "invalid": [
+          {
+            "guess": "Richard LeFevre",
+            "invalid": "A competitive eater, but not a Nathan’s champion."
+          },
+          {
+            "guess": "Eric Booker",
+            "invalid": "Won the separate lemonade chugging contest, not the hot-dog-eating championship."
+          },
+          {
+            "guess": "Badlands Booker",
+            "invalid": "Eric Booker’s nickname; a lemonade champion, not a hot-dog-eating champion."
+          },
+          {
+            "guess": "Toshiru Kobayashi",
+            "invalid": "Erroneous name; the champion is Takeru Kobayashi."
+          }
+        ],
+        "misses": [
+          "Joey",
+          "Takeru",
+          "Miki",
+          "Sonya",
+          "The Black Widow",
+          "Michelle",
+          "Patrick",
+          "Pat Bertoletti",
+          "Frank Dellarosa"
+        ],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.7,
+        "text": "Name a Nathan's Hot Dog Eating Contest champion.",
+        "total": 30
+      },
+      "cluster": "eating-contests",
+      "gzip_bytes": 1272,
+      "id": "nathans-hot-dog-champions",
+      "size": 36,
+      "text": "Name a Nathan's Hot Dog Eating Contest champion.",
+      "theme": "food"
+    }
+  ]
+}

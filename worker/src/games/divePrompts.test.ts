@@ -35,8 +35,8 @@ it.each([
 
 it('enables the complete reviewed bank on November 10 with every real day valid', () => {
   expect(DIVE_SCHEDULE_CUTOVER).toBe('2026-11-10');
-  expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 203 constrained, 117 broad');
-  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(203);
+  expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 228 constrained, 92 broad');
+  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(228);
   validateDiveSchedule(DIVE_SCHEDULE, DIVE_PROMPTS);
   expect(DIVE_SCHEDULE).toHaveLength(64);
   const seen = new Set<string>();
@@ -62,7 +62,7 @@ it('enables the complete reviewed bank on November 10 with every real day valid'
     );
 });
 
-it('schedules only the all-years award sets and preserves every retired family for loading', () => {
+it('schedules only the all-years award sets and preserves every retired family in metadata', () => {
   const scheduled = new Set(DIVE_SCHEDULE.flat());
   for (const id of [
     'grammy-album',
@@ -109,14 +109,14 @@ it('switches only on the cutover, follows every fixture day and wraps determinis
   expect(createDiveSelector(null, [], bank)(cutover)).toEqual(legacySelection(cutover));
 });
 
-it('keeps every fixture scheduled ID loadable and every real constrained set complete', async () => {
+it('keeps every fixture scheduled ID loadable and every scheduled constrained set complete', async () => {
   for (const id of schedule.flat()) expect((await answerSet(id)).size).toBeGreaterThanOrEqual(8);
   for (const id of DIVE_SCHEDULE.flat())
     expect((await answerSet(id)).size).toBeGreaterThanOrEqual(8);
   for (const prompt of DIVE_PROMPTS.filter((p) => p.constrained))
     expect((await answerSet(prompt.id)).size).toBe(prompt.size);
   for (const prompt of DIVE_INACTIVE_PROMPTS.filter((p) => p.constrained))
-    expect((await answerSet(prompt.id)).size).toBe(prompt.size);
+    expect(() => answerSet(prompt.id)).toThrow('Unknown Dive prompt');
 }, 60_000);
 
 it('rejects empty, short, unknown, duplicate, conflicting, incomplete and unbalanced schedules', () => {

@@ -88,7 +88,10 @@ Answer rows persist date and prompt index, **not prompt IDs**: reads and submiss
 IDs from the selector. A future cutover must therefore keep the legacy branch forever.
 
 The bank has 522 active prompts (203 constrained, 319 broad) and 82 inactive
-prompts with loadable data. `DIVE_PROMPTS` is the schedule's candidate bank, not the date selector.
+candidate prompts. Only the union of legacy and scheduled IDs gets runtime data modules
+and loader entries (currently 533 IDs); unreachable candidates retain metadata and source
+specs so scheduling them later regenerates their data. `DIVE_PROMPTS` is the schedule's
+candidate bank, not the date selector.
 `DIVE_INACTIVE_PROMPTS` retains small categories and broad overlaps. Phase 1 prospectively
 retires `movies`, `directors`, `pokemon`, `manga`, `anime`, `japanese-films`, `oscar-actors`,
 `monarchs`, `nobel-laureates`, `first-names`, and `objects`; legacy days still use them.
@@ -174,7 +177,8 @@ tier depth. Phase 4 additionally retires all 30 award-era splits, three NASA ast
 classes, the three arbitrary IBA cocktail-list categories, and seven near-duplicate
 chemical/vitamin subsets. One all-years prompt remains per award; all 102 IBA cocktails
 now share one complete prompt. Forty-two genuinely distinct sets replace the other removals.
-All 50 retired constrained sets remain loadable. The 253 reviewed texts use short player-facing
+All 50 retired constrained sets retain their source specs but have no runtime data unless
+selected by legacy or the schedule. The 253 reviewed texts use short player-facing
 questions; acceptance caveats, source scope and retirement reasons stay in the specs, not UI copy.
 
 Broad sets retain their existing canonical data and caps. `report.json` records each set's
@@ -187,6 +191,19 @@ choose how many of the highest-ranked rows are emitted; `MAX_SET` in `generate.p
 caps broad sets, largest first, including the original corpora sets. Raise it when the
 budget allows. GeoNames cities keep at most the 500 largest places per country by population
 and Vega movies at most 1,000 per genre by IMDB votes before that cap.
+
+For future word-pattern sets, `sources.dataset(url, sha256, 'lines')` accepts pinned plain-text
+wordlists. ENABLE has 172,823 entries at
+`https://raw.githubusercontent.com/dolph/dictionary/233d25a56b9ac8bef906916ccf091a976995cce0/enable1.txt`,
+SHA-256 `3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89`.
+Its authors Alan Beale and M. Cooper released it into the public domain; their dedication is
+reproduced in [SCOWL's pinned copyright file](https://github.com/en-wl/wordlist/blob/b22230cc5250887737fdefe9ca4c9d9d01230eaa/scowl/Copyright).
+Credit the authors when using the list. `wordfreq==3.1.1` is already pinned for familiarity
+tiering. ENABLE is not an exhaustive modern dictionary; review missing contemporary words,
+regional spellings and offensive entries. Apply word predicates to original spellings before
+normalization: the shared normalizer collapses plurals, which can change length, last-letter
+and reversal predicates and can accept nonmembers sharing a normalized key. No word-pattern
+prompts are enabled by adding this source support.
 
 The original 120 prompts come from the reviewed corpora/GeoNames/ISO/movie sources below.
 220 further prompts and Wikidata rows appended to 55 reviewed prompts (most were under 200) come from Wikidata:

@@ -432,7 +432,7 @@ Dive adds four dedicated endpoints without changing the generic hub contract:
   counts are informational, never used to award points. No crowd-ranking CTE remains.
 
 The general-knowledge bank includes 203 active complete constrained prompts, alongside the broad
-curated bank. The catalog has 522 active and 82 inactive/loadable prompts, each
+curated bank. The catalog has 522 active and 82 inactive candidate prompts, each
 with a theme and optional cluster; related Japanese content shares `japan`. Constrained sets
 have ≥8 canonical answers and no size cap; broad active sets retain ≥200 and their bundle cap.
 There are no rowing/team prompts. **Before the cutover, selection uses the frozen 330-prompt legacy
@@ -447,10 +447,11 @@ Therefore retired legacy prompts remain loadable and all pre-cutover dates must 
 selector forever. A generated explicit cyclic schedule replaces it from team-local
 **2026-11-10** (`DIVE_SCHEDULE_CUTOVER`). The reviewed bank has 253 constrained prompts;
 the 64-day cycle uses all 203 active sets plus 117 broad fillers, without repeats. Fifty
-constrained sets are inactive but remain loadable: low-depth sets, award-era splits,
+constrained sets are inactive: low-depth sets, award-era splits,
 NASA selection classes, arbitrary cocktail categories and near-duplicate chemical/vitamin
 subsets. Each award has one all-years prompt; the IBA cocktail categories share one complete
-prompt. Generation
+prompt. Only IDs in the frozen legacy order or explicit schedule have runtime data and
+loader entries (currently 533); other candidates retain metadata and source specs. Generation
 fails rather than enabling an insufficient or unbalanced bank. The schedule builder
 uses all constrained prompts plus preferred broad fillers; each five-prompt day has unique
 themes/clusters and a size mix (not all ≤24 or all >120 answers). Python/Worker validators

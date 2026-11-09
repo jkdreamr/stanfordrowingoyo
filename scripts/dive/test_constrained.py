@@ -54,7 +54,8 @@ class SourcesTest(unittest.TestCase):
                     sources.list_page(title, revision)
 
     def test_dataset_checksum_formats_and_empty(self):
-        for raw, format, expected in [('id,name\n1,Alpha\n', 'csv', [{'id': '1', 'name': 'Alpha'}]), ('[]', 'json', [])]:
+        for raw, format, expected in [('id,name\n1,Alpha\n', 'csv', [{'id': '1', 'name': 'Alpha'}]), ('[]', 'json', []),
+                                      (' alpha \n\n beta\r\n', 'lines', ['alpha', 'beta']), ('\n  \n', 'lines', [])]:
             with patch.object(sources, 'fetch', return_value=raw):
                 self.assertEqual(sources.dataset('https://example.test/pin', hashlib.sha256(raw.encode()).hexdigest(), format), expected)
                 with self.assertRaisesRegex(ValueError, 'checksum'):
@@ -87,7 +88,7 @@ class SpecsTest(unittest.TestCase):
                                   'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
-        self.assertEqual(sum(p['active'] for p in prompts), 203)
+        self.assertEqual(sum(p['active'] for p in prompts), 228)
         for prompt in prompts:
             self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
             self.assertRegex(prompt['text'], r'^Name [^.?!]+\.$')
@@ -96,7 +97,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 253)
+        self.assertEqual(len(prompts), 278)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])

@@ -9,6 +9,9 @@ import { fixtureSet as parseAnswerSet, decodedAnswers } from './fixtures';
 import { loaders } from '../../worker/src/games/dive/loaders';
 import { DIVE_INACTIVE_PROMPTS, DIVE_LEGACY_PROMPTS } from '../../worker/src/games/dive/prompts';
 import { answerSet } from '../../worker/src/games/dive/sets';
+import { DIVE_SCHEDULE } from '../../worker/src/games/dive/schedule';
+
+const runtimeIds = new Set([...DIVE_LEGACY_PROMPTS.map((p) => p.id), ...DIVE_SCHEDULE.flat()]);
 
 const fixture = parseAnswerSet(
   'Apple|s|pomme\nOrange|m|sweet orange\nLemon|r|\nLime|d|\nRambutan|g|hairy fruit\nDurian|t|',
@@ -152,7 +155,7 @@ it('validates all generated sets: tiers, single Pearl, globally unique keys/alia
   expect(report.filter((row) => row.active).map((row) => row.id)).toEqual(
     DIVE_PROMPTS.map(({ id }) => id),
   );
-  for (const prompt of all) {
+  for (const prompt of all.filter((prompt) => runtimeIds.has(prompt.id))) {
     const set = await answerSet(prompt.id);
     expect(Object.keys(set).sort()).toEqual(['answers', 'buckets', 'gem', 'notable', 'size']);
     const answers = decodedAnswers(set);
@@ -195,16 +198,15 @@ it('anchors obvious answers at Surface, and accepts real aliases and typos on th
   for (const [id, answer] of [
     ['animals', 'dog'],
     ['animals', 'cat'],
-    ['countries', 'France'],
     ['fruits', 'apple'],
   ]) {
     expect(matchAnswer(answer, await answerSet(id))).toMatchObject({ tier: 'surface', points: 10 });
   }
-  expect(matchAnswer('USA', await answerSet('countries')).canonical).toBe('United States');
+  expect(matchAnswer('USA', await answerSet('countries-vowel')).canonical).toBe('United States');
   expect(matchAnswer('Nyckelharp', await answerSet('instruments')).canonical).toBe('Nyckelharpa');
-  expect(matchAnswer('rambutan', await answerSet('elements')).canonical).toBeNull();
+  expect(matchAnswer('rambutan', await answerSet('gaseous-elements')).canonical).toBeNull();
   expect(matchAnswer('fish', await answerSet('dinosaurs')).canonical).toBeNull();
-  expect((await answerSet('constellations')).size).toBe(88);
+  expect((await answerSet('iau-constellations')).size).toBe(88);
 });
 it('selects deterministic legacy days with no repeats in any floor(N/day)-day window', () => {
   const legacySelection = createDiveSelector(null, []);
@@ -225,7 +227,7 @@ it('selects deterministic legacy days with no repeats in any floor(N/day)-day wi
     }
   }
 });
-it('ships every reviewed constrained canonical and alias, without broad-set caps', async () => {
+it('ships every runtime constrained canonical and alias, without broad-set caps', async () => {
   const document = JSON.parse(
     readFileSync(new URL('./constrained.json', import.meta.url), 'utf8'),
   ) as {
@@ -239,6 +241,10 @@ it('ships every reviewed constrained canonical and alias, without broad-set caps
     }[];
   };
   for (const prompt of document.prompts) {
+    if (!runtimeIds.has(prompt.id)) {
+      expect(() => answerSet(prompt.id)).toThrow('Unknown Dive prompt');
+      continue;
+    }
     const set = await answerSet(prompt.id);
     expect(set.size, prompt.id).toBeGreaterThanOrEqual(prompt.expect[0]);
     expect(set.size, prompt.id).toBeLessThanOrEqual(prompt.expect[1]);
@@ -272,7 +278,12 @@ it('uses immutable module data without a parsed cache or eviction penalty, and r
   for (const { id } of DIVE_PROMPTS.slice(1, 10)) await answerSet(id);
   expect(await answerSet('animals')).toBe(first);
   expect(() => answerSet('__proto__')).toThrow('Unknown Dive prompt');
-  expect(Object.keys(loaders)).toHaveLength(DIVE_PROMPTS.length + DIVE_INACTIVE_PROMPTS.length);
+  expect(Object.keys(loaders).sort()).toEqual([...runtimeIds].sort());
+  expect(
+    readdirSync(new URL('../../worker/src/games/dive/data/', import.meta.url))
+      .map((name) => name.replace(/\.ts$/, ''))
+      .sort(),
+  ).toEqual([...runtimeIds].sort());
 });
 it('keeps production web imports disconnected from Worker answer modules', () => {
   function files(path: string): string[] {
