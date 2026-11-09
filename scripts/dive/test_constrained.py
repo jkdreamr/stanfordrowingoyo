@@ -90,7 +90,8 @@ class SpecsTest(unittest.TestCase):
                                   'south-america-countries', 'oceania-countries', 'africa-capitals',
                                   'asia-capitals', 'europe-capitals', 'americas-capitals',
                                   'canada-provinces', 'australia-states-territories',
-                                  'landlocked-countries', 'greek-letters', 'nato-alphabet'} |
+                                  'landlocked-countries', 'greek-letters', 'nato-alphabet',
+                                  'borders-austria', 'borders-zambia'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
         self.assertEqual(sum(p['active'] for p in prompts), 320)
@@ -102,7 +103,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 385)
+        self.assertEqual(len(prompts), 387)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
@@ -152,7 +153,7 @@ class SpecsTest(unittest.TestCase):
         def names(id):
             return {r['name'] for r in prompts[id]['rows']}
         for id in ids:
-            self.assertTrue(specs[id]['active'])
+            self.assertEqual(specs[id]['active'], id not in ['borders-austria', 'borders-zambia'])
             self.assertEqual(specs[id]['expect'], [len(names(id))] * 2)
             self.assertLessEqual(len(names(id)), 430)
             self.assertTrue(specs[id]['sources'])
@@ -193,6 +194,34 @@ class SpecsTest(unittest.TestCase):
                     self.assertLessEqual(set(row['name']), set('qwertyuiop'))
                     self.assertTrue(all(constrained.normalize(a) == constrained.normalize(row['name'])
                                         for a in row.get('aliases', [])))
+
+    def test_batch_six_complete_predicate_and_olympic_intersection(self):
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        specs = {p['id']: p for p in document['prompts']}
+        self.assertFalse(specs['borders-austria']['active'])
+        self.assertFalse(specs['borders-zambia']['active'])
+        self.assertEqual(len(specs['borders-austria']['answers']), 8)
+        self.assertEqual(len(specs['borders-zambia']['answers']), 8)
+        usa = specs['countries-without-usa']
+        names = {r['name'] for r in usa['answers']}
+        self.assertEqual(len(usa['sources'][0]['reviewed']), 193)
+        self.assertEqual(names, {n for n in usa['sources'][0]['reviewed']
+                                 if not set(constrained.letters(n)) & set('usa')})
+        self.assertEqual(usa['expect'], [14, 14])
+        self.assertTrue({'Mexico', 'Congo', "Côte d'Ivoire"} <= names)
+        self.assertTrue({'Ivory Coast', 'Democratic Republic of the Congo', 'Niue', 'Hong Kong'}.isdisjoint(names))
+        olympics = specs['both-season-olympics']
+        expected = {'United States', 'France', 'Germany', 'Italy', 'Japan',
+                    'Canada', 'China', 'Russia', 'South Korea'}
+        self.assertEqual({r['name'] for r in olympics['answers']}, expected)
+        self.assertEqual(set(olympics['sources'][0]['reviewed']), expected)
+        self.assertEqual(olympics['expect'], [9, 9])
+        for spec in [usa, olympics]:
+            self.assertTrue(spec['active'])
+            self.assertEqual(spec['theme'], 'geography')
+            self.assertLessEqual(len(spec['answers']), 24)
+            self.assertTrue(spec['surface'])
+            self.assertIn(spec['pearl'], {r['name'] for r in spec['answers']})
 
     def test_second_batch_word_patterns_and_editorial_boundaries(self):
         document = json.loads((Path(__file__).parent / 'constrained.json').read_text())

@@ -639,8 +639,6 @@ export const loaders: Record<string, () => Promise<{ default: AnswerSet }>> = {
   'pixar-single-word-films': () => import('./data/pixar-single-word-films'),
   'borders-germany': () => import('./data/borders-germany'),
   'borders-dr-congo': () => import('./data/borders-dr-congo'),
-  'borders-austria': () => import('./data/borders-austria'),
-  'borders-zambia': () => import('./data/borders-zambia'),
   'high-capitals': () => import('./data/high-capitals'),
   'drive-left-countries': () => import('./data/drive-left-countries'),
   'crescent-flags': () => import('./data/crescent-flags'),
@@ -651,4 +649,6 @@ export const loaders: Record<string, () => Promise<{ default: AnswerSet }>> = {
   'enable-greek-hidden': () => import('./data/enable-greek-hidden'),
   'enable-qwerty-top-row': () => import('./data/enable-qwerty-top-row'),
   'english-eurovision-countries': () => import('./data/english-eurovision-countries'),
+  'countries-without-usa': () => import('./data/countries-without-usa'),
+  'both-season-olympics': () => import('./data/both-season-olympics'),
 };

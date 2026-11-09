@@ -5019,22 +5019,6 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     size: 9,
   },
   {
-    id: 'borders-austria',
-    text: 'Name a country with a land border with Austria.',
-    theme: 'geography',
-    cluster: 'borders-austria',
-    constrained: true,
-    size: 8,
-  },
-  {
-    id: 'borders-zambia',
-    text: 'Name a country with a land border with Zambia.',
-    theme: 'geography',
-    cluster: 'borders-zambia',
-    constrained: true,
-    size: 8,
-  },
-  {
     id: 'high-capitals',
     text: 'Name a national capital more than 2,000 metres above sea level.',
     theme: 'geography',
@@ -5113,6 +5097,22 @@ export const DIVE_PROMPTS: readonly DivePrompt[] = [
     cluster: 'english-eurovision-countries',
     constrained: true,
     size: 19,
+  },
+  {
+    id: 'countries-without-usa',
+    text: 'Name a UN member country with no U, S or A in its UN short name.',
+    theme: 'geography',
+    cluster: 'countries',
+    constrained: true,
+    size: 14,
+  },
+  {
+    id: 'both-season-olympics',
+    text: 'Name a present-day country where both Summer and Winter Olympics have been held.',
+    theme: 'geography',
+    cluster: 'olympics',
+    constrained: true,
+    size: 9,
   },
 ];
 /** Retired candidate metadata; only legacy or scheduled IDs have runtime data. */
@@ -5892,6 +5892,22 @@ export const DIVE_INACTIVE_PROMPTS: readonly DivePrompt[] = [
     cluster: 'disney',
     constrained: true,
     size: 13,
+  },
+  {
+    id: 'borders-austria',
+    text: 'Name a country with a land border with Austria.',
+    theme: 'geography',
+    cluster: 'borders-austria',
+    constrained: true,
+    size: 8,
+  },
+  {
+    id: 'borders-zambia',
+    text: 'Name a country with a land border with Zambia.',
+    theme: 'geography',
+    cluster: 'borders-zambia',
+    constrained: true,
+    size: 8,
   },
 ];
 const byId = new Map([...DIVE_PROMPTS, ...DIVE_INACTIVE_PROMPTS].map((p) => [p.id, p]));

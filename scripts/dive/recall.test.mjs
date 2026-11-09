@@ -15,7 +15,7 @@ const batchThree = JSON.parse(
   readFileSync(new URL('./recall/batch-3-selected.json', import.meta.url)),
 );
 
-test('plain-list swaps preserve frozen brainstorms and meet per-prompt exact recall', async () => {
+test('active plain-list swaps preserve frozen brainstorms and meet per-prompt exact recall', async () => {
   const audit = JSON.parse(readFileSync(new URL('./recall/batch-5-audit.json', import.meta.url)));
   const corpus = JSON.parse(
     readFileSync(new URL('./recall/batch-5-selected.json', import.meta.url)),
@@ -35,16 +35,22 @@ test('plain-list swaps preserve frozen brainstorms and meet per-prompt exact rec
       [...new Set(raw[id])],
     );
   }
+  const specs = JSON.parse(readFileSync(new URL('./constrained.json', import.meta.url))).prompts;
+  const activeIds = ids.filter((id) => specs.find((p) => p.id === id).active);
+  assert.deepEqual(ids.filter((id) => !activeIds.includes(id)).sort(), [
+    'borders-austria',
+    'borders-zambia',
+  ]);
   const result = await evaluateCorpus({
     corpus,
-    schedule: [ids],
-    prompts: ids.map((id) => ({ id, constrained: true })),
+    schedule: [activeIds],
+    prompts: activeIds.map((id) => ({ id, constrained: true })),
     normalize: normalizeAnswer,
     loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
   });
   assert.deepEqual(
     result.prompts,
-    audit.prompts.map((p) => p.after),
+    audit.prompts.filter((p) => activeIds.includes(p.id)).map((p) => p.after),
   );
   assert.deepEqual(result.missingData, []);
   for (const prompt of result.prompts) {
@@ -59,6 +65,54 @@ test('plain-list swaps preserve frozen brainstorms and meet per-prompt exact rec
     assert.equal(exactHit('', set, normalizeAnswer), false);
   }
   assert.deepEqual(result.prompts.find((p) => p.id === 'enable-greek-hidden').misses, ['gypsies']);
+});
+
+test('batch six preserves frozen guesses and accepts reviewed aliases, not nonmembers', async () => {
+  const audit = JSON.parse(readFileSync(new URL('./recall/batch-6-audit.json', import.meta.url)));
+  const corpus = JSON.parse(
+    readFileSync(new URL('./recall/batch-6-selected.json', import.meta.url)),
+  );
+  const raw = {};
+  for (const [file, hash] of Object.entries(audit.raw_sha256)) {
+    const bytes = readFileSync(new URL(`./recall/${file}`, import.meta.url));
+    assert.equal(createHash('sha256').update(bytes).digest('hex'), hash);
+    Object.assign(raw, JSON.parse(bytes));
+  }
+  assert.equal(
+    createHash('sha256')
+      .update(readFileSync(new URL('./recall/batch-6-selected.json', import.meta.url)))
+      .digest('hex'),
+    audit.selected_sha256,
+  );
+  const ids = Object.keys(corpus);
+  assert.deepEqual(ids.sort(), ['both-season-olympics', 'countries-without-usa']);
+  for (const [id, guesses] of Object.entries(corpus)) {
+    assert.ok(raw[id].length >= 25);
+    assert.equal(new Set(raw[id]).size, raw[id].length);
+    assert.deepEqual(
+      guesses.map((g) => (typeof g === 'string' ? g : g.guess)),
+      raw[id],
+    );
+  }
+  const result = await evaluateCorpus({
+    corpus,
+    schedule: [ids],
+    prompts: ids.map((id) => ({ id, constrained: true })),
+    normalize: normalizeAnswer,
+    loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
+  });
+  assert.deepEqual(result.missingData, []);
+  assert.deepEqual(
+    result.prompts,
+    audit.prompts.map((p) => p.after),
+  );
+  for (const p of result.prompts) {
+    assert.ok(p.total > 0 && p.rate >= 0.95, p.id);
+    const set = (await import(`../../worker/src/games/dive/data/${p.id}.ts`)).default;
+    assert.equal(exactHit('', set, normalizeAnswer), false);
+    for (const guess of p.invalid)
+      assert.equal(exactHit(guess.guess, set, normalizeAnswer), false, `${p.id}: ${guess.guess}`);
+  }
 });
 
 test('composite corpora merge disjoint inputs, allow empty inputs and reject duplicate prompts', () => {

@@ -70647,7 +70647,7 @@
       "text": "a country with a land border with Austria",
       "theme": "geography",
       "cluster": "borders-austria",
-      "active": true,
+      "active": false,
       "sources": [
         {
           "page": "Austria",
@@ -70728,7 +70728,7 @@
       "text": "a country with a land border with Zambia",
       "theme": "geography",
       "cluster": "borders-zambia",
-      "active": true,
+      "active": false,
       "sources": [
         {
           "page": "Zambia",
@@ -74104,6 +74104,353 @@
       "pearl": "Azerbaijan",
       "review": "Complete English row of the winners-by-language table through 2026; mixed-language winners count when the winning song has English lyrics. Countries deduplicate across repeated wins. No runner-up, invented-language or French-only winners.",
       "too_clever": ["Ukraine"]
+    },
+    {
+      "id": "countries-without-usa",
+      "text": "a UN member country with no U, S or A in its UN short name",
+      "theme": "geography",
+      "cluster": "countries",
+      "active": true,
+      "sources": [
+        {
+          "page": "Member states of the United Nations",
+          "revision": 1384387228,
+          "tables": [0],
+          "column": 0,
+          "text": true,
+          "expect": [193, 193],
+          "reviewed": [
+            "Afghanistan",
+            "Albania",
+            "Algeria",
+            "Andorra",
+            "Angola",
+            "Antigua and Barbuda",
+            "Argentina",
+            "Armenia",
+            "Australia",
+            "Austria",
+            "Azerbaijan",
+            "Bahamas, The",
+            "Bahrain",
+            "Bangladesh",
+            "Barbados",
+            "Belarus",
+            "Belgium",
+            "Belize",
+            "Benin",
+            "Bhutan",
+            "Bolivia",
+            "Bosnia and Herzegovina",
+            "Botswana",
+            "Brazil",
+            "Brunei",
+            "Bulgaria",
+            "Burkina Faso",
+            "Burundi",
+            "Cabo Verde",
+            "Cambodia",
+            "Cameroon",
+            "Canada",
+            "Central African Republic",
+            "Chad",
+            "Chile",
+            "China",
+            "Colombia",
+            "Comoros",
+            "Congo",
+            "Costa Rica",
+            "Croatia",
+            "Cuba",
+            "Cyprus",
+            "Czechia",
+            "Côte d'Ivoire",
+            "Democratic People's Republic of Korea",
+            "Democratic Republic of the Congo",
+            "Denmark",
+            "Djibouti",
+            "Dominica",
+            "Dominican Republic",
+            "Ecuador",
+            "Egypt",
+            "El Salvador",
+            "Equatorial Guinea",
+            "Eritrea",
+            "Estonia",
+            "Eswatini",
+            "Ethiopia",
+            "Fiji",
+            "Finland",
+            "France",
+            "Gabon",
+            "Gambia (Republic of The)",
+            "Georgia",
+            "Germany",
+            "Ghana",
+            "Greece",
+            "Grenada",
+            "Guatemala",
+            "Guinea",
+            "Guinea-Bissau",
+            "Guyana",
+            "Haiti",
+            "Honduras",
+            "Hungary",
+            "Iceland",
+            "India",
+            "Indonesia",
+            "Iran (Islamic Republic of)",
+            "Iraq",
+            "Ireland",
+            "Israel",
+            "Italy",
+            "Jamaica",
+            "Japan",
+            "Jordan",
+            "Kazakhstan",
+            "Kenya",
+            "Kiribati",
+            "Kuwait",
+            "Kyrgyzstan",
+            "Lao People's Democratic Republic",
+            "Latvia",
+            "Lebanon",
+            "Lesotho",
+            "Liberia",
+            "Libya",
+            "Liechtenstein",
+            "Lithuania",
+            "Luxembourg",
+            "Madagascar",
+            "Malawi",
+            "Malaysia",
+            "Maldives",
+            "Mali",
+            "Malta",
+            "Marshall Islands",
+            "Mauritania",
+            "Mauritius",
+            "Mexico",
+            "Micronesia (Federated States of)",
+            "Monaco",
+            "Mongolia",
+            "Montenegro",
+            "Morocco",
+            "Mozambique",
+            "Myanmar",
+            "Namibia",
+            "Naoero",
+            "Nepal",
+            "Netherlands",
+            "New Zealand",
+            "Nicaragua",
+            "Niger",
+            "Nigeria",
+            "North Macedonia",
+            "Norway",
+            "Oman",
+            "Pakistan",
+            "Palau",
+            "Panama",
+            "Papua New Guinea",
+            "Paraguay",
+            "Peru",
+            "Philippines",
+            "Poland",
+            "Portugal",
+            "Qatar",
+            "Republic of Korea",
+            "Republic of Moldova",
+            "Romania",
+            "Russian Federation",
+            "Rwanda",
+            "Saint Kitts and Nevis",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "San Marino",
+            "Sao Tome and Principe",
+            "Saudi Arabia",
+            "Senegal",
+            "Serbia",
+            "Seychelles",
+            "Sierra Leone",
+            "Singapore",
+            "Slovakia",
+            "Slovenia",
+            "Solomon Islands",
+            "Somalia",
+            "South Africa",
+            "South Sudan",
+            "Spain",
+            "Sri Lanka",
+            "Sudan",
+            "Suriname",
+            "Sweden",
+            "Switzerland",
+            "Syrian Arab Republic",
+            "Tajikistan",
+            "Thailand",
+            "Timor-Leste",
+            "Togo",
+            "Tonga",
+            "Trinidad and Tobago",
+            "Tunisia",
+            "Turkmenistan",
+            "Tuvalu",
+            "Türkiye",
+            "Uganda",
+            "Ukraine",
+            "United Arab Emirates",
+            "United Kingdom of Great Britain and Northern Ireland",
+            "United Republic of Tanzania",
+            "United States of America",
+            "Uruguay",
+            "Uzbekistan",
+            "Vanuatu",
+            "Venezuela (Bolivarian Republic of)",
+            "Vietnam",
+            "Yemen",
+            "Zambia",
+            "Zimbabwe"
+          ],
+          "review": "Complete 193-member table. Apply the literal U/S/A exclusion to UN short English display names, case-insensitively with diacritics removed; not to abbreviations, translated names or submitted aliases. Identity aliases may themselves contain those letters."
+        }
+      ],
+      "expect": [14, 14],
+      "answers": [
+        {
+          "name": "Belize",
+          "aliases": []
+        },
+        {
+          "name": "Benin",
+          "aliases": []
+        },
+        {
+          "name": "Chile",
+          "aliases": []
+        },
+        {
+          "name": "Congo",
+          "aliases": ["Republic of the Congo", "Congo Brazzaville", "Republic of Congo"]
+        },
+        {
+          "name": "Côte d'Ivoire",
+          "aliases": ["Ivory Coast", "Côte d’Ivoire"]
+        },
+        {
+          "name": "Egypt",
+          "aliases": ["Arab Republic of Egypt"]
+        },
+        {
+          "name": "Fiji",
+          "aliases": []
+        },
+        {
+          "name": "Greece",
+          "aliases": ["Hellas", "Ellada", "Hellenic Republic"]
+        },
+        {
+          "name": "Mexico",
+          "aliases": ["Mexican Republic", "United Mexican States"]
+        },
+        {
+          "name": "Montenegro",
+          "aliases": []
+        },
+        {
+          "name": "Morocco",
+          "aliases": ["Maroc", "Kingdom of Morocco"]
+        },
+        {
+          "name": "Niger",
+          "aliases": ["Niger Republic", "Republic of Niger"]
+        },
+        {
+          "name": "Togo",
+          "aliases": []
+        },
+        {
+          "name": "Yemen",
+          "aliases": []
+        }
+      ],
+      "surface": ["Mexico", "Egypt", "Fiji"],
+      "pearl": "Côte d'Ivoire",
+      "review": "Complete 193-member table. Apply the literal U/S/A exclusion to UN short English display names, case-insensitively with diacritics removed; not to abbreviations, translated names or submitted aliases. Identity aliases may themselves contain those letters."
+    },
+    {
+      "id": "both-season-olympics",
+      "text": "a present-day country where both Summer and Winter Olympics have been held",
+      "theme": "geography",
+      "cluster": "olympics",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of Olympic Games host cities",
+          "revision": 1383437929,
+          "tables": [2],
+          "column": 1,
+          "where": [5, "\\("],
+          "where_not": [6, "^$"],
+          "expect": [9, 9],
+          "reviewed": [
+            "Canada",
+            "China",
+            "France",
+            "Germany",
+            "Italy",
+            "Japan",
+            "Russia",
+            "South Korea",
+            "United States"
+          ],
+          "review": "Complete host-country table intersection with nonempty Summer and Winter columns. All nine have actually held both seasons, not just cancelled/future bids. Present geography: Moscow 1980 counts for Russia, and German editions across reunification count for Germany. Youth Olympics excluded."
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "Canada",
+          "aliases": []
+        },
+        {
+          "name": "China",
+          "aliases": ["People's Republic of China", "PRC"]
+        },
+        {
+          "name": "France",
+          "aliases": ["French Republic"]
+        },
+        {
+          "name": "Germany",
+          "aliases": ["Federal Republic of Germany"]
+        },
+        {
+          "name": "Italy",
+          "aliases": ["Italia", "Italian Republic"]
+        },
+        {
+          "name": "Japan",
+          "aliases": []
+        },
+        {
+          "name": "Russia",
+          "aliases": ["Russian Federation", "Rossiya"]
+        },
+        {
+          "name": "South Korea",
+          "aliases": ["Republic of Korea", "ROK", "Korea"]
+        },
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "United States of America", "America"]
+        }
+      ],
+      "surface": ["United States", "France", "Japan"],
+      "pearl": "South Korea",
+      "review": "Complete host-country table intersection with nonempty Summer and Winter columns. All nine have actually held both seasons, not just cancelled/future bids. Present geography: Moscow 1980 counts for Russia, and German editions across reunification count for Germany. Youth Olympics excluded."
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

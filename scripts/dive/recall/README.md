@@ -153,3 +153,14 @@ The ordinary `node scripts/dive/recall.mjs` command includes all five replacemen
 batches and the supplemental Pixar corpus. Retired prompts stay in historical
 corpora but are excluded from post-cutover cycle rates. No legacy source or
 data module is removed. The wider plain-language scan is deferred.
+
+## Two non-border swaps (batch 6)
+
+`batch-6-raw.json` and `batch-6-olympics-raw.json` preserve the pre-source
+brainstorms, including one rejected currency candidate. `batch-6-selected.json`
+retains every selected raw guess in order, with reviewed-invalid reasons;
+`batch-6-audit.json` pins hashes and exact results. See `batch-6-review.md` for the
+193-member UN-name exclusion and both-season Olympic country intersection.
+Both new geography sets retain the tiny size category. The default evaluator
+includes batch 6 and excludes the newly retired Austria/Zambia border prompts
+from scheduled rates, without deleting historical corpora or legacy data.

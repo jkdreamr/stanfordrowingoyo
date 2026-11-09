@@ -61,7 +61,7 @@ cranial-nerves|Trigeminal nerve|Trijeminal nerve;Trigemminal nerve
 cranial-nerves|Glossopharyngeal nerve|Glossofaryngeal nerve;Glossopharangeal nerve
 olympian-gods|Hephaestus|Hefestus;Hephaestos
 olympian-gods|Aphrodite|Afrodyte;Aphroditee
-borders-austria|Liechtenstein|Liechtenstien;Liechtensteinn
+countries-without-usa|Montenegro|Monteneggro;Montengro
 borders-dr-congo|Central African Republic|Central Afrikan Republic;Central African Republc
 states-two-words|North Carolina|North Karolina;Nort Carolyna
 states-two-words|New Hampshire|New Hampsheer;New Hampshirr

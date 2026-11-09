@@ -20190,7 +20190,7 @@
   {
     "id": "borders-austria",
     "text": "Name a country with a land border with Austria.",
-    "active": true,
+    "active": false,
     "size": 8,
     "tiers": {
       "surface": 1,
@@ -20214,7 +20214,7 @@
   {
     "id": "borders-zambia",
     "text": "Name a country with a land border with Zambia.",
-    "active": true,
+    "active": false,
     "size": 8,
     "tiers": {
       "surface": 1,
@@ -20473,6 +20473,54 @@
     "gem": "Azerbaijan",
     "theme": "geography",
     "cluster": "english-eurovision-countries",
+    "constrained": true
+  },
+  {
+    "id": "countries-without-usa",
+    "text": "Name a UN member country with no U, S or A in its UN short name.",
+    "active": true,
+    "size": 14,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 5,
+      "rare": 3,
+      "deep": 2,
+      "gem": 1
+    },
+    "surface": ["Mexico", "Egypt", "Fiji"],
+    "pageviews": 0,
+    "sitelinks": 7,
+    "wikidata": 0,
+    "aliases": 14,
+    "too_clever": [],
+    "gem": "Côte d'Ivoire",
+    "theme": "geography",
+    "cluster": "countries",
+    "constrained": true
+  },
+  {
+    "id": "both-season-olympics",
+    "text": "Name a present-day country where both Summer and Winter Olympics have been held.",
+    "active": true,
+    "size": 9,
+    "tiers": {
+      "surface": 3,
+      "tooclever": 0,
+      "school": 3,
+      "rare": 1,
+      "deep": 1,
+      "gem": 1
+    },
+    "surface": ["France", "United States", "Japan"],
+    "pageviews": 0,
+    "sitelinks": 9,
+    "wikidata": 0,
+    "aliases": 15,
+    "too_clever": [],
+    "gem": "South Korea",
+    "theme": "geography",
+    "cluster": "olympics",
     "constrained": true
   }
 ]
