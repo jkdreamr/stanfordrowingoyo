@@ -26,14 +26,27 @@ async function addVirtualAuthenticator(context: BrowserContext, page: Page) {
       (await cdp.send('WebAuthn.getCredentials', { authenticatorId })).credentials,
   };
 }
-async function logOut(page: Page) {
+async function logOut(page: Page, autofill = false) {
   if (new URL(page.url()).pathname !== '/settings') await openSettings(page);
+  const logout = page.waitForResponse(
+    (response) =>
+      response.url().endsWith('/api/auth/logout') && response.request().method() === 'POST',
+  );
+  const login = autofill
+    ? page.waitForResponse(
+        (response) =>
+          response.url().endsWith('/api/auth/passkey/login') &&
+          response.request().method() === 'POST',
+      )
+    : null;
   await page.getByRole('button', { name: 'Log Out', exact: true }).click();
   await page
     .getByRole('dialog', { name: 'Log Out?' })
     .getByRole('button', { name: 'Log Out', exact: true })
     .click();
-  await expect(page).toHaveURL(/\/login$/);
+  expect((await logout).status()).toBe(204);
+  if (login) expect((await login).status()).toBe(200);
+  else await expect(page).toHaveURL(/\/login$/);
 }
 async function passwordLogin(page: Page, email: string, password: string) {
   await page.getByLabel('Email', { exact: true }).fill(email);
@@ -79,7 +92,7 @@ test('passkey setup after password login, sign-in, and removal', async ({
   await expect(row).toHaveCount(1);
 
   // Conditional UI: the virtual authenticator answers the autofill request without a tap.
-  await logOut(page);
+  await logOut(page, true);
   await expect(page.getByRole('heading', { name: 'This Week', exact: true })).toBeVisible();
   const me = await (await page.request.get('/api/me')).json();
   expect(me.id).toBe(user.id);
