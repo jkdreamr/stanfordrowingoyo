@@ -5388,7 +5388,7 @@
     },
     {
       "id": "stephen-king-theatrical-films",
-      "text": "a theatrically released Stephen King feature adaptation by 2025",
+      "text": "a theatrically released feature film adapted from a Stephen King story, by 2025",
       "theme": "film",
       "sources": [
         {
@@ -5821,7 +5821,7 @@
     },
     {
       "id": "live-action-batman-actors",
-      "text": "a live-action theatrical Batman actor by 2025, including serials",
+      "text": "an actor who played Batman in a live-action theatrical film or serial, by 2025",
       "theme": "film",
       "sources": [
         {
@@ -5973,7 +5973,7 @@
     },
     {
       "id": "worldwide-box-office-record-films",
-      "text": "a film listed as a worldwide box-office record holder by 2025, unadjusted",
+      "text": "a film that has held the all-time worldwide box-office record, by 2025",
       "theme": "film",
       "sources": [
         {
@@ -6323,7 +6323,7 @@
     },
     {
       "id": "annual-worldwide-box-office-1990-2025",
-      "text": "a worldwide box-office release-year leader from 1990–2025, counting re-releases",
+      "text": "the top-grossing film worldwide of its release year, for any year in 1990–2025",
       "theme": "film",
       "sources": [
         {
@@ -6762,7 +6762,7 @@
     },
     {
       "id": "bond-villain-actors",
-      "text": "a main-villain actor in an Eon Bond film from Dr No to No Time to Die",
+      "text": "an actor who played a main villain in an official Eon James Bond film",
       "theme": "film",
       "sources": [
         {

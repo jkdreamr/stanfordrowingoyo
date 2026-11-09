@@ -15,7 +15,7 @@ Brainstormed and froze `refine-R4-raw.json` before inspecting/extracting answer 
 ### `bond-films` → `bond-villain-actors`
 
 - Retired: **Name a James Bond film.** (26 canonical answers; preserved, with `active: false`).
-- New: **Name a main-villain actor in an Eon Bond film from Dr No to No Time to Die.**
+- New: **Name an actor who played a main villain in an official Eon James Bond film.**
 - 36 canonical answers; **medium** band. Recall **30/31 (96.77%)** from 38 raw guesses (7 invalid).
 - Surface: Javier Bardem; Rami Malek; Mads Mikkelsen; Christoph Waltz; Christopher Walken.
 - Too Clever: Eric Pohlmann.
@@ -46,7 +46,7 @@ The inaugural 25 only. Star Wars is the 1977 film, Episode IV / A New Hope; Snow
 ### `hitchcock-films` → `stephen-king-theatrical-films`
 
 - Retired: **Name a feature film directed by Alfred Hitchcock.** (53 canonical answers; preserved, with `active: false`).
-- New: **Name a theatrically released Stephen King feature adaptation by 2025.**
+- New: **Name a theatrically released feature film adapted from a Stephen King story, by 2025.**
 - 46 canonical answers; **medium** band. Recall **41/41 (100.00%)** from 44 raw guesses (3 invalid).
 - Surface: The Shining; The Shawshank Redemption; The Green Mile; It; Carrie.
 - Too Clever: 'Salem's Lot.
@@ -61,7 +61,7 @@ Includes Richard Bachman works, Indian adaptations and anthology films containin
 ### `nolan-films` → `live-action-batman-actors`
 
 - Retired: **Name a feature film directed by Christopher Nolan.** (13 canonical answers; preserved, with `active: false`).
-- New: **Name a live-action theatrical Batman actor by 2025, including serials.**
+- New: **Name an actor who played Batman in a live-action theatrical film or serial, by 2025.**
 - 9 canonical answers; **tiny** band. Recall **22/22 (100.00%)** from 32 raw guesses (10 invalid).
 - Surface: Christian Bale; Michael Keaton; Ben Affleck; Robert Pattinson.
 - Too Clever: none; no defensible separate trick answer.
@@ -76,7 +76,7 @@ Include Lewis Wilson (1943 serial), Robert Lowery (1949 serial) and Adam West (1
 ### `tarantino-films` → `worldwide-box-office-record-films`
 
 - Retired: **Name a feature film directed by Quentin Tarantino.** (10 canonical answers; preserved, with `active: false`).
-- New: **Name a film listed as a worldwide box-office record holder by 2025, unadjusted.**
+- New: **Name a film that has held the all-time worldwide box-office record, by 2025.**
 - 11 canonical answers; **tiny** band. Recall **20/20 (100.00%)** from 34 raw guesses (14 invalid).
 - Surface: Avatar; Titanic; Avengers: Endgame; Star Wars; Jurassic Park.
 - Too Clever: none; no defensible separate trick answer.
@@ -91,7 +91,7 @@ Worldwide unadjusted timeline-table members only, not current highest grossers o
 ### `pixar-films` → `annual-worldwide-box-office-1990-2025`
 
 - Retired: **Name a Pixar feature film.** (31 canonical answers; preserved, with `active: false`).
-- New: **Name a worldwide box-office release-year leader from 1990–2025, counting re-releases.**
+- New: **Name the top-grossing film worldwide of its release year, for any year in 1990–2025.**
 - 38 canonical answers; **medium** band. Recall **40/40 (100.00%)** from 42 raw guesses (2 invalid).
 - Surface: Titanic; Avatar; Avengers: Endgame; Barbie; Inside Out 2.
 - Too Clever: Die Hard with a Vengeance.
@@ -220,7 +220,7 @@ print('unique pairs:', len(seen))
 
 ## Checks and size budget
 
-Generated and built locally only; no deployment and no PR. Same-environment Wrangler gzip comparison: **2993.75 KiB baseline → 2994.82 KiB new = +1.07 KiB**, within the +1.5 KiB budget. The full upload sizes were 8016.30 KiB baseline and 8022.46 KiB new.
+Generated and built locally only; no deployment and no PR. Same-environment Wrangler gzip comparison: **2993.75 KiB baseline → 2994.82 KiB new = +1.07 KiB**, within the +1.5 KiB budget. The full upload sizes were 8016.30 KiB baseline and 8022.49 KiB new.
 
 - `python scripts/dive/generate.py`: completed successfully; generated 320 active constrained prompts and the 64-day schedule.
 - `python -m unittest` in `scripts/dive`: **30 tests, 2 failures**. Both are stale catalog-fixture assertions: `393 != 387`, and the fixed retired-ID set missing exactly the six requested retirements. Tests are out of allowed edit scope, so left unchanged. Independently checked the six replacement texts against the test's short-text assertions; all pass.
@@ -234,7 +234,7 @@ Generated and built locally only; no deployment and no PR. Same-environment Wran
 Relevant result excerpts:
 
 ```text
-Ran 30 tests in 12.174s
+Ran 30 tests in 15.132s
 FAILED (failures=2)
 
 ℹ tests 15
@@ -248,6 +248,12 @@ FAILED (failures=2)
 | worldwide-box-office-record-films | 20/20 | 100.00% |  |
 | annual-worldwide-box-office-1990-2025 | 40/40 | 100.00% |  |
 
-Total Upload: 8022.46 KiB / gzip: 2994.82 KiB
+Total Upload: 8022.49 KiB / gzip: 2994.82 KiB
 --dry-run: exiting now.
 ```
+
+### Wording follow-up
+
+Updated the five quoted replacement texts above; membership and frozen recall guesses are unchanged. Bond uses the requested wording verbatim. The existing text validator caps the full `Name ….` sentence at 85 characters and rejects `through YYYY`: King, Batman and record-holder prompts therefore use `by 2025`; the annual prompt ends `for any year in 1990–2025`. Final full lengths are 75, 85, 84, 76 and 84 characters respectively. All five satisfy those assertions independently of the stale retired-ID assertion that stops the test early.
+
+Reran generation, unittest, recall unit tests, recall evaluation and build after the wording update; results above reflect that rerun. An initial generation attempt lacked Node on PATH and stopped before writing the new runtime modules; loading NVM fixed the environment, and successful regeneration preceded the final recall/build runs. The only remaining test failures are the same two fixed catalog assertions; tests were not changed.
