@@ -368,6 +368,12 @@ self-contained guarded block. Feature migrations run in ascending order 11–18,
   Clues use at most two words, without descriptive qualifiers. Content validation
   checks verb-root clue leaks as well as category tokens, caps rhyme puzzles at
   three, and keeps animal and color idiom clues disjoint.
+  The web uses `DailyGameFrame` server-complete mode, five ordered clue slots and
+  a category input. Dedicated guesses/skips update only server-owned progress;
+  completion reads the stored result, reveals all clues and shares spoiler-free text.
+  A visual-viewport resize keeps the focused 16px input in view; clue reveals respect
+  reduced motion. The server-enabled list also hides Pinpoint and redirects its route
+  when disabled, using the same generic mechanism as Dive.
   Shared scoring/share helpers contain no content; mock mode uses an artificial puzzle.
   `PINPOINT_ENABLED` in `worker/src/games/features.ts` gates all Pinpoint APIs (404
   when disabled) and its registry membership, boards, streaks and recap inclusion.

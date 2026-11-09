@@ -24,3 +24,9 @@ Word Guess, Perception and Connections use `serverComplete`: their dedicated end
 own progress and write results, and the frame fetches the completed result rather than
 submitting a payload. Their generic result endpoints return 405. Answer banks and future
 stimulus generation stay Worker-only. Streaks and recap highlights read `game_results`.
+
+Pinpoint also uses `serverComplete`, dedicated today/guess endpoints and the shared
+score/share helpers. It renders only server-revealed clues while playing; the stored
+result supplies all five clues after completion. Like Dive, it relies on the server's
+enabled-game list for route redirects and visibility in the hub and boards; no browser
+copy of the Worker feature flag is needed.
