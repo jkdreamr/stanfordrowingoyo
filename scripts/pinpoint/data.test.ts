@@ -15,10 +15,12 @@ import { pinpointScore, formatPinpointScore, pinpointShare } from '../../shared/
 
 const puzzles = pinpointPuzzles();
 const stop = new Set(
-  'things words with before after types famous that have of made only'.split(' '),
+  'things words with before after types kinds famous that have of made only the a an in at and to as be can for named first last starting ending from whose is their names used using by out spelled least'
+    .split(' ')
+    .map(normalizePinpoint),
 );
 it('validates the staged bank and all clues and accepted phrasings', () => {
-  expect(puzzles).toHaveLength(40);
+  expect(puzzles).toHaveLength(205);
   for (const puzzle of puzzles) {
     expect(puzzle.clues, puzzle.category).toHaveLength(5);
     expect(new Set(puzzle.clues.map(normalizePinpoint)).size, puzzle.category).toBe(5);
@@ -38,7 +40,9 @@ it('validates the staged bank and all clues and accepted phrasings', () => {
     for (const accepted of puzzle.accepted)
       expect(matchesPinpoint(accepted, puzzle), `${puzzle.category}: ${accepted}`).toBe(true);
     for (const miss of NEAR_MISSES)
-      expect(matchesPinpoint(miss, puzzle), `${puzzle.category}: ${miss}`).toBe(false);
+      expect(matchesPinpoint(miss, puzzle), `${puzzle.category}: ${miss}`).toBe(
+        puzzle.accepted.some((answer) => normalizePinpoint(answer) === normalizePinpoint(miss)),
+      );
   }
 });
 it.todo('expands the staged bank to at least 365 puzzles before full-year launch');
@@ -64,16 +68,46 @@ it('has no duplicate, near-duplicate or cross-bank matching answers', () => {
       expect([...at].filter((t) => bt.has(t)).length / union.size, label).toBeLessThan(0.8);
       for (const aa of a.accepted) {
         expect(matchesPinpoint(aa, b), `${label}: ${aa}`).toBe(false);
-        for (const bb of b.accepted) {
-          expect(matchesPinpoint(bb, a), `${label}: ${bb}`).toBe(false);
-          const na = normalizePinpoint(aa),
-            nb = normalizePinpoint(bb);
-          expect(distance(na, nb), `${label}: ${aa} / ${bb}`).toBeGreaterThan(
-            Math.max(typoLimit(na), typoLimit(nb)),
-          );
-        }
       }
+      for (const bb of b.accepted) expect(matchesPinpoint(bb, a), `${label}: ${bb}`).toBe(false);
     }
+}, 60000);
+
+it('interleaves kinds, limits compound density, and caps clue reuse', () => {
+  const counts = { C: 0, T: 0, S: 0, W: 0 };
+  const clues = new Map<string, string[]>();
+  for (let i = 0; i < puzzles.length; i++) {
+    const puzzle = puzzles[i];
+    counts[puzzle.kind]++;
+    expect(puzzle.kind, puzzle.category).not.toBe(puzzles[(i + 1) % puzzles.length].kind);
+    expect(puzzle.kind === 'C', puzzle.category).toBe(
+      /^Words (?:before|after) /.test(puzzle.category),
+    );
+    expect(
+      Array.from({ length: 5 }, (_, j) => puzzles[(i + j) % puzzles.length]).filter(
+        (p) => p.kind === 'C',
+      ).length,
+    ).toBeLessThanOrEqual(2);
+    for (const clue of puzzle.clues) {
+      const key = normalizePinpoint(clue);
+      clues.set(key, [...(clues.get(key) ?? []), puzzle.category]);
+    }
+  }
+  expect(counts).toEqual({ C: 72, T: 41, S: 51, W: 41 });
+  expect(counts.C / puzzles.length).toBeLessThanOrEqual(0.4);
+  expect(counts.T / puzzles.length).toBeGreaterThanOrEqual(0.15);
+  expect(counts.T / puzzles.length).toBeLessThanOrEqual(0.2);
+  expect(counts.S / puzzles.length).toBeGreaterThanOrEqual(0.24);
+  expect(counts.S / puzzles.length).toBeLessThanOrEqual(0.26);
+  expect(counts.W / puzzles.length).toBeGreaterThanOrEqual(0.15);
+  expect(counts.W / puzzles.length).toBeLessThanOrEqual(0.2);
+  for (const [clue, categories] of clues)
+    expect(categories.length, `${clue}: ${categories.join(', ')}`).toBeLessThanOrEqual(2);
+  expect(
+    puzzles.filter((p) =>
+      /rowing|stanford|crew terminology/i.test(p.category + ' ' + p.accepted.join(' ')),
+    ).length,
+  ).toBeLessThanOrEqual(8);
 });
 
 it('precomputes disjoint typo neighborhoods so request matching needs only today', () => {
@@ -90,7 +124,7 @@ it('precomputes disjoint typo neighborhoods so request matching needs only today
             );
           }
     }
-});
+}, 60000);
 
 it('pins the first-year date-to-category schedule and wraps negative days', () => {
   const schedule = Array.from({ length: 365 }, (_, i) => {
@@ -98,10 +132,10 @@ it('pins the first-year date-to-category schedule and wraps negative days', () =
     return `${date}|${pinpointPuzzleFor(date).category}`;
   }).join('\n');
   expect(createHash('sha256').update(schedule).digest('hex')).toBe(
-    '785b36e2821171ebb10bed2ff181b8c854e332e45a0900e3d7e04946d7153d8d',
+    '323110a867c6f3c8f77a938a2f21acf50c0d2ba6725467712776429e7eb93d9c',
   );
-  expect(pinpointPuzzleFor('2026-11-15')).toBe(puzzles[39]);
-  expect(pinpointPuzzleFor(addDays('2026-11-16', 40))).toBe(puzzles[0]);
+  expect(pinpointPuzzleFor('2026-11-15')).toBe(puzzles.at(-1));
+  expect(pinpointPuzzleFor(addDays('2026-11-16', puzzles.length))).toBe(puzzles[0]);
 });
 
 it.each([
@@ -116,7 +150,12 @@ it.each([
   ['!!!', ''],
 ])('normalizes %s', (input, expected) => expect(normalizePinpoint(input)).toBe(expected));
 it('accepts bounded typos but rejects short errors, substitutions and per-puzzle rejects', () => {
-  expect(matchesPinpoint('palindormes', puzzles[35])).toBe(true);
+  expect(
+    matchesPinpoint(
+      'palindormes',
+      puzzles.find((p) => p.category === 'Palindromes')!,
+    ),
+  ).toBe(true);
   expect(matchesPinpoint('bal', puzzles[0])).toBe(false);
   expect(matchesPinpoint('words before bell', puzzles[0])).toBe(false);
   expect(

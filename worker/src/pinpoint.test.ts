@@ -171,10 +171,14 @@ it('accepts a transposition typo but not a real different category', async () =>
     won: false,
     finished: false,
   });
-  expect(await (await guess('compound wodrs with ball')).json()).toMatchObject({
+  expect(await (await guess('words before boll')).json()).toMatchObject({
+    won: false,
+    finished: false,
+  });
+  expect(await (await guess('words that coem before ball')).json()).toMatchObject({
     won: true,
     finished: true,
-    cluesUsed: 2,
+    cluesUsed: 3,
   });
 });
 it.each(['coach', 'coxswain', 'admin'])('lets %s play without a workout', async (role) => {
