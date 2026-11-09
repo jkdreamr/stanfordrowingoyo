@@ -113,7 +113,7 @@ it.each(['coxswain', 'coach'] as const)(
     mock.state.users.find((user) => user.id === 'user-1')!.role = role;
     await screen.findAllByText('Play To See Today’s Board');
     expect(screen.queryByRole('region', { name: 'Dive Day Board' })).toBeNull();
-    expect(screen.getAllByRole('region', { name: / Day Board$/ })).toHaveLength(3);
+    expect(screen.getAllByRole('region', { name: / Day Board$/ })).toHaveLength(4);
     for (const game of GAMES) {
       const board = within(screen.getByRole('region', { name: `${game.title} Day Board` }));
       expect(board.getByRole('heading', { name: game.title })).toBeTruthy();

@@ -24,6 +24,8 @@ import * as challenges from './routes/challenges';
 import * as games from './routes/games';
 import * as dive from './routes/dive';
 import { DIVE_ENABLED } from './games/features';
+import { HIGHERLOWER_ENABLED } from './games/features';
+import * as higherlower from './routes/higherlower';
 import * as connections from './routes/connections';
 import * as wordguess from './routes/wordguess';
 import * as perception from './routes/perception';
@@ -39,6 +41,8 @@ function unavailable(): never {
   throw new HttpError(404, 'NOT_FOUND', 'Endpoint not found.');
 }
 const routes: Route[] = [
+  { method: 'GET', path: '/api/games/higherlower/today', handler: higherlower.current },
+  { method: 'POST', path: '/api/games/higherlower/guess', handler: higherlower.guess },
   { method: 'GET', path: '/api/games/perception/today', handler: perception.current },
   { method: 'POST', path: '/api/games/perception/start', handler: perception.start },
   { method: 'POST', path: '/api/games/perception/answer', handler: perception.answer },
@@ -224,6 +228,8 @@ export async function route(ctx: Context): Promise<Response> {
   let response: Response;
   try {
     const path = new URL(ctx.request.url).pathname;
+    if (!HIGHERLOWER_ENABLED && /^\/api\/games\/higherlower(?:\/|$)/.test(path))
+      throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (!DIVE_ENABLED && /^\/api\/games\/dive(?:\/|$)/.test(path))
       throw new HttpError(404, 'NOT_FOUND', 'Game not found.');
     if (path.startsWith('/internal/') && ctx.request.headers.get('X-OYO-Internal') !== '1')

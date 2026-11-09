@@ -1,5 +1,6 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
-import { Anchor, Eye, Grid3x3, LayoutGrid, type LucideIcon } from 'lucide-react';
+import { Anchor, Eye, Grid3x3, LayoutGrid, ChevronsUpDown, type LucideIcon } from 'lucide-react';
+import { formatHigherLowerScore } from '../../../shared/games/higherlower';
 import { formatConnectionsScore } from '../../../shared/games/connections';
 import type { GameScoreDirection } from '../../../shared/types';
 import { formatNumber } from '../lib/format';
@@ -14,6 +15,15 @@ export interface GameDefinition {
   formatScore(score: number): string;
 }
 export const GAMES: GameDefinition[] = [
+  {
+    id: 'higherlower',
+    title: 'Higher or Lower',
+    icon: ChevronsUpDown,
+    accent: 'var(--accent-ink)',
+    direction: 'higher',
+    component: lazy(() => import('./higherlower')),
+    formatScore: formatHigherLowerScore,
+  },
   {
     id: 'dive',
     title: 'Dive',

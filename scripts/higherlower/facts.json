@@ -1,0 +1,4658 @@
+{
+  "categories": [
+    {
+      "id": "state-land-area",
+      "question": "Which state has more land area?",
+      "higherLabel": "Larger",
+      "lowerLabel": "Smaller",
+      "unit": "km2",
+      "asOf": 2010,
+      "source": "US Census state area measurements, land only (not total area), rounded to whole km²; January 2010 boundaries. URL: https://www.census.gov/geographies/reference-files/2010/geo/state-area.html Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Alabama",
+          "value": 131171
+        },
+        {
+          "name": "Alaska",
+          "value": 1477953
+        },
+        {
+          "name": "Arizona",
+          "value": 294207
+        },
+        {
+          "name": "Arkansas",
+          "value": 134771
+        },
+        {
+          "name": "California",
+          "value": 403466
+        },
+        {
+          "name": "Colorado",
+          "value": 268431
+        },
+        {
+          "name": "Connecticut",
+          "value": 12542
+        },
+        {
+          "name": "Delaware",
+          "value": 5047
+        },
+        {
+          "name": "Florida",
+          "value": 138887
+        },
+        {
+          "name": "Georgia",
+          "value": 148959,
+          "surprise": true
+        },
+        {
+          "name": "Hawaii",
+          "value": 16635
+        },
+        {
+          "name": "Idaho",
+          "value": 214045
+        },
+        {
+          "name": "Illinois",
+          "value": 143793
+        },
+        {
+          "name": "Indiana",
+          "value": 92789
+        },
+        {
+          "name": "Iowa",
+          "value": 144669
+        },
+        {
+          "name": "Kansas",
+          "value": 211754
+        },
+        {
+          "name": "Kentucky",
+          "value": 102269
+        },
+        {
+          "name": "Louisiana",
+          "value": 111898
+        },
+        {
+          "name": "Maine",
+          "value": 79883,
+          "surprise": true
+        },
+        {
+          "name": "Maryland",
+          "value": 25142
+        },
+        {
+          "name": "Massachusetts",
+          "value": 20202,
+          "surprise": true
+        },
+        {
+          "name": "Michigan",
+          "value": 146435,
+          "surprise": true
+        },
+        {
+          "name": "Minnesota",
+          "value": 206232
+        },
+        {
+          "name": "Mississippi",
+          "value": 121531
+        },
+        {
+          "name": "Missouri",
+          "value": 178040
+        },
+        {
+          "name": "Montana",
+          "value": 376962
+        },
+        {
+          "name": "Nebraska",
+          "value": 198974
+        },
+        {
+          "name": "Nevada",
+          "value": 284332,
+          "surprise": true
+        },
+        {
+          "name": "New Hampshire",
+          "value": 23187
+        },
+        {
+          "name": "New Jersey",
+          "value": 19047
+        },
+        {
+          "name": "New Mexico",
+          "value": 314161
+        },
+        {
+          "name": "New York",
+          "value": 122057
+        },
+        {
+          "name": "North Carolina",
+          "value": 125920
+        },
+        {
+          "name": "North Dakota",
+          "value": 178711
+        },
+        {
+          "name": "Ohio",
+          "value": 105829
+        },
+        {
+          "name": "Oklahoma",
+          "value": 177660
+        },
+        {
+          "name": "Oregon",
+          "value": 248608
+        },
+        {
+          "name": "Pennsylvania",
+          "value": 115883
+        },
+        {
+          "name": "Rhode Island",
+          "value": 2678
+        },
+        {
+          "name": "South Carolina",
+          "value": 77857
+        },
+        {
+          "name": "South Dakota",
+          "value": 196350
+        },
+        {
+          "name": "Tennessee",
+          "value": 106798,
+          "surprise": true
+        },
+        {
+          "name": "Texas",
+          "value": 676587
+        },
+        {
+          "name": "Utah",
+          "value": 212818
+        },
+        {
+          "name": "Vermont",
+          "value": 23871,
+          "surprise": true
+        },
+        {
+          "name": "Virginia",
+          "value": 102279
+        },
+        {
+          "name": "Washington",
+          "value": 172119
+        },
+        {
+          "name": "West Virginia",
+          "value": 62259
+        },
+        {
+          "name": "Wisconsin",
+          "value": 140268
+        },
+        {
+          "name": "Wyoming",
+          "value": 251470,
+          "surprise": true
+        }
+      ],
+      "asOfLabel": "2010 Census boundaries"
+    },
+    {
+      "id": "state-population",
+      "question": "Which state has more residents?",
+      "higherLabel": "More",
+      "lowerLabel": "Fewer",
+      "unit": "people",
+      "asOf": 2020,
+      "source": "2020 US Census resident population, April 1, 2020 (not overseas-inclusive apportionment population); Census apportionment historical CSV, Year=2020, Geography Type=State. URL: https://www2.census.gov/programs-surveys/decennial/2020/data/apportionment/apportionment.csv Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Alabama",
+          "value": 5024279
+        },
+        {
+          "name": "Alaska",
+          "value": 733391
+        },
+        {
+          "name": "Arizona",
+          "value": 7151502
+        },
+        {
+          "name": "Arkansas",
+          "value": 3011524
+        },
+        {
+          "name": "California",
+          "value": 39538223
+        },
+        {
+          "name": "Colorado",
+          "value": 5773714
+        },
+        {
+          "name": "Connecticut",
+          "value": 3605944
+        },
+        {
+          "name": "Delaware",
+          "value": 989948
+        },
+        {
+          "name": "Florida",
+          "value": 21538187
+        },
+        {
+          "name": "Georgia",
+          "value": 10711908,
+          "surprise": true
+        },
+        {
+          "name": "Hawaii",
+          "value": 1455271
+        },
+        {
+          "name": "Idaho",
+          "value": 1839106
+        },
+        {
+          "name": "Illinois",
+          "value": 12812508
+        },
+        {
+          "name": "Indiana",
+          "value": 6785528
+        },
+        {
+          "name": "Iowa",
+          "value": 3190369
+        },
+        {
+          "name": "Kansas",
+          "value": 2937880
+        },
+        {
+          "name": "Kentucky",
+          "value": 4505836
+        },
+        {
+          "name": "Louisiana",
+          "value": 4657757
+        },
+        {
+          "name": "Maine",
+          "value": 1362359,
+          "surprise": true
+        },
+        {
+          "name": "Maryland",
+          "value": 6177224
+        },
+        {
+          "name": "Massachusetts",
+          "value": 7029917,
+          "surprise": true
+        },
+        {
+          "name": "Michigan",
+          "value": 10077331,
+          "surprise": true
+        },
+        {
+          "name": "Minnesota",
+          "value": 5706494
+        },
+        {
+          "name": "Mississippi",
+          "value": 2961279
+        },
+        {
+          "name": "Missouri",
+          "value": 6154913
+        },
+        {
+          "name": "Montana",
+          "value": 1084225
+        },
+        {
+          "name": "Nebraska",
+          "value": 1961504
+        },
+        {
+          "name": "Nevada",
+          "value": 3104614,
+          "surprise": true
+        },
+        {
+          "name": "New Hampshire",
+          "value": 1377529
+        },
+        {
+          "name": "New Jersey",
+          "value": 9288994
+        },
+        {
+          "name": "New Mexico",
+          "value": 2117522
+        },
+        {
+          "name": "New York",
+          "value": 20201249
+        },
+        {
+          "name": "North Carolina",
+          "value": 10439388
+        },
+        {
+          "name": "North Dakota",
+          "value": 779094
+        },
+        {
+          "name": "Ohio",
+          "value": 11799448
+        },
+        {
+          "name": "Oklahoma",
+          "value": 3959353
+        },
+        {
+          "name": "Oregon",
+          "value": 4237256
+        },
+        {
+          "name": "Pennsylvania",
+          "value": 13002700
+        },
+        {
+          "name": "Rhode Island",
+          "value": 1097379
+        },
+        {
+          "name": "South Carolina",
+          "value": 5118425
+        },
+        {
+          "name": "South Dakota",
+          "value": 886667
+        },
+        {
+          "name": "Tennessee",
+          "value": 6910840,
+          "surprise": true
+        },
+        {
+          "name": "Texas",
+          "value": 29145505
+        },
+        {
+          "name": "Utah",
+          "value": 3271616
+        },
+        {
+          "name": "Vermont",
+          "value": 643077,
+          "surprise": true
+        },
+        {
+          "name": "Virginia",
+          "value": 8631393
+        },
+        {
+          "name": "Washington",
+          "value": 7705281
+        },
+        {
+          "name": "West Virginia",
+          "value": 1793716
+        },
+        {
+          "name": "Wisconsin",
+          "value": 5893718
+        },
+        {
+          "name": "Wyoming",
+          "value": 576851,
+          "surprise": true
+        }
+      ],
+      "asOfLabel": "2020 Census"
+    },
+    {
+      "id": "city-population",
+      "question": "Which US city has more residents?",
+      "higherLabel": "More",
+      "lowerLabel": "Fewer",
+      "unit": "people",
+      "asOf": 2020,
+      "source": "2020 Census city-proper population, not metropolitan area. Incorporated/consolidated places; consolidated city-county balance boundaries follow the cited table. Column 2020 census, not the 2024 estimate. Census data transcribed by Wikipedia, revision 1329007547. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1329007547&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "New York",
+          "detail": "NY",
+          "value": 8804190
+        },
+        {
+          "name": "Los Angeles",
+          "detail": "CA",
+          "value": 3898747
+        },
+        {
+          "name": "Chicago",
+          "detail": "IL",
+          "value": 2746388
+        },
+        {
+          "name": "Houston",
+          "detail": "TX",
+          "value": 2304580
+        },
+        {
+          "name": "Phoenix",
+          "detail": "AZ",
+          "value": 1608139
+        },
+        {
+          "name": "Philadelphia",
+          "detail": "PA",
+          "value": 1603797
+        },
+        {
+          "name": "San Antonio",
+          "detail": "TX",
+          "value": 1434625
+        },
+        {
+          "name": "San Diego",
+          "detail": "CA",
+          "value": 1386932
+        },
+        {
+          "name": "Dallas",
+          "detail": "TX",
+          "value": 1304379
+        },
+        {
+          "name": "San Jose",
+          "detail": "CA",
+          "value": 1013240
+        },
+        {
+          "name": "Austin",
+          "detail": "TX",
+          "value": 961855
+        },
+        {
+          "name": "Jacksonville",
+          "detail": "FL",
+          "value": 949611,
+          "surprise": true
+        },
+        {
+          "name": "Fort Worth",
+          "detail": "TX",
+          "value": 918915,
+          "surprise": true
+        },
+        {
+          "name": "Columbus",
+          "detail": "OH",
+          "value": 905748,
+          "surprise": true
+        },
+        {
+          "name": "Indianapolis",
+          "detail": "IN",
+          "value": 887642
+        },
+        {
+          "name": "Charlotte",
+          "detail": "NC",
+          "value": 874579,
+          "surprise": true
+        },
+        {
+          "name": "San Francisco",
+          "detail": "CA",
+          "value": 873965,
+          "surprise": true
+        },
+        {
+          "name": "Seattle",
+          "detail": "WA",
+          "value": 737015
+        },
+        {
+          "name": "Denver",
+          "detail": "CO",
+          "value": 715522
+        },
+        {
+          "name": "Washington",
+          "detail": "DC",
+          "value": 689545
+        },
+        {
+          "name": "Nashville",
+          "detail": "TN",
+          "value": 689447
+        },
+        {
+          "name": "Oklahoma City",
+          "detail": "OK",
+          "value": 681054
+        },
+        {
+          "name": "El Paso",
+          "detail": "TX",
+          "value": 678815,
+          "surprise": true
+        },
+        {
+          "name": "Boston",
+          "detail": "MA",
+          "value": 675647
+        },
+        {
+          "name": "Portland",
+          "detail": "OR",
+          "value": 652503
+        },
+        {
+          "name": "Las Vegas",
+          "detail": "NV",
+          "value": 641903
+        },
+        {
+          "name": "Detroit",
+          "detail": "MI",
+          "value": 639111
+        },
+        {
+          "name": "Memphis",
+          "detail": "TN",
+          "value": 633104
+        },
+        {
+          "name": "Louisville",
+          "detail": "KY",
+          "value": 633045
+        },
+        {
+          "name": "Baltimore",
+          "detail": "MD",
+          "value": 585708
+        },
+        {
+          "name": "Milwaukee",
+          "detail": "WI",
+          "value": 577222
+        },
+        {
+          "name": "Albuquerque",
+          "detail": "NM",
+          "value": 564559
+        },
+        {
+          "name": "Tucson",
+          "detail": "AZ",
+          "value": 542629
+        },
+        {
+          "name": "Fresno",
+          "detail": "CA",
+          "value": 542107
+        },
+        {
+          "name": "Sacramento",
+          "detail": "CA",
+          "value": 524943
+        },
+        {
+          "name": "Kansas City",
+          "detail": "MO",
+          "value": 508090
+        },
+        {
+          "name": "Mesa",
+          "detail": "AZ",
+          "value": 504258
+        },
+        {
+          "name": "Atlanta",
+          "detail": "GA",
+          "value": 498715,
+          "surprise": true
+        },
+        {
+          "name": "Omaha",
+          "detail": "NE",
+          "value": 486051
+        },
+        {
+          "name": "Colorado Springs",
+          "detail": "CO",
+          "value": 478961
+        },
+        {
+          "name": "Raleigh",
+          "detail": "NC",
+          "value": 467665
+        },
+        {
+          "name": "Long Beach",
+          "detail": "CA",
+          "value": 466742
+        },
+        {
+          "name": "Virginia Beach",
+          "detail": "VA",
+          "value": 459470
+        },
+        {
+          "name": "Miami",
+          "detail": "FL",
+          "value": 442241,
+          "surprise": true
+        },
+        {
+          "name": "Oakland",
+          "detail": "CA",
+          "value": 440646
+        },
+        {
+          "name": "Minneapolis",
+          "detail": "MN",
+          "value": 429954
+        },
+        {
+          "name": "Tulsa",
+          "detail": "OK",
+          "value": 413066
+        },
+        {
+          "name": "Bakersfield",
+          "detail": "CA",
+          "value": 403455
+        },
+        {
+          "name": "Wichita",
+          "detail": "KS",
+          "value": 397532
+        },
+        {
+          "name": "Arlington",
+          "detail": "TX",
+          "value": 394266
+        },
+        {
+          "name": "Aurora",
+          "detail": "CO",
+          "value": 386261
+        },
+        {
+          "name": "Tampa",
+          "detail": "FL",
+          "value": 384959
+        },
+        {
+          "name": "New Orleans",
+          "detail": "LA",
+          "value": 383997
+        },
+        {
+          "name": "Cleveland",
+          "detail": "OH",
+          "value": 372624
+        },
+        {
+          "name": "Honolulu",
+          "detail": "HI",
+          "value": 350964
+        },
+        {
+          "name": "Anaheim",
+          "detail": "CA",
+          "value": 346824
+        },
+        {
+          "name": "Lexington",
+          "detail": "KY",
+          "value": 322570
+        },
+        {
+          "name": "Stockton",
+          "detail": "CA",
+          "value": 320804
+        },
+        {
+          "name": "Corpus Christi",
+          "detail": "TX",
+          "value": 317863
+        },
+        {
+          "name": "Henderson",
+          "detail": "NV",
+          "value": 317610
+        },
+        {
+          "name": "Riverside",
+          "detail": "CA",
+          "value": 314998
+        },
+        {
+          "name": "Newark",
+          "detail": "NJ",
+          "value": 311549
+        },
+        {
+          "name": "Saint Paul",
+          "detail": "MN",
+          "value": 311527
+        },
+        {
+          "name": "Santa Ana",
+          "detail": "CA",
+          "value": 310227
+        }
+      ],
+      "asOfLabel": "2020 Census"
+    },
+    {
+      "id": "country-population",
+      "question": "Which country has more people?",
+      "higherLabel": "More",
+      "lowerLabel": "Fewer",
+      "unit": "people",
+      "asOf": 2023,
+      "source": "World Bank SP.POP.TOTL, total population, 2023. Sovereign-country selection only; no regional aggregates. Figures are the pinned-year observations in the accessed release, not a forecast. URL: https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?date=2023&format=json&per_page=400 Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Algeria",
+          "value": 46164219
+        },
+        {
+          "name": "Argentina",
+          "value": 45538401
+        },
+        {
+          "name": "Australia",
+          "value": 26659922
+        },
+        {
+          "name": "Austria",
+          "value": 9131761
+        },
+        {
+          "name": "Bangladesh",
+          "value": 171466990,
+          "surprise": true
+        },
+        {
+          "name": "Belgium",
+          "value": 11779946
+        },
+        {
+          "name": "Brazil",
+          "value": 211140729
+        },
+        {
+          "name": "Canada",
+          "value": 40049088
+        },
+        {
+          "name": "Chile",
+          "value": 19658835
+        },
+        {
+          "name": "China",
+          "value": 1410710000
+        },
+        {
+          "name": "Colombia",
+          "value": 52321152
+        },
+        {
+          "name": "Czechia",
+          "value": 10864042
+        },
+        {
+          "name": "Denmark",
+          "value": 5946952
+        },
+        {
+          "name": "Ecuador",
+          "value": 17980083
+        },
+        {
+          "name": "Egypt",
+          "value": 114535772
+        },
+        {
+          "name": "Ethiopia",
+          "value": 128691692,
+          "surprise": true
+        },
+        {
+          "name": "Finland",
+          "value": 5583911
+        },
+        {
+          "name": "France",
+          "value": 68372286
+        },
+        {
+          "name": "Germany",
+          "value": 83287273
+        },
+        {
+          "name": "Ghana",
+          "value": 33787914
+        },
+        {
+          "name": "Greece",
+          "value": 10407351
+        },
+        {
+          "name": "Hungary",
+          "value": 9592186
+        },
+        {
+          "name": "India",
+          "value": 1438069596
+        },
+        {
+          "name": "Indonesia",
+          "value": 281190067,
+          "surprise": true
+        },
+        {
+          "name": "Iran",
+          "value": 90608707
+        },
+        {
+          "name": "Iraq",
+          "value": 45074049
+        },
+        {
+          "name": "Israel",
+          "value": 9849000
+        },
+        {
+          "name": "Italy",
+          "value": 58984216
+        },
+        {
+          "name": "Japan",
+          "value": 124516650,
+          "surprise": true
+        },
+        {
+          "name": "Kenya",
+          "value": 55339003
+        },
+        {
+          "name": "South Korea",
+          "value": 51712619
+        },
+        {
+          "name": "Malaysia",
+          "value": 35126298
+        },
+        {
+          "name": "Mexico",
+          "value": 129739759
+        },
+        {
+          "name": "Morocco",
+          "value": 37712505
+        },
+        {
+          "name": "Netherlands",
+          "value": 17877117
+        },
+        {
+          "name": "New Zealand",
+          "value": 5200000
+        },
+        {
+          "name": "Nigeria",
+          "value": 227882945,
+          "surprise": true
+        },
+        {
+          "name": "Norway",
+          "value": 5519601
+        },
+        {
+          "name": "Pakistan",
+          "value": 247504495,
+          "surprise": true
+        },
+        {
+          "name": "Peru",
+          "value": 33845617
+        },
+        {
+          "name": "Philippines",
+          "value": 114891199
+        },
+        {
+          "name": "Poland",
+          "value": 36687353
+        },
+        {
+          "name": "Portugal",
+          "value": 10578174
+        },
+        {
+          "name": "Romania",
+          "value": 19061062
+        },
+        {
+          "name": "Russia",
+          "value": 143826130
+        },
+        {
+          "name": "Saudi Arabia",
+          "value": 33702731
+        },
+        {
+          "name": "Singapore",
+          "value": 5917648
+        },
+        {
+          "name": "South Africa",
+          "value": 63212384
+        },
+        {
+          "name": "Spain",
+          "value": 48352528
+        },
+        {
+          "name": "Sri Lanka",
+          "value": 22037000,
+          "surprise": true
+        },
+        {
+          "name": "Sweden",
+          "value": 10536632
+        },
+        {
+          "name": "Switzerland",
+          "value": 8888822
+        },
+        {
+          "name": "Thailand",
+          "value": 71702435
+        },
+        {
+          "name": "Turkiye",
+          "value": 85325965
+        },
+        {
+          "name": "Ukraine",
+          "value": 37732836
+        },
+        {
+          "name": "United Arab Emirates",
+          "value": 10483751
+        },
+        {
+          "name": "United Kingdom",
+          "value": 68526000
+        },
+        {
+          "name": "United States",
+          "value": 336755052
+        },
+        {
+          "name": "Venezuela",
+          "value": 28300854
+        },
+        {
+          "name": "Vietnam",
+          "value": 100352192
+        }
+      ],
+      "asOfLabel": "Population as of 2023"
+    },
+    {
+      "id": "country-gdp",
+      "question": "Which country has a higher nominal GDP?",
+      "higherLabel": "Higher",
+      "lowerLabel": "Lower",
+      "unit": "usd",
+      "asOf": 2023,
+      "source": "World Bank NY.GDP.MKTP.CD, GDP in current US dollars, 2023 (nominal, not PPP). Rounded to the nearest US dollar from the accessed release. URL: https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD?date=2023&format=json&per_page=400 Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Algeria",
+          "value": 247923887215
+        },
+        {
+          "name": "Argentina",
+          "value": 649461687959
+        },
+        {
+          "name": "Australia",
+          "value": 1734451264656
+        },
+        {
+          "name": "Austria",
+          "value": 516670509629
+        },
+        {
+          "name": "Bangladesh",
+          "value": 437415333018,
+          "surprise": true
+        },
+        {
+          "name": "Belgium",
+          "value": 650779364364
+        },
+        {
+          "name": "Brazil",
+          "value": 2191131765685
+        },
+        {
+          "name": "Canada",
+          "value": 2196593836347
+        },
+        {
+          "name": "Chile",
+          "value": 335802745366
+        },
+        {
+          "name": "China",
+          "value": 18270356654533
+        },
+        {
+          "name": "Colombia",
+          "value": 366901643683
+        },
+        {
+          "name": "Czechia",
+          "value": 345059295660
+        },
+        {
+          "name": "Denmark",
+          "value": 404651706118
+        },
+        {
+          "name": "Ecuador",
+          "value": 120792801000
+        },
+        {
+          "name": "Egypt",
+          "value": 395926071448
+        },
+        {
+          "name": "Ethiopia",
+          "value": 135874093203,
+          "surprise": true
+        },
+        {
+          "name": "Finland",
+          "value": 295191741637
+        },
+        {
+          "name": "France",
+          "value": 3056250648138
+        },
+        {
+          "name": "Germany",
+          "value": 4562207532490
+        },
+        {
+          "name": "Ghana",
+          "value": 80547146876
+        },
+        {
+          "name": "Greece",
+          "value": 242946187738
+        },
+        {
+          "name": "Hungary",
+          "value": 213029511029
+        },
+        {
+          "name": "India",
+          "value": 3500906030645
+        },
+        {
+          "name": "Indonesia",
+          "value": 1371166925750,
+          "surprise": true
+        },
+        {
+          "name": "Iran",
+          "value": 457510482317
+        },
+        {
+          "name": "Iraq",
+          "value": 268881051644
+        },
+        {
+          "name": "Israel",
+          "value": 513393395492
+        },
+        {
+          "name": "Italy",
+          "value": 2316882296366
+        },
+        {
+          "name": "Japan",
+          "value": 4384854269962,
+          "surprise": true
+        },
+        {
+          "name": "Kenya",
+          "value": 107500884685
+        },
+        {
+          "name": "South Korea",
+          "value": 1844800934392
+        },
+        {
+          "name": "Malaysia",
+          "value": 399949418753
+        },
+        {
+          "name": "Mexico",
+          "value": 1794410347718
+        },
+        {
+          "name": "Morocco",
+          "value": 146036093667
+        },
+        {
+          "name": "Netherlands",
+          "value": 1135475867551
+        },
+        {
+          "name": "New Zealand",
+          "value": 256372177758
+        },
+        {
+          "name": "Nigeria",
+          "value": 487387801878,
+          "surprise": true
+        },
+        {
+          "name": "Norway",
+          "value": 502197633323
+        },
+        {
+          "name": "Pakistan",
+          "value": 336686348609,
+          "surprise": true
+        },
+        {
+          "name": "Peru",
+          "value": 268025009709
+        },
+        {
+          "name": "Philippines",
+          "value": 437055627245
+        },
+        {
+          "name": "Poland",
+          "value": 812451193396
+        },
+        {
+          "name": "Portugal",
+          "value": 292323800949
+        },
+        {
+          "name": "Romania",
+          "value": 347757995759
+        },
+        {
+          "name": "Russia",
+          "value": 2046284838151
+        },
+        {
+          "name": "Saudi Arabia",
+          "value": 1218584800000
+        },
+        {
+          "name": "Singapore",
+          "value": 511181761244
+        },
+        {
+          "name": "South Africa",
+          "value": 381440724491
+        },
+        {
+          "name": "Spain",
+          "value": 1619481980720
+        },
+        {
+          "name": "Sri Lanka",
+          "value": 84080307356,
+          "surprise": true
+        },
+        {
+          "name": "Sweden",
+          "value": 578990915246
+        },
+        {
+          "name": "Switzerland",
+          "value": 928435275852
+        },
+        {
+          "name": "Thailand",
+          "value": 517013369475
+        },
+        {
+          "name": "Turkiye",
+          "value": 1141242864657
+        },
+        {
+          "name": "Ukraine",
+          "value": 181221517869
+        },
+        {
+          "name": "United Arab Emirates",
+          "value": 522622268401
+        },
+        {
+          "name": "United Kingdom",
+          "value": 3420796653789
+        },
+        {
+          "name": "United States",
+          "value": 27811517000000
+        },
+        {
+          "name": "Venezuela",
+          "value": 102377501186
+        },
+        {
+          "name": "Vietnam",
+          "value": 433805036898
+        }
+      ],
+      "asOfLabel": "Nominal GDP, 2023"
+    },
+    {
+      "id": "country-land-area",
+      "question": "Which country has more land area?",
+      "higherLabel": "Larger",
+      "lowerLabel": "Smaller",
+      "unit": "km2",
+      "asOf": 2023,
+      "source": "World Bank AG.LND.TOTL.K2, land area in km², 2023 (excludes inland water bodies, continental-shelf claims and exclusive economic zones). Rounded to whole km². URL: https://api.worldbank.org/v2/country/all/indicator/AG.LND.TOTL.K2?date=2023&format=json&per_page=400 Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Algeria",
+          "value": 2381740
+        },
+        {
+          "name": "Argentina",
+          "value": 2736690
+        },
+        {
+          "name": "Australia",
+          "value": 7692020
+        },
+        {
+          "name": "Austria",
+          "value": 82520
+        },
+        {
+          "name": "Bangladesh",
+          "value": 130170,
+          "surprise": true
+        },
+        {
+          "name": "Belgium",
+          "value": 30494
+        },
+        {
+          "name": "Brazil",
+          "value": 8358140
+        },
+        {
+          "name": "Canada",
+          "value": 8788700
+        },
+        {
+          "name": "Chile",
+          "value": 742832
+        },
+        {
+          "name": "China",
+          "value": 9388210
+        },
+        {
+          "name": "Colombia",
+          "value": 1109500
+        },
+        {
+          "name": "Czechia",
+          "value": 77167
+        },
+        {
+          "name": "Denmark",
+          "value": 40000
+        },
+        {
+          "name": "Ecuador",
+          "value": 248360
+        },
+        {
+          "name": "Egypt",
+          "value": 995450
+        },
+        {
+          "name": "Ethiopia",
+          "value": 1122135,
+          "surprise": true
+        },
+        {
+          "name": "Finland",
+          "value": 303960
+        },
+        {
+          "name": "France",
+          "value": 538950
+        },
+        {
+          "name": "Germany",
+          "value": 349430
+        },
+        {
+          "name": "Ghana",
+          "value": 227533
+        },
+        {
+          "name": "Greece",
+          "value": 128900
+        },
+        {
+          "name": "Hungary",
+          "value": 91260
+        },
+        {
+          "name": "India",
+          "value": 2973190
+        },
+        {
+          "name": "Indonesia",
+          "value": 1892410,
+          "surprise": true
+        },
+        {
+          "name": "Iran",
+          "value": 1622500
+        },
+        {
+          "name": "Iraq",
+          "value": 434130
+        },
+        {
+          "name": "Israel",
+          "value": 21640
+        },
+        {
+          "name": "Italy",
+          "value": 295720
+        },
+        {
+          "name": "Japan",
+          "value": 364500,
+          "surprise": true
+        },
+        {
+          "name": "Kenya",
+          "value": 580876
+        },
+        {
+          "name": "South Korea",
+          "value": 97600
+        },
+        {
+          "name": "Malaysia",
+          "value": 328550
+        },
+        {
+          "name": "Mexico",
+          "value": 1943950
+        },
+        {
+          "name": "Morocco",
+          "value": 446300
+        },
+        {
+          "name": "Netherlands",
+          "value": 33670
+        },
+        {
+          "name": "New Zealand",
+          "value": 263310
+        },
+        {
+          "name": "Nigeria",
+          "value": 910770,
+          "surprise": true
+        },
+        {
+          "name": "Norway",
+          "value": 364270
+        },
+        {
+          "name": "Pakistan",
+          "value": 770880,
+          "surprise": true
+        },
+        {
+          "name": "Peru",
+          "value": 1280000
+        },
+        {
+          "name": "Philippines",
+          "value": 298170
+        },
+        {
+          "name": "Poland",
+          "value": 306270
+        },
+        {
+          "name": "Portugal",
+          "value": 91606
+        },
+        {
+          "name": "Romania",
+          "value": 230080
+        },
+        {
+          "name": "Russia",
+          "value": 16376870
+        },
+        {
+          "name": "Saudi Arabia",
+          "value": 2149690
+        },
+        {
+          "name": "Singapore",
+          "value": 724
+        },
+        {
+          "name": "South Africa",
+          "value": 1213090
+        },
+        {
+          "name": "Spain",
+          "value": 499697
+        },
+        {
+          "name": "Sri Lanka",
+          "value": 61860,
+          "surprise": true
+        },
+        {
+          "name": "Sweden",
+          "value": 407270
+        },
+        {
+          "name": "Switzerland",
+          "value": 39510
+        },
+        {
+          "name": "Thailand",
+          "value": 510890
+        },
+        {
+          "name": "Turkiye",
+          "value": 769630
+        },
+        {
+          "name": "Ukraine",
+          "value": 579400
+        },
+        {
+          "name": "United Arab Emirates",
+          "value": 71020
+        },
+        {
+          "name": "United Kingdom",
+          "value": 241930
+        },
+        {
+          "name": "United States",
+          "value": 9147420
+        },
+        {
+          "name": "Venezuela",
+          "value": 882050
+        },
+        {
+          "name": "Vietnam",
+          "value": 313429
+        }
+      ],
+      "asOfLabel": "Land area as of 2023"
+    },
+    {
+      "id": "island-area",
+      "question": "Which island is larger?",
+      "higherLabel": "Larger",
+      "lowerLabel": "Smaller",
+      "unit": "km2",
+      "asOf": null,
+      "source": "Individual islands, not countries or archipelagos; excludes continental landmasses. Area in whole km² from Wikipedia island-area tables, revision 1327688960 (2025-12-15). Main island only where specified; never the full territory. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1327688960&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Greenland (main island)",
+          "detail": "Denmark",
+          "value": 2130800
+        },
+        {
+          "name": "New Guinea",
+          "detail": "Indonesia Papua New Guinea",
+          "value": 785753
+        },
+        {
+          "name": "Borneo",
+          "detail": "Brunei Indonesia Malaysia",
+          "value": 748168
+        },
+        {
+          "name": "Madagascar (main island)",
+          "detail": "Madagascar",
+          "value": 587041
+        },
+        {
+          "name": "Baffin Island",
+          "detail": "Canada",
+          "value": 507451
+        },
+        {
+          "name": "Sumatra",
+          "detail": "Indonesia",
+          "value": 443065
+        },
+        {
+          "name": "Honshu",
+          "detail": "Japan",
+          "value": 227938
+        },
+        {
+          "name": "Victoria Island",
+          "detail": "Canada",
+          "value": 217291
+        },
+        {
+          "name": "Great Britain",
+          "detail": "United Kingdom",
+          "value": 209331,
+          "surprise": true
+        },
+        {
+          "name": "Ellesmere Island",
+          "detail": "Canada",
+          "value": 196236
+        },
+        {
+          "name": "Sulawesi",
+          "detail": "Indonesia",
+          "value": 180681
+        },
+        {
+          "name": "South Island",
+          "detail": "New Zealand",
+          "value": 145836
+        },
+        {
+          "name": "Java",
+          "detail": "Indonesia",
+          "value": 138794,
+          "surprise": true
+        },
+        {
+          "name": "North Island",
+          "detail": "New Zealand",
+          "value": 111583
+        },
+        {
+          "name": "Luzon (main island)",
+          "detail": "Philippines",
+          "value": 109965
+        },
+        {
+          "name": "Newfoundland",
+          "detail": "Canada",
+          "value": 108860
+        },
+        {
+          "name": "Cuba (main island)",
+          "detail": "Cuba",
+          "value": 105806,
+          "surprise": true
+        },
+        {
+          "name": "Iceland (main island)",
+          "detail": "Iceland",
+          "value": 101826
+        },
+        {
+          "name": "Mindanao (main island)",
+          "detail": "Philippines",
+          "value": 97530
+        },
+        {
+          "name": "Ireland",
+          "detail": "Republic of Ireland United Kingdom",
+          "value": 84421,
+          "surprise": true
+        },
+        {
+          "name": "Hokkaido",
+          "detail": "Japan",
+          "value": 77982
+        },
+        {
+          "name": "Hispaniola",
+          "detail": "Dominican Republic Haiti",
+          "value": 73929,
+          "surprise": true
+        },
+        {
+          "name": "Sakhalin",
+          "detail": "Russia",
+          "value": 72493
+        },
+        {
+          "name": "Banks Island",
+          "detail": "Canada",
+          "value": 70028
+        },
+        {
+          "name": "Sri Lanka (main island)",
+          "detail": "Sri Lanka",
+          "value": 65268,
+          "surprise": true
+        },
+        {
+          "name": "Tasmania (main island)",
+          "detail": "Australia",
+          "value": 65022,
+          "surprise": true
+        },
+        {
+          "name": "Devon Island",
+          "detail": "Canada",
+          "value": 55247
+        },
+        {
+          "name": "Isla Grande de Tierra del Fuego",
+          "detail": "Argentina Chile",
+          "value": 47992
+        },
+        {
+          "name": "Severny Island (northern Novaya Zemlya )",
+          "detail": "Russia",
+          "value": 47079
+        },
+        {
+          "name": "Axel Heiberg Island",
+          "detail": "Canada",
+          "value": 43178
+        },
+        {
+          "name": "Melville Island",
+          "detail": "Canada",
+          "value": 42149
+        },
+        {
+          "name": "Southampton Island",
+          "detail": "Canada",
+          "value": 41214
+        },
+        {
+          "name": "Marajó",
+          "detail": "Brazil",
+          "value": 40100
+        },
+        {
+          "name": "Spitsbergen",
+          "detail": "Norway",
+          "value": 38981
+        },
+        {
+          "name": "Kyushu",
+          "detail": "Japan",
+          "value": 36782
+        },
+        {
+          "name": "New Britain",
+          "detail": "Papua New Guinea",
+          "value": 35145
+        },
+        {
+          "name": "Taiwan (main island)",
+          "detail": "Disputed, see Political status of Taiwan",
+          "value": 34507
+        },
+        {
+          "name": "Prince of Wales Island",
+          "detail": "Canada",
+          "value": 33339
+        },
+        {
+          "name": "Yuzhny Island (southern Novaya Zemlya )",
+          "detail": "Russia",
+          "value": 33246
+        },
+        {
+          "name": "Hainan (main island)",
+          "detail": "China",
+          "value": 33210
+        },
+        {
+          "name": "Vancouver Island",
+          "detail": "Canada",
+          "value": 31285
+        },
+        {
+          "name": "Timor",
+          "detail": "East Timor Indonesia",
+          "value": 28418
+        },
+        {
+          "name": "Sicily",
+          "detail": "Italy",
+          "value": 25711
+        },
+        {
+          "name": "Somerset Island",
+          "detail": "Canada",
+          "value": 24786
+        },
+        {
+          "name": "Kotelny Island",
+          "detail": "Russia",
+          "value": 24000
+        },
+        {
+          "name": "Sardinia",
+          "detail": "Italy",
+          "value": 23949
+        },
+        {
+          "name": "Bananal Island",
+          "detail": "Brazil",
+          "value": 20000
+        },
+        {
+          "name": "Shikoku",
+          "detail": "Japan",
+          "value": 18296
+        },
+        {
+          "name": "Halmahera",
+          "detail": "Indonesia",
+          "value": 18040
+        },
+        {
+          "name": "Seram Island",
+          "detail": "Indonesia",
+          "value": 17454
+        },
+        {
+          "name": "Grande Terre",
+          "detail": "France",
+          "value": 16648
+        },
+        {
+          "name": "Bathurst Island",
+          "detail": "Canada",
+          "value": 16042
+        },
+        {
+          "name": "Prince Patrick Island",
+          "detail": "Canada",
+          "value": 15848
+        },
+        {
+          "name": "Nordaustlandet",
+          "detail": "Norway",
+          "value": 14467
+        },
+        {
+          "name": "Sumbawa",
+          "detail": "Indonesia",
+          "value": 14386
+        },
+        {
+          "name": "October Revolution Island",
+          "detail": "Russia",
+          "value": 14204
+        },
+        {
+          "name": "Flores",
+          "detail": "Indonesia",
+          "value": 14154
+        },
+        {
+          "name": "King William Island",
+          "detail": "Canada",
+          "value": 13111
+        },
+        {
+          "name": "Negros",
+          "detail": "Philippines",
+          "value": 13075
+        },
+        {
+          "name": "Samar",
+          "detail": "Philippines",
+          "value": 12849
+        },
+        {
+          "name": "Palawan",
+          "detail": "Philippines",
+          "value": 12189
+        },
+        {
+          "name": "Panay",
+          "detail": "Philippines",
+          "value": 12011
+        },
+        {
+          "name": "Yos Sudarso Island (Dolok)",
+          "detail": "Indonesia",
+          "value": 11742
+        },
+        {
+          "name": "Bangka Island",
+          "detail": "Indonesia",
+          "value": 11413
+        }
+      ],
+      "asOfLabel": null
+    },
+    {
+      "id": "bridge-spans",
+      "question": "Which bridge has a longer main span?",
+      "higherLabel": "Longer",
+      "lowerLabel": "Shorter",
+      "unit": "m",
+      "asOf": 2025,
+      "source": "Completed road suspension bridges opened by 2025; main suspended span in metres, not total bridge length. Excludes cable-stayed hybrids and future bridges. Wikipedia longest suspension spans, revision 1383647690; opening-year column filtered through 2025. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1383647690&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "1915 Çanakkale Bridge",
+          "detail": "Turkey",
+          "value": 2023
+        },
+        {
+          "name": "Akashi Kaikyo Bridge",
+          "detail": "Japan",
+          "value": 1991
+        },
+        {
+          "name": "Nanjing Xianxin Yangtze River Bridge",
+          "detail": "China",
+          "value": 1760
+        },
+        {
+          "name": "Yangsigang Yangtze River Bridge",
+          "detail": "China",
+          "value": 1700
+        },
+        {
+          "name": "Nansha Bridge (East span)",
+          "detail": "China",
+          "value": 1688
+        },
+        {
+          "name": "Shenzhen–Zhongshan Bridge",
+          "detail": "China",
+          "value": 1666
+        },
+        {
+          "name": "Xihoumen Bridge",
+          "detail": "China",
+          "value": 1650
+        },
+        {
+          "name": "Great Belt Bridge",
+          "detail": "Denmark",
+          "value": 1624
+        },
+        {
+          "name": "Ningyang Yangtze River Bridge",
+          "detail": "China",
+          "value": 1560
+        },
+        {
+          "name": "Osman Gazi Bridge",
+          "detail": "Turkey",
+          "value": 1550
+        },
+        {
+          "name": "Yi Sun-sin Bridge",
+          "detail": "South Korea",
+          "value": 1545
+        },
+        {
+          "name": "Runyang Yangtze River Bridge",
+          "detail": "China",
+          "value": 1490
+        },
+        {
+          "name": "Second Dongting Lake Bridge",
+          "detail": "China",
+          "value": 1480
+        },
+        {
+          "name": "Huajiang Canyon Bridge",
+          "detail": "China",
+          "value": 1420
+        },
+        {
+          "name": "Nanjing Qixiashan Yangtze River Bridge",
+          "detail": "China",
+          "value": 1418
+        },
+        {
+          "name": "Humber Bridge",
+          "detail": "United Kingdom",
+          "value": 1410,
+          "surprise": true
+        },
+        {
+          "name": "Jin'an Jinsha River Bridge",
+          "detail": "China",
+          "value": 1386
+        },
+        {
+          "name": "Jiangyin Yangtze River Bridge",
+          "detail": "China",
+          "value": 1385
+        },
+        {
+          "name": "Tsing Ma Bridge",
+          "detail": "Hong Kong",
+          "value": 1377
+        },
+        {
+          "name": "Hardanger Bridge",
+          "detail": "Norway",
+          "value": 1310
+        },
+        {
+          "name": "Verrazzano–Narrows Bridge",
+          "detail": "United States",
+          "value": 1298
+        },
+        {
+          "name": "Golden Gate Bridge",
+          "detail": "United States",
+          "value": 1280,
+          "surprise": true
+        },
+        {
+          "name": "Yangluo Yangtze River Bridge",
+          "detail": "China",
+          "value": 1280
+        },
+        {
+          "name": "Höga Kusten Bridge",
+          "detail": "Sweden",
+          "value": 1210
+        },
+        {
+          "name": "Nansha Bridge (West span)",
+          "detail": "China",
+          "value": 1200
+        },
+        {
+          "name": "Chajiaotan Bridge",
+          "detail": "China",
+          "value": 1200
+        },
+        {
+          "name": "Longjiang Bridge",
+          "detail": "China",
+          "value": 1196
+        },
+        {
+          "name": "Aizhai Bridge",
+          "detail": "China",
+          "value": 1176
+        },
+        {
+          "name": "Wujiagang Yangtze River Bridge",
+          "detail": "China",
+          "value": 1160
+        },
+        {
+          "name": "Mackinac Bridge",
+          "detail": "United States",
+          "value": 1158,
+          "surprise": true
+        },
+        {
+          "name": "Ulsan Bridge",
+          "detail": "South Korea",
+          "value": 1150
+        },
+        {
+          "name": "Hålogaland Bridge",
+          "detail": "Norway",
+          "value": 1145
+        },
+        {
+          "name": "Qingshui River Bridge",
+          "detail": "China",
+          "value": 1130
+        },
+        {
+          "name": "Brăila Bridge",
+          "detail": "Romania",
+          "value": 1120
+        },
+        {
+          "name": "Huangpu Bridge",
+          "detail": "China",
+          "value": 1108
+        },
+        {
+          "name": "Minami Bisan-Seto Bridge",
+          "detail": "Japan",
+          "value": 1100
+        },
+        {
+          "name": "Xingkang Bridge",
+          "detail": "China",
+          "value": 1100
+        },
+        {
+          "name": "Kaizhou Lake Bridge",
+          "detail": "China",
+          "value": 1100
+        },
+        {
+          "name": "Longmen Bridge (Guangxi)",
+          "detail": "China",
+          "value": 1098
+        },
+        {
+          "name": "Wufengshan Yangtze River Bridge",
+          "detail": "China",
+          "value": 1092
+        },
+        {
+          "name": "Fatih Sultan Mehmet Bridge",
+          "detail": "Turkey",
+          "value": 1090
+        },
+        {
+          "name": "Baling River Bridge",
+          "detail": "China",
+          "value": 1088
+        },
+        {
+          "name": "Taizhou Yangtze River Bridge",
+          "detail": "China",
+          "value": 1080
+        },
+        {
+          "name": "Ma'anshan Yangtze River Bridge",
+          "detail": "China",
+          "value": 1080
+        },
+        {
+          "name": "Zangkejiang Bridge",
+          "detail": "China",
+          "value": 1080
+        },
+        {
+          "name": "Bosphorus Bridge",
+          "detail": "Turkey",
+          "value": 1074
+        },
+        {
+          "name": "George Washington Bridge",
+          "detail": "United States",
+          "value": 1067
+        },
+        {
+          "name": "Fuma Yangtze River Bridge",
+          "detail": "China",
+          "value": 1050
+        },
+        {
+          "name": "Qipanzhou Yangtze River Bridge",
+          "detail": "China",
+          "value": 1038
+        },
+        {
+          "name": "Third Kurushima Kaikyō Bridge",
+          "detail": "Japan",
+          "value": 1030
+        },
+        {
+          "name": "Second Kurushima Kaikyō Bridge",
+          "detail": "Japan",
+          "value": 1020
+        },
+        {
+          "name": "Xintian Yangtze River Bridge",
+          "detail": "China",
+          "value": 1020
+        },
+        {
+          "name": "25 de Abril Bridge",
+          "detail": "Portugal",
+          "value": 1013
+        },
+        {
+          "name": "Forth Road Bridge",
+          "detail": "United Kingdom",
+          "value": 1006
+        },
+        {
+          "name": "Yidu Yangtze River Bridge",
+          "detail": "China",
+          "value": 1000
+        }
+      ],
+      "asOfLabel": "Completed by 2025"
+    },
+    {
+      "id": "football-stadiums",
+      "question": "Which football stadium has more seats?",
+      "higherLabel": "More",
+      "lowerLabel": "Fewer",
+      "unit": "seats",
+      "asOf": 2025,
+      "source": "NCAA Division I FBS home stadium listed seating capacity in the 2025-season table; not record attendance or standing-room maximum. Active stadiums only, excludes future builds. Wikipedia revision 1329747422 (2025-12-27). URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1329747422&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Michigan Stadium",
+          "detail": "Michigan",
+          "value": 107601,
+          "surprise": true
+        },
+        {
+          "name": "Beaver Stadium",
+          "detail": "Penn State",
+          "value": 106572
+        },
+        {
+          "name": "Ohio Stadium",
+          "detail": "Ohio State",
+          "value": 102780
+        },
+        {
+          "name": "Kyle Field",
+          "detail": "Texas A&M",
+          "value": 102733
+        },
+        {
+          "name": "Tiger Stadium",
+          "detail": "LSU",
+          "value": 102321
+        },
+        {
+          "name": "Neyland Stadium",
+          "detail": "Tennessee",
+          "value": 101915
+        },
+        {
+          "name": "Darrell K Royal–Texas Memorial Stadium",
+          "detail": "Texas",
+          "value": 100119
+        },
+        {
+          "name": "Saban Field at Bryant–Denny Stadium",
+          "detail": "Alabama",
+          "value": 100077
+        },
+        {
+          "name": "Sanford Stadium",
+          "detail": "Georgia",
+          "value": 93033
+        },
+        {
+          "name": "Rose Bowl Stadium",
+          "detail": "UCLA",
+          "value": 89702
+        },
+        {
+          "name": "Steve Spurrier-Florida Field at Ben Hill Griffin Stadium",
+          "detail": "Florida",
+          "value": 88548
+        },
+        {
+          "name": "Pat Dye Field at Jordan–Hare Stadium",
+          "detail": "Auburn",
+          "value": 88043
+        },
+        {
+          "name": "Memorial Stadium, Tom Osborne Field",
+          "detail": "Nebraska",
+          "value": 85458
+        },
+        {
+          "name": "Frank Howard Field at Clemson Memorial Stadium",
+          "detail": "Clemson",
+          "value": 81500
+        },
+        {
+          "name": "Gaylord Family Oklahoma Memorial Stadium",
+          "detail": "Oklahoma",
+          "value": 80126
+        },
+        {
+          "name": "Notre Dame Stadium",
+          "detail": "Notre Dame",
+          "value": 77622
+        },
+        {
+          "name": "Williams–Brice Stadium",
+          "detail": "South Carolina",
+          "value": 77559
+        },
+        {
+          "name": "Los Angeles Memorial Coliseum",
+          "detail": "USC",
+          "value": 77500
+        },
+        {
+          "name": "Donald W. Reynolds Razorback Stadium, Frank Broyles Field",
+          "detail": "Arkansas",
+          "value": 76212
+        },
+        {
+          "name": "Camp Randall Stadium",
+          "detail": "Wisconsin",
+          "value": 76057
+        },
+        {
+          "name": "Spartan Stadium",
+          "detail": "Michigan State",
+          "value": 74866
+        },
+        {
+          "name": "Alaska Airlines Field at Husky Stadium",
+          "detail": "Washington",
+          "value": 70083
+        },
+        {
+          "name": "Kinnick Stadium",
+          "detail": "Iowa",
+          "value": 69250
+        },
+        {
+          "name": "Acrisure Stadium",
+          "detail": "Pittsburgh",
+          "value": 68400
+        },
+        {
+          "name": "Lincoln Financial Field",
+          "detail": "Temple",
+          "value": 67594
+        },
+        {
+          "name": "Bobby Bowden Field at Doak S. Campbell Stadium",
+          "detail": "Florida State",
+          "value": 67277
+        },
+        {
+          "name": "Raymond James Stadium",
+          "detail": "South Florida",
+          "value": 65857
+        },
+        {
+          "name": "Lane Stadium/Worsham Field",
+          "detail": "Virginia Tech",
+          "value": 65632
+        },
+        {
+          "name": "Allegiant Stadium",
+          "detail": "UNLV",
+          "value": 65000
+        },
+        {
+          "name": "Hard Rock Stadium",
+          "detail": "Miami",
+          "value": 64767
+        },
+        {
+          "name": "Vaught–Hemingway Stadium at Hollingsworth Field",
+          "detail": "Mississippi",
+          "value": 64038
+        },
+        {
+          "name": "Alamodome",
+          "detail": "UTSA",
+          "value": 64000
+        },
+        {
+          "name": "Faurot Field at Memorial Stadium",
+          "detail": "Missouri",
+          "value": 62621
+        },
+        {
+          "name": "California Memorial Stadium",
+          "detail": "California",
+          "value": 62467
+        },
+        {
+          "name": "LaVell Edwards Stadium",
+          "detail": "BYU",
+          "value": 62073
+        },
+        {
+          "name": "Carl Smith Center, Home of David A. Harrison III Field at Scott Stadium",
+          "detail": "Virginia",
+          "value": 61500
+        },
+        {
+          "name": "Jack Trice Stadium",
+          "detail": "Iowa State",
+          "value": 61500
+        },
+        {
+          "name": "Ross–Ade Stadium",
+          "detail": "Purdue",
+          "value": 61441
+        },
+        {
+          "name": "Kroger Field at C.M. Newton Grounds",
+          "detail": "Kentucky",
+          "value": 61000
+        },
+        {
+          "name": "L&N Federal Credit Union Stadium",
+          "detail": "Louisville",
+          "value": 60800
+        },
+        {
+          "name": "Gies Memorial Stadium",
+          "detail": "Illinois",
+          "value": 60670
+        },
+        {
+          "name": "Davis Wade Stadium at Scott Field",
+          "detail": "Mississippi State",
+          "value": 60311
+        },
+        {
+          "name": "Jones AT&T Stadium",
+          "detail": "Texas Tech",
+          "value": 60229
+        },
+        {
+          "name": "Mountaineer Field at Milan Puskar Stadium",
+          "detail": "West Virginia",
+          "value": 60000
+        },
+        {
+          "name": "Wayne Day Family Field at Carter–Finley Stadium",
+          "detail": "NC State",
+          "value": 56919
+        },
+        {
+          "name": "Autzen Stadium",
+          "detail": "Oregon",
+          "value": 54000,
+          "surprise": true
+        },
+        {
+          "name": "Frank Kush Field, Home of the ASU Sun Devils/ Mountain America Stadium",
+          "detail": "Arizona State",
+          "value": 53599
+        },
+        {
+          "name": "Merchants Bank Field at Memorial Stadium",
+          "detail": "Indiana",
+          "value": 53524
+        },
+        {
+          "name": "SHI Stadium",
+          "detail": "Rutgers",
+          "value": 52454
+        },
+        {
+          "name": "Boone Pickens Stadium",
+          "detail": "Oklahoma State",
+          "value": 52305
+        },
+        {
+          "name": "Bobby Dodd Stadium at Hyundai Field",
+          "detail": "Georgia Tech",
+          "value": 51913
+        },
+        {
+          "name": "Sun Bowl Stadium",
+          "detail": "UTEP",
+          "value": 51500
+        },
+        {
+          "name": "Rice–Eccles Stadium",
+          "detail": "Utah",
+          "value": 51444
+        },
+        {
+          "name": "Bagwell Field at Dowdy–Ficklen Stadium",
+          "detail": "East Carolina",
+          "value": 51000
+        },
+        {
+          "name": "Huntington Bank Stadium",
+          "detail": "Minnesota",
+          "value": 50805
+        },
+        {
+          "name": "Arizona Stadium",
+          "detail": "Arizona",
+          "value": 50782
+        },
+        {
+          "name": "Kenan Stadium",
+          "detail": "North Carolina",
+          "value": 50500
+        },
+        {
+          "name": "Stanford Stadium",
+          "detail": "Stanford",
+          "value": 50424,
+          "surprise": true
+        },
+        {
+          "name": "Folsom Field",
+          "detail": "Colorado",
+          "value": 50183
+        },
+        {
+          "name": "Bill Snyder Family Football Stadium",
+          "detail": "Kansas State",
+          "value": 50000
+        },
+        {
+          "name": "Simmons Bank Liberty Stadium",
+          "detail": "Memphis",
+          "value": 50000
+        },
+        {
+          "name": "Protective Stadium",
+          "detail": "UAB",
+          "value": 47100
+        },
+        {
+          "name": "Amon G. Carter Stadium",
+          "detail": "TCU",
+          "value": 47000
+        },
+        {
+          "name": "Rice Stadium",
+          "detail": "Rice",
+          "value": 47000
+        }
+      ],
+      "asOfLabel": "2025 season capacity"
+    },
+    {
+      "id": "element-density",
+      "question": "Which solid element is denser near room temperature?",
+      "higherLabel": "Denser",
+      "lowerLabel": "Lighter",
+      "unit": "g/cm3",
+      "asOf": null,
+      "source": "Solid-phase density in g/cm³ near room temperature, CRC Handbook values specifically (not the Wikipedia use row or WEL/LNG values). Named allotrope where needed. Excludes gases, liquid-phase data, uncertain forms and synthetic/radioactive entries after bismuth. Wikipedia Densities of the elements data page, revision 1258326075; CRC near r.t. rows. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1258326075&prop=wikitext&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Lithium",
+          "value": 0.534
+        },
+        {
+          "name": "Beryllium",
+          "value": 1.85
+        },
+        {
+          "name": "Boron",
+          "value": 2.34
+        },
+        {
+          "name": "Carbon (graphite)",
+          "value": 2.2,
+          "surprise": true
+        },
+        {
+          "name": "Carbon (diamond)",
+          "value": 3.513,
+          "surprise": true
+        },
+        {
+          "name": "Sodium",
+          "value": 0.97
+        },
+        {
+          "name": "Magnesium",
+          "value": 1.74,
+          "surprise": true
+        },
+        {
+          "name": "Aluminium",
+          "value": 2.7,
+          "surprise": true
+        },
+        {
+          "name": "Silicon",
+          "value": 2.329
+        },
+        {
+          "name": "Phosphorus (white)",
+          "value": 1.823
+        },
+        {
+          "name": "Sulfur (orthorhombic, alpha)",
+          "value": 2.07
+        },
+        {
+          "name": "Potassium",
+          "value": 0.89
+        },
+        {
+          "name": "Calcium",
+          "value": 1.54
+        },
+        {
+          "name": "Vanadium",
+          "value": 6
+        },
+        {
+          "name": "Chromium",
+          "value": 7.15
+        },
+        {
+          "name": "Manganese",
+          "value": 7.3
+        },
+        {
+          "name": "Iron",
+          "value": 7.87
+        },
+        {
+          "name": "Cobalt",
+          "value": 8.86
+        },
+        {
+          "name": "Nickel",
+          "value": 8.9
+        },
+        {
+          "name": "Copper",
+          "value": 8.96
+        },
+        {
+          "name": "Zinc",
+          "value": 7.14
+        },
+        {
+          "name": "Gallium",
+          "value": 5.91
+        },
+        {
+          "name": "Germanium",
+          "value": 5.3234
+        },
+        {
+          "name": "Arsenic",
+          "value": 5.75
+        },
+        {
+          "name": "Selenium (hexagonal, gray)",
+          "value": 4.81
+        },
+        {
+          "name": "Rubidium",
+          "value": 1.53
+        },
+        {
+          "name": "Strontium",
+          "value": 2.64
+        },
+        {
+          "name": "Yttrium",
+          "value": 4.47
+        },
+        {
+          "name": "Zirconium",
+          "value": 6.52
+        },
+        {
+          "name": "Niobium",
+          "value": 8.57
+        },
+        {
+          "name": "Molybdenum",
+          "value": 10.2
+        },
+        {
+          "name": "Ruthenium",
+          "value": 12.1
+        },
+        {
+          "name": "Rhodium",
+          "value": 12.4
+        },
+        {
+          "name": "Palladium",
+          "value": 12
+        },
+        {
+          "name": "Silver",
+          "value": 10.5,
+          "surprise": true
+        },
+        {
+          "name": "Cadmium",
+          "value": 8.69
+        },
+        {
+          "name": "Indium",
+          "value": 7.31
+        },
+        {
+          "name": "Tin (white)",
+          "value": 7.265
+        },
+        {
+          "name": "Antimony",
+          "value": 6.68
+        },
+        {
+          "name": "Tellurium",
+          "value": 6.24
+        },
+        {
+          "name": "Iodine (I 2 )",
+          "value": 4.933
+        },
+        {
+          "name": "Caesium",
+          "value": 1.93
+        },
+        {
+          "name": "Barium",
+          "value": 3.62
+        },
+        {
+          "name": "Lanthanum",
+          "value": 6.15
+        },
+        {
+          "name": "Cerium",
+          "value": 6.77
+        },
+        {
+          "name": "Neodymium",
+          "value": 7.01
+        },
+        {
+          "name": "Samarium",
+          "value": 7.52
+        },
+        {
+          "name": "Europium",
+          "value": 5.24
+        },
+        {
+          "name": "Gadolinium",
+          "value": 7.9
+        },
+        {
+          "name": "Dysprosium",
+          "value": 8.55
+        },
+        {
+          "name": "Erbium",
+          "value": 9.07
+        },
+        {
+          "name": "Ytterbium",
+          "value": 6.9
+        },
+        {
+          "name": "Lutetium",
+          "value": 9.84
+        },
+        {
+          "name": "Hafnium",
+          "value": 13.3
+        },
+        {
+          "name": "Tantalum",
+          "value": 16.4
+        },
+        {
+          "name": "Tungsten",
+          "value": 19.3,
+          "surprise": true
+        },
+        {
+          "name": "Rhenium",
+          "value": 20.8
+        },
+        {
+          "name": "Osmium",
+          "value": 22.59,
+          "surprise": true
+        },
+        {
+          "name": "Iridium",
+          "value": 22.5
+        },
+        {
+          "name": "Platinum",
+          "value": 21.5
+        },
+        {
+          "name": "Gold",
+          "value": 19.3,
+          "surprise": true
+        },
+        {
+          "name": "Thallium",
+          "value": 11.8
+        },
+        {
+          "name": "Lead",
+          "value": 11.3,
+          "surprise": true
+        },
+        {
+          "name": "Bismuth",
+          "value": 9.79
+        }
+      ],
+      "asOfLabel": null
+    },
+    {
+      "id": "mountain-elevation",
+      "question": "Which mountain summit is higher?",
+      "higherLabel": "Higher",
+      "lowerLabel": "Lower",
+      "unit": "m",
+      "asOf": null,
+      "source": "Summit elevation above sea level, whole metres, as tabulated in Wikipedia revision 1324904563 (2025-11-30). Selected named peaks; excludes duplicate/ambiguous summit names and known superseded measurements (including Everest, Denali, Mont Blanc and Aoraki). Not prominence or base-to-summit height. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1324904563&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "K2",
+          "value": 8611,
+          "surprise": true
+        },
+        {
+          "name": "Kangchenjunga",
+          "value": 8586
+        },
+        {
+          "name": "Lhotse",
+          "value": 8516
+        },
+        {
+          "name": "Makalu",
+          "value": 8485
+        },
+        {
+          "name": "Cho Oyu",
+          "value": 8188
+        },
+        {
+          "name": "Dhaulagiri",
+          "value": 8167
+        },
+        {
+          "name": "Manaslu",
+          "value": 8163
+        },
+        {
+          "name": "Nanga Parbat",
+          "value": 8126
+        },
+        {
+          "name": "Annapurna",
+          "value": 8091
+        },
+        {
+          "name": "Broad Peak",
+          "value": 8051
+        },
+        {
+          "name": "Shishapangma",
+          "value": 8027
+        },
+        {
+          "name": "Mount Logan",
+          "value": 5959
+        },
+        {
+          "name": "Cotopaxi",
+          "value": 5897
+        },
+        {
+          "name": "Mount Kilimanjaro",
+          "value": 5895,
+          "surprise": true
+        },
+        {
+          "name": "Mount Elbrus",
+          "value": 5642
+        },
+        {
+          "name": "Pico de Orizaba",
+          "value": 5636
+        },
+        {
+          "name": "Mount Damavand",
+          "value": 5610
+        },
+        {
+          "name": "Mount Saint Elias",
+          "value": 5489
+        },
+        {
+          "name": "Mount Kenya",
+          "value": 5199
+        },
+        {
+          "name": "Mount Ararat",
+          "value": 5137
+        },
+        {
+          "name": "Mount Stanley",
+          "value": 5109
+        },
+        {
+          "name": "Vinson Massif",
+          "value": 4892
+        },
+        {
+          "name": "Matterhorn",
+          "value": 4478
+        },
+        {
+          "name": "Mount Whitney",
+          "value": 4421
+        },
+        {
+          "name": "Mount Rainier",
+          "value": 4392
+        },
+        {
+          "name": "Mount Shasta",
+          "value": 4322
+        },
+        {
+          "name": "Mount Elgon",
+          "value": 4321
+        },
+        {
+          "name": "Pikes Peak",
+          "value": 4302
+        },
+        {
+          "name": "Finsteraarhorn",
+          "value": 4274
+        },
+        {
+          "name": "Aletschhorn",
+          "value": 4192
+        },
+        {
+          "name": "Jungfrau",
+          "value": 4158
+        },
+        {
+          "name": "Mount Kinabalu",
+          "value": 4095
+        },
+        {
+          "name": "Eiger",
+          "value": 3967
+        },
+        {
+          "name": "Mount Robson",
+          "value": 3954
+        },
+        {
+          "name": "Grossglockner",
+          "value": 3798
+        },
+        {
+          "name": "Mount Erebus",
+          "value": 3794
+        },
+        {
+          "name": "Mount Fuji",
+          "value": 3776,
+          "surprise": true
+        },
+        {
+          "name": "Zugspitze",
+          "value": 2962
+        },
+        {
+          "name": "Triglav",
+          "value": 2864
+        },
+        {
+          "name": "Mount Kosciuszko",
+          "value": 2228
+        },
+        {
+          "name": "Ben Nevis",
+          "value": 1345
+        },
+        {
+          "name": "Mount Vesuvius",
+          "value": 1281
+        }
+      ],
+      "asOfLabel": null
+    },
+    {
+      "id": "building-height",
+      "question": "Which completed building is taller?",
+      "higherLabel": "Taller",
+      "lowerLabel": "Shorter",
+      "unit": "m",
+      "asOf": 2025,
+      "source": "CTBUH architectural height (includes spires, excludes antennae), completed buildings only, as transcribed in Wikipedia revision 1327981295 (2025-12-17), first ranked height table. Not tip height or highest occupied floor. City identifies the building. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1327981295&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Burj Khalifa",
+          "detail": "Dubai",
+          "value": 828
+        },
+        {
+          "name": "Merdeka 118",
+          "detail": "Kuala Lumpur",
+          "value": 678.9
+        },
+        {
+          "name": "Shanghai Tower",
+          "detail": "Shanghai",
+          "value": 632
+        },
+        {
+          "name": "The Clock Towers",
+          "detail": "Mecca",
+          "value": 601
+        },
+        {
+          "name": "Ping An International Finance Centre",
+          "detail": "Shenzhen",
+          "value": 599.1
+        },
+        {
+          "name": "Lotte World Tower",
+          "detail": "Seoul",
+          "value": 554.5
+        },
+        {
+          "name": "One World Trade Center",
+          "detail": "New York City",
+          "value": 541.3
+        },
+        {
+          "name": "Guangzhou CTF Finance Centre",
+          "detail": "Guangzhou",
+          "value": 530
+        },
+        {
+          "name": "China Zun",
+          "detail": "Beijing",
+          "value": 527.7
+        },
+        {
+          "name": "Taipei 101",
+          "detail": "Taipei",
+          "value": 508
+        },
+        {
+          "name": "Shanghai World Financial Center",
+          "detail": "Shanghai",
+          "value": 492
+        },
+        {
+          "name": "International Commerce Centre",
+          "detail": "Hong Kong",
+          "value": 484
+        },
+        {
+          "name": "Wuhan Greenland Center",
+          "detail": "Wuhan",
+          "value": 475.6
+        },
+        {
+          "name": "Central Park Tower",
+          "detail": "New York City",
+          "value": 472.4
+        },
+        {
+          "name": "Lakhta Center",
+          "detail": "Saint Petersburg",
+          "value": 462
+        },
+        {
+          "name": "Landmark 81",
+          "detail": "Ho Chi Minh City",
+          "value": 461.2
+        },
+        {
+          "name": "Chongqing International Land-Sea Center",
+          "detail": "Chongqing",
+          "value": 458
+        },
+        {
+          "name": "The Exchange 106",
+          "detail": "Kuala Lumpur",
+          "value": 453.6
+        },
+        {
+          "name": "Changsha IFS Tower T1",
+          "detail": "Changsha",
+          "value": 452.1
+        },
+        {
+          "name": "Petronas Tower 1",
+          "detail": "Kuala Lumpur",
+          "value": 451.9
+        },
+        {
+          "name": "Zifeng Tower",
+          "detail": "Nanjing",
+          "value": 450
+        },
+        {
+          "name": "Wuhan Center",
+          "detail": "Wuhan",
+          "value": 443.1
+        },
+        {
+          "name": "Willis Tower",
+          "detail": "Chicago",
+          "value": 442.1
+        },
+        {
+          "name": "KK100",
+          "detail": "Shenzhen",
+          "value": 441.8
+        },
+        {
+          "name": "Guangzhou International Finance Center",
+          "detail": "Guangzhou",
+          "value": 438.6
+        },
+        {
+          "name": "111 West 57th Street",
+          "detail": "New York City",
+          "value": 435.3
+        },
+        {
+          "name": "Shandong International Financial Center",
+          "detail": "Jinan",
+          "value": 428
+        },
+        {
+          "name": "One Vanderbilt",
+          "detail": "New York City",
+          "value": 427
+        },
+        {
+          "name": "432 Park Avenue",
+          "detail": "New York City",
+          "value": 425.7
+        },
+        {
+          "name": "Marina 101",
+          "detail": "Dubai",
+          "value": 425
+        },
+        {
+          "name": "Trump International Hotel and Tower",
+          "detail": "Chicago",
+          "value": 423.2
+        },
+        {
+          "name": "JPMorgan Chase World Headquarters",
+          "detail": "New York City",
+          "value": 423
+        },
+        {
+          "name": "Minying International Trade Center 1",
+          "detail": "Dongguan",
+          "value": 422.6
+        },
+        {
+          "name": "Jin Mao Tower",
+          "detail": "Shanghai",
+          "value": 420.5
+        },
+        {
+          "name": "Nanjing Financial City Phase II Plot C Tower 1",
+          "detail": "Nanjing",
+          "value": 416.6
+        },
+        {
+          "name": "Princess Tower",
+          "detail": "Dubai",
+          "value": 413.4
+        },
+        {
+          "name": "Al Hamra Tower",
+          "detail": "Kuwait City",
+          "value": 412.6
+        },
+        {
+          "name": "Two International Finance Centre",
+          "detail": "Hong Kong",
+          "value": 412
+        },
+        {
+          "name": "Haeundae LCT The Sharp Landmark Tower",
+          "detail": "Busan",
+          "value": 411.6
+        },
+        {
+          "name": "Ningbo Central Plaza",
+          "detail": "Ningbo",
+          "value": 409
+        },
+        {
+          "name": "Guangxi China Resources Tower",
+          "detail": "Nanning",
+          "value": 402.7
+        },
+        {
+          "name": "Guiyang International Financial Center T1",
+          "detail": "Guiyang",
+          "value": 401
+        },
+        {
+          "name": "Iconic Tower",
+          "detail": "New Administrative Capital",
+          "value": 393.8
+        },
+        {
+          "name": "China Merchants Bank Global Headquarters Main Tower",
+          "detail": "Shenzhen",
+          "value": 393
+        },
+        {
+          "name": "23 Marina",
+          "detail": "Dubai",
+          "value": 392.4
+        },
+        {
+          "name": "CITIC Plaza",
+          "detail": "Guangzhou",
+          "value": 390.2
+        },
+        {
+          "name": "Citymark Centre",
+          "detail": "Shenzhen",
+          "value": 388.3
+        },
+        {
+          "name": "30 Hudson Yards",
+          "detail": "New York City",
+          "value": 387.1
+        }
+      ],
+      "asOfLabel": "Completed by 2025"
+    },
+    {
+      "id": "solar-diameter",
+      "question": "Which solar-system body has a larger mean diameter?",
+      "higherLabel": "Larger",
+      "lowerLabel": "Smaller",
+      "unit": "km",
+      "asOf": null,
+      "source": "NASA/JPL Solar System Dynamics Planetary and Satellite Physical Parameters: mean diameter = twice mean radius in km (not maximum axis). Eight planets, Ceres/Pluto/Makemake and 19 well-measured round moons at least 200 km across; excludes irregular moons and uncertain dwarf-planet estimates. Display rounded to whole km. Satellite source: https://ssd.jpl.nasa.gov/sats/phys_par/ . Later measurement revisions are reported by verification. URL: https://ssd.jpl.nasa.gov/planets/phys_par.html Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Mercury",
+          "value": 4878.8
+        },
+        {
+          "name": "Venus",
+          "value": 12103.6
+        },
+        {
+          "name": "Earth",
+          "value": 12742.0168
+        },
+        {
+          "name": "Mars",
+          "value": 6779
+        },
+        {
+          "name": "Jupiter",
+          "value": 139822
+        },
+        {
+          "name": "Saturn",
+          "value": 116464
+        },
+        {
+          "name": "Uranus",
+          "value": 50724
+        },
+        {
+          "name": "Neptune",
+          "value": 49244
+        },
+        {
+          "name": "Ceres",
+          "value": 939.4
+        },
+        {
+          "name": "Pluto",
+          "value": 2376.6
+        },
+        {
+          "name": "Makemake",
+          "value": 1428
+        },
+        {
+          "name": "Moon",
+          "detail": "Earth",
+          "value": 3474.8
+        },
+        {
+          "name": "Io",
+          "detail": "Jupiter",
+          "value": 3642.98
+        },
+        {
+          "name": "Europa",
+          "detail": "Jupiter",
+          "value": 3121.6
+        },
+        {
+          "name": "Ganymede",
+          "detail": "Jupiter",
+          "value": 5262.4,
+          "surprise": true
+        },
+        {
+          "name": "Callisto",
+          "detail": "Jupiter",
+          "value": 4820.6
+        },
+        {
+          "name": "Mimas",
+          "detail": "Saturn",
+          "value": 396.4
+        },
+        {
+          "name": "Enceladus",
+          "detail": "Saturn",
+          "value": 504.2
+        },
+        {
+          "name": "Tethys",
+          "detail": "Saturn",
+          "value": 1062.2
+        },
+        {
+          "name": "Dione",
+          "detail": "Saturn",
+          "value": 1122.8
+        },
+        {
+          "name": "Rhea",
+          "detail": "Saturn",
+          "value": 1527
+        },
+        {
+          "name": "Titan",
+          "detail": "Saturn",
+          "value": 5149.52,
+          "surprise": true
+        },
+        {
+          "name": "Iapetus",
+          "detail": "Saturn",
+          "value": 1468.6
+        },
+        {
+          "name": "Ariel",
+          "detail": "Uranus",
+          "value": 1157.8
+        },
+        {
+          "name": "Umbriel",
+          "detail": "Uranus",
+          "value": 1169.4
+        },
+        {
+          "name": "Titania",
+          "detail": "Uranus",
+          "value": 1577.8,
+          "surprise": true
+        },
+        {
+          "name": "Oberon",
+          "detail": "Uranus",
+          "value": 1522.8
+        },
+        {
+          "name": "Miranda",
+          "detail": "Uranus",
+          "value": 471.6
+        },
+        {
+          "name": "Triton",
+          "detail": "Neptune",
+          "value": 2705.2,
+          "surprise": true
+        },
+        {
+          "name": "Charon",
+          "detail": "Pluto",
+          "value": 1212,
+          "surprise": true
+        }
+      ],
+      "asOfLabel": null
+    },
+    {
+      "id": "food-energy",
+      "question": "Which food has more calories per 100 g?",
+      "higherLabel": "More",
+      "lowerLabel": "Fewer",
+      "unit": "kcal",
+      "asOf": 2018,
+      "source": "USDA FoodData Central SR Legacy April 2018 release, nutrient 1008 (Energy, kcal), per 100 g edible portion, not per serving. Exact entry descriptions and FDC ids are in per-fact sources. Preparation state is part of the item definition; cooked foods are without added salt unless specified. URL: https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Banana",
+          "detail": "Raw",
+          "value": 89,
+          "source": "USDA FDC 173944: Bananas, raw. https://fdc.nal.usda.gov/food-details/173944/nutrients"
+        },
+        {
+          "name": "Apple",
+          "detail": "Raw, with skin",
+          "value": 52,
+          "source": "USDA FDC 171688: Apples, raw, with skin (Includes foods for USDA's Food Distribution Program). https://fdc.nal.usda.gov/food-details/171688/nutrients"
+        },
+        {
+          "name": "Orange",
+          "detail": "Raw",
+          "value": 47,
+          "source": "USDA FDC 169097: Oranges, raw, all commercial varieties. https://fdc.nal.usda.gov/food-details/169097/nutrients"
+        },
+        {
+          "name": "Strawberry",
+          "detail": "Raw",
+          "value": 32,
+          "source": "USDA FDC 167762: Strawberries, raw. https://fdc.nal.usda.gov/food-details/167762/nutrients"
+        },
+        {
+          "name": "Grape",
+          "detail": "Raw",
+          "value": 69,
+          "source": "USDA FDC 174683: Grapes, red or green (European type, such as Thompson seedless), raw. https://fdc.nal.usda.gov/food-details/174683/nutrients"
+        },
+        {
+          "name": "Blueberry",
+          "detail": "Raw",
+          "value": 57,
+          "source": "USDA FDC 171711: Blueberries, raw. https://fdc.nal.usda.gov/food-details/171711/nutrients"
+        },
+        {
+          "name": "Avocado",
+          "detail": "Raw",
+          "value": 160,
+          "source": "USDA FDC 171705: Avocados, raw, all commercial varieties. https://fdc.nal.usda.gov/food-details/171705/nutrients",
+          "surprise": true
+        },
+        {
+          "name": "Peanut",
+          "detail": "Raw",
+          "value": 567,
+          "source": "USDA FDC 172430: Peanuts, all types, raw. https://fdc.nal.usda.gov/food-details/172430/nutrients",
+          "surprise": true
+        },
+        {
+          "name": "Almond",
+          "detail": "Raw",
+          "value": 579,
+          "source": "USDA FDC 170567: Nuts, almonds. https://fdc.nal.usda.gov/food-details/170567/nutrients"
+        },
+        {
+          "name": "Walnut",
+          "detail": "English, raw",
+          "value": 654,
+          "source": "USDA FDC 170187: Nuts, walnuts, english. https://fdc.nal.usda.gov/food-details/170187/nutrients"
+        },
+        {
+          "name": "Butter",
+          "detail": "Salted",
+          "value": 717,
+          "source": "USDA FDC 173410: Butter, salted. https://fdc.nal.usda.gov/food-details/173410/nutrients"
+        },
+        {
+          "name": "Olive oil",
+          "detail": "Salad/cooking",
+          "value": 884,
+          "source": "USDA FDC 171413: Oil, olive, salad or cooking. https://fdc.nal.usda.gov/food-details/171413/nutrients"
+        },
+        {
+          "name": "Sugar",
+          "detail": "Granulated",
+          "value": 387,
+          "source": "USDA FDC 169655: Sugars, granulated. https://fdc.nal.usda.gov/food-details/169655/nutrients"
+        },
+        {
+          "name": "Honey",
+          "value": 304,
+          "source": "USDA FDC 169640: Honey. https://fdc.nal.usda.gov/food-details/169640/nutrients"
+        },
+        {
+          "name": "White rice",
+          "detail": "Cooked, long-grain, enriched",
+          "value": 130,
+          "source": "USDA FDC 168878: Rice, white, long-grain, regular, enriched, cooked. https://fdc.nal.usda.gov/food-details/168878/nutrients"
+        },
+        {
+          "name": "Pasta",
+          "detail": "Cooked, enriched",
+          "value": 158,
+          "source": "USDA FDC 169737: Pasta, cooked, enriched, without added salt. https://fdc.nal.usda.gov/food-details/169737/nutrients"
+        },
+        {
+          "name": "White bread",
+          "detail": "Commercially prepared",
+          "value": 266,
+          "source": "USDA FDC 174924: Bread, white, commercially prepared (includes soft bread crumbs). https://fdc.nal.usda.gov/food-details/174924/nutrients"
+        },
+        {
+          "name": "Egg",
+          "detail": "Whole, raw",
+          "value": 143,
+          "source": "USDA FDC 171287: Egg, whole, raw, fresh. https://fdc.nal.usda.gov/food-details/171287/nutrients"
+        },
+        {
+          "name": "Whole milk",
+          "detail": "3.25% fat, added vitamin D",
+          "value": 61,
+          "source": "USDA FDC 171265: Milk, whole, 3.25% milkfat, with added vitamin D. https://fdc.nal.usda.gov/food-details/171265/nutrients"
+        },
+        {
+          "name": "Plain yogurt",
+          "detail": "Whole milk",
+          "value": 61,
+          "source": "USDA FDC 171284: Yogurt, plain, whole milk. https://fdc.nal.usda.gov/food-details/171284/nutrients"
+        },
+        {
+          "name": "Dark chocolate",
+          "detail": "70–85% cacao",
+          "value": 598,
+          "source": "USDA FDC 170273: Chocolate, dark, 70-85% cacao solids. https://fdc.nal.usda.gov/food-details/170273/nutrients",
+          "surprise": true
+        },
+        {
+          "name": "Milk chocolate",
+          "value": 535,
+          "source": "USDA FDC 167587: Candies, milk chocolate. https://fdc.nal.usda.gov/food-details/167587/nutrients"
+        },
+        {
+          "name": "Lentil",
+          "detail": "Cooked, boiled",
+          "value": 116,
+          "source": "USDA FDC 172421: Lentils, mature seeds, cooked, boiled, without salt. https://fdc.nal.usda.gov/food-details/172421/nutrients"
+        },
+        {
+          "name": "Chickpea",
+          "detail": "Cooked, boiled",
+          "value": 164,
+          "source": "USDA FDC 173757: Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt. https://fdc.nal.usda.gov/food-details/173757/nutrients"
+        },
+        {
+          "name": "Black bean",
+          "detail": "Cooked, boiled",
+          "value": 132,
+          "source": "USDA FDC 173735: Beans, black, mature seeds, cooked, boiled, without salt. https://fdc.nal.usda.gov/food-details/173735/nutrients"
+        },
+        {
+          "name": "Broccoli",
+          "detail": "Raw",
+          "value": 34,
+          "source": "USDA FDC 170379: Broccoli, raw. https://fdc.nal.usda.gov/food-details/170379/nutrients"
+        },
+        {
+          "name": "Carrot",
+          "detail": "Raw",
+          "value": 41,
+          "source": "USDA FDC 170393: Carrots, raw. https://fdc.nal.usda.gov/food-details/170393/nutrients"
+        },
+        {
+          "name": "Spinach",
+          "detail": "Raw",
+          "value": 23,
+          "source": "USDA FDC 168462: Spinach, raw. https://fdc.nal.usda.gov/food-details/168462/nutrients"
+        },
+        {
+          "name": "Tomato",
+          "detail": "Raw",
+          "value": 18,
+          "source": "USDA FDC 170457: Tomatoes, red, ripe, raw, year round average. https://fdc.nal.usda.gov/food-details/170457/nutrients"
+        },
+        {
+          "name": "Cucumber",
+          "detail": "Raw, with peel",
+          "value": 15,
+          "source": "USDA FDC 168409: Cucumber, with peel, raw. https://fdc.nal.usda.gov/food-details/168409/nutrients"
+        },
+        {
+          "name": "Iceberg lettuce",
+          "detail": "Raw",
+          "value": 14,
+          "source": "USDA FDC 169248: Lettuce, iceberg (includes crisphead types), raw. https://fdc.nal.usda.gov/food-details/169248/nutrients"
+        },
+        {
+          "name": "Potato",
+          "detail": "Boiled, flesh only",
+          "value": 87,
+          "source": "USDA FDC 170438: Potatoes, boiled, cooked in skin, flesh, without salt. https://fdc.nal.usda.gov/food-details/170438/nutrients"
+        },
+        {
+          "name": "Sweet potato",
+          "detail": "Baked, flesh only",
+          "value": 90,
+          "source": "USDA FDC 168483: Sweet potato, cooked, baked in skin, flesh, without salt. https://fdc.nal.usda.gov/food-details/168483/nutrients"
+        },
+        {
+          "name": "Date",
+          "detail": "Medjool",
+          "value": 277,
+          "source": "USDA FDC 168191: Dates, medjool. https://fdc.nal.usda.gov/food-details/168191/nutrients"
+        },
+        {
+          "name": "Dried apricot",
+          "detail": "Sulfured, uncooked",
+          "value": 241,
+          "source": "USDA FDC 173941: Apricots, dried, sulfured, uncooked. https://fdc.nal.usda.gov/food-details/173941/nutrients"
+        },
+        {
+          "name": "Oat",
+          "detail": "Dry, unfortified",
+          "value": 379,
+          "source": "USDA FDC 173904: Cereals, oats, regular and quick, not fortified, dry. https://fdc.nal.usda.gov/food-details/173904/nutrients"
+        },
+        {
+          "name": "Oat bran",
+          "detail": "Raw",
+          "value": 246,
+          "source": "USDA FDC 168872: Oat bran, raw. https://fdc.nal.usda.gov/food-details/168872/nutrients"
+        },
+        {
+          "name": "Quinoa",
+          "detail": "Cooked",
+          "value": 120,
+          "source": "USDA FDC 168917: Quinoa, cooked. https://fdc.nal.usda.gov/food-details/168917/nutrients",
+          "surprise": true
+        },
+        {
+          "name": "Sweet corn",
+          "detail": "Yellow, raw",
+          "value": 86,
+          "source": "USDA FDC 169998: Corn, sweet, yellow, raw. https://fdc.nal.usda.gov/food-details/169998/nutrients"
+        },
+        {
+          "name": "White mushroom",
+          "detail": "Raw",
+          "value": 22,
+          "source": "USDA FDC 169251: Mushrooms, white, raw. https://fdc.nal.usda.gov/food-details/169251/nutrients"
+        },
+        {
+          "name": "Peanut butter",
+          "detail": "Smooth, unsalted",
+          "value": 598,
+          "source": "USDA FDC 172470: Peanut butter, smooth style, without salt. https://fdc.nal.usda.gov/food-details/172470/nutrients",
+          "surprise": true
+        },
+        {
+          "name": "Sesame seed",
+          "detail": "Whole, dried",
+          "value": 573,
+          "source": "USDA FDC 170150: Seeds, sesame seeds, whole, dried. https://fdc.nal.usda.gov/food-details/170150/nutrients"
+        },
+        {
+          "name": "Chia seed",
+          "detail": "Dried",
+          "value": 486,
+          "source": "USDA FDC 170554: Seeds, chia seeds, dried. https://fdc.nal.usda.gov/food-details/170554/nutrients"
+        },
+        {
+          "name": "Sunflower seed",
+          "detail": "Kernel, dried",
+          "value": 584,
+          "source": "USDA FDC 170562: Seeds, sunflower seed kernels, dried. https://fdc.nal.usda.gov/food-details/170562/nutrients"
+        },
+        {
+          "name": "Firm tofu",
+          "detail": "Raw, calcium sulfate",
+          "value": 144,
+          "source": "USDA FDC 172475: Tofu, raw, firm, prepared with calcium sulfate. https://fdc.nal.usda.gov/food-details/172475/nutrients"
+        },
+        {
+          "name": "Atlantic salmon",
+          "detail": "Wild, cooked, dry heat",
+          "value": 182,
+          "source": "USDA FDC 171998: Fish, salmon, Atlantic, wild, cooked, dry heat. https://fdc.nal.usda.gov/food-details/171998/nutrients"
+        },
+        {
+          "name": "Chicken breast",
+          "detail": "Meat only, roasted",
+          "value": 165,
+          "source": "USDA FDC 171477: Chicken, broilers or fryers, breast, meat only, cooked, roasted. https://fdc.nal.usda.gov/food-details/171477/nutrients",
+          "surprise": true
+        },
+        {
+          "name": "Beef patty",
+          "detail": "85% lean, broiled",
+          "value": 250,
+          "source": "USDA FDC 174032: Beef, ground, 85% lean meat / 15% fat, patty, cooked, broiled. https://fdc.nal.usda.gov/food-details/174032/nutrients"
+        }
+      ],
+      "asOfLabel": "USDA SR Legacy, 2018"
+    },
+    {
+      "id": "airport-passengers",
+      "question": "Which airport handled more passengers?",
+      "higherLabel": "Higher",
+      "lowerLabel": "Lower",
+      "unit": "passengers",
+      "asOf": 2019,
+      "source": "ACI total airport passengers in calendar 2019, arrivals plus departures; airport, not metropolitan airport system. ACI table transcribed in Wikipedia revision 1316727930 (2025-10-14), 2019 section. IATA code identifies each airport. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1316727930&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Hartsfield–Jackson Atlanta",
+          "detail": "ATL",
+          "value": 110531300,
+          "surprise": true
+        },
+        {
+          "name": "Beijing Capital",
+          "detail": "PEK",
+          "value": 100011438
+        },
+        {
+          "name": "Los Angeles",
+          "detail": "LAX",
+          "value": 88068013
+        },
+        {
+          "name": "Dubai",
+          "detail": "DXB",
+          "value": 86396757,
+          "surprise": true
+        },
+        {
+          "name": "Tokyo Haneda",
+          "detail": "HND",
+          "value": 85505054
+        },
+        {
+          "name": "O'Hare",
+          "detail": "ORD",
+          "value": 84649115
+        },
+        {
+          "name": "Heathrow",
+          "detail": "LHR",
+          "value": 80888305
+        },
+        {
+          "name": "Shanghai Pudong",
+          "detail": "PVG",
+          "value": 76153455
+        },
+        {
+          "name": "Charles de Gaulle",
+          "detail": "CDG",
+          "value": 76150009
+        },
+        {
+          "name": "Dallas/Fort Worth",
+          "detail": "DFW",
+          "value": 75066956,
+          "surprise": true
+        },
+        {
+          "name": "Guangzhou Baiyun",
+          "detail": "CAN",
+          "value": 73386153
+        },
+        {
+          "name": "Amsterdam Schiphol",
+          "detail": "AMS",
+          "value": 71706999
+        },
+        {
+          "name": "Hong Kong",
+          "detail": "HKG",
+          "value": 71415245
+        },
+        {
+          "name": "Seoul Incheon",
+          "detail": "ICN",
+          "value": 71204153
+        },
+        {
+          "name": "Frankfurt",
+          "detail": "FRA",
+          "value": 70556072
+        },
+        {
+          "name": "Denver",
+          "detail": "DEN",
+          "value": 69015703,
+          "surprise": true
+        },
+        {
+          "name": "Indira Gandhi",
+          "detail": "DEL",
+          "value": 68490731
+        },
+        {
+          "name": "Singapore Changi",
+          "detail": "SIN",
+          "value": 68283000
+        },
+        {
+          "name": "Suvarnabhumi",
+          "detail": "BKK",
+          "value": 65421844
+        },
+        {
+          "name": "John F. Kennedy",
+          "detail": "JFK",
+          "value": 62551072
+        },
+        {
+          "name": "Kuala Lumpur",
+          "detail": "KUL",
+          "value": 62336469
+        },
+        {
+          "name": "Madrid Barajas",
+          "detail": "MAD",
+          "value": 61707469
+        },
+        {
+          "name": "San Francisco",
+          "detail": "SFO",
+          "value": 57418574
+        },
+        {
+          "name": "Chengdu Shuangliu",
+          "detail": "CTU",
+          "value": 55858552
+        },
+        {
+          "name": "Soekarno–Hatta",
+          "detail": "CGK",
+          "value": 54496625
+        },
+        {
+          "name": "Shenzhen Bao'an",
+          "detail": "SZX",
+          "value": 52931925
+        },
+        {
+          "name": "Barcelona–El Prat",
+          "detail": "BCN",
+          "value": 52663623
+        },
+        {
+          "name": "Seattle–Tacoma",
+          "detail": "SEA",
+          "value": 51829239
+        },
+        {
+          "name": "McCarran",
+          "detail": "LAS",
+          "value": 51691066
+        },
+        {
+          "name": "Orlando",
+          "detail": "MCO",
+          "value": 50613072
+        },
+        {
+          "name": "Toronto Pearson",
+          "detail": "YYZ",
+          "value": 50496804
+        },
+        {
+          "name": "Mexico City",
+          "detail": "MEX",
+          "value": 50308049
+        },
+        {
+          "name": "Charlotte Douglas",
+          "detail": "CLT",
+          "value": 50168783
+        },
+        {
+          "name": "Sheremetyevo",
+          "detail": "SVO",
+          "value": 49932752
+        },
+        {
+          "name": "Taiwan Taoyuan",
+          "detail": "TPE",
+          "value": 48689372
+        },
+        {
+          "name": "Kunming Changshui",
+          "detail": "KMG",
+          "value": 48076238
+        },
+        {
+          "name": "Munich",
+          "detail": "MUC",
+          "value": 47941348
+        },
+        {
+          "name": "Ninoy Aquino",
+          "detail": "MNL",
+          "value": 47898046
+        },
+        {
+          "name": "Xi'an Xianyang",
+          "detail": "XIY",
+          "value": 47220547
+        },
+        {
+          "name": "Chhatrapati Shivaji Maharaj",
+          "detail": "BOM",
+          "value": 47055740
+        },
+        {
+          "name": "London Gatwick",
+          "detail": "LGW",
+          "value": 46576473
+        },
+        {
+          "name": "Newark Liberty",
+          "detail": "EWR",
+          "value": 46336452
+        },
+        {
+          "name": "Phoenix Sky Harbor",
+          "detail": "PHX",
+          "value": 46287790
+        },
+        {
+          "name": "Miami",
+          "detail": "MIA",
+          "value": 45924466
+        },
+        {
+          "name": "Shanghai Hongqiao",
+          "detail": "SHA",
+          "value": 45637882
+        },
+        {
+          "name": "George Bush Intercontinental",
+          "detail": "IAH",
+          "value": 44990399
+        },
+        {
+          "name": "Chongqing Jiangbei",
+          "detail": "CKG",
+          "value": 44786722
+        },
+        {
+          "name": "Sydney Kingsford-Smith",
+          "detail": "SYD",
+          "value": 44446838
+        },
+        {
+          "name": "Narita",
+          "detail": "NRT",
+          "value": 44340847
+        }
+      ],
+      "asOfLabel": "Annual passengers, 2019"
+    },
+    {
+      "id": "film-gross",
+      "question": "Which film grossed more worldwide?",
+      "higherLabel": "Higher",
+      "lowerLabel": "Lower",
+      "unit": "usd",
+      "asOf": 2025,
+      "source": "Worldwide nominal theatrical box-office gross in US dollars, including re-releases through the pinned 2025-12-31 table; not inflation-adjusted, revenue from streaming or profit. Box Office Mojo/The Numbers figures as cited individually in Wikipedia revision 1330525225. Films first released after 2023 excluded to avoid active first runs; remake titles include release year. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1330525225&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Avatar",
+          "detail": "2009",
+          "value": 2923710708
+        },
+        {
+          "name": "Avengers: Endgame",
+          "detail": "2019",
+          "value": 2797501328
+        },
+        {
+          "name": "Avatar: The Way of Water",
+          "detail": "2022",
+          "value": 2343477301
+        },
+        {
+          "name": "Titanic",
+          "detail": "1997",
+          "value": 2257906828,
+          "surprise": true
+        },
+        {
+          "name": "Star Wars: The Force Awakens",
+          "detail": "2015",
+          "value": 2068223624
+        },
+        {
+          "name": "Avengers: Infinity War",
+          "detail": "2018",
+          "value": 2048359754
+        },
+        {
+          "name": "Spider-Man: No Way Home",
+          "detail": "2021",
+          "value": 1922598800
+        },
+        {
+          "name": "Jurassic World",
+          "detail": "2015",
+          "value": 1671537444
+        },
+        {
+          "name": "The Lion King",
+          "detail": "2019",
+          "value": 1656943394,
+          "surprise": true
+        },
+        {
+          "name": "The Avengers",
+          "detail": "2012",
+          "value": 1518815515
+        },
+        {
+          "name": "Furious 7",
+          "detail": "2015",
+          "value": 1515341399
+        },
+        {
+          "name": "Top Gun: Maverick",
+          "detail": "2022",
+          "value": 1495696292
+        },
+        {
+          "name": "Frozen 2",
+          "detail": "2019",
+          "value": 1450026933,
+          "surprise": true
+        },
+        {
+          "name": "Barbie",
+          "detail": "2023",
+          "value": 1447138421,
+          "surprise": true
+        },
+        {
+          "name": "Avengers: Age of Ultron",
+          "detail": "2015",
+          "value": 1402809540
+        },
+        {
+          "name": "The Super Mario Bros. Movie",
+          "detail": "2023",
+          "value": 1360879735
+        },
+        {
+          "name": "Black Panther",
+          "detail": "2018",
+          "value": 1347280838
+        },
+        {
+          "name": "Harry Potter and the Deathly Hallows – Part 2",
+          "detail": "2011",
+          "value": 1342139727
+        },
+        {
+          "name": "Star Wars: The Last Jedi",
+          "detail": "2017",
+          "value": 1332539889
+        },
+        {
+          "name": "Jurassic World: Fallen Kingdom",
+          "detail": "2018",
+          "value": 1308476166
+        },
+        {
+          "name": "Frozen",
+          "detail": "2013",
+          "value": 1290000000,
+          "surprise": true
+        },
+        {
+          "name": "Beauty and the Beast",
+          "detail": "2017",
+          "value": 1263521126
+        },
+        {
+          "name": "Incredibles 2",
+          "detail": "2018",
+          "value": 1242805359
+        },
+        {
+          "name": "The Fate of the Furious",
+          "detail": "2017",
+          "value": 1238764765
+        },
+        {
+          "name": "Iron Man 3",
+          "detail": "2013",
+          "value": 1214811252
+        },
+        {
+          "name": "Minions",
+          "detail": "2015",
+          "value": 1159444662
+        },
+        {
+          "name": "Captain America: Civil War",
+          "detail": "2016",
+          "value": 1153337496
+        },
+        {
+          "name": "Aquaman",
+          "detail": "2018",
+          "value": 1148528393
+        },
+        {
+          "name": "The Lord of the Rings: The Return of the King",
+          "detail": "2003",
+          "value": 1147997407
+        },
+        {
+          "name": "Spider-Man: Far From Home",
+          "detail": "2019",
+          "value": 1132679685
+        },
+        {
+          "name": "Captain Marvel",
+          "detail": "2019",
+          "value": 1128274794
+        },
+        {
+          "name": "Transformers: Dark of the Moon",
+          "detail": "2011",
+          "value": 1123794079
+        },
+        {
+          "name": "Skyfall",
+          "detail": "2012",
+          "value": 1108594137
+        },
+        {
+          "name": "Transformers: Age of Extinction",
+          "detail": "2014",
+          "value": 1104054072
+        },
+        {
+          "name": "The Dark Knight Rises",
+          "detail": "2012",
+          "value": 1081169825
+        },
+        {
+          "name": "Joker",
+          "detail": "2019",
+          "value": 1074458282
+        },
+        {
+          "name": "Star Wars: The Rise of Skywalker",
+          "detail": "2019",
+          "value": 1074144248
+        },
+        {
+          "name": "Toy Story 4",
+          "detail": "2019",
+          "value": 1073394593
+        },
+        {
+          "name": "Toy Story 3",
+          "detail": "2010",
+          "value": 1066970811
+        },
+        {
+          "name": "Pirates of the Caribbean: Dead Man's Chest",
+          "detail": "2006",
+          "value": 1066179747
+        }
+      ],
+      "asOfLabel": "Box office as of 2025"
+    },
+    {
+      "id": "nba-career-points",
+      "question": "Which retired NBA player scored more career points?",
+      "higherLabel": "Higher",
+      "lowerLabel": "Lower",
+      "unit": "points",
+      "asOf": null,
+      "source": "Basketball-Reference NBA career regular-season points, NBA table only (not combined NBA/ABA, playoffs or international play). Retired Hall of Fame players only; asterisk denotes Hall of Fame induction, which requires retirement. Final career totals are stable; live page checked on access date. URL: https://www.basketball-reference.com/leaders/pts_career.html Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Kareem Abdul-Jabbar",
+          "value": 38387
+        },
+        {
+          "name": "Karl Malone",
+          "value": 36928
+        },
+        {
+          "name": "Kobe Bryant",
+          "value": 33643
+        },
+        {
+          "name": "Michael Jordan",
+          "value": 32292
+        },
+        {
+          "name": "Dirk Nowitzki",
+          "value": 31560
+        },
+        {
+          "name": "Wilt Chamberlain",
+          "value": 31419
+        },
+        {
+          "name": "Shaquille O'Neal",
+          "value": 28596,
+          "surprise": true
+        },
+        {
+          "name": "Carmelo Anthony",
+          "value": 28289
+        },
+        {
+          "name": "Moses Malone",
+          "value": 27409
+        },
+        {
+          "name": "Elvin Hayes",
+          "value": 27313
+        },
+        {
+          "name": "Hakeem Olajuwon",
+          "value": 26946
+        },
+        {
+          "name": "Oscar Robertson",
+          "value": 26710
+        },
+        {
+          "name": "Dominique Wilkins",
+          "value": 26668
+        },
+        {
+          "name": "Tim Duncan",
+          "value": 26496,
+          "surprise": true
+        },
+        {
+          "name": "Paul Pierce",
+          "value": 26397
+        },
+        {
+          "name": "John Havlicek",
+          "value": 26395
+        },
+        {
+          "name": "Kevin Garnett",
+          "value": 26071
+        },
+        {
+          "name": "Vince Carter",
+          "value": 25728
+        },
+        {
+          "name": "Alex English",
+          "value": 25613
+        },
+        {
+          "name": "Reggie Miller",
+          "value": 25279
+        },
+        {
+          "name": "Jerry West",
+          "value": 25192
+        },
+        {
+          "name": "Patrick Ewing",
+          "value": 24815
+        },
+        {
+          "name": "Ray Allen",
+          "value": 24505
+        },
+        {
+          "name": "Allen Iverson",
+          "value": 24368
+        },
+        {
+          "name": "Charles Barkley",
+          "value": 23757
+        },
+        {
+          "name": "Robert Parish",
+          "value": 23334
+        },
+        {
+          "name": "Adrian Dantley",
+          "value": 23177
+        },
+        {
+          "name": "Dwyane Wade",
+          "value": 23165
+        },
+        {
+          "name": "Elgin Baylor",
+          "value": 23149
+        },
+        {
+          "name": "Clyde Drexler",
+          "value": 22195
+        },
+        {
+          "name": "Gary Payton",
+          "value": 21813
+        },
+        {
+          "name": "Larry Bird",
+          "value": 21791
+        },
+        {
+          "name": "Hal Greer",
+          "value": 21586
+        },
+        {
+          "name": "Walt Bellamy",
+          "value": 20941
+        },
+        {
+          "name": "Pau Gasol",
+          "value": 20894
+        },
+        {
+          "name": "Bob Pettit",
+          "value": 20880
+        },
+        {
+          "name": "David Robinson",
+          "value": 20790
+        },
+        {
+          "name": "George Gervin",
+          "value": 20708
+        },
+        {
+          "name": "Mitch Richmond",
+          "value": 20497
+        },
+        {
+          "name": "John Stockton",
+          "value": 19711,
+          "surprise": true
+        },
+        {
+          "name": "Bernard King",
+          "value": 19655
+        },
+        {
+          "name": "Walter Davis",
+          "value": 19521
+        },
+        {
+          "name": "Dwight Howard",
+          "value": 19485
+        },
+        {
+          "name": "Tony Parker",
+          "value": 19473
+        },
+        {
+          "name": "Bob Lanier",
+          "value": 19248
+        },
+        {
+          "name": "Gail Goodrich",
+          "value": 19181
+        },
+        {
+          "name": "Scottie Pippen",
+          "value": 18940
+        },
+        {
+          "name": "Chet Walker",
+          "value": 18831
+        },
+        {
+          "name": "Isiah Thomas",
+          "value": 18822
+        },
+        {
+          "name": "Bob McAdoo",
+          "value": 18787
+        }
+      ],
+      "asOfLabel": null
+    },
+    {
+      "id": "national-park-area",
+      "question": "Which US national park is larger?",
+      "higherLabel": "Larger",
+      "lowerLabel": "Smaller",
+      "unit": "km2",
+      "asOf": 2023,
+      "source": "NPS 2023 park acreage as transcribed in Wikipedia revision 1326671800 (2025-12-10), Area (2023) column. Park unit only, excluding separately counted adjoining national preserves. Acres converted using exactly 0.0040468564224 km²/acre and rounded to 0.1 km². Not land-only area. URL: https://en.wikipedia.org/w/api.php?action=parse&oldid=1326671800&prop=text&format=json Accessed 2026-11-09.",
+      "facts": [
+        {
+          "name": "Acadia",
+          "value": 198.6
+        },
+        {
+          "name": "American Samoa",
+          "value": 33.4
+        },
+        {
+          "name": "Arches",
+          "value": 310.3
+        },
+        {
+          "name": "Badlands",
+          "value": 982.4
+        },
+        {
+          "name": "Big Bend",
+          "value": 3242.2
+        },
+        {
+          "name": "Biscayne",
+          "value": 700
+        },
+        {
+          "name": "Black Canyon of the Gunnison",
+          "value": 124.6
+        },
+        {
+          "name": "Bryce Canyon",
+          "value": 145
+        },
+        {
+          "name": "Canyonlands",
+          "value": 1366.2
+        },
+        {
+          "name": "Capitol Reef",
+          "value": 979
+        },
+        {
+          "name": "Carlsbad Caverns",
+          "value": 189.3
+        },
+        {
+          "name": "Channel Islands",
+          "value": 1009.9
+        },
+        {
+          "name": "Congaree",
+          "value": 108
+        },
+        {
+          "name": "Crater Lake",
+          "value": 741.5
+        },
+        {
+          "name": "Cuyahoga Valley",
+          "value": 131.8
+        },
+        {
+          "name": "Death Valley",
+          "value": 13793.3,
+          "surprise": true
+        },
+        {
+          "name": "Denali",
+          "value": 19185.8
+        },
+        {
+          "name": "Dry Tortugas",
+          "value": 261.8
+        },
+        {
+          "name": "Everglades",
+          "value": 6106.5,
+          "surprise": true
+        },
+        {
+          "name": "Gates of the Arctic",
+          "value": 30448.1
+        },
+        {
+          "name": "Gateway Arch",
+          "value": 0.8
+        },
+        {
+          "name": "Glacier",
+          "value": 4100
+        },
+        {
+          "name": "Glacier Bay",
+          "value": 13044.6
+        },
+        {
+          "name": "Grand Canyon",
+          "value": 4862.9
+        },
+        {
+          "name": "Grand Teton",
+          "value": 1254.7
+        },
+        {
+          "name": "Great Basin",
+          "value": 312.3
+        },
+        {
+          "name": "Great Sand Dunes",
+          "value": 434.4
+        },
+        {
+          "name": "Great Smoky Mountains",
+          "value": 2114.2
+        },
+        {
+          "name": "Guadalupe Mountains",
+          "value": 349.5
+        },
+        {
+          "name": "Haleakalā",
+          "value": 135.5
+        },
+        {
+          "name": "Hawaiʻi Volcanoes",
+          "value": 1395.4
+        },
+        {
+          "name": "Hot Springs",
+          "value": 22.5
+        },
+        {
+          "name": "Indiana Dunes",
+          "value": 62.1
+        },
+        {
+          "name": "Isle Royale",
+          "value": 2314
+        },
+        {
+          "name": "Joshua Tree",
+          "value": 3217.9
+        },
+        {
+          "name": "Katmai",
+          "value": 14870.3
+        },
+        {
+          "name": "Kenai Fjords",
+          "value": 2710
+        },
+        {
+          "name": "Kings Canyon",
+          "value": 1869.2
+        },
+        {
+          "name": "Kobuk Valley",
+          "value": 7084.9
+        },
+        {
+          "name": "Lake Clark",
+          "value": 10602
+        },
+        {
+          "name": "Lassen Volcanic",
+          "value": 431.4
+        },
+        {
+          "name": "Mammoth Cave",
+          "value": 293.3
+        },
+        {
+          "name": "Mesa Verde",
+          "value": 212.4
+        },
+        {
+          "name": "Mount Rainier",
+          "value": 956.6
+        },
+        {
+          "name": "New River Gorge",
+          "value": 28.4
+        },
+        {
+          "name": "North Cascades",
+          "value": 2042.8
+        },
+        {
+          "name": "Olympic",
+          "value": 3733.8
+        },
+        {
+          "name": "Petrified Forest",
+          "value": 895.9
+        },
+        {
+          "name": "Pinnacles",
+          "value": 108
+        },
+        {
+          "name": "Redwood",
+          "value": 562.5
+        },
+        {
+          "name": "Rocky Mountain",
+          "value": 1075.8
+        },
+        {
+          "name": "Saguaro",
+          "value": 375.9
+        },
+        {
+          "name": "Sequoia",
+          "value": 1635.2
+        },
+        {
+          "name": "Shenandoah",
+          "value": 811.2
+        },
+        {
+          "name": "Theodore Roosevelt",
+          "value": 285.1
+        },
+        {
+          "name": "Virgin Islands",
+          "value": 60.9
+        },
+        {
+          "name": "Voyageurs",
+          "value": 883.1
+        },
+        {
+          "name": "White Sands",
+          "value": 592.2
+        },
+        {
+          "name": "Wind Cave",
+          "value": 137.5
+        },
+        {
+          "name": "Wrangell–St. Elias",
+          "value": 33682.6
+        },
+        {
+          "name": "Yellowstone",
+          "value": 8983.2,
+          "surprise": true
+        },
+        {
+          "name": "Yosemite",
+          "value": 3082.7,
+          "surprise": true
+        },
+        {
+          "name": "Zion",
+          "value": 595.9
+        }
+      ],
+      "asOfLabel": "Park area as of 2023"
+    }
+  ]
+}
