@@ -11006,7 +11006,8 @@
           "name": "kappa"
         },
         {
-          "name": "lambda, lamda, labda"
+          "name": "lambda, lamda, labda",
+          "aliases": ["lambda", "lamda", "labda"]
         },
         {
           "name": "mu"
@@ -11042,7 +11043,8 @@
           "name": "theta"
         },
         {
-          "name": "upsilon"
+          "name": "upsilon",
+          "aliases": ["ypsilon"]
         },
         {
           "name": "xi"
@@ -11166,10 +11168,12 @@
           "name": "Victor"
         },
         {
-          "name": "Whiskey"
+          "name": "Whiskey",
+          "aliases": ["Whisky"]
         },
         {
-          "name": "Xray, x-ray"
+          "name": "Xray, x-ray",
+          "aliases": ["Xray", "X-ray"]
         },
         {
           "name": "Yankee"
@@ -14128,43 +14132,56 @@
       "expect": [13, 13],
       "answers": [
         {
-          "name": "Alberta"
+          "name": "Alberta",
+          "aliases": ["AB", "Alta"]
         },
         {
-          "name": "British Columbia"
+          "name": "British Columbia",
+          "aliases": ["BC"]
         },
         {
-          "name": "Manitoba"
+          "name": "Manitoba",
+          "aliases": ["MB", "Man"]
         },
         {
-          "name": "New Brunswick"
+          "name": "New Brunswick",
+          "aliases": ["NB"]
         },
         {
-          "name": "Newfoundland and Labrador"
+          "name": "Newfoundland and Labrador",
+          "aliases": ["NL", "Newfoundland", "Nfld"]
         },
         {
-          "name": "Northwest Territories"
+          "name": "Northwest Territories",
+          "aliases": ["NT", "NWT", "North West Territories"]
         },
         {
-          "name": "Nova Scotia"
+          "name": "Nova Scotia",
+          "aliases": ["NS", "New Scotland"]
         },
         {
-          "name": "Nunavut"
+          "name": "Nunavut",
+          "aliases": ["NU"]
         },
         {
-          "name": "Ontario"
+          "name": "Ontario",
+          "aliases": ["ON", "Ont"]
         },
         {
-          "name": "Prince Edward Island"
+          "name": "Prince Edward Island",
+          "aliases": ["PE", "PEI"]
         },
         {
-          "name": "Quebec"
+          "name": "Quebec",
+          "aliases": ["QC", "PQ"]
         },
         {
-          "name": "Saskatchewan"
+          "name": "Saskatchewan",
+          "aliases": ["SK", "Sask"]
         },
         {
-          "name": "Yukon"
+          "name": "Yukon",
+          "aliases": ["YT", "Yukon Territory"]
         }
       ],
       "surface": ["Ontario", "Quebec", "British Columbia"],
@@ -14207,10 +14224,12 @@
       "expect": [16, 16],
       "answers": [
         {
-          "name": "Baden-Württemberg"
+          "name": "Baden-Württemberg",
+          "aliases": ["Baden Wuerttemberg"]
         },
         {
-          "name": "Bavaria"
+          "name": "Bavaria",
+          "aliases": ["Bayern"]
         },
         {
           "name": "Berlin"
@@ -14219,40 +14238,50 @@
           "name": "Brandenburg"
         },
         {
-          "name": "Bremen"
+          "name": "Bremen",
+          "aliases": ["Free Hanseatic City of Bremen"]
         },
         {
-          "name": "Hamburg"
+          "name": "Hamburg",
+          "aliases": ["Free and Hanseatic City of Hamburg"]
         },
         {
-          "name": "Hesse"
+          "name": "Hesse",
+          "aliases": ["Hessen"]
         },
         {
-          "name": "Lower Saxony"
+          "name": "Lower Saxony",
+          "aliases": ["Niedersachsen"]
         },
         {
-          "name": "Mecklenburg-Vorpommern"
+          "name": "Mecklenburg-Vorpommern",
+          "aliases": ["Mecklenburg Western Pomerania"]
         },
         {
-          "name": "North Rhine-Westphalia"
+          "name": "North Rhine-Westphalia",
+          "aliases": ["Nordrhein-Westfalen", "NRW", "North Rhine Westfalen"]
         },
         {
-          "name": "Rhineland-Palatinate"
+          "name": "Rhineland-Palatinate",
+          "aliases": ["Rheinland-Pfalz"]
         },
         {
           "name": "Saarland"
         },
         {
-          "name": "Saxony"
+          "name": "Saxony",
+          "aliases": ["Sachsen"]
         },
         {
-          "name": "Saxony-Anhalt"
+          "name": "Saxony-Anhalt",
+          "aliases": ["Sachsen-Anhalt"]
         },
         {
           "name": "Schleswig-Holstein"
         },
         {
-          "name": "Thuringia"
+          "name": "Thuringia",
+          "aliases": ["Thüringen", "Thueringen"]
         }
       ],
       "surface": ["Bavaria", "Berlin", "Hamburg"],
@@ -14511,16 +14540,20 @@
       "expect": [20, 20],
       "answers": [
         {
-          "name": "Abruzzo"
+          "name": "Abruzzo",
+          "aliases": ["Abruzzi"]
         },
         {
-          "name": "Aosta Valley"
+          "name": "Aosta Valley",
+          "aliases": ["Valle d’Aosta", "Valle d Aosta", "Vallée d’Aoste", "Val d’Aosta"]
         },
         {
-          "name": "Apulia"
+          "name": "Apulia",
+          "aliases": ["Puglia"]
         },
         {
-          "name": "Basilicata"
+          "name": "Basilicata",
+          "aliases": ["Lucania"]
         },
         {
           "name": "Calabria"
@@ -14535,34 +14568,42 @@
           "name": "Friuli-Venezia Giulia"
         },
         {
-          "name": "Lazio"
+          "name": "Lazio",
+          "aliases": ["Latium"]
         },
         {
           "name": "Liguria"
         },
         {
-          "name": "Lombardy"
+          "name": "Lombardy",
+          "aliases": ["Lombardia"]
         },
         {
-          "name": "Marche"
+          "name": "Marche",
+          "aliases": ["The Marches"]
         },
         {
           "name": "Molise"
         },
         {
-          "name": "Piedmont"
+          "name": "Piedmont",
+          "aliases": ["Piemonte"]
         },
         {
-          "name": "Sardinia"
+          "name": "Sardinia",
+          "aliases": ["Sardegna"]
         },
         {
-          "name": "Sicily"
+          "name": "Sicily",
+          "aliases": ["Sicilia"]
         },
         {
-          "name": "Trentino-South Tyrol"
+          "name": "Trentino-South Tyrol",
+          "aliases": ["Trentino-Alto Adige", "Trentino Alto Adige Südtirol", "Trentino Südtirol"]
         },
         {
-          "name": "Tuscany"
+          "name": "Tuscany",
+          "aliases": ["Toscana"]
         },
         {
           "name": "Umbria"
@@ -14622,82 +14663,120 @@
       "expect": [26, 26],
       "answers": [
         {
-          "name": "Aargau"
+          "name": "Aargau",
+          "aliases": ["Argovie", "Argovia"]
         },
         {
-          "name": "Appenzell Ausserrhoden"
+          "name": "Appenzell Ausserrhoden",
+          "aliases": [
+            "Appenzell Outer Rhodes",
+            "Appenzell Rhodes-Extérieures",
+            "Appenzello Esterno"
+          ]
         },
         {
-          "name": "Appenzell Innerrhoden"
+          "name": "Appenzell Innerrhoden",
+          "aliases": [
+            "Appenzell Inner Rhodes",
+            "Appenzell Rhodes-Intérieures",
+            "Appenzello Interno"
+          ]
         },
         {
-          "name": "Basel-Landschaft"
+          "name": "Basel-Landschaft",
+          "aliases": [
+            "Basel Country",
+            "Basel-Land",
+            "Baselland",
+            "Bâle-Campagne",
+            "Basilea Campagna"
+          ]
         },
         {
-          "name": "Basel-Stadt"
+          "name": "Basel-Stadt",
+          "aliases": ["Basel City", "Bâle-Ville", "Basilea Città"]
         },
         {
-          "name": "Bern"
+          "name": "Bern",
+          "aliases": ["Berne", "Berna"]
         },
         {
-          "name": "Fribourg"
+          "name": "Fribourg",
+          "aliases": ["Freiburg", "Friburgo"]
         },
         {
-          "name": "Geneva"
+          "name": "Geneva",
+          "aliases": ["Genève", "Ginevra", "Genf"]
         },
         {
-          "name": "Glarus"
+          "name": "Glarus",
+          "aliases": ["Glaris", "Glarona"]
         },
         {
-          "name": "Grisons"
+          "name": "Grisons",
+          "aliases": ["Graubünden", "Graubuenden", "Grigioni", "Grischun"]
         },
         {
           "name": "Jura"
         },
         {
-          "name": "Lucerne"
+          "name": "Lucerne",
+          "aliases": ["Luzern", "Lucerna"]
         },
         {
-          "name": "Neuchâtel"
+          "name": "Neuchâtel",
+          "aliases": ["Neuenburg"]
         },
         {
-          "name": "Nidwalden"
+          "name": "Nidwalden",
+          "aliases": ["Nidwald", "Nidvaldo"]
         },
         {
-          "name": "Obwalden"
+          "name": "Obwalden",
+          "aliases": ["Obwald", "Obvaldo"]
         },
         {
-          "name": "Schaffhausen"
+          "name": "Schaffhausen",
+          "aliases": ["Schaffhouse", "Sciaffusa"]
         },
         {
-          "name": "Schwyz"
+          "name": "Schwyz",
+          "aliases": ["Schwytz", "Svitto"]
         },
         {
-          "name": "Solothurn"
+          "name": "Solothurn",
+          "aliases": ["Soleure", "Soletta"]
         },
         {
-          "name": "St. Gallen"
+          "name": "St. Gallen",
+          "aliases": ["Saint Gallen", "Sankt Gallen", "Saint-Gall", "San Gallo"]
         },
         {
-          "name": "Thurgau"
+          "name": "Thurgau",
+          "aliases": ["Thurgovie", "Turgovia"]
         },
         {
-          "name": "Ticino"
+          "name": "Ticino",
+          "aliases": ["Tessin"]
         },
         {
           "name": "Uri"
         },
         {
-          "name": "Valais"
+          "name": "Valais",
+          "aliases": ["Wallis", "Vallese"]
         },
         {
-          "name": "Vaud"
+          "name": "Vaud",
+          "aliases": ["Waadt"]
         },
         {
-          "name": "Zug"
+          "name": "Zug",
+          "aliases": ["Zoug", "Zugo"]
         },
         {
-          "name": "Zurich"
+          "name": "Zurich",
+          "aliases": ["Zuerich", "Zurigo"]
         }
       ],
       "surface": ["Zurich", "Geneva", "Bern"],
@@ -14751,85 +14830,112 @@
       "expect": [27, 27],
       "answers": [
         {
-          "name": "Acre"
+          "name": "Acre",
+          "aliases": ["AC"]
         },
         {
-          "name": "Alagoas"
+          "name": "Alagoas",
+          "aliases": ["AL"]
         },
         {
-          "name": "Amapá"
+          "name": "Amapá",
+          "aliases": ["AP"]
         },
         {
-          "name": "Amazonas"
+          "name": "Amazonas",
+          "aliases": ["AM"]
         },
         {
-          "name": "Bahia"
+          "name": "Bahia",
+          "aliases": ["BA"]
         },
         {
-          "name": "Ceará"
+          "name": "Ceará",
+          "aliases": ["CE"]
         },
         {
-          "name": "Distrito Federal"
+          "name": "Distrito Federal",
+          "aliases": ["DF", "Federal District", "Brasília"]
         },
         {
-          "name": "Espírito Santo"
+          "name": "Espírito Santo",
+          "aliases": ["ES"]
         },
         {
-          "name": "Goiás"
+          "name": "Goiás",
+          "aliases": ["GO"]
         },
         {
-          "name": "Maranhão"
+          "name": "Maranhão",
+          "aliases": ["MA"]
         },
         {
-          "name": "Mato Grosso"
+          "name": "Mato Grosso",
+          "aliases": ["MT"]
         },
         {
-          "name": "Mato Grosso do Sul"
+          "name": "Mato Grosso do Sul",
+          "aliases": ["MS"]
         },
         {
-          "name": "Minas Gerais"
+          "name": "Minas Gerais",
+          "aliases": ["MG"]
         },
         {
-          "name": "Paraná"
+          "name": "Paraná",
+          "aliases": ["PR"]
         },
         {
-          "name": "Paraíba"
+          "name": "Paraíba",
+          "aliases": ["PB"]
         },
         {
-          "name": "Pará"
+          "name": "Pará",
+          "aliases": ["PA"]
         },
         {
-          "name": "Pernambuco"
+          "name": "Pernambuco",
+          "aliases": ["PE"]
         },
         {
-          "name": "Piauí"
+          "name": "Piauí",
+          "aliases": ["PI"]
         },
         {
-          "name": "Rio Grande do Norte"
+          "name": "Rio Grande do Norte",
+          "aliases": ["RN"]
         },
         {
-          "name": "Rio Grande do Sul"
+          "name": "Rio Grande do Sul",
+          "aliases": ["RS"]
         },
         {
-          "name": "Rio de Janeiro"
+          "name": "Rio de Janeiro",
+          "aliases": ["RJ", "Rio"]
         },
         {
-          "name": "Rondônia"
+          "name": "Rondônia",
+          "aliases": ["RO"]
         },
         {
-          "name": "Roraima"
+          "name": "Roraima",
+          "aliases": ["RR"]
         },
         {
-          "name": "Santa Catarina"
+          "name": "Santa Catarina",
+          "aliases": ["SC"]
         },
         {
-          "name": "Sergipe"
+          "name": "Sergipe",
+          "aliases": ["SE"]
         },
         {
-          "name": "São Paulo"
+          "name": "São Paulo",
+          "aliases": ["SP"]
         },
         {
-          "name": "Tocantins"
+          "name": "Tocantins",
+          "aliases": ["TO"]
         }
       ],
       "surface": ["São Paulo", "Rio de Janeiro", "Bahia"],
@@ -14908,7 +15014,8 @@
           "name": "Chihuahua"
         },
         {
-          "name": "Coahuila"
+          "name": "Coahuila",
+          "aliases": ["Coahuila de Zaragoza"]
         },
         {
           "name": "Colima"
@@ -14929,13 +15036,16 @@
           "name": "Jalisco"
         },
         {
-          "name": "Mexico"
+          "name": "Mexico",
+          "aliases": ["State of Mexico", "Estado de México", "Edomex"]
         },
         {
-          "name": "Mexico City"
+          "name": "Mexico City",
+          "aliases": ["CDMX", "Ciudad de México", "Distrito Federal", "DF"]
         },
         {
-          "name": "Michoacán"
+          "name": "Michoacán",
+          "aliases": ["Michoacán de Ocampo"]
         },
         {
           "name": "Morelos"
@@ -14953,10 +15063,12 @@
           "name": "Puebla"
         },
         {
-          "name": "Querétaro"
+          "name": "Querétaro",
+          "aliases": ["Querétaro de Arteaga"]
         },
         {
-          "name": "Quintana Roo"
+          "name": "Quintana Roo",
+          "aliases": ["Q Roo"]
         },
         {
           "name": "San Luis Potosí"
@@ -14977,7 +15089,8 @@
           "name": "Tlaxcala"
         },
         {
-          "name": "Veracruz"
+          "name": "Veracruz",
+          "aliases": ["Veracruz de Ignacio de la Llave"]
         },
         {
           "name": "Yucatán"
@@ -15046,13 +15159,16 @@
       "expect": [36, 36],
       "answers": [
         {
-          "name": "Andaman and Nicobar Islands"
+          "name": "Andaman and Nicobar Islands",
+          "aliases": ["Andaman and Nicobar", "Andamans"]
         },
         {
-          "name": "Andhra Pradesh"
+          "name": "Andhra Pradesh",
+          "aliases": ["AP"]
         },
         {
-          "name": "Arunachal Pradesh"
+          "name": "Arunachal Pradesh",
+          "aliases": ["Arunachal"]
         },
         {
           "name": "Assam"
@@ -15064,13 +15180,16 @@
           "name": "Chandigarh"
         },
         {
-          "name": "Chhattisgarh"
+          "name": "Chhattisgarh",
+          "aliases": ["Chattisgarh"]
         },
         {
-          "name": "Dadra and Nagar Haveli and Daman and Diu"
+          "name": "Dadra and Nagar Haveli and Daman and Diu",
+          "aliases": ["Daman and Diu", "Dadra and Nagar Haveli", "DNHDD"]
         },
         {
-          "name": "Delhi"
+          "name": "Delhi",
+          "aliases": ["NCT Delhi", "National Capital Territory of Delhi"]
         },
         {
           "name": "Goa"
@@ -15082,10 +15201,12 @@
           "name": "Haryana"
         },
         {
-          "name": "Himachal Pradesh"
+          "name": "Himachal Pradesh",
+          "aliases": ["HP", "Himachal"]
         },
         {
-          "name": "Jammu and Kashmir"
+          "name": "Jammu and Kashmir",
+          "aliases": ["J&K", "Jammu Kashmir"]
         },
         {
           "name": "Jharkhand"
@@ -15100,10 +15221,12 @@
           "name": "Ladakh"
         },
         {
-          "name": "Lakshadweep"
+          "name": "Lakshadweep",
+          "aliases": ["Laccadive Islands"]
         },
         {
-          "name": "Madhya Pradesh"
+          "name": "Madhya Pradesh",
+          "aliases": ["MP"]
         },
         {
           "name": "Maharashtra"
@@ -15121,10 +15244,12 @@
           "name": "Nagaland"
         },
         {
-          "name": "Odisha"
+          "name": "Odisha",
+          "aliases": ["Orissa"]
         },
         {
-          "name": "Puducherry"
+          "name": "Puducherry",
+          "aliases": ["Pondicherry"]
         },
         {
           "name": "Punjab"
@@ -15136,7 +15261,8 @@
           "name": "Sikkim"
         },
         {
-          "name": "Tamil Nadu"
+          "name": "Tamil Nadu",
+          "aliases": ["TN", "Tamilnadu"]
         },
         {
           "name": "Telangana"
@@ -15145,13 +15271,16 @@
           "name": "Tripura"
         },
         {
-          "name": "Uttar Pradesh"
+          "name": "Uttar Pradesh",
+          "aliases": ["UP"]
         },
         {
-          "name": "Uttarakhand"
+          "name": "Uttarakhand",
+          "aliases": ["Uttaranchal"]
         },
         {
-          "name": "West Bengal"
+          "name": "West Bengal",
+          "aliases": ["WB", "Bengal"]
         }
       ],
       "surface": ["Maharashtra", "Kerala", "Punjab"],
@@ -15201,73 +15330,92 @@
       "expect": [23, 23],
       "answers": [
         {
-          "name": "Anhui"
+          "name": "Anhui",
+          "aliases": ["Anhwei"]
         },
         {
-          "name": "Fujian"
+          "name": "Fujian",
+          "aliases": ["Fukien", "Fukian"]
         },
         {
-          "name": "Gansu"
+          "name": "Gansu",
+          "aliases": ["Kansu"]
         },
         {
-          "name": "Guangdong"
+          "name": "Guangdong",
+          "aliases": ["Kwangtung", "Canton"]
         },
         {
-          "name": "Guizhou"
+          "name": "Guizhou",
+          "aliases": ["Kweichow"]
         },
         {
           "name": "Hainan"
         },
         {
-          "name": "Hebei"
+          "name": "Hebei",
+          "aliases": ["Hopei", "Hopeh"]
         },
         {
-          "name": "Heilongjiang"
+          "name": "Heilongjiang",
+          "aliases": ["Heilungkiang"]
         },
         {
-          "name": "Henan"
+          "name": "Henan",
+          "aliases": ["Honan"]
         },
         {
-          "name": "Hubei"
+          "name": "Hubei",
+          "aliases": ["Hupeh"]
         },
         {
           "name": "Hunan"
         },
         {
-          "name": "Jiangsu"
+          "name": "Jiangsu",
+          "aliases": ["Kiangsu"]
         },
         {
-          "name": "Jiangxi"
+          "name": "Jiangxi",
+          "aliases": ["Kiangsi"]
         },
         {
-          "name": "Jilin"
+          "name": "Jilin",
+          "aliases": ["Kirin"]
         },
         {
           "name": "Liaoning"
         },
         {
-          "name": "Qinghai"
+          "name": "Qinghai",
+          "aliases": ["Tsinghai", "Kokonor"]
         },
         {
-          "name": "Shaanxi"
+          "name": "Shaanxi",
+          "aliases": ["Shensi"]
         },
         {
-          "name": "Shandong"
+          "name": "Shandong",
+          "aliases": ["Shantung"]
         },
         {
-          "name": "Shanxi"
+          "name": "Shanxi",
+          "aliases": ["Shansi"]
         },
         {
-          "name": "Sichuan"
+          "name": "Sichuan",
+          "aliases": ["Szechuan", "Szechwan"]
         },
         {
-          "name": "Taiwan"
+          "name": "Taiwan",
+          "aliases": ["Formosa"]
         },
         {
           "name": "Yunnan"
         },
         {
-          "name": "Zhejiang"
+          "name": "Zhejiang",
+          "aliases": ["Chekiang"]
         }
       ],
       "surface": ["Guangdong", "Sichuan", "Yunnan"],
@@ -21260,19 +21408,23 @@
           "name": "Afghanistan"
         },
         {
-          "name": "Andorra"
+          "name": "Andorra",
+          "aliases": ["Principality of Andorra"]
         },
         {
           "name": "Armenia"
         },
         {
-          "name": "Austria"
+          "name": "Austria",
+          "aliases": ["Österreich", "Oesterreich"]
         },
         {
-          "name": "Azerbaijan"
+          "name": "Azerbaijan",
+          "aliases": ["Republic of Azerbaijan", "Azerbaijan Republic"]
         },
         {
-          "name": "Belarus"
+          "name": "Belarus",
+          "aliases": ["Byelorussia", "Bielorussia", "Republic of Belarus"]
         },
         {
           "name": "Bhutan"
@@ -21285,61 +21437,71 @@
           "name": "Botswana"
         },
         {
-          "name": "Burkina Faso"
+          "name": "Burkina Faso",
+          "aliases": ["Burkina"]
         },
         {
           "name": "Burundi"
         },
         {
-          "name": "Central African Republic"
+          "name": "Central African Republic",
+          "aliases": ["CAR", "Central Africa Republic"]
         },
         {
-          "name": "Chad"
+          "name": "Chad",
+          "aliases": ["Republic of Chad", "Tchad"]
         },
         {
           "name": "Czech Republic",
-          "aliases": ["Czechia"]
+          "aliases": ["Czechia", "Česko"]
         },
         {
           "name": "Eswatini",
-          "aliases": ["Swaziland"]
+          "aliases": ["Swaziland", "Kingdom of Eswatini"]
         },
         {
           "name": "Ethiopia"
         },
         {
-          "name": "Hungary"
+          "name": "Hungary",
+          "aliases": ["Magyarország"]
         },
         {
-          "name": "Kazakhstan"
+          "name": "Kazakhstan",
+          "aliases": ["Kazakstan", "Kazakh Republic", "Republic of Kazakhstan"]
         },
         {
           "name": "Kosovo"
         },
         {
-          "name": "Kyrgyzstan"
+          "name": "Kyrgyzstan",
+          "aliases": ["Kirgizstan", "Kyrgyz Republic", "Kirghizia"]
         },
         {
           "name": "Laos",
-          "aliases": ["Lao PDR", "Lao People’s Democratic Republic"]
+          "aliases": ["Lao PDR", "Lao People’s Democratic Republic", "Lao Republic"]
         },
         {
-          "name": "Lesotho"
+          "name": "Lesotho",
+          "aliases": ["Kingdom of Lesotho"]
         },
         {
           "name": "Liechtenstein"
         },
         {
-          "name": "Luxembourg"
+          "name": "Luxembourg",
+          "aliases": ["Luxemburg", "Lëtzebuerg"]
         },
         {
           "name": "Malawi"
         },
         {
-          "name": "Mali"
+          "name": "Mali",
+          "aliases": ["Republic of Mali"]
         },
         {
-          "name": "Moldova"
+          "name": "Moldova",
+          "aliases": ["Moldavia", "Republic of Moldova"]
         },
         {
           "name": "Mongolia"
@@ -21348,10 +21510,12 @@
           "name": "Nepal"
         },
         {
-          "name": "Niger"
+          "name": "Niger",
+          "aliases": ["Niger Republic"]
         },
         {
-          "name": "North Macedonia"
+          "name": "North Macedonia",
+          "aliases": ["Macedonia", "Republic of North Macedonia", "FYROM"]
         },
         {
           "name": "Paraguay"
@@ -21366,7 +21530,8 @@
           "name": "Serbia"
         },
         {
-          "name": "Slovakia"
+          "name": "Slovakia",
+          "aliases": ["Slovak Republic", "Slovensko"]
         },
         {
           "name": "South Ossetia"
@@ -21375,10 +21540,12 @@
           "name": "South Sudan"
         },
         {
-          "name": "Switzerland"
+          "name": "Switzerland",
+          "aliases": ["Schweiz", "Suisse", "Svizzera", "Svizra", "Swiss Confederation"]
         },
         {
-          "name": "Tajikistan"
+          "name": "Tajikistan",
+          "aliases": ["Tadjikistan", "Tajik Republic"]
         },
         {
           "name": "Transnistria"
@@ -21448,35 +21615,41 @@
           "name": "Botswana"
         },
         {
-          "name": "Burkina Faso"
+          "name": "Burkina Faso",
+          "aliases": ["Burkina"]
         },
         {
           "name": "Burundi"
         },
         {
-          "name": "Central African Republic"
+          "name": "Central African Republic",
+          "aliases": ["CAR", "Central Africa Republic"]
         },
         {
-          "name": "Chad"
+          "name": "Chad",
+          "aliases": ["Republic of Chad", "Tchad"]
         },
         {
           "name": "Eswatini",
-          "aliases": ["Swaziland"]
+          "aliases": ["Swaziland", "Kingdom of Eswatini"]
         },
         {
           "name": "Ethiopia"
         },
         {
-          "name": "Lesotho"
+          "name": "Lesotho",
+          "aliases": ["Kingdom of Lesotho"]
         },
         {
           "name": "Malawi"
         },
         {
-          "name": "Mali"
+          "name": "Mali",
+          "aliases": ["Republic of Mali"]
         },
         {
-          "name": "Niger"
+          "name": "Niger",
+          "aliases": ["Niger Republic"]
         },
         {
           "name": "Rwanda"
@@ -21587,7 +21760,8 @@
           "name": "Botswana"
         },
         {
-          "name": "Burkina Faso"
+          "name": "Burkina Faso",
+          "aliases": ["Burkina"]
         },
         {
           "name": "Burundi"
@@ -21600,27 +21774,30 @@
           "name": "Cameroon"
         },
         {
-          "name": "Central African Republic"
+          "name": "Central African Republic",
+          "aliases": ["CAR", "Central Africa Republic"]
         },
         {
-          "name": "Chad"
+          "name": "Chad",
+          "aliases": ["Republic of Chad", "Tchad"]
         },
         {
           "name": "Comoros"
         },
         {
           "name": "Côte d’Ivoire",
-          "aliases": ["Ivory Coast"]
+          "aliases": ["Ivory Coast", "Cote d Ivoire"]
         },
         {
           "name": "Democratic Republic of the Congo",
-          "aliases": ["Congo Kinshasa", "DR Congo", "DRC", "Zaire"]
+          "aliases": ["Congo Kinshasa", "DR Congo", "DRC", "Zaire", "Democratic Republic of Congo"]
         },
         {
           "name": "Djibouti"
         },
         {
-          "name": "Egypt"
+          "name": "Egypt",
+          "aliases": ["Arab Republic of Egypt"]
         },
         {
           "name": "Equatorial Guinea"
@@ -21630,7 +21807,7 @@
         },
         {
           "name": "Eswatini",
-          "aliases": ["Swaziland"]
+          "aliases": ["Swaziland", "Kingdom of Eswatini"]
         },
         {
           "name": "Ethiopia"
@@ -21651,7 +21828,8 @@
           "name": "Kenya"
         },
         {
-          "name": "Lesotho"
+          "name": "Lesotho",
+          "aliases": ["Kingdom of Lesotho"]
         },
         {
           "name": "Liberia"
@@ -21666,7 +21844,8 @@
           "name": "Malawi"
         },
         {
-          "name": "Mali"
+          "name": "Mali",
+          "aliases": ["Republic of Mali"]
         },
         {
           "name": "Mauritania"
@@ -21675,7 +21854,8 @@
           "name": "Mauritius"
         },
         {
-          "name": "Morocco"
+          "name": "Morocco",
+          "aliases": ["Maroc"]
         },
         {
           "name": "Mozambique"
@@ -21684,14 +21864,15 @@
           "name": "Namibia"
         },
         {
-          "name": "Niger"
+          "name": "Niger",
+          "aliases": ["Niger Republic"]
         },
         {
           "name": "Nigeria"
         },
         {
           "name": "Republic of the Congo",
-          "aliases": ["Congo", "Congo Brazzaville"]
+          "aliases": ["Congo", "Congo Brazzaville", "Republic of Congo"]
         },
         {
           "name": "Rwanda"
@@ -21725,14 +21906,16 @@
           "name": "Sudan"
         },
         {
-          "name": "São Tomé and Príncipe"
+          "name": "São Tomé and Príncipe",
+          "aliases": ["Sao Tome"]
         },
         {
           "name": "Tanzania",
           "aliases": ["United Republic of Tanzania"]
         },
         {
-          "name": "The Gambia"
+          "name": "The Gambia",
+          "aliases": ["Republic of the Gambia"]
         },
         {
           "name": "Togo"
@@ -21839,7 +22022,8 @@
           "name": "Armenia"
         },
         {
-          "name": "Azerbaijan"
+          "name": "Azerbaijan",
+          "aliases": ["Republic of Azerbaijan", "Azerbaijan Republic"]
         },
         {
           "name": "Bahrain"
@@ -21855,29 +22039,33 @@
           "aliases": ["Brunei Darussalam"]
         },
         {
-          "name": "Cambodia"
+          "name": "Cambodia",
+          "aliases": ["Kampuchea"]
         },
         {
-          "name": "China"
+          "name": "China",
+          "aliases": ["People’s Republic of China", "PRC", "Zhongguo"]
         },
         {
           "name": "Cyprus"
         },
         {
-          "name": "Egypt"
+          "name": "Egypt",
+          "aliases": ["Arab Republic of Egypt"]
         },
         {
           "name": "Georgia"
         },
         {
-          "name": "India"
+          "name": "India",
+          "aliases": ["Republic of India", "Bharat"]
         },
         {
           "name": "Indonesia"
         },
         {
           "name": "Iran",
-          "aliases": ["Islamic Republic of Iran"]
+          "aliases": ["Islamic Republic of Iran", "Persia"]
         },
         {
           "name": "Iraq"
@@ -21886,23 +22074,26 @@
           "name": "Israel"
         },
         {
-          "name": "Japan"
+          "name": "Japan",
+          "aliases": ["Nippon", "Nihon"]
         },
         {
           "name": "Jordan"
         },
         {
-          "name": "Kazakhstan"
+          "name": "Kazakhstan",
+          "aliases": ["Kazakstan", "Kazakh Republic", "Republic of Kazakhstan"]
         },
         {
           "name": "Kuwait"
         },
         {
-          "name": "Kyrgyzstan"
+          "name": "Kyrgyzstan",
+          "aliases": ["Kirgizstan", "Kyrgyz Republic", "Kirghizia"]
         },
         {
           "name": "Laos",
-          "aliases": ["Lao PDR", "Lao People’s Democratic Republic"]
+          "aliases": ["Lao PDR", "Lao People’s Democratic Republic", "Lao Republic"]
         },
         {
           "name": "Lebanon"
@@ -21948,7 +22139,7 @@
         },
         {
           "name": "Russia",
-          "aliases": ["Russian Federation"]
+          "aliases": ["Russian Federation", "Rossiya"]
         },
         {
           "name": "Saudi Arabia"
@@ -21958,23 +22149,26 @@
         },
         {
           "name": "South Korea",
-          "aliases": ["Republic of Korea"]
+          "aliases": ["Republic of Korea", "ROK"]
         },
         {
           "name": "South Ossetia"
         },
         {
-          "name": "Sri Lanka"
+          "name": "Sri Lanka",
+          "aliases": ["Ceylon"]
         },
         {
           "name": "Syria",
           "aliases": ["Syrian Arab Republic"]
         },
         {
-          "name": "Taiwan"
+          "name": "Taiwan",
+          "aliases": ["Republic of China", "ROC"]
         },
         {
-          "name": "Tajikistan"
+          "name": "Tajikistan",
+          "aliases": ["Tadjikistan", "Tajik Republic"]
         },
         {
           "name": "Thailand"
@@ -21985,19 +22179,21 @@
         },
         {
           "name": "Turkey",
-          "aliases": ["Türkiye"]
+          "aliases": ["Türkiye", "Republic of Turkey"]
         },
         {
           "name": "Turkmenistan"
         },
         {
-          "name": "United Arab Emirates"
+          "name": "United Arab Emirates",
+          "aliases": ["UAE", "Emirates"]
         },
         {
           "name": "Uzbekistan"
         },
         {
-          "name": "Vietnam"
+          "name": "Vietnam",
+          "aliases": ["Viet Nam", "Socialist Republic of Vietnam"]
         },
         {
           "name": "Yemen"
@@ -22087,28 +22283,35 @@
           "name": "Abkhazia"
         },
         {
-          "name": "Albania"
+          "name": "Albania",
+          "aliases": ["Shqipëria"]
         },
         {
-          "name": "Andorra"
+          "name": "Andorra",
+          "aliases": ["Principality of Andorra"]
         },
         {
           "name": "Armenia"
         },
         {
-          "name": "Austria"
+          "name": "Austria",
+          "aliases": ["Österreich", "Oesterreich"]
         },
         {
-          "name": "Azerbaijan"
+          "name": "Azerbaijan",
+          "aliases": ["Republic of Azerbaijan", "Azerbaijan Republic"]
         },
         {
-          "name": "Belarus"
+          "name": "Belarus",
+          "aliases": ["Byelorussia", "Bielorussia", "Republic of Belarus"]
         },
         {
-          "name": "Belgium"
+          "name": "Belgium",
+          "aliases": ["België", "Belgique", "Belgien"]
         },
         {
-          "name": "Bosnia and Herzegovina"
+          "name": "Bosnia and Herzegovina",
+          "aliases": ["Bosnia", "BiH"]
         },
         {
           "name": "Bulgaria"
@@ -22121,16 +22324,19 @@
         },
         {
           "name": "Czechia",
-          "aliases": ["Czech Republic"]
+          "aliases": ["Czech Republic", "Česko"]
         },
         {
-          "name": "Denmark"
+          "name": "Denmark",
+          "aliases": ["Danmark"]
         },
         {
-          "name": "Estonia"
+          "name": "Estonia",
+          "aliases": ["Eesti"]
         },
         {
-          "name": "Finland"
+          "name": "Finland",
+          "aliases": ["Suomi"]
         },
         {
           "name": "France"
@@ -22139,25 +22345,32 @@
           "name": "Georgia"
         },
         {
-          "name": "Germany"
+          "name": "Germany",
+          "aliases": ["Deutschland", "Federal Republic of Germany", "Bundesrepublik Deutschland"]
         },
         {
-          "name": "Greece"
+          "name": "Greece",
+          "aliases": ["Hellas", "Ellada", "Hellenic Republic"]
         },
         {
-          "name": "Hungary"
+          "name": "Hungary",
+          "aliases": ["Magyarország"]
         },
         {
-          "name": "Iceland"
+          "name": "Iceland",
+          "aliases": ["Ísland"]
         },
         {
-          "name": "Ireland"
+          "name": "Ireland",
+          "aliases": ["Éire", "Republic of Ireland"]
         },
         {
-          "name": "Italy"
+          "name": "Italy",
+          "aliases": ["Italia", "Italian Republic"]
         },
         {
-          "name": "Kazakhstan"
+          "name": "Kazakhstan",
+          "aliases": ["Kazakstan", "Kazakh Republic", "Republic of Kazakhstan"]
         },
         {
           "name": "Kosovo"
@@ -22172,35 +22385,41 @@
           "name": "Lithuania"
         },
         {
-          "name": "Luxembourg"
+          "name": "Luxembourg",
+          "aliases": ["Luxemburg", "Lëtzebuerg"]
         },
         {
           "name": "Malta"
         },
         {
-          "name": "Moldova"
+          "name": "Moldova",
+          "aliases": ["Moldavia", "Republic of Moldova"]
         },
         {
-          "name": "Monaco"
+          "name": "Monaco",
+          "aliases": ["Principality of Monaco"]
         },
         {
           "name": "Montenegro"
         },
         {
           "name": "Netherlands",
-          "aliases": ["Holland"]
+          "aliases": ["Holland", "Nederland", "Kingdom of the Netherlands"]
         },
         {
-          "name": "North Macedonia"
+          "name": "North Macedonia",
+          "aliases": ["Macedonia", "Republic of North Macedonia", "FYROM"]
         },
         {
           "name": "Northern Cyprus"
         },
         {
-          "name": "Norway"
+          "name": "Norway",
+          "aliases": ["Norge", "Noreg"]
         },
         {
-          "name": "Poland"
+          "name": "Poland",
+          "aliases": ["Polska"]
         },
         {
           "name": "Portugal"
@@ -22210,7 +22429,7 @@
         },
         {
           "name": "Russia",
-          "aliases": ["Russian Federation"]
+          "aliases": ["Russian Federation", "Rossiya"]
         },
         {
           "name": "San Marino"
@@ -22219,29 +22438,34 @@
           "name": "Serbia"
         },
         {
-          "name": "Slovakia"
+          "name": "Slovakia",
+          "aliases": ["Slovak Republic", "Slovensko"]
         },
         {
-          "name": "Slovenia"
+          "name": "Slovenia",
+          "aliases": ["Slovenija"]
         },
         {
           "name": "South Ossetia"
         },
         {
-          "name": "Spain"
+          "name": "Spain",
+          "aliases": ["España", "Kingdom of Spain"]
         },
         {
-          "name": "Sweden"
+          "name": "Sweden",
+          "aliases": ["Sverige"]
         },
         {
-          "name": "Switzerland"
+          "name": "Switzerland",
+          "aliases": ["Schweiz", "Suisse", "Svizzera", "Svizra", "Swiss Confederation"]
         },
         {
           "name": "Transnistria"
         },
         {
           "name": "Turkey",
-          "aliases": ["Türkiye"]
+          "aliases": ["Türkiye", "Republic of Turkey"]
         },
         {
           "name": "Ukraine"
@@ -22319,7 +22543,8 @@
           "name": "Nauru"
         },
         {
-          "name": "New Zealand"
+          "name": "New Zealand",
+          "aliases": ["NZ", "Aotearoa"]
         },
         {
           "name": "Niue"
@@ -22328,10 +22553,12 @@
           "name": "Palau"
         },
         {
-          "name": "Papua New Guinea"
+          "name": "Papua New Guinea",
+          "aliases": ["PNG"]
         },
         {
-          "name": "Samoa"
+          "name": "Samoa",
+          "aliases": ["Western Samoa"]
         },
         {
           "name": "Solomon Islands"
@@ -22469,19 +22696,22 @@
           "name": "Haiti"
         },
         {
-          "name": "Iceland"
+          "name": "Iceland",
+          "aliases": ["Ísland"]
         },
         {
           "name": "Indonesia"
         },
         {
-          "name": "Ireland"
+          "name": "Ireland",
+          "aliases": ["Éire", "Republic of Ireland"]
         },
         {
           "name": "Jamaica"
         },
         {
-          "name": "Japan"
+          "name": "Japan",
+          "aliases": ["Nippon", "Nihon"]
         },
         {
           "name": "Kiribati"
@@ -22509,7 +22739,8 @@
           "name": "Nauru"
         },
         {
-          "name": "New Zealand"
+          "name": "New Zealand",
+          "aliases": ["NZ", "Aotearoa"]
         },
         {
           "name": "Niue"
@@ -22518,7 +22749,8 @@
           "name": "Northern Cyprus"
         },
         {
-          "name": "Papua New Guinea"
+          "name": "Papua New Guinea",
+          "aliases": ["PNG"]
         },
         {
           "name": "Palau"
@@ -22539,7 +22771,8 @@
           "aliases": ["St Vincent and the Grenadines"]
         },
         {
-          "name": "Samoa"
+          "name": "Samoa",
+          "aliases": ["Western Samoa"]
         },
         {
           "name": "Seychelles"
@@ -22551,13 +22784,16 @@
           "name": "Solomon Islands"
         },
         {
-          "name": "Sri Lanka"
+          "name": "Sri Lanka",
+          "aliases": ["Ceylon"]
         },
         {
-          "name": "São Tomé and Príncipe"
+          "name": "São Tomé and Príncipe",
+          "aliases": ["Sao Tome"]
         },
         {
-          "name": "Taiwan"
+          "name": "Taiwan",
+          "aliases": ["Republic of China", "ROC"]
         },
         {
           "name": "Timor-Leste",
@@ -22637,13 +22873,15 @@
           "aliases": ["Plurinational State of Bolivia"]
         },
         {
-          "name": "Brazil"
+          "name": "Brazil",
+          "aliases": ["Brasil", "Federative Republic of Brazil"]
         },
         {
           "name": "Chile"
         },
         {
-          "name": "Colombia"
+          "name": "Colombia",
+          "aliases": ["Republic of Colombia"]
         },
         {
           "name": "Ecuador"
@@ -22655,10 +22893,12 @@
           "name": "Paraguay"
         },
         {
-          "name": "Peru"
+          "name": "Peru",
+          "aliases": ["Republic of Peru"]
         },
         {
-          "name": "Suriname"
+          "name": "Suriname",
+          "aliases": ["Surinam", "Republic of Suriname"]
         },
         {
           "name": "Uruguay"
@@ -22726,17 +22966,20 @@
           "name": "Bhutan"
         },
         {
-          "name": "India"
+          "name": "India",
+          "aliases": ["Republic of India", "Bharat"]
         },
         {
-          "name": "Kazakhstan"
+          "name": "Kazakhstan",
+          "aliases": ["Kazakstan", "Kazakh Republic", "Republic of Kazakhstan"]
         },
         {
-          "name": "Kyrgyzstan"
+          "name": "Kyrgyzstan",
+          "aliases": ["Kirgizstan", "Kyrgyz Republic", "Kirghizia"]
         },
         {
           "name": "Laos",
-          "aliases": ["Lao PDR", "Lao People’s Democratic Republic"]
+          "aliases": ["Lao PDR", "Lao People’s Democratic Republic", "Lao Republic"]
         },
         {
           "name": "Mongolia"
@@ -22757,13 +23000,15 @@
         },
         {
           "name": "Russia",
-          "aliases": ["Russian Federation"]
+          "aliases": ["Russian Federation", "Rossiya"]
         },
         {
-          "name": "Tajikistan"
+          "name": "Tajikistan",
+          "aliases": ["Tadjikistan", "Tajik Republic"]
         },
         {
-          "name": "Vietnam"
+          "name": "Vietnam",
+          "aliases": ["Viet Nam", "Socialist Republic of Vietnam"]
         }
       ],
       "surface": ["India", "Russia", "Mongolia"],
@@ -22826,25 +23071,31 @@
           "name": "Abkhazia"
         },
         {
-          "name": "Azerbaijan"
+          "name": "Azerbaijan",
+          "aliases": ["Republic of Azerbaijan", "Azerbaijan Republic"]
         },
         {
-          "name": "Belarus"
+          "name": "Belarus",
+          "aliases": ["Byelorussia", "Bielorussia", "Republic of Belarus"]
         },
         {
-          "name": "China"
+          "name": "China",
+          "aliases": ["People’s Republic of China", "PRC", "Zhongguo"]
         },
         {
-          "name": "Estonia"
+          "name": "Estonia",
+          "aliases": ["Eesti"]
         },
         {
-          "name": "Finland"
+          "name": "Finland",
+          "aliases": ["Suomi"]
         },
         {
           "name": "Georgia"
         },
         {
-          "name": "Kazakhstan"
+          "name": "Kazakhstan",
+          "aliases": ["Kazakstan", "Kazakh Republic", "Republic of Kazakhstan"]
         },
         {
           "name": "Latvia"
@@ -22860,10 +23111,12 @@
           "aliases": ["DPRK", "Democratic People’s Republic of Korea"]
         },
         {
-          "name": "Norway"
+          "name": "Norway",
+          "aliases": ["Norge", "Noreg"]
         },
         {
-          "name": "Poland"
+          "name": "Poland",
+          "aliases": ["Polska"]
         },
         {
           "name": "South Ossetia"
@@ -22919,38 +23172,48 @@
       "expect": [11, 11],
       "answers": [
         {
-          "name": "Andorra"
+          "name": "Andorra",
+          "aliases": ["Principality of Andorra"]
         },
         {
-          "name": "Belgium"
+          "name": "Belgium",
+          "aliases": ["België", "Belgique", "Belgien"]
         },
         {
-          "name": "Brazil"
+          "name": "Brazil",
+          "aliases": ["Brasil", "Federative Republic of Brazil"]
         },
         {
-          "name": "Germany"
+          "name": "Germany",
+          "aliases": ["Deutschland", "Federal Republic of Germany", "Bundesrepublik Deutschland"]
         },
         {
-          "name": "Italy"
+          "name": "Italy",
+          "aliases": ["Italia", "Italian Republic"]
         },
         {
-          "name": "Luxembourg"
+          "name": "Luxembourg",
+          "aliases": ["Luxemburg", "Lëtzebuerg"]
         },
         {
-          "name": "Monaco"
+          "name": "Monaco",
+          "aliases": ["Principality of Monaco"]
         },
         {
           "name": "Netherlands",
-          "aliases": ["Holland"]
+          "aliases": ["Holland", "Nederland", "Kingdom of the Netherlands"]
         },
         {
-          "name": "Spain"
+          "name": "Spain",
+          "aliases": ["España", "Kingdom of Spain"]
         },
         {
-          "name": "Suriname"
+          "name": "Suriname",
+          "aliases": ["Surinam", "Republic of Suriname"]
         },
         {
-          "name": "Switzerland"
+          "name": "Switzerland",
+          "aliases": ["Schweiz", "Suisse", "Svizzera", "Svizra", "Swiss Confederation"]
         }
       ],
       "surface": ["Germany", "Spain", "Italy"],
@@ -32565,10 +32828,12 @@
           "name": "Accra"
         },
         {
-          "name": "Addis Ababa"
+          "name": "Addis Ababa",
+          "aliases": ["Addis Abeba"]
         },
         {
-          "name": "Algiers"
+          "name": "Algiers",
+          "aliases": ["Alger"]
         },
         {
           "name": "Antananarivo",
@@ -32599,10 +32864,12 @@
           "name": "Bujumbura"
         },
         {
-          "name": "Cairo"
+          "name": "Cairo",
+          "aliases": ["Al Qahirah"]
         },
         {
-          "name": "Cape Town"
+          "name": "Cape Town",
+          "aliases": ["Kaapstad"]
         },
         {
           "name": "Ciudad de la Paz"
@@ -32626,7 +32893,8 @@
           "name": "Dodoma"
         },
         {
-          "name": "El Aaiún"
+          "name": "El Aaiún",
+          "aliases": ["Laayoune"]
         },
         {
           "name": "Freetown"
@@ -32689,7 +32957,8 @@
           "name": "Mbabane"
         },
         {
-          "name": "Mogadishu"
+          "name": "Mogadishu",
+          "aliases": ["Mogadiscio", "Muqdisho"]
         },
         {
           "name": "Monrovia"
@@ -34077,10 +34346,12 @@
           "aliases": ["Angora"]
         },
         {
-          "name": "Ashgabat"
+          "name": "Ashgabat",
+          "aliases": ["Ashkhabad"]
         },
         {
-          "name": "Astana"
+          "name": "Astana",
+          "aliases": ["Nur-Sultan", "Nursultan"]
         },
         {
           "name": "Baghdad"
@@ -34089,19 +34360,23 @@
           "name": "Baku"
         },
         {
-          "name": "Bandar Seri Begawan"
+          "name": "Bandar Seri Begawan",
+          "aliases": ["Bandar"]
         },
         {
-          "name": "Bangkok"
+          "name": "Bangkok",
+          "aliases": ["Krung Thep"]
         },
         {
-          "name": "Beijing"
+          "name": "Beijing",
+          "aliases": ["Peking", "Peiping"]
         },
         {
           "name": "Beirut"
         },
         {
-          "name": "Bishkek"
+          "name": "Bishkek",
+          "aliases": ["Frunze"]
         },
         {
           "name": "Cairo"
@@ -34113,7 +34388,8 @@
           "name": "Damascus"
         },
         {
-          "name": "Dhaka"
+          "name": "Dhaka",
+          "aliases": ["Dacca"]
         },
         {
           "name": "Dili"
@@ -34131,7 +34407,8 @@
           "name": "Islamabad"
         },
         {
-          "name": "Jakarta"
+          "name": "Jakarta",
+          "aliases": ["Djakarta", "Batavia"]
         },
         {
           "name": "Jerusalem"
@@ -34140,13 +34417,15 @@
           "name": "Kabul"
         },
         {
-          "name": "Kathmandu"
+          "name": "Kathmandu",
+          "aliases": ["Katmandu"]
         },
         {
           "name": "Kuala Lumpur"
         },
         {
-          "name": "Kuwait City"
+          "name": "Kuwait City",
+          "aliases": ["Kuwait"]
         },
         {
           "name": "Malé"
@@ -34164,10 +34443,12 @@
           "name": "Muscat"
         },
         {
-          "name": "Nay Pyi Taw"
+          "name": "Nay Pyi Taw",
+          "aliases": ["Naypyidaw", "Nay Pyi Daw", "Naypyitaw"]
         },
         {
-          "name": "New Delhi"
+          "name": "New Delhi",
+          "aliases": ["Delhi"]
         },
         {
           "name": "Nicosia"
@@ -34191,7 +34472,8 @@
           "name": "Riyadh"
         },
         {
-          "name": "Sana'a"
+          "name": "Sana'a",
+          "aliases": ["Sana"]
         },
         {
           "name": "Seoul"
@@ -34207,16 +34489,19 @@
           "name": "Sukhumi"
         },
         {
-          "name": "Taipei"
+          "name": "Taipei",
+          "aliases": ["Taipeh"]
         },
         {
           "name": "Tashkent"
         },
         {
-          "name": "Tbilisi"
+          "name": "Tbilisi",
+          "aliases": ["Tiflis"]
         },
         {
-          "name": "Tehran"
+          "name": "Tehran",
+          "aliases": ["Teheran"]
         },
         {
           "name": "Thimphu"
@@ -34228,13 +34513,15 @@
           "name": "Tskhinvali"
         },
         {
-          "name": "Ulaanbaatar"
+          "name": "Ulaanbaatar",
+          "aliases": ["Ulan Bator", "Ulaan Baatar"]
         },
         {
           "name": "Vientiane"
         },
         {
-          "name": "Yerevan"
+          "name": "Yerevan",
+          "aliases": ["Erevan"]
         }
       ],
       "surface": ["Tokyo", "Beijing", "New Delhi"],
@@ -34339,40 +34626,48 @@
           "aliases": ["Angora"]
         },
         {
-          "name": "Astana"
+          "name": "Astana",
+          "aliases": ["Nur-Sultan"]
         },
         {
-          "name": "Athens"
+          "name": "Athens",
+          "aliases": ["Athina"]
         },
         {
           "name": "Baku"
         },
         {
-          "name": "Belgrade"
+          "name": "Belgrade",
+          "aliases": ["Beograd"]
         },
         {
           "name": "Berlin"
         },
         {
-          "name": "Bern"
+          "name": "Bern",
+          "aliases": ["Berne"]
         },
         {
           "name": "Bratislava"
         },
         {
-          "name": "Brussels"
+          "name": "Brussels",
+          "aliases": ["Bruxelles"]
         },
         {
-          "name": "Bucharest"
+          "name": "Bucharest",
+          "aliases": ["București"]
         },
         {
           "name": "Budapest"
         },
         {
-          "name": "Chișinău"
+          "name": "Chișinău",
+          "aliases": ["Kishinev"]
         },
         {
-          "name": "Copenhagen"
+          "name": "Copenhagen",
+          "aliases": ["København", "Kobenhavn"]
         },
         {
           "name": "Dublin"
@@ -34385,7 +34680,8 @@
           "aliases": ["Kiev"]
         },
         {
-          "name": "Lisbon"
+          "name": "Lisbon",
+          "aliases": ["Lisboa"]
         },
         {
           "name": "Ljubljana"
@@ -34394,7 +34690,8 @@
           "name": "London"
         },
         {
-          "name": "Luxembourg"
+          "name": "Luxembourg",
+          "aliases": ["Luxembourg City", "Luxemburg"]
         },
         {
           "name": "Madrid"
@@ -34406,7 +34703,8 @@
           "name": "Monaco"
         },
         {
-          "name": "Moscow"
+          "name": "Moscow",
+          "aliases": ["Moskva"]
         },
         {
           "name": "Nicosia"
@@ -34428,7 +34726,8 @@
           "aliases": ["Praha"]
         },
         {
-          "name": "Pristina"
+          "name": "Pristina",
+          "aliases": ["Prishtina"]
         },
         {
           "name": "Reykjavík"
@@ -34437,7 +34736,8 @@
           "name": "Riga"
         },
         {
-          "name": "Rome"
+          "name": "Rome",
+          "aliases": ["Roma"]
         },
         {
           "name": "San Marino"
@@ -34461,7 +34761,8 @@
           "name": "Tallinn"
         },
         {
-          "name": "Tbilisi"
+          "name": "Tbilisi",
+          "aliases": ["Tiflis"]
         },
         {
           "name": "The Hague",
@@ -34493,10 +34794,12 @@
           "name": "Vilnius"
         },
         {
-          "name": "Warsaw"
+          "name": "Warsaw",
+          "aliases": ["Warszawa"]
         },
         {
-          "name": "Yerevan"
+          "name": "Yerevan",
+          "aliases": ["Erevan"]
         },
         {
           "name": "Zagreb"
@@ -34554,43 +34857,56 @@
       "expect": [13, 13],
       "answers": [
         {
-          "name": "Alaska"
+          "name": "Alaska",
+          "aliases": ["AK"]
         },
         {
-          "name": "Idaho"
+          "name": "Idaho",
+          "aliases": ["ID"]
         },
         {
-          "name": "Maine"
+          "name": "Maine",
+          "aliases": ["ME"]
         },
         {
-          "name": "Michigan"
+          "name": "Michigan",
+          "aliases": ["MI", "Mich"]
         },
         {
-          "name": "Minnesota"
+          "name": "Minnesota",
+          "aliases": ["MN"]
         },
         {
-          "name": "Montana"
+          "name": "Montana",
+          "aliases": ["MT"]
         },
         {
-          "name": "New Hampshire"
+          "name": "New Hampshire",
+          "aliases": ["NH"]
         },
         {
-          "name": "New York"
+          "name": "New York",
+          "aliases": ["NY", "New York State"]
         },
         {
-          "name": "North Dakota"
+          "name": "North Dakota",
+          "aliases": ["ND"]
         },
         {
-          "name": "Ohio"
+          "name": "Ohio",
+          "aliases": ["OH"]
         },
         {
-          "name": "Pennsylvania"
+          "name": "Pennsylvania",
+          "aliases": ["PA", "Penn", "Penna"]
         },
         {
-          "name": "Vermont"
+          "name": "Vermont",
+          "aliases": ["VT"]
         },
         {
-          "name": "Washington"
+          "name": "Washington",
+          "aliases": ["WA"]
         }
       ],
       "surface": ["Alaska", "Washington", "New York"],
@@ -34638,34 +34954,44 @@
       "expect": [10, 10],
       "answers": [
         {
-          "name": "Arkansas"
+          "name": "Arkansas",
+          "aliases": ["AR", "Ark"]
         },
         {
-          "name": "Illinois"
+          "name": "Illinois",
+          "aliases": ["IL", "Ill"]
         },
         {
-          "name": "Iowa"
+          "name": "Iowa",
+          "aliases": ["IA"]
         },
         {
-          "name": "Kentucky"
+          "name": "Kentucky",
+          "aliases": ["KY"]
         },
         {
-          "name": "Louisiana"
+          "name": "Louisiana",
+          "aliases": ["LA"]
         },
         {
-          "name": "Minnesota"
+          "name": "Minnesota",
+          "aliases": ["MN"]
         },
         {
-          "name": "Mississippi"
+          "name": "Mississippi",
+          "aliases": ["MS", "Miss"]
         },
         {
-          "name": "Missouri"
+          "name": "Missouri",
+          "aliases": ["MO"]
         },
         {
-          "name": "Tennessee"
+          "name": "Tennessee",
+          "aliases": ["TN", "Tenn"]
         },
         {
-          "name": "Wisconsin"
+          "name": "Wisconsin",
+          "aliases": ["WI", "Wisc", "Wis"]
         }
       ],
       "surface": ["Mississippi", "Louisiana", "Missouri"],
@@ -34708,28 +35034,36 @@
       "expect": [8, 8],
       "answers": [
         {
-          "name": "Illinois"
+          "name": "Illinois",
+          "aliases": ["IL", "Ill"]
         },
         {
-          "name": "Indiana"
+          "name": "Indiana",
+          "aliases": ["IN", "Ind"]
         },
         {
-          "name": "Michigan"
+          "name": "Michigan",
+          "aliases": ["MI", "Mich"]
         },
         {
-          "name": "Minnesota"
+          "name": "Minnesota",
+          "aliases": ["MN"]
         },
         {
-          "name": "New York"
+          "name": "New York",
+          "aliases": ["NY", "New York State"]
         },
         {
-          "name": "Ohio"
+          "name": "Ohio",
+          "aliases": ["OH"]
         },
         {
-          "name": "Pennsylvania"
+          "name": "Pennsylvania",
+          "aliases": ["PA", "Penn", "Penna"]
         },
         {
-          "name": "Wisconsin"
+          "name": "Wisconsin",
+          "aliases": ["WI", "Wisc", "Wis"]
         }
       ],
       "surface": ["Michigan", "Wisconsin", "Ohio"],
@@ -34844,7 +35178,8 @@
           "aliases": ["Biscayne National Park"]
         },
         {
-          "name": "Black Canyon of the Gunnison"
+          "name": "Black Canyon of the Gunnison",
+          "aliases": ["Black Canyon", "Black Canyon of the Gunnison National Park"]
         },
         {
           "name": "Bryce Canyon",
@@ -34888,7 +35223,7 @@
         },
         {
           "name": "Denali",
-          "aliases": ["Denali National Park", "Mount McKinley"]
+          "aliases": ["Denali National Park", "Mount McKinley", "Denali National Park and Preserve"]
         },
         {
           "name": "Dry Tortugas",
@@ -34900,7 +35235,10 @@
         },
         {
           "name": "Gates of the Arctic",
-          "aliases": ["Gates of the Arctic National Park"]
+          "aliases": [
+            "Gates of the Arctic National Park",
+            "Gates of the Arctic National Park and Preserve"
+          ]
         },
         {
           "name": "Gateway Arch",
@@ -35020,7 +35358,7 @@
         },
         {
           "name": "Redwood",
-          "aliases": ["Redwood National Park"]
+          "aliases": ["Redwood National Park", "Redwood National and State Parks"]
         },
         {
           "name": "Rocky Mountain",
@@ -35060,7 +35398,12 @@
         },
         {
           "name": "Wrangell–St. Elias",
-          "aliases": ["Wrangell–St. Elias National Park"]
+          "aliases": [
+            "Wrangell–St. Elias National Park",
+            "Wrangell-St. Elias",
+            "Wrangell Saint Elias",
+            "Wrangell-St. Elias National Park"
+          ]
         },
         {
           "name": "Yellowstone",
@@ -35183,10 +35526,12 @@
           "name": "Georgetown"
         },
         {
-          "name": "Guatemala City"
+          "name": "Guatemala City",
+          "aliases": ["Guatemala"]
         },
         {
-          "name": "Havana"
+          "name": "Havana",
+          "aliases": ["La Habana", "Habana"]
         },
         {
           "name": "Kingston"
@@ -35217,7 +35562,8 @@
           "name": "Ottawa"
         },
         {
-          "name": "Panama City"
+          "name": "Panama City",
+          "aliases": ["Panamá"]
         },
         {
           "name": "Paramaribo"
@@ -35235,7 +35581,8 @@
           "name": "Roseau"
         },
         {
-          "name": "San José"
+          "name": "San José",
+          "aliases": ["San Jose Costa Rica"]
         },
         {
           "name": "San Salvador"
@@ -35247,10 +35594,12 @@
           "name": "Santo Domingo"
         },
         {
-          "name": "St. George's"
+          "name": "St. George's",
+          "aliases": ["Saint Georges"]
         },
         {
-          "name": "St. John's"
+          "name": "St. John's",
+          "aliases": ["Saint Johns"]
         },
         {
           "name": "Sucre"
@@ -35259,7 +35608,8 @@
           "name": "Tegucigalpa"
         },
         {
-          "name": "Washington, D.C"
+          "name": "Washington, D.C",
+          "aliases": ["Washington", "DC"]
         }
       ],
       "surface": ["Washington, D.C", "Ottawa", "Buenos Aires"],
@@ -37839,17 +38189,20 @@
       "expect": [16, 16],
       "answers": [
         {
-          "name": "Ashmore and Cartier Islands"
+          "name": "Ashmore and Cartier Islands",
+          "aliases": ["Ashmore and Cartier"]
         },
         {
-          "name": "Australian Antarctic Territory"
+          "name": "Australian Antarctic Territory",
+          "aliases": ["AAT"]
         },
         {
           "name": "Australian Capital Territory",
           "aliases": ["ACT"]
         },
         {
-          "name": "Christmas Island"
+          "name": "Christmas Island",
+          "aliases": ["Christmas Island Territory"]
         },
         {
           "name": "Cocos (Keeling) Islands",
@@ -37864,14 +38217,16 @@
           "aliases": ["Heard Island and McDonald Islands", "Heard Island", "McDonald Islands"]
         },
         {
-          "name": "Jervis Bay Territory"
+          "name": "Jervis Bay Territory",
+          "aliases": ["Jervis Bay", "JBT"]
         },
         {
           "name": "New South Wales",
           "aliases": ["NSW"]
         },
         {
-          "name": "Norfolk Island"
+          "name": "Norfolk Island",
+          "aliases": ["Norfolk"]
         },
         {
           "name": "Northern Territory",
@@ -37939,53 +38294,68 @@
       "expect": [16, 16],
       "answers": [
         {
-          "name": "Auckland"
+          "name": "Auckland",
+          "aliases": ["Tāmaki Makaurau"]
         },
         {
-          "name": "Bay of Plenty"
+          "name": "Bay of Plenty",
+          "aliases": ["Te Moana-a-Toi"]
         },
         {
-          "name": "Canterbury"
+          "name": "Canterbury",
+          "aliases": ["Waitaha"]
         },
         {
-          "name": "Gisborne"
+          "name": "Gisborne",
+          "aliases": ["Tairāwhiti", "Te Tairāwhiti"]
         },
         {
-          "name": "Hawke's Bay"
+          "name": "Hawke's Bay",
+          "aliases": ["Te Matau-a-Māui"]
         },
         {
           "name": "Manawatū-Whanganui",
-          "aliases": ["Manawatu Wanganui"]
+          "aliases": ["Manawatu Wanganui", "Horizons"]
         },
         {
-          "name": "Marlborough"
+          "name": "Marlborough",
+          "aliases": ["Te Tauihu-o-te-waka"]
         },
         {
-          "name": "Nelson"
+          "name": "Nelson",
+          "aliases": ["Whakatū"]
         },
         {
-          "name": "Northland"
+          "name": "Northland",
+          "aliases": ["Te Tai Tokerau"]
         },
         {
-          "name": "Otago"
+          "name": "Otago",
+          "aliases": ["Ōtākou"]
         },
         {
-          "name": "Southland"
+          "name": "Southland",
+          "aliases": ["Murihiku"]
         },
         {
-          "name": "Taranaki"
+          "name": "Taranaki",
+          "aliases": ["Te Taranaki"]
         },
         {
-          "name": "Tasman"
+          "name": "Tasman",
+          "aliases": ["Te Tai-o-Aorere"]
         },
         {
-          "name": "Waikato"
+          "name": "Waikato",
+          "aliases": ["Te Waikato"]
         },
         {
-          "name": "Wellington"
+          "name": "Wellington",
+          "aliases": ["Te Whanganui-a-Tara", "Te Upoko o te Ika"]
         },
         {
-          "name": "West Coast"
+          "name": "West Coast",
+          "aliases": ["Te Tai Poutini"]
         }
       ],
       "surface": ["Auckland", "Wellington", "Canterbury"],
@@ -38067,7 +38437,8 @@
           "name": "Berkshire"
         },
         {
-          "name": "Bristol"
+          "name": "Bristol",
+          "aliases": ["City and County of Bristol"]
         },
         {
           "name": "Buckinghamshire"
@@ -38098,7 +38469,8 @@
           "name": "Dorset"
         },
         {
-          "name": "Durham"
+          "name": "Durham",
+          "aliases": ["County Durham"]
         },
         {
           "name": "East Riding of Yorkshire",
@@ -39045,14 +39417,16 @@
       "expect": [14, 14],
       "answers": [
         {
-          "name": "Chichén Itzá"
+          "name": "Chichén Itzá",
+          "aliases": ["Chichen Itza Pyramid"]
         },
         {
           "name": "Christ the Redeemer",
-          "aliases": ["Christ Redeemer"]
+          "aliases": ["Christ Redeemer", "Cristo Redentor"]
         },
         {
-          "name": "Colosseum"
+          "name": "Colosseum",
+          "aliases": ["Roman Colosseum", "Coliseum", "Flavian Amphitheatre"]
         },
         {
           "name": "Colossus of Rhodes",
@@ -39060,14 +39434,23 @@
         },
         {
           "name": "Great Pyramid of Giza",
-          "aliases": ["Great Pyramid", "Pyramids of Giza", "Giza Pyramids"]
+          "aliases": [
+            "Great Pyramid",
+            "Pyramids of Giza",
+            "Giza Pyramids",
+            "Pyramid of Giza",
+            "Pyramid of Khufu",
+            "Khufu’s Pyramid",
+            "Cheops Pyramid"
+          ]
         },
         {
           "name": "Great Wall of China",
           "aliases": ["Great Wall"]
         },
         {
-          "name": "Hanging Gardens of Babylon"
+          "name": "Hanging Gardens of Babylon",
+          "aliases": ["Hanging Gardens"]
         },
         {
           "name": "Lighthouse of Alexandria",
@@ -39077,21 +39460,22 @@
           "name": "Machu Picchu"
         },
         {
-          "name": "Mausoleum at Halicarnassus"
+          "name": "Mausoleum at Halicarnassus",
+          "aliases": ["Mausoleum of Halicarnassus", "Halicarnassus Mausoleum"]
         },
         {
           "name": "Petra"
         },
         {
           "name": "Statue of Zeus at Olympia",
-          "aliases": ["Statue of Zeus"]
+          "aliases": ["Statue of Zeus", "Zeus at Olympia"]
         },
         {
           "name": "Taj Mahal"
         },
         {
           "name": "Temple of Artemis at Ephesus",
-          "aliases": ["Temple of Artemis"]
+          "aliases": ["Temple of Artemis", "Temple of Diana"]
         }
       ],
       "surface": ["Great Pyramid of Giza", "Great Wall of China", "Taj Mahal"],
@@ -39734,10 +40118,16 @@
         },
         {
           "name": "Australian Fossil Mammal Sites",
-          "aliases": ["Riversleigh", "Naracoorte", "Naracoorte Caves"]
+          "aliases": [
+            "Riversleigh",
+            "Naracoorte",
+            "Naracoorte Caves",
+            "Australian Fossil Mammal Sites Riversleigh Naracoorte"
+          ]
         },
         {
-          "name": "Budj Bim Cultural Landscape"
+          "name": "Budj Bim Cultural Landscape",
+          "aliases": ["Budj Bim"]
         },
         {
           "name": "Gondwana Rainforests",
@@ -39747,20 +40137,24 @@
           "name": "Great Barrier Reef"
         },
         {
-          "name": "Greater Blue Mountains Area"
+          "name": "Greater Blue Mountains Area",
+          "aliases": ["Blue Mountains", "Greater Blue Mountains"]
         },
         {
-          "name": "Heard and McDonald Islands"
+          "name": "Heard and McDonald Islands",
+          "aliases": ["Heard Island and McDonald Islands", "Heard Island"]
         },
         {
           "name": "K'gari",
-          "aliases": ["Fraser Island"]
+          "aliases": ["Fraser Island", "K gari"]
         },
         {
-          "name": "Kakadu National Park"
+          "name": "Kakadu National Park",
+          "aliases": ["Kakadu"]
         },
         {
-          "name": "Lord Howe Island"
+          "name": "Lord Howe Island",
+          "aliases": ["Lord Howe Island Group"]
         },
         {
           "name": "Macquarie Island"
@@ -39769,14 +40163,16 @@
           "name": "Murujuga"
         },
         {
-          "name": "Ningaloo Coast"
+          "name": "Ningaloo Coast",
+          "aliases": ["Ningaloo Reef", "Ningaloo"]
         },
         {
-          "name": "Purnululu National Park"
+          "name": "Purnululu National Park",
+          "aliases": ["Purnululu", "Bungle Bungles", "Bungle Bungle Range"]
         },
         {
           "name": "Royal Exhibition Building",
-          "aliases": ["Carlton Gardens"]
+          "aliases": ["Carlton Gardens", "Royal Exhibition Building and Carlton Gardens"]
         },
         {
           "name": "Shark Bay",
@@ -39790,14 +40186,15 @@
         },
         {
           "name": "Uluṟu-Kata Tjuṯa National Park",
-          "aliases": ["Uluru", "Ayers Rock", "Kata Tjuta"]
+          "aliases": ["Uluru", "Ayers Rock", "Kata Tjuta", "Uluru Kata Tjuta"]
         },
         {
           "name": "Wet Tropics",
-          "aliases": ["Wet Tropics of Queensland"]
+          "aliases": ["Wet Tropics of Queensland", "Daintree", "Daintree Rainforest"]
         },
         {
-          "name": "Willandra Lakes Region"
+          "name": "Willandra Lakes Region",
+          "aliases": ["Willandra Lakes", "Lake Mungo"]
         }
       ],
       "surface": ["Great Barrier Reef", "Sydney Opera House", "Kakadu National Park"],
@@ -41748,7 +42145,8 @@
           "name": "Auyuittuq"
         },
         {
-          "name": "Banff"
+          "name": "Banff",
+          "aliases": ["Banff National Park"]
         },
         {
           "name": "Bruce Peninsula"
@@ -41763,7 +42161,8 @@
           "name": "Forillon"
         },
         {
-          "name": "Fundy"
+          "name": "Fundy",
+          "aliases": ["Fundy National Park"]
         },
         {
           "name": "Georgian Bay Islands"
@@ -41775,28 +42174,34 @@
           "name": "Grasslands"
         },
         {
-          "name": "Gros Morne"
+          "name": "Gros Morne",
+          "aliases": ["Gros Morne National Park"]
         },
         {
           "name": "Gulf Islands"
         },
         {
-          "name": "Gwaii Haanas"
+          "name": "Gwaii Haanas",
+          "aliases": ["Gwaii Haanas National Park Reserve"]
         },
         {
           "name": "Ivvavik"
         },
         {
-          "name": "Jasper"
+          "name": "Jasper",
+          "aliases": ["Jasper National Park"]
         },
         {
-          "name": "Kejimkujik"
+          "name": "Kejimkujik",
+          "aliases": ["Keji"]
         },
         {
-          "name": "Kluane"
+          "name": "Kluane",
+          "aliases": ["Kluane National Park Reserve"]
         },
         {
-          "name": "Kootenay"
+          "name": "Kootenay",
+          "aliases": ["Kootenay National Park"]
         },
         {
           "name": "Kouchibouguac"
@@ -41806,7 +42211,7 @@
         },
         {
           "name": "Mealy Mountains",
-          "aliases": ["Akami Uapishku KakKasuak"]
+          "aliases": ["Akami Uapishku KakKasuak", "Akami-UapishkU-KakKasuak-Mealy Mountains"]
         },
         {
           "name": "Mingan Archipelago"
@@ -41815,13 +42220,15 @@
           "name": "Mount Revelstoke"
         },
         {
-          "name": "Nahanni"
+          "name": "Nahanni",
+          "aliases": ["Nahanni National Park Reserve"]
         },
         {
           "name": "Nááts'ihch'oh"
         },
         {
-          "name": "Pacific Rim"
+          "name": "Pacific Rim",
+          "aliases": ["Pacific Rim National Park Reserve"]
         },
         {
           "name": "Pituamkek",
@@ -41834,7 +42241,8 @@
           "name": "Prince Albert"
         },
         {
-          "name": "Prince Edward Island"
+          "name": "Prince Edward Island",
+          "aliases": ["PEI"]
         },
         {
           "name": "Pukaskwa"
@@ -41849,7 +42257,8 @@
           "name": "Riding Mountain"
         },
         {
-          "name": "Rouge"
+          "name": "Rouge",
+          "aliases": ["Rouge National Park"]
         },
         {
           "name": "Sable Island"
@@ -41864,7 +42273,8 @@
           "name": "Thaidene Nëné"
         },
         {
-          "name": "Thousand Islands"
+          "name": "Thousand Islands",
+          "aliases": ["St Lawrence Islands"]
         },
         {
           "name": "Torngat Mountains"
@@ -41882,13 +42292,16 @@
           "name": "Wapusk"
         },
         {
-          "name": "Waterton Lakes"
+          "name": "Waterton Lakes",
+          "aliases": ["Waterton Lakes National Park"]
         },
         {
-          "name": "Wood Buffalo"
+          "name": "Wood Buffalo",
+          "aliases": ["Wood Buffalo National Park"]
         },
         {
-          "name": "Yoho"
+          "name": "Yoho",
+          "aliases": ["Yoho National Park"]
         }
       ],
       "surface": ["Banff", "Jasper", "Yoho"],
@@ -43728,80 +44141,99 @@
       "expect": [24, 24],
       "answers": [
         {
-          "name": "Bulgarian"
+          "name": "Bulgarian",
+          "aliases": ["Balgarski", "Bulgarski"]
         },
         {
-          "name": "Croatian"
+          "name": "Croatian",
+          "aliases": ["Hrvatski"]
         },
         {
-          "name": "Czech"
+          "name": "Czech",
+          "aliases": ["Čeština"]
         },
         {
-          "name": "Danish"
+          "name": "Danish",
+          "aliases": ["Dansk"]
         },
         {
           "name": "Dutch",
-          "aliases": ["Flemish"]
+          "aliases": ["Flemish", "Nederlands"]
         },
         {
           "name": "English"
         },
         {
-          "name": "Estonian"
+          "name": "Estonian",
+          "aliases": ["Eesti"]
         },
         {
-          "name": "Finnish"
+          "name": "Finnish",
+          "aliases": ["Suomi"]
         },
         {
-          "name": "French"
+          "name": "French",
+          "aliases": ["Français"]
         },
         {
-          "name": "German"
+          "name": "German",
+          "aliases": ["Deutsch"]
         },
         {
           "name": "Greek",
-          "aliases": ["Modern Greek"]
+          "aliases": ["Modern Greek", "Ellinika"]
         },
         {
-          "name": "Hungarian"
+          "name": "Hungarian",
+          "aliases": ["Magyar"]
         },
         {
           "name": "Irish",
-          "aliases": ["Irish Gaelic", "Gaelic"]
+          "aliases": ["Irish Gaelic", "Gaelic", "Gaeilge"]
         },
         {
-          "name": "Italian"
+          "name": "Italian",
+          "aliases": ["Italiano"]
         },
         {
-          "name": "Latvian"
+          "name": "Latvian",
+          "aliases": ["Latviešu"]
         },
         {
-          "name": "Lithuanian"
+          "name": "Lithuanian",
+          "aliases": ["Lietuvių"]
         },
         {
-          "name": "Maltese"
+          "name": "Maltese",
+          "aliases": ["Malti"]
         },
         {
-          "name": "Polish"
+          "name": "Polish",
+          "aliases": ["Polski"]
         },
         {
-          "name": "Portuguese"
+          "name": "Portuguese",
+          "aliases": ["Português"]
         },
         {
-          "name": "Romanian"
+          "name": "Romanian",
+          "aliases": ["Română"]
         },
         {
-          "name": "Slovak"
+          "name": "Slovak",
+          "aliases": ["Slovakian", "Slovenčina"]
         },
         {
           "name": "Slovene",
-          "aliases": ["Slovenian"]
+          "aliases": ["Slovenian", "Slovenščina"]
         },
         {
-          "name": "Spanish"
+          "name": "Spanish",
+          "aliases": ["Español", "Castellano"]
         },
         {
-          "name": "Swedish"
+          "name": "Swedish",
+          "aliases": ["Svenska"]
         }
       ],
       "surface": ["English", "French", "German"],
@@ -43864,11 +44296,11 @@
         },
         {
           "name": "South African Sign Language",
-          "aliases": ["SASL", "Sign Language"]
+          "aliases": ["SASL", "Sign Language", "South African sign"]
         },
         {
           "name": "Southern Ndebele",
-          "aliases": ["Ndebele", "South Ndebele", "isiNdebele"]
+          "aliases": ["Ndebele", "South Ndebele", "isiNdebele", "Southern isiNdebele"]
         },
         {
           "name": "Southern Sotho",
