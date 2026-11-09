@@ -1,5 +1,10 @@
 import type { DiveTier } from './games/dive';
-import type { PerceptionScores, PerceptionPuzzle, PerceptionAnswer } from './games/perception';
+import type { PerceptionPuzzle } from './games/perception';
+import type {
+  PerceptionRoundId,
+  PerceptionV2Puzzle,
+  PerceptionRoundAnswer,
+} from './games/perceptionV2';
 import type { Mark } from './games/wordGuess';
 
 export type Modality = 'erg' | 'bike' | 'run';
@@ -51,6 +56,7 @@ export interface RecapGames {
   played: number;
   /** Days with at least one result. */
   days: number;
+  /** Null when Dive is disabled, including historical recaps. */
   best_dive: number | null;
   word_guess_solves: number;
   /** Consecutive days with a result, ending on that week's Sunday (0 when Sunday was missed). */
@@ -341,6 +347,7 @@ export interface Totals {
 export interface WeekSummary extends Totals {
   week_start: string;
   target_m: number;
+  /** Floored to one decimal; progress labels floor again to whole percentages. */
   percent: number;
   hit_target: boolean;
 }
@@ -616,7 +623,8 @@ export interface PerceptionDay {
   access: GameAccess;
   /** Next zero-based round, or 5 when done. Omitted score keys are unplayed. */
   round: number;
-  scores: Partial<PerceptionScores>;
+  rounds: PerceptionRoundId[];
+  scores: Partial<Record<PerceptionRoundId, number>>;
   done: boolean;
 }
 export type PerceptionStimulus =
@@ -624,7 +632,14 @@ export type PerceptionStimulus =
   | Pick<PerceptionPuzzle, 'hue'>
   | Pick<PerceptionPuzzle, 'dot'>
   | Pick<PerceptionPuzzle, 'cells'>
-  | Pick<PerceptionPuzzle, 'reactionDelayMs'>;
+  | Pick<PerceptionPuzzle, 'reactionDelayMs'>
+  | Pick<PerceptionV2Puzzle, 'angle' | 'rotation'>
+  | Pick<PerceptionV2Puzzle, 'length'>
+  | Pick<PerceptionV2Puzzle, 'countDots'>
+  | Pick<PerceptionV2Puzzle, 'digits'>
+  | Pick<PerceptionV2Puzzle, 'shade' | 'shadeBackgrounds'>
+  | Pick<PerceptionV2Puzzle, 'endpoints'>
+  | Pick<PerceptionV2Puzzle, 'contact'>;
 export interface PerceptionStart extends PerceptionDay {
   stimulus: PerceptionStimulus;
 }
@@ -658,6 +673,7 @@ export interface GamesToday {
   streak: GamesStreak;
   date: string;
   access: GameAccess;
+  /** Server-enabled games only; clients use this list for navigation and boards. */
   games: GameInfo[];
   results: GameResult[];
 }
@@ -761,7 +777,7 @@ export interface Api {
   'GET /api/games/perception/today': Endpoint<void, PerceptionDay>;
   'POST /api/games/perception/start': Endpoint<{ round: number }, PerceptionStart>;
   'POST /api/games/perception/answer': Endpoint<
-    { round: number; answer: Partial<PerceptionAnswer> },
+    { round: number; answer: PerceptionRoundAnswer },
     PerceptionDay
   >;
   'GET /api/games/connections/today': Endpoint<void, ConnectionsDay>;

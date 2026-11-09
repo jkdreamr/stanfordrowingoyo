@@ -1,13 +1,19 @@
 import { Suspense } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { PageHeader, EmptyState, Button } from '../components/ui';
 import { LoadState } from '../components/shell/LoadState';
 import { GAMES } from '../games/registry';
+import { useGamesToday } from '../games/useGameAccess';
 
 export default function Game() {
   const { id } = useParams();
   const game = GAMES.find((item) => item.id === id);
+  const games = useGamesToday();
+  if (game && !games.data)
+    return <LoadState error={games.isError} retry={() => void games.refetch()} />;
+  if (game && !games.data?.games.some((info) => info.id === game.id))
+    return <Navigate to="/games" replace />;
   return (
     <>
       <PageHeader title={game?.title ?? 'Not Found'} back="/games" />

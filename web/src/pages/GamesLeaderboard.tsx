@@ -7,6 +7,7 @@ import { useConfig } from '../lib/queries';
 import { GameWeekBoard } from '../games/GameWeekBoard';
 import { GameDayBoard } from '../games/GameDayBoard';
 import { GAMES } from '../games/registry';
+import { useGamesToday } from '../games/useGameAccess';
 import { formatShortDate } from '../lib/format';
 
 function weekLabel(date: string) {
@@ -21,14 +22,21 @@ function weekLabel(date: string) {
 
 export default function GamesLeaderboard() {
   const config = useConfig();
+  const games = useGamesToday();
   const [selected, setSelected] = useState('');
   const date = selected || config.data?.today;
   return (
     <>
       <PageHeader title="Games Leaderboard" back="/games" />
       <div className="space-y-8 p-4 lg:p-6">
-        {!date ? (
-          <LoadState error={config.isError} retry={() => void config.refetch()} />
+        {!date || !games.data ? (
+          <LoadState
+            error={config.isError || games.isError}
+            retry={() => {
+              void config.refetch();
+              void games.refetch();
+            }}
+          />
         ) : (
           <>
             <nav aria-label="Board Day" className="flex items-center justify-between gap-4">
@@ -48,9 +56,11 @@ export default function GamesLeaderboard() {
             </nav>
             <h2 className="text-subhead text-muted">{weekLabel(date)}</h2>
             <GameWeekBoard week={weekStart(date)} />
-            {GAMES.map((game) => (
-              <GameDayBoard key={game.id} gameId={game.id} date={date} />
-            ))}
+            {GAMES.filter((game) => games.data.games.some((info) => info.id === game.id)).map(
+              (game) => (
+                <GameDayBoard key={game.id} gameId={game.id} date={date} />
+              ),
+            )}
           </>
         )}
       </div>

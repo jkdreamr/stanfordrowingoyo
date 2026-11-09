@@ -341,22 +341,27 @@ Results are written by the Worker transaction that finishes the game.
   as an explicit 405 retirement response, never a stateless replay oracle.
   Shuffle changes presentation only; localStorage never owns progress.
 - Perception `GET /api/games/perception/today` returns `PerceptionDay`:
-  `{date,access,round,scores,done}`. Round is the next zero-based index (0..4, 5 done);
+  `{date,access,round,rounds,scores,done}`. `rounds` is today's five stable string ids in play order.
+  Round is the next zero-based index (0..4, 5 done);
   score keys are only completed rounds. **A resume read consumes any started,
   unanswered round as zero**, advances to the next, and finalizes if it was round 5.
   Repeated reads do not skip unstarted rounds. The client reads on mount, not background
   focus/reconnect, and resumes after uncertain network errors.
 - `POST /api/games/perception/start` takes `{round}` and returns
   `PerceptionStart = PerceptionDay & {stimulus}`. Only the current round's stimulus is
-  returned: `{clockMs}`, `{hue}`, `{dot}`, `{cells}`, or `{reactionDelayMs}`.
+  returned: `{clockMs}`, `{hue}`, `{dot}`, `{cells}`, `{reactionDelayMs}`, `{angle,rotation}`,
+  `{length}`, `{countDots}`, `{digits}`, `{shade,shadeBackgrounds}`, `{endpoints}`, or `{contact}`.
+  Coordinates and lengths are thousandths of the board. `countDots` is an array of dot centres;
+  `endpoints` contains two points. `contact` contains `{visibleMs,hiddenMs,from,occlusion,finish}`;
+  motion from `from` to `occlusion` is visible, then continues at the same speed behind an occluder to `finish`.
   The start timestamp is committed before responding; only then does the client show it.
   Repeated starts, out-of-order rounds, answers without a start and replay return 409.
 - `POST /api/games/perception/answer` takes `{round,answer}`, with only that round's
-  field (`clockMs/hue/dot/cells/reactionMs`), and returns PerceptionDay. Invalid fields
+  field (`clockMs/hue/dot/cells/reactionMs/angle/length/count/digits/shade/bisect/contactMs`), and returns PerceptionDay. Invalid or extra fields
   return 400 without changing progress. Both writes require access (403). Scores are
   server-computed. Round 5 atomically writes one result. Existing completed results cannot
   be replayed. Leaving before a round starts has no penalty.
-- Perception generation is Worker-only, with unchanged daily targets. The web receives
+- Perception generation is Worker-only. The web receives
   no future targets. A build guard excludes its private generator marker and checks web
   import boundaries. Current-round stimuli remain inspectable while shown, as in any
   browser memory game; this is not tamper-proof proctoring.
@@ -366,6 +371,65 @@ Results are written by the Worker transaction that finishes the game.
   scores zero. The upper slack tolerates scheduling and precision; network latency
   expands the server window rather than penalizing honest play. These are plausibility
   checks, not proof of honest timing. Mock mode uses artificial, non-production targets.
+  V2 also rejects answers before the entire memory exposure finishes (span: digits × 450ms),
+  and contact answers before `visibleMs` or claiming `contactMs > elapsed - visibleMs + 1000`.
+  All timing rejections are 400, `Timing is not plausible for this round.` No progress is consumed.
+
+#### Enabled games for launch
+
+`DIVE_ENABLED = false` in `worker/src/games/features.ts` is the single production
+switch for Dive. Launch includes Word Guess, Connections and Perception only.
+Set it to `true` and rebuild to restore Dive; no data migration or browser flag is needed.
+`GET /api/games` returns only enabled games, results and enabled-game streaks.
+Clients use this list for the hub, game navigation and day boards; disabled game
+routes (including `/games/dive/*`) redirect to `/games`. Dive API paths return 404
+for everyone, including admins. Existing Dive answers and results remain untouched,
+including in account exports; they do not contribute to weekly boards, played counts
+or recap highlights while disabled. A game streak requires playing any enabled game
+on consecutive team dates, not all games. Recap `best_dive` remains nullable and is
+null while Dive is disabled. Generic unlock/reminder copy refers to the enabled games.
+
+#### Perception rotation and scoring
+
+`PERCEPTION_V2_FROM = '2026-11-10'` uses the America/Los_Angeles team date, not UTC.
+Before cutover, generation and scoring remain exactly the original clock/color/dot/pattern/reaction
+sequence (7 pattern cells; exposure 1500/900/1600ms; typical misses 600ms/25°/8%/2 cells;
+reaction `closeness(max(0,ms−150),200)`). Captured puzzle/score fixtures pin three legacy dates.
+From cutover, five distinct types are selected deterministically from the twelve below and their
+play order is date-seeded. Consecutive days share at most two types (so never the same set),
+including the last legacy day and cutover day; the scaffold starts after the five legacy types.
+Every type appears in every five-day v2 window. Two-year tests also reject periods 1–29, including
+set-only periods. Generation uses independent 60-day epochs, a valid 12-type cyclic scaffold,
+and exactly 320 seeded candidate slot swaps, rejecting any swap violating distinctness, overlap
+or coverage. Four boundary days at each end stay fixed so cross-epoch windows remain valid.
+This is bounded work even far after cutover, with a two-epoch cache; no replay from launch date.
+Round order is independently shuffled per date, including the boundary days.
+
+Each score is `round(100 × exp(−0.494 × (miss / typical)²))`, clamped by the objective
+metric to 0–100: 100 perfect, **61 at the typical miss**. Five rounds total at most 500.
+Exposure constants are public; seeded targets and lineup generation remain Worker-only.
+
+| Type / answer field   | Exposure / final parameters                                                                                 | Miss metric                                | Typical miss        | Score at typical |
+| --------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------- | ---------------- |
+| clock / clockMs       | Hold 3.0–8.0s, no visual; answer 0–30000ms                                                                  | Absolute timing error                      | 250ms               | 61               |
+| color / hue           | 700ms; hue 0–359°, recall dial                                                                              | Circular hue distance                      | 12°                 | 61               |
+| dot / dot             | 400ms; centre 100–900 per axis; answer 0–1000                                                               | Euclidean board distance                   | 40 thousandths (4%) | 61               |
+| pattern / cells       | 1000ms; 5×5, exactly 9 distinct cells                                                                       | 9 minus correct cells                      | 2 cells             | 61               |
+| reaction / reactionMs | Signal after 1.5–5.0s; −1 false start; 0–3000ms                                                             | max(0, ms−160); under 100ms scores 0       | 110ms               | 61               |
+| angle / angle         | 800ms; 15–165° with rotation 0–359°; integer answer 0–180°                                                  | Absolute angle error                       | 5°                  | 61               |
+| length / length       | 800ms; horizontal reference 250–800; reproduce vertically, integer 1–1000                                   | Absolute error / reference × 100           | 5%                  | 61               |
+| count / count         | 600ms; 30–80 irregular dots, ≥70 thousandths apart (bounded rejection sampling); integer answer 1–200       | abs(log2(answer / count)) × 100            | 18                  | 61               |
+| span / digits         | 8–9 digits × 450ms, leading zeroes retained; answer 1–12 digits                                             | Levenshtein distance                       | 2 edits             | 61               |
+| shade / shade         | 800ms; gray 20–80%; backgrounds 10%/90% reversed for recall; integer answer 0–100                           | Absolute lightness error                   | 4 points            | 61               |
+| bisect / bisect       | Line stays visible; 50–90% board length, random angle; midpoint answer per axis 0–1000                      | Distance from midpoint / line length × 100 | 2%                  | 61               |
+| contact / contactMs   | Visible 1000–1800ms; hidden 700–1800ms; constant-speed geometry fits board; answer 0–6000ms after occlusion | Absolute hidden-time error                 | 110ms               | 61               |
+
+Result payload is `{answer,scores,rounds}`; scores are partial and keyed by the stable type id,
+not the round index. Readers of legacy payloads without `rounds` default to the original five ids.
+Difficulty regression uses a fixed-seed 3000-day good-player simulation: normal errors with
+standard deviation equal to typical miss (independent axes for spatial types), rounded discrete
+answers; reaction N(260,40)ms. It requires median 250–350/500, fewer than 3% at 450+,
+and separately proves perfect answers score 500. This is calibration, not an observed player study.
 
 Schema v17 adds generic `game_progress(user_id,game,date,state_json,updated_at)` with
 primary key `(user_id,game,date)` for server-owned in-progress games. Account removal
@@ -622,9 +686,9 @@ malformed or implausible payloads return 400.
   persists each guess, and finishes on today's answer or six misses. Score is `7 − tries`
   when solved, else 0. Stored result payload `{guesses,solved,tries,answer,marks}`.
 - `perception` takes each round's answer through the dedicated endpoints above (hold 0–30000 ms, hue
-  0–359, dot 0–1000 per axis, seven distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
+  0–359, dot 0–1000 per axis, seven legacy or nine v2 distinct cells of a 5×5 grid, reaction 0–3000 ms or −1
   for early). Five rounds score 0–100 each against the daily puzzle; reactions under
-  100 ms score 0. Score 0–500; stored `{answer,scores}`.
+  100 ms score 0. V2 adds seven types as detailed above. Score 0–500; stored `{answer,scores,rounds}`.
 - `connections` takes one `{guess}` at a time; the Worker owns the ordered log of up to eight four-word guesses. Puzzles
   (≥90 original, hard-day difficulty: four groups of four, easiest to hardest, the hardest
   group always wordplay, at least three red herrings each across two or more groups, unique
@@ -643,6 +707,13 @@ malformed or implausible payloads return 400.
   count (0–3), so every win outranks every loss. Stored `{guesses,solved,mistakes,won,grid,groups}`.
 
 ### Tests, recaps, and challenges
+
+Progress percentage labels use shared `floorPercent` through `formatPercent` on all
+surfaces, including Home, boards, recaps and share cards. API percentage fields retain
+one decimal, floored with the same helper instead of rounded; clients floor to whole
+percentages. Thus 6,000 / 80,000 displays 7%, and a sub-target total never displays
+100%. Completion and leaderboard ordering still compare actual meters/ratios, not
+display percentages. My Fortnight and Me meter-based progress remains exact.
 
 - GET /api/users/:id/tests: authenticated team-visible history, newest date/created_at first.
   PR means strictly faster than all earlier tests of that kind; first is a PR.

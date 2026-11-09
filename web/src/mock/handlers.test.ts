@@ -6,8 +6,10 @@ import type {
   Page,
   SeasonStats,
   WeekStats,
+  PerceptionStart,
 } from '../../../shared/types';
 import { createMockApi } from './handlers';
+import { DIVE_ENABLED } from '../../../worker/src/games/features';
 const now = () => new Date('2026-11-06T18:00:00Z');
 function setup(options: Parameters<typeof createMockApi>[0] = {}) {
   const mock = createMockApi({ now, ...options });
@@ -31,60 +33,160 @@ const input = {
   notes: '',
   visibility: 'team',
 };
-it.each(['answers', 'guesses'])('enforces the 60-character mock Dive %s cap', async (path) => {
-  const { request, state } = setup();
+describe.skipIf(!DIVE_ENABLED)('Dive disabled for launch', () => {
+  it.each(['answers', 'guesses'])('enforces the 60-character mock Dive %s cap', async (path) => {
+    const { request, state } = setup();
+    await request('/auth/login', 'POST', {
+      email: state.users.find((user) => user.role === 'admin')!.email,
+      password: 'password',
+    });
+    await request('/games/dive/start', 'POST', { prompt_index: 0 });
+    expect(
+      (await request('/games/dive/' + path, 'POST', { prompt_index: 0, answer: 'z'.repeat(61) }))
+        .status,
+    ).toBe(400);
+    expect(
+      (await request('/games/dive/' + path, 'POST', { prompt_index: 0, answer: 'z'.repeat(60) }))
+        .ok,
+    ).toBe(true);
+  });
+  it('supports the mock Dive start, keep-guessing, suggestion and scoring lifecycle', async () => {
+    let clock = now();
+    const { request, state } = setup({ now: () => clock });
+    await request('/auth/login', 'POST', {
+      email: state.users.find((user) => user.role === 'admin')!.email,
+      password: 'password',
+    });
+    const post = (path: string, body: unknown) => request('/games/dive/' + path, 'POST', body);
+    expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(409);
+    expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
+      deadline_ms_remaining: 25000,
+    });
+    clock = new Date(clock.getTime() + 1000);
+    expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
+      deadline_ms_remaining: 24000,
+    });
+    expect(await (await post('guesses', { prompt_index: 0, answer: 'wrong' })).json()).toEqual({
+      outcome: 'not_an_answer',
+      attempts_left: 14,
+    });
+    expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(429);
+    clock = new Date(clock.getTime() + 400);
+    expect(
+      await (await post('guesses', { prompt_index: 0, answer: 'mock anser' })).json(),
+    ).toMatchObject({ outcome: 'suggestion', suggestion: 'Mock answer' });
+    expect((await (await request('/games/dive/today')).json()).pending.suggestion).toBe(
+      'Mock answer',
+    );
+    expect(
+      await (await post('suggestion', { prompt_index: 0, accept: true })).json(),
+    ).toMatchObject({
+      outcome: 'scored',
+      answer: { answer: 'mock anser', canonical: 'Mock answer', points: 100 },
+    });
+    expect((await post('suggestion', { prompt_index: 0, accept: true })).status).toBe(409);
+    await post('start', { prompt_index: 1 });
+    clock = new Date(clock.getTime() + 27001);
+    expect(
+      await (await post('guesses', { prompt_index: 1, answer: 'Mock answer' })).json(),
+    ).toMatchObject({ outcome: 'scored', answer: { answer: '', points: 0 } });
+  });
+});
+it('keeps artificial mock Perception v2 stimuli, scoring and timing consistent', async () => {
+  const base = Date.parse('2026-11-10T18:00:00Z');
+  let elapsed = 0;
+  const { request, state } = setup({ now: () => new Date(base + elapsed) });
   await request('/auth/login', 'POST', {
     email: state.users.find((user) => user.role === 'admin')!.email,
     password: 'password',
   });
-  await request('/games/dive/start', 'POST', { prompt_index: 0 });
-  expect(
-    (await request('/games/dive/' + path, 'POST', { prompt_index: 0, answer: 'z'.repeat(61) }))
-      .status,
-  ).toBe(400);
-  expect(
-    (await request('/games/dive/' + path, 'POST', { prompt_index: 0, answer: 'z'.repeat(60) })).ok,
-  ).toBe(true);
+  for (let round = 0; round < 5; round++) {
+    elapsed = round * 60000;
+    const start = await request('/games/perception/start', 'POST', { round });
+    expect(start.status).toBe(200);
+    const { stimulus, rounds } = (await start.json()) as PerceptionStart;
+    expect(rounds).toEqual(['clock', 'color', 'dot', 'pattern', 'reaction']);
+    const answer = 'reactionDelayMs' in stimulus ? { reactionMs: 150 } : stimulus;
+    if ('cells' in stimulus) expect(stimulus.cells).toHaveLength(9);
+    if ('reactionDelayMs' in stimulus) {
+      elapsed += stimulus.reactionDelayMs - 1;
+      expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
+        400,
+      );
+      elapsed += 151;
+    } else elapsed += 20000;
+    const result = await request('/games/perception/answer', 'POST', { round, answer });
+    expect(result.status).toBe(200);
+    expect(await result.json()).toMatchObject({
+      round: round + 1,
+      scores: { [rounds[round]]: 100 },
+      done: round === 4,
+    });
+  }
+  expect(await (await request('/games/perception/results/me')).json()).toMatchObject({
+    score: 500,
+  });
 });
-it('supports the mock Dive start, keep-guessing, suggestion and scoring lifecycle', async () => {
-  let clock = now();
-  const { request, state } = setup({ now: () => clock });
-  await request('/auth/login', 'POST', {
-    email: state.users.find((user) => user.role === 'admin')!.email,
-    password: 'password',
-  });
-  const post = (path: string, body: unknown) => request('/games/dive/' + path, 'POST', body);
-  expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(409);
-  expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
-    deadline_ms_remaining: 25000,
-  });
-  clock = new Date(clock.getTime() + 1000);
-  expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
-    deadline_ms_remaining: 24000,
-  });
-  expect(await (await post('guesses', { prompt_index: 0, answer: 'wrong' })).json()).toEqual({
-    outcome: 'not_an_answer',
-    attempts_left: 14,
-  });
-  expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(429);
-  clock = new Date(clock.getTime() + 400);
-  expect(
-    await (await post('guesses', { prompt_index: 0, answer: 'mock anser' })).json(),
-  ).toMatchObject({ outcome: 'suggestion', suggestion: 'Mock answer' });
-  expect((await (await request('/games/dive/today')).json()).pending.suggestion).toBe(
-    'Mock answer',
-  );
-  expect(await (await post('suggestion', { prompt_index: 0, accept: true })).json()).toMatchObject({
-    outcome: 'scored',
-    answer: { answer: 'mock anser', canonical: 'Mock answer', points: 100 },
-  });
-  expect((await post('suggestion', { prompt_index: 0, accept: true })).status).toBe(409);
-  await post('start', { prompt_index: 1 });
-  clock = new Date(clock.getTime() + 27001);
-  expect(
-    await (await post('guesses', { prompt_index: 1, answer: 'Mock answer' })).json(),
-  ).toMatchObject({ outcome: 'scored', answer: { answer: '', points: 0 } });
-});
+it.each(['2026-11-11', '2026-11-12'])(
+  'plays the rotated artificial Perception lineup on %s',
+  async (date) => {
+    let time = Date.parse(`${date}T18:00:00Z`);
+    const { request, state } = setup({ now: () => new Date(time) });
+    await request('/auth/login', 'POST', {
+      email: state.users.find((u) => u.role === 'admin')!.email,
+      password: 'password',
+    });
+    for (let round = 0; round < 5; round++) {
+      const start = await request('/games/perception/start', 'POST', { round });
+      expect(start.status).toBe(200);
+      const { stimulus, rounds } = (await start.json()) as PerceptionStart;
+      if ('countDots' in stimulus) {
+        expect(stimulus.countDots).toHaveLength(48);
+        expect(
+          stimulus.countDots.every((point, i) =>
+            stimulus.countDots
+              .slice(i + 1)
+              .every((other) => (point[0] - other[0]) ** 2 + (point[1] - other[1]) ** 2 >= 70 ** 2),
+          ),
+        ).toBe(true);
+        expect(
+          stimulus.countDots.filter(([x]) => x % 100 >= 35 && x % 100 <= 65).length,
+        ).toBeLessThan(48 * 0.8);
+      }
+      const answer =
+        'angle' in stimulus
+          ? { angle: stimulus.angle }
+          : 'countDots' in stimulus
+            ? { count: stimulus.countDots.length }
+            : 'shade' in stimulus
+              ? { shade: stimulus.shade }
+              : 'endpoints' in stimulus
+                ? {
+                    bisect: [
+                      (stimulus.endpoints[0][0] + stimulus.endpoints[1][0]) / 2,
+                      (stimulus.endpoints[0][1] + stimulus.endpoints[1][1]) / 2,
+                    ],
+                  }
+                : 'contact' in stimulus
+                  ? { contactMs: stimulus.contact.hiddenMs }
+                  : stimulus;
+      if (['angle', 'length', 'count', 'span', 'shade', 'contact'].includes(rounds[round]))
+        expect((await request('/games/perception/answer', 'POST', { round, answer })).status).toBe(
+          400,
+        );
+      time += 20000;
+      const response = await request('/games/perception/answer', 'POST', { round, answer });
+      expect(response.status).toBe(200);
+      expect(await response.json()).toMatchObject({
+        scores: { [rounds[round]]: 100 },
+        done: round === 4,
+      });
+    }
+    expect(await (await request('/games/perception/results/me')).json()).toMatchObject({
+      score: 500,
+    });
+  },
+);
 it('exports mock account JSON and CSV without teammate private data', async () => {
   const { request, state } = setup();
   const response = await request('/me/export');

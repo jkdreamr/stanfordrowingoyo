@@ -5,6 +5,7 @@ import { useRefreshVisible } from '../lib/useRefreshVisible';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Check, ChevronLeft, ChevronRight, Flame, Gamepad2, Trophy } from 'lucide-react';
 import { addDays } from '../../../shared/dates';
+import { floorPercent } from '../../../shared/math';
 import type { Config, LeaderboardRow } from '../../../shared/types';
 import { HeaderActions } from '../components/shell/HeaderActions';
 import { LoadState } from '../components/shell/LoadState';
@@ -45,7 +46,7 @@ function Progress({ row }: { row: LeaderboardRow }) {
       aria-label={`${row.user.name} progress toward target`}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-valuenow={Math.floor(value)}
+      aria-valuenow={floorPercent(value)}
       className="mt-1.5 block h-1 w-full overflow-hidden rounded-sm bg-surface-2"
     >
       <span
