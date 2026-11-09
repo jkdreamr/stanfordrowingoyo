@@ -33,6 +33,29 @@ const input = {
   visibility: 'team',
 };
 describe('Dive', () => {
+  it.each(['answers', 'guesses'])(
+    'scores the same mock canonical on separate prompts via %s',
+    async (path) => {
+      const { request, state } = setup();
+      await request('/auth/login', 'POST', {
+        email: state.users.find((user) => user.role === 'admin')!.email,
+        password: 'password',
+      });
+      for (let index = 0; index < 2; index++) {
+        await request('/games/dive/start', 'POST', { prompt_index: index });
+        const response = await request('/games/dive/' + path, 'POST', {
+          prompt_index: index,
+          answer: 'Mock answer',
+        });
+        const body = await response.json();
+        expect(path === 'answers' ? body : body.answer).toMatchObject({
+          canonical: 'Mock answer',
+          points: 100,
+        });
+      }
+      expect((await (await request('/games/dive/today')).json()).answers).toHaveLength(2);
+    },
+  );
   it.each(['answers', 'guesses'])('enforces the 60-character mock Dive %s cap', async (path) => {
     const { request, state } = setup();
     await request('/auth/login', 'POST', {
@@ -57,6 +80,7 @@ describe('Dive', () => {
       password: 'password',
     });
     const post = (path: string, body: unknown) => request('/games/dive/' + path, 'POST', body);
+    expect((await post('answers', { prompt_index: 0, answer: 'Mock answer' })).status).toBe(409);
     expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(409);
     expect(await (await post('start', { prompt_index: 0 })).json()).toMatchObject({
       deadline_ms_remaining: 25000,
@@ -70,6 +94,7 @@ describe('Dive', () => {
       attempts_left: 14,
     });
     expect((await post('guesses', { prompt_index: 0, answer: 'wrong' })).status).toBe(429);
+    expect((await post('answers', { prompt_index: 0, answer: 'Mock answer' })).status).toBe(429);
     clock = new Date(clock.getTime() + 400);
     expect(
       await (await post('guesses', { prompt_index: 0, answer: 'mock anser' })).json(),

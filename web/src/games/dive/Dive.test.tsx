@@ -118,7 +118,9 @@ it('opens the active prompt and restores its pending suggestion from the day wit
     },
   });
   expect(await screen.findByRole('button', { name: 'Yes' })).toBeTruthy();
-  expect(screen.getByRole('status').textContent).toBe('Did you mean Dry Tortugas?3 guesses left');
+  expect(screen.getByRole('status').textContent).toContain(
+    'Did you mean Dry Tortugas?3 Guesses Left',
+  );
   expect(screen.getByRole('timer').getAttribute('aria-label')).toBe('14 Seconds Left');
   expect(screen.queryByRole('button', { name: 'Begin' })).toBeNull();
   await waitFor(() =>

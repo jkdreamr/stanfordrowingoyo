@@ -56,7 +56,7 @@ export function AnswerReveal({
           </div>
         )}
       </div>
-      <Button fullWidth disabled={busy} onClick={onContinue}>
+      <Button className="dive-continue" fullWidth disabled={busy} onClick={onContinue}>
         Continue
       </Button>
     </section>

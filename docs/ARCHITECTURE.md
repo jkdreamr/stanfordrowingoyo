@@ -510,7 +510,9 @@ Dive adds seven dedicated endpoints without changing the generic hub contract:
   ordinary misses keep the prompt open and increment its wrong count. Only after a miss,
   and only before any suggestion was issued for this prompt, does the Worker run the local
   near-miss matcher. It reveals only the single suggested canonical, never a set or another prompt.
-  Suggestions are persisted pending; a subsequent guess implicitly rejects one and charges
+  Re-entering the pending suggestion's original text or canonical returns that same suggestion
+  without a rejection or wrong-attempt charge; the deadline and 400 ms interval still apply.
+  Suggestions are persisted pending; a different subsequent guess implicitly rejects one and charges
   that rejection as a wrong attempt before evaluating the new guess. Every wrong guess counts,
   including repeats. The 15th wrong locks in a miss. Nonempty guesses less than 400 ms apart
   return 429 `TOO_FAST` with `Retry-After: 1`, without changing state. Empty/whitespace input
@@ -531,8 +533,16 @@ Dive adds seven dedicated endpoints without changing the generic hub contract:
 - `POST /api/games/dive/answers` takes `{prompt_index,answer}`, returns the final scored
   `DiveAnswerResult` (201). The server uses today, checks access inside the transaction,
   accepts only the next index (409 `OUT_OF_ORDER`) and forbids duplicates (409 `ALREADY_ANSWERED`).
-  This compatibility endpoint still scores immediately without requiring start, but an existing
-  expired start forces an empty-answer miss. Empty answers represent timeouts. Trimmed answers are at most 60 characters; control characters
+  This compatibility endpoint requires `/start` (409 `NOT_STARTED`) and shares the 400 ms
+  guess interval and pending-rejection budget with `/guesses`, while retaining its scored
+  201 response for scored answers. Pending-suggestion replays instead return
+  the corresponding nonterminal `DiveGuessResponse` (200), without ending the prompt.
+  An expired start forces an empty-answer miss. Empty answers represent timeouts.
+  The server refreshes its clock after asynchronous reads/loading and rejects a changed team day.
+  Each prompt is independent: a valid canonical scores even if the player already used it on
+  another prompt that day. Any different pending suggestion is first rejected under the ordinary
+  rejection rule.
+  Trimmed answers are at most 60 characters; control characters
   are rejected. Canonical match (nullable), tier and points are stored at submit time in
   v16's Dive-owned `dive_answers` columns `canonical TEXT`, `tier TEXT NOT NULL`,
   `points INTEGER NOT NULL`. The first answer creates a generic result; payload is

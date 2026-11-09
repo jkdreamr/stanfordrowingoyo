@@ -780,9 +780,10 @@ export interface Api {
     { prompt_index: number; accept: boolean },
     DiveGuessResponse
   >;
+  /** Requires /start; 201 when scored, 200 for a pending-suggestion replay. */
   'POST /api/games/dive/answers': Endpoint<
     { prompt_index: number; answer: string },
-    DiveAnswerResult
+    DiveAnswerResult | Exclude<DiveGuessResponse, { outcome: 'scored' }>
   >;
   'GET /api/games/dive/days/:date': Endpoint<void, DiveDay>;
   'PATCH /api/games/dive/answers': Endpoint<
