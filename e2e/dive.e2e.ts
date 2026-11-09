@@ -6,13 +6,11 @@ import { DIVE_PROMPTS_PER_DAY, DIVE_TIERS, normalizeAnswer } from '../shared/gam
 import { diveSelectionFor } from '../worker/src/games/divePrompts';
 import { answerSet } from '../worker/src/games/dive/sets';
 import { matchAnswer, suggestAnswer, type AnswerSet } from '../worker/src/games/dive/matcher';
-import { DIVE_ENABLED } from '../worker/src/games/features';
 
 import { test, expect } from './fixtures';
 import { csrfHeaders } from './api';
 import { logEntry, seedEntry, waitForSplash } from './helpers';
 
-test.skip(!DIVE_ENABLED, 'Dive disabled for launch');
 test.use({ serviceWorkers: 'block' });
 
 function nearMiss(set: AnswerSet) {

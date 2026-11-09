@@ -106,6 +106,7 @@ const MOCK_CONNECTIONS = parsePuzzle([
 const connectionsPuzzleFor = (_date: string) => MOCK_CONNECTIONS;
 
 const MOCK_GAMES: Record<string, MockGameScore | null> = {
+  dive: null,
   wordguess: null,
   perception: null,
   connections: null,

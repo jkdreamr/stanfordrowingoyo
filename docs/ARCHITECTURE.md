@@ -375,14 +375,14 @@ Results are written by the Worker transaction that finishes the game.
   and contact answers before `visibleMs` or claiming `contactMs > elapsed - visibleMs + 1000`.
   All timing rejections are 400, `Timing is not plausible for this round.` No progress is consumed.
 
-#### Enabled games for launch
+#### Enabled games
 
-`DIVE_ENABLED = false` in `worker/src/games/features.ts` is the single production
-switch for Dive. Launch includes Word Guess, Connections and Perception only.
-Set it to `true` and rebuild to restore Dive; no data migration or browser flag is needed.
+`DIVE_ENABLED = true` in `worker/src/games/features.ts` is the single production
+switch for Dive. Dive, Word Guess, Connections and Perception are enabled.
+Changing the switch requires a rebuild; no data migration or browser flag is needed.
 `GET /api/games` returns only enabled games, results and enabled-game streaks.
 Clients use this list for the hub, game navigation and day boards; disabled game
-routes (including `/games/dive/*`) redirect to `/games`. Dive API paths return 404
+routes redirect to `/games`. If Dive is disabled, its API paths return 404
 for everyone, including admins. Existing Dive answers and results remain untouched,
 including in account exports; they do not contribute to weekly boards, played counts
 or recap highlights while disabled. A game streak requires playing any enabled game
