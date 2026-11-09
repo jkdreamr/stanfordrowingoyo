@@ -7,6 +7,25 @@ import { evaluateCorpus, exactHit } from './recall.mjs';
 
 const set = { buckets: { 4: '\ncafe\t0\n', 5: '\nsmith\t0\n', 7: '\nsea cat\t0\n' } };
 const batch = JSON.parse(readFileSync(new URL('./recall/batch-1-selected.json', import.meta.url)));
+const batchTwo = JSON.parse(
+  readFileSync(new URL('./recall/batch-2-selected.json', import.meta.url)),
+);
+
+test('second constrained batch retains every brainstorm and meets exact recall per prompt', async () => {
+  const ids = Object.keys(batchTwo);
+  assert.equal(ids.length, 30);
+  for (const guesses of Object.values(batchTwo)) assert.ok(guesses.length >= 25);
+  const result = await evaluateCorpus({
+    corpus: batchTwo,
+    schedule: [ids],
+    prompts: ids.map((id) => ({ id, constrained: true })),
+    loadSet: async (id) => (await import(`../../worker/src/games/dive/data/${id}.ts`)).default,
+    normalize: normalizeAnswer,
+  });
+  assert.deepEqual(result.missingData, []);
+  for (const prompt of result.prompts)
+    assert.ok(prompt.total > 0 && prompt.rate >= 0.95, `${prompt.id}: ${prompt.misses.join(', ')}`);
+});
 
 test('new constrained batch retains its brainstorm and meets exact recall for every prompt', async () => {
   const ids = Object.keys(batch);

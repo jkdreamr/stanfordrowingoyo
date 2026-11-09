@@ -35,8 +35,8 @@ it.each([
 
 it('enables the complete reviewed bank on November 10 with every real day valid', () => {
   expect(DIVE_SCHEDULE_CUTOVER).toBe('2026-11-10');
-  expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 228 constrained, 92 broad');
-  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(228);
+  expect(DIVE_SCHEDULE_STATUS).toBe('64 days, 258 constrained, 62 broad');
+  expect(DIVE_PROMPTS.filter((prompt) => prompt.constrained)).toHaveLength(258);
   validateDiveSchedule(DIVE_SCHEDULE, DIVE_PROMPTS);
   expect(DIVE_SCHEDULE).toHaveLength(64);
   const seen = new Set<string>();

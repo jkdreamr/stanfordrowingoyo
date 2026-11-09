@@ -79,3 +79,30 @@ The 25 displaced broad prompts are expected in `Unscheduled corpus`. Their data
 remain loadable for legacy dates. The Node regression test checks all 25 selected
 prompts independently, requiring at least 25 brainstorm guesses and 95% exact
 recall per prompt. Existing empty/error-case harness tests remain applicable.
+
+## Second replacement batch
+
+`batch-2-raw.json` preserves 32 candidate brainstorms. The 30 selected prompts and
+reviewed-invalid annotations live in `batch-2-selected.json`; the two rejected
+candidate brainstorms remain untouched. `batch-2-audit.json` records before/after
+results against the same reviewed denominator, corpus hashes, module sizes, tiers,
+aliases and gzip. See `batch-2-review.md` for pinned-source scope decisions, ENABLE
+editorial policy, the remaining ambiguous-surname miss and runtime limitations.
+
+Reproduce the current combined cycle without altering the historical corpus:
+
+```sh
+source ~/.nvm/nvm.sh
+node --input-type=module - "$HOME/work/dive-batch2-corpus.json" <<'JS'
+import { readFileSync, writeFileSync } from 'node:fs';
+const read = (name) => JSON.parse(readFileSync(`scripts/dive/recall/${name}.json`, 'utf8'));
+writeFileSync(process.argv[2], JSON.stringify({ ...read('corpus'), ...read('batch-1-selected'), ...read('batch-2-selected') }, null, 2) + '\n');
+JS
+node scripts/dive/recall.mjs --corpus "$HOME/work/dive-batch2-corpus.json" --report "$HOME/work/dive-batch2-report.json"
+node --test scripts/dive/recall.test.mjs
+```
+
+All 30 new prompts have at least 25 frozen guesses and at least 95% exact recall.
+The three ENABLE prompts are independently checked for their spelling predicates
+and the 2,000-answer cap. Their original-spelling constraints are intentionally
+separate from the unchanged production normalizer's plural folding and stopwords.

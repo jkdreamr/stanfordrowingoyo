@@ -50792,6 +50792,7231 @@
       "people": true,
       "scope": "All 36 named champions in the complete titles table, including women, ties, early contests and documented one-on-one challenges. Excludes the unidentifiable 1973 winner and the debunked 1916 origin story.",
       "alias_review": "Pinned source names plus common short titles, initials, former names and unambiguous personal names; no fuzzy matching is used by the recall audit."
+    },
+    {
+      "id": "eight-thousanders",
+      "text": "one of the fourteen eight-thousander mountains",
+      "theme": "geography",
+      "cluster": "mountains",
+      "active": true,
+      "answers": [
+        {
+          "name": "Everest",
+          "aliases": ["Mount Everest", "Chomolungma", "Sagarmatha"]
+        },
+        {
+          "name": "K2",
+          "aliases": ["K 2", "Qogir", "Mount Godwin Austen", "Godwin Austen"]
+        },
+        {
+          "name": "Kangchenjunga",
+          "aliases": ["Kanchenjunga", "Kanchanjunga"]
+        },
+        {
+          "name": "Lhotse"
+        },
+        {
+          "name": "Makalu"
+        },
+        {
+          "name": "Cho Oyu"
+        },
+        {
+          "name": "Dhaulagiri I",
+          "aliases": ["Dhaulagiri"]
+        },
+        {
+          "name": "Manaslu"
+        },
+        {
+          "name": "Nanga Parbat"
+        },
+        {
+          "name": "Annapurna I",
+          "aliases": ["Annapurna"]
+        },
+        {
+          "name": "Gasherbrum I",
+          "aliases": ["Hidden Peak"]
+        },
+        {
+          "name": "Broad Peak"
+        },
+        {
+          "name": "Gasherbrum II"
+        },
+        {
+          "name": "Shishapangma",
+          "aliases": ["Shisha Pangma", "Gosainthan"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Eight-thousander",
+          "revision": 1382899892,
+          "members": [
+            "Everest",
+            "K2",
+            "Kangchenjunga",
+            "Lhotse",
+            "Makalu",
+            "Cho Oyu",
+            "Dhaulagiri I",
+            "Manaslu",
+            "Nanga Parbat",
+            "Annapurna I",
+            "Gasherbrum I",
+            "Broad Peak",
+            "Gasherbrum II",
+            "Shishapangma"
+          ],
+          "reviewed": [
+            "Everest",
+            "K2",
+            "Kangchenjunga",
+            "Lhotse",
+            "Makalu",
+            "Cho Oyu",
+            "Dhaulagiri I",
+            "Manaslu",
+            "Nanga Parbat",
+            "Annapurna I",
+            "Gasherbrum I",
+            "Broad Peak",
+            "Gasherbrum II",
+            "Shishapangma"
+          ],
+          "expect": [14, 14]
+        }
+      ],
+      "expect": [14, 14],
+      "surface": ["Everest", "K2", "Kangchenjunga"],
+      "pearl": "Shishapangma",
+      "scope": ""
+    },
+    {
+      "id": "borders-brazil",
+      "text": "a country with a land border with Brazil",
+      "theme": "geography",
+      "cluster": "borders",
+      "active": true,
+      "answers": [
+        {
+          "name": "Argentina",
+          "aliases": ["Argentine Republic", "Republic of Argentina"]
+        },
+        {
+          "name": "Bolivia",
+          "aliases": ["Plurinational State of Bolivia"]
+        },
+        {
+          "name": "Colombia",
+          "aliases": ["Republic of Colombia"]
+        },
+        {
+          "name": "France",
+          "aliases": ["French Republic", "French Guiana", "Guiana"]
+        },
+        {
+          "name": "Guyana",
+          "aliases": ["Cooperative Republic of Guyana"]
+        },
+        {
+          "name": "Paraguay",
+          "aliases": ["Republic of Paraguay"]
+        },
+        {
+          "name": "Peru",
+          "aliases": ["Republic of Peru"]
+        },
+        {
+          "name": "Suriname",
+          "aliases": ["Surinam", "Republic of Suriname"]
+        },
+        {
+          "name": "Uruguay",
+          "aliases": ["Oriental Republic of Uruguay"]
+        },
+        {
+          "name": "Venezuela",
+          "aliases": ["Bolivarian Republic of Venezuela"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Borders of Brazil",
+          "revision": 1359414929,
+          "members": [
+            "Argentina",
+            "Bolivia",
+            "Colombia",
+            "France",
+            "Guyana",
+            "Paraguay",
+            "Peru",
+            "Suriname",
+            "Uruguay",
+            "Venezuela"
+          ],
+          "reviewed": [
+            "Argentina",
+            "Bolivia",
+            "Colombia",
+            "France",
+            "Guyana",
+            "Paraguay",
+            "Peru",
+            "Suriname",
+            "Uruguay",
+            "Venezuela"
+          ],
+          "expect": [10, 10]
+        }
+      ],
+      "expect": [10, 10],
+      "surface": ["Argentina", "Peru", "Uruguay"],
+      "pearl": "France",
+      "scope": "Sovereign countries; France borders Brazil through French Guiana."
+    },
+    {
+      "id": "equator-countries",
+      "text": "a country the equator passes through",
+      "theme": "geography",
+      "cluster": "equator",
+      "active": true,
+      "answers": [
+        {
+          "name": "Ecuador"
+        },
+        {
+          "name": "Colombia"
+        },
+        {
+          "name": "Brazil"
+        },
+        {
+          "name": "São Tomé and Príncipe",
+          "aliases": ["Sao Tome"]
+        },
+        {
+          "name": "Gabon"
+        },
+        {
+          "name": "Republic of the Congo",
+          "aliases": ["Congo", "Congo Brazzaville"]
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "aliases": ["DR Congo", "DRC", "Congo Kinshasa", "Zaire"]
+        },
+        {
+          "name": "Uganda"
+        },
+        {
+          "name": "Kenya"
+        },
+        {
+          "name": "Somalia"
+        },
+        {
+          "name": "Indonesia",
+          "aliases": ["Republic of Indonesia"]
+        },
+        {
+          "name": "Maldives"
+        },
+        {
+          "name": "Kiribati",
+          "aliases": ["Republic of Kiribati"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Equator",
+          "revision": 1380440891,
+          "members": [
+            "Ecuador",
+            "Colombia",
+            "Brazil",
+            "São Tomé and Príncipe",
+            "Gabon",
+            "Republic of the Congo",
+            "Democratic Republic of the Congo",
+            "Uganda",
+            "Kenya",
+            "Somalia",
+            "Indonesia",
+            "Maldives",
+            "Kiribati"
+          ],
+          "reviewed": [
+            "Ecuador",
+            "Colombia",
+            "Brazil",
+            "São Tomé and Príncipe",
+            "Gabon",
+            "Republic of the Congo",
+            "Democratic Republic of the Congo",
+            "Uganda",
+            "Kenya",
+            "Somalia",
+            "Indonesia",
+            "Maldives",
+            "Kiribati"
+          ],
+          "expect": [13, 13]
+        }
+      ],
+      "expect": [13, 13],
+      "surface": ["Ecuador", "Brazil", "Kenya"],
+      "pearl": "Kiribati",
+      "scope": "Includes territorial waters, so Maldives and Kiribati are valid."
+    },
+    {
+      "id": "euro-countries",
+      "text": "a country that uses the euro",
+      "theme": "geography",
+      "cluster": "currencies",
+      "active": true,
+      "answers": [
+        {
+          "name": "Austria"
+        },
+        {
+          "name": "Belgium"
+        },
+        {
+          "name": "Bulgaria"
+        },
+        {
+          "name": "Croatia"
+        },
+        {
+          "name": "Cyprus"
+        },
+        {
+          "name": "Estonia"
+        },
+        {
+          "name": "Finland"
+        },
+        {
+          "name": "France"
+        },
+        {
+          "name": "Germany"
+        },
+        {
+          "name": "Greece"
+        },
+        {
+          "name": "Ireland"
+        },
+        {
+          "name": "Italy"
+        },
+        {
+          "name": "Latvia"
+        },
+        {
+          "name": "Lithuania"
+        },
+        {
+          "name": "Luxembourg"
+        },
+        {
+          "name": "Malta"
+        },
+        {
+          "name": "Netherlands",
+          "aliases": ["Holland"]
+        },
+        {
+          "name": "Portugal"
+        },
+        {
+          "name": "Slovakia"
+        },
+        {
+          "name": "Slovenia"
+        },
+        {
+          "name": "Spain"
+        },
+        {
+          "name": "Andorra"
+        },
+        {
+          "name": "Monaco"
+        },
+        {
+          "name": "San Marino"
+        },
+        {
+          "name": "Vatican City",
+          "aliases": ["Vatican", "Holy See"]
+        },
+        {
+          "name": "Montenegro"
+        },
+        {
+          "name": "Kosovo"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Eurozone",
+          "revision": 1381157182,
+          "members": [
+            "Austria",
+            "Belgium",
+            "Bulgaria",
+            "Croatia",
+            "Cyprus",
+            "Estonia",
+            "Finland",
+            "France",
+            "Germany",
+            "Greece",
+            "Ireland",
+            "Italy",
+            "Latvia",
+            "Lithuania",
+            "Luxembourg",
+            "Malta",
+            "Netherlands",
+            "Portugal",
+            "Slovakia",
+            "Slovenia",
+            "Spain",
+            "Andorra",
+            "Monaco",
+            "San Marino",
+            "Vatican City",
+            "Montenegro",
+            "Kosovo"
+          ],
+          "reviewed": [
+            "Austria",
+            "Belgium",
+            "Bulgaria",
+            "Croatia",
+            "Cyprus",
+            "Estonia",
+            "Finland",
+            "France",
+            "Germany",
+            "Greece",
+            "Ireland",
+            "Italy",
+            "Latvia",
+            "Lithuania",
+            "Luxembourg",
+            "Malta",
+            "Netherlands",
+            "Portugal",
+            "Slovakia",
+            "Slovenia",
+            "Spain",
+            "Andorra",
+            "Monaco",
+            "San Marino",
+            "Vatican City",
+            "Montenegro",
+            "Kosovo"
+          ],
+          "expect": [27, 27]
+        }
+      ],
+      "expect": [27, 27],
+      "surface": ["France", "Germany", "Italy", "Spain"],
+      "pearl": "Kosovo",
+      "scope": "Eurozone members including Bulgaria in 2026, four microstate monetary agreements and Montenegro/Kosovo; territories alias their sovereign country."
+    },
+    {
+      "id": "capital-country-name",
+      "text": "a country whose name appears in its capital's name",
+      "theme": "geography",
+      "cluster": "capitals",
+      "active": true,
+      "answers": [
+        {
+          "name": "Andorra",
+          "aliases": ["Principality of Andorra"]
+        },
+        {
+          "name": "Djibouti",
+          "aliases": ["Republic of Djibouti"]
+        },
+        {
+          "name": "Guatemala",
+          "aliases": ["Republic of Guatemala"]
+        },
+        {
+          "name": "Kuwait",
+          "aliases": ["State of Kuwait"]
+        },
+        {
+          "name": "Luxembourg",
+          "aliases": ["Grand Duchy of Luxembourg"]
+        },
+        {
+          "name": "Mexico"
+        },
+        {
+          "name": "Monaco",
+          "aliases": ["Principality of Monaco"]
+        },
+        {
+          "name": "Panama",
+          "aliases": ["Republic of Panama"]
+        },
+        {
+          "name": "San Marino",
+          "aliases": ["Republic of San Marino"]
+        },
+        {
+          "name": "Singapore",
+          "aliases": ["Republic of Singapore"]
+        },
+        {
+          "name": "Vatican City",
+          "aliases": ["Vatican", "Holy See"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of national capitals",
+          "revision": 1379279549,
+          "members": [
+            "Andorra",
+            "Djibouti",
+            "Guatemala",
+            "Kuwait",
+            "Luxembourg",
+            "Mexico",
+            "Monaco",
+            "Panama",
+            "San Marino",
+            "Singapore",
+            "Vatican City"
+          ],
+          "reviewed": [
+            "Andorra",
+            "Djibouti",
+            "Guatemala",
+            "Kuwait",
+            "Luxembourg",
+            "Mexico",
+            "Monaco",
+            "Panama",
+            "San Marino",
+            "Singapore",
+            "Vatican City"
+          ],
+          "expect": [11, 11]
+        }
+      ],
+      "expect": [11, 11],
+      "surface": ["Mexico", "Singapore", "Luxembourg"],
+      "pearl": "Andorra",
+      "scope": "The full common English country name must appear in its capital, allowing City; not just a shared prefix such as Tunis/Tunisia."
+    },
+    {
+      "id": "no-standing-army",
+      "text": "a country without a standing army",
+      "theme": "geography",
+      "cluster": "military",
+      "active": true,
+      "answers": [
+        {
+          "name": "Andorra"
+        },
+        {
+          "name": "Dominica"
+        },
+        {
+          "name": "Grenada"
+        },
+        {
+          "name": "Iceland"
+        },
+        {
+          "name": "Kiribati"
+        },
+        {
+          "name": "Liechtenstein"
+        },
+        {
+          "name": "Marshall Islands"
+        },
+        {
+          "name": "Federated States of Micronesia",
+          "aliases": ["Micronesia", "FSM"]
+        },
+        {
+          "name": "Nauru"
+        },
+        {
+          "name": "Palau"
+        },
+        {
+          "name": "Saint Lucia",
+          "aliases": ["St Lucia"]
+        },
+        {
+          "name": "Saint Vincent and the Grenadines",
+          "aliases": ["St Vincent and the Grenadines"]
+        },
+        {
+          "name": "Samoa"
+        },
+        {
+          "name": "Solomon Islands"
+        },
+        {
+          "name": "Tuvalu"
+        },
+        {
+          "name": "Vanuatu"
+        },
+        {
+          "name": "Vatican City",
+          "aliases": ["Vatican", "Holy See"]
+        },
+        {
+          "name": "Costa Rica"
+        },
+        {
+          "name": "Mauritius"
+        },
+        {
+          "name": "Monaco"
+        },
+        {
+          "name": "Panama"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of sovereign states without armed forces",
+          "revision": 1384355119,
+          "members": [
+            "Andorra",
+            "Dominica",
+            "Grenada",
+            "Iceland",
+            "Kiribati",
+            "Liechtenstein",
+            "Marshall Islands",
+            "Federated States of Micronesia",
+            "Nauru",
+            "Palau",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "Solomon Islands",
+            "Tuvalu",
+            "Vanuatu",
+            "Vatican City",
+            "Costa Rica",
+            "Mauritius",
+            "Monaco",
+            "Panama"
+          ],
+          "reviewed": [
+            "Andorra",
+            "Dominica",
+            "Grenada",
+            "Iceland",
+            "Kiribati",
+            "Liechtenstein",
+            "Marshall Islands",
+            "Federated States of Micronesia",
+            "Nauru",
+            "Palau",
+            "Saint Lucia",
+            "Saint Vincent and the Grenadines",
+            "Samoa",
+            "Solomon Islands",
+            "Tuvalu",
+            "Vanuatu",
+            "Vatican City",
+            "Costa Rica",
+            "Mauritius",
+            "Monaco",
+            "Panama"
+          ],
+          "expect": [21, 21]
+        }
+      ],
+      "expect": [21, 21],
+      "surface": ["Costa Rica", "Iceland", "Panama"],
+      "pearl": "Vanuatu",
+      "scope": "Both source tables: no military forces or no standing army but limited military-capacity forces."
+    },
+    {
+      "id": "mediterranean-countries",
+      "text": "a country with a Mediterranean coastline",
+      "theme": "geography",
+      "cluster": "seas",
+      "active": true,
+      "answers": [
+        {
+          "name": "Italy"
+        },
+        {
+          "name": "Greece"
+        },
+        {
+          "name": "Libya"
+        },
+        {
+          "name": "Spain"
+        },
+        {
+          "name": "Egypt"
+        },
+        {
+          "name": "Algeria"
+        },
+        {
+          "name": "Tunisia"
+        },
+        {
+          "name": "France"
+        },
+        {
+          "name": "Cyprus"
+        },
+        {
+          "name": "Turkey",
+          "aliases": ["Türkiye"]
+        },
+        {
+          "name": "Croatia"
+        },
+        {
+          "name": "Malta"
+        },
+        {
+          "name": "Israel"
+        },
+        {
+          "name": "Lebanon"
+        },
+        {
+          "name": "Morocco"
+        },
+        {
+          "name": "Northern Cyprus"
+        },
+        {
+          "name": "Albania"
+        },
+        {
+          "name": "Syria",
+          "aliases": ["Syrian Arab Republic"]
+        },
+        {
+          "name": "Montenegro"
+        },
+        {
+          "name": "Palestine",
+          "aliases": ["State of Palestine"]
+        },
+        {
+          "name": "Monaco"
+        },
+        {
+          "name": "Slovenia"
+        },
+        {
+          "name": "Bosnia and Herzegovina",
+          "aliases": ["Bosnia"]
+        },
+        {
+          "name": "United Kingdom",
+          "aliases": ["UK", "Britain", "Great Britain"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Mediterranean Sea",
+          "revision": 1384519403,
+          "members": [
+            "Italy",
+            "Greece",
+            "Libya",
+            "Spain",
+            "Egypt",
+            "Algeria",
+            "Tunisia",
+            "France",
+            "Cyprus",
+            "Turkey",
+            "Croatia",
+            "Malta",
+            "Israel",
+            "Lebanon",
+            "Morocco",
+            "Northern Cyprus",
+            "Albania",
+            "Syria",
+            "Montenegro",
+            "Palestine",
+            "Monaco",
+            "Slovenia",
+            "Bosnia and Herzegovina",
+            "United Kingdom"
+          ],
+          "reviewed": [
+            "Italy",
+            "Greece",
+            "Libya",
+            "Spain",
+            "Egypt",
+            "Algeria",
+            "Tunisia",
+            "France",
+            "Cyprus",
+            "Turkey",
+            "Croatia",
+            "Malta",
+            "Israel",
+            "Lebanon",
+            "Morocco",
+            "Northern Cyprus",
+            "Albania",
+            "Syria",
+            "Montenegro",
+            "Palestine",
+            "Monaco",
+            "Slovenia",
+            "Bosnia and Herzegovina",
+            "United Kingdom"
+          ],
+          "expect": [24, 24]
+        }
+      ],
+      "expect": [24, 24],
+      "surface": ["Italy", "Greece", "Spain", "France"],
+      "pearl": "Bosnia and Herzegovina",
+      "scope": "Includes partially recognized Northern Cyprus and the UK through Gibraltar and sovereign bases."
+    },
+    {
+      "id": "large-solar-moons",
+      "text": "a Solar System moon over 1,000 kilometres across",
+      "theme": "science",
+      "cluster": "big-moons",
+      "active": true,
+      "answers": [
+        {
+          "name": "Moon",
+          "aliases": ["Luna", "Earth Moon", "Earths Moon"]
+        },
+        {
+          "name": "Io"
+        },
+        {
+          "name": "Europa"
+        },
+        {
+          "name": "Ganymede",
+          "aliases": ["Jupiters Ganymede"]
+        },
+        {
+          "name": "Callisto"
+        },
+        {
+          "name": "Tethys"
+        },
+        {
+          "name": "Dione"
+        },
+        {
+          "name": "Rhea"
+        },
+        {
+          "name": "Titan",
+          "aliases": ["Saturns Titan"]
+        },
+        {
+          "name": "Iapetus"
+        },
+        {
+          "name": "Ariel"
+        },
+        {
+          "name": "Umbriel"
+        },
+        {
+          "name": "Titania"
+        },
+        {
+          "name": "Oberon"
+        },
+        {
+          "name": "Triton",
+          "aliases": ["Neptunes Triton"]
+        },
+        {
+          "name": "Charon",
+          "aliases": ["Plutos Charon"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of natural satellites",
+          "revision": 1379468306,
+          "members": [
+            "Moon",
+            "Io",
+            "Europa",
+            "Ganymede",
+            "Callisto",
+            "Tethys",
+            "Dione",
+            "Rhea",
+            "Titan",
+            "Iapetus",
+            "Ariel",
+            "Umbriel",
+            "Titania",
+            "Oberon",
+            "Triton",
+            "Charon"
+          ],
+          "reviewed": [
+            "Moon",
+            "Io",
+            "Europa",
+            "Ganymede",
+            "Callisto",
+            "Tethys",
+            "Dione",
+            "Rhea",
+            "Titan",
+            "Iapetus",
+            "Ariel",
+            "Umbriel",
+            "Titania",
+            "Oberon",
+            "Triton",
+            "Charon"
+          ],
+          "expect": [16, 16]
+        }
+      ],
+      "expect": [16, 16],
+      "surface": ["Moon", "Titan", "Europa", "Ganymede"],
+      "pearl": "Umbriel",
+      "scope": ""
+    },
+    {
+      "id": "standard-model-particles",
+      "text": "one of the 17 fundamental particle types in the Standard Model",
+      "theme": "science",
+      "cluster": "particles",
+      "active": true,
+      "answers": [
+        {
+          "name": "Up quark",
+          "aliases": ["up", "antiup", "anti up quark"]
+        },
+        {
+          "name": "Down quark",
+          "aliases": ["down", "anti down quark"]
+        },
+        {
+          "name": "Charm quark",
+          "aliases": ["charm", "anti charm quark"]
+        },
+        {
+          "name": "Strange quark",
+          "aliases": ["strange", "anti strange quark"]
+        },
+        {
+          "name": "Top quark",
+          "aliases": ["top", "anti top quark"]
+        },
+        {
+          "name": "Bottom quark",
+          "aliases": ["bottom", "anti bottom quark", "beauty quark"]
+        },
+        {
+          "name": "Electron",
+          "aliases": ["positron", "antielectron"]
+        },
+        {
+          "name": "Muon",
+          "aliases": ["antimuon"]
+        },
+        {
+          "name": "Tau",
+          "aliases": ["tauon", "antitau"]
+        },
+        {
+          "name": "Electron neutrino",
+          "aliases": ["electron antineutrino"]
+        },
+        {
+          "name": "Muon neutrino",
+          "aliases": ["muon antineutrino"]
+        },
+        {
+          "name": "Tau neutrino",
+          "aliases": ["tau antineutrino"]
+        },
+        {
+          "name": "Photon"
+        },
+        {
+          "name": "Gluon"
+        },
+        {
+          "name": "W boson",
+          "aliases": ["W", "W plus", "W minus", "W positive", "W negative"]
+        },
+        {
+          "name": "Z boson",
+          "aliases": ["Z", "Z zero"]
+        },
+        {
+          "name": "Higgs boson",
+          "aliases": ["Higgs", "God particle"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "Standard Model",
+          "revision": 1382514686,
+          "members": [
+            "Up quark",
+            "Down quark",
+            "Charm quark",
+            "Strange quark",
+            "Top quark",
+            "Bottom quark",
+            "Electron",
+            "Muon",
+            "Tau",
+            "Electron neutrino",
+            "Muon neutrino",
+            "Tau neutrino",
+            "Photon",
+            "Gluon",
+            "W boson",
+            "Z boson",
+            "Higgs boson"
+          ],
+          "reviewed": [
+            "Up quark",
+            "Down quark",
+            "Charm quark",
+            "Strange quark",
+            "Top quark",
+            "Bottom quark",
+            "Electron",
+            "Muon",
+            "Tau",
+            "Electron neutrino",
+            "Muon neutrino",
+            "Tau neutrino",
+            "Photon",
+            "Gluon",
+            "W boson",
+            "Z boson",
+            "Higgs boson"
+          ],
+          "expect": [17, 17]
+        }
+      ],
+      "expect": [17, 17],
+      "surface": ["Electron", "Photon", "Higgs boson"],
+      "pearl": "Tau neutrino",
+      "scope": "The 17 fundamental species, with antiparticles and W charges as aliases of the corresponding species."
+    },
+    {
+      "id": "astronomical-elements",
+      "text": "an element named after a celestial body",
+      "theme": "science",
+      "cluster": "element-etymology",
+      "active": true,
+      "answers": [
+        {
+          "name": "Helium",
+          "aliases": ["He", "Helium named after the Sun"]
+        },
+        {
+          "name": "Selenium",
+          "aliases": ["Se"]
+        },
+        {
+          "name": "Tellurium",
+          "aliases": ["Te", "Tellurium Earth"]
+        },
+        {
+          "name": "Uranium",
+          "aliases": ["U"]
+        },
+        {
+          "name": "Neptunium",
+          "aliases": ["Np"]
+        },
+        {
+          "name": "Plutonium",
+          "aliases": ["Pu"]
+        },
+        {
+          "name": "Cerium",
+          "aliases": ["Ce"]
+        },
+        {
+          "name": "Palladium",
+          "aliases": ["Pd"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of chemical element name etymologies",
+          "revision": 1382331679,
+          "members": [
+            "Helium",
+            "Selenium",
+            "Tellurium",
+            "Uranium",
+            "Neptunium",
+            "Plutonium",
+            "Cerium",
+            "Palladium"
+          ],
+          "reviewed": [
+            "Helium",
+            "Selenium",
+            "Tellurium",
+            "Uranium",
+            "Neptunium",
+            "Plutonium",
+            "Cerium",
+            "Palladium"
+          ],
+          "expect": [8, 8]
+        }
+      ],
+      "expect": [8, 8],
+      "surface": ["Helium", "Uranium"],
+      "pearl": "Palladium",
+      "scope": "Sun, Moon, Earth, planets and minor planets. Mercury is named after the Roman god, not the planet, and is excluded."
+    },
+    {
+      "id": "lunar-maria",
+      "text": "a named sea on the Moon",
+      "theme": "science",
+      "cluster": "moon-seas",
+      "active": true,
+      "answers": [
+        {
+          "name": "Mare Anguis",
+          "aliases": ["Serpent Sea", "Anguis"]
+        },
+        {
+          "name": "Mare Australe",
+          "aliases": ["Southern Sea", "Australe"]
+        },
+        {
+          "name": "Mare Cognitum",
+          "aliases": ["Sea that has become known", "Cognitum"]
+        },
+        {
+          "name": "Mare Crisium",
+          "aliases": ["Sea of Crises", "Crisium"]
+        },
+        {
+          "name": "Mare Fecunditatis",
+          "aliases": ["Sea of Fecundity", "Sea of Fertility", "Fecunditatis"]
+        },
+        {
+          "name": "Mare Frigoris",
+          "aliases": ["Sea of Cold", "Frigoris"]
+        },
+        {
+          "name": "Mare Humboldtianum",
+          "aliases": ["Sea of Humboldt", "Humboldtianum"]
+        },
+        {
+          "name": "Mare Humorum",
+          "aliases": ["Sea of Moisture", "Humorum"]
+        },
+        {
+          "name": "Mare Imbrium",
+          "aliases": ["Sea of Showers", "Sea of Rains", "Imbrium"]
+        },
+        {
+          "name": "Mare Ingenii",
+          "aliases": ["Sea of Cleverness", "Ingenii"]
+        },
+        {
+          "name": "Mare Insularum",
+          "aliases": ["Sea of Islands", "Insularum"]
+        },
+        {
+          "name": "Mare Marginis",
+          "aliases": ["Sea of the Edge", "Marginis"]
+        },
+        {
+          "name": "Mare Moscoviense",
+          "aliases": ["Sea of Muscovy", "Sea of Moscow", "Moscoviense"]
+        },
+        {
+          "name": "Mare Nectaris",
+          "aliases": ["Sea of Nectar", "Nectaris"]
+        },
+        {
+          "name": "Mare Nubium",
+          "aliases": ["Sea of Clouds", "Nubium"]
+        },
+        {
+          "name": "Mare Orientale",
+          "aliases": ["Eastern sea", "Orientale"]
+        },
+        {
+          "name": "Mare Serenitatis",
+          "aliases": ["Sea of Serenity", "Serenitatis"]
+        },
+        {
+          "name": "Mare Smythii",
+          "aliases": ["Sea of Smyth", "Smyths Sea", "Smyth Sea", "Smythii"]
+        },
+        {
+          "name": "Mare Spumans",
+          "aliases": ["Foaming Sea", "Spumans"]
+        },
+        {
+          "name": "Mare Tranquillitatis",
+          "aliases": ["Sea of Tranquility", "Tranquillitatis"]
+        },
+        {
+          "name": "Mare Undarum",
+          "aliases": ["Sea of Waves", "Undarum"]
+        },
+        {
+          "name": "Mare Vaporum",
+          "aliases": ["Sea of Vapors", "Vaporum"]
+        },
+        {
+          "name": "Oceanus Procellarum",
+          "aliases": ["Ocean of Storms", "Procellarum"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of plains on the Moon",
+          "revision": 1354079317,
+          "members": [
+            "Mare Anguis",
+            "Mare Australe",
+            "Mare Cognitum",
+            "Mare Crisium",
+            "Mare Fecunditatis",
+            "Mare Frigoris",
+            "Mare Humboldtianum",
+            "Mare Humorum",
+            "Mare Imbrium",
+            "Mare Ingenii",
+            "Mare Insularum",
+            "Mare Marginis",
+            "Mare Moscoviense",
+            "Mare Nectaris",
+            "Mare Nubium",
+            "Mare Orientale",
+            "Mare Serenitatis",
+            "Mare Smythii",
+            "Mare Spumans",
+            "Mare Tranquillitatis",
+            "Mare Undarum",
+            "Mare Vaporum",
+            "Oceanus Procellarum"
+          ],
+          "reviewed": [
+            "Mare Anguis",
+            "Mare Australe",
+            "Mare Cognitum",
+            "Mare Crisium",
+            "Mare Fecunditatis",
+            "Mare Frigoris",
+            "Mare Humboldtianum",
+            "Mare Humorum",
+            "Mare Imbrium",
+            "Mare Ingenii",
+            "Mare Insularum",
+            "Mare Marginis",
+            "Mare Moscoviense",
+            "Mare Nectaris",
+            "Mare Nubium",
+            "Mare Orientale",
+            "Mare Serenitatis",
+            "Mare Smythii",
+            "Mare Spumans",
+            "Mare Tranquillitatis",
+            "Mare Undarum",
+            "Mare Vaporum",
+            "Oceanus Procellarum"
+          ],
+          "expect": [23, 23]
+        }
+      ],
+      "expect": [23, 23],
+      "surface": ["Mare Tranquillitatis", "Mare Imbrium", "Oceanus Procellarum"],
+      "pearl": "Mare Ingenii",
+      "scope": "All Mare and Oceanus entries; not Lacus, Palus or Sinus plains. Latin and English names accepted."
+    },
+    {
+      "id": "moon-mars-rovers",
+      "text": "a rover that operated on the Moon or Mars",
+      "theme": "science",
+      "cluster": "rovers",
+      "active": true,
+      "answers": [
+        {
+          "name": "Lunokhod 1",
+          "aliases": ["Lunokhod One"]
+        },
+        {
+          "name": "Lunokhod 2",
+          "aliases": ["Lunokhod Two"]
+        },
+        {
+          "name": "Yutu",
+          "aliases": ["Jade Rabbit", "Yutu 1", "Jade Rabbit 1"]
+        },
+        {
+          "name": "Yutu-2",
+          "aliases": ["Jade Rabbit 2", "Jade Rabbit Two"]
+        },
+        {
+          "name": "Pragyan"
+        },
+        {
+          "name": "LEV-1"
+        },
+        {
+          "name": "Sora-Q",
+          "aliases": ["LEV-2"]
+        },
+        {
+          "name": "Jinchan"
+        },
+        {
+          "name": "Sojourner"
+        },
+        {
+          "name": "Spirit"
+        },
+        {
+          "name": "Opportunity",
+          "aliases": ["Oppy"]
+        },
+        {
+          "name": "Curiosity"
+        },
+        {
+          "name": "Perseverance",
+          "aliases": ["Percy"]
+        },
+        {
+          "name": "Zhurong"
+        },
+        {
+          "name": "Lunar Roving Vehicle",
+          "aliases": [
+            "Apollo 15 rover",
+            "Apollo 16 rover",
+            "Apollo 17 rover",
+            "Apollo 15",
+            "Apollo 16",
+            "Apollo 17",
+            "Lunar rover",
+            "LRV",
+            "Moon buggy"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of rovers on extraterrestrial bodies",
+          "revision": 1374201442,
+          "members": [
+            "Lunokhod 1",
+            "Lunokhod 2",
+            "Yutu",
+            "Yutu-2",
+            "Pragyan",
+            "LEV-1",
+            "Sora-Q",
+            "Jinchan",
+            "Sojourner",
+            "Spirit",
+            "Opportunity",
+            "Curiosity",
+            "Perseverance",
+            "Zhurong",
+            "Lunar Roving Vehicle"
+          ],
+          "reviewed": [
+            "Lunokhod 1",
+            "Lunokhod 2",
+            "Yutu",
+            "Yutu-2",
+            "Pragyan",
+            "LEV-1",
+            "Sora-Q",
+            "Jinchan",
+            "Sojourner",
+            "Spirit",
+            "Opportunity",
+            "Curiosity",
+            "Perseverance",
+            "Zhurong",
+            "Lunar Roving Vehicle"
+          ],
+          "expect": [15, 15]
+        }
+      ],
+      "expect": [15, 15],
+      "surface": ["Curiosity", "Perseverance", "Spirit"],
+      "pearl": "LEV-1",
+      "scope": "Successful/operational surface vehicles including hopping LEV-1, named robotic rovers and the crewed Lunar Roving Vehicle; failed or future missions excluded."
+    },
+    {
+      "id": "shuttle-final-crews",
+      "text": "a crew member on a Space Shuttle orbiter's final flight",
+      "theme": "science",
+      "cluster": "shuttle",
+      "active": true,
+      "answers": [
+        {
+          "name": "Christopher Ferguson",
+          "aliases": ["Chris Ferguson"]
+        },
+        {
+          "name": "Douglas Hurley",
+          "aliases": ["Doug Hurley"]
+        },
+        {
+          "name": "Sandra Magnus"
+        },
+        {
+          "name": "Rex Walheim"
+        },
+        {
+          "name": "Mark Kelly"
+        },
+        {
+          "name": "Gregory H. Johnson",
+          "aliases": ["Gregory Johnson", "Greg Johnson"]
+        },
+        {
+          "name": "Michael Fincke"
+        },
+        {
+          "name": "Roberto Vittori"
+        },
+        {
+          "name": "Andrew J. Feustel",
+          "aliases": ["Andrew Feustel", "Drew Feustel"]
+        },
+        {
+          "name": "Gregory Chamitoff",
+          "aliases": ["Greg Chamitoff"]
+        },
+        {
+          "name": "Steven Lindsey",
+          "aliases": ["Steve Lindsey"]
+        },
+        {
+          "name": "Eric Boe"
+        },
+        {
+          "name": "Nicole Stott"
+        },
+        {
+          "name": "Alvin Drew"
+        },
+        {
+          "name": "Michael Barratt"
+        },
+        {
+          "name": "Stephen Bowen",
+          "aliases": ["Steve Bowen", "Steven Bowen"]
+        },
+        {
+          "name": "Rick Husband"
+        },
+        {
+          "name": "William C. McCool",
+          "aliases": ["William McCool"]
+        },
+        {
+          "name": "David M. Brown",
+          "aliases": ["David Brown"]
+        },
+        {
+          "name": "Kalpana Chawla"
+        },
+        {
+          "name": "Michael P. Anderson",
+          "aliases": ["Michael Anderson"]
+        },
+        {
+          "name": "Laurel Clark"
+        },
+        {
+          "name": "Ilan Ramon"
+        },
+        {
+          "name": "Francis R. \"Dick\" Scobee",
+          "aliases": [
+            "Francis \"Dick\" Scobee",
+            "Dick Scobee",
+            "Francis Scobee",
+            "Francis R Scobee"
+          ]
+        },
+        {
+          "name": "Michael J. Smith",
+          "aliases": ["Michael Smith"]
+        },
+        {
+          "name": "Ellison S. Onizuka",
+          "aliases": ["Ellison Onizuka"]
+        },
+        {
+          "name": "Judith A. Resnik",
+          "aliases": ["Judith Resnik"]
+        },
+        {
+          "name": "Ronald E. McNair",
+          "aliases": ["Ronald McNair"]
+        },
+        {
+          "name": "S. Christa McAuliffe",
+          "aliases": ["Christa McAuliffe"]
+        },
+        {
+          "name": "Gregory B. Jarvis",
+          "aliases": ["Gregory Jarvis"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "STS-135",
+          "revision": 1382588519,
+          "members": ["Christopher Ferguson", "Douglas Hurley", "Sandra Magnus", "Rex Walheim"],
+          "reviewed": ["Christopher Ferguson", "Douglas Hurley", "Sandra Magnus", "Rex Walheim"],
+          "expect": [4, 4]
+        },
+        {
+          "page": "STS-134",
+          "revision": 1383322552,
+          "members": [
+            "Mark Kelly",
+            "Gregory H. Johnson",
+            "Michael Fincke",
+            "Roberto Vittori",
+            "Andrew J. Feustel",
+            "Gregory Chamitoff"
+          ],
+          "reviewed": [
+            "Mark Kelly",
+            "Gregory H. Johnson",
+            "Michael Fincke",
+            "Roberto Vittori",
+            "Andrew J. Feustel",
+            "Gregory Chamitoff"
+          ],
+          "expect": [6, 6]
+        },
+        {
+          "page": "STS-133",
+          "revision": 1360733640,
+          "members": [
+            "Steven Lindsey",
+            "Eric Boe",
+            "Nicole Stott",
+            "Alvin Drew",
+            "Michael Barratt",
+            "Stephen Bowen"
+          ],
+          "reviewed": [
+            "Steven Lindsey",
+            "Eric Boe",
+            "Nicole Stott",
+            "Alvin Drew",
+            "Michael Barratt",
+            "Stephen Bowen"
+          ],
+          "expect": [6, 6]
+        },
+        {
+          "page": "STS-107",
+          "revision": 1379430667,
+          "members": [
+            "Rick Husband",
+            "William C. McCool",
+            "David M. Brown",
+            "Kalpana Chawla",
+            "Michael P. Anderson",
+            "Laurel Clark",
+            "Ilan Ramon"
+          ],
+          "reviewed": [
+            "Rick Husband",
+            "William C. McCool",
+            "David M. Brown",
+            "Kalpana Chawla",
+            "Michael P. Anderson",
+            "Laurel Clark",
+            "Ilan Ramon"
+          ],
+          "expect": [7, 7]
+        },
+        {
+          "page": "STS-51-L",
+          "revision": 1383736549,
+          "members": [
+            "Francis R. \"Dick\" Scobee",
+            "Michael J. Smith",
+            "Ellison S. Onizuka",
+            "Judith A. Resnik",
+            "Ronald E. McNair",
+            "S. Christa McAuliffe",
+            "Gregory B. Jarvis"
+          ],
+          "reviewed": [
+            "Francis R. \"Dick\" Scobee",
+            "Michael J. Smith",
+            "Ellison S. Onizuka",
+            "Judith A. Resnik",
+            "Ronald E. McNair",
+            "S. Christa McAuliffe",
+            "Gregory B. Jarvis"
+          ],
+          "expect": [7, 7]
+        }
+      ],
+      "expect": [30, 30],
+      "surface": ["Christopher Ferguson", "Mark Kelly", "Kalpana Chawla"],
+      "pearl": "Roberto Vittori",
+      "scope": "Final flights of Atlantis, Endeavour, Discovery, Columbia and Challenger; main flight crews only, not backups.",
+      "people": true
+    },
+    {
+      "id": "ballon-dor-winners",
+      "text": "a winner of the men's or women's Ballon d'Or",
+      "theme": "sports",
+      "cluster": "football-awards",
+      "active": true,
+      "answers": [
+        {
+          "name": "Stanley Matthews"
+        },
+        {
+          "name": "Alfredo Di Stéfano"
+        },
+        {
+          "name": "Raymond Kopa"
+        },
+        {
+          "name": "Luis Suárez"
+        },
+        {
+          "name": "Omar Sívori"
+        },
+        {
+          "name": "Josef Masopust"
+        },
+        {
+          "name": "Lev Yashin"
+        },
+        {
+          "name": "Denis Law"
+        },
+        {
+          "name": "Eusébio"
+        },
+        {
+          "name": "Bobby Charlton",
+          "aliases": ["Robert Charlton"]
+        },
+        {
+          "name": "Flórián Albert"
+        },
+        {
+          "name": "George Best"
+        },
+        {
+          "name": "Gianni Rivera"
+        },
+        {
+          "name": "Gerd Müller"
+        },
+        {
+          "name": "Johan Cruyff"
+        },
+        {
+          "name": "Franz Beckenbauer"
+        },
+        {
+          "name": "Oleg Blokhin"
+        },
+        {
+          "name": "Allan Simonsen"
+        },
+        {
+          "name": "Kevin Keegan"
+        },
+        {
+          "name": "Karl-Heinz Rummenigge"
+        },
+        {
+          "name": "Paolo Rossi"
+        },
+        {
+          "name": "Michel Platini"
+        },
+        {
+          "name": "Igor Belanov"
+        },
+        {
+          "name": "Ruud Gullit"
+        },
+        {
+          "name": "Marco van Basten"
+        },
+        {
+          "name": "Lothar Matthäus"
+        },
+        {
+          "name": "Jean-Pierre Papin"
+        },
+        {
+          "name": "Roberto Baggio"
+        },
+        {
+          "name": "Hristo Stoichkov"
+        },
+        {
+          "name": "George Weah"
+        },
+        {
+          "name": "Matthias Sammer"
+        },
+        {
+          "name": "Ronaldo",
+          "aliases": ["Ronaldo Nazário", "Ronaldo Luis Nazario de Lima", "R9"]
+        },
+        {
+          "name": "Zinedine Zidane"
+        },
+        {
+          "name": "Rivaldo"
+        },
+        {
+          "name": "Luís Figo"
+        },
+        {
+          "name": "Michael Owen"
+        },
+        {
+          "name": "Pavel Nedvěd"
+        },
+        {
+          "name": "Andriy Shevchenko"
+        },
+        {
+          "name": "Ronaldinho",
+          "aliases": ["Ronaldinho Gaúcho"]
+        },
+        {
+          "name": "Fabio Cannavaro"
+        },
+        {
+          "name": "Kaká"
+        },
+        {
+          "name": "Cristiano Ronaldo",
+          "aliases": ["CR7", "Cristiano"]
+        },
+        {
+          "name": "Lionel Messi",
+          "aliases": ["Leo Messi", "La Pulga"]
+        },
+        {
+          "name": "Luka Modrić"
+        },
+        {
+          "name": "Karim Benzema"
+        },
+        {
+          "name": "Rodri",
+          "aliases": ["Rodrigo Hernandez"]
+        },
+        {
+          "name": "Ousmane Dembélé"
+        },
+        {
+          "name": "Harry Kane"
+        },
+        {
+          "name": "Pelé"
+        },
+        {
+          "name": "Diego Maradona",
+          "aliases": ["Maradona"]
+        },
+        {
+          "name": "Ada Hegerberg"
+        },
+        {
+          "name": "Megan Rapinoe"
+        },
+        {
+          "name": "Alexia Putellas"
+        },
+        {
+          "name": "Aitana Bonmatí"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Ballon d'Or",
+          "revision": 1383816147,
+          "members": [
+            "Stanley Matthews",
+            "Alfredo Di Stéfano",
+            "Raymond Kopa",
+            "Luis Suárez",
+            "Omar Sívori",
+            "Josef Masopust",
+            "Lev Yashin",
+            "Denis Law",
+            "Eusébio",
+            "Bobby Charlton",
+            "Flórián Albert",
+            "George Best",
+            "Gianni Rivera",
+            "Gerd Müller",
+            "Johan Cruyff",
+            "Franz Beckenbauer",
+            "Oleg Blokhin",
+            "Allan Simonsen",
+            "Kevin Keegan",
+            "Karl-Heinz Rummenigge",
+            "Paolo Rossi",
+            "Michel Platini",
+            "Igor Belanov",
+            "Ruud Gullit",
+            "Marco van Basten",
+            "Lothar Matthäus",
+            "Jean-Pierre Papin",
+            "Roberto Baggio",
+            "Hristo Stoichkov",
+            "George Weah",
+            "Matthias Sammer",
+            "Ronaldo",
+            "Zinedine Zidane",
+            "Rivaldo",
+            "Luís Figo",
+            "Michael Owen",
+            "Pavel Nedvěd",
+            "Andriy Shevchenko",
+            "Ronaldinho",
+            "Fabio Cannavaro",
+            "Kaká",
+            "Cristiano Ronaldo",
+            "Lionel Messi",
+            "Luka Modrić",
+            "Karim Benzema",
+            "Rodri",
+            "Ousmane Dembélé",
+            "Harry Kane",
+            "Pelé",
+            "Diego Maradona"
+          ],
+          "reviewed": [
+            "Stanley Matthews",
+            "Alfredo Di Stéfano",
+            "Raymond Kopa",
+            "Luis Suárez",
+            "Omar Sívori",
+            "Josef Masopust",
+            "Lev Yashin",
+            "Denis Law",
+            "Eusébio",
+            "Bobby Charlton",
+            "Flórián Albert",
+            "George Best",
+            "Gianni Rivera",
+            "Gerd Müller",
+            "Johan Cruyff",
+            "Franz Beckenbauer",
+            "Oleg Blokhin",
+            "Allan Simonsen",
+            "Kevin Keegan",
+            "Karl-Heinz Rummenigge",
+            "Paolo Rossi",
+            "Michel Platini",
+            "Igor Belanov",
+            "Ruud Gullit",
+            "Marco van Basten",
+            "Lothar Matthäus",
+            "Jean-Pierre Papin",
+            "Roberto Baggio",
+            "Hristo Stoichkov",
+            "George Weah",
+            "Matthias Sammer",
+            "Ronaldo",
+            "Zinedine Zidane",
+            "Rivaldo",
+            "Luís Figo",
+            "Michael Owen",
+            "Pavel Nedvěd",
+            "Andriy Shevchenko",
+            "Ronaldinho",
+            "Fabio Cannavaro",
+            "Kaká",
+            "Cristiano Ronaldo",
+            "Lionel Messi",
+            "Luka Modrić",
+            "Karim Benzema",
+            "Rodri",
+            "Ousmane Dembélé",
+            "Harry Kane",
+            "Pelé",
+            "Diego Maradona"
+          ],
+          "expect": [50, 50]
+        },
+        {
+          "page": "Ballon d'Or Féminin",
+          "revision": 1383037043,
+          "members": ["Ada Hegerberg", "Megan Rapinoe", "Alexia Putellas", "Aitana Bonmatí"],
+          "reviewed": ["Ada Hegerberg", "Megan Rapinoe", "Alexia Putellas", "Aitana Bonmatí"],
+          "expect": [4, 4]
+        },
+        {
+          "page": "Lionel Messi",
+          "revision": 1384415261,
+          "members": ["Lionel Messi", "Leo Messi", "La Pulga"],
+          "reviewed": ["Lionel Messi", "Leo Messi", "La Pulga"],
+          "expect": [3, 3]
+        },
+        {
+          "page": "Cristiano Ronaldo",
+          "revision": 1384470606,
+          "members": ["Cristiano Ronaldo", "CR7"],
+          "reviewed": ["Cristiano Ronaldo", "CR7"],
+          "expect": [2, 2]
+        },
+        {
+          "page": "Ronaldinho",
+          "revision": 1383971515,
+          "members": ["Ronaldinho Gaúcho"],
+          "reviewed": ["Ronaldinho Gaúcho"],
+          "expect": [1, 1]
+        }
+      ],
+      "expect": [54, 54],
+      "surface": ["Lionel Messi", "Cristiano Ronaldo", "Ronaldinho", "Aitana Bonmatí"],
+      "pearl": "Omar Sívori",
+      "scope": "Competitive main awards for both sexes plus honorary Pelé/Maradona; no merely retrospective alternative rankings or Dream Team selections.",
+      "people": true
+    },
+    {
+      "id": "indy-500-winners",
+      "text": "a driver who won the Indianapolis 500",
+      "theme": "sports",
+      "cluster": "indycar",
+      "active": true,
+      "answers": [
+        {
+          "name": "Ray Harroun"
+        },
+        {
+          "name": "Joe Dawson"
+        },
+        {
+          "name": "Jules Goux"
+        },
+        {
+          "name": "René Thomas"
+        },
+        {
+          "name": "Ralph DePalma",
+          "aliases": ["Ralph De Palma", "De Palma"]
+        },
+        {
+          "name": "Dario Resta"
+        },
+        {
+          "name": "Howdy Wilcox"
+        },
+        {
+          "name": "Gaston Chevrolet"
+        },
+        {
+          "name": "Tommy Milton"
+        },
+        {
+          "name": "Jimmy Murphy"
+        },
+        {
+          "name": "Lora L. Corum",
+          "aliases": ["Lora Corum"]
+        },
+        {
+          "name": "Joe Boyer"
+        },
+        {
+          "name": "Pete DePaolo",
+          "aliases": ["Pete De Paolo", "De Paolo"]
+        },
+        {
+          "name": "George Souders"
+        },
+        {
+          "name": "Louis Meyer"
+        },
+        {
+          "name": "Ray Keech"
+        },
+        {
+          "name": "Billy Arnold"
+        },
+        {
+          "name": "Louis Schneider"
+        },
+        {
+          "name": "Fred Frame"
+        },
+        {
+          "name": "Bill Cummings"
+        },
+        {
+          "name": "Kelly Petillo"
+        },
+        {
+          "name": "Wilbur Shaw"
+        },
+        {
+          "name": "Floyd Roberts"
+        },
+        {
+          "name": "Floyd Davis"
+        },
+        {
+          "name": "Mauri Rose"
+        },
+        {
+          "name": "George Robson"
+        },
+        {
+          "name": "Bill Holland"
+        },
+        {
+          "name": "Lee Wallard"
+        },
+        {
+          "name": "Troy Ruttman"
+        },
+        {
+          "name": "Bill Vukovich"
+        },
+        {
+          "name": "Bob Sweikert"
+        },
+        {
+          "name": "Pat Flaherty"
+        },
+        {
+          "name": "Sam Hanks"
+        },
+        {
+          "name": "Jimmy Bryan"
+        },
+        {
+          "name": "Rodger Ward"
+        },
+        {
+          "name": "Jim Rathmann"
+        },
+        {
+          "name": "A. J. Foyt",
+          "aliases": ["Foyt", "AJ Foyt"]
+        },
+        {
+          "name": "Parnelli Jones"
+        },
+        {
+          "name": "Jim Clark"
+        },
+        {
+          "name": "Graham Hill"
+        },
+        {
+          "name": "Bobby Unser"
+        },
+        {
+          "name": "Mario Andretti"
+        },
+        {
+          "name": "Al Unser",
+          "aliases": ["Al Unser Sr", "Al Unser Senior"]
+        },
+        {
+          "name": "Mark Donohue"
+        },
+        {
+          "name": "Johnny Rutherford"
+        },
+        {
+          "name": "Rick Mears"
+        },
+        {
+          "name": "Gordon Johncock"
+        },
+        {
+          "name": "Tom Sneva"
+        },
+        {
+          "name": "Danny Sullivan"
+        },
+        {
+          "name": "Bobby Rahal"
+        },
+        {
+          "name": "Emerson Fittipaldi"
+        },
+        {
+          "name": "Arie Luyendyk"
+        },
+        {
+          "name": "Al Unser Jr.",
+          "aliases": ["Al Unser Junior"]
+        },
+        {
+          "name": "Jacques Villeneuve"
+        },
+        {
+          "name": "Buddy Lazier"
+        },
+        {
+          "name": "Eddie Cheever"
+        },
+        {
+          "name": "Kenny Bräck"
+        },
+        {
+          "name": "Juan Pablo Montoya"
+        },
+        {
+          "name": "Hélio Castroneves"
+        },
+        {
+          "name": "Gil de Ferran"
+        },
+        {
+          "name": "Dan Wheldon"
+        },
+        {
+          "name": "Sam Hornish Jr."
+        },
+        {
+          "name": "Scott Dixon"
+        },
+        {
+          "name": "Dario Franchitti"
+        },
+        {
+          "name": "Tony Kanaan"
+        },
+        {
+          "name": "Ryan Hunter-Reay"
+        },
+        {
+          "name": "Alexander Rossi"
+        },
+        {
+          "name": "Takuma Sato"
+        },
+        {
+          "name": "Will Power"
+        },
+        {
+          "name": "Simon Pagenaud"
+        },
+        {
+          "name": "Marcus Ericsson"
+        },
+        {
+          "name": "Josef Newgarden"
+        },
+        {
+          "name": "Álex Palou"
+        },
+        {
+          "name": "Felix Rosenqvist"
+        },
+        {
+          "name": "Frank Lockhart"
+        },
+        {
+          "name": "Johnnie Parsons"
+        },
+        {
+          "name": "Buddy Rice"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Indianapolis 500 winners",
+          "revision": 1370953377,
+          "members": [
+            "Ray Harroun",
+            "Joe Dawson",
+            "Jules Goux",
+            "René Thomas",
+            "Ralph DePalma",
+            "Dario Resta",
+            "Howdy Wilcox",
+            "Gaston Chevrolet",
+            "Tommy Milton",
+            "Jimmy Murphy",
+            "Lora L. Corum",
+            "Joe Boyer",
+            "Pete DePaolo",
+            "George Souders",
+            "Louis Meyer",
+            "Ray Keech",
+            "Billy Arnold",
+            "Louis Schneider",
+            "Fred Frame",
+            "Bill Cummings",
+            "Kelly Petillo",
+            "Wilbur Shaw",
+            "Floyd Roberts",
+            "Floyd Davis",
+            "Mauri Rose",
+            "George Robson",
+            "Bill Holland",
+            "Lee Wallard",
+            "Troy Ruttman",
+            "Bill Vukovich",
+            "Bob Sweikert",
+            "Pat Flaherty",
+            "Sam Hanks",
+            "Jimmy Bryan",
+            "Rodger Ward",
+            "Jim Rathmann",
+            "A. J. Foyt",
+            "Parnelli Jones",
+            "Jim Clark",
+            "Graham Hill",
+            "Bobby Unser",
+            "Mario Andretti",
+            "Al Unser",
+            "Mark Donohue",
+            "Johnny Rutherford",
+            "Rick Mears",
+            "Gordon Johncock",
+            "Tom Sneva",
+            "Danny Sullivan",
+            "Bobby Rahal",
+            "Emerson Fittipaldi",
+            "Arie Luyendyk",
+            "Al Unser Jr.",
+            "Jacques Villeneuve",
+            "Buddy Lazier",
+            "Eddie Cheever",
+            "Kenny Bräck",
+            "Juan Pablo Montoya",
+            "Hélio Castroneves",
+            "Gil de Ferran",
+            "Dan Wheldon",
+            "Sam Hornish Jr.",
+            "Scott Dixon",
+            "Dario Franchitti",
+            "Tony Kanaan",
+            "Ryan Hunter-Reay",
+            "Alexander Rossi",
+            "Takuma Sato",
+            "Will Power",
+            "Simon Pagenaud",
+            "Marcus Ericsson",
+            "Josef Newgarden",
+            "Álex Palou",
+            "Felix Rosenqvist",
+            "Frank Lockhart",
+            "Johnnie Parsons",
+            "Buddy Rice"
+          ],
+          "reviewed": [
+            "Ray Harroun",
+            "Joe Dawson",
+            "Jules Goux",
+            "René Thomas",
+            "Ralph DePalma",
+            "Dario Resta",
+            "Howdy Wilcox",
+            "Gaston Chevrolet",
+            "Tommy Milton",
+            "Jimmy Murphy",
+            "Lora L. Corum",
+            "Joe Boyer",
+            "Pete DePaolo",
+            "George Souders",
+            "Louis Meyer",
+            "Ray Keech",
+            "Billy Arnold",
+            "Louis Schneider",
+            "Fred Frame",
+            "Bill Cummings",
+            "Kelly Petillo",
+            "Wilbur Shaw",
+            "Floyd Roberts",
+            "Floyd Davis",
+            "Mauri Rose",
+            "George Robson",
+            "Bill Holland",
+            "Lee Wallard",
+            "Troy Ruttman",
+            "Bill Vukovich",
+            "Bob Sweikert",
+            "Pat Flaherty",
+            "Sam Hanks",
+            "Jimmy Bryan",
+            "Rodger Ward",
+            "Jim Rathmann",
+            "A. J. Foyt",
+            "Parnelli Jones",
+            "Jim Clark",
+            "Graham Hill",
+            "Bobby Unser",
+            "Mario Andretti",
+            "Al Unser",
+            "Mark Donohue",
+            "Johnny Rutherford",
+            "Rick Mears",
+            "Gordon Johncock",
+            "Tom Sneva",
+            "Danny Sullivan",
+            "Bobby Rahal",
+            "Emerson Fittipaldi",
+            "Arie Luyendyk",
+            "Al Unser Jr.",
+            "Jacques Villeneuve",
+            "Buddy Lazier",
+            "Eddie Cheever",
+            "Kenny Bräck",
+            "Juan Pablo Montoya",
+            "Hélio Castroneves",
+            "Gil de Ferran",
+            "Dan Wheldon",
+            "Sam Hornish Jr.",
+            "Scott Dixon",
+            "Dario Franchitti",
+            "Tony Kanaan",
+            "Ryan Hunter-Reay",
+            "Alexander Rossi",
+            "Takuma Sato",
+            "Will Power",
+            "Simon Pagenaud",
+            "Marcus Ericsson",
+            "Josef Newgarden",
+            "Álex Palou",
+            "Felix Rosenqvist",
+            "Frank Lockhart",
+            "Johnnie Parsons",
+            "Buddy Rice"
+          ],
+          "expect": [77, 77]
+        }
+      ],
+      "expect": [77, 77],
+      "surface": ["A. J. Foyt", "Hélio Castroneves", "Mario Andretti"],
+      "pearl": "Ray Harroun",
+      "scope": "",
+      "people": true
+    },
+    {
+      "id": "olympic-decathlon-champions",
+      "text": "an athlete awarded Olympic decathlon gold",
+      "theme": "sports",
+      "cluster": "decathlon",
+      "active": true,
+      "answers": [
+        {
+          "name": "Jim Thorpe"
+        },
+        {
+          "name": "Helge Løvland"
+        },
+        {
+          "name": "Harold Osborn"
+        },
+        {
+          "name": "Paavo Yrjölä"
+        },
+        {
+          "name": "Jim Bausch",
+          "aliases": ["James Bausch"]
+        },
+        {
+          "name": "Glenn Morris"
+        },
+        {
+          "name": "Bob Mathias"
+        },
+        {
+          "name": "Milt Campbell",
+          "aliases": ["Milton Campbell"]
+        },
+        {
+          "name": "Rafer Johnson"
+        },
+        {
+          "name": "Willi Holdorf"
+        },
+        {
+          "name": "Bill Toomey"
+        },
+        {
+          "name": "Mykola Avilov",
+          "aliases": ["Nikolai Avilov"]
+        },
+        {
+          "name": "Caitlyn Jenner",
+          "aliases": ["Bruce Jenner"]
+        },
+        {
+          "name": "Daley Thompson"
+        },
+        {
+          "name": "Christian Schenk"
+        },
+        {
+          "name": "Robert Změlík"
+        },
+        {
+          "name": "Dan O'Brien"
+        },
+        {
+          "name": "Erki Nool"
+        },
+        {
+          "name": "Roman Šebrle"
+        },
+        {
+          "name": "Bryan Clay"
+        },
+        {
+          "name": "Ashton Eaton"
+        },
+        {
+          "name": "Damian Warner"
+        },
+        {
+          "name": "Markus Rooth"
+        },
+        {
+          "name": "Hugo Wieslander"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Combined events at the Olympics",
+          "revision": 1327977891,
+          "members": [
+            "Jim Thorpe",
+            "Helge Løvland",
+            "Harold Osborn",
+            "Paavo Yrjölä",
+            "Jim Bausch",
+            "Glenn Morris",
+            "Bob Mathias",
+            "Milt Campbell",
+            "Rafer Johnson",
+            "Willi Holdorf",
+            "Bill Toomey",
+            "Mykola Avilov",
+            "Bruce Jenner",
+            "Daley Thompson",
+            "Christian Schenk",
+            "Robert Změlík",
+            "Dan O'Brien",
+            "Erki Nool",
+            "Roman Šebrle",
+            "Bryan Clay",
+            "Ashton Eaton",
+            "Damian Warner",
+            "Markus Rooth",
+            "Hugo Wieslander"
+          ],
+          "reviewed": [
+            "Jim Thorpe",
+            "Helge Løvland",
+            "Harold Osborn",
+            "Paavo Yrjölä",
+            "Jim Bausch",
+            "Glenn Morris",
+            "Bob Mathias",
+            "Milt Campbell",
+            "Rafer Johnson",
+            "Willi Holdorf",
+            "Bill Toomey",
+            "Mykola Avilov",
+            "Bruce Jenner",
+            "Daley Thompson",
+            "Christian Schenk",
+            "Robert Změlík",
+            "Dan O'Brien",
+            "Erki Nool",
+            "Roman Šebrle",
+            "Bryan Clay",
+            "Ashton Eaton",
+            "Damian Warner",
+            "Markus Rooth",
+            "Hugo Wieslander"
+          ],
+          "expect": [24, 24]
+        }
+      ],
+      "expect": [24, 24],
+      "surface": ["Jim Thorpe", "Daley Thompson", "Ashton Eaton"],
+      "pearl": "Helge Løvland",
+      "scope": "Modern decathlon gold; Thorpe restored in 2022 as sole 1912 champion. Wieslander remains accepted as an originally awarded gold medallist.",
+      "people": true
+    },
+    {
+      "id": "olympic-100m-champions",
+      "text": "a sprinter awarded Olympic 100 metres gold",
+      "theme": "sports",
+      "cluster": "sprinting",
+      "active": true,
+      "answers": [
+        {
+          "name": "Thomas Burke"
+        },
+        {
+          "name": "Frank Jarvis"
+        },
+        {
+          "name": "Archie Hahn"
+        },
+        {
+          "name": "Reggie Walker"
+        },
+        {
+          "name": "Ralph Craig"
+        },
+        {
+          "name": "Charley Paddock"
+        },
+        {
+          "name": "Harold Abrahams"
+        },
+        {
+          "name": "Percy Williams"
+        },
+        {
+          "name": "Eddie Tolan"
+        },
+        {
+          "name": "Jesse Owens"
+        },
+        {
+          "name": "Harrison Dillard"
+        },
+        {
+          "name": "Lindy Remigino"
+        },
+        {
+          "name": "Bobby Morrow"
+        },
+        {
+          "name": "Armin Hary"
+        },
+        {
+          "name": "Bob Hayes"
+        },
+        {
+          "name": "Jim Hines"
+        },
+        {
+          "name": "Valeriy Borzov"
+        },
+        {
+          "name": "Hasely Crawford"
+        },
+        {
+          "name": "Allan Wells"
+        },
+        {
+          "name": "Carl Lewis"
+        },
+        {
+          "name": "Linford Christie"
+        },
+        {
+          "name": "Donovan Bailey"
+        },
+        {
+          "name": "Maurice Greene"
+        },
+        {
+          "name": "Justin Gatlin"
+        },
+        {
+          "name": "Usain Bolt"
+        },
+        {
+          "name": "Marcell Jacobs",
+          "aliases": ["Lamont Marcell Jacobs"]
+        },
+        {
+          "name": "Noah Lyles"
+        },
+        {
+          "name": "Betty Robinson"
+        },
+        {
+          "name": "Stanisława Walasiewicz",
+          "aliases": ["Stella Walsh"]
+        },
+        {
+          "name": "Helen Stephens"
+        },
+        {
+          "name": "Fanny Blankers-Koen"
+        },
+        {
+          "name": "Marjorie Jackson"
+        },
+        {
+          "name": "Betty Cuthbert"
+        },
+        {
+          "name": "Wilma Rudolph"
+        },
+        {
+          "name": "Wyomia Tyus"
+        },
+        {
+          "name": "Renate Stecher"
+        },
+        {
+          "name": "Annegret Richter"
+        },
+        {
+          "name": "Lyudmila Kondratyeva"
+        },
+        {
+          "name": "Evelyn Ashford"
+        },
+        {
+          "name": "Florence Griffith Joyner",
+          "aliases": ["Flo Jo", "FloJo"]
+        },
+        {
+          "name": "Gail Devers"
+        },
+        {
+          "name": "Yulia Nestsiarenka"
+        },
+        {
+          "name": "Shelly-Ann Fraser-Pryce",
+          "aliases": ["Shelly-Ann Fraser"]
+        },
+        {
+          "name": "Elaine Thompson-Herah",
+          "aliases": ["Elaine Thompson"]
+        },
+        {
+          "name": "Julien Alfred"
+        },
+        {
+          "name": "Ben Johnson"
+        },
+        {
+          "name": "Marion Jones"
+        }
+      ],
+      "sources": [
+        {
+          "page": "100 metres at the Olympics",
+          "revision": 1383154586,
+          "members": [
+            "Thomas Burke",
+            "Frank Jarvis",
+            "Archie Hahn",
+            "Reggie Walker",
+            "Ralph Craig",
+            "Charley Paddock",
+            "Harold Abrahams",
+            "Percy Williams",
+            "Eddie Tolan",
+            "Jesse Owens",
+            "Harrison Dillard",
+            "Lindy Remigino",
+            "Bobby Morrow",
+            "Armin Hary",
+            "Bob Hayes",
+            "Jim Hines",
+            "Valeriy Borzov",
+            "Hasely Crawford",
+            "Allan Wells",
+            "Carl Lewis",
+            "Linford Christie",
+            "Donovan Bailey",
+            "Maurice Greene",
+            "Justin Gatlin",
+            "Usain Bolt",
+            "Marcell Jacobs",
+            "Noah Lyles",
+            "Betty Robinson",
+            "Stanisława Walasiewicz",
+            "Helen Stephens",
+            "Fanny Blankers-Koen",
+            "Marjorie Jackson",
+            "Betty Cuthbert",
+            "Wilma Rudolph",
+            "Wyomia Tyus",
+            "Renate Stecher",
+            "Annegret Richter",
+            "Lyudmila Kondratyeva",
+            "Evelyn Ashford",
+            "Florence Griffith Joyner",
+            "Gail Devers",
+            "Yulia Nestsiarenka",
+            "Shelly-Ann Fraser-Pryce",
+            "Elaine Thompson-Herah",
+            "Julien Alfred",
+            "Ben Johnson",
+            "Marion Jones"
+          ],
+          "reviewed": [
+            "Thomas Burke",
+            "Frank Jarvis",
+            "Archie Hahn",
+            "Reggie Walker",
+            "Ralph Craig",
+            "Charley Paddock",
+            "Harold Abrahams",
+            "Percy Williams",
+            "Eddie Tolan",
+            "Jesse Owens",
+            "Harrison Dillard",
+            "Lindy Remigino",
+            "Bobby Morrow",
+            "Armin Hary",
+            "Bob Hayes",
+            "Jim Hines",
+            "Valeriy Borzov",
+            "Hasely Crawford",
+            "Allan Wells",
+            "Carl Lewis",
+            "Linford Christie",
+            "Donovan Bailey",
+            "Maurice Greene",
+            "Justin Gatlin",
+            "Usain Bolt",
+            "Marcell Jacobs",
+            "Noah Lyles",
+            "Betty Robinson",
+            "Stanisława Walasiewicz",
+            "Helen Stephens",
+            "Fanny Blankers-Koen",
+            "Marjorie Jackson",
+            "Betty Cuthbert",
+            "Wilma Rudolph",
+            "Wyomia Tyus",
+            "Renate Stecher",
+            "Annegret Richter",
+            "Lyudmila Kondratyeva",
+            "Evelyn Ashford",
+            "Florence Griffith Joyner",
+            "Gail Devers",
+            "Yulia Nestsiarenka",
+            "Shelly-Ann Fraser-Pryce",
+            "Elaine Thompson-Herah",
+            "Julien Alfred",
+            "Ben Johnson",
+            "Marion Jones"
+          ],
+          "expect": [47, 47]
+        }
+      ],
+      "expect": [47, 47],
+      "surface": ["Usain Bolt", "Carl Lewis", "Jesse Owens", "Elaine Thompson-Herah"],
+      "pearl": "Betty Robinson",
+      "scope": "Men and women, including the historically awarded gold of Ben Johnson and Marion Jones later stripped. Prompt says awarded, not current medal holder.",
+      "people": true
+    },
+    {
+      "id": "davis-cup-countries",
+      "text": "a country that has won the Davis Cup",
+      "theme": "sports",
+      "cluster": "tennis-teams",
+      "active": true,
+      "answers": [
+        {
+          "name": "United States",
+          "aliases": ["USA", "US", "America", "United States of America"]
+        },
+        {
+          "name": "Australia",
+          "aliases": ["Australasia"]
+        },
+        {
+          "name": "Great Britain",
+          "aliases": ["British Isles", "UK", "United Kingdom", "Britain"]
+        },
+        {
+          "name": "France"
+        },
+        {
+          "name": "Sweden"
+        },
+        {
+          "name": "Spain"
+        },
+        {
+          "name": "Italy"
+        },
+        {
+          "name": "Czech Republic",
+          "aliases": ["Czechia", "Czechoslovakia"]
+        },
+        {
+          "name": "Germany",
+          "aliases": ["West Germany"]
+        },
+        {
+          "name": "Russia",
+          "aliases": ["RTF", "Russian Tennis Federation", "Russian Tennis Team"]
+        },
+        {
+          "name": "Croatia"
+        },
+        {
+          "name": "South Africa"
+        },
+        {
+          "name": "Serbia"
+        },
+        {
+          "name": "Switzerland"
+        },
+        {
+          "name": "Argentina"
+        },
+        {
+          "name": "Canada"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Davis Cup",
+          "revision": 1384175798,
+          "members": [
+            "United States",
+            "Australia",
+            "Great Britain",
+            "France",
+            "Sweden",
+            "Spain",
+            "Italy",
+            "Czech Republic",
+            "Germany",
+            "Russia",
+            "Croatia",
+            "South Africa",
+            "Serbia",
+            "Switzerland",
+            "Argentina",
+            "Canada"
+          ],
+          "reviewed": [
+            "United States",
+            "Australia",
+            "Great Britain",
+            "France",
+            "Sweden",
+            "Spain",
+            "Italy",
+            "Czech Republic",
+            "Germany",
+            "Russia",
+            "Croatia",
+            "South Africa",
+            "Serbia",
+            "Switzerland",
+            "Argentina",
+            "Canada"
+          ],
+          "expect": [16, 16]
+        }
+      ],
+      "expect": [16, 16],
+      "surface": ["United States", "Australia", "Spain"],
+      "pearl": "South Africa",
+      "scope": "Historical team names (Australasia, British Isles, Czechoslovakia, West Germany, RTF) alias their successor/combined record."
+    },
+    {
+      "id": "nz-bird-year",
+      "text": "a winner of New Zealand's Bird of the Year vote",
+      "theme": "nature",
+      "cluster": "bird-votes",
+      "active": true,
+      "answers": [
+        {
+          "name": "Tūī"
+        },
+        {
+          "name": "Pīwakawaka",
+          "aliases": ["Fantail", "New Zealand fantail"]
+        },
+        {
+          "name": "Riroriro",
+          "aliases": ["Grey warbler", "Gray warbler"]
+        },
+        {
+          "name": "Kākāpō",
+          "aliases": ["Owl parrot"]
+        },
+        {
+          "name": "Kiwi",
+          "aliases": ["Little spotted kiwi", "Brown kiwi", "North Island brown kiwi"]
+        },
+        {
+          "name": "Kākāriki",
+          "aliases": ["Red crowned parakeet", "Yellow crowned parakeet", "Orange fronted parakeet"]
+        },
+        {
+          "name": "Pūkeko",
+          "aliases": ["Australasian swamphen"]
+        },
+        {
+          "name": "Kārearea",
+          "aliases": ["New Zealand falcon"]
+        },
+        {
+          "name": "Mohua",
+          "aliases": ["Yellowhead", "Yellow headed mohua"]
+        },
+        {
+          "name": "Tara-iti",
+          "aliases": ["Fairy tern", "New Zealand fairy tern"]
+        },
+        {
+          "name": "Kūaka",
+          "aliases": ["Bar tailed godwit"]
+        },
+        {
+          "name": "Kōkako",
+          "aliases": ["North Island kokako"]
+        },
+        {
+          "name": "Kea"
+        },
+        {
+          "name": "Kererū",
+          "aliases": ["New Zealand pigeon", "Wood pigeon"]
+        },
+        {
+          "name": "Hoiho",
+          "aliases": ["Yellow eyed penguin"]
+        },
+        {
+          "name": "Pekapeka",
+          "aliases": ["Long tailed bat", "New Zealand long tailed bat", "Pekapeka tou roa"]
+        },
+        {
+          "name": "Pīwauwau",
+          "aliases": ["Rock wren", "New Zealand rock wren"]
+        },
+        {
+          "name": "Pūteketeke",
+          "aliases": ["Australasian crested grebe", "Great crested grebe"]
+        },
+        {
+          "name": "Black robin"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Bird of the Year",
+          "revision": 1383665881,
+          "members": [
+            "Tūī",
+            "Pīwakawaka",
+            "Riroriro",
+            "Kākāpō",
+            "Kiwi",
+            "Kākāriki",
+            "Pūkeko",
+            "Kārearea",
+            "Mohua",
+            "Tara-iti",
+            "Kūaka",
+            "Kōkako",
+            "Kea",
+            "Kererū",
+            "Hoiho",
+            "Pekapeka",
+            "Pīwauwau",
+            "Pūteketeke",
+            "Black robin"
+          ],
+          "reviewed": [
+            "Tūī",
+            "Pīwakawaka",
+            "Riroriro",
+            "Kākāpō",
+            "Kiwi",
+            "Kākāriki",
+            "Pūkeko",
+            "Kārearea",
+            "Mohua",
+            "Tara-iti",
+            "Kūaka",
+            "Kōkako",
+            "Kea",
+            "Kererū",
+            "Hoiho",
+            "Pekapeka",
+            "Pīwauwau",
+            "Pūteketeke",
+            "Black robin"
+          ],
+          "expect": [19, 19]
+        }
+      ],
+      "expect": [19, 19],
+      "surface": ["Kākāpō", "Kiwi", "Kea"],
+      "pearl": "Pekapeka",
+      "scope": "Includes the bat awarded Bird of the Year in 2021 and the 2023 Bird of the Century edition."
+    },
+    {
+      "id": "dickin-medal-animals",
+      "text": "an animal awarded the Dickin Medal",
+      "theme": "nature",
+      "cluster": "animal-bravery",
+      "active": true,
+      "answers": [
+        {
+          "name": "White Vision"
+        },
+        {
+          "name": "Winkie"
+        },
+        {
+          "name": "Tyke"
+        },
+        {
+          "name": "Bob"
+        },
+        {
+          "name": "Beach Comber"
+        },
+        {
+          "name": "Gustav"
+        },
+        {
+          "name": "Paddy"
+        },
+        {
+          "name": "Rip"
+        },
+        {
+          "name": "Jet"
+        },
+        {
+          "name": "Irma"
+        },
+        {
+          "name": "Beauty"
+        },
+        {
+          "name": "Rob"
+        },
+        {
+          "name": "Kenley Lass"
+        },
+        {
+          "name": "Navy Blue"
+        },
+        {
+          "name": "Flying Dutchman"
+        },
+        {
+          "name": "Dutch Coast"
+        },
+        {
+          "name": "Commando"
+        },
+        {
+          "name": "Royal Blue"
+        },
+        {
+          "name": "Thorn"
+        },
+        {
+          "name": "Rifleman Khan"
+        },
+        {
+          "name": "Rex"
+        },
+        {
+          "name": "Ruhr Express"
+        },
+        {
+          "name": "William of Orange"
+        },
+        {
+          "name": "Scotch Lass"
+        },
+        {
+          "name": "Sheila"
+        },
+        {
+          "name": "Billy"
+        },
+        {
+          "name": "Broad Arrow"
+        },
+        {
+          "name": "NPS.42.NS.2780"
+        },
+        {
+          "name": "NPS.42.NS.7524"
+        },
+        {
+          "name": "Maquis"
+        },
+        {
+          "name": "Mary of Exeter"
+        },
+        {
+          "name": "Peter"
+        },
+        {
+          "name": "Tommy"
+        },
+        {
+          "name": "All Alone"
+        },
+        {
+          "name": "Judy",
+          "aliases": ["Judy the dog"]
+        },
+        {
+          "name": "Princess"
+        },
+        {
+          "name": "Mercury"
+        },
+        {
+          "name": "NURP.38.BPC.6"
+        },
+        {
+          "name": "G.I. Joe",
+          "aliases": ["G I Joe"]
+        },
+        {
+          "name": "Punch",
+          "aliases": ["Punch and Judy"]
+        },
+        {
+          "name": "Cologne"
+        },
+        {
+          "name": "Duke of Normandy"
+        },
+        {
+          "name": "NURP.43.CC.1418"
+        },
+        {
+          "name": "DD.43.T.139"
+        },
+        {
+          "name": "DD.43.Q.879"
+        },
+        {
+          "name": "Ricky"
+        },
+        {
+          "name": "Bing"
+        },
+        {
+          "name": "Olga"
+        },
+        {
+          "name": "Upstart"
+        },
+        {
+          "name": "Regal"
+        },
+        {
+          "name": "Simon",
+          "aliases": ["Simon the cat"]
+        },
+        {
+          "name": "Antis"
+        },
+        {
+          "name": "Tich"
+        },
+        {
+          "name": "Gander"
+        },
+        {
+          "name": "Apollo",
+          "aliases": ["Appollo"]
+        },
+        {
+          "name": "Salty",
+          "aliases": ["Salty and Roselle"]
+        },
+        {
+          "name": "Roselle"
+        },
+        {
+          "name": "Sam"
+        },
+        {
+          "name": "Buster"
+        },
+        {
+          "name": "Lucky"
+        },
+        {
+          "name": "Sadie"
+        },
+        {
+          "name": "Treo"
+        },
+        {
+          "name": "Theo"
+        },
+        {
+          "name": "Sasha"
+        },
+        {
+          "name": "Warrior"
+        },
+        {
+          "name": "Diesel"
+        },
+        {
+          "name": "Lucca"
+        },
+        {
+          "name": "Sergeant Reckless",
+          "aliases": ["Sgt Reckless", "Reckless"]
+        },
+        {
+          "name": "Mali"
+        },
+        {
+          "name": "Chips"
+        },
+        {
+          "name": "Kuga"
+        },
+        {
+          "name": "Kuno"
+        },
+        {
+          "name": "Leuk"
+        },
+        {
+          "name": "Hertz"
+        },
+        {
+          "name": "Bass"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Dickin Medal",
+          "revision": 1346808950,
+          "members": [
+            "White Vision",
+            "Winkie",
+            "Tyke",
+            "Bob",
+            "Beach Comber",
+            "Gustav",
+            "Paddy",
+            "Rip",
+            "Jet",
+            "Irma",
+            "Beauty",
+            "Rob",
+            "Kenley Lass",
+            "Navy Blue",
+            "Flying Dutchman",
+            "Dutch Coast",
+            "Commando",
+            "Royal Blue",
+            "Thorn",
+            "Rifleman Khan",
+            "Rex",
+            "Ruhr Express",
+            "William of Orange",
+            "Scotch Lass",
+            "Sheila",
+            "Billy",
+            "Broad Arrow",
+            "NPS.42.NS.2780",
+            "NPS.42.NS.7524",
+            "Maquis",
+            "Mary of Exeter",
+            "Peter",
+            "Tommy",
+            "All Alone",
+            "Judy",
+            "Princess",
+            "Mercury",
+            "NURP.38.BPC.6",
+            "G.I. Joe",
+            "Punch and Judy",
+            "Cologne",
+            "Duke of Normandy",
+            "NURP.43.CC.1418",
+            "DD.43.T.139",
+            "DD.43.Q.879",
+            "Ricky",
+            "Bing",
+            "Olga",
+            "Upstart",
+            "Regal",
+            "Simon",
+            "Antis",
+            "Tich",
+            "Gander",
+            "Apollo",
+            "Salty and Roselle",
+            "Sam",
+            "Buster",
+            "Lucky",
+            "Sadie",
+            "Treo",
+            "Theo",
+            "Sasha",
+            "Warrior",
+            "Diesel",
+            "Lucca",
+            "Sergeant Reckless",
+            "Mali",
+            "Chips",
+            "Kuga",
+            "Kuno",
+            "Leuk",
+            "Hertz",
+            "Bass"
+          ],
+          "reviewed": [
+            "White Vision",
+            "Winkie",
+            "Tyke",
+            "Bob",
+            "Beach Comber",
+            "Gustav",
+            "Paddy",
+            "Rip",
+            "Jet",
+            "Irma",
+            "Beauty",
+            "Rob",
+            "Kenley Lass",
+            "Navy Blue",
+            "Flying Dutchman",
+            "Dutch Coast",
+            "Commando",
+            "Royal Blue",
+            "Thorn",
+            "Rifleman Khan",
+            "Rex",
+            "Ruhr Express",
+            "William of Orange",
+            "Scotch Lass",
+            "Sheila",
+            "Billy",
+            "Broad Arrow",
+            "NPS.42.NS.2780",
+            "NPS.42.NS.7524",
+            "Maquis",
+            "Mary of Exeter",
+            "Peter",
+            "Tommy",
+            "All Alone",
+            "Judy",
+            "Princess",
+            "Mercury",
+            "NURP.38.BPC.6",
+            "G.I. Joe",
+            "Punch and Judy",
+            "Cologne",
+            "Duke of Normandy",
+            "NURP.43.CC.1418",
+            "DD.43.T.139",
+            "DD.43.Q.879",
+            "Ricky",
+            "Bing",
+            "Olga",
+            "Upstart",
+            "Regal",
+            "Simon",
+            "Antis",
+            "Tich",
+            "Gander",
+            "Apollo",
+            "Salty and Roselle",
+            "Sam",
+            "Buster",
+            "Lucky",
+            "Sadie",
+            "Treo",
+            "Theo",
+            "Sasha",
+            "Warrior",
+            "Diesel",
+            "Lucca",
+            "Sergeant Reckless",
+            "Mali",
+            "Chips",
+            "Kuga",
+            "Kuno",
+            "Leuk",
+            "Hertz",
+            "Bass"
+          ],
+          "expect": [74, 74]
+        },
+        {
+          "page": "Apollo (dog)",
+          "revision": 1370100457,
+          "members": ["Apollo"],
+          "reviewed": ["Apollo"],
+          "expect": [1, 1]
+        }
+      ],
+      "expect": [75, 75],
+      "surface": ["Simon", "Judy", "G.I. Joe"],
+      "pearl": "Warrior",
+      "scope": "All named recipients; shared awards split into individual animals. Warrior and Sergeant Reckless honorary awards remain accepted.",
+      "alias_review": {
+        "Appollo": "The pre-source brainstorm spelling resolves via the Wikipedia Appollo (dog) redirect to Apollo (dog), revision 1370100457; retain it as a natural variant rather than invalidate the guess."
+      }
+    },
+    {
+      "id": "westminster-winning-breeds",
+      "text": "a dog breed that won Best in Show at Westminster",
+      "theme": "nature",
+      "cluster": "show-dogs",
+      "active": true,
+      "answers": [
+        {
+          "name": "Fox Terrier (Smooth)",
+          "aliases": ["Smooth Fox Terrier"]
+        },
+        {
+          "name": "Scottish Terrier"
+        },
+        {
+          "name": "Airedale Terrier"
+        },
+        {
+          "name": "Bulldog"
+        },
+        {
+          "name": "Old English Sheepdog"
+        },
+        {
+          "name": "Fox Terrier (Wire)",
+          "aliases": ["Wire Fox Terrier", "Fox Terrier"]
+        },
+        {
+          "name": "Bull Terrier (White)",
+          "aliases": ["White Bull Terrier"]
+        },
+        {
+          "name": "Spaniel (Cocker) Parti",
+          "aliases": ["Parti Cocker Spaniel"]
+        },
+        {
+          "name": "Sealyham Terrier"
+        },
+        {
+          "name": "Pointer"
+        },
+        {
+          "name": "Collie (Rough)",
+          "aliases": ["Rough Collie", "Collie"]
+        },
+        {
+          "name": "Poodle (Standard)",
+          "aliases": ["Standard Poodle", "Poodle"]
+        },
+        {
+          "name": "Setter (English)",
+          "aliases": ["English Setter"]
+        },
+        {
+          "name": "Doberman Pinscher"
+        },
+        {
+          "name": "Spaniel (Cocker) Black",
+          "aliases": ["Black Cocker Spaniel"]
+        },
+        {
+          "name": "West Highland White Terrier",
+          "aliases": ["Westie"]
+        },
+        {
+          "name": "Poodle (Miniature)",
+          "aliases": ["Miniature Poodle"]
+        },
+        {
+          "name": "Welsh Terrier"
+        },
+        {
+          "name": "Boxer"
+        },
+        {
+          "name": "Bedlington Terrier"
+        },
+        {
+          "name": "Spaniel (Cocker) ASCOB",
+          "aliases": ["Cocker Spaniel", "ASCOB Cocker Spaniel"]
+        },
+        {
+          "name": "Poodle (Toy)",
+          "aliases": ["Toy Poodle"]
+        },
+        {
+          "name": "Afghan Hound"
+        },
+        {
+          "name": "Pekingese"
+        },
+        {
+          "name": "Spaniel (English Springer)",
+          "aliases": ["English Springer Spaniel"]
+        },
+        {
+          "name": "Whippet"
+        },
+        {
+          "name": "Lakeland Terrier"
+        },
+        {
+          "name": "Skye Terrier"
+        },
+        {
+          "name": "Pointer (German Shorthaired)",
+          "aliases": ["German Shorthaired Pointer"]
+        },
+        {
+          "name": "Yorkshire Terrier"
+        },
+        {
+          "name": "Spaniel (Irish Water)",
+          "aliases": ["Irish Water Spaniel"]
+        },
+        {
+          "name": "Siberian Husky"
+        },
+        {
+          "name": "Pug"
+        },
+        {
+          "name": "Newfoundland"
+        },
+        {
+          "name": "German Shepherd Dog",
+          "aliases": ["German Shepherd", "Alsatian"]
+        },
+        {
+          "name": "Pomeranian"
+        },
+        {
+          "name": "Norwich Terrier"
+        },
+        {
+          "name": "Spaniel (Clumber)",
+          "aliases": ["Clumber Spaniel"]
+        },
+        {
+          "name": "Standard Schnauzer"
+        },
+        {
+          "name": "Papillon"
+        },
+        {
+          "name": "Bichon Frise"
+        },
+        {
+          "name": "Kerry Blue Terrier"
+        },
+        {
+          "name": "Bull Terrier (Colored)",
+          "aliases": ["Colored Bull Terrier", "Bull Terrier"]
+        },
+        {
+          "name": "Beagle (15 Inch)",
+          "aliases": ["Beagle", "15 Inch Beagle"]
+        },
+        {
+          "name": "Sussex Spaniel"
+        },
+        {
+          "name": "Scottish Deerhound"
+        },
+        {
+          "name": "Affenpinscher"
+        },
+        {
+          "name": "Bloodhound"
+        },
+        {
+          "name": "Petit Basset Griffon Vendeen",
+          "aliases": ["PBGV"]
+        },
+        {
+          "name": "Giant Schnauzer"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Best in Show winners of the Westminster Kennel Club Dog Show",
+          "revision": 1379224462,
+          "members": [
+            "Fox Terrier (Smooth)",
+            "Scottish Terrier",
+            "Airedale Terrier",
+            "Bulldog",
+            "Old English Sheepdog",
+            "Fox Terrier (Wire)",
+            "Bull Terrier (White)",
+            "Spaniel (Cocker) Parti",
+            "Sealyham Terrier",
+            "Pointer",
+            "Collie (Rough)",
+            "Poodle (Standard)",
+            "Setter (English)",
+            "Doberman Pinscher",
+            "Spaniel (Cocker) Black",
+            "West Highland White Terrier",
+            "Poodle (Miniature)",
+            "Welsh Terrier",
+            "Boxer",
+            "Bedlington Terrier",
+            "Spaniel (Cocker) ASCOB",
+            "Poodle (Toy)",
+            "Afghan Hound",
+            "Pekingese",
+            "Spaniel (English Springer)",
+            "Whippet",
+            "Lakeland Terrier",
+            "Skye Terrier",
+            "Pointer (German Shorthaired)",
+            "Yorkshire Terrier",
+            "Spaniel (Irish Water)",
+            "Siberian Husky",
+            "Pug",
+            "Newfoundland",
+            "German Shepherd Dog",
+            "Pomeranian",
+            "Norwich Terrier",
+            "Spaniel (Clumber)",
+            "Standard Schnauzer",
+            "Papillon",
+            "Bichon Frise",
+            "Kerry Blue Terrier",
+            "Bull Terrier (Colored)",
+            "Beagle (15 Inch)",
+            "Sussex Spaniel",
+            "Scottish Deerhound",
+            "Affenpinscher",
+            "Bloodhound",
+            "Petit Basset Griffon Vendeen",
+            "Giant Schnauzer"
+          ],
+          "reviewed": [
+            "Fox Terrier (Smooth)",
+            "Scottish Terrier",
+            "Airedale Terrier",
+            "Bulldog",
+            "Old English Sheepdog",
+            "Fox Terrier (Wire)",
+            "Bull Terrier (White)",
+            "Spaniel (Cocker) Parti",
+            "Sealyham Terrier",
+            "Pointer",
+            "Collie (Rough)",
+            "Poodle (Standard)",
+            "Setter (English)",
+            "Doberman Pinscher",
+            "Spaniel (Cocker) Black",
+            "West Highland White Terrier",
+            "Poodle (Miniature)",
+            "Welsh Terrier",
+            "Boxer",
+            "Bedlington Terrier",
+            "Spaniel (Cocker) ASCOB",
+            "Poodle (Toy)",
+            "Afghan Hound",
+            "Pekingese",
+            "Spaniel (English Springer)",
+            "Whippet",
+            "Lakeland Terrier",
+            "Skye Terrier",
+            "Pointer (German Shorthaired)",
+            "Yorkshire Terrier",
+            "Spaniel (Irish Water)",
+            "Siberian Husky",
+            "Pug",
+            "Newfoundland",
+            "German Shepherd Dog",
+            "Pomeranian",
+            "Norwich Terrier",
+            "Spaniel (Clumber)",
+            "Standard Schnauzer",
+            "Papillon",
+            "Bichon Frise",
+            "Kerry Blue Terrier",
+            "Bull Terrier (Colored)",
+            "Beagle (15 Inch)",
+            "Sussex Spaniel",
+            "Scottish Deerhound",
+            "Affenpinscher",
+            "Bloodhound",
+            "Petit Basset Griffon Vendeen",
+            "Giant Schnauzer"
+          ],
+          "expect": [50, 50]
+        }
+      ],
+      "expect": [50, 50],
+      "surface": ["Beagle (15 Inch)", "Poodle (Standard)", "German Shepherd Dog"],
+      "pearl": "Spaniel (Irish Water)",
+      "scope": ""
+    },
+    {
+      "id": "canadian-emblem-birds",
+      "text": "an official Canadian provincial or territorial bird",
+      "theme": "nature",
+      "cluster": "canada-birds",
+      "active": true,
+      "answers": [
+        {
+          "name": "Great horned owl"
+        },
+        {
+          "name": "Steller's jay",
+          "aliases": ["Steller jay"]
+        },
+        {
+          "name": "Great grey owl",
+          "aliases": ["Great gray owl", "Manitoba great gray owl"]
+        },
+        {
+          "name": "Black-capped chickadee"
+        },
+        {
+          "name": "Atlantic puffin",
+          "aliases": ["Puffin"]
+        },
+        {
+          "name": "Gyrfalcon"
+        },
+        {
+          "name": "Osprey",
+          "aliases": ["Nova Scotia osprey"]
+        },
+        {
+          "name": "Rock ptarmigan",
+          "aliases": ["Ptarmigan", "Nunavut rock ptarmigan"]
+        },
+        {
+          "name": "Common loon",
+          "aliases": ["Loon", "Ontario loon"]
+        },
+        {
+          "name": "Blue jay",
+          "aliases": ["PEI blue jay"]
+        },
+        {
+          "name": "Snowy owl",
+          "aliases": ["Quebec snowy owl"]
+        },
+        {
+          "name": "Sharp-tailed grouse",
+          "aliases": ["Grouse"]
+        },
+        {
+          "name": "Common raven",
+          "aliases": ["Raven", "Yukon raven"]
+        },
+        {
+          "name": "Willow ptarmigan"
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of Canadian provincial and territorial symbols",
+          "revision": 1357245255,
+          "members": [
+            "Great horned owl",
+            "Steller's jay",
+            "Great grey owl",
+            "Black-capped chickadee",
+            "Atlantic puffin",
+            "Gyrfalcon",
+            "Osprey",
+            "Rock ptarmigan",
+            "Common loon",
+            "Blue jay",
+            "Snowy owl",
+            "Sharp-tailed grouse",
+            "Common raven",
+            "Willow ptarmigan"
+          ],
+          "reviewed": [
+            "Great horned owl",
+            "Steller's jay",
+            "Great grey owl",
+            "Black-capped chickadee",
+            "Atlantic puffin",
+            "Gyrfalcon",
+            "Osprey",
+            "Rock ptarmigan",
+            "Common loon",
+            "Blue jay",
+            "Snowy owl",
+            "Sharp-tailed grouse",
+            "Common raven",
+            "Willow ptarmigan"
+          ],
+          "expect": [14, 14]
+        }
+      ],
+      "expect": [14, 14],
+      "surface": ["Common loon", "Snowy owl", "Common raven"],
+      "pearl": "Sharp-tailed grouse",
+      "scope": "Provincial/territorial birds and Newfoundland and Labrador’s official game birds."
+    },
+    {
+      "id": "us-state-butterflies",
+      "text": "a butterfly that is an official US state symbol",
+      "theme": "nature",
+      "cluster": "state-butterflies",
+      "active": true,
+      "answers": [
+        {
+          "name": "Monarch butterfly",
+          "aliases": ["Danaus plexippus", "Monarch"]
+        },
+        {
+          "name": "Eastern tiger swallowtail",
+          "aliases": ["Papilio glaucus", "Tiger swallowtail"]
+        },
+        {
+          "name": "Two-tailed swallowtail",
+          "aliases": ["Papilio multicaudata"]
+        },
+        {
+          "name": "Diana fritillary butterfly",
+          "aliases": ["Speyeria diana"]
+        },
+        {
+          "name": "California dogface butterfly",
+          "aliases": ["Zerene eurydice", "California dogface", "Dogface butterfly"]
+        },
+        {
+          "name": "Colorado hairstreak",
+          "aliases": ["Hypaurotis crysalus"]
+        },
+        {
+          "name": "Zebra longwing",
+          "aliases": ["Heliconius charitonius"]
+        },
+        {
+          "name": "Kamehameha butterfly",
+          "aliases": ["Vanessa tameamea"]
+        },
+        {
+          "name": "Viceroy butterfly",
+          "aliases": ["Limenitis archippus", "Viceroy"]
+        },
+        {
+          "name": "Gulf fritillary",
+          "aliases": ["Dione vanillae"]
+        },
+        {
+          "name": "Pink-edged Sulphur",
+          "aliases": ["Colias interior"]
+        },
+        {
+          "name": "Baltimore checkerspot butterfly",
+          "aliases": ["Euphydryas phaeton", "Baltimore checkerspot"]
+        },
+        {
+          "name": "Spicebush swallowtail",
+          "aliases": ["Papilio troilus"]
+        },
+        {
+          "name": "Mourning cloak butterfly",
+          "aliases": ["Nymphalis antiopa", "Mourning cloak"]
+        },
+        {
+          "name": "Karner blue butterfly",
+          "aliases": ["Plebejus melissa samuelis", "Karner blue"]
+        },
+        {
+          "name": "Black swallowtail",
+          "aliases": ["Papilio polyxenes", "Eastern black swallowtail", "American swallowtail"]
+        },
+        {
+          "name": "Sandia hairstreak",
+          "aliases": ["Callophrys"]
+        },
+        {
+          "name": "Oregon swallowtail",
+          "aliases": ["Papilio oregonius"]
+        },
+        {
+          "name": "Zebra swallowtail",
+          "aliases": ["Eurytides marcellus"]
+        },
+        {
+          "name": "Sheridan's green hairstreak",
+          "aliases": ["Callophrys sheridanii"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of U.S. state insects",
+          "revision": 1370329838,
+          "members": [
+            "Monarch butterfly",
+            "Eastern tiger swallowtail",
+            "Two-tailed swallowtail",
+            "Diana fritillary butterfly",
+            "California dogface butterfly",
+            "Colorado hairstreak",
+            "Zebra longwing",
+            "Kamehameha butterfly",
+            "Viceroy butterfly",
+            "Gulf fritillary",
+            "Pink-edged Sulphur",
+            "Baltimore checkerspot butterfly",
+            "Spicebush swallowtail",
+            "Mourning cloak butterfly",
+            "Karner blue butterfly",
+            "Black swallowtail",
+            "Sandia hairstreak",
+            "Oregon swallowtail",
+            "Zebra swallowtail",
+            "Sheridan's green hairstreak"
+          ],
+          "reviewed": [
+            "Monarch butterfly",
+            "Eastern tiger swallowtail",
+            "Two-tailed swallowtail",
+            "Diana fritillary butterfly",
+            "California dogface butterfly",
+            "Colorado hairstreak",
+            "Zebra longwing",
+            "Kamehameha butterfly",
+            "Viceroy butterfly",
+            "Gulf fritillary",
+            "Pink-edged Sulphur",
+            "Baltimore checkerspot butterfly",
+            "Spicebush swallowtail",
+            "Mourning cloak butterfly",
+            "Karner blue butterfly",
+            "Black swallowtail",
+            "Sandia hairstreak",
+            "Oregon swallowtail",
+            "Zebra swallowtail",
+            "Sheridan's green hairstreak"
+          ],
+          "expect": [20, 20]
+        }
+      ],
+      "expect": [20, 20],
+      "surface": ["Monarch butterfly", "Eastern tiger swallowtail", "Black swallowtail"],
+      "pearl": "Sandia hairstreak",
+      "scope": "Butterfly species declared state butterflies or state insects; other insect orders excluded."
+    },
+    {
+      "id": "constitution-signers",
+      "text": "a signer of the US Constitution",
+      "theme": "history",
+      "cluster": "us-founding",
+      "active": true,
+      "answers": [
+        {
+          "name": "George Washington"
+        },
+        {
+          "name": "John Langdon"
+        },
+        {
+          "name": "Nicholas Gilman"
+        },
+        {
+          "name": "Nathaniel Gorham"
+        },
+        {
+          "name": "Rufus King"
+        },
+        {
+          "name": "William Samuel Johnson"
+        },
+        {
+          "name": "Roger Sherman"
+        },
+        {
+          "name": "Alexander Hamilton"
+        },
+        {
+          "name": "William Livingston"
+        },
+        {
+          "name": "David Brearley"
+        },
+        {
+          "name": "William Paterson"
+        },
+        {
+          "name": "Jonathan Dayton"
+        },
+        {
+          "name": "Benjamin Franklin"
+        },
+        {
+          "name": "Thomas Mifflin"
+        },
+        {
+          "name": "Robert Morris"
+        },
+        {
+          "name": "George Clymer"
+        },
+        {
+          "name": "Thomas Fitzsimons"
+        },
+        {
+          "name": "Jared Ingersoll"
+        },
+        {
+          "name": "James Wilson"
+        },
+        {
+          "name": "Gouverneur Morris"
+        },
+        {
+          "name": "George Read"
+        },
+        {
+          "name": "Gunning Bedford Jr."
+        },
+        {
+          "name": "John Dickinson"
+        },
+        {
+          "name": "Richard Bassett"
+        },
+        {
+          "name": "Jacob Broom"
+        },
+        {
+          "name": "James McHenry"
+        },
+        {
+          "name": "Daniel of St. Thomas Jenifer"
+        },
+        {
+          "name": "Daniel Carroll"
+        },
+        {
+          "name": "John Blair",
+          "aliases": ["John Blair Jr."]
+        },
+        {
+          "name": "James Madison"
+        },
+        {
+          "name": "William Blount"
+        },
+        {
+          "name": "Richard Dobbs Spaight"
+        },
+        {
+          "name": "Hugh Williamson"
+        },
+        {
+          "name": "John Rutledge"
+        },
+        {
+          "name": "Charles Cotesworth Pinckney"
+        },
+        {
+          "name": "Charles Pinckney"
+        },
+        {
+          "name": "Pierce Butler"
+        },
+        {
+          "name": "William Few"
+        },
+        {
+          "name": "Abraham Baldwin"
+        },
+        {
+          "name": "William Jackson"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Signing of the United States Constitution",
+          "revision": 1379047258,
+          "members": [
+            "George Washington",
+            "John Langdon",
+            "Nicholas Gilman",
+            "Nathaniel Gorham",
+            "Rufus King",
+            "William Samuel Johnson",
+            "Roger Sherman",
+            "Alexander Hamilton",
+            "William Livingston",
+            "David Brearley",
+            "William Paterson",
+            "Jonathan Dayton",
+            "Benjamin Franklin",
+            "Thomas Mifflin",
+            "Robert Morris",
+            "George Clymer",
+            "Thomas Fitzsimons",
+            "Jared Ingersoll",
+            "James Wilson",
+            "Gouverneur Morris",
+            "George Read",
+            "Gunning Bedford Jr.",
+            "John Dickinson",
+            "Richard Bassett",
+            "Jacob Broom",
+            "James McHenry",
+            "Daniel of St. Thomas Jenifer",
+            "Daniel Carroll",
+            "John Blair",
+            "James Madison",
+            "William Blount",
+            "Richard Dobbs Spaight",
+            "Hugh Williamson",
+            "John Rutledge",
+            "Charles Cotesworth Pinckney",
+            "Charles Pinckney",
+            "Pierce Butler",
+            "William Few",
+            "Abraham Baldwin",
+            "William Jackson"
+          ],
+          "reviewed": [
+            "George Washington",
+            "John Langdon",
+            "Nicholas Gilman",
+            "Nathaniel Gorham",
+            "Rufus King",
+            "William Samuel Johnson",
+            "Roger Sherman",
+            "Alexander Hamilton",
+            "William Livingston",
+            "David Brearley",
+            "William Paterson",
+            "Jonathan Dayton",
+            "Benjamin Franklin",
+            "Thomas Mifflin",
+            "Robert Morris",
+            "George Clymer",
+            "Thomas Fitzsimons",
+            "Jared Ingersoll",
+            "James Wilson",
+            "Gouverneur Morris",
+            "George Read",
+            "Gunning Bedford Jr.",
+            "John Dickinson",
+            "Richard Bassett",
+            "Jacob Broom",
+            "James McHenry",
+            "Daniel of St. Thomas Jenifer",
+            "Daniel Carroll",
+            "John Blair",
+            "James Madison",
+            "William Blount",
+            "Richard Dobbs Spaight",
+            "Hugh Williamson",
+            "John Rutledge",
+            "Charles Cotesworth Pinckney",
+            "Charles Pinckney",
+            "Pierce Butler",
+            "William Few",
+            "Abraham Baldwin",
+            "William Jackson"
+          ],
+          "expect": [40, 40]
+        }
+      ],
+      "expect": [40, 40],
+      "surface": ["George Washington", "Benjamin Franklin", "Alexander Hamilton", "James Madison"],
+      "pearl": "Daniel of St. Thomas Jenifer",
+      "scope": "39 state delegates; attesting secretary William Jackson is accepted separately as a signatory.",
+      "people": true
+    },
+    {
+      "id": "us-banknote-portraits",
+      "text": "a person whose individual portrait appeared on a US dollar banknote",
+      "theme": "history",
+      "cluster": "banknotes",
+      "active": true,
+      "answers": [
+        {
+          "name": "John Quincy Adams"
+        },
+        {
+          "name": "Thomas Hart Benton"
+        },
+        {
+          "name": "Salmon Portland Chase",
+          "aliases": ["Salmon P Chase", "Salmon Chase"]
+        },
+        {
+          "name": "William Clark"
+        },
+        {
+          "name": "Henry Clay"
+        },
+        {
+          "name": "Grover Cleveland"
+        },
+        {
+          "name": "DeWitt Clinton"
+        },
+        {
+          "name": "Stephen Decatur"
+        },
+        {
+          "name": "Edward Everett"
+        },
+        {
+          "name": "David Glasgow Farragut",
+          "aliases": ["David Farragut"]
+        },
+        {
+          "name": "William Pitt Fessenden"
+        },
+        {
+          "name": "Benjamin Franklin"
+        },
+        {
+          "name": "Robert Fulton"
+        },
+        {
+          "name": "Albert Gallatin"
+        },
+        {
+          "name": "James Abram Garfield",
+          "aliases": ["James Garfield"]
+        },
+        {
+          "name": "Ulysses S. Grant",
+          "aliases": ["Ulysses Grant", "US Grant", "U S Grant"]
+        },
+        {
+          "name": "Alexander Hamilton"
+        },
+        {
+          "name": "Winfield Scott Hancock"
+        },
+        {
+          "name": "Benjamin Harrison"
+        },
+        {
+          "name": "Thomas Andrews Hendricks",
+          "aliases": ["Thomas Hendricks"]
+        },
+        {
+          "name": "Michael Hillegas"
+        },
+        {
+          "name": "Andrew Jackson"
+        },
+        {
+          "name": "Thomas Jefferson"
+        },
+        {
+          "name": "John Jay Knox Jr."
+        },
+        {
+          "name": "Meriwether Lewis"
+        },
+        {
+          "name": "Abraham Lincoln"
+        },
+        {
+          "name": "James Madison"
+        },
+        {
+          "name": "Daniel Manning"
+        },
+        {
+          "name": "Joseph King Fenno Mansfield"
+        },
+        {
+          "name": "William Learned Marcy",
+          "aliases": ["William Marcy"]
+        },
+        {
+          "name": "John Marshall"
+        },
+        {
+          "name": "Hugh McCulloch"
+        },
+        {
+          "name": "William McKinley"
+        },
+        {
+          "name": "James Birdseye McPherson",
+          "aliases": ["James McPherson"]
+        },
+        {
+          "name": "George Gordon Meade",
+          "aliases": ["George Meade"]
+        },
+        {
+          "name": "James Monroe"
+        },
+        {
+          "name": "Robert Morris"
+        },
+        {
+          "name": "Samuel Finley Breese Morse",
+          "aliases": ["Samuel Morse"]
+        },
+        {
+          "name": "Running Antelope"
+        },
+        {
+          "name": "Winfield Scott"
+        },
+        {
+          "name": "William Henry Seward",
+          "aliases": ["William Seward"]
+        },
+        {
+          "name": "Philip Henry Sheridan",
+          "aliases": ["Philip Sheridan"]
+        },
+        {
+          "name": "John Sherman"
+        },
+        {
+          "name": "William Tecumseh Sherman",
+          "aliases": ["William Sherman"]
+        },
+        {
+          "name": "Edwin McMasters Stanton",
+          "aliases": ["Edwin Stanton"]
+        },
+        {
+          "name": "Charles Sumner"
+        },
+        {
+          "name": "George H. Thomas",
+          "aliases": ["George Thomas"]
+        },
+        {
+          "name": "George Washington",
+          "aliases": ["Washington"]
+        },
+        {
+          "name": "Martha Washington",
+          "aliases": ["Martha"]
+        },
+        {
+          "name": "Daniel Webster"
+        },
+        {
+          "name": "Woodrow Wilson"
+        },
+        {
+          "name": "William Windom"
+        },
+        {
+          "name": "Silas Wright Jr.",
+          "aliases": ["Silas Wright"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of people on United States banknotes",
+          "revision": 1368157087,
+          "members": [
+            "John Quincy Adams",
+            "Thomas Hart Benton",
+            "Salmon Portland Chase",
+            "William Clark",
+            "Henry Clay",
+            "Grover Cleveland",
+            "DeWitt Clinton",
+            "Stephen Decatur",
+            "Edward Everett",
+            "David Glasgow Farragut",
+            "William Pitt Fessenden",
+            "Benjamin Franklin",
+            "Robert Fulton",
+            "Albert Gallatin",
+            "James Abram Garfield",
+            "Ulysses S. Grant",
+            "Alexander Hamilton",
+            "Winfield Scott Hancock",
+            "Benjamin Harrison",
+            "Thomas Andrews Hendricks",
+            "Michael Hillegas",
+            "Andrew Jackson",
+            "Thomas Jefferson",
+            "John Jay Knox Jr.",
+            "Meriwether Lewis",
+            "Abraham Lincoln",
+            "James Madison",
+            "Daniel Manning",
+            "Joseph King Fenno Mansfield",
+            "William Learned Marcy",
+            "John Marshall",
+            "Hugh McCulloch",
+            "William McKinley",
+            "James Birdseye McPherson",
+            "George Gordon Meade",
+            "James Monroe",
+            "Robert Morris",
+            "Samuel Finley Breese Morse",
+            "Running Antelope",
+            "Winfield Scott",
+            "William Henry Seward",
+            "Philip Henry Sheridan",
+            "John Sherman",
+            "William Tecumseh Sherman",
+            "Edwin McMasters Stanton",
+            "Charles Sumner",
+            "George H. Thomas",
+            "George Washington",
+            "Martha Washington",
+            "Daniel Webster",
+            "Woodrow Wilson",
+            "William Windom",
+            "Silas Wright Jr."
+          ],
+          "reviewed": [
+            "John Quincy Adams",
+            "Thomas Hart Benton",
+            "Salmon Portland Chase",
+            "William Clark",
+            "Henry Clay",
+            "Grover Cleveland",
+            "DeWitt Clinton",
+            "Stephen Decatur",
+            "Edward Everett",
+            "David Glasgow Farragut",
+            "William Pitt Fessenden",
+            "Benjamin Franklin",
+            "Robert Fulton",
+            "Albert Gallatin",
+            "James Abram Garfield",
+            "Ulysses S. Grant",
+            "Alexander Hamilton",
+            "Winfield Scott Hancock",
+            "Benjamin Harrison",
+            "Thomas Andrews Hendricks",
+            "Michael Hillegas",
+            "Andrew Jackson",
+            "Thomas Jefferson",
+            "John Jay Knox Jr.",
+            "Meriwether Lewis",
+            "Abraham Lincoln",
+            "James Madison",
+            "Daniel Manning",
+            "Joseph King Fenno Mansfield",
+            "William Learned Marcy",
+            "John Marshall",
+            "Hugh McCulloch",
+            "William McKinley",
+            "James Birdseye McPherson",
+            "George Gordon Meade",
+            "James Monroe",
+            "Robert Morris",
+            "Samuel Finley Breese Morse",
+            "Running Antelope",
+            "Winfield Scott",
+            "William Henry Seward",
+            "Philip Henry Sheridan",
+            "John Sherman",
+            "William Tecumseh Sherman",
+            "Edwin McMasters Stanton",
+            "Charles Sumner",
+            "George H. Thomas",
+            "George Washington",
+            "Martha Washington",
+            "Daniel Webster",
+            "Woodrow Wilson",
+            "William Windom",
+            "Silas Wright Jr."
+          ],
+          "expect": [53, 53]
+        }
+      ],
+      "expect": [53, 53],
+      "surface": ["George Washington", "Abraham Lincoln", "Benjamin Franklin"],
+      "pearl": "Running Antelope",
+      "scope": "All 53 individual portraits in the source, including obsolete and internal-only notes; not vignette figures or proposed future portraits.",
+      "people": true
+    },
+    {
+      "id": "miyazaki-films",
+      "text": "a feature film directed by Hayao Miyazaki",
+      "theme": "film",
+      "cluster": "japanese-directors",
+      "active": true,
+      "answers": [
+        {
+          "name": "The Castle of Cagliostro",
+          "aliases": [
+            "Lupin III The Castle of Cagliostro",
+            "Lupin III Castle of Cagliostro",
+            "Cagliostro"
+          ]
+        },
+        {
+          "name": "Nausicaä of the Valley of the Wind",
+          "aliases": ["Nausicaa", "Nausicaa Valley of the Wind"]
+        },
+        {
+          "name": "Castle in the Sky",
+          "aliases": ["Laputa", "Laputa Castle in the Sky"]
+        },
+        {
+          "name": "My Neighbor Totoro",
+          "aliases": ["My Neighbour Totoro", "Totoro"]
+        },
+        {
+          "name": "Kiki's Delivery Service",
+          "aliases": ["Kiki"]
+        },
+        {
+          "name": "Porco Rosso"
+        },
+        {
+          "name": "Princess Mononoke",
+          "aliases": ["Mononoke"]
+        },
+        {
+          "name": "Spirited Away"
+        },
+        {
+          "name": "Howl's Moving Castle",
+          "aliases": ["Howl"]
+        },
+        {
+          "name": "Ponyo",
+          "aliases": ["Ponyo on the Cliff by the Sea"]
+        },
+        {
+          "name": "The Wind Rises"
+        },
+        {
+          "name": "The Boy and the Heron",
+          "aliases": ["Boy and Heron", "How Do You Live"]
+        }
+      ],
+      "sources": [
+        {
+          "page": "List of works by Hayao Miyazaki",
+          "revision": 1380159640,
+          "members": [
+            "The Castle of Cagliostro",
+            "Nausicaä of the Valley of the Wind",
+            "Castle in the Sky",
+            "My Neighbor Totoro",
+            "Kiki's Delivery Service",
+            "Porco Rosso",
+            "Princess Mononoke",
+            "Spirited Away",
+            "Howl's Moving Castle",
+            "Ponyo",
+            "The Wind Rises",
+            "The Boy and the Heron"
+          ],
+          "reviewed": [
+            "The Castle of Cagliostro",
+            "Nausicaä of the Valley of the Wind",
+            "Castle in the Sky",
+            "My Neighbor Totoro",
+            "Kiki's Delivery Service",
+            "Porco Rosso",
+            "Princess Mononoke",
+            "Spirited Away",
+            "Howl's Moving Castle",
+            "Ponyo",
+            "The Wind Rises",
+            "The Boy and the Heron"
+          ],
+          "expect": [12, 12]
+        }
+      ],
+      "expect": [12, 12],
+      "surface": ["My Neighbor Totoro", "Spirited Away", "Princess Mononoke"],
+      "pearl": "The Castle of Cagliostro",
+      "scope": ""
+    },
+    {
+      "id": "palme-dor-films",
+      "text": "a feature film that won Cannes' Palme d'Or or its predecessor",
+      "theme": "film",
+      "cluster": "cannes",
+      "active": true,
+      "answers": [
+        {
+          "name": "Brief Encounter"
+        },
+        {
+          "name": "The Last Chance"
+        },
+        {
+          "name": "The Lost Weekend"
+        },
+        {
+          "name": "María Candelaria"
+        },
+        {
+          "name": "Men Without Wings"
+        },
+        {
+          "name": "Neecha Nagar"
+        },
+        {
+          "name": "Pastoral Symphony"
+        },
+        {
+          "name": "The Red Meadows"
+        },
+        {
+          "name": "Rome, Open City"
+        },
+        {
+          "name": "Torment"
+        },
+        {
+          "name": "The Turning Point"
+        },
+        {
+          "name": "Antoine and Antoinette"
+        },
+        {
+          "name": "Crossfire"
+        },
+        {
+          "name": "Dumbo"
+        },
+        {
+          "name": "The Damned"
+        },
+        {
+          "name": "Ziegfeld Follies"
+        },
+        {
+          "name": "The Third Man"
+        },
+        {
+          "name": "Miracle in Milan"
+        },
+        {
+          "name": "Miss Julie"
+        },
+        {
+          "name": "Othello"
+        },
+        {
+          "name": "Two Cents Worth of Hope"
+        },
+        {
+          "name": "The Wages of Fear"
+        },
+        {
+          "name": "Gate of Hell"
+        },
+        {
+          "name": "Marty"
+        },
+        {
+          "name": "The Silent World"
+        },
+        {
+          "name": "Friendly Persuasion"
+        },
+        {
+          "name": "The Cranes Are Flying"
+        },
+        {
+          "name": "Black Orpheus"
+        },
+        {
+          "name": "La dolce vita"
+        },
+        {
+          "name": "The Long Absence"
+        },
+        {
+          "name": "Viridiana"
+        },
+        {
+          "name": "O Pagador de Promessas"
+        },
+        {
+          "name": "The Leopard"
+        },
+        {
+          "name": "The Umbrellas of Cherbourg"
+        },
+        {
+          "name": "The Knack ...and How to Get It"
+        },
+        {
+          "name": "The Birds, the Bees and the Italians"
+        },
+        {
+          "name": "A Man and a Woman"
+        },
+        {
+          "name": "Blowup"
+        },
+        {
+          "name": "If...."
+        },
+        {
+          "name": "M*A*S*H"
+        },
+        {
+          "name": "The Go-Between"
+        },
+        {
+          "name": "The Mattei Affair"
+        },
+        {
+          "name": "The Working Class Goes to Heaven"
+        },
+        {
+          "name": "The Hireling"
+        },
+        {
+          "name": "Scarecrow"
+        },
+        {
+          "name": "The Conversation"
+        },
+        {
+          "name": "Chronicle of the Years of Fire"
+        },
+        {
+          "name": "Taxi Driver"
+        },
+        {
+          "name": "Padre Padrone"
+        },
+        {
+          "name": "The Tree of Wooden Clogs"
+        },
+        {
+          "name": "Apocalypse Now"
+        },
+        {
+          "name": "The Tin Drum"
+        },
+        {
+          "name": "All That Jazz"
+        },
+        {
+          "name": "Kagemusha"
+        },
+        {
+          "name": "Man of Iron"
+        },
+        {
+          "name": "Missing"
+        },
+        {
+          "name": "Yol"
+        },
+        {
+          "name": "The Ballad of Narayama"
+        },
+        {
+          "name": "Paris, Texas"
+        },
+        {
+          "name": "When Father Was Away on Business"
+        },
+        {
+          "name": "The Mission"
+        },
+        {
+          "name": "Under the Sun of Satan"
+        },
+        {
+          "name": "Pelle the Conqueror"
+        },
+        {
+          "name": "Sex, Lies, and Videotape"
+        },
+        {
+          "name": "Wild at Heart"
+        },
+        {
+          "name": "Barton Fink"
+        },
+        {
+          "name": "The Best Intentions"
+        },
+        {
+          "name": "Farewell My Concubine"
+        },
+        {
+          "name": "The Piano"
+        },
+        {
+          "name": "Pulp Fiction"
+        },
+        {
+          "name": "Underground"
+        },
+        {
+          "name": "Secrets & Lies"
+        },
+        {
+          "name": "The Eel"
+        },
+        {
+          "name": "Taste of Cherry"
+        },
+        {
+          "name": "Eternity and a Day"
+        },
+        {
+          "name": "Rosetta"
+        },
+        {
+          "name": "Dancer in the Dark"
+        },
+        {
+          "name": "The Son's Room"
+        },
+        {
+          "name": "The Pianist"
+        },
+        {
+          "name": "Elephant"
+        },
+        {
+          "name": "Fahrenheit 9/11"
+        },
+        {
+          "name": "L'Enfant"
+        },
+        {
+          "name": "The Wind That Shakes the Barley"
+        },
+        {
+          "name": "4 Months, 3 Weeks and 2 Days"
+        },
+        {
+          "name": "The Class"
+        },
+        {
+          "name": "The White Ribbon"
+        },
+        {
+          "name": "Uncle Boonmee",
+          "aliases": ["Uncle Boonmee Who Can Recall His Past Lives"]
+        },
+        {
+          "name": "The Tree of Life"
+        },
+        {
+          "name": "Amour"
+        },
+        {
+          "name": "Blue Is the Warmest Colour",
+          "aliases": ["Blue Is the Warmest Color"]
+        },
+        {
+          "name": "Winter Sleep"
+        },
+        {
+          "name": "Dheepan"
+        },
+        {
+          "name": "I, Daniel Blake"
+        },
+        {
+          "name": "The Square"
+        },
+        {
+          "name": "Shoplifters"
+        },
+        {
+          "name": "Parasite"
+        },
+        {
+          "name": "Titane"
+        },
+        {
+          "name": "Triangle of Sadness"
+        },
+        {
+          "name": "Anatomy of a Fall"
+        },
+        {
+          "name": "Anora"
+        },
+        {
+          "name": "It Was Just an Accident"
+        },
+        {
+          "name": "Fjord"
+        },
+        {
+          "name": "The Image Book"
+        }
+      ],
+      "sources": [
+        {
+          "page": "Palme d'Or",
+          "revision": 1380209920,
+          "members": [
+            "Brief Encounter",
+            "The Last Chance",
+            "The Lost Weekend",
+            "María Candelaria",
+            "Men Without Wings",
+            "Neecha Nagar",
+            "Pastoral Symphony",
+            "The Red Meadows",
+            "Rome, Open City",
+            "Torment",
+            "The Turning Point",
+            "Antoine and Antoinette",
+            "Crossfire",
+            "Dumbo",
+            "The Damned",
+            "Ziegfeld Follies",
+            "The Third Man",
+            "Miracle in Milan",
+            "Miss Julie",
+            "Othello",
+            "Two Cents Worth of Hope",
+            "The Wages of Fear",
+            "Gate of Hell",
+            "Marty",
+            "The Silent World",
+            "Friendly Persuasion",
+            "The Cranes Are Flying",
+            "Black Orpheus",
+            "La dolce vita",
+            "The Long Absence",
+            "Viridiana",
+            "O Pagador de Promessas",
+            "The Leopard",
+            "The Umbrellas of Cherbourg",
+            "The Knack ...and How to Get It",
+            "The Birds, the Bees and the Italians",
+            "A Man and a Woman",
+            "Blowup",
+            "If....",
+            "M*A*S*H",
+            "The Go-Between",
+            "The Mattei Affair",
+            "The Working Class Goes to Heaven",
+            "The Hireling",
+            "Scarecrow",
+            "The Conversation",
+            "Chronicle of the Years of Fire",
+            "Taxi Driver",
+            "Padre Padrone",
+            "The Tree of Wooden Clogs",
+            "Apocalypse Now",
+            "The Tin Drum",
+            "All That Jazz",
+            "Kagemusha",
+            "Man of Iron",
+            "Missing",
+            "Yol",
+            "The Ballad of Narayama",
+            "Paris, Texas",
+            "When Father Was Away on Business",
+            "The Mission",
+            "Under the Sun of Satan",
+            "Pelle the Conqueror",
+            "Sex, Lies, and Videotape",
+            "Wild at Heart",
+            "Barton Fink",
+            "The Best Intentions",
+            "Farewell My Concubine",
+            "The Piano",
+            "Pulp Fiction",
+            "Underground",
+            "Secrets & Lies",
+            "The Eel",
+            "Taste of Cherry",
+            "Eternity and a Day",
+            "Rosetta",
+            "Dancer in the Dark",
+            "The Son's Room",
+            "The Pianist",
+            "Elephant",
+            "Fahrenheit 9/11",
+            "L'Enfant",
+            "The Wind That Shakes the Barley",
+            "4 Months, 3 Weeks and 2 Days",
+            "The Class",
+            "The White Ribbon",
+            "Uncle Boonmee Who Can Recall His Past Lives",
+            "The Tree of Life",
+            "Amour",
+            "Blue Is the Warmest Colour",
+            "Winter Sleep",
+            "Dheepan",
+            "I, Daniel Blake",
+            "The Square",
+            "Shoplifters",
+            "Parasite",
+            "Titane",
+            "Triangle of Sadness",
+            "Anatomy of a Fall",
+            "Anora",
+            "It Was Just an Accident",
+            "Fjord",
+            "The Image Book"
+          ],
+          "reviewed": [
+            "Brief Encounter",
+            "The Last Chance",
+            "The Lost Weekend",
+            "María Candelaria",
+            "Men Without Wings",
+            "Neecha Nagar",
+            "Pastoral Symphony",
+            "The Red Meadows",
+            "Rome, Open City",
+            "Torment",
+            "The Turning Point",
+            "Antoine and Antoinette",
+            "Crossfire",
+            "Dumbo",
+            "The Damned",
+            "Ziegfeld Follies",
+            "The Third Man",
+            "Miracle in Milan",
+            "Miss Julie",
+            "Othello",
+            "Two Cents Worth of Hope",
+            "The Wages of Fear",
+            "Gate of Hell",
+            "Marty",
+            "The Silent World",
+            "Friendly Persuasion",
+            "The Cranes Are Flying",
+            "Black Orpheus",
+            "La dolce vita",
+            "The Long Absence",
+            "Viridiana",
+            "O Pagador de Promessas",
+            "The Leopard",
+            "The Umbrellas of Cherbourg",
+            "The Knack ...and How to Get It",
+            "The Birds, the Bees and the Italians",
+            "A Man and a Woman",
+            "Blowup",
+            "If....",
+            "M*A*S*H",
+            "The Go-Between",
+            "The Mattei Affair",
+            "The Working Class Goes to Heaven",
+            "The Hireling",
+            "Scarecrow",
+            "The Conversation",
+            "Chronicle of the Years of Fire",
+            "Taxi Driver",
+            "Padre Padrone",
+            "The Tree of Wooden Clogs",
+            "Apocalypse Now",
+            "The Tin Drum",
+            "All That Jazz",
+            "Kagemusha",
+            "Man of Iron",
+            "Missing",
+            "Yol",
+            "The Ballad of Narayama",
+            "Paris, Texas",
+            "When Father Was Away on Business",
+            "The Mission",
+            "Under the Sun of Satan",
+            "Pelle the Conqueror",
+            "Sex, Lies, and Videotape",
+            "Wild at Heart",
+            "Barton Fink",
+            "The Best Intentions",
+            "Farewell My Concubine",
+            "The Piano",
+            "Pulp Fiction",
+            "Underground",
+            "Secrets & Lies",
+            "The Eel",
+            "Taste of Cherry",
+            "Eternity and a Day",
+            "Rosetta",
+            "Dancer in the Dark",
+            "The Son's Room",
+            "The Pianist",
+            "Elephant",
+            "Fahrenheit 9/11",
+            "L'Enfant",
+            "The Wind That Shakes the Barley",
+            "4 Months, 3 Weeks and 2 Days",
+            "The Class",
+            "The White Ribbon",
+            "Uncle Boonmee Who Can Recall His Past Lives",
+            "The Tree of Life",
+            "Amour",
+            "Blue Is the Warmest Colour",
+            "Winter Sleep",
+            "Dheepan",
+            "I, Daniel Blake",
+            "The Square",
+            "Shoplifters",
+            "Parasite",
+            "Titane",
+            "Triangle of Sadness",
+            "Anatomy of a Fall",
+            "Anora",
+            "It Was Just an Accident",
+            "Fjord",
+            "The Image Book"
+          ],
+          "expect": [103, 103]
+        }
+      ],
+      "expect": [103, 103],
+      "surface": ["Pulp Fiction", "Parasite", "Taxi Driver", "Apocalypse Now"],
+      "pearl": "The Image Book",
+      "scope": "All top-prize feature-film recipients in the source, including predecessor Grand Prix and the Special Palme for The Image Book; no short-film awards."
+    },
+    {
+      "id": "enable-semordnilaps",
+      "text": "a familiar 4–9-letter word that makes a different word backwards",
+      "theme": "words",
+      "cluster": "enable-patterns",
+      "active": true,
+      "answers": [
+        {
+          "name": "time"
+        },
+        {
+          "name": "know"
+        },
+        {
+          "name": "even"
+        },
+        {
+          "name": "part"
+        },
+        {
+          "name": "keep"
+        },
+        {
+          "name": "live"
+        },
+        {
+          "name": "stop"
+        },
+        {
+          "name": "room"
+        },
+        {
+          "name": "meet"
+        },
+        {
+          "name": "star"
+        },
+        {
+          "name": "step"
+        },
+        {
+          "name": "door"
+        },
+        {
+          "name": "seven"
+        },
+        {
+          "name": "deep"
+        },
+        {
+          "name": "sleep"
+        },
+        {
+          "name": "speed"
+        },
+        {
+          "name": "sports"
+        },
+        {
+          "name": "secret"
+        },
+        {
+          "name": "spot"
+        },
+        {
+          "name": "lived"
+        },
+        {
+          "name": "notes"
+        },
+        {
+          "name": "smart"
+        },
+        {
+          "name": "animal"
+        },
+        {
+          "name": "draw"
+        },
+        {
+          "name": "evil"
+        },
+        {
+          "name": "iron"
+        },
+        {
+          "name": "port"
+        },
+        {
+          "name": "steel"
+        },
+        {
+          "name": "flow"
+        },
+        {
+          "name": "pool"
+        },
+        {
+          "name": "saved"
+        },
+        {
+          "name": "guns"
+        },
+        {
+          "name": "snow"
+        },
+        {
+          "name": "bird"
+        },
+        {
+          "name": "tips"
+        },
+        {
+          "name": "yard"
+        },
+        {
+          "name": "golf"
+        },
+        {
+          "name": "laid"
+        },
+        {
+          "name": "tool"
+        },
+        {
+          "name": "deliver"
+        },
+        {
+          "name": "debut"
+        },
+        {
+          "name": "faced"
+        },
+        {
+          "name": "tons"
+        },
+        {
+          "name": "mood"
+        },
+        {
+          "name": "rank"
+        },
+        {
+          "name": "anger"
+        },
+        {
+          "name": "rail"
+        },
+        {
+          "name": "cares"
+        },
+        {
+          "name": "spin"
+        },
+        {
+          "name": "seed"
+        },
+        {
+          "name": "ward"
+        },
+        {
+          "name": "wolf"
+        },
+        {
+          "name": "reward"
+        },
+        {
+          "name": "trap"
+        },
+        {
+          "name": "devil"
+        },
+        {
+          "name": "edit"
+        },
+        {
+          "name": "nuts"
+        },
+        {
+          "name": "fool"
+        },
+        {
+          "name": "loop"
+        },
+        {
+          "name": "dual"
+        },
+        {
+          "name": "lion"
+        },
+        {
+          "name": "spider"
+        },
+        {
+          "name": "trips"
+        },
+        {
+          "name": "lied"
+        },
+        {
+          "name": "snap"
+        },
+        {
+          "name": "pupils"
+        },
+        {
+          "name": "stressed"
+        },
+        {
+          "name": "fires"
+        },
+        {
+          "name": "plug"
+        },
+        {
+          "name": "seeks"
+        },
+        {
+          "name": "brad"
+        },
+        {
+          "name": "deer"
+        },
+        {
+          "name": "meter"
+        },
+        {
+          "name": "bros"
+        },
+        {
+          "name": "pets"
+        },
+        {
+          "name": "reed"
+        },
+        {
+          "name": "span"
+        },
+        {
+          "name": "tops"
+        },
+        {
+          "name": "fled"
+        },
+        {
+          "name": "rats"
+        },
+        {
+          "name": "slim"
+        },
+        {
+          "name": "tide"
+        },
+        {
+          "name": "soda"
+        },
+        {
+          "name": "liar"
+        },
+        {
+          "name": "sore"
+        },
+        {
+          "name": "straw"
+        },
+        {
+          "name": "slap"
+        },
+        {
+          "name": "depot"
+        },
+        {
+          "name": "stat"
+        },
+        {
+          "name": "scam"
+        },
+        {
+          "name": "swap"
+        },
+        {
+          "name": "amen"
+        },
+        {
+          "name": "dial"
+        },
+        {
+          "name": "lone"
+        },
+        {
+          "name": "sung"
+        },
+        {
+          "name": "saga"
+        },
+        {
+          "name": "strips"
+        },
+        {
+          "name": "spit"
+        },
+        {
+          "name": "dessert"
+        },
+        {
+          "name": "bats"
+        },
+        {
+          "name": "doom"
+        },
+        {
+          "name": "shah"
+        },
+        {
+          "name": "pins"
+        },
+        {
+          "name": "strap"
+        },
+        {
+          "name": "drawer"
+        },
+        {
+          "name": "stab"
+        },
+        {
+          "name": "pots"
+        },
+        {
+          "name": "serum"
+        },
+        {
+          "name": "denies"
+        },
+        {
+          "name": "sniper"
+        },
+        {
+          "name": "rang"
+        },
+        {
+          "name": "peek"
+        },
+        {
+          "name": "mart"
+        },
+        {
+          "name": "reel"
+        },
+        {
+          "name": "timer"
+        },
+        {
+          "name": "cite"
+        },
+        {
+          "name": "bulb"
+        },
+        {
+          "name": "scares"
+        },
+        {
+          "name": "duel"
+        },
+        {
+          "name": "sway"
+        },
+        {
+          "name": "lever"
+        },
+        {
+          "name": "timed"
+        },
+        {
+          "name": "stared"
+        },
+        {
+          "name": "spec"
+        },
+        {
+          "name": "tang"
+        },
+        {
+          "name": "pals"
+        },
+        {
+          "name": "taps"
+        },
+        {
+          "name": "dart"
+        },
+        {
+          "name": "denim"
+        },
+        {
+          "name": "stool"
+        },
+        {
+          "name": "avid"
+        },
+        {
+          "name": "bows"
+        },
+        {
+          "name": "brag"
+        },
+        {
+          "name": "diaper"
+        },
+        {
+          "name": "knob"
+        },
+        {
+          "name": "loot"
+        },
+        {
+          "name": "mural"
+        },
+        {
+          "name": "slab"
+        },
+        {
+          "name": "pans"
+        },
+        {
+          "name": "stew"
+        },
+        {
+          "name": "slit"
+        },
+        {
+          "name": "stink"
+        },
+        {
+          "name": "swat"
+        },
+        {
+          "name": "tram"
+        },
+        {
+          "name": "recap"
+        },
+        {
+          "name": "seam"
+        },
+        {
+          "name": "bins"
+        },
+        {
+          "name": "paws"
+        },
+        {
+          "name": "bots"
+        },
+        {
+          "name": "diva"
+        },
+        {
+          "name": "hoop"
+        },
+        {
+          "name": "mined"
+        },
+        {
+          "name": "snoop"
+        },
+        {
+          "name": "buns"
+        },
+        {
+          "name": "stun"
+        },
+        {
+          "name": "moor"
+        },
+        {
+          "name": "bard"
+        },
+        {
+          "name": "deem"
+        },
+        {
+          "name": "loom"
+        },
+        {
+          "name": "regal"
+        },
+        {
+          "name": "sleek"
+        },
+        {
+          "name": "swam"
+        },
+        {
+          "name": "anon"
+        },
+        {
+          "name": "ante"
+        },
+        {
+          "name": "swans"
+        },
+        {
+          "name": "raja"
+        },
+        {
+          "name": "slug"
+        },
+        {
+          "name": "smug"
+        },
+        {
+          "name": "spat"
+        },
+        {
+          "name": "laced"
+        },
+        {
+          "name": "pooh"
+        },
+        {
+          "name": "repaid"
+        },
+        {
+          "name": "spoons"
+        },
+        {
+          "name": "tinker"
+        },
+        {
+          "name": "gals"
+        },
+        {
+          "name": "emit"
+        },
+        {
+          "name": "prod"
+        },
+        {
+          "name": "stag"
+        },
+        {
+          "name": "relive"
+        },
+        {
+          "name": "lair"
+        },
+        {
+          "name": "moot"
+        },
+        {
+          "name": "sled"
+        },
+        {
+          "name": "gums"
+        },
+        {
+          "name": "trot"
+        },
+        {
+          "name": "defer"
+        },
+        {
+          "name": "repel"
+        },
+        {
+          "name": "keel"
+        },
+        {
+          "name": "slag"
+        },
+        {
+          "name": "lager"
+        },
+        {
+          "name": "prog"
+        },
+        {
+          "name": "cram"
+        },
+        {
+          "name": "grub"
+        },
+        {
+          "name": "sera"
+        },
+        {
+          "name": "revel"
+        },
+        {
+          "name": "ogre"
+        },
+        {
+          "name": "peed"
+        },
+        {
+          "name": "raps"
+        },
+        {
+          "name": "snug"
+        },
+        {
+          "name": "tort"
+        },
+        {
+          "name": "remit"
+        },
+        {
+          "name": "naps"
+        },
+        {
+          "name": "spank"
+        },
+        {
+          "name": "stub"
+        },
+        {
+          "name": "spar"
+        },
+        {
+          "name": "stow"
+        },
+        {
+          "name": "tins"
+        },
+        {
+          "name": "emir"
+        },
+        {
+          "name": "lees"
+        },
+        {
+          "name": "agar"
+        },
+        {
+          "name": "decal"
+        },
+        {
+          "name": "drab"
+        },
+        {
+          "name": "garb"
+        },
+        {
+          "name": "seer"
+        },
+        {
+          "name": "warts"
+        },
+        {
+          "name": "reviled"
+        },
+        {
+          "name": "gateman"
+        },
+        {
+          "name": "nametag"
+        }
+      ],
+      "sources": [
+        {
+          "dataset": "https://raw.githubusercontent.com/dolph/dictionary/233d25a56b9ac8bef906916ccf091a976995cce0/enable1.txt",
+          "sha256": "3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89",
+          "format": "lines",
+          "revision": "233d25a56b9ac8bef906916ccf091a976995cce0",
+          "expect": [172823, 172823]
+        }
+      ],
+      "expect": [217, 217],
+      "surface": ["time", "live", "stop"],
+      "pearl": "deliver",
+      "scope": "Pinned public-domain ENABLE pattern pool, wordfreq 3.1.1 Zipf >=3 editorial familiarity floor; valid audited low-frequency variants are retained as explicit exceptions. Predicates apply before normalization. Explicit editorial exclusion of slurs, not exclusion for technical/medical vocabulary.",
+      "too_clever": ["stressed", "dessert"],
+      "editorial_exclusions": [
+        "spaz",
+        "nips",
+        "smuts",
+        "marc",
+        "ares",
+        "eros",
+        "rees",
+        "macs",
+        "skips"
+      ],
+      "runtime_limitation": "Skips reverses to an ethnic slur and also normalizes to the reserved skip submission; excluded from the edited pool rather than changing the protected matcher.",
+      "editorial_note": "Remove slurs and proper-name-dominated frequency artifacts with obscure lexical senses, rather than presenting them as familiar words."
+    },
+    {
+      "id": "enable-three-es",
+      "text": "a familiar 6–9-letter word containing at least three Es",
+      "theme": "words",
+      "cluster": "enable-patterns",
+      "active": true,
+      "answers": [
+        {
+          "name": "between"
+        },
+        {
+          "name": "believe"
+        },
+        {
+          "name": "everyone"
+        },
+        {
+          "name": "remember"
+        },
+        {
+          "name": "needed"
+        },
+        {
+          "name": "received"
+        },
+        {
+          "name": "evidence"
+        },
+        {
+          "name": "release"
+        },
+        {
+          "name": "released"
+        },
+        {
+          "name": "expected"
+        },
+        {
+          "name": "developed"
+        },
+        {
+          "name": "degree"
+        },
+        {
+          "name": "defense"
+        },
+        {
+          "name": "weekend"
+        },
+        {
+          "name": "effective"
+        },
+        {
+          "name": "agreement"
+        },
+        {
+          "name": "executive"
+        },
+        {
+          "name": "therefore"
+        },
+        {
+          "name": "receive"
+        },
+        {
+          "name": "seemed"
+        },
+        {
+          "name": "employees"
+        },
+        {
+          "name": "extremely"
+        },
+        {
+          "name": "believed"
+        },
+        {
+          "name": "presented"
+        },
+        {
+          "name": "reference"
+        },
+        {
+          "name": "somewhere"
+        },
+        {
+          "name": "excellent"
+        },
+        {
+          "name": "presence"
+        },
+        {
+          "name": "emergency"
+        },
+        {
+          "name": "entered"
+        },
+        {
+          "name": "elements"
+        },
+        {
+          "name": "expensive"
+        },
+        {
+          "name": "exercise"
+        },
+        {
+          "name": "selected"
+        },
+        {
+          "name": "revealed"
+        },
+        {
+          "name": "extended"
+        },
+        {
+          "name": "revenue"
+        },
+        {
+          "name": "determine"
+        },
+        {
+          "name": "elected"
+        },
+        {
+          "name": "whenever"
+        },
+        {
+          "name": "delivered"
+        },
+        {
+          "name": "referred"
+        },
+        {
+          "name": "extreme"
+        },
+        {
+          "name": "reserve"
+        },
+        {
+          "name": "deserve"
+        },
+        {
+          "name": "represent"
+        },
+        {
+          "name": "sentence"
+        },
+        {
+          "name": "cheese"
+        },
+        {
+          "name": "severe"
+        },
+        {
+          "name": "existence"
+        },
+        {
+          "name": "expressed"
+        },
+        {
+          "name": "defence"
+        },
+        {
+          "name": "engineer"
+        },
+        {
+          "name": "celebrate"
+        },
+        {
+          "name": "extensive"
+        },
+        {
+          "name": "elsewhere"
+        },
+        {
+          "name": "telephone"
+        },
+        {
+          "name": "enemies"
+        },
+        {
+          "name": "defensive"
+        },
+        {
+          "name": "rejected"
+        },
+        {
+          "name": "reverse"
+        },
+        {
+          "name": "residence"
+        },
+        {
+          "name": "preferred"
+        },
+        {
+          "name": "sequence"
+        },
+        {
+          "name": "generated"
+        },
+        {
+          "name": "expenses"
+        },
+        {
+          "name": "requested"
+        },
+        {
+          "name": "desperate"
+        },
+        {
+          "name": "releases"
+        },
+        {
+          "name": "deeper"
+        },
+        {
+          "name": "dependent"
+        },
+        {
+          "name": "repeated"
+        },
+        {
+          "name": "revenge"
+        },
+        {
+          "name": "executed"
+        },
+        {
+          "name": "wherever"
+        },
+        {
+          "name": "refugees"
+        },
+        {
+          "name": "recovered"
+        },
+        {
+          "name": "expense"
+        },
+        {
+          "name": "reviewed"
+        },
+        {
+          "name": "delete"
+        },
+        {
+          "name": "generate"
+        },
+        {
+          "name": "detective"
+        },
+        {
+          "name": "developer"
+        },
+        {
+          "name": "deemed"
+        },
+        {
+          "name": "preserve"
+        },
+        {
+          "name": "deleted"
+        },
+        {
+          "name": "reserved"
+        },
+        {
+          "name": "decrease"
+        },
+        {
+          "name": "defeated"
+        },
+        {
+          "name": "emerged"
+        },
+        {
+          "name": "perceived"
+        },
+        {
+          "name": "premiere"
+        },
+        {
+          "name": "depressed"
+        },
+        {
+          "name": "deserved"
+        },
+        {
+          "name": "succeeded"
+        },
+        {
+          "name": "teenage"
+        },
+        {
+          "name": "gentlemen"
+        },
+        {
+          "name": "eleven"
+        },
+        {
+          "name": "excessive"
+        },
+        {
+          "name": "exercises"
+        },
+        {
+          "name": "reflected"
+        },
+        {
+          "name": "defender"
+        },
+        {
+          "name": "freeze"
+        },
+        {
+          "name": "respected"
+        },
+        {
+          "name": "severely"
+        },
+        {
+          "name": "prevented"
+        },
+        {
+          "name": "receiver"
+        },
+        {
+          "name": "sentenced"
+        },
+        {
+          "name": "teenager"
+        },
+        {
+          "name": "tweeted"
+        },
+        {
+          "name": "preserved"
+        },
+        {
+          "name": "cemetery"
+        },
+        {
+          "name": "detected"
+        },
+        {
+          "name": "expertise"
+        },
+        {
+          "name": "renewed"
+        },
+        {
+          "name": "elevated"
+        },
+        {
+          "name": "essence"
+        },
+        {
+          "name": "semester"
+        },
+        {
+          "name": "keeper"
+        },
+        {
+          "name": "decreased"
+        },
+        {
+          "name": "defended"
+        },
+        {
+          "name": "centered"
+        },
+        {
+          "name": "needle"
+        },
+        {
+          "name": "deceased"
+        },
+        {
+          "name": "execute"
+        },
+        {
+          "name": "messenger"
+        },
+        {
+          "name": "relieved"
+        },
+        {
+          "name": "delegates"
+        },
+        {
+          "name": "squeeze"
+        },
+        {
+          "name": "vegetable"
+        },
+        {
+          "name": "sleeve"
+        },
+        {
+          "name": "speeches"
+        },
+        {
+          "name": "exceed"
+        },
+        {
+          "name": "renewable"
+        },
+        {
+          "name": "esteem"
+        },
+        {
+          "name": "embedded"
+        },
+        {
+          "name": "emerge"
+        },
+        {
+          "name": "interfere"
+        },
+        {
+          "name": "leverage"
+        },
+        {
+          "name": "rendered"
+        },
+        {
+          "name": "reversed"
+        },
+        {
+          "name": "selective"
+        },
+        {
+          "name": "proceeded"
+        },
+        {
+          "name": "seventeen"
+        },
+        {
+          "name": "breeze"
+        },
+        {
+          "name": "envelope"
+        },
+        {
+          "name": "referee"
+        },
+        {
+          "name": "erected"
+        },
+        {
+          "name": "remedies"
+        },
+        {
+          "name": "decree"
+        },
+        {
+          "name": "eighteen"
+        },
+        {
+          "name": "freestyle"
+        },
+        {
+          "name": "retrieved"
+        },
+        {
+          "name": "neglected"
+        },
+        {
+          "name": "precedent"
+        },
+        {
+          "name": "deepest"
+        },
+        {
+          "name": "presenter"
+        },
+        {
+          "name": "relieve"
+        },
+        {
+          "name": "wheeler"
+        },
+        {
+          "name": "exceeded"
+        },
+        {
+          "name": "relevance"
+        },
+        {
+          "name": "telescope"
+        },
+        {
+          "name": "descended"
+        },
+        {
+          "name": "emergence"
+        },
+        {
+          "name": "jewellery"
+        },
+        {
+          "name": "reverend"
+        },
+        {
+          "name": "resemble"
+        },
+        {
+          "name": "weakened"
+        },
+        {
+          "name": "ensemble"
+        },
+        {
+          "name": "perceive"
+        },
+        {
+          "name": "defenses"
+        },
+        {
+          "name": "energetic"
+        },
+        {
+          "name": "expelled"
+        },
+        {
+          "name": "beverage"
+        },
+        {
+          "name": "retrieve"
+        },
+        {
+          "name": "freelance"
+        },
+        {
+          "name": "perimeter"
+        },
+        {
+          "name": "preceded"
+        },
+        {
+          "name": "vengeance"
+        },
+        {
+          "name": "believer"
+        },
+        {
+          "name": "benefited"
+        },
+        {
+          "name": "freezer"
+        },
+        {
+          "name": "greeted"
+        },
+        {
+          "name": "needless"
+        },
+        {
+          "name": "screened"
+        },
+        {
+          "name": "intervene"
+        },
+        {
+          "name": "deserted"
+        },
+        {
+          "name": "decreases"
+        },
+        {
+          "name": "seekers"
+        },
+        {
+          "name": "exceeding"
+        },
+        {
+          "name": "expresses"
+        },
+        {
+          "name": "empowered"
+        },
+        {
+          "name": "nineteen"
+        },
+        {
+          "name": "defective"
+        },
+        {
+          "name": "pretended"
+        },
+        {
+          "name": "seeded"
+        },
+        {
+          "name": "sweetie"
+        },
+        {
+          "name": "attendees"
+        },
+        {
+          "name": "penetrate"
+        },
+        {
+          "name": "deferred"
+        },
+        {
+          "name": "energies"
+        },
+        {
+          "name": "beetle"
+        },
+        {
+          "name": "redeem"
+        },
+        {
+          "name": "severed"
+        },
+        {
+          "name": "squeezed"
+        },
+        {
+          "name": "televised"
+        },
+        {
+          "name": "tempered"
+        },
+        {
+          "name": "exercised"
+        },
+        {
+          "name": "recreate"
+        },
+        {
+          "name": "reeves"
+        },
+        {
+          "name": "oversee"
+        },
+        {
+          "name": "obedience"
+        },
+        {
+          "name": "reopened"
+        },
+        {
+          "name": "eleventh"
+        },
+        {
+          "name": "sheltered"
+        },
+        {
+          "name": "sweetness"
+        },
+        {
+          "name": "relegated"
+        },
+        {
+          "name": "reviewer"
+        },
+        {
+          "name": "breeders"
+        },
+        {
+          "name": "feeder"
+        },
+        {
+          "name": "sleeper"
+        },
+        {
+          "name": "depleted"
+        },
+        {
+          "name": "evidenced"
+        },
+        {
+          "name": "depended"
+        },
+        {
+          "name": "elegance"
+        },
+        {
+          "name": "evergreen"
+        },
+        {
+          "name": "madeleine"
+        },
+        {
+          "name": "regretted"
+        },
+        {
+          "name": "sweetest"
+        },
+        {
+          "name": "etiquette"
+        },
+        {
+          "name": "deceived"
+        },
+        {
+          "name": "detainees"
+        },
+        {
+          "name": "cheered"
+        },
+        {
+          "name": "deceive"
+        },
+        {
+          "name": "electrode"
+        },
+        {
+          "name": "elemental"
+        },
+        {
+          "name": "elevate"
+        },
+        {
+          "name": "retreated"
+        },
+        {
+          "name": "ejected"
+        },
+        {
+          "name": "fleece"
+        },
+        {
+          "name": "repealed"
+        },
+        {
+          "name": "wheeled"
+        },
+        {
+          "name": "besieged"
+        },
+        {
+          "name": "pedigree"
+        },
+        {
+          "name": "senseless"
+        },
+        {
+          "name": "adherence"
+        },
+        {
+          "name": "deceptive"
+        },
+        {
+          "name": "peeled"
+        },
+        {
+          "name": "redeemed"
+        },
+        {
+          "name": "revered"
+        },
+        {
+          "name": "deterrent"
+        },
+        {
+          "name": "resembled"
+        },
+        {
+          "name": "temperate"
+        },
+        {
+          "name": "threesome"
+        },
+        {
+          "name": "elective"
+        },
+        {
+          "name": "premiered"
+        },
+        {
+          "name": "receptive"
+        },
+        {
+          "name": "reindeer"
+        },
+        {
+          "name": "sweeter"
+        },
+        {
+          "name": "effected"
+        },
+        {
+          "name": "perfected"
+        },
+        {
+          "name": "freezes"
+        },
+        {
+          "name": "pioneered"
+        },
+        {
+          "name": "esteemed"
+        },
+        {
+          "name": "leveled"
+        },
+        {
+          "name": "breweries"
+        },
+        {
+          "name": "serene"
+        },
+        {
+          "name": "seventies"
+        },
+        {
+          "name": "venerable"
+        },
+        {
+          "name": "repressed"
+        },
+        {
+          "name": "secretive"
+        },
+        {
+          "name": "cemented"
+        },
+        {
+          "name": "inference"
+        },
+        {
+          "name": "refreshed"
+        },
+        {
+          "name": "greener"
+        },
+        {
+          "name": "reflexes"
+        },
+        {
+          "name": "cheeses"
+        },
+        {
+          "name": "renegade"
+        },
+        {
+          "name": "beheaded"
+        },
+        {
+          "name": "clientele"
+        },
+        {
+          "name": "reverence"
+        },
+        {
+          "name": "seaweed"
+        },
+        {
+          "name": "eminence"
+        },
+        {
+          "name": "feeble"
+        },
+        {
+          "name": "vertebrae"
+        },
+        {
+          "name": "detergent"
+        },
+        {
+          "name": "ethereal"
+        },
+        {
+          "name": "meteorite"
+        },
+        {
+          "name": "agreeable"
+        },
+        {
+          "name": "carefree"
+        },
+        {
+          "name": "celeste"
+        },
+        {
+          "name": "deepen"
+        },
+        {
+          "name": "deepening"
+        },
+        {
+          "name": "devotees"
+        },
+        {
+          "name": "excelled"
+        },
+        {
+          "name": "perverse"
+        },
+        {
+          "name": "perverted"
+        },
+        {
+          "name": "sneeze"
+        },
+        {
+          "name": "fermented"
+        },
+        {
+          "name": "foresee"
+        },
+        {
+          "name": "sleepless"
+        },
+        {
+          "name": "absentee"
+        },
+        {
+          "name": "eyeliner"
+        },
+        {
+          "name": "severance"
+        },
+        {
+          "name": "emergent"
+        },
+        {
+          "name": "exchequer"
+        },
+        {
+          "name": "overseen"
+        },
+        {
+          "name": "recreated"
+        },
+        {
+          "name": "retirees"
+        },
+        {
+          "name": "weathered"
+        },
+        {
+          "name": "reverted"
+        },
+        {
+          "name": "reiterate"
+        },
+        {
+          "name": "steered"
+        },
+        {
+          "name": "veneer"
+        },
+        {
+          "name": "excesses"
+        },
+        {
+          "name": "eyelashes"
+        },
+        {
+          "name": "leveraged"
+        },
+        {
+          "name": "decreed"
+        },
+        {
+          "name": "delegated"
+        },
+        {
+          "name": "hereafter"
+        },
+        {
+          "name": "reliever"
+        },
+        {
+          "name": "coherence"
+        },
+        {
+          "name": "exempted"
+        },
+        {
+          "name": "exerted"
+        },
+        {
+          "name": "redefine"
+        },
+        {
+          "name": "revere"
+        },
+        {
+          "name": "credence"
+        },
+        {
+          "name": "gendered"
+        },
+        {
+          "name": "steeped"
+        },
+        {
+          "name": "deflected"
+        },
+        {
+          "name": "resented"
+        },
+        {
+          "name": "deepened"
+        },
+        {
+          "name": "energized"
+        },
+        {
+          "name": "rehearsed"
+        },
+        {
+          "name": "expedite"
+        },
+        {
+          "name": "feathered"
+        },
+        {
+          "name": "perplexed"
+        },
+        {
+          "name": "reverses"
+        },
+        {
+          "name": "tendered"
+        },
+        {
+          "name": "levelled"
+        },
+        {
+          "name": "remodeled"
+        },
+        {
+          "name": "defected"
+        },
+        {
+          "name": "licensee"
+        },
+        {
+          "name": "kerosene"
+        },
+        {
+          "name": "precedes"
+        },
+        {
+          "name": "pretense"
+        },
+        {
+          "name": "redeemer"
+        },
+        {
+          "name": "redeeming"
+        },
+        {
+          "name": "sweetened"
+        },
+        {
+          "name": "peacetime"
+        },
+        {
+          "name": "segmented"
+        },
+        {
+          "name": "telemetry"
+        },
+        {
+          "name": "beekeeper"
+        },
+        {
+          "name": "severest"
+        },
+        {
+          "name": "weekender"
+        },
+        {
+          "name": "weekended"
+        }
+      ],
+      "sources": [
+        {
+          "dataset": "https://raw.githubusercontent.com/dolph/dictionary/233d25a56b9ac8bef906916ccf091a976995cce0/enable1.txt",
+          "sha256": "3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89",
+          "format": "lines",
+          "revision": "233d25a56b9ac8bef906916ccf091a976995cce0",
+          "expect": [172823, 172823]
+        }
+      ],
+      "expect": [356, 356],
+      "surface": ["weekend", "employees", "seventeen"],
+      "pearl": "beekeeper",
+      "scope": "Pinned public-domain ENABLE pattern pool, wordfreq 3.1.1 Zipf >=3 editorial familiarity floor; valid audited low-frequency variants are retained as explicit exceptions. Predicates apply before normalization. Explicit editorial exclusion of slurs, not exclusion for technical/medical vocabulary.",
+      "too_clever": ["cheese"]
+    },
+    {
+      "id": "enable-five-vowels",
+      "text": "a familiar word containing all five vowels",
+      "theme": "words",
+      "cluster": "enable-patterns",
+      "active": true,
+      "answers": [
+        {
+          "name": "education"
+        },
+        {
+          "name": "authorities"
+        },
+        {
+          "name": "educational"
+        },
+        {
+          "name": "regulations"
+        },
+        {
+          "name": "reputation"
+        },
+        {
+          "name": "behaviour"
+        },
+        {
+          "name": "dialogue"
+        },
+        {
+          "name": "boundaries"
+        },
+        {
+          "name": "evaluation"
+        },
+        {
+          "name": "communicate"
+        },
+        {
+          "name": "revolutionary"
+        },
+        {
+          "name": "simultaneously"
+        },
+        {
+          "name": "encouraging"
+        },
+        {
+          "name": "authorized"
+        },
+        {
+          "name": "equation"
+        },
+        {
+          "name": "speculation"
+        },
+        {
+          "name": "documentation"
+        },
+        {
+          "name": "automobile"
+        },
+        {
+          "name": "automotive"
+        },
+        {
+          "name": "telecommunications"
+        },
+        {
+          "name": "evolutionary"
+        },
+        {
+          "name": "questionable"
+        },
+        {
+          "name": "evacuation"
+        },
+        {
+          "name": "homosexuality"
+        },
+        {
+          "name": "pneumonia"
+        },
+        {
+          "name": "discouraged"
+        },
+        {
+          "name": "authorised"
+        },
+        {
+          "name": "precautions"
+        },
+        {
+          "name": "discourage"
+        },
+        {
+          "name": "unauthorized"
+        },
+        {
+          "name": "neurological"
+        },
+        {
+          "name": "communicated"
+        },
+        {
+          "name": "simultaneous"
+        },
+        {
+          "name": "delusional"
+        },
+        {
+          "name": "exhaustion"
+        },
+        {
+          "name": "documentaries"
+        },
+        {
+          "name": "groundbreaking"
+        },
+        {
+          "name": "instrumentation"
+        },
+        {
+          "name": "subordinate"
+        },
+        {
+          "name": "questionnaire"
+        },
+        {
+          "name": "miscellaneous"
+        },
+        {
+          "name": "unconventional"
+        },
+        {
+          "name": "authoritative"
+        },
+        {
+          "name": "authorize"
+        },
+        {
+          "name": "authentication"
+        },
+        {
+          "name": "unavoidable"
+        },
+        {
+          "name": "persuasion"
+        },
+        {
+          "name": "ultraviolet"
+        },
+        {
+          "name": "outpatient"
+        },
+        {
+          "name": "precarious"
+        },
+        {
+          "name": "remuneration"
+        },
+        {
+          "name": "unprofessional"
+        },
+        {
+          "name": "euphoria"
+        },
+        {
+          "name": "gubernatorial"
+        },
+        {
+          "name": "equatorial"
+        },
+        {
+          "name": "unintentionally"
+        },
+        {
+          "name": "cauliflower"
+        },
+        {
+          "name": "unquestionably"
+        },
+        {
+          "name": "autoimmune"
+        },
+        {
+          "name": "deregulation"
+        },
+        {
+          "name": "auctioneer"
+        },
+        {
+          "name": "instantaneous"
+        },
+        {
+          "name": "institutionalized"
+        },
+        {
+          "name": "intravenous"
+        },
+        {
+          "name": "consultative"
+        },
+        {
+          "name": "unintentional"
+        },
+        {
+          "name": "aeronautics"
+        },
+        {
+          "name": "aeronautical"
+        },
+        {
+          "name": "reunification"
+        },
+        {
+          "name": "cautioned"
+        },
+        {
+          "name": "unequivocally"
+        },
+        {
+          "name": "augmentation"
+        },
+        {
+          "name": "auctioned"
+        },
+        {
+          "name": "emulation"
+        },
+        {
+          "name": "rheumatoid"
+        },
+        {
+          "name": "tenacious"
+        },
+        {
+          "name": "consequential"
+        },
+        {
+          "name": "insurmountable"
+        },
+        {
+          "name": "superannuation"
+        },
+        {
+          "name": "unforgivable"
+        },
+        {
+          "name": "nefarious"
+        },
+        {
+          "name": "facetious"
+        },
+        {
+          "name": "sequoia"
+        },
+        {
+          "name": "facetiously"
+        },
+        {
+          "name": "abstemious"
+        },
+        {
+          "name": "abstemiously"
+        },
+        {
+          "name": "unquestionable"
+        },
+        {
+          "name": "authorise"
+        },
+        {
+          "name": "authorizes"
+        },
+        {
+          "name": "housemaid"
+        },
+        {
+          "name": "cautioner"
+        }
+      ],
+      "sources": [
+        {
+          "dataset": "https://raw.githubusercontent.com/dolph/dictionary/233d25a56b9ac8bef906916ccf091a976995cce0/enable1.txt",
+          "sha256": "3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89",
+          "format": "lines",
+          "revision": "233d25a56b9ac8bef906916ccf091a976995cce0",
+          "expect": [172823, 172823]
+        },
+        {
+          "dataset": "https://en.wiktionary.org/w/api.php?action=parse&oldid=93683712&prop=wikitext&format=json",
+          "sha256": "58c063111acb09332ed31496cf7559b844997eb31024f5c1bd0ae8c9c95d3762",
+          "format": "json",
+          "revision": "93683712",
+          "expect": [1, 1],
+          "review_note": "Wiktionary English cautioner: a person who cautions; also a Scots-law surety. Explicit non-ENABLE dictionary supplement to preserve a valid pre-source brainstorm."
+        }
+      ],
+      "expect": [91, 91],
+      "surface": ["education", "equation", "automobile"],
+      "pearl": "housemaid",
+      "scope": "Pinned public-domain ENABLE pattern pool, wordfreq 3.1.1 Zipf >=3 editorial familiarity floor; valid audited low-frequency variants are retained as explicit exceptions. Predicates apply before normalization. Explicit editorial exclusion of slurs, not exclusion for technical/medical vocabulary.",
+      "too_clever": ["facetious", "sequoia"],
+      "dictionary_supplements": ["cautioner"]
     }
   ],
   "review": "Phase 1 reviewed unique canonical names. Pinned pages and datasets define the time boundary; no live answer fetches. Common English country variants include former names and partially recognised states. Union variants map to one canonical."

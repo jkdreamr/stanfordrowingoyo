@@ -88,7 +88,7 @@ class SpecsTest(unittest.TestCase):
                                   'iba-unforgettables', 'iba-contemporary', 'iba-new-era'} |
                          {p['id'] for p in prompts if re.search(
                              r'-(pre1980|1980-1999|2000-2026|early|middle|recent)$', p['id'])})
-        self.assertEqual(sum(p['active'] for p in prompts), 228)
+        self.assertEqual(sum(p['active'] for p in prompts), 258)
         for prompt in prompts:
             self.assertLessEqual(len(prompt['text']), 85, prompt['id'])
             self.assertRegex(prompt['text'], r'^Name [^.?!]+\.$')
@@ -97,7 +97,7 @@ class SpecsTest(unittest.TestCase):
 
     def test_reviewed_bank_and_alias_predicates(self):
         prompts = constrained.read_specs()
-        self.assertEqual(len(prompts), 278)
+        self.assertEqual(len(prompts), 308)
         for prompt in prompts:
             self.assertGreaterEqual(len(prompt['rows']), 8)
             self.assertIn(prompt['gem'], [row['name'] for row in prompt['rows']])
@@ -105,6 +105,35 @@ class SpecsTest(unittest.TestCase):
         self.assertEqual(constrained.derive(rows, constrained.PREDICATES['countries-ia']), rows[:1])
         self.assertEqual(constrained.derive([], constrained.PREDICATES['countries-ia']), [])
         self.assertEqual(constrained.letters('São Tomé and Príncipe'), 'saotomeandprincipe')
+
+    def test_second_batch_word_patterns_and_editorial_boundaries(self):
+        document = json.loads((Path(__file__).parent / 'constrained.json').read_text())
+        prompts = {p['id']: p for p in document['prompts']}
+        for id in ['enable-semordnilaps', 'enable-three-es', 'enable-five-vowels']:
+            prompt = prompts[id]
+            self.assertTrue(prompt['active'])
+            self.assertLessEqual(len(prompt['answers']), 2000)
+            self.assertEqual(prompt['sources'][0]['sha256'],
+                             '3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89')
+            for row in prompt['answers']:
+                for word in [row['name'], *row.get('aliases', [])]:
+                    self.assertRegex(word, r'^[a-z]+$')
+                    if id == 'enable-semordnilaps':
+                        self.assertTrue(4 <= len(word) <= 9)
+                        self.assertNotEqual(word, word[::-1])
+                        self.assertNotIn(word, prompt['editorial_exclusions'])
+                    elif id == 'enable-three-es':
+                        self.assertTrue(6 <= len(word) <= 9)
+                        self.assertGreaterEqual(word.count('e'), 3)
+                    else:
+                        self.assertLessEqual(set('aeiou'), set(word))
+        self.assertEqual(prompts['enable-five-vowels']['dictionary_supplements'], ['cautioner'])
+        self.assertIn('cautioner', {r['name'] for r in prompts['enable-five-vowels']['answers']})
+        self.assertEqual(prompts['enable-five-vowels']['sources'][1]['revision'], '93683712')
+        self.assertTrue({'Frank Lockhart', 'Johnnie Parsons', 'Buddy Rice'} <=
+                        {r['name'] for r in prompts['indy-500-winners']['answers']})
+        self.assertEqual(len(prompts['shuttle-final-crews']['answers']), 30)
+        self.assertNotIn('Ingenuity', {r['name'] for r in prompts['moon-mars-rovers']['answers']})
 
     def test_reviewed_phase_two_boundaries(self):
         prompts = {p['id']: p for p in constrained.read_specs()}
