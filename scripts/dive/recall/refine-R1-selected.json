@@ -1,0 +1,469 @@
+{
+  "nba-first-overall-picks": [
+    "LeBron James",
+    "LeBron",
+    "Shaquille O'Neal",
+    "Shaq",
+    "Kareem Abdul-Jabbar",
+    "Lew Alcindor",
+    "Magic Johnson",
+    "Hakeem Olajuwon",
+    "Patrick Ewing",
+    "David Robinson",
+    "Tim Duncan",
+    "Allen Iverson",
+    "Yao Ming",
+    "Dwight Howard",
+    "Derrick Rose",
+    "John Wall",
+    "Kyrie Irving",
+    "Anthony Davis",
+    "Andrew Wiggins",
+    "Karl-Anthony Towns",
+    "Ben Simmons",
+    "Markelle Fultz",
+    "Deandre Ayton",
+    "Zion Williamson",
+    "Zion",
+    "Anthony Edwards",
+    "Cade Cunningham",
+    "Paolo Banchero",
+    "Victor Wembanyama",
+    "Wemby",
+    "Zaccharie Risacher",
+    "Cooper Flagg",
+    "Greg Oden",
+    "Kwame Brown",
+    "Anthony Bennett",
+    "Andrea Bargnani",
+    "Andrew Bogut",
+    "Michael Olowokandi",
+    "Kenyon Martin",
+    "Elton Brand",
+    "Joe Smith",
+    "Glenn Robinson",
+    "Chris Webber",
+    "Larry Johnson",
+    "Derrick Coleman",
+    "Pervis Ellison",
+    "Danny Manning",
+    "Brad Daugherty",
+    "Ralph Sampson",
+    "James Worthy",
+    "Mark Aguirre",
+    "Joe Barry Carroll",
+    "Mychal Thompson",
+    "Kent Benson",
+    "David Thompson",
+    "Bill Walton",
+    "Doug Collins",
+    "LaRue Martin",
+    "Austin Carr",
+    "Bob Lanier",
+    "Elvin Hayes",
+    "Oscar Robertson",
+    "Elgin Baylor",
+    "Walt Bellamy",
+    "Blake Griffin",
+    "AJ Dybantsa",
+    {
+      "guess": "Darryn Peterson",
+      "invalid": "Not the No. 1 pick of the 2026 draft; the pinned list records AJ Dybantsa."
+    },
+    {
+      "guess": "Michael Jordan",
+      "invalid": "Drafted No. 3 overall in 1984."
+    },
+    {
+      "guess": "Kevin Durant",
+      "invalid": "Drafted No. 2 overall in 2007."
+    },
+    {
+      "guess": "Luka Doncic",
+      "invalid": "Drafted No. 3 overall in 2018."
+    },
+    {
+      "guess": "Kobe Bryant",
+      "invalid": "Drafted No. 13 overall in 1996."
+    },
+    {
+      "guess": "Darko Milicic",
+      "invalid": "Drafted No. 2 overall in 2003."
+    },
+    {
+      "guess": "Sam Bowie",
+      "invalid": "Drafted No. 2 overall in 1984."
+    },
+    {
+      "guess": "Jabari Parker",
+      "invalid": "Drafted No. 2 overall in 2014."
+    },
+    {
+      "guess": "Joel Embiid",
+      "invalid": "Drafted No. 3 overall in 2014."
+    }
+  ],
+  "nfl-former-names": [
+    "Houston Oilers",
+    "Oilers",
+    "Tennessee Oilers",
+    "Baltimore Colts",
+    "Oakland Raiders",
+    "Los Angeles Raiders",
+    "St. Louis Rams",
+    "Cleveland Rams",
+    "San Diego Chargers",
+    "Washington Redskins",
+    "Redskins",
+    "Washington Football Team",
+    "Boston Redskins",
+    "Boston Braves",
+    "Boston Patriots",
+    "St. Louis Cardinals",
+    "Phoenix Cardinals",
+    "Chicago Cardinals",
+    "Racine Cardinals",
+    "Dallas Texans",
+    "Decatur Staleys",
+    "Chicago Staleys",
+    "Portsmouth Spartans",
+    "Pittsburgh Pirates",
+    "Steagles",
+    "Card-Pitt",
+    "Titans of New York",
+    "New York Titans",
+    "Phil-Pitt Combine",
+    "Acme Packers",
+    {
+      "guess": "Houston Texans",
+      "invalid": "Current name of the Houston franchise since 2002; never a former name."
+    },
+    {
+      "guess": "Baltimore Ravens",
+      "invalid": "Current name; the Ravens have had no other name."
+    },
+    {
+      "guess": "Cleveland Browns",
+      "invalid": "Current name of the Browns; not a former name."
+    },
+    {
+      "guess": "Los Angeles Rams",
+      "invalid": "The Rams' current name (also used 1946–1994), so it is not a former name."
+    },
+    {
+      "guess": "Tennessee Titans",
+      "invalid": "Current name of the Titans; not a former name."
+    },
+    {
+      "guess": "Boston Yanks",
+      "invalid": "Defunct 1944–1948 franchise; not in the history of any current NFL franchise."
+    },
+    {
+      "guess": "Los Angeles Chargers",
+      "invalid": "The Chargers' current name (also used in 1960), so it is not a former name."
+    },
+    {
+      "guess": "Seattle Seahawks",
+      "invalid": "Current name; the Seahawks have had no other name."
+    },
+    {
+      "guess": "Arizona Cardinals",
+      "invalid": "Current name of the Cardinals; not a former name."
+    },
+    "Staleys"
+  ],
+  "mlb-50-homer-seasons": [
+    "Babe Ruth",
+    "Roger Maris",
+    "Mickey Mantle",
+    "Barry Bonds",
+    "Mark McGwire",
+    "Sammy Sosa",
+    "Aaron Judge",
+    "Ken Griffey Jr.",
+    "Ken Griffey",
+    "Shohei Ohtani",
+    "Ohtani",
+    "Cal Raleigh",
+    "Kyle Schwarber",
+    "Giancarlo Stanton",
+    "Pete Alonso",
+    "Alex Rodriguez",
+    "A-Rod",
+    "David Ortiz",
+    "Big Papi",
+    "Ryan Howard",
+    "Prince Fielder",
+    "Cecil Fielder",
+    "Jose Bautista",
+    "Chris Davis",
+    "Brady Anderson",
+    "Luis Gonzalez",
+    "Greg Vaughn",
+    "Albert Belle",
+    "Andruw Jones",
+    "Jim Thome",
+    "George Foster",
+    "Willie Mays",
+    "Johnny Mize",
+    "Ralph Kiner",
+    "Hank Greenberg",
+    "Hack Wilson",
+    "Jimmie Foxx",
+    "Matt Olson",
+    {
+      "guess": "Hank Aaron",
+      "invalid": "Career single-season high was 47 (1971); never reached 50."
+    },
+    {
+      "guess": "Mike Trout",
+      "invalid": "Career single-season high was 45 (2019); not in the pinned 50 home run club through 2025."
+    },
+    {
+      "guess": "Albert Pujols",
+      "invalid": "Career single-season high was 49 (2006); never reached 50."
+    },
+    {
+      "guess": "Manny Ramirez",
+      "invalid": "Career single-season high was 45 (1998); never reached 50."
+    },
+    {
+      "guess": "Mo Vaughn",
+      "invalid": "Career single-season high was 44 (1996); never reached 50."
+    },
+    {
+      "guess": "Juan Soto",
+      "invalid": "No 50-home-run season through 2025; absent from the pinned 50 home run club table."
+    },
+    {
+      "guess": "Eugenio Suarez",
+      "invalid": "Peaked at 49 (2025); no 50-home-run season through 2025 in the pinned table."
+    },
+    {
+      "guess": "Cody Bellinger",
+      "invalid": "Career single-season high was 47 (2019); never reached 50."
+    },
+    {
+      "guess": "Rafael Palmeiro",
+      "invalid": "Career single-season high was 47; never reached 50."
+    },
+    {
+      "guess": "Frank Thomas",
+      "invalid": "Career single-season high was 43 (2000); never reached 50."
+    },
+    {
+      "guess": "Harmon Killebrew",
+      "invalid": "Career single-season high was 49 (1964 and 1969); never reached 50."
+    },
+    {
+      "guess": "Lou Gehrig",
+      "invalid": "Career single-season high was 49 (1934 and 1936); never reached 50."
+    },
+    "Judge",
+    "McGwire",
+    "Sosa"
+  ],
+  "nhl-500-goal-club": [
+    "Wayne Gretzky",
+    "Gretzky",
+    "Alex Ovechkin",
+    "Ovechkin",
+    "Ovi",
+    "Gordie Howe",
+    "Jaromir Jagr",
+    "Jagr",
+    "Brett Hull",
+    "Marcel Dionne",
+    "Phil Esposito",
+    "Mike Gartner",
+    "Mark Messier",
+    "Steve Yzerman",
+    "Mario Lemieux",
+    "Teemu Selanne",
+    "Luc Robitaille",
+    "Brendan Shanahan",
+    "Dave Andreychuk",
+    "Joe Sakic",
+    "Bobby Hull",
+    "Dino Ciccarelli",
+    "Jari Kurri",
+    "Mike Bossy",
+    "Guy Lafleur",
+    "Johnny Bucyk",
+    "Maurice Richard",
+    "Rocket Richard",
+    "Stan Mikita",
+    "Frank Mahovlich",
+    "Bryan Trottier",
+    "Dale Hawerchuk",
+    "Jean Beliveau",
+    "Lanny McDonald",
+    "Michel Goulet",
+    "Gilbert Perreault",
+    "Joe Mullen",
+    "Pat Verbeek",
+    "Mats Sundin",
+    "Jarome Iginla",
+    "Joe Nieuwendyk",
+    "Peter Bondra",
+    "Keith Tkachuk",
+    "Mark Recchi",
+    "Jeremy Roenick",
+    "Pierre Turgeon",
+    "Marian Hossa",
+    "Patrick Marleau",
+    "Sidney Crosby",
+    "Crosby",
+    "Steven Stamkos",
+    "Evgeni Malkin",
+    "Patrick Kane",
+    "John Tavares",
+    {
+      "guess": "Brad Marchand",
+      "invalid": "Fewer than 500 NHL goals through 2025–26; absent from the pinned 500-goal list."
+    },
+    "Ron Francis",
+    "Mike Modano",
+    {
+      "guess": "Bobby Orr",
+      "invalid": "Defenceman with 270 career NHL goals."
+    },
+    {
+      "guess": "Paul Coffey",
+      "invalid": "Defenceman with 396 career NHL goals."
+    },
+    {
+      "guess": "Joe Thornton",
+      "invalid": "Finished with 430 career NHL goals."
+    },
+    {
+      "guess": "Ray Bourque",
+      "invalid": "Defenceman with 410 career NHL goals."
+    },
+    {
+      "guess": "Eric Lindros",
+      "invalid": "Finished with 372 career NHL goals."
+    },
+    {
+      "guess": "Pavel Bure",
+      "invalid": "Finished with 437 career NHL goals."
+    },
+    {
+      "guess": "Cam Neely",
+      "invalid": "Finished with 395 career NHL goals."
+    },
+    {
+      "guess": "Denis Savard",
+      "invalid": "Finished with 473 career NHL goals."
+    }
+  ],
+  "olympic-eight-golds": [
+    "Michael Phelps",
+    "Phelps",
+    "Larisa Latynina",
+    "Paavo Nurmi",
+    "Mark Spitz",
+    "Carl Lewis",
+    "Katie Ledecky",
+    "Ledecky",
+    "Usain Bolt",
+    "Bolt",
+    "Marit Bjorgen",
+    "Ole Einar Bjorndalen",
+    "Bjorn Daehlie",
+    "Johannes Hosflot Klaebo",
+    "Johannes Klaebo",
+    "Klaebo",
+    "Birgit Fischer",
+    "Jenny Thompson",
+    "Matt Biondi",
+    "Ray Ewry",
+    "Sawao Kato",
+    "Isabell Werth",
+    "Caeleb Dressel",
+    {
+      "guess": "Simone Biles",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Allyson Felix",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Ryan Lochte",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Nadia Comaneci",
+      "invalid": "Won 5 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Vera Caslavska",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Nikolai Andrianov",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Boris Shakhlin",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Aladar Gerevich",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Edoardo Mangiarotti",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Ireen Wust",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Ian Thorpe",
+      "invalid": "Won 5 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Chris Hoy",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Jason Kenny",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Emma McKeon",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Kristin Otto",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Eric Heiden",
+      "invalid": "Won 5 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Lidiya Skoblikova",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Steve Redgrave",
+      "invalid": "Won 5 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Martin Fourcade",
+      "invalid": "Won 6 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Viktor Chukarin",
+      "invalid": "Won 7 Olympic gold medals per the pinned table; fewer than eight."
+    },
+    {
+      "guess": "Jesse Owens",
+      "invalid": "Won 4 Olympic gold medals per the pinned table; fewer than eight."
+    }
+  ]
+}

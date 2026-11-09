@@ -1,0 +1,224 @@
+{
+  "baseBranch": "devin/1794186244-dive-did-you-mean",
+  "baseCommit": "d9f96cfed310ad709dd8cb89084c1eedfacf3118",
+  "swaps": {
+    "nba-teams": "nba-first-overall-picks",
+    "nfl-teams": "nfl-former-names",
+    "mlb-teams": "mlb-50-homer-seasons",
+    "nhl-teams": "nhl-500-goal-club",
+    "summer-olympic-hosts": "olympic-eight-golds"
+  },
+  "raw_sha256": {
+    "refine-R1-raw.json": "a2d851508f03160b74d376d021e2fc338b0b69ecdc2c349a9cd6a1ce573712bd"
+  },
+  "selected_sha256": "8e1e6d7976fbfcece8f717d0d41ca59dc390b109f3dac25dce9549bf1d07cb39",
+  "unused_raw_keys": ["nba-former-names-backup"],
+  "before_definition": "Same reviewed guesses and canonical membership, canonical keys only before alias review.",
+  "before": {
+    "prompts": 5,
+    "hits": 184,
+    "total": 217,
+    "rate": 0.847926267281106
+  },
+  "after": {
+    "prompts": 5,
+    "hits": 216,
+    "total": 217,
+    "invalid": 60,
+    "rate": 0.9953917050691244
+  },
+  "workerGzip": {
+    "beforeKiB": 2993.75,
+    "afterKiB": 2994.98,
+    "deltaKiB": 1.23,
+    "budgetKiB": 1.5,
+    "precision": "Wrangler dry-run totals rounded to 0.01 KiB."
+  },
+  "prompts": [
+    {
+      "id": "nba-first-overall-picks",
+      "replaces": "nba-teams",
+      "text": "Name a No. 1 overall NBA draft pick through 2026.",
+      "active": true,
+      "size": 80,
+      "band": "medium",
+      "surface": [
+        "LeBron James",
+        "Shaquille O'Neal",
+        "Kareem Abdul-Jabbar",
+        "Magic Johnson",
+        "Tim Duncan",
+        "Victor Wembanyama"
+      ],
+      "too_clever": ["LaRue Martin"],
+      "gem": "Mychal Thompson",
+      "theme": "sports",
+      "cluster": "leagues",
+      "aliases": 14,
+      "sources": [
+        "https://en.wikipedia.org/w/index.php?title=List_of_first_overall_NBA_draft_picks&oldid=1384376407"
+      ],
+      "before": {
+        "hits": 61,
+        "total": 66,
+        "rate": 0.9242424242424242
+      },
+      "after": {
+        "hits": 66,
+        "total": 66,
+        "rate": 1,
+        "misses": [],
+        "invalid": 9
+      }
+    },
+    {
+      "id": "nfl-former-names",
+      "replaces": "nfl-teams",
+      "text": "Name a former team name of a current NFL franchise.",
+      "active": true,
+      "size": 29,
+      "band": "medium",
+      "surface": [
+        "Houston Oilers",
+        "Oakland Raiders",
+        "Washington Redskins",
+        "San Diego Chargers",
+        "St. Louis Rams",
+        "Baltimore Colts"
+      ],
+      "too_clever": ["Steagles", "Card-Pitt"],
+      "gem": "Decatur Staleys",
+      "theme": "sports",
+      "cluster": "leagues",
+      "aliases": 17,
+      "sources": [
+        "https://en.wikipedia.org/w/index.php?title=Arizona_Cardinals&oldid=1384178060",
+        "https://en.wikipedia.org/w/index.php?title=Chicago_Bears&oldid=1383769652",
+        "https://en.wikipedia.org/w/index.php?title=Detroit_Lions&oldid=1383380475",
+        "https://en.wikipedia.org/w/index.php?title=Green_Bay_Packers&oldid=1384143405",
+        "https://en.wikipedia.org/w/index.php?title=Indianapolis_Colts&oldid=1381372418",
+        "https://en.wikipedia.org/w/index.php?title=Kansas_City_Chiefs&oldid=1380170602",
+        "https://en.wikipedia.org/w/index.php?title=Las_Vegas_Raiders&oldid=1384418819",
+        "https://en.wikipedia.org/w/index.php?title=Los_Angeles_Chargers&oldid=1381660833",
+        "https://en.wikipedia.org/w/index.php?title=Los_Angeles_Rams&oldid=1383645280",
+        "https://en.wikipedia.org/w/index.php?title=New_England_Patriots&oldid=1381308705",
+        "https://en.wikipedia.org/w/index.php?title=New_York_Jets&oldid=1384394690",
+        "https://en.wikipedia.org/w/index.php?title=Philadelphia_Eagles&oldid=1382182043",
+        "https://en.wikipedia.org/w/index.php?title=Pittsburgh_Steelers&oldid=1382403068",
+        "https://en.wikipedia.org/w/index.php?title=Tennessee_Titans&oldid=1384501002",
+        "https://en.wikipedia.org/w/index.php?title=Washington_Commanders&oldid=1384533181"
+      ],
+      "before": {
+        "hits": 26,
+        "total": 31,
+        "rate": 0.8387096774193549
+      },
+      "after": {
+        "hits": 30,
+        "total": 31,
+        "rate": 0.967741935483871,
+        "misses": ["Staleys"],
+        "invalid": 9
+      }
+    },
+    {
+      "id": "mlb-50-homer-seasons",
+      "replaces": "mlb-teams",
+      "text": "Name a player with a 50-home-run MLB season through 2025.",
+      "active": true,
+      "size": 34,
+      "band": "medium",
+      "surface": [
+        "Babe Ruth",
+        "Barry Bonds",
+        "Mark McGwire",
+        "Sammy Sosa",
+        "Aaron Judge",
+        "Roger Maris"
+      ],
+      "too_clever": ["Greg Vaughn"],
+      "gem": "Brady Anderson",
+      "theme": "sports",
+      "cluster": "leagues",
+      "aliases": 19,
+      "sources": ["https://en.wikipedia.org/w/index.php?title=50_home_run_club&oldid=1382671764"],
+      "before": {
+        "hits": 34,
+        "total": 41,
+        "rate": 0.8292682926829268
+      },
+      "after": {
+        "hits": 41,
+        "total": 41,
+        "rate": 1,
+        "misses": [],
+        "invalid": 12
+      }
+    },
+    {
+      "id": "nhl-500-goal-club",
+      "replaces": "nhl-teams",
+      "text": "Name a player with 500 career NHL goals through 2025–26.",
+      "active": true,
+      "size": 50,
+      "band": "medium",
+      "surface": [
+        "Wayne Gretzky",
+        "Alexander Ovechkin",
+        "Gordie Howe",
+        "Mario Lemieux",
+        "Sidney Crosby",
+        "Jaromir Jagr"
+      ],
+      "too_clever": ["Pat Verbeek"],
+      "gem": "Lanny McDonald",
+      "theme": "sports",
+      "cluster": "leagues",
+      "aliases": 19,
+      "sources": [
+        "https://en.wikipedia.org/w/index.php?title=List_of_NHL_players_with_500_goals&oldid=1366079374"
+      ],
+      "before": {
+        "hits": 49,
+        "total": 56,
+        "rate": 0.875
+      },
+      "after": {
+        "hits": 56,
+        "total": 56,
+        "rate": 1,
+        "misses": [],
+        "invalid": 9
+      }
+    },
+    {
+      "id": "olympic-eight-golds",
+      "replaces": "summer-olympic-hosts",
+      "text": "Name an Olympian with at least eight gold medals through 2026.",
+      "active": true,
+      "size": 19,
+      "band": "tiny",
+      "surface": ["Michael Phelps", "Usain Bolt", "Carl Lewis", "Mark Spitz", "Katie Ledecky"],
+      "too_clever": ["Isabell Werth"],
+      "gem": "Ray Ewry",
+      "theme": "sports",
+      "cluster": "olympics",
+      "aliases": 16,
+      "sources": [
+        "https://en.wikipedia.org/w/index.php?title=List_of_multiple_Olympic_gold_medalists&oldid=1371311121"
+      ],
+      "before": {
+        "hits": 14,
+        "total": 23,
+        "rate": 0.6086956521739131
+      },
+      "after": {
+        "hits": 23,
+        "total": 23,
+        "rate": 1,
+        "misses": [],
+        "invalid": 21
+      }
+    }
+  ]
+}
