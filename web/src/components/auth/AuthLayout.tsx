@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useMe } from '../../lib/queries';
-import { safeNext } from '../../lib/auth';
+import { loginNoticeKey, safeNext } from '../../lib/auth';
+import { useQueryClient } from '@tanstack/react-query';
 import { ShellSkeleton } from '../shell/ShellSkeleton';
 import { BrandMark } from '../shell/Brand';
 import { useEffect, useRef } from 'react';
@@ -9,7 +10,11 @@ export function AuthLayout() {
   const { data, isPending, isError } = useMe();
   const location = useLocation();
   const next = safeNext(location.search);
-  if (location.pathname === '/login' && typeof location.state?.passwordError === 'string')
+  const notice = useQueryClient().getQueryData<string>(loginNoticeKey);
+  if (
+    location.pathname === '/login' &&
+    (typeof location.state?.passwordError === 'string' || notice)
+  )
     return <Outlet />;
   if (isPending) return <ShellSkeleton />;
   if (data && !isError)

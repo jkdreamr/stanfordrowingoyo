@@ -1,5 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 import { prefersReducedMotion } from '../../lib/motion';
+import { parseCssTime } from '../../lib/cssTime';
 export type Segment<T extends string> = { value: T; label: string; disabled?: boolean };
 export type SegmentedControlProps<T extends string> = {
   label: string;
@@ -28,7 +29,7 @@ export function SegmentedControl<T extends string>({
     const animation = node.animate?.(
       [{ scale: '1 1' }, { scale: '1.04 0.98', offset: 0.35 }, { scale: '1 1' }],
       {
-        duration: parseFloat(style.getPropertyValue('--dur-travel')) || 520,
+        duration: parseCssTime(style.getPropertyValue('--dur-travel'), 520),
         easing: style.getPropertyValue('--spring').trim() || 'ease-out',
       },
     );

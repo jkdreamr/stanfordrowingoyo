@@ -148,6 +148,60 @@ it('starts blank, adds and edits a session with live totals, then deletes it', a
   fireEvent.click(screen.getByRole('button', { name: 'Delete Session' }));
   await waitFor(() => expect(mock.state.myPlans[0].sessions).toEqual([]));
 });
+it.each(['create', 'delete'] as const)(
+  'retains the %s dialog while the plan branch changes',
+  async (action) => {
+    const original = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'animate');
+    const animations: { dialog: HTMLElement; finish: () => void }[] = [];
+    vi.stubGlobal('matchMedia', () => ({
+      matches: false,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }));
+    Object.defineProperty(HTMLElement.prototype, 'animate', {
+      configurable: true,
+      value: function (this: HTMLElement) {
+        let finish!: () => void;
+        const finished = new Promise<void>((resolve) => {
+          finish = resolve;
+        });
+        animations.push({ dialog: this, finish });
+        return { finished, finish, cancel: vi.fn() };
+      },
+    });
+    try {
+      await setup(action === 'delete' ? { seed: 'current' } : {});
+      if (action === 'create') {
+        fireEvent.click(await screen.findByRole('button', { name: 'Start Plan' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Start Blank' }));
+        await screen.findByRole('heading', { name: 'Week 1' });
+      } else {
+        fireEvent.click(await screen.findByRole('button', { name: 'More' }));
+        fireEvent.click(screen.getByText('Delete Plan'));
+        const dialog = screen.getByRole('dialog', { name: 'Delete Plan' });
+        fireEvent.click(within(dialog).getByRole('button', { name: 'Delete Plan' }));
+        await screen.findByText('No Plan');
+      }
+      const title = action === 'create' ? 'Start Plan' : 'Delete Plan';
+      await waitFor(() =>
+        expect(animations.some(({ dialog }) => dialog.textContent?.includes(title))).toBe(true),
+      );
+      const exit = animations.find(({ dialog }) => dialog.textContent?.includes(title))!;
+      expect(exit.dialog.isConnected).toBe(true);
+      expect(exit.dialog.hasAttribute('open')).toBe(true);
+      expect(document.body.style.overflow).toBe('hidden');
+      await act(async () => {
+        animations.forEach(({ finish }) => finish());
+      });
+      await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+      expect(document.body.style.overflow).toBe('');
+    } finally {
+      cleanup();
+      if (original) Object.defineProperty(HTMLElement.prototype, 'animate', original);
+      else Reflect.deleteProperty(HTMLElement.prototype, 'animate');
+    }
+  },
+);
 it('validates distance, exposes only free slots and hides Add at three sessions', async () => {
   await setup({ seed: 'current' });
   fireEvent.click(await screen.findByRole('button', { name: 'Add Session Monday Week 1' }));

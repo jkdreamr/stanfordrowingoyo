@@ -6,6 +6,7 @@ import { testKinds, testTime, testValues } from '../lib/ergTests';
 import { formatEntryDate } from '../lib/format';
 import { authError } from '../lib/auth';
 import {
+  DialogPresence,
   Button,
   ConfirmSheet,
   EmptyState,
@@ -194,15 +195,17 @@ export function ErgTests({
       ) : (
         <EmptyState icon={null} title="No Tests Yet" />
       )}
-      {editing && (
-        <TestSheet
-          key={editing === 'new' ? 'new' : editing.id}
-          test={editing === 'new' ? undefined : editing}
-          initialKind={kind}
-          today={today}
-          onClose={() => setEditing(undefined)}
-        />
-      )}
+      <DialogPresence>
+        {editing && (
+          <TestSheet
+            key={editing === 'new' ? 'new' : editing.id}
+            test={editing === 'new' ? undefined : editing}
+            initialKind={kind}
+            today={today}
+            onClose={() => setEditing(undefined)}
+          />
+        )}
+      </DialogPresence>
     </section>
   );
 }

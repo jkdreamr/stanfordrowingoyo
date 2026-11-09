@@ -3,6 +3,7 @@ import { ChevronRight } from 'lucide-react';
 import { ZONES } from '../../../../shared/math';
 import type { GroupKey, Plan, PlanSlot, Zone } from '../../../../shared/types';
 import {
+  DialogPresence,
   Button,
   ConfirmSheet,
   ListGroup,
@@ -185,16 +186,18 @@ function PlanDraft({ initial }: { initial: Plan }) {
             {error}
           </p>
         )}
-        {editing && (
-          <SlotEditor
-            row={editing}
-            onClose={() => setEditing(undefined)}
-            onApply={(row) => {
-              setDraft(replaceSlot(draft, row));
-              setEditing(undefined);
-            }}
-          />
-        )}
+        <DialogPresence>
+          {editing && (
+            <SlotEditor
+              row={editing}
+              onClose={() => setEditing(undefined)}
+              onApply={(row) => {
+                setDraft(replaceSlot(draft, row));
+                setEditing(undefined);
+              }}
+            />
+          )}
+        </DialogPresence>
         <ConfirmSheet
           open={blocker.state === 'blocked'}
           title="Discard Changes?"

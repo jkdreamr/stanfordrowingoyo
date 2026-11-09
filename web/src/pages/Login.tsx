@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import type { User } from '../../../shared/types';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from '../lib/queries';
-import { authError, safeNext } from '../lib/auth';
+import { authError, loginNoticeKey, safeNext } from '../lib/auth';
 import { Button, TextField } from '../components/ui';
 import { PasswordField } from '../components/auth/PasswordField';
 import { AuthFrame } from '../components/auth/AuthLayout';
@@ -15,11 +16,13 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const next = safeNext(location.search);
-  const passwordError =
-    typeof location.state?.passwordError === 'string' ? location.state.passwordError : undefined;
-  const [message, setMessage] = useState<string | undefined>(() =>
-    typeof location.state?.passwordError === 'string' ? location.state.passwordError : undefined,
+  const client = useQueryClient();
+  const [passwordError] = useState<string | undefined>(() =>
+    typeof location.state?.passwordError === 'string'
+      ? location.state.passwordError
+      : client.getQueryData<string>(loginNoticeKey),
   );
+  const [message, setMessage] = useState(passwordError);
   const [fields, setFields] = useState<Record<string, string>>({});
   const go = (user: User) =>
     navigate(
@@ -34,6 +37,7 @@ export default function Login() {
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (mutation.isPending) return;
+    client.removeQueries({ queryKey: loginNoticeKey, exact: true });
     const data = new FormData(e.currentTarget);
     const email = String(data.get('email')).trim();
     const password = String(data.get('password'));

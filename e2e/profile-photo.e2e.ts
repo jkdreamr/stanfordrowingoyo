@@ -105,6 +105,9 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await expect(crop).toBeVisible();
       await expect(done).toBeEnabled();
       await crop.getByLabel('Zoom', { exact: true }).fill('1.5');
+      await crop.evaluate(async (dialog) => {
+        await Promise.all(dialog.getAnimations().map((animation) => animation.finished));
+      });
       const viewport = crop.getByRole('group', { name: /Photo crop/ });
       const box = await viewport.boundingBox();
       expect(box).not.toBeNull();

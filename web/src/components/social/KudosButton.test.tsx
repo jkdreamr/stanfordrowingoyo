@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import type { EntryDetail } from '../../../../shared/types';
 import { KudosButton } from './KudosButton';
 import { ToastProvider } from '../ui';
@@ -116,6 +116,44 @@ it('offers retry after a query failure', () => {
   expect(screen.getByRole('alert').textContent).toBe('Could not load kudos');
   fireEvent.click(screen.getByRole('button', { name: 'Retry' }));
   expect(state.query.refetch).toHaveBeenCalledOnce();
+});
+it('keeps Kudos mounted and locked until the slide-down exit completes', async () => {
+  let finish!: () => void;
+  const finished = new Promise<void>((resolve) => {
+    finish = resolve;
+  });
+  vi.stubGlobal('matchMedia', () => ({
+    matches: false,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+  }));
+  const original = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'animate');
+  const animate = vi.fn((_frames: Keyframe[]) => ({ finished, cancel: vi.fn(), finish }));
+  Object.defineProperty(HTMLElement.prototype, 'animate', { configurable: true, value: animate });
+  try {
+    surface();
+    const opener = screen.getByRole('button', { name: 'View 2 Kudos' });
+    fireEvent.click(opener);
+    const dialog = screen.getByRole('dialog', { name: 'Kudos' });
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(dialog.hasAttribute('open')).toBe(true);
+    expect(dialog.isConnected).toBe(true);
+    expect(document.body.style.overflow).toBe('hidden');
+    expect(animate).toHaveBeenCalledOnce();
+    expect(animate.mock.calls[0][0]).toEqual([
+      { opacity: 1, transform: 'none' },
+      { opacity: 1, transform: 'translateY(100%)' },
+    ]);
+    await act(async () => finish());
+    expect(screen.queryByRole('dialog', { name: 'Kudos' })).toBeNull();
+    expect(document.body.style.overflow).toBe('');
+    expect(document.activeElement).toBe(opener);
+  } finally {
+    cleanup();
+    if (original) Object.defineProperty(HTMLElement.prototype, 'animate', original);
+    else Reflect.deleteProperty(HTMLElement.prototype, 'animate');
+    vi.unstubAllGlobals();
+  }
 });
 it('shows one recoverable failure toast', () => {
   mutate.mockImplementation((_variables, options) => options.onError());
