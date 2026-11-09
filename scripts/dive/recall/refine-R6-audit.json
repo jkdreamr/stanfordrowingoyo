@@ -1,0 +1,2663 @@
+{
+  "baseline_ref": "d9f96cf",
+  "swaps": {
+    "china-provinces": "china-compass-names",
+    "new-zealand-regions": "lakes-10000-km2",
+    "japan-prefectures": "japan-same-name-capitals",
+    "swiss-cantons": "alpine-four-thousanders",
+    "brazil-states": "rivers-3000-km",
+    "mexico-states": "us-capitals-not-largest",
+    "indian-states": "islands-50000-km2"
+  },
+  "raw_sha256": {
+    "refine-R6-raw.json": "3211473b3118b9d1e7f256869270711839cab851ee390efa420f0dd98e053926"
+  },
+  "sources": {
+    "china-compass-names": [
+      {
+        "source_member": "Beijing Municipality",
+        "evidence": [
+          "BJ",
+          "CN-BJ",
+          "Beijing Municipality",
+          "北京市 Běijīng Shì",
+          "Tongzhou",
+          "21,893,095",
+          "1,334.05",
+          "16,411",
+          "京 Jīng"
+        ]
+      },
+      {
+        "source_member": "Guangdong",
+        "evidence": [
+          "GD",
+          "CN-GD",
+          "Guangdong",
+          "广东省 Guǎngdōng Shěng",
+          "Guangzhou",
+          "126,012,510",
+          "700.02",
+          "180,013",
+          "粤 Yuè"
+        ]
+      },
+      {
+        "source_member": "Guangxi",
+        "evidence": [
+          "GX",
+          "CN-GX",
+          "Guangxi",
+          "广西壮族自治区 Guǎngxī Zhuàngzú Zìzhìqū",
+          "Nanning",
+          "50,126,804",
+          "210.78",
+          "237,818",
+          "桂 Guì"
+        ]
+      },
+      {
+        "source_member": "Henan",
+        "evidence": [
+          "HA (HEN)",
+          "CN-HA",
+          "Henan",
+          "河南省 Hénán Shěng",
+          "Zhengzhou",
+          "99,365,519",
+          "600.52",
+          "165,467",
+          "豫 Yù"
+        ]
+      },
+      {
+        "source_member": "Hubei",
+        "evidence": [
+          "HB (HUB)",
+          "CN-HB",
+          "Hubei",
+          "湖北省 Húběi Shěng",
+          "Wuhan",
+          "57,752,557",
+          "310.87",
+          "185,776",
+          "鄂 È"
+        ]
+      },
+      {
+        "source_member": "Hebei",
+        "evidence": [
+          "HE (HEB)",
+          "CN-HE",
+          "Hebei",
+          "河北省 Héběi Shěng",
+          "Shijiazhuang",
+          "74,610,235",
+          "393.08",
+          "189,809",
+          "冀 Jì"
+        ]
+      },
+      {
+        "source_member": "Hainan",
+        "evidence": [
+          "HI",
+          "CN-HI",
+          "Hainan",
+          "海南省 Hǎinán Shěng",
+          "Haikou",
+          "10,081,232",
+          "294.27",
+          "34,259",
+          "琼 Qióng"
+        ]
+      },
+      {
+        "source_member": "Hunan",
+        "evidence": [
+          "HN (HUN)",
+          "CN-HN",
+          "Hunan",
+          "湖南省 Húnán Shěng",
+          "Changsha",
+          "66,444,864",
+          "313.65",
+          "211,842",
+          "湘 Xiāng"
+        ]
+      },
+      {
+        "source_member": "Jiangxi",
+        "evidence": [
+          "JX",
+          "CN-JX",
+          "Jiangxi",
+          "江西省 Jiāngxī Shěng",
+          "Nanchang",
+          "45,188,635",
+          "270.69",
+          "166,939",
+          "赣 Gàn"
+        ]
+      },
+      {
+        "source_member": "Shandong",
+        "evidence": [
+          "SD",
+          "CN-SD",
+          "Shandong",
+          "山东省 Shāndōng Shěng",
+          "Jinan",
+          "101,527,453",
+          "643.78",
+          "157,704",
+          "鲁 Lǔ"
+        ]
+      },
+      {
+        "source_member": "Shaanxi",
+        "evidence": [
+          "SN (SAA)",
+          "CN-SN",
+          "Shaanxi",
+          "陕西省 Shǎnxī Shěng",
+          "Xi'an",
+          "39,528,999",
+          "192.24",
+          "205,624",
+          "陕(秦) Shǎn (Qín)"
+        ]
+      },
+      {
+        "source_member": "Shanxi",
+        "evidence": [
+          "SX (SAX)",
+          "CN-SX",
+          "Shanxi",
+          "山西省 Shānxī Shěng",
+          "Taiyuan",
+          "34,915,616",
+          "222.80",
+          "156,713",
+          "晋 Jìn"
+        ]
+      },
+      {
+        "source_member": "Tibet",
+        "evidence": [
+          "XZ",
+          "CN-XZ",
+          "Tibet",
+          "西藏自治区 Xīzàng Zìzhìqū",
+          "Lhasa",
+          "3,648,100",
+          "3.03",
+          "1,204,776",
+          "藏 Zàng"
+        ]
+      },
+      {
+        "source_member": "Yunnan",
+        "evidence": [
+          "YN",
+          "CN-YN",
+          "Yunnan",
+          "云南省 Yúnnán Shěng",
+          "Kunming",
+          "47,209,277",
+          "123.20",
+          "383,195",
+          "云(滇) Yún (Diān)"
+        ]
+      }
+    ],
+    "lakes-10000-km2": [
+      {
+        "source_member": "Caspian Sea",
+        "evidence": [
+          "",
+          "1",
+          "Caspian Sea",
+          "Iran Kazakhstan Turkmenistan Azerbaijan Russia",
+          "Saline 1.2%",
+          "389,000 km 150,000 sq mi",
+          "1,199 km 745 mi",
+          "1,025 m 3,363 ft",
+          "78,200 km 18,800 cu mi",
+          "Geologically a small ocean rather than a lake. Garabogazköl lagoon, if counted separately, would rank as the world's 15th largest, with an area of 18,000 square kilometres (6,900 mi )."
+        ]
+      },
+      {
+        "source_member": "Superior",
+        "evidence": [
+          "",
+          "2",
+          "Superior",
+          "Canada United States",
+          "Fresh",
+          "82,100 km 31,700 sq mi",
+          "616 km 383 mi",
+          "406 m 1,332 ft",
+          "12,070 km 2,900 cu mi",
+          "Largest of the Great Lakes by volume, having more water than the other four combined."
+        ]
+      },
+      {
+        "source_member": "Victoria",
+        "evidence": [
+          "",
+          "3",
+          "Victoria",
+          "Tanzania Uganda Kenya",
+          "Fresh",
+          "59,940 km 23,140 sq mi",
+          "322 km 200 mi",
+          "81 m 266 ft",
+          "2,420 km 580 cu mi",
+          "The largest lake by area in Africa."
+        ]
+      },
+      {
+        "source_member": "Huron",
+        "evidence": [
+          "",
+          "4",
+          "Huron",
+          "Canada United States",
+          "Fresh",
+          "59,570 km 23,000 sq mi",
+          "332 km 206 mi",
+          "229 m 751 ft",
+          "3,520 km 840 cu mi",
+          "The larger lobe of Lake Michigan–Huron . Contains Manitoulin Island , the world's largest lake island."
+        ]
+      },
+      {
+        "source_member": "Michigan",
+        "evidence": [
+          "",
+          "5",
+          "Michigan",
+          "United States",
+          "Fresh",
+          "57,800 km 22,300 sq mi",
+          "494 km 307 mi",
+          "282 m 925 ft",
+          "4,930 km 1,180 cu mi",
+          "The smaller lobe of Lake Michigan–Huron . The largest lake (by area) that is located entirely in one country."
+        ]
+      },
+      {
+        "source_member": "Tanganyika",
+        "evidence": [
+          "",
+          "6",
+          "Tanganyika",
+          "Tanzania Democratic Republic of the Congo Burundi Zambia",
+          "Fresh",
+          "32,900 km 12,700 sq mi",
+          "676 km 420 mi",
+          "1,470 m 4,820 ft",
+          "18,750 km 4,500 cu mi",
+          "Longest freshwater lake in the world and third largest of any kind by volume."
+        ]
+      },
+      {
+        "source_member": "Baikal",
+        "evidence": [
+          "",
+          "7",
+          "Baikal",
+          "Russia",
+          "Fresh",
+          "31,722 km 12,248 sq mi",
+          "636 km 395 mi",
+          "1,642 m 5,387 ft",
+          "23,610 km 5,660 cu mi",
+          "Deepest lake in the world and largest freshwater lake in the world by volume."
+        ]
+      },
+      {
+        "source_member": "Great Bear Lake",
+        "evidence": [
+          "",
+          "8",
+          "Great Bear Lake",
+          "Canada",
+          "Fresh",
+          "31,153 km 12,028 sq mi",
+          "373 km 232 mi",
+          "446 m 1,463 ft",
+          "2,234 km 536 cu mi",
+          "Largest lake entirely within Canada, and the largest lake partially within the Arctic Circle"
+        ]
+      },
+      {
+        "source_member": "Malawi (Nyasa)",
+        "evidence": [
+          "",
+          "9",
+          "Malawi (Nyasa)",
+          "Malawi Mozambique Tanzania",
+          "Fresh",
+          "29,600 km 11,400 sq mi",
+          "579 km 360 mi",
+          "706 m 2,316 ft",
+          "8,640 km 2,070 cu mi",
+          "Has more species of fish than any other lake in the world."
+        ]
+      },
+      {
+        "source_member": "Great Slave Lake",
+        "evidence": [
+          "",
+          "10",
+          "Great Slave Lake",
+          "Canada",
+          "Fresh",
+          "27,200 km 10,500 sq mi",
+          "480 km 300 mi",
+          "614 m 2,014 ft",
+          "1,115 km 268 cu mi",
+          "Deepest lake in North America"
+        ]
+      },
+      {
+        "source_member": "Erie",
+        "evidence": [
+          "",
+          "11",
+          "Erie",
+          "Canada United States",
+          "Fresh",
+          "25,667 km 9,910 sq mi",
+          "388 km 241 mi",
+          "64 m 210 ft",
+          "488 km 117 cu mi",
+          "Has the smallest volume of the Great Lakes ."
+        ]
+      },
+      {
+        "source_member": "Winnipeg",
+        "evidence": [
+          "",
+          "12",
+          "Winnipeg",
+          "Canada",
+          "Fresh",
+          "24,514 km 9,465 sq mi",
+          "425 km 264 mi",
+          "36 m 118 ft",
+          "294 km 71 cu mi",
+          "Very large catchment area compared to own size. No other great lake has that ratio."
+        ]
+      },
+      {
+        "source_member": "Ontario",
+        "evidence": [
+          "",
+          "13",
+          "Ontario",
+          "Canada United States",
+          "Fresh",
+          "19,011 km 7,340 sq mi",
+          "311 km 193 mi",
+          "244 m 801 ft",
+          "1,631 km 391 cu mi",
+          "The lowest lying of the Great Lakes ."
+        ]
+      },
+      {
+        "source_member": "Ladoga",
+        "evidence": [
+          "",
+          "14",
+          "Ladoga",
+          "Russia",
+          "Fresh",
+          "17,700 km 6,800 sq mi",
+          "219 km 136 mi",
+          "260 m 850 ft",
+          "837 km 201 cu mi",
+          "Largest lake in Europe."
+        ]
+      },
+      {
+        "source_member": "Balkhash",
+        "evidence": [
+          "",
+          "15",
+          "Balkhash",
+          "Kazakhstan",
+          "Saline 0.3% (variable)",
+          "16,400 km 6,300 sq mi",
+          "605 km 376 mi",
+          "26 m 85 ft",
+          "100 km 24 cu mi",
+          "Fresh shallow western part. Salty deeper eastern part. Shrinking in size."
+        ]
+      },
+      {
+        "source_member": "Vostok",
+        "evidence": [
+          "",
+          "16",
+          "Vostok",
+          "Antarctica",
+          "Fresh",
+          "12,500 km 4,800 sq mi",
+          "250 km 160 mi",
+          "900 m 3,000 ft",
+          "5,400 ± 1,600 km 1,300 ± 380 cu mi",
+          "Largest lake in Antarctica, but subglacial ."
+        ]
+      }
+    ],
+    "japan-same-name-capitals": [
+      {
+        "source_member": "Akita",
+        "evidence": ["Akita", "秋田県", "Akita", "秋田市"]
+      },
+      {
+        "source_member": "Aomori",
+        "evidence": ["Aomori", "青森県", "Aomori", "青森市"]
+      },
+      {
+        "source_member": "Chiba",
+        "evidence": ["Chiba", "千葉県", "Chiba", "千葉市"]
+      },
+      {
+        "source_member": "Fukui",
+        "evidence": ["Fukui", "福井県", "Fukui", "福井市"]
+      },
+      {
+        "source_member": "Fukuoka",
+        "evidence": ["Fukuoka", "福岡県", "Fukuoka", "福岡市"]
+      },
+      {
+        "source_member": "Fukushima",
+        "evidence": ["Fukushima", "福島県", "Fukushima", "福島市"]
+      },
+      {
+        "source_member": "Gifu",
+        "evidence": ["Gifu", "岐阜県", "Gifu", "岐阜市"]
+      },
+      {
+        "source_member": "Hiroshima",
+        "evidence": ["Hiroshima", "広島県", "Hiroshima", "広島市"]
+      },
+      {
+        "source_member": "Kagoshima",
+        "evidence": ["Kagoshima", "鹿児島県", "Kagoshima", "鹿児島市"]
+      },
+      {
+        "source_member": "Kōchi",
+        "evidence": ["Kōchi", "高知県", "Kōchi", "高知市"]
+      },
+      {
+        "source_member": "Kumamoto",
+        "evidence": ["Kumamoto", "熊本県", "Kumamoto", "熊本市"]
+      },
+      {
+        "source_member": "Kyōto",
+        "evidence": ["Kyōto", "京都府", "Kyōto", "京都市"]
+      },
+      {
+        "source_member": "Miyazaki",
+        "evidence": ["Miyazaki", "宮崎県", "Miyazaki", "宮崎市"]
+      },
+      {
+        "source_member": "Nagano",
+        "evidence": ["Nagano", "長野県", "Nagano", "長野市"]
+      },
+      {
+        "source_member": "Nagasaki",
+        "evidence": ["Nagasaki", "長崎県", "Nagasaki", "長崎市"]
+      },
+      {
+        "source_member": "Nara",
+        "evidence": ["Nara", "奈良県", "Nara", "奈良市"]
+      },
+      {
+        "source_member": "Niigata",
+        "evidence": ["Niigata", "新潟県", "Niigata", "新潟市"]
+      },
+      {
+        "source_member": "Ōita",
+        "evidence": ["Ōita", "大分県", "Ōita", "大分市"]
+      },
+      {
+        "source_member": "Okayama",
+        "evidence": ["Okayama", "岡山県", "Okayama", "岡山市"]
+      },
+      {
+        "source_member": "Ōsaka",
+        "evidence": ["Ōsaka", "大阪府", "Ōsaka", "大阪市"]
+      },
+      {
+        "source_member": "Saga",
+        "evidence": ["Saga", "佐賀県", "Saga", "佐賀市"]
+      },
+      {
+        "source_member": "Saitama",
+        "evidence": ["Saitama", "埼玉県", "Saitama", "さいたま市"]
+      },
+      {
+        "source_member": "Shizuoka",
+        "evidence": ["Shizuoka", "静岡県", "Shizuoka", "静岡市"]
+      },
+      {
+        "source_member": "Tokushima",
+        "evidence": ["Tokushima", "徳島県", "Tokushima", "徳島市"]
+      },
+      {
+        "source_member": "Tottori",
+        "evidence": ["Tottori", "鳥取県", "Tottori", "鳥取市"]
+      },
+      {
+        "source_member": "Toyama",
+        "evidence": ["Toyama", "富山県", "Toyama", "富山市"]
+      },
+      {
+        "source_member": "Wakayama",
+        "evidence": ["Wakayama", "和歌山県", "Wakayama", "和歌山市"]
+      },
+      {
+        "source_member": "Yamagata",
+        "evidence": ["Yamagata", "山形県", "Yamagata", "山形市"]
+      },
+      {
+        "source_member": "Yamaguchi",
+        "evidence": ["Yamaguchi", "山口県", "Yamaguchi", "山口市"]
+      }
+    ],
+    "alpine-four-thousanders": [
+      {
+        "source_member": "Mont Blanc",
+        "evidence": ["1", "", "Mont Blanc", "4,809", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Mont Blanc de Courmayeur",
+        "evidence": ["2", "", "Mont Blanc de Courmayeur", "4,748", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Dufourspitze",
+        "evidence": ["3", "", "Dufourspitze", "4,634", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Nordend",
+        "evidence": ["4", "", "Nordend", "4,608", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Zumsteinspitze",
+        "evidence": ["5", "", "Zumsteinspitze", "4,563", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Signalkuppe",
+        "evidence": ["6", "", "Signalkuppe", "4,554", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Dom",
+        "evidence": ["7", "", "Dom", "4,546", "Mischabel Group"]
+      },
+      {
+        "source_member": "Lyskamm (Eastern Summit)",
+        "evidence": ["8", "", "Lyskamm (Eastern Summit)", "4,532", "Wallis Alps"]
+      },
+      {
+        "source_member": "Weisshorn",
+        "evidence": ["9", "", "Weisshorn", "4,505", "Wallis Alps"]
+      },
+      {
+        "source_member": "Täschhorn",
+        "evidence": ["10", "", "Täschhorn", "4,491", "Mischabel Group"]
+      },
+      {
+        "source_member": "Lyskamm (Western Summit)",
+        "evidence": ["11", "", "Lyskamm (Western Summit)", "4,479", "Wallis Alps"]
+      },
+      {
+        "source_member": "Matterhorn",
+        "evidence": ["12", "", "Matterhorn", "4,478", "Wallis Alps"]
+      },
+      {
+        "source_member": "Picco Luigi Amedeo",
+        "evidence": ["13", "", "Picco Luigi Amedeo", "4,469", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Mont Maudit",
+        "evidence": ["14", "", "Mont Maudit", "4,465", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Parrotspitze",
+        "evidence": ["15", "", "Parrotspitze", "4,434", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Dent Blanche",
+        "evidence": ["16", "", "Dent Blanche", "4,357", "Wallis Alps"]
+      },
+      {
+        "source_member": "Ludwigshöhe",
+        "evidence": ["17", "", "Ludwigshöhe", "4,341", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Nadelhorn",
+        "evidence": ["18", "", "Nadelhorn", "4,327", "Mischabel Group"]
+      },
+      {
+        "source_member": "Schwarzhorn (Corno Nero)",
+        "evidence": ["19", "", "Schwarzhorn (Corno Nero)", "4,321", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Combin de Grafeneire",
+        "evidence": ["20", "", "Combin de Grafeneire", "4,309", "Grand Combin"]
+      },
+      {
+        "source_member": "Dôme du Goûter",
+        "evidence": ["21", "", "Dôme du Goûter", "4,304", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Lenzspitze",
+        "evidence": ["22", "", "Lenzspitze", "4,293", "Mischabel Group"]
+      },
+      {
+        "source_member": "Finsteraarhorn",
+        "evidence": ["23", "", "Finsteraarhorn", "4,274", "Bernese Alps"]
+      },
+      {
+        "source_member": "Mont Blanc du Tacul",
+        "evidence": ["24", "", "Mont Blanc du Tacul", "4,248", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Grand Pilier d’Angle",
+        "evidence": ["25", "", "Grand Pilier d’Angle", "4,243", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Stecknadelhorn",
+        "evidence": ["26", "", "Stecknadelhorn", "4,240", "Mischabel Group"]
+      },
+      {
+        "source_member": "Castor",
+        "evidence": ["27", "", "Castor", "4,225", "Wallis Alps"]
+      },
+      {
+        "source_member": "Zinalrothorn",
+        "evidence": ["28", "", "Zinalrothorn", "4,221", "Wallis Alps"]
+      },
+      {
+        "source_member": "Hohberghorn",
+        "evidence": ["29", "", "Hohberghorn", "4,218", "Mischabel Group"]
+      },
+      {
+        "source_member": "Vincent Pyramid",
+        "evidence": ["30", "", "Vincent Pyramid", "4,215", "Monte Rosa Massif"]
+      },
+      {
+        "source_member": "Grandes Jorasses (Pointe Walker)",
+        "evidence": ["31", "", "Grandes Jorasses (Pointe Walker)", "4,208", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Alphubel",
+        "evidence": ["32", "", "Alphubel", "4,206", "Mischabel Group"]
+      },
+      {
+        "source_member": "Rimpfischhorn",
+        "evidence": ["33", "", "Rimpfischhorn", "4,199", "Mischabel Group"]
+      },
+      {
+        "source_member": "Aletschhorn",
+        "evidence": ["34", "", "Aletschhorn", "4,194", "Bernese Alps"]
+      },
+      {
+        "source_member": "Strahlhorn",
+        "evidence": ["35", "", "Strahlhorn", "4,190", "Mischabel Group"]
+      },
+      {
+        "source_member": "Combin de Valsorey",
+        "evidence": ["36", "", "Combin de Valsorey", "4,184", "Grand Combin"]
+      },
+      {
+        "source_member": "Grandes Jorasses (Pointe Whymper)",
+        "evidence": ["37", "", "Grandes Jorasses (Pointe Whymper)", "4,184", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Dent d’Hérens",
+        "evidence": ["38", "", "Dent d’Hérens", "4,173", "Wallis Alps"]
+      },
+      {
+        "source_member": "Breithorn (Western Summit)",
+        "evidence": ["39", "", "Breithorn (Western Summit)", "4,160", "Wallis Alps"]
+      },
+      {
+        "source_member": "Jungfrau",
+        "evidence": ["40", "", "Jungfrau", "4,158", "Bernese Alps"]
+      },
+      {
+        "source_member": "Breithorn (Central Summit)",
+        "evidence": ["41", "", "Breithorn (Central Summit)", "4,154", "Wallis Alps"]
+      },
+      {
+        "source_member": "Bishorn",
+        "evidence": ["42", "", "Bishorn", "4,151", "Wallis Alps"]
+      },
+      {
+        "source_member": "Eastern Breithorn (Eastern Summit/ western Twin Peak)",
+        "evidence": [
+          "43",
+          "",
+          "Eastern Breithorn (Eastern Summit/ western Twin Peak)",
+          "4,138",
+          "Wallis Alps"
+        ]
+      },
+      {
+        "source_member": "Combin de la Tsessette",
+        "evidence": ["44", "", "Combin de la Tsessette", "4,132", "Grand Combin"]
+      },
+      {
+        "source_member": "Aiguille Verte",
+        "evidence": ["45", "", "Aiguille Verte", "4,122", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Aiguilles du Diable (L’Isolée)",
+        "evidence": ["46", "", "Aiguilles du Diable (L’Isolée)", "4,114", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Aiguille Blanche de Peuterey",
+        "evidence": ["47", "", "Aiguille Blanche de Peuterey", "4,112", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Mönch",
+        "evidence": ["48", "", "Mönch", "4,110", "Bernese Alps"]
+      },
+      {
+        "source_member": "Grandes Jorasses (Pointe Croz)",
+        "evidence": ["49", "", "Grandes Jorasses (Pointe Croz)", "4,110", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Aiguilles du Diable (Pointe Carmen)",
+        "evidence": ["50", "", "Aiguilles du Diable (Pointe Carmen)", "4,109", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Breithorn (Gendarm/ eastern Twin Peak)",
+        "evidence": ["51", "", "Breithorn (Gendarm/ eastern Twin Peak)", "4,106", "Wallis Alps"]
+      },
+      {
+        "source_member": "Grande Rocheuse",
+        "evidence": ["52", "", "Grande Rocheuse", "4,102", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Barre des Écrins",
+        "evidence": ["53", "", "Barre des Écrins", "4,102", "Pelvoux"]
+      },
+      {
+        "source_member": "Aiguilles du Diable (Pointe Médiane)",
+        "evidence": ["54", "", "Aiguilles du Diable (Pointe Médiane)", "4,097", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Pollux",
+        "evidence": ["55", "", "Pollux", "4,089", "Wallis Alps"]
+      },
+      {
+        "source_member": "Schreckhorn",
+        "evidence": ["56", "", "Schreckhorn", "4,078", "Bernese Alps"]
+      },
+      {
+        "source_member": "Breithorn (Roccia Nera)",
+        "evidence": ["57", "", "Breithorn (Roccia Nera)", "4,075", "Wallis Alps"]
+      },
+      {
+        "source_member": "Aiguilles du Diable (Pointe Chaubert)",
+        "evidence": ["58", "", "Aiguilles du Diable (Pointe Chaubert)", "4,074", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Mont Brouillard",
+        "evidence": ["59", "", "Mont Brouillard", "4,069", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Grandes Jorasses (Pointe Marguerite)",
+        "evidence": ["60", "", "Grandes Jorasses (Pointe Marguerite)", "4,065", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Aiguilles du Diable (Corne du Diable)",
+        "evidence": ["61", "", "Aiguilles du Diable (Corne du Diable)", "4,064", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Ober Gabelhorn",
+        "evidence": ["62", "", "Ober Gabelhorn", "4,063", "Wallis Alps"]
+      },
+      {
+        "source_member": "Gran Paradiso",
+        "evidence": ["63", "", "Gran Paradiso", "4,061", "Graian Alps"]
+      },
+      {
+        "source_member": "Aiguille de Bionnassay",
+        "evidence": ["64", "", "Aiguille de Bionnassay", "4,052", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Gross Fiescherhorn",
+        "evidence": ["65", "", "Gross Fiescherhorn", "4,049", "Bernese Alps"]
+      },
+      {
+        "source_member": "Piz Bernina",
+        "evidence": ["66", "", "Piz Bernina", "4,048", "Bernina Group"]
+      },
+      {
+        "source_member": "Vincent Pyramid (Punta Giordani/Giordanispetz)",
+        "evidence": [
+          "67",
+          "",
+          "Vincent Pyramid (Punta Giordani/Giordanispetz)",
+          "4,046",
+          "Monte Rosa Massif"
+        ]
+      },
+      {
+        "source_member": "Grandes Jorasses (Pointe Elena)",
+        "evidence": ["68", "", "Grandes Jorasses (Pointe Elena)", "4,045", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Grünhorn",
+        "evidence": ["69", "", "Grünhorn", "4,043", "Bernese Alps"]
+      },
+      {
+        "source_member": "Lauteraarhorn",
+        "evidence": ["70", "", "Lauteraarhorn", "4,042", "Bernese Alps"]
+      },
+      {
+        "source_member": "Aiguille du Jardin",
+        "evidence": ["71", "", "Aiguille du Jardin", "4,035", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Dürrenhorn",
+        "evidence": ["72", "Dürrenhorn", "Dürrenhorn", "4,035", "Mischabel Group"]
+      },
+      {
+        "source_member": "Allalinhorn",
+        "evidence": ["73", "", "Allalinhorn", "4,027", "Mischabel Group"]
+      },
+      {
+        "source_member": "Hinter Fiescherhorn",
+        "evidence": ["74", "", "Hinter Fiescherhorn", "4,025", "Bernese Alps"]
+      },
+      {
+        "source_member": "Dôme de Rochefort",
+        "evidence": ["75", "", "Dôme de Rochefort", "4,015", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Barre des Écrins (Dôme de Neige)",
+        "evidence": ["76", "", "Barre des Écrins (Dôme de Neige)", "4,015", "Pelvoux"]
+      },
+      {
+        "source_member": "Weissmies",
+        "evidence": ["77", "", "Weissmies", "4,013", "Wallis Alps"]
+      },
+      {
+        "source_member": "Dent du Géant",
+        "evidence": ["78", "", "Dent du Géant", "4,013", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Punta Baretti",
+        "evidence": ["79", "", "Punta Baretti", "4,013", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Lagginhorn",
+        "evidence": ["80", "", "Lagginhorn", "4,010", "Wallis Alps"]
+      },
+      {
+        "source_member": "Aiguille de Rochefort",
+        "evidence": ["81", "", "Aiguille de Rochefort", "4,001", "Mont Blanc Group"]
+      },
+      {
+        "source_member": "Les Droites",
+        "evidence": ["82", "", "Les Droites", "4,000", "Mont Blanc Group"]
+      }
+    ],
+    "rivers-3000-km": [
+      {
+        "source_member": "Nile – White Nile – Kagera – Nyabarongo – Mwogo – Rukarara",
+        "evidence": [
+          "1.",
+          "Nile – White Nile – Kagera – Nyabarongo – Mwogo – Rukarara",
+          "6,650 (7,088)"
+        ]
+      },
+      {
+        "source_member": "Amazon – Ucayali – Tambo – Ene – Mantaro",
+        "evidence": ["2.", "Amazon – Ucayali – Tambo – Ene – Mantaro", "6,400 (6,575)"]
+      },
+      {
+        "source_member": "Yangtze – Jinsha – Tongtian – Dangqu (Chang Jiang)",
+        "evidence": ["3.", "Yangtze – Jinsha – Tongtian – Dangqu (Chang Jiang)", "6,300 (6,418)"]
+      },
+      {
+        "source_member": "Mississippi – Missouri – Jefferson – Beaverhead – Red Rock – Hell Roaring",
+        "evidence": [
+          "4.",
+          "Mississippi – Missouri – Jefferson – Beaverhead – Red Rock – Hell Roaring",
+          "6,275"
+        ]
+      },
+      {
+        "source_member": "Yenisey – Angara – Selenga – Ider",
+        "evidence": ["5.", "Yenisey – Angara – Selenga – Ider", "5,539"]
+      },
+      {
+        "source_member": "Yellow River (Huang He)",
+        "evidence": ["6.", "Yellow River (Huang He)", "5,464"]
+      },
+      {
+        "source_member": "Ob – Irtysh",
+        "evidence": ["7.", "Ob – Irtysh", "5,410"]
+      },
+      {
+        "source_member": "Río de la Plata – Paraná – Rio Grande",
+        "evidence": ["8.", "Río de la Plata – Paraná – Rio Grande", "4,880"]
+      },
+      {
+        "source_member": "Congo – Lualaba - Luvua - Luapula - Chambeshi (Zaïre)",
+        "evidence": ["9.", "Congo – Lualaba - Luvua - Luapula - Chambeshi (Zaïre)", "4,700"]
+      },
+      {
+        "source_member": "Amur – Argun (Heilong Jiang)",
+        "evidence": ["10.", "Amur – Argun (Heilong Jiang)", "4,444"]
+      },
+      {
+        "source_member": "Lena",
+        "evidence": ["11.", "Lena", "4,400"]
+      },
+      {
+        "source_member": "Mekong (Lancang Jiang)",
+        "evidence": ["12.", "Mekong (Lancang Jiang)", "4,350"]
+      },
+      {
+        "source_member": "Mackenzie – Slave – Peace – Finlay",
+        "evidence": ["13.", "Mackenzie – Slave – Peace – Finlay", "4,241"]
+      },
+      {
+        "source_member": "Niger",
+        "evidence": ["14.", "Niger", "4,200"]
+      },
+      {
+        "source_member": "Brahmaputra – Yarlung Tsangpo",
+        "evidence": ["15.", "Brahmaputra – Yarlung Tsangpo", "3,969"]
+      },
+      {
+        "source_member": "Murray – Darling – Culgoa – Balonne – Condamine",
+        "evidence": ["16.", "Murray – Darling – Culgoa – Balonne – Condamine", "3,672"]
+      },
+      {
+        "source_member": "Tocantins – Araguaia",
+        "evidence": ["17.", "Tocantins – Araguaia", "3,650"]
+      },
+      {
+        "source_member": "Volga",
+        "evidence": ["18.", "Volga", "3,645"]
+      },
+      {
+        "source_member": "Shatt al-Arab – Euphrates – Murat",
+        "evidence": ["19.", "Shatt al-Arab – Euphrates – Murat", "3,596"]
+      },
+      {
+        "source_member": "Madeira – Mamoré – Grande – Caine – Rocha",
+        "evidence": ["20.", "Madeira – Mamoré – Grande – Caine – Rocha", "3,380"]
+      },
+      {
+        "source_member": "Purús",
+        "evidence": ["21.", "Purús", "3,211"]
+      },
+      {
+        "source_member": "Yukon",
+        "evidence": ["22.", "Yukon", "3,185"]
+      },
+      {
+        "source_member": "Indus – Sênggê Zangbo",
+        "evidence": ["23.", "Indus – Sênggê Zangbo", "3,180"]
+      },
+      {
+        "source_member": "São Francisco",
+        "evidence": ["24.", "São Francisco", "3,180* (2,900)"]
+      },
+      {
+        "source_member": "Syr Darya – Naryn",
+        "evidence": ["25.", "Syr Darya – Naryn", "3,078"]
+      },
+      {
+        "source_member": "Salween (Nu Jiang)",
+        "evidence": ["26.", "Salween (Nu Jiang)", "3,060"]
+      },
+      {
+        "source_member": "Saint Lawrence – Niagara – Detroit – Saint Clair – Saint Marys – Saint Louis – North ( Great Lakes )",
+        "evidence": [
+          "27.",
+          "Saint Lawrence – Niagara – Detroit – Saint Clair – Saint Marys – Saint Louis – North ( Great Lakes )",
+          "3,058"
+        ]
+      },
+      {
+        "source_member": "Rio Grande",
+        "evidence": ["28.", "Rio Grande", "3,057"]
+      }
+    ],
+    "us-capitals-not-largest": [
+      {
+        "source_member": "Montgomery",
+        "evidence": {
+          "state": "Alabama",
+          "population": "200,603",
+          "rank": "3"
+        }
+      },
+      {
+        "source_member": "Juneau",
+        "evidence": {
+          "state": "Alaska",
+          "population": "32,255",
+          "rank": "3"
+        }
+      },
+      {
+        "source_member": "Sacramento",
+        "evidence": {
+          "state": "California",
+          "population": "524,943",
+          "rank": "6"
+        }
+      },
+      {
+        "source_member": "Hartford",
+        "evidence": {
+          "state": "Connecticut",
+          "population": "121,054",
+          "rank": "4"
+        }
+      },
+      {
+        "source_member": "Dover",
+        "evidence": {
+          "state": "Delaware",
+          "population": "39,403",
+          "rank": "2"
+        }
+      },
+      {
+        "source_member": "Tallahassee",
+        "evidence": {
+          "state": "Florida",
+          "population": "196,169",
+          "rank": "8"
+        }
+      },
+      {
+        "source_member": "Springfield",
+        "evidence": {
+          "state": "Illinois",
+          "population": "114,394",
+          "rank": "7"
+        }
+      },
+      {
+        "source_member": "Topeka",
+        "evidence": {
+          "state": "Kansas",
+          "population": "126,587",
+          "rank": "5"
+        }
+      },
+      {
+        "source_member": "Frankfort",
+        "evidence": {
+          "state": "Kentucky",
+          "population": "28,602",
+          "rank": "15"
+        }
+      },
+      {
+        "source_member": "Baton Rouge",
+        "evidence": {
+          "state": "Louisiana",
+          "population": "227,470",
+          "rank": "2"
+        }
+      },
+      {
+        "source_member": "Augusta",
+        "evidence": {
+          "state": "Maine",
+          "population": "18,899",
+          "rank": "12"
+        }
+      },
+      {
+        "source_member": "Annapolis",
+        "evidence": {
+          "state": "Maryland",
+          "population": "40,812",
+          "rank": "7"
+        }
+      },
+      {
+        "source_member": "Lansing",
+        "evidence": {
+          "state": "Michigan",
+          "population": "112,644",
+          "rank": "5"
+        }
+      },
+      {
+        "source_member": "Saint Paul",
+        "evidence": {
+          "state": "Minnesota",
+          "population": "311,527",
+          "rank": "2"
+        }
+      },
+      {
+        "source_member": "Jefferson City",
+        "evidence": {
+          "state": "Missouri",
+          "population": "43,228",
+          "rank": "15"
+        }
+      },
+      {
+        "source_member": "Helena",
+        "evidence": {
+          "state": "Montana",
+          "population": "32,091",
+          "rank": "6"
+        }
+      },
+      {
+        "source_member": "Lincoln",
+        "evidence": {
+          "state": "Nebraska",
+          "population": "291,082",
+          "rank": "2"
+        }
+      },
+      {
+        "source_member": "Carson City",
+        "evidence": {
+          "state": "Nevada",
+          "population": "58,639",
+          "rank": "6"
+        }
+      },
+      {
+        "source_member": "Concord",
+        "evidence": {
+          "state": "New Hampshire",
+          "population": "43,976",
+          "rank": "3"
+        }
+      },
+      {
+        "source_member": "Trenton",
+        "evidence": {
+          "state": "New Jersey",
+          "population": "90,871",
+          "rank": "10"
+        }
+      },
+      {
+        "source_member": "Santa Fe",
+        "evidence": {
+          "state": "New Mexico",
+          "population": "87,505",
+          "rank": "4"
+        }
+      },
+      {
+        "source_member": "Albany",
+        "evidence": {
+          "state": "New York",
+          "population": "99,224",
+          "rank": "6"
+        }
+      },
+      {
+        "source_member": "Raleigh",
+        "evidence": {
+          "state": "North Carolina",
+          "population": "467,665",
+          "rank": "2"
+        }
+      },
+      {
+        "source_member": "Bismarck",
+        "evidence": {
+          "state": "North Dakota",
+          "population": "73,622",
+          "rank": "2"
+        }
+      },
+      {
+        "source_member": "Salem",
+        "evidence": {
+          "state": "Oregon",
+          "population": "175,535",
+          "rank": "3"
+        }
+      },
+      {
+        "source_member": "Harrisburg",
+        "evidence": {
+          "state": "Pennsylvania",
+          "population": "50,099",
+          "rank": "9"
+        }
+      },
+      {
+        "source_member": "Columbia",
+        "evidence": {
+          "state": "South Carolina",
+          "population": "136,632",
+          "rank": "2"
+        }
+      },
+      {
+        "source_member": "Pierre",
+        "evidence": {
+          "state": "South Dakota",
+          "population": "14,091",
+          "rank": "9"
+        }
+      },
+      {
+        "source_member": "Austin",
+        "evidence": {
+          "state": "Texas",
+          "population": "961,855",
+          "rank": "4"
+        }
+      },
+      {
+        "source_member": "Montpelier",
+        "evidence": {
+          "state": "Vermont",
+          "population": "8,074",
+          "rank": "6"
+        }
+      },
+      {
+        "source_member": "Richmond",
+        "evidence": {
+          "state": "Virginia",
+          "population": "226,610",
+          "rank": "4"
+        }
+      },
+      {
+        "source_member": "Olympia",
+        "evidence": {
+          "state": "Washington",
+          "population": "55,605",
+          "rank": "23"
+        }
+      },
+      {
+        "source_member": "Madison",
+        "evidence": {
+          "state": "Wisconsin",
+          "population": "269,840",
+          "rank": "2"
+        }
+      }
+    ],
+    "islands-50000-km2": [
+      {
+        "source_member": "Greenland ( Kalaallit Nunaat , main island)",
+        "evidence": ["1", "Greenland ( Kalaallit Nunaat , main island)", "2,108,459.47"]
+      },
+      {
+        "source_member": "New Guinea",
+        "evidence": ["2", "New Guinea", "773,751.01"]
+      },
+      {
+        "source_member": "Borneo",
+        "evidence": ["3", "Borneo", "723,154.07"]
+      },
+      {
+        "source_member": "Madagascar (main island)",
+        "evidence": ["4", "Madagascar (main island)", "592,521.41"]
+      },
+      {
+        "source_member": "Baffin Island",
+        "evidence": ["5", "Baffin Island", "507,204.95"]
+      },
+      {
+        "source_member": "Sumatra",
+        "evidence": ["6", "Sumatra", "428,134.16"]
+      },
+      {
+        "source_member": "Honshu",
+        "evidence": ["7", "Honshu", "228,296.26"]
+      },
+      {
+        "source_member": "Victoria Island",
+        "evidence": ["8", "Victoria Island", "219,191.31"]
+      },
+      {
+        "source_member": "Great Britain",
+        "evidence": ["9", "Great Britain", "218,634.50"]
+      },
+      {
+        "source_member": "Ellesmere Island",
+        "evidence": ["10", "Ellesmere Island", "197,790.33"]
+      },
+      {
+        "source_member": "Sulawesi",
+        "evidence": ["11", "Sulawesi", "169,981.39"]
+      },
+      {
+        "source_member": "South Island ( Te Waipounamu )",
+        "evidence": ["12", "South Island ( Te Waipounamu )", "150,683.06"]
+      },
+      {
+        "source_member": "Java",
+        "evidence": ["13", "Java", "127,467.41"]
+      },
+      {
+        "source_member": "North Island ( Te Ika-a-Māui )",
+        "evidence": ["14", "North Island ( Te Ika-a-Māui )", "114,573.11"]
+      },
+      {
+        "source_member": "Newfoundland",
+        "evidence": ["15", "Newfoundland", "108,878.06"]
+      },
+      {
+        "source_member": "Cuba (main island)",
+        "evidence": ["16", "Cuba (main island)", "105,468.33"]
+      },
+      {
+        "source_member": "Luzon (main island)",
+        "evidence": ["17", "Luzon (main island)", "104,835.31"]
+      },
+      {
+        "source_member": "Iceland (main island)",
+        "evidence": ["18", "Iceland (main island)", "100,260.91"]
+      },
+      {
+        "source_member": "Mindanao (main island)",
+        "evidence": ["19", "Mindanao (main island)", "94,468.78"]
+      },
+      {
+        "source_member": "Ireland",
+        "evidence": ["20", "Ireland", "83,720.80"]
+      },
+      {
+        "source_member": "Hokkaido",
+        "evidence": ["21", "Hokkaido", "77,658.66"]
+      },
+      {
+        "source_member": "Hispaniola",
+        "evidence": ["22", "Hispaniola", "74,365.90"]
+      },
+      {
+        "source_member": "Sakhalin",
+        "evidence": ["23", "Sakhalin", "74,237.11"]
+      },
+      {
+        "source_member": "Banks Island",
+        "evidence": ["24", "Banks Island", "70,191.02"]
+      },
+      {
+        "source_member": "Sri Lanka (main island)",
+        "evidence": ["25", "Sri Lanka (main island)", "65,916.13"]
+      },
+      {
+        "source_member": "Tasmania (main island)",
+        "evidence": ["26", "Tasmania (main island)", "64,333.21"]
+      },
+      {
+        "source_member": "Devon Island",
+        "evidence": ["27", "Devon Island", "55,535.39"]
+      },
+      {
+        "source_member": "Alexander Island (Adelaïde)",
+        "evidence": ["28", "Alexander Island (Adelaïde)", "51,947.36"]
+      }
+    ]
+  },
+  "overlaps": {
+    "china-compass-names": [0.25, "chinese-cuisines", ["hunan", "shandong"]],
+    "lakes-10000-km2": [0, null, []],
+    "japan-same-name-capitals": [0.045454545454545456, "winter-olympic-hosts", ["nagano"]],
+    "alpine-four-thousanders": [0.0, "zelda-games", []],
+    "rivers-3000-km": [0.14285714285714285, "countries-without-usa", ["congo", "niger"]],
+    "us-capitals-not-largest": [0.030303030303030304, "spielberg-films", ["lincoln"]],
+    "islands-50000-km2": [
+      0.17857142857142858,
+      "island-countries",
+      ["cuba", "iceland", "ireland", "madagascar", "sri lanka"]
+    ]
+  },
+  "invalid": {
+    "china-compass-names": {
+      "Nanjing": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Xinjiang": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Shanghai": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Guangzhou": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Dongbei": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Ningxia": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Xi'an": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Hong Kong": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Taiwan": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name.",
+      "Jiangsu": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+    },
+    "lakes-10000-km2": {
+      "Lake Titicaca": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Lake Onega": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Aral Sea": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Lake Chad": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Great Salt Lake": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Lake Nicaragua": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Lake Geneva": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Dead Sea": "Does not exceed 10,000 km² in the pinned current-area table.",
+      "Lake Turkana": "Does not exceed 10,000 km² in the pinned current-area table."
+    },
+    "japan-same-name-capitals": {
+      "Tokyo": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Sapporo": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Hokkaido": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Kobe": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Nagoya": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Yokohama": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Sendai": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Okinawa": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Kanazawa": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Matsuyama": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Shimane": "Not a prefecture with an identically named capital city; Tokyo is not a city.",
+      "Ehime": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+    },
+    "alpine-four-thousanders": {
+      "Eiger": "Not in the official 82-summit UIAA list (below 4,000 m).",
+      "Aiguille du Midi": "Not in the official 82-summit UIAA list (below 4,000 m).",
+      "Zugspitze": "Not in the official 82-summit UIAA list (below 4,000 m).",
+      "Grossglockner": "Not in the official 82-summit UIAA list (below 4,000 m).",
+      "Piz Palü": "Not in the official 82-summit UIAA list (below 4,000 m).",
+      "Ortler": "Not in the official 82-summit UIAA list (below 4,000 m)."
+    },
+    "rivers-3000-km": {
+      "Ganges": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Danube": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Colorado": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Zambezi": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Orinoco": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Amu Darya": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Tigris": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Ohio": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Arkansas": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Ural": "No qualifying >3,000 km row in the pinned river-system table.",
+      "Dnieper": "No qualifying >3,000 km row in the pinned river-system table."
+    },
+    "us-capitals-not-largest": {
+      "Cheyenne": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Charleston": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Boise": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Denver": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Phoenix": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Boston": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Nashville": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Atlanta": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Honolulu": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Columbus": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Indianapolis": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Providence": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Salt Lake City": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Des Moines": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Oklahoma City": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Little Rock": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Jackson": "Not a US state capital ranked below first in its state by 2020 city-proper population.",
+      "Washington DC": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+    },
+    "islands-50000-km2": {
+      "Tierra del Fuego": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Isla Grande de Tierra del Fuego": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Taiwan": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Hainan": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Sicily": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Vancouver Island": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Hawaii": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Kyushu": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Spitsbergen": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Australia": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Antarctica": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Long Island": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Jamaica": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Cyprus": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Sardinia": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Severny Island": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Novaya Zemlya": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Melville Island": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Axel Heiberg Island": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Southampton Island": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "New Britain": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table.",
+      "Timor": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+    }
+  },
+  "selected_sha256": "a0003c424204fd859f9c17f7f251435999f881cf3b6e6d3914576dd0c2cde102",
+  "before_definition": "Same reviewed valid guesses; canonical keys only, before alias expansion. Not recall against retired prompts.",
+  "build": {
+    "baseline_gzip_kib": 2993.75,
+    "standalone_gzip_kib": 2995.16,
+    "delta_kib": 1.41,
+    "budget_kib": 1.5
+  },
+  "prompts": [
+    {
+      "id": "china-compass-names",
+      "old_id": "china-provinces",
+      "old_count": 23,
+      "text": "Name a Chinese province-level division whose Chinese name contains north, south, east or west.",
+      "count": 14,
+      "size_band": "tiny",
+      "surface": ["Hebei", "Hunan", "Shandong", "Guangdong"],
+      "too_clever": ["Beijing"],
+      "pearl": "Xizang",
+      "sources": [
+        {
+          "page": "Provincial-level divisions of China",
+          "revision": 1376622017,
+          "members": [
+            "Beijing Municipality",
+            "Guangdong",
+            "Guangxi",
+            "Henan",
+            "Hubei",
+            "Hebei",
+            "Hainan",
+            "Hunan",
+            "Jiangxi",
+            "Shandong",
+            "Shaanxi",
+            "Shanxi",
+            "Tibet",
+            "Yunnan"
+          ],
+          "reviewed": [
+            "Beijing Municipality",
+            "Guangdong",
+            "Guangxi",
+            "Henan",
+            "Hubei",
+            "Hebei",
+            "Hainan",
+            "Hunan",
+            "Jiangxi",
+            "Shandong",
+            "Shaanxi",
+            "Shanxi",
+            "Tibet",
+            "Yunnan"
+          ],
+          "expect": [14, 14],
+          "review": "All 34 province-level divisions reviewed for 北 (north), 南 (south), 东 (east), 西 (west). Includes municipalities and autonomous regions, not prefectures/cities such as Nanjing or Xi’an. Snapshot: 9 November 2026."
+        }
+      ],
+      "before": {
+        "hits": 14,
+        "total": 27,
+        "rate": 0.5185185185185185
+      },
+      "after": {
+        "constrained": true,
+        "hits": 27,
+        "id": "china-compass-names",
+        "invalid": [
+          {
+            "guess": "Nanjing",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Xinjiang",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Shanghai",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Guangzhou",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Dongbei",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Ningxia",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Xi'an",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Hong Kong",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Taiwan",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          },
+          {
+            "guess": "Jiangsu",
+            "invalid": "Not a province-level division with 北, 南, 东 or 西 in its Chinese name."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Chinese province-level division whose Chinese name contains north, south, east or west.",
+        "total": 27
+      },
+      "module_gzip_bytes": 607,
+      "old_module_gzip_bytes": 680
+    },
+    {
+      "id": "lakes-10000-km2",
+      "old_id": "new-zealand-regions",
+      "old_count": 16,
+      "text": "Name a lake with a surface area of more than 10,000 square kilometres.",
+      "count": 16,
+      "size_band": "tiny",
+      "surface": ["Caspian Sea", "Lake Superior", "Lake Victoria", "Lake Michigan", "Lake Baikal"],
+      "too_clever": [],
+      "pearl": "Lake Vostok",
+      "sources": [
+        {
+          "page": "List of lakes by area",
+          "revision": 1377951139,
+          "members": [
+            "Caspian Sea",
+            "Superior",
+            "Victoria",
+            "Huron",
+            "Michigan",
+            "Tanganyika",
+            "Baikal",
+            "Great Bear Lake",
+            "Malawi (Nyasa)",
+            "Great Slave Lake",
+            "Erie",
+            "Winnipeg",
+            "Ontario",
+            "Ladoga",
+            "Balkhash",
+            "Vostok"
+          ],
+          "reviewed": [
+            "Caspian Sea",
+            "Superior",
+            "Victoria",
+            "Huron",
+            "Michigan",
+            "Tanganyika",
+            "Baikal",
+            "Great Bear Lake",
+            "Malawi (Nyasa)",
+            "Great Slave Lake",
+            "Erie",
+            "Winnipeg",
+            "Ontario",
+            "Ladoga",
+            "Balkhash",
+            "Vostok"
+          ],
+          "expect": [16, 16],
+          "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
+        }
+      ],
+      "before": {
+        "hits": 16,
+        "total": 28,
+        "rate": 0.5714285714285714
+      },
+      "after": {
+        "constrained": true,
+        "hits": 27,
+        "id": "lakes-10000-km2",
+        "invalid": [
+          {
+            "guess": "Lake Titicaca",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Lake Onega",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Aral Sea",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Lake Chad",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Great Salt Lake",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Lake Nicaragua",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Lake Geneva",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Dead Sea",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          },
+          {
+            "guess": "Lake Turkana",
+            "invalid": "Does not exceed 10,000 km² in the pinned current-area table."
+          }
+        ],
+        "misses": ["Lake Michigan-Huron"],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 0.9642857142857143,
+        "text": "Name a lake with a surface area of more than 10,000 square kilometres.",
+        "total": 28
+      },
+      "module_gzip_bytes": 609,
+      "old_module_gzip_bytes": 712
+    },
+    {
+      "id": "japan-same-name-capitals",
+      "old_id": "japan-prefectures",
+      "old_count": 47,
+      "text": "Name a Japanese prefecture whose capital is a city of the same name.",
+      "count": 29,
+      "size_band": "medium",
+      "surface": ["Ōsaka", "Kyōto", "Hiroshima", "Nagasaki", "Fukuoka"],
+      "too_clever": [],
+      "pearl": "Tottori",
+      "sources": [
+        {
+          "page": "Prefectures of Japan",
+          "revision": 1384359576,
+          "members": [
+            "Akita",
+            "Aomori",
+            "Chiba",
+            "Fukui",
+            "Fukuoka",
+            "Fukushima",
+            "Gifu",
+            "Hiroshima",
+            "Kagoshima",
+            "Kōchi",
+            "Kumamoto",
+            "Kyōto",
+            "Miyazaki",
+            "Nagano",
+            "Nagasaki",
+            "Nara",
+            "Niigata",
+            "Ōita",
+            "Okayama",
+            "Ōsaka",
+            "Saga",
+            "Saitama",
+            "Shizuoka",
+            "Tokushima",
+            "Tottori",
+            "Toyama",
+            "Wakayama",
+            "Yamagata",
+            "Yamaguchi"
+          ],
+          "reviewed": [
+            "Akita",
+            "Aomori",
+            "Chiba",
+            "Fukui",
+            "Fukuoka",
+            "Fukushima",
+            "Gifu",
+            "Hiroshima",
+            "Kagoshima",
+            "Kōchi",
+            "Kumamoto",
+            "Kyōto",
+            "Miyazaki",
+            "Nagano",
+            "Nagasaki",
+            "Nara",
+            "Niigata",
+            "Ōita",
+            "Okayama",
+            "Ōsaka",
+            "Saga",
+            "Saitama",
+            "Shizuoka",
+            "Tokushima",
+            "Tottori",
+            "Toyama",
+            "Wakayama",
+            "Yamagata",
+            "Yamaguchi"
+          ],
+          "expect": [29, 29],
+          "review": "Complete 47-prefecture table; compare English names, require a city (市). Tokyo is excluded: no city of Tokyo exists; the table lists 東京都 rather than a city. All 29 qualifying rows include Saitama. Snapshot: 9 November 2026."
+        }
+      ],
+      "before": {
+        "hits": 33,
+        "total": 33,
+        "rate": 1.0
+      },
+      "after": {
+        "constrained": true,
+        "hits": 33,
+        "id": "japan-same-name-capitals",
+        "invalid": [
+          {
+            "guess": "Tokyo",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Sapporo",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Hokkaido",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Kobe",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Nagoya",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Yokohama",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Sendai",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Okinawa",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Kanazawa",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Matsuyama",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Shimane",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          },
+          {
+            "guess": "Ehime",
+            "invalid": "Not a prefecture with an identically named capital city; Tokyo is not a city."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a Japanese prefecture whose capital is a city of the same name.",
+        "total": 33
+      },
+      "module_gzip_bytes": 1047,
+      "old_module_gzip_bytes": 1034
+    },
+    {
+      "id": "alpine-four-thousanders",
+      "old_id": "swiss-cantons",
+      "old_count": 26,
+      "text": "Name one of the 82 official four-thousand-metre peaks of the Alps.",
+      "count": 82,
+      "size_band": "medium",
+      "surface": ["Mont Blanc", "Matterhorn", "Dufourspitze", "Jungfrau", "Mönch"],
+      "too_clever": [],
+      "pearl": "Aiguille du Jardin",
+      "sources": [
+        {
+          "page": "List of mountains of the Alps over 4000 metres",
+          "revision": 1375970569,
+          "members": [
+            "Mont Blanc",
+            "Mont Blanc de Courmayeur",
+            "Dufourspitze",
+            "Nordend",
+            "Zumsteinspitze",
+            "Signalkuppe",
+            "Dom",
+            "Lyskamm (Eastern Summit)",
+            "Weisshorn",
+            "Täschhorn",
+            "Lyskamm (Western Summit)",
+            "Matterhorn",
+            "Picco Luigi Amedeo",
+            "Mont Maudit",
+            "Parrotspitze",
+            "Dent Blanche",
+            "Ludwigshöhe",
+            "Nadelhorn",
+            "Schwarzhorn (Corno Nero)",
+            "Combin de Grafeneire",
+            "Dôme du Goûter",
+            "Lenzspitze",
+            "Finsteraarhorn",
+            "Mont Blanc du Tacul",
+            "Grand Pilier d’Angle",
+            "Stecknadelhorn",
+            "Castor",
+            "Zinalrothorn",
+            "Hohberghorn",
+            "Vincent Pyramid",
+            "Grandes Jorasses (Pointe Walker)",
+            "Alphubel",
+            "Rimpfischhorn",
+            "Aletschhorn",
+            "Strahlhorn",
+            "Combin de Valsorey",
+            "Grandes Jorasses (Pointe Whymper)",
+            "Dent d’Hérens",
+            "Breithorn (Western Summit)",
+            "Jungfrau",
+            "Breithorn (Central Summit)",
+            "Bishorn",
+            "Eastern Breithorn (Eastern Summit/ western Twin Peak)",
+            "Combin de la Tsessette",
+            "Aiguille Verte",
+            "Aiguilles du Diable (L’Isolée)",
+            "Aiguille Blanche de Peuterey",
+            "Mönch",
+            "Grandes Jorasses (Pointe Croz)",
+            "Aiguilles du Diable (Pointe Carmen)",
+            "Breithorn (Gendarm/ eastern Twin Peak)",
+            "Grande Rocheuse",
+            "Barre des Écrins",
+            "Aiguilles du Diable (Pointe Médiane)",
+            "Pollux",
+            "Schreckhorn",
+            "Breithorn (Roccia Nera)",
+            "Aiguilles du Diable (Pointe Chaubert)",
+            "Mont Brouillard",
+            "Grandes Jorasses (Pointe Marguerite)",
+            "Aiguilles du Diable (Corne du Diable)",
+            "Ober Gabelhorn",
+            "Gran Paradiso",
+            "Aiguille de Bionnassay",
+            "Gross Fiescherhorn",
+            "Piz Bernina",
+            "Vincent Pyramid (Punta Giordani/Giordanispetz)",
+            "Grandes Jorasses (Pointe Elena)",
+            "Grünhorn",
+            "Lauteraarhorn",
+            "Aiguille du Jardin",
+            "Dürrenhorn",
+            "Allalinhorn",
+            "Hinter Fiescherhorn",
+            "Dôme de Rochefort",
+            "Barre des Écrins (Dôme de Neige)",
+            "Weissmies",
+            "Dent du Géant",
+            "Punta Baretti",
+            "Lagginhorn",
+            "Aiguille de Rochefort",
+            "Les Droites"
+          ],
+          "reviewed": [
+            "Mont Blanc",
+            "Mont Blanc de Courmayeur",
+            "Dufourspitze",
+            "Nordend",
+            "Zumsteinspitze",
+            "Signalkuppe",
+            "Dom",
+            "Lyskamm (Eastern Summit)",
+            "Weisshorn",
+            "Täschhorn",
+            "Lyskamm (Western Summit)",
+            "Matterhorn",
+            "Picco Luigi Amedeo",
+            "Mont Maudit",
+            "Parrotspitze",
+            "Dent Blanche",
+            "Ludwigshöhe",
+            "Nadelhorn",
+            "Schwarzhorn (Corno Nero)",
+            "Combin de Grafeneire",
+            "Dôme du Goûter",
+            "Lenzspitze",
+            "Finsteraarhorn",
+            "Mont Blanc du Tacul",
+            "Grand Pilier d’Angle",
+            "Stecknadelhorn",
+            "Castor",
+            "Zinalrothorn",
+            "Hohberghorn",
+            "Vincent Pyramid",
+            "Grandes Jorasses (Pointe Walker)",
+            "Alphubel",
+            "Rimpfischhorn",
+            "Aletschhorn",
+            "Strahlhorn",
+            "Combin de Valsorey",
+            "Grandes Jorasses (Pointe Whymper)",
+            "Dent d’Hérens",
+            "Breithorn (Western Summit)",
+            "Jungfrau",
+            "Breithorn (Central Summit)",
+            "Bishorn",
+            "Eastern Breithorn (Eastern Summit/ western Twin Peak)",
+            "Combin de la Tsessette",
+            "Aiguille Verte",
+            "Aiguilles du Diable (L’Isolée)",
+            "Aiguille Blanche de Peuterey",
+            "Mönch",
+            "Grandes Jorasses (Pointe Croz)",
+            "Aiguilles du Diable (Pointe Carmen)",
+            "Breithorn (Gendarm/ eastern Twin Peak)",
+            "Grande Rocheuse",
+            "Barre des Écrins",
+            "Aiguilles du Diable (Pointe Médiane)",
+            "Pollux",
+            "Schreckhorn",
+            "Breithorn (Roccia Nera)",
+            "Aiguilles du Diable (Pointe Chaubert)",
+            "Mont Brouillard",
+            "Grandes Jorasses (Pointe Marguerite)",
+            "Aiguilles du Diable (Corne du Diable)",
+            "Ober Gabelhorn",
+            "Gran Paradiso",
+            "Aiguille de Bionnassay",
+            "Gross Fiescherhorn",
+            "Piz Bernina",
+            "Vincent Pyramid (Punta Giordani/Giordanispetz)",
+            "Grandes Jorasses (Pointe Elena)",
+            "Grünhorn",
+            "Lauteraarhorn",
+            "Aiguille du Jardin",
+            "Dürrenhorn",
+            "Allalinhorn",
+            "Hinter Fiescherhorn",
+            "Dôme de Rochefort",
+            "Barre des Écrins (Dôme de Neige)",
+            "Weissmies",
+            "Dent du Géant",
+            "Punta Baretti",
+            "Lagginhorn",
+            "Aiguille de Rochefort",
+            "Les Droites"
+          ],
+          "expect": [82, 82],
+          "review": "Complete UIAA 82-summit main table, including Les Droites at 4,000 m; exclude enlarged-list secondary tops. Massif shorthand maps only to the main/highest listed peak: Monte Rosa→Dufourspitze, Grand Combin→Grafeneire, Grandes Jorasses→Walker, Lyskamm→East, Breithorn→West."
+        }
+      ],
+      "before": {
+        "hits": 37,
+        "total": 46,
+        "rate": 0.8043478260869565
+      },
+      "after": {
+        "constrained": true,
+        "hits": 46,
+        "id": "alpine-four-thousanders",
+        "invalid": [
+          {
+            "guess": "Eiger",
+            "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+          },
+          {
+            "guess": "Aiguille du Midi",
+            "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+          },
+          {
+            "guess": "Zugspitze",
+            "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+          },
+          {
+            "guess": "Grossglockner",
+            "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+          },
+          {
+            "guess": "Piz Palü",
+            "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+          },
+          {
+            "guess": "Ortler",
+            "invalid": "Not in the official 82-summit UIAA list (below 4,000 m)."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name one of the 82 official four-thousand-metre peaks of the Alps.",
+        "total": 46
+      },
+      "module_gzip_bytes": 2045,
+      "old_module_gzip_bytes": 981
+    },
+    {
+      "id": "rivers-3000-km",
+      "old_id": "brazil-states",
+      "old_count": 27,
+      "text": "Name a river or river system more than 3,000 kilometres long.",
+      "count": 28,
+      "size_band": "medium",
+      "surface": ["Nile", "Amazon", "Yangtze", "Mississippi–Missouri", "Yellow River"],
+      "too_clever": [],
+      "pearl": "Purús",
+      "sources": [
+        {
+          "page": "List of river systems by length",
+          "revision": 1384635915,
+          "members": [
+            "Nile – White Nile – Kagera – Nyabarongo – Mwogo – Rukarara",
+            "Amazon – Ucayali – Tambo – Ene – Mantaro",
+            "Yangtze – Jinsha – Tongtian – Dangqu (Chang Jiang)",
+            "Mississippi – Missouri – Jefferson – Beaverhead – Red Rock – Hell Roaring",
+            "Yenisey – Angara – Selenga – Ider",
+            "Yellow River (Huang He)",
+            "Ob – Irtysh",
+            "Río de la Plata – Paraná – Rio Grande",
+            "Congo – Lualaba - Luvua - Luapula - Chambeshi (Zaïre)",
+            "Amur – Argun (Heilong Jiang)",
+            "Lena",
+            "Mekong (Lancang Jiang)",
+            "Mackenzie – Slave – Peace – Finlay",
+            "Niger",
+            "Brahmaputra – Yarlung Tsangpo",
+            "Murray – Darling – Culgoa – Balonne – Condamine",
+            "Tocantins – Araguaia",
+            "Volga",
+            "Shatt al-Arab – Euphrates – Murat",
+            "Madeira – Mamoré – Grande – Caine – Rocha",
+            "Purús",
+            "Yukon",
+            "Indus – Sênggê Zangbo",
+            "São Francisco",
+            "Syr Darya – Naryn",
+            "Salween (Nu Jiang)",
+            "Saint Lawrence – Niagara – Detroit – Saint Clair – Saint Marys – Saint Louis – North ( Great Lakes )",
+            "Rio Grande"
+          ],
+          "reviewed": [
+            "Nile – White Nile – Kagera – Nyabarongo – Mwogo – Rukarara",
+            "Amazon – Ucayali – Tambo – Ene – Mantaro",
+            "Yangtze – Jinsha – Tongtian – Dangqu (Chang Jiang)",
+            "Mississippi – Missouri – Jefferson – Beaverhead – Red Rock – Hell Roaring",
+            "Yenisey – Angara – Selenga – Ider",
+            "Yellow River (Huang He)",
+            "Ob – Irtysh",
+            "Río de la Plata – Paraná – Rio Grande",
+            "Congo – Lualaba - Luvua - Luapula - Chambeshi (Zaïre)",
+            "Amur – Argun (Heilong Jiang)",
+            "Lena",
+            "Mekong (Lancang Jiang)",
+            "Mackenzie – Slave – Peace – Finlay",
+            "Niger",
+            "Brahmaputra – Yarlung Tsangpo",
+            "Murray – Darling – Culgoa – Balonne – Condamine",
+            "Tocantins – Araguaia",
+            "Volga",
+            "Shatt al-Arab – Euphrates – Murat",
+            "Madeira – Mamoré – Grande – Caine – Rocha",
+            "Purús",
+            "Yukon",
+            "Indus – Sênggê Zangbo",
+            "São Francisco",
+            "Syr Darya – Naryn",
+            "Salween (Nu Jiang)",
+            "Saint Lawrence – Niagara – Detroit – Saint Clair – Saint Marys – Saint Louis – North ( Great Lakes )",
+            "Rio Grande"
+          ],
+          "expect": [28, 28],
+          "review": "Complete pinned table rows with primary listed length strictly >3,000 km (28 rows). Primary value controls where estimates differ, including São Francisco 3,180 (alternative 2,900). Main-stem names stand for their system, not extra rows; Ganges, Danube, Colorado, Zambezi and Orinoco do not qualify. Rio Grande belongs to its own row, not the Paraná tributary of that name."
+        }
+      ],
+      "before": {
+        "hits": 21,
+        "total": 39,
+        "rate": 0.5384615384615384
+      },
+      "after": {
+        "constrained": true,
+        "hits": 39,
+        "id": "rivers-3000-km",
+        "invalid": [
+          {
+            "guess": "Ganges",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Danube",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Colorado",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Zambezi",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Orinoco",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Amu Darya",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Tigris",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Ohio",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Arkansas",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Ural",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          },
+          {
+            "guess": "Dnieper",
+            "invalid": "No qualifying >3,000 km row in the pinned river-system table."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a river or river system more than 3,000 kilometres long.",
+        "total": 39
+      },
+      "module_gzip_bytes": 1274,
+      "old_module_gzip_bytes": 842
+    },
+    {
+      "id": "us-capitals-not-largest",
+      "old_id": "mexico-states",
+      "old_count": 32,
+      "text": "Name a US state capital that wasn't its state's most populous city in the 2020 census.",
+      "count": 33,
+      "size_band": "medium",
+      "surface": ["Sacramento", "Albany", "Austin", "Tallahassee", "Springfield"],
+      "too_clever": [],
+      "pearl": "Pierre",
+      "sources": [
+        {
+          "page": "List of capitals in the United States",
+          "revision": 1381021740,
+          "members": [
+            "Montgomery",
+            "Juneau",
+            "Sacramento",
+            "Hartford",
+            "Dover",
+            "Tallahassee",
+            "Springfield",
+            "Topeka",
+            "Frankfort",
+            "Baton Rouge",
+            "Augusta",
+            "Annapolis",
+            "Lansing",
+            "Saint Paul",
+            "Jefferson City",
+            "Helena",
+            "Lincoln",
+            "Carson City",
+            "Concord",
+            "Trenton",
+            "Santa Fe",
+            "Albany",
+            "Raleigh",
+            "Bismarck",
+            "Salem",
+            "Harrisburg",
+            "Columbia",
+            "Pierre",
+            "Austin",
+            "Montpelier",
+            "Richmond",
+            "Olympia",
+            "Madison"
+          ],
+          "reviewed": [
+            "Montgomery",
+            "Juneau",
+            "Sacramento",
+            "Hartford",
+            "Dover",
+            "Tallahassee",
+            "Springfield",
+            "Topeka",
+            "Frankfort",
+            "Baton Rouge",
+            "Augusta",
+            "Annapolis",
+            "Lansing",
+            "Saint Paul",
+            "Jefferson City",
+            "Helena",
+            "Lincoln",
+            "Carson City",
+            "Concord",
+            "Trenton",
+            "Santa Fe",
+            "Albany",
+            "Raleigh",
+            "Bismarck",
+            "Salem",
+            "Harrisburg",
+            "Columbia",
+            "Pierre",
+            "Austin",
+            "Montpelier",
+            "Richmond",
+            "Olympia",
+            "Madison"
+          ],
+          "expect": [33, 33],
+          "review": "All 50 states reviewed; retain 33 capitals with City rank in state >1, using 2020 Census city-proper populations, never MSA/CSA or subsequent estimates. DC and territories excluded. Population-bound wording remains fixed through January 2027."
+        }
+      ],
+      "before": {
+        "hits": 33,
+        "total": 35,
+        "rate": 0.9428571428571428
+      },
+      "after": {
+        "constrained": true,
+        "hits": 35,
+        "id": "us-capitals-not-largest",
+        "invalid": [
+          {
+            "guess": "Cheyenne",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Charleston",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Boise",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Denver",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Phoenix",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Boston",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Nashville",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Atlanta",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Honolulu",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Columbus",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Indianapolis",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Providence",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Salt Lake City",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Des Moines",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Oklahoma City",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Little Rock",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Jackson",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          },
+          {
+            "guess": "Washington DC",
+            "invalid": "Not a US state capital ranked below first in its state by 2020 city-proper population."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name a US state capital that wasn't its state's most populous city in the 2020 census.",
+        "total": 35
+      },
+      "module_gzip_bytes": 1113,
+      "old_module_gzip_bytes": 900
+    },
+    {
+      "id": "islands-50000-km2",
+      "old_id": "indian-states",
+      "old_count": 36,
+      "text": "Name an island with an area of more than 50,000 square kilometres.",
+      "count": 28,
+      "size_band": "medium",
+      "surface": ["Greenland", "New Guinea", "Borneo", "Madagascar", "Great Britain"],
+      "too_clever": [],
+      "pearl": "Alexander Island",
+      "sources": [
+        {
+          "page": "List of islands by area",
+          "revision": 1384175972,
+          "members": [
+            "Greenland ( Kalaallit Nunaat , main island)",
+            "New Guinea",
+            "Borneo",
+            "Madagascar (main island)",
+            "Baffin Island",
+            "Sumatra",
+            "Honshu",
+            "Victoria Island",
+            "Great Britain",
+            "Ellesmere Island",
+            "Sulawesi",
+            "South Island ( Te Waipounamu )",
+            "Java",
+            "North Island ( Te Ika-a-Māui )",
+            "Newfoundland",
+            "Cuba (main island)",
+            "Luzon (main island)",
+            "Iceland (main island)",
+            "Mindanao (main island)",
+            "Ireland",
+            "Hokkaido",
+            "Hispaniola",
+            "Sakhalin",
+            "Banks Island",
+            "Sri Lanka (main island)",
+            "Tasmania (main island)",
+            "Devon Island",
+            "Alexander Island (Adelaïde)"
+          ],
+          "reviewed": [
+            "Greenland ( Kalaallit Nunaat , main island)",
+            "New Guinea",
+            "Borneo",
+            "Madagascar (main island)",
+            "Baffin Island",
+            "Sumatra",
+            "Honshu",
+            "Victoria Island",
+            "Great Britain",
+            "Ellesmere Island",
+            "Sulawesi",
+            "South Island ( Te Waipounamu )",
+            "Java",
+            "North Island ( Te Ika-a-Māui )",
+            "Newfoundland",
+            "Cuba (main island)",
+            "Luzon (main island)",
+            "Iceland (main island)",
+            "Mindanao (main island)",
+            "Ireland",
+            "Hokkaido",
+            "Hispaniola",
+            "Sakhalin",
+            "Banks Island",
+            "Sri Lanka (main island)",
+            "Tasmania (main island)",
+            "Devon Island",
+            "Alexander Island (Adelaïde)"
+          ],
+          "expect": [28, 28],
+          "review": "Complete noncontinental island table with 2026 area strictly >50,000 km²: 28 individual islands. Exclude Australia, Antarctica and Afro-Eurasia; not archipelagos such as Novaya Zemlya. Tierra del Fuego/Severny fall below the cutoff in this pinned area dataset, despite older estimates for Severny exceeding it."
+        }
+      ],
+      "before": {
+        "hits": 27,
+        "total": 30,
+        "rate": 0.9
+      },
+      "after": {
+        "constrained": true,
+        "hits": 30,
+        "id": "islands-50000-km2",
+        "invalid": [
+          {
+            "guess": "Tierra del Fuego",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Isla Grande de Tierra del Fuego",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Taiwan",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Hainan",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Sicily",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Vancouver Island",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Hawaii",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Kyushu",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Spitsbergen",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Australia",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Antarctica",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Long Island",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Jamaica",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Cyprus",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Sardinia",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Severny Island",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Novaya Zemlya",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Melville Island",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Axel Heiberg Island",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Southampton Island",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "New Britain",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          },
+          {
+            "guess": "Timor",
+            "invalid": "Not an individual noncontinental island exceeding 50,000 km² in the pinned table."
+          }
+        ],
+        "misses": [],
+        "missingCorpus": false,
+        "missingData": false,
+        "rate": 1,
+        "text": "Name an island with an area of more than 50,000 square kilometres.",
+        "total": 30
+      },
+      "module_gzip_bytes": 825,
+      "old_module_gzip_bytes": 993
+    }
+  ]
+}

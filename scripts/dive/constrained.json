@@ -16832,7 +16832,209 @@
       ],
       "surface": ["Tōkyō", "Ōsaka", "Hokkaido"],
       "pearl": "Okinawa",
-      "people": false
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "japan-same-name-capitals",
+      "text": "a Japanese prefecture whose capital is a city of the same name",
+      "theme": "geography",
+      "cluster": "japan",
+      "active": true,
+      "sources": [
+        {
+          "page": "Prefectures of Japan",
+          "revision": 1384359576,
+          "members": [
+            "Akita",
+            "Aomori",
+            "Chiba",
+            "Fukui",
+            "Fukuoka",
+            "Fukushima",
+            "Gifu",
+            "Hiroshima",
+            "Kagoshima",
+            "Kōchi",
+            "Kumamoto",
+            "Kyōto",
+            "Miyazaki",
+            "Nagano",
+            "Nagasaki",
+            "Nara",
+            "Niigata",
+            "Ōita",
+            "Okayama",
+            "Ōsaka",
+            "Saga",
+            "Saitama",
+            "Shizuoka",
+            "Tokushima",
+            "Tottori",
+            "Toyama",
+            "Wakayama",
+            "Yamagata",
+            "Yamaguchi"
+          ],
+          "reviewed": [
+            "Akita",
+            "Aomori",
+            "Chiba",
+            "Fukui",
+            "Fukuoka",
+            "Fukushima",
+            "Gifu",
+            "Hiroshima",
+            "Kagoshima",
+            "Kōchi",
+            "Kumamoto",
+            "Kyōto",
+            "Miyazaki",
+            "Nagano",
+            "Nagasaki",
+            "Nara",
+            "Niigata",
+            "Ōita",
+            "Okayama",
+            "Ōsaka",
+            "Saga",
+            "Saitama",
+            "Shizuoka",
+            "Tokushima",
+            "Tottori",
+            "Toyama",
+            "Wakayama",
+            "Yamagata",
+            "Yamaguchi"
+          ],
+          "expect": [29, 29],
+          "review": "Complete 47-prefecture table; compare English names, require a city (市). Tokyo is excluded: no city of Tokyo exists; the table lists 東京都 rather than a city. All 29 qualifying rows include Saitama. Snapshot: 9 November 2026."
+        }
+      ],
+      "expect": [29, 29],
+      "answers": [
+        {
+          "name": "Akita",
+          "aliases": ["Akita Prefecture", "Akita-ken", "Akita City"]
+        },
+        {
+          "name": "Aomori",
+          "aliases": ["Aomori Prefecture", "Aomori-ken", "Aomori City"]
+        },
+        {
+          "name": "Chiba",
+          "aliases": ["Chiba Prefecture", "Chiba-ken", "Chiba City"]
+        },
+        {
+          "name": "Fukui",
+          "aliases": ["Fukui Prefecture", "Fukui-ken", "Fukui City"]
+        },
+        {
+          "name": "Fukuoka",
+          "aliases": ["Fukuoka Prefecture", "Fukuoka-ken", "Fukuoka City"]
+        },
+        {
+          "name": "Fukushima",
+          "aliases": ["Fukushima Prefecture", "Fukushima-ken", "Fukushima City"]
+        },
+        {
+          "name": "Gifu",
+          "aliases": ["Gifu Prefecture", "Gifu-ken", "Gifu City"]
+        },
+        {
+          "name": "Hiroshima",
+          "aliases": ["Hiroshima Prefecture", "Hiroshima-ken", "Hiroshima City"]
+        },
+        {
+          "name": "Kagoshima",
+          "aliases": ["Kagoshima Prefecture", "Kagoshima-ken", "Kagoshima City"]
+        },
+        {
+          "name": "Kōchi",
+          "aliases": ["Kōchi Prefecture", "Kochi-ken", "Kochi City"]
+        },
+        {
+          "name": "Kumamoto",
+          "aliases": ["Kumamoto Prefecture", "Kumamoto-ken", "Kumamoto City"]
+        },
+        {
+          "name": "Kyōto",
+          "aliases": ["Kyōto Prefecture", "Kyoto-ken", "Kyoto City", "Kyoto-fu"]
+        },
+        {
+          "name": "Miyazaki",
+          "aliases": ["Miyazaki Prefecture", "Miyazaki-ken", "Miyazaki City"]
+        },
+        {
+          "name": "Nagano",
+          "aliases": ["Nagano Prefecture", "Nagano-ken", "Nagano City"]
+        },
+        {
+          "name": "Nagasaki",
+          "aliases": ["Nagasaki Prefecture", "Nagasaki-ken", "Nagasaki City"]
+        },
+        {
+          "name": "Nara",
+          "aliases": ["Nara Prefecture", "Nara-ken", "Nara City"]
+        },
+        {
+          "name": "Niigata",
+          "aliases": ["Niigata Prefecture", "Niigata-ken", "Niigata City"]
+        },
+        {
+          "name": "Ōita",
+          "aliases": ["Ōita Prefecture", "Oita-ken", "Oita City"]
+        },
+        {
+          "name": "Okayama",
+          "aliases": ["Okayama Prefecture", "Okayama-ken", "Okayama City"]
+        },
+        {
+          "name": "Ōsaka",
+          "aliases": ["Ōsaka Prefecture", "Osaka-ken", "Osaka City", "Osaka-fu"]
+        },
+        {
+          "name": "Saga",
+          "aliases": ["Saga Prefecture", "Saga-ken", "Saga City"]
+        },
+        {
+          "name": "Saitama",
+          "aliases": ["Saitama Prefecture", "Saitama-ken", "Saitama City"]
+        },
+        {
+          "name": "Shizuoka",
+          "aliases": ["Shizuoka Prefecture", "Shizuoka-ken", "Shizuoka City"]
+        },
+        {
+          "name": "Tokushima",
+          "aliases": ["Tokushima Prefecture", "Tokushima-ken", "Tokushima City"]
+        },
+        {
+          "name": "Tottori",
+          "aliases": ["Tottori Prefecture", "Tottori-ken", "Tottori City"]
+        },
+        {
+          "name": "Toyama",
+          "aliases": ["Toyama Prefecture", "Toyama-ken", "Toyama City"]
+        },
+        {
+          "name": "Wakayama",
+          "aliases": ["Wakayama Prefecture", "Wakayama-ken", "Wakayama City"]
+        },
+        {
+          "name": "Yamagata",
+          "aliases": ["Yamagata Prefecture", "Yamagata-ken", "Yamagata City"]
+        },
+        {
+          "name": "Yamaguchi",
+          "aliases": ["Yamaguchi Prefecture", "Yamaguchi-ken", "Yamaguchi City"]
+        }
+      ],
+      "surface": ["Ōsaka", "Kyōto", "Hiroshima", "Nagasaki", "Fukuoka"],
+      "too_clever": [],
+      "pearl": "Tottori",
+      "acceptance_notes": "Complete 47-prefecture table; compare English names, require a city (市). Tokyo is excluded: no city of Tokyo exists; the table lists 東京都 rather than a city. All 29 qualifying rows include Saitama. Snapshot: 9 November 2026.",
+      "review": "Complete 47-prefecture table; compare English names, require a city (市). Tokyo is excluded: no city of Tokyo exists; the table lists 東京都 rather than a city. All 29 qualifying rows include Saitama. Snapshot: 9 November 2026."
     },
     {
       "id": "italian-regions",
@@ -17116,7 +17318,483 @@
       ],
       "surface": ["Zurich", "Geneva", "Bern"],
       "pearl": "Ticino",
-      "people": false
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "alpine-four-thousanders",
+      "text": "one of the 82 official four-thousand-metre peaks of the Alps",
+      "theme": "geography",
+      "cluster": "mountains",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of mountains of the Alps over 4000 metres",
+          "revision": 1375970569,
+          "members": [
+            "Mont Blanc",
+            "Mont Blanc de Courmayeur",
+            "Dufourspitze",
+            "Nordend",
+            "Zumsteinspitze",
+            "Signalkuppe",
+            "Dom",
+            "Lyskamm (Eastern Summit)",
+            "Weisshorn",
+            "Täschhorn",
+            "Lyskamm (Western Summit)",
+            "Matterhorn",
+            "Picco Luigi Amedeo",
+            "Mont Maudit",
+            "Parrotspitze",
+            "Dent Blanche",
+            "Ludwigshöhe",
+            "Nadelhorn",
+            "Schwarzhorn (Corno Nero)",
+            "Combin de Grafeneire",
+            "Dôme du Goûter",
+            "Lenzspitze",
+            "Finsteraarhorn",
+            "Mont Blanc du Tacul",
+            "Grand Pilier d’Angle",
+            "Stecknadelhorn",
+            "Castor",
+            "Zinalrothorn",
+            "Hohberghorn",
+            "Vincent Pyramid",
+            "Grandes Jorasses (Pointe Walker)",
+            "Alphubel",
+            "Rimpfischhorn",
+            "Aletschhorn",
+            "Strahlhorn",
+            "Combin de Valsorey",
+            "Grandes Jorasses (Pointe Whymper)",
+            "Dent d’Hérens",
+            "Breithorn (Western Summit)",
+            "Jungfrau",
+            "Breithorn (Central Summit)",
+            "Bishorn",
+            "Eastern Breithorn (Eastern Summit/ western Twin Peak)",
+            "Combin de la Tsessette",
+            "Aiguille Verte",
+            "Aiguilles du Diable (L’Isolée)",
+            "Aiguille Blanche de Peuterey",
+            "Mönch",
+            "Grandes Jorasses (Pointe Croz)",
+            "Aiguilles du Diable (Pointe Carmen)",
+            "Breithorn (Gendarm/ eastern Twin Peak)",
+            "Grande Rocheuse",
+            "Barre des Écrins",
+            "Aiguilles du Diable (Pointe Médiane)",
+            "Pollux",
+            "Schreckhorn",
+            "Breithorn (Roccia Nera)",
+            "Aiguilles du Diable (Pointe Chaubert)",
+            "Mont Brouillard",
+            "Grandes Jorasses (Pointe Marguerite)",
+            "Aiguilles du Diable (Corne du Diable)",
+            "Ober Gabelhorn",
+            "Gran Paradiso",
+            "Aiguille de Bionnassay",
+            "Gross Fiescherhorn",
+            "Piz Bernina",
+            "Vincent Pyramid (Punta Giordani/Giordanispetz)",
+            "Grandes Jorasses (Pointe Elena)",
+            "Grünhorn",
+            "Lauteraarhorn",
+            "Aiguille du Jardin",
+            "Dürrenhorn",
+            "Allalinhorn",
+            "Hinter Fiescherhorn",
+            "Dôme de Rochefort",
+            "Barre des Écrins (Dôme de Neige)",
+            "Weissmies",
+            "Dent du Géant",
+            "Punta Baretti",
+            "Lagginhorn",
+            "Aiguille de Rochefort",
+            "Les Droites"
+          ],
+          "reviewed": [
+            "Mont Blanc",
+            "Mont Blanc de Courmayeur",
+            "Dufourspitze",
+            "Nordend",
+            "Zumsteinspitze",
+            "Signalkuppe",
+            "Dom",
+            "Lyskamm (Eastern Summit)",
+            "Weisshorn",
+            "Täschhorn",
+            "Lyskamm (Western Summit)",
+            "Matterhorn",
+            "Picco Luigi Amedeo",
+            "Mont Maudit",
+            "Parrotspitze",
+            "Dent Blanche",
+            "Ludwigshöhe",
+            "Nadelhorn",
+            "Schwarzhorn (Corno Nero)",
+            "Combin de Grafeneire",
+            "Dôme du Goûter",
+            "Lenzspitze",
+            "Finsteraarhorn",
+            "Mont Blanc du Tacul",
+            "Grand Pilier d’Angle",
+            "Stecknadelhorn",
+            "Castor",
+            "Zinalrothorn",
+            "Hohberghorn",
+            "Vincent Pyramid",
+            "Grandes Jorasses (Pointe Walker)",
+            "Alphubel",
+            "Rimpfischhorn",
+            "Aletschhorn",
+            "Strahlhorn",
+            "Combin de Valsorey",
+            "Grandes Jorasses (Pointe Whymper)",
+            "Dent d’Hérens",
+            "Breithorn (Western Summit)",
+            "Jungfrau",
+            "Breithorn (Central Summit)",
+            "Bishorn",
+            "Eastern Breithorn (Eastern Summit/ western Twin Peak)",
+            "Combin de la Tsessette",
+            "Aiguille Verte",
+            "Aiguilles du Diable (L’Isolée)",
+            "Aiguille Blanche de Peuterey",
+            "Mönch",
+            "Grandes Jorasses (Pointe Croz)",
+            "Aiguilles du Diable (Pointe Carmen)",
+            "Breithorn (Gendarm/ eastern Twin Peak)",
+            "Grande Rocheuse",
+            "Barre des Écrins",
+            "Aiguilles du Diable (Pointe Médiane)",
+            "Pollux",
+            "Schreckhorn",
+            "Breithorn (Roccia Nera)",
+            "Aiguilles du Diable (Pointe Chaubert)",
+            "Mont Brouillard",
+            "Grandes Jorasses (Pointe Marguerite)",
+            "Aiguilles du Diable (Corne du Diable)",
+            "Ober Gabelhorn",
+            "Gran Paradiso",
+            "Aiguille de Bionnassay",
+            "Gross Fiescherhorn",
+            "Piz Bernina",
+            "Vincent Pyramid (Punta Giordani/Giordanispetz)",
+            "Grandes Jorasses (Pointe Elena)",
+            "Grünhorn",
+            "Lauteraarhorn",
+            "Aiguille du Jardin",
+            "Dürrenhorn",
+            "Allalinhorn",
+            "Hinter Fiescherhorn",
+            "Dôme de Rochefort",
+            "Barre des Écrins (Dôme de Neige)",
+            "Weissmies",
+            "Dent du Géant",
+            "Punta Baretti",
+            "Lagginhorn",
+            "Aiguille de Rochefort",
+            "Les Droites"
+          ],
+          "expect": [82, 82],
+          "review": "Complete UIAA 82-summit main table, including Les Droites at 4,000 m; exclude enlarged-list secondary tops. Massif shorthand maps only to the main/highest listed peak: Monte Rosa→Dufourspitze, Grand Combin→Grafeneire, Grandes Jorasses→Walker, Lyskamm→East, Breithorn→West."
+        }
+      ],
+      "expect": [82, 82],
+      "answers": [
+        {
+          "name": "Mont Blanc",
+          "aliases": ["Monte Bianco"]
+        },
+        {
+          "name": "Mont Blanc de Courmayeur"
+        },
+        {
+          "name": "Dufourspitze",
+          "aliases": ["Monte Rosa", "Punta Dufour"]
+        },
+        {
+          "name": "Nordend"
+        },
+        {
+          "name": "Zumsteinspitze"
+        },
+        {
+          "name": "Signalkuppe",
+          "aliases": ["Punta Gnifetti"]
+        },
+        {
+          "name": "Dom"
+        },
+        {
+          "name": "Lyskamm East",
+          "aliases": [
+            "Lyskamm (Eastern Summit)",
+            "Lyskamm",
+            "Liskamm",
+            "Liskamm East",
+            "Eastern Lyskamm"
+          ]
+        },
+        {
+          "name": "Weisshorn",
+          "aliases": ["Weißhorn"]
+        },
+        {
+          "name": "Täschhorn",
+          "aliases": ["Taeschhorn"]
+        },
+        {
+          "name": "Lyskamm West",
+          "aliases": ["Lyskamm (Western Summit)", "Liskamm West", "Western Lyskamm"]
+        },
+        {
+          "name": "Matterhorn",
+          "aliases": ["Mont Cervin", "Monte Cervino"]
+        },
+        {
+          "name": "Picco Luigi Amedeo"
+        },
+        {
+          "name": "Mont Maudit"
+        },
+        {
+          "name": "Parrotspitze"
+        },
+        {
+          "name": "Dent Blanche"
+        },
+        {
+          "name": "Ludwigshöhe"
+        },
+        {
+          "name": "Nadelhorn"
+        },
+        {
+          "name": "Schwarzhorn (Corno Nero)",
+          "aliases": ["Corno Nero", "Schwarzhorn"]
+        },
+        {
+          "name": "Combin de Grafeneire",
+          "aliases": ["Grand Combin", "Grand Combin de Grafeneire"]
+        },
+        {
+          "name": "Dôme du Goûter"
+        },
+        {
+          "name": "Lenzspitze"
+        },
+        {
+          "name": "Finsteraarhorn"
+        },
+        {
+          "name": "Mont Blanc du Tacul"
+        },
+        {
+          "name": "Grand Pilier d’Angle"
+        },
+        {
+          "name": "Stecknadelhorn"
+        },
+        {
+          "name": "Castor"
+        },
+        {
+          "name": "Zinalrothorn"
+        },
+        {
+          "name": "Hohberghorn"
+        },
+        {
+          "name": "Vincent Pyramid",
+          "aliases": ["Piramide Vincent"]
+        },
+        {
+          "name": "Pointe Walker",
+          "aliases": ["Grandes Jorasses (Pointe Walker)", "Grandes Jorasses"]
+        },
+        {
+          "name": "Alphubel"
+        },
+        {
+          "name": "Rimpfischhorn"
+        },
+        {
+          "name": "Aletschhorn"
+        },
+        {
+          "name": "Strahlhorn"
+        },
+        {
+          "name": "Combin de Valsorey"
+        },
+        {
+          "name": "Grandes Jorasses (Pointe Whymper)",
+          "aliases": ["Pointe Whymper"]
+        },
+        {
+          "name": "Dent d’Hérens"
+        },
+        {
+          "name": "Breithorn West",
+          "aliases": ["Breithorn (Western Summit)", "Breithorn"]
+        },
+        {
+          "name": "Jungfrau"
+        },
+        {
+          "name": "Breithorn (Central Summit)",
+          "aliases": ["Central Summit", "Breithorn Central", "Central Breithorn"]
+        },
+        {
+          "name": "Bishorn"
+        },
+        {
+          "name": "Breithorn East"
+        },
+        {
+          "name": "Combin de la Tsessette"
+        },
+        {
+          "name": "Aiguille Verte"
+        },
+        {
+          "name": "Aiguilles du Diable (L’Isolée)",
+          "aliases": ["L’Isolée"]
+        },
+        {
+          "name": "Aiguille Blanche de Peuterey"
+        },
+        {
+          "name": "Mönch",
+          "aliases": ["Moench"]
+        },
+        {
+          "name": "Grandes Jorasses (Pointe Croz)",
+          "aliases": ["Pointe Croz"]
+        },
+        {
+          "name": "Aiguilles du Diable (Pointe Carmen)",
+          "aliases": ["Pointe Carmen"]
+        },
+        {
+          "name": "Breithorn Gendarm",
+          "aliases": ["Breithorn (Gendarm/ eastern Twin Peak)"]
+        },
+        {
+          "name": "Grande Rocheuse"
+        },
+        {
+          "name": "Barre des Écrins"
+        },
+        {
+          "name": "Aiguilles du Diable (Pointe Médiane)",
+          "aliases": ["Pointe Médiane"]
+        },
+        {
+          "name": "Pollux"
+        },
+        {
+          "name": "Schreckhorn"
+        },
+        {
+          "name": "Breithorn (Roccia Nera)",
+          "aliases": ["Roccia Nera"]
+        },
+        {
+          "name": "Aiguilles du Diable (Pointe Chaubert)",
+          "aliases": ["Pointe Chaubert"]
+        },
+        {
+          "name": "Mont Brouillard"
+        },
+        {
+          "name": "Grandes Jorasses (Pointe Marguerite)",
+          "aliases": ["Pointe Marguerite"]
+        },
+        {
+          "name": "Aiguilles du Diable (Corne du Diable)",
+          "aliases": ["Corne du Diable"]
+        },
+        {
+          "name": "Ober Gabelhorn",
+          "aliases": ["Obergabelhorn"]
+        },
+        {
+          "name": "Gran Paradiso"
+        },
+        {
+          "name": "Aiguille de Bionnassay"
+        },
+        {
+          "name": "Gross Fiescherhorn",
+          "aliases": ["Grosses Fiescherhorn"]
+        },
+        {
+          "name": "Piz Bernina"
+        },
+        {
+          "name": "Punta Giordani"
+        },
+        {
+          "name": "Grandes Jorasses (Pointe Elena)",
+          "aliases": ["Pointe Elena"]
+        },
+        {
+          "name": "Grünhorn",
+          "aliases": ["Gross Grünhorn", "Grossgrünhorn"]
+        },
+        {
+          "name": "Lauteraarhorn"
+        },
+        {
+          "name": "Aiguille du Jardin"
+        },
+        {
+          "name": "Dürrenhorn",
+          "aliases": ["Duerrenhorn"]
+        },
+        {
+          "name": "Allalinhorn"
+        },
+        {
+          "name": "Hinter Fiescherhorn",
+          "aliases": ["Hinteres Fiescherhorn"]
+        },
+        {
+          "name": "Dôme de Rochefort"
+        },
+        {
+          "name": "Barre des Écrins (Dôme de Neige)",
+          "aliases": ["Dôme de Neige des Écrins", "Dôme de Neige", "Dôme des Écrins"]
+        },
+        {
+          "name": "Weissmies"
+        },
+        {
+          "name": "Dent du Géant"
+        },
+        {
+          "name": "Punta Baretti"
+        },
+        {
+          "name": "Lagginhorn"
+        },
+        {
+          "name": "Aiguille de Rochefort"
+        },
+        {
+          "name": "Les Droites"
+        }
+      ],
+      "surface": ["Mont Blanc", "Matterhorn", "Dufourspitze", "Jungfrau", "Mönch"],
+      "too_clever": [],
+      "pearl": "Aiguille du Jardin",
+      "acceptance_notes": "Complete UIAA 82-summit main table, including Les Droites at 4,000 m; exclude enlarged-list secondary tops. Massif shorthand maps only to the main/highest listed peak: Monte Rosa→Dufourspitze, Grand Combin→Grafeneire, Grandes Jorasses→Walker, Lyskamm→East, Breithorn→West.",
+      "review": "Complete UIAA 82-summit main table, including Les Droites at 4,000 m; exclude enlarged-list secondary tops. Massif shorthand maps only to the main/highest listed peak: Monte Rosa→Dufourspitze, Grand Combin→Grafeneire, Grandes Jorasses→Walker, Lyskamm→East, Breithorn→West."
     },
     {
       "id": "brazil-states",
@@ -17276,7 +17954,236 @@
       "surface": ["São Paulo", "Rio de Janeiro", "Bahia"],
       "pearl": "Amazonas",
       "people": false,
-      "acceptance_notes": "a Brazilian state or the Federal District"
+      "acceptance_notes": "a Brazilian state or the Federal District",
+      "active": false
+    },
+    {
+      "id": "rivers-3000-km",
+      "text": "a river or river system more than 3,000 kilometres long",
+      "theme": "geography",
+      "cluster": "rivers",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of river systems by length",
+          "revision": 1384635915,
+          "members": [
+            "Nile – White Nile – Kagera – Nyabarongo – Mwogo – Rukarara",
+            "Amazon – Ucayali – Tambo – Ene – Mantaro",
+            "Yangtze – Jinsha – Tongtian – Dangqu (Chang Jiang)",
+            "Mississippi – Missouri – Jefferson – Beaverhead – Red Rock – Hell Roaring",
+            "Yenisey – Angara – Selenga – Ider",
+            "Yellow River (Huang He)",
+            "Ob – Irtysh",
+            "Río de la Plata – Paraná – Rio Grande",
+            "Congo – Lualaba - Luvua - Luapula - Chambeshi (Zaïre)",
+            "Amur – Argun (Heilong Jiang)",
+            "Lena",
+            "Mekong (Lancang Jiang)",
+            "Mackenzie – Slave – Peace – Finlay",
+            "Niger",
+            "Brahmaputra – Yarlung Tsangpo",
+            "Murray – Darling – Culgoa – Balonne – Condamine",
+            "Tocantins – Araguaia",
+            "Volga",
+            "Shatt al-Arab – Euphrates – Murat",
+            "Madeira – Mamoré – Grande – Caine – Rocha",
+            "Purús",
+            "Yukon",
+            "Indus – Sênggê Zangbo",
+            "São Francisco",
+            "Syr Darya – Naryn",
+            "Salween (Nu Jiang)",
+            "Saint Lawrence – Niagara – Detroit – Saint Clair – Saint Marys – Saint Louis – North ( Great Lakes )",
+            "Rio Grande"
+          ],
+          "reviewed": [
+            "Nile – White Nile – Kagera – Nyabarongo – Mwogo – Rukarara",
+            "Amazon – Ucayali – Tambo – Ene – Mantaro",
+            "Yangtze – Jinsha – Tongtian – Dangqu (Chang Jiang)",
+            "Mississippi – Missouri – Jefferson – Beaverhead – Red Rock – Hell Roaring",
+            "Yenisey – Angara – Selenga – Ider",
+            "Yellow River (Huang He)",
+            "Ob – Irtysh",
+            "Río de la Plata – Paraná – Rio Grande",
+            "Congo – Lualaba - Luvua - Luapula - Chambeshi (Zaïre)",
+            "Amur – Argun (Heilong Jiang)",
+            "Lena",
+            "Mekong (Lancang Jiang)",
+            "Mackenzie – Slave – Peace – Finlay",
+            "Niger",
+            "Brahmaputra – Yarlung Tsangpo",
+            "Murray – Darling – Culgoa – Balonne – Condamine",
+            "Tocantins – Araguaia",
+            "Volga",
+            "Shatt al-Arab – Euphrates – Murat",
+            "Madeira – Mamoré – Grande – Caine – Rocha",
+            "Purús",
+            "Yukon",
+            "Indus – Sênggê Zangbo",
+            "São Francisco",
+            "Syr Darya – Naryn",
+            "Salween (Nu Jiang)",
+            "Saint Lawrence – Niagara – Detroit – Saint Clair – Saint Marys – Saint Louis – North ( Great Lakes )",
+            "Rio Grande"
+          ],
+          "expect": [28, 28],
+          "review": "Complete pinned table rows with primary listed length strictly >3,000 km (28 rows). Primary value controls where estimates differ, including São Francisco 3,180 (alternative 2,900). Main-stem names stand for their system, not extra rows; Ganges, Danube, Colorado, Zambezi and Orinoco do not qualify. Rio Grande belongs to its own row, not the Paraná tributary of that name."
+        }
+      ],
+      "expect": [28, 28],
+      "answers": [
+        {
+          "name": "Nile",
+          "aliases": ["Nile River"]
+        },
+        {
+          "name": "Amazon",
+          "aliases": ["Amazon River", "Amazon – Ucayali – Tambo – Ene – Mantaro"]
+        },
+        {
+          "name": "Yangtze",
+          "aliases": ["Yangtze River", "Chang Jiang", "Changjiang", "Yangzi"]
+        },
+        {
+          "name": "Mississippi–Missouri",
+          "aliases": [
+            "Mississippi–Missouri River",
+            "Mississippi",
+            "Missouri",
+            "Mississippi River",
+            "Missouri River",
+            "Mississippi-Missouri"
+          ]
+        },
+        {
+          "name": "Yenisey",
+          "aliases": [
+            "Yenisey River",
+            "Yenisei",
+            "Yenisei River",
+            "Yenisey – Angara – Selenga – Ider"
+          ]
+        },
+        {
+          "name": "Yellow River",
+          "aliases": ["Yellow River River", "Huang He", "Huanghe", "Yellow River (Huang He)"]
+        },
+        {
+          "name": "Ob–Irtysh",
+          "aliases": ["Ob–Irtysh River", "Ob", "Irtysh", "Ob River", "Irtysh River", "Ob-Irtysh"]
+        },
+        {
+          "name": "Río de la Plata–Paraná",
+          "aliases": [
+            "Río de la Plata–Paraná River",
+            "Paraná",
+            "Rio de la Plata",
+            "Parana River",
+            "Río de la Plata-Paraná",
+            "Río de la Plata – Paraná – Rio Grande"
+          ]
+        },
+        {
+          "name": "Congo",
+          "aliases": ["Congo River", "Zaire"]
+        },
+        {
+          "name": "Amur",
+          "aliases": ["Amur River", "Heilong Jiang", "Heilongjiang", "Amur – Argun (Heilong Jiang)"]
+        },
+        {
+          "name": "Lena",
+          "aliases": ["Lena River"]
+        },
+        {
+          "name": "Mekong",
+          "aliases": ["Mekong River", "Lancang Jiang", "Mekong (Lancang Jiang)"]
+        },
+        {
+          "name": "Mackenzie",
+          "aliases": ["Mackenzie River", "Mackenzie – Slave – Peace – Finlay"]
+        },
+        {
+          "name": "Niger",
+          "aliases": ["Niger River"]
+        },
+        {
+          "name": "Brahmaputra",
+          "aliases": ["Brahmaputra River", "Yarlung Tsangpo", "Brahmaputra – Yarlung Tsangpo"]
+        },
+        {
+          "name": "Murray–Darling",
+          "aliases": [
+            "Murray–Darling River",
+            "Murray",
+            "Darling",
+            "Murray River",
+            "Darling River",
+            "Murray-Darling"
+          ]
+        },
+        {
+          "name": "Tocantins–Araguaia",
+          "aliases": ["Tocantins–Araguaia River", "Tocantins", "Araguaia", "Tocantins-Araguaia"]
+        },
+        {
+          "name": "Volga",
+          "aliases": ["Volga River"]
+        },
+        {
+          "name": "Shatt al-Arab–Euphrates",
+          "aliases": [
+            "Shatt al-Arab–Euphrates River",
+            "Euphrates",
+            "Shatt al-Arab",
+            "Euphrates River",
+            "Shatt al-Arab-Euphrates",
+            "Shatt al-Arab – Euphrates – Murat"
+          ]
+        },
+        {
+          "name": "Madeira",
+          "aliases": ["Madeira River"]
+        },
+        {
+          "name": "Purús",
+          "aliases": ["Purús River"]
+        },
+        {
+          "name": "Yukon",
+          "aliases": ["Yukon River"]
+        },
+        {
+          "name": "Indus",
+          "aliases": ["Indus River", "Indus – Sênggê Zangbo"]
+        },
+        {
+          "name": "São Francisco",
+          "aliases": ["São Francisco River"]
+        },
+        {
+          "name": "Syr Darya",
+          "aliases": ["Syr Darya River", "Syrdarya", "Syr Darya – Naryn"]
+        },
+        {
+          "name": "Salween",
+          "aliases": ["Salween River", "Nu Jiang", "Salween (Nu Jiang)"]
+        },
+        {
+          "name": "Saint Lawrence",
+          "aliases": ["Saint Lawrence River", "St. Lawrence", "St Lawrence River"]
+        },
+        {
+          "name": "Rio Grande",
+          "aliases": ["Rio Grande River"]
+        }
+      ],
+      "surface": ["Nile", "Amazon", "Yangtze", "Mississippi–Missouri", "Yellow River"],
+      "too_clever": [],
+      "pearl": "Purús",
+      "acceptance_notes": "Complete pinned table rows with primary listed length strictly >3,000 km (28 rows). Primary value controls where estimates differ, including São Francisco 3,180 (alternative 2,900). Main-stem names stand for their system, not extra rows; Ganges, Danube, Colorado, Zambezi and Orinoco do not qualify. Rio Grande belongs to its own row, not the Paraná tributary of that name.",
+      "review": "Complete pinned table rows with primary listed length strictly >3,000 km (28 rows). Primary value controls where estimates differ, including São Francisco 3,180 (alternative 2,900). Main-stem names stand for their system, not extra rows; Ganges, Danube, Colorado, Zambezi and Orinoco do not qualify. Rio Grande belongs to its own row, not the Paraná tributary of that name."
     },
     {
       "id": "mexico-states",
@@ -17436,7 +18343,233 @@
       ],
       "surface": ["Jalisco", "Chihuahua", "Baja California"],
       "pearl": "Yucatán",
-      "people": false
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "us-capitals-not-largest",
+      "text": "a US state capital that wasn't its state's most populous city in the 2020 census",
+      "theme": "geography",
+      "cluster": "us-states",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of capitals in the United States",
+          "revision": 1381021740,
+          "members": [
+            "Montgomery",
+            "Juneau",
+            "Sacramento",
+            "Hartford",
+            "Dover",
+            "Tallahassee",
+            "Springfield",
+            "Topeka",
+            "Frankfort",
+            "Baton Rouge",
+            "Augusta",
+            "Annapolis",
+            "Lansing",
+            "Saint Paul",
+            "Jefferson City",
+            "Helena",
+            "Lincoln",
+            "Carson City",
+            "Concord",
+            "Trenton",
+            "Santa Fe",
+            "Albany",
+            "Raleigh",
+            "Bismarck",
+            "Salem",
+            "Harrisburg",
+            "Columbia",
+            "Pierre",
+            "Austin",
+            "Montpelier",
+            "Richmond",
+            "Olympia",
+            "Madison"
+          ],
+          "reviewed": [
+            "Montgomery",
+            "Juneau",
+            "Sacramento",
+            "Hartford",
+            "Dover",
+            "Tallahassee",
+            "Springfield",
+            "Topeka",
+            "Frankfort",
+            "Baton Rouge",
+            "Augusta",
+            "Annapolis",
+            "Lansing",
+            "Saint Paul",
+            "Jefferson City",
+            "Helena",
+            "Lincoln",
+            "Carson City",
+            "Concord",
+            "Trenton",
+            "Santa Fe",
+            "Albany",
+            "Raleigh",
+            "Bismarck",
+            "Salem",
+            "Harrisburg",
+            "Columbia",
+            "Pierre",
+            "Austin",
+            "Montpelier",
+            "Richmond",
+            "Olympia",
+            "Madison"
+          ],
+          "expect": [33, 33],
+          "review": "All 50 states reviewed; retain 33 capitals with City rank in state >1, using 2020 Census city-proper populations, never MSA/CSA or subsequent estimates. DC and territories excluded. Population-bound wording remains fixed through January 2027."
+        }
+      ],
+      "expect": [33, 33],
+      "answers": [
+        {
+          "name": "Montgomery",
+          "aliases": ["Montgomery, Alabama"]
+        },
+        {
+          "name": "Juneau",
+          "aliases": ["Juneau, Alaska"]
+        },
+        {
+          "name": "Sacramento",
+          "aliases": ["Sacramento, California"]
+        },
+        {
+          "name": "Hartford",
+          "aliases": ["Hartford, Connecticut"]
+        },
+        {
+          "name": "Dover",
+          "aliases": ["Dover, Delaware"]
+        },
+        {
+          "name": "Tallahassee",
+          "aliases": ["Tallahassee, Florida", "Tallahasee"]
+        },
+        {
+          "name": "Springfield",
+          "aliases": ["Springfield, Illinois"]
+        },
+        {
+          "name": "Topeka",
+          "aliases": ["Topeka, Kansas"]
+        },
+        {
+          "name": "Frankfort",
+          "aliases": ["Frankfort, Kentucky"]
+        },
+        {
+          "name": "Baton Rouge",
+          "aliases": ["Baton Rouge, Louisiana"]
+        },
+        {
+          "name": "Augusta",
+          "aliases": ["Augusta, Maine"]
+        },
+        {
+          "name": "Annapolis",
+          "aliases": ["Annapolis, Maryland"]
+        },
+        {
+          "name": "Lansing",
+          "aliases": ["Lansing, Michigan"]
+        },
+        {
+          "name": "Saint Paul",
+          "aliases": ["Saint Paul, Minnesota", "St. Paul", "St Paul, Minnesota"]
+        },
+        {
+          "name": "Jefferson City",
+          "aliases": ["Jefferson City, Missouri"]
+        },
+        {
+          "name": "Helena",
+          "aliases": ["Helena, Montana"]
+        },
+        {
+          "name": "Lincoln",
+          "aliases": ["Lincoln, Nebraska"]
+        },
+        {
+          "name": "Carson City",
+          "aliases": ["Carson City, Nevada"]
+        },
+        {
+          "name": "Concord",
+          "aliases": ["Concord, New Hampshire"]
+        },
+        {
+          "name": "Trenton",
+          "aliases": ["Trenton, New Jersey"]
+        },
+        {
+          "name": "Santa Fe",
+          "aliases": ["Santa Fe, New Mexico"]
+        },
+        {
+          "name": "Albany",
+          "aliases": ["Albany, New York"]
+        },
+        {
+          "name": "Raleigh",
+          "aliases": ["Raleigh, North Carolina"]
+        },
+        {
+          "name": "Bismarck",
+          "aliases": ["Bismarck, North Dakota"]
+        },
+        {
+          "name": "Salem",
+          "aliases": ["Salem, Oregon"]
+        },
+        {
+          "name": "Harrisburg",
+          "aliases": ["Harrisburg, Pennsylvania"]
+        },
+        {
+          "name": "Columbia",
+          "aliases": ["Columbia, South Carolina"]
+        },
+        {
+          "name": "Pierre",
+          "aliases": ["Pierre, South Dakota"]
+        },
+        {
+          "name": "Austin",
+          "aliases": ["Austin, Texas"]
+        },
+        {
+          "name": "Montpelier",
+          "aliases": ["Montpelier, Vermont"]
+        },
+        {
+          "name": "Richmond",
+          "aliases": ["Richmond, Virginia"]
+        },
+        {
+          "name": "Olympia",
+          "aliases": ["Olympia, Washington"]
+        },
+        {
+          "name": "Madison",
+          "aliases": ["Madison, Wisconsin"]
+        }
+      ],
+      "surface": ["Sacramento", "Albany", "Austin", "Tallahassee", "Springfield"],
+      "too_clever": [],
+      "pearl": "Pierre",
+      "acceptance_notes": "All 50 states reviewed; retain 33 capitals with City rank in state >1, using 2020 Census city-proper populations, never MSA/CSA or subsequent estimates. DC and territories excluded. Population-bound wording remains fixed through January 2027.",
+      "review": "All 50 states reviewed; retain 33 capitals with City rank in state >1, using 2020 Census city-proper populations, never MSA/CSA or subsequent estimates. DC and territories excluded. Population-bound wording remains fixed through January 2027."
     },
     {
       "id": "indian-states",
@@ -17620,7 +18753,191 @@
       ],
       "surface": ["Maharashtra", "Kerala", "Punjab"],
       "pearl": "Goa",
-      "people": false
+      "people": false,
+      "active": false
+    },
+    {
+      "id": "islands-50000-km2",
+      "text": "an island with an area of more than 50,000 square kilometres",
+      "theme": "geography",
+      "cluster": "islands",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of islands by area",
+          "revision": 1384175972,
+          "members": [
+            "Greenland ( Kalaallit Nunaat , main island)",
+            "New Guinea",
+            "Borneo",
+            "Madagascar (main island)",
+            "Baffin Island",
+            "Sumatra",
+            "Honshu",
+            "Victoria Island",
+            "Great Britain",
+            "Ellesmere Island",
+            "Sulawesi",
+            "South Island ( Te Waipounamu )",
+            "Java",
+            "North Island ( Te Ika-a-Māui )",
+            "Newfoundland",
+            "Cuba (main island)",
+            "Luzon (main island)",
+            "Iceland (main island)",
+            "Mindanao (main island)",
+            "Ireland",
+            "Hokkaido",
+            "Hispaniola",
+            "Sakhalin",
+            "Banks Island",
+            "Sri Lanka (main island)",
+            "Tasmania (main island)",
+            "Devon Island",
+            "Alexander Island (Adelaïde)"
+          ],
+          "reviewed": [
+            "Greenland ( Kalaallit Nunaat , main island)",
+            "New Guinea",
+            "Borneo",
+            "Madagascar (main island)",
+            "Baffin Island",
+            "Sumatra",
+            "Honshu",
+            "Victoria Island",
+            "Great Britain",
+            "Ellesmere Island",
+            "Sulawesi",
+            "South Island ( Te Waipounamu )",
+            "Java",
+            "North Island ( Te Ika-a-Māui )",
+            "Newfoundland",
+            "Cuba (main island)",
+            "Luzon (main island)",
+            "Iceland (main island)",
+            "Mindanao (main island)",
+            "Ireland",
+            "Hokkaido",
+            "Hispaniola",
+            "Sakhalin",
+            "Banks Island",
+            "Sri Lanka (main island)",
+            "Tasmania (main island)",
+            "Devon Island",
+            "Alexander Island (Adelaïde)"
+          ],
+          "expect": [28, 28],
+          "review": "Complete noncontinental island table with 2026 area strictly >50,000 km²: 28 individual islands. Exclude Australia, Antarctica and Afro-Eurasia; not archipelagos such as Novaya Zemlya. Tierra del Fuego/Severny fall below the cutoff in this pinned area dataset, despite older estimates for Severny exceeding it."
+        }
+      ],
+      "expect": [28, 28],
+      "answers": [
+        {
+          "name": "Greenland",
+          "aliases": ["Kalaallit Nunaat"]
+        },
+        {
+          "name": "New Guinea"
+        },
+        {
+          "name": "Borneo",
+          "aliases": ["Kalimantan"]
+        },
+        {
+          "name": "Madagascar"
+        },
+        {
+          "name": "Baffin Island",
+          "aliases": ["Baffin"]
+        },
+        {
+          "name": "Sumatra",
+          "aliases": ["Sumatera"]
+        },
+        {
+          "name": "Honshu"
+        },
+        {
+          "name": "Victoria Island",
+          "aliases": ["Victoria"]
+        },
+        {
+          "name": "Great Britain",
+          "aliases": ["Britain"]
+        },
+        {
+          "name": "Ellesmere Island",
+          "aliases": ["Ellesmere"]
+        },
+        {
+          "name": "Sulawesi",
+          "aliases": ["Celebes"]
+        },
+        {
+          "name": "South Island",
+          "aliases": ["South", "Te Waipounamu", "South Island New Zealand"]
+        },
+        {
+          "name": "Java"
+        },
+        {
+          "name": "North Island",
+          "aliases": ["North", "Te Ika-a-Māui", "North Island New Zealand"]
+        },
+        {
+          "name": "Newfoundland"
+        },
+        {
+          "name": "Cuba"
+        },
+        {
+          "name": "Luzon"
+        },
+        {
+          "name": "Iceland"
+        },
+        {
+          "name": "Mindanao"
+        },
+        {
+          "name": "Ireland",
+          "aliases": ["Éire"]
+        },
+        {
+          "name": "Hokkaido"
+        },
+        {
+          "name": "Hispaniola"
+        },
+        {
+          "name": "Sakhalin",
+          "aliases": ["Karafuto"]
+        },
+        {
+          "name": "Banks Island",
+          "aliases": ["Banks"]
+        },
+        {
+          "name": "Sri Lanka",
+          "aliases": ["Ceylon"]
+        },
+        {
+          "name": "Tasmania"
+        },
+        {
+          "name": "Devon Island",
+          "aliases": ["Devon"]
+        },
+        {
+          "name": "Alexander Island",
+          "aliases": ["Alexander", "Alexander I Island", "Alexander Land"]
+        }
+      ],
+      "surface": ["Greenland", "New Guinea", "Borneo", "Madagascar", "Great Britain"],
+      "too_clever": [],
+      "pearl": "Alexander Island",
+      "acceptance_notes": "Complete noncontinental island table with 2026 area strictly >50,000 km²: 28 individual islands. Exclude Australia, Antarctica and Afro-Eurasia; not archipelagos such as Novaya Zemlya. Tierra del Fuego/Severny fall below the cutoff in this pinned area dataset, despite older estimates for Severny exceeding it.",
+      "review": "Complete noncontinental island table with 2026 area strictly >50,000 km²: 28 individual islands. Exclude Australia, Antarctica and Afro-Eurasia; not archipelagos such as Novaya Zemlya. Tierra del Fuego/Severny fall below the cutoff in this pinned area dataset, despite older estimates for Severny exceeding it."
     },
     {
       "id": "china-provinces",
@@ -17759,7 +19076,119 @@
       "surface": ["Guangdong", "Sichuan", "Yunnan"],
       "pearl": "Hainan",
       "people": false,
-      "acceptance_notes": "a Chinese province (Taiwan counts)"
+      "acceptance_notes": "a Chinese province (Taiwan counts)",
+      "active": false
+    },
+    {
+      "id": "china-compass-names",
+      "text": "a Chinese province-level division whose Chinese name contains north, south, east or west",
+      "theme": "geography",
+      "cluster": "regions",
+      "active": true,
+      "sources": [
+        {
+          "page": "Provincial-level divisions of China",
+          "revision": 1376622017,
+          "members": [
+            "Beijing Municipality",
+            "Guangdong",
+            "Guangxi",
+            "Henan",
+            "Hubei",
+            "Hebei",
+            "Hainan",
+            "Hunan",
+            "Jiangxi",
+            "Shandong",
+            "Shaanxi",
+            "Shanxi",
+            "Tibet",
+            "Yunnan"
+          ],
+          "reviewed": [
+            "Beijing Municipality",
+            "Guangdong",
+            "Guangxi",
+            "Henan",
+            "Hubei",
+            "Hebei",
+            "Hainan",
+            "Hunan",
+            "Jiangxi",
+            "Shandong",
+            "Shaanxi",
+            "Shanxi",
+            "Tibet",
+            "Yunnan"
+          ],
+          "expect": [14, 14],
+          "review": "All 34 province-level divisions reviewed for 北 (north), 南 (south), 东 (east), 西 (west). Includes municipalities and autonomous regions, not prefectures/cities such as Nanjing or Xi’an. Snapshot: 9 November 2026."
+        }
+      ],
+      "expect": [14, 14],
+      "answers": [
+        {
+          "name": "Beijing",
+          "aliases": ["Peking", "Beijing Municipality"]
+        },
+        {
+          "name": "Guangdong",
+          "aliases": ["Guangdong Province", "Kwangtung"]
+        },
+        {
+          "name": "Guangxi",
+          "aliases": ["Kwangsi", "Guangxi Zhuang Autonomous Region"]
+        },
+        {
+          "name": "Henan",
+          "aliases": ["Henan Province", "Honan"]
+        },
+        {
+          "name": "Hubei",
+          "aliases": ["Hubei Province", "Hupeh"]
+        },
+        {
+          "name": "Hebei",
+          "aliases": ["Hebei Province", "Hopei"]
+        },
+        {
+          "name": "Hainan",
+          "aliases": ["Hainan Province"]
+        },
+        {
+          "name": "Hunan",
+          "aliases": ["Hunan Province"]
+        },
+        {
+          "name": "Jiangxi",
+          "aliases": ["Jiangxi Province", "Kiangsi"]
+        },
+        {
+          "name": "Shandong",
+          "aliases": ["Shandong Province", "Shantung"]
+        },
+        {
+          "name": "Shaanxi",
+          "aliases": ["Shaanxi Province", "Shensi"]
+        },
+        {
+          "name": "Shanxi",
+          "aliases": ["Shanxi Province", "Shansi"]
+        },
+        {
+          "name": "Xizang",
+          "aliases": ["Tibet", "Tibet Autonomous Region", "Xizang Autonomous Region"]
+        },
+        {
+          "name": "Yunnan",
+          "aliases": ["Yunnan Province"]
+        }
+      ],
+      "surface": ["Hebei", "Hunan", "Shandong", "Guangdong"],
+      "too_clever": ["Beijing"],
+      "pearl": "Xizang",
+      "acceptance_notes": "All 34 province-level divisions reviewed for 北 (north), 南 (south), 东 (east), 西 (west). Includes municipalities and autonomous regions, not prefectures/cities such as Nanjing or Xi’an. Snapshot: 9 November 2026.",
+      "review": "All 34 province-level divisions reviewed for 北 (north), 南 (south), 东 (east), 西 (west). Includes municipalities and autonomous regions, not prefectures/cities such as Nanjing or Xi’an. Snapshot: 9 November 2026."
     },
     {
       "id": "grammy-album",
@@ -41774,7 +43203,131 @@
       "surface": ["Auckland", "Wellington", "Canterbury"],
       "pearl": "Taranaki",
       "people": false,
-      "review": "All 16 current first-level regions in the regional-councils table; includes unitary-authority regions, not obsolete 1980s planning regions. Māori/English names normalize generously."
+      "review": "All 16 current first-level regions in the regional-councils table; includes unitary-authority regions, not obsolete 1980s planning regions. Māori/English names normalize generously.",
+      "active": false
+    },
+    {
+      "id": "lakes-10000-km2",
+      "text": "a lake with a surface area of more than 10,000 square kilometres",
+      "theme": "geography",
+      "cluster": "lakes",
+      "active": true,
+      "sources": [
+        {
+          "page": "List of lakes by area",
+          "revision": 1377951139,
+          "members": [
+            "Caspian Sea",
+            "Superior",
+            "Victoria",
+            "Huron",
+            "Michigan",
+            "Tanganyika",
+            "Baikal",
+            "Great Bear Lake",
+            "Malawi (Nyasa)",
+            "Great Slave Lake",
+            "Erie",
+            "Winnipeg",
+            "Ontario",
+            "Ladoga",
+            "Balkhash",
+            "Vostok"
+          ],
+          "reviewed": [
+            "Caspian Sea",
+            "Superior",
+            "Victoria",
+            "Huron",
+            "Michigan",
+            "Tanganyika",
+            "Baikal",
+            "Great Bear Lake",
+            "Malawi (Nyasa)",
+            "Great Slave Lake",
+            "Erie",
+            "Winnipeg",
+            "Ontario",
+            "Ladoga",
+            "Balkhash",
+            "Vostok"
+          ],
+          "expect": [16, 16],
+          "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
+        }
+      ],
+      "expect": [16, 16],
+      "answers": [
+        {
+          "name": "Caspian Sea",
+          "aliases": ["Caspian"]
+        },
+        {
+          "name": "Lake Superior",
+          "aliases": ["Superior"]
+        },
+        {
+          "name": "Lake Victoria",
+          "aliases": ["Victoria"]
+        },
+        {
+          "name": "Lake Huron",
+          "aliases": ["Huron"]
+        },
+        {
+          "name": "Lake Michigan",
+          "aliases": ["Michigan"]
+        },
+        {
+          "name": "Lake Tanganyika",
+          "aliases": ["Tanganyika"]
+        },
+        {
+          "name": "Lake Baikal",
+          "aliases": ["Baikal"]
+        },
+        {
+          "name": "Great Bear Lake",
+          "aliases": ["Great Bear"]
+        },
+        {
+          "name": "Lake Malawi",
+          "aliases": ["Malawi", "Nyasa", "Lake Nyasa"]
+        },
+        {
+          "name": "Great Slave Lake",
+          "aliases": ["Great Slave"]
+        },
+        {
+          "name": "Lake Erie",
+          "aliases": ["Erie"]
+        },
+        {
+          "name": "Lake Winnipeg",
+          "aliases": ["Winnipeg"]
+        },
+        {
+          "name": "Lake Ontario",
+          "aliases": ["Ontario"]
+        },
+        {
+          "name": "Lake Ladoga",
+          "aliases": ["Ladoga"]
+        },
+        {
+          "name": "Lake Balkhash",
+          "aliases": ["Balkhash"]
+        },
+        {
+          "name": "Lake Vostok",
+          "aliases": ["Vostok"]
+        }
+      ],
+      "surface": ["Caspian Sea", "Lake Superior", "Lake Victoria", "Lake Michigan", "Lake Baikal"],
+      "too_clever": [],
+      "pearl": "Lake Vostok",
+      "acceptance_notes": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify.",
+      "review": "Pinned November 2026 main-table areas strictly >10,000 km²: 16 lakes, including saline Caspian and subglacial Vostok. Huron and Michigan score separately. The combined Michigan–Huron is a valid hydrological interpretation but is not an extra canonical row because that would double-count Michigan and Huron; retain its frozen guess as a valid recall miss, never an alias to only one component. Historical Aral/Chad areas do not qualify."
     },
     {
       "id": "english-counties",
