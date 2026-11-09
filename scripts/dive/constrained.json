@@ -40123,7 +40123,124 @@
       "surface": ["Fearless", "Red", "1989"],
       "pearl": "Speak Now",
       "people": false,
-      "review": "Union of original studio albums and separately listed re-recordings. Taylor’s Version releases are accepted aliases of the corresponding original album; no year knowledge is required. EPs, live albums and compilations are excluded."
+      "review": "Union of original studio albums and separately listed re-recordings. Taylor’s Version releases are accepted aliases of the corresponding original album; no year knowledge is required. EPs, live albums and compilations are excluded.",
+      "active": false
+    },
+    {
+      "id": "riaa-20x-platinum-albums",
+      "text": "an album the RIAA had certified 20× Platinum or higher before November 2026",
+      "theme": "music",
+      "cluster": "album-records",
+      "sources": [
+        {
+          "page": "List of best-selling albums in the United States",
+          "revision": 1382900965,
+          "expect": [14, 14],
+          "members": [
+            "Their Greatest Hits (1971–1975)",
+            "Thriller",
+            "Hotel California",
+            "Back in Black",
+            "Led Zeppelin IV",
+            "Rumours",
+            "Metallica",
+            "Come On Over",
+            "Cracked Rear View",
+            "The Beatles",
+            "Dookie",
+            "The Wall",
+            "Greatest Hits – Volume I & Volume II",
+            "Double Live"
+          ],
+          "reviewed": [
+            "Their Greatest Hits (1971–1975)",
+            "Thriller",
+            "Hotel California",
+            "Back in Black",
+            "Led Zeppelin IV",
+            "Rumours",
+            "Metallica",
+            "Come On Over",
+            "Cracked Rear View",
+            "The Beatles",
+            "Dookie",
+            "The Wall",
+            "Greatest Hits – Volume I & Volume II",
+            "Double Live"
+          ],
+          "review": "Every album shown at 20x Platinum or higher in the complete RIAA certification column of the pinned best-selling US albums tables (multi-disc albums count per RIAA disc rules: The Wall, White Album, Billy Joel Greatest Hits I & II, Double Live). The Bodyguard (19x), Appetite for Destruction and Legend (18x) are below the bar; wording is bounded to certifications before November 2026."
+        }
+      ],
+      "expect": [14, 14],
+      "answers": [
+        {
+          "name": "Back in Black"
+        },
+        {
+          "name": "The Beatles",
+          "aliases": ["The White Album"]
+        },
+        {
+          "name": "Come On Over"
+        },
+        {
+          "name": "Cracked Rear View"
+        },
+        {
+          "name": "Dookie"
+        },
+        {
+          "name": "Double Live",
+          "aliases": ["Garth Brooks Double Live"]
+        },
+        {
+          "name": "Greatest Hits – Volume I & Volume II",
+          "aliases": [
+            "Billy Joel Greatest Hits",
+            "Greatest Hits Volume I and II",
+            "Billy Joel's Greatest Hits"
+          ]
+        },
+        {
+          "name": "Hotel California"
+        },
+        {
+          "name": "Led Zeppelin IV",
+          "aliases": [
+            "Led Zeppelin 4",
+            "Zeppelin IV",
+            "Untitled Led Zeppelin",
+            "Four Symbols",
+            "ZoSo"
+          ]
+        },
+        {
+          "name": "Metallica",
+          "aliases": ["The Black Album"]
+        },
+        {
+          "name": "Rumours"
+        },
+        {
+          "name": "Their Greatest Hits (1971–1975)",
+          "aliases": [
+            "Their Greatest Hits",
+            "Eagles Greatest Hits",
+            "Greatest Hits (Eagles)",
+            "Their Greatest Hits 1971-1975"
+          ]
+        },
+        {
+          "name": "Thriller"
+        },
+        {
+          "name": "The Wall"
+        }
+      ],
+      "surface": ["Thriller", "Back in Black", "Hotel California", "Rumours", "Led Zeppelin IV"],
+      "pearl": "Double Live",
+      "people": false,
+      "review": "Every album shown at 20x Platinum or higher in the complete RIAA certification column of the pinned best-selling US albums tables (multi-disc albums count per RIAA disc rules: The Wall, White Album, Billy Joel Greatest Hits I & II, Double Live). The Bodyguard (19x), Appetite for Destruction and Legend (18x) are below the bar; wording is bounded to certifications before November 2026."
     },
     {
       "id": "world-cup-winners",
@@ -41985,7 +42102,208 @@
       "surface": ["Abbey Road", "Revolver", "Let It Be"],
       "pearl": "Rubber Soul",
       "people": false,
-      "review": "Union of the British and North American original studio-album tables. Regional albums are accepted, not silently limited to the modern 13-album core catalogue. Duplicate UK/US titles use one canonical; White Album and Sgt Pepper aliases accepted."
+      "review": "Union of the British and North American original studio-album tables. Regional albums are accepted, not silently limited to the modern 13-album core catalogue. Duplicate UK/US titles use one canonical; White Album and Sgt Pepper aliases accepted.",
+      "active": false
+    },
+    {
+      "id": "beatles-name-songs",
+      "text": "a Beatles song released 1962–1970 with a person's name in its title",
+      "theme": "music",
+      "cluster": "beatles-songs",
+      "sources": [
+        {
+          "page": "List of songs recorded by the Beatles",
+          "revision": 1383601980,
+          "expect": [25, 25],
+          "members": [
+            "Anna (Go to Him)",
+            "The Ballad of John and Yoko",
+            "Being for the Benefit of Mr. Kite!",
+            "The Continuing Story of Bungalow Bill",
+            "Dear Prudence",
+            "Dizzy Miss Lizzy",
+            "Doctor Robert",
+            "Eleanor Rigby",
+            "Hey Jude",
+            "Julia",
+            "Lady Madonna",
+            "Long Tall Sally",
+            "Lovely Rita",
+            "Lucy in the Sky with Diamonds",
+            "Maggie Mae",
+            "Martha My Dear",
+            "Maxwell's Silver Hammer",
+            "Mean Mr. Mustard",
+            "Michelle",
+            "Penny Lane",
+            "Polythene Pam",
+            "Rocky Raccoon",
+            "Roll Over Beethoven",
+            "Sexy Sadie",
+            "Sgt. Pepper's Lonely Hearts Club Band"
+          ],
+          "reviewed": [
+            "Anna (Go to Him)",
+            "The Ballad of John and Yoko",
+            "Being for the Benefit of Mr. Kite!",
+            "The Continuing Story of Bungalow Bill",
+            "Dear Prudence",
+            "Dizzy Miss Lizzy",
+            "Doctor Robert",
+            "Eleanor Rigby",
+            "Hey Jude",
+            "Julia",
+            "Lady Madonna",
+            "Long Tall Sally",
+            "Lovely Rita",
+            "Lucy in the Sky with Diamonds",
+            "Maggie Mae",
+            "Martha My Dear",
+            "Maxwell's Silver Hammer",
+            "Mean Mr. Mustard",
+            "Michelle",
+            "Penny Lane",
+            "Polythene Pam",
+            "Rocky Raccoon",
+            "Roll Over Beethoven",
+            "Sexy Sadie",
+            "Sgt. Pepper's Lonely Hearts Club Band"
+          ],
+          "review": "Personal-name titles from the complete main Beatles catalogue table (every song on the original 1962-1970 UK albums, singles and EPs, including Past Masters and Yellow Submarine), reviewed title by title: given names, surnames, nicknames and named characters (Mr. Kite, Mr. Mustard, Sgt. Pepper, Rocky Raccoon) count; the Sgt. Pepper reprise merges with the title track. Penny Lane counts via its namesake surname/given name, Lady Madonna via Madonna. Occupations/titles (Please Mr. Postman, Mr. Moonlight, Her Majesty) and names only in lyrics (Ob-La-Di, Ob-La-Da) do not. Also accepted generously: the 1962 Tony Sheridan-fronted My Bonnie and its 1964-released session mate Sweet Georgia Brown. BBC, Anthology and later-released archive recordings are outside 1962-1970."
+        },
+        {
+          "page": "List of songs recorded by the Beatles",
+          "revision": 1383601980,
+          "expect": [2, 2],
+          "members": ["My Bonnie", "Sweet Georgia Brown"],
+          "reviewed": ["My Bonnie", "Sweet Georgia Brown"],
+          "review": "Personal-name titles from the complete main Beatles catalogue table (every song on the original 1962-1970 UK albums, singles and EPs, including Past Masters and Yellow Submarine), reviewed title by title: given names, surnames, nicknames and named characters (Mr. Kite, Mr. Mustard, Sgt. Pepper, Rocky Raccoon) count; the Sgt. Pepper reprise merges with the title track. Penny Lane counts via its namesake surname/given name, Lady Madonna via Madonna. Occupations/titles (Please Mr. Postman, Mr. Moonlight, Her Majesty) and names only in lyrics (Ob-La-Di, Ob-La-Da) do not. Also accepted generously: the 1962 Tony Sheridan-fronted My Bonnie and its 1964-released session mate Sweet Georgia Brown. BBC, Anthology and later-released archive recordings are outside 1962-1970."
+        }
+      ],
+      "expect": [27, 27],
+      "answers": [
+        {
+          "name": "Anna (Go to Him)",
+          "aliases": ["Anna"]
+        },
+        {
+          "name": "The Ballad of John and Yoko",
+          "aliases": ["John and Yoko"]
+        },
+        {
+          "name": "Being for the Benefit of Mr. Kite!",
+          "aliases": ["Mr. Kite", "For the Benefit of Mr. Kite"]
+        },
+        {
+          "name": "The Continuing Story of Bungalow Bill",
+          "aliases": ["Bungalow Bill"]
+        },
+        {
+          "name": "Dear Prudence",
+          "aliases": ["Prudence"]
+        },
+        {
+          "name": "Dizzy Miss Lizzy",
+          "aliases": ["Dizzy Miss Lizzie", "Miss Lizzy"]
+        },
+        {
+          "name": "Doctor Robert",
+          "aliases": ["Dr. Robert"]
+        },
+        {
+          "name": "Eleanor Rigby",
+          "aliases": ["Eleanor"]
+        },
+        {
+          "name": "Hey Jude",
+          "aliases": ["Jude"]
+        },
+        {
+          "name": "Julia"
+        },
+        {
+          "name": "Lady Madonna",
+          "aliases": ["Madonna"]
+        },
+        {
+          "name": "Long Tall Sally",
+          "aliases": ["Sally"]
+        },
+        {
+          "name": "Lovely Rita",
+          "aliases": ["Rita", "Lovely Rita Meter Maid"]
+        },
+        {
+          "name": "Lucy in the Sky with Diamonds",
+          "aliases": ["Lucy in the Sky", "Lucy", "LSD"]
+        },
+        {
+          "name": "Maggie Mae",
+          "aliases": ["Maggie May"]
+        },
+        {
+          "name": "Martha My Dear",
+          "aliases": ["Martha"]
+        },
+        {
+          "name": "Maxwell's Silver Hammer",
+          "aliases": ["Maxwell"]
+        },
+        {
+          "name": "Mean Mr. Mustard",
+          "aliases": ["Mr. Mustard", "Mean Mister Mustard", "Mustard"]
+        },
+        {
+          "name": "Michelle"
+        },
+        {
+          "name": "My Bonnie"
+        },
+        {
+          "name": "Penny Lane"
+        },
+        {
+          "name": "Polythene Pam",
+          "aliases": ["Pam"]
+        },
+        {
+          "name": "Rocky Raccoon",
+          "aliases": ["Rocky"]
+        },
+        {
+          "name": "Roll Over Beethoven",
+          "aliases": ["Beethoven"]
+        },
+        {
+          "name": "Sexy Sadie",
+          "aliases": ["Sadie"]
+        },
+        {
+          "name": "Sgt. Pepper's Lonely Hearts Club Band",
+          "aliases": [
+            "Sgt. Pepper",
+            "Sergeant Pepper",
+            "Sergeant Pepper's Lonely Hearts Club Band",
+            "Sgt. Pepper's Lonely Hearts Club Band (Reprise)",
+            "Lonely Hearts Club Band"
+          ]
+        },
+        {
+          "name": "Sweet Georgia Brown",
+          "aliases": ["Georgia Brown"]
+        }
+      ],
+      "surface": [
+        "Eleanor Rigby",
+        "Hey Jude",
+        "Michelle",
+        "Penny Lane",
+        "Lucy in the Sky with Diamonds"
+      ],
+      "too_clever": ["My Bonnie", "Sweet Georgia Brown"],
+      "pearl": "Anna (Go to Him)",
+      "people": false,
+      "review": "Personal-name titles from the complete main Beatles catalogue table (every song on the original 1962-1970 UK albums, singles and EPs, including Past Masters and Yellow Submarine), reviewed title by title: given names, surnames, nicknames and named characters (Mr. Kite, Mr. Mustard, Sgt. Pepper, Rocky Raccoon) count; the Sgt. Pepper reprise merges with the title track. Penny Lane counts via its namesake surname/given name, Lady Madonna via Madonna. Occupations/titles (Please Mr. Postman, Mr. Moonlight, Her Majesty) and names only in lyrics (Ob-La-Di, Ob-La-Da) do not. Also accepted generously: the 1962 Tony Sheridan-fronted My Bonnie and its 1964-released session mate Sweet Georgia Brown. BBC, Anthology and later-released archive recordings are outside 1962-1970."
     },
     {
       "id": "elements-named-places",
@@ -42771,7 +43089,405 @@
       "surface": ["Hunky Dory", "Aladdin Sane", "Blackstar"],
       "pearl": "Diamond Dogs",
       "people": false,
-      "review": "Entire solo studio-albums table. The two self-titled albums normalize to one canonical answer; Space Oddity is the established name for the 1969 album. The 2018 re-recording is an alias, not a separate musical work. Tin Machine releases are band, not solo, albums."
+      "review": "Entire solo studio-albums table. The two self-titled albums normalize to one canonical answer; Space Oddity is the established name for the 1969 album. The 2018 re-recording is an alias, not a separate musical work. Tin Machine releases are band, not solo, albums.",
+      "active": false
+    },
+    {
+      "id": "live-aid-1985-performers",
+      "text": "an act that performed at Live Aid's Wembley or Philadelphia concert in 1985",
+      "theme": "music",
+      "cluster": "concert-lineups",
+      "sources": [
+        {
+          "page": "Live Aid",
+          "revision": 1384245974,
+          "tables": [0, 1],
+          "column": 1,
+          "first": false,
+          "exclude_row": "impromptu first act|ending eight hours",
+          "expect": [76, 76],
+          "reviewed": [
+            "Adam Ant",
+            "Albert Collins",
+            "Alison Moyet",
+            "Ashford & Simpson",
+            "Band Aid",
+            "Bernard Watson",
+            "Billy Ocean",
+            "Black Sabbath",
+            "Bo Diddley",
+            "Bob Dylan",
+            "Bob Geldof",
+            "Branford Marsalis",
+            "Brian May",
+            "Bryan Adams",
+            "Bryan Ferry",
+            "Coldstream Guards",
+            "Crosby, Stills and Nash",
+            "Crosby, Stills, Nash & Young",
+            "David Bowie",
+            "David Gilmour",
+            "David Ruffin",
+            "Dire Straits",
+            "Duran Duran",
+            "Eddie Kendricks",
+            "Elton John",
+            "Elvis Costello",
+            "Eric Clapton",
+            "Four Tops",
+            "Freddie Mercury",
+            "George Thorogood and the Destroyers",
+            "Hall & Oates",
+            "Howard Jones",
+            "Joan Baez",
+            "Judas Priest",
+            "Keith Richards",
+            "Kenny Loggins",
+            "Led Zeppelin",
+            "Madonna",
+            "Mick Jagger",
+            "Neil Young",
+            "Nik Kershaw",
+            "Nile Rodgers",
+            "Ozzy Osbourne",
+            "Pat Metheny",
+            "Patti LaBelle",
+            "Paul McCartney",
+            "Paul Young",
+            "Pete Townshend",
+            "Phil Collins",
+            "Pretenders",
+            "Queen",
+            "REO Speedwagon",
+            "Rick Springfield",
+            "Ronnie Wood",
+            "Run–D.M.C.",
+            "Sade",
+            "Santana",
+            "Simple Minds",
+            "Spandau Ballet",
+            "Status Quo",
+            "Steve Stevens",
+            "Sting",
+            "Teddy Pendergrass",
+            "The Beach Boys",
+            "The Boomtown Rats",
+            "The Cars",
+            "The Hooters",
+            "The Power Station",
+            "The Style Council",
+            "The Who",
+            "Thompson Twins",
+            "Tina Turner",
+            "Tom Petty and the Heartbreakers",
+            "U2",
+            "USA for Africa",
+            "Ultravox"
+          ],
+          "review": "Every performer named in the complete Wembley and JFK Stadium running-order tables, including co-billed artists and credited guests (w/), plus Kiki Dee and Wham! from the Elton John setlist. Band Aid and USA for Africa finales count. Narrative overlap rows are excluded. Satellite/studio segments (Sydney, Japan, The Hague, Cliff Richard, Kool & the Gang) are outside the two stadium shows; Springsteen, Michael Jackson and Prince did not appear. Natural frontman/member names map to their band where the page names them performing (Bono, Plant/Page, Brian Wilson, George Michael)."
+        },
+        {
+          "page": "Live Aid",
+          "revision": 1384245974,
+          "expect": [2, 2],
+          "members": ["Kiki Dee", "Wham!"],
+          "reviewed": ["Kiki Dee", "Wham!"],
+          "review": "Every performer named in the complete Wembley and JFK Stadium running-order tables, including co-billed artists and credited guests (w/), plus Kiki Dee and Wham! from the Elton John setlist. Band Aid and USA for Africa finales count. Narrative overlap rows are excluded. Satellite/studio segments (Sydney, Japan, The Hague, Cliff Richard, Kool & the Gang) are outside the two stadium shows; Springsteen, Michael Jackson and Prince did not appear. Natural frontman/member names map to their band where the page names them performing (Bono, Plant/Page, Brian Wilson, George Michael)."
+        }
+      ],
+      "expect": [78, 78],
+      "answers": [
+        {
+          "name": "Adam Ant"
+        },
+        {
+          "name": "Albert Collins"
+        },
+        {
+          "name": "Alison Moyet",
+          "aliases": ["Moyet"]
+        },
+        {
+          "name": "Ashford & Simpson"
+        },
+        {
+          "name": "Band Aid"
+        },
+        {
+          "name": "Bernard Watson"
+        },
+        {
+          "name": "Billy Ocean",
+          "aliases": ["Ocean"]
+        },
+        {
+          "name": "Black Sabbath",
+          "aliases": ["Sabbath"]
+        },
+        {
+          "name": "Bo Diddley",
+          "aliases": ["Diddley"]
+        },
+        {
+          "name": "Bob Dylan",
+          "aliases": ["Dylan"]
+        },
+        {
+          "name": "Bob Geldof",
+          "aliases": ["Geldof"]
+        },
+        {
+          "name": "Branford Marsalis",
+          "aliases": ["Marsalis"]
+        },
+        {
+          "name": "Brian May"
+        },
+        {
+          "name": "Bryan Adams",
+          "aliases": ["Adams"]
+        },
+        {
+          "name": "Bryan Ferry",
+          "aliases": ["Ferry"]
+        },
+        {
+          "name": "Coldstream Guards"
+        },
+        {
+          "name": "Crosby, Stills and Nash",
+          "aliases": ["CSN"]
+        },
+        {
+          "name": "Crosby, Stills, Nash & Young",
+          "aliases": ["CSNY"]
+        },
+        {
+          "name": "David Bowie",
+          "aliases": ["Bowie"]
+        },
+        {
+          "name": "David Gilmour",
+          "aliases": ["Gilmour"]
+        },
+        {
+          "name": "David Ruffin",
+          "aliases": ["Ruffin"]
+        },
+        {
+          "name": "Dire Straits",
+          "aliases": ["Mark Knopfler"]
+        },
+        {
+          "name": "Duran Duran",
+          "aliases": ["Simon Le Bon"]
+        },
+        {
+          "name": "Eddie Kendricks",
+          "aliases": ["Kendricks"]
+        },
+        {
+          "name": "Elton John",
+          "aliases": ["John"]
+        },
+        {
+          "name": "Elvis Costello",
+          "aliases": ["Costello"]
+        },
+        {
+          "name": "Eric Clapton",
+          "aliases": ["Clapton"]
+        },
+        {
+          "name": "Four Tops"
+        },
+        {
+          "name": "Freddie Mercury",
+          "aliases": ["Mercury"]
+        },
+        {
+          "name": "George Thorogood and the Destroyers",
+          "aliases": ["George Thorogood"]
+        },
+        {
+          "name": "Hall & Oates",
+          "aliases": ["Daryl Hall & John Oates"]
+        },
+        {
+          "name": "Howard Jones"
+        },
+        {
+          "name": "Joan Baez",
+          "aliases": ["Baez"]
+        },
+        {
+          "name": "Judas Priest"
+        },
+        {
+          "name": "Keith Richards",
+          "aliases": ["Richards"]
+        },
+        {
+          "name": "Kenny Loggins",
+          "aliases": ["Loggins"]
+        },
+        {
+          "name": "Kiki Dee"
+        },
+        {
+          "name": "Led Zeppelin",
+          "aliases": ["Robert Plant", "Jimmy Page", "Zeppelin"]
+        },
+        {
+          "name": "Madonna"
+        },
+        {
+          "name": "Mick Jagger",
+          "aliases": ["Jagger"]
+        },
+        {
+          "name": "Neil Young"
+        },
+        {
+          "name": "Nik Kershaw",
+          "aliases": ["Kershaw"]
+        },
+        {
+          "name": "Nile Rodgers",
+          "aliases": ["Rodgers"]
+        },
+        {
+          "name": "Ozzy Osbourne",
+          "aliases": ["Ozzy"]
+        },
+        {
+          "name": "Pat Metheny",
+          "aliases": ["Metheny"]
+        },
+        {
+          "name": "Patti LaBelle",
+          "aliases": ["LaBelle"]
+        },
+        {
+          "name": "Paul McCartney",
+          "aliases": ["McCartney"]
+        },
+        {
+          "name": "Paul Young"
+        },
+        {
+          "name": "Pete Townshend",
+          "aliases": ["Townshend"]
+        },
+        {
+          "name": "Phil Collins"
+        },
+        {
+          "name": "Pretenders",
+          "aliases": ["Chrissie Hynde"]
+        },
+        {
+          "name": "Queen"
+        },
+        {
+          "name": "REO Speedwagon"
+        },
+        {
+          "name": "Rick Springfield",
+          "aliases": ["Springfield"]
+        },
+        {
+          "name": "Ronnie Wood",
+          "aliases": ["Wood"]
+        },
+        {
+          "name": "Run–D.M.C.",
+          "aliases": ["Run-DMC"]
+        },
+        {
+          "name": "Sade"
+        },
+        {
+          "name": "Santana",
+          "aliases": ["Carlos Santana"]
+        },
+        {
+          "name": "Simple Minds"
+        },
+        {
+          "name": "Spandau Ballet"
+        },
+        {
+          "name": "Status Quo",
+          "aliases": ["Quo"]
+        },
+        {
+          "name": "Steve Stevens",
+          "aliases": ["Stevens"]
+        },
+        {
+          "name": "Sting"
+        },
+        {
+          "name": "Teddy Pendergrass",
+          "aliases": ["Pendergrass"]
+        },
+        {
+          "name": "The Beach Boys",
+          "aliases": ["Brian Wilson"]
+        },
+        {
+          "name": "The Boomtown Rats"
+        },
+        {
+          "name": "The Cars"
+        },
+        {
+          "name": "The Hooters"
+        },
+        {
+          "name": "The Power Station"
+        },
+        {
+          "name": "The Style Council",
+          "aliases": ["Paul Weller"]
+        },
+        {
+          "name": "The Who",
+          "aliases": ["Roger Daltrey"]
+        },
+        {
+          "name": "Thompson Twins"
+        },
+        {
+          "name": "Tina Turner",
+          "aliases": ["Turner"]
+        },
+        {
+          "name": "Tom Petty and the Heartbreakers",
+          "aliases": ["Tom Petty", "The Heartbreakers"]
+        },
+        {
+          "name": "U2",
+          "aliases": ["Bono"]
+        },
+        {
+          "name": "USA for Africa"
+        },
+        {
+          "name": "Ultravox",
+          "aliases": ["Midge Ure"]
+        },
+        {
+          "name": "Wham!",
+          "aliases": ["George Michael", "Andrew Ridgeley"]
+        }
+      ],
+      "surface": ["Queen", "U2", "David Bowie", "Madonna", "Led Zeppelin", "Paul McCartney"],
+      "too_clever": ["Coldstream Guards", "Band Aid", "USA for Africa"],
+      "pearl": "Bernard Watson",
+      "people": false,
+      "review": "Every performer named in the complete Wembley and JFK Stadium running-order tables, including co-billed artists and credited guests (w/), plus Kiki Dee and Wham! from the Elton John setlist. Band Aid and USA for Africa finales count. Narrative overlap rows are excluded. Satellite/studio segments (Sydney, Japan, The Hague, Cliff Richard, Kool & the Gang) are outside the two stadium shows; Springsteen, Michael Jackson and Prince did not appear. Natural frontman/member names map to their band where the page names them performing (Bono, Plant/Page, Brian Wilson, George Michael)."
     },
     {
       "id": "queen-albums",
@@ -42868,7 +43584,82 @@
       "surface": ["A Night at the Opera", "News of the World", "The Game"],
       "pearl": "Innuendo",
       "people": false,
-      "review": "Complete fifteen-album Queen studio table, plus the separately credited Queen + Paul Rodgers collaboration The Cosmos Rocks accepted generously. Live albums and compilations excluded."
+      "review": "Complete fifteen-album Queen studio table, plus the separately credited Queen + Paul Rodgers collaboration The Cosmos Rocks accepted generously. Live albums and compilations excluded.",
+      "active": false
+    },
+    {
+      "id": "hot100-number-one-two-versions",
+      "text": "a song that topped the Billboard Hot 100 in recordings by two different artists",
+      "theme": "music",
+      "cluster": "hot100-records",
+      "sources": [
+        {
+          "page": "List of Billboard Hot 100 chart achievements and milestones",
+          "revision": 1383964879,
+          "expect": [9, 9],
+          "members": [
+            "Go Away Little Girl",
+            "The Loco-Motion",
+            "Please Mr. Postman",
+            "Venus",
+            "Lean on Me",
+            "You Keep Me Hangin' On",
+            "When a Man Loves a Woman",
+            "I'll Be There",
+            "Lady Marmalade"
+          ],
+          "reviewed": [
+            "Go Away Little Girl",
+            "The Loco-Motion",
+            "Please Mr. Postman",
+            "Venus",
+            "Lean on Me",
+            "You Keep Me Hangin' On",
+            "When a Man Loves a Woman",
+            "I'll Be There",
+            "Lady Marmalade"
+          ],
+          "review": "Complete 'Songs hitting number one for different artists' list on the pinned Hot 100 milestones page: nine songs whose recordings by two different acts each reached No. 1. Same-artist re-entries (The Twist) and covers that peaked below No. 1 do not count. Membership cannot change without a new cover reaching No. 1, which is implausible within the cycle."
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "Go Away Little Girl"
+        },
+        {
+          "name": "I'll Be There"
+        },
+        {
+          "name": "Lady Marmalade",
+          "aliases": ["Lady Marmalade (2001)", "Voulez-Vous Coucher Avec Moi"]
+        },
+        {
+          "name": "Lean on Me"
+        },
+        {
+          "name": "The Loco-Motion",
+          "aliases": ["Locomotion"]
+        },
+        {
+          "name": "Please Mr. Postman",
+          "aliases": ["Please Mister Postman", "Mr. Postman"]
+        },
+        {
+          "name": "Venus"
+        },
+        {
+          "name": "When a Man Loves a Woman"
+        },
+        {
+          "name": "You Keep Me Hangin' On",
+          "aliases": ["You Keep Me Hanging On"]
+        }
+      ],
+      "surface": ["Lady Marmalade", "The Loco-Motion", "Lean on Me", "Venus"],
+      "pearl": "Go Away Little Girl",
+      "people": false,
+      "review": "Complete 'Songs hitting number one for different artists' list on the pinned Hot 100 milestones page: nine songs whose recordings by two different acts each reached No. 1. Same-artist re-entries (The Twist) and covers that peaked below No. 1 do not count. Membership cannot change without a new cover reaching No. 1, which is implausible within the cycle."
     },
     {
       "id": "us-first-ladies",
@@ -47944,7 +48735,110 @@
       "surface": ["The Dark Side of the Moon", "The Wall", "Wish You Were Here"],
       "pearl": "The Division Bell",
       "people": false,
-      "review": "All fifteen studio albums in the studio table, including the studio half of Ummagumma and the soundtrack albums More and Obscured by Clouds; no entirely live or compilation releases."
+      "review": "All fifteen studio albums in the studio table, including the studio half of Ummagumma and the soundtrack albums More and Obscured by Clouds; no entirely live or compilation releases.",
+      "active": false
+    },
+    {
+      "id": "hot100-14-week-number-ones",
+      "text": "a song that spent at least 14 weeks at No. 1 on the Billboard Hot 100",
+      "theme": "music",
+      "cluster": "hot100-records",
+      "sources": [
+        {
+          "page": "List of Billboard Hot 100 chart achievements and milestones",
+          "revision": 1383964879,
+          "tables": [2],
+          "column": 2,
+          "expect": [15, 15],
+          "reviewed": [
+            "A Bar Song (Tipsy)",
+            "All I Want for Christmas Is You",
+            "As It Was",
+            "Candle in the Wind 1997",
+            "Choosin' Texas",
+            "Despacito",
+            "I Gotta Feeling",
+            "I Will Always Love You",
+            "I'll Make Love to You",
+            "Last Night",
+            "Macarena (Bayside Boys Mix)",
+            "Old Town Road",
+            "One Sweet Day",
+            "Uptown Funk",
+            "We Belong Together"
+          ],
+          "review": "Complete Most weeks at number one table (14 weeks or more) at the pin, through Choosin' Texas (26 weeks, 2026). Stable for the cycle: no song outside the table can accumulate 14 weeks at No. 1 between the pin and late January 2027, and growth of an existing entry keeps it qualified. Double A-side Candle in the Wind 1997 / Something About the Way You Look Tonight is one entry."
+        }
+      ],
+      "expect": [15, 15],
+      "answers": [
+        {
+          "name": "A Bar Song (Tipsy)",
+          "aliases": ["A Bar Song", "Tipsy"]
+        },
+        {
+          "name": "All I Want for Christmas Is You",
+          "aliases": ["All I Want for Christmas"]
+        },
+        {
+          "name": "As It Was"
+        },
+        {
+          "name": "Candle in the Wind 1997",
+          "aliases": [
+            "Candle in the Wind",
+            "Goodbye England's Rose",
+            "Something About the Way You Look Tonight"
+          ]
+        },
+        {
+          "name": "Choosin' Texas",
+          "aliases": ["Choosing Texas"]
+        },
+        {
+          "name": "Despacito"
+        },
+        {
+          "name": "I Gotta Feeling"
+        },
+        {
+          "name": "I Will Always Love You",
+          "aliases": ["IWALY"]
+        },
+        {
+          "name": "I'll Make Love to You"
+        },
+        {
+          "name": "Last Night"
+        },
+        {
+          "name": "Macarena (Bayside Boys Mix)",
+          "aliases": ["Macarena"]
+        },
+        {
+          "name": "Old Town Road",
+          "aliases": ["Old Town Road (Remix)"]
+        },
+        {
+          "name": "One Sweet Day"
+        },
+        {
+          "name": "Uptown Funk"
+        },
+        {
+          "name": "We Belong Together"
+        }
+      ],
+      "surface": [
+        "Old Town Road",
+        "Despacito",
+        "Uptown Funk",
+        "All I Want for Christmas Is You",
+        "A Bar Song (Tipsy)"
+      ],
+      "pearl": "I'll Make Love to You",
+      "people": false,
+      "review": "Complete Most weeks at number one table (14 weeks or more) at the pin, through Choosin' Texas (26 weeks, 2026). Stable for the cycle: no song outside the table can accumulate 14 weeks at No. 1 between the pin and late January 2027, and growth of an existing entry keeps it qualified. Double A-side Candle in the Wind 1997 / Something About the Way You Look Tonight is one entry."
     },
     {
       "id": "shakespeare-plays",
@@ -63574,7 +64468,7 @@
       "text": "a U2 studio album",
       "theme": "music",
       "cluster": "artist-albums",
-      "active": true,
+      "active": false,
       "answers": [
         {
           "name": "Boy"
@@ -63680,6 +64574,97 @@
       "surface": ["The Joshua Tree", "War", "Achtung Baby"],
       "pearl": "Zooropa",
       "scope": "Released U2 studio albums plus the confirmed next studio album at the pinned revision. Includes the U2/Eno Passengers project Original Soundtracks 1 and the named upcoming Carnaval de Luz (13 November 2026), preventing a known post-cutover valid-answer gap. Live albums, standalone EPs, compilations, unfinished/undated projects and unnamed/TBA placeholders are excluded."
+    },
+    {
+      "id": "vma-grammy-video-double",
+      "text": "a music video that won both MTV's Video of the Year and the Grammy for Best Music Video",
+      "theme": "music",
+      "cluster": "video-awards",
+      "sources": [
+        {
+          "page": "MTV Video Music Award for Video of the Year",
+          "revision": 1383431892,
+          "tables": [1],
+          "column": 2,
+          "where": [2, "†"],
+          "expect": [9, 9],
+          "reviewed": [
+            "All Too Well: The Short Film",
+            "Bad Blood",
+            "Bad Romance",
+            "Formation",
+            "Humble",
+            "Losing My Religion",
+            "Ray of Light",
+            "We Found Love",
+            "Without Me"
+          ],
+          "review": "Every MTV Video of the Year winner whose video is marked on the pinned MTV page as also winning the Grammy for Best Music Video, cross-checked against the pinned Grammy winners table. Anti-Hero (2023 VMA) and The Fate of Ophelia (2026 VMA) did not win the Grammy; the next Grammy ceremony falls after the cycle."
+        },
+        {
+          "page": "Grammy Award for Best Music Video",
+          "revision": 1384169405,
+          "expect": [9, 9],
+          "members": [
+            "Losing My Religion",
+            "Ray of Light",
+            "Without Me",
+            "Bad Romance",
+            "We Found Love",
+            "Bad Blood",
+            "Formation",
+            "Humble",
+            "All Too Well"
+          ],
+          "reviewed": [
+            "Losing My Religion",
+            "Ray of Light",
+            "Without Me",
+            "Bad Romance",
+            "We Found Love",
+            "Bad Blood",
+            "Formation",
+            "Humble",
+            "All Too Well"
+          ],
+          "review": "Every MTV Video of the Year winner whose video is marked on the pinned MTV page as also winning the Grammy for Best Music Video, cross-checked against the pinned Grammy winners table. Anti-Hero (2023 VMA) and The Fate of Ophelia (2026 VMA) did not win the Grammy; the next Grammy ceremony falls after the cycle."
+        }
+      ],
+      "expect": [9, 9],
+      "answers": [
+        {
+          "name": "All Too Well: The Short Film",
+          "aliases": ["All Too Well", "All Too Well (10 Minute Version)"]
+        },
+        {
+          "name": "Bad Blood"
+        },
+        {
+          "name": "Bad Romance"
+        },
+        {
+          "name": "Formation"
+        },
+        {
+          "name": "Humble"
+        },
+        {
+          "name": "Losing My Religion"
+        },
+        {
+          "name": "Ray of Light"
+        },
+        {
+          "name": "We Found Love"
+        },
+        {
+          "name": "Without Me"
+        }
+      ],
+      "surface": ["Bad Romance", "Formation", "Bad Blood"],
+      "pearl": "Ray of Light",
+      "people": false,
+      "review": "Every MTV Video of the Year winner whose video is marked on the pinned MTV page as also winning the Grammy for Best Music Video, cross-checked against the pinned Grammy winners table. Anti-Hero (2023 VMA) and The Fate of Ophelia (2026 VMA) did not win the Grammy; the next Grammy ceremony falls after the cycle."
     },
     {
       "id": "radiohead-studio-albums",
