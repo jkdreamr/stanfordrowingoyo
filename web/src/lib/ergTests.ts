@@ -1,5 +1,5 @@
 import type { ErgTestKind } from '../../../shared/types';
-import { parseSplit } from './format';
+import { parseTimeInput } from './format';
 export const testKinds = [
   { value: '2k', label: '2k' },
   { value: '6k', label: '6k' },
@@ -9,7 +9,7 @@ export function testTime(seconds: number) {
   return `${Math.floor(tenths / 600)}:${((tenths % 600) / 10).toFixed(1).padStart(4, '0')}`;
 }
 export function testValues(value: string, mode: 'time' | 'split', kind: ErgTestKind) {
-  const parsed = parseSplit(value);
+  const parsed = parseTimeInput(value, mode === 'time' ? 'elapsed' : 'split')?.seconds ?? null;
   if (parsed === null) return null;
   const factor = kind === '2k' ? 4 : 12;
   const time_s = Math.round(parsed * (mode === 'split' ? factor : 1) * 10) / 10;

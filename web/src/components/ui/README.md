@@ -255,17 +255,18 @@ Horizontal arrows wrap and activate; Home/End supported. Each tab controls an ID
 
 Import from `lib/format`. Never render arithmetic results directly. Invalid numeric display values produce an em dash. Parsers return null on empty or invalid input; zero is a valid result. Calculations retain precision until formatting.
 
-| Function                              | Use                                      | Example                                  |
-| ------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| formatMeters(meters, compact=false)   | Physical distance in rows/details        | 20000.4 → 20,000 m; compact → 20.0k      |
-| formatKm(meters, digits=1)            | Distance menu and kilometer fields       | 12000 → 12.0 km                          |
-| formatEMeters(meters, compact=false)  | Equivalent totals and live Log result    | 20000 → 20,000 E-meters; compact → 20.0k |
-| formatSplit(seconds)                  | Pace per 500m                            | 112.4 → 1:52.4                           |
-| formatDuration(seconds)               | Total session duration                   | 1500 → 25:00; 3723 → 1:02:03             |
-| parseDuration(text)                   | Duration field on submit                 | 25:00 → 1500; 1:02:03 → 3723; 90 → 90    |
-| parseSplit(text)                      | Pace field on submit                     | 1:52.4 → 112.4; 1:60 → null              |
-| splitFromTime(duration_s, distance_m) | Derive seconds/500m, then formatSplit    | (1500,6000) → 125; zero distance → null  |
-| formatEntryDate(date, now?)           | Feed and entry headers, LA-relative date | Today, Yesterday, Mon, Nov 3             |
-| formatShortDate(date)                 | Absolute local entry date                | 2025-11-03 → Mon, Nov 3                  |
+| Function                              | Use                                        | Example                                                                                                 |
+| ------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| formatMeters(meters, compact=false)   | Physical distance in rows/details          | 20000.4 → 20,000 m; compact → 20.0k                                                                     |
+| formatKm(meters, digits=1)            | Distance menu and kilometer fields         | 12000 → 12.0 km                                                                                         |
+| formatEMeters(meters, compact=false)  | Equivalent totals and live Log result      | 20000 → 20,000 E-meters; compact → 20.0k                                                                |
+| formatSplit(seconds)                  | Pace per 500m                              | 112.4 → 1:52.4                                                                                          |
+| formatDuration(seconds)               | Total session duration                     | 1500 → 25:00; 3723 → 1:02:03                                                                            |
+| parseDuration(text)                   | Duration field on submit                   | 25:00 / 25.00 → 1500; 1:02:03 / 1.02.03 → 3723; 90 → 90                                                 |
+| parseSplit(text)                      | Pace field on submit                       | 145 / 1450 / 145.0 / 1.45.0 → 105; 1:60 → null                                                          |
+| parseTimeInput(text, kind)            | Shared time parsing and blur normalization | split: 1450 → 1:45.0; duration: integer seconds or dot/colon clock; elapsed: clock with optional tenths |
+| splitFromTime(duration_s, distance_m) | Derive seconds/500m, then formatSplit      | (1500,6000) → 125; zero distance → null                                                                 |
+| formatEntryDate(date, now?)           | Feed and entry headers, LA-relative date   | Today, Yesterday, Mon, Nov 3                                                                            |
+| formatShortDate(date)                 | Absolute local entry date                  | 2025-11-03 → Mon, Nov 3                                                                                 |
 
 Entry dates are shared LA calendar strings (`YYYY-MM-DD`), not UTC timestamps. Helpers use shared date and math implementations without changing training semantics.

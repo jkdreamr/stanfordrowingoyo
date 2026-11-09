@@ -124,7 +124,16 @@ it('previews and saves a valid session, with optional details', async () => {
   expect((screen.getByRole('button', { name: 'Save' }) as HTMLButtonElement).disabled).toBe(true);
   fireEvent.change(meters, { target: { value: '12000' } });
   fireEvent.click(screen.getByRole('button', { name: 'Add Details' }));
-  fireEvent.change(screen.getByLabelText('Time'), { target: { value: '48:00' } });
+  const time = screen.getByLabelText('Time') as HTMLInputElement;
+  expect(time.inputMode).toBe('decimal');
+  fireEvent.change(time, { target: { value: '48.00' } });
+  fireEvent.blur(time);
+  expect(time.value).toBe('48:00');
+  const split = screen.getByLabelText('Split /500m') as HTMLInputElement;
+  expect(split.inputMode).toBe('decimal');
+  fireEvent.change(split, { target: { value: '2000' } });
+  fireEvent.blur(split);
+  expect(split.value).toBe('2:00.0');
   expect(screen.getByText('= 12,000 E-meters')).toBeTruthy();
   fireEvent.click(screen.getByRole('button', { name: 'Save' }));
   await screen.findByRole('heading', { name: 'Training Home' });

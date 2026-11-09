@@ -1,6 +1,39 @@
 import { test, expect } from './fixtures';
 import { logEntry, equivalentMeters, formatMeters } from './helpers';
 
+test('normalizes keypad-only workout duration and split before saving numeric API values', async ({
+  makeRower,
+}) => {
+  const { page } = await makeRower();
+  await page.goto('/log');
+  await page.getByLabel('Meters', { exact: true }).fill('12000');
+  await page.getByRole('button', { name: 'Add Details', exact: true }).click();
+  const duration = page.getByLabel('Time', { exact: true });
+  const split = page.getByLabel('Split /500m', { exact: true });
+  for (const input of [duration, split])
+    await expect(input).toHaveAttribute('inputmode', 'decimal');
+  await duration.fill('1.02.03');
+  await duration.press('Tab');
+  await expect(duration).toHaveValue('1:02:03');
+  await duration.fill('42.00');
+  await duration.press('Tab');
+  await expect(duration).toHaveValue('42:00');
+  await split.fill('1450');
+  await split.press('Tab');
+  await expect(split).toHaveValue('1:45.0');
+  await duration.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: test.info().outputPath('split-log.png') });
+  const saved = page.waitForResponse(
+    (response) =>
+      new URL(response.url()).pathname === '/api/entries' && response.request().method() === 'POST',
+  );
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  const response = await saved;
+  expect(response.ok()).toBe(true);
+  expect(response.request().postDataJSON()).toMatchObject({ duration_s: 2520, avg_split_s: 105 });
+  await expect(page.getByRole('heading', { name: 'This Week', exact: true })).toBeVisible();
+});
+
 for (const workout of [
   { modality: 'bike', zone: 'E', distance: 60000 },
   { modality: 'erg', zone: 'D', distance: 12000 },
