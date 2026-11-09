@@ -1,0 +1,620 @@
+{
+  "baseline_ref": "d9f96cfed310ad709dd8cb89084c1eedfacf3118",
+  "raw_sha256": {
+    "refine-R8-raw.json": "dc32ff7fe75f5d7f7af972b320a28236fdee79b971b6f6d60ffe5a68c1c85656",
+    "refine-R8-backup-raw.json": "dfaf30fb9f72cb5ac7cd3c7571f4fcdee19cc8829105d289bf9db4ec908e50df",
+    "refine-R8-backup2-raw.json": "7e47b58b7605b15ab6bd636cbcef32a6a152c3c728a7d9a94cda66b22a049a6c"
+  },
+  "selected_sha256": "c285e3de9f0965940a5ff34d8344f237b1845a30014a4e78f8f31b948743345f",
+  "before_definition": "Same reviewed denominator and memberships; exact canonical normalized keys only, before alias pass.",
+  "worker_gzip_kib": {
+    "before": 2993.75,
+    "after": 2996.53,
+    "delta": 2.78,
+    "budget": 1.5,
+    "within_budget": false
+  },
+  "overlap_definition": "Normalized canonical intersection against every other scheduled prompt; report both directional fractions and intersection divided by smaller canonical set.",
+  "prompts": [
+    {
+      "id": "le-mans-winning-makes",
+      "text": "Name a car make that has won the 24 Hours of Le Mans outright.",
+      "active": true,
+      "size": 25,
+      "tiers": {
+        "surface": 5,
+        "tooclever": 0,
+        "school": 9,
+        "rare": 6,
+        "deep": 4,
+        "gem": 1
+      },
+      "surface": ["Toyota", "Audi", "Ferrari", "Porsche", "Ford"],
+      "pageviews": 0,
+      "sitelinks": 14,
+      "wikidata": 0,
+      "aliases": 8,
+      "too_clever": [],
+      "gem": "Mazda",
+      "theme": "everyday",
+      "cluster": "cars",
+      "constrained": true,
+      "before": {
+        "hits": 23,
+        "total": 30
+      },
+      "after": {
+        "hits": 30,
+        "total": 30
+      },
+      "invalid": [
+        {
+          "guess": "Cadillac",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Chevrolet",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Corvette",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Lancia",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Lotus",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Nissan",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Honda",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Dodge",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        },
+        {
+          "guess": "Delage",
+          "invalid": "No overall-winning make in pinned manufacturer table; checked winning cars in table 4."
+        }
+      ],
+      "maxOverlap": {
+        "id": "volkswagen-group-brands",
+        "intersection": 3,
+        "newFraction": 0.12,
+        "otherFraction": 0.17647058823529413,
+        "smallerFraction": 0.17647058823529413,
+        "members": ["audi", "porsche", "bentley"]
+      },
+      "overlapsAtLeastHalf": [],
+      "size_band": "standard"
+    },
+    {
+      "id": "a380-airlines",
+      "text": "Name an airline that has flown the Airbus A380.",
+      "active": true,
+      "size": 16,
+      "tiers": {
+        "surface": 5,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 3,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["Singapore Airlines", "Emirates", "British Airways", "Qantas", "Lufthansa"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 14,
+      "too_clever": [],
+      "gem": "Global Airlines",
+      "theme": "everyday",
+      "cluster": "travel",
+      "constrained": true,
+      "before": {
+        "hits": 15,
+        "total": 26
+      },
+      "after": {
+        "hits": 26,
+        "total": 26
+      },
+      "invalid": [
+        {
+          "guess": "Cathay Pacific",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "Delta Air Lines",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "United Airlines",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "American Airlines",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "Virgin Atlantic",
+          "invalid": "Ordered A380s but cancelled; never operated the type."
+        },
+        {
+          "guess": "Air India",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "Turkish Airlines",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "Japan Airlines",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "Saudia",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        },
+        {
+          "guess": "Air China",
+          "invalid": "Not a current or former A380 operator on the pinned list."
+        }
+      ],
+      "maxOverlap": {
+        "id": "skyteam-airlines",
+        "intersection": 2,
+        "newFraction": 0.125,
+        "otherFraction": 0.1111111111111111,
+        "smallerFraction": 0.125,
+        "members": ["air france", "korean air"]
+      },
+      "overlapsAtLeastHalf": [],
+      "size_band": "tiny"
+    },
+    {
+      "id": "spiel-des-jahres-winners",
+      "text": "Name a winner of the Spiel des Jahres (German Game of the Year).",
+      "active": true,
+      "size": 48,
+      "tiers": {
+        "surface": 5,
+        "tooclever": 0,
+        "school": 19,
+        "rare": 13,
+        "deep": 10,
+        "gem": 1
+      },
+      "surface": ["Ticket to Ride", "Azul", "Carcassonne", "The Settlers of Catan", "Codenames"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 13,
+      "too_clever": [],
+      "gem": "Hanabi",
+      "theme": "everyday",
+      "cluster": "board-games",
+      "constrained": true,
+      "before": {
+        "hits": 34,
+        "total": 37
+      },
+      "after": {
+        "hits": 37,
+        "total": 37
+      },
+      "invalid": [
+        {
+          "guess": "Cartagena",
+          "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+        },
+        {
+          "guess": "Pandemic",
+          "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+        },
+        {
+          "guess": "7 Wonders",
+          "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+        },
+        {
+          "guess": "Splendor",
+          "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+        },
+        {
+          "guess": "Wingspan",
+          "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+        },
+        {
+          "guess": "The Crew",
+          "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+        },
+        {
+          "guess": "Labyrinth",
+          "invalid": "Not a main Spiel des Jahres winner in the pinned all-winners table."
+        }
+      ],
+      "maxOverlap": {
+        "id": "iba-cocktails",
+        "intersection": 1,
+        "newFraction": 0.020833333333333332,
+        "otherFraction": 0.00980392156862745,
+        "smallerFraction": 0.020833333333333332,
+        "members": ["manhattan"]
+      },
+      "overlapsAtLeastHalf": [],
+      "size_band": "standard"
+    },
+    {
+      "id": "video-game-hall-of-fame",
+      "text": "Name a game inducted into the World Video Game Hall of Fame.",
+      "active": true,
+      "size": 53,
+      "tiers": {
+        "surface": 5,
+        "tooclever": 0,
+        "school": 22,
+        "rare": 14,
+        "deep": 11,
+        "gem": 1
+      },
+      "surface": ["Pac-Man", "Super Mario Bros.", "The Legend of Zelda", "Pong", "Tetris"],
+      "pageviews": 0,
+      "sitelinks": 0,
+      "wikidata": 0,
+      "aliases": 11,
+      "too_clever": [],
+      "gem": "Barbie Fashion Designer",
+      "theme": "everyday",
+      "cluster": "video-games",
+      "constrained": true,
+      "before": {
+        "hits": 41,
+        "total": 52
+      },
+      "after": {
+        "hits": 52,
+        "total": 52
+      },
+      "invalid": [
+        {
+          "guess": "Frogger",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Galaga",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Guitar Hero",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Candy Crush Saga",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Metroid",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Super Mario 64",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Pokémon Go",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Zork",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Rogue",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Half-Life",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Call of Duty",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Fortnite",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Minesweeper",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Breakout",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Final Fantasy",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Mega Man",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Castlevania",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Elder Scrolls V: Skyrim",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Skyrim",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        }
+      ],
+      "maxOverlap": {
+        "id": "smash-64-fighters",
+        "intersection": 1,
+        "newFraction": 0.018867924528301886,
+        "otherFraction": 0.08333333333333333,
+        "smallerFraction": 0.08333333333333333,
+        "members": ["donkey kong"]
+      },
+      "overlapsAtLeastHalf": [],
+      "size_band": "standard"
+    },
+    {
+      "id": "generic-trademarks",
+      "text": "Name a brand name that's often used as a generic word.",
+      "active": true,
+      "size": 205,
+      "tiers": {
+        "surface": 5,
+        "tooclever": 1,
+        "school": 90,
+        "rare": 59,
+        "deep": 49,
+        "gem": 1
+      },
+      "surface": ["Google", "Band-Aid", "Xerox", "Velcro", "Kleenex"],
+      "pageviews": 0,
+      "sitelinks": 2,
+      "wikidata": 0,
+      "aliases": 9,
+      "too_clever": ["Heroin"],
+      "gem": "Escalator",
+      "theme": "everyday",
+      "cluster": "brands",
+      "constrained": true,
+      "before": {
+        "hits": 63,
+        "total": 64
+      },
+      "after": {
+        "hits": 64,
+        "total": 64
+      },
+      "invalid": [
+        {
+          "guess": "Kitty Litter",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Teflon",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Windbreaker",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Weed eater",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Breathalyzer",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Granola",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Novocain",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Tabasco",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Spandex",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Lycra",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Bic",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Pilates",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Crayola",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Scotchgard",
+          "invalid": "not on the pinned list"
+        },
+        {
+          "guess": "Sheetrock",
+          "invalid": "not on the pinned list"
+        }
+      ],
+      "maxOverlap": {
+        "id": "stellantis-brands",
+        "intersection": 1,
+        "newFraction": 0.004878048780487805,
+        "otherFraction": 0.07142857142857142,
+        "smallerFraction": 0.07142857142857142,
+        "members": ["jeep"]
+      },
+      "overlapsAtLeastHalf": [],
+      "size_band": "huge"
+    },
+    {
+      "id": "toy-hall-of-fame",
+      "text": "Name a toy in the National Toy Hall of Fame.",
+      "active": true,
+      "size": 95,
+      "tiers": {
+        "surface": 5,
+        "tooclever": 2,
+        "school": 40,
+        "rare": 26,
+        "deep": 21,
+        "gem": 1
+      },
+      "surface": ["Monopoly", "Lego", "Teddy bear", "Barbie", "Slinky"],
+      "pageviews": 0,
+      "sitelinks": 1,
+      "wikidata": 0,
+      "aliases": 19,
+      "too_clever": ["Stick", "Cardboard box"],
+      "gem": "Sand",
+      "theme": "everyday",
+      "cluster": "toys",
+      "constrained": true,
+      "before": {
+        "hits": 67,
+        "total": 74
+      },
+      "after": {
+        "hits": 74,
+        "total": 74
+      },
+      "invalid": [
+        {
+          "guess": "Spirograph",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Furby",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Tickle Me Elmo",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Operation",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Pogo stick",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        },
+        {
+          "guess": "Sled",
+          "invalid": "Not inducted through the pinned 2026 class; finalists alone do not qualify."
+        }
+      ],
+      "maxOverlap": {
+        "id": "monopoly-tokens",
+        "intersection": 2,
+        "newFraction": 0.021052631578947368,
+        "otherFraction": 0.13333333333333333,
+        "smallerFraction": 0.13333333333333333,
+        "members": ["rubber duck", "battleship"]
+      },
+      "overlapsAtLeastHalf": [],
+      "size_band": "standard"
+    },
+    {
+      "id": "monopoly-tokens",
+      "text": "Name a token that has been in the standard Monopoly set since 1943.",
+      "active": true,
+      "size": 15,
+      "tiers": {
+        "surface": 5,
+        "tooclever": 0,
+        "school": 5,
+        "rare": 2,
+        "deep": 2,
+        "gem": 1
+      },
+      "surface": ["Thimble", "Top hat", "Boot", "Scottie dog", "Racecar"],
+      "pageviews": 0,
+      "sitelinks": 1,
+      "wikidata": 0,
+      "aliases": 21,
+      "too_clever": [],
+      "gem": "Penguin",
+      "theme": "everyday",
+      "cluster": "board-games",
+      "constrained": true,
+      "before": {
+        "hits": 16,
+        "total": 29
+      },
+      "after": {
+        "hits": 29,
+        "total": 29
+      },
+      "invalid": [
+        {
+          "guess": "Lantern",
+          "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+        },
+        {
+          "guess": "Purse",
+          "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+        },
+        {
+          "guess": "Rocking horse",
+          "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+        },
+        {
+          "guess": "Howitzer",
+          "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+        },
+        {
+          "guess": "Train",
+          "invalid": "Not a standard-set token since 1943; pre-1943-only or special-edition pieces do not qualify."
+        }
+      ],
+      "maxOverlap": {
+        "id": "toy-hall-of-fame",
+        "intersection": 2,
+        "newFraction": 0.13333333333333333,
+        "otherFraction": 0.021052631578947368,
+        "smallerFraction": 0.13333333333333333,
+        "members": ["rubber duck", "battleship"]
+      },
+      "overlapsAtLeastHalf": [],
+      "size_band": "tiny"
+    }
+  ],
+  "checks": {
+    "generate": "passed",
+    "verify_sources_check": "passed, all pinned sources",
+    "recall": "all seven 100%; command exits 1 due to existing other prompts below 95%",
+    "python_unittest": "28/30; fixed total-count and retired-ID assertions fail due to seven requested replacements",
+    "node_recall_tests": "14/15; historical batch test imports retired css-named-colors runtime module removed by generator",
+    "build": "passed; gzip over requested delta budget by 1.28 KiB"
+  }
+}
