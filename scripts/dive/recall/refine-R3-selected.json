@@ -1,0 +1,667 @@
+{
+  "beatles-name-songs": [
+    "Michelle",
+    "Eleanor Rigby",
+    "Hey Jude",
+    "Lovely Rita",
+    "Martha My Dear",
+    "Julia",
+    "Dear Prudence",
+    "Lady Madonna",
+    "Rocky Raccoon",
+    "Maxwell's Silver Hammer",
+    "Polythene Pam",
+    "Mean Mr. Mustard",
+    "Sexy Sadie",
+    "Lucy in the Sky with Diamonds",
+    "Penny Lane",
+    "Doctor Robert",
+    "Dr. Robert",
+    "The Continuing Story of Bungalow Bill",
+    "Bungalow Bill",
+    "Being for the Benefit of Mr. Kite!",
+    "Mr. Kite",
+    "Sgt. Pepper's Lonely Hearts Club Band",
+    "Sgt Pepper",
+    "The Ballad of John and Yoko",
+    "Ballad of John and Yoko",
+    "Anna (Go to Him)",
+    "Anna",
+    "Long Tall Sally",
+    "Dizzy Miss Lizzy",
+    "Roll Over Beethoven",
+    "Maggie Mae",
+    {
+      "guess": "Please Mr. Postman",
+      "invalid": "Postman is an occupation, not a personal name."
+    },
+    {
+      "guess": "Mr. Moonlight",
+      "invalid": "Moonlight is not a personal name."
+    },
+    {
+      "guess": "Her Majesty",
+      "invalid": "A royal title, not a personal name."
+    },
+    "Lucy",
+    "Jude",
+    {
+      "guess": "Ob-La-Di, Ob-La-Da",
+      "invalid": "Desmond and Molly appear only in the lyrics, not the title."
+    },
+    {
+      "guess": "Hey Bulldog",
+      "invalid": "No personal name in the title."
+    },
+    {
+      "guess": "Johnny B. Goode",
+      "invalid": "The Beatles recording was first released in 1994 (Live at the BBC), outside 1962–1970."
+    },
+    "Rocky",
+    "Prudence",
+    "Eleanor",
+    "Rita",
+    "Martha",
+    {
+      "guess": "Honey Pie",
+      "invalid": "Honey is a term of endearment, not a personal name."
+    },
+    {
+      "guess": "Get Back",
+      "invalid": "No personal name in the title (Jojo and Loretta are in the lyrics)."
+    },
+    "Lucy in the Sky",
+    "Maxwell",
+    "John and Yoko",
+    "Mustard"
+  ],
+  "live-aid-1985-performers": [
+    "Queen",
+    "U2",
+    "David Bowie",
+    "Madonna",
+    "Led Zeppelin",
+    "The Who",
+    "Elton John",
+    "Paul McCartney",
+    "Phil Collins",
+    "Bob Dylan",
+    "Mick Jagger",
+    "Tina Turner",
+    "Sting",
+    "Dire Straits",
+    "Bryan Adams",
+    "Duran Duran",
+    "Black Sabbath",
+    "Run-DMC",
+    "Status Quo",
+    "Bob Geldof",
+    "The Boomtown Rats",
+    "Spandau Ballet",
+    "Elvis Costello",
+    "Sade",
+    "Adam Ant",
+    "Ultravox",
+    "Howard Jones",
+    "Bryan Ferry",
+    "Paul Young",
+    "Alison Moyet",
+    "Wham!",
+    "George Michael",
+    "Simple Minds",
+    "The Pretenders",
+    "Santana",
+    "Hall & Oates",
+    "Neil Young",
+    "Crosby, Stills, Nash & Young",
+    "Eric Clapton",
+    "Tom Petty and the Heartbreakers",
+    "Joan Baez",
+    "The Beach Boys",
+    "Patti LaBelle",
+    "Billy Ocean",
+    "Judas Priest",
+    {
+      "guess": "Bruce Springsteen",
+      "invalid": "Listed under notable absences; did not appear."
+    },
+    {
+      "guess": "Michael Jackson",
+      "invalid": "Declined to appear (notable absences)."
+    },
+    {
+      "guess": "Prince",
+      "invalid": "Did not perform at either stadium show."
+    },
+    "The Cars",
+    "Thompson Twins",
+    "REO Speedwagon",
+    "Keith Richards",
+    "Ronnie Wood",
+    "Kenny Loggins",
+    "Ashford & Simpson",
+    "Teddy Pendergrass",
+    {
+      "guess": "Lionel Richie",
+      "invalid": "Not credited as a performer on the pinned page; not accepted without a reviewed source."
+    },
+    "Freddie Mercury"
+  ],
+  "hot100-number-one-two-versions": [
+    "Lady Marmalade",
+    "The Loco-Motion",
+    "Locomotion",
+    "Venus",
+    "Go Away Little Girl",
+    "You Keep Me Hangin' On",
+    "Please Mr. Postman",
+    "Lean on Me",
+    "I'll Be There",
+    "When a Man Loves a Woman",
+    {
+      "guess": "Without You",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Ain't No Mountain High Enough",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "I Heard It Through the Grapevine",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Dancing in the Street",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Up Where We Belong",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "The Twist",
+      "invalid": "Chubby Checker topped the chart twice with the same recording, not two artists."
+    },
+    {
+      "guess": "Red Red Wine",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Light My Fire",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "I Think We're Alone Now",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Mony Mony",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Tainted Love",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Blue Moon",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Big Girls Don't Cry",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Twist and Shout",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Killing Me Softly",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Respect",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Hanky Panky",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Black Velvet",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Total Eclipse of the Heart",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    "Lady Marmalade (2001)",
+    {
+      "guess": "Kiss and Say Goodbye",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Hold On",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Higher Love",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    {
+      "guess": "Everybody Wants to Rule the World",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    },
+    "Loco-Motion",
+    {
+      "guess": "Groovin'",
+      "invalid": "Only one recording of this song reached No. 1 (absent from the pinned complete list)."
+    }
+  ],
+  "hot100-14-week-number-ones": [
+    "Old Town Road",
+    "Despacito",
+    "One Sweet Day",
+    "A Bar Song (Tipsy)",
+    "A Bar Song",
+    "Last Night",
+    "Uptown Funk",
+    "We Belong Together",
+    "Candle in the Wind 1997",
+    "Candle in the Wind",
+    "I Will Always Love You",
+    "I'll Make Love to You",
+    "Macarena",
+    "I Gotta Feeling",
+    {
+      "guess": "End of the Road",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Shape of You",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "See You Again",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Closer",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Yeah!",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Boom Boom Pow",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Smooth",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Un-Break My Heart",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Lose Control",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Blinding Lights",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    "As It Was",
+    {
+      "guess": "Hey Ya!",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Gangsta's Paradise",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Fantasy",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Hey Jude",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Tossin' and Turnin'",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Theme from A Summer Place",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Physical",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Bette Davis Eyes",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Endless Love",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Ordinary",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Golden",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Flowers",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Cruel Summer",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Lose Yourself",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Rockstar",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Truth Hurts",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Dilemma",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "The Boy Is Mine",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    {
+      "guess": "Too Sweet",
+      "invalid": "Below 14 weeks at No. 1: absent from the pinned complete most-weeks (14+) table."
+    },
+    "Tipsy",
+    "Old Town Road (Remix)"
+  ],
+  "riaa-20x-platinum-albums": [
+    "Thriller",
+    "Their Greatest Hits (1971–1975)",
+    "Eagles Greatest Hits",
+    "Hotel California",
+    "Back in Black",
+    "Led Zeppelin IV",
+    "The Wall",
+    "Rumours",
+    "Come On Over",
+    "Double Live",
+    {
+      "guess": "Appetite for Destruction",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "The Bodyguard",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Boston",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    "Metallica",
+    "The Black Album",
+    {
+      "guess": "Jagged Little Pill",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Saturday Night Fever",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Bat Out of Hell",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    "Greatest Hits Volume I & Volume II",
+    "Billy Joel Greatest Hits",
+    {
+      "guess": "Physical Graffiti",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "No Fences",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Purple Rain",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "The Dark Side of the Moon",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Born in the U.S.A.",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Abbey Road",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "1",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    "The Beatles",
+    "The White Album",
+    "Cracked Rear View",
+    {
+      "guess": "Titanic",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Supernatural",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Whitney Houston",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Millennium",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "...Baby One More Time",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "21",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Hybrid Theory",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "The Marshall Mathers LP",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Hysteria",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Slippery When Wet",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Ropin' the Wind",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    {
+      "guess": "Legend",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    "Greatest Hits (Eagles)",
+    {
+      "guess": "Dark Side of the Moon",
+      "invalid": "Certified below 20× Platinum in the pinned RIAA column."
+    },
+    "Led Zeppelin 4",
+    "Zeppelin IV"
+  ],
+  "vma-grammy-video-double": [
+    "Bad Romance",
+    "Formation",
+    "Bad Blood",
+    {
+      "guess": "Sledgehammer",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Thriller",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "This Is America",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Old Town Road",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Hotline Bling",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Single Ladies",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Single Ladies (Put a Ring on It)",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Umbrella",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Hurt",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Scream",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Waterfalls",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    "Losing My Religion",
+    {
+      "guess": "Jeremy",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Smells Like Teen Spirit",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Here It Goes Again",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Wrecking Ball",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    "We Found Love",
+    {
+      "guess": "Rolling in the Deep",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Happy",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Hello",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Montero (Call Me by Your Name)",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    "All Too Well",
+    "All Too Well: The Short Film",
+    {
+      "guess": "Anti-Hero",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Fortnight",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Not Like Us",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    "Ray of Light",
+    {
+      "guess": "Vogue",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Like a Prayer",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Virtual Insanity",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Tonight, Tonight",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Sabotage",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Californication",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Black or White",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Hey Ya!",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Weapon of Choice",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Lazarus",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Toxic",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    },
+    {
+      "guess": "Firework",
+      "invalid": "Did not win both MTV Video of the Year and the Grammy for Best Music Video."
+    }
+  ]
+}

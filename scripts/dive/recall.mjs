@@ -160,6 +160,7 @@ export async function main(args = process.argv.slice(2)) {
         'batch-5-selected.json',
         'batch-6-selected.json',
         'supplemental-selected.json',
+        'refine-R3-selected.json',
       ]) {
         const additions = JSON.parse(
           await readFile(join(repo, 'scripts/dive/recall', file), 'utf8'),
