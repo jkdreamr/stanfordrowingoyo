@@ -15,13 +15,16 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--divider);
+  background: var(--muted);
+  opacity: 0.8;
 }
 .deal-progress .deal-dot-current {
   background: var(--accent);
+  opacity: 1;
 }
 .deal-progress .deal-dot-done {
   background: var(--muted);
+  opacity: 1;
 }
 .deal-intro {
   display: flex;
@@ -44,10 +47,16 @@
 }
 .deal-back {
   height: 94px;
-  border: 4px double var(--surface);
+  border: 1px solid #f5ede0;
   outline: 1px solid var(--divider);
   border-radius: 8px;
-  background: var(--accent);
+  background-color: var(--accent);
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0 5px, rgb(255 247 229 / 12%) 5px 6px),
+    repeating-linear-gradient(-45deg, transparent 0 5px, rgb(255 247 229 / 12%) 5px 6px);
+  box-shadow:
+    inset 0 0 0 4px var(--accent),
+    inset 0 0 0 5px #f5ede0;
 }
 .deal-how {
   text-align: left;
@@ -130,9 +139,15 @@
   content: '';
   position: absolute;
   inset: 0;
-  border: 4px double var(--surface);
+  border: 1px solid #f5ede0;
   border-radius: 8px;
-  background: var(--accent);
+  background-color: var(--accent);
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0 5px, rgb(255 247 229 / 12%) 5px 6px),
+    repeating-linear-gradient(-45deg, transparent 0 5px, rgb(255 247 229 / 12%) 5px 6px);
+  box-shadow:
+    inset 0 0 0 4px var(--accent),
+    inset 0 0 0 5px #f5ede0;
   transform: rotateY(180deg);
   backface-visibility: hidden;
   animation: deal-uncover 360ms step-end both;
@@ -214,12 +229,23 @@
 }
 .deal-actions {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.7fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 .deal-actions .ui-button {
   padding-inline: 8px;
   font-size: 13px;
+  min-height: 48px;
+  height: 100%;
+  text-align: center;
+  line-height: 18px;
+}
+.deal-actions .ui-button:disabled {
+  opacity: 1;
+  color: var(--muted);
+  background: var(--surface-2);
+  box-shadow: none;
+  border: 1px dashed var(--oyo-control-border);
 }
 .deal-recap {
   display: flex;

@@ -1,7 +1,8 @@
 import { expect, it } from 'vitest';
 import type { DealDay, GameResult } from '../../../shared/types';
-import { replayDeal, type DealStep } from '../../../shared/games/deal';
+import { replayDeal } from '../../../shared/games/deal';
 import { createMockApi } from './handlers';
+import { mockDeal } from './deal';
 
 function setup(locked = false) {
   let elapsed = 0;
@@ -32,10 +33,6 @@ function setup(locked = false) {
     mock,
   };
 }
-const stepsFor = (n: number): DealStep[] => [
-  { a: 0, op: '+', b: 1 },
-  ...Array.from({ length: n - 2 }, (_, i) => ({ a: n + i, op: '+' as const, b: i + 2 })),
-];
 it('plays five artificial Deal rounds, validates replay, and stores lower-is-better tenths', async () => {
   const { request, advance, mock } = setup();
   const hub = await mock.handle(new Request('http://localhost/api/games'));
@@ -52,7 +49,7 @@ it('plays five artificial Deal rounds, validates replay, and stores lower-is-bet
     const started = await request('start', { round, date: day.date });
     expect(started.status).toBe(200);
     const active = ((await started.json()) as DealDay).active!;
-    const steps = stepsFor(active.cards.length);
+    const steps = mockDeal(round).solution;
     expect(
       replayDeal(
         active.cards.map((c) => c.value),
@@ -89,20 +86,26 @@ it('rejects locked writes, order errors, invalid witnesses and strict-body error
   expect((await request('start', { round: 0, extra: true })).status).toBe(400);
   await request('start', { round: 0 });
   expect((await request('start', { round: 0 })).status).toBe(409);
-  expect((await request('answer', { round: 0, steps: stepsFor(4), elapsedMs: 10 })).status).toBe(
-    400,
-  );
+  expect(
+    (await request('answer', { round: 0, steps: mockDeal(0).solution, elapsedMs: 10 })).status,
+  ).toBe(400);
   advance(5000);
   for (const fields of [
     { steps: [] },
-    { steps: [{ a: 0, op: '/', b: 1 }, ...stepsFor(4).slice(1)] },
+    { steps: [{ a: 0, op: '/', b: 1 }, ...mockDeal(0).solution.slice(1)] },
     { extra: true },
     { elapsedMs: -1 },
     { elapsedMs: '5' },
   ])
     expect(
-      (await request('answer', { round: 0, steps: stepsFor(4), elapsedMs: 4200, ...fields }))
-        .status,
+      (
+        await request('answer', {
+          round: 0,
+          steps: mockDeal(0).solution,
+          elapsedMs: 4200,
+          ...fields,
+        })
+      ).status,
     ).toBe(400);
   const day = (await (await request('today')).json()) as DealDay;
   expect(day.round).toBe(0);
@@ -120,7 +123,7 @@ it('resumes, clamps timings, applies skip penalty and caps active reads', async 
   expect(resumed.active?.elapsedMs).toBe(11000);
   expect(resumed.round).toBe(0);
   const answered = (await (
-    await request('answer', { round: 0, steps: stepsFor(4), elapsedMs: 0 })
+    await request('answer', { round: 0, steps: mockDeal(0).solution, elapsedMs: 0 })
   ).json()) as DealDay;
   expect(answered.results[0].timeMs).toBe(8500);
   await request('start', { round: 1 });

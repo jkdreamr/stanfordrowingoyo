@@ -83,9 +83,8 @@ import {
   DEAL_ROUND_CAP_MS,
   DEAL_SKIP_PENALTY_MS,
   replayDeal,
-  type DealCard,
-  type DealStep,
 } from '../../../shared/games/deal';
+import { mockDeal } from './deal';
 import type { DealRoundResult } from '../../../shared/types';
 import {
   boardWords,
@@ -1151,21 +1150,7 @@ export function createMockApi({
             write = action !== 'today';
           if (method !== (write ? 'POST' : 'GET')) fail(405, 'Method not allowed.');
           const counts = [4, 5, 6, 7, 8];
-          const puzzle = (round: number) => {
-            const cards: DealCard[] = Array.from({ length: counts[round] }, (_, i) => ({
-              value: i + 2,
-              suit: (['H', 'S', 'D', 'C'] as const)[i % 4],
-            }));
-            const solution: DealStep[] = [{ a: 0, op: '+', b: 1 }];
-            for (let i = 2; i < cards.length; i++)
-              solution.push({ a: cards.length + i - 2, op: '+', b: i });
-            return {
-              cards,
-              goal: cards.reduce((s, c) => s + c.value, 0),
-              solution,
-              parMs: 30000 + round * 15000,
-            };
-          };
+          const puzzle = mockDeal;
           const key = `${user.id}:${date}`;
           const p = dealProgress.get(key) ?? { results: [], active: null };
           dealProgress.set(key, p);
