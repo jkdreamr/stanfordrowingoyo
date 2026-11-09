@@ -1,0 +1,1281 @@
+{
+  "raw_corpus_sha256": "3102361e6e4ac10b88da71539fcfddde9a535796e0cf2382d14fb8df9814a5f0",
+  "base_commit": "d9f96cf",
+  "as_of": "2026-11-09",
+  "source_verification": "Every reviewed source member checked against its pinned page; all new source lists re-acquired and compared exactly. ALA checksum covers original bytes, preserving CRLF.",
+  "macbeth_member_evidence": {
+    "The Battle Lost and Won": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "The Battle Lost and Won , 1978 novel by Olivia Manning (I.i)"
+    },
+    "Wyrd Sisters": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Wyrd Sisters by Terry Pratchett (I.iii, etc.)"
+    },
+    "The Moon Is Down": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "The Moon Is Down by John Steinbeck (II.i)"
+    },
+    "Dagger of the Mind": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Dagger of the Mind by Bob Shaw (II.i)"
+    },
+    "To Fear a Painted Devil": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "From \"'tis the eye of childhood / That fears a painted devil.\" (II.ii): To Fear a Painted Devil , 1965 novel by Ruth Rendell A Painted Devil , 1975 novel by Rachel Billington"
+    },
+    "A Painted Devil": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "A Painted Devil , 1975 novel by Rachel Billington"
+    },
+    "Wash This Blood Clean from My Hand": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Wash This Blood Clean from My Hand by Fred Vargas (II.ii)"
+    },
+    "A Heart So White": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "A Heart So White by Javier Marías (II.ii)"
+    },
+    "Look to the Lady": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Look to the Lady by Margery Allingham (II.iii)"
+    },
+    "Light Thickens": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Light Thickens by Ngaio Marsh (III.ii)"
+    },
+    "Let It Come Down": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Let It Come Down by Paul Bowles (III.iii)"
+    },
+    "Exit Ghost": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Exit Ghost by Philip Roth (III.iv; the stage direction also appears in Hamlet and Julius Caesar , but Roth had the scene with Banquo 's ghost in mind.) [ 3 ]"
+    },
+    "Fire, Burn!": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Fire, Burn! by John Dickson Carr (IV.i)"
+    },
+    "Fire Burn and Cauldron Bubble": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Fire Burn and Cauldron Bubble by H. P. Mallory (IV.i)"
+    },
+    "A Charm of Powerful Trouble": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "A Charm of Powerful Trouble by Joanne Horniman (IV.i)"
+    },
+    "By the Pricking of My Thumbs": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "By the Pricking of My Thumbs by Agatha Christie (IV.i)"
+    },
+    "Birnam Wood": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Birnam Wood by Eleanor Catton (IV.i)"
+    },
+    "Come Like Shadows": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Come Like Shadows by Simon Raven (IV.i)"
+    },
+    "In Spite of Thunder": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "In Spite of Thunder by John Dickson Carr (IV.i)"
+    },
+    "The Brightest Fell": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "The Brightest Fell by Seanan McGuire (IV.iii)"
+    },
+    "A Rooted Sorrow": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "A Rooted Sorrow by P. M. Hubbard (V.iii)"
+    },
+    "Taste of Fears": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Taste of Fears by Margaret Millar (V.v)"
+    },
+    "The Way to Dusty Death": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "The Way to Dusty Death , a 1973 novel by Alistair MacLean"
+    },
+    "Dusty Death": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Dusty Death , a 1931 novel of drug smuggling by Clifton Robbins"
+    },
+    "Walking Shadow": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Walking Shadow , published in 1994, is the 21st Spenser novel by Robert B. Parker ."
+    },
+    "Told by an Idiot": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1378451720",
+      "evidence": "Told by an Idiot , a 1923 novel by Rose Macaulay"
+    },
+    "Sleep No More": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1384259395",
+      "evidence": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+    },
+    "Double, Double": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1384266092",
+      "evidence": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+    },
+    "Something Wicked This Way Comes": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1384237998",
+      "evidence": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+    },
+    "Something Wicked": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1362396172",
+      "evidence": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+    },
+    "Tomorrow, and Tomorrow, and Tomorrow": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1384485805",
+      "evidence": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+    },
+    "Tomorrow and Tomorrow": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1384294745",
+      "evidence": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+    },
+    "The Sound and the Fury": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1384224528",
+      "evidence": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+    },
+    "All Our Yesterdays": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1371229730",
+      "evidence": "Disambiguation page explicitly lists the Parker novel and the Ginzburg novel under its original Italian title; deduplicate the English title."
+    },
+    "The Weird Sisters": {
+      "source": "https://en.wikipedia.org/w/index.php?oldid=1371547181",
+      "evidence": "Approved frozen-guess supplement: explicitly identifies her novel and its title as an allusion to the witches in Macbeth. This is not an alias for Pratchett’s Wyrd Sisters."
+    }
+  },
+  "ala_annual_lists": {
+    "2010": [
+      "And Tango Makes Three",
+      "The Absolutely True Diary of a Part-Time Indian",
+      "Brave New World",
+      "Crank",
+      "The Hunger Games",
+      "Lush",
+      "What My Mother Doesn't Know",
+      "Nickel and Dimed",
+      "Revolutionary Voices",
+      "Twilight"
+    ],
+    "2011": [
+      "ttyl; ttfn; l8r, g8r",
+      "The Color of Earth",
+      "The Hunger Games",
+      "My Mom's Having A Baby! A Kid's Month-by-Month Guide to Pregnancy",
+      "The Absolutely True Diary of a Part-Time Indian",
+      "Alice",
+      "Brave New World",
+      "What My Mother Doesn't Know",
+      "Gossip Girl",
+      "To Kill a Mockingbird"
+    ],
+    "2012": [
+      "Captain Underpants",
+      "The Absolutely True Diary of a Part-Time Indian",
+      "Thirteen Reasons Why",
+      "Fifty Shades of Grey",
+      "And Tango Makes Three",
+      "The Kite Runner",
+      "Looking for Alaska",
+      "Scary Stories",
+      "The Glass Castle",
+      "Beloved"
+    ],
+    "2013": [
+      "Captain Underpants",
+      "The Bluest Eye",
+      "The Absolutely True Diary of a Part-Time Indian",
+      "Fifty Shades of Grey",
+      "The Hunger Games",
+      "A Bad Boy Can Be Good for A Girl",
+      "Looking for Alaska",
+      "The Perks of Being a Wallflower",
+      "Bless Me Ultima",
+      "Bone"
+    ],
+    "2014": [
+      "The Absolutely True Diary of a Part-Time Indian",
+      "Persepolis",
+      "And Tango Makes Three",
+      "The Bluest Eye",
+      "It’s Perfectly Normal",
+      "Saga",
+      "The Kite Runner",
+      "The Perks of Being a Wallflower",
+      "A Stolen Life",
+      "Drama"
+    ],
+    "2015": [
+      "Looking for Alaska",
+      "Fifty Shades of Grey",
+      "I Am Jazz",
+      "Beyond Magenta: Transgender Teens Speak Out",
+      "The Curious Incident of the Dog in the Night-Time",
+      "The Holy Bible",
+      "Fun Home",
+      "Habibi",
+      "Nasreen’s Secret School: A True Story from Afghanistan",
+      "Two Boys Kissing"
+    ],
+    "2016": [
+      "This One Summer",
+      "Drama",
+      "Melissa",
+      "I Am Jazz",
+      "Two Boys Kissing",
+      "Looking for Alaska",
+      "Big Hard Sex Criminals",
+      "Make Something Up: Stories You Can’t Unread",
+      "Little Bill",
+      "Eleanor & Park"
+    ],
+    "2017": [
+      "Thirteen Reasons Why",
+      "The Absolutely True Diary of a Part-Time Indian",
+      "Drama",
+      "The Kite Runner",
+      "Melissa",
+      "Sex is a Funny Word",
+      "To Kill a Mockingbird",
+      "The Hate U Give",
+      "And Tango Makes Three",
+      "I Am Jazz"
+    ],
+    "2018": [
+      "Melissa",
+      "A Day in the Life of Marlon Bundo",
+      "Captain Underpants",
+      "The Hate U Give",
+      "Drama",
+      "Thirteen Reasons Why",
+      "This One Summer",
+      "Skippyjon Jones",
+      "The Absolutely True Diary of a Part-Time Indian",
+      "This Day in June",
+      "Two Boys Kissing"
+    ],
+    "2019": [
+      "Melissa",
+      "Beyond Magenta: Transgender Teens Speak Out",
+      "A Day in the Life of Marlon Bundo",
+      "Sex is a Funny Word",
+      "Prince & Knight",
+      "I Am Jazz",
+      "The Handmaid’s Tale",
+      "Drama",
+      "Harry Potter",
+      "And Tango Makes Three"
+    ]
+  },
+  "ala_membership_years": {
+    "Melissa": [2019, 2018, 2017, 2016],
+    "Beyond Magenta: Transgender Teens Speak Out": [2019, 2015],
+    "A Day in the Life of Marlon Bundo": [2019, 2018],
+    "Sex is a Funny Word": [2019, 2017],
+    "Prince & Knight": [2019],
+    "I Am Jazz": [2019, 2017, 2016, 2015],
+    "The Handmaid’s Tale": [2019],
+    "Drama": [2019, 2018, 2017, 2016, 2014],
+    "Harry Potter": [2019],
+    "And Tango Makes Three": [2019, 2017, 2014, 2012, 2010],
+    "Captain Underpants": [2018, 2013, 2012],
+    "The Hate U Give": [2018, 2017],
+    "Thirteen Reasons Why": [2018, 2017, 2012],
+    "This One Summer": [2018, 2016],
+    "Skippyjon Jones": [2018],
+    "The Absolutely True Diary of a Part-Time Indian": [2018, 2017, 2014, 2013, 2012, 2011, 2010],
+    "This Day in June": [2018],
+    "Two Boys Kissing": [2018, 2016, 2015],
+    "The Kite Runner": [2017, 2014, 2012],
+    "To Kill a Mockingbird": [2017, 2011],
+    "Looking for Alaska": [2016, 2015, 2013, 2012],
+    "Big Hard Sex Criminals": [2016],
+    "Make Something Up: Stories You Can’t Unread": [2016],
+    "Little Bill": [2016],
+    "Eleanor & Park": [2016],
+    "Fifty Shades of Grey": [2015, 2013, 2012],
+    "The Curious Incident of the Dog in the Night-Time": [2015],
+    "The Holy Bible": [2015],
+    "Fun Home": [2015],
+    "Habibi": [2015],
+    "Nasreen’s Secret School: A True Story from Afghanistan": [2015],
+    "Persepolis": [2014],
+    "The Bluest Eye": [2014, 2013],
+    "It’s Perfectly Normal": [2014],
+    "Saga": [2014],
+    "The Perks of Being a Wallflower": [2014, 2013],
+    "A Stolen Life": [2014],
+    "The Hunger Games": [2013, 2011, 2010],
+    "A Bad Boy Can Be Good for A Girl": [2013],
+    "Bless Me Ultima": [2013],
+    "Bone": [2013],
+    "Scary Stories": [2012],
+    "The Glass Castle": [2012],
+    "Beloved": [2012],
+    "ttyl; ttfn; l8r, g8r": [2011],
+    "The Color of Earth": [2011],
+    "My Mom's Having A Baby! A Kid's Month-by-Month Guide to Pregnancy": [2011],
+    "Alice": [2011],
+    "Brave New World": [2011, 2010],
+    "What My Mother Doesn't Know": [2011, 2010],
+    "Gossip Girl": [2011],
+    "Crank": [2010],
+    "Lush": [2010],
+    "Nickel and Dimed": [2010],
+    "Revolutionary Voices": [2010],
+    "Twilight": [2010]
+  },
+  "big_read_ranked_evidence": [
+    "The Lord of the Rings by J. R. R. Tolkien",
+    "Pride and Prejudice by Jane Austen",
+    "His Dark Materials by Philip Pullman",
+    "The Hitchhiker's Guide to the Galaxy by Douglas Adams",
+    "Harry Potter and the Goblet of Fire by J. K. Rowling",
+    "To Kill a Mockingbird by Harper Lee",
+    "Winnie-the-Pooh by A. A. Milne",
+    "Nineteen Eighty-Four by George Orwell",
+    "The Lion, the Witch and the Wardrobe by C. S. Lewis",
+    "Jane Eyre by Charlotte Brontë",
+    "Catch-22 by Joseph Heller",
+    "Wuthering Heights by Emily Brontë",
+    "Birdsong by Sebastian Faulks",
+    "Rebecca by Daphne du Maurier",
+    "The Catcher in the Rye by J. D. Salinger",
+    "The Wind in the Willows by Kenneth Grahame",
+    "Great Expectations by Charles Dickens",
+    "Little Women by Louisa May Alcott",
+    "Captain Corelli's Mandolin by Louis de Bernières",
+    "War and Peace by Leo Tolstoy",
+    "Gone with the Wind by Margaret Mitchell"
+  ],
+  "bestsellers_table_evidence": [
+    "A Tale of Two Cities Charles Dickens English 1859 >200 million [ 20 ] Historical fiction",
+    "The Little Prince ( Le Petit Prince ) Antoine de Saint-Exupéry French 1943 200 million [ 21 ] [ 22 ] [ 23 ] Fantasy",
+    "The Alchemist ( O Alquimista ) Paulo Coelho Portuguese 1988 150 million [ 24 ] [ 25 ] Fantasy",
+    "Harry Potter and the Philosopher's Stone J. K. Rowling English 1997 120 million [ 26 ] [ 27 ] Fantasy",
+    "And Then There Were None Agatha Christie English 1939 100 million [ 28 ] Mystery",
+    "Dream of the Red Chamber (紅樓夢) Cao Xueqin Chinese 1791 100 million [ 29 ] [ 30 ] Family saga",
+    "The Hobbit J. R. R. Tolkien English 1937 100 million [ 31 ] [ 32 ] [ 33 ] Fantasy , children's fiction",
+    "Alice's Adventures in Wonderland Lewis Carroll English 1865 100 million [ 34 ] Fantasy , absurdist fiction"
+  ],
+  "overlap_method": "Count distinct overlapping answers after normalized canonical/alias matching, not alias keys; divide by smaller canonical count. All active constrained prompts and every other Appendix B shard proposal. Reject >= 0.5.",
+  "overlap": {
+    "books-sold-100m": [
+      {
+        "id": "burton-films",
+        "intersection": ["alice in wonderland"],
+        "ratio": 0.125
+      },
+      {
+        "id": "disney-canon",
+        "intersection": ["alice in wonderland"],
+        "ratio": 0.125
+      },
+      {
+        "id": "review-proposal:miyazaki-films",
+        "intersection": ["alice in wonderland"],
+        "ratio": 0.125
+      },
+      {
+        "id": "wizarding-world-films",
+        "intersection": [
+          "harry potter and the philosophers stone",
+          "harry potter and the sorcerers stone",
+          "philosophers stone",
+          "sorcerers stone"
+        ],
+        "ratio": 0.125
+      }
+    ],
+    "ala-challenged-2010s": [
+      {
+        "id": "big-read-top-21",
+        "intersection": ["to kill a mockingbird"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "top-chef-us-winners",
+        "intersection": ["melissa"],
+        "ratio": 0.045454545454545456
+      },
+      {
+        "id": "pulitzer-fiction",
+        "intersection": ["beloved", "to kill a mockingbird"],
+        "ratio": 0.03571428571428571
+      },
+      {
+        "id": "review-proposal:japan-prefectures",
+        "intersection": ["saga"],
+        "ratio": 0.03333333333333333
+      },
+      {
+        "id": "atlantic-category-five",
+        "intersection": ["melissa"],
+        "ratio": 0.02857142857142857
+      },
+      {
+        "id": "mcu-films",
+        "intersection": ["brave new world"],
+        "ratio": 0.02631578947368421
+      },
+      {
+        "id": "japan-prefectures",
+        "intersection": ["saga"],
+        "ratio": 0.02127659574468085
+      },
+      {
+        "id": "dreamworks-theatrical-films",
+        "intersection": ["captain underpant"],
+        "ratio": 0.019230769230769232
+      },
+      {
+        "id": "emmy-drama",
+        "intersection": ["handmaids tale"],
+        "ratio": 0.018867924528301886
+      },
+      {
+        "id": "enable-semordnilaps",
+        "intersection": ["saga"],
+        "ratio": 0.017857142857142856
+      },
+      {
+        "id": "retired-hurricanes",
+        "intersection": ["george", "melissa"],
+        "ratio": 0.017857142857142856
+      },
+      {
+        "id": "uk-prime-ministers",
+        "intersection": ["george"],
+        "ratio": 0.017857142857142856
+      }
+    ],
+    "big-read-top-21": [
+      {
+        "id": "best-picture",
+        "intersection": ["gone with the wind", "lord of the ring", "rebecca"],
+        "ratio": 0.14285714285714285
+      },
+      {
+        "id": "pulitzer-fiction",
+        "intersection": ["gone with the wind", "to kill a mockingbird"],
+        "ratio": 0.09523809523809523
+      },
+      {
+        "id": "review-proposal:tarantino-films",
+        "intersection": ["gone with the wind"],
+        "ratio": 0.09090909090909091
+      },
+      {
+        "id": "wizarding-world-films",
+        "intersection": ["harry potter and the goblet of fire"],
+        "ratio": 0.09090909090909091
+      },
+      {
+        "id": "ala-challenged-2010s",
+        "intersection": ["to kill a mockingbird"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "disney-canon",
+        "intersection": ["winnie the pooh"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "emmy-animated",
+        "intersection": ["lion the witch and the wardrobe"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "enable-semordnilaps",
+        "intersection": ["pooh"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "hitchcock-films",
+        "intersection": ["rebecca"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "hugo-novels",
+        "intersection": ["harry potter and the goblet of fire"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "international-feature-oscar",
+        "intersection": ["war and peace"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "lego-ideas-sets",
+        "intersection": ["winnie the pooh"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "review-proposal:miyazaki-films",
+        "intersection": ["little women"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "review-proposal:nolan-films",
+        "intersection": ["gone with the wind"],
+        "ratio": 0.047619047619047616
+      },
+      {
+        "id": "review-proposal:spielberg-films",
+        "intersection": ["gone with the wind"],
+        "ratio": 0.047619047619047616
+      }
+    ],
+    "macbeth-phrase-novels": [
+      {
+        "id": "star-trek-original-episodes",
+        "intersection": ["all our yesterday", "dagger of the mind"],
+        "ratio": 0.043478260869565216
+      }
+    ]
+  },
+  "other_shard_proposals_checked": 36,
+  "exceptions": [
+    "Wayback unavailable (HTTP 429); ALA uses the approved original-byte SHA-256 pin only.",
+    "Eight-book bestseller set has two surface anchors and one too-clever pick, preserving school/rare/deep and pearl tiers.",
+    "Catalog/retirement count assertions remain parent-owned; prompt wordings now meet the 85-character limit."
+  ],
+  "prompts": [
+    {
+      "id": "macbeth-phrase-novels",
+      "text": "Name a novel whose title comes from a phrase in Macbeth.",
+      "size": 46,
+      "band": "medium",
+      "surface": [
+        "Something Wicked This Way Comes",
+        "The Sound and the Fury",
+        "Tomorrow, and Tomorrow, and Tomorrow",
+        "Wyrd Sisters",
+        "By the Pricking of My Thumbs"
+      ],
+      "too_clever": ["The Moon Is Down", "Exit Ghost"],
+      "pearl": "A Rooted Sorrow",
+      "sources": [
+        {
+          "page": "List of works titled after Shakespeare",
+          "revision": 1378451720,
+          "expect": [26, 26],
+          "members": [
+            "The Battle Lost and Won",
+            "Wyrd Sisters",
+            "The Moon Is Down",
+            "Dagger of the Mind",
+            "To Fear a Painted Devil",
+            "A Painted Devil",
+            "Wash This Blood Clean from My Hand",
+            "A Heart So White",
+            "Look to the Lady",
+            "Light Thickens",
+            "Let It Come Down",
+            "Exit Ghost",
+            "Fire, Burn!",
+            "Fire Burn and Cauldron Bubble",
+            "A Charm of Powerful Trouble",
+            "By the Pricking of My Thumbs",
+            "Birnam Wood",
+            "Come Like Shadows",
+            "In Spite of Thunder",
+            "The Brightest Fell",
+            "A Rooted Sorrow",
+            "Taste of Fears",
+            "The Way to Dusty Death",
+            "Dusty Death",
+            "Walking Shadow",
+            "Told by an Idiot"
+          ],
+          "reviewed": [
+            "The Battle Lost and Won",
+            "Wyrd Sisters",
+            "The Moon Is Down",
+            "Dagger of the Mind",
+            "To Fear a Painted Devil",
+            "A Painted Devil",
+            "Wash This Blood Clean from My Hand",
+            "A Heart So White",
+            "Look to the Lady",
+            "Light Thickens",
+            "Let It Come Down",
+            "Exit Ghost",
+            "Fire, Burn!",
+            "Fire Burn and Cauldron Bubble",
+            "A Charm of Powerful Trouble",
+            "By the Pricking of My Thumbs",
+            "Birnam Wood",
+            "Come Like Shadows",
+            "In Spite of Thunder",
+            "The Brightest Fell",
+            "A Rooted Sorrow",
+            "Taste of Fears",
+            "The Way to Dusty Death",
+            "Dusty Death",
+            "Walking Shadow",
+            "Told by an Idiot"
+          ],
+          "review": "Macbeth group: novels only. Exclude memoirs, true crime, story collections, poems, comics, films, songs and television. Follow its disambiguation links using the additional pins below."
+        },
+        {
+          "page": "Sleep No More (novel)",
+          "revision": 1384259395,
+          "expect": [1, 1],
+          "members": ["Sleep No More"],
+          "reviewed": ["Sleep No More"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Double, Double (Brunner novel)",
+          "revision": 1384266092,
+          "expect": [1, 1],
+          "members": ["Double, Double"],
+          "reviewed": ["Double, Double"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Double, Double (Ellery Queen novel)",
+          "revision": 1384295332,
+          "expect": [1, 1],
+          "members": ["Double, Double"],
+          "reviewed": ["Double, Double"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Double, Double (Friedman novel)",
+          "revision": 1384314261,
+          "expect": [1, 1],
+          "members": ["Double, Double"],
+          "reviewed": ["Double, Double"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Something Wicked This Way Comes (novel)",
+          "revision": 1384237998,
+          "expect": [1, 1],
+          "members": ["Something Wicked This Way Comes"],
+          "reviewed": ["Something Wicked This Way Comes"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Something Wicked (book)",
+          "revision": 1362396172,
+          "expect": [1, 1],
+          "members": ["Something Wicked"],
+          "reviewed": ["Something Wicked"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Tomorrow, and Tomorrow, and Tomorrow (novel)",
+          "revision": 1384485805,
+          "expect": [1, 1],
+          "members": ["Tomorrow, and Tomorrow, and Tomorrow"],
+          "reviewed": ["Tomorrow, and Tomorrow, and Tomorrow"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "Tomorrow and Tomorrow (novel)",
+          "revision": 1384294745,
+          "expect": [1, 1],
+          "members": ["Tomorrow and Tomorrow"],
+          "reviewed": ["Tomorrow and Tomorrow"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "The Sound and the Fury",
+          "revision": 1384224528,
+          "expect": [1, 1],
+          "members": ["The Sound and the Fury"],
+          "reviewed": ["The Sound and the Fury"],
+          "review": "Novel reached through the Macbeth group disambiguation links; identical normalized titles count once across authors."
+        },
+        {
+          "page": "All Our Yesterdays",
+          "revision": 1371229730,
+          "expect": [1, 1],
+          "members": ["All Our Yesterdays"],
+          "reviewed": ["All Our Yesterdays"],
+          "review": "Disambiguation page explicitly lists the Parker novel and the Ginzburg novel under its original Italian title; deduplicate the English title."
+        },
+        {
+          "page": "Eleanor Brown",
+          "revision": 1371547181,
+          "expect": [1, 1],
+          "members": ["The Weird Sisters"],
+          "reviewed": ["The Weird Sisters"],
+          "review": "Approved frozen-guess supplement: explicitly identifies her novel and its title as an allusion to the witches in Macbeth. This is not an alias for Pratchett’s Wyrd Sisters."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL10678692M.json",
+          "page": "Brief Candle — Kate Pennington",
+          "revision": "sha256:7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+          "sha256": "7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Brief Candle"],
+          "review": "Hodder Children’s Books, 272 pages; subjects include historical fiction. Macbeth V.v: “Out, out, brief candle!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL37014680M.json",
+          "page": "Out, Damned Spot! — F. J. McQueen",
+          "revision": "sha256:455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+          "sha256": "455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Out damned spot!"],
+          "review": "Urbane Publications, 266 pages; fiction. Macbeth V.i: “Out, damned spot!”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL32147866M.json",
+          "page": "Toil and Trouble — H. P. Mallory",
+          "revision": "sha256:72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+          "sha256": "72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Toil and trouble"],
+          "review": "234-page fictional Jolie Wilkins story; distinct from the comic volume in the original group. Macbeth IV.i: “Double, double, toil and trouble”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL1148339M.json",
+          "page": "Poor Player — Lesley Krueger",
+          "revision": "sha256:8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+          "sha256": "8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Poor player"],
+          "review": "Oberon Press, 216 pages; author identifies this as her first novel at https://lesleykrueger.com/poor-player-out-today/. Macbeth V.v: “a poor player”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL22679131M.json",
+          "page": "Struts and Frets — Jon Skovron",
+          "revision": "sha256:76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+          "sha256": "76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Struts and frets"],
+          "review": "Amulet Books; catalog subjects identify juvenile fiction. Singular frozen guess accepted as a natural near-verbatim variant. Macbeth V.v: “That struts and frets his hour upon the stage”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella",
+          "page": "Screw Your Courage — Alexandra Y. Caluen",
+          "revision": "sha256:69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+          "sha256": "69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["Screw Your Courage: a new novella — Alexandra Y. Caluen"],
+          "review": "Author’s September 18, 2022 publication post explicitly identifies the novella and Macbeth title. Macbeth I.vii: “screw your courage to the sticking-place”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://debigueron.com/books/vaulting-ambition/",
+          "page": "Vaulting Ambition — Debi Gueron and Barnett Greenman",
+          "revision": "sha256:975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+          "sha256": "975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["Vaulting Ambition - Debi Gueron"],
+          "review": "Author’s book page explicitly calls this a novel and links the published book. Macbeth I.vii: “Vaulting ambition”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://www.angusrobertson.com.au/books/the-be-all-and-end-all-patti-larsen/p/9781998948239",
+          "page": "The Be All and End All — Patti Larsen",
+          "revision": "sha256:7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+          "sha256": "7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+          "format": "html-title",
+          "expect": [1, 1],
+          "reviewed": ["The Be All and End All | Angus & Robertson"],
+          "review": "Retailer lists Purely Paranormal Press, publication January 30, 2024, 180 pages, ISBN 9781998948239. Smashwords series listing identifies 31,990 words of fiction; qualifies as a novella. Macbeth I.vii: “the be-all and the end-all”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/isbn/1594140960.json",
+          "page": "Eye of Newt — Denise Dietz",
+          "revision": "sha256:823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+          "sha256": "823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["Eye of newt"],
+          "review": "Five Star, 344 pages; mystery-fiction catalog subjects. This is the prose novel, not Michael Hague’s graphic work. Macbeth IV.i: “Eye of newt”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "dataset": "https://openlibrary.org/books/OL50707534M.json",
+          "page": "The Instruments of Darkness — John Connolly",
+          "revision": "sha256:1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+          "sha256": "1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+          "format": "json-title",
+          "expect": [1, 1],
+          "reviewed": ["The Instruments of Darkness"],
+          "review": "Emily Bestler Books/Atria, published May 7, 2024, 500 pages; Charlie Parker novel. Macbeth I.iii: “The instruments of darkness tell us truths”. Published-novel/novella existence and near-verbatim title satisfy the approved supplemental rule."
+        },
+        {
+          "page": "Charlotte Armstrong",
+          "revision": 1371549314,
+          "expect": [1, 1],
+          "members": ["Lay On, Mac Duff!"],
+          "reviewed": ["Lay On, Mac Duff!"],
+          "review": "The author’s pinned bibliography lists Lay On, Mac Duff! (1942) as her first MacDougal Duff mystery novel. Macbeth V.viii: “lay on, Macduff”. Near-verbatim spacing variant."
+        }
+      ],
+      "recall": {
+        "hits": 27,
+        "total": 27,
+        "rate": 1,
+        "invalid": 11,
+        "misses": []
+      },
+      "generated_tiers": {
+        "surface": 5,
+        "tooclever": 2,
+        "school": 18,
+        "rare": 11,
+        "deep": 9,
+        "gem": 1
+      },
+      "aliases": 6,
+      "text_characters": 56
+    },
+    {
+      "id": "ala-challenged-2010s",
+      "text": "Name a book on any ALA annual top 10 most challenged list, 2010–2019.",
+      "size": 56,
+      "band": "medium",
+      "surface": [
+        "Captain Underpants",
+        "The Absolutely True Diary",
+        "Harry Potter",
+        "The Hunger Games",
+        "Looking for Alaska"
+      ],
+      "too_clever": ["The Holy Bible", "Big Hard Sex Criminals"],
+      "pearl": "A Bad Boy Can Be Good for A Girl",
+      "sources": [
+        {
+          "dataset": "https://www.ala.org/bbooks/frequentlychallengedbooks/top10/archive",
+          "page": "ALA annual Top 10 archive, 2010–2019",
+          "revision": "sha256:ea41dd8679cad76912451f65104866c4353ee675c09b1ca599a4b37bc20f90be",
+          "sha256": "ea41dd8679cad76912451f65104866c4353ee675c09b1ca599a4b37bc20f90be",
+          "format": "ala-annual-2010s",
+          "expect": [56, 56],
+          "reviewed": [
+            "A Bad Boy Can Be Good for A Girl",
+            "A Day in the Life of Marlon Bundo",
+            "A Stolen Life",
+            "Alice",
+            "And Tango Makes Three",
+            "Beloved",
+            "Beyond Magenta: Transgender Teens Speak Out",
+            "Big Hard Sex Criminals",
+            "Bless Me Ultima",
+            "Bone",
+            "Brave New World",
+            "Captain Underpants",
+            "Crank",
+            "Drama",
+            "Eleanor & Park",
+            "Fifty Shades of Grey",
+            "Fun Home",
+            "Gossip Girl",
+            "Habibi",
+            "Harry Potter",
+            "I Am Jazz",
+            "It’s Perfectly Normal",
+            "Little Bill",
+            "Looking for Alaska",
+            "Lush",
+            "Make Something Up: Stories You Can’t Unread",
+            "Melissa",
+            "My Mom's Having A Baby! A Kid's Month-by-Month Guide to Pregnancy",
+            "Nasreen’s Secret School: A True Story from Afghanistan",
+            "Nickel and Dimed",
+            "Persepolis",
+            "Prince & Knight",
+            "Revolutionary Voices",
+            "Saga",
+            "Scary Stories",
+            "Sex is a Funny Word",
+            "Skippyjon Jones",
+            "The Absolutely True Diary of a Part-Time Indian",
+            "The Bluest Eye",
+            "The Color of Earth",
+            "The Curious Incident of the Dog in the Night-Time",
+            "The Glass Castle",
+            "The Handmaid’s Tale",
+            "The Hate U Give",
+            "The Holy Bible",
+            "The Hunger Games",
+            "The Kite Runner",
+            "The Perks of Being a Wallflower",
+            "Thirteen Reasons Why",
+            "This Day in June",
+            "This One Summer",
+            "To Kill a Mockingbird",
+            "Twilight",
+            "Two Boys Kissing",
+            "What My Mother Doesn't Know",
+            "ttyl; ttfn; l8r, g8r"
+          ],
+          "review": "Union of 101 entries in ten annual lists; ALA lists eleven in 2018. Remove only the series suffix when deduplicating; do not expand series. Checksum pin; Wayback returned HTTP 429."
+        }
+      ],
+      "recall": {
+        "hits": 38,
+        "total": 38,
+        "rate": 1,
+        "invalid": 12,
+        "misses": []
+      },
+      "generated_tiers": {
+        "surface": 5,
+        "tooclever": 2,
+        "school": 22,
+        "rare": 14,
+        "deep": 12,
+        "gem": 1
+      },
+      "aliases": 22,
+      "text_characters": 69
+    },
+    {
+      "id": "big-read-top-21",
+      "text": "Name a book in the final top 21 of the BBC's 2003 Big Read poll.",
+      "size": 21,
+      "band": "tiny",
+      "surface": [
+        "The Lord of the Rings",
+        "Pride and Prejudice",
+        "Harry Potter and the Goblet of Fire",
+        "Nineteen Eighty-Four",
+        "To Kill a Mockingbird"
+      ],
+      "too_clever": ["Captain Corelli's Mandolin", "War and Peace"],
+      "pearl": "Birdsong",
+      "sources": [
+        {
+          "page": "The Big Read",
+          "revision": 1364480637,
+          "expect": [21, 21],
+          "members": [
+            "The Lord of the Rings",
+            "Pride and Prejudice",
+            "His Dark Materials",
+            "The Hitchhiker's Guide to the Galaxy",
+            "Harry Potter and the Goblet of Fire",
+            "To Kill a Mockingbird",
+            "Winnie-the-Pooh",
+            "Nineteen Eighty-Four",
+            "The Lion, the Witch and the Wardrobe",
+            "Jane Eyre",
+            "Catch-22",
+            "Wuthering Heights",
+            "Birdsong",
+            "Rebecca",
+            "The Catcher in the Rye",
+            "The Wind in the Willows",
+            "Great Expectations",
+            "Little Women",
+            "Captain Corelli's Mandolin",
+            "War and Peace",
+            "Gone with the Wind"
+          ],
+          "reviewed": [
+            "The Lord of the Rings",
+            "Pride and Prejudice",
+            "His Dark Materials",
+            "The Hitchhiker's Guide to the Galaxy",
+            "Harry Potter and the Goblet of Fire",
+            "To Kill a Mockingbird",
+            "Winnie-the-Pooh",
+            "Nineteen Eighty-Four",
+            "The Lion, the Witch and the Wardrobe",
+            "Jane Eyre",
+            "Catch-22",
+            "Wuthering Heights",
+            "Birdsong",
+            "Rebecca",
+            "The Catcher in the Rye",
+            "The Wind in the Willows",
+            "Great Expectations",
+            "Little Women",
+            "Captain Corelli's Mandolin",
+            "War and Peace",
+            "Gone with the Wind"
+          ],
+          "review": "The first 21 ranked entries, the final-round shortlist; series remain as listed."
+        }
+      ],
+      "recall": {
+        "hits": 22,
+        "total": 22,
+        "rate": 1,
+        "invalid": 15,
+        "misses": []
+      },
+      "generated_tiers": {
+        "surface": 5,
+        "tooclever": 2,
+        "school": 6,
+        "rare": 4,
+        "deep": 3,
+        "gem": 1
+      },
+      "aliases": 10,
+      "text_characters": 64
+    },
+    {
+      "id": "books-sold-100m",
+      "text": "Name a book with 100M+ estimated sales, excluding religious and political texts.",
+      "size": 8,
+      "band": "tiny",
+      "surface": ["Harry Potter and the Philosopher's Stone", "The Hobbit"],
+      "too_clever": ["And Then There Were None"],
+      "pearl": "Dream of the Red Chamber",
+      "sources": [
+        {
+          "page": "List of best-selling books",
+          "revision": 1384375148,
+          "expect": [8, 8],
+          "members": [
+            "A Tale of Two Cities",
+            "The Little Prince",
+            "The Alchemist",
+            "Harry Potter and the Philosopher's Stone",
+            "And Then There Were None",
+            "Dream of the Red Chamber",
+            "The Hobbit",
+            "Alice's Adventures in Wonderland"
+          ],
+          "reviewed": [
+            "A Tale of Two Cities",
+            "The Little Prince",
+            "The Alchemist",
+            "Harry Potter and the Philosopher's Stone",
+            "And Then There Were None",
+            "Dream of the Red Chamber",
+            "The Hobbit",
+            "Alice's Adventures in Wonderland"
+          ],
+          "review": "Eight single-volume entries in the More than 100 million copies table, including four at exactly 100 million; no series or religious/political texts. Membership is bounded to this pinned revision, not a moving sales estimate."
+        }
+      ],
+      "recall": {
+        "hits": 9,
+        "total": 9,
+        "rate": 1,
+        "invalid": 27,
+        "misses": []
+      },
+      "generated_tiers": {
+        "surface": 2,
+        "tooclever": 1,
+        "school": 2,
+        "rare": 1,
+        "deep": 1,
+        "gem": 1
+      },
+      "aliases": 8,
+      "text_characters": 80
+    }
+  ],
+  "selected_corpus_sha256": "d4bdda2bebbfb1ad2864a9319c49c6f29b3e6b7e8f346683aa5d9a1610652317",
+  "gzip_method": "Standalone npm run build Worker dry-run Total Upload gzip; baseline d9f96cf generated output. No deployment.",
+  "canonicals": {
+    "retired": 123,
+    "added": 131,
+    "net": 8
+  },
+  "macbeth_novel_classification_pins": {
+    "The Battle Lost and Won": 1384237682,
+    "Wyrd Sisters": 1374609868,
+    "The Moon Is Down": 1384231079,
+    "Dagger of the Mind": 1371369733,
+    "To Fear a Painted Devil": 1384263938,
+    "A Painted Devil": 1344168135,
+    "Wash This Blood Clean from My Hand": 1384265779,
+    "A Heart So White": 1384321582,
+    "Look to the Lady": 1384258866,
+    "Light Thickens": 1384326771,
+    "Let It Come Down": 1384272903,
+    "Exit Ghost": 1384288662,
+    "Fire, Burn!": 1384349095,
+    "Fire Burn and Cauldron Bubble": "https://archive.org/details/fireburncauldron0000hpma",
+    "A Charm of Powerful Trouble": 1371738309,
+    "By the Pricking of My Thumbs": 1384247246,
+    "Birnam Wood": 1384494369,
+    "Come Like Shadows": 1377285323,
+    "In Spite of Thunder": 1384301230,
+    "The Brightest Fell": 1383718722,
+    "A Rooted Sorrow": 1375829122,
+    "Taste of Fears": 1380467662,
+    "The Way to Dusty Death": 1384298046,
+    "Dusty Death": 1362948547,
+    "Walking Shadow": 1384346859,
+    "Told by an Idiot": 1377861227
+  },
+  "followup": {
+    "rule": "A published novel or novella qualifies when its title is a verbatim/near-verbatim Macbeth phrase. Supplemental search restricted to the eleven missed frozen guesses.",
+    "supplements": [
+      {
+        "guess": "Brief Candle",
+        "name": "Brief Candle",
+        "author": "Kate Pennington",
+        "url": "https://openlibrary.org/books/OL10678692M.json",
+        "phrase": "Out, out, brief candle!",
+        "scene": "V.v",
+        "year": 2005,
+        "evidence": "Hodder Children’s Books, 272 pages; subjects include historical fiction.",
+        "sha256": "7752a3e4529d65f6cb57f97fe6aee13bbcf0d07323229930ed8e462a4c530ad7",
+        "reviewed_title": "Brief Candle"
+      },
+      {
+        "guess": "Out, Damned Spot",
+        "name": "Out, Damned Spot!",
+        "author": "F. J. McQueen",
+        "url": "https://openlibrary.org/books/OL37014680M.json",
+        "phrase": "Out, damned spot!",
+        "scene": "V.i",
+        "year": 2016,
+        "evidence": "Urbane Publications, 266 pages; fiction.",
+        "sha256": "455d87b62089b01b31c9c3588c8c9223f46f698c01aa7b9dcb838eea7bc4459c",
+        "reviewed_title": "Out damned spot!"
+      },
+      {
+        "guess": "Toil and Trouble",
+        "name": "Toil and Trouble",
+        "author": "H. P. Mallory",
+        "url": "https://openlibrary.org/books/OL32147866M.json",
+        "phrase": "Double, double, toil and trouble",
+        "scene": "IV.i",
+        "year": 2010,
+        "evidence": "234-page fictional Jolie Wilkins story; distinct from the comic volume in the original group.",
+        "sha256": "72b27c75f9d0ac8b1e0db4534d5f8dbe58b373d8240c3015b00d672de7fe7f61",
+        "reviewed_title": "Toil and trouble"
+      },
+      {
+        "guess": "Poor Player",
+        "name": "Poor Player",
+        "author": "Lesley Krueger",
+        "url": "https://openlibrary.org/books/OL1148339M.json",
+        "phrase": "a poor player",
+        "scene": "V.v",
+        "year": 1993,
+        "evidence": "Oberon Press, 216 pages; author identifies this as her first novel at https://lesleykrueger.com/poor-player-out-today/.",
+        "sha256": "8a0daddc19e40ee06bf12ae0b1c8659ddf7dfe062ddc7f762293542b6e9a7d38",
+        "reviewed_title": "Poor player"
+      },
+      {
+        "guess": "Strut and Fret",
+        "name": "Struts and Frets",
+        "author": "Jon Skovron",
+        "url": "https://openlibrary.org/books/OL22679131M.json",
+        "phrase": "That struts and frets his hour upon the stage",
+        "scene": "V.v",
+        "year": 2009,
+        "evidence": "Amulet Books; catalog subjects identify juvenile fiction. Singular frozen guess accepted as a natural near-verbatim variant.",
+        "aliases": ["Strut and Fret"],
+        "sha256": "76accc2a12bb325341732725c26b2954478f92b00a7fb19fdf29e73e72f7abbb",
+        "reviewed_title": "Struts and frets"
+      },
+      {
+        "guess": "Screw Your Courage",
+        "name": "Screw Your Courage",
+        "author": "Alexandra Y. Caluen",
+        "url": "https://thelastories.com/blog/2022/9/18/screw-your-courage-a-new-novella",
+        "phrase": "screw your courage to the sticking-place",
+        "scene": "I.vii",
+        "year": 2022,
+        "evidence": "Author’s September 18, 2022 publication post explicitly identifies the novella and Macbeth title.",
+        "sha256": "69dfdb66b032d8436a0eeab1e6c056c727c3269db7bac3cceff334c8473e75c1",
+        "reviewed_title": "Screw Your Courage: a new novella — Alexandra Y. Caluen"
+      },
+      {
+        "guess": "Vaulting Ambition",
+        "name": "Vaulting Ambition",
+        "author": "Debi Gueron and Barnett Greenman",
+        "url": "https://debigueron.com/books/vaulting-ambition/",
+        "phrase": "Vaulting ambition",
+        "scene": "I.vii",
+        "year": 2023,
+        "evidence": "Author’s book page explicitly calls this a novel and links the published book.",
+        "sha256": "975ae8be08a9d120363afb8e85ce0f4f916434c19b95fe05eb99da926c3a7f75",
+        "reviewed_title": "Vaulting Ambition - Debi Gueron"
+      },
+      {
+        "guess": "The Be-All and End-All",
+        "name": "The Be All and End All",
+        "author": "Patti Larsen",
+        "url": "https://www.angusrobertson.com.au/books/the-be-all-and-end-all-patti-larsen/p/9781998948239",
+        "phrase": "the be-all and the end-all",
+        "scene": "I.vii",
+        "year": 2024,
+        "evidence": "Retailer lists Purely Paranormal Press, publication January 30, 2024, 180 pages, ISBN 9781998948239. Smashwords series listing identifies 31,990 words of fiction; qualifies as a novella.",
+        "sha256": "7f9b101d2f80e6aad7c75181b48b3b2059795d41349e8ff123419f58d9129d92",
+        "reviewed_title": "The Be All and End All | Angus & Robertson"
+      },
+      {
+        "guess": "Eye of Newt",
+        "name": "Eye of Newt",
+        "author": "Denise Dietz",
+        "url": "https://openlibrary.org/isbn/1594140960.json",
+        "phrase": "Eye of newt",
+        "scene": "IV.i",
+        "year": 2004,
+        "evidence": "Five Star, 344 pages; mystery-fiction catalog subjects. This is the prose novel, not Michael Hague’s graphic work.",
+        "sha256": "823a836b8e9e8c9517fd8246213e9e83210c1178c4230c79191352a5528e0814",
+        "reviewed_title": "Eye of newt"
+      },
+      {
+        "guess": "Instruments of Darkness",
+        "name": "The Instruments of Darkness",
+        "author": "John Connolly",
+        "url": "https://openlibrary.org/books/OL50707534M.json",
+        "phrase": "The instruments of darkness tell us truths",
+        "scene": "I.iii",
+        "year": 2024,
+        "evidence": "Emily Bestler Books/Atria, published May 7, 2024, 500 pages; Charlie Parker novel.",
+        "sha256": "1903c6a99af784cbba2c3f3f21198823dac8bfcb3d45073a1fa4a1aa41fc42b4",
+        "reviewed_title": "The Instruments of Darkness"
+      },
+      {
+        "guess": "Lay On, Macduff",
+        "name": "Lay On, Macduff!",
+        "author": "Charlotte Armstrong",
+        "page": "Charlotte Armstrong",
+        "revision": 1371549314,
+        "phrase": "lay on, Macduff",
+        "scene": "V.viii",
+        "year": 1942,
+        "evidence": "The author’s pinned bibliography lists Lay On, Mac Duff! (1942) as her first MacDougal Duff mystery novel."
+      }
+    ],
+    "phrase_source": {
+      "url": "https://www.gutenberg.org/files/1533/1533-h/1533-h.htm",
+      "sha256": "f6a7a6d17291cddce7e4093065e04cb6e6f8847914aa64e5206649cd864b6351",
+      "review": "All eleven quoted phrases checked against this full text of Macbeth. Typographic punctuation, omission of an article, spacing and singular/plural near-verbatim variants are allowed."
+    },
+    "all_eleven_published": true,
+    "parent_commit": "48ece60fdc6b1c962754ddf360c8d232f9c117a6",
+    "invalidated_frozen_guesses": []
+  },
+  "gzip_kib": {
+    "baseline": 2993.75,
+    "after": 2994.46,
+    "delta": 0.71,
+    "approximate_delta_bytes": 727,
+    "previous_commit": 2994.31,
+    "followup_delta": 0.15,
+    "limit_delta_kib": 1.5
+  },
+  "checks": {
+    "generation": "PASS: 64 days, 320 constrained, 0 broad; earlier legacy unchanged.",
+    "source_membership": "PASS: all four prompt source sets, including all eleven supplemental publication records, acquired and compared exactly with their reviewed snapshots.",
+    "book_source_fixtures": "PASS: 5 tests, OK; JSON/HTML normal, empty/malformed, original CRLF bytes, checksum mismatch and count guard.",
+    "recall_tests": "PASS: tests 15; pass 15; fail 0.",
+    "lint": "PASS: npm run lint exited 0.",
+    "typecheck": "PASS: npm run typecheck exited 0.",
+    "build": "PASS: Total Upload: 8018.72 KiB / gzip: 2994.46 KiB; --dry-run: exiting now.",
+    "unittest": "30 tests, failures=2: fixed catalog count 391 != 387; fixed retired set omits the four replaced IDs. No other original-suite failures.",
+    "unittest_remaining": "PASS: throwaway harness ran all 30 tests with only those two specific equality assertions bypassed; all remaining assertions passed, including every prompt’s <=85-character and wording checks. Repository tests unchanged.",
+    "npm_test": "Root 112 files / 1025 tests passed. Worker: 29 files / 445 tests passed; only the parent-owned retired-count assertion fails (71 != 67).",
+    "format": "Prettier formatting and full format check run after final artifact update."
+  }
+}
